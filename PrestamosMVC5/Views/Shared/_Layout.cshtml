@@ -8,41 +8,20 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-<style lang="scss" >
-    .custom-scrollbar:hover {
-      height: 70px;
-      overflow-y: scroll;
-      width :500px;
-    }
-    /* /* To style the document scrollbar, remove `.custom-scrollbar` */
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 5px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      /*background : #808080;*/
-      border-radius: 10px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background : rgba(255,255,255,0.5);
-      border-radius: 10px;
-      box-shadow:  0 0 6px rgba(0, 0, 0, 0.5);
-    } 
-</style>
-
 </head>
 
 
-<body class="nav-md">
-    <div class="container body">
+<body class="nav-md" >
+    <div class="container body" id="bodyTo">
         <div class="main_container">
-            <div class="col-md-3 left_col menu_fixed custom-scrollbar " style="overflow: scroll; overflow-x: hidden;"  >
+            <div class="col-md-3 left_col menu_fixed">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
                         <a href="@Url.Action("Index", "Home")" class="site_title"><i class="fa fa-paw"></i> <span>PCP Prestamo</span></a>
                     </div>
 
                     <div class="clearfix"></div>
-
+                    
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
@@ -85,8 +64,8 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                <!-- top tiles -->
-                @RenderBody()
+            <!-- top tiles -->
+            @RenderBody()
             </div>
             <!-- /page content -->
 
@@ -96,9 +75,9 @@
         </div>
     </div>
 
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

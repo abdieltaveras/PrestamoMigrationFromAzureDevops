@@ -43,11 +43,12 @@ namespace PrestamosMVC5
                       "~/Content/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js",
                       "~/Content/vendors/moment/min/moment.min.js",
                       "~/Content/vendors/bootstrap-daterangepicker/daterangepicker.js",
+                      "~/Content/vendors/bootstrap/dist/js/bootstrap.bundle.min.js",
+                      "~/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
                       "~/Content/build/js/custom.min.js"));
 
 
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/vendors/bootstrap/dist/css/bootstrap.min.css",
                         "~/Content/vendors/font-awesome/css/font-awesome.min.css",
                         "~/Content/vendors/nprogress/nprogress.css",
@@ -55,6 +56,7 @@ namespace PrestamosMVC5
                         "~/Content/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css",
                         "~/Content/vendors/jqvmap/dist/jqvmap.min.css",
                         "~/Content/vendors/bootstrap-daterangepicker/daterangepicker.css",
+                        "~/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css",
                         "~/Content/build/css/custom.min.css"));
         }
     }

@@ -10,6 +10,10 @@
                 </li>
 
                 <li>
+                    <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
+                </li>
+
+                @*<li>
                     <a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="form.html">General Form</a></li>
@@ -107,9 +111,25 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>*@
             </ul>
         </div>
 
     </div>
 <!-- /sidebar menu -->
+
+    <script>
+
+    $(document).ready(function () {
+        ResizeContentContainer();
+
+    });
+
+    window.onresize = ResizeContentContainer;
+
+    function ResizeContentContainer() {
+
+        var windowHeight = $(window).height();
+        $(".body-content").outerHeight(windowHeight + "px");
+    }
+    </script>
