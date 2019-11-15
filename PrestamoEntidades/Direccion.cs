@@ -18,6 +18,7 @@ namespace PrestamoEntidades
     public class Direccion
     {
         public int IdDireccion {get;set;} 
+
         public int IdLocalidad { get; set; } 
         /// <summary>
         /// Nombre de la calle incluyendo el numero de la vivienda

@@ -15,6 +15,33 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoDAL", "PrestamoDAL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoBLLTests", "PrestamoBLLTests\PrestamoBLLTests.csproj", "{073D3734-E0E0-41F8-B490-8B893FD8DBAC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedDLL", "SharedDLL", "{D34D4469-0B89-48EB-83C9-822EC00CE86B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EMTSoft", "EMTSoft", "{4A6A884D-D67B-4164-ABD7-8490D3811767}"
+	ProjectSection(SolutionItems) = preProject
+		SharedDLL\EMTSoft\emtSoft.BaseBLL.dll = SharedDLL\EMTSoft\emtSoft.BaseBLL.dll
+		SharedDLL\EMTSoft\emtSoft.BaseClasses.dll = SharedDLL\EMTSoft\emtSoft.BaseClasses.dll
+		SharedDLL\EMTSoft\emtSoft.DAL.dll = SharedDLL\EMTSoft\emtSoft.DAL.dll
+		SharedDLL\EMTSoft\emtSoft.DAL.pdb = SharedDLL\EMTSoft\emtSoft.DAL.pdb
+		SharedDLL\EMTSoft\emtSoft.emtControls.dll = SharedDLL\EMTSoft\emtSoft.emtControls.dll
+		SharedDLL\EMTSoft\emtSoft.emtUtils.dll = SharedDLL\EMTSoft\emtSoft.emtUtils.dll
+		SharedDLL\EMTSoft\emtSoft.SqlDAL.dll = SharedDLL\EMTSoft\emtSoft.SqlDAL.dll
+		SharedDLL\EMTSoft\emtsys.dll = SharedDLL\EMTSoft\emtsys.dll
+		SharedDLL\EMTSoft\Ionic.Utils.Zip.dll = SharedDLL\EMTSoft\Ionic.Utils.Zip.dll
+		SharedDLL\EMTSoft\Net.SourceForge.Koogra.dll = SharedDLL\EMTSoft\Net.SourceForge.Koogra.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PcProg", "PcProg", "{5D75FCF5-00F5-440B-A889-2EC565FEDA41}"
+	ProjectSection(SolutionItems) = preProject
+		SharedDLL\PcProg\PcProg.Dal.dll = SharedDLL\PcProg\PcProg.Dal.dll
+		SharedDLL\PcProg\PcProg.DAL.dll.config = SharedDLL\PcProg\PcProg.DAL.dll.config
+		SharedDLL\PcProg\PcProg.DAL.pdb = SharedDLL\PcProg\PcProg.DAL.pdb
+		SharedDLL\PcProg\PcProgSys.dll = SharedDLL\PcProg\PcProgSys.dll
+		SharedDLL\PcProg\PcProgSys.dll.config = SharedDLL\PcProg\PcProgSys.dll.config
+		SharedDLL\PcProg\PcProgSys.pdb = SharedDLL\PcProg\PcProgSys.pdb
+		SharedDLL\PcProg\PcProgSys.XML = SharedDLL\PcProg\PcProgSys.XML
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +75,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4A6A884D-D67B-4164-ABD7-8490D3811767} = {D34D4469-0B89-48EB-83C9-822EC00CE86B}
+		{5D75FCF5-00F5-440B-A889-2EC565FEDA41} = {D34D4469-0B89-48EB-83C9-822EC00CE86B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4C3066C5-7EFE-4654-B4EA-488B62CA8170}
