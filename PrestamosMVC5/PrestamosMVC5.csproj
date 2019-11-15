@@ -128,6 +128,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SelectItems.cs" />
     <Compile Include="Models\TasaInteresVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -5030,6 +5031,10 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj">
+      <Project>{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}</Project>
+      <Name>PrestamoBLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
       <Project>{64d406d9-e5d3-4ac3-9c71-57d792569980}</Project>
       <Name>PrestamoEntidades</Name>
