@@ -1,0 +1,1034 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PcProgSys</name>
+    </assembly>
+    <members>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.XmlSqlTypeAttribute">
+            <summary>
+            Para indicar que la propiedad es un campo que en la tabla debe ser creada y manipulada como un xml
+            porque normalmente a nivel del lenguaje se representara como un string
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.XmlMapAttribute">
+            <summary>
+            Para crear las instrucciones necesaria para crear el Map en los accesos a datos
+            ejemplo map.Add("xmlPropiedad", g => { return new ClaseXml(g.PropiedadString); });
+            map.Add("xmlInfoModificacion", g => { return new QuienRealizaLaAccion(g.InfoModificacion); });
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.XmlMapAttribute.TipoXml">
+             <summary>
+            la clase xml que define la estructura 
+            ejemplo QuienRealizaLaAccion
+             </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.XmlMapAttribute.NombrePropiedad">
+            <summary>
+            El nombre de la propieda tipo string que almacena la informacion 
+            ejemplo InfoModificacion (la propiedad xml es xmlInfoModificacion
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.PropiedadACompararAttribute">
+            <summary>
+            Es para establecer con cual campo fisico en el acceso a dato
+            se va a comparar una propiedad se usa en los GetParams por ejemplo para indicar que la propiedad
+            DesdeCodigo  se va a comparar con el campo Codigo
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.PropiedadACompararAttribute.NombrePropiedad">
+            <summary>
+            El nombre de la propiedad con la cual va a realizar la comparacion
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.PropiedadACompararAttribute.TipoComparacion">
+            <summary>
+            Indica si el tipo de comparacion es Desde, Hasta o Ninguno 
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.ActualizarConLaPropiedad">
+            <summary>
+            Es para establecer con cual campo fisico en el acceso a dato
+            se va a Actualizar determinado campo ejemplo el campo UsuarioCrea y el campo UsuarioModifica 
+            van a ser actualizado con la propiedad Usuario 
+            Debe usarlo en las propiedades de las clases de insertar/actualizar informacion
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.UniqueAttribute">
+            <summary>
+            Indica que dicha propiedad tendr un valor unico para ser utilizado cuando 
+            se crean las tablas y dicho valor es unico para cada registro se usa normalmente
+            en las propiedades que son numeros de transaccion y codigos
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.TamanoAttribute">
+            <summary>
+            Se utiliza para especificar el tamano de un campo numerico que lleva posiciones enteras y decimales
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.TiposStoredProcedure">
+            <summary>
+            Los tipos de acciones de los stored procedure 
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.StoredProcedureAttribute">
+            <summary>    
+             establece en que tipo de store procedure un objeto servira como parametro
+             las opciones deben ser INSUPD, GET, BORRAR
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.StoredProcedureAttribute.NombreSP">
+            <summary>
+            El nombre de Stored Procedure en el motor de la base de datos
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.StoredProcedureAttribute.TipoSP">
+            <summary>
+            El tipo del store procedure
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.StoredProcedureAttribute.Schema">
+            <summary>
+            El schema
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.StoredProcedureAttribute.InnerTableObjectType">
+            <summary>
+            el objeto que representa la tabla o estructura de datoscon el cual se relaciona este store procedure es decir 
+            es un GetCliente y esta relacionado con el objeto Cliente
+            esto para luego determinar los select (los campos que va a seleccionar) y otras operaciones
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.StoredProcedureAttribute.RelacionadoConLaTabla">
+            <summary>
+            devuelve el nombre de la tabla tomada del tipo con que esta relacionado
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Entidades.DataAnnotations.StoredProcedureAttribute.#ctor(PcProg.Sys.Entidades.DataAnnotations.TiposStoredProcedure,System.String,System.Type)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="_tipoStoreProcedure">  el tipo del store procedure si es Inser, Get, o Borrar</param>
+            <param name="_nombreSp"> el nombre dle stored procedure </param>
+            <param name="_relacionarConElTipo"> el tipo con el cual esta relacionado</param>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.IgnorarEnTablaAttribute">
+            <summary>
+            Indica que la propiedad que esta en el objeto no debe crearse un campo fisico en la tabla
+            normalmente se usa para crear una propiedad que debe ser llenada la informacion ya sea cuando se envia al
+            Dal pero que la misma no se va a guardar en un campo que se corresponda con el en la tabla
+            ejemplo se le pone este atributo a la propiedad Usuario porque se envia al store procedure que inserta pero no se crea
+            en la tabla porque la tabla tiene un campo llamado UsuarioCrea que es el que actualiza este valor para ser guardado
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.UpdateFechaInStoredProcedure">
+            <summary>
+            para indicar si desea que este campo fecha sea actualizado en el store procedure con getdate
+            hereda de ignorarEnParam 
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.IBDDataTypeMapper">
+            <summary>
+            Interface que representa los objectos que mapean los tipos de c# con su equivalencia en la base de datos
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Entidades.DataAnnotations.IBDDataTypeMapper.SqlTypeWithSize(System.Reflection.PropertyInfo,PcProg.Sys.Entidades.DataAnnotations.TamanoCampo)">
+            <summary>
+            Devuelve la equivalencia del tipo en formato string el tipo 
+            ejemp nvarchar(10), Decimal(18,4) 
+            </summary>
+            <param name="_propiedad">  informacion del propiedad</param>
+            <param name="_tamano"> el atributo del tamano de dicha propiedad</param>
+            <returns></returns>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.MSSqlDataTypeMapper">
+            <summary>
+            tiene mapeado la equivalencia entre los tipos de c# y MSSQL
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.MSSqlDataTypeMapper.MappingTypes">
+            <summary>
+            Contiene la lista de los tipos y su equivalencias en el motor de la base de datos
+            ya sea MSSQL, MONGODB, MySql, esta lista puede ser modificada y cambiada esta es la forma 
+            como debe hacerlo Dictionario.Add(typeof(int), "INT") 
+            le indica el tipo de c# y entre comillas el formato en el motor de la db;
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.MSSqlDataTypeMapper.DefaultTypes">
+            <summary>
+            Contiene la lista de los tipos y su equivalencias en el motor de la base de datos
+            ya sea MSSQL, MONGODB, MySql, no es modificable
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Entidades.DataAnnotations.MSSqlDataTypeMapper.SqlTypeWithSize(System.Reflection.PropertyInfo,PcProg.Sys.Entidades.DataAnnotations.TamanoCampo)">
+            <summary>
+            retorna la equivalencia del tipo incluyendo tamanos ejemplo INT, BIT, NVARCHAR(10,2), DECIMAL(10,4) ETC
+            </summary>
+            <param name="_propiedad"></param>
+            <param name="_tamano"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosClassType">
+            <summary>
+            facilitar el manejo de los atributos mas usuales dentro de este namespace de los objetos de tipo entidad
+            brindando un detalle de cada uno de ellos mendiante la instancia creada
+            </summary>
+        </member>
+        <member name="F:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosClassType.TipoObjeto">
+            <summary>
+            el tipo del objeto que se detalla sus informaciones
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosClassType.NombreDeLaTabla">
+            <summary>
+            El nombre de la tabla en el Motor de base de datos ejemplo CLientesTBL
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosClassType.NombreDelStoredProcedure">
+            <summary>
+            El nombre del store procedure en el motor de la base de datos
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosClassType.Schema">
+            <summary>
+            el nombre del esquema al que pertenece en la base de datos
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosClassType.CampoPrimaryKeyName">
+            <summary>
+            el nombre del esquema al que pertenece en la base de datos
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosClassType.TipoStoredProcedure">
+            <summary>
+            el tipo de estore procedure
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosClassType.NombreDelTipo">
+            <summary>
+            el nombre de la clase
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad">
+            <summary>
+            detalle de los atributos que tiene una sola propiedad
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad.TamanoCampo">
+            <summary>
+            El tamano del campo segun lo establecido en el atributo stringLength o el atributo Tamano
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad.EsEnum">
+            <summary>
+            Indica si el tipo es Enum
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad.IgnorarEnParametros">
+            <summary>
+            Indica si esta asignado el atributo IgnorarEnParam
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad.IgnorarEnTabla">
+            <summary>
+            Indica si esta asignado el atributo IgnorarEnParam
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad.EsPrimaryKey">
+            <summary>
+            Indica si esta signado el atributo KeyAttribute
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad.Requerido">
+            <summary>
+            indica si esta signado el atributo Required, que indica que no puede aceptar valores nulos
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad.ValoresUnicos">
+            <summary>
+            Indica que este campo solo puede llevar valores unicos no permite valores repetidos
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DataAnnotations.DetallesDeAtributosPorPropiedad.HasXmlFieldEnTabla">
+            <summary>
+            Indica si tiene atributo xmllFieldEnTabla
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Entidades.DataAnnotations.GetAtributosFromPropiedad.getIgnorarEnParam">
+            <summary>
+            Determina si el tipo lleva el atributo IgnorarEnParam
+            </summary>
+            <param name="tipoObjeto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.Entidades.DataAnnotations.GetAtributosFromPropiedad.GetNotInTabla">
+            <summary>
+            Determina si el tipo tiene asignado el atributo IgnorarEnTabla
+            </summary>
+            <param name="tipoObjeto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._InsUpdCatalogo">
+            <summary>
+            Clase base para catalogos no para transacciones, ejemplo 
+            Productos, Cliente, Periodos, etc.
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._InsUpdCatalogo.Codigo">
+            <summary>
+            El codigo que identifica ese registro
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._InsUpdCatalogo.Descripcion">
+            <summary>
+            La descripcion o nombre del catalogo, ejemplo Moras/Atraso por 5% a cada pagares, Interes de un 5% mensual, nombre de la iglesia, etc.
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Entidades._InsUpdCatalogo.ToString">
+            <summary>
+            la descripcion del catalago
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._GetParamsCatalogo">
+            <summary>
+            Para catalogo un catalogo es una entidad que tiene Codigo y Descripcion
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsCatalogo.DesdeCodigo">
+            <summary>
+            El codigo que identifica ese registro
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsCatalogo.HastaCodigo">
+            <summary>
+            El codigo que identifica ese registro
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsCatalogo.Descripcion">
+            <summary>
+            La descripcion 
+            </summary>
+            [StringLength(100)]
+        </member>
+        <member name="T:PcProg.Sys.Entidades.ControlActualizacionATabla">
+            <summary>
+            para guardar informacion que indica cuando fue la ultima actualicion hecha a una tabla
+            (actualizacion quiere decir se inserto, actualizo o borro un registro
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.ControlActualizacionATabla.tabla">
+            <summary>
+            la tabla incluyendo el eschema
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.ControlActualizacionATabla.UltimaActualizacion">
+            <summary>
+            almacena la fecha de la ultima actualizacion a la tabla es decir, cuando
+            se inserto, se actualizo o se borro por ultima vez
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.ControlActualizacionATablaGetParams">
+            <summary>
+            para buscar informacion en el objeto que contiene los datos de la entidad
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.ControlActualizacionATablaGetParams.tabla">
+            <summary>
+            la tabla incluyendo el eschema
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._InsUpdNegocioBasico">
+            <summary>
+            Clase base para Clientes que no son personas sino empresas, ejemplo en sistemas de facturacion u otros sistemas
+            que no se detallan tantas informaciones
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._InsUpdNegocioBasico.Codigo">
+            <summary>
+            El codigo Letras o numeros o combinados que identifican dicha entidad
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._InsUpdNegocioBasico.Nombre">
+            <summary>
+            Nombre del negocio
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._GetParamsNegocio">
+            <summary>
+            clase base para buscar datos en negocios o empresa
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsNegocio.DesdeCodigo">
+            <summary>
+            El codigo que identifica ese registro
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsNegocio.HastaCodigo">
+            <summary>
+            El codigo que identifica ese registro
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsNegocio.DesdeNombre">
+            <summary>
+            El codigo que identifica ese registro
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsNegocio.HastaNombre">
+            <summary>
+            El codigo que identifica ese registro
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.Localidad">
+            <summary>
+            Define el pais, la provincia, la ciudad, el municipio donde vive el cliente
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.DireccionSinLocalidad.Calle">
+            <summary>
+            el nombre de la calle incluyendo el numero de la vivienda y especificaciones de la vivienda
+            ejemplo calle D #5, parte atras apartamento 2da planta
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.DireccionConLocalidad">
+            <summary>
+            Almacena la direccion donde vive la persona pero esta relacionada a una localidad
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.IClaseConValidacion">
+            <summary>
+            Solo para poderla usar en validacion
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.QuienRealizaLaAccion">
+            <summary>
+            Para detallar quien realiza las operaciones de Insertar, actualizar, borrar registros
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Entidades.QuienRealizaLaAccion.#ctor">
+            <summary>
+            constructor 
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Entidades.QuienRealizaLaAccion.#ctor(System.String)">
+            <summary>
+            Constructor que recibe el xml en formato string y lo convierte a esta entidad para accesar a sus propiedades
+            </summary>
+            <param name="datosEnFormatoString"></param>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.QuienRealizaLaAccion.Usuario">
+            <summary>
+            El nombre del usuario que esta logueado en el sistema 
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.QuienRealizaLaAccion.UsuarioDispositivo">
+            <summary>
+            el usuario registrado en el dispositivo
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.QuienRealizaLaAccion.Sistema">
+            <summary>
+            El sistema que realiza la accion
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.QuienRealizaLaAccion.Dispositivo">
+            <summary>
+            Informacion del nombre del dispositivo que realiza la accion
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.QuienRealizaLaAccion.Ambiente">
+            <summary>
+            indica si fue desktop, web, movil
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.QuienRealizaLaAccion.MacAdress">
+            <summary>
+            La direccion del macAdress
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.QuienRealizaLaAccion.IdNegocio">
+             <summary>
+            el Id Del Negocio que realiza la operacion 
+             </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.baseIdNegocio">
+            <summary>
+            la clase inicial que tiene el id del negocio todas deben heredar de ella
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseIdNegocio.IdNegocio">
+            <summary>
+            Identifica el id del negocio que realiza la transaccion
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseIdNegocio.GuidOnRunning">
+            <summary>
+            devuelvue un Guid par ausarse solo en el momento de ejecutarse la aplicacion
+            para tener control de los objetos que se crean y poderlo rastrear aun no esten guardados
+            ya que el campo id para los objetos nuevo debe estar en 0
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.baseInsUpd">
+            <summary>
+            Clase base para  Insertar y/o actualizar objetos, contiene los campos 
+            propiedades fundamentales para todas las demas clases u objetos de tipo entidad.
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpd.QuienRealizaLaAccion">
+            Propiedad que solo se usa para representar en formato string el objeto xml QuienRealizaLaAccion
+            y cuyo proposito es enviarla con la informacion del sistema para que el acceso a datos de guardar
+            tome de ella el valor y lo asigne a la columna correcta sea cuando inserte, actualice o borre.
+            este representada por una columna de tipo xml
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpd.xmlInfoCreacion">
+            <summary>
+            almacena la Informacion EN FORMATO XML acerca de la creacion del registro indicando que usuario, cuando  desde que dispositivo, que sistema etc
+            se usa fundamentalmente en el dal para tener la representacion de los datos en formato xml XML
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpd.InfoCreacion">
+            <summary>
+            para establecer quien realiza la accion en formato string cuando se hace un get
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpd.xmlInfoModificacion">
+            <summary>
+            almacena la Informacion EN FORMATO XML acerca de la modificacion del registro indicando que usuario, cuando  desde que dispositivo, que sistema etc
+            se usa solamente en el DAL
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpd.InfoModificacion">
+            <summary>
+            almacena la Informacion EN FORMATO STRING acerca de la modificacion del registro indicando que usuario, cuando  desde que dispositivo, que sistema etc
+            es el campo que se le envia al constructor de la clase QuienRealizaLaAccion
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpd.InfoBorrado">
+            <summary>
+            almacena la Informacion EN FORMATO STRING acerca de la modificacion del registro indicando que usuario, cuando  desde que dispositivo, que sistema etc
+            es el campo que se le envia al constructor de la clase QuienRealizaLaAccion
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpd.Borrado">
+            <summary>
+            establece si esta borrado o no 
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.baseIdNegocioGetParams">
+            <summary>
+            Clase base primaria de todas las estructura
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseIdNegocioGetParams.IdNegocio">
+            <summary>
+            el id del negocio es obligatorio ponerle un valor sino no traera ningun dato
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.baseGetParams">
+            <summary>
+            Clase base para  realizar busquedas o consultas en los datos existentes
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseGetParams.Borrado">
+            <summary>
+            Indica el estado de borrado de los registros a buscar
+            -1 todos, 0 solo los que no estan borrados, solo 1 los borrados
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._InsUpdLogOperaciones">
+            <summary>
+            Para llevar un registro de las operaciones que se realizan sobre los objetos de datos
+            El usuario y el Dispositivo y en que fecha Inserto, Modifico o Borro y un comentario
+            indicando porque se modifico o se puso como borrado, cuando Inserte no pondra
+            ninguna informacion en Motivo
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._InsUpdPersonaInfoBasicaSinCodigo">
+            <summary>
+            clase basica para datos sobre Personas con informacion Minima
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._InsUpdPersonaInfoBasicaSinCodigo.Activo">
+            <summary>
+            indica si esta o no activo 
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._InsUpdPersonaInfoBasicaSinCodigo.Nombres">
+            <summary>
+            el nombre o los nombres de la persona
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._InsUpdPersonaInfoBasicaSinCodigo.Apellidos">
+            <summary>
+            el apellido o apellidos de la persona
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._InsUpdPersonaInfoBasicaSinCodigo.Apodo">
+            <summary>
+            el apodo o alias como le dicen a la persona
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._GetParamsPersonaInfoBasicaSinCodigo">
+            <summary>
+            clase basica que tiene los parametros generales para buscar personas
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsPersonaInfoBasicaSinCodigo.Activo">
+            <summary>
+            indicar si esta o no activa la persona -1 todos, 1 solo los activos, 0 los que no estan activos
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsPersonaInfoBasicaSinCodigo.DesdeNombres">
+            <summary>
+            desde que nombre desea iniciar la busqueda, si lo envia vacio busca desde el primero
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsPersonaInfoBasicaSinCodigo.HastaNombres">
+            <summary>
+            hasta que nombre desea buscar, si lo envia vacio lo incluye todos desde el principio
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.BasePreferenciasVistasPorUsuario">
+            <summary>
+            Almacenara las preferencias establecida por un usuario en las diferentes vistas que opere
+            es decir por ejemplo en que orden dejo establecida 
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.BasePreferenciasVistasPorUsuario.idUsuario">
+            <summary>
+            el id del usuario
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.BasePreferenciasVistasPorUsuarioGetParams.idUsuario">
+            <summary>
+            el id del usuario
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.Dispositivo">
+            <summary>
+            Informacion relacionada con el dispositivo
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.InfoSesion">
+            <summary>
+            almacena la informacion de la sesion se utilizara para
+            pasar informacion de la sesion debe de crearse cuando se introducen las credenciales
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.InfoSesion.Usuario">
+            <summary>
+            El usuario que inicia la sesion en el sistema
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._SetBorradoParams">
+            <summary>
+            Objeto que permite indicar si desea marcar un registro como borrado 
+            o recuperar uno ya marcado
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._SetBorradoParams.XmlQuienBorraElRegistro">
+            <summary>
+            Informacion de quien borra el registro en formato XML
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._SetBorradoParams.QuienBorraElRegistro">
+            <summary>
+            Para establecer informaciones acerca de quien Borra el registro
+            Para llenarlo un set recuerde siempre convertir el XML a ToSxtring();
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._Telefono">
+            <summary>
+            datos relacionados al numero telefono, que indica el Numero y la compania a la que pertenece
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.baseInsUpdTransaccion">
+            <summary>
+            Clase base para insertar o actualizar objetos de tipo transaccion no incluye propiedades 
+            que indiquen que tengan que llevar registro contable, unicamente que lleva numero de transaccion
+            ejemplo solicitud de servicio que no generan transaccion contable,
+            cotizaciones, , ejemplo facturas, cheques, recibos, Prestamo etc.
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpdTransaccion.TransaccionNo">
+            <summary>
+            Es el numero de transaccion Principal
+            es el numero de la transaccion generada en el negocio donde se produce para llevar la secuencia
+            no es unico porque para ser unico debe esta combinado con el id del negocio
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpdTransaccion.TransaccionNo2">
+            <summary>
+            Es el numero de transaccion Secundario puede que alguna empresa
+            desee personalizar su secuencia estableciendo prefijo o codigos muy
+            personalizados debe usar este campo
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpdTransaccion.FechaTransaccion">
+            <summary>
+            La fecha en que se dicha transaccion es realizada, una factura cuando se emite, un servicio cuando es solicitado, un prestamo cuando
+            es emitido.
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.baseInsUpdTransaccionContabilizable">
+            <summary>
+            Clase base para insertar o actualizar objetos de tipo transaccion contables
+            ejemplos facturas, cheques, ingresos, egresos, Prestamo etc.
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpdTransaccionContabilizable.IdEntradaDiario">
+            <summary>
+            El id de la entrada de diario contable con la que esta transaccion esta relacionada
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpdTransaccionContabilizable.Contabilizado">
+            <summary>
+            Indica que una transaccion fue o no exitosamente contabilizado, util sobre todo
+            cuando se modifica una transaccion aunque ya exista el IdEntradaDiario
+            esta se pone en estado false, y cuando es actualizada y todo esta bien
+            entonces cambia de estado a true
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpdTransaccionContabilizable.Asentado">
+            <summary>
+            Indica si una transaccion esta o no asentada una transaccion asentada no es modificable
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseInsUpdTransaccionContabilizable.impreso">
+            <summary>
+            indica que la transaccion fue impresa
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades.baseGetParamsTransaccionNoContabilizable">
+            <summary>
+            Clase base para busqueda para objetos que son transacciones pero que no llevan registro contable
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades.baseGetParamsTransaccionNoContabilizable.DesdeTransaccionNo">
+            <summary>
+            El numero de la transaccion (ejemplo prestamo, factura, ingresoEfectivo, Egreso Efectivo, etc
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.Entidades._GetParamsTransaccionContabilizable">
+            <summary>
+            getParams para transacciones  que si llevan registro contable
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsTransaccionContabilizable.IdRegistroContable">
+            <summary>
+            El id de la entrada de diario contable con la que esta transaccion esta relacionada
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsTransaccionContabilizable.Asentado">
+            <summary>
+            Indica si una transaccion esta o no asentada
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.Entidades._GetParamsTransaccionContabilizable.Contabilizado">
+            <summary>
+            Indica que una transaccion fue o no exitosamente contabilizado, util sobre todo
+            cuando se modifica una transaccion aunque ya exista el IdEntradaDiario
+            esta se pone en estado false, y cuando es actualizada y todo esta bien
+            entonces cambia de estado a true
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.ExtensionesDeMetodos.LinqExtensions">
+            <summary>
+            extensiones para linq
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.ExtensionesDeMetodos.LinqExtensions.OrderByPropertyName``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Boolean)">
+            <summary>
+            para establecer la columna  o propiedad por la cual va a ordenar el listado
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entities"></param>
+            <param name="propertyName"></param>
+            <param name="ascendente"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PcProg.Sys.MsSqlServerUtils">
+            <summary>
+            objeto para operaciones generales sobre MsSqlServer
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.MsSqlServerUtils.GetListOfSQLInstances">
+            <summary>
+            Generate a list of all SQL Server instances on the machine.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.MsSqlServerUtils.GetCorrectWmiNameSpace">
+            <summary>
+            Method returns the correct SQL namespace to use to detect SQL Server instances.
+            </summary>
+            <returns>namespace to use to detect SQL Server instances</returns>
+        </member>
+        <member name="M:PcProg.Sys.MsSqlServerUtils.GetInstanceNameFromServiceName(System.String)">
+            <summary>
+            method extracts the instance name from the service name
+            </summary>
+            <param name="serviceName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.MsSqlServerUtils.GetWmiPropertyValueForEngineService(System.String,System.String,System.String)">
+            <summary>
+            Returns the WMI property value for a given property name for a particular SQL Server service Name
+            </summary>
+            <param name="serviceName">The service name for the SQL Server engine serivce to query for</param>
+            <param name="wmiNamespace">The wmi namespace to connect to </param>
+            <param name="propertyName">The property name whose value is required</param>
+            <returns></returns>
+        </member>
+        <member name="T:PcProg.Sys.Carpetas">
+            <summary>
+             clase para manejos de folders o carpetas
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Carpetas.Imagenes">
+            <summary>
+            Para obtener la carpeta imagen almacena en el archivo app.config
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PcProg.Sys.Contraseñas">
+            <summary>
+            Objeto para realizar distintas operaciones relacionadas con contraseñas
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.Contraseñas.SonIguales(System.String,System.String)">
+            <summary>
+            compara si 2 contraseñas son iguales las 2 han de ser encriptadas o no
+            las ve como un string
+            </summary>
+            <param name="contraseña_1"></param>
+            <param name="contraseña_2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.Contraseñas.SonIguales(System.String[])">
+            <summary>
+            recibe una lista de contrasenas todas deben coincidir son cadenas de string
+            </summary>
+            <param name="lista_de_contraseñas"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.Contraseñas.SonIgualesContrasenasEncriptadayNoEncriptada(System.String,System.String)">
+            <summary>
+            verifica si una contrasena encriptada es igual a una no encriptada 
+            internamente la encripta y verifica si los valores coinciden
+            </summary>
+            <param name="contraseñaEncriptada"></param>
+            <param name="contraseñaNoEncriptada"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PcProg.Sys.OperationResult">
+            <summary>
+            el estado del resultado de la operacion
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.UtilsPcp">
+            <summary>
+            Utilerias a ser usadas en los sistemas
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.setValoresPorDefectoGetParams(PcProg.Sys.Entidades.baseGetParams)">
+            <summary>
+            Se utiliza provisionalmente para poner el idDelNegocio
+            </summary>
+            <param name="_getParams"></param>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.setValoresPorDefectoInsUpd(PcProg.Sys.Entidades.baseInsUpd,System.Int32)">
+            <summary>
+            establece valores de quien realiza la accion y el idNegocio le poner valor de 1
+            </summary>
+            <param name="insupd"> la entidad a actualizar informacion de quien realiza la accion </param>
+            <param name="idNegocio">el valor de la propiedad  idNegocio si no es enviada le pone valor de 1</param>/// 
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.GetInfoQuienRealizaLaAccionWinforms">
+            <summary>
+            Para llenar la informacion de quien realiza la accion
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.GetCurrentIdNegocio">
+            <summary>
+            para obtener el id de la compania que esta actualmente en sesion con el sistema
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.IsValid(PcProg.Sys.Entidades.IClaseConValidacion)">
+            <summary>
+            crea una lista de string conteniendo las errores al validad las propiedades para determinar 
+            si cada propiedad ha cumplido con los atributos que se la han indicado
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.LimpiarControlesSimple(System.Windows.Forms.Control)">
+            <summary>
+            Se utiliza para limpiar los controles de texbox, de los forms
+            </summary>
+            <param name="control"> el control que contiene los demas controles</param>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.HabilitarControles(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            habilita o inabilita los controles que contiene un control
+            </summary>
+            <param name="control">el control o contenedor de controles </param>
+            <param name="habilitar">el valor a establecer</param>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.EnumToListBox(System.Windows.Forms.ListControl,System.Type)">
+            <summary>
+            convierte un enum a un objeto listbox o dropdownlist 
+            </summary>
+            <param name="listControl"></param>
+            <param name="enumType"></param>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.GenerarSecuencia(System.String,System.String)">
+            <summary>
+            para generar true o false si valor dice nuevo y asi saber si genera o no secuencia
+            </summary>
+            <param name="textoPropiedad"> el texto que tiene la propiedad </param>
+            <param name="condicion"> el valor a compara en este caso por e defecto es nuevo pero podria ser new, u otro </param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.ConsolePausa">
+            <summary>
+            Envia un mensaje Pulse enter para continuar haciendo una pausa
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.GetInnerException(System.Exception)">
+            <summary>
+            Obtiene el mensaje mas interno de una excepcion
+            </summary>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.TerminarPrograma">
+            <summary>
+            para terminar el proceso de un programa y retorna a quien lo llamo
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.ImagesDialog">
+            <summary>
+            este metodo busca una imagen para ambiente WinForms Enviroment
+            y retorna la ubicacion  y el nombre del archivo
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.CargarImagen(System.String,System.Windows.Forms.PictureBox)">
+            <summary>
+            carga una imagen a un control picturebox, debe tener la ruta completa
+            </summary>
+            <param name="archivoACargar"></param>
+            <param name="control"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.CopiarArchivo(System.String,System.String)">
+            <summary>
+            Para mover archivo, no verifica si existe o no el archivo
+            </summary>
+            <param name="filePath"> el nombre del archivo incluyendo la ruta</param>
+            <param name="newPath"> solo el nombre de la nueva ruta sin el ultimo backslash</param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.HabilitarControlActivo(System.Windows.Forms.Control,System.Int32)">
+            <summary>
+            habilitar el control si el valor es mayor que cero
+            </summary>
+            <param name="_control"></param>
+            <param name="_idValor"></param>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.AñoyMesSt(System.DateTime,System.Boolean)">
+            <summary>
+            para convertir una fecha en un string que diga el año y el mes
+            ejemplo 31 de enero de 2017 devuelve 201701 o 1701, segun desee
+            que el ano sea completo o no
+            </summary>
+            <param name="_fecha"></param>
+            <param name="longDate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.GetMacAdressInWindows">
+            <summary>
+             obtiene el mac adrress de un equipo
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.GetInfoError(System.Exception)">
+            <summary>
+            Para obtener el mensaje que hay en la excepcion mas interna
+            </summary>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.ChequearConexionBaseDeDatos">
+            <summary>
+            Chequea si se puede establecer la conexion con la base de datos tomando en cuenta la conexion del archivo de configuracion config.app, webconfig, u otro
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.UtilsPcp.WindowsVersionInfo">
+            <summary>
+            para obtener informacion del sistema operativo de Windows
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.UtilsPcp.WindowsVersionInfo.WinMajorVersion">
+            <summary>
+                Returns the Windows major version number for this computer.
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.UtilsPcp.WindowsVersionInfo.WinMinorVersion">
+            <summary>
+                Returns the Windows minor version number for this computer.
+            </summary>
+        </member>
+        <member name="P:PcProg.Sys.UtilsPcp.WindowsVersionInfo.IsServer">
+            <summary>
+                Returns whether or not the current computer is a server or not.
+            </summary>
+        </member>
+        <member name="T:PcProg.Sys.UtilsPcp.Winform">
+            <summary>
+            Para manejo de controles winforms
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.Winform.MaximizeMinimize(System.Windows.Forms.Form)">
+            <summary>
+            activa que se Maximixe y/o minimice un windoforms
+            </summary>
+            <param name="winForm"> el objeto winform </param>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.Winform.DefaultMaximizeMinimize(System.Windows.Forms.Form)">
+            <summary>
+            activa que se Maximixe y/o minimice un windoforms
+            </summary>
+            <param name="winForm"> el objeto winform </param>
+        </member>
+        <member name="T:PcProg.Sys.UtilsPcp.DataGridViewC">
+            <summary>
+            Control DataGridView
+            </summary>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.DataGridViewC.AdjustToFormSize(System.Windows.Forms.DataGridView)">
+            <summary>
+            Hace que el datagridview se ajuste segun el form cambie de tamaño
+            </summary>
+            <param name="dgv"></param>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.GetId(System.Data.IDataReader,System.Boolean)">
+            <summary>
+             recibe un data reader y retorna el id se usa normalmente 
+             para extraer despues de un insert el id devuelto
+            </summary>
+            <param name="_dr">el datareader</param>
+            <param name="closeReader"> para indicar si cierra o no el datareader</param>/// 
+            <returns></returns>
+        </member>
+        <member name="M:PcProg.Sys.UtilsPcp.IsNullable(System.Reflection.PropertyInfo)">
+            <summary>
+            determina si la propiedad tiene  en su declaracion que es nullable es decir tiene este signo ??
+            </summary>
+            <param name="_propiedad"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
