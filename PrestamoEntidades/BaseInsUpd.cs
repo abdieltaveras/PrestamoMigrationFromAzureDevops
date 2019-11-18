@@ -36,7 +36,7 @@ namespace PrestamoEntidades
         /// </summary>
         [Required]
         [HiddenInput(DisplayValue = false)]
-        public int IdNegocio { get; set; } = 0; // dejarlo asi para que sea obligatorio inicializar el 
+         public int IdNegocio { get; set; } = 0; // dejarlo asi para que sea obligatorio inicializar el 
 
     }
 

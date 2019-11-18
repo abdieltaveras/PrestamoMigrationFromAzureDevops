@@ -1,21 +1,19 @@
 ﻿namespace PrestamoEntidades
 {
-    public class TasaInteres
+    public class TasaInteres : BaseCatalogo
     {
-        public int IdTasaInteres { get; set; } = 0;
-        public string Codigo { get; set; } = string.Empty;
+        public int idTasaInteres { get; set; } = 0;
         // el valor numerico del interes 10%, 4%, etc
-        public decimal InteresMensual { get; set; } = 0;
-        public bool Activo { get; set; } = true;
+        public float InteresMensual { get; set; } = 0;
         public bool RequiereAutorizacion { get; set; } = false;
-
+        public override int GetId() => this.idTasaInteres;
     }
-    public class TasaInteresGetParams
+    public class TasaInteresGetParams : BaseGetParams
     {
-        public int IdTasaInteres { get; set; } = 0;
+        public int idTasaInteres { get; set; } = -1;
         // el valor numerico del interes 10%, 4%, etc
         public string Codigo { get; set; } = string.Empty;
-        public decimal InteresMensualMenorOIgualA { get; set; } = -1;
+        public float InteresMensual { get; set; } = -1;
         public int Activo { get; set; } = -1;
         public int RequiereAutorizacion { get; set; } = -1; 
     }

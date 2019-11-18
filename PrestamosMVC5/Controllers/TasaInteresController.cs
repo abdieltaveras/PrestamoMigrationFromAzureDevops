@@ -14,7 +14,7 @@ namespace PrestamosMVC5.Controllers
         // GET: TasaInteres
         public ActionResult Index()
         {
-            var intereses = BLLPrestamo.Instance.GetTasaInteres(new TasaInteresGetParams { InteresMensualMenorOIgualA=20} );
+            var intereses = BLLPrestamo.Instance.GetTasasInteres(new TasaInteresGetParams { IdNegocio = 1 });
             return View(intereses);
         }
     }

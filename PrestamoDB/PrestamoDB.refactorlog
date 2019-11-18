@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="852a9b69-078d-4090-8aad-88bbd4086c97" ChangeDateTime="11/16/2019 19:14:12">
+    <Property Name="ElementName" Value="[dbo].[tblTasaInteres].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdTasaInteres" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4d497f42-de2b-4f6c-be6b-8dc8426f0b1e" ChangeDateTime="11/16/2019 19:15:46">
+    <Property Name="ElementName" Value="[dbo].[tblTasaInteres].[Interes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InteresA" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9cdf21fe-d092-4d6a-a175-02140538be21" ChangeDateTime="11/16/2019 19:16:17">
+    <Property Name="ElementName" Value="[dbo].[tblTasaInteres].[InteresA]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InteresMensual" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c7fdc624-a121-45eb-abf9-f764c1cc56f4" ChangeDateTime="11/16/2019 19:40:37">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdTasaInteres" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cc64af5b-4f08-47f4-8e87-31dee2f2df70" ChangeDateTime="11/16/2019 19:42:37">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[RequiereAutorizacion]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Requiere_Autorizacion" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="19b304a0-70ba-40c7-ada3-13512988b645" ChangeDateTime="11/16/2019 19:42:44">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[Requiere_Autorizacion]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Requiere_autorizacion" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7fa1edcf-2cc8-4852-9a99-881af5a79096" ChangeDateTime="11/16/2019 19:42:49">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[Requiere_autorizacion]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="requiere_autorizacion" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="66ebb93c-2c55-4879-8977-38ab96bfb481" ChangeDateTime="11/16/2019 19:42:53">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[Activo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="activo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f2e8c5e3-7222-45ac-9634-1eb4f1341aca" ChangeDateTime="11/16/2019 19:43:00">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[InteresMensual]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="interes_mensual" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4d68f040-4ce9-463e-913c-49e3dc605116" ChangeDateTime="11/16/2019 19:43:03">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[Codigo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="codigo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fe706c45-b808-47bc-ba9c-b28d34c98f12" ChangeDateTime="11/16/2019 19:44:08">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[codigo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Codigo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e23576f1-7459-44d9-be1c-8ae587678ec5" ChangeDateTime="11/16/2019 19:44:13">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[interes_mensual]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InteresMensual" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8eb7136e-ee58-478a-86c6-a951623dd921" ChangeDateTime="11/16/2019 19:44:16">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[activo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Activo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="05d2316e-a2ee-4336-abd7-7d114d6fe10c" ChangeDateTime="11/16/2019 19:44:21">
+    <Property Name="ElementName" Value="[dbo].[TblTasaInteres].[requiere_autorizacion]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TblTasaInteres]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RequiereAutorizacion" />
+  </Operation>
+</Operations>
