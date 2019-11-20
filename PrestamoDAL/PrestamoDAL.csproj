@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConexionDB.cs" />
     <Compile Include="DALPrestamoMSSql.cs" />
     <Compile Include="DALPrestamoInMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

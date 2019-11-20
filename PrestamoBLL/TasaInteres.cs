@@ -14,6 +14,7 @@ namespace PrestamoBLL
         public IEnumerable<TasaInteres> GetTasasInteres(TasaInteresGetParams param)
         {
             var result = DALPrestamoMSSql.Instance.GetTasasInteres(param);
+            
             return result;
         }
         public void insUpdTasaInteres(TasaInteres data)

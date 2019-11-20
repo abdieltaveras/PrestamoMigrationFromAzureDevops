@@ -23,7 +23,7 @@ namespace PrestamoDAL
         public IEnumerable<TasaInteres> GetTasasInteres(TasaInteresGetParams searchdata)
         {
             //checkSqlParams<TasaInteresGetParams>(searchdata);
-            var result = Database.DataServer.ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchdata));
+            var result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchdata));
             return result;
         }
 
