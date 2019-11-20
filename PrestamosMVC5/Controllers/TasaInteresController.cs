@@ -25,6 +25,7 @@ namespace PrestamosMVC5.Controllers
             Console.WriteLine(interes.Codigo);
 
             interes.IdNegocio = 1;
+            interes.Usuario = "Usuario de prueba";
 
             try
             {
