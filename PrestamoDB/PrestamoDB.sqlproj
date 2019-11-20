@@ -24,6 +24,7 @@
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
     <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <GenerateCreateScript>False</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -62,6 +63,8 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="dbo\Functions" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Post-Deployment" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PrestamoDB.refactorlog" />
@@ -69,12 +72,12 @@
   <ItemGroup>
     <Build Include="dbo\Tables\tblTasaInteres.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdTasaInteres.sql" />
-    <Build Include="dbo\Stored Procedures\SpGetTasasInteres.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTasasInteres.sql" />
+    <PostDeploy Include="Scripts\Post-Deployment\InitDatabase.sql" />
+    <Build Include="dbo\Stored Procedures\spDelTasaInteres.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="InitDatabase.sql" />
+    <None Include="DeployProfile.publish.publish.xml" />
   </ItemGroup>
 </Project>

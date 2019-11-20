@@ -107,7 +107,7 @@ namespace PrestamoEntidades
         public bool Activo { get; set; } = true;
         [Required(ErrorMessage = "el campo {0} es requerido")]
         public string Codigo { get; set; } = string.Empty;
-        [Required(ErrorMessage = "el campo {0} es requerido")]
+        [Required(ErrorMessage = "el campo {0} es requerido")]       
         public string Descripcion { get; set; } = string.Empty;
     }
 

@@ -2,10 +2,11 @@
 
 namespace PrestamoEntidades
 {
-    public abstract class BaseDeleteParams : BaseUsuario
+    public abstract class BaseDelParams : BaseUsuario
     {
         [Required]
-        public bool Borrado { get; set; } = true;
+        public int id { get; set; }
+
     }
     
 }

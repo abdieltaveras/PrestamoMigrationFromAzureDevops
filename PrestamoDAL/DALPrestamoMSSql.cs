@@ -20,18 +20,23 @@ namespace PrestamoDAL
             }
         }
         #endregion StaticBLL
-
-        public void insUpdTasaInteres(TasaInteres data)
-        {
-           Database.DataServer.ExecSelSP("spInsUpdTasaInteres",  SearchRec.ToSqlParams(data));
-        }
-
         public IEnumerable<TasaInteres> GetTasasInteres(TasaInteresGetParams searchdata)
         {
             //checkSqlParams<TasaInteresGetParams>(searchdata);
             var result = Database.DataServer.ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchdata));
             return result;
         }
+
+        public void insUpdTasaInteres(TasaInteres data)
+        {
+           Database.DataServer.ExecSelSP("spInsUpdTasaInteres",  SearchRec.ToSqlParams(data));
+        }
+
+        public void DeleteTasaInteres(TasaInteresDelParams data)
+        {
+            Database.DataServer.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(data));
+        }
+
         private void checkSqlParams<T>(T data)
         { 
             var sqlParams = SearchRec.ToSqlParams(data);

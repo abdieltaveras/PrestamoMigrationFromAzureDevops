@@ -2,9 +2,10 @@
 	@idTasaInteres int,
 	@idNegocio int,
 	@Codigo varchar(10),
+	@Descripcion varchar(100),
 	@InteresMensual decimal (9,6),
-	@Activo bit=1,
-	@RequiereAutorizacion bit=0,
+	@Activo bit = 1,
+	@RequiereAutorizacion bit = 0,
 	@Usuario varchar(100)
 AS
 Begin
@@ -12,9 +13,9 @@ Begin
 if (@idTasaInteres =0)
 	begin
 		insert into tblTasaInteres 
-		(Codigo,idNegocio, InteresMensual, Activo,RequiereAutorizacion, InsertadoPor, FechaInsertado)
+		(Codigo, Descripcion, idNegocio, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado)
 		values
-		(@Codigo, @idNegocio, @InteresMensual, @Activo,@RequiereAutorizacion, @Usuario, GetDate())
+		(@Codigo, @Descripcion, @idNegocio, @InteresMensual, @Activo, @RequiereAutorizacion, @Usuario, GetDate())
 	end
 Else
 	Begin
@@ -23,11 +24,12 @@ Else
 			Codigo=@Codigo, 
 			InteresMensual =@InteresMensual, 
 			Activo=@Activo,
+			Descripcion=@Descripcion,
 			RequiereAutorizacion=@RequiereAutorizacion,
 			ModificadoPor=@Usuario,
 			idNegocio = @idNegocio,
 			FechaModificado = getdate()
-		where idTasaInteres = idTasaInteres
+		where idTasaInteres = @idTasaInteres
 	End
 End
 

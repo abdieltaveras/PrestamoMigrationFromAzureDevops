@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[SpGetTasasInteres]
+﻿CREATE PROCEDURE [dbo].[spGetTasasInteres]
 (
 	@idTasaInteres int=-1,
 	@idNegocio int=-1,
@@ -10,7 +10,7 @@
 )
 as
 begin
-	SELECT idTasaInteres, Codigo, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado
+	SELECT idTasaInteres, Codigo, Descripcion, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado
 	FROM dbo.tblTasaInteres(nolock) 
 	where 
 		((@idTasaInteres=-1) or (idTasaInteres = @IdTasaInteres))

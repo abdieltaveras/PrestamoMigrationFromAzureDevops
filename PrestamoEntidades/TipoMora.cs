@@ -67,7 +67,7 @@ namespace PrestamoEntidades
     }
     [SpDelProcedure("spDelTipoMora")]
     [Schema("pre")]
-    public class TipoMoraDelParams : BaseDeleteParams
+    public class TipoMoraDelParams : BaseDelParams
     {
         [Required]
         public virtual int IdTipoMora

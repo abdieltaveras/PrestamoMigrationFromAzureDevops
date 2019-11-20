@@ -20,5 +20,9 @@ namespace PrestamoBLL
         {
             DALPrestamoMSSql.Instance.insUpdTasaInteres(data);
         }
+        public void DeleteTasaInteres(TasaInteresDelParams data)
+        {
+            DALPrestamoMSSql.Instance.DeleteTasaInteres(data);
+        }
     }
 }

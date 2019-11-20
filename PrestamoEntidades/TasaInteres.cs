@@ -17,4 +17,9 @@
         public int Activo { get; set; } = -1;
         public int RequiereAutorizacion { get; set; } = -1; 
     }
+    public class TasaInteresDelParams : BaseDelParams
+    {
+
+    }
+
 }
