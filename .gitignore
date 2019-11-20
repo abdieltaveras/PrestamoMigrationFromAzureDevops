@@ -14,7 +14,6 @@ js/app.min.js
 *.user
 *.userosscache
 *.sln.docstates
-PrestamosMVC5/Web.config
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
