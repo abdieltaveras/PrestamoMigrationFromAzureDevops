@@ -7,7 +7,8 @@ using System.Web.Mvc;
 
 namespace PrestamoEntidades
 {
-    public enum TiposCargosMora { Cargo_Fijo, Porciento }
+
+    public enum TiposCargosMora { Cargo_Fijo=1, Porciento }
 
     /// <summary>
     /// determina si el cargo se aplicara una vez vencida la cuota o se va a ir calculando dia a dia despues de vencida la cuota
@@ -16,13 +17,13 @@ namespace PrestamoEntidades
     /// </summary>
     public enum CalcularMoraPor
     {
-        cada_dia_transcurrido_solo_desde_la_primera_cuota_vencida,
+        cada_dia_transcurrido_desde_la_primera_cuota_vencida=1,
         cada_dia_transcurrido_por_cada_cuota_vencida,
         el_valor_acumulado_de_las_cuotas_vencidas
     }
     public enum AplicarMoraAl
     {
-        Capital_intereses_y_moras,
+        Capital_intereses_y_moras=1,
         Capital_e_interes,
         Solo_al_interes
     }
@@ -74,6 +75,5 @@ namespace PrestamoEntidades
         {
             get; set;
         }
-
     }
 }

@@ -13,17 +13,32 @@ namespace PrestamoBLL
     {
         public IEnumerable<TasaInteres> GetTasasInteres(TasaInteresGetParams searchParam)
         {
-            var result = Database.DataServer.ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchParam));
-
+            IEnumerable<TasaInteres> result=new List<TasaInteres>();
+            try
+            {
+                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchParam));
+            }
+            catch (Exception)
+            {
+                DatabaseError();
+            }
             return result;
         }
         public void insUpdTasaInteres(TasaInteres insUpdParam)
         {
-            Database.DataServer.ExecSelSP("spInsUpdTasaInteres", SearchRec.ToSqlParams(insUpdParam));
+            try
+            {
+                Database.AdHoc(ConexionDB.Server).ExecSelSP("spInsUpdTasaInteres", SearchRec.ToSqlParams(insUpdParam));
+            }
+            catch (Exception e)
+            {
+                DatabaseError();
+            }
         }
+        private void DatabaseError() => throw new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
         public void DeleteTasaInteres(TasaInteresDelParams delParam)
         {
-            Database.DataServer.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
+            Database.AdHoc(ConexionDB.Server).ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
         }
     }
 }
