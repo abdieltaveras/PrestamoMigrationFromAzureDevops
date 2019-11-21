@@ -1,4 +1,5 @@
-﻿using PrestamoDAL;
+﻿using emtSoft.DAL;
+using PrestamoDAL;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,19 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        
-        public IEnumerable<TasaInteres> GetTasasInteres(TasaInteresGetParams param)
+        public IEnumerable<TasaInteres> GetTasasInteres(TasaInteresGetParams searchParam)
         {
-            var result = DALPrestamoMSSql.Instance.GetTasasInteres(param);
+            var result = Database.DataServer.ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchParam));
+
             return result;
         }
-        public void insUpdTasaInteres(TasaInteres data)
+        public void insUpdTasaInteres(TasaInteres insUpdParam)
         {
-            DALPrestamoMSSql.Instance.insUpdTasaInteres(data);
+            Database.DataServer.ExecSelSP("spInsUpdTasaInteres", SearchRec.ToSqlParams(insUpdParam));
         }
-        public void DeleteTasaInteres(TasaInteresDelParams data)
+        public void DeleteTasaInteres(TasaInteresDelParams delParam)
         {
-            DALPrestamoMSSql.Instance.DeleteTasaInteres(data);
+            Database.DataServer.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
         }
     }
 }

@@ -19,6 +19,9 @@ js/app.min.js
 *.userosscache
 *.sln.docstates
 
+# Database project file
+*.jfm
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
