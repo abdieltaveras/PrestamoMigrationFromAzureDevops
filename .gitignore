@@ -6,6 +6,7 @@ node_modules/*
 
 # Database
 *.jfm
+PrestamoBLL/ConexionDB.cs
 
 
 # These are needed, however, they're generated so don't need/want to track
