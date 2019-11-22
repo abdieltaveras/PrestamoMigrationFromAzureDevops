@@ -3,7 +3,7 @@
   <Class Name="PrestamoEntidades.TipoMora">
     <Position X="6" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AgAAgAAAAAAAIAAEAACEAAAAAAAAAAAAAAgAAAoAACA=</HashCode>
+      <HashCode>AgAAgAAAAAAAIAAEIACERAAAAAAAAAAAAAgAAAIAECA=</HashCode>
       <FileName>TipoMora.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -35,17 +35,24 @@
       <FileName>BaseInsUpd.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="PrestamoEntidades.AplicarMoraAl" Collapsed="true">
+  <Enum Name="PrestamoEntidades.AplicarMoraAl">
     <Position X="8.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABgAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <HashCode>AAABgAAAAAAAAAAAgAAAAAEAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>TipoMora.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="PrestamoEntidades.CalcularMoraPor" Collapsed="true">
-    <Position X="8.5" Y="1.5" Width="1.5" />
+  <Enum Name="PrestamoEntidades.CalcularMoraPor">
+    <Position X="8.5" Y="2.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAIAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>TipoMora.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PrestamoEntidades.TiposCargosMora">
+    <Position X="10.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>TipoMora.cs</FileName>
     </TypeIdentifier>
   </Enum>

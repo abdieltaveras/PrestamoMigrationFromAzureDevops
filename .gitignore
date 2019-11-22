@@ -6,6 +6,7 @@ node_modules/*
 
 # Database
 *.jfm
+PrestamoBLL/ConexionDB.cs
 
 # ConexionDB File
 PrestamoBLL/ConexionDB.cs
