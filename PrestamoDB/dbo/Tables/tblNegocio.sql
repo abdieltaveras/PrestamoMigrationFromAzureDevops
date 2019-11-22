@@ -1,10 +1,9 @@
-﻿CREATE TABLE [dbo].[tblTasasInteres]
+﻿CREATE TABLE [dbo].[tblNegocios]
 (
-	[idTasaInteres] INT NOT NULL PRIMARY KEY identity(1,1), 
-	[idNegocio] INT NOT NULL, 
+	[idNegocio] INT PRIMARY KEY identity(1,1), 
     [Codigo] VARCHAR(10) NOT NULL unique, 
-	[Descripcion] VARCHAR(100) NOT NULL,
-    [InteresMensual] DECIMAL(12, 9) NOT NULL, 
+	[NombreJuridico] VARCHAR(100) NOT NULL,
+    [NombreComercial] VARCHAR(100) NOT NULL,
     [Activo] BIT NOT NULL DEFAULT 1, 
     [RequiereAutorizacion] bit NOT NULL DEFAULT 0,
 	InsertadoPor varchar(100) not null,
@@ -12,5 +11,5 @@
     [ModificadoPor] VARCHAR(100) NULL, 
     [FechaModificado] DATETIME NULL, 
     [AnuladoPor] VARCHAR(100) NULL, 
-    [FechaAnulado] DATETIME NULL
+    [FechaAnulado] DATETIME NULL, 
 )

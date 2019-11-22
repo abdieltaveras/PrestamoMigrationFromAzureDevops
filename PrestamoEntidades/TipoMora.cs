@@ -7,25 +7,36 @@ using System.Web.Mvc;
 
 namespace PrestamoEntidades
 {
-
-    public enum TiposCargosMora { Cargo_Fijo=1, Porciento }
+    /// <summary>
+    /// El cargo se aplicara como un monto fijo o como un porciento segun lo indique
+    /// AplicarMoraAl
+    /// </summary>
+    public enum TiposCargosMora { Cargo_Fijo=1, Porcentual }
 
     /// <summary>
-    /// determina si el cargo se aplicara una vez vencida la cuota o se va a ir calculando dia a dia despues de vencida la cuota
-    /// es decir por ejemplo una cuota es de 1000 y se le va a cargar 10%, se le cobra 100 pero si es por dia y solo tiene 13 dias
-    /// atrasadas entonces se hace un calculo asi, los 100 pesos dividido 30 y multiplicado por 10
+    /// determina si el cargo se aplicara una vez vencida la cuota o se va a ir calculando 
+    /// dia a dia despues de vencida la cuota
+    /// es decir por ejemplo una cuota es de 1000 y se le va a cargar 10%, 
+    /// se le cobra 100 pero si es por dia y solo tiene 13 dias
+    /// atrasadas entonces se hace un calculo asi, los 100 pesos dividido entre 30 y multiplicado por 10
     /// </summary>
     public enum CalcularMoraPor
     {
-        cada_dia_transcurrido_desde_la_primera_cuota_vencida=1,
-        cada_dia_transcurrido_por_cada_cuota_vencida,
+        cada_dias_transcurrido_desde_la_primera_cuota_vencida=1,
+        cada_30_dias_transcurrido_por_cada_cuota_vencida,
+        por_cada_cuota_vencida_por_periodos,
         el_valor_acumulado_de_las_cuotas_vencidas
     }
+    /// <summary>
+    /// Indica a que se aplicara el calculo de mora
+    /// </summary>
     public enum AplicarMoraAl
     {
         Capital_intereses_y_moras=1,
         Capital_e_interes,
-        Solo_al_interes
+        Solo_al_interes,
+        Solo_al_capital,
+        al_balance_de_la_cuota,
     }
     [Table("tblTiposMora", Schema = "pre")]
     public class TipoMora : BaseCatalogo
@@ -36,22 +47,32 @@ namespace PrestamoEntidades
         [Required]
         //[StringLength(100)]
         [Display(Name = "Forma de calcular el cargo")]
-        public virtual int TipoCargoMora { get; set; } = (int)TiposCargosMora.Porciento;
+        public virtual int TipoCargo { get; set; } = (int)TiposCargosMora.Porcentual;
+        /// <summary>
+        /// solo para usarse y obtener el enum del campo TipoCargo
+        /// </summary>
+        [IgnorarEnParam]
+        [NotMapped]
+        public TiposCargosMora TipoCargoEnum { get { return (TiposCargosMora)TipoCargo; } }
         [Display(Name = "Forma de hacer el calculo")]
-        public virtual CalcularMoraPor FormaCargarMora { get; set; } = CalcularMoraPor.cada_dia_transcurrido_por_cada_cuota_vencida;
-
+        public virtual int CalcularCargoPor { get; set; } = (int)CalcularMoraPor.cada_30_dias_transcurrido_por_cada_cuota_vencida;
+        //.cada_dia_transcurrido_por_cada_cuota_vencida;
+        [IgnorarEnParam][NotMapped]
+        public CalcularMoraPor CalcularCargoPorEnum { get { return (CalcularMoraPor)CalcularCargoPor; } }
         [Display(Name = "para aplicarlo a")]
-        public virtual AplicarMoraAl AplicarA { get; set; } = AplicarMoraAl.Capital_intereses_y_moras;
+        public virtual int AplicarA { get; set; } = (int)AplicarMoraAl.Capital_intereses_y_moras; 
+        [IgnorarEnParam][NotMapped]
+        public AplicarMoraAl AplicarAEnum { get { return (AplicarMoraAl)AplicarA; } }
         [Display(Name = "aplicar cargo luego de x dias")]
         public virtual int DiasDeGracia { get; set; } = 0;
 
         [Display(Name = "Monto Fijo o Porcentaje a Aplicar")]
         public decimal MontoOPorcientoACargar { get; set; }
 
-        //[Display(Name = "Desde")]
-        //public decimal GargoDesde { get; set; }
-        //[Display(Name = "Hasta")]
-        //public decimal GargoHasta { get; set; }
+        [Display(Name = "a partir del monto Cuota de")]
+        public decimal MontoCuotaDesde { get; set; }
+        [Display(Name = "Hasta el monto de cuota")]
+        public decimal MontoCuotaHasta { get; set; }
         public override string ToString()
         {
             return Codigo + " " + Descripcion;
@@ -64,7 +85,6 @@ namespace PrestamoEntidades
         [KeyAttribute]
         public virtual int IdTipoMora { get; set; } = -1;
         public virtual string Codigo { get; set; } = string.Empty;
-        public virtual string Descripcion { get; set; } = string.Empty;
     }
     [SpDelProcedure("spDelTipoMora")]
     [Schema("pre")]

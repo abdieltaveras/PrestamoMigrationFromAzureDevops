@@ -5,15 +5,13 @@
 CREATE PROCEDURE [dbo].[spDelTasaInteres]
 	@id int,
 	@Usuario varchar(100)
-
 AS
 	begin
-
-	update tblTasaInteres
+	update tblTasasInteres
 		SET
 			Activo = 0,
-			BorradoPor = @Usuario,
-			FechaBorrado = getdate()
+			AnuladoPor = @Usuario,
+			FechaAnulado = getdate()
 		WHERE 
 			idTasaInteres = @id	
 End

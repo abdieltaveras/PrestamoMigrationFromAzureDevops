@@ -75,6 +75,10 @@
     <Build Include="dbo\Stored Procedures\spGetTasasInteres.sql" />
     <PostDeploy Include="Scripts\Post-Deployment\InitDatabase.sql" />
     <Build Include="dbo\Stored Procedures\spDelTasaInteres.sql" />
+    <Build Include="dbo\Tables\tblTipoMora.sql" />
+    <Build Include="dbo\Tables\tblNegocio.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdTipoMora.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTiposMora.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

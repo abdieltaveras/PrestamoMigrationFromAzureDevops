@@ -22,5 +22,8 @@ namespace PrestamoBLL
             }
         }
         #endregion StaticBLL
+        private void DatabaseError(Exception e) => throw e;
+        //new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
+
     }
 }

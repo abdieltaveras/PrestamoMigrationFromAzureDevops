@@ -9,8 +9,15 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+	declare @usuario varchar(10)= 'SisInit'
 
-	INSERT INTO [dbo].[tblTasaInteres]
+	insert into dbo.tblNegocios
+			(Codigo,NombreComercial,NombreJuridico,InsertadoPor,FechaInsertado)
+			VALUES
+			('N01','Mi Empresa','Mi Empresa',@usuario,getdate())
+	declare @idNegocio int = (select top 1 idNegocio from tblNegocios)
+	
+	INSERT INTO [dbo].[tblTasasInteres]
            ([idNegocio]
            ,[Codigo]
 		   ,[Descripcion]
@@ -18,7 +25,13 @@ Post-Deployment Script Template
            ,[InsertadoPor]
            ,[FechaInsertado])
      VALUES
-		   (1,'A00', '1% de interes' ,1.0,'Sis2',getdate()),
-		   (1,'B00', '2% de interes' ,2.0,'Sis2',getdate()),
-		   (1,'C00', '3% de interes' ,3.0,'Sis2',getdate())
+		   (@idNegocio,'A00', '1% de interes' ,1.0,@usuario,getdate()),
+		   (@idNegocio,'B00', '2% de interes' ,2.0,@usuario,getdate()),
+		   (@idNegocio,'C00', '3% de interes' ,3.0,@usuario,getdate())
+
+	insert into tblTiposMora
+			(idNegocio, Codigo, Descripcion,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,
+			InsertadoPor, FechaInsertado)
+		VALUES
+			(@idNegocio,'P10','Porcentual 10% por cada dia por cada cuota',3,1,1,1,10.00,@usuario,getdate())
 

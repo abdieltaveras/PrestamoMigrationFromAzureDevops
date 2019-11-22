@@ -10,8 +10,8 @@
 )
 as
 begin
-	SELECT idTasaInteres, Codigo, Descripcion, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado
-	FROM dbo.tblTasaInteres(nolock) 
+	SELECT idTasaInteres, Codigo, Descripcion, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
+	FROM dbo.tblTasasInteres(nolock) 
 	where 
 		((@idTasaInteres=-1) or (idTasaInteres = @IdTasaInteres))
 		and ((@idNegocio=-1) or (idNegocio = @idNegocio))

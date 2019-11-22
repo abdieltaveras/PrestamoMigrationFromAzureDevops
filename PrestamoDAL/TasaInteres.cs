@@ -11,7 +11,7 @@ namespace PrestamoDAL
                 new TasaInteres{ idTasaInteres = 2, InteresMensual = 20, Activo = true, RequiereAutorizacion = true},
                 new TasaInteres{ idTasaInteres = 3, InteresMensual = 30, Activo = true, RequiereAutorizacion = true},
             };
-        public void insUpdTasaInteres(TasaInteres data)
+        private void insUpdTasaInteres(TasaInteres data)
         {
             data.idTasaInteres = intereses.Count() + 1;
             intereses.Add(data);

@@ -18,9 +18,9 @@ namespace PrestamoBLL
             {
                 result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchParam));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                DatabaseError();
+                DatabaseError(e);
             }
             return result;
         }
@@ -32,10 +32,10 @@ namespace PrestamoBLL
             }
             catch (Exception e)
             {
-                DatabaseError();
+                DatabaseError(e);
             }
         }
-        private void DatabaseError() => throw new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
+        
         public void DeleteTasaInteres(TasaInteresDelParams delParam)
         {
             Database.AdHoc(ConexionDB.Server).ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));

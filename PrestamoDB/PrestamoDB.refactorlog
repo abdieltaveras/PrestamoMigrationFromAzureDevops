@@ -98,4 +98,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="RequiereAutorizacion" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="ee3d4426-7caf-4ae5-9c1f-43052dc7586d" ChangeDateTime="11/22/2019 04:35:08">
+    <Property Name="ElementName" Value="[dbo].[FK_tblTipoMora_ToTblNegocio Table]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[tblTiposMora]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_tblTipoMora_ToTblNegocio  foreign key(idNegocio)]" />
+  </Operation>
 </Operations>

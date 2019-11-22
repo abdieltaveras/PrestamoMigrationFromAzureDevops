@@ -48,6 +48,7 @@
     <Compile Include="BLLPrestamo.cs" />
     <Compile Include="ConexionDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoMora.cs" />
     <Compile Include="TasaInteres.cs" />
   </ItemGroup>
   <ItemGroup>

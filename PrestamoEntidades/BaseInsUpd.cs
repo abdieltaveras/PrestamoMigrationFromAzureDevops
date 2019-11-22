@@ -49,33 +49,34 @@ namespace PrestamoEntidades
 
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
-        public DateTime FechaInsertado { get; set; } = new DateTime(1900, 1, 1);
-        [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
         public string InsertadoPor { get; set; } = string.Empty;
+
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
-        public DateTime FechaModificado { get; set; } = new DateTime(1900, 1, 1);
+        public DateTime FechaInsertado { get; set; } = new DateTime(1900, 1, 1);
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
         public string ModificadoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
-        public DateTime FechaBorrado { get; set; } = new DateTime(1900, 1, 1);
+        public DateTime FechaModificado { get; set; } = new DateTime(1900, 1, 1);
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
-        public string BorradoPor { get; set; } = string.Empty;
+        public string AnuladoPor { get; set; } = string.Empty;
+        [IgnorarEnParam()]
+        [HiddenInput(DisplayValue = false)]
+        public DateTime FechaAnulado { get; set; } = new DateTime(1900, 1, 1);
+        
         [NotMapped]
         [IgnorarEnParam]
-        public bool Borrado { get { return string.IsNullOrEmpty(BorradoPor); } }
+        public bool Borrado { get { return string.IsNullOrEmpty(AnuladoPor); } }
 
         [NotMapped]
         [IgnorarEnParam]
         public bool Modificable { get; set; } = false;
         [NotMapped]
         [IgnorarEnParam]
-        public bool Borrable { get; set; } = false;
-
+        public bool Anulable { get; set; } = false;
         /// <summary>
         /// para obtener el valor del id primario del objeto
         /// </summary>
