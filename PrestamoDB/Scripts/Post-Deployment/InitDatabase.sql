@@ -11,12 +11,18 @@ Post-Deployment Script Template
 */
 	declare @usuario varchar(10)= 'SisInit'
 
+
+	--Script para datos de Negocios
 	insert into dbo.tblNegocios
 			(Codigo,NombreComercial,NombreJuridico,InsertadoPor,FechaInsertado)
 			VALUES
-			('N01','Mi Empresa','Mi Empresa',@usuario,getdate())
-	declare @idNegocio int = (select top 1 idNegocio from tblNegocios)
-	
+			('N01','Mi Empresa','Mi Empresa',@usuario,getdate()),
+			('N02','Empresa de Abdiel','PC-PROG',@usuario,getdate())
+
+	declare @idNegocio int = (select top 1 idNegocio from tblNegocios)	
+
+	--Script para datos de Interes
+
 	INSERT INTO [dbo].[tblTasasInteres]
            ([idNegocio]
            ,[Codigo]
@@ -29,6 +35,7 @@ Post-Deployment Script Template
 		   (@idNegocio,'B00', '2% de interes' ,2.0,@usuario,getdate()),
 		   (@idNegocio,'C00', '3% de interes' ,3.0,@usuario,getdate())
 
+	--Script para datos de Moras
 	insert into tblTiposMora
 			(idNegocio, Codigo, Descripcion,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,
 			InsertadoPor, FechaInsertado)

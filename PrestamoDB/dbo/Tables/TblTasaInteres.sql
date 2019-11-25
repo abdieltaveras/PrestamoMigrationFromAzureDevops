@@ -12,5 +12,6 @@
     [ModificadoPor] VARCHAR(100) NULL, 
     [FechaModificado] DATETIME NULL, 
     [AnuladoPor] VARCHAR(100) NULL, 
-    [FechaAnulado] DATETIME NULL
+    [FechaAnulado] DATETIME NULL,
+	CONSTRAINT [FK_tblTipoInteres_ToTblNegocios] FOREIGN KEY (idNegocio) REFERENCES tblNegocios(idNegocio)
 )
