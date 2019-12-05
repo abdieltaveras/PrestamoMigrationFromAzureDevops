@@ -5,13 +5,21 @@
     public enum TiposTelefono { Movil=1, Casa, Trabajo, Fax, Otros }
     public enum TiposIdentificacion { Cedula=1, Pasaporte,  RNC, Otro }
 
+    //public enum TipoLocalidad
+    //{
+    //    Continente = 1,
+    //    Pais,
+    //    Provincia_Estado,
+    //    Municipio,
+    //    Sector
+    //}
+
     public enum TipoLocalidad
     {
-        Continente = 1,
-        Pais,
-        Provincia_Estado,
-        Municipio,
-        Sector
+        Pais = 1,
+        Region,
+        Provincia,
+        Municipio
     }
 }
 

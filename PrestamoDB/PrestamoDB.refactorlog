@@ -105,4 +105,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[FK_tblTipoMora_ToTblNegocio  foreign key(idNegocio)]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="2b4c9ddf-d010-4f09-a7ea-9d6ea6a410e9" ChangeDateTime="11/27/2019 15:33:33">
+    <Property Name="ElementName" Value="[dbo].[tblTipoLocalidad].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblTipoLocalidad]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdTipoLocalidad" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="47484a47-713f-4cae-86ac-cefc44a8bf58" ChangeDateTime="11/27/2019 15:35:16">
+    <Property Name="ElementName" Value="[dbo].[tblTipoLocalidad].[idNegocio]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblTipoLocalidad]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdNegocio" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="206c2875-5104-4a1b-9807-16293f929fe5" ChangeDateTime="11/27/2019 15:47:00">
+    <Property Name="ElementName" Value="[dbo].[tblLocalidad].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblLocalidad]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdLocalidad" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c937dd59-2e92-410b-a2c1-0ca69b66a1fb" ChangeDateTime="11/27/2019 16:00:04">
+    <Property Name="ElementName" Value="[dbo].[tblDireccion].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblDireccion]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdDireccion" />
+  </Operation>
 </Operations>

@@ -37,8 +37,37 @@ Post-Deployment Script Template
 
 	--Script para datos de Moras
 	insert into tblTiposMora
-			(idNegocio, Codigo, Descripcion,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,
+			(idNegocio, Codigo, Descripcion, DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,
 			InsertadoPor, FechaInsertado)
 		VALUES
 			(@idNegocio,'P10','Porcentual 10% por cada dia por cada cuota',3,1,1,1,10.00,@usuario,getdate())
 
+
+	--Script para datos de Tipo de localidad
+	insert into tblTipoLocalidad
+			(PadreDe, IdNegocio, Descripcion)
+		VALUES
+			(null ,@idNegocio, 'Pais'),
+			(1 ,@idNegocio, 'Region'),
+			(2 ,@idNegocio, 'Provincia'),
+			(3 ,@idNegocio, 'Municipio')
+
+	--Script para datos de localidad
+	insert into tblLocalidad
+			( IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, PermiteCalle )
+		VALUES
+			--Pais
+			(null ,@idNegocio, 1, 'Republica Dominicana', 0),
+			--Regiones
+			(1 ,@idNegocio, 2, 'Region Este', 0),
+			(1 ,@idNegocio, 2, 'Region Sur', 0),
+			(1 ,@idNegocio, 2, 'Region Norte', 0),
+			--Provincias
+			(2 ,@idNegocio, 3, 'La Romana', 0),
+			(3 ,@idNegocio, 3, 'San Juan', 0),
+			(4 ,@idNegocio, 3, 'Monte Cristi', 0),
+
+			--Municipio
+			(5 ,@idNegocio, 4, 'La Romana', 0),
+			(6 ,@idNegocio, 4, 'San Juan de la Maguana', 0),
+			(7 ,@idNegocio, 4, 'Monte Cristi', 0)

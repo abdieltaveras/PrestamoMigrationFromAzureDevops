@@ -89,6 +89,13 @@
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </a>
+
+                                <a href="@Url.Action("Delete", "TipoMoras", new { Id = item.IdTipoMora, Usuario = "Bryan" })">
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </a>
+
                                 <a href="#">
                                     <button type="button" class="btn btn-outline-warning">
                                         <i class="fa fa-edit"></i>
@@ -107,10 +114,9 @@
 
     <div class="col-md-5 col-sm-12" id="formAgregarTasaInteres" style="display:none;">
         <button type="button" class="btn btn-danger" onclick="hideTasaInteresForm()" style="float:right;">Cerrar formulario</button>
-        <h4>Agregar Moras</h4>
+        <h4>Agregar moras</h4>
         <div class="x_panel">
             <div class="x_title">
-                <h2>Form Design <small>different form elements</small></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -124,50 +130,102 @@
             </div>
             <div class="x_content">
                 <br />
-                @*@using (Html.BeginForm("Index", "TasaInteres", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("Index", "TipoMoras", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
                 {
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">
                             Codigo <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 ">
+                        <div class="col-sm-8">
                             @Html.TextBoxFor(Model => Model.Codigo, new { @class = "form-control", @required = "required" })
-                            <input type="text" id="first-name" required="required" class="form-control ">
                         </div>
                     </div>
 
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                            % de Interes <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            @Html.TextBoxFor(Model => Model.InteresMensual, new { @class = "form-control", @required = "required" })
-                            <input type="text" id="last-name" name="last-name" required="required" class="form-control">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Tipo de cargo</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(Model => Model.IdTipoMora, SelectItems.TiposCargoMora, new { @class = "form-control item" })
                         </div>
                     </div>
 
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                            Descripcion <span class="required">*</span>
+                   
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">
+                            Rango <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            @Html.TextBoxFor(Model => Model.Descripcion, new { @class = "form-control", @required = "required" })
+                        <div class="col-sm-8">
+                            <div>
+                                @Html.TextBoxFor(Model => Model.MontoCuotaDesde, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
+                            </div>
+                            <span class="col-sm-2" style="text-align:center;">-</span>
+                            <div>
+                                @Html.TextBoxFor(Model => Model.MontoCuotaHasta, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
+                            </div>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Periodo</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor( Model =>  Model.CalcularCargoPor, SelectItems.CalcularMoraPor, new { @class = "form-control item"})
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Aplicar al</label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(Model => Model.AplicarA, SelectItems.AplicarMorasAl, new { @class = "form-control item" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="codigo">
+                            Cargo <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <div>
+                                @Html.TextBoxFor(Model => Model.MontoOPorcientoACargar, new { @class = "form-control", @required = "required", @type = "number" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="codigo">
+                            Descripcion* <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <div>
+                                @Html.TextBoxFor(Model => Model.Descripcion, new { @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="codigo">
+                            Dias de gracia <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <div>
+                                @Html.TextBoxFor(Model => Model.DiasDeGracia, new { @class = "form-control", @required = "required", @type = "number" })
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="ln_solid"></div>
-                    <div class="item form-group">
+                    <div class="item form-group" style="float: right;">
                         <div class="col-md-6 col-sm-6 offset-md-3">
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
-                    </form>
-                }*@
+                    @*</form>*@
+                }
             </div>
         </div>
     </div>
-    @* Fin de formulario para agregar tasas de interes *@
 </div>
+        @* Fin del formulario *@
 
 
 <script type="text/javascript">

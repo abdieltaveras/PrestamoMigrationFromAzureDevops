@@ -5,7 +5,7 @@ namespace PrestamoEntidades
     public abstract class BaseDelParams : BaseUsuario
     {
         [Required]
-        public int id { get; set; }
+        public virtual int id { get; set; }
 
     }
     

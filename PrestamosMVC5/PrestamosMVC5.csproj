@@ -123,8 +123,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TasaInteresController.cs" />
+    <Compile Include="Controllers\TerritorioController.cs" />
     <Compile Include="Controllers\TipoMorasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -5011,8 +5013,9 @@
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\Shared\_TopNavBar.cshtml" />
     <Content Include="Views\TasaInteres\Index.cshtml" />
-    <Content Include="Views\TipoMoras\Index-bad.cshtml" />
     <Content Include="Views\TipoMoras\Index.cshtml" />
+    <Content Include="Views\Localidades\Index.cshtml" />
+    <Content Include="Views\Territorio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

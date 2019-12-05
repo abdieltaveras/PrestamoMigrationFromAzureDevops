@@ -47,7 +47,9 @@
   <ItemGroup>
     <Compile Include="BLLPrestamo.cs" />
     <Compile Include="ConexionDB.cs" />
+    <Compile Include="Localidades.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Territorio.cs" />
     <Compile Include="TipoMora.cs" />
     <Compile Include="TasaInteres.cs" />
   </ItemGroup>

@@ -11,7 +11,10 @@ namespace PrestamosMVC5.Models
     {
         private static IEnumerable<SelectListItem> GetEnumSelectList<T>()
         {
-            return (Enum.GetValues(typeof(T)).Cast<int>().Select(e => new SelectListItem() { Text = Enum.GetName(typeof(T), e), Value = e.ToString() })).ToList();
+            return (Enum.GetValues(typeof(T)).Cast<int>().Select(e => new SelectListItem() { 
+                Text = Enum.GetName(typeof(T), e).Replace("_", " "),
+                Value = e.ToString()
+            })).ToList();
         }
         public static SelectList ForEnum<T>() => new SelectList(GetEnumSelectList<T>(), "Value", "Text");
     }
@@ -32,5 +35,5 @@ namespace PrestamosMVC5.Models
         //public static SelectList OpcionesBusquedaCliente => SLFactory.ForEnum<EnumBuscarClientePor>();
         //public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
     }
-    
+
 }

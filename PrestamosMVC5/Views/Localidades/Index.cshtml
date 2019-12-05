@@ -1,0 +1,197 @@
+﻿
+<style>
+    /*p {
+        pointer-events: none;
+    }*/
+</style>
+
+@model PrestamoEntidades.Localidad
+
+<div>
+    <form autocomplete="off" action="/" method="post" style="padding: 0%">
+        <div class="col-5" style="margin: auto; padding: 0%;">
+            <input class="target form-control" type="text" id="searchinput" placeholder="Busca una direccion" name="name" value="" />
+
+            <div id="list-address-container"  >
+                <div class="list-group col-md-12" id="list-tab" role="tablist"  style="position: absolute; z-index:2; padding: 0%;">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<hr />
+
+<div class="col-md-5 col-sm-12" id="formAgregarTasaInteres">
+    <h4>Agregar localidad</h4>
+    <div class="x_panel">
+        <div class="x_title">
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+                <li>
+                    <a onclick="hideTasaInteresForm()"><i class="fa fa-close"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br />
+            @using (Html.BeginForm("GuardarLocalidad", "Localidades", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+            {
+                <div style="display: none;">
+                    @Html.TextBoxFor(Model => Model.IdLocalidadPadre, new { @class = "form-control", @required = "required", @id = "inputLocalidadPadre" })
+                </div>
+                
+                <div class="form-group row">
+                    <label class="control-label col-md-3 col-sm-3 ">Tipo de direccion</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <select name="IdTipoLocalidad" class="form-control" id="tipolocalidadeshijas">
+                            <option>Elije una opcion</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="codigo">
+                        Nombre <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(Model => Model.Nombre, new { @class = "form-control", @required = "required" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-3">Autorizacion</div>
+                    <div class="col-sm-9">
+                        <div class="form-check">
+                            @Html.CheckBoxFor(Model => Model.PermiteCalle, new { @class = "form-check-input" })
+                            <label class="form-check-label" for="gridCheck1">
+                                ¿Permite calle?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="ln_solid"></div>
+                <div class="item form-group" style="float: right;">
+                    <div class="col-md-6 col-sm-6 offset-md-3">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+                @*</form>*@
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    let locations;
+
+    $(".target").keyup(function () {
+        searchText($('#searchinput').val());
+    });
+
+
+    async function searchText(location) {
+        try {
+            const res = await search(location);
+            showList(JSON.parse(res));
+            setClickListener();
+        } catch (err) {
+
+        }
+    }
+
+    function search(location) {
+
+        let dataValue = { "searchtotext": location };
+        let TipoDeLocalidadABuscar;
+
+        return $.ajax({
+            type: "get",
+            url: "localidades/buscarlocalidad",
+            data: dataValue,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+    }
+
+    function setClickListener() {
+        const list = document.querySelectorAll('#listaddresses');
+        list.forEach(function (btn) {
+            btn.addEventListener('click', function (evt) {
+                console.log(evt.target.getAttribute('data-idlocalidadpadre'))
+                console.log(evt.target.getAttribute('data-idtipolocalidadhijo'));
+
+                TipoDeLocalidadABuscar = evt.target.getAttribute('data-idlocalidadpadre');
+
+                buscarTipoDeLocalidadesHijas();
+
+                $('#inputLocalidadPadre').val(evt.target.getAttribute('data-idlocalidad'));                
+                $('#list-address-container').hide();
+            });
+        });
+    }
+
+    $("#searchinput").focus(function () {
+        $('#list-address-container').show();
+    });
+
+    function showList(list) {
+        $('.direcciones').remove();
+        $.each(list, function (index, value) {
+            $("#list-tab").append('<p class="list-group-item direcciones list-group-item-action" id="listaddresses" data-toggle="list" data-idlocalidadpadre="'
+                + value.IdTipoLocalidad
+                + '" data-idlocalidad="' + value.IdLocalidad + '" href="#list-home" role="tab" aria-controls="home"> <strong>'
+                + value.Nombre + ' </strong> <span style="float: right;">' + value.Descripcion + ' </span> </p>');
+            console.table(value);
+        });
+    }
+
+
+    // Buscar divisiones geograficas hijas de la localidad seleccionada
+
+    async function buscarTipoDeLocalidadesHijas() {
+        try {
+            const res = await BuscarTipoDeLocalidad(TipoDeLocalidadABuscar);
+            console.log(JSON.parse(res));
+            AddListToSelect(JSON.parse(res));
+            //setClickListener();
+        } catch (err) {
+
+        }
+    }
+
+    function BuscarTipoDeLocalidad(IdTipoLocalidad) {
+
+        let dataValue = { "localidadPadre": IdTipoLocalidad };
+
+        return $.ajax({
+            type: "get",
+            url: "territorio/BuscarTerritorios",
+            data: dataValue,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+    }
+
+    function AddListToSelect(list) {
+        $('.tipolocalidades').remove();
+        $.each(list, function (i, item) {
+            $('#tipolocalidadeshijas').append('<option class="tipolocalidades" value="' + item.IdTipoLocalidad + '">' + item.Descripcion + '</option>');
+        });
+    }
+
+</script>

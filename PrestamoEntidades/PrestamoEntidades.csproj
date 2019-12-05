@@ -77,8 +77,10 @@
     <Compile Include="BaseInsUpd.cs" />
     <Compile Include="Direccion.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Localidad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TasaInteres.cs" />
+    <Compile Include="Territorio.cs" />
     <Compile Include="TipoMora.cs" />
   </ItemGroup>
   <ItemGroup>

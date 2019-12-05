@@ -37,6 +37,11 @@ namespace PrestamoBLL
             }
         }
         
+        public void AnularTipoMora(TipoMoraDelParams delParam)
+        {
+            Database.AdHoc(ConexionDB.Server).ExecSelSP("spAnularTipoMora", SearchRec.ToSqlParams(delParam));
+        }
+
         public void DeleteTipoMora(TipoMoraDelParams delParam)
         {
             Database.AdHoc(ConexionDB.Server).ExecSelSP("spDelTipoMora", SearchRec.ToSqlParams(delParam));

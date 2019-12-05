@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using PcProg.DAL;
 using System.Web.Mvc;
+using System.Collections.Generic;
 
 namespace PrestamoEntidades
 {
@@ -11,7 +12,10 @@ namespace PrestamoEntidades
     /// El cargo se aplicara como un monto fijo o como un porciento segun lo indique
     /// AplicarMoraAl
     /// </summary>
-    public enum TiposCargosMora { Cargo_Fijo=1, Porcentual }
+    public enum TiposCargosMora {
+        Cargo_Fijo =1,
+        Porcentual
+    }
 
     /// <summary>
     /// determina si el cargo se aplicara una vez vencida la cuota o se va a ir calculando 
@@ -25,7 +29,7 @@ namespace PrestamoEntidades
         cada_dias_transcurrido_desde_la_primera_cuota_vencida=1,
         cada_30_dias_transcurrido_por_cada_cuota_vencida,
         por_cada_cuota_vencida_por_periodos,
-        el_valor_acumulado_de_las_cuotas_vencidas
+        el_valor_acumulado_de_las_cuotas_vencidas,
     }
     /// <summary>
     /// Indica a que se aplicara el calculo de mora
@@ -54,6 +58,7 @@ namespace PrestamoEntidades
         [IgnorarEnParam]
         [NotMapped]
         public TiposCargosMora TipoCargoEnum { get { return (TiposCargosMora)TipoCargo; } }
+        
         [Display(Name = "Forma de hacer el calculo")]
         public virtual int CalcularCargoPor { get; set; } = (int)CalcularMoraPor.cada_30_dias_transcurrido_por_cada_cuota_vencida;
         //.cada_dia_transcurrido_por_cada_cuota_vencida;
@@ -91,7 +96,7 @@ namespace PrestamoEntidades
     public class TipoMoraDelParams : BaseDelParams
     {
         [Required]
-        public virtual int IdTipoMora
+        public override int id
         {
             get; set;
         }

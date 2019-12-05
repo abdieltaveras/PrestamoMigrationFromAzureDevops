@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-
-    public class Localidad
-    {
-        public int IdLocalidad { get; set; } 
-        public int IdLocalidadPadre { get; set; }
-        public TipoLocalidad TipoLocalidad { get; set; } = TipoLocalidad.Continente;
-        public string Nombre { get; set; } = string.Empty;
-    }
+    
 
     public class Direccion
     {
@@ -30,4 +23,7 @@ namespace PrestamoEntidades
         /// </summary>
         public string Detalles { get; set; } = string.Empty;
     }
+
+    
+
 }

@@ -43,7 +43,7 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="PrestamoEntidades.CalcularMoraPor">
-    <Position X="8.5" Y="2.75" Width="2.75" />
+    <Position X="8.75" Y="3" Width="2.75" />
     <TypeIdentifier>
       <HashCode>IAAAIAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>TipoMora.cs</FileName>
