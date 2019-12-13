@@ -52,6 +52,5 @@ namespace PrestamoBLL
             }
             return result;
         }
-
     }
 }

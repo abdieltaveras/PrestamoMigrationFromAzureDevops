@@ -28,6 +28,8 @@
             <h4 style="text-align: center;">¿Que lugar buscas?</h4>
             <input class="target form-control" type="text" id="searchinput" placeholder="Busca una direccion" name="name" value=""
                    style="height: 60px" />
+            <span style="float: right;">Tipo de busqueda: @Model.Tipo</span>
+
 
             <div id="list-address-container">
                 <div class="list-group col-md-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
@@ -36,8 +38,6 @@
         </div>
     </form>
 </div>
-
-<h1>@Model.Tipo</h1>
 
 <p id="rutadelocalidad" style="text-align:center;"></p>
 <p id="iddelocalidad" style="text-align:center;"></p>
