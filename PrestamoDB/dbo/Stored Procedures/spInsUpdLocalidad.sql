@@ -3,17 +3,16 @@
 	@IdLocalidadPadre int,
 	@IdNegocio int,
 	@IdTipoLocalidad int,
-	@Nombre varchar(100),
-	@PermiteCalle bit
+	@Nombre varchar(100)
 AS
 Begin
  --verificar si id es 0 inserta si es diferente modificar
 if (@idLocalidad = 0)
 	begin
 		insert into tblLocalidad
-		(IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, PermiteCalle)
+		(IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre)
 		values
-		(@IdLocalidadPadre, @IdNegocio, @IdTipoLocalidad, @Nombre, @PermiteCalle)
+		(@IdLocalidadPadre, @IdNegocio, @IdTipoLocalidad, @Nombre)
 	end
 Else
 	Begin
@@ -22,8 +21,7 @@ Else
 			IdLocalidadPadre=@IdLocalidadPadre, 
 			idNegocio = @idNegocio,
 			IdTipoLocalidad =@IdTipoLocalidad, 
-			Nombre=@Nombre,
-			PermiteCalle=@PermiteCalle
+			Nombre=@Nombre
 		where idLocalidad = @idLocalidad
 	End
 End

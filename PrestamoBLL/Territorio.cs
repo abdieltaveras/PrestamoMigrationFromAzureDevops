@@ -10,12 +10,12 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Territorio> GetTerritorios(TerritorioGetParams searchParam)
+        public IEnumerable<TerritoriosConHijo> GetTerritorios(TerritorioGetParams searchParam)
         {
-            IEnumerable<Territorio> result = new List<Territorio>();
+            IEnumerable<TerritoriosConHijo> result = new List<TerritoriosConHijo>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Territorio>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
+                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TerritoriosConHijo>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {

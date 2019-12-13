@@ -36,4 +36,10 @@ namespace PrestamosMVC5.Models
         //public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
     }
 
+    public class TipoBusqueda
+    {
+        public string Tipo { get; set; } = "normal";
+
+    }
+
 }

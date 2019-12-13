@@ -24,14 +24,44 @@
                         </li>                        
 
                         <li>
-                            <a><i class="fa fa-edit"></i>Direcciones<span class="fa fa-chevron-down"></span></a>
+                            <a><i class="fa fa-map-marker"></i>Direcciones<span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
+
+
                                 <li>
+                                    <a>Territoriales<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("Index", "Territorio")">Crear</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Territorio")">Editar</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a>Localidades<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("Index", "Localidades")">Crear</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Editar", "Localidades")">Editar</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Buscador", "Localidades")">Buscador</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                @*<li>
                                     <a href="@Url.Action("Index", "Territorio")">Divisiones territoriales</a>
                                 </li>
+
                                 <li>
                                     <a href="@Url.Action("Index", "Localidades")">Localidades</a>
-                                </li>
+                                </li>*@
                             </ul>
                         </li>
 

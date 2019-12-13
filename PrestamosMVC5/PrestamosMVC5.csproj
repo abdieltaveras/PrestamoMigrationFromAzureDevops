@@ -5016,6 +5016,8 @@
     <Content Include="Views\TipoMoras\Index.cshtml" />
     <Content Include="Views\Localidades\Index.cshtml" />
     <Content Include="Views\Territorio\Index.cshtml" />
+    <Content Include="Views\Localidades\Buscador.cshtml" />
+    <Content Include="Views\Localidades\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

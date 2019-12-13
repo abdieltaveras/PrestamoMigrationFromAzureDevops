@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PrestamoBLL;
 using PrestamoEntidades;
+using PrestamosMVC5.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,27 +14,52 @@ namespace PrestamosMVC5.Controllers
     public class LocalidadesController : Controller
     {
         const int BUSCAR_A_PARTIR_DE = 2;
-        // GET: Localidades
-        public ActionResult Index()
+        [AllowAnonymous]
+        public ActionResult Index(dynamic message)
         {
-            //var localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = 8 });
-
-            //string test = "La Rom";
-            //var localidadess = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = test });
-
-            ////ViewBag.localidades = localidades;
-            //ViewBag.localidadess = localidadess;
+            //ViewBag.message = message == null ? null : message.message;
 
             return View();
         }
+        public ActionResult Buscador()
+        {
+            TipoBusqueda tipo = new TipoBusqueda();
+
+
+            return View("Buscador", tipo);
+        }
+
+        public ActionResult Editar()
+        {
+            return View("Edit");
+        }
+        
+        //Buscar ruta de una localidad
+        public string Buscar(string IDLocalidad)
+        {
+            var localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });           
+            
+            return JsonConvert.SerializeObject(localidades);
+        }
 
         [HttpPost]
-        public RedirectToRouteResult GuardarLocalidad(Localidad localidad)
+        public RedirectToRouteResult GuardarLocalidad(LocalidadInsUptParams localidad)
         {
             localidad.IdNegocio = 1;
-            var localidades = BLLPrestamo.Instance.GuardarLocalidad(localidad);
-            
-            return RedirectToAction("Index");
+            BLLPrestamo.Instance.GuardarLocalidad(localidad);
+
+            dynamic message = new { type = "", message = "" };
+
+            if (localidad.IdLocalidad == 0)
+            {
+                message = new { type = "edit", message = "Edicion realizada correctamente" };
+            }
+            else
+            {
+                message = new { type = "edit", message = "Edicion realizada correctamente" };
+            }
+            return RedirectToAction("Index", message);
+
         }
 
         public string BuscarLocalidad(string searchToText)
@@ -41,9 +67,11 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Localidad> localidades = null;
             if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
             {
-                localidades = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = searchToText });
+                localidades = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = searchToText, IdNegocio = 1 });
             }
              return JsonConvert.SerializeObject(localidades);
         }
     }
+
+    
 }

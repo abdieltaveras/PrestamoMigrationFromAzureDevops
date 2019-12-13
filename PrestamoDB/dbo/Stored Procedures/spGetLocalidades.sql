@@ -11,12 +11,16 @@ AS
 (
     -- Anchor member
 	SELECT
-        IdLocalidad,
-        Nombre,
-        IdLocalidadPadre
+        loc.IdLocalidad,
+        loc.Nombre,
+		loc.IdTipoLocalidad,
+        loc.IdLocalidadPadre,
+		
+		tipo.Descripcion
     FROM
-        tblLocalidad
-    WHERE IdLocalidad = @idlocalidad
+        tblLocalidad loc, tblTipoLocalidad tipo
+    WHERE loc.IdLocalidad = @idlocalidad
+	AND tipo.IdTipoLocalidad = loc.IdTipoLocalidad
 
     UNION ALL
     -- Recursive member that references recursion_location.
@@ -24,11 +28,15 @@ AS
 	SELECT
         e.IdLocalidad,
         e.Nombre,
-        e.IdLocalidadPadre
+		e.IdTipoLocalidad,
+        e.IdLocalidadPadre,
+		t.Descripcion
     FROM
         tblLocalidad e
         INNER JOIN recursion_location o
             ON o.IdLocalidadPadre = e.IdLocalidad
+		JOIN tblTipoLocalidad t
+			ON e.IdTipoLocalidad = t.IdTipoLocalidad
 )
 -- references recursion_location
 SELECT *

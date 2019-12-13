@@ -1,11 +1,15 @@
 ﻿CREATE PROCEDURE [dbo].spBuscarLocalidad
-	@search varchar(50)
+	@search varchar(50),
+	@IdNegocio int
 as
 BEGIN
-	SELECT IdLocalidad, IdLocalidadPadre, loc.IdTipoLocalidad, Nombre, Descripcion, PermiteCalle
+	SELECT IdLocalidad, IdLocalidadPadre, loc.IdNegocio, loc.IdTipoLocalidad, Nombre, Descripcion, tipo.PermiteCalle,	
+	(SELECT Nombre FROM tblLocalidad where IdLocalidad = loc.IdLocalidadPadre) as NombrePadre,
+	(SELECT Descripcion FROM tblTipoLocalidad where IdTipoLocalidad = tipo.PadreDe) as TipoNombrePadre
 	from
 	tblLocalidad loc, tblTipoLocalidad tipo
 	where loc.IdTipoLocalidad = tipo.IdTipoLocalidad
+	and loc.IdNegocio = @IdNegocio
 	AND loc.Nombre LIKE '%' + @search + '%'	
 End
 

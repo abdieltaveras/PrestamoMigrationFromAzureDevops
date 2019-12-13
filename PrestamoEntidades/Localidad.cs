@@ -12,11 +12,20 @@ namespace PrestamoEntidades
         public int IdLocalidadPadre { get; set; }
         public int IdTipoLocalidad { get; set; }
         public int IdNegocio { get; set; }
-        // public int IdTipoLocalidadHijo { get; set; }
-        // public string IdTipoLocalidadHijoNombre { get; set; }
         public string Nombre { get; set; } = string.Empty;
-        public bool PermiteCalle { get; set; } = false;
+        public string Descripcion { get; set; } = string.Empty;
     }
+
+    public class LocalidadInsUptParams
+    {
+        public int IdLocalidad { get; set; }
+        public int IdLocalidadPadre { get; set; }
+        public int IdTipoLocalidad { get; set; }
+        public int IdNegocio { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+    }
+
+
 
     public class LocalidadGetParams
     {
@@ -25,11 +34,15 @@ namespace PrestamoEntidades
 
     public class BuscarLocalidad : Localidad
     {
-        public string Descripcion { get; set; } = string.Empty;
+        public string NombrePadre { get; set; } = string.Empty;
+        public string TipoNombrePadre { get; set; } = string.Empty;
+        public bool PermiteCalle { get; set; }
 
     }
     public class BuscarLocalidadParams
     {
+        public int IdNegocio { get; set; }
+
         public string Search { get; set; } = string.Empty;
     }
 }

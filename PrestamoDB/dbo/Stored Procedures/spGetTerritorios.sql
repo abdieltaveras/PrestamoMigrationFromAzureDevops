@@ -7,11 +7,16 @@
 )
 as
 begin
-	SELECT *
-	FROM dbo.tblTipoLocalidad(nolock) 
+
+select 
+	t.*, m.Descripcion as HijoDe 
+	from 
+	tblTipoLocalidad t
+	left JOIN tblTipoLocalidad m ON m.IdTipoLocalidad = t.PadreDe
 	where 
-		((@IdTipoLocalidad=-1) or (IdTipoLocalidad = @IdTipoLocalidad))
-		and ((@IdNegocio=-1) or (IdNegocio = @IdNegocio))
-		and ((@PadreDe=-1) or (PadreDe = @PadreDe))
-		and ((@Descripcion='') or (Descripcion=@Descripcion))
+		((@IdTipoLocalidad=-1) or (t.IdTipoLocalidad = @IdTipoLocalidad))
+		and ((@IdNegocio=-1) or (t.IdNegocio = @IdNegocio))
+		and ((@PadreDe=-1) or (t.PadreDe = @PadreDe))
+		and ((@Descripcion='') or (t.Descripcion=@Descripcion))	
+	order by t.PadreDe asc
 End

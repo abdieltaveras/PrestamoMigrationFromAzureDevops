@@ -12,8 +12,15 @@ namespace PrestamoEntidades
         public int PadreDe { get; set; }
         public int IdNegocio { get; set; }
         public string Descripcion { get; set; }
+        public bool PermiteCalle { get; set; } = false;
+
     }
 
+    public class TerritoriosConHijo : Territorio
+    {
+        public string HijoDe { get; set; }
+
+    }
     public class TerritorioSearchParams
     {
         public int IdNegocio { get; set; }

@@ -27,10 +27,6 @@
             <br />
             @using (Html.BeginForm("GuardarTerritorio", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
             {
-                @*<div style="display: none;">
-                    @Html.TextBoxFor(Model => Model.IdLocalidadPadre, new { @class = "form-control", @required = "required", @id = "inputLocalidadPadre" })
-                </div>*@
-
                 <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 ">Tipo de direccion</label>
                     <div class="col-md-9 col-sm-9 ">
@@ -38,7 +34,15 @@
                             <option>Elije una opcion</option>
                             @foreach (var item in ViewBag.Territorios)
                             {
-                                <option value="@item.IdTipoLocalidad" >@item.Descripcion</option>
+                                <option value="@item.IdTipoLocalidad">
+                                    <strong>@item.Descripcion</strong>
+                                    @if (@item.HijoDe != null)
+                                    {
+                                        <span style="float:right;">
+                                            ( @item.HijoDe )
+                                        </span>
+                                    }
+                                </option>
                             }
                         </select>
                     </div>
@@ -53,7 +57,7 @@
                     </div>
                 </div>
 
-                @*<div class="form-group row">
+                <div class="form-group row">
                     <div class="col-sm-3">Autorizacion</div>
                     <div class="col-sm-9">
                         <div class="form-check">
@@ -63,7 +67,19 @@
                             </label>
                         </div>
                     </div>
-                </div>*@
+                </div>
+
+                @*<div class="form-group row">
+                <div class="col-sm-3">Autorizacion</div>
+                <div class="col-sm-9">
+                    <div class="form-check">
+                        @Html.CheckBoxFor(Model => Model.PermiteCalle, new { @class = "form-check-input" })
+                        <label class="form-check-label" for="gridCheck1">
+                            ¿Permite calle?
+                        </label>
+                    </div>
+                </div>
+            </div>*@
 
 
                 <div class="ln_solid"></div>

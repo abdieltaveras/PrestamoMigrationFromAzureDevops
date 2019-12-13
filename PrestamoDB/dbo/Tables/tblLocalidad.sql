@@ -5,6 +5,5 @@
     [IdNegocio] INT NOT NULL, 
     [IdTipoLocalidad] INT NOT NULL, 
     [Nombre] VARCHAR(50) NOT NULL, 
-    [PermiteCalle] BIT NOT NULL,
 
 )
