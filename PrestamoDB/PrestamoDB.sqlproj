@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\tblTasaInteres.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdTasaInteres.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdCliente.sql" />
     <Build Include="dbo\Stored Procedures\spGetTasasInteres.sql" />
     <PostDeploy Include="Scripts\Post-Deployment\InitDatabase.sql" />
     <Build Include="dbo\Stored Procedures\spDelTasaInteres.sql" />
@@ -79,6 +79,9 @@
     <Build Include="dbo\Tables\tblNegocio.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdTipoMora.sql" />
     <Build Include="dbo\Stored Procedures\spGetTiposMora.sql" />
+    <Build Include="dbo\Tables\tblClientes.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdTasaInteres.sql" />
+    <Build Include="dbo\Stored Procedures\spGetClientes.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

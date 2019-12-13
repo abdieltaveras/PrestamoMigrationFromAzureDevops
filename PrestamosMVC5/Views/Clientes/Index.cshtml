@@ -1,0 +1,99 @@
+﻿@model IEnumerable<PrestamoEntidades.Cliente>
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<div class="row">
+
+    <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
+
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
+        @Html.ActionLink("Agregar", "CreateOrEdit", null, htmlAttributes: new { @class = "btn btn-primary", style = "float:right" })
+        <h4>Listado de intereses</h4>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Tabla de intereses</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table bulk_action ">
+                    <tr>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Activo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombres)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Apellidos)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Apodo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Codigo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdTipoIdentificacion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NoIdentificacion)
+                        </th>
+                        <th>
+                            Telefono Casa
+                        </th>
+                        <th>
+                            Telefono Movil
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Activo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombres)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Apellidos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Apodo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Codigo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdTipoIdentificacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NoIdentificacion)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefonoMovil)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefonoCasa)
+                            </td>
+
+
+                            <td>
+                                @Html.ActionLink(" ", "Anular", new { id = @item.IdCliente }, htmlAttributes: new { @class = "btn btn-outline-danger fa fa-trash" })
+                                @Html.ActionLink(" ", "CreateOrEdit", new { id = @item.IdCliente }, htmlAttributes: new { @class = "btn btn-outline-warning fa fa-edit" })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

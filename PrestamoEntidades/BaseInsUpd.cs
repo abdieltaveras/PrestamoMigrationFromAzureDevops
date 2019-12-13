@@ -36,8 +36,7 @@ namespace PrestamoEntidades
         /// </summary>
         [Required]
         [HiddenInput(DisplayValue = false)]
-         public int IdNegocio { get; set; } = 0; // dejarlo asi para que sea obligatorio inicializar el 
-
+        public int IdNegocio { get; set; } = 0; // dejarlo asi para que sea obligatorio inicializar el 
     }
 
     /// <summary>
@@ -67,16 +66,16 @@ namespace PrestamoEntidades
         [HiddenInput(DisplayValue = false)]
         public DateTime FechaAnulado { get; set; } = new DateTime(1900, 1, 1);
         
-        [NotMapped]
-        [IgnorarEnParam]
-        public bool Borrado { get { return string.IsNullOrEmpty(AnuladoPor); } }
+        //[NotMapped]
+        //[IgnorarEnParam]
+        public bool Borrado() => string.IsNullOrEmpty(AnuladoPor);  
 
-        [NotMapped]
-        [IgnorarEnParam]
-        public bool Modificable { get; set; } = false;
-        [NotMapped]
-        [IgnorarEnParam]
-        public bool Anulable { get; set; } = false;
+        //[NotMapped]
+        //[IgnorarEnParam]
+        public virtual bool Modificable() => false;
+        //[NotMapped]
+        //[IgnorarEnParam]
+        public virtual bool Anulable()=> false;
         /// <summary>
         /// para obtener el valor del id primario del objeto
         /// </summary>
@@ -98,7 +97,7 @@ namespace PrestamoEntidades
         public string Apellidos { get; set; } = string.Empty;
         [Required(ErrorMessage = "el campo {0} es requerido")]
         public string Apodo { get; set; } = string.Empty;
-        public Sexo Sexo { get; set; } = Sexo.Masculino;
+        public int Sexo { get; set; } = 1;
     }
 
     public abstract class BaseCatalogo : BaseInsUpd

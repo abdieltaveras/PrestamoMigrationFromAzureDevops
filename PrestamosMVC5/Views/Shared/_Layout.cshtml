@@ -7,9 +7,8 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-
     @Scripts.Render("~/bundles/jquery")
+    @RenderSection("pagestyle", required: false)
 </head>
 
 <body class="nav-md" >

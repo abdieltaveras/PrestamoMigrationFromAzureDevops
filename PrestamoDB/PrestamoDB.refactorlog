@@ -105,4 +105,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[FK_tblTipoMora_ToTblNegocio  foreign key(idNegocio)]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="b152d0ca-fe22-4b72-a72a-4c02f54edd0b" ChangeDateTime="11/29/2019 12:10:58">
+    <Property Name="ElementName" Value="[dbo].[tblClientes].[Conyuge]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblClientes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InfoConyuge" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cfb8b87b-95f8-4309-a5f1-8550c043c039" ChangeDateTime="12/12/2019 13:04:34">
+    <Property Name="ElementName" Value="[dbo].[tblClientes].[idCliente]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblClientes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IdCliente]]]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="03d8ea42-6c74-4111-8427-f60eab576c5b" ChangeDateTime="12/12/2019 14:50:33">
+    <Property Name="ElementName" Value="[dbo].[tblNegocios].[idNegocio]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblNegocios]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdNegocio" />
+  </Operation>
 </Operations>

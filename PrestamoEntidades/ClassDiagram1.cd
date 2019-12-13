@@ -1,60 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="PrestamoEntidades.TipoMora">
-    <Position X="6" Y="0.5" Width="2.25" />
+  <Class Name="PrestamoEntidades.Cliente" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAgAAAAAAAIAAEIACERAAAAAAAAAAAAAgAAAIAECA=</HashCode>
-      <FileName>TipoMora.cs</FileName>
+      <HashCode>EAAQgCAAAQAAABAEAAAAAAAAACAAABAACAAABAYAIAA=</HashCode>
+      <FileName>Cliente.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PrestamoEntidades.ClientesGetParams" Collapsed="true">
+    <Position X="1.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAABAAAAAA=</HashCode>
+      <FileName>Cliente.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PrestamoEntidades.BaseCatalogo">
-    <Position X="4.25" Y="0.5" Width="1.5" />
+  <Class Name="PrestamoEntidades.ClienteDelParams" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAAABAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrestamoEntidades.BasePersonaInsUpd">
+    <Position X="7.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgEAAAAAAAAAAAABgAAAAAAAAAAA=</HashCode>
       <FileName>BaseInsUpd.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PrestamoEntidades.BaseInsUpd">
-    <Position X="2.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgAAAEAgQAAAAAAAAAQAACAAAAAgAAAAABAAAIABAA=</HashCode>
-      <FileName>BaseInsUpd.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PrestamoEntidades.BaseUsuarioEIdNegocio">
-    <Position X="0.5" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
-      <FileName>BaseInsUpd.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PrestamoEntidades.BaseUsuario">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
-      <FileName>BaseInsUpd.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Enum Name="PrestamoEntidades.AplicarMoraAl">
-    <Position X="8.5" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABgAAAAAAAAAAAgAAAAAEAAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>TipoMora.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="PrestamoEntidades.CalcularMoraPor">
-    <Position X="8.5" Y="2.75" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>IAAAIAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
-      <FileName>TipoMora.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="PrestamoEntidades.TiposCargosMora">
-    <Position X="10.25" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
-      <FileName>TipoMora.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

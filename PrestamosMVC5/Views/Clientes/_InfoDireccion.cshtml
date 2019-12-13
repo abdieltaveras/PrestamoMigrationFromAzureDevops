@@ -1,0 +1,63 @@
+﻿@model ClienteVM
+
+
+<div class="clearfix"></div>
+<div class="row">
+
+    <!-- form input mask -->
+    <div class="col-md-6 col-sm-12  ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>   Informacion de la direccion </h2>
+            </div>
+
+            <div class="x_content">
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Direccion.IdLocalidad, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.DropDownListFor(m => m.Direccion.IdLocalidad, SelectItems.Localidades, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                        @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Direccion.Calle, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Direccion.Calle, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.ValidationMessageFor(model => Model.Direccion.Calle, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanAddressDetailCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Direccion.CodigoPostal, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Direccion.CodigoPostal, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.ValidationMessageFor(model => Model.Direccion.CodigoPostal, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanZipCodeCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Direccion.CoordenadasGPS, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Direccion.CoordenadasGPS, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.ValidationMessageFor(model => Model.Direccion.CoordenadasGPS, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanLocationCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Direccion.Detalles, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        <textarea id="Direccion_Detalles" name="Direccion.Detalles" class="@HtmlClass.TextAreaResizableCls">@Model.Direccion.Detalles</textarea>
+                        @Html.ValidationMessageFor(model => Model.Direccion.Detalles, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanDetailsCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

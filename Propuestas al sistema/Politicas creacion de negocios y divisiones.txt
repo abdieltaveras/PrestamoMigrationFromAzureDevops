@@ -1,0 +1,33 @@
+Fecha: 20191126
+por Abdiel taveras
+Sistema: Prestamo
+
+Manejo de Empresas
+Inmediatamente se cree una empresa 
+Creara una empresa Matriz y una hija dependiente de ella.
+las hijas a su vez pueden ser empresa Matriz
+una empresa Matriz es aquella sobre la cual no puedes realizar 
+operaciones de transacciones solo de catalogos
+caso.
+
+1. Intagsa (Matriz)
+	1.1 Intagsa Romana hija de Intagsa (Matriz)
+		1.1.1. Intagsa Romana Prestamo 
+		1.1.2. Intagsa Romana Ventas 
+	1.2 Intagsa Sosua (Matriz)
+		1.1.1. Intagsa Sosua Prestamo 
+		1.1.2. Intagsa Sosua Ventas 
+2.- Papito Prestamo (Matriz Pricipal)
+	2.1 Papito Prestamo Romana (Matriz)
+		2.1.1 Papito Prestamo Bancola
+		2.1.2 Juminvert
+		2.2.3 Prestamos en Dolares.
+
+si un negocio desea tener catalogos particulares.
+debe primero activar esa opcion en el sistema.
+y cuando vaya a guardar debera preguntar el sistema
+si desea guardarlo en el catalogo comun o unicamente para este negocio.
+solo funciona si se activa en la funcion aqui mencionada. 
+
+
+

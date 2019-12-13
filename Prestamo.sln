@@ -44,6 +44,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PcProg", "PcProg", "{5D75FC
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PrestamoDB", "PrestamoDB\PrestamoDB.sqlproj", "{EA3FF769-7BAD-40AB-9ABE-96ABE4E0BE13}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Propuestas al sistema", "Propuestas al sistema", "{EF60E548-289E-4266-94F6-D9421CBD7326}"
+	ProjectSection(SolutionItems) = preProject
+		Propuestas al sistema\Politicas creacion de negocios y divisiones.txt = Propuestas al sistema\Politicas creacion de negocios y divisiones.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

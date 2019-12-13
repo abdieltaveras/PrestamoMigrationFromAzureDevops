@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>3.6</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +36,19 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +61,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PcProgWebBase">
+      <HintPath>..\SharedDLL\PcpProgWebBase\PcProgWebBase.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -122,13 +138,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TasaInteresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClienteVM.cs" />
+    <Compile Include="Models\EnumSearch.cs" />
+    <Compile Include="Models\ExtensionMethods.cs" />
+    <Compile Include="Models\HtmlClass.cs" />
     <Compile Include="Models\SelectItems.cs" />
+    <Compile Include="Models\SiteDirectory.cs" />
+    <Compile Include="Models\SiteImages.cs" />
     <Compile Include="Models\TasaInteresVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -142,6 +165,7 @@
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
     <Content Include="Content\build\images\loading.gif" />
+    <Content Include="Content\build\images\noImagen.png" />
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
     <Content Include="Content\docs\css\animate.min.css" />
@@ -225,6 +249,47 @@
     <Content Include="Content\resources\icons\pcprog-logo.jpeg" />
     <Content Include="Content\src\js\custom.js" />
     <Content Include="Content\src\js\helpers\smartresize.js" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\vendors\animate.css\animate.css" />
     <Content Include="Content\vendors\animate.css\animate.min.css" />
     <Content Include="Content\vendors\animate.css\gulpfile.js" />
@@ -2348,13 +2413,16 @@
     <Content Include="Content\vendors\gauge.js\dist\gauge.min.js" />
     <Content Include="Content\vendors\gauge.js\favicon.ico" />
     <Content Include="Content\vendors\gauge.js\index.html" />
-    <Content Include="Content\vendors\google-code-prettify\bin\prettify.min.css" />
-    <Content Include="Content\vendors\google-code-prettify\bin\prettify.min.js" />
-    <Content Include="Content\vendors\google-code-prettify\bin\run_prettify.min.js" />
+    <Content Include="Content\vendors\google-code-prettify\bincss\prettify.min.css" />
+    <Content Include="Content\vendors\google-code-prettify\bincss\prettify.min.js" />
+    <Content Include="Content\vendors\google-code-prettify\bincss\run_prettify.min.js" />
     <Content Include="Content\vendors\google-code-prettify\CHANGES.html" />
     <Content Include="Content\vendors\google-code-prettify\examples\quine.html" />
+    <Content Include="Content\vendors\google-code-prettify\prettify.min.css" />
+    <Content Include="Content\vendors\google-code-prettify\prettify.min.js" />
     <Content Include="Content\vendors\google-code-prettify\README-zh-Hans.html" />
     <Content Include="Content\vendors\google-code-prettify\README.html" />
+    <Content Include="Content\vendors\google-code-prettify\run_prettify.min.js" />
     <Content Include="Content\vendors\google-code-prettify\src\lang-apollo.js" />
     <Content Include="Content\vendors\google-code-prettify\src\lang-basic.js" />
     <Content Include="Content\vendors\google-code-prettify\src\lang-clj.js" />
@@ -3895,6 +3963,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Apps\ActivateDataTable.js" />
+    <Content Include="Scripts\Apps\validate-clientes-Inputs.js" />
+    <Content Include="Scripts\Apps\DatePickerInit.js" />
+    <Content Include="Scripts\Apps\empty.js" />
+    <Content Include="Scripts\Apps\keyBehavior.js" />
+    <Content Include="Scripts\Apps\onTodosSelected.js" />
+    <Content Include="Scripts\Apps\setMask.js" />
+    <Content Include="Scripts\Apps\showImage.js" />
+    <Content Include="Scripts\Apps\tabPanelsManagement.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\docs\fonts\fonts\fontawesome-webfont.eot" />
@@ -4985,11 +5062,17 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.mask.js" />
+    <Content Include="Scripts\jquery.mask.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5009,6 +5092,17 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\Shared\_TopNavBar.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\CreateOrEdit.cshtml" />
+    <Content Include="Views\Clientes\_InfoConyuge.cshtml" />
+    <Content Include="Views\Clientes\_InfoDireccion.cshtml" />
+    <Content Include="Views\Clientes\_InfoGenerales.cshtml" />
+    <Content Include="Views\Clientes\_InfoLaboral2.cshtml" />
+    <Content Include="Views\Clientes\_TopNavBar2.cshtml" />
+    <Content Include="Views\Shared\_LayoutForms.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Clientes\CreateOrEdit.20191210.cshtml" />
+    <Content Include="Views\Clientes\_InfoLaboral.cshtml" />
     <Content Include="Views\TasaInteres\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
