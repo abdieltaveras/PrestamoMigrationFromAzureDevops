@@ -8,6 +8,5 @@ namespace PrestamosMVC5.Models
     public class TipoBusqueda
     {
         public string Tipo { get; set; } = "normal";
-
     }
 }

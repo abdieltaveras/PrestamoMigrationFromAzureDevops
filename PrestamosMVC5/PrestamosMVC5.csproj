@@ -131,7 +131,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Localidad.cs" />
+    <Compile Include="Models\TipoBusqueda.cs" />
     <Compile Include="Models\SelectItems.cs" />
     <Compile Include="Models\TasaInteresVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
