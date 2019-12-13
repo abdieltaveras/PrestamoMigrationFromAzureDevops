@@ -1,0 +1,56 @@
+﻿CREATE PROCEDURE [dbo].[spInsUpdCliente](@idCliente varchar(100),
+	@activo bit, 
+	@apodo varchar(100), 
+	@apellidos varchar(100), 
+	@codigo varchar(100), 
+	@estadocivil int, 
+	@fechanacimiento datetime, 
+	@GenerarSecuencia bit,
+	@idnegocio int, 
+	@idtipoidentificacion int, 
+	@IdTipoProfesionUOcupacion int, 
+	@infoconyuge varchar(400), 
+	@infolaboral varchar(400), 
+	@infodireccion varchar(400),  
+	@noidentificacion varchar(20), 
+	@nombres varchar(400), 
+	@sexo int, 
+	@telefonocasa varchar(20), 
+	@telefonomovil varchar(20),
+	@correoElectronico varchar(30),
+    @Usuario varchar(100))
+AS
+Begin
+	if (@idCliente<=0)
+		
+		begin
+			INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, EstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado,
+			 NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico)
+		VALUES (@activo, @apodo, @apellidos, @estadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @Sexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico)
+		end
+	Else
+		Begin
+			UPDATE dbo.tblClientes
+			SET Activo = @activo,
+				Apodo = @apodo,
+				Apellidos = @apellidos,
+				EstadoCivil = @estadocivil,
+				FechaNacimiento = @fechanacimiento,
+				FechaModificado = getdate(),
+				idTipoIdentificacion = @idtipoidentificacion,
+				IdTipoProfesionUOcupacion = @IdTipoProfesionUOcupacion,
+				InfoConyuge = @infoconyuge,
+				InfoLaboral = @infolaboral,
+				InfoDireccion = @infodireccion,
+				[ModificadoPor] = @usuario,
+				NoIdentificacion = @noidentificacion,
+				Codigo = @codigo,
+				Nombres = @nombres,
+				Sexo = @sexo,
+				TelefonoCasa = @telefonocasa,
+				TelefonoMovil = @telefonomovil,
+				CorreoElectronico = @correoElectronico
+				where IdCliente = IdCliente
+		End
+End
+

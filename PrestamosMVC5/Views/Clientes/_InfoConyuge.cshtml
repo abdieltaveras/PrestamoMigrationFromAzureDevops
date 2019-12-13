@@ -1,0 +1,100 @@
+﻿
+@model ClienteVM
+
+<div class="clearfix"></div>
+<div class="row">
+    <!-- form input mask -->
+    <div class="col-md-6 col-sm-12  ">
+        <div class="x_panel">
+            
+            <div class="x_content">
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.Nombres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.Nombres, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.ValidationMessageFor(model => Model.Conyuge.Nombres, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.Apellidos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.Apellidos, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.ValidationMessageFor(model => Model.Conyuge.Apellidos, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.Apodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.Apodo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+
+                        @Html.ValidationMessageFor(model => Model.Conyuge.Apodo, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.NoTelefono1, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.NoTelefono1, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls,data_inputmask = "'mask' : '(999) 999-9999'", @type = "tel" } })
+                        @Html.ValidationMessageFor(model => Model.Conyuge.NoTelefono1, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanfaphoneCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.LugarTrabajo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.LugarTrabajo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.ValidationMessageFor(model => Model.Conyuge.LugarTrabajo, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanWorkInfoCls" aria-hidden="true"></span>
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.DireccionLugarTrabajo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.DireccionLugarTrabajo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        
+                        @Html.ValidationMessageFor(model => Model.Conyuge.DireccionLugarTrabajo, "", new { @class = "text-danger" })
+                        <span class="@HtmlClass.SpanAddressDetailCls" aria-hidden="true"></</span>
+                    </div>
+                </div>
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.TelefonoTrabajo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.TelefonoTrabajo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, data_inputmask = "'mask' : '(999) 999-9999'", @type = "tel" } })
+                        @Html.ValidationMessageFor(model => Model.Conyuge.TelefonoTrabajo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.IdTipoIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.DropDownListFor(m => m.Conyuge.IdTipoIdentificacion, SelectItems.TiposIdentificacion, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                        @Html.ValidationMessageFor(model => Model.Conyuge.IdTipoIdentificacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.NoIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, data_inputmask = "'mask' : '999-9999999-9'"  } })
+                        @Html.ValidationMessageFor(model => Model.Conyuge.NoIdentificacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => Model.Conyuge.Notas, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => Model.Conyuge.Notas, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.ValidationMessageFor(model => Model.Conyuge.IdTipoIdentificacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>>

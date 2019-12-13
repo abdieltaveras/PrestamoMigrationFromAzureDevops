@@ -57,8 +57,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BLLPrestamoTests.cs" />
+    <Compile Include="TasaInteresTests.cs" />
+    <Compile Include="ClienteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoMoraTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -66,11 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj">
-      <Project>{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}</Project>
+      <Project>{c58aeae1-26ea-4087-8bd6-c8deae7b3e77}</Project>
       <Name>PrestamoBLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
-      <Project>{64D406D9-E5D3-4AC3-9C71-57D792569980}</Project>
+      <Project>{64d406d9-e5d3-4ac3-9c71-57d792569980}</Project>
       <Name>PrestamoEntidades</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,79 +1,90 @@
 ﻿<!-- sidebar menu -->
-    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" >
-       
-        <div class="menu_section">
-            <h3>General</h3>
-            <ul class="nav side-menu">
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-                <li>
-                    <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Inicio </a>
-                </li>
+    <div class="menu_section">
+        <h3>General</h3>
+        <ul class="nav side-menu">
 
-                @*<li>
+            <li>
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Inicio </a>
+            </li>
+
+            @*<li>
                     <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
                 </li>*@
 
-                <li>
-                    <a><i class="fa fa-edit"></i>Actualizacion<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li>
-                            <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
-                        </li>                        
+            <li>
+                <a><i class="fa fa-edit"></i>Actualizacion<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
+                    </li>
 
-                        <li>
-                            <a><i class="fa fa-map-marker"></i>Direcciones<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
+                    <li>
+                        <a><i class="fa fa-map-marker"></i>Direcciones<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
 
 
-                                <li>
-                                    <a>Territoriales<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="@Url.Action("Index", "Territorio")">Crear</a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Index", "Territorio")">Editar</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                            <li>
+                                <a>Territoriales<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Territorio")">Crear</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Territorio")">Editar</a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                                <li>
-                                    <a>Localidades<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="@Url.Action("Index", "Localidades")">Crear</a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Editar", "Localidades")">Editar</a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Buscador", "Localidades")">Buscador</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                            <li>
+                                <a>Localidades<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Localidades")">Crear</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Editar", "Localidades")">Editar</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Buscador", "Localidades")">Buscador</a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                                @*<li>
-                                    <a href="@Url.Action("Index", "Territorio")">Divisiones territoriales</a>
-                                </li>
-
-                                <li>
-                                    <a href="@Url.Action("Index", "Localidades")">Localidades</a>
-                                </li>*@
-                            </ul>
-                        </li>
-
-                    </ul>
+                            @*<li>
+                    <a href="@Url.Action("Index", "Territorio")">Divisiones territoriales</a>
                 </li>
-            </ul>
-        </div>
 
+                <li>
+                    <a href="@Url.Action("Index", "Localidades")">Localidades</a>
+                </li>*@
+                        </ul>
+                    <li>
+                        <a>Clientes<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Clientes")">Crear Cliente Nuevo</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index","Clientes")">Listado de Clientes</a>
+                            <li>
+                        </ul>
+                    </li>
+</li>
+
+                </ul>
+            </li>
+        </ul>
     </div>
+
+</div>
 <!-- /sidebar menu -->
 
-    <script>
+<script>
 
     $(document).ready(function () {
         ResizeContentContainer();
@@ -86,4 +97,4 @@
         var windowHeight = $(window).height();
         $(".body-content").outerHeight(windowHeight + "px");
     }
-    </script>
+</script>

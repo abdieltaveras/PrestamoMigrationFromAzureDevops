@@ -88,6 +88,9 @@
     <Build Include="dbo\Stored Procedures\spInsUpdLocalidad.sql" />
     <Build Include="dbo\Stored Procedures\spGetTerritorios.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdTerritorios.sql" />
+    <Build Include="dbo\Tables\tblClientes.sql" />
+    <Build Include="dbo\Stored Procedures\spGetClientes.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdCliente.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

@@ -14,8 +14,8 @@ namespace PrestamoEntidades.Tests
         [TestMethod]
         public void TestEnumIntValuesWhenFirstIsSetToOne()
         {
-            int resultadoEsperado = 4;
-            int resultadoObtenido= (int)TipoLocalidad.Municipio;
+            int resultadoEsperado = 1;
+            int resultadoObtenido = (int)TiposCargosMora.Cargo_Fijo;
             Assert.IsTrue(resultadoEsperado == resultadoObtenido);
         }
     }

@@ -97,7 +97,7 @@ namespace PrestamoBLL.Tests
         public void BuscarLocalidadTest()
         {
             string test = "Crist";
-            var localidadess = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = test });
+            //var localidadess = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = test });
 
             Assert.Fail();
         }

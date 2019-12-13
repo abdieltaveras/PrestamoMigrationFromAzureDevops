@@ -20,6 +20,6 @@
     [AnuladoPor] VARCHAR(100) NULL, 
     [FechaAnulado] DATETIME NULL, 
     CONSTRAINT [CK_tblTipoMora_CodigoUnico] UNIQUE(Codigo), 
-    CONSTRAINT [FK_tblTiposMora_ToTblNegocios] FOREIGN KEY (idNegocio) REFERENCES tblNegocios(idNegocio)
+    CONSTRAINT [FK_tblTiposMora_ToTblNegocios] FOREIGN KEY (idNegocio) REFERENCES tblNegocios([IdNegocio])
 )
 	
