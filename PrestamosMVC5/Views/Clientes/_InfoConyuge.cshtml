@@ -6,7 +6,10 @@
     <!-- form input mask -->
     <div class="col-md-6 col-sm-12  ">
         <div class="x_panel">
-            
+
+            <h2>Informacion del conyugue</h2>
+            <hr />
+
             <div class="x_content">
 
                 <div class="@HtmlClass.FormGroupCls">
@@ -39,7 +42,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Conyuge.NoTelefono1, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => Model.Conyuge.NoTelefono1, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls,data_inputmask = "'mask' : '(999) 999-9999'", @type = "tel" } })
+                        @Html.EditorFor(model => Model.Conyuge.NoTelefono1, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, data_inputmask = "'mask' : '(999) 999-9999'", @type = "tel" } })
                         @Html.ValidationMessageFor(model => Model.Conyuge.NoTelefono1, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanfaphoneCls" aria-hidden="true"></</span>
                     </div>
@@ -59,7 +62,7 @@
                     @Html.LabelFor(model => Model.Conyuge.DireccionLugarTrabajo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
                         @Html.EditorFor(model => Model.Conyuge.DireccionLugarTrabajo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
-                        
+
                         @Html.ValidationMessageFor(model => Model.Conyuge.DireccionLugarTrabajo, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanAddressDetailCls" aria-hidden="true"></</span>
                     </div>
@@ -82,7 +85,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Conyuge.NoIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => Model.Conyuge.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, data_inputmask = "'mask' : '999-9999999-9'"  } })
+                        @Html.EditorFor(model => Model.Conyuge.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, data_inputmask = "'mask' : '999-9999999-9'" } })
                         @Html.ValidationMessageFor(model => Model.Conyuge.NoIdentificacion, "", new { @class = "text-danger" })
                     </div>
                 </div>

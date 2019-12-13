@@ -29,30 +29,37 @@
     <!-- form input mask -->
     <div class="col-md-6 col-sm-12  ">
         <div class="x_panel">
-            <div class="x_title">
-                <h2>   Informacion de la direccion </h2>
-            </div>
+            <h2>Informacion de la direccion</h2>
+            <hr />
 
             <div class="x_content">
-                <div style="padding: 0%">
-                    <div  style="margin: auto; padding: 0%; ">
-                        <h4 style="text-align: center;">¿Que lugar buscas?</h4>
-                        <input class="target form-control" type="text" id="searchinput" placeholder="Busca una direccion" name="name" value=""
-                               style="height: 60px" />
-                        <div id="list-address-container">
-                            <div class="list-group col-md-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+
+                <div class="form-group row" style="padding: 0%">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="Direccion_Calle">Localidad</label>
+                    <div class="col-md-9 col-sm-9 col-xs-9" style="margin: auto;">
+
+                        <input class="target form-control" type="text" id="searchinput" placeholder="Busca una direccion" value="" autocomplete="off" />
+                        <span id="rutadelocalidad" ></span>
+                        <div id="list-address-container" style=" padding: 0%;">
+                            <div class="list-group col-md-12 col-sm-12 col-xs-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding-right: 20px; padding-left: 0px; vertical-align: middle;">
                             </div>
                         </div>
+
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Direccion.Calle" data-valmsg-replace="true"></span>
+                        <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
 
-                <div class="@HtmlClass.FormGroupCls">
+                <input type="hidden" class="target form-control" name="Direccion.IdLocalidad" id="Direccion_IdLocalidad"/>
+
+
+                @*<div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Direccion.IdLocalidad, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
                         @Html.DropDownListFor(m => m.Direccion.IdLocalidad, SelectItems.Localidades, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
                         @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>*@
 
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Direccion.Calle, htmlAttributes: new { @class = @HtmlClass.LabelCls })

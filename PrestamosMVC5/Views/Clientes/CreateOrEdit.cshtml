@@ -174,7 +174,7 @@
                 // Aqui consigues el ID de la localidad seleccionada
                 LocalidadABuscar = evt.target.getAttribute('data-idlocalidad');
                 $('#iddelocalidad').text(` El ID de la localidad es:  ${evt.target.getAttribute('data-idlocalidad')}`);
-                $('#InputIdLocalidad').val(` El ID de la localidad es:  ${evt.target.getAttribute('data-idlocalidad')}`);
+                $('#Direccion_IdLocalidad').val(evt.target.getAttribute('data-idlocalidad'));
 
                 buscarRutaDeLocalidad();
                 $("#searchinput").val($(evt.target.querySelector('strong')).text().trim());
@@ -259,8 +259,10 @@
                 $.each(list, function (i, localidad) {
                     if (i === 0) {
                         $('#InputRutaLocalidad').val(localidad.Nombre);
+                        $('#rutadelocalidad').text(list[i].Nombre);
                     }
                     else {
+                        $('#rutadelocalidad').text(`${$('#rutadelocalidad').text()},  ${list[i].Nombre}`);
                         $('#InputRutaLocalidad').val(`${$('#InputRutaLocalidad').val()},  ${localidad.Nombre}`);
                     }
                 });
