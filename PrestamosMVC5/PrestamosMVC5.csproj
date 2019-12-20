@@ -5114,6 +5114,8 @@
     <Content Include="Views\Localidades\Index.cshtml" />
     <Content Include="Views\Territorio\Index.cshtml" />
     <Content Include="Views\TipoMoras\Index.cshtml" />
+    <Content Include="Views\Territorio\CreateDivisionTerritorial.cshtml" />
+    <Content Include="Views\Localidades\CreatePais.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

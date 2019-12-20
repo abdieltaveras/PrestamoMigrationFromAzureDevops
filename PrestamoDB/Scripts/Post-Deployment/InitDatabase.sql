@@ -44,22 +44,22 @@ Post-Deployment Script Template
 
 
 	--Script para datos de Tipo de localidad
-	insert into tblTipoLocalidad
-		(PadreDe, IdNegocio, Descripcion, PermiteCalle)
+	insert into tblTipoLocalidades
+		(HijoDe, IdNegocio, Descripcion, PermiteCalle)
 	VALUES
-		(null ,@idNegocio, 'Division territorial', 0),
-		(1 , 2, 'Pais-Estado-Condado-Ciudad', 0),
-		(1 , @idNegocio, 'Pais-Provincia-Municipio-Sector', 0),
-		(2 , 2, 'Pais', 0),
-		(3 , 1, 'Pais', 0) --estados unidos ID 4
+		(null ,@idNegocio, 'Division territorial', 0)
+		--(1 , 2, 'Pais-Estado-Condado-Ciudad', 0),
+		--(1 , @idNegocio, 'Pais-Provincia-Municipio-Sector', 0),
+		--(2 , 2, 'Pais', 0),
+		--(3 , 1, 'Pais', 0) --estados unidos ID 4
 
 
-	insert into tblLocalidad
-		( IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre )
-	VALUES
-		--Pais
-		(null ,2, 4, 'Estados unidos'),
-		(null ,@idNegocio, 5, 'Republica Dominicana')
+	--insert into tblLocalidades
+	--	( IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre )
+	--VALUES
+	--	--Pais
+	--	(null ,2, 4, 'Estados unidos'),
+	--	(null ,@idNegocio, 5, 'Republica Dominicana')
 
 	----Script para datos de Tipo de localidad
 	--insert into tblTipoLocalidad

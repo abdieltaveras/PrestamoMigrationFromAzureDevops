@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spInsUpdTerritorios]
 	@IdTipoLocalidad int,
-	@PadreDe int,
+	@HijoDe int,
+	@IdDivisionTerritorial int,
 	@IdNegocio int,
 	@Descripcion varchar(100),
 	@PermiteCalle bit
@@ -9,18 +10,19 @@ Begin
  --verificar si id es 0 inserta si es diferente modificar
 if (@IdTipoLocalidad = 0)
 	begin
-		insert into tblTipoLocalidad
-			(PadreDe, IdNegocio, Descripcion, PermiteCalle)
+		insert into tblTipoLocalidades
+			(HijoDe, IdDivisionTerritorial, IdNegocio, Descripcion, PermiteCalle)
 		values
-			(@PadreDe, @IdNegocio, @Descripcion, @PermiteCalle)
+			(@HijoDe, @IdDivisionTerritorial, @IdNegocio, @Descripcion, @PermiteCalle)
 	end
 Else
 	Begin
-	update tblTipoLocalidad 
+	update tblTipoLocalidades 
 		set
 			idNegocio = @idNegocio,
+			IdDivisionTerritorial = @IdDivisionTerritorial,
 			Descripcion = @Descripcion,
-			PadreDe = @PadreDe,
+			HijoDe = @HijoDe,
 			PermiteCalle=@PermiteCalle
 		where IdTipoLocalidad = @IdTipoLocalidad
 	End

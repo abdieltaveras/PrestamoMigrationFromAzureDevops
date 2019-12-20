@@ -18,7 +18,7 @@ AS
 		
 		tipo.Descripcion
     FROM
-        tblLocalidad loc, tblTipoLocalidad tipo
+        tblLocalidades loc, tblTipoLocalidades tipo
     WHERE loc.IdLocalidad = @idlocalidad
 	AND tipo.IdTipoLocalidad = loc.IdTipoLocalidad
 
@@ -32,10 +32,10 @@ AS
         e.IdLocalidadPadre,
 		t.Descripcion
     FROM
-        tblLocalidad e
+        tblLocalidades e
         INNER JOIN recursion_location o
             ON o.IdLocalidadPadre = e.IdLocalidad
-		JOIN tblTipoLocalidad t
+		JOIN tblTipoLocalidades t
 			ON e.IdTipoLocalidad = t.IdTipoLocalidad
 )
 -- references recursion_location

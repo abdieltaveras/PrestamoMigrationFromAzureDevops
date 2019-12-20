@@ -9,14 +9,14 @@ Begin
  --verificar si id es 0 inserta si es diferente modificar
 if (@idLocalidad = 0)
 	begin
-		insert into tblLocalidad
+		insert into tblLocalidades
 		(IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre)
 		values
 		(@IdLocalidadPadre, @IdNegocio, @IdTipoLocalidad, @Nombre)
 	end
 Else
 	Begin
-	update tblLocalidad 
+	update tblLocalidades 
 		set 
 			IdLocalidadPadre=@IdLocalidadPadre, 
 			idNegocio = @idNegocio,

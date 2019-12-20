@@ -80,9 +80,9 @@
     <Build Include="dbo\Stored Procedures\spInsUpdTipoMora.sql" />
     <Build Include="dbo\Stored Procedures\spGetTiposMora.sql" />
     <Build Include="dbo\Stored Procedures\spAnularTipoMora.sql" />
-    <Build Include="dbo\Tables\tblTipoLocalidad.sql" />
-    <Build Include="dbo\Tables\tblLocalidad.sql" />
-    <Build Include="dbo\Tables\tblDireccion.sql" />
+    <Build Include="dbo\Tables\tblTipoLocalidades.sql" />
+    <Build Include="dbo\Tables\tblLocalidades.sql" />
+    <Build Include="dbo\Tables\tblDirecciones.sql" />
     <Build Include="dbo\Stored Procedures\spGetLocalidades.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarLocalidad.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdLocalidad.sql" />
@@ -93,6 +93,9 @@
     <Build Include="dbo\Stored Procedures\spInsUpdCliente.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdNegocio.sql" />
     <Build Include="dbo\Stored Procedures\SpGetNegocios.sql" />
+    <Build Include="dbo\Stored Procedures\spGetDivisionesTerritoriales.sql" />
+    <Build Include="dbo\Stored Procedures\spComponentesDeDivisionTerritorial.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPaisesDeDivisionTerritorial.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

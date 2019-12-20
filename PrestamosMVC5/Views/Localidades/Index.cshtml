@@ -1,4 +1,5 @@
-﻿
+﻿@model PrestamoEntidades.Localidad
+
 <style>
     p strong {
         pointer-events: none;
@@ -14,7 +15,6 @@
     }
 </style>
 
-@model PrestamoEntidades.Localidad
 
 <div>
     <form autocomplete="off" action="/" method="post" style="padding: 0%">
@@ -30,7 +30,7 @@
     </form>
 </div>
 
-@if (ViewBag.message != null)
+@*@if (ViewBag.message != null)
 {
     <div class="alert alert-info alert-dismissible " role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -47,7 +47,7 @@ else if (ViewBag.errorMessage != null)
         </button>
         <strong>@ViewBag.messageError</strong>
     </div>
-}
+}*@
 
 <hr />
 
@@ -103,10 +103,9 @@ else if (ViewBag.errorMessage != null)
                 <div class="ln_solid"></div>
                 <div class="item form-group" style="float: right;">
                     <div class="col-md-6 col-sm-6 offset-md-3">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" id="btnguardar" class="btn btn-primary">Guardar</button>
                     </div>
                 </div>
-                @*</form>*@
             }
         </div>
     </div>
@@ -198,9 +197,21 @@ else if (ViewBag.errorMessage != null)
     async function buscarTipoDeLocalidadesHijas() {
         try {
             const res = await BuscarTipoDeLocalidad(TipoDeLocalidadABuscar);
-            console.log(JSON.parse(res));
-            AddListToSelect(JSON.parse(res));
-            //setClickListener();
+            const json_list = JSON.parse(res);
+
+            console.log('Cantidad', json_list);
+
+            if (json_list.length === 0) {
+                showMessage('warning', 'Falta informacion' , 'Esta ubicacion no tiene divisiones territoriales');
+                $('#Nombre').prop("disabled", true);
+                $('#btnguardar').prop("disabled", true);
+                return;
+            }
+
+            $('#Nombre').prop("disabled", false);
+            $('#btnguardar').prop("disabled", false);
+
+            AddListToSelect(json_list);
         } catch (err) {
 
         }
@@ -240,5 +251,26 @@ else if (ViewBag.errorMessage != null)
             $('.alert').alert();
         }
     }
+
+    //function validarDatos() {
+        
+    //    if ($('#nombre').val().length <= 2) {
+    //        showMessage('error', 'El nombre debe ser mayor a 2 caracteres');
+    //        event.preventDefault();
+    //        return;
+    //    }
+
+    //    showMessage('success', 'Componente de division guardado correctamente.');
+    //}
+
+    function showMessage(typeOfNotification, titleMessage, messageOfNotification) {
+        var notification = new PNotify({
+            title: titleMessage,
+            text: messageOfNotification,
+            type: typeOfNotification,
+            styling: 'bootstrap3',
+        });
+    }
+
 
 </script>
