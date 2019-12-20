@@ -13,16 +13,31 @@ namespace PrestamosMVC5.Controllers
     {
         // GET: Territorio
         public ActionResult Index()
-        {            
-            var territorios = BLLPrestamo.Instance.GetTerritorios(new TerritorioGetParams() { IdNegocio = 1 });
-            ViewBag.Territorios = territorios;
+        {
+            var DivisionesTerritoriales = BLLPrestamo.Instance.GetDivisionesTerritoriales(new TerritorioGetParams() { IdNegocio = 1 });
+
+            //IEnumerable<TerritoriosConHijo> territorios = BLLPrestamo.Instance.GetTerritorios(new TerritorioGetParams() { IdNegocio = 1 });
+            ViewBag.DivisionesTerritoriales = DivisionesTerritoriales;
             return View();
+        }
+
+        public ActionResult CreateDivisionTerritorial()
+        {
+            var DivisionesTerritoriales = BLLPrestamo.Instance.GetDivisionesTerritoriales(new TerritorioGetParams() { IdNegocio = 1 });
+            return View("CreateDivisionTerritorial", DivisionesTerritoriales);
+        }        
+
+        public string BuscarComponenteDeDivision(string IdDivision)
+        {
+            IEnumerable<Territorio> territorios = null;
+            territorios = BLLPrestamo.Instance.BuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorial = int.Parse(IdDivision) });
+            return JsonConvert.SerializeObject(territorios);
         }
 
         public string BuscarTerritorios(string localidadPadre)
         {
             IEnumerable<Territorio> territorios = null;
-            territorios = BLLPrestamo.Instance.BuscarTerritoriosHijos(new TerritorioSearchParams() { IdNegocio = 1, PadreDe = int.Parse(localidadPadre) });
+            territorios = BLLPrestamo.Instance.BuscarTerritoriosHijos(new TerritorioSearchParams() { IdNegocio = 1, HijoDe = int.Parse(localidadPadre) });
             return JsonConvert.SerializeObject(territorios);
         }
 
@@ -31,8 +46,15 @@ namespace PrestamosMVC5.Controllers
         {
             territorio.IdNegocio = 1;
             var localidades = BLLPrestamo.Instance.GuardarTerritorio(territorio);
-
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public RedirectToRouteResult GuardarDivisionTerritorial(Territorio territorio)
+        {
+            territorio.IdNegocio = 1;
+            var localidades = BLLPrestamo.Instance.GuardarTerritorio(territorio);
+            return RedirectToAction("CreateDivisionTerritorial");
         }
     }
 }

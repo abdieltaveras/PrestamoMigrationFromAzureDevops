@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[tblLocalidad]
+﻿CREATE TABLE [dbo].[tblLocalidades]
 (
 	[IdLocalidad] INT NOT NULL PRIMARY KEY identity(1,1), 
     [IdLocalidadPadre] INT NULL, 

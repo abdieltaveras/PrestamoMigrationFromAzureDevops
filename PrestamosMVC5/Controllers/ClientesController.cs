@@ -43,8 +43,6 @@ namespace PrestamosMVC5.Controllers
                 {
                     model.MensajeError = "Lo siento no encontramos datos para su peticion";
                 }
-                
-                
             }
             return View(model);
         }

@@ -15,17 +15,13 @@ namespace PrestamosMVC5.Controllers
     {
         const int BUSCAR_A_PARTIR_DE = 2;
         [AllowAnonymous]
-        public ActionResult Index(dynamic message)
+        public ActionResult Index()
         {
-            //ViewBag.message = message == null ? null : message.message;
-
             return View();
         }
         public ActionResult Buscador()
         {
             TipoBusqueda tipo = new TipoBusqueda();
-
-
             return View("Buscador", tipo);
         }
 
@@ -50,16 +46,15 @@ namespace PrestamosMVC5.Controllers
 
             dynamic message = new { type = "", message = "" };
 
-            if (localidad.IdLocalidad == 0)
-            {
-                message = new { type = "edit", message = "Edicion realizada correctamente" };
-            }
-            else
-            {
-                message = new { type = "edit", message = "Edicion realizada correctamente" };
-            }
-            return RedirectToAction("Index", message);
-
+            //if (localidad.IdLocalidad == 0)
+            //{
+            //    message = new { type = "edit", message = "Edicion realizada correctamente" };
+            //}
+            //else
+            //{
+            //    message = new { type = "edit", message = "Edicion realizada correctamente" };
+            //}
+            return RedirectToAction("Index");
         }
 
         public string BuscarLocalidad(string searchToText)
@@ -71,7 +66,13 @@ namespace PrestamosMVC5.Controllers
             }
              return JsonConvert.SerializeObject(localidades);
         }
-    }
 
-    
+        public ActionResult CreatePaisDivisionTerritorial()
+        {
+            var Paises = BLLPrestamo.Instance.GetPaisesDivisionesTerritoriales(new TerritorioGetParams() { IdNegocio = 1 });
+
+            return View("CreatePais", Paises);
+        }
+
+    }    
 }

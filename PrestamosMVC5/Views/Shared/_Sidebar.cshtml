@@ -32,10 +32,10 @@
                                 <a>Territoriales<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li>
-                                        <a href="@Url.Action("Index", "Territorio")">Crear</a>
+                                        <a href="@Url.Action("CreateDivisionTerritorial", "Territorio")">Crear division territorial</a>
                                     </li>
                                     <li>
-                                        <a href="@Url.Action("Index", "Territorio")">Editar</a>
+                                        <a href="@Url.Action("Index", "Territorio")">Crear componentes</a>
                                     </li>
                                 </ul>
                             </li>
@@ -44,10 +44,13 @@
                                 <a>Localidades<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li>
-                                        <a href="@Url.Action("Index", "Localidades")">Crear</a>
+                                        <a href="@Url.Action("CreatePaisDivisionTerritorial", "Localidades")">Crear Pais</a>
                                     </li>
                                     <li>
-                                        <a href="@Url.Action("Editar", "Localidades")">Editar</a>
+                                        <a href="@Url.Action("Index", "Localidades")">Crear localidades</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Editar", "Localidades")">Editar localidades</a>
                                     </li>
                                     <li>
                                         <a href="@Url.Action("Buscador", "Localidades")">Buscador</a>
