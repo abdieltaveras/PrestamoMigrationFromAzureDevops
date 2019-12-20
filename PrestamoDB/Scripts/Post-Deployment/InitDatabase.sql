@@ -14,10 +14,10 @@ Post-Deployment Script Template
 
 	--Script para datos de Negocios
 	insert into dbo.tblNegocios
-			(Codigo,NombreComercial,NombreJuridico,InsertadoPor,FechaInsertado)
+			(Codigo,NombreComercial,NombreJuridico,InsertadoPor,FechaInsertado, TaxIdNo, OtrosDetalles)
 			VALUES
-			('N01','Mi Empresa','Mi Empresa',@usuario,getdate()),
-			('N02','Empresa de Abdiel','PC-PROG',@usuario,getdate())
+			('N01','Mi Empresa','Mi Empresa',@usuario,getdate(), '1',''),
+			('N02','Empresa de Abdiel','PC-PROG',@usuario,getdate(), '2','')
 
 	declare @idNegocio int = (select top 1 idNegocio from tblNegocios)	
 

@@ -91,6 +91,8 @@
     <Build Include="dbo\Tables\tblClientes.sql" />
     <Build Include="dbo\Stored Procedures\spGetClientes.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdCliente.sql" />
+    <Build Include="dbo\Stored Procedures\SpInsUpdNegocio.sql" />
+    <Build Include="dbo\Stored Procedures\SpGetNegocios.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

@@ -3968,6 +3968,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
+    <Content Include="Scripts\Apps\searchLocalidad.js" />
     <Content Include="Scripts\Apps\validate-clientes-Inputs.js" />
     <Content Include="Scripts\Apps\DatePickerInit.js" />
     <Content Include="Scripts\Apps\empty.js" />

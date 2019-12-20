@@ -1,9 +1,8 @@
 ﻿using emtSoft.DAL;
+using PcProg.DAL;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PcProg.DAL;
-
 
 namespace PrestamoEntidades
 {
@@ -13,10 +12,12 @@ namespace PrestamoEntidades
         [KeyAttribute]
         public int IdCliente { get; set;} = 0;
         
-        [Secuenciable]
-        [StringLength(100)]
+        [StringLength(20)]
         [Required]
         public string Codigo { get; set; } = string.Empty;
+        [NotMapped]
+        public bool GenerarSecuencia { get; set; } = true;
+
         [Display(Name = "Tipo Identificacion")]
         public int IdTipoIdentificacion { get; set; } = 0;
         [Display(Name = "Profesion u Ocupacion")]
@@ -30,7 +31,7 @@ namespace PrestamoEntidades
         public string TelefonoMovil { get; set; } = string.Empty;
         [Display(Name = "Telefono Casa")]
         public string TelefonoCasa { get; set; } = string.Empty;
-        [Display(Name = "Estado Civil")]
+        [Display(Name = "Correo Electronico")]
         [EmailAddress(ErrorMessage ="correo electronico invalido")]
         public string CorreoElectronico { get; set; } = string.Empty;
         [Display(Name = "Estado Civil")]
@@ -47,9 +48,6 @@ namespace PrestamoEntidades
         /// la informacion laboral en formato json
         /// </summary>
         public string InfoLaboral { get; set; } = string.Empty;
-        [Required]
-        [NotMapped]
-        public bool GenerarSecuencia { get; set; } = true;
         public override int GetId() => this.IdCliente;
         public override  string  ToString()
         {
@@ -57,8 +55,6 @@ namespace PrestamoEntidades
             return $" {Nombres } {Apellidos} ";
         }
     }
-    [SpGetProcedure("spGetClientes")]
-    [Schema("sis")]
     public class ClientesGetParams 
         //: BaseGetParams
     {

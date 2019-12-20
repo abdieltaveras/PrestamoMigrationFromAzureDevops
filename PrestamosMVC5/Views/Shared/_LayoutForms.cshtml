@@ -160,7 +160,18 @@
             let n = d.toLocaleDateString(dateFormat);
             elem.val(n);
         }
+        $(document).ready(function () {
+            ResizeContentContainer();
+        });
 
+        window.onresize = ResizeContentContainer;
+
+        function ResizeContentContainer() {
+
+            var windowHeight = $(window).height();
+            $(".body-content").outerHeight(windowHeight + "px");
+        } 
+        
     </script>
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/apps/tabPanelsManagement.js"></script>

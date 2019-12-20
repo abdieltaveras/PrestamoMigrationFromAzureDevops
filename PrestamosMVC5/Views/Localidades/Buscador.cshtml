@@ -133,7 +133,7 @@
         try {
             const res = await BuscarRutaDeLocalidad(LocalidadABuscar);
             console.log('La ruta es', JSON.parse(res));
-            AddItem(JSON.parse(res), '@Model.TipoBusqueda');
+            AddItem(JSON.parse(res), '@Model.Tipo');
             //setClickListener();
         } catch (err) {
 

@@ -57,7 +57,7 @@ namespace PrestamoBLL.Tests
                 Nombres = "Abdiel",
                 Apodo = "Yeyo",
                 IdNegocio = 1,
-                Usuario = "abdiel",
+                Usuario = "TestProject",
                 InfoConyuge = newConyuge().ToJson(),
             };
             return cliente;

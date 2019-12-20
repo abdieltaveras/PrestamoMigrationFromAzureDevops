@@ -56,6 +56,7 @@ namespace PrestamosMVC5.Controllers
 
             var result = new SeachResult<Cliente>(BLLPrestamo.Instance.GetClientes(new ClientesGetParams { IdCliente = id }));
 
+
             return result;
         }
 
@@ -81,6 +82,11 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
                 clienteVm.Cliente.Usuario = getUsuario();
+                var localidadDelCliente = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad}).FirstOrDefault();
+                if (localidadDelCliente != null)
+                {
+                    clienteVm.NombreLocalidad = localidadDelCliente.Nombre;
+                }
                 return clienteVm;
             }
         }

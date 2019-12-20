@@ -105,6 +105,7 @@ namespace PrestamoEntidades
         [Required]
         [Display(Name = "Estatus")]
         public bool Activo { get; set; } = true;
+        [MaxLength(10)]
         [Required(ErrorMessage = "el campo {0} es requerido")]
         public string Codigo { get; set; } = string.Empty;
         [Required(ErrorMessage = "el campo {0} es requerido")]       

@@ -89,6 +89,7 @@ namespace PrestamoEntidades
     {
         [KeyAttribute]
         public virtual int IdTipoMora { get; set; } = -1;
+        [MaxLength(10)]
         public virtual string Codigo { get; set; } = string.Empty;
     }
     [SpDelProcedure("spDelTipoMora")]

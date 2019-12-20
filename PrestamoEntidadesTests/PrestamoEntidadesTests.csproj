@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
-      <Project>{64D406D9-E5D3-4AC3-9C71-57D792569980}</Project>
+      <Project>{64d406d9-e5d3-4ac3-9c71-57d792569980}</Project>
       <Name>PrestamoEntidades</Name>
     </ProjectReference>
   </ItemGroup>

@@ -84,17 +84,3 @@
 </div>
 <!-- /sidebar menu -->
 
-<script>
-
-    $(document).ready(function () {
-        ResizeContentContainer();
-    });
-
-    window.onresize = ResizeContentContainer;
-
-    function ResizeContentContainer() {
-
-        var windowHeight = $(window).height();
-        $(".body-content").outerHeight(windowHeight + "px");
-    }
-</script>

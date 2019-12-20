@@ -2,6 +2,7 @@
 (
 	@IdTipoLocalidad int=-1,
 	@IdNegocio int=-1,
+	@Usuario varchar(100),
 	@PadreDe  int=-1,
 	@Descripcion varchar(50)=''
 )

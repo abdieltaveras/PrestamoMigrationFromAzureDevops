@@ -29,7 +29,7 @@ namespace PrestamoBLL.Tests
             var tipoMora = new TipoMora
             {
                 Codigo = "P05",
-                Usuario = "Abdiel",
+                Usuario = "TestProject",
                 IdNegocio = 1,
                 TipoCargo = (int)TiposCargosMora.Porcentual,
                 AplicarA = (int)AplicarMoraAl.Capital_intereses_y_moras,
@@ -54,5 +54,6 @@ namespace PrestamoBLL.Tests
             }
             Assert.IsTrue(OperacionExitosa, error.Message);
         }
+        
     }
 }

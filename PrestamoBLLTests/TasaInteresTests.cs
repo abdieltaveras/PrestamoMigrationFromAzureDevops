@@ -31,7 +31,7 @@ namespace PrestamoBLL.Tests
         {
             var error = new Exception();
             var OperacionExitosa = true;
-            var tasaInteres = new TasaInteres { Codigo = "B05", InteresMensual = 2.5M, Usuario = "Abdiel", IdNegocio = 1 };
+            var tasaInteres = new TasaInteres { Codigo = "B05", InteresMensual = 2.5M, Usuario = "TestProject", IdNegocio = 1 };
             var searchData = new TasaInteresGetParams { Codigo = "B05", IdNegocio = -1 };
             var result = BLLPrestamo.Instance.GetTasasInteres(searchData);
             if (result.Count() != 0)
@@ -67,7 +67,7 @@ namespace PrestamoBLL.Tests
             var tipoMora = new TipoMora
             {
                 Codigo = "P05",
-                Usuario = "Abdiel",
+                Usuario = "TestProject",
                 IdNegocio = 1,
                 TipoCargo = (int)TiposCargosMora.Porcentual,
                 AplicarA = (int)AplicarMoraAl.Capital_intereses_y_moras,

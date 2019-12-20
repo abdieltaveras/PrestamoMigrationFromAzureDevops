@@ -16,7 +16,9 @@ namespace PrestamosMVC5.Models
         
         public string TipoBusqueda { get; set; } = "normal";
         public string MensajeError { get; set; } = string.Empty;
-        public ClienteVM() { }
+        public ClienteVM() {
+            Cliente = new Cliente();
+        }
         public ClienteVM(Cliente cliente)
         {
             this.Cliente = cliente;
@@ -24,15 +26,8 @@ namespace PrestamosMVC5.Models
             {
                 throw new Exception("No puedo aceptar un cliente nulo");
             }
-            if (cliente.IdCliente != 0)
-            {
-                fillOtherInfo(cliente.IdCliente);
-            };
         }
 
-        private void fillOtherInfo(int idCliente)
-        {
-
-        }
+        public string NombreLocalidad { get; set; } = string.Empty;
     }
 }
