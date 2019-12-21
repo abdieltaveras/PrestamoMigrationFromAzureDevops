@@ -57,6 +57,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CuotasTests.cs" />
     <Compile Include="NegocioTests.cs" />
     <Compile Include="TasaInteresTests.cs" />
     <Compile Include="ClienteTests.cs" />

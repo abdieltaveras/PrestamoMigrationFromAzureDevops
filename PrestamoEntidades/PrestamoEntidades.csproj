@@ -80,6 +80,7 @@
     <Compile Include="BaseInsUpd.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Conyuge.cs" />
+    <Compile Include="Cuota.cs" />
     <Compile Include="Direccion.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Localidad.cs" />
@@ -94,16 +95,9 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
-    <None Include="ClassDiagram3.cd" />
-    <None Include="ClassDiagram4.cd" />
     <None Include="TipoMora.cd" />
     <None Include="Direccion.cd" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TipoMoraExplicacion.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

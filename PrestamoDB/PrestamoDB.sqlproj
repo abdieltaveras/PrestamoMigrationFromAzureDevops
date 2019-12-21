@@ -65,6 +65,7 @@
     <Folder Include="dbo\Functions" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Post-Deployment" />
+    <Folder Include="dbo\User Defined Types" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PrestamoDB.refactorlog" />
@@ -96,6 +97,9 @@
     <Build Include="dbo\Stored Procedures\spGetDivisionesTerritoriales.sql" />
     <Build Include="dbo\Stored Procedures\spComponentesDeDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\spGetPaisesDeDivisionTerritorial.sql" />
+    <Build Include="dbo\User Defined Types\tpCuota.sql" />
+    <Build Include="dbo\Stored Procedures\SpInsUpdCuotas.sql" />
+    <Build Include="dbo\Tables\tblCuotas.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblNegocios]
 (
 	[IdNegocio] INT PRIMARY KEY identity(1,1), 
-    [Codigo] VARCHAR(20) NOT NULL unique default NEWID(), 
+    [Codigo] VARCHAR(20) NOT NULL default NEWID(), 
 	[NombreJuridico] VARCHAR(100) NULL,
     [NombreComercial] VARCHAR(100) NOT NULL,
     [CorreoElectronico] varchar(100),
@@ -17,5 +17,6 @@
     [AnuladoPor] VARCHAR(100) NULL, 
     [FechaAnulado] DATETIME NULL, 
 	CONSTRAINT [FK_tblNegocio_UQ_TaxIdNo] Unique NonClustered(IdNegocio, TaxIdNo),
+    CONSTRAINT [FK_tblNegocio_UQ_Codigo] Unique NonClustered(Codigo),
 )
 

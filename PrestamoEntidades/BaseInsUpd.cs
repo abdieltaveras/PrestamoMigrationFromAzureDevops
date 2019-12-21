@@ -6,18 +6,9 @@ using System.Web.Mvc;
 
 namespace PrestamoEntidades
 {
-
     /// <summary>
-    /// para que los objetos especifiquen si generaran o no la secuencia automatica 
+    /// esta clase solo contiene el campo Usuario 
     /// </summary>
-    public interface ISecuenciable
-    {
-        [Required]
-        [NotMapped]
-        [HiddenInput(DisplayValue = false)]
-        bool GenerarSecuencia { get; set; }
-    }
-
     public abstract class BaseUsuario
     {
         /// <summary>
@@ -27,7 +18,9 @@ namespace PrestamoEntidades
         [NotMapped]
         public string Usuario { get; set; } //= string.Empty;/// 
     }
-
+    /// <summary>
+    /// Clase base que tiene el campo usuario y idNegocio
+    /// </summary>
     public abstract class BaseUsuarioEIdNegocio : BaseUsuario
     {
         /// <summary>
@@ -65,16 +58,8 @@ namespace PrestamoEntidades
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
         public DateTime FechaAnulado { get; set; } = new DateTime(1900, 1, 1);
-        
-        //[NotMapped]
-        //[IgnorarEnParam]
         public bool Borrado() => string.IsNullOrEmpty(AnuladoPor);  
-
-        //[NotMapped]
-        //[IgnorarEnParam]
         public virtual bool Modificable() => false;
-        //[NotMapped]
-        //[IgnorarEnParam]
         public virtual bool Anulable()=> false;
         /// <summary>
         /// para obtener el valor del id primario del objeto
@@ -83,9 +68,7 @@ namespace PrestamoEntidades
         public abstract int GetId();
     }
     /// <summary>
-    /// clase basica para datos sobre Personas pero que no lleva el campo Codigo, suele usarse
-    /// en aquellos catalogos que por compania no superaran los 100 registros, y es mas comodo para 
-    /// el usuario tomarlo de una lista
+    /// clase basica para generales de una persona o entidad afin
     /// </summary>
     public abstract class BasePersonaInsUpd : BaseInsUpd
     {
@@ -111,10 +94,8 @@ namespace PrestamoEntidades
         [Required(ErrorMessage = "el campo {0} es requerido")]       
         public string Descripcion { get; set; } = string.Empty;
     }
-
     public abstract class BaseDireccion : BaseInsUpd
     {
-
         public string Pais { get; set; } = string.Empty;
         public string Estado_o_Provincia { get; set; } = string.Empty;
         public string Ciudad_Municipio { get; set; } = string.Empty;
@@ -122,7 +103,6 @@ namespace PrestamoEntidades
         public string SectorSecundario { get; set; } = string.Empty;
         public string Calle { get; set; } = string.Empty;
     }
-
 }
 
 

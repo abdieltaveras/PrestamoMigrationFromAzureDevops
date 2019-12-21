@@ -11,7 +11,7 @@ namespace PrestamoEntidades
         public string Codigo { get; set; } = string.Empty;
         [NotMapped]
         public bool GenerarSecuencia { get; set; } = true;
-        public int IdNegocioPadre { get; set; } = 0;
+        public int? IdNegocioPadre { get; set; } = null;
         [Required]
         [MaxLength(100)]
         public string NombreJuridico { get; set; } = string.Empty;
@@ -47,7 +47,7 @@ namespace PrestamoEntidades
         
         public string NombreComercial { get; set; } = string.Empty;
         
-        public string NoIdentificacion { get; set; } = string.Empty;
+        public string TaxIdNo { get; set; } = string.Empty;
     }
 
     /// <summary>

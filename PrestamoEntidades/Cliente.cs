@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PrestamoEntidades
 {
     [Table("tblClientes", Schema = "sis")]
-    public class Cliente : BasePersonaInsUpd, ISecuenciable
+    public class Cliente : BasePersonaInsUpd
     {
         [KeyAttribute]
         public int IdCliente { get; set;} = 0;

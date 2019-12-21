@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrestamoEntidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,12 +25,66 @@ namespace PrestamoBLL
         #endregion StaticBLL
         private void DatabaseError(Exception e)
         {
+            
             var mensaje = e.Message;
-            if (e.Message == "Object reference not set to an instance of an object.")
+            if (mensaje == "Object reference not set to an instance of an object.")
                 mensaje = $"La cadena de conexion [{ConexionDB.Server}] indicada no permitio establecer la conexion";
+            
+            var index1 = mensaje.IndexOf("Violation of UNIQUE KEY constraint");
+            if (index1 >= 0)
+            {
+                /// donde inicia el nombre de la columna
+                var nombreColumna = ExtractColumnName(mensaje, index1);
+                var valueColumna = ExtractValue(mensaje, index1);
+                mensaje = $"Error valor {valueColumna} duplicado en el campo {nombreColumna}, ya existe para otro registro";
+            }
             throw new Exception(mensaje);
         }
-        //new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
+        private static string ExtractColumnName(string mensaje, int index1)
+        {
+            var index2 = mensaje.IndexOf("UQ_") + 3;
+            var index3 = mensaje.IndexOf(" ", index2);
+            var nombreColumna = mensaje.Substring(index2, (index3 - index2));
+            return nombreColumna;
+        }
+        private static string ExtractValue(string mensaje, int index1)
+        {
+            var index2 = mensaje.IndexOf("is (")+4;
+            var index3 = mensaje.IndexOf(")");
+            var value = mensaje.Substring(index2, (index3 - index2));
+            return value;
+        }
+        private void ThrowErrorIfUsuarioEmptyOrNull(string usuario) 
+        {
+            if (usuario == null || usuario == string.Empty)
+            {
+                throw new NullReferenceException("El usuario esta nulo o vacio");
+            }
+        }
+        private void ThrowErrorIfNegocioIsZero(int negocio)
+        {
+            if (negocio == 0)
+            {
+                throw new NullReferenceException("El valor de IdNegocio es nulo o es cero");
+            }
+        }
+        /// <summary>
+        /// realiza validaciones generales de la insercion como no permitir usuario vacio o nulo
+        /// </summary>
+        /// <param name="insUpdParam"></param>
+        private void InsUpdValidation(BaseInsUpd insUpdParam)
+        {
+            ThrowErrorIfUsuarioEmptyOrNull(insUpdParam.Usuario);
+        }
+        /// <summary>
+        /// realiza validaciones generales de la insercion como no permitir usuario vacio o nulo
+        /// </summary>
+        /// <param name="insUpdParam"></param>
+        private void GetValidation(BaseGetParams getParam)
+        {
+            ThrowErrorIfNegocioIsZero(getParam.IdNegocio);
+        }
 
+        //new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
     }
 }

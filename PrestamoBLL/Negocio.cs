@@ -8,6 +8,7 @@ namespace PrestamoBLL
     {
         public IEnumerable<Negocio> GetNegocios(NegociosGetParams searchParam)
         {
+            GetValidation(searchParam);
             IEnumerable<Negocio> result = new List<Negocio>();
             try
             {
@@ -22,6 +23,7 @@ namespace PrestamoBLL
         }
         public void insUpdNegocio(Negocio insUpdParam)
         {
+            InsUpdValidation(insUpdParam);
             try
             {
                 var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);

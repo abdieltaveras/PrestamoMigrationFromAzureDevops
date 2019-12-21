@@ -4,7 +4,9 @@
 	@Codigo varchar(20),
 	@NombreComercial varchar(100),
 	@NombreJuridico varchar(100),
-	@TaxIdNo varchar(20)
+	@TaxIdNo varchar(20),
+	@Borrado int=0
+	
 AS
 begin
 	SELECT IdNegocio, Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado

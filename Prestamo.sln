@@ -16,6 +16,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoBLLTests", "PrestamoBLLTests\PrestamoBLLTests.csproj", "{073D3734-E0E0-41F8-B490-8B893FD8DBAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedDLL", "SharedDLL", "{D34D4469-0B89-48EB-83C9-822EC00CE86B}"
+	ProjectSection(SolutionItems) = preProject
+		SharedDLL\EMTSoft\emtSoft.DAL.dll = SharedDLL\EMTSoft\emtSoft.DAL.dll
+		SharedDLL\EMTSoft\emtSoft.DAL.pdb = SharedDLL\EMTSoft\emtSoft.DAL.pdb
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EMTSoft", "EMTSoft", "{4A6A884D-D67B-4164-ABD7-8490D3811767}"
 	ProjectSection(SolutionItems) = preProject
@@ -47,6 +51,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Propuestas al sistema", "Propuestas al sistema", "{EF60E548-289E-4266-94F6-D9421CBD7326}"
 	ProjectSection(SolutionItems) = preProject
 		Propuestas al sistema\Politicas creacion de negocios y divisiones.txt = Propuestas al sistema\Politicas creacion de negocios y divisiones.txt
+		PrestamoEntidades\TipoMoraExplicacion.txt = PrestamoEntidades\TipoMoraExplicacion.txt
 	EndProjectSection
 EndProject
 Global
