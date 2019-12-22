@@ -5,36 +5,29 @@ namespace PrestamoEntidades
 {
     public class Negocio : BaseInsUpd 
     {
-        
-        [Required]
-        [MaxLength(20)]
+        [Required] [MaxLength(20)]
         public string Codigo { get; set; } = string.Empty;
         [NotMapped]
         public bool GenerarSecuencia { get; set; } = true;
         public int? IdNegocioPadre { get; set; } = null;
-        [Required]
-        [MaxLength(100)]
+        [Required] [MaxLength(100)] [Display(Name ="Nombre Juridico/Legal")]    
         public string NombreJuridico { get; set; } = string.Empty;
-        [Required]
-        [MaxLength(100)]
+        [Required][MaxLength(100)][Display(Name = "Nombre Comercial")]
         public string NombreComercial { get; set; } = string.Empty;
         public bool Activo { get; set; } = true;
         public bool Bloqueado { get; set; } = false;
 
-        [EmailAddress(ErrorMessage = "correo electronico invalido")]
+        [EmailAddress(ErrorMessage = "correo electronico invalido")] [Display(Name = "Correo Electronico")]
         public string CorreoElectronico { get; set; } = string.Empty;
-        [Required]
-        [MaxLength(20)]
+        [Required]  [MaxLength(20)] [Display(Name = "No Identificacion Impositiva ")]
         public string TaxIdNo { get; set; } = string.Empty;
+        [Display(Name = "Otros Detalles")]
         /// <summary>
         /// Detalles adicionales InfoNegocio
         /// </summary>
         public string OtrosDetalles { get; set; } = string.Empty;
-
-
-
-        public override int GetId() => this.IdNegocio;
-        
+        [NotMapped]
+        public string InfoAccion { get; set; } = string.Empty;
     }
 
     public class NegociosGetParams : BaseGetParams

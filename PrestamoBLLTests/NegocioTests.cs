@@ -13,9 +13,9 @@ namespace PrestamoBLL.Tests
     [TestClass()]
     public class NegocioTests
     {
-        string mensajeError = string.Empty;
+
         [TestMethod()]
-        public void insUpdNegocioTest()
+        public void insertNegocioTest()
         {
             var negocio = NewInstanceNegocioIntagsa();
 
@@ -32,7 +32,7 @@ namespace PrestamoBLL.Tests
         }
 
         [TestMethod()]
-        public void insUpdNegocioWithIdNegocioPadre()
+        public void insertUpdNegocioWithIdNegocioPadre()
         {
 
             mensajeError = string.Empty;
@@ -48,49 +48,25 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(mensajeError == string.Empty, mensajeError);
         }
 
-        private static void createNegociosWithNegocioPadre()
-        {
-            var negocioPadre = GetNegocios(GetParamNegocioIntangsa()).FirstOrDefault();
-
-            var negocio1 = NewInstanceNegocioIntagsa();
-            negocio1.IdNegocioPadre = negocioPadre.IdNegocio;
-            negocio1.NombreComercial = "Intagsa La Romana";
-            negocio1.Codigo = "IntLR00";
-            //InsUpdNegocio(negocio1);
-            negocioPadre = GetNegocios(new NegociosGetParams {Codigo=negocio1.Codigo  , IdNegocio = -1 }).FirstOrDefault();
-            var negocio2 = NewInstanceNegocioIntagsa();
-            negocio2.IdNegocioPadre = negocioPadre.IdNegocio;
-            negocio2.NombreComercial = "Intagsa La Romana Prestamos";
-            negocio2.Codigo = "IntLR00-01";
-            InsUpdNegocio(negocio2);
-            var negocio3 = NewInstanceNegocioIntagsa();
-            negocio3.IdNegocioPadre = negocioPadre.IdNegocio;
-            negocio3.NombreComercial = "Intagsa La Romana Ventas";
-            negocio3.Codigo = "IntLR00-02";
-            InsUpdNegocio(negocio3);
-        }
-
-        private static void InsUpdNegocio(Negocio negocio)
-        {
-            BLLPrestamo.Instance.insUpdNegocio(negocio);
-        }
-
-        private static Negocio NewInstanceNegocioIntagsa()
-        {
-            var negocioInfo = new NegocioInfo { CorreoElectronico = "intagsa@hotmail.com", Direccion1 = "Prol. Gregorio Luperon no 12, Villa España", Direccion2 = "La Romana Rep. Dom.", Telefono1 = "809-813-1719" };
-            var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo="int001",OtrosDetalles = negocioInfo.ToJson(), Usuario = "TestProject" };
-            return negocio;
-        }
-
         [TestMethod()]
         public void GetNegociosTest()
         {
             var getParam = GetParamNegocioIntangsa();
             mensajeError = string.Empty;
-            GetNegocioIntagsa(getParam);
+            var result = GetNegocioIntagsa(getParam);
             Assert.IsTrue(mensajeError == string.Empty, mensajeError);
         }
 
+        [TestMethod()]
+        public void GetInfoAccionTest()
+        {
+            var infoAccionExpected = CreateInfoUAccion();
+            var getParam = GetParamNegocioIntangsa();
+            mensajeError = string.Empty;
+            var result = GetNegocioIntagsa(getParam);
+            var infoInsertadoAccion = result.InsertadoPor.ToType<InfoAccion>();
+            Assert.IsTrue(mensajeError == string.Empty, mensajeError);
+        }
         [TestMethod()]
         public void GetNegociosHijosTest()
         {
@@ -100,6 +76,21 @@ namespace PrestamoBLL.Tests
             var result = GetNegocios(getParam).FirstOrDefault();
             var mashijos = GetNegocios(new NegociosGetParams {IdNegocioPadre=result.IdNegocio, IdNegocio=-1});
             Assert.IsTrue(mensajeError == string.Empty, mensajeError);
+        }
+
+        [TestMethod()]
+        public void UpdateNegocio()
+        {
+            var getParam = GetParamNegocioIntangsa();
+            mensajeError = string.Empty;
+            var negocioAActualizar = GetNegocioIntagsa(getParam);
+            negocioAActualizar.NombreComercial+= "Modificado";
+            negocioAActualizar.Usuario = "NegocioTest";
+            negocioAActualizar.InfoAccion = CreateInfoUAccion().ToJson();
+            var nombreEsperado = negocioAActualizar.NombreComercial;
+            InsUpdNegocio(negocioAActualizar);
+            var negocioActualizado = GetNegocioIntagsa(new NegociosGetParams { IdNegocio = negocioAActualizar.IdNegocio });
+            Assert.IsTrue(negocioActualizado.NombreComercial==nombreEsperado, mensajeError);
         }
 
         [TestMethod()]
@@ -121,6 +112,54 @@ namespace PrestamoBLL.Tests
             }
             Assert.IsTrue(string.IsNullOrEmpty(mensajeError));
         }
+        #region notTestMember
+        string mensajeError = string.Empty;
+        private static void createNegociosWithNegocioPadre()
+        {
+            var negocioPadre = GetNegocios(GetParamNegocioIntangsa()).FirstOrDefault();
+
+            var negocio1 = NewInstanceNegocioIntagsa();
+            negocio1.IdNegocioPadre = negocioPadre.IdNegocio;
+            negocio1.NombreComercial = "Intagsa La Romana";
+            negocio1.Codigo = "IntLR00";
+            //InsUpdNegocio(negocio1);
+            negocioPadre = GetNegocios(new NegociosGetParams { Codigo = negocio1.Codigo, IdNegocio = -1 }).FirstOrDefault();
+            var negocio2 = NewInstanceNegocioIntagsa();
+            negocio2.IdNegocioPadre = negocioPadre.IdNegocio;
+            negocio2.NombreComercial = "Intagsa La Romana Prestamos";
+            negocio2.Codigo = "IntLR00-01";
+            InsUpdNegocio(negocio2);
+            var negocio3 = NewInstanceNegocioIntagsa();
+            negocio3.IdNegocioPadre = negocioPadre.IdNegocio;
+            negocio3.NombreComercial = "Intagsa La Romana Ventas";
+            negocio3.Codigo = "IntLR00-02";
+            InsUpdNegocio(negocio3);
+        }
+
+        private static void InsUpdNegocio(Negocio negocio)
+        {
+            BLLPrestamo.Instance.insUpdNegocio(negocio);
+        }
+
+        private static Negocio NewInstanceNegocioIntagsa()
+        {
+            var negocioInfo = new NegocioInfo { CorreoElectronico = "intagsa@hotmail.com", Direccion1 = "Prol. Gregorio Luperon no 12, Villa España", Direccion2 = "La Romana Rep. Dom.", Telefono1 = "809-813-1719" };
+            InfoAccion infoAccion = CreateInfoUAccion();
+            var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo = "int001", OtrosDetalles = negocioInfo.ToJson(), Usuario = "TestProject", InfoAccion = infoAccion.ToJson() };
+            return negocio;
+        }
+
+        private static InfoAccion CreateInfoUAccion()
+        {
+            return new InfoAccion
+            {
+                IdAplicacion = 1,
+                idNegocio = 1,
+                IdUsuario = 0,
+                Usuario = "NegocioTest"
+            };
+        }
+
         private Negocio GetNegocioIntagsa(NegociosGetParams getParam)
         {
             IEnumerable<Negocio> negocios = new List<Negocio>();
@@ -152,5 +191,6 @@ namespace PrestamoBLL.Tests
         }
 
         private static NegociosGetParams GetParamNegocioIntangsa()=> new NegociosGetParams { NombreComercial = "Intagsa", IdNegocio = -1 };
+        #endregion notTestMember
     }
 }

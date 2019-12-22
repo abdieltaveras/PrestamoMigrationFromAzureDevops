@@ -8,7 +8,7 @@ namespace PrestamoEntidades
         // el valor numerico del interes 10%, 4%, etc
         public decimal InteresMensual { get; set; } = 0;
         public bool RequiereAutorizacion { get; set; } = false;
-        public override int GetId() => this.idTasaInteres;
+        
     }
     public class TasaInteresGetParams : BaseGetParams
     {
@@ -20,7 +20,7 @@ namespace PrestamoEntidades
         public int Activo { get; set; } = -1;
         public int RequiereAutorizacion { get; set; } = -1;
     }
-    public class TasaInteresDelParams : BaseDelParams
+    public class TasaInteresDelParams : BaseAnularParams
     {
 
     }

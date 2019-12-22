@@ -48,7 +48,7 @@ namespace PrestamoEntidades
         /// la informacion laboral en formato json
         /// </summary>
         public string InfoLaboral { get; set; } = string.Empty;
-        public override int GetId() => this.IdCliente;
+        
         public override  string  ToString()
         {
             //return $"{Codigo}: {Nombres } {Apellidos} {Codigo} ";
@@ -80,7 +80,7 @@ namespace PrestamoEntidades
 
     [SpDelProcedure("spDelCliente")]
     [Schema("sis")]
-    public class ClienteDelParams : BaseDelParams
+    public class ClienteDelParams : BaseAnularParams
     {
 
     }

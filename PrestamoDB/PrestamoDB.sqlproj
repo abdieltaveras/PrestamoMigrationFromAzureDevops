@@ -77,7 +77,7 @@
     <PostDeploy Include="Scripts\Post-Deployment\InitDatabase.sql" />
     <Build Include="dbo\Stored Procedures\spDelTasaInteres.sql" />
     <Build Include="dbo\Tables\tblTipoMora.sql" />
-    <Build Include="dbo\Tables\tblNegocio.sql" />
+    <Build Include="dbo\Tables\tblNegocios.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdTipoMora.sql" />
     <Build Include="dbo\Stored Procedures\spGetTiposMora.sql" />
     <Build Include="dbo\Stored Procedures\spAnularTipoMora.sql" />
@@ -100,6 +100,9 @@
     <Build Include="dbo\User Defined Types\tpCuota.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdCuotas.sql" />
     <Build Include="dbo\Tables\tblCuotas.sql" />
+    <Build Include="dbo\Tables\tblUsuarios.sql" />
+    <Build Include="dbo\Stored Procedures\SpInsUpdUsuario.sql" />
+    <Build Include="dbo\Functions\fnUpdFechaColumnInJson.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

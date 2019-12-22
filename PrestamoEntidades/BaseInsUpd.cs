@@ -65,7 +65,7 @@ namespace PrestamoEntidades
         /// para obtener el valor del id primario del objeto
         /// </summary>
         /// <param name="_id"></param>
-        public abstract int GetId();
+        
     }
     /// <summary>
     /// clase basica para generales de una persona o entidad afin

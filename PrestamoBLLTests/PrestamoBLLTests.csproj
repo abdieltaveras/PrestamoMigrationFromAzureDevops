@@ -57,12 +57,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="CuotasTests.cs" />
+    <Compile Include="CuotaTests.cs" />
     <Compile Include="NegocioTests.cs" />
     <Compile Include="TasaInteresTests.cs" />
     <Compile Include="ClienteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoMoraTests.cs" />
+    <Compile Include="UsuarioTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PrestamoBLL.Tests
 {
     [TestClass()]
-    public class CuotasTests
+    public class CuotaTests
     {
         string mensajeError = string.Empty;
         [TestMethod()]

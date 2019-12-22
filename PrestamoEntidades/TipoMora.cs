@@ -47,7 +47,7 @@ namespace PrestamoEntidades
     {
         [KeyAttribute]
         public virtual int IdTipoMora { get; set; } = 0;
-        public override int GetId() => this.IdTipoMora;
+        
         [Required]
         //[StringLength(100)]
         [Display(Name = "Forma de calcular el cargo")]
@@ -94,7 +94,7 @@ namespace PrestamoEntidades
     }
     [SpDelProcedure("spDelTipoMora")]
     [Schema("pre")]
-    public class TipoMoraDelParams : BaseDelParams
+    public class TipoMoraDelParams : BaseAnularParams
     {
         [Required]
         public override int id

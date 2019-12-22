@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using emtSoft.DAL;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace PrestamoBLL
             }
         }
         #endregion StaticBLL
-        private void DatabaseError(Exception e)
+        internal static void DatabaseError(Exception e)
         {
             
             var mensaje = e.Message;
@@ -54,7 +55,7 @@ namespace PrestamoBLL
             var value = mensaje.Substring(index2, (index3 - index2));
             return value;
         }
-        private void ThrowErrorIfUsuarioEmptyOrNull(string usuario) 
+        private static void ThrowErrorIfUsuarioEmptyOrNull(string usuario) 
         {
             if (usuario == null || usuario == string.Empty)
             {
@@ -72,7 +73,7 @@ namespace PrestamoBLL
         /// realiza validaciones generales de la insercion como no permitir usuario vacio o nulo
         /// </summary>
         /// <param name="insUpdParam"></param>
-        private void InsUpdValidation(BaseInsUpd insUpdParam)
+        private static void InsUpdValidation(BaseInsUpd insUpdParam)
         {
             ThrowErrorIfUsuarioEmptyOrNull(insUpdParam.Usuario);
         }
@@ -86,5 +87,46 @@ namespace PrestamoBLL
         }
 
         //new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
+        protected static class BllAcciones
+        {
+            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : class
+            {
+
+                IEnumerable<TInsert2> result = new List<TInsert2>();
+                try
+                {
+                    var searchSqlParams = SearchRec.ToSqlParams(searchParam);
+                    result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
+                }
+                catch (Exception e)
+                {
+                    InvokeErrorMethod(databaseErrorMethod, e);
+                }
+                return result;
+            }
+
+            private static void InvokeErrorMethod(Action<Exception> databaseErrorMethod, Exception e)
+            {
+                if (databaseErrorMethod == null) { DatabaseError(e); }
+                else { databaseErrorMethod(e); };
+            }
+
+            public static void insUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseInsUpd
+            {
+                InsUpdValidation(insUpdParam);
+                try
+                {
+                    var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
+                    Database.AdHoc(ConexionDB.Server).ExecSelSP(storedProcedure, _insUpdParam);
+                }
+                catch (Exception e)
+                {
+                    InvokeErrorMethod(databaseErrorMethod, e);
+                }
+            }
+
+
+        }
+
     }
 }

@@ -2,7 +2,7 @@
 
 namespace PrestamoEntidades
 {
-    public abstract class BaseDelParams : BaseUsuario
+    public class BaseAnularParams : BaseUsuario
     {
         [Required]
         public virtual int id { get; set; }

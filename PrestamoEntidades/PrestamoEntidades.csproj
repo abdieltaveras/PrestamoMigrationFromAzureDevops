@@ -75,7 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDelParams.cs" />
+    <Compile Include="BaseAnularParams.cs" />
     <Compile Include="BaseGetParams.cs" />
     <Compile Include="BaseInsUpd.cs" />
     <Compile Include="Cliente.cs" />
@@ -83,8 +83,8 @@
     <Compile Include="Cuota.cs" />
     <Compile Include="Direccion.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="InfoAccion.cs" />
     <Compile Include="Localidad.cs" />
-    <Compile Include="FakeLocalidadesDataSource.cs" />
     <Compile Include="InfoLaboral.cs" />
     <Compile Include="Negocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +95,7 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="TipoMora.cd" />
     <None Include="Direccion.cd" />
     <None Include="packages.config" />

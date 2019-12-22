@@ -10,15 +10,18 @@
 	@idNegocioPadre  INT=null,
 	@TaxIdNo         VARCHAR (20),
 	@OtrosDetalles   VARCHAR (100),
-	@Usuario		 varchar (100),
+	@InfoAccion		 varchar (max),
+	@Usuario varchar(50),
 	@GenerarSecuencia bit
 )
 AS
 Begin
+	
+	set @InfoAccion = (select dbo.fnUpdFechaJson(@InfoAccion))
 	if (@idNegocio<=0)	
 		begin
 			INSERT INTO dbo.tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado )
-			VALUES (@codigo, @nombrejuridico, @nombrecomercial, @correoElectronico, @activo, @bloqueado, @idnegociopadre, @taxidno, @otrosdetalles, @usuario, getdate() )
+			VALUES (@codigo, @nombrejuridico, @nombrecomercial, @correoElectronico, @activo, @bloqueado, @idnegociopadre, @taxidno, @otrosdetalles, @infoAccion, getdate() )
 		end
 	else
 		begin
@@ -32,8 +35,9 @@ Begin
 			Bloqueado = @bloqueado,
 			TaxIdNo = @taxidno,
 			OtrosDetalles = @otrosdetalles,
-			ModificadoPor = @usuario,
+			ModificadoPor = @InfoAccion,
 			FechaModificado = getdate()
+			where idNegocio = @IdNegocio
 		end
 End
 

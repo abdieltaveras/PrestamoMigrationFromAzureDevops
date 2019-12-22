@@ -55,6 +55,7 @@
     <Compile Include="Territorio.cs" />
     <Compile Include="TipoMora.cs" />
     <Compile Include="TasaInteres.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
