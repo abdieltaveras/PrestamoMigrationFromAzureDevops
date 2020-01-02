@@ -48,6 +48,7 @@
     <Compile Include="BLLPrestamo.cs" />
     <Compile Include="ConexionDB.cs" />
     <Compile Include="Cuotas.cs" />
+    <Compile Include="Garantia.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Negocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

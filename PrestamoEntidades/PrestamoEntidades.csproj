@@ -83,6 +83,7 @@
     <Compile Include="Cuota.cs" />
     <Compile Include="Direccion.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Garantia.cs" />
     <Compile Include="InfoAccion.cs" />
     <Compile Include="Localidad.cs" />
     <Compile Include="InfoLaboral.cs" />

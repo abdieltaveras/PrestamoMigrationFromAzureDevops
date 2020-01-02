@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\GarantiasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -5116,6 +5117,7 @@
     <Content Include="Views\TipoMoras\Index.cshtml" />
     <Content Include="Views\Territorio\CreateDivisionTerritorial.cshtml" />
     <Content Include="Views\Localidades\CreatePais.cshtml" />
+    <Content Include="Views\Garantias\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

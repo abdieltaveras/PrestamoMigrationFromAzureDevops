@@ -3,7 +3,7 @@
 	@IdLocalidadPadre int,
 	@IdNegocio int,
 	@IdTipoLocalidad int,
-	@Nombre varchar(100)
+	@Nombre varchar(50)
 AS
 Begin
  --verificar si id es 0 inserta si es diferente modificar
