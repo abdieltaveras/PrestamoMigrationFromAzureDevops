@@ -32,7 +32,7 @@
     <!-- Custom Theme Style -->
     <link href="~/content/build/css/custom.min.css" rel="stylesheet">
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("pagestyle", required: false)
+    @RenderSection("PageStyle", required: false)
 </head>
 
 <body class="nav-md">
@@ -47,15 +47,8 @@
                     <div class="clearfix"></div>
 
                     <!-- menu profile quick info -->
-                    <div class="profile clearfix">
-                        <div class="profile_pic">
-                            <img src="/content/production/images/img.jpg" alt="..." class="img-circle profile_img">
-                        </div>
-                        <div class="profile_info">
-                            <span>Bienvenido,</span>
-                            <h2>Bryan Pourie</h2>
-                        </div>
-                    </div>
+                    @Html.Partial("_UserInfoSideBar")
+
                     <!-- /menu profile quick info -->
 
                     <br />
@@ -117,17 +110,18 @@
     <!-- bootstrap-daterangepicker -->
     <script src="~/content/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap-wysiwyg -->
-    <script src="~/content/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+
+    <script src="~/Content/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script src="~/content/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
     <script src="~/content/vendors/google-code-prettify/src/prettify.js"></script>
     <!-- jquery.inputmask -->
     <script src="~/content/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <!-- jQuery Tags Input -->
-    <script2 src="~/content/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script2>
+    <script src="~/content/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
     <!-- Switchery -->
-    <script2 src="~/content/vendors/switchery/dist/switchery.min.js"></script2>
+    <script src="~/content/vendors/switchery/dist/switchery.min.js"></script>
     <!-- Select2 -->
-    <script2 src="~/content/vendors/select2/dist/js/select2.full.min.js"></script2>
+    <script src="~/content/vendors/select2/dist/js/select2.full.min.js"></script>
     <!-- Parsley -->
     <script src="~/content/vendors/parsleyjs/dist/parsley.min.js"></script>
     <!-- Autosize -->
@@ -138,45 +132,14 @@
     <script src="~/content/vendors/starrr/dist/starrr.js"></script>
     <!-- jquery-ui -->
     <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
-    <!-- jquery.inputmask -->
-    <script2 src="~/content/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script2>
-    <script src="~/content/build/js/custom.min.js"></script>
+
+    <script src="~/content/build/js/custom.min.js"></script> 
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script>
-        let dateFormat = 'en-GB';
-        // convert model into a json object
-        // todo how to convert model into json object inside rezor
-        // let model = @Html.Raw(Json.Encode(Model));
-        // esta funcion esta aqui porque el archivo externo js no reconoce o entiende el las variables del modelo
-        function setFecha(elem, name) {
-            d = new Date();
-            if (name == "Cliente.FechaNacimiento") {
-                d.setFullYear(@Model.Cliente.FechaNacimiento.Year, @Model.Cliente.FechaNacimiento.Month-1, @Model.Cliente.FechaNacimiento.Day );
-            }
-            if (name == "Cliente_xmlInfoLaboral_FechaInicio") {
-                d.setFullYear(@Model.InfoLaboral.FechaInicio.Year, @Model.InfoLaboral.FechaInicio.Month-1, @Model.InfoLaboral.FechaInicio.Day );
-            }
-            let n = d.toLocaleDateString(dateFormat);
-            elem.val(n);
-        }
-        $(document).ready(function () {
-            ResizeContentContainer();
-        });
 
-        window.onresize = ResizeContentContainer;
-
-        function ResizeContentContainer() {
-
-            var windowHeight = $(window).height();
-            $(".body-content").outerHeight(windowHeight + "px");
-        } 
-        
-    </script>
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
     <script src="~/Scripts/apps/datePickerInit.js"></script>
-    <script src="~/Scripts/Apps/validate-clientes-Inputs.js"></script>
     <script src="~/Scripts/Apps/setMask.js"></script>
     @RenderSection("scripts", required: false)
 

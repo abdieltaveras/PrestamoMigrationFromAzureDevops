@@ -10,7 +10,6 @@ namespace PrestamoBLL
     {
         public void insUpdCuotas(IEnumerable<Cuota> cuotas)
         {
-
             var cuotasDataTable = cuotas.ToDataTable();
             try
             {

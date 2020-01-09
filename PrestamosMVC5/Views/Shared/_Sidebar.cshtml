@@ -26,8 +26,6 @@
                     <li>
                         <a><i class="fa fa-map-marker"></i>Direcciones<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-
-
                             <li>
                                 <a>Territoriales<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -66,24 +64,35 @@
                     <a href="@Url.Action("Index", "Localidades")">Localidades</a>
                 </li>*@
                         </ul>
+                    </li>
                     <li>
                         <a>Clientes<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="@Url.Action("CreateOrEdit","Clientes")">Crear Cliente Nuevo</a>
-                            </li>
-                            <li>
                                 <a href="@Url.Action("Index","Clientes")">Listado de Clientes</a>
                             <li>
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Clientes")">Crear Cliente Nuevo</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Usuarios<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("Index","User")">Listado de Usuarios</a>
+                            <li>
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","User")">Crear Usuario Nuevo</a>
+                            </li>
                         </ul>
                     </li>
 </li>
 
-                </ul>
-            </li>
         </ul>
+
     </div>
 
 </div>
 <!-- /sidebar menu -->
-

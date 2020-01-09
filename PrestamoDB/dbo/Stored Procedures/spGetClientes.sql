@@ -3,7 +3,7 @@
 	@idCliente int=-1,
 	@idNegocio int=-1,
 	@Activo int=-1,
-	@Borrado int=0
+	@Anulado int=0
 )
 as
 begin

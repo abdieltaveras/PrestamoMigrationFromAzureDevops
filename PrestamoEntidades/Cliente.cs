@@ -12,7 +12,7 @@ namespace PrestamoEntidades
         [KeyAttribute]
         public int IdCliente { get; set;} = 0;
         
-        [StringLength(20)]
+        [StringLength(40)]
         [Required]
         public string Codigo { get; set; } = string.Empty;
         [NotMapped]
@@ -72,7 +72,7 @@ namespace PrestamoEntidades
         //// PersonaInfoAmpliadaConCodigoGetParams
         //public int IdTipoIdentificacion { get; set; } = -1;
         //public string NoIdentificacion { get; set; } = string.Empty;
-        //public DateTime FechaNacimiento { get; set; } = new DateTime(1900, 1, 1);
+        //public DateTime FechaNacimiento { get; set; } = InitValues._19000101;
         //public int Sexo { get; set; } = 0;
         //[Display(Name = "Estado Civil")]
         //public int EstadoCivil { get; set; } = -1;

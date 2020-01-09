@@ -1,0 +1,59 @@
+﻿@model UserModel
+@{
+    ViewBag.Title = "Crear Editar Usuario";
+    Layout = "~/Views/Shared/_LayoutForms.cshtml";
+}
+<style>
+        input[data-spin=true]::-webkit-inner-spin-button {
+            opacity: 1
+        }
+    </style>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCreateUser" }))
+{
+    <h2 class="text-danger">El problema esta en el html helper textboxfor cuando es para numero hay que hacerlo normal
+    los inputs
+    empezar a usar este aproach mas y ver como funciona con objetos</h2>
+    <div class="clearfix"></div>
+    <div class="row">
+        <!-- form input mask -->
+        <div class="col-md-6 col-sm-12">
+            <div class="x_panel">
+                <h2>Otras Informaciones</h2>
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => model.ContraseñaExpiraCadaXMes, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => model.ContraseñaExpiraCadaXMes, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @type = "number", @data_spin = "true", @max = "12", @min = "1"  } }) Mes(es)
+                        @Html.ValidationMessageFor(model => model.ContraseñaExpiraCadaXMes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => model.Usuario.CorreoElectronico, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => model.Usuario.CorreoElectronico, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                        @Html.ValidationMessageFor(model => model.Usuario.CorreoElectronico, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => model.Usuario.Telefono1, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => model.Usuario.Telefono1, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
+                        @Html.ValidationMessageFor(model => model.Usuario.Telefono1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => model.Usuario.Telefono2, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => model.Usuario.Telefono2, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
+                        @Html.ValidationMessageFor(model => model.Usuario.Telefono2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<PrestamoEntidades.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "CreateOrEdit")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.LoginName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreRealCompleto)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.CorreoElectronico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefono1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bloqueado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DebeCambiarContraseñaAlIniciarSesion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContrasenaExpiraCadaXMes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImgFilePath)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoginName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreRealCompleto)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.CorreoElectronico)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefono1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bloqueado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DebeCambiarContraseñaAlIniciarSesion)
+        </td>
+        <td>
+            @item.ContrasenaExpiraCadaXMesToText()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImgFilePath)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "CreateOrEdit", new {  id=item.IdUsuario}) |
+            @Html.ActionLink("Ver", "Detail", new { id = item.IdUsuario  }) |
+            @Html.ActionLink("Anular", "Delete", new { id=item.IdUsuario })
+        </td>
+    </tr>
+}
+
+</table>

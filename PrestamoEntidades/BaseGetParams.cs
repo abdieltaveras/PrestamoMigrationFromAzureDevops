@@ -3,10 +3,10 @@
     public abstract class BaseGetParams : BaseUsuarioEIdNegocio
     {
         /// <summary>
-        /// para indicar si desea o no registros borrados
-        /// -1 todos, 0 los normales que no estan marcados como borrados y 1 los marcados como borrados
+        /// para indicar si desea o no registros anulado
+        /// -1 todos, 0 los normales que no estan marcados como anulado y 1 los marcados como anulados
         /// </summary>
-        public int Borrado { get; set; } = 0;
+        public int Anulado { get; set; } = 0;
     }
 
     /// Informaciones basicas de un objeto que tiene datos relaciona a una persona pero sin Codigo

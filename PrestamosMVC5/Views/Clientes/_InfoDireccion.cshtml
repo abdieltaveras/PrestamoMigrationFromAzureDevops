@@ -1,6 +1,7 @@
-﻿@model ClienteVM
+﻿@model  ClienteModel
 
 <style>
+
     p strong {
         pointer-events: none;
     }
@@ -31,50 +32,47 @@
         <div class="x_panel">
             <h2>Informacion de la direccion</h2>
             <hr />
-
             <div class="x_content">
-
                 <div class="form-group row" style="padding: 0%">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3" for="Direccion_Calle">Localidad</label>
                     <div class="col-md-9 col-sm-9 col-xs-9" style="margin: auto;">
-
                         <input class="target form-control" type="text" id="searchLocalidad" name="searchLocalidad" placeholder="Busca una direccion" value="@Model.NombreLocalidad" autocomplete="off" />
-                        <span id="rutadelocalidad" ></span>
+                        <span id="rutadelocalidad"></span>
                         <div id="list-address-container" style=" padding: 0%;">
                             <div class="list-group col-md-12 col-sm-12 col-xs-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding-right: 20px; padding-left: 0px; vertical-align: middle;">
                             </div>
                         </div>
-
                         <span class="field-validation-valid text-danger" data-valmsg-for="Direccion.Calle" data-valmsg-replace="true"></span>
                         <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
 
-                <input type="hidden" class="target form-control" name="Direccion.IdLocalidad" id="Direccion_IdLocalidad"/>
+                <input type="hidden" class="target form-control" name="Direccion.IdLocalidad" id="Direccion_IdLocalidad" />
 
 
                 @*<div class="@HtmlClass.FormGroupCls">
-                    @Html.LabelFor(model => Model.Direccion.IdLocalidad, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                    <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(m => m.Direccion.IdLocalidad, SelectItems.Localidades, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
-                        @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
+                        @Html.LabelFor(model => Model.Direccion.IdLocalidad, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.DropDownListFor(m => m.Direccion.IdLocalidad, SelectItems.Localidades, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                            @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
 
 
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Direccion.Calle, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => Model.Direccion.Calle, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.EditorFor(model => Model.Direccion.Calle, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @Html.ValidationMessageFor(model => Model.Direccion.Calle, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanAddressDetailCls" aria-hidden="true"></</span>
                     </div>
                 </div>
 
+
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Direccion.CodigoPostal, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => Model.Direccion.CodigoPostal, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.EditorFor(model => Model.Direccion.CodigoPostal, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @Html.ValidationMessageFor(model => Model.Direccion.CodigoPostal, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanZipCodeCls" aria-hidden="true"></</span>
                     </div>
@@ -83,7 +81,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Direccion.CoordenadasGPS, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => Model.Direccion.CoordenadasGPS, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.EditorFor(model => Model.Direccion.CoordenadasGPS, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @Html.ValidationMessageFor(model => Model.Direccion.CoordenadasGPS, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanLocationCls" aria-hidden="true"></</span>
                     </div>

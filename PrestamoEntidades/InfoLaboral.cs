@@ -21,7 +21,7 @@ namespace PrestamoEntidades
         [Required(ErrorMessage = "campo requerido, no puede estar vacio")]
         public string Puesto { get; set; } = string.Empty;
         [Display(Name = "Fecha que inicio")]
-        public DateTime FechaInicio { get; set; } = new DateTime(1900, 1, 1);
+        public DateTime FechaInicio { get; set; } = InitValues._19000101;
         [Display(Name = "Telefono 1")]
         public string NoTelefono1 { get; set; } = string.Empty;
         [Display(Name = "Telefono 2")]

@@ -1,4 +1,4 @@
-﻿--Este procedimiento almacenado se usa para marcar como borrado 
+﻿--Este procedimiento almacenado se usa para marcar como Anulado 
 --una tasa de interes e indicar por quien y cuando fue realizada 
 --esta accion.
 

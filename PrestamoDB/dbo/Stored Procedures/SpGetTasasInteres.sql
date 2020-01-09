@@ -6,7 +6,7 @@
 	@InteresMensual decimal (9,6)=-1,
 	@Activo int=-1,
 	@RequiereAutorizacion int=-1,
-	@Borrado int=0
+	@Anulado int=0
 )
 as
 begin

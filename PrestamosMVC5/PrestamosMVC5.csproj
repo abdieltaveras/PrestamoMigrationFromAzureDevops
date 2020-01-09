@@ -138,6 +138,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="SiteUtils\AuthenticationHelper.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
@@ -148,10 +151,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClienteVM.cs" />
+    <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\EnumSearch.cs" />
     <Compile Include="Models\ExtensionMethods.cs" />
     <Compile Include="Models\HtmlClass.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\SelectItems.cs" />
     <Compile Include="Models\SiteDirectory.cs" />
     <Compile Include="Models\SiteImages.cs" />
@@ -190,6 +194,7 @@
     <Content Include="Content\docs\js\jquery.min.js" />
     <Content Include="Content\docs\js\shBrushXml.js" />
     <Content Include="Content\docs\js\shCore.js" />
+    <Content Include="Content\Images\ForEntities\ToTest.jpg" />
     <Content Include="Content\production\calendar.html" />
     <Content Include="Content\production\chartjs.html" />
     <Content Include="Content\production\chartjs2.html" />
@@ -3969,7 +3974,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
-    <Content Include="Scripts\Apps\validate-clientes-Inputs.js" />
+    <Content Include="Scripts\Apps\validate-form-Inputs.js" />
     <Content Include="Scripts\Apps\DatePickerInit.js" />
     <Content Include="Scripts\Apps\empty.js" />
     <Content Include="Scripts\Apps\keyBehavior.js" />
@@ -5116,6 +5121,15 @@
     <Content Include="Views\TipoMoras\Index.cshtml" />
     <Content Include="Views\Territorio\CreateDivisionTerritorial.cshtml" />
     <Content Include="Views\Localidades\CreatePais.cshtml" />
+    <Content Include="Views\Account\Login.20191229.cshtml" />
+    <Content Include="Views\Account\Registration.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_UserInfoTopNavBar.cshtml" />
+    <Content Include="Views\Shared\_UserInfoSideBar.cshtml" />
+    <Content Include="Views\User\CreateOrEdit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Test.cshtml" />
+    <Content Include="Views\User\CreateOrEdit - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

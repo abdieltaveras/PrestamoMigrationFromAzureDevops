@@ -29,13 +29,18 @@ namespace PrestamoEntidades
         /// </summary>
         [Required]
         [HiddenInput(DisplayValue = false)]
-        public int IdNegocio { get; set; } = 0; // dejarlo asi para que sea obligatorio inicializar el 
+        public int IdNegocio { get; set; } = -1; 
     }
 
+    public static class InitValues
+    {
+        public static DateTime _19000101 => new DateTime(1900, 01, 01);
+    }
     /// <summary>
     /// Clase que tiene campos comunes que usaran la mayoria de las entidades que seran usadas
     /// para el registro de informacion como clientes, proveedores, direccion, etc.
     /// </summary>
+    
     public abstract class BaseInsUpd : BaseUsuarioEIdNegocio
     {
 
@@ -45,20 +50,20 @@ namespace PrestamoEntidades
 
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
-        public DateTime FechaInsertado { get; set; } = new DateTime(1900, 1, 1);
+        public DateTime FechaInsertado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
         public string ModificadoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
-        public DateTime FechaModificado { get; set; } = new DateTime(1900, 1, 1);
+        public DateTime FechaModificado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
         public string AnuladoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
-        public DateTime FechaAnulado { get; set; } = new DateTime(1900, 1, 1);
-        public bool Borrado() => string.IsNullOrEmpty(AnuladoPor);  
+        public DateTime FechaAnulado { get; set; } = InitValues._19000101;
+        public bool Anulado() => string.IsNullOrEmpty(AnuladoPor);  
         public virtual bool Modificable() => false;
         public virtual bool Anulable()=> false;
         /// <summary>

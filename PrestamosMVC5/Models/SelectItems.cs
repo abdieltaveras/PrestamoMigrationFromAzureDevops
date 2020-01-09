@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using PrestamoBLL;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,47 +35,43 @@ namespace PrestamosMVC5.Models
         public static SelectList OpcionesBusquedaCliente => SLFactory.ForEnum<EnumBuscarClientePor>();
         public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
 
-        public static SelectList Localidades => _Localidades();
+        public static SelectList Negocios => _Negocios();
         
         public static SelectList Ocupaciones => _Ocupaciones();
 
-        private static SelectList _Localidades()
+        private static SelectList _Negocios()
         {
-            var localidades = new List<Tuple<string, string>>();
-            var localidad = new Tuple<string, string>("Quisqueya","1");
-            localidades.Add(localidad);
-            localidad = new Tuple<string, string>( "Villa España","2");
-            localidades.Add(localidad);
-            localidad = new Tuple<string, string>( "La Lechoza","3");
-            localidades.Add(localidad);
-
-            var result = localidades.OrderBy(ord => ord.Item1).Select(e => new SelectListItem()
+            var negocios = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams {IdNegocio=-1 });
+            var result = negocios.OrderBy(ord => ord.NombreComercial).Select(e => new SelectListItem()
+            {
+                Text = e.NombreComercial,
+                Value = e.IdNegocio.ToString()
+            }).ToList();
+            return new SelectList(result, "Value", "Text");
+        }
+        private static SelectList CreateSelectList(List<Tuple<string, int>> items)
+        {
+            var result = items.OrderBy(ord => ord.Item1).Select(e => new SelectListItem()
             {
                 Text = e.Item1,
-                Value = e.Item2
+                Value = e.Item2.ToString()
             }).ToList();
             return new SelectList(result, "Value", "Text");
         }
         private static SelectList _Ocupaciones()
         {
-            var ocupaciones = new List<Tuple<string, string>>();
-            var ocupacion = new Tuple<string, string>("Empleado Privado", "1");
+            var ocupaciones = new List<Tuple<string, int>>();
+            var ocupacion = new Tuple<string, int>("Empleado Privado", 1);
             ocupaciones.Add(ocupacion);
-            ocupacion = new Tuple<string, string>("Independiente", "2");
+            ocupacion = new Tuple<string, int>("Independiente", 2);
             ocupaciones.Add(ocupacion);
-            ocupacion = new Tuple<string, string>("Motoconconcho", "3");
+            ocupacion = new Tuple<string, int>("Motoconconcho", 3);
             ocupaciones.Add(ocupacion);
-            ocupacion = new Tuple<string, string>("Abogado", "4");
+            ocupacion = new Tuple<string, int>("Abogado", 4);
             ocupaciones.Add(ocupacion);
-            ocupacion = new Tuple<string, string>("Medico", "5");
+            ocupacion = new Tuple<string, int>("Medico", 5);
             ocupaciones.Add(ocupacion);
-
-            var result = ocupaciones.OrderBy(ord => ord.Item1).Select(e => new SelectListItem()
-            {
-                Text = e.Item1,
-                Value = e.Item2
-            }).ToList();
-            return new SelectList(result, "Value", "Text");
+            return CreateSelectList(ocupaciones); 
         }
     }
 }

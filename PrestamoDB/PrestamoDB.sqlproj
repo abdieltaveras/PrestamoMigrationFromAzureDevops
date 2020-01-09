@@ -103,6 +103,7 @@
     <Build Include="dbo\Tables\tblUsuarios.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdUsuario.sql" />
     <Build Include="dbo\Functions\fnUpdFechaColumnInJson.sql" />
+    <Build Include="dbo\Stored Procedures\spGetUsuarios.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
