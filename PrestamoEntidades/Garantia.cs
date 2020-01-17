@@ -18,7 +18,7 @@ namespace PrestamoEntidades
         public int IdModelo { get; set; } = -1;
         public int IdMarca { get; set; } = -1;
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
-        [StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
+        //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
         //[StringLength(3)]
         public string NoIdentificacion { get; set; } = string.Empty;
         public int IdNegocio { get; set; } = -1;

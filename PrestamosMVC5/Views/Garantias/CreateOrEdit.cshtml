@@ -76,7 +76,7 @@
                                                 Numero de identificacion <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.Garantia.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls }, @required = true })
+                                                @Html.EditorFor(model => model.Garantia.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls }, @required = true })
                                                 <span class="input-group-btn" style="color: dodgerblue;">
                                                     (Generar codigo automatico)
                                                 </span>
@@ -160,7 +160,7 @@
                                                 Medida <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Medida, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Medida, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                             </div>
                                         </div>
 
@@ -178,7 +178,7 @@
                                             </label>
                                             <div class="col-sm-8">
                                                 @*@Html.EditorFor(model => model.Garantia.IdMarca, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
-                                                @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                                                @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
 
                                                 @*<select name="Garantia.IdMarca" class="form-control" id="Garantia_IdTipo">
                                                     <option value="0">Elije una opcion</option>
@@ -196,7 +196,7 @@
                                                 Modelo <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.Garantia.IdModelo, Model.ListaModelos, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                                                @Html.DropDownListFor(model => model.Garantia.IdModelo, Model.ListaModelos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
 
                                                 @* @Html.EditorFor(model => model.Garantia.IdModelo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
                                             </div>
@@ -207,7 +207,7 @@
                                                 Colores <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.Garantia.DetallesJSON.Color, Model.ListaColores, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                                                @Html.DropDownListFor(model => model.Garantia.DetallesJSON.Color, Model.ListaColores, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
 
                                                 @* @Html.EditorFor(model => model.Garantia.IdModelo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
                                             </div>
@@ -232,7 +232,7 @@
                                                 No. Maquina <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.NoMaquina, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.NoMaquina, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                             </div>
                                         </div>
 
@@ -241,7 +241,7 @@
                                                 Año <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Año, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Año, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                             </div>
                                         </div>
 
@@ -250,7 +250,7 @@
                                                 Placa <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Placa, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Placa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                             </div>
                                         </div>
 
@@ -259,7 +259,7 @@
                                                 Matricula <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Matricula, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Matricula, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                             </div>
                                         </div>
 
@@ -297,7 +297,9 @@
                                                 Descripcion <span class="required"></span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.TextAreaFor(model => model.Garantia.DetallesJSON.Descripcion, new { @class = "form-control" })
+                                                <textarea class="form-control rounded-0" name="Garantia.DetallesJSON.Descripcion" id="Garantia_DetallesJSON_Descripcion" rows="3"></textarea>
+
+                                               @* @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
 
                                             </div>
                                         </div>
