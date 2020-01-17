@@ -34,21 +34,20 @@ namespace PrestamosMVC5.Models
         public static SelectList EstadosCiviles => SLFactory.ForEnum<EstadoCivil>();
         public static SelectList OpcionesBusquedaCliente => SLFactory.ForEnum<EnumBuscarClientePor>();
         public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
-
-        public static SelectList Negocios => _Negocios();
-        
+        public static SelectList Negocios => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = -1 }), "IdNegocio", "NombreComercial");
+        public static SelectList Lista12Meses => new SelectList(_12MesesNUmericos(), "key", "value");
         public static SelectList Ocupaciones => _Ocupaciones();
-
-        private static SelectList _Negocios()
+        private static Dictionary<int,string> _12MesesNUmericos()
         {
-            var negocios = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams {IdNegocio=-1 });
-            var result = negocios.OrderBy(ord => ord.NombreComercial).Select(e => new SelectListItem()
+            var listaNumeros = new Dictionary<int, string>();
+            for (int i = 1; i <=10; i++)
             {
-                Text = e.NombreComercial,
-                Value = e.IdNegocio.ToString()
-            }).ToList();
-            return new SelectList(result, "Value", "Text");
+                var texto = i == 1 ? "-Mes" : "-Meses";
+                listaNumeros.Add(i, i+texto);
+            }
+            return listaNumeros;
         }
+        
         private static SelectList CreateSelectList(List<Tuple<string, int>> items)
         {
             var result = items.OrderBy(ord => ord.Item1).Select(e => new SelectListItem()

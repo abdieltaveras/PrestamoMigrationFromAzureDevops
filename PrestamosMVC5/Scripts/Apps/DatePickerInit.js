@@ -22,7 +22,7 @@
         changeYear: true,
         changeDay: true,
         showButtonPanel: true,
-        yearRange: "1900:2019",
+        yearRange: yearRangeForDP,
         //altField: "#ValidFrom",
         //altFormat: "yy-mm-dd",
         onClose: function (dateText, inst) {

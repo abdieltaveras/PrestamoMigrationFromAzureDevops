@@ -104,6 +104,7 @@
     <Build Include="dbo\Stored Procedures\SpInsUpdUsuario.sql" />
     <Build Include="dbo\Functions\fnUpdFechaColumnInJson.sql" />
     <Build Include="dbo\Stored Procedures\spGetUsuarios.sql" />
+    <Build Include="dbo\Stored Procedures\SpChangePassword.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

@@ -154,4 +154,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdUsuario" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="69e6c051-729f-42e6-a8d5-aa2b9a860908" ChangeDateTime="01/09/2020 21:41:15">
+    <Property Name="ElementName" Value="[dbo].[tblUsuarios].[FechaExpiracionContraseña]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblUsuarios]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InicioVigenciaContraseña" />
+  </Operation>
 </Operations>

@@ -4,9 +4,8 @@
 	@IdNegocio INT, 
 	@LoginName varchar(50) ,
 	@NombreRealCompleto varchar(50) ,
-	@Contraseña varchar(50) , 
-    @DebeCambiarContraseña BIT ,
-    @FechaExpiracionContraseña  DateTime=null ,
+	@Contraseña varchar(50), 
+    @DebeCambiarContraseñaAlIniciarSesion BIT ,
     @Telefono1 VARCHAR(50)='' , 
     @Telefono2 VARCHAR(50)='', 
     @Activo BIT , 
@@ -15,25 +14,35 @@
     @CorreoElectronico VARCHAR(50)='', 
     @EsEmpleado BIT , 
 	@IdPersonal int=null,
+	@VigenteDesde dateTime,
+	@VigenteHasta dateTime,
+	@ContraseñaExpiraCadaXMes int,
+	@RazonBloqueo int,
+	@CambiarContraseña bit,
 	@Usuario varchar(50)
 )
 AS
 Begin
 	if (@idUsuario<=0)	
 		begin
-			INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseña, FechaExpiracionContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, idPersonal,ImgFilePath, InsertadoPor, FechaInsertado)
-			VALUES (@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @debecambiarcontraseña, @fechaexpiracioncontraseña, @telefono1, @telefono2, @activo, @bloqueado, @correoelectronico, @esempleado, @IdPersonal, @imgFilePath,@usuario, getdate())
+			INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion,  Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, idPersonal,ImgFilePath, InsertadoPor, FechaInsertado, VigenteDesde,VigenteHasta, ContraseñaExpiraCadaXMes,RazonBloqueo, InicioVigenciaContraseña)
+			VALUES (@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @DebeCambiarContraseñaAlIniciarSesion, @telefono1, @telefono2, @activo, @bloqueado, @correoelectronico, @esempleado, @IdPersonal, @imgFilePath,@usuario, getdate(), @VigenteDesde,@VigenteHasta, @ContraseñaExpiraCadaXMes, @RazonBloqueo, getdate() )
 			select @@identity
 		end
 		
 	else
 		begin
+			if (@CambiarContraseña=0)
+			begin
+				set @contraseña =(select Contraseña from dbo.tblUsuarios where idUsuario=@IdUsuario)
+			end
 			UPDATE dbo.tblUsuarios
 			SET LoginName = @loginname,
 				NombreRealCompleto = @nombrerealcompleto,
 				Contraseña = @contraseña,
-				DebeCambiarContraseña = @debecambiarcontraseña,
-				FechaExpiracionContraseña = @fechaexpiracioncontraseña,
+				DebeCambiarContraseñaAlIniciarSesion = @DebeCambiarContraseñaAlIniciarSesion,
+				VigenteHasta = @VigenteHasta,
+				VigenteDesde = @VigenteDesde,
 				Telefono1 = @telefono1,
 				Telefono2 = @telefono2,
 				Activo = @activo,
@@ -43,6 +52,8 @@ Begin
 				ModificadoPor = @usuario,
 				IdPersonal = @IdPersonal,
 				ImgFilePath = @imgFilePath,
+				ContraseñaExpiraCadaXMes=@ContraseñaExpiraCadaXMes,
+				RazonBloqueo=@RazonBloqueo,
 				FechaModificado = getdate()
 				where IdUsuario = @IdUsuario
 		End

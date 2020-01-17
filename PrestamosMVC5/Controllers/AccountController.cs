@@ -21,9 +21,9 @@ namespace PrestamosMVC5.Controllers
         [HttpGet]
         public ActionResult Login(string returnUrl = "")
         {
-            if (User.Identity.IsAuthenticated)
+            if (AuthInSession.GetLoginName()!=AuthInSession.AnonimousUser)
             {
-                return LogOut();
+                AuthInSession.Logout();
             }
             var model = new LoginModel { ReturnUrl = returnUrl };
             var prevRequest = HttpContext.Request;
@@ -33,27 +33,23 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginView, string ReturnUrl = "")
         {
+            ActionResult _actResult = View(loginView);
             if (ModelState.IsValid)
             {
-                // getUserInfo
-                var usuario = new Usuario { LoginName = loginView.LoginName, IdNegocio = 1, ImgFilePath = "/Content/Images/ForEntities/ToTest.jpg" };
-                AuthInSession.CreateUserWithIdNegocioInSession(HttpContext.Session, usuario.IdNegocio, usuario.LoginName, usuario.ImgFilePath);
-            
-                if (loginView.ReturnUrl == null)
+
+                var getUsr =  new Usuario { LoginName = loginView.LoginName, IdNegocio = loginView.IdNegocio, Contraseña = loginView.Password };
+                var result = BLLPrestamo.Instance.LoginUser(getUsr);
+                if (result.UserValidationResult != BLLPrestamo.UserValidationResult.Sucess)
                 {
-                    return RedirectToAction("index", "home");
+                    ModelState.AddModelError("", result.Mensaje);
                 }
                 else
                 {
-                    return Redirect(loginView.ReturnUrl);
+                    AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
+                    _actResult= Redirect(loginView.ReturnUrl);
                 }
             }
-            else
-            {
-                ModelState.AddModelError("", "Something Wrong : Username or Password invalid ^_^ ");
-                return View(loginView);
-            }
-            
+            return _actResult;
         }
 
         [HttpGet]

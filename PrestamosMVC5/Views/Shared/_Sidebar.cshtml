@@ -84,7 +84,10 @@
                                 <a href="@Url.Action("Index","User")">Listado de Usuarios</a>
                             <li>
                             <li>
-                                <a href="@Url.Action("CreateOrEdit","User")">Crear Usuario Nuevo</a>
+                                <a href="@Url.Action("CreateOrEdit","User")">Crear Usuario Nuevo (Simple)</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","User",new {id=-1, showAdvancedView=true})">Crear Usuario Nuevo (Avanzado)</a>
                             </li>
                         </ul>
                     </li>

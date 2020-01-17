@@ -12,27 +12,136 @@ namespace PrestamosMVC5.Controllers
 {
     public class UserController : Controller
     {
+        #region Request
         // GET: User
         public ActionResult Index()
         {
 
-            return View(BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { IdNegocio = AuthInSession.GetIdNegocio(), Usuario = AuthInSession.GetLoginName() }));
+            var usuarioGetParams = new UsuarioGetParams();
+            AuthInSession.SetUsuarioYIdNegocioTo(usuarioGetParams);
+            return View(BLLPrestamo.Instance.GetUsuarios(usuarioGetParams));
+
         }
 
-        public ActionResult Test()
+        public ActionResult Test(int id = -1, bool showAdvancedView = false)
         {
-            return View(new UserModel());
+            var model = GetUserAndSetItToModel(id);
+            model.ShowAdvancedOptions = showAdvancedView;
+            prepareUserModelForGet(model);
+            defaultTestNewModel(id, model);
+            model.ForActivo = true;
+            return View("CreateOrEdit", model);
         }
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
+        private void defaultTestNewModel(int id, UserModel model)
         {
-            return View();
+            if (id <= 0)
+            {
+                model.Usuario.NombreRealCompleto = "nombre real";
+                model.Usuario.LoginName = "loginname";
+                model.Usuario.Telefono1 = "8095508455";
+                model.Usuario.Activo = false;
+                model.Usuario.Bloqueado = true;
+            }
         }
+
+        [HttpPost]
+        public ActionResult Test(UserModel userModel)
+        {
+            var usuario = userModel.Usuario;
+            var dyna = new
+            {
+                cambiContrInicioSesion = usuario.DebeCambiarContraseñaAlIniciarSesion,
+                _cambsesion = userModel.ForCambiarContraseñaAlIniciarSesion,
+                usuarioactivo = usuario.Activo,
+                _activo = userModel.ForActivo,
+                bloqueado = usuario.Bloqueado,
+                _bloqueado = userModel.ForBloqueado,
+                contraseñaExpira = userModel.LaContraseñaExpira,
+                limitarVigenciaDeCuenta = userModel.LimitarVigenciaDeCuenta
+            };
+            var dyna2 = new
+            {
+                expiraCadaXMes = userModel.ContraseñaExpiraCadaXMes
+            };
+            return Content(dyna.ToJson());
+        }
+        //[AuthorizeUser]
         // GET: User/Create
-        public ActionResult CreateOrEdit(int id = -1)
+        public ActionResult CreateOrEdit(int id = -1, bool showAdvancedView = false)
+        {
+            var model = GetUserAndSetItToModel(id);
+            prepareUserModelForGet(model);
+            model.ShowAdvancedOptions = showAdvancedView;
+            return View(model);
+        }
+
+
+
+        // POST: User/Create
+        [HttpPost]
+        public ActionResult CreateOrEdit(UserModel userModel)
+        {
+            ActionResult actionResult;
+            Usuario usuario;
+            prepareUserModelForPost(userModel, out actionResult, out usuario);
+            actionResult = SaveData(actionResult, usuario);
+            return actionResult;
+        }
+        
+        public ActionResult ChangePassword(int id = -1)
+        {
+            var getUsuarioParam = new UsuarioGetParams
+            {
+                Usuario = AuthInSession.GetLoginName(),
+                IdUsuario = id,
+            };
+            var model = new ChangePasswordModel();
+            var usr = BLLPrestamo.Instance.GetUsuarios(getUsuarioParam).FirstOrDefault();
+            if (usr != null)
+            {
+                model.IdUsuario = usr.IdUsuario;
+                model.LoginName = usr.LoginName;
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "El usuario indicado no existe");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            ActionResult actResult = View(model); 
+            if (!ModelState.IsValid)
+
+            {
+                ModelState.AddModelError(string.Empty, "Favor revisar hay errores en el formulario");
+            }
+            else
+            {
+                var changeP = new changePassword { Contraseña = model.Contraseña, IdUsuario = model.IdUsuario };
+                changeP.Usuario= AuthInSession.GetLoginName();
+                try
+                {
+                    BLLPrestamo.Instance.UsuarioChangePassword(changeP);
+                    actResult = RedirectToAction("index");
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError(string.Empty, "Ocurrio un error no se pudo cambiar la contraseña");
+                }
+            }
+            return actResult;
+        }
+        #endregion Request
+        #region Operations
+        private UserModel GetUserAndSetItToModel(int id)
         {
             var model = new UserModel();
+            model.Usuario = new Usuario();
             if (id > 0)
             {
                 var getUsuarioParam = new UsuarioGetParams
@@ -41,81 +150,75 @@ namespace PrestamosMVC5.Controllers
                     IdUsuario = id,
                 };
                 model.Usuario = BLLPrestamo.Instance.GetUsuarios(getUsuarioParam).FirstOrDefault();
-                model.Usuario.Usuario = AuthInSession.GetLoginName();
+                if (model.Usuario == null)
+                {
+                    ModelState.AddModelError(string.Empty, "No se encontro usuario para su peticion");
+                    model.Usuario = new Usuario();
+                }
             }
-            return View(model);
+            return model;
         }
-
-        // POST: User/Create
-        [HttpPost]
-        public ActionResult CreateOrEdit(UserModel userModel)
+        private ActionResult SaveData(ActionResult actionResult, Usuario usuario)
         {
-            ActionResult actionResult = View(userModel);
-            if (userModel.Usuario.DebeCambiarContraseñaAlIniciarSesion)
-            {
-                ModelState.Remove("Contraseña");
-                ModelState.Remove("ConfirmarContraseña");
-            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    userModel.Usuario.Usuario = AuthInSession.GetLoginName();
-                    BLLPrestamo.Instance.InsUpdUsuario(userModel.Usuario);
+                    usuario.Usuario = AuthInSession.GetLoginName();
+                    BLLPrestamo.Instance.InsUpdUsuario(usuario);
                     actionResult = RedirectToAction("index");
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError(" ", e.Message);
-                    
+                    ModelState.AddModelError(string.Empty, e.Message);
                 }
             }
             return actionResult;
         }
 
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
+        private void prepareUserModelForPost(UserModel userModel, out ActionResult actionResult, out Usuario usuario)
         {
-            return View();
-        }
-
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            actionResult = View(userModel);
+            usuario = SetUsuarioFromUserModel(userModel);
+            if (usuario.DebeCambiarContraseñaAlIniciarSesion || usuario.IdUsuario > 0)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-
-        }
-
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                ModelState.Remove("Contraseña");
+                ModelState.Remove("ConfirmarContraseña");
+                usuario.Contraseña = string.Empty;
             }
         }
+
+        private static Usuario SetUsuarioFromUserModel(UserModel userModel)
+        {
+            Usuario usuario = userModel.Usuario;
+            usuario.Contraseña = userModel.Contraseña;
+            usuario.Activo = userModel.ForActivo;
+            usuario.Bloqueado = userModel.ForBloqueado;
+            usuario.DebeCambiarContraseñaAlIniciarSesion = userModel.ForCambiarContraseñaAlIniciarSesion;
+
+            usuario.CambiarContraseñaAlActualizar = false;
+
+            usuario.ContraseñaExpiraCadaXMes = userModel.LaContraseñaExpira ?
+                                   userModel.ContraseñaExpiraCadaXMes : -1;
+            usuario.VigenteHasta = userModel.LimitarVigenciaDeCuenta ?
+                                             usuario.VigenteHasta : InitValues._19000101;
+            return usuario;
+        }
+
+        private void prepareUserModelForGet(UserModel model)
+        {
+            var usuario = model.Usuario;
+            model.LimitarVigenciaDeCuenta = (usuario.VigenteHasta != InitValues._19000101);
+            var dateAreEquals = DateTime.Compare(usuario.VigenteHasta, InitValues._19000101) == 0;
+            usuario.VigenteDesde = dateAreEquals ? DateTime.Now : usuario.VigenteDesde;
+            usuario.VigenteHasta = dateAreEquals ? DateTime.Now : usuario.VigenteHasta;
+            usuario.Usuario = AuthInSession.GetLoginName();
+            model.LaContraseñaExpira = usuario.LaContrasenaExpira();
+            model.ContraseñaExpiraCadaXMes = model.LaContraseñaExpira ? usuario.ContraseñaExpiraCadaXMes : 1;
+            model.Usuario = usuario;
+            AuthInSession.SetUsuarioYIdNegocioTo(model.Usuario);
+        }
+        #endregion Operations
     }
 }

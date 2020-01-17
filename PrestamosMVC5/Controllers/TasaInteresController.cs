@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using PrestamoBLL;
 using PrestamoEntidades;
+using PrestamosMVC5.SiteUtils;
 
 namespace PrestamosMVC5.Controllers
 {
+    [AuthorizeUser]
     public class TasaInteresController : Controller
     {
     

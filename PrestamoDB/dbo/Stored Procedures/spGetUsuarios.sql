@@ -7,14 +7,14 @@
 	@NombreRealCompleto varchar(100),
     @Bloqueado int =-1,
     @Activo int=-1,
-    @DebeCambiarContraseña int= -1,
+    @DebeCambiarContraseñaAlIniciarSesion int= -1,
 	@Usuario varchar(100)='',
 	@Anulado int=-1
 )
 as
 begin
 	SELECT 
-	IdUsuario, IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseña, FechaExpiracionContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath
+	IdUsuario, IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña , Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath, ContraseñaExpiraCadaXMes, VigenteHasta, VigenteDesde, RazonBloqueo
 	FROM dbo.tblUsuarios(nolock) 
 	where 
 		((@idUsuario=-1) or (idUsuario = @IdUsuario))
@@ -22,7 +22,6 @@ begin
 		and ((@LoginName='') or (LoginName=@LoginName))
 		and ((@NombreRealCompleto='') or (NombreRealCompleto=@NombreRealCompleto))
 		and ((@Activo=-1) or (Activo=@Activo))
-		and ((@DebeCambiarContraseña=-1) or (DebeCambiarContraseña=@DebeCambiarContraseña))
+		and ((@DebeCambiarContraseñaAlIniciarSesion=-1) or (DebeCambiarContraseñaAlIniciarSesion=@DebeCambiarContraseñaAlIniciarSesion))
 		and ((@Bloqueado=-1) or (Bloqueado=@Bloqueado))
-		
 End

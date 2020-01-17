@@ -9,10 +9,7 @@
     
     // como validar todos los inputs
     // validat los inputs dentro de un tab pane no enfocado
-    $('#mensajeError').css("background-color", "yellow");
-    setTimeout(function () {
-        $('#mensajeError').remove();
-    }, 8000);
+    
     // declare variables
     let validForm = false;
     let d = new Date();

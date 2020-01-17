@@ -106,19 +106,18 @@ namespace PrestamoBLL.Tests
             }
             catch (Exception e)
             {
-
                 errorMensaje = e.Message;
             }
-            Assert.IsTrue(loginNameOfUsuario == NewSuccessUserInstance.LoginName, errorMensaje);
+            Assert.IsTrue(loginNameOfUsuario == NewSuccessUserInstance.LoginName.ToLower(), errorMensaje);
         }
         [TestMethod()]
         public void GetUsuario_ValidationResult_Success()
         {
-            UserValidationResult result = UserValidationResult.Sucess;
+            UserValidationResultWithMessage  result = new UserValidationResultWithMessage(UserValidationResult.Sucess);
             var usr = NewSuccessUserInstance;
             UpdateSuccessUser(usr);
             result = BLLPrestamo.Instance.UsuarioValidateCredential(1, usr.LoginName, new PasswordInfo(usr.Contraseña, false));
-            Assert.IsTrue(result == UserValidationResult.Sucess, $"Se esperaba {UserValidationResult.Sucess} y se obtuvo {result.ToString()}");
+            Assert.IsTrue(result.UserValidationResult == UserValidationResult.Sucess, $"Se esperaba {UserValidationResult.Sucess} y se obtuvo {result.ToString()}");
         }
         /// <summary>
         /// Update Succes user search  record and update the IdUsuario with the Usuario value instance
@@ -166,7 +165,7 @@ namespace PrestamoBLL.Tests
             var expected = UserValidationResult.NoUserFound;
             string loginName = DateTime.Now.ToString();
             var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, loginName, new PasswordInfo(string.Empty, false));
-            Assert.IsTrue(userValResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
+            Assert.IsTrue(userValResult.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
         }
 
         [TestMethod()]
@@ -177,7 +176,7 @@ namespace PrestamoBLL.Tests
             UpdateSuccessUser(usr);
             string loginName = usr.LoginName;
             var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, loginName, new PasswordInfo(new Guid().ToString(), false));
-            Assert.IsTrue(userValResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
+            Assert.IsTrue(userValResult.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
         }
 
         /// <summary>
@@ -211,7 +210,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void UserValidationResPasswordExpired()
         {
-            ExecuteValidation(UserValidationResult.PasswordExpired, usr => usr.UsuarioValidoHasta = DateTime.Now.AddDays(-10));
+            ExecuteValidation(UserValidationResult.ExpiredPassword, usr => usr.VigenteHasta = DateTime.Now.AddDays(-10));
         }
         private void ExecuteValidation(UserValidationResult expected, Action<Usuario> cambiarValor)
         {
@@ -221,7 +220,7 @@ namespace PrestamoBLL.Tests
             //usuario.DebeCambiarContraseña = true;
             BLLPrestamo.Instance.InsUpdUsuario(usuario);
             var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, usuario.LoginName, new PasswordInfo(usuario.Contraseña, true));
-            Assert.IsTrue(userValResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
+            Assert.IsTrue(userValResult.UserValidationResult== expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
 
         }
 

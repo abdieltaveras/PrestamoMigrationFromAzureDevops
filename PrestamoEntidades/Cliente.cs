@@ -35,7 +35,7 @@ namespace PrestamoEntidades
         [EmailAddress(ErrorMessage ="correo electronico invalido")]
         public string CorreoElectronico { get; set; } = string.Empty;
         [Display(Name = "Estado Civil")]
-        public EstadoCivil EstadoCivil { get; set; } = EstadoCivil.Soltero;
+        public int EstadoCivil { get; set; } = 0;
         //<summary>
         //son los datos en formato string que son traidos de las tablas
         //</summary>

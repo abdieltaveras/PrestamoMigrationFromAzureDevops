@@ -1,12 +1,12 @@
 ﻿CREATE TABLE [dbo].[tblUsuarios]
 (
 	[IdUsuario] INT NOT NULL PRIMARY KEY Identity(1,1),
-	[IdNegocio] INT not null, 
+	[IdNegocio] INT not null FOREIGN KEY REFERENCES TblNegocios(idNegocio), 
 	LoginName varchar(50) not null,
 	NombreRealCompleto varchar(50) not null,
 	Contraseña varchar(50) not null, 
-    [DebeCambiarContraseña] BIT NOT NULL,
-    [FechaExpiracionContraseña] DateTime,
+    [DebeCambiarContraseñaAlIniciarSesion] BIT NOT NULL,
+    [InicioVigenciaContraseña] DateTime,
     [Telefono1] VARCHAR(50) NOT NULL, 
     [Telefono2] VARCHAR(50) NULL, 
     [Activo] BIT NOT NULL, 
@@ -14,6 +14,10 @@
     [CorreoElectronico] VARCHAR(50) NULL, 
     [EsEmpleado] BIT NOT NULL,
     ImgFilePath varchar(100),
+    VigenteDesde datetime null,
+    VigenteHasta datetime null,
+    ContraseñaExpiraCadaXMes int,
+    RazonBloqueo int,
     IdPersonal int,
     InsertadoPor varchar(100) NOT null,
 	FechaInsertado DateTime not null default getdate(), 
@@ -22,4 +26,5 @@
     [AnuladoPor] VARCHAR(100) NULL, 
     [FechaAnulado] DATETIME NULL, 
     CONSTRAINT [FK_tblUsuarios_UQ_LoginName] Unique NonClustered(IdNegocio, LoginName),
+    CONSTRAINT [FK_tblUsuario_ToTblNegocios] FOREIGN KEY (IdNegocio) REFERENCES tblNegocios([IdNegocio]),
 )

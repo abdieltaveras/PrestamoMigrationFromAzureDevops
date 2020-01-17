@@ -25,7 +25,7 @@ namespace PrestamosMVC5.SiteUtils
 
             return usuarioObj == null ? AnonimousUser : usuarioObj.ToString();
         }
-        
+
         private static object getKeyValue(HttpSessionStateBase sessionState, string key)
         {
             return sessionState == null ?
@@ -51,17 +51,24 @@ namespace PrestamosMVC5.SiteUtils
         public static int GetIdNegocio(HttpSessionStateBase sessionState = null)
         {
             object idNegObj = getKeyValue(sessionState, NegocioKey);
-            return idNegObj==null? -1 : Convert.ToInt32(idNegObj);
+            var returnValue = idNegObj == null ? -1 : Convert.ToInt32(idNegObj);
+            #if (DEBUG)
+                  if (returnValue <= 0) { returnValue = 1; }
+            #endif
+            return returnValue;
         }
 
 
         public static void CreateUserWithIdNegocioInSession(HttpSessionStateBase sessionState, int idNegocio, string usuario, string userImageFilePath)
         {
+            
             sessionState.Add(UsuarioKey, usuario);
             sessionState.Add(NegocioKey, idNegocio);
             sessionState.Add(UserImageFilePathKey, userImageFilePath);
             sessionState.Timeout = 60 * 5;
         }
+
+        
 
         public static void Logout()
         {

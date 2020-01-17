@@ -118,9 +118,10 @@
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger", @id = "mensajeError_x" })
                         @*<div class="form-label-group">
-                               <input type="email" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
-                               <label for="inputEmail">Usuario</label>
+                            <input type="email" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
+                            <label for="inputEmail">Usuario</label>
                             </div>*@
                         <div>
                             <label>Seleccione el negocio </label>
@@ -149,3 +150,7 @@
         </div>
     </div>
 </div>
+@section Scripts
+{
+    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
+}

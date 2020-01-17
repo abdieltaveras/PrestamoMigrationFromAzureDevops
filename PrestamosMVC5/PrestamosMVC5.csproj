@@ -3974,6 +3974,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
+    <Content Include="Scripts\Apps\manageErrorMessageOnForms.js" />
     <Content Include="Scripts\Apps\validate-form-Inputs.js" />
     <Content Include="Scripts\Apps\DatePickerInit.js" />
     <Content Include="Scripts\Apps\empty.js" />
@@ -5130,6 +5131,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Test.cshtml" />
     <Content Include="Views\User\CreateOrEdit - Copy.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

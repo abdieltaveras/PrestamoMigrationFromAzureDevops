@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,38 +27,52 @@ namespace PrestamosMVC5.Models
         public string ReturnUrl { get; set; } = string.Empty;
     }
 
-    public class CustomSerializeModel
+    
+    public class ChangePasswordModel
     {
-        public int UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public List<string> RoleName { get; set; }
+        public string LoginName { get; set; } = string.Empty;
+        public int IdUsuario { get; set; }
+        [Required(ErrorMessage = "Contraseña requerida")]
+        [DataType(DataType.Password)]
 
+        public string Contraseña { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Valor requerido no puede estar vacio")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar Contraseña")]
+        [System.ComponentModel.DataAnnotations.Compare("Contraseña", ErrorMessage = "Error : Las confirmaciones de contraseñas no coinciden o estan vacias")]
+        public string ConfirmarContraseña { get; set; } = string.Empty;
     }
 
     public class UserModel
     {
-        public Usuario Usuario { get; set; } = new Usuario();
+        public Usuario Usuario { get; set; }= new Usuario();
         [Required]
-        public Guid ActivationCode { get; set; }
+        public Guid ActivationCode { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Contraseña requerida")]
         [DataType(DataType.Password)]
-        public string Contraseña { get; set; }
+
+        public string Contraseña { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Valor requerido no puede estar vacio")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar Contraseña")]
         [System.ComponentModel.DataAnnotations.Compare("Contraseña", ErrorMessage = "Error : Las confirmaciones de contraseñas no coinciden o estan vacias")]
-        public string ConfirmarContraseña { get; set; }
+        public string ConfirmarContraseña { get; set; } = string.Empty;
         [Display(Name = "La Contraseña Expira ?")]
-        public bool LaContraseñaExpira { get; set; }
-        [Display(Name ="Limitar vigencia de esta cuenta")]
-        public bool LimitarVigenciaDeCuenta { get; set; }
+        public bool LaContraseñaExpira { get; set; } = false;
+        [Display(Name = "Limitar vigencia de esta cuenta")]
+        public bool LimitarVigenciaDeCuenta { get; set; } = false;
         [Display(Name = "La Contraseña Expira Cada")]
-        [Range(maximum:12, minimum:1,ErrorMessage ="Solo se aceptan valores entre 1  y 12")]
-        [Required]
+        //[Range(maximum:12, minimum:1,ErrorMessage ="Solo se aceptan valores entre 1  y 12")]
+        //[Required]
         public int ContraseñaExpiraCadaXMes { get; set; } = 1;
+
+        public bool ForActivo { get; set; } = false;
+        public bool ForBloqueado { get; set; } = false;
+        public bool ForCambiarContraseñaAlIniciarSesion { get; set; } = false;
+
+        public bool ShowAdvancedOptions { get; set; } = false;
     }
     
 }

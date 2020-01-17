@@ -57,11 +57,7 @@
                         @Html.ValidationMessageFor(model => model.Cliente.EstadoCivil, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @{
-                    var sexoChecked = new string[3];
-                    var sexvalue = (int)Model.Cliente.Sexo - 1;
-                    sexoChecked[sexvalue] = "checked";
-                }
+                
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.Sexo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">

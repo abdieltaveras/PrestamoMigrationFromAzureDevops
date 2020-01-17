@@ -70,14 +70,14 @@ namespace PrestamoEntidades
         }
 
     }
-    public class StringMeth
+    public static class StringMeth
     {
-        public static string ConvertNullStringToEmpty(string value)
+        public static string ConvertNullStringToEmpty(this string value)
         {
             value = string.IsNullOrEmpty(value) ? string.Empty : value;
             return value;
         }
-        public static string RemoveAllButNumber(string texto)
+        public static string RemoveAllButNumber(this string texto)
         {
             var onlyNumbers = string.Empty;
             if (!string.IsNullOrEmpty(texto))
@@ -86,5 +86,6 @@ namespace PrestamoEntidades
             }
             return onlyNumbers;
         }
+
     }
 }

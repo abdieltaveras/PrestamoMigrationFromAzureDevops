@@ -35,18 +35,20 @@
             @Html.DisplayNameFor(model => model.DebeCambiarContraseñaAlIniciarSesion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ContrasenaExpiraCadaXMes)
+            @Html.DisplayNameFor(model => model.ContraseñaExpiraCadaXMes)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ImgFilePath)
+        </th>*@
+        <th>
+            Accion
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.LoginName)
+            @Html.ActionLink(item.LoginName, "CreateOrEdit" ,new { id = item.IdUsuario }, new { @class = "badge badge-info" }) 
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Activo)
@@ -68,16 +70,16 @@
             @Html.DisplayFor(modelItem => item.DebeCambiarContraseñaAlIniciarSesion)
         </td>
         <td>
-            @item.ContrasenaExpiraCadaXMesToText()
+            @item.ContraseñaExpiraCadaXMesToText()
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.ImgFilePath)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "CreateOrEdit", new {  id=item.IdUsuario}) |
-            @Html.ActionLink("Ver", "Detail", new { id = item.IdUsuario  }) |
-            @Html.ActionLink("Anular", "Delete", new { id=item.IdUsuario })
-        </td>
+        </td>*@
+    <td>
+        @*@Html.ActionLink("Ver Detalles", "Detail", new { id = item.IdUsuario }) |*@
+        @Html.ActionLink("Cambiar Contraseña", "ChangePassword", new { id = item.IdUsuario }) @*|*@
+        @* @Html.ActionLink("Anular", "Delete", new { id = item.IdUsuario })*@
+    </td>
     </tr>
 }
 

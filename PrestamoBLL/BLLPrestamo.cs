@@ -73,7 +73,7 @@ namespace PrestamoBLL
         /// realiza validaciones generales de la insercion como no permitir usuario vacio o nulo
         /// </summary>
         /// <param name="insUpdParam"></param>
-        private static void InsUpdValidation(BaseInsUpd insUpdParam)
+        private static void InsUpdValidation(BaseUsuario insUpdParam)
         {
             ThrowErrorIfUsuarioEmptyOrNull(insUpdParam.Usuario);
         }
@@ -111,7 +111,7 @@ namespace PrestamoBLL
                 else { databaseErrorMethod(e); };
             }
 
-            public static void insUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseInsUpd
+            public static void insUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseUsuarioEIdNegocio
             {
                 InsUpdValidation(insUpdParam);
                 try
