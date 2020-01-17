@@ -1,4 +1,4 @@
-﻿let locations;
+﻿
 if (typeof (searchLocalidadElem) === 'undefined') { console.log("Es obligatorio pasar la variable searchLocalidadElem"); }
 
 $(".target").keyup(function () {
@@ -61,6 +61,7 @@ searchLocalidadElem.focus(function () {
 function showList(list) {
     $('.direcciones').remove();
     $.each(list, function (index, value) {
+        console.log('La ruta a buscar es', list);
 
         $("#list-tab").append(`  <p class="list-group-item direcciones ${!value.PermiteCalle ? 'disabled-list-item' : ''} list-group-item-action" id="listaddresses" data-toggle="list"
                 data-idlocalidadpadre="${value.IdTipoLocalidad}"
@@ -79,7 +80,7 @@ async function buscarRutaDeLocalidad() {
     try {
         const res = await BuscarRutaDeLocalidad(LocalidadABuscar);
         console.log('La ruta es', JSON.parse(res));
-        AddItem(JSON.parse(res), '@Model.TipoBusqueda');
+        AddItem(JSON.parse(res), 'normal');
         //setClickListener();
     }
     catch (err) {   }
@@ -105,6 +106,8 @@ function AddItem(list, typeOfList) {
     $('rutadelocalidad').text('');
     $('InputRutaLocalidad').text('');
     $('ReverseInputRutaLocalidad').text('');
+
+    console.log("OOOOOOOOH");
 
     switch (typeOfList) {
         case 'inverso':

@@ -33,7 +33,7 @@ namespace PrestamosMVC5.Controllers
         //Buscar ruta de una localidad
         public string Buscar(string IDLocalidad)
         {
-            var localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });           
+            var localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
             
             return JsonConvert.SerializeObject(localidades);
         }

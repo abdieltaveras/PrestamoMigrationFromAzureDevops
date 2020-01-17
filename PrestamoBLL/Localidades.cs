@@ -26,10 +26,9 @@ namespace PrestamoBLL
         }
         public void GuardarLocalidad(LocalidadInsUptParams localidad)
         {
-            IEnumerable<Localidad> result = new List<Localidad>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Localidad>("spInsUpdLocalidad", SearchRec.ToSqlParams(localidad));
+                Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Localidad>("spInsUpdLocalidad", SearchRec.ToSqlParams(localidad));
             }
             catch (Exception e)
             {
@@ -44,6 +43,21 @@ namespace PrestamoBLL
             try
             {
                  result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<BuscarLocalidad>("spBuscarLocalidad", SearchRec.ToSqlParams(searchParam));
+            }
+            catch (Exception e)
+            {
+                //DatabaseError(e);
+                throw e;
+            }
+            return result;
+        }
+
+        public List<string> BuscarNombreLocalidad(BuscarNombreLocalidadParams searchParam)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<string>("spGetLocalidadById", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {

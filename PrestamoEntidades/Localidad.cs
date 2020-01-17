@@ -45,4 +45,10 @@ namespace PrestamoEntidades
 
         public string Search { get; set; } = string.Empty;
     }
+
+    public class BuscarNombreLocalidadParams
+    {
+        public int IdNegocio { get; set; }
+        public int IdLocalidad { get; set; }
+    }
 }
