@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void GuardarGarantia(GarantiaInsUptParams garantia)
+        public void GuardarGarantia(Garantia garantia)
         {
             try
             {
@@ -23,12 +23,12 @@ namespace PrestamoBLL
             }
         }
 
-        public IEnumerable<GarantiaInsUptParams> BuscarGarantia(BuscarGarantiaParams searchParam)
+        public IEnumerable<Garantia> BuscarGarantia(BuscarGarantiaParams searchParam)
         {
-            IEnumerable<GarantiaInsUptParams> result = new List<GarantiaInsUptParams>();
+            IEnumerable<Garantia> result = new List<Garantia>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<GarantiaInsUptParams>("spBuscarGarantias", SearchRec.ToSqlParams(searchParam));
+                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Garantia>("spBuscarGarantias", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {

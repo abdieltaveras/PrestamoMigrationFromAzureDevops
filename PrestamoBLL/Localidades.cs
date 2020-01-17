@@ -51,5 +51,20 @@ namespace PrestamoBLL
             }
             return result;
         }
+
+        public List<string> BuscarNombreLocalidad(BuscarNombreLocalidadParams searchParam)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<string>("spGetLocalidadById", SearchRec.ToSqlParams(searchParam));
+            }
+            catch (Exception e)
+            {
+                //DatabaseError(e);
+                throw e;
+            }
+            return result;
+        }
     }
 }

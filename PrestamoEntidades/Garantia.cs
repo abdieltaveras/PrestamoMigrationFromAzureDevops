@@ -1,24 +1,31 @@
-﻿using System;
+﻿using emtSoft.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace PrestamoEntidades
 {
     public class Garantia
     {
-        public int IdGarantia { get; set; }
-        public int IdClasificacion { get; set; }
-        public int IdTipo { get; set; }
-        public int IdModelo { get; set; }
-        public int IdMarca { get; set; }
-        public string NoIdentificacion { get; set; }
-        public int IdNegocio { get; set; }
+        public int IdGarantia { get; set; } = -1;
+        public int IdClasificacion { get; set; } = -1;
+        public int IdTipo { get; set; } = -1;
+        public int IdModelo { get; set; } = -1;
+        public int IdMarca { get; set; } = -1;
+        //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
+        [StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
+        //[StringLength(3)]
+        public string NoIdentificacion { get; set; } = string.Empty;
+        public int IdNegocio { get; set; } = -1;
+        [IgnorarEnParam]
+        public DetalleGaratia DetallesJSON { get; set; }
+        public string Detalles { get; set; } = string.Empty;
 
-
-        public DetalleGaratia Detalles { get; set; }
     }
 
     public class DetalleGaratia
@@ -54,6 +61,8 @@ namespace PrestamoEntidades
         public int IdClasificacion { get; set; }
         public int IdTipo { get; set; }
         public int IdModelo { get; set; }
+        public int IdMarca { get; set; }
+
         public string NoIdentificacion { get; set; }
         public int IdNegocio { get; set; }
 
@@ -63,7 +72,7 @@ namespace PrestamoEntidades
 
     public class BuscarGarantiaParams
     {
-        public int IdNegocio { get; set; }
+        public int IdNegocio { get; set; } = -1;
         public string Search { get; set; } = string.Empty;
     }
 

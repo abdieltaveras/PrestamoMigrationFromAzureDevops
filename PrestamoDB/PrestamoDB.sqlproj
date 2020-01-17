@@ -106,6 +106,19 @@
     <Build Include="dbo\Tables\tblGarantias.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdGarantias.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarGarantias.sql" />
+    <Build Include="dbo\Tables\tblMarcas.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdMarca.sql" />
+    <Build Include="dbo\Stored Procedures\spGetMarcas.sql" />
+    <Build Include="dbo\Tables\tblModelos.sql" />
+    <Build Include="dbo\Stored Procedures\spGetModelos.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdModelo.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTipos.sql" />
+    <Build Include="dbo\Tables\tblTipos.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdTipo.sql" />
+    <Build Include="dbo\Stored Procedures\spGetColores.sql" />
+    <Build Include="dbo\Tables\tblColores.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdColor.sql" />
+    <Build Include="dbo\Stored Procedures\spGetLocalidadById.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

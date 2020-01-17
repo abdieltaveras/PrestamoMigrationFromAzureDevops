@@ -139,25 +139,36 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\GarantiasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\ModelosController.cs" />
     <Compile Include="Controllers\TasaInteresController.cs" />
     <Compile Include="Controllers\TerritorioController.cs" />
+    <Compile Include="Controllers\TipoController.cs" />
     <Compile Include="Controllers\TipoMorasController.cs" />
+    <Compile Include="Exceptions\FormException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClienteVM.cs" />
+    <Compile Include="Models\ColorVM.cs" />
     <Compile Include="Models\EnumSearch.cs" />
     <Compile Include="Models\ExtensionMethods.cs" />
+    <Compile Include="Models\GarantiaVM.cs" />
     <Compile Include="Models\HtmlClass.cs" />
+    <Compile Include="Models\MarcaVM.cs" />
+    <Compile Include="Models\ModeloVM.cs" />
+    <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Models\SelectItems.cs" />
     <Compile Include="Models\SiteDirectory.cs" />
     <Compile Include="Models\SiteImages.cs" />
     <Compile Include="Models\TasaInteresVM.cs" />
     <Compile Include="Models\TipoBusqueda.cs" />
+    <Compile Include="Models\TipoVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -5117,7 +5128,11 @@
     <Content Include="Views\TipoMoras\Index.cshtml" />
     <Content Include="Views\Territorio\CreateDivisionTerritorial.cshtml" />
     <Content Include="Views\Localidades\CreatePais.cshtml" />
-    <Content Include="Views\Garantias\Index.cshtml" />
+    <Content Include="Views\Garantias\CreateOrEdit.cshtml" />
+    <Content Include="Views\Marcas\CreateOrEdit.cshtml" />
+    <Content Include="Views\Modelos\CreateOrEdit.cshtml" />
+    <Content Include="Views\Tipo\CreateOrEdit.cshtml" />
+    <Content Include="Views\Color\CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

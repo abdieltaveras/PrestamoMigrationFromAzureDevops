@@ -4,6 +4,7 @@
 	@IdNegocio int,
 	@IdTipo int,
 	@IdModelo int,
+	@IdMarca int,
 	@NoIdentificacion varchar(100),
 	@Detalles varchar(4000)
 AS
@@ -13,9 +14,9 @@ if (@IdGarantia = 0)
 	begin
 		insert into 
 			tblGarantias
-				(IdClasificacion, IdNegocio, IdTipo, IdModelo, NoIdentificacion, Detalles)
+				(IdClasificacion, IdNegocio, IdTipo, IdModelo, IdMarca, NoIdentificacion, Detalles)
 		values
-			(@IdClasificacion, @IdNegocio, @IdTipo, @IdModelo, @NoIdentificacion, @Detalles)
+			(@IdClasificacion, @IdNegocio, @IdTipo, @IdModelo, @IdMarca, @NoIdentificacion, @Detalles)
 	end
 Else
 	Begin
@@ -24,6 +25,7 @@ Else
 				IdClasificacion = @IdClasificacion,
 				IdNegocio = @IdNegocio,
 				IdTipo = @IdTipo,
+				IdMarca = @IdMarca,
 				IdModelo = @IdModelo,
 				NoIdentificacion = @NoIdentificacion,
 				Detalles = @Detalles

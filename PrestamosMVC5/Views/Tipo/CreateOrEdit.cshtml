@@ -1,0 +1,134 @@
+﻿@model TipoVM
+
+<div class="row">
+
+    <div id="listContainer" class="col-md-6 col-sm-12 col-xs-12">
+
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-tipo" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Tabla de tipos</h2>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table bulk_action ">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>clasificacion</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.ListaTipos)
+                        {
+                        <tr>
+                            <td>
+                                <strong>
+                                    @item.Nombre
+                                </strong>
+                            </td>
+                            <td>
+                                @if (item.IdClasificacion == 1)
+                                {
+                                    <span>Mobiliario</span>
+                                }
+                                else
+                                {
+                                    <span>Inmobiliario</span>
+                                }
+                            </td>
+
+                            <td>
+                                <a href="#">
+                                    <button class="btn btn-outline-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @* Formulario para agregar tasas de interes *@
+
+
+    @* Fin de formulario para agregar tasas de interes *@
+</div>
+
+@*Modal de agregar intereses*@
+<div class="modal fade modal-tipo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>*@
+                <h4 class="modal-title" id="myModalLabel2">Agrega tipo</h4>
+            </div>
+            <div class="modal-body">
+
+                @*form*@
+
+                <div class="col-sm-12" id="formAgregarTasaInteres">
+
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <br />
+                            @using (Html.BeginForm("CreateOrEdit", "Tipo", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+                            {
+
+                                <h6>Tipo de garantia</h6>
+                                <div class="@HtmlClass.FormGroupCls">
+                                    <div class="@HtmlClass.DivInputCls">
+                                        <i class="fa fa-home"></i> Inmobiliriario
+                                        <input type="radio" class="flat" name="Tipo.IdClasificacion" id="Tipo_IdClasificacion" checked value="2"  />
+                                        <br />
+                                        <i class="fa fa-car"></i> Mobiliriario
+                                        <input type="radio" class="flat" name="Tipo.IdClasificacion" id="Tipo_IdClasificacion" value="1"/>
+                                        @*@Html.RadioButtonFor(m => m.Tipo.IdClasificacion, 1)
+                                        @Html.RadioButtonFor(m => m.Tipo.IdClasificacion, 2)*@
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="nombre">
+                                        Nombre <span class="required">*</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.Tipo.Nombre, new { @class = "form-control", @required = "required" })
+                                    </div>
+                                </div>
+
+
+
+                                <div class="ln_solid"></div>
+                                <div class="item form-group" style="float: right;">
+                                    <div class="col-md-6 col-sm-6 offset-md-3">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                                @*</form>*@
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                @*form*@
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

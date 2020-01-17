@@ -1,0 +1,615 @@
+﻿
+@model GarantiaVM
+
+<div class="clearfix"></div>
+<div>
+    <form autocomplete="off" action="/" method="post" style="padding: 0%">
+        <div class="col-5" style="margin: auto; padding: 0%; ">
+            <h4 style="text-align: center;">¿Que garantia buscas?</h4>
+            <input class="target form-control" type="text" id="searchinput" placeholder="Buscar por numero de identificacion..." name="name" value=""
+                   style="height: 60px" />
+
+            <div id="list-garantia-container">
+                <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+
+            <div class="x_content">
+                <div>
+                    <div class="x_title">
+                        <h2>Garantia </h2>
+                        <div style="float:right;">
+                            @if (Model.ListaMensajes != null)
+                            {
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#errorModal">Ver errores</button>
+                            }
+                            <button type="button" class="btn btn-primary" id="btnFormTasaInteres" onclick="clearForm()">Nuevo</button>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-6 col-md-12">
+
+                        @* Formulario de garantia *@
+
+                        <div class="x_content">
+                            <br>
+
+                            @using (Html.BeginForm("CreateOrEdit", "Garantias", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+                            {
+
+                                <h6>Clasificacion de garantia</h6>
+                                <div class="@HtmlClass.FormGroupCls">
+                                    <div class="@HtmlClass.DivInputCls">
+                                        <input type="radio" class="flat" name="Garantia.IdClasificacion" checked id="inmobiliario_option" value="1" style="float:right;" />
+                                        <i class="fa fa-home"></i> Inmobiliriario
+                                        <br />
+                                        <input type="radio" class="flat" name="Garantia.IdClasificacion" id="mobiliario_option" value="2" style="float:right;" />
+                                        <i class="fa fa-car"></i> Mobiliriario
+                                    </div>
+
+                                </div>
+                                <hr />
+
+                                //Datos iniciales formulario
+
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        @*<input class="form-control" type="hidden" id="IdGarantia" name="IdGarantia">*@
+                                        @Html.HiddenFor(model => model.Garantia.IdGarantia)
+                                        @Html.HiddenFor(model => model.Garantia.IdNegocio)
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="noidentificacion">
+                                                Numero de identificacion <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.Garantia.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls }, @required = true })
+                                                <span class="input-group-btn" style="color: dodgerblue;">
+                                                    (Generar codigo automatico)
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="tipo">
+                                                Tipo <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <select name="Garantia.IdTipo" class="form-control" id="Garantia_IdTipo">
+                                                    <option value="0">Elije una opcion</option>
+                                                </select>
+
+                                                @*@Html.DropDownListFor(model => model.Garantia.IdTipo, Model.ListaTipos, htmlAttributes: new { @class = @HtmlClass.FormControlCls })*@
+
+                                                @*@Html.EditorFor(model => model.Garantia.IdTipo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                // fin de datos iniciales
+
+                                @* Formulario de inmobiliario *@
+
+                                <div class="row" id="inmobiliario_form_container">
+                                    <div class="col-md-6">
+
+
+                                        <div class="form-group row" style="padding: 0%">
+                                            <label class="col-sm-4 col-form-label" for="Direccion_Calle">Localidad</label>
+                                            <div class="col-sm-8" style="margin: auto;">
+
+                                                <input class="target form-control" type="text" id="searchLocalidad" name="searchLocalidad" placeholder="Busca una direccion" autocomplete="off" />
+                                                <span id="rutadelocalidad"></span>
+                                                <div id="list-address-container" style=" padding: 0%;">
+                                                    <div class="list-group col-md-12 col-sm-12 col-xs-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding-right: 20px; padding-left: 0px; vertical-align: middle;">
+                                                    </div>
+                                                </div>
+
+                                                <span class="field-validation-valid text-danger" data-valmsg-for="Direccion.Calle" data-valmsg-replace="true"></span>
+                                                <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" class="target form-control" name="Garantia.DetallesJSON.IdLocalidad" id="Direccion_IdLocalidad" />
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="interes">
+                                                Detalles de direccion <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+
+                                                <textarea class="form-control rounded-0" name="Garantia.DetallesJSON.DetallesDireccion" id="InputRutaLocalidad" rows="3"></textarea>
+
+                                                @*<textarea name="Garantia.DetallesJSON.DetallesDireccion" class="form-control" id="InputRutaLocalidad" value="" />*@
+
+                                            </div>
+                                        </div>
+
+
+                                        @*<input type="text" class="target form-control" id="InputRutaLocalidad" placeholder="Aqui cargara la ruta" />*@
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="localidad">
+                                                Medida <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Medida, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @* Fin formulario de Inmobiliario *@
+
+                                @* Formulario de mobiliario *@
+
+                                <div class="row" id="mobiliario_form_container">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="marca">
+                                                Marca <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @*@Html.EditorFor(model => model.Garantia.IdMarca, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
+                                                @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+
+                                                @*<select name="Garantia.IdMarca" class="form-control" id="Garantia_IdTipo">
+                                                    <option value="0">Elije una opcion</option>
+                                                    @foreach (var item in Model.ListaMarcasReal)
+                                                    {
+                                                        <option value="@item.IdMarca">@item.Nombre</option>
+                                                    }
+                                                    </select>*@
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="modelo">
+                                                Modelo <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(model => model.Garantia.IdModelo, Model.ListaModelos, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+
+                                                @* @Html.EditorFor(model => model.Garantia.IdModelo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="modelo">
+                                                Colores <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(model => model.Garantia.DetallesJSON.Color, Model.ListaColores, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+
+                                                @* @Html.EditorFor(model => model.Garantia.IdModelo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
+                                            </div>
+                                        </div>
+
+                                        @*<div class="form-group row">
+                                                <label class="col-sm-4 col-form-label" for="color">
+                                                    Color <span class="required">*</span>
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(model => model.Garantia.DetallesJSON.Color, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                                </div>
+                                            </div>*@
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="NoMaquina">
+                                                No. Maquina <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.NoMaquina, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="año">
+                                                Año <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Año, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="placa">
+                                                Placa <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Placa, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="matricula">
+                                                Matricula <span class="required">*</span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Matricula, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @* Fin formulario de mobiliario *@
+
+                                @* Formulario de datos en comun *@
+
+                                <hr />
+
+                                <div class="row" id="common_form_container">
+                                    <div class="col-md-6">
+
+                                        @*<div class="form-group row">
+                                                <label class="col-sm-4 col-form-label" for="valor">
+                                                    Valor <span class="required">*</span>
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(model => Model.Detalles.Valor, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label" for="tasador">
+                                                    Tasador <span class="required">*</span>
+                                                </label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(model => Model.Detalles.IdTasador, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                                </div>
+                                            </div>*@
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label" for="interes">
+                                                Descripcion <span class="required"></span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.TextAreaFor(model => model.Garantia.DetallesJSON.Descripcion, new { @class = "form-control" })
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">
+                                                ¿Puedo usar esta garantia en mas de 1 transaccion? <span class="required"></span>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                @Html.CheckBoxFor(model => model.Garantia.DetallesJSON.UsoExclusivo, new { @class = "form-check-input" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                                @* Fin formulario de datos en comun *@
+
+                                <div class="ln_solid"></div>
+                                <div class="item form-group">
+                                    <div class="col-md col-sm-6">
+                                        <button type="submit" class="btn btn-primary" style="float:right;">Guardar</button>
+                                    </div>
+                                </div>
+                            }
+                            @*</form>*@
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de errores -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lista de errores</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @if (Model.ListaMensajes != null)
+                {
+                    foreach (var error in Model.ListaMensajes)
+                    {
+                        <div class="alert alert-danger alert-dismissible " role="alert">
+                            @*<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>*@
+                            <strong>Error: </strong> @error.Mensaje
+                        </div>
+                    }
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        let searchLocalidadElem = $('#searchLocalidad');
+
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        });
+
+        $('#mobiliario_form_container').hide();
+        loadTipo(2);
+
+        $('input').on('ifChecked', function (event) {
+            console.log(event.target.id);
+
+            if (event.target.id === 'mobiliario_option') {
+                $('#mobiliario_form_container').show();
+                $('#inmobiliario_form_container').hide();
+                loadTipo(1);
+                clearForm();
+
+            } else if (event.target.id === 'inmobiliario_option') {
+                $('#mobiliario_form_container').hide();
+                $('#inmobiliario_form_container').show();
+                loadTipo(2);
+                clearForm();
+
+            }
+        });
+    });
+
+    // Buscador de garantias
+
+    let locations;
+    let res;
+
+    $(".target").keyup(function () {
+        searchGarantiaText($('#searchinput').val());
+        console.log($('#searchinput').val());
+
+    });
+
+    async function searchGarantiaText(location) {
+        try {
+            res = await searchGarantia(location);
+
+            showListGarantia(JSON.parse(res));
+            setClickListenerOnGarantia();
+            console.log(res);
+        } catch (err) {
+
+        }
+    }
+
+    function searchGarantia(location) {
+
+        let dataValue = { "searchtotext": location };
+        let LocalidadABuscar;
+
+        return $.ajax({
+            type: "get",
+            url: "/Garantias/BuscarGarantias",
+            data: dataValue,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+    }
+
+    function searchLocalidadGarantia(IdLocation, IdNegocio) {
+
+        let dataValue = {
+            "IdLocalidad": IdLocation,
+            "IdNegocio": IdNegocio
+        };
+
+        return $.ajax({
+            type: "get",
+            url: "/Garantias/BuscarLocalidadGarantias",
+            data: dataValue,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+    }
+
+    function setClickListenerOnGarantia() {
+        const list = document.querySelectorAll('#listaddresses');
+        list.forEach(function (btn) {
+            btn.addEventListener('click', async function (evt) {
+
+
+                const selectedGarantia = JSON.parse(res).find(Garantia => Garantia.IdGarantia == evt.target.getAttribute('data-idGarantia'));
+                const detalles = JSON.parse(selectedGarantia.Detalles);
+
+                console.table(detalles);
+
+                $('#Garantia_IdGarantia').val(selectedGarantia.IdGarantia);
+
+                if (selectedGarantia.IdClasificacion == 1) {
+                    $('#inmobiliario_option').iCheck('check');
+                    loadTipo(2);
+                } else {
+                    $('#mobiliario_option').iCheck('check');
+                    loadTipo(1);
+                }
+
+                $('#Garantia_NoIdentificacion').val(selectedGarantia.NoIdentificacion);
+                $('#Garantia_IdNegocio').val(selectedGarantia.IdNegocio);
+
+                //$('#NoIdentificacion').prop("disabled", true);
+
+                $('#Garantia_IdTipo option[value="' + selectedGarantia.IdTipo + '"]').attr("selected", "selected");
+
+                $('#Garantia_IdMarca option[value="' + selectedGarantia.IdMarca + '"]').attr("selected", "selected");
+                $('#Garantia_IdModelo option[value="' + selectedGarantia.IdModelo + '"]').attr("selected", "selected");
+
+
+                //$('#IdTipo').val(selectedGarantia.IdTipo);
+                $('#IdModelo').val(selectedGarantia.IdModelo);
+                $('#IdMarca').val(selectedGarantia.IdMarca);
+
+                $('#Direccion_IdLocalidad').val(detalles.IdLocalidad);
+                $('#Garantia_DetallesJSON_DetallesDireccion').val(detalles.DetallesDireccion);
+                $('#Garantia_DetallesJSON_Medida').val(detalles.Medida);
+                $('#Garantia_DetallesJSON_Color').val(detalles.Color);
+                $('#Garantia_DetallesJSON_NoMaquina').val(detalles.NoMaquina);
+                $('#Garantia_DetallesJSON_A_o').val(detalles.Año);
+                $('#Garantia_DetallesJSON_Placa').val(detalles.Placa);
+                $('#Garantia_DetallesJSON_Matricula').val(detalles.Matricula);
+                $('#Garantia_DetallesJSON_Descripcion').val(detalles.Descripcion);
+
+                if (detalles.UsoExclusivo) {
+                    $('#Garantia_DetallesJSON_UsoExclusivo').iCheck('check');
+                } else {
+                    $('#Garantia_DetallesJSON_UsoExclusivo').iCheck('uncheck');
+                }
+
+                // Buscar nombre de la localidad con el ID
+                let resLocalidad;
+                if (detalles.IdLocalidad != 0) {
+                    resLocalidad = await searchLocalidadGarantia(detalles.IdLocalidad, selectedGarantia.IdNegocio);
+                }
+
+                $('#searchLocalidad').val(resLocalidad);
+
+
+                $('#list-garantia-container').hide();
+            });
+        });
+    }
+
+    function showListGarantia(list) {
+        $('.direcciones').remove();
+        $.each(list, function (index, value) {
+
+            var Detalles = JSON.parse(value.Detalles);
+
+            $("#list-address-tab").append(`  <p class="list-group-item direcciones ${ !value.PermiteCalle ? 'disabled-list-item' : '' } list-group-item-action" id="listaddresses" data-toggle="list"
+                data-idGarantia="${value.IdGarantia}"
+                data-idlocalidad="" href="#list-home" role="tab" aria-controls="home">
+                <span class=" ${ value.IdTipo === 1 ? 'glyphicon glyphicon-home' : 'fa fa-automobile' }"></span>
+                <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
+                ${Detalles.Descripcion}
+                <br>`);
+        });
+    }
+
+    $("body").click(function (event) {
+        if (event.target.id !== 'listaddresses' && event.target.id !== 'searchinput') {
+            $('#list-garantia-container').hide();
+        }
+    });
+
+    $("#searchinput").focus(function () {
+        $('#list-garantia-container').show();
+    });
+
+    function loadTipo(type) {
+        let typeList = null;
+        var data = @Html.Raw(Json.Encode(Model.ListaTiposReal));
+
+        $('.typeoption').remove();
+
+        if (type === 1) {
+        // Cargar los tipos inmobiliarios
+
+            for (var i in data) {
+                if (data[i].IdClasificacion == 1) {
+                    $('#Garantia_IdTipo').append(`<option class="typeoption" value="${data[i].IdTipo}">${data[i].Nombre}</option>`);
+                }
+            }
+
+        } else {
+            // Cargar los tipos mobiliarios
+            for (var i in data) {
+                if (data[i].IdClasificacion == 2) {
+                    $('#Garantia_IdTipo').append(`<option class="typeoption" value="${data[i].IdTipo}">${data[i].Nombre}</option>`);
+                }
+            }
+        }
+    }
+
+
+    function clearForm() {
+        $('#Garantia_IdGarantia').val('');
+
+
+        $('#Garantia_NoIdentificacion').val("");
+        $('#Garantia_IdNegocio').val("");
+
+        $('#IdModelo').val("");
+        $('#IdMarca').val("");
+
+        $('#Direccion_IdLocalidad').val("");
+        $('#InputRutaLocalidad').val("");
+
+        $('#Garantia_DetallesJSON_Medida').val("");
+        $('#Garantia_DetallesJSON_Color').val("");
+        $('#Garantia_DetallesJSON_NoMaquina').val("");
+        $('#Garantia_DetallesJSON_A_o').val("");
+        $('#Garantia_DetallesJSON_Placa').val("");
+        $('#Garantia_DetallesJSON_Matricula').val("");
+        $('#Garantia_DetallesJSON_Descripcion').val("");
+
+        $('#Garantia_DetallesJSON_UsoExclusivo').iCheck('uncheck');
+
+        $('#searchLocalidad').val('');
+    }
+
+</script>
+
+<script>
+    let searchLocalidadElem = $('#searchLocalidad');
+</script>
+<script src="~/Scripts/Apps/searchLocalidad.js"></script>
+
