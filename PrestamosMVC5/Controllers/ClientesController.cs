@@ -1,19 +1,26 @@
 ﻿using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace PrestamosMVC5.Controllers
 {
+    [AuthorizeUser]
     public class ClientesController : Controller
     {
-        private string getUsuario() => "Abdiel";
-        private int getIdNegocio() => 1;
+
+        public ClientesController()
+        {
+
+        }
         // GET: Clientes
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var clientes = BLLPrestamo.Instance.GetClientes(new ClientesGetParams());
@@ -25,12 +32,13 @@ namespace PrestamosMVC5.Controllers
         {
             return View();
         }
-
-        public ActionResult CreateOrEdit(int id=-1, string mensaje="")
+        [AllowAnonymous]
+        public ActionResult CreateOrEdit(int id = -1, string mensaje = "")
         {
-            ClienteVM model = CreateClienteVm(true,null);
+            ClienteModel model = CreateClienteVm(true, null);
+
             model.MensajeError = mensaje;
-            if (id!= -1)
+            if (id != -1)
             {
                 // buscar el cliente
                 var searchResult = getCliente(id);
@@ -47,14 +55,12 @@ namespace PrestamosMVC5.Controllers
             return View(model);
         }
 
-        
+
         private SeachResult<Cliente> getCliente(int id)
         {
             var cliente = BLLPrestamo.Instance.GetClientes(new ClientesGetParams { IdCliente = id });
 
             var result = new SeachResult<Cliente>(BLLPrestamo.Instance.GetClientes(new ClientesGetParams { IdCliente = id }));
-
-
             return result;
         }
 
@@ -63,24 +69,23 @@ namespace PrestamosMVC5.Controllers
         /// </summary>
         /// <param name="cliente"></param>
         /// <returns></returns>
-        private ClienteVM CreateClienteVm(bool EsNuevo, Cliente cliente)
+        private ClienteModel CreateClienteVm(bool EsNuevo, Cliente cliente)
         {
             if (EsNuevo)
             {
-                var newClienteVm = new ClienteVM(new Cliente());
+                var newClienteVm = new ClienteModel(new Cliente());
                 newClienteVm.Cliente.Codigo = "Nuevo";
-                newClienteVm.Cliente.Usuario = getUsuario();
-                newClienteVm.Cliente.IdNegocio = getIdNegocio();
+                AuthInSession.SetUsuarioYIdNegocioTo(newClienteVm.Cliente);
                 return newClienteVm;
             }
             else
             {
-                var clienteVm = new ClienteVM(cliente);
+                var clienteVm = new ClienteModel(cliente);
                 clienteVm.Conyuge = cliente.InfoConyuge.ToType<Conyuge>();
                 clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
-                clienteVm.Cliente.Usuario = getUsuario();
-                var localidadDelCliente = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad}).FirstOrDefault();
+                clienteVm.Cliente.Usuario = AuthInSession.GetLoginName();
+                var localidadDelCliente = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad }).FirstOrDefault();
                 if (localidadDelCliente != null)
                 {
                     clienteVm.NombreLocalidad = localidadDelCliente.Nombre;
@@ -88,18 +93,16 @@ namespace PrestamosMVC5.Controllers
                 return clienteVm;
             }
         }
-
         // POST: Clientes/Create
         [HttpPost]
-        public ActionResult CreateOrEdit(ClienteVM clienteVm)
+        public ActionResult CreateOrEdit(ClienteModel clienteVm)
         {
             ActionResult result;
             try
             {
-                
                 BLLPrestamo.Instance.insUpdCliente(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
-                result = RedirectToAction("CreateOrEdit", new { id = -1 , mensaje = mensaje}); 
+                result = RedirectToAction("CreateOrEdit", new { id = -1, mensaje = mensaje });
             }
             catch (Exception e)
             {
@@ -116,44 +119,8 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
-        // POST: Clientes/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Clientes/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Clientes/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
+
 
     public class SeachResult<T>
     {
@@ -173,4 +140,5 @@ namespace PrestamosMVC5.Controllers
                 DataList = new List<T>();
         }
     }
+
 }

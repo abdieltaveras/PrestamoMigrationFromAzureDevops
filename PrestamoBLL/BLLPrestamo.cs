@@ -59,7 +59,7 @@ namespace PrestamoBLL
         {
             if (usuario == null || usuario == string.Empty)
             {
-                throw new NullReferenceException("El usuario esta nulo o vacio");
+                throw new NullReferenceException("El parametro usuario que indica quien esta realizando la accion esta nulo o vacio lo cual no es permitido");
             }
         }
         private void ThrowErrorIfNegocioIsZero(int negocio)

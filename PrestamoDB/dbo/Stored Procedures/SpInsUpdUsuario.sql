@@ -7,11 +7,12 @@
 	@Contraseña varchar(50) , 
     @DebeCambiarContraseña BIT ,
     @FechaExpiracionContraseña  DateTime=null ,
-    @Telefono1 VARCHAR(50) , 
-    @Telefono2 VARCHAR(50), 
+    @Telefono1 VARCHAR(50)='' , 
+    @Telefono2 VARCHAR(50)='', 
     @Activo BIT , 
-    @Bloqueado BIT , 
-    @CorreoElectronico VARCHAR(50), 
+	@imgFilePath varchar(100),
+    @Bloqueado BIT, 
+    @CorreoElectronico VARCHAR(50)='', 
     @EsEmpleado BIT , 
 	@IdPersonal int=null,
 	@Usuario varchar(50)
@@ -20,8 +21,8 @@ AS
 Begin
 	if (@idUsuario<=0)	
 		begin
-			INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseña, FechaExpiracionContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, idPersonal,InsertadoPor, FechaInsertado)
-			VALUES (@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @debecambiarcontraseña, @fechaexpiracioncontraseña, @telefono1, @telefono2, @activo, @bloqueado, @correoelectronico, @esempleado, @IdPersonal, @usuario, getdate())
+			INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseña, FechaExpiracionContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, idPersonal,ImgFilePath, InsertadoPor, FechaInsertado)
+			VALUES (@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @debecambiarcontraseña, @fechaexpiracioncontraseña, @telefono1, @telefono2, @activo, @bloqueado, @correoelectronico, @esempleado, @IdPersonal, @imgFilePath,@usuario, getdate())
 			select @@identity
 		end
 		
@@ -41,6 +42,7 @@ Begin
 				EsEmpleado = @esempleado,
 				ModificadoPor = @usuario,
 				IdPersonal = @IdPersonal,
+				ImgFilePath = @imgFilePath,
 				FechaModificado = getdate()
 				where IdUsuario = @IdUsuario
 		End

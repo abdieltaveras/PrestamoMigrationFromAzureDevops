@@ -119,6 +119,7 @@
     <Build Include="dbo\Tables\tblColores.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdColor.sql" />
     <Build Include="dbo\Stored Procedures\spGetLocalidadById.sql" />
+    <Build Include="dbo\Stored Procedures\spGetUsuarios.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

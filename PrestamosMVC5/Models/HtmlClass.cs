@@ -19,7 +19,8 @@ namespace PrestamosMVC5.Models
         /// <summary>
         /// html class for input tag
         /// </summary>
-        public static string FormControlCls => "form-control";
+        public static string InputTextCls => "form-control";
+        public static string CheckBoxCls => "js-switch";
         public static string TextAreaResizableCls => "resizable_textarea form-control";
         public static string SpanfauserCls => "fa fa-user form-control-feedback right";
         /// <summary>

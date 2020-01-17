@@ -1,7 +1,7 @@
-﻿@model ClienteVM
+﻿@model ClienteModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear Editar Clientes";
     Layout = "~/Views/Shared/_LayoutForms.cshtml";
 }
 
@@ -62,7 +62,7 @@
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <div class="row col-md-offset-2 col-md-10">
-            <input id="btnSubmit" type="button" value="Guardar Cliente" class="btn btn-outline-info" />
+            <input id="btnSubmit" type="button" value="Guardar" class="btn btn-outline-info" />
             @*<input id="btnNextTabPane" type="button" value="proximo panel" class="btn btn-outline-info" />*@
             @*@Html.ActionLink("Listado Clientes", "Search", null, new { @class = "btn btn-outline-info" })*@
             <span id="mensajeError" class="text-danger">@Model.MensajeError </span>
@@ -93,6 +93,7 @@
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="datosPersonales" role="tabpanel" aria-labelledby="datosPersonales-tab">
+
                                 @Html.Partial("_infoGenerales", Model)
                             </div>
                             <div class="tab-pane fade" id="direccion" role="tabpanel" aria-labelledby="direccion-tab">
@@ -133,7 +134,36 @@
 {
     <script>
         let searchLocalidadElem = $('#searchLocalidad');
+        let formulario = $("#frmCreateCliente");
+        let dateFormat = 'en-GB';
+        // convert model into a json object
+        // todo how to convert model into json object inside rezor
+        // let model = @Html.Raw(Json.Encode(Model));
+        // esta funcion esta aqui porque el archivo externo js no reconoce o entiende el las variables del modelo
+        function setFecha(elem, name) {
+            d = new Date();
+            if (name == "Cliente.FechaNacimiento") {
+                d.setFullYear(@Model.Cliente.FechaNacimiento.Year, @Model.Cliente.FechaNacimiento.Month-1, @Model.Cliente.FechaNacimiento.Day );
+            }
+            if (name == "Cliente_xmlInfoLaboral_FechaInicio") {
+                d.setFullYear(@Model.InfoLaboral.FechaInicio.Year, @Model.InfoLaboral.FechaInicio.Month-1, @Model.InfoLaboral.FechaInicio.Day );
+            }
+            let n = d.toLocaleDateString(dateFormat);
+            elem.val(n);
+        }
+        $(document).ready(function () {
+            ResizeContentContainer();
+        });
+
+        window.onresize = ResizeContentContainer;
+        function ResizeContentContainer() {
+            var windowHeight = $(window).height();
+            $(".body-content").outerHeight(windowHeight + "px");
+        }
+        function turnOnOffValidations(elem) { }
+        
     </script>
+    <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
     <script src="~/Scripts/Apps/searchLocalidad.js"></script>
 }
 

@@ -1,4 +1,4 @@
-﻿@model ClienteVM
+﻿@model ClienteModel
 @Html.HiddenFor(model => model.Cliente.IdCliente)
 @Html.HiddenFor(model => model.Cliente.IdNegocio)
 @Html.HiddenFor(model => model.Cliente.Codigo)
@@ -8,7 +8,6 @@
     <!-- form input mask -->
     <div class="col-md-6 col-sm-12  ">
         <div class="x_panel">
-            
             <h2>   Generales de la Persona </h2>
             <hr />
             <div class="x_content">
@@ -18,7 +17,7 @@
                     
                     @Html.LabelFor(model => model.Cliente.Codigo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.Codigo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, @disabled = "disabled" } })
+                        @Html.EditorFor(model => model.Cliente.Codigo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.Cliente.Codigo, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
@@ -28,7 +27,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.Nombres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.Nombres, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.EditorFor(model => model.Cliente.Nombres, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @Html.ValidationMessageFor(model => model.Cliente.Nombres, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
 
@@ -37,7 +36,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.Apellidos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.Apellidos, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.EditorFor(model => model.Cliente.Apellidos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @Html.ValidationMessageFor(model => model.Cliente.Apellidos, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
 
@@ -46,7 +45,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.Apodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.Apodo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.EditorFor(model => model.Cliente.Apodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @Html.ValidationMessageFor(model => model.Cliente.Apodo, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
                     </div>
@@ -54,7 +53,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.EstadoCivil, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(model => model.Cliente.EstadoCivil, SelectItems.EstadosCiviles, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                        @Html.DropDownListFor(model => model.Cliente.EstadoCivil, SelectItems.EstadosCiviles, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                         @Html.ValidationMessageFor(model => model.Cliente.EstadoCivil, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -77,14 +76,14 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.IdTipoIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(m => m.Cliente.IdTipoIdentificacion, SelectItems.TiposIdentificacion, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                        @Html.DropDownListFor(m => m.Cliente.IdTipoIdentificacion, SelectItems.TiposIdentificacion, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                         @Html.ValidationMessageFor(model => model.Cliente.IdTipoIdentificacion, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.NoIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, data_inputmask = "'mask' : '999-9999999-9'" } })
+                        @Html.EditorFor(model => model.Cliente.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_inputmask = "'mask' : '999-9999999-9'" } })
                         @Html.ValidationMessageFor(model => model.Cliente.NoIdentificacion, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -98,7 +97,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.FechaNacimiento, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.FechaNacimiento, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                        @Html.EditorFor(model => model.Cliente.FechaNacimiento, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @Html.ValidationMessageFor(model => model.Cliente.FechaNacimiento, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -108,14 +107,14 @@
                     <div class="@HtmlClass.DivInputCls">
                         <img id="imagePreview"
                              src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-                        <input id="imgInput" class=@HtmlClass.FormControlCls type="file" name="ImageUpLoad" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
+                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="ImageUpLoad" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
                         <span id="container"></span>
                     </div>
                 </div>
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.TelefonoMovil, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.TelefonoMovil, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, data_inputmask = "'mask' : '(999) 999-9999'", @type = "tel2" } })
+                        @Html.EditorFor(model => model.Cliente.TelefonoMovil, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
                         <span class="@HtmlClass.SpanfaphoneCls" aria-hidden="true"></</span>
                         @Html.ValidationMessageFor(model => model.Cliente.TelefonoMovil, "", new { @class = "text-danger" })
                     </div>
@@ -124,7 +123,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.TelefonoCasa, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.TelefonoCasa, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls, data_inputmask = "'mask' : '(999) 999-9999'", @type = "tel" } })
+                        @Html.EditorFor(model => model.Cliente.TelefonoCasa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
                         <span class="@HtmlClass.SpanfaphoneCls" aria-hidden="true"></</span>
                         @Html.ValidationMessageFor(model => model.Cliente.TelefonoCasa, "", new { @class = "text-danger" })
                     </div>
@@ -132,7 +131,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Cliente.IdTipoProfesionUOcupacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(m => m.Cliente.IdTipoProfesionUOcupacion, SelectItems.Ocupaciones, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                        @Html.DropDownListFor(m => m.Cliente.IdTipoProfesionUOcupacion, SelectItems.Ocupaciones, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                         @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
                     </div>
                 </div>

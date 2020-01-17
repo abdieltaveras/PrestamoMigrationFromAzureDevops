@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Models
 {
-    public class ClienteVM
+    public class ClienteModel
     {
         public Cliente Cliente { get; set; }
         public InfoLaboral InfoLaboral { get; set; } = new InfoLaboral();
@@ -16,10 +16,10 @@ namespace PrestamosMVC5.Models
         
         public string TipoBusqueda { get; set; } = "normal";
         public string MensajeError { get; set; } = string.Empty;
-        public ClienteVM() {
+        public ClienteModel() {
             Cliente = new Cliente();
         }
-        public ClienteVM(Cliente cliente)
+        public ClienteModel(Cliente cliente)
         {
             this.Cliente = cliente;
             if (this.Cliente == null)
