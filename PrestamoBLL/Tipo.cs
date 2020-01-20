@@ -14,7 +14,7 @@ namespace PrestamoBLL
         {
             try
             {
-                Database.AdHoc(ConexionDB.Server).ExecSelSP("spInsUpdTipo", SearchRec.ToSqlParams(insUpdParam));
+                PrestamosDB.ExecSelSP("spInsUpdTipo", SearchRec.ToSqlParams(insUpdParam));
             }
             catch (Exception e)
             {
@@ -27,7 +27,7 @@ namespace PrestamoBLL
             IEnumerable<Tipo> result = new List<Tipo>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Tipo>("spGetTipos", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<Tipo>("spGetTipos", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {

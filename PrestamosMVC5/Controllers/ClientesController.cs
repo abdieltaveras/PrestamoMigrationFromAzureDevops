@@ -11,28 +11,22 @@ using System.Web.Routing;
 
 namespace PrestamosMVC5.Controllers
 {
-    [AuthorizeUser]
-    public class ClientesController : Controller
+    //[AuthorizeUser]
+    public class ClientesController : ControllerBasePcp
     {
-
-        public ClientesController()
-        {
-
-        }
         // GET: Clientes
-        [AllowAnonymous]
+        
         public ActionResult Index()
         {
-            var clientes = BLLPrestamo.Instance.GetClientes(new ClientesGetParams());
+            var clientes = BLLPrestamo.Instance.ClientesGet(new ClientesGetParams());
             return View(clientes);
         }
-
         // GET: Clientes/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-        [AllowAnonymous]
+        
         public ActionResult CreateOrEdit(int id = -1, string mensaje = "")
         {
             ClienteModel model = CreateClienteVm(true, null);
@@ -58,9 +52,9 @@ namespace PrestamosMVC5.Controllers
 
         private SeachResult<Cliente> getCliente(int id)
         {
-            var cliente = BLLPrestamo.Instance.GetClientes(new ClientesGetParams { IdCliente = id });
+            var cliente = BLLPrestamo.Instance.ClientesGet(new ClientesGetParams { IdCliente = id });
 
-            var result = new SeachResult<Cliente>(BLLPrestamo.Instance.GetClientes(new ClientesGetParams { IdCliente = id }));
+            var result = new SeachResult<Cliente>(BLLPrestamo.Instance.ClientesGet(new ClientesGetParams { IdCliente = id }));
             return result;
         }
 
@@ -75,7 +69,7 @@ namespace PrestamosMVC5.Controllers
             {
                 var newClienteVm = new ClienteModel(new Cliente());
                 newClienteVm.Cliente.Codigo = "Nuevo";
-                AuthInSession.SetUsuarioYIdNegocioTo(newClienteVm.Cliente);
+                this.pcpSetUsuarioAndIdNegocioTo(newClienteVm.Cliente);
                 return newClienteVm;
             }
             else
@@ -84,7 +78,7 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Conyuge = cliente.InfoConyuge.ToType<Conyuge>();
                 clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
-                clienteVm.Cliente.Usuario = AuthInSession.GetLoginName();
+                pcpSetUsuarioTo(clienteVm.Cliente);
                 var localidadDelCliente = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad }).FirstOrDefault();
                 if (localidadDelCliente != null)
                 {
@@ -100,7 +94,8 @@ namespace PrestamosMVC5.Controllers
             ActionResult result;
             try
             {
-                BLLPrestamo.Instance.insUpdCliente(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
+                pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
+                BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
                 result = RedirectToAction("CreateOrEdit", new { id = -1, mensaje = mensaje });
             }

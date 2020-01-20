@@ -15,7 +15,7 @@ namespace PrestamoBLL
             IEnumerable<TasaInteres> result=new List<TasaInteres>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -27,7 +27,7 @@ namespace PrestamoBLL
         {
             try
             {
-                Database.AdHoc(ConexionDB.Server).ExecSelSP("spInsUpdTasaInteres", SearchRec.ToSqlParams(insUpdParam));
+                PrestamosDB.ExecSelSP("spInsUpdTasaInteres", SearchRec.ToSqlParams(insUpdParam));
             }
             catch (Exception e)
             {
@@ -37,7 +37,7 @@ namespace PrestamoBLL
         
         public void DeleteTasaInteres(TasaInteresDelParams delParam)
         {
-            Database.AdHoc(ConexionDB.Server).ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
+            PrestamosDB.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
         }
     }
 }

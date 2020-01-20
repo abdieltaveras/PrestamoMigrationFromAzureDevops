@@ -14,7 +14,7 @@ namespace PrestamoBLL
         {
             try
             {
-                Database.AdHoc(ConexionDB.Server).ExecSelSP("spInsUpdColor", SearchRec.ToSqlParams(insUpdParam));
+                PrestamosDB.ExecSelSP("spInsUpdColor", SearchRec.ToSqlParams(insUpdParam));
             }
             catch (Exception e)
             {
@@ -27,7 +27,7 @@ namespace PrestamoBLL
             IEnumerable<Color> result = new List<Color>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Color>("spGetColores", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<Color>("spGetColores", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {

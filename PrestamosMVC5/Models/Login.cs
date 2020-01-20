@@ -25,6 +25,8 @@ namespace PrestamosMVC5.Models
         public bool RememberMe { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string ReturnUrl { get; set; } = string.Empty;
+
+        public string ImagePath { get; set; } = string.Empty;
     }
 
     
@@ -68,11 +70,18 @@ namespace PrestamosMVC5.Models
         //[Required]
         public int ContraseñaExpiraCadaXMes { get; set; } = 1;
 
-        public bool ForActivo { get; set; } = false;
-        public bool ForBloqueado { get; set; } = false;
-        public bool ForCambiarContraseñaAlIniciarSesion { get; set; } = false;
+        public bool ForActivo { get; set; } 
+        public bool ForBloqueado { get; set; } 
+        public bool ForCambiarContraseñaAlIniciarSesion { get; set; } 
 
         public bool ShowAdvancedOptions { get; set; } = false;
+        public UserModel()
+        {
+            var usuario = new Usuario();
+            this.ForActivo = usuario.Activo;
+            this.ForBloqueado = usuario.Bloqueado;
+            this.ForCambiarContraseñaAlIniciarSesion = usuario.DebeCambiarContraseñaAlIniciarSesion;
+        }
     }
     
 }

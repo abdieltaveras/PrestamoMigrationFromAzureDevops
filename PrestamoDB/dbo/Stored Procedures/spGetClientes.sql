@@ -3,7 +3,8 @@
 	@idCliente int=-1,
 	@idNegocio int=-1,
 	@Activo int=-1,
-	@Anulado int=0
+	@Anulado int=0,
+	@Usuario varchar(100)=''
 )
 as
 begin

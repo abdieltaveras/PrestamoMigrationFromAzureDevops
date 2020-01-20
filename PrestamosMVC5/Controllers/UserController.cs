@@ -10,20 +10,20 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
-    public class UserController : Controller
+    public class UserController : ControllerBasePcp
     {
         #region Request
         // GET: User
         public ActionResult Index()
         {
-
             var usuarioGetParams = new UsuarioGetParams();
-            AuthInSession.SetUsuarioYIdNegocioTo(usuarioGetParams);
-            return View(BLLPrestamo.Instance.GetUsuarios(usuarioGetParams));
-
+            this.pcpSetUsuarioAndIdNegocioTo(usuarioGetParams);
+            var usuarios = BLLPrestamo.Instance.GetUsuarios(usuarioGetParams);
+            ActionResult actResult = View(usuarios);
+            return actResult;
         }
 
-        public ActionResult Test(int id = -1, bool showAdvancedView = false)
+        public ActionResult Test(int id = -1, bool showAdvancedView = true)
         {
             var model = GetUserAndSetItToModel(id);
             model.ShowAdvancedOptions = showAdvancedView;
@@ -68,7 +68,7 @@ namespace PrestamosMVC5.Controllers
         }
         //[AuthorizeUser]
         // GET: User/Create
-        public ActionResult CreateOrEdit(int id = -1, bool showAdvancedView = false)
+        public ActionResult CreateOrEdit(int id = -1, bool showAdvancedView = true)
         {
             var model = GetUserAndSetItToModel(id);
             prepareUserModelForGet(model);
@@ -93,9 +93,9 @@ namespace PrestamosMVC5.Controllers
         {
             var getUsuarioParam = new UsuarioGetParams
             {
-                Usuario = AuthInSession.GetLoginName(),
                 IdUsuario = id,
             };
+            this.pcpSetUsuarioTo(getUsuarioParam);
             var model = new ChangePasswordModel();
             var usr = BLLPrestamo.Instance.GetUsuarios(getUsuarioParam).FirstOrDefault();
             if (usr != null)
@@ -123,7 +123,7 @@ namespace PrestamosMVC5.Controllers
             else
             {
                 var changeP = new changePassword { Contraseña = model.Contraseña, IdUsuario = model.IdUsuario };
-                changeP.Usuario= AuthInSession.GetLoginName();
+                changeP.Usuario= this.pcpUserLoginName;
                 try
                 {
                     BLLPrestamo.Instance.UsuarioChangePassword(changeP);
@@ -187,22 +187,21 @@ namespace PrestamosMVC5.Controllers
                 ModelState.Remove("ConfirmarContraseña");
                 usuario.Contraseña = string.Empty;
             }
+            
         }
 
-        private static Usuario SetUsuarioFromUserModel(UserModel userModel)
+        private  Usuario SetUsuarioFromUserModel(UserModel userModel)
         {
             Usuario usuario = userModel.Usuario;
             usuario.Contraseña = userModel.Contraseña;
             usuario.Activo = userModel.ForActivo;
             usuario.Bloqueado = userModel.ForBloqueado;
             usuario.DebeCambiarContraseñaAlIniciarSesion = userModel.ForCambiarContraseñaAlIniciarSesion;
-
-            usuario.CambiarContraseñaAlActualizar = false;
-
             usuario.ContraseñaExpiraCadaXMes = userModel.LaContraseñaExpira ?
                                    userModel.ContraseñaExpiraCadaXMes : -1;
             usuario.VigenteHasta = userModel.LimitarVigenciaDeCuenta ?
                                              usuario.VigenteHasta : InitValues._19000101;
+            this.pcpSetUsuarioAndIdNegocioTo(usuario);
             return usuario;
         }
 
@@ -217,7 +216,7 @@ namespace PrestamosMVC5.Controllers
             model.LaContraseñaExpira = usuario.LaContrasenaExpira();
             model.ContraseñaExpiraCadaXMes = model.LaContraseñaExpira ? usuario.ContraseñaExpiraCadaXMes : 1;
             model.Usuario = usuario;
-            AuthInSession.SetUsuarioYIdNegocioTo(model.Usuario);
+            this.pcpSetUsuarioAndIdNegocioTo(model.Usuario);
         }
         #endregion Operations
     }

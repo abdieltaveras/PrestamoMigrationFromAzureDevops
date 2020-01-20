@@ -16,65 +16,77 @@ namespace PrestamosMVC5.SiteUtils
         public static readonly string UsuarioKey = "user";
         public static readonly string UserImageFilePathKey = "userImage";
         public static readonly string NegocioKey = "negocio";
+        public static readonly string IdUsuarioKey = "idUsuario";
         public static readonly string AnonimousUser = "Anonimo";
+        public static System.Web.SessionState.HttpSessionState sessionState =>  HttpContext.Current.Session;
 
+
+        private static object getKeyValue(string key)
+        {
+                return sessionState[key];
+                //HttpContext.Current.Session[key] :
+                //sessionState[key];
+        }
         public static string GetLoginName(HttpSessionStateBase sessionState = null)
+            //HttpSessionStateBase sessionState = null)
         {
             object usuarioObj = null;
-            usuarioObj = getKeyValue(sessionState, UsuarioKey);
+            usuarioObj = getKeyValue(UsuarioKey);
 
             return usuarioObj == null ? AnonimousUser : usuarioObj.ToString();
         }
-
-        private static object getKeyValue(HttpSessionStateBase sessionState, string key)
+        public static int GetIdUsuario(HttpSessionStateBase sessionState = null)
         {
-            return sessionState == null ?
-                HttpContext.Current.Session[key] :
-                sessionState[key];
+            object idUsuarioObj = null;
+            idUsuarioObj = getKeyValue(IdUsuarioKey);
+            return idUsuarioObj == null ? -1 : Convert.ToInt32(idUsuarioObj); 
         }
-
         public static string GetUserImageFilePath(HttpSessionStateBase sessionState = null)
         {
-            var imagePath = getKeyValue(sessionState, UserImageFilePathKey);
+            var imagePath = getKeyValue(UserImageFilePathKey);
             return imagePath == null ? string.Empty : imagePath.ToString();
         }
-        /// <summary>
-        /// To assigt values to Usuario and IdNegocio variables from session info
-        /// </summary>
-        /// <param name="entidad"></param>
-        public static void SetUsuarioYIdNegocioTo(BaseUsuarioEIdNegocio entidad)
-        {
-            entidad.IdNegocio = GetIdNegocio();
-            entidad.Usuario = GetLoginName();
-        }
+        
         // to retrieve IdNegocio value from session
         public static int GetIdNegocio(HttpSessionStateBase sessionState = null)
         {
-            object idNegObj = getKeyValue(sessionState, NegocioKey);
+            object idNegObj = getKeyValue(NegocioKey);
             var returnValue = idNegObj == null ? -1 : Convert.ToInt32(idNegObj);
-            #if (DEBUG)
-                  if (returnValue <= 0) { returnValue = 1; }
-            #endif
             return returnValue;
         }
 
 
-        public static void CreateUserWithIdNegocioInSession(HttpSessionStateBase sessionState, int idNegocio, string usuario, string userImageFilePath)
+        public static void LoginUserToSession(int idNegocio, string usuario, string userImageFilePath)
         {
-            
+            var sessionState = HttpContext.Current.Session;
             sessionState.Add(UsuarioKey, usuario);
+            sessionState.Add(NegocioKey, idNegocio);
             sessionState.Add(NegocioKey, idNegocio);
             sessionState.Add(UserImageFilePathKey, userImageFilePath);
             sessionState.Timeout = 60 * 5;
         }
 
-        
+        /// <summary>
+        /// To assigt values to Usuario and IdNegocio variables from session info
+        /// </summary>
+        /// <param name="entidad"></param>
+        //public static void SetUsuarioAndIdNegocioTo(BaseUsuarioEIdNegocio entidad)
+        //{
+        //    entidad.IdNegocio = GetIdNegocio();
+        //    entidad.Usuario = GetLoginName();
+        //}
+
+        //public static void SetUsuarioTo(BaseUsuario entidad)
+        //{
+        //    entidad.Usuario = GetLoginName();
+        //}
 
         public static void Logout()
         {
             var sessionState = HttpContext.Current.Session;
             sessionState.Remove(UsuarioKey);
             sessionState.Remove(NegocioKey);
+            sessionState.Remove(IdUsuarioKey);
         }
     }
 

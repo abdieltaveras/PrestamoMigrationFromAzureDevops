@@ -51,10 +51,10 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetNegociosTest()
         {
-            var getParam = GetParamNegocioIntangsa();
+            
             mensajeError = string.Empty;
-            var result = GetNegocioIntagsa(getParam);
-            Assert.IsTrue(mensajeError == string.Empty, mensajeError);
+            var result = GetNegocios(new NegociosGetParams { Usuario="testNegocio" }).FirstOrDefault();
+            Assert.IsTrue(result!=null, "no existen negocios en la tabla");
         }
 
         [TestMethod()]
@@ -112,6 +112,27 @@ namespace PrestamoBLL.Tests
             }
             Assert.IsTrue(string.IsNullOrEmpty(mensajeError));
         }
+        [TestMethod()]
+        public void ExistDataForTableTest()
+        {
+            var result = BLLPrestamo.Instance.ExistDataForTable("tblNegocios");
+            var result2 = BLLPrestamo.Instance.ExistDataForTable("tblTiposMora");
+        }
+
+        [TestMethod()]
+        public void NegocioCreateIfNotExistTest_fail()
+        {
+            var result = BLLPrestamo.Instance.NegocioCreateIfNotExist("");
+            Assert.IsTrue(result <= 0, "Creo el negocio pero no debio ser asi po run fallo en una seguridad del parametro key que se le deben enviar un valor correcto");
+        }
+        [TestMethod()]
+        public void NegocioCreateIfNotExistTest_fail_ifThereIsNegocios()
+        {
+            var negocios = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams());
+            var result = BLLPrestamo.Instance.NegocioCreateIfNotExist("pcp46232");
+            Assert.IsTrue(result > 0, "Fallo la creacion de negocios porque existen ya negocios registrados en la tabla");
+        }
+
         #region notTestMember
         string mensajeError = string.Empty;
         private static void createNegociosWithNegocioPadre()
@@ -187,6 +208,7 @@ namespace PrestamoBLL.Tests
 
         private static IEnumerable<Negocio> GetNegocios(NegociosGetParams buscar)
         {
+            
             return BLLPrestamo.Instance.GetNegocios(buscar);
         }
 

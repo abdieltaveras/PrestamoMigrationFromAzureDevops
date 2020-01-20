@@ -18,7 +18,6 @@
 	@VigenteHasta dateTime,
 	@ContraseñaExpiraCadaXMes int,
 	@RazonBloqueo int,
-	@CambiarContraseña bit,
 	@Usuario varchar(50)
 )
 AS
@@ -29,17 +28,12 @@ Begin
 			VALUES (@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @DebeCambiarContraseñaAlIniciarSesion, @telefono1, @telefono2, @activo, @bloqueado, @correoelectronico, @esempleado, @IdPersonal, @imgFilePath,@usuario, getdate(), @VigenteDesde,@VigenteHasta, @ContraseñaExpiraCadaXMes, @RazonBloqueo, getdate() )
 			select @@identity
 		end
-		
 	else
 		begin
-			if (@CambiarContraseña=0)
-			begin
-				set @contraseña =(select Contraseña from dbo.tblUsuarios where idUsuario=@IdUsuario)
-			end
+			-- does not update contraseña column  here, that action has a special procedure for it
 			UPDATE dbo.tblUsuarios
 			SET LoginName = @loginname,
 				NombreRealCompleto = @nombrerealcompleto,
-				Contraseña = @contraseña,
 				DebeCambiarContraseñaAlIniciarSesion = @DebeCambiarContraseñaAlIniciarSesion,
 				VigenteHasta = @VigenteHasta,
 				VigenteDesde = @VigenteDesde,

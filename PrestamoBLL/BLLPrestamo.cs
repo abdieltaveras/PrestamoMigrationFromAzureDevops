@@ -2,6 +2,7 @@
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
+        public static Database PrestamosDB => Database.AdHoc(ConexionDB.Server);
         #region StaticBLL
         static private BLLPrestamo _bll = null;
         static public BLLPrestamo Instance
@@ -86,9 +88,36 @@ namespace PrestamoBLL
             ThrowErrorIfNegocioIsZero(getParam.IdNegocio);
         }
 
+        /// <summary>
+        /// Check if a table exist data for a table
+        /// and for the idNegocio if it is suplied
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="idNegocio"></param>
+        /// <returns></returns>
+        public bool ExistDataForTable(string table, int idNegocio=-1)
+        {
+            string query = string.Empty;
+            if (idNegocio > 0)
+            {
+                query = string.Format("SELECT top 1 idNegocio FROM " + table + " (nolock) where idNegocio={0}", idNegocio);
+            }
+            else
+            {
+                query = string.Format("select case when exists(select 1 from " + table + ")  then 1 else 0 end");
+                //query = string.Format("SELECT count(*) FROM " + table);
+            }
+            //var result2 = Database.DataServer.ExecNonQuery(query);
+            var result3 = PrestamosDB.ExecEscalar(query); 
+            var valor = System.Convert.ToInt32(result3);
+            return valor>0;
+        }
+
         //new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
         protected static class BllAcciones
         {
+            
+
             public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : class
             {
 
@@ -96,7 +125,7 @@ namespace PrestamoBLL
                 try
                 {
                     var searchSqlParams = SearchRec.ToSqlParams(searchParam);
-                    result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
+                    result = PrestamosDB.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
                 }
                 catch (Exception e)
                 {
@@ -117,7 +146,7 @@ namespace PrestamoBLL
                 try
                 {
                     var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
-                    Database.AdHoc(ConexionDB.Server).ExecSelSP(storedProcedure, _insUpdParam);
+                    PrestamosDB.ExecSelSP(storedProcedure, _insUpdParam);
                 }
                 catch (Exception e)
                 {
@@ -125,8 +154,6 @@ namespace PrestamoBLL
                 }
             }
 
-
         }
-
     }
 }

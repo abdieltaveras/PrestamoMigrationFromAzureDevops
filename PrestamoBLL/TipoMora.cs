@@ -16,7 +16,7 @@ namespace PrestamoBLL
             IEnumerable<TipoMora> result=new List<TipoMora>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TipoMora>("spGetTiposMora", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<TipoMora>("spGetTiposMora", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -28,7 +28,7 @@ namespace PrestamoBLL
         {
             try
             {
-                Database.AdHoc(ConexionDB.Server).ExecSelSP("spInsUpdTipoMora", SearchRec.ToSqlParams(insUpdParam));
+                PrestamosDB.ExecSelSP("spInsUpdTipoMora", SearchRec.ToSqlParams(insUpdParam));
             }
             catch (Exception e)
             {
@@ -38,12 +38,12 @@ namespace PrestamoBLL
         
         public void AnularTipoMora(TipoMoraDelParams delParam)
         {
-            Database.AdHoc(ConexionDB.Server).ExecSelSP("spAnularTipoMora", SearchRec.ToSqlParams(delParam));
+            PrestamosDB.ExecSelSP("spAnularTipoMora", SearchRec.ToSqlParams(delParam));
         }
 
         public void DeleteTipoMora(TipoMoraDelParams delParam)
         {
-            Database.AdHoc(ConexionDB.Server).ExecSelSP("spDelTipoMora", SearchRec.ToSqlParams(delParam));
+            PrestamosDB.ExecSelSP("spDelTipoMora", SearchRec.ToSqlParams(delParam));
         }
     }
 }

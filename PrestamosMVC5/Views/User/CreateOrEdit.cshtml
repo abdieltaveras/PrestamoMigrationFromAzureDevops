@@ -121,69 +121,85 @@
         @{
             if (Model.ShowAdvancedOptions)
             {
+
                 <div class="col-md-6 col-sm-12">
                     <div class="x_panel">
-                        <h2>Opciones</h2>
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.Usuario.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.Usuario.Activo, new
-                           { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                @Html.ValidationMessageFor(model => model.Usuario.Activo, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="x_title">
+                            <h2>Mas Opciones <small>avanzadas </small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-down"></i>
+                                    </a>
+                                            
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.Usuario.Bloqueado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.Usuario.Bloqueado, new
-                           { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                @Html.ValidationMessageFor(model => model.Usuario.Bloqueado, "", new { @class = "text-danger" })
+                        <div class="collapse x_content">
+                            <h2>Opciones</h2>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Usuario.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Usuario.Activo, new
+                               { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => model.Usuario.Activo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Usuario.Bloqueado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Usuario.Bloqueado, new
+                               { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => model.Usuario.Bloqueado, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.LaContraseñaExpira, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.LaContraseñaExpira, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => model.LaContraseñaExpira, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.ContraseñaExpiraCadaXMes, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.DropDownListFor(model => model.ContraseñaExpiraCadaXMes, SelectItems.Lista12Meses, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+
+                                    @*@Html.ValidationMessageFor(model => model.ContraseñaExpiraCadaXMes, "", new { @class = "text-danger" })*@
+                                    <span id="textoContraseñaExpira"></span>
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.LimitarVigenciaDeCuenta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.LimitarVigenciaDeCuenta, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => model.LimitarVigenciaDeCuenta, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Usuario.VigenteDesde, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Usuario.VigenteDesde, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Usuario.VigenteDesde, "", new { @class = "text-danger" })
+                                    <span id="textoVigenteDesde"></span>
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Usuario.VigenteHasta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Usuario.VigenteHasta, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Usuario.VigenteHasta, "", new { @class = "text-danger" })
+                                    <span id="textoVigenteHasta"></span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.LaContraseñaExpira, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.LaContraseñaExpira, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                @Html.ValidationMessageFor(model => model.LaContraseñaExpira, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.ContraseñaExpiraCadaXMes, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.DropDownListFor(model => model.ContraseñaExpiraCadaXMes, SelectItems.Lista12Meses, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-
-                                @*@Html.ValidationMessageFor(model => model.ContraseñaExpiraCadaXMes, "", new { @class = "text-danger" })*@
-                                <span id="textoContraseñaExpira"></span>
-                            </div>
-                        </div>
-
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.LimitarVigenciaDeCuenta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.LimitarVigenciaDeCuenta, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                @Html.ValidationMessageFor(model => model.LimitarVigenciaDeCuenta, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.Usuario.VigenteDesde, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.Usuario.VigenteDesde, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                @Html.ValidationMessageFor(model => model.Usuario.VigenteDesde, "", new { @class = "text-danger" })
-                                <span id="textoVigenteDesde"></span>
-                            </div>
-                        </div>
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.Usuario.VigenteHasta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.Usuario.VigenteHasta, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                @Html.ValidationMessageFor(model => model.Usuario.VigenteHasta, "", new { @class = "text-danger" })
-                                <span id="textoVigenteHasta"></span>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
+
             }
 
         }
@@ -221,6 +237,10 @@
         let dateFormat = 'en-GB';
         let yearRangeForDP = "+0:+1";
         initialViewState();
+        $('.collapsed').css('height', 'auto');
+        $('.collapsed').find('.x_content').css('display', 'none');
+        $('.collapsed').find('i').toggleClass('fa-chevron-up fa-chevron-down');
+
         function removeDuplicateInputsCreateByRazor()
         {
             $("input[type=hidden][value=false]").each(function () {
@@ -244,11 +264,13 @@
 
         function initInputs() {
             setInitialCheckedValues();
-            onUsuarioActivoChange();
-            onUsuarioBloqueadoChange();
-            onCambiarContraseñaAlIniciarSesion();
-            onContraseñaExpiraChange();
-            onLimitarVigenciaDeCuentaChange();
+            if (@Model.ShowAdvancedOptions.ToString().ToLower()) {
+                onUsuarioActivoChange();
+                onUsuarioBloqueadoChange();
+                onCambiarContraseñaAlIniciarSesion();
+                onContraseñaExpiraChange();
+                onLimitarVigenciaDeCuentaChange();
+            }
         }
 
         function setInitialCheckedValues() {
@@ -297,6 +319,9 @@
                     break;
                 case idUsuarioBloqueadoText:
                     onUsuarioBloqueadoChange();
+                case "verMasOpciones":
+
+                    break;
             }
         }
 
@@ -305,6 +330,7 @@
             let valor = elemActivo.is(':checked');
             elemActivo.prop({ value: valor });
             $("#ForActivo").prop({ value: valor });
+
         }
 
         function onUsuarioBloqueadoChange()
@@ -413,3 +439,4 @@
     @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
 
 }
+

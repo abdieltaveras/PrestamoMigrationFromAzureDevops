@@ -60,8 +60,6 @@ namespace PrestamoEntidades
         public int ContraseñaExpiraCadaXMes { get; set; } = -1;
 
         public string ImgFilePath { get; set; } = string.Empty;
-        [NotMapped]
-        public bool CambiarContraseñaAlActualizar { get; set; } = false;
         /// <summary>
         /// Muestra en texto cada que tiempo expira la contrasena
         /// </summary>

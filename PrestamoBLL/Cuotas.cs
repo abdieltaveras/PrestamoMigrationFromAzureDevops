@@ -18,7 +18,7 @@ namespace PrestamoBLL
                 /// debe crear un parametro anonimo que coincida el nombre del parametro
                 /// y asignarle un objeto datatable
                 var _insUpdParam = SearchRec.ToSqlParams(new { cuotas = cuotasDataTable });
-                Database.AdHoc(ConexionDB.Server).ExecSelSP("spInsUpdCuotas", _insUpdParam);
+                PrestamosDB.ExecSelSP("spInsUpdCuotas", _insUpdParam);
             }
             catch (Exception e)
             {

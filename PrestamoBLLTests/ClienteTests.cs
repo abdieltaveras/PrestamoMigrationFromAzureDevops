@@ -72,13 +72,20 @@ namespace PrestamoBLL.Tests
     public class ClienteTests
     {
         [TestMethod()]
-        public void GetClientesTest()
+        public void GetClientes_DoesNotThrowError()
         {
             var searchData = ClienteData.SearchCliente();
             searchData.IdNegocio = -1;
-            var result = BLLPrestamo.Instance.GetClientes(searchData);
-            var resultAsList = result.ToList();
-            Assert.IsTrue(result.Count() > 0);
+            var mensajeError = string.Empty;
+            try
+            {
+                BLLPrestamo.Instance.ClientesGet(searchData);
+            }
+            catch (Exception e)
+            {
+                mensajeError = e.Message;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(mensajeError),"fallo la rutina de buscar clientes mensaje de error "+mensajeError);
         }   
 
         [TestMethod()]
@@ -99,7 +106,7 @@ namespace PrestamoBLL.Tests
             //    BLLPrestamo.Instance.insUpdCliente(cliente);
             //}
             //TODO: Bryan .....
-            try { BLLPrestamo.Instance.insUpdCliente(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion()); }
+            try { BLLPrestamo.Instance.ClientesInsUpd(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion()); }
             catch (Exception e)
             {
                 error = e;

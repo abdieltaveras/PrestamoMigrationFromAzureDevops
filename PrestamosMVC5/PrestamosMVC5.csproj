@@ -139,6 +139,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConfigurationController.cs" />
+    <Compile Include="Controllers\ControllerBasePcp.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="SiteUtils\AuthenticationHelper.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
@@ -5149,6 +5151,7 @@
     <Content Include="Views\User\Test.cshtml" />
     <Content Include="Views\User\CreateOrEdit - Copy.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Configuration\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,7 +14,7 @@ namespace PrestamoBLL
         {
             try
             {
-                Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Localidad>("spInsUpdGarantias", SearchRec.ToSqlParams(garantia));
+                PrestamosDB.ExecReaderSelSP<Localidad>("spInsUpdGarantias", SearchRec.ToSqlParams(garantia));
             }
             catch (Exception e)
             {
@@ -28,7 +28,7 @@ namespace PrestamoBLL
             IEnumerable<Garantia> result = new List<Garantia>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Garantia>("spBuscarGarantias", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<Garantia>("spBuscarGarantias", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {

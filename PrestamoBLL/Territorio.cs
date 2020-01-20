@@ -15,7 +15,7 @@ namespace PrestamoBLL
             IEnumerable<TerritoriosConHijo> result = new List<TerritoriosConHijo>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TerritoriosConHijo>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<TerritoriosConHijo>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -29,7 +29,7 @@ namespace PrestamoBLL
             IEnumerable<Territorio> result = new List<Territorio>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TerritoriosConHijo>("spGetDivisionesTerritoriales", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<TerritoriosConHijo>("spGetDivisionesTerritoriales", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -43,7 +43,7 @@ namespace PrestamoBLL
             IEnumerable<TerritoriosConPadre> result = new List<TerritoriosConPadre>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<TerritoriosConPadre>("spGetPaisesDeDivisionTerritorial", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<TerritoriosConPadre>("spGetPaisesDeDivisionTerritorial", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -57,7 +57,7 @@ namespace PrestamoBLL
             IEnumerable<Territorio> result = new List<Territorio>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Territorio>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<Territorio>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -71,7 +71,7 @@ namespace PrestamoBLL
             IEnumerable<Territorio> result = new List<Territorio>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Territorio>("spComponentesDeDivisionTerritorial", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<Territorio>("spComponentesDeDivisionTerritorial", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -85,7 +85,7 @@ namespace PrestamoBLL
             IEnumerable<Territorio> result = new List<Territorio>();
             try
             {
-                result = Database.AdHoc(ConexionDB.Server).ExecReaderSelSP<Territorio>("spInsUpdTerritorios", SearchRec.ToSqlParams(data));
+                result = PrestamosDB.ExecReaderSelSP<Territorio>("spInsUpdTerritorios", SearchRec.ToSqlParams(data));
             }
             catch (Exception e)
             {

@@ -38,6 +38,13 @@ namespace PrestamoBLL.Tests
         }
 
         [TestMethod()]
+        public void getUsuarios_Search_Count()
+        {
+            var getUser = new UsuarioGetParams {IdNegocio=13, Usuario="abdiel" };
+            var result = BLLPrestamo.Instance.GetUsuarios(getUser); 
+            Assert.IsTrue(result.LongCount() >= 0);
+        }
+        [TestMethod()]
         public void InsUpdUsuario_InsertSuccesUser_EmptyErrorMensaje()
         {
 
@@ -113,12 +120,13 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetUsuario_ValidationResult_Success()
         {
-            UserValidationResultWithMessage  result = new UserValidationResultWithMessage(UserValidationResult.Sucess);
+            UserValidationResultWithMessage result = new UserValidationResultWithMessage(UserValidationResult.Sucess);
             var usr = NewSuccessUserInstance;
             UpdateSuccessUser(usr);
-            result = BLLPrestamo.Instance.UsuarioValidateCredential(1, usr.LoginName, new PasswordInfo(usr.Contraseña, false));
+            result = BLLPrestamo.Instance.UsuarioValidateCredential(1, usr.LoginName, usr.Contraseña);
             Assert.IsTrue(result.UserValidationResult == UserValidationResult.Sucess, $"Se esperaba {UserValidationResult.Sucess} y se obtuvo {result.ToString()}");
         }
+
         /// <summary>
         /// Update Succes user search  record and update the IdUsuario with the Usuario value instance
         /// </summary>
@@ -164,7 +172,7 @@ namespace PrestamoBLL.Tests
 
             var expected = UserValidationResult.NoUserFound;
             string loginName = DateTime.Now.ToString();
-            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, loginName, new PasswordInfo(string.Empty, false));
+            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, loginName, string.Empty);
             Assert.IsTrue(userValResult.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
         }
 
@@ -175,7 +183,7 @@ namespace PrestamoBLL.Tests
             var usr = NewSuccessUserInstance;
             UpdateSuccessUser(usr);
             string loginName = usr.LoginName;
-            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, loginName, new PasswordInfo(new Guid().ToString(), false));
+            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, loginName, Guid.NewGuid().ToString());
             Assert.IsTrue(userValResult.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
         }
 
@@ -219,12 +227,34 @@ namespace PrestamoBLL.Tests
             cambiarValor(usuario);
             //usuario.DebeCambiarContraseña = true;
             BLLPrestamo.Instance.InsUpdUsuario(usuario);
-            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, usuario.LoginName, new PasswordInfo(usuario.Contraseña, true));
-            Assert.IsTrue(userValResult.UserValidationResult== expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
+            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, usuario.LoginName, usuario.Contraseña);
+            Assert.IsTrue(userValResult.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
 
         }
 
+        [TestMethod()]
+        public void UsersExistTest_IfExistUser_true()
+        {
+            var expected = true;
 
+            var usersExists = BLLPrestamo.Instance.ExistDataForTable("tblUsuarios",1);
 
+            Assert.IsTrue(usersExists == expected,"la tabla no contiene datos para el negocio indicado");
+            
+        }
+        [TestMethod()]
+        public void CreateAndCreateAdminUserForNegocios()
+        {
+            var errorMensaje = string.Empty;
+            try
+            {
+                BLLPrestamo.Instance.CheckAndCreateAdminUserFoNegocios("pcp46232");
+            }
+            catch (Exception e)
+            {
+                errorMensaje = e.Message;
+            }
+            Assert.IsTrue(errorMensaje == string.Empty, errorMensaje);
+        }
     }
 }

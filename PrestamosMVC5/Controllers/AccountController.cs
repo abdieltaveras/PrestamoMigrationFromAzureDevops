@@ -15,16 +15,20 @@ using PrestamosMVC5.SiteUtils;
 namespace PrestamosMVC5.Controllers
 {
     
-    public class AccountController : Controller
+    public class AccountController : ControllerBasePcp
     {
+
+        public ActionResult test(string returnUrl = "")
+        {
+            var param = new NegociosGetParams { IdNegocio = -1 };
+            var data = BLLPrestamo.Instance.GetNegocios(param);
+            return Content(data.ToJson());
+        }
 
         [HttpGet]
         public ActionResult Login(string returnUrl = "")
         {
-            if (AuthInSession.GetLoginName()!=AuthInSession.AnonimousUser)
-            {
-                AuthInSession.Logout();
-            }
+            this.pcpLogout();
             var model = new LoginModel { ReturnUrl = returnUrl };
             var prevRequest = HttpContext.Request;
             return View(model);
@@ -45,8 +49,9 @@ namespace PrestamosMVC5.Controllers
                 }
                 else
                 {
-                    AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
-                    _actResult= Redirect(loginView.ReturnUrl);
+                    this.LoginUserIntoSession(loginView.IdNegocio, loginView.LoginName, loginView.ImagePath);
+                    //AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
+                    _actResult = Redirect(loginView.ReturnUrl);
                 }
             }
             return _actResult;
@@ -57,7 +62,7 @@ namespace PrestamosMVC5.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return LogOut();
+                return LogOutUser();
             }
             var model = new LoginModel { ReturnUrl = returnUrl };
             var prevRequest = HttpContext.Request;
@@ -67,9 +72,10 @@ namespace PrestamosMVC5.Controllers
         [HttpGet]
         public ActionResult ResetPassword(string returnUrl = "")
         {
-            if (User.Identity.IsAuthenticated)
+            this.LogOutUser();
+            if (pcpIsUserAuthenticated)
             {
-                return LogOut();
+                return LogOutUser();
             }
             var model = new LoginModel { ReturnUrl = returnUrl };
             var prevRequest = HttpContext.Request;
@@ -81,9 +87,9 @@ namespace PrestamosMVC5.Controllers
         {
             return Content("not implemented action yet");
         }
-        public ActionResult LogOut()
+        public ActionResult LogOutUser()
         {
-            AuthInSession.Logout();
+            //this.LogOut();
             return RedirectToAction("Login", "Account", null);
         }
     }

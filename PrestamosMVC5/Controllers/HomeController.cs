@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerBasePcp
     {
         public ActionResult Index()
         {
