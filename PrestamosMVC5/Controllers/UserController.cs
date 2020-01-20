@@ -123,7 +123,7 @@ namespace PrestamosMVC5.Controllers
             else
             {
                 var changeP = new changePassword { Contraseña = model.Contraseña, IdUsuario = model.IdUsuario };
-                changeP.Usuario= this.pcpUserLoginName;
+                pcpSetUsuarioTo(changeP);
                 try
                 {
                     BLLPrestamo.Instance.UsuarioChangePassword(changeP);

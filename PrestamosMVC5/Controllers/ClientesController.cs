@@ -15,7 +15,6 @@ namespace PrestamosMVC5.Controllers
     public class ClientesController : ControllerBasePcp
     {
         // GET: Clientes
-        
         public ActionResult Index()
         {
             var clientes = BLLPrestamo.Instance.ClientesGet(new ClientesGetParams());
@@ -29,8 +28,9 @@ namespace PrestamosMVC5.Controllers
         
         public ActionResult CreateOrEdit(int id = -1, string mensaje = "")
         {
+            var r = this.Request;
             ClienteModel model = CreateClienteVm(true, null);
-
+            
             model.MensajeError = mensaje;
             if (id != -1)
             {

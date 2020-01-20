@@ -5,6 +5,7 @@ namespace PrestamoEntidades
 {
     public class Negocio : BaseInsUpd 
     {
+
         [Required] [MaxLength(20)]
         public string Codigo { get; set; } = string.Empty;
         [NotMapped]
