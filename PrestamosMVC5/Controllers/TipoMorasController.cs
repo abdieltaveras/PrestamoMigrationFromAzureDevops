@@ -1,5 +1,7 @@
 ﻿using PrestamoBLL;
 using PrestamoEntidades;
+using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,30 +10,26 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
-    public class TipoMorasController : Controller
+    [AuthorizeUser]
+    public class TipoMorasController : ControllerBasePcp
     {
         // GET: TipoMoras
         public ActionResult Index()
         {
-            TipoMora tipomora = new TipoMora();
+            TipoMoraVM modelo = new TipoMoraVM();
 
-            var intereses = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
-            ViewBag.listaMoras = intereses;
-            return View();
+            modelo.ListaTipoMoras = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = pcpUserIdNegocio });
+            return View(modelo);
         }
 
         [HttpPost]
-        public RedirectToRouteResult Index(TipoMora mora)
-        {
-            Console.WriteLine(mora.Codigo);
-            Console.WriteLine(mora.TipoCargo);
-
-            mora.IdNegocio = 1;
-            mora.Usuario = "Usuario de prueba";
+        public RedirectToRouteResult Index(TipoMoraVM mora)
+        {            
+            pcpSetUsuarioAndIdNegocioTo(mora.TipoMora);
 
             try
             {
-                BLLPrestamo.Instance.insUpdTipoMora(mora);
+                BLLPrestamo.Instance.insUpdTipoMora(mora.TipoMora);
             }
             catch (Exception ex)
             {

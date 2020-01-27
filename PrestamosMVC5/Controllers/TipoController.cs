@@ -1,6 +1,7 @@
 ﻿using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
-    public class TipoController : Controller
+    [AuthorizeUser]
+    public class TipoController : ControllerBasePcp
     {
         // GET: Tipo
         public ActionResult Index()
@@ -20,23 +22,26 @@ namespace PrestamosMVC5.Controllers
         {
             TipoVM datos = new TipoVM();
             datos.Tipo = new Tipo();
-            datos.ListaTipos = BLLPrestamo.Instance.GetTipos(new TipoGetParams { IdNegocio = 1 });
+            datos.ListaTipos = BLLPrestamo.Instance.GetTipos(new TipoGetParams { IdNegocio = this.pcpUserIdNegocio });
 
             return View("CreateOrEdit", datos);
         }
         
+        // TODO: Cambiar este modelo por la estructura que lleva
         [HttpPost]
         public RedirectToRouteResult CreateOrEdit(Tipo tipo)
         {
-            TipoInsUpdParams TipoAInsertar = new TipoInsUpdParams()
-            {
-                Nombre = tipo.Nombre,
-                IdNegocio = 1,
-                IdClasificacion = tipo.IdClasificacion,
-                InsertadoPor = "Bryan"
-            };
+            //TipoInsUpdParams TipoAInsertar = new TipoInsUpdParams()
+            //{
+            //    Nombre = tipo.Nombre,
+            //    IdNegocio = pcpUserIdNegocio,
+            //    IdClasificacion = tipo.IdClasificacion,
+            //    InsertadoPor = "Bryan"
+            //};
 
-            BLLPrestamo.Instance.InsUpdTipo(TipoAInsertar);
+            this.pcpSetUsuarioAndIdNegocioTo(tipo);
+
+            BLLPrestamo.Instance.InsUpdTipo(tipo);
             return RedirectToAction("CreateOrEdit");
         }
     }

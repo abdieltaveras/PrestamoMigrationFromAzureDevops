@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void InsUpdMarca(MarcaInsUpdParams insUpdParam)
+        public void InsUpdMarca(Marca insUpdParam)
         {
             try
             {

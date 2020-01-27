@@ -6,9 +6,9 @@ using System.Web;
 
 namespace PrestamosMVC5.Models
 {
-    public class ColorVM 
+    public class TipoMoraVM
     {
-        public Color Color { get; set; }
-        public IEnumerable<Color> ListaColores { get; set; }
+        public TipoMora TipoMora { get; set; } = new TipoMora();
+        public IEnumerable<TipoMora> ListaTipoMoras { get; set; }
     }
 }

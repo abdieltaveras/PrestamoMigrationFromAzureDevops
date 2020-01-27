@@ -128,7 +128,7 @@ namespace PrestamoBLL
         {
             if (key != "pcp46232") return;
 
-            var negocios = this.GetNegocios(new NegociosGetParams());
+            var negocios = this.GetNegocios(new NegociosGetParams() { Usuario = "SysDLL"});
             negocios.ToList().ForEach(negocio =>
             {
                 UsuarioCreateAdmin(negocio);
@@ -154,7 +154,7 @@ namespace PrestamoBLL
             };
         }
 
-        private bool ExistUsers => ExistDataForTable("tblUsuario");
+        private bool ExistUsers => ExistDataForTable("tblUsuarios");
         /// <summary>
         /// to validate a user and retrieve his states it returns if is ok the password, 
         /// if user is bloked, active, or if must change password etc.

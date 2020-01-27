@@ -5,5 +5,11 @@
     [IdDivisionTerritorial] INT NULL,
     [IdNegocio] INT NOT NULL,
     [Descripcion] VARCHAR(50) NOT NULL,
-    [PermiteCalle] BIT NOT NULL
+    [PermiteCalle] BIT NOT NULL,
+	[InsertadoPor] varchar(100) not null,
+	[FechaInsertado] DateTime not null default getdate(), 
+    [ModificadoPor] VARCHAR(100) NULL, 
+    [FechaModificado] DATETIME NULL, 
+    [AnuladoPor] VARCHAR(100) NULL, 
+    [FechaAnulado] DATETIME NULL
 )

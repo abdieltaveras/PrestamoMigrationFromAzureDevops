@@ -1,5 +1,5 @@
 ﻿
-@model PrestamoEntidades.TipoMora
+@model TipoMoraVM
 <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <div class="row">
 
@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
 
-                        @foreach (var item in @ViewBag.listaMoras)
+                        @foreach (var item in Model.ListaTipoMoras)
                         {
                         <tr>
                             <td>
@@ -137,14 +137,14 @@
                             Codigo <span class="required">*</span>
                         </label>
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(Model => Model.Codigo, new { @class = "form-control", @required = "required" })
+                            @Html.TextBoxFor(Model => Model.TipoMora.Codigo, new { @class = "form-control", @required = "required" })
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Tipo de cargo</label>
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(Model => Model.IdTipoMora, SelectItems.TiposCargoMora, new { @class = "form-control item" })
+                            @Html.DropDownListFor(Model => Model.TipoMora.TipoCargo, SelectItems.TiposCargoMora, new { @class = "form-control item" })
                         </div>
                     </div>
 
@@ -156,11 +156,11 @@
                         </label>
                         <div class="col-sm-8">
                             <div>
-                                @Html.TextBoxFor(Model => Model.MontoCuotaDesde, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
+                                @Html.TextBoxFor(Model => Model.TipoMora.MontoCuotaDesde, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
                             </div>
                             <span class="col-sm-2" style="text-align:center;">-</span>
                             <div>
-                                @Html.TextBoxFor(Model => Model.MontoCuotaHasta, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
+                                @Html.TextBoxFor(Model => Model.TipoMora.MontoCuotaHasta, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
                             </div>
                         </div>
                     </div>
@@ -168,14 +168,14 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Periodo</label>
                         <div class="col-sm-8">
-                            @Html.DropDownListFor( Model =>  Model.CalcularCargoPor, SelectItems.CalcularMoraPor, new { @class = "form-control item"})
+                            @Html.DropDownListFor( Model =>  Model.TipoMora.CalcularCargoPor, SelectItems.CalcularMoraPor, new { @class = "form-control item"})
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Aplicar al</label>
                         <div class="col-sm-8">
-                            @Html.DropDownListFor(Model => Model.AplicarA, SelectItems.AplicarMorasAl, new { @class = "form-control item" })
+                            @Html.DropDownListFor(Model => Model.TipoMora.AplicarA, SelectItems.AplicarMorasAl, new { @class = "form-control item" })
 
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                         </label>
                         <div class="col-sm-8">
                             <div>
-                                @Html.TextBoxFor(Model => Model.MontoOPorcientoACargar, new { @class = "form-control", @required = "required", @type = "number" })
+                                @Html.TextBoxFor(Model => Model.TipoMora.MontoOPorcientoACargar, new { @class = "form-control", @required = "required", @type = "number" })
                             </div>
                         </div>
                     </div>
@@ -197,7 +197,7 @@
                         </label>
                         <div class="col-sm-8">
                             <div>
-                                @Html.TextBoxFor(Model => Model.Descripcion, new { @class = "form-control", @required = "required" })
+                                @Html.TextBoxFor(Model => Model.TipoMora.Descripcion, new { @class = "form-control", @required = "required" })
                             </div>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                         </label>
                         <div class="col-sm-8">
                             <div>
-                                @Html.TextBoxFor(Model => Model.DiasDeGracia, new { @class = "form-control", @required = "required", @type = "number" })
+                                @Html.TextBoxFor(Model => Model.TipoMora.DiasDeGracia, new { @class = "form-control", @required = "required", @type = "number" })
                             </div>
                         </div>
                     </div>

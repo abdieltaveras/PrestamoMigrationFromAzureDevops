@@ -130,11 +130,11 @@
                             </div>
                         </div>
                         <div class="form-label-group">
-                            @Html.EditorFor(model => model.LoginName, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuario", @required = true, autofocus = "" } })
+                            @Html.EditorFor(model => model.LoginName, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuario", @required = true, autofocus = "", @Value = "admin" } })
                             <label for="LoginName">Usuario</label>
                         </div>
                         <div class="form-label-group">
-                            <input type="password" id="Password" name="Password" class="form-control" placeholder="Contraseña" required>
+                            <input type="password" id="Password" name="Password" class="form-control" value="pcp20200123" placeholder="Contraseña" required>
                             <label for="Password">Contraseña</label>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">

@@ -5,7 +5,8 @@
 	@Codigo varchar(10)='',
 	@Activo int=-1,
 	@RequiereAutorizacion int=-1,
-	@Anulado int=0
+	@Anulado int=0,
+	@Usuario varchar(100)=''
 )
 as
 begin

@@ -16,7 +16,7 @@ namespace PrestamoEntidades
         /// </summary>
         [HiddenInput(DisplayValue = false)]
         [NotMapped]
-        public string Usuario { get; set; } //= string.Empty;/// 
+        public string Usuario { get; set; } = string.Empty;
     }
     /// <summary>
     /// Clase base que tiene el campo usuario y idNegocio
@@ -30,6 +30,17 @@ namespace PrestamoEntidades
         [Required]
         [HiddenInput(DisplayValue = false)]
         public int IdNegocio { get; set; } = -1; 
+    }
+
+    public abstract class BaseIdNegocio
+    {
+        /// <summary>
+        /// El id del negocio o empresa o punto comercial que identifica la unidad 
+        /// comercial que opera en el sistema
+        /// </summary>
+        [Required]
+        [HiddenInput(DisplayValue = false)]
+        public int IdNegocio { get; set; } = -1;
     }
 
     public static class InitValues
@@ -58,6 +69,7 @@ namespace PrestamoEntidades
         public DateTime FechaModificado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
+
         public string AnuladoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]

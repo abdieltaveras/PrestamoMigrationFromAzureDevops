@@ -6,17 +6,18 @@
 	@IdModelo int,
 	@IdMarca int,
 	@NoIdentificacion varchar(100),
-	@Detalles varchar(4000)
+	@Detalles varchar(4000),
+	@Usuario varchar(100)
 AS
 Begin
  --verificar si id es 0 inserta si es diferente modificar
-if (@IdGarantia = 0)
+if (@IdGarantia <= 0)
 	begin
 		insert into 
 			tblGarantias
-				(IdClasificacion, IdNegocio, IdTipo, IdModelo, IdMarca, NoIdentificacion, Detalles)
+				(IdClasificacion, IdNegocio, IdTipo, IdModelo, IdMarca, NoIdentificacion, Detalles, InsertadoPor, FechaInsertado)
 		values
-			(@IdClasificacion, @IdNegocio, @IdTipo, @IdModelo, @IdMarca, @NoIdentificacion, @Detalles)
+				(@IdClasificacion, @IdNegocio, @IdTipo, @IdModelo, @IdMarca, @NoIdentificacion, @Detalles, @Usuario, GetDate())
 	end
 Else
 	Begin
@@ -28,7 +29,9 @@ Else
 				IdMarca = @IdMarca,
 				IdModelo = @IdModelo,
 				NoIdentificacion = @NoIdentificacion,
-				Detalles = @Detalles
+				Detalles = @Detalles,
+				ModificadoPor = @Usuario,
+				FechaModificado = getdate()
 			where 
 				IdGarantia = @IdGarantia
 	End

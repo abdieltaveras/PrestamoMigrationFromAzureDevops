@@ -2,6 +2,7 @@
 using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ using System.Web.Mvc;
 namespace PrestamosMVC5.Controllers
 {
 
-    public class LocalidadesController : Controller
+    [AuthorizeUser]
+    public class LocalidadesController : ControllerBasePcp
     {
         const int BUSCAR_A_PARTIR_DE = 2;
         [AllowAnonymous]
@@ -33,27 +35,30 @@ namespace PrestamosMVC5.Controllers
         //Buscar ruta de una localidad
         public string Buscar(string IDLocalidad)
         {
-            var localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
+            IEnumerable<Localidad> localidades = new List<Localidad>();
+            if (IDLocalidad != "")
+            {
+                localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
+            }
             
             return JsonConvert.SerializeObject(localidades);
         }
 
         [HttpPost]
-        public RedirectToRouteResult GuardarLocalidad(LocalidadInsUptParams localidad)
+        public RedirectToRouteResult GuardarLocalidad(Localidad localidad)
         {
-            localidad.IdNegocio = 1;
-            BLLPrestamo.Instance.GuardarLocalidad(localidad);
+            //localidad.IdNegocio = 1;
+            //localidad.Usuario = "Usuario de prueba";
+            pcpSetUsuarioAndIdNegocioTo(localidad);
+            try
+            {
+                BLLPrestamo.Instance.GuardarLocalidad(localidad);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
-            dynamic message = new { type = "", message = "" };
-
-            //if (localidad.IdLocalidad == 0)
-            //{
-            //    message = new { type = "edit", message = "Edicion realizada correctamente" };
-            //}
-            //else
-            //{
-            //    message = new { type = "edit", message = "Edicion realizada correctamente" };
-            //}
             return RedirectToAction("Index");
         }
 
@@ -62,16 +67,17 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Localidad> localidades = null;
             if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
             {
-                localidades = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = searchToText, IdNegocio = 1 });
+                localidades = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });
             }
              return JsonConvert.SerializeObject(localidades);
         }
 
         public ActionResult CreatePaisDivisionTerritorial()
         {
-            var Paises = BLLPrestamo.Instance.GetPaisesDivisionesTerritoriales(new TerritorioGetParams() { IdNegocio = 1 });
+            TerritorioVM modelo = new TerritorioVM();
+            modelo.ListaTerritorios = BLLPrestamo.Instance.GetPaisesDivisionesTerritoriales(new TerritorioGetParams() { IdNegocio = pcpUserIdNegocio });
 
-            return View("CreatePais", Paises);
+            return View("CreatePais", modelo);
         }
 
     }    

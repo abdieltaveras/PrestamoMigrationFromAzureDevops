@@ -1,6 +1,7 @@
 ﻿using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
-    public class ColorController : Controller
+    [AuthorizeUser]
+    public class ColorController : ControllerBasePcp
     {
         // GET: Color
         public ActionResult Index()
@@ -20,7 +22,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreateOrEdit()
         {
             ColorVM datos = new ColorVM();
-            datos.ListaColores = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1 });
+            datos.ListaColores = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = this.pcpUserIdNegocio });
 
             return View("CreateOrEdit", datos);
         }
@@ -28,8 +30,9 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public RedirectToRouteResult CreateOrEdit(Color color)
         {
-            color.IdNegocio = 1;
+            //color.IdNegocio = 1;
             //marca.InsertadoPor = "Bryan";
+            this.pcpSetUsuarioAndIdNegocioTo(color);
             BLLPrestamo.Instance.InsUpdColor(color);
             return RedirectToAction("CreateOrEdit");
         }

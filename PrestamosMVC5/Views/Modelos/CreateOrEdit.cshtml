@@ -93,7 +93,7 @@
                                         Marca <span class="required">*</span>
                                     </label>
                                     <div class="@HtmlClass.DivInputCls">
-                                        @Html.DropDownListFor(model => model.Modelo.IdMarca, Model.ListaSeleccionMarcas, htmlAttributes: new { @class = @HtmlClass.FormControlCls })
+                                        @Html.DropDownListFor(model => model.Modelo.IdMarca, Model.ListaSeleccionMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                                         @*@Html.ValidationMessageFor(model => model.Cliente.EstadoCivil, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                         Nombre <span class="required">*</span>
                                     </label>
                                     <div class="@HtmlClass.DivInputCls">
-                                        @Html.EditorFor(model => model.Modelo.Nombre, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })
+                                        @Html.EditorFor(model => model.Modelo.Nombre, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                     </div>
                                 </div>
 

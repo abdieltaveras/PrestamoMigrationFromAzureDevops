@@ -70,6 +70,9 @@
                                         @Html.HiddenFor(model => model.Garantia.IdGarantia)
                                         @Html.HiddenFor(model => model.Garantia.IdNegocio)
 
+                                        @*<input type="hidden" value="-1" id="Garantia_IdGarantia" name="Garantia.IdGarantia" />*@
+
+
 
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label" for="noidentificacion">
@@ -81,6 +84,7 @@
                                                     (Generar codigo automatico)
                                                 </span>
                                             </div>
+
                                         </div>
 
                                         <div class="form-group row">
@@ -400,7 +404,6 @@
                 $('#inmobiliario_form_container').show();
                 loadTipo(2);
                 clearForm();
-
             }
         });
     });
@@ -413,7 +416,6 @@
     $(".target").keyup(function () {
         searchGarantiaText($('#searchinput').val());
         console.log($('#searchinput').val());
-
     });
 
     async function searchGarantiaText(location) {
@@ -476,7 +478,7 @@
                 console.table(detalles);
 
                 $('#Garantia_IdGarantia').val(selectedGarantia.IdGarantia);
-
+                console.log('id garantia', selectedGarantia.IdGarantia);
                 if (selectedGarantia.IdClasificacion == 1) {
                     $('#inmobiliario_option').iCheck('check');
                     loadTipo(2);
@@ -488,15 +490,12 @@
                 $('#Garantia_NoIdentificacion').val(selectedGarantia.NoIdentificacion);
                 $('#Garantia_IdNegocio').val(selectedGarantia.IdNegocio);
 
-                //$('#NoIdentificacion').prop("disabled", true);
 
                 $('#Garantia_IdTipo option[value="' + selectedGarantia.IdTipo + '"]').attr("selected", "selected");
 
                 $('#Garantia_IdMarca option[value="' + selectedGarantia.IdMarca + '"]').attr("selected", "selected");
                 $('#Garantia_IdModelo option[value="' + selectedGarantia.IdModelo + '"]').attr("selected", "selected");
 
-
-                //$('#IdTipo').val(selectedGarantia.IdTipo);
                 $('#IdModelo').val(selectedGarantia.IdModelo);
                 $('#IdMarca').val(selectedGarantia.IdMarca);
 
@@ -524,22 +523,21 @@
 
                 $('#searchLocalidad').val(resLocalidad);
 
-
                 $('#list-garantia-container').hide();
             });
         });
     }
 
     function showListGarantia(list) {
-        $('.direcciones').remove();
+        $('.garantias').remove();
         $.each(list, function (index, value) {
 
             var Detalles = JSON.parse(value.Detalles);
 
-            $("#list-address-tab").append(`  <p class="list-group-item direcciones ${ !value.PermiteCalle ? 'disabled-list-item' : '' } list-group-item-action" id="listaddresses" data-toggle="list"
+            $("#list-address-tab").append(`  <p class="list-group-item garantias ${ !value.PermiteCalle ? 'disabled-list-item' : '' } list-group-item-action" id="listaddresses" data-toggle="list"
                 data-idGarantia="${value.IdGarantia}"
                 data-idlocalidad="" href="#list-home" role="tab" aria-controls="home">
-                <span class=" ${ value.IdTipo === 1 ? 'glyphicon glyphicon-home' : 'fa fa-automobile' }"></span>
+                <span class=" ${ value.IdTipo !== 1 ? 'glyphicon glyphicon-home' : 'fa fa-automobile' }"></span>
                 <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
                 ${Detalles.Descripcion}
                 <br>`);

@@ -6,9 +6,10 @@ using System.Web;
 
 namespace PrestamosMVC5.Models
 {
-    public class ColorVM 
+    public class LocalidadVM
     {
-        public Color Color { get; set; }
-        public IEnumerable<Color> ListaColores { get; set; }
+        public Localidad Localidad { get; set; }
+        public IEnumerable<Localidad> ListaLocalidades { get; set; }
+
     }
 }

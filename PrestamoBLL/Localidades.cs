@@ -24,7 +24,7 @@ namespace PrestamoBLL
             }
             return result;
         }
-        public void GuardarLocalidad(LocalidadInsUptParams localidad)
+        public void GuardarLocalidad(Localidad localidad)
         {
             try
             {

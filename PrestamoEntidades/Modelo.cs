@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Modelo
+    public class Modelo : BaseInsUpd
     {
         public int IdModelo { get; set; } = 0;
         public int IdMarca { get; set; } = 0;
         public string Nombre { get; set; } = string.Empty;
-        public int IdNegocio { get; set; } = 0;
     }
     public class ModeloGetParams
     {
@@ -19,10 +18,12 @@ namespace PrestamoEntidades
         public int IdMarca { get; set; } = -1;
         public int IdNegocio { get; set; } = -1;
     }
-    public class ModeloInsUpdParams : Modelo
-    {
-        public string InsertadoPor { get; set; } = string.Empty;
-    }
+
+    // TODO: Resolver con el modelo
+    //public class ModeloInsUpdParams : Modelo
+    //{
+    //    public string InsertadoPor { get; set; } = string.Empty;
+    //}
 
     public class ModeloWithMarca : Modelo
     {

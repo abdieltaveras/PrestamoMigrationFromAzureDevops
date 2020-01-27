@@ -142,6 +142,9 @@
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ControllerBasePcp.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Models\LocalidadVM.cs" />
+    <Compile Include="Models\TerritorioVM.cs" />
+    <Compile Include="Models\TipoMoraVM.cs" />
     <Compile Include="SiteUtils\AuthenticationHelper.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ColorController.cs" />

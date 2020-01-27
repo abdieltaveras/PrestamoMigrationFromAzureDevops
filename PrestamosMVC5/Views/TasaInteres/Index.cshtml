@@ -1,5 +1,5 @@
 ﻿@*@model IEnumerable<PrestamoEntidades.TasaInteres>*@
-@model PrestamoEntidades.TasaInteres
+@model TasaInteresVM
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <div class="row">
 
@@ -37,7 +37,7 @@
                         </thead>
                         <tbody>
 
-                            @foreach (var item in @ViewBag.listaInteres)
+                            @foreach (var item in Model.ListaTasaInteres)
                             {
                             <tr>
                                 <td>
@@ -120,7 +120,7 @@
                             Codigo <span class="required">*</span>
                         </label>
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(Model => Model.Codigo, new { @class = "form-control", @required = "required" })
+                            @Html.TextBoxFor(Model => Model.TasaInteres.Codigo, new { @class = "form-control", @required = "required" })
                         </div>
                     </div>
 
@@ -129,7 +129,7 @@
                             % de Interes <span class="required">*</span>
                         </label>
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(Model => Model.InteresMensual, new { @class = "form-control", @required = "required" })
+                            @Html.TextBoxFor(Model => Model.TasaInteres.InteresMensual, new { @class = "form-control", @required = "required" })
                         </div>
                     </div>
 
@@ -138,7 +138,7 @@
                             Descripcion <span class="required">*</span>
                         </label>
                         <div class="col-sm-8">
-                            @Html.TextBoxFor(Model => Model.Descripcion, new { @class = "form-control", @required = "required" })
+                            @Html.TextBoxFor(Model => Model.TasaInteres.Descripcion, new { @class = "form-control", @required = "required" })
                         </div>
                     </div>                    
 
@@ -147,7 +147,7 @@
                         <div class="col-sm-8">
                             <div class="form-check">
                                 @*<input class="form-check-input" type="checkbox" id="gridCheck1">*@
-                                @Html.CheckBoxFor(Model => Model.RequiereAutorizacion, new { @class = "form-check-input" })
+                                @Html.CheckBoxFor(Model => Model.TasaInteres.RequiereAutorizacion, new { @class = "form-check-input" })
                                 <label class="form-check-label" for="gridCheck1">
                                     ¿Requiere autorizacion?
                                 </label>
@@ -198,34 +198,34 @@
                                         @Html.ValidationSummary(true, null, new { @class = "text-danger" })
 
                                         <div class="form-group">
-                                            @Html.LabelFor(Model => Model.Codigo, new { @class = "col-md-2 control-label" })
+                                            @Html.LabelFor(Model => Model.TasaInteres.Codigo, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(Model => Model.Codigo, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(Model => Model.Codigo, null, new { @class = "text-danger" })
+                                                @Html.TextBoxFor(Model => Model.TasaInteres.Codigo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(Model => Model.TasaInteres.Codigo, null, new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            @Html.LabelFor(Model => Model.Descripcion, new { @class = "col-md-2 control-label" })
+                                            @Html.LabelFor(Model => Model.TasaInteres.Descripcion, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(Model => Model.Descripcion, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(Model => Model.Descripcion, null, new { @class = "text-danger" })
+                                                @Html.TextBoxFor(Model => Model.TasaInteres.Descripcion, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(Model => Model.TasaInteres.Descripcion, null, new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            @Html.LabelFor(Model => Model.InteresMensual, new { @class = "col-md-2 control-label" })
+                                            @Html.LabelFor(Model => Model.TasaInteres.InteresMensual, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(Model => Model.InteresMensual, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(Model => Model.InteresMensual, null, new { @class = "text-danger" })
+                                                @Html.TextBoxFor(Model => Model.TasaInteres.InteresMensual, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(Model => Model.TasaInteres.InteresMensual, null, new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            @Html.LabelFor(Model => Model.Usuario, new { @class = "col-md-2 control-label" })
+                                            @Html.LabelFor(Model => Model.TasaInteres.Usuario, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(Model => Model.Usuario, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(Model => Model.Usuario, null, new { @class = "text-danger" })
+                                                @Html.TextBoxFor(Model => Model.TasaInteres.Usuario, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(Model => Model.TasaInteres.Usuario, null, new { @class = "text-danger" })
                                             </div>
                                         </div>
 

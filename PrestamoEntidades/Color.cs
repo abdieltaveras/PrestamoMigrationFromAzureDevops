@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Color
+    public class Color : BaseInsUpd
     {
         public int IdColor { get; set; } = 0;
         public string Nombre { get; set; } = string.Empty;
-        public int IdNegocio { get; set; } = 0;
-        public string Usuario { get; set; } = string.Empty;
     }
     public class ColorGetParams
     {
