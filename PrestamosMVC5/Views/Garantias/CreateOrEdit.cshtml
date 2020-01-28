@@ -471,14 +471,11 @@
         list.forEach(function (btn) {
             btn.addEventListener('click', async function (evt) {
 
-
                 const selectedGarantia = JSON.parse(res).find(Garantia => Garantia.IdGarantia == evt.target.getAttribute('data-idGarantia'));
                 const detalles = JSON.parse(selectedGarantia.Detalles);
 
                 console.table(detalles);
 
-                $('#Garantia_IdGarantia').val(selectedGarantia.IdGarantia);
-                console.log('id garantia', selectedGarantia.IdGarantia);
                 if (selectedGarantia.IdClasificacion == 1) {
                     $('#inmobiliario_option').iCheck('check');
                     loadTipo(2);
@@ -486,6 +483,7 @@
                     $('#mobiliario_option').iCheck('check');
                     loadTipo(1);
                 }
+                $('#Garantia_IdGarantia').val(selectedGarantia.IdGarantia);
 
                 $('#Garantia_NoIdentificacion').val(selectedGarantia.NoIdentificacion);
                 $('#Garantia_IdNegocio').val(selectedGarantia.IdNegocio);
@@ -582,7 +580,6 @@
 
     function clearForm() {
         $('#Garantia_IdGarantia').val('');
-
 
         $('#Garantia_NoIdentificacion').val("");
         $('#Garantia_IdNegocio').val("");
