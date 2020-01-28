@@ -28,8 +28,6 @@ namespace PrestamosMVC5.Controllers
                 throw;
             }
 
-            //IEnumerable<TerritoriosConHijo> territorios = BLLPrestamo.Instance.GetTerritorios(new TerritorioGetParams() { IdNegocio = 1 });
-            //ViewBag.DivisionesTerritoriales = DivisionesTerritoriales;
             return View(modelo);
         }
 
@@ -56,8 +54,7 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public RedirectToRouteResult GuardarTerritorio(Territorio territorio)
         {
-            territorio.IdNegocio = pcpUserIdNegocio;
-            territorio.Usuario = "Usuario de prueba";
+            this.pcpSetUsuarioAndIdNegocioTo(territorio);
             var localidades = BLLPrestamo.Instance.GuardarTerritorio(territorio);
             return RedirectToAction("Index");
         }

@@ -5,19 +5,11 @@
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar</button>
-        @*<h4>Listado de divisiones territoriales</h4>*@
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#division-territorial-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar</button>
+      
         <div class="x_panel">
             <div class="x_title">
-                <h2>Listado de divisiones territoriales</h2>
-                @*<ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li>
-                        <a data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus"></i></a>
-                    </li>
-                </ul>*@
+                <h2>Listado de divisiones territoriales</h2>                
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -58,48 +50,44 @@
             </div>
         </div>
     </div>
+</div>
 
-    @* Formulario para agregar tasas de interes *@
-
-    <div class="col-md-5 col-sm-12" id="formContainer" style="display:none;">
-        <button type="button" class="btn btn-danger" onclick="hideTasaInteresForm()" style="float:right;">Cerrar formulario</button>
-        @*<h4>Agregar division territorial</h4>*@
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Agregar division territorial</h2>
-                @*<ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-
-                    <li>
-                        <a onclick="hideTasaInteresForm()"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>*@
-                <div class="clearfix"></div>
+<div class="modal fade" id="division-territorial-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar una division a la lista</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="x_content">
-                <br />
-                @using (Html.BeginForm("GuardarDivisionTerritorial", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
-                {
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="codigo">
-                            Nombre <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-8">
-                            <input type="text" name="Descripcion" id="nombre" value="" class="form-control" required />
-                        </div>
-                    </div>
-                    <input type="hidden" name="HijoDe" value="1" required />
-                    <input type="hidden" name="PermiteCalle" value="0" required />
+            <div class="modal-body">
+                <div class="x_panel">
+                    
+                    <div class="x_content">
+                        <br />
+                        @using (Html.BeginForm("GuardarDivisionTerritorial", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
+                        {
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="codigo">
+                                    Nombre <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="Descripcion" id="nombre" value="" class="form-control" required />
+                                </div>
+                            </div>
+                            <input type="hidden" name="HijoDe" value="1" required />
+                            <input type="hidden" name="PermiteCalle" value="0" required />
 
-                    <div class="ln_solid"></div>
-                    <div class="item form-group" style="float: right;">
-                        <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group" style="float: right;">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                        }
                     </div>
-                }
+                </div>
             </div>
         </div>
     </div>
@@ -113,19 +101,18 @@
 
 <script type="text/javascript">
     
-    function showTasaInteresForm() {
-        $('#listContainer').addClass('col-md-7 col-sm-12 col-xs-12').removeClass('col-md-12 col-sm-12 col-xs-12');
-        $("#formContainer").css("display", "");
-    };
+    //function showTasaInteresForm() {
+    //    $('#listContainer').addClass('col-md-7 col-sm-12 col-xs-12').removeClass('col-md-12 col-sm-12 col-xs-12');
+    //    $("#formContainer").css("display", "");
+    //};
 
-    function hideTasaInteresForm() {
-        $('#listContainer').addClass('col-md-12 col-sm-12 col-xs-12').removeClass('col-md-7 col-sm-12 col-xs-12');
-        $("#formContainer").css("display", "none");
-    };
+    //function hideTasaInteresForm() {
+    //    $('#listContainer').addClass('col-md-12 col-sm-12 col-xs-12').removeClass('col-md-7 col-sm-12 col-xs-12');
+    //    $("#formContainer").css("display", "none");
+    //};
 
 
     // Mostrar mensajes
-
     function validarDatos() {
         
         if ($('#nombre').val().length <= 2) {
