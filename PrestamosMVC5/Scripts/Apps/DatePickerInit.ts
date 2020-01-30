@@ -1,7 +1,8 @@
+﻿
 $(document).ready(function () {
-    var allDateElems = $('.datetype,input[type="datetime"],input[type="date"]');
+    let allDateElems = $('.datetype,input[type="datetime"],input[type="date"]');
     allDateElems.each(function () {
-        var propname = $(this).prop("name");
+        let propname = $(this).prop("name");
         setFecha($(this), propname);
         //$(this).prop("readonly", true);
         //console.log($(this));
@@ -30,4 +31,3 @@ $(document).ready(function () {
         }
     });
 });
-//# sourceMappingURL=DatePickerInit.js.map

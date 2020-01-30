@@ -13,8 +13,8 @@ namespace PrestamoBLL
     {
         public static Database PrestamosDB => Database.AdHoc(ConexionDB.Server);
         #region StaticBLL
-        static private BLLPrestamo _bll = null;
-        static public BLLPrestamo Instance
+        private static BLLPrestamo _bll = null;
+        public static  BLLPrestamo Instance
         {
             get
             {
@@ -64,11 +64,11 @@ namespace PrestamoBLL
                 throw new NullReferenceException("El parametro usuario que indica quien esta realizando la accion esta nulo o vacio lo cual no es permitido");
             }
         }
-        private void ThrowErrorIfNegocioIsZero(int negocio)
+        private void ThrowErrorIfNegocioIsZero(int idNegocio)
         {
-            if (negocio == 0)
+            if (idNegocio == 0)
             {
-                throw new NullReferenceException("El valor de IdNegocio es nulo o es cero");
+                throw new NullReferenceException("El valor de IdNegocio es cero");
             }
         }
         /// <summary>
@@ -114,11 +114,11 @@ namespace PrestamoBLL
         }
 
         //new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
-        protected static class BllAcciones
+        protected  class BllAcciones
         {
             
 
-            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : class
+            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : BaseGetParams
             {
 
                 IEnumerable<TInsert2> result = new List<TInsert2>();
@@ -142,6 +142,7 @@ namespace PrestamoBLL
 
             public static void insUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseUsuarioEIdNegocio
             {
+                
                 InsUpdValidation(insUpdParam);
                 try
                 {

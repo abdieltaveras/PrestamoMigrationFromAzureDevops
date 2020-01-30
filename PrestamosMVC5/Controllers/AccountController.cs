@@ -30,7 +30,6 @@ namespace PrestamosMVC5.Controllers
         {
             this.pcpLogout();
             var model = new LoginModel { ReturnUrl = returnUrl };
-            var prevRequest = HttpContext.Request;
             return View(model);
         }
 

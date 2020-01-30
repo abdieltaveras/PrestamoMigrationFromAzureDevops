@@ -4,16 +4,15 @@
     Layout = "~/Views/Shared/_LayoutForms.cshtml";
 }
 <style>
-        input[data-spin=true]::-webkit-inner-spin-button {
-            opacity: 1
-        }
-    </style>
+    input[data-spin=true]::-webkit-inner-spin-button {
+        opacity: 1
+    }
+</style>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCreateUser" }))
 {
-    <h2 class="text-danger">El problema esta en el html helper textboxfor cuando es para numero hay que hacerlo normal
-    los inputs
-    empezar a usar este aproach mas y ver como funciona con objetos</h2>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger", @id = "mensajeError" })
     <div class="clearfix"></div>
     <div class="row">
         <!-- form input mask -->
@@ -23,7 +22,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.ContraseñaExpiraCadaXMes, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.ContraseñaExpiraCadaXMes, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @type = "number", @data_spin = "true", @max = "12", @min = "1"  } }) Mes(es)
+                        @Html.EditorFor(model => model.ContraseñaExpiraCadaXMes, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @type = "number", @data_spin = "true", @max = "12", @min = "1" } }) Mes(es)
                         @Html.ValidationMessageFor(model => model.ContraseñaExpiraCadaXMes, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -55,5 +54,12 @@
     </div>
 }
 
-
+@section Scripts {
+    <script>
+        //var formId = '#frmEdtUser';
+        //var formulario = $("#frmEdtUser");
+    </script>
+    <script src="~/Scripts/Apps/CreateOrEditUser.js"></script>
+    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
+}
 

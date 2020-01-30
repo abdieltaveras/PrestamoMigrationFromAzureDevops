@@ -11,30 +11,38 @@ using System.Web.Routing;
 
 namespace PrestamosMVC5.Controllers
 {
-    //[AuthorizeUser]
+    [AuthorizeUser]
     public class ClientesController : ControllerBasePcp
     {
         // GET: Clientes
+        
         public ActionResult Index()
         {
-            var clientes = BLLPrestamo.Instance.ClientesGet(new ClientesGetParams());
-            return View(clientes);
+            var clientes = GetClientes();
+            ActionResult _actResult = View(clientes);
+            return _actResult;
+            //TASK: Cuando un cliente no tenga un estado civil de casado no es obligatorio
+            // llenar datos del conyuge
+            //TASK: cambiar mask del documento de identidad segun el tipo elegido si cedula o pasaporte
+            // TASK agregar columna vivivienda propia (si o no) (analizar si poner alquilada o prestada)
         }
+
+       
+
         // GET: Clientes/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-        
         public ActionResult CreateOrEdit(int id = -1, string mensaje = "")
         {
-            var r = this.Request;
+            // task: error cuando busca cliente con usuario autenticado dice negocio <= 0
+            // task falla la autencitacion del administrador con contrasena pcp20200123 y siendo pcp20200124
             ClienteModel model = CreateClienteVm(true, null);
-            
             model.MensajeError = mensaje;
             if (id != -1)
             {
-                // buscar el cliente
+                // Buscar el cliente
                 var searchResult = getCliente(id);
                 if (searchResult.DatosEncontrados)
                 {
@@ -49,12 +57,46 @@ namespace PrestamosMVC5.Controllers
             return View(model);
         }
 
+        // POST: Clientes/Create
+        [HttpPost]
+        public ActionResult CreateOrEdit(ClienteModel clienteVm)
+        {
+            ActionResult result;
+            try
+            {
+                pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
+                BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
+                var mensaje = "Sus datos fueron guardados correctamente, Gracias";
+                result = RedirectToAction("CreateOrEdit", new { id = -1, mensaje = mensaje });
+            }
+            catch (Exception e)
+            {
+                clienteVm.MensajeError = "Ocurrio un error que no permite guardar el cliente, revisar";
+                result = View(clienteVm);
+            }
+            return result;
+            //return RedirectToAction("Index");
+        }
+        // GET: Clientes/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
 
+        public IEnumerable<Cliente> GetClientes()
+        {
+            IEnumerable<Cliente> clientes;
+            var getclientes = new ClientesGetParams();
+            this.pcpSetUsuarioAndIdNegocioTo(getclientes);
+            clientes = BLLPrestamo.Instance.ClientesGet(getclientes);
+            return clientes;
+        }
         private SeachResult<Cliente> getCliente(int id)
         {
-            var cliente = BLLPrestamo.Instance.ClientesGet(new ClientesGetParams { IdCliente = id });
-
-            var result = new SeachResult<Cliente>(BLLPrestamo.Instance.ClientesGet(new ClientesGetParams { IdCliente = id }));
+            var searchCliente = new ClientesGetParams { IdCliente = id };
+            pcpSetUsuarioAndIdNegocioTo(searchCliente);
+            var cliente = BLLPrestamo.Instance.ClientesGet(searchCliente);
+            var result = new SeachResult<Cliente>(BLLPrestamo.Instance.ClientesGet(searchCliente));
             return result;
         }
 
@@ -86,32 +128,6 @@ namespace PrestamosMVC5.Controllers
                 }
                 return clienteVm;
             }
-        }
-        // POST: Clientes/Create
-        [HttpPost]
-        public ActionResult CreateOrEdit(ClienteModel clienteVm)
-        {
-            ActionResult result;
-            try
-            {
-                pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
-                BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
-                var mensaje = "Sus datos fueron guardados correctamente, Gracias";
-                result = RedirectToAction("CreateOrEdit", new { id = -1, mensaje = mensaje });
-            }
-            catch (Exception e)
-            {
-                clienteVm.MensajeError = "Ocurrio un error que no permite guardar el cliente, revisar";
-                result = View(clienteVm);
-            }
-            return result;
-            //return RedirectToAction("Index");
-        }
-
-        // GET: Clientes/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
         }
 
     }

@@ -11,33 +11,16 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
+        //Todo: incorporar este modelo de trabajo a los metodos get e insupd
         public IEnumerable<Cliente> ClientesGet(ClientesGetParams  searchParam)
         {
-            IEnumerable<Cliente> result=new List<Cliente>();
-            try
-            {
-                var searchSqlParams = SearchRec.ToSqlParams(searchParam);
-                result = PrestamosDB.ExecReaderSelSP<Cliente>("spGetClientes", searchSqlParams);
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            GetValidation(searchParam as BaseGetParams);
+            return BllAcciones.GetData<Cliente, ClientesGetParams>(searchParam, "spGetClientes");
         }
         public void ClientesInsUpd(Cliente insUpdParam)
         {
-            try
-            {
-                var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
-                PrestamosDB.ExecSelSP("spInsUpdCliente", _insUpdParam);
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
+            BllAcciones.insUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
         }
-        
         public void ClientesInsUpd(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion)
         {
             FixProperties(cliente, infoConyuge, infoLaboral);

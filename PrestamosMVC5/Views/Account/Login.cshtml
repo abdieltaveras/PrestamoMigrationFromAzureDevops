@@ -126,7 +126,7 @@
                         <div>
                             <label>Seleccione el negocio </label>
                             <div class="form-label-group">
-                                @Html.DropDownListFor(m => m.IdNegocio, SelectItems.Negocios, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                @Html.DropDownListFor(m => m.IdNegocio, SelectItems.Negocios(AuthInSession.AnonimousUser), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                             </div>
                         </div>
                         <div class="form-label-group">

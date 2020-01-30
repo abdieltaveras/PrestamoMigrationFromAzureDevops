@@ -10,17 +10,24 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
+    [AuthorizeUser]
     public class UserController : ControllerBasePcp
     {
         #region Request
         // GET: User
         public ActionResult Index()
         {
+            IEnumerable<Usuario> usuarios = GetUsers();
+            ActionResult actResult = View(usuarios);
+            return actResult;
+        }
+
+        private IEnumerable<Usuario> GetUsers()
+        {
             var usuarioGetParams = new UsuarioGetParams();
             this.pcpSetUsuarioAndIdNegocioTo(usuarioGetParams);
             var usuarios = BLLPrestamo.Instance.GetUsuarios(usuarioGetParams);
-            ActionResult actResult = View(usuarios);
-            return actResult;
+            return usuarios;
         }
 
         public ActionResult Test(int id = -1, bool showAdvancedView = true)
@@ -30,6 +37,7 @@ namespace PrestamosMVC5.Controllers
             prepareUserModelForGet(model);
             defaultTestNewModel(id, model);
             model.ForActivo = true;
+            model.Usuario.VigenteDesde = DateTime.Now.AddDays(-10);
             return View("CreateOrEdit", model);
         }
 
@@ -42,6 +50,7 @@ namespace PrestamosMVC5.Controllers
                 model.Usuario.Telefono1 = "8095508455";
                 model.Usuario.Activo = false;
                 model.Usuario.Bloqueado = true;
+
             }
         }
 
@@ -64,19 +73,19 @@ namespace PrestamosMVC5.Controllers
             {
                 expiraCadaXMes = userModel.ContraseñaExpiraCadaXMes
             };
-            return Content(dyna.ToJson());
+            //return Content(dyna.ToJson());
+            ModelState.AddModelError("", "probando quitar mensaje error");
+            return View(userModel);
         }
+
         //[AuthorizeUser]
         // GET: User/Create
         public ActionResult CreateOrEdit(int id = -1, bool showAdvancedView = true)
         {
             var model = GetUserAndSetItToModel(id);
             prepareUserModelForGet(model);
-            model.ShowAdvancedOptions = showAdvancedView;
             return View(model);
         }
-
-
 
         // POST: User/Create
         [HttpPost]
@@ -84,7 +93,7 @@ namespace PrestamosMVC5.Controllers
         {
             ActionResult actionResult;
             Usuario usuario;
-            prepareUserModelForPost(userModel, out actionResult, out usuario);
+            prepareUsuarioFromModelForSave(userModel, out actionResult, out usuario);
             actionResult = SaveData(actionResult, usuario);
             return actionResult;
         }
@@ -107,7 +116,6 @@ namespace PrestamosMVC5.Controllers
             {
                 ModelState.AddModelError(string.Empty, "El usuario indicado no existe");
             }
-
             return View(model);
         }
 
@@ -177,17 +185,17 @@ namespace PrestamosMVC5.Controllers
             return actionResult;
         }
 
-        private void prepareUserModelForPost(UserModel userModel, out ActionResult actionResult, out Usuario usuario)
+        public void prepareUsuarioFromModelForSave(UserModel userModel, out ActionResult actionResult, out Usuario usuario)
         {
             actionResult = View(userModel);
             usuario = SetUsuarioFromUserModel(userModel);
+            this.pcpSetUsuarioAndIdNegocioTo(usuario);
             if (usuario.DebeCambiarContraseñaAlIniciarSesion || usuario.IdUsuario > 0)
             {
                 ModelState.Remove("Contraseña");
                 ModelState.Remove("ConfirmarContraseña");
                 usuario.Contraseña = string.Empty;
             }
-            
         }
 
         private  Usuario SetUsuarioFromUserModel(UserModel userModel)
@@ -201,7 +209,6 @@ namespace PrestamosMVC5.Controllers
                                    userModel.ContraseñaExpiraCadaXMes : -1;
             usuario.VigenteHasta = userModel.LimitarVigenciaDeCuenta ?
                                              usuario.VigenteHasta : InitValues._19000101;
-            this.pcpSetUsuarioAndIdNegocioTo(usuario);
             return usuario;
         }
 
@@ -217,6 +224,8 @@ namespace PrestamosMVC5.Controllers
             model.ContraseñaExpiraCadaXMes = model.LaContraseñaExpira ? usuario.ContraseñaExpiraCadaXMes : 1;
             model.Usuario = usuario;
             this.pcpSetUsuarioAndIdNegocioTo(model.Usuario);
+            model.ShowAdvancedOptions = true;
+
         }
         #endregion Operations
     }

@@ -3987,16 +3987,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
+    <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
-    <Content Include="Scripts\Apps\manageErrorMessageOnForms.js" />
-    <Content Include="Scripts\Apps\validate-form-Inputs.js" />
-    <Content Include="Scripts\Apps\DatePickerInit.js" />
+    <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\DatePickerInit.ts" />
     <Content Include="Scripts\Apps\empty.js" />
-    <Content Include="Scripts\Apps\keyBehavior.js" />
-    <Content Include="Scripts\Apps\onTodosSelected.js" />
-    <Content Include="Scripts\Apps\setMask.js" />
+    <TypeScriptCompile Include="Scripts\Apps\keyBehavior.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\onTodosSelected.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\setMask.ts" />
     <Content Include="Scripts\Apps\showImage.js" />
-    <Content Include="Scripts\Apps\tabPanelsManagement.js" />
+    <TypeScriptCompile Include="Scripts\Apps\tabPanelsManagemen.ts" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\docs\fonts\fonts\fontawesome-webfont.eot" />
@@ -5152,6 +5153,8 @@
     <Content Include="Views\User\CreateOrEdit - Copy.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\Configuration\Index.cshtml" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

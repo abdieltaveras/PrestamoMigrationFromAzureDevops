@@ -18,17 +18,17 @@ namespace PrestamosMVC5.SiteUtils
         public static readonly string NegocioKey = "negocio";
         public static readonly string IdUsuarioKey = "idUsuario";
         public static readonly string AnonimousUser = "Anonimo";
-        public static System.Web.SessionState.HttpSessionState sessionState =>  HttpContext.Current.Session;
+        public static System.Web.SessionState.HttpSessionState sessionState => HttpContext.Current.Session;
 
 
         private static object getKeyValue(string key)
         {
-                return sessionState[key];
-                //HttpContext.Current.Session[key] :
-                //sessionState[key];
+            return sessionState[key];
+            //HttpContext.Current.Session[key] :
+            //sessionState[key];
         }
         public static string GetLoginName(HttpSessionStateBase sessionState = null)
-            //HttpSessionStateBase sessionState = null)
+        //HttpSessionStateBase sessionState = null)
         {
             object usuarioObj = null;
             usuarioObj = getKeyValue(UsuarioKey);
@@ -39,14 +39,14 @@ namespace PrestamosMVC5.SiteUtils
         {
             object idUsuarioObj = null;
             idUsuarioObj = getKeyValue(IdUsuarioKey);
-            return idUsuarioObj == null ? -1 : Convert.ToInt32(idUsuarioObj); 
+            return idUsuarioObj == null ? -1 : Convert.ToInt32(idUsuarioObj);
         }
         public static string GetUserImageFilePath(HttpSessionStateBase sessionState = null)
         {
             var imagePath = getKeyValue(UserImageFilePathKey);
             return imagePath == null ? string.Empty : imagePath.ToString();
         }
-        
+
         // to retrieve IdNegocio value from session
         public static int GetIdNegocio(HttpSessionStateBase sessionState = null)
         {
@@ -112,11 +112,22 @@ namespace PrestamosMVC5.SiteUtils
 
         public override void OnAuthorization(AuthorizationContext contx)
         {
+        //    bool IsAuthenticAttribute =
+        //(filterContext.ActionDescriptor.IsDefined(typeof(Authenticate), true) ||
+        //filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AuthenticateAttribute), true)) &&
+        //filterContext.HttpContext.User.Identity.IsAuthenticated;
+
+        //    if (!IsAuthenticAttribute)
+        //    {
+        //        base.OnAuthorization(filterContext);
+        //    }
+            
             IsUserAuthenticatedInSession(contx.HttpContext.Session);
             if (!IsAuthenticated)
             {
                 HandleUnauthorizedRequest(contx); //call the HandleUnauthorizedRequest function
             }
+            
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {

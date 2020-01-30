@@ -54,6 +54,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Propuestas al sistema", "Pr
 		PrestamoEntidades\TipoMoraExplicacion.txt = PrestamoEntidades\TipoMoraExplicacion.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamosMVC5Tests", "PrestamosMVC5Tests\PrestamosMVC5Tests.csproj", "{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,10 @@ Global
 		{EA3FF769-7BAD-40AB-9ABE-96ABE4E0BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA3FF769-7BAD-40AB-9ABE-96ABE4E0BE13}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA3FF769-7BAD-40AB-9ABE-96ABE4E0BE13}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

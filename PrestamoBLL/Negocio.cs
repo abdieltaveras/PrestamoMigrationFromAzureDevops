@@ -8,7 +8,7 @@ namespace PrestamoBLL
     {
         public IEnumerable<Negocio> GetNegocios(NegociosGetParams searchParam)
         {
-            GetValidation(searchParam);
+            ThrowErrorIfUsuarioEmptyOrNull(searchParam.Usuario);
             IEnumerable<Negocio> result = new List<Negocio>();
             try
             {

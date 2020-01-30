@@ -13,9 +13,7 @@ caso.
 1. Intagsa (Matriz)
 	1.1 Intagsa Romana hija de Intagsa (Matriz)
 		1.1.1. Intagsa Romana Prestamo 
-		1.1.2. Intagsa Romana Ventas 
-	1.2 Intagsa Sosua (Matriz)
-		1.1.1. Intagsa Sosua Prestamo 
+	1.2 Intagsa Sosua (Matriz)		1.1.1. Intagsa Sosua Prestamo 
 		1.1.2. Intagsa Sosua Ventas 
 2.- Papito Prestamo (Matriz Pricipal)
 	2.1 Papito Prestamo Romana (Matriz)
@@ -28,6 +26,4 @@ debe primero activar esa opcion en el sistema.
 y cuando vaya a guardar debera preguntar el sistema
 si desea guardarlo en el catalogo comun o unicamente para este negocio.
 solo funciona si se activa en la funcion aqui mencionada. 
-
-
 

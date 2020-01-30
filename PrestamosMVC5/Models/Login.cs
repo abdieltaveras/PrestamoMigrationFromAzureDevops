@@ -27,6 +27,7 @@ namespace PrestamosMVC5.Models
         public string ReturnUrl { get; set; } = string.Empty;
 
         public string ImagePath { get; set; } = string.Empty;
+    
     }
 
     

@@ -38,7 +38,7 @@ namespace PrestamoEntidades
         [Display(Name = "Cambiar Contraseña al iniciar sesion")]
         public bool DebeCambiarContraseñaAlIniciarSesion { get; set; } = true;
         [Display(Name = "Cuenta vigente Desde")]
-        //todo: When this property is nullable the getProcedures returns null even when is not null
+        
 
         public DateTime VigenteDesde { get; set; } = InitValues._19000101;
         /// <summary>
@@ -46,7 +46,7 @@ namespace PrestamoEntidades
         /// </summary>
         [Display(Name = "Cuenta vigente hasta")]
         
-        //todo: When this property is nullable the getProcedures returns null even when is not null
+        
 
         public DateTime VigenteHasta { get; set; } = InitValues._19000101;
         /// <summary>

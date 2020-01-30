@@ -105,7 +105,7 @@ namespace PrestamoBLL.Tests
             //{
             //    BLLPrestamo.Instance.insUpdCliente(cliente);
             //}
-            //TODO: Bryan .....
+
             try { BLLPrestamo.Instance.ClientesInsUpd(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion()); }
             catch (Exception e)
             {

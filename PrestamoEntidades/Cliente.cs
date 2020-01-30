@@ -55,7 +55,7 @@ namespace PrestamoEntidades
             return $" {Nombres } {Apellidos} ";
         }
     }
-    public class ClientesGetParams 
+    public class ClientesGetParams : BaseGetParams
         //: BaseGetParams
     {
         public int IdNegocio { get; set; } = -1;

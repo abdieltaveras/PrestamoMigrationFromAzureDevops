@@ -1,0 +1,1 @@
+{"version":3,"file":"setMask.js","sourceRoot":"","sources":["setMask.ts"],"names":[],"mappings":"AAAA,SAAS,cAAc;IACnB,IAAI,aAAa,GAAG,CAAC,CAAC,wBAAwB,CAAC,CAAC;IAEhD,aAAa,CAAC,IAAI,CAAC;QACf,CAAC,CAAC,IAAI,CAAC,CAAC,IAAI,CAAC,gBAAgB,EAAE,2BAA2B,CAAC,CAAC;IAChE,CAAC,CAAC,CAAC;AACP,CAAC;AACD,cAAc,EAAE,CAAC"}

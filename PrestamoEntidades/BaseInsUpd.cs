@@ -16,7 +16,7 @@ namespace PrestamoEntidades
         /// </summary>
         [HiddenInput(DisplayValue = false)]
         [NotMapped]
-        public string Usuario { get; set; } //= string.Empty;/// 
+        public string Usuario { get; set; } = string.Empty;
     }
     /// <summary>
     /// Clase base que tiene el campo usuario y idNegocio
