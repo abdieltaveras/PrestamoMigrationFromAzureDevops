@@ -10,12 +10,12 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<TerritoriosConHijo> GetTerritorios(TerritorioGetParams searchParam)
+        public IEnumerable<Territorio> GetTerritorios(TerritorioGetParams searchParam)
         {
-            IEnumerable<TerritoriosConHijo> result = new List<TerritoriosConHijo>();
+            IEnumerable<Territorio> result = new List<Territorio>();
             try
             {
-                result = PrestamosDB.ExecReaderSelSP<TerritoriosConHijo>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<Territorio>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -29,7 +29,7 @@ namespace PrestamoBLL
             IEnumerable<Territorio> result = new List<Territorio>();
             try
             {
-                result = PrestamosDB.ExecReaderSelSP<TerritoriosConHijo>("spGetDivisionesTerritoriales", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<Territorio>("spGetDivisionesTerritoriales", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {
@@ -38,12 +38,12 @@ namespace PrestamoBLL
             return result;
         }
 
-        public IEnumerable<TerritoriosConPadre> GetPaisesDivisionesTerritoriales(TerritorioGetParams searchParam)
+        public IEnumerable<Territorio> GetPaisesDivisionesTerritoriales(TerritorioGetParams searchParam)
         {
-            IEnumerable<TerritoriosConPadre> result = new List<TerritoriosConPadre>();
+            IEnumerable<Territorio> result = new List<Territorio>();
             try
             {
-                result = PrestamosDB.ExecReaderSelSP<TerritoriosConPadre>("spGetPaisesDeDivisionTerritorial", SearchRec.ToSqlParams(searchParam));
+                result = PrestamosDB.ExecReaderSelSP<Territorio>("spGetPaisesDeDivisionTerritorial", SearchRec.ToSqlParams(searchParam));
             }
             catch (Exception e)
             {

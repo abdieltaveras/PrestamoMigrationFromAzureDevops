@@ -26,8 +26,8 @@ Else
 			Activo=@Activo,
 			Descripcion=@Descripcion,
 			RequiereAutorizacion=@RequiereAutorizacion,
-			ModificadoPor=@Usuario,
 			idNegocio = @idNegocio,
+			ModificadoPor=@Usuario,
 			FechaModificado = getdate()
 		where idTasaInteres = @idTasaInteres
 	End

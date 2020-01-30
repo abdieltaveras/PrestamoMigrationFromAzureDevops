@@ -1,13 +1,13 @@
 ﻿
-@model PrestamoEntidades.TipoMora
+@model TipoMoraVM
 <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <div class="row">
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
-        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar</button>
-        <h4>Listado de moras</h4>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo-mora-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar</button>
+        <h4>Listado de moras</h4>        
+        
         <div class="x_panel">
             <div class="x_title">
                 <h2>Tabla de moras</h2>
@@ -36,212 +36,199 @@
                     </thead>
                     <tbody>
 
-                        @foreach (var item in @ViewBag.listaMoras)
+                        @foreach (var item in Model.ListaTipoMoras)
                         {
-                        <tr>
-                            <td>
-                                <strong>
-                                    @item.Codigo
-                                </strong>
-                            </td>
-                            <td>
-                                @if (item.TipoCargo == 1)
-                                {
-                                    <span>Fijo</span>
-                                }
-                                else
-                                {
-                                    <span>Porcentual</span>
-                                }
-                            </td>
-                            <td>
-                                <span>Preguntar</span>
-                            </td>
-                            <td>
-                                @*<span>@item.MontoOPorCientoACargar</span>*@
-                                <span>No se si mostrarla</span>
-                            </td>
-                            <td>
-                                <span>@item.DiasDeGracia</span>
-                            </td>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        @item.Codigo
+                                    </strong>
+                                </td>
+                                <td>
+                                    @if (item.TipoCargo == 1)
+                                    {
+                                        <span>Fijo</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Porcentual</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span>Preguntar</span>
+                                </td>
+                                <td>
+                                    @*<span>@item.MontoOPorCientoACargar</span>*@
+                                    <span>No se si mostrarla</span>
+                                </td>
+                                <td>
+                                    <span>@item.DiasDeGracia</span>
+                                </td>
 
-                            <td>
-                                <span>Desde @item.MontoCuotaDesde hasta @item.MontoCuotaHasta</span>
-                            </td>
+                                <td>
+                                    <span>Desde @item.MontoCuotaDesde hasta @item.MontoCuotaHasta</span>
+                                </td>
 
-                            <td>
-                                <span>@item.Descripcion</span>
-                            </td>
+                                <td>
+                                    <span>@item.Descripcion</span>
+                                </td>
 
-                            <td>
-                                @if (item.Activo)
-                                {
-                                    <span class="badge badge-primary">Activo</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-danger">Inactivo</span>
-                                }
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <button type="button" class="btn btn-outline-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </a>
+                                <td>
+                                    @if (item.Activo)
+                                    {
+                                        <span class="badge badge-primary">Activo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Inactivo</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
 
-                                <a href="@Url.Action("Delete", "TipoMoras", new { Id = item.IdTipoMora, Usuario = "Bryan" })">
-                                    <button type="button" class="btn btn-outline-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </a>
+                                    <a href="@Url.Action("Delete", "TipoMoras", new { Id = item.IdTipoMora, Usuario = "Bryan" })">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
 
-                                <a href="#">
-                                    <button type="button" class="btn btn-outline-warning">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
+                                    <a href="#">
+                                        <button type="button" class="btn btn-outline-warning">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
+@* Fin del formulario *@
 
-    @* Formulario para agregar tasas de interes *@
-
-    <div class="col-md-5 col-sm-12" id="formAgregarTasaInteres" style="display:none;">
-        <button type="button" class="btn btn-danger" onclick="hideTasaInteresForm()" style="float:right;">Cerrar formulario</button>
-        <h4>Agregar moras</h4>
-        <div class="x_panel">
-            <div class="x_title">
-                <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-
-                    <li>
-                        <a onclick="hideTasaInteresForm()"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
+<!-- Modal -->
+<div class="modal fade" id="tipo-mora-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar un tipo de mora a la lista</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="x_content">
-                <br />
-                @using (Html.BeginForm("Index", "TipoMoras", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
-                {
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">
-                            Codigo <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-8">
-                            @Html.TextBoxFor(Model => Model.Codigo, new { @class = "form-control", @required = "required" })
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Tipo de cargo</label>
-                        <div class="col-sm-8">
-                            @Html.DropDownListFor(Model => Model.IdTipoMora, SelectItems.TiposCargoMora, new { @class = "form-control item" })
-                        </div>
-                    </div>
-
-                   
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">
-                            Rango <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-8">
-                            <div>
-                                @Html.TextBoxFor(Model => Model.MontoCuotaDesde, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
+            <div class="modal-body">
+                <div class="x_panel">
+                    
+                    <div class="x_content">
+                        <br />
+                        @using (Html.BeginForm("Index", "TipoMoras", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+                        {
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Codigo <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(Model => Model.TipoMora.Codigo, new { @class = "form-control", @required = "required" })
+                                </div>
                             </div>
-                            <span class="col-sm-2" style="text-align:center;">-</span>
-                            <div>
-                                @Html.TextBoxFor(Model => Model.MontoCuotaHasta, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Tipo de cargo</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(Model => Model.TipoMora.TipoCargo, SelectItems.TiposCargoMora, new { @class = "form-control item" })
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Periodo</label>
-                        <div class="col-sm-8">
-                            @Html.DropDownListFor( Model =>  Model.CalcularCargoPor, SelectItems.CalcularMoraPor, new { @class = "form-control item"})
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Aplicar al</label>
-                        <div class="col-sm-8">
-                            @Html.DropDownListFor(Model => Model.AplicarA, SelectItems.AplicarMorasAl, new { @class = "form-control item" })
 
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="codigo">
-                            Cargo <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-8">
-                            <div>
-                                @Html.TextBoxFor(Model => Model.MontoOPorcientoACargar, new { @class = "form-control", @required = "required", @type = "number" })
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">
+                                    Rango <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <div>
+                                        @Html.TextBoxFor(Model => Model.TipoMora.MontoCuotaDesde, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
+                                    </div>
+                                    <span class="col-sm-2" style="text-align:center;">-</span>
+                                    <div>
+                                        @Html.TextBoxFor(Model => Model.TipoMora.MontoCuotaHasta, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="codigo">
-                            Descripcion* <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-8">
-                            <div>
-                                @Html.TextBoxFor(Model => Model.Descripcion, new { @class = "form-control", @required = "required" })
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Periodo</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(Model => Model.TipoMora.CalcularCargoPor, SelectItems.CalcularMoraPor, new { @class = "form-control item" })
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="codigo">
-                            Dias de gracia <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-8">
-                            <div>
-                                @Html.TextBoxFor(Model => Model.DiasDeGracia, new { @class = "form-control", @required = "required", @type = "number" })
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Aplicar al</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(Model => Model.TipoMora.AplicarA, SelectItems.AplicarMorasAl, new { @class = "form-control item" })
+
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="ln_solid"></div>
-                    <div class="item form-group" style="float: right;">
-                        <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="codigo">
+                                    Cargo <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <div>
+                                        @Html.TextBoxFor(Model => Model.TipoMora.MontoOPorcientoACargar, new { @class = "form-control", @required = "required", @type = "number" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="codigo">
+                                    Descripcion* <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <div>
+                                        @Html.TextBoxFor(Model => Model.TipoMora.Descripcion, new { @class = "form-control", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="codigo">
+                                    Dias de gracia <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <div>
+                                        @Html.TextBoxFor(Model => Model.TipoMora.DiasDeGracia, new { @class = "form-control", @required = "required", @type = "number" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="item form-group" style="float: right;">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                            @*</form>*@
+                        }
                     </div>
-                    @*</form>*@
-                }
+                </div>
             </div>
         </div>
     </div>
 </div>
-        @* Fin del formulario *@
+<!-- Fin Modal -->
+
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-
-    });
-
-    function showTasaInteresForm() {
-        $('#listContainer').addClass('col-md-7 col-sm-12 col-xs-12').removeClass('col-md-12 col-sm-12 col-xs-12');
-        $("#formAgregarTasaInteres").css("display", "");
-    };
-
-    function hideTasaInteresForm() {
-        $('#listContainer').addClass('col-md-12 col-sm-12 col-xs-12').removeClass('col-md-7 col-sm-12 col-xs-12');
-        $("#formAgregarTasaInteres").css("display", "none");
-    };
 
 </script>
 

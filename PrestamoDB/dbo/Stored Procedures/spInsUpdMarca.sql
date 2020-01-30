@@ -2,7 +2,7 @@
 	@IdMarca int,
 	@Nombre varchar(50),
 	@IdNegocio int,
-	@InsertadoPor varchar(50)
+	@Usuario varchar(100)
 AS
 Begin
 if (@IdMarca = 0)
@@ -10,7 +10,7 @@ if (@IdMarca = 0)
 		insert into tblMarcas
 		( Nombre, IdNegocio, InsertadoPor, FechaInsertado)
 		values
-		( @Nombre, @IdNegocio, @InsertadoPor, GETDATE())
+		( @Nombre, @IdNegocio, @Usuario, GETDATE())
 	end
 Else
 	Begin
@@ -18,7 +18,7 @@ Else
 		set 
 			Nombre=@Nombre,
 			IdNegocio = @IdNegocio,
-			InsertadoPor = @InsertadoPor,
+			ModificadoPor = @Usuario,
 			FechaModificado = GETDATE()
 		where IdMarca = @IdMarca
 	End

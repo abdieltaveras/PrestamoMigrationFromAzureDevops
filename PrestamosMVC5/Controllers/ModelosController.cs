@@ -1,6 +1,7 @@
 ﻿using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
-    public class ModelosController : Controller
+    [AuthorizeUser]
+    public class ModelosController : ControllerBasePcp
     {
         // GET: Modelos
         public ActionResult Index()
@@ -20,8 +22,8 @@ namespace PrestamosMVC5.Controllers
         {
             ModeloVM datos = new ModeloVM();
 
-            datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 });
-            datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
+            datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = pcpUserIdNegocio });
+            datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = pcpUserIdNegocio });
 
             datos.ListaSeleccionMarcas =  new SelectList(datos.ListaMarcas, "IdMarca", "Nombre");
 
@@ -29,10 +31,11 @@ namespace PrestamosMVC5.Controllers
         }
 
         [HttpPost]
-        public RedirectToRouteResult CreateOrEdit(ModeloInsUpdParams modelo)
+        public RedirectToRouteResult CreateOrEdit(Modelo modelo)
         {
-            modelo.IdNegocio = 1;
-            modelo.InsertadoPor = "Bryan";
+            //modelo.IdNegocio = 1;
+            //modelo.InsertadoPor = "Bryan";
+            this.pcpSetUsuarioAndIdNegocioTo(modelo);
             BLLPrestamo.Instance.InsUpdModelo(modelo);
             return RedirectToAction("CreateOrEdit");
         }

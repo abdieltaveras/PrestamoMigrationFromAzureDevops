@@ -32,6 +32,17 @@ namespace PrestamoEntidades
         public int IdNegocio { get; set; } = -1; 
     }
 
+    public abstract class BaseIdNegocio
+    {
+        /// <summary>
+        /// El id del negocio o empresa o punto comercial que identifica la unidad 
+        /// comercial que opera en el sistema
+        /// </summary>
+        [Required]
+        [HiddenInput(DisplayValue = false)]
+        public int IdNegocio { get; set; } = -1;
+    }
+
     public static class InitValues
     {
         public static DateTime _19000101 => new DateTime(1900, 01, 01);
@@ -58,6 +69,7 @@ namespace PrestamoEntidades
         public DateTime FechaModificado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
+
         public string AnuladoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]

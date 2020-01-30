@@ -6,32 +6,35 @@ using System.Web.Mvc;
 using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.SiteUtils;
+using PrestamosMVC5.Models;
 
 namespace PrestamosMVC5.Controllers
 {
     [AuthorizeUser]
-    public class TasaInteresController : Controller
-    {
-    
+    public class TasaInteresController : ControllerBasePcp
+    {    
         // GET: TasaInteres
         public ActionResult Index()
         {
-            var intereses = BLLPrestamo.Instance.GetTasasInteres(new TasaInteresGetParams { IdNegocio = 1 });
-            ViewBag.listaInteres = intereses;
-            return View();
+            TasaInteresVM modelo = new TasaInteresVM();
+
+            modelo.ListaTasaInteres = BLLPrestamo.Instance.GetTasasInteres(new TasaInteresGetParams { IdNegocio = pcpUserIdNegocio });
+            //ViewBag.listaInteres = intereses;
+
+            return View(modelo);
         }
 
         [HttpPost]
-        public RedirectToRouteResult Index(TasaInteres interes)
+        public RedirectToRouteResult Index(TasaInteresVM interes)
         {
-            Console.WriteLine(interes.Codigo);
+            pcpSetUsuarioAndIdNegocioTo(interes.TasaInteres);
 
-            interes.IdNegocio = 1;
-            interes.Usuario = "Usuario de prueba";
+            //interes.TasaInteres.IdNegocio = 1;
+            //interes.TasaInteres.Usuario = "Usuario de prueba";
 
             try
             {
-                BLLPrestamo.Instance.insUpdTasaInteres(interes);
+                BLLPrestamo.Instance.insUpdTasaInteres(interes.TasaInteres);
             }
             catch (Exception ex)
             {

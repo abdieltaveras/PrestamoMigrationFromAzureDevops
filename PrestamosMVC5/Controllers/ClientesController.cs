@@ -111,7 +111,7 @@ namespace PrestamosMVC5.Controllers
             {
                 var newClienteVm = new ClienteModel(new Cliente());
                 newClienteVm.Cliente.Codigo = "Nuevo";
-                this.pcpSetUsuarioAndIdNegocioTo(newClienteVm.Cliente);
+                pcpSetUsuarioAndIdNegocioTo(newClienteVm.Cliente);
                 return newClienteVm;
             }
             else

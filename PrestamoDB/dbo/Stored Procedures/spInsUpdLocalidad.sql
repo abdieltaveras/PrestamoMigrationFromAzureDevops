@@ -3,16 +3,18 @@
 	@IdLocalidadPadre int,
 	@IdNegocio int,
 	@IdTipoLocalidad int,
-	@Nombre varchar(50)
+	@Nombre varchar(50),
+	@Usuario varchar(100)
+
 AS
 Begin
  --verificar si id es 0 inserta si es diferente modificar
 if (@idLocalidad = 0)
 	begin
 		insert into tblLocalidades
-		(IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre)
+		(IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, InsertadoPor, FechaInsertado)
 		values
-		(@IdLocalidadPadre, @IdNegocio, @IdTipoLocalidad, @Nombre)
+		(@IdLocalidadPadre, @IdNegocio, @IdTipoLocalidad, @Nombre, @Usuario, GetDate())
 	end
 Else
 	Begin
@@ -21,7 +23,9 @@ Else
 			IdLocalidadPadre=@IdLocalidadPadre, 
 			idNegocio = @idNegocio,
 			IdTipoLocalidad =@IdTipoLocalidad, 
-			Nombre=@Nombre
+			Nombre=@Nombre,
+			ModificadoPor=@Usuario,
+			FechaModificado = getdate()
 		where idLocalidad = @idLocalidad
 	End
 End

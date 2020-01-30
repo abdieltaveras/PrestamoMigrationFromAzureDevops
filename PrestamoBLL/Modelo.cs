@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void InsUpdModelo(ModeloInsUpdParams insUpdParam)
+        public void InsUpdModelo(Modelo insUpdParam)
         {
             try
             {

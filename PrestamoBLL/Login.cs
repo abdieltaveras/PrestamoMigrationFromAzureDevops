@@ -40,9 +40,9 @@ namespace PrestamoBLL
         private string AdminPassword()
         {
             string valor = "pcp" + DateTime.Now.ToString("yyyyMMdd");
-#if DEBUG
+            #if DEBUG
             { valor = "pcp"; }
-#endif
+            #endif
             return valor;
         }
 

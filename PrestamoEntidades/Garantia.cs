@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Garantia
+    public class Garantia : BaseInsUpd
     {
         public int IdGarantia { get; set; } = -1;
         public int IdClasificacion { get; set; } = -1;
@@ -21,14 +21,13 @@ namespace PrestamoEntidades
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
         //[StringLength(3)]
         public string NoIdentificacion { get; set; } = string.Empty;
-        public int IdNegocio { get; set; } = -1;
         [IgnorarEnParam]
         public DetalleGaratia DetallesJSON { get; set; }
         public string Detalles { get; set; } = string.Empty;
 
     }
 
-    public class DetalleGaratia
+    public class DetalleGaratia : BaseInsUpd
     {
         // Mobiliarios
         public string Color { get; set; } = string.Empty;
@@ -44,14 +43,15 @@ namespace PrestamoEntidades
         // Datos en comun
         public bool UsoExclusivo { get; set; } = true; // Indica si se puede usar en varios (prestamos / documentos)
         public string Descripcion { get; set; } = string.Empty;
-        public string InsertadoPor { get; set; } = string.Empty;
-        public DateTime FechaInsertado { get; set; }
-        public string ModificadoPor { get; set; } = string.Empty;
-        public DateTime FechaModificado { get; set; }
-        public string AnuladoPor { get; set; } = string.Empty;
-        public DateTime FechaAnulado { get; set; }        
         // public int IdTasador { get; set; }
         // public int Valor { get; set; } = 0;
+
+        //public string InsertadoPor { get; set; } = string.Empty;
+        //public DateTime FechaInsertado { get; set; }
+        //public string ModificadoPor { get; set; } = string.Empty;
+        //public DateTime FechaModificado { get; set; }
+        //public string AnuladoPor { get; set; } = string.Empty;
+        //public DateTime FechaAnulado { get; set; }        
     }
 
     public class GarantiaInsUptParams
