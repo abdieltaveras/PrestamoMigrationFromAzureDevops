@@ -18,7 +18,7 @@ namespace PrestamosMVC5.Controllers
         {
             TipoMoraVM modelo = new TipoMoraVM();
 
-            modelo.ListaTipoMoras = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = pcpUserIdNegocio });
+            modelo.ListaTipoMoras = BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdNegocio = pcpUserIdNegocio });
             return View(modelo);
         }
 
@@ -29,7 +29,7 @@ namespace PrestamosMVC5.Controllers
 
             try
             {
-                BLLPrestamo.Instance.insUpdTipoMora(mora.TipoMora);
+                BLLPrestamo.Instance.TipoMoraInsUpd(mora.TipoMora);
             }
             catch (Exception ex)
             {
@@ -41,7 +41,7 @@ namespace PrestamosMVC5.Controllers
         {
             try
             {
-                BLLPrestamo.Instance.AnularTipoMora(new TipoMoraDelParams { id = id, Usuario = usuario });
+                BLLPrestamo.Instance.TipoMoraCancel(new TipoMoraDelParams { id = id, Usuario = usuario });
             }
             catch (Exception ex)
             {

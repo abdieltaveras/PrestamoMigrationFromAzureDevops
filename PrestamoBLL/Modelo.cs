@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void InsUpdModelo(Modelo insUpdParam)
+        public void ModeloInsUpd(Modelo insUpdParam)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace PrestamoBLL
             }
         }
 
-        public IEnumerable<ModeloWithMarca> GetModelos(ModeloGetParams searchParam)
+        public IEnumerable<ModeloWithMarca> ModelosGet(ModeloGetParams searchParam)
         {
             IEnumerable<ModeloWithMarca> result = new List<ModeloWithMarca>();
             try

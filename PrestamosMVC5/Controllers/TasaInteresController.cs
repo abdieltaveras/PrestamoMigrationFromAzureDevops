@@ -18,7 +18,7 @@ namespace PrestamosMVC5.Controllers
         {
             TasaInteresVM modelo = new TasaInteresVM();
 
-            modelo.ListaTasaInteres = BLLPrestamo.Instance.GetTasasInteres(new TasaInteresGetParams { IdNegocio = pcpUserIdNegocio });
+            modelo.ListaTasaInteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = pcpUserIdNegocio });
             //ViewBag.listaInteres = intereses;
 
             return View(modelo);
@@ -34,7 +34,7 @@ namespace PrestamosMVC5.Controllers
 
             try
             {
-                BLLPrestamo.Instance.insUpdTasaInteres(interes.TasaInteres);
+                BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace PrestamosMVC5.Controllers
         {
             try
             {
-                BLLPrestamo.Instance.DeleteTasaInteres(new TasaInteresDelParams { id = id, Usuario = usuario });
+                BLLPrestamo.Instance.TasaInteresDelete(new TasaInteresDelParams { id = id, Usuario = usuario });
             }
             catch (Exception ex)
             {

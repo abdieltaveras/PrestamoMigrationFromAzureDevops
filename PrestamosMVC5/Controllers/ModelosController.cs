@@ -22,8 +22,8 @@ namespace PrestamosMVC5.Controllers
         {
             ModeloVM datos = new ModeloVM();
 
-            datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = pcpUserIdNegocio });
-            datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = pcpUserIdNegocio });
+            datos.ListaModelos = BLLPrestamo.Instance.ModelosGet(new ModeloGetParams { IdNegocio = pcpUserIdNegocio });
+            datos.ListaMarcas = BLLPrestamo.Instance.MarcasGet(new MarcaGetParams { IdNegocio = pcpUserIdNegocio });
 
             datos.ListaSeleccionMarcas =  new SelectList(datos.ListaMarcas, "IdMarca", "Nombre");
 
@@ -36,7 +36,7 @@ namespace PrestamosMVC5.Controllers
             //modelo.IdNegocio = 1;
             //modelo.InsertadoPor = "Bryan";
             this.pcpSetUsuarioAndIdNegocioTo(modelo);
-            BLLPrestamo.Instance.InsUpdModelo(modelo);
+            BLLPrestamo.Instance.ModeloInsUpd(modelo);
             return RedirectToAction("CreateOrEdit");
         }
     }

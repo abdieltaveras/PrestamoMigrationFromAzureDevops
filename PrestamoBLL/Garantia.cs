@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void GuardarGarantia(Garantia garantia)
+        public void GarantiaInsUpd(Garantia garantia)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace PrestamoBLL
             }
         }
 
-        public IEnumerable<Garantia> BuscarGarantia(BuscarGarantiaParams searchParam)
+        public IEnumerable<Garantia> GarantiaSearch(BuscarGarantiaParams searchParam)
         {
             IEnumerable<Garantia> result = new List<Garantia>();
             try

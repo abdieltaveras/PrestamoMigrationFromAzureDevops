@@ -22,7 +22,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreateOrEdit()
         {
             ColorVM datos = new ColorVM();
-            datos.ListaColores = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = this.pcpUserIdNegocio });
+            datos.ListaColores = BLLPrestamo.Instance.ColoresGet(new ColorGetParams { IdNegocio = this.pcpUserIdNegocio });
 
             return View("CreateOrEdit", datos);
         }
@@ -33,7 +33,7 @@ namespace PrestamosMVC5.Controllers
             //color.IdNegocio = 1;
             //marca.InsertadoPor = "Bryan";
             this.pcpSetUsuarioAndIdNegocioTo(color);
-            BLLPrestamo.Instance.InsUpdColor(color);
+            BLLPrestamo.Instance.ColorInsUpd(color);
             return RedirectToAction("CreateOrEdit");
         }
     }

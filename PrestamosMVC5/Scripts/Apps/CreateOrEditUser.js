@@ -74,10 +74,10 @@ function setInitValueForCheckAndValueProp(elem, _value) {
 function setFecha(elem, name) {
     var d = new Date();
     var fecha = new Date();
-    if (elem.prop("id") === idVigenteHastaText) {
+    if (elem.prop("id") == idVigenteHastaText) {
         fecha = elemVigenteHasta.prop("value");
     }
-    if (elem.prop("id") === idVigenteDesdeText) {
+    if (elem.prop("id") == idVigenteDesdeText) {
         fecha = elemVigenteDesde.prop("value");
     }
     elem.val(fecha);
@@ -103,7 +103,6 @@ function onChangeProp(elem) {
             break;
         case idUsuarioBloqueadoText:
             onUsuarioBloqueadoChange();
-            break;
         case "verMasOpciones":
             break;
     }
@@ -154,6 +153,7 @@ function onContraseñaExpiraChange() {
         elemTextoContraseñaExpira.text("Nunca Expira");
         elemTextoContraseñaExpira.show();
     }
+    ;
 }
 function onLimitarVigenciaDeCuentaChange() {
     var limitarVigencia = elemLimitarVigenciaDeCuenta.is(':checked');
@@ -182,8 +182,9 @@ function turnOnOffValidations(elem) {
             elem.rules('remove', 'required');
         }
         else {
-            // elem.rules('add', 'required');
-            // if (propName === "ConfirmarContraseña") 
+            elem.rules('add', 'required');
+            if (propName === "ConfirmarContraseña") {
+            }
         }
     }
 }

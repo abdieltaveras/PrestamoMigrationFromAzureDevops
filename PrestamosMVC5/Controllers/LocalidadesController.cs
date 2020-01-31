@@ -38,7 +38,7 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Localidad> localidades = new List<Localidad>();
             if (IDLocalidad != "")
             {
-                localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
+                localidades = BLLPrestamo.Instance.LocalidadesGet(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
             }
             
             return JsonConvert.SerializeObject(localidades);
@@ -52,7 +52,7 @@ namespace PrestamosMVC5.Controllers
             pcpSetUsuarioAndIdNegocioTo(localidad);
             try
             {
-                BLLPrestamo.Instance.GuardarLocalidad(localidad);
+                BLLPrestamo.Instance.LocalidadInsUpd(localidad);
             }
             catch (Exception)
             {
@@ -67,7 +67,7 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Localidad> localidades = null;
             if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
             {
-                localidades = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });
+                localidades = BLLPrestamo.Instance.LocalidadSearch(new BuscarLocalidadParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });
             }
              return JsonConvert.SerializeObject(localidades);
         }
@@ -75,7 +75,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreatePaisDivisionTerritorial()
         {
             TerritorioVM modelo = new TerritorioVM();
-            modelo.ListaTerritorios = BLLPrestamo.Instance.GetPaisesDivisionesTerritoriales(new TerritorioGetParams() { IdNegocio = pcpUserIdNegocio });
+            modelo.ListaTerritorios = BLLPrestamo.Instance.TerritorioDivisionesTerritorialesPaisesGet(new TerritorioGetParams() { IdNegocio = pcpUserIdNegocio });
 
             return View("CreatePais", modelo);
         }

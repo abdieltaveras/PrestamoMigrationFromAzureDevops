@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void InsUpdColor(Color insUpdParam)
+        public void ColorInsUpd(Color insUpdParam)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace PrestamoBLL
             }
         }
 
-        public IEnumerable<Color> GetColores(ColorGetParams searchParam)
+        public IEnumerable<Color> ColoresGet(ColorGetParams searchParam)
         {
             IEnumerable<Color> result = new List<Color>();
             try

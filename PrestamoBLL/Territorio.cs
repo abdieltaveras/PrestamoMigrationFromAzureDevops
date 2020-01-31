@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Territorio> GetTerritorios(TerritorioGetParams searchParam)
+        public IEnumerable<Territorio> TerritoriosGet(TerritorioGetParams searchParam)
         {
             IEnumerable<Territorio> result = new List<Territorio>();
             try
@@ -24,7 +24,7 @@ namespace PrestamoBLL
             return result;
         }
 
-        public IEnumerable<Territorio> GetDivisionesTerritoriales(TerritorioGetParams searchParam)
+        public IEnumerable<Territorio> TerritorioDivisionesTerritorialesGet(TerritorioGetParams searchParam)
         {
             IEnumerable<Territorio> result = new List<Territorio>();
             try
@@ -38,7 +38,7 @@ namespace PrestamoBLL
             return result;
         }
 
-        public IEnumerable<Territorio> GetPaisesDivisionesTerritoriales(TerritorioGetParams searchParam)
+        public IEnumerable<Territorio> TerritorioDivisionesTerritorialesPaisesGet(TerritorioGetParams searchParam)
         {
             IEnumerable<Territorio> result = new List<Territorio>();
             try
@@ -52,7 +52,7 @@ namespace PrestamoBLL
             return result;
         }
 
-        public IEnumerable<Territorio> BuscarTerritoriosHijos(TerritorioSearchParams searchParam)
+        public IEnumerable<Territorio> TerritorioBuscarTerritoriosHijos(TerritorioSearchParams searchParam)
         {
             IEnumerable<Territorio> result = new List<Territorio>();
             try
@@ -66,7 +66,7 @@ namespace PrestamoBLL
             return result;
         }
 
-        public IEnumerable<Territorio> BuscarComponentesDivisionesTerritoriales(DivisionSearchParams searchParam)
+        public IEnumerable<Territorio> TerritorioBuscarComponentesDivisionesTerritoriales(DivisionSearchParams searchParam)
         {
             IEnumerable<Territorio> result = new List<Territorio>();
             try
@@ -80,7 +80,7 @@ namespace PrestamoBLL
             return result;
         }
 
-        public IEnumerable<Territorio> GuardarTerritorio(Territorio data)
+        public IEnumerable<Territorio> TerritorioInsUpd(Territorio data)
         {
             IEnumerable<Territorio> result = new List<Territorio>();
             try

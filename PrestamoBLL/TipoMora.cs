@@ -11,7 +11,7 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        public IEnumerable<TipoMora> GetTiposMoras(TipoMoraGetParams  searchParam)
+        public IEnumerable<TipoMora> TiposMorasGet(TipoMoraGetParams  searchParam)
         {
             IEnumerable<TipoMora> result=new List<TipoMora>();
             try
@@ -24,7 +24,7 @@ namespace PrestamoBLL
             }
             return result;
         }
-        public void insUpdTipoMora(TipoMora insUpdParam)
+        public void TipoMoraInsUpd(TipoMora insUpdParam)
         {
             try
             {
@@ -36,12 +36,12 @@ namespace PrestamoBLL
             }
         }
         
-        public void AnularTipoMora(TipoMoraDelParams delParam)
+        public void TipoMoraCancel(TipoMoraDelParams delParam)
         {
             PrestamosDB.ExecSelSP("spAnularTipoMora", SearchRec.ToSqlParams(delParam));
         }
 
-        public void DeleteTipoMora(TipoMoraDelParams delParam)
+        public void TipoMoraDelete(TipoMoraDelParams delParam)
         {
             PrestamosDB.ExecSelSP("spDelTipoMora", SearchRec.ToSqlParams(delParam));
         }

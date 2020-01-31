@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<TasaInteres> GetTasasInteres(TasaInteresGetParams searchParam)
+        public IEnumerable<TasaInteres> TasasInteresGet(TasaInteresGetParams searchParam)
         {
             IEnumerable<TasaInteres> result=new List<TasaInteres>();
             try
@@ -23,7 +23,7 @@ namespace PrestamoBLL
             }
             return result;
         }
-        public void insUpdTasaInteres(TasaInteres insUpdParam)
+        public void TasaInteresInsUpd(TasaInteres insUpdParam)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace PrestamoBLL
             }
         }
         
-        public void DeleteTasaInteres(TasaInteresDelParams delParam)
+        public void TasaInteresDelete(TasaInteresDelParams delParam)
         {
             PrestamosDB.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
         }

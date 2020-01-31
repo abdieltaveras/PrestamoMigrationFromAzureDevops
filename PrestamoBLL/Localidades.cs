@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Localidad> GetLocalidades(LocalidadGetParams searchParam)
+        public IEnumerable<Localidad> LocalidadesGet(LocalidadGetParams searchParam)
         {
             IEnumerable<Localidad> result = new List<Localidad>();
             try
@@ -24,7 +24,7 @@ namespace PrestamoBLL
             }
             return result;
         }
-        public void GuardarLocalidad(Localidad localidad)
+        public void LocalidadInsUpd(Localidad localidad)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace PrestamoBLL
             }
         }        
 
-        public IEnumerable<BuscarLocalidad> BuscarLocalidad(BuscarLocalidadParams searchParam)
+        public IEnumerable<BuscarLocalidad> LocalidadSearch(BuscarLocalidadParams searchParam)
         {
             IEnumerable<BuscarLocalidad> result = new List<BuscarLocalidad>();
             try
@@ -52,7 +52,7 @@ namespace PrestamoBLL
             return result;
         }
 
-        public List<string> BuscarNombreLocalidad(BuscarNombreLocalidadParams searchParam)
+        public List<string> LocalidadSearchName(BuscarNombreLocalidadParams searchParam)
         {
             List<string> result = new List<string>();
             try

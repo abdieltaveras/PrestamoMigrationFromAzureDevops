@@ -121,7 +121,7 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
                 pcpSetUsuarioTo(clienteVm.Cliente);
-                var localidadDelCliente = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad }).FirstOrDefault();
+                var localidadDelCliente = BLLPrestamo.Instance.LocalidadesGet(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad }).FirstOrDefault();
                 if (localidadDelCliente != null)
                 {
                     clienteVm.NombreLocalidad = localidadDelCliente.Nombre;

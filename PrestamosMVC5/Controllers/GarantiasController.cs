@@ -26,12 +26,12 @@ namespace PrestamosMVC5.Controllers
         {
             GarantiaVM datos = garantia == null ? new GarantiaVM() : garantia;
 
-            datos.ListaTipos = new SelectList( BLLPrestamo.Instance.GetTipos(new TipoGetParams { IdNegocio = 1 }), "IdTipo", "Nombre" );
-            datos.ListaTiposReal =  BLLPrestamo.Instance.GetTipos(new TipoGetParams { IdNegocio = 1 });
+            datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGet(new TipoGetParams { IdNegocio = 1 }), "IdTipo", "Nombre" );
+            datos.ListaTiposReal =  BLLPrestamo.Instance.TiposGet(new TipoGetParams { IdNegocio = 1 });
             //datos.ListaMarcasReal = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
-            datos.ListaMarcas = new SelectList( BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 }), "IdMarca", "Nombre" );
-            datos.ListaModelos = new SelectList( BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
-            datos.ListaColores = new SelectList(BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1 }), "IdColor", "Nombre");
+            datos.ListaMarcas = new SelectList( BLLPrestamo.Instance.MarcasGet(new MarcaGetParams { IdNegocio = 1 }), "IdMarca", "Nombre" );
+            datos.ListaModelos = new SelectList( BLLPrestamo.Instance.ModelosGet(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
+            datos.ListaColores = new SelectList(BLLPrestamo.Instance.ColoresGet(new ColorGetParams { IdNegocio = 1 }), "IdColor", "Nombre");
 
             datos.Garantia = new Garantia();
 
@@ -68,7 +68,7 @@ namespace PrestamosMVC5.Controllers
 
             try
             {
-                BLLPrestamo.Instance.GuardarGarantia(garantia);
+                BLLPrestamo.Instance.GarantiaInsUpd(garantia);
             }
             catch(Exception err)
             {
@@ -84,7 +84,7 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Garantia> garantias = null;
             if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
             {
-                garantias = BLLPrestamo.Instance.BuscarGarantia(new BuscarGarantiaParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });                
+                garantias = BLLPrestamo.Instance.GarantiaSearch(new BuscarGarantiaParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });                
                 
             }
             return JsonConvert.SerializeObject(garantias);
@@ -93,7 +93,7 @@ namespace PrestamosMVC5.Controllers
         public string BuscarLocalidadGarantias(int IdLocalidad, int IdNegocio)
         {
             List<string> localidad = null;
-            localidad = BLLPrestamo.Instance.BuscarNombreLocalidad(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio });
+            localidad = BLLPrestamo.Instance.LocalidadSearchName(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio });
             return localidad[0];
         }
 

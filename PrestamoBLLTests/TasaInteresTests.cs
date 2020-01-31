@@ -20,7 +20,7 @@ namespace PrestamoBLL.Tests
 
         public void GetTasaInteresTest()
         {
-            var result = BLLPrestamo.Instance.GetTasasInteres(new TasaInteresGetParams { IdNegocio = 1 });
+            var result = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = 1 });
             Assert.IsTrue(result.Count() > 0);
         }
         /// <summary>
@@ -33,14 +33,14 @@ namespace PrestamoBLL.Tests
             var OperacionExitosa = true;
             var tasaInteres = new TasaInteres { Codigo = "B05", InteresMensual = 2.5M, Usuario = "TestProject", IdNegocio = 1 };
             var searchData = new TasaInteresGetParams { Codigo = "B05", IdNegocio = -1 };
-            var result = BLLPrestamo.Instance.GetTasasInteres(searchData);
+            var result = BLLPrestamo.Instance.TasasInteresGet(searchData);
             if (result.Count() != 0)
             {
                 tasaInteres.idTasaInteres = result.First().idTasaInteres;
             }
             try
             {
-                BLLPrestamo.Instance.insUpdTasaInteres(tasaInteres);
+                BLLPrestamo.Instance.TasaInteresInsUpd(tasaInteres);
             }
             catch (Exception e)
             {
@@ -54,7 +54,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetTiposMorasTest()
         {
-            var result = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
+            var result = BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdNegocio = 1 });
             var resultAsList = result.ToList();
             Assert.IsTrue(result.Count() > 0);
         }
@@ -76,14 +76,14 @@ namespace PrestamoBLL.Tests
                 DiasDeGracia = 4
             };
             var searchData = new TipoMoraGetParams { Codigo = "P05", IdNegocio = -1 };
-            var result = BLLPrestamo.Instance.GetTiposMoras(searchData);
+            var result = BLLPrestamo.Instance.TiposMorasGet(searchData);
             if (result.Count() != 0)
             {
                 tipoMora.IdTipoMora = result.First().IdTipoMora;
             }
             try
             {
-                BLLPrestamo.Instance.insUpdTipoMora(tipoMora);
+                BLLPrestamo.Instance.TipoMoraInsUpd(tipoMora);
             }
             catch (Exception e)
             {

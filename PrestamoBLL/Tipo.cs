@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void InsUpdTipo(Tipo insUpdParam)
+        public void TipoInsUpd(Tipo insUpdParam)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace PrestamoBLL
             }
         }
 
-        public IEnumerable<Tipo> GetTipos(TipoGetParams searchParam)
+        public IEnumerable<Tipo> TiposGet(TipoGetParams searchParam)
         {
             IEnumerable<Tipo> result = new List<Tipo>();
             try

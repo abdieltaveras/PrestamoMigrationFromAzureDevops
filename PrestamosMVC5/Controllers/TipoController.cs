@@ -22,7 +22,7 @@ namespace PrestamosMVC5.Controllers
         {
             TipoVM datos = new TipoVM();
             datos.Tipo = new Tipo();
-            datos.ListaTipos = BLLPrestamo.Instance.GetTipos(new TipoGetParams { IdNegocio = this.pcpUserIdNegocio });
+            datos.ListaTipos = BLLPrestamo.Instance.TiposGet(new TipoGetParams { IdNegocio = this.pcpUserIdNegocio });
 
             return View("CreateOrEdit", datos);
         }
@@ -41,7 +41,7 @@ namespace PrestamosMVC5.Controllers
 
             this.pcpSetUsuarioAndIdNegocioTo(tipo);
 
-            BLLPrestamo.Instance.InsUpdTipo(tipo);
+            BLLPrestamo.Instance.TipoInsUpd(tipo);
             return RedirectToAction("CreateOrEdit");
         }
     }
