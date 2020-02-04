@@ -15,8 +15,8 @@ namespace PrestamoBLL
         
         public IEnumerable<Usuario> GetUsuarios(UsuarioGetParams searchParam)
         {
-            GetValidation(searchParam);
-            return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios");
+            //GetValidation(searchParam);
+            return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios", this.GetValidation);
         }
 
         public void InsUpdUsuario(Usuario insUpdParam, string from = "")

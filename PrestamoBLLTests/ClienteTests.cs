@@ -94,18 +94,6 @@ namespace PrestamoBLL.Tests
             var error = new Exception();
             var OperacionExitosa = true;
             var cliente = ClienteData.newCliente();
-            //cliente.
-            //var searchData = new ClienteGetParams { IdCliente=1, IdNegocio = -1 };
-            //var result = BLLPrestamo.Instance.GetClientes(searchData);
-            //if (result.Count() != 0)
-            //{
-            //    cliente.IdCliente = result.First().IdCliente;
-            //}
-            //try
-            //{
-            //    BLLPrestamo.Instance.insUpdCliente(cliente);
-            //}
-
             try { BLLPrestamo.Instance.ClientesInsUpd(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion()); }
             catch (Exception e)
             {
@@ -113,6 +101,24 @@ namespace PrestamoBLL.Tests
                 OperacionExitosa = false;
             }
             Assert.IsTrue(OperacionExitosa, error.Message);
+        }
+        [TestMethod()]
+        public void ClientesGet_SetIdNegocioTOZero_ThrowError_Test()
+        {
+            var gParam = new ClientesGetParams();
+            gParam.IdNegocio = 0;
+            var error = string.Empty;
+            try
+            {
+                BLLPrestamo.Instance.ClientesGet(gParam);
+            }
+            catch (Exception e)
+            {
+
+                error = e.Message;
+            }
+
+            Assert.IsTrue(string.IsNullOrEmpty(error), error);
         }
     }
     

@@ -58,7 +58,6 @@ namespace PrestamoEntidades
     public class ClientesGetParams : BaseGetParams
         //: BaseGetParams
     {
-        public int IdNegocio { get; set; } = -1;
         public int IdCliente { get; set; } = -1;
         /// <summary>
         /// indica si esta o no activo, por defecto pone que sea true

@@ -14,13 +14,14 @@ namespace PrestamoBLL
         //Todo: incorporar este modelo de trabajo a los metodos get e insupd
         public IEnumerable<Cliente> ClientesGet(ClientesGetParams  searchParam)
         {
-            GetValidation(searchParam as BaseGetParams);
-            return BllAcciones.GetData<Cliente, ClientesGetParams>(searchParam, "spGetClientes");
+            //GetValidation(searchParam as BaseGetParams);
+            return BllAcciones.GetData<Cliente, ClientesGetParams>(searchParam, "spGetClientes", GetValidation);
         }
         public void ClientesInsUpd(Cliente insUpdParam)
         {
             BllAcciones.insUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
         }
+
         public void ClientesInsUpd(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion)
         {
             FixProperties(cliente, infoConyuge, infoLaboral);

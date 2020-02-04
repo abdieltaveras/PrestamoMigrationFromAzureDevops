@@ -25,6 +25,7 @@ namespace PrestamoBLL
                 return _bll;
             }
         }
+
         #endregion StaticBLL
         internal static void DatabaseError(Exception e)
         {
@@ -85,6 +86,7 @@ namespace PrestamoBLL
         /// <param name="insUpdParam"></param>
         private void GetValidation(BaseGetParams getParam)
         {
+            var idNegocio = getParam.IdNegocio;
             ThrowErrorIfNegocioIsZero(getParam.IdNegocio);
         }
 
@@ -118,9 +120,10 @@ namespace PrestamoBLL
         {
             
 
-            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : BaseGetParams
+            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : BaseGetParams
             {
 
+                getValidations(searchParam);
                 IEnumerable<TInsert2> result = new List<TInsert2>();
                 try
                 {
