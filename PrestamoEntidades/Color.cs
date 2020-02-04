@@ -11,9 +11,8 @@ namespace PrestamoEntidades
         public int IdColor { get; set; } = 0;
         public string Nombre { get; set; } = string.Empty;
     }
-    public class ColorGetParams
+    public class ColorGetParams : BaseGetParams
     {
         public int IdColor { get; set; } = -1;
-        public int IdNegocio { get; set; } = -1;
     }
 }

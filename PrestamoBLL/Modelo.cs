@@ -12,28 +12,12 @@ namespace PrestamoBLL
     {
         public void ModeloInsUpd(Modelo insUpdParam)
         {
-            try
-            {
-                PrestamosDB.ExecSelSP("spInsUpdModelo", SearchRec.ToSqlParams(insUpdParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
+            BllAcciones.InsUpdData<Modelo>(insUpdParam, "spInsUpdModelo");
         }
 
         public IEnumerable<ModeloWithMarca> ModelosGet(ModeloGetParams searchParam)
         {
-            IEnumerable<ModeloWithMarca> result = new List<ModeloWithMarca>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<ModeloWithMarca>("spGetModelos", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<ModeloWithMarca, ModeloGetParams>(searchParam, "spGetModelos", GetValidation);
         }
     }
 }

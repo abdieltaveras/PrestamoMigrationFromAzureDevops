@@ -10,30 +10,15 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void TipoInsUpd(Tipo insUpdParam)
-        {
-            try
-            {
-                PrestamosDB.ExecSelSP("spInsUpdTipo", SearchRec.ToSqlParams(insUpdParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-        }
-
         public IEnumerable<Tipo> TiposGet(TipoGetParams searchParam)
         {
-            IEnumerable<Tipo> result = new List<Tipo>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Tipo>("spGetTipos", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+
+            return BllAcciones.GetData<Tipo, TipoGetParams>(searchParam, "spGetTipos", GetValidation);
+        }
+
+        public void TipoInsUpd(Tipo insUpdParam)
+        {
+            BllAcciones.InsUpdData<Tipo>(insUpdParam, "spInsUpdTipo");
         }
     }
 }

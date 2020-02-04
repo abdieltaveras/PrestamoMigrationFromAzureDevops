@@ -58,6 +58,13 @@ namespace PrestamoBLL
             var value = mensaje.Substring(index2, (index3 - index2));
             return value;
         }
+        private static void ThrowErrorIfIdNotSet(int id)
+        {
+            if (id == 0)
+            {
+                throw new NullReferenceException("El parametro ID que indica que se anulara no esta asignado lo cual no es permitido");
+            }
+        }
         private static void ThrowErrorIfUsuarioEmptyOrNull(string usuario) 
         {
             if (usuario == null || usuario == string.Empty)
@@ -84,6 +91,12 @@ namespace PrestamoBLL
         /// realiza validaciones generales de la insercion como no permitir usuario vacio o nulo
         /// </summary>
         /// <param name="insUpdParam"></param>
+
+        private static void CancelValidation(BaseAnularParams cancelParam)
+        {
+            ThrowErrorIfIdNotSet(cancelParam.id);
+        }
+
         private void GetValidation(BaseGetParams getParam)
         {
             var idNegocio = getParam.IdNegocio;
@@ -143,14 +156,27 @@ namespace PrestamoBLL
                 else { databaseErrorMethod(e); };
             }
 
-            public static void insUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseUsuarioEIdNegocio
-            {
-                
+            public static void InsUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseUsuarioEIdNegocio
+            {                
                 InsUpdValidation(insUpdParam);
                 try
                 {
                     var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
                     PrestamosDB.ExecSelSP(storedProcedure, _insUpdParam);
+                }
+                catch (Exception e)
+                {
+                    InvokeErrorMethod(databaseErrorMethod, e);
+                }
+            }
+
+            public static void CancelData<TInsert2>(TInsert2 CancelParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseAnularParams
+            {
+                CancelValidation(CancelParam);
+                try
+                {
+                    var _cancelParam = SearchRec.ToSqlParams(CancelParam);
+                    PrestamosDB.ExecSelSP(storedProcedure, _cancelParam);
                 }
                 catch (Exception e)
                 {

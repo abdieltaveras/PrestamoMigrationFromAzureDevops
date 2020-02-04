@@ -3,7 +3,9 @@
 	@IdTipoLocalidad int=-1,
 	@IdNegocio int=-1,
 	@HijoDe  int=-1,
-	@Descripcion varchar(50)=''
+	@Descripcion varchar(50)='',
+	@Anulado int=0,
+	@Usuario varchar(100)=''
 )
 as
 begin

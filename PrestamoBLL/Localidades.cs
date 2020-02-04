@@ -12,59 +12,33 @@ namespace PrestamoBLL
     {
         public IEnumerable<Localidad> LocalidadesGet(LocalidadGetParams searchParam)
         {
-            IEnumerable<Localidad> result = new List<Localidad>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Localidad>("spGetLocalidades", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                //DatabaseError(e);
-                throw e;
-            }
-            return result;
+            return BllAcciones.GetData<Localidad, LocalidadGetParams>(searchParam, "spGetLocalidades", GetValidation);
         }
-        public void LocalidadInsUpd(Localidad localidad)
+        public void LocalidadInsUpd(Localidad insUpdParam)
         {
-            try
-            {
-                PrestamosDB.ExecReaderSelSP<Localidad>("spInsUpdLocalidad", SearchRec.ToSqlParams(localidad));
-            }
-            catch (Exception e)
-            {
-                //DatabaseError(e);
-                throw e;
-            }
-        }        
+            BllAcciones.InsUpdData<Localidad>(insUpdParam, "spInsUpdLocalidad");
+        }
 
         public IEnumerable<BuscarLocalidad> LocalidadSearch(BuscarLocalidadParams searchParam)
         {
-            IEnumerable<BuscarLocalidad> result = new List<BuscarLocalidad>();
-            try
-            {
-                 result = PrestamosDB.ExecReaderSelSP<BuscarLocalidad>("spBuscarLocalidad", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                //DatabaseError(e);
-                throw e;
-            }
-            return result;
+            return BllAcciones.GetData<BuscarLocalidad, BuscarLocalidadParams>(searchParam, "spGetLocalidades", GetValidation);
         }
 
-        public List<string> LocalidadSearchName(BuscarNombreLocalidadParams searchParam)
+        public IEnumerable<string> LocalidadSearchName(BuscarNombreLocalidadParams searchParam)
         {
-            List<string> result = new List<string>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<string>("spGetLocalidadById", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                //DatabaseError(e);
-                throw e;
-            }
-            return result;
+            return BllAcciones.GetData<string, BuscarNombreLocalidadParams>(searchParam, "spGetLocalidades", GetValidation);
+
+            //List<string> result = new List<string>();
+            //try
+            //{
+            //    result = PrestamosDB.ExecReaderSelSP<string>("spGetLocalidadById", SearchRec.ToSqlParams(searchParam));
+            //}
+            //catch (Exception e)
+            //{
+            //    //DatabaseError(e);
+            //    throw e;
+            //}
+            //return result;
         }
     }
 }

@@ -12,27 +12,11 @@ namespace PrestamoBLL
     {
         public IEnumerable<TasaInteres> TasasInteresGet(TasaInteresGetParams searchParam)
         {
-            IEnumerable<TasaInteres> result=new List<TasaInteres>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<TasaInteres>("spGetTasasInteres", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<TasaInteres, TasaInteresGetParams>(searchParam, "spGetTasasInteres", GetValidation);
         }
         public void TasaInteresInsUpd(TasaInteres insUpdParam)
         {
-            try
-            {
-                PrestamosDB.ExecSelSP("spInsUpdTasaInteres", SearchRec.ToSqlParams(insUpdParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
+            BllAcciones.InsUpdData<TasaInteres>(insUpdParam, "spInsUpdTasaInteres");
         }
         
         public void TasaInteresDelete(TasaInteresDelParams delParam)

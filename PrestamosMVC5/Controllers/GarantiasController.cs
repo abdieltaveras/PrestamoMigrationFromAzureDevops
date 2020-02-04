@@ -84,8 +84,7 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Garantia> garantias = null;
             if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
             {
-                garantias = BLLPrestamo.Instance.GarantiaSearch(new BuscarGarantiaParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });                
-                
+                garantias = BLLPrestamo.Instance.GarantiaSearch(new BuscarGarantiaParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });
             }
             return JsonConvert.SerializeObject(garantias);
         }
@@ -93,7 +92,7 @@ namespace PrestamosMVC5.Controllers
         public string BuscarLocalidadGarantias(int IdLocalidad, int IdNegocio)
         {
             List<string> localidad = null;
-            localidad = BLLPrestamo.Instance.LocalidadSearchName(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio });
+            localidad = BLLPrestamo.Instance.LocalidadSearchName(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio }).ToList();
             return localidad[0];
         }
 

@@ -19,7 +19,7 @@ namespace PrestamoBLL
         }
         public void ClientesInsUpd(Cliente insUpdParam)
         {
-            BllAcciones.insUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
+            BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
         }
 
         public void ClientesInsUpd(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion)

@@ -32,7 +32,7 @@ namespace PrestamoBLL
                 throw new Exception("La fecha de vigencia de la cuenta no es valida debe ser mayor a la de hoy");
             }
             insUpdParam.LoginName = insUpdParam.LoginName.ToLower();
-            BllAcciones.insUpdData<Usuario>(insUpdParam, "spInsUpdUsuario");
+            BllAcciones.InsUpdData<Usuario>(insUpdParam, "spInsUpdUsuario");
         }
         
 

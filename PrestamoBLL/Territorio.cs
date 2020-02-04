@@ -12,87 +12,32 @@ namespace PrestamoBLL
     {
         public IEnumerable<Territorio> TerritoriosGet(TerritorioGetParams searchParam)
         {
-            IEnumerable<Territorio> result = new List<Territorio>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Territorio>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<Territorio, TerritorioGetParams>(searchParam, "spGetTerritorios", GetValidation);
         }
 
         public IEnumerable<Territorio> TerritorioDivisionesTerritorialesGet(TerritorioGetParams searchParam)
         {
-            IEnumerable<Territorio> result = new List<Territorio>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Territorio>("spGetDivisionesTerritoriales", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<Territorio, TerritorioGetParams>(searchParam, "spGetDivisionesTerritoriales", GetValidation);
         }
 
         public IEnumerable<Territorio> TerritorioDivisionesTerritorialesPaisesGet(TerritorioGetParams searchParam)
         {
-            IEnumerable<Territorio> result = new List<Territorio>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Territorio>("spGetPaisesDeDivisionTerritorial", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<Territorio, TerritorioGetParams>(searchParam, "spGetPaisesDeDivisionTerritorial", GetValidation);
         }
 
         public IEnumerable<Territorio> TerritorioBuscarTerritoriosHijos(TerritorioSearchParams searchParam)
         {
-            IEnumerable<Territorio> result = new List<Territorio>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Territorio>("spGetTerritorios", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<Territorio, TerritorioSearchParams>(searchParam, "spGetTerritorios", GetValidation);
         }
 
         public IEnumerable<Territorio> TerritorioBuscarComponentesDivisionesTerritoriales(DivisionSearchParams searchParam)
         {
-            IEnumerable<Territorio> result = new List<Territorio>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Territorio>("spComponentesDeDivisionTerritorial", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<Territorio, DivisionSearchParams>(searchParam, "spComponentesDeDivisionTerritorial", GetValidation);
         }
 
-        public IEnumerable<Territorio> TerritorioInsUpd(Territorio data)
+        public void TerritorioInsUpd(Territorio insUpdParam)
         {
-            IEnumerable<Territorio> result = new List<Territorio>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Territorio>("spInsUpdTerritorios", SearchRec.ToSqlParams(data));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            BllAcciones.InsUpdData<Territorio>(insUpdParam, "spInsUpdTerritorios");
         }
-
     }
 }

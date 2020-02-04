@@ -12,14 +12,12 @@ namespace PrestamoEntidades
         public int IdClasificacion { get; set; } = 1;
         public string Nombre { get; set; } = string.Empty;
     }
-    public class TipoGetParams
+    public class TipoGetParams : BaseGetParams
     {
         public int IdTipo { get; set; } = -1;
         public int IdClasificacion { get; set; } = -1;
-        public int IdNegocio { get; set; } = -1;
     }
     public class TipoInsUpdParams : Tipo
     {
-        public string InsertadoPor { get; set; } = string.Empty;
     }
 }

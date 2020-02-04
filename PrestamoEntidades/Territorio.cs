@@ -37,20 +37,17 @@ namespace PrestamoEntidades
 
     //}
 
-    public class DivisionSearchParams
+    public class DivisionSearchParams : BaseGetParams
     {
-        public int IdNegocio { get; set; }
         public int IdDivisionTerritorial { get; set; }
     }
 
-    public class TerritorioSearchParams
+    public class TerritorioSearchParams : BaseGetParams
     {
-        public int IdNegocio { get; set; }
         public int HijoDe { get; set; }
     }    
 
-    public class TerritorioGetParams
+    public class TerritorioGetParams : BaseGetParams
     {
-        public int IdNegocio { get; set; }
     }
 }

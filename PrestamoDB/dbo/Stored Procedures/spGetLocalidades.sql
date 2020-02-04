@@ -1,6 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spGetLocalidades]
 (
-	@idlocalidad int = 1
+	@idlocalidad int = 1,
+	@Anulado int=0,
+	@Usuario varchar(100)=''
 )
 as
 begin	

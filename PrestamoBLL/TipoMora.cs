@@ -13,32 +13,18 @@ namespace PrestamoBLL
         
         public IEnumerable<TipoMora> TiposMorasGet(TipoMoraGetParams  searchParam)
         {
-            IEnumerable<TipoMora> result=new List<TipoMora>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<TipoMora>("spGetTiposMora", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<TipoMora, TipoMoraGetParams>(searchParam, "spGetTiposMora", GetValidation);
         }
         public void TipoMoraInsUpd(TipoMora insUpdParam)
         {
-            try
-            {
-                PrestamosDB.ExecSelSP("spInsUpdTipoMora", SearchRec.ToSqlParams(insUpdParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
+            BllAcciones.InsUpdData<TipoMora>(insUpdParam, "spInsUpdTipoMora");
         }
         
         public void TipoMoraCancel(TipoMoraDelParams delParam)
         {
-            PrestamosDB.ExecSelSP("spAnularTipoMora", SearchRec.ToSqlParams(delParam));
+            BllAcciones.CancelData<TipoMoraDelParams>(delParam, "spAnularTipoMora");
+
+            //PrestamosDB.ExecSelSP("spAnularTipoMora", SearchRec.ToSqlParams(delParam));
         }
 
         public void TipoMoraDelete(TipoMoraDelParams delParam)

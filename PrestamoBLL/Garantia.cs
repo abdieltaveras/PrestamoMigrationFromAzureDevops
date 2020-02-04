@@ -10,32 +10,14 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void GarantiaInsUpd(Garantia garantia)
-        {
-            try
-            {
-                PrestamosDB.ExecReaderSelSP<Localidad>("spInsUpdGarantias", SearchRec.ToSqlParams(garantia));
-            }
-            catch (Exception e)
-            {
-                //DatabaseError(e);
-                throw e;
-            }
-        }
-
         public IEnumerable<Garantia> GarantiaSearch(BuscarGarantiaParams searchParam)
         {
-            IEnumerable<Garantia> result = new List<Garantia>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Garantia>("spBuscarGarantias", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                //DatabaseError(e);
-                throw e;
-            }
-            return result;
+            return BllAcciones.GetData<Garantia, BuscarGarantiaParams>(searchParam, "spBuscarGarantias", GetValidation);
+        }
+
+        public void GarantiaInsUpd(Garantia insUpdParam)
+        {
+            BllAcciones.InsUpdData<Garantia>(insUpdParam, "spInsUpdGarantias");
         }
 
     }

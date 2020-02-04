@@ -24,7 +24,6 @@ namespace PrestamoEntidades
         [IgnorarEnParam]
         public DetalleGaratia DetallesJSON { get; set; }
         public string Detalles { get; set; } = string.Empty;
-
     }
 
     public class DetalleGaratia : BaseInsUpd
@@ -61,7 +60,6 @@ namespace PrestamoEntidades
         public int IdTipo { get; set; }
         public int IdModelo { get; set; }
         public int IdMarca { get; set; }
-
         public string NoIdentificacion { get; set; }
         public int IdNegocio { get; set; }
 
@@ -69,9 +67,8 @@ namespace PrestamoEntidades
         public string Detalles { get; set; }
     }
 
-    public class BuscarGarantiaParams
+    public class BuscarGarantiaParams : BaseGetParams
     {
-        public int IdNegocio { get; set; } = -1;
         public string Search { get; set; } = string.Empty;
     }
 

@@ -10,30 +10,14 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
+        public IEnumerable<Marca>MarcasGet(MarcaGetParams searchParam)
+        {
+            return BllAcciones.GetData<Marca, MarcaGetParams>(searchParam, "spGetMarcas", GetValidation);
+        }
         public void MarcaInsUpd(Marca insUpdParam)
         {
-            try
-            {
-                PrestamosDB.ExecSelSP("spInsUpdMarca", SearchRec.ToSqlParams(insUpdParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
+            BllAcciones.InsUpdData<Marca>(insUpdParam, "spInsUpdMarca");
         }
 
-        public IEnumerable<Marca> MarcasGet(MarcaGetParams searchParam)
-        {
-            IEnumerable<Marca> result = new List<Marca>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Marca>("spGetMarcas", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
-        }
     }
 }

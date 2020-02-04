@@ -12,11 +12,10 @@ namespace PrestamoEntidades
         public int IdMarca { get; set; } = 0;
         public string Nombre { get; set; } = string.Empty;
     }
-    public class ModeloGetParams
+    public class ModeloGetParams : BaseGetParams
     {
         public int IdModelo { get; set; } = -1;
         public int IdMarca { get; set; } = -1;
-        public int IdNegocio { get; set; } = -1;
     }
 
     // TODO: Resolver con el modelo

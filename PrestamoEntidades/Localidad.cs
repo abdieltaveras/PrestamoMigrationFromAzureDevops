@@ -27,7 +27,7 @@ namespace PrestamoEntidades
         public string Nombre { get; set; } = string.Empty;
     }
 
-    public class LocalidadGetParams
+    public class LocalidadGetParams : BaseGetParams
     {
         public int IdLocalidad { get; set; } = 0;
     }
@@ -39,16 +39,13 @@ namespace PrestamoEntidades
         public bool PermiteCalle { get; set; }
 
     }
-    public class BuscarLocalidadParams
+    public class BuscarLocalidadParams : BaseGetParams
     {
-        public int IdNegocio { get; set; }
-
         public string Search { get; set; } = string.Empty;
     }
 
-    public class BuscarNombreLocalidadParams
+    public class BuscarNombreLocalidadParams : BaseGetParams
     {
-        public int IdNegocio { get; set; }
         public int IdLocalidad { get; set; }
     }
 }

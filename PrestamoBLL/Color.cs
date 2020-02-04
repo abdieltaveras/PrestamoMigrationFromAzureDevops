@@ -12,28 +12,12 @@ namespace PrestamoBLL
     {
         public void ColorInsUpd(Color insUpdParam)
         {
-            try
-            {
-                PrestamosDB.ExecSelSP("spInsUpdColor", SearchRec.ToSqlParams(insUpdParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
+            BllAcciones.InsUpdData<Color>(insUpdParam, "spInsUpdColor");
         }
 
         public IEnumerable<Color> ColoresGet(ColorGetParams searchParam)
         {
-            IEnumerable<Color> result = new List<Color>();
-            try
-            {
-                result = PrestamosDB.ExecReaderSelSP<Color>("spGetColores", SearchRec.ToSqlParams(searchParam));
-            }
-            catch (Exception e)
-            {
-                DatabaseError(e);
-            }
-            return result;
+            return BllAcciones.GetData<Color, ColorGetParams>(searchParam, "spGetColores", GetValidation);
         }
     }
 }
