@@ -3,8 +3,10 @@
 	@HijoDe int,
 	@IdDivisionTerritorial int,
 	@IdNegocio int,
-	@Descripcion varchar(100),
+	@Nombre varchar(100),
 	@PermiteCalle bit,
+	@Activo bit = 1,
+	@Codigo varchar(50) = '',
 	@Usuario varchar(100)
 AS
 Begin
@@ -12,9 +14,9 @@ Begin
 if (@IdTipoLocalidad = 0)
 	begin
 		insert into tblTipoLocalidades
-			(HijoDe, IdDivisionTerritorial, IdNegocio, Descripcion, PermiteCalle, InsertadoPor, FechaInsertado)
+			(HijoDe, IdDivisionTerritorial, IdNegocio, Nombre, PermiteCalle, InsertadoPor, FechaInsertado)
 		values
-			(@HijoDe, @IdDivisionTerritorial, @IdNegocio, @Descripcion, @PermiteCalle, @Usuario, GetDate())
+			(@HijoDe, @IdDivisionTerritorial, @IdNegocio, @Nombre, @PermiteCalle, @Usuario, GetDate())
 	end
 Else
 	Begin
@@ -22,7 +24,7 @@ Else
 		set
 			idNegocio = @idNegocio,
 			IdDivisionTerritorial = @IdDivisionTerritorial,
-			Descripcion = @Descripcion,
+			Nombre = @Nombre,
 			HijoDe = @HijoDe,
 			PermiteCalle=@PermiteCalle,
 			ModificadoPor=@Usuario,

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Color : BaseInsUpd
+    public class Color : BaseCatalogo
     {
         public int IdColor { get; set; } = 0;
-        public string Nombre { get; set; } = string.Empty;
     }
     public class ColorGetParams : BaseGetParams
     {

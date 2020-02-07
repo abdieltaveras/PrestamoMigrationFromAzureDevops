@@ -12,7 +12,6 @@ namespace PrestamoBLL
     {
         public IEnumerable<Tipo> TiposGet(TipoGetParams searchParam)
         {
-
             return BllAcciones.GetData<Tipo, TipoGetParams>(searchParam, "spGetTipos", GetValidation);
         }
 

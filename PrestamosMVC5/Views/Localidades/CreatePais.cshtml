@@ -28,7 +28,7 @@
                             @foreach (var item in Model.ListaTerritorios)
                             {
                                 <option value="@item.IdTipoLocalidad">
-                                    @item.Descripcion
+                                    @item.Nombre
                                     @if (@item.DescripcionPadre != null)
                                     {
                                         @item.DescripcionPadre
@@ -107,7 +107,7 @@
         // como HijoDe el IdTipoLocalidad de la division al que se cree (EJM: Division -> pais)
         if (lista.length > 0) {
             $.each(lista, function (index, value) {
-                $('#tipolocalidadeshijas').append(`<option class="divisionoption" value="${value.IdTipoLocalidad}">${value.Descripcion}</option>`);
+                $('#tipolocalidadeshijas').append(`<option class="divisionoption" value="${value.IdTipoLocalidad}">${value.Nombre}</option>`);
             });
         } else {
             $('#tipolocalidadeshijas').append(`<option selected class="divisionoption" value="${idDivision}">Primer componente</option>`);

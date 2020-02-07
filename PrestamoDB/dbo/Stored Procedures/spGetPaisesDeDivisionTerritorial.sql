@@ -9,7 +9,7 @@ begin
 
 	SELECT
 		t1.*,
-		t2.Descripcion as DescripcionPadre
+		t2.Nombre as DescripcionPadre
 	FROM 
 		tblTipoLocalidades t1,
 		tblTipoLocalidades t2

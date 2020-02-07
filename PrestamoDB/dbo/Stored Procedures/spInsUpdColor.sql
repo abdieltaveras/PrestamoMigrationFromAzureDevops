@@ -2,7 +2,9 @@
 	@IdColor int,
 	@Nombre varchar(50),
 	@IdNegocio int,
-	@Usuario varchar(50)
+	@Usuario varchar(50),
+	@Codigo varchar(10),
+	@Activo bit = 1
 AS
 Begin
 if (@IdColor = 0)
@@ -14,7 +16,7 @@ if (@IdColor = 0)
 	end
 Else
 	Begin
-	update tblColores 
+	update tblColores
 		set 
 			Nombre=@Nombre,
 			IdNegocio = @IdNegocio,

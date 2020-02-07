@@ -2,6 +2,8 @@
 	@IdTipo int,
 	@IdClasificacion int,
 	@Nombre varchar(50),
+	@Activo int=1,
+	@Codigo varchar(10)='',
 	@IdNegocio int,
 	@Usuario varchar(100)
 AS

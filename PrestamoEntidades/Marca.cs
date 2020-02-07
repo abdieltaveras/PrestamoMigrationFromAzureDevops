@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Marca : BaseInsUpd
+    public class Marca : BaseCatalogo
     {
         public int IdMarca { get; set; } = 0;
-        public string Nombre { get; set; } = string.Empty;
     }
     public class MarcaGetParams : BaseGetParams
     {

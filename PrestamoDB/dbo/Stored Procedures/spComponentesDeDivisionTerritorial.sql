@@ -10,7 +10,7 @@ begin
 	SELECT 
 		IdTipoLocalidad,
 		HijoDe,
-		Descripcion,
+		Nombre,
 		PermiteCalle
 	FROM 
 		tblTipoLocalidades 

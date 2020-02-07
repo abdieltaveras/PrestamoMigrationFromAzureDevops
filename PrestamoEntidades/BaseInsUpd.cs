@@ -108,7 +108,8 @@ namespace PrestamoEntidades
         [Required(ErrorMessage = "el campo {0} es requerido")]
         public string Codigo { get; set; } = string.Empty;
         [Required(ErrorMessage = "el campo {0} es requerido")]       
-        public string Descripcion { get; set; } = string.Empty;
+        public string Nombre { get; set; } = string.Empty;
+        //public string Descripcion { get; set; } = string.Empty;
     }
     public abstract class BaseDireccion : BaseInsUpd
     {

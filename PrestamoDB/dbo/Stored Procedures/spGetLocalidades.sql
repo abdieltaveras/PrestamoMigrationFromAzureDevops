@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spGetLocalidades]
 (
 	@idlocalidad int = 1,
+	@IdNegocio int,
 	@Anulado int=0,
 	@Usuario varchar(100)=''
 )
@@ -18,7 +19,7 @@ AS
 		loc.IdTipoLocalidad,
         loc.IdLocalidadPadre,
 		
-		tipo.Descripcion
+		tipo.Nombre as Descripcion
     FROM
         tblLocalidades loc, tblTipoLocalidades tipo
     WHERE loc.IdLocalidad = @idlocalidad
@@ -32,7 +33,7 @@ AS
         e.Nombre,
 		e.IdTipoLocalidad,
         e.IdLocalidadPadre,
-		t.Descripcion
+		t.Nombre
     FROM
         tblLocalidades e
         INNER JOIN recursion_location o

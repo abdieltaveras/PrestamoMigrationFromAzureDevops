@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Territorio : BaseInsUpd
+    public class Territorio : BaseCatalogo
     {
         public int IdTipoLocalidad { get; set; }
         public int HijoDe { get; set; }
         public int IdDivisionTerritorial { get; set; }
         //public int IdNegocio { get; set; }
-        public string Descripcion { get; set; }
+        //public string Nombre { get; set; }
         public bool PermiteCalle { get; set; } = false;
 
         [IgnorarEnParam]
@@ -24,18 +24,6 @@ namespace PrestamoEntidades
 
 
     }
-
-    //public class TerritoriosConHijo : Territorio
-    //{
-    //    public string NombreTipoHijoDe { get; set; }
-
-    //}
-
-    //public class TerritoriosConPadre : Territorio
-    //{
-    //    public string DescripcionPadre { get; set; }
-
-    //}
 
     public class DivisionSearchParams : BaseGetParams
     {

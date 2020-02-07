@@ -20,7 +20,7 @@
                                 @foreach (var item in Model.ListaTerritorios)
                                 {
                                     <option value="@item.IdTipoLocalidad">
-                                        @item.Descripcion
+                                        @item.Nombre
                                         @if (@item.NombreTipoHijoDe != null)
                                         {
                                             @item.NombreTipoHijoDe
@@ -47,7 +47,7 @@
                             Nombre <span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" id="descripcion" name="Descripcion" value="" class="form-control" required />
+                            <input type="text" id="nombre" name="Nombre" value="" class="form-control" required />
                         </div>
                     </div>
 
@@ -125,7 +125,7 @@
         // como HijoDe el IdTipoLocalidad de la division al que se cree (EJM: Division -> pais)
         if (lista.length > 0) {
             $.each(lista, function (index, value) {
-                $('#tipolocalidadeshijas').append(`<option class="divisionoption" value="${value.IdTipoLocalidad}">${value.Descripcion}</option>`);
+                $('#tipolocalidadeshijas').append(`<option class="divisionoption" value="${value.IdTipoLocalidad}">${value.Nombre}</option>`);
             });
         } else {
             $('#tipolocalidadeshijas').append(`<option selected class="divisionoption" value="${idDivision}">Primer componente</option>`);
@@ -145,7 +145,7 @@
             return;
         }
         
-        if ($('#descripcion').val().length <= 2) {
+        if ($('#nombre').val().length <= 2) {
             showMessage('error', 'El nombre debe ser mayor a 2 caracteres');
             event.preventDefault();
             return;

@@ -3,7 +3,7 @@
 	@IdTipoLocalidad int=-1,
 	@IdNegocio int=-1,
 	@HijoDe  int=-1,
-	@Descripcion varchar(50)='',
+	@Nombre varchar(50)='',
 	@Anulado int=0,
 	@Usuario varchar(100)=''
 )
@@ -11,7 +11,7 @@ as
 begin
 
 select 
-	t.*, m.Descripcion as NombreTipoHijoDe
+	t.*, m.Nombre as NombreTipoHijoDe
 	from 
 	tblTipoLocalidades t
 	left JOIN tblTipoLocalidades m ON m.IdTipoLocalidad = t.HijoDe
@@ -19,6 +19,6 @@ select
 		((@IdTipoLocalidad=-1) or (t.IdTipoLocalidad = @IdTipoLocalidad))
 		and ((@IdNegocio=-1) or (t.IdNegocio = @IdNegocio))
 		and ((@HijoDe=-1) or (t.HijoDe = @HijoDe))
-		and ((@Descripcion='') or (t.Descripcion=@Descripcion))	
+		and ((@Nombre='') or (t.Nombre=@Nombre))	
 	order by t.HijoDe asc
 End

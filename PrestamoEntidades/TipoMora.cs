@@ -80,7 +80,7 @@ namespace PrestamoEntidades
         public decimal MontoCuotaHasta { get; set; }
         public override string ToString()
         {
-            return Codigo + " " + Descripcion;
+            return Codigo + " " + Nombre;
         }
     }
     [SpGetProcedure("SpGetTiposMora")]

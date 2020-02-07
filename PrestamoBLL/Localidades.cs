@@ -21,12 +21,12 @@ namespace PrestamoBLL
 
         public IEnumerable<BuscarLocalidad> LocalidadSearch(BuscarLocalidadParams searchParam)
         {
-            return BllAcciones.GetData<BuscarLocalidad, BuscarLocalidadParams>(searchParam, "spGetLocalidades", GetValidation);
+            return BllAcciones.GetData<BuscarLocalidad, BuscarLocalidadParams>(searchParam, "spBuscarLocalidad", GetValidation);
         }
 
         public IEnumerable<string> LocalidadSearchName(BuscarNombreLocalidadParams searchParam)
         {
-            return BllAcciones.GetData<string, BuscarNombreLocalidadParams>(searchParam, "spGetLocalidades", GetValidation);
+            return BllAcciones.GetData<string, BuscarNombreLocalidadParams>(searchParam, "spGetLocalidadById", GetValidation);
 
             //List<string> result = new List<string>();
             //try

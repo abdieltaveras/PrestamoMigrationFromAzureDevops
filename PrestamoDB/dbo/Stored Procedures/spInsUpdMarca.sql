@@ -2,7 +2,9 @@
 	@IdMarca int,
 	@Nombre varchar(50),
 	@IdNegocio int,
-	@Usuario varchar(100)
+	@Usuario varchar(100),
+	@Codigo varchar(10),
+	@Activo bit = 1
 AS
 Begin
 if (@IdMarca = 0)
