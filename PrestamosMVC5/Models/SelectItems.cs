@@ -1,4 +1,4 @@
-﻿using PrestamoBLL;
+﻿using PrestamoBLL ;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -34,19 +34,20 @@ namespace PrestamosMVC5.Models
         public static SelectList EstadosCiviles => SLFactory.ForEnum<EstadoCivil>();
         public static SelectList OpcionesBusquedaCliente => SLFactory.ForEnum<EnumBuscarClientePor>();
         public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
-        public static SelectList Negocios(string usuario) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = -1, Usuario=usuario }), "IdNegocio", "NombreComercial");
+        public static SelectList Negocios(string usuario) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = -1, Usuario = usuario }), "IdNegocio", "NombreComercial");
         public static SelectList Lista12Meses => new SelectList(_12MesesNUmericos(), "key", "value");
         public static SelectList Ocupaciones => _Ocupaciones();
-        private static Dictionary<int,string> _12MesesNUmericos()
+        private static Dictionary<int, string> _12MesesNUmericos()
         {
             var listaNumeros = new Dictionary<int, string>();
-            for (int i = 1; i <=10; i++)
+            for (int i = 1; i <= 10; i++)
             {
                 var texto = i == 1 ? "-Mes" : "-Meses";
-                listaNumeros.Add(i, i+texto);
+                listaNumeros.Add(i, i + texto);
             }
             return listaNumeros;
         }
+
         
         private static SelectList CreateSelectList(List<Tuple<string, int>> items)
         {

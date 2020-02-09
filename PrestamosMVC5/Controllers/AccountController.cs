@@ -11,13 +11,13 @@ using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
+using System.Web.Helpers;
 
 namespace PrestamosMVC5.Controllers
 {
-    
+
     public class AccountController : ControllerBasePcp
     {
-
         public ActionResult test(string returnUrl = "")
         {
             var param = new NegociosGetParams { IdNegocio = -1 };
@@ -40,7 +40,7 @@ namespace PrestamosMVC5.Controllers
             if (ModelState.IsValid)
             {
 
-                var getUsr =  new Usuario { LoginName = loginView.LoginName, IdNegocio = loginView.IdNegocio, Contraseña = loginView.Password };
+                var getUsr = new Usuario { LoginName = loginView.LoginName, IdNegocio = loginView.IdNegocio, Contraseña = loginView.Password };
                 var result = BLLPrestamo.Instance.LoginUser(getUsr);
                 if (result.UserValidationResult != BLLPrestamo.UserValidationResult.Sucess)
                 {
@@ -91,6 +91,19 @@ namespace PrestamosMVC5.Controllers
             //this.LogOut();
             return RedirectToAction("Login", "Account", null);
         }
+        private void SendEmail(string to, string content)
+        {
+            try
+            {
+                WebMail.SmtpServer = "smtp.example.com"; WebMail.SmtpPort = 587; WebMail.EnableSsl = true; WebMail.UserName = "mySmtpUsername"; WebMail.Password = "mySmtpPassword"; WebMail.From = "rsvps@example.com";
+                string subject = "Notificacion Cambio de contrasena";
+                string from = "noreply@pcpapps.com";
+                WebMail.Send(to, subject, subject, from);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
     }
-
 }

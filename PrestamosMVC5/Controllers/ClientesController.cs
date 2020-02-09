@@ -36,6 +36,7 @@ namespace PrestamosMVC5.Controllers
         }
         public ActionResult CreateOrEdit(int id = -1, string mensaje = "")
         {
+            var cl = new Cliente() { Activo = false };
             // task: error cuando busca cliente con usuario autenticado dice negocio <= 0
             // task falla la autencitacion del administrador con contrasena pcp20200123 y siendo pcp20200124
             ClienteModel model = CreateClienteVm(true, null);
