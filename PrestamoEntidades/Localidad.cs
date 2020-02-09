@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Localidad : BaseInsUpd
+    public class Localidad : BaseCatalogo
     {
         public int IdLocalidad { get; set; }
         public int IdLocalidadPadre { get; set; }
         public int IdTipoLocalidad { get; set; }
         //public int IdNegocio { get; set; }
-        public string Nombre { get; set; } = string.Empty;
+        //public string Nombre { get; set; } = string.Empty;
         [IgnorarEnParam]
         public string Descripcion { get; set; } = string.Empty;
     }

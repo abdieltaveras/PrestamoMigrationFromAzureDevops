@@ -5,7 +5,7 @@
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo-mora-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo-mora-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
         <h4>Listado de moras</h4>        
         
         <div class="x_panel">
@@ -38,7 +38,7 @@
 
                         @foreach (var item in Model.ListaTipoMoras)
                         {
-                            <tr>
+                            <tr class="@(!item.Activo ? "table-active" : "" )">
                                 <td>
                                     <strong>
                                         @item.Codigo
@@ -70,7 +70,7 @@
                                 </td>
 
                                 <td>
-                                    <span>@item.Descripcion</span>
+                                    <span>@item.Nombre</span>
                                 </td>
 
                                 <td>
@@ -84,12 +84,6 @@
                                     }
                                 </td>
                                 <td>
-                                    <a href="#">
-                                        <button type="button" class="btn btn-outline-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </a>
-
                                     <a href="@Url.Action("Delete", "TipoMoras", new { Id = item.IdTipoMora, Usuario = "Bryan" })">
                                         <button type="button" class="btn btn-outline-danger">
                                             <i class="fa fa-trash"></i>
@@ -194,7 +188,7 @@
                                 </label>
                                 <div class="col-sm-8">
                                     <div>
-                                        @Html.TextBoxFor(Model => Model.TipoMora.Descripcion, new { @class = "form-control", @required = "required" })
+                                        @Html.TextBoxFor(Model => Model.TipoMora.Nombre, new { @class = "form-control", @required = "required" })
                                     </div>
                                 </div>
                             </div>

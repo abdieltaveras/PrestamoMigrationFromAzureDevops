@@ -135,13 +135,12 @@ namespace PrestamoBLL
 
             public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : BaseGetParams
             {
-
                 getValidations(searchParam);
                 IEnumerable<TInsert2> result = new List<TInsert2>();
                 try
                 {
                     var searchSqlParams = SearchRec.ToSqlParams(searchParam);
-                    result = PrestamosDB.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
+                   result = PrestamosDB.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
                 }
                 catch (Exception e)
                 {
@@ -157,7 +156,7 @@ namespace PrestamoBLL
             }
 
             public static void InsUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseUsuarioEIdNegocio
-            {                
+            {
                 InsUpdValidation(insUpdParam);
                 try
                 {

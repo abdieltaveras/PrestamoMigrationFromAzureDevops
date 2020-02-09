@@ -7,10 +7,7 @@ namespace PrestamoEntidades
         public int idTasaInteres { get; set; } = 0;
         // el valor numerico del interes 10%, 4%, etc
         public decimal InteresMensual { get; set; } = 0;
-        public bool RequiereAutorizacion { get; set; } = false;
-
-        
-        
+        public bool RequiereAutorizacion { get; set; } = false;        
     }
     public class TasaInteresGetParams : BaseGetParams
     {

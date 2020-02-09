@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Tipo : BaseInsUpd
+    public class Tipo : BaseCatalogo
     {
         public int IdTipo { get; set; } = 0;
         public int IdClasificacion { get; set; } = 1;
-        public string Nombre { get; set; } = string.Empty;
+        //public string Nombre { get; set; } = string.Empty;
     }
     public class TipoGetParams : BaseGetParams
     {

@@ -11,7 +11,7 @@
 )
 as
 begin
-	SELECT idTasaInteres, Codigo, Descripcion, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
+	SELECT idTasaInteres, Codigo, Nombre, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
 	FROM dbo.tblTasasInteres(nolock) 
 	where 
 		((@idTasaInteres=-1) or (idTasaInteres = @IdTasaInteres))

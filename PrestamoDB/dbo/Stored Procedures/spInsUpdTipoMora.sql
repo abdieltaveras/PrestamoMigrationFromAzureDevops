@@ -3,7 +3,7 @@
 	@idTipoMora int,
 	@idNegocio int,
 	@Codigo varchar(10),
-	@Descripcion varchar(100),
+	@Nombre varchar(100),
 	@Activo bit = 1,
 	@RequiereAutorizacion bit = 0,
 	@Usuario varchar(100),
@@ -21,9 +21,9 @@ Begin
 if (@idTipoMora =0)
 	begin
 		insert into tblTiposMora
-		(idNegocio, Codigo, Descripcion, Activo, RequiereAutorizacion, AplicarA, CalcularCargoPor, TipoCargo,DiasDeGracia,MontoOPorCientoACargar,MontoCuotaDesde,MontoCuotaHasta, InsertadoPor, FechaInsertado)
+		(idNegocio, Codigo, Nombre, Activo, RequiereAutorizacion, AplicarA, CalcularCargoPor, TipoCargo,DiasDeGracia,MontoOPorCientoACargar,MontoCuotaDesde,MontoCuotaHasta, InsertadoPor, FechaInsertado)
 		values
-		(@idNegocio, @Codigo, @Descripcion, @Activo, @RequiereAutorizacion, @AplicarA, @CalcularCargoPor, @TipoCargo,@DiasDeGracia,@MontoOPorCientoACargar,@MontoCuotaDesde,@MontoCuotaHasta,@Usuario, GetDate())
+		(@idNegocio, @Codigo, @Nombre, @Activo, @RequiereAutorizacion, @AplicarA, @CalcularCargoPor, @TipoCargo,@DiasDeGracia,@MontoOPorCientoACargar,@MontoCuotaDesde,@MontoCuotaHasta,@Usuario, GetDate())
 	end
 Else
 	Begin
@@ -32,7 +32,7 @@ Else
 			idNegocio = @idNegocio,
 			Codigo=@Codigo, 
 			Activo=@Activo,
-			Descripcion=@Descripcion,
+			Nombre=@Nombre,
 			RequiereAutorizacion=@RequiereAutorizacion,
 			AplicarA =@AplicarA, 
 			CalcularCargoPor = @CalcularCargoPor, 

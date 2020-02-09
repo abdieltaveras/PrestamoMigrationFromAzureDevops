@@ -3,7 +3,7 @@
 	[idTipoMora] INT NOT NULL PRIMARY KEY identity(1,1), 
 	[idNegocio] INT NOT NULL, 
     [Codigo] VARCHAR(10) NOT NULL unique, 
-	[Descripcion] VARCHAR(100) NOT NULL,
+	[Nombre] VARCHAR(100) NOT NULL,
     [Activo] BIT NOT NULL DEFAULT 1, 
 	[RequiereAutorizacion] bit NOT NULL DEFAULT 0,
     [TipoCargo] int NOT NULL, 

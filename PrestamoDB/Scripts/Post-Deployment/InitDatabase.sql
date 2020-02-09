@@ -26,7 +26,7 @@ Post-Deployment Script Template
 	INSERT INTO [dbo].[tblTasasInteres]
            ([idNegocio]
            ,[Codigo]
-		   ,[Descripcion]
+		   ,[Nombre]
            ,[InteresMensual]
            ,[InsertadoPor]
            ,[FechaInsertado])
@@ -37,7 +37,7 @@ Post-Deployment Script Template
 
 	--Script para datos de Moras
 	insert into tblTiposMora
-			(idNegocio, Codigo, Descripcion, DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,
+			(idNegocio, Codigo, Nombre, DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,
 			InsertadoPor, FechaInsertado)
 		VALUES
 			(@idNegocio,'P10','Porcentual 10% por cada dia por cada cuota',3,1,1,1,10.00,@usuario,getdate())
@@ -45,7 +45,7 @@ Post-Deployment Script Template
 
 	--Script para datos de Tipo de localidad
 	insert into tblTipoLocalidades
-		(HijoDe, IdNegocio, Descripcion, PermiteCalle, InsertadoPor, FechaInsertado)
+		(HijoDe, IdNegocio, Nombre, PermiteCalle, InsertadoPor, FechaInsertado)
 	VALUES
 		(null ,@idNegocio, 'Division territorial', 0, '@usuario', getdate())
 		--(1 , 2, 'Pais-Estado-Condado-Ciudad', 0),
