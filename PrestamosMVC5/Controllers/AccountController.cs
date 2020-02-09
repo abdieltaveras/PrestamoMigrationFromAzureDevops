@@ -55,7 +55,7 @@ namespace PrestamosMVC5.Controllers
             }
             return _actResult;
         }
-
+        // Task: develope Forgot Password
         [HttpGet]
         public ActionResult ForgotPassword(string returnUrl = "")
         {
@@ -67,7 +67,7 @@ namespace PrestamosMVC5.Controllers
             var prevRequest = HttpContext.Request;
             return View(model);
         }
-
+        // Task: develope Reset Password
         [HttpGet]
         public ActionResult ResetPassword(string returnUrl = "")
         {
@@ -88,7 +88,7 @@ namespace PrestamosMVC5.Controllers
         }
         public ActionResult LogOutUser()
         {
-            //this.LogOut();
+            this.pcpLogout();
             return RedirectToAction("Login", "Account", null);
         }
         private void SendEmail(string to, string content)
