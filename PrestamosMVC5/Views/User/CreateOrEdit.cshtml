@@ -4,7 +4,9 @@
     Layout = "~/Views/Shared/_LayoutForms.cshtml";
 }
 
-
+@section PageStyle    {
+    <link href="~/Content/ValidationErrors.css" rel="stylesheet" />
+}
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEdtUser" }))
 {
     <div class="@HtmlClass.FormGroupCls">
@@ -131,7 +133,7 @@
                                     <a class="collapse-link">
                                         <i class="fa fa-chevron-down"></i>
                                     </a>
-                                            
+
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
@@ -208,17 +210,17 @@
 
 @section Scripts {
     <script>
-           /*
-     * experiencias aprendidas
-     * no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
-     * ya que aparentemente el razon lo resuelve con el campo oculto y algo que hace el jquery que aun no lo se
-     * si es necesario establecer el valor del check  para que el dom usado en jquery tenga conocimiento
-     * tambien tenemos como obtener los errores del modelstate para darle una manipulacion distinta a la que razor
-     * le da.
-     * el Model realmente es una propiedad en el ViewData puedes accesarlo
-     * por ejemplo ViewData.Model.Usuario.Contraseña
-     * para los data-dash ejemplo "data-val", no funciona con prop sino con attr
-    */
+        /*
+* experiencias aprendidas
+* no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
+* ya que aparentemente el razon lo resuelve con el campo oculto y algo que hace el jquery que aun no lo se
+* si es necesario establecer el valor del check  para que el dom usado en jquery tenga conocimiento
+* tambien tenemos como obtener los errores del modelstate para darle una manipulacion distinta a la que razor
+* le da.
+* el Model realmente es una propiedad en el ViewData puedes accesarlo
+* por ejemplo ViewData.Model.Usuario.Contraseña
+* para los data-dash ejemplo "data-val", no funciona con prop sino con attr
+*/
     </script>
     <script src="~/Scripts/Apps/CreateOrEditUser.js"></script>
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
