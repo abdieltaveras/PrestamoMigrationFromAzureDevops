@@ -34,7 +34,7 @@ namespace PrestamosMVC5.Controllers
 
             try
             {
-                BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
+                //BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
             }
             catch (Exception ex)
             {

@@ -1,9 +1,44 @@
 ﻿@*@model IEnumerable<PrestamoEntidades.TasaInteres>*@
 @model TasaInteresVM
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+<style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+      background-color: rgba(0, 0, 0, 0.25);
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+    .switch::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius:50%;
+      background-color: white;
+      top: 1px;
+      left: 1px;
+      transition: all 0.3s;
+    }
+    .checkbox:checked + .switch::after {
+      left : 20px;
+    }
+    .checkbox:checked + .switch {
+      background-color: #76d275;
+    }
+    .checkbox {
+      display : none;
+    }
+</style>
+
     <div class="row">
 
         <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
+
+            
 
             @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
             <button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
@@ -12,7 +47,6 @@
                 <div class="x_title">
                     <h2>Tabla de intereses</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        
                     </ul>
                     <div class="clearfix"></div>
                 </div>
@@ -25,6 +59,7 @@
                                 <th>Descripcion</th>
                                 <th>Estado</th>
                                 <th>¿Autorizacion?</th>
+                                <th>prueba</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -64,6 +99,22 @@
                                         <span class="badge badge-danger">No</span>
                                     }
                                 </td>
+                                <td>
+
+                                <input data-val="true"
+                                        class="checkbox"
+                                        data-val-required="The isNewlyEnrolled field is required."
+                                        id="TasaInteres_RequiereAutorizacion"
+                                        name="TasaInteres.RequiereAutorizacion"
+                                        type="checkbox"
+                                        @Html.Raw(item.Activo ? "checked" : "")
+                                        value="true" />
+                                @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
+                                <label for="TasaInteres_RequiereAutorizacion" class="switch" id="switch"></label>
+
+                                </td>
+
+
                                 <td>
                                     <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
                                         <button type="button" class="btn btn-outline-danger">
@@ -115,7 +166,6 @@
                         <br />
                         @using (Html.BeginForm("Index", "TasaInteres", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
                         {
-
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="codigo">
                                     Codigo <span class="required">*</span>
@@ -147,11 +197,30 @@
                                 <div class="col-sm-4">Autorizacion</div>
                                 <div class="col-sm-8">
                                     <div class="form-check">
+                                        <span class="slider"></span>
                                         @*<input class="form-check-input" type="checkbox" id="gridCheck1">*@
-                                        @Html.CheckBoxFor(Model => Model.TasaInteres.RequiereAutorizacion, new { @class = "form-check-input" })
-                                        <label class="form-check-label" for="gridCheck1">
-                                            ¿Requiere autorizacion?
-                                        </label>
+
+
+                                        @* @Html.CheckBoxFor(Model => Model.TasaInteres.RequiereAutorizacion)*@
+
+                                        <input data-val="true"
+                                               data-val-required="The isNewlyEnrolled field is required."
+                                               id="TasaInteres_RequiereAutorizacion"
+                                               name="TasaInteres.RequiereAutorizacion"
+                                               type="checkbox"
+                                               checked
+                                               value="true" />
+                                        @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
+                                        <label for="TasaInteres_RequiereAutorizacion" id="switt">Toggle</label>
+
+
+                                        @*<input type="checkbox" id="TasaInteres_RequiereAutorizacion" name="TasaInteres.RequiereAutorizacion" />*@
+
+
+                                        @*<label id="label_switch" for="TasaInteres_RequiereAutorizacion"></label>*@
+                                        @*<label class="form-check-label" id="label_switch" for="TasaInteres_RequiereAutorizacion">
+            ¿Requiere autorizacion?
+        </label>*@
                                     </div>
                                 </div>
                             </div>
@@ -167,29 +236,9 @@
                     </div>
                 </div>
 
-
-
             </div>
         </div>
     </div>
 </div>
-
-   
-@*<script type="text/javascript">
-    $(document).ready(function () {
-
-    });
-
-    function showTasaInteresForm() {
-        $('#listContainer').addClass('col-md-7 col-sm-12 col-xs-12').removeClass('col-md-12 col-sm-12 col-xs-12');
-        $("#formAgregarTasaInteres").css("display", "");
-    };
-
-    function hideTasaInteresForm() {
-        $('#listContainer').addClass('col-md-12 col-sm-12 col-xs-12').removeClass('col-md-7 col-sm-12 col-xs-12');
-        $("#formAgregarTasaInteres").css("display", "none");
-    };
-
-</script>*@
 
 <script src="../vendors/iCheck/icheck.min.js" type="7970e1e113382da18ac5720e-text/javascript"></script>
