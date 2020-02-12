@@ -28,13 +28,10 @@ namespace PrestamosMVC5.Controllers
         public RedirectToRouteResult Index(TasaInteresVM interes)
         {
             pcpSetUsuarioAndIdNegocioTo(interes.TasaInteres);
-
-            //interes.TasaInteres.IdNegocio = 1;
-            //interes.TasaInteres.Usuario = "Usuario de prueba";
-
+            
             try
             {
-                //BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
+                BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
             }
             catch (Exception ex)
             {

@@ -41,7 +41,7 @@ namespace PrestamoEntidades
         public string DetallesDireccion { get; set; } = string.Empty;
         public string Medida { get; set; } = string.Empty;
         // Datos en comun
-        public bool UsoExclusivo { get; set; } = true; // Indica si se puede usar en varios (prestamos / documentos)
+        public bool UsoExclusivo { get; set; } = false; // Indica si se puede usar en varios (prestamos / documentos)
         public string Descripcion { get; set; } = string.Empty;
         // public int IdTasador { get; set; }
         // public int Valor { get; set; } = 0;

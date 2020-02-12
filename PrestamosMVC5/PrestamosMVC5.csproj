@@ -193,6 +193,7 @@
     <Content Include="Content\build\images\noImagen.png" />
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
+    <Content Include="Content\customcss\switch.css" />
     <Content Include="Content\docs\css\animate.min.css" />
     <Content Include="Content\docs\css\bootstrap.min.css" />
     <Content Include="Content\docs\css\docs.min.css" />

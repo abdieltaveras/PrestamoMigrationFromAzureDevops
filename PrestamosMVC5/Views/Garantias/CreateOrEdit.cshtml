@@ -1,5 +1,6 @@
 ﻿
 @model GarantiaVM
+<link href="~/Content/customcss/switch.css" rel="stylesheet">
 
 <div class="clearfix"></div>
 <div>
@@ -303,7 +304,7 @@
                                             <div class="col-sm-8">
                                                 <textarea class="form-control rounded-0" name="Garantia.DetallesJSON.Descripcion" id="Garantia_DetallesJSON_Descripcion" rows="3"></textarea>
 
-                                               @* @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
+                                                @* @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
 
                                             </div>
                                         </div>
@@ -313,7 +314,18 @@
                                                 ¿Puedo usar esta garantia en mas de 1 transaccion? <span class="required"></span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.CheckBoxFor(model => model.Garantia.DetallesJSON.UsoExclusivo, new { @class = "form-check-input" })
+
+                                                <input data-val="true"
+                                                       class="checkbox"
+                                                       id="Garantia_DetallesJSON_UsoExclusivo"
+                                                       name="Garantia.DetallesJSON.UsoExclusivo"
+                                                       type="checkbox"
+                                                       value="true" />
+                                                <label for="Garantia_DetallesJSON_UsoExclusivo" class="switch" id="switch"></label>
+
+                                                @*@Html.CheckBoxFor(model => model.Garantia.DetallesJSON.UsoExclusivo, new { @class = "form-check-input" })
+                                                    Garantia.DetallesJSON.UsoExclusivo
+                                                    id Garantia_DetallesJSON_UsoExclusivo*@
                                             </div>
                                         </div>
 
@@ -382,10 +394,10 @@
 
         let searchLocalidadElem = $('#searchLocalidad');
 
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-        });
+        //$('input').iCheck({
+        //    checkboxClass: 'icheckbox_flat-green',
+        //    radioClass: 'iradio_flat-green'
+        //});
 
         $('#mobiliario_form_container').hide();
         loadTipo(2);
@@ -507,10 +519,14 @@
                 $('#Garantia_DetallesJSON_Matricula').val(detalles.Matricula);
                 $('#Garantia_DetallesJSON_Descripcion').val(detalles.Descripcion);
 
-                if (detalles.UsoExclusivo) {
-                    $('#Garantia_DetallesJSON_UsoExclusivo').iCheck('check');
+                if (detalles.UsoExclusivo) {                    
+                    $('#Garantia_DetallesJSON_UsoExclusivo').attr("checked", "checked");
+                    console.log('casiiiiiii', detalles.UsoExclusivo);
+
                 } else {
-                    $('#Garantia_DetallesJSON_UsoExclusivo').iCheck('uncheck');
+                    $('#Garantia_DetallesJSON_UsoExclusivo').Removeattr("checked");
+
+                    console.log('Negao', detalles.UsoExclusivo);
                 }
 
                 // Buscar nombre de la localidad con el ID
@@ -598,7 +614,7 @@
         $('#Garantia_DetallesJSON_Matricula').val("");
         $('#Garantia_DetallesJSON_Descripcion').val("");
 
-        $('#Garantia_DetallesJSON_UsoExclusivo').iCheck('uncheck');
+        $('#Garantia_DetallesJSON_UsoExclusivo').removeProp('checked');
 
         $('#searchLocalidad').val('');
     }

@@ -1,86 +1,92 @@
 ﻿@model TerritorioVM
 @*@model PrestamoEntidades.TerritoriosConHijo*@
+<link href="~/Content/customcss/switch.css" rel="stylesheet">
 
-    <div class="col-md-5 col-sm-12" id="formAgregarTasaInteres">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Agregar componentes a division territorial</h2>
-                
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <br />
-                @using (Html.BeginForm("GuardarTerritorio", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
-                {
-                    <div class="form-group row">
-                        <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
-                        <div class="col-md-9 col-sm-9 ">
-                            <select class="form-control" id="idTipoDivision">
-                                <option value="0">Seleccione una opcion</option>
-                                @foreach (var item in Model.ListaTerritorios)
-                                {
-                                    <option value="@item.IdTipoLocalidad">
-                                        @item.Nombre
-                                        @if (@item.NombreTipoHijoDe != null)
-                                        {
-                                            @item.NombreTipoHijoDe
-                                        }
-                                    </option>
-                                }
-                            </select>
-                        </div>
+<div class="col-md-5 col-sm-12" id="formAgregarTasaInteres">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Agregar componentes a division territorial</h2>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br />
+            @using (Html.BeginForm("GuardarTerritorio", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
+            {
+                <div class="form-group row">
+                    <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <select class="form-control" id="idTipoDivision">
+                            <option value="0">Seleccione una opcion</option>
+                            @foreach (var item in Model.ListaTerritorios)
+                            {
+                                <option value="@item.IdTipoLocalidad">
+                                    @item.Nombre
+                                    @if (@item.NombreTipoHijoDe != null)
+                                    {
+                                        @item.NombreTipoHijoDe
+                                    }
+                                </option>
+                            }
+                        </select>
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
-                        <div class="col-md-9 col-sm-9 ">
-                            <select name="HijoDe" class="form-control" id="tipolocalidadeshijas">
-                                <option value="0">Elije una opcion</option>
-                            </select>
-                        </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <select name="HijoDe" class="form-control" id="tipolocalidadeshijas">
+                            <option value="0">Elije una opcion</option>
+                        </select>
                     </div>
+                </div>
 
-                    <input type="hidden" id="inputIdDivisionTerritorial" name="IdDivisionTerritorial" value="" required />
+                <input type="hidden" id="inputIdDivisionTerritorial" name="IdDivisionTerritorial" value="" required />
 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="codigo">
-                            Nombre <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" id="nombre" name="Nombre" value="" class="form-control" required />
-                        </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="codigo">
+                        Nombre <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="nombre" name="Nombre" value="" class="form-control" required />
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <div class="col-sm-3">Autorizacion</div>
-                        <div class="col-sm-9">
-                            <div class="form-check">
-                                <input type="checkbox" name="PermiteCalle" value="true" class="form-check-input" />
-                                <label class="form-check-label" for="gridCheck1">
-                                    ¿Permite calle?
-                                </label>
-                            </div>
-                        </div>
+                <div class="form-group row">
+                    <div class="col-sm-3">¿Permite calle?</div>
+                    <div class="col-sm-9">
+
+                        <input data-val="true"
+                               class="checkbox"
+                               data-val-required="The isNewlyEnrolled field is required."
+                               id="PermiteCalle"
+                               name="PermiteCalle"
+                               type="checkbox"
+                               value="true" />
+                        @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
+                        <label for="PermiteCalle" class="switch" id="switch"></label>
+
                     </div>
+                </div>
 
-                    <div class="ln_solid"></div>
-                    <div class="item form-group" style="float: right;">
-                        <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
+                <div class="ln_solid"></div>
+                <div class="item form-group" style="float: right;">
+                    <div class="col-md-6 col-sm-6 offset-md-3">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
+                </div>
 
 
 
-                    @*</form>*@
-                }
-            </div>
+                @*</form>*@
+            }
         </div>
     </div>
+</div>
 
 <script>
 
-    $("#idTipoDivision").change(function(){
+    $("#idTipoDivision").change(function () {
         var divisionSeleccionada = $(this).children("option:selected").val();
 
         $('#inputIdDivisionTerritorial').val(divisionSeleccionada);
@@ -98,14 +104,14 @@
             console.log(res);
             showListTipoLocalidadesHijas(JSON.parse(res), division);
         } catch (err) {
-            
+
         }
     }
 
     function BuscarComponentesDeDivisionTerritorial(divisionTerritorial) {
 
         let dataValue = { "IdDivision": divisionTerritorial };
-       
+
         return $.ajax({
             type: "get",
             url: "/Territorio/BuscarComponenteDeDivision",
@@ -144,7 +150,7 @@
             event.preventDefault();
             return;
         }
-        
+
         if ($('#nombre').val().length <= 2) {
             showMessage('error', 'El nombre debe ser mayor a 2 caracteres');
             event.preventDefault();
