@@ -1,0 +1,11 @@
+﻿/*Este archivo es para establecer los diseños globales de la plataforma*/
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=number],
+select.form-control,
+select option,
+textarea.form-control{
+    border-radius: 20px;
+}

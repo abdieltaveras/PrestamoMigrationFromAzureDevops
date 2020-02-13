@@ -1,11 +1,11 @@
 ﻿CREATE TABLE [dbo].[tblTipoLocalidades]
 (
 	[IdTipoLocalidad] INT NOT NULL PRIMARY KEY identity(1,1),
-    [HijoDe] INT NULL,
+    [IdLocalidadPadre] INT NULL,
     [IdDivisionTerritorial] INT NULL,
     [IdNegocio] INT NOT NULL,
 	[Nombre] VARCHAR(100) NOT NULL,
-	[Codigo] VARCHAR(50) NOT NULL default NEWID(),
+	[Codigo] VARCHAR(10) NOT NULL default '',
     [Activo] BIT NOT NULL DEFAULT 1,
     [PermiteCalle] BIT NOT NULL,
 	[InsertadoPor] varchar(100) not null,

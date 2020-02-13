@@ -3,7 +3,7 @@
 	@Nombre varchar(50),
 	@IdNegocio int,
 	@Usuario varchar(100),
-	@Codigo varchar(10),
+	@Codigo varchar(10)='',
 	@Activo bit = 1
 AS
 Begin

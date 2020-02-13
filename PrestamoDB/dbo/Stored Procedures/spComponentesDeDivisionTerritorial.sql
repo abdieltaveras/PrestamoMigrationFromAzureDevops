@@ -9,7 +9,7 @@ as
 begin
 	SELECT 
 		IdTipoLocalidad,
-		HijoDe,
+		IdLocalidadPadre,
 		Nombre,
 		PermiteCalle
 	FROM 

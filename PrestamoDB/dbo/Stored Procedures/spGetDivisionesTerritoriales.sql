@@ -15,6 +15,6 @@ from
 	tblTipoLocalidades t2 
 where 
 	t1.IdNegocio = @IdNegocio 
-	and t1.HijoDe = t2.IdTipoLocalidad 
-	and t2.HijoDe is null
+	and t1.IdLocalidadPadre = t2.IdTipoLocalidad 
+	and t2.IdLocalidadPadre is null
 End

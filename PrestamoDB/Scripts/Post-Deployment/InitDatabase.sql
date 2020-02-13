@@ -40,6 +40,7 @@ Post-Deployment Script Template
 			(Nombre,
 			idNegocio, Codigo,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,InsertadoPor, FechaInsertado)
 		VALUES
+<<<<<<< HEAD
 			('Porcentual 10% al interes y capital atrasado por cada dia por cada cuota',
 			@idNegocio,'P10IC',3,1,1,1,10.00,$(usuario),getdate()),
 			('Porcentual 5% al interes y capital atrasado por cada dia por cada cuota',
@@ -149,3 +150,54 @@ GO
 INSERT INTO tblTipoLocalidades (HijoDe, IdDivisionTerritorial, IdNegocio, Nombre, Codigo, Activo, PermiteCalle, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (7, 2, 1, 'Sector', '90A9E8F3-5FEB-45B9-98C7-80EB0CDACCEC', 1, 1, $(usuario), '2020-02-13 04:32:11.25', NULL, NULL, NULL, NULL)
 GO
 
+=======
+			(@idNegocio,'P10','Porcentual 10% por cada dia por cada cuota',3,1,1,1,10.00,@usuario,getdate())
+
+
+	--Script para datos de Tipo de localidad
+	insert into tblTipoLocalidades
+		(IdLocalidadPadre, IdNegocio, Nombre, PermiteCalle, InsertadoPor, FechaInsertado)
+	VALUES
+		(null ,@idNegocio, 'Division territorial', 0, '@usuario', getdate())
+		--(1 , 2, 'Pais-Estado-Condado-Ciudad', 0),
+		--(1 , @idNegocio, 'Pais-Provincia-Municipio-Sector', 0),
+		--(2 , 2, 'Pais', 0),
+		--(3 , 1, 'Pais', 0) --estados unidos ID 4
+
+
+	--insert into tblLocalidades
+	--	( IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre )
+	--VALUES
+	--	--Pais
+	--	(null ,2, 4, 'Estados unidos'),
+	--	(null ,@idNegocio, 5, 'Republica Dominicana')
+
+	----Script para datos de Tipo de localidad
+	--insert into tblTipoLocalidad
+	--		(PadreDe, IdNegocio, Descripcion)
+	--	VALUES
+	--		(null ,@idNegocio, 'Pais'),
+	--		(1 ,@idNegocio, 'Region'),
+	--		(2 ,@idNegocio, 'Provincia'),
+	--		(3 ,@idNegocio, 'Municipio')
+
+	--Script para datos de localidad
+	--insert into tblLocalidad
+	--		( IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, PermiteCalle )
+	--	VALUES
+	--		--Pais
+	--		(null ,@idNegocio, 1, 'Republica Dominicana', 0),
+	--		--Regiones
+	--		(1 ,@idNegocio, 2, 'Region Este', 0),
+	--		(1 ,@idNegocio, 2, 'Region Sur', 0),
+	--		(1 ,@idNegocio, 2, 'Region Norte', 0),
+	--		--Provincias
+	--		(2 ,@idNegocio, 3, 'La Romana', 0),
+	--		(3 ,@idNegocio, 3, 'San Juan', 0),
+	--		(4 ,@idNegocio, 3, 'Monte Cristi', 0),
+
+	--		--Municipio
+	--		(5 ,@idNegocio, 4, 'La Romana', 0),
+	--		(6 ,@idNegocio, 4, 'San Juan de la Maguana', 0),
+	--		(7 ,@idNegocio, 4, 'Monte Cristi', 0)
+>>>>>>> 83b30158c229d7ef555b37a14648f1b190dd3630

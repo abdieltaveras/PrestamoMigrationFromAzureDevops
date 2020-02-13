@@ -17,8 +17,8 @@
 
 
 <div>
-    <form autocomplete="off" action="/" method="post" style="padding: 0%">
-        <div class="col-5" style="margin: auto; padding: 0%; ">
+    <form  autocomplete="off" action="/" method="post" style="padding: 0%">
+        <div class="col-7" style="margin: auto; padding: 0%; ">
             <h4 style="text-align: center;">¿Que lugar buscas?</h4>
             <input class="target form-control" type="text" id="searchinput" placeholder="Busca una direccion" name="name" value="" style="height: 60px" />
 
@@ -51,19 +51,10 @@ else if (ViewBag.errorMessage != null)
 
 <hr />
 
-<div class="col-md-5 col-sm-12" id="formAgregarTasaInteres">
-    <h4 id="titulodelocalidad">Agregar localidad</h4>
+<div class="col-md-12 col-sm-12" id="formAgregarTasaInteres">
     <div class="x_panel">
         <div class="x_title">
-            <ul class="nav navbar-right panel_toolbox">
-                <li>
-                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-
-                <li>
-                    <a onclick="hideTasaInteresForm()"><i class="fa fa-close"></i></a>
-                </li>
-            </ul>
+            <h2 id="titulodelocalidad">Agregar localidad</h2>
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -82,7 +73,7 @@ else if (ViewBag.errorMessage != null)
                 <div id="selecttipolocalidad" style="display: none;">
                     <div class="form-group row">
                         <label class="control-label col-md-3 col-sm-3 ">Tipo de direccion</label>
-                        <div class="col-md-9 col-sm-9 ">
+                        <div class="col-md-5 col-sm-12 ">
                             <select name="IdTipoLocalidad" class="form-control" id="tipolocalidadeshijas">
                                 <option>Elije una opcion</option>
                             </select>
@@ -91,10 +82,10 @@ else if (ViewBag.errorMessage != null)
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" for="codigo">
+                    <label class="col-md-2 col-sm-6 col-form-label" for="codigo">
                         Nombre <span class="required">*</span>
                     </label>
-                    <div class="col-sm-9">
+                    <div class="col-md-5">
                         @Html.TextBoxFor(Model => Model.Nombre, new { @class = "form-control", @required = "required" })
                     </div>
                 </div>
@@ -235,7 +226,7 @@ else if (ViewBag.errorMessage != null)
 
     function AddListToSelect(list) {
         $('.tipolocalidades').remove();
-
+        console.log('aaay', list.length);
         if (list.length > 1) {
             $('#selecttipolocalidad').show();
             $.each(list, function (i, item) {
@@ -244,6 +235,7 @@ else if (ViewBag.errorMessage != null)
         } else if (list.length === 1) {
             $('#selecttipolocalidad').hide();
             $('#titulodelocalidad').text(' La localidad a ingresar es: ' + list[0].Nombre);
+
             $('#tipolocalidadeshijas').append('<option class="tipolocalidades" selected value="' + list[0].IdTipoLocalidad + '">' + list[0].Nombre + '</option>');
         } else if (list.length === 0) {
             $('#titulodelocalidad').text('Agregar localidad');
