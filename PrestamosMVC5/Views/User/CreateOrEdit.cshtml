@@ -7,11 +7,14 @@
 @section PageStyle    {
     <link href="~/Content/ValidationErrors.css" rel="stylesheet" />
 }
+
+
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEdtUser" }))
 {
     <div class="@HtmlClass.FormGroupCls">
         <h2>Crear Editar Usuario</h2>
-        <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-outline-info" />
+        <br>
+        <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
         @Html.ActionLink("Back to List", "Index")
     </div>
 
