@@ -1,9 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[spInsUpdLocalidad]
 	@idLocalidad int,
 	@IdLocalidadPadre int,
-	@IdNegocio int,
 	@IdTipoLocalidad int,
+	@IdNegocio int,
+	@Codigo varchar(10) = '',
 	@Nombre varchar(50),
+	@Activo bit = 1,
 	@Usuario varchar(100)
 
 AS

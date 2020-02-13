@@ -47,7 +47,7 @@ namespace PrestamosMVC5.Controllers
         public string BuscarTerritorios(string localidadPadre)
         {
             IEnumerable<Territorio> territorios = null;
-            territorios = BLLPrestamo.Instance.TerritorioBuscarTerritoriosHijos(new TerritorioSearchParams() { IdNegocio = pcpUserIdNegocio, HijoDe = int.Parse(localidadPadre) });
+            territorios = BLLPrestamo.Instance.TerritorioBuscarTerritoriosHijos(new TerritorioSearchParams() { IdNegocio = pcpUserIdNegocio, IdLocalidadPadre = int.Parse(localidadPadre) });
             return JsonConvert.SerializeObject(territorios);
         }
 

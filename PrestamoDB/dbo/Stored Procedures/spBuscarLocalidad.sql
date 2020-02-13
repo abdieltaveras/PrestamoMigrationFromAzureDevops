@@ -5,9 +5,9 @@
 	@Usuario varchar(100)=''
 as
 BEGIN
-	SELECT IdLocalidad, IdLocalidadPadre, loc.IdNegocio, loc.IdTipoLocalidad, loc.Nombre, tipo.Nombre as Descripcion, tipo.PermiteCalle,	
+	SELECT IdLocalidad, loc.IdLocalidadPadre, loc.IdNegocio, loc.IdTipoLocalidad, loc.Nombre, tipo.Nombre as Descripcion, tipo.PermiteCalle,	
 	(SELECT Nombre FROM tblLocalidades where IdLocalidad = loc.IdLocalidadPadre) as NombrePadre,
-	(SELECT Nombre FROM tblTipoLocalidades where IdTipoLocalidad = tipo.HijoDe) as TipoNombrePadre
+	(SELECT Nombre FROM tblTipoLocalidades where IdTipoLocalidad = tipo.IdLocalidadPadre) as TipoNombrePadre
 	from
 	tblLocalidades loc, tblTipoLocalidades tipo
 	where loc.IdTipoLocalidad = tipo.IdTipoLocalidad

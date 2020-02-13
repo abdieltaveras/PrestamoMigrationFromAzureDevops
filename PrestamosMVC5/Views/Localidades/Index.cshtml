@@ -54,7 +54,7 @@ else if (ViewBag.errorMessage != null)
 <div class="col-md-12 col-sm-12" id="formAgregarTasaInteres">
     <div class="x_panel">
         <div class="x_title">
-            <h2>Agregar localidad</h2>
+            <h2 id="titulodelocalidad">Agregar localidad</h2>
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -226,7 +226,7 @@ else if (ViewBag.errorMessage != null)
 
     function AddListToSelect(list) {
         $('.tipolocalidades').remove();
-
+        console.log('aaay', list.length);
         if (list.length > 1) {
             $('#selecttipolocalidad').show();
             $.each(list, function (i, item) {
@@ -235,6 +235,7 @@ else if (ViewBag.errorMessage != null)
         } else if (list.length === 1) {
             $('#selecttipolocalidad').hide();
             $('#titulodelocalidad').text(' La localidad a ingresar es: ' + list[0].Nombre);
+
             $('#tipolocalidadeshijas').append('<option class="tipolocalidades" selected value="' + list[0].IdTipoLocalidad + '">' + list[0].Nombre + '</option>');
         } else if (list.length === 0) {
             $('#titulodelocalidad').text('Agregar localidad');

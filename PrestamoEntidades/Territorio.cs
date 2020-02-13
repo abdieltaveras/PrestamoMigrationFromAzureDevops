@@ -10,7 +10,7 @@ namespace PrestamoEntidades
     public class Territorio : BaseCatalogo
     {
         public int IdTipoLocalidad { get; set; }
-        public int HijoDe { get; set; }
+        public int IdLocalidadPadre { get; set; }
         public int IdDivisionTerritorial { get; set; }
         //public int IdNegocio { get; set; }
         //public string Nombre { get; set; }
@@ -32,7 +32,7 @@ namespace PrestamoEntidades
 
     public class TerritorioSearchParams : BaseGetParams
     {
-        public int HijoDe { get; set; }
+        public int IdLocalidadPadre { get; set; }
     }    
 
     public class TerritorioGetParams : BaseGetParams

@@ -168,4 +168,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdGarantia" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="74e6483e-9c0c-439d-8457-80523e8aac38" ChangeDateTime="02/13/2020 14:08:02">
+    <Property Name="ElementName" Value="[dbo].[tblTipoLocalidades].[HijoDe]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblTipoLocalidades]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdLocalidadPadre" />
+  </Operation>
 </Operations>

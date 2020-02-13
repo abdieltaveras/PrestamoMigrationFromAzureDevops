@@ -45,7 +45,7 @@ Post-Deployment Script Template
 
 	--Script para datos de Tipo de localidad
 	insert into tblTipoLocalidades
-		(HijoDe, IdNegocio, Nombre, PermiteCalle, InsertadoPor, FechaInsertado)
+		(IdLocalidadPadre, IdNegocio, Nombre, PermiteCalle, InsertadoPor, FechaInsertado)
 	VALUES
 		(null ,@idNegocio, 'Division territorial', 0, '@usuario', getdate())
 		--(1 , 2, 'Pais-Estado-Condado-Ciudad', 0),
