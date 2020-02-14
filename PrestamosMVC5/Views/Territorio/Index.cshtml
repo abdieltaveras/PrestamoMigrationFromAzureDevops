@@ -86,9 +86,18 @@
 
 <script>
 
-    $("#idTipoDivision").change(function () {
-        var divisionSeleccionada = $(this).children("option:selected").val();
+    $( document ).ready(function() {
+        let params = new URLSearchParams(document.location.search.substring(1));
+        let id = params.get("division_territorial_id")
+        console.log(id);
+        if (id !== 0 && id !== null) {
+            search(id);
+        }
+    });
 
+    $("#idTipoDivision").change(function () {
+        console.error('aqio');
+        var divisionSeleccionada = $(this).children("option:selected").val();
         $('#inputIdDivisionTerritorial').val(divisionSeleccionada);
         //alert("You have selected the country - " + divisionSeleccionada);
         if (divisionSeleccionada !== '0') {

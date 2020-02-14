@@ -55,7 +55,7 @@ namespace PrestamosMVC5.Controllers
         public RedirectToRouteResult GuardarTerritorio(Territorio territorio)
         {
             this.pcpSetUsuarioAndIdNegocioTo(territorio);
-            //BLLPrestamo.Instance.TerritorioInsUpd(territorio);
+            BLLPrestamo.Instance.TerritorioInsUpd(territorio);
             return RedirectToAction("Index", new { division_territorial_id = territorio.IdDivisionTerritorial });
         }
 
