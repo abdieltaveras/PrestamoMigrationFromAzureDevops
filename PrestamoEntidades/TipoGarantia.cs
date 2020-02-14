@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Tipo : BaseCatalogo
+    public class TipoGarantia : BaseCatalogo
     {
-        public int IdTipo { get; set; } = 0;
+        public int IdTipoGarantia { get; set; } = 0;
         public int IdClasificacion { get; set; } = 1;
         //public string Nombre { get; set; } = string.Empty;
     }
     public class TipoGetParams : BaseGetParams
     {
-        public int IdTipo { get; set; } = -1;
+        public int IdTipoGarantia { get; set; } = -1;
         public int IdClasificacion { get; set; } = -1;
     }
-    public class TipoInsUpdParams : Tipo
+    public class TipoInsUpdParams : TipoGarantia
     {
     }
 }

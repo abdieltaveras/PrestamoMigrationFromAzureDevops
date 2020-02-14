@@ -10,14 +10,14 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Tipo> TiposGet(TipoGetParams searchParam)
+        public IEnumerable<TipoGarantia> TiposGarantiaGet(TipoGetParams searchParam)
         {
-            return BllAcciones.GetData<Tipo, TipoGetParams>(searchParam, "spGetTipos", GetValidation);
+            return BllAcciones.GetData<TipoGarantia, TipoGetParams>(searchParam, "spGetTiposGarantia", GetValidation);
         }
 
-        public void TipoInsUpd(Tipo insUpdParam)
+        public void TipoGarantiaInsUpd(TipoGarantia insUpdParam)
         {
-            BllAcciones.InsUpdData<Tipo>(insUpdParam, "spInsUpdTipo");
+            BllAcciones.InsUpdData<TipoGarantia>(insUpdParam, "spInsUpdTipoGarantia");
         }
     }
 }

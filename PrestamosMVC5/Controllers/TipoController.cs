@@ -21,15 +21,15 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreateOrEdit()
         {
             TipoVM datos = new TipoVM();
-            datos.Tipo = new Tipo();
-            datos.ListaTipos = BLLPrestamo.Instance.TiposGet(new TipoGetParams { IdNegocio = this.pcpUserIdNegocio });
+            datos.Tipo = new TipoGarantia();
+            datos.ListaTipos = BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = this.pcpUserIdNegocio });
 
             return View("CreateOrEdit", datos);
         }
         
         // TODO: Cambiar este modelo por la estructura que lleva
         [HttpPost]
-        public RedirectToRouteResult CreateOrEdit(Tipo tipo)
+        public RedirectToRouteResult CreateOrEdit(TipoGarantia tipo)
         {
             //TipoInsUpdParams TipoAInsertar = new TipoInsUpdParams()
             //{
@@ -41,7 +41,7 @@ namespace PrestamosMVC5.Controllers
 
             this.pcpSetUsuarioAndIdNegocioTo(tipo);
 
-            BLLPrestamo.Instance.TipoInsUpd(tipo);
+            BLLPrestamo.Instance.TipoGarantiaInsUpd(tipo);
             return RedirectToAction("CreateOrEdit");
         }
     }

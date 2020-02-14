@@ -15,10 +15,10 @@ namespace PrestamosMVC5.Controllers
     public class TerritorioController : ControllerBasePcp
     {
         // GET: Territorio
-        public ActionResult Index()
+        public ActionResult Index(int division_territorial_id = 0)
         {
             TerritorioVM modelo = new TerritorioVM();
-
+            modelo.territorioSeleccionado = division_territorial_id;
             try
             {
                 modelo.ListaTerritorios = BLLPrestamo.Instance.TerritorioDivisionesTerritorialesGet(new TerritorioGetParams() { IdNegocio = pcpUserIdNegocio });
@@ -55,8 +55,8 @@ namespace PrestamosMVC5.Controllers
         public RedirectToRouteResult GuardarTerritorio(Territorio territorio)
         {
             this.pcpSetUsuarioAndIdNegocioTo(territorio);
-            BLLPrestamo.Instance.TerritorioInsUpd(territorio);
-            return RedirectToAction("Index");
+            //BLLPrestamo.Instance.TerritorioInsUpd(territorio);
+            return RedirectToAction("Index", new { division_territorial_id = territorio.IdDivisionTerritorial });
         }
 
         [HttpPost]

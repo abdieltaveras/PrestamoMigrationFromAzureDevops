@@ -1,6 +1,6 @@
-﻿CREATE TABLE [dbo].[tblTipos]
+﻿CREATE TABLE [dbo].[tblTiposGarantia]
 (
-	[IdTipo]INT NOT NULL PRIMARY KEY  identity(1,1),
+	[IdTipoGarantia]INT NOT NULL PRIMARY KEY  identity(1,1),
 	[IdClasificacion] INT NOT NULL,
 	[Nombre] NVARCHAR(50) NOT NULL,
 	[Codigo] VARCHAR(10) NOT NULL default '',

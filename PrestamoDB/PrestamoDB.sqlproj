@@ -112,9 +112,9 @@
     <Build Include="dbo\Tables\tblModelos.sql" />
     <Build Include="dbo\Stored Procedures\spGetModelos.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdModelo.sql" />
-    <Build Include="dbo\Stored Procedures\spGetTipos.sql" />
-    <Build Include="dbo\Tables\tblTipos.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdTipo.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTiposGarantia.sql" />
+    <Build Include="dbo\Tables\tblTiposGarantia.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdTipoGarantia.sql" />
     <Build Include="dbo\Stored Procedures\spGetColores.sql" />
     <Build Include="dbo\Tables\tblColores.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdColor.sql" />

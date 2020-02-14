@@ -14,7 +14,7 @@ namespace PrestamoEntidades
     {
         public int IdGarantia { get; set; } = -1;
         public int IdClasificacion { get; set; } = -1;
-        public int IdTipo { get; set; } = -1;
+        public int IdTipoGarantia { get; set; } = -1;
         public int IdModelo { get; set; } = -1;
         public int IdMarca { get; set; } = -1;
 

@@ -1,5 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spInsUpdTipo]
-	@IdTipo int,
+﻿CREATE PROCEDURE [dbo].[spInsUpdTipoGarantia]
+	@IdTipoGarantia int,
 	@IdClasificacion int,
 	@Nombre varchar(50),
 	@Activo int=1,
@@ -8,23 +8,23 @@
 	@Usuario varchar(100)
 AS
 Begin
-if (@IdTipo = 0)
+if (@IdTipoGarantia = 0)
 	begin
-		insert into tblTipos
+		insert into tblTiposGarantia
 		( IdClasificacion, Nombre, IdNegocio, InsertadoPor, FechaInsertado)
 		values
 		(@IdClasificacion, @Nombre, @IdNegocio, @Usuario, GETDATE())
 	end
 Else
 	Begin
-	update tblTipos
+	update tblTiposGarantia
 		set 
 			IdClasificacion = @IdClasificacion,
 			Nombre=@Nombre,
 			IdNegocio = @IdNegocio,
 			ModificadoPor = @Usuario,
 			FechaModificado = GETDATE()
-		where IdTipo = @IdTipo
+		where IdTipoGarantia = @IdTipoGarantia
 	End
 End
 

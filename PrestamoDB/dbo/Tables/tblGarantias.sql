@@ -2,7 +2,7 @@
 (
 	[IdGarantia] INT NOT NULL PRIMARY KEY  identity(1,1), 
     [IdClasificacion] INT NOT NULL, 
-    [IdTipo] INT NULL, 
+    [IdTipoGarantia] INT NULL, 
     [IdModelo] INT NULL,
 	IdMarca INT NULL,
     [NoIdentificacion] NVARCHAR(50) NOT NULL, 

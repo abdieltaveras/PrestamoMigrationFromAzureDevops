@@ -8,7 +8,7 @@ namespace PrestamosMVC5.Models
 {
     public class TipoVM
     {
-        public Tipo Tipo { get; set; }
-        public IEnumerable<Tipo> ListaTipos { get; set; }
+        public TipoGarantia Tipo { get; set; }
+        public IEnumerable<TipoGarantia> ListaTipos { get; set; }
     }
 }

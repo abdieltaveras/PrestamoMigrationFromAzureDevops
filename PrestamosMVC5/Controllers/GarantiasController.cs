@@ -26,8 +26,8 @@ namespace PrestamosMVC5.Controllers
         {
             GarantiaVM datos = garantia == null ? new GarantiaVM() : garantia;
 
-            datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGet(new TipoGetParams { IdNegocio = 1 }), "IdTipo", "Nombre" );
-            datos.ListaTiposReal =  BLLPrestamo.Instance.TiposGet(new TipoGetParams { IdNegocio = 1 });
+            datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = 1 }), "IdTipo", "Nombre" );
+            datos.ListaTiposReal =  BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = 1 });
             //datos.ListaMarcasReal = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
             datos.ListaMarcas = new SelectList( BLLPrestamo.Instance.MarcasGet(new MarcaGetParams { IdNegocio = 1 }), "IdMarca", "Nombre" );
             datos.ListaModelos = new SelectList( BLLPrestamo.Instance.ModelosGet(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );

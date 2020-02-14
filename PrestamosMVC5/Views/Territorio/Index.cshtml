@@ -20,7 +20,7 @@
                             <option value="0">Seleccione una opcion</option>
                             @foreach (var item in Model.ListaTerritorios)
                             {
-                                <option value="@item.IdTipoLocalidad">
+                                <option value="@item.IdTipoLocalidad" @(Model.territorioSeleccionado == item.IdTipoLocalidad ? "selected" : "" ) >
                                     @item.Nombre
                                     @if (@item.NombreTipoHijoDe != null)
                                     {

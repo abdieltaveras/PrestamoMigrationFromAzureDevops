@@ -9,6 +9,7 @@ namespace PrestamosMVC5.Models
     public class TerritorioVM
     {
         public Territorio Territorio { get; set; }
+        public int territorioSeleccionado { get; set; }
         public IEnumerable<Territorio> ListaTerritorios { get; set; }
     }
 }
