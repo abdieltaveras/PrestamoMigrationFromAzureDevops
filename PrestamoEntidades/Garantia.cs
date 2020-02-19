@@ -32,7 +32,7 @@ namespace PrestamoEntidades
         // Mobiliarios
         public string Color { get; set; } = string.Empty;
         public string NoMaquina { get; set; } = string.Empty;
-        public string Año { get; set; } = string.Empty;
+        public string Ano { get; set; } = string.Empty;
         public string Placa { get; set; } = string.Empty;
         public string Matricula { get; set; } = string.Empty;
 

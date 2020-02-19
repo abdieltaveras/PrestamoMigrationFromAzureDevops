@@ -246,7 +246,7 @@
                                                 Año <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Año, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.Ano, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                             </div>
                                         </div>
 
@@ -518,7 +518,7 @@
                 $('#Garantia_DetallesJSON_Medida').val(detalles.Medida);
                 $('#Garantia_DetallesJSON_Color').val(detalles.Color);
                 $('#Garantia_DetallesJSON_NoMaquina').val(detalles.NoMaquina);
-                $('#Garantia_DetallesJSON_A_o').val(detalles.Año);
+                $('#Garantia_DetallesJSON_Ano').val(detalles.Ano);
                 $('#Garantia_DetallesJSON_Placa').val(detalles.Placa);
                 $('#Garantia_DetallesJSON_Matricula').val(detalles.Matricula);
                 $('#Garantia_DetallesJSON_Descripcion').val(detalles.Descripcion);
@@ -565,7 +565,7 @@
                     role="tab" aria-controls="home">
                     <span class="fa fa-automobile"></span>
                     <strong id="placeName" > ${value.NoIdentificacion} </strong><br>                
-                    ${Detalles.Descripcion !== null ? Detalles.Descripcion : ''} Año: ${Detalles.Año} Placa: ${Detalles.Placa} Maquina: ${Detalles.NoMaquina}
+                   <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
                     <br>`);
             }
         });
@@ -622,7 +622,7 @@
         $('#Garantia_DetallesJSON_Medida').val("");
         $('#Garantia_DetallesJSON_Color').val("");
         $('#Garantia_DetallesJSON_NoMaquina').val("");
-        $('#Garantia_DetallesJSON_A_o').val("");
+        $('#Garantia_DetallesJSON_Ano').val("");
         $('#Garantia_DetallesJSON_Placa').val("");
         $('#Garantia_DetallesJSON_Matricula').val("");
         $('#Garantia_DetallesJSON_Descripcion').val("");
