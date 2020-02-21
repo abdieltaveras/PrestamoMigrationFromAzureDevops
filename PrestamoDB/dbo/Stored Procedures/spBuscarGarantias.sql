@@ -12,15 +12,19 @@ from
 	tblGarantias garantias
 INNER JOIN 
 	tblMarcas marcas ON garantias.IdMarca = marcas.IdMarca
-INNER JOIN 
+left JOIN 
 	tblModelos modelos ON garantias.IdModelo = modelos.IdModelo
+left JOIN 
+	tblLocalidades localidades ON JSON_VALUE(Detalles, '$.IdLocalidad') = localidades.IdLocalidad
 where 
 	garantias.IdNegocio = 1
 	AND marcas.Nombre LIKE '%' + @search + '%'
 	OR modelos.Nombre LIKE '%' + @search + '%'
+	OR localidades.Nombre LIKE '%' + @search + '%'
 	OR NoIdentificacion LIKE '%' + @search + '%'
 	OR JSON_VALUE(Detalles, '$.NoMaquina') LIKE '%' + @search + '%'
 	OR JSON_VALUE(Detalles, '$.Placa') LIKE '%' + @search + '%'
 	OR JSON_VALUE(Detalles, '$.Ano') LIKE '%' + @search + '%'
+	OR JSON_VALUE(Detalles, '$.Valor') LIKE '%' + @search + '%'
 
 End

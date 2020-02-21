@@ -44,7 +44,7 @@ namespace PrestamoEntidades
         public bool UsoExclusivo { get; set; } = false; // Indica si se puede usar en varios (prestamos / documentos)
         public string Descripcion { get; set; } = string.Empty;
         // public int IdTasador { get; set; }
-        // public int Valor { get; set; } = 0;
+        public int Valor { get; set; } = 0;
 
         //public string InsertadoPor { get; set; } = string.Empty;
         //public DateTime FechaInsertado { get; set; }

@@ -28,9 +28,8 @@ namespace PrestamosMVC5.Controllers
 
             datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = 1 }), "IdTipo", "Nombre" );
             datos.ListaTiposReal =  BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = 1 });
-            //datos.ListaMarcasReal = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
             datos.ListaMarcas = new SelectList( BLLPrestamo.Instance.MarcasGet(new MarcaGetParams { IdNegocio = 1 }), "IdMarca", "Nombre" );
-            datos.ListaModelos = new SelectList( BLLPrestamo.Instance.ModelosGet(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
+            //datos.ListaModelos = new SelectList( BLLPrestamo.Instance.ModelosGet(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
             datos.ListaColores = new SelectList(BLLPrestamo.Instance.ColoresGet(new ColorGetParams { IdNegocio = 1 }), "IdColor", "Nombre");
 
             datos.Garantia = new Garantia();
@@ -73,10 +72,8 @@ namespace PrestamosMVC5.Controllers
             catch(Exception err)
             {
             }
-            
 
             return RedirectToAction("CreateOrEdit", new { listaMensajes });
-
         }
 
         public string BuscarGarantias(string searchToText)

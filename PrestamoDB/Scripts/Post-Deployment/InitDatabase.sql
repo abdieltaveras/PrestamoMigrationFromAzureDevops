@@ -79,9 +79,10 @@ VALUES	('Blanco', 1, '', 1, @usuario, '2020-02-13 05:17:52.627', NULL, NULL, NUL
 -- Table:  tblTipos
 -- Date:   13-Feb-20 5:46 AM
 
-INSERT INTO tblTiposGarantia (IdClasificacion, Nombre, Codigo, Activo, IdNegocio, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+INSERT INTO tblTiposGarantia (IdClasificacion, Nombre, Codigo, Activo, IdNegocio, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
 VALUES	(1, 'Vehiculos (Carros, Camionetas, Geepetas, etc)', '', 1, 1, @usuario, '2020-02-13 05:15:50.703', NULL, NULL, NULL, NULL),
-		(1, 'Motocicletas', '', 1, 1, @usuario, '2020-02-13 05:16:02.82', NULL, NULL, NULL, NULL)
+		(1, 'Motocicletas', '', 1, 1, @usuario, '2020-02-13 05:16:02.82', NULL, NULL, NULL, NULL),
+		(2, 'Casa', '', 1, 1, @usuario, '2020-02-13 05:16:02.82', NULL, NULL, NULL, NULL)
 
 -- Table:  tblClientes
 -- Date:   13-Feb-20 5:52 AM
