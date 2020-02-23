@@ -19,5 +19,10 @@ namespace PrestamoBLL
         {
             return BllAcciones.GetData<ModeloWithMarca, ModeloGetParams>(searchParam, "spGetModelos", GetValidation);
         }
+
+        public IEnumerable<Modelo> ModelosByMarcaGet(ModeloGetParams searchParam)
+        {
+            return BllAcciones.GetData<Modelo, ModeloGetParams>(searchParam, "spGetModelosGarantiaByMarca", GetValidation);
+        }
     }
 }

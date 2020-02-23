@@ -1,4 +1,5 @@
-﻿using PrestamoBLL;
+﻿using Newtonsoft.Json;
+using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
@@ -39,5 +40,15 @@ namespace PrestamosMVC5.Controllers
             BLLPrestamo.Instance.ModeloInsUpd(modelo);
             return RedirectToAction("CreateOrEdit");
         }
+
+        public string BuscarModelosDeMarcas(int idMarca)
+        {
+            IEnumerable<Modelo> modelos = null;
+
+            modelos = BLLPrestamo.Instance.ModelosByMarcaGet(new ModeloGetParams { IdMarca = idMarca, IdNegocio = pcpUserIdNegocio });
+                        
+            return JsonConvert.SerializeObject(modelos);
+        }
+
     }
 }

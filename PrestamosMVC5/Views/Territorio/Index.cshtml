@@ -20,7 +20,7 @@
                             <option value="0">Seleccione una opcion</option>
                             @foreach (var item in Model.ListaTerritorios)
                             {
-                                <option value="@item.IdTipoLocalidad" @(Model.territorioSeleccionado == item.IdTipoLocalidad ? "selected" : "" ) >
+                                <option value="@item.IdTipoLocalidad" @(Model.territorioSeleccionado == item.IdTipoLocalidad ? "selected" : "")>
                                     @item.Nombre
                                     @if (@item.NombreTipoHijoDe != null)
                                     {
@@ -76,12 +76,18 @@
                     </div>
                 </div>
 
-
+                
 
                 @*</form>*@
             }
         </div>
     </div>
+</div>
+
+<div id="info-component-container" class="col-md-6 d-none">
+    <strong>La cantidad de componentes es:</strong>
+    <p id="component-count"></p>
+    <p id="component-list"></p>
 </div>
 
 <script>
@@ -97,7 +103,6 @@
     });
 
     $("#idTipoDivision").change(function () {
-        console.error('aqio');
         var divisionSeleccionada = $(this).children("option:selected").val();
         $('#inputIdDivisionTerritorial').val(divisionSeleccionada);
         //alert("You have selected the country - " + divisionSeleccionada);
@@ -113,6 +118,7 @@
             const res = await BuscarComponentesDeDivisionTerritorial(division);
             console.log(res);
             showListTipoLocalidadesHijas(JSON.parse(res), division);
+            showListComponentes(JSON.parse(res));
         } catch (err) {
 
         }
@@ -139,6 +145,7 @@
 
         // Si la division territorial seleccionada no tiene ningun componente (Division terriritorial por debajo de ella) le asignara
         // como HijoDe el IdTipoLocalidad de la division al que se cree (EJM: Division -> pais)
+
         if (lista.length > 0) {
             $.each(lista, function (index, value) {
                 $('#tipolocalidadeshijas').append(`<option class="divisionoption" value="${value.IdTipoLocalidad}">${value.Nombre}</option>`);
@@ -146,6 +153,21 @@
         } else {
             $('#tipolocalidadeshijas').append(`<option selected class="divisionoption" value="${idDivision}">Primer componente</option>`);
         }
+    }
+
+    function showListComponentes(lista) {
+        let text = null;
+        let componentCount = lista.length;
+        $('#component-list').empty();
+        $('#info-component-container').removeClass('d-none');
+        $.each(lista, function (index, value) {
+            if (index !== lista.length - 1) {
+                $('#component-list').append( '<span class="badge badge-dark">' + value.Nombre+'</span>'  + ' <i class="fa fa-arrow-right"></i> ');
+            } else {
+                $('#component-list').append('<span class="badge badge-primary">' + value.Nombre+'</span>');
+            }
+        });
+        $('#component-count').text(componentCount);
     }
 
     function validarDatos() {

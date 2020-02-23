@@ -121,6 +121,7 @@
     <Build Include="dbo\Stored Procedures\spGetLocalidadById.sql" />
     <Build Include="dbo\Stored Procedures\spGetUsuarios.sql" />
     <Build Include="dbo\Stored Procedures\SpChangePassword.sql" />
+    <Build Include="dbo\Stored Procedures\spGetModelosGarantiaByMarca.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
