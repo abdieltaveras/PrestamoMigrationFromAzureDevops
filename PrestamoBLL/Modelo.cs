@@ -14,7 +14,6 @@ namespace PrestamoBLL
         {
             BllAcciones.InsUpdData<Modelo>(insUpdParam, "spInsUpdModelo");
         }
-
         public IEnumerable<ModeloWithMarca> ModelosGet(ModeloGetParams searchParam)
         {
             return BllAcciones.GetData<ModeloWithMarca, ModeloGetParams>(searchParam, "spGetModelos", GetValidation);
