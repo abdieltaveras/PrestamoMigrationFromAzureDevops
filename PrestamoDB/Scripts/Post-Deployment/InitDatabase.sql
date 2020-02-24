@@ -113,7 +113,7 @@ VALUES	(1, 'Vehiculos (Carros, Camionetas, Geepetas, etc)', '', 1, 1, @usuario, 
 		(1, 'Motocicletas', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
 		(2, 'Casa', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
 		(2, 'Solar con Edificacion', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(2, 'Solar con Edificacion', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
+		(2, 'Solar sin Edificacion', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
 		
 -- Table:  tblClientes
 -- Date:   13-Feb-20 5:52 AM
