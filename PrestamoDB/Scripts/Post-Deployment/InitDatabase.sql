@@ -66,15 +66,11 @@ VALUES (1,'Usuario','Usuario por defecto','slT1cIeEDhgXsnLcD0w/ng==',0,null,'809
 -- Table:  tblTipos
 -- Date:   13-Feb-20 5:46 AM
 
-INSERT INTO tblTiposGarantia (IdClasificacion, Nombre, Codigo, Activo, IdNegocio, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES	(1, 'Vehiculos (Carros, Camionetas, Geepetas, etc)', '', 1, 1, @usuario, '2020-02-13 05:15:50.703', NULL, NULL, NULL, NULL),
-		(1, 'Motocicletas', '', 1, 1, @usuario, '2020-02-13 05:16:02.82', NULL, NULL, NULL, NULL)
-	
 	
 	-- Table:  tblMarcas
 	INSERT INTO tblMarcas (Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-	VALUES	('Toyota', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
-	   		('Ford', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+	VALUES	('Toyota', 1, '', 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+	   		('Ford', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
 			('Suzuki', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
 
 	-- Table:  tblModelos
@@ -113,9 +109,14 @@ VALUES	('Blanco', 1, '', 1, @usuario, '2020-02-13 05:17:52.627', NULL, NULL, NUL
 -- Date:   13-Feb-20 5:46 AM
 
 INSERT INTO tblTiposGarantia (IdClasificacion, Nombre, Codigo, Activo, IdNegocio, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
-VALUES	(1, 'Vehiculos (Carros, Camionetas, Geepetas, etc)', '', 1, 1, @usuario, '2020-02-13 05:15:50.703', NULL, NULL, NULL, NULL),
-		(1, 'Motocicletas', '', 1, 1, @usuario, '2020-02-13 05:16:02.82', NULL, NULL, NULL, NULL),
-		(2, 'Casa', '', 1, 1, @usuario, '2020-02-13 05:16:02.82', NULL, NULL, NULL, NULL)
+VALUES	(1, 'Vehiculos (Carros, Camionetas, Geepetas, etc)', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(1, 'Motocicletas', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(2, 'Casa', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(3, 'Solar con Edificacion', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(4, 'Probando', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(5, 'Probando', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
+		
+		
 
 -- Table:  tblClientes
 -- Date:   13-Feb-20 5:52 AM
@@ -136,6 +137,4 @@ VALUES (NULL, NULL, 1, 'Division Territorial Raiz (Nunca Borrar)',  1, 0, @usuar
 		(5, 2, 1, 'Sector',  1, 1, @usuario, '2020-02-13 04:25:33.913', NULL, NULL, NULL, NULL),
 		(5, 2, 1, 'Distrito Municipal', 1, 0, @usuario, '2020-02-13 04:31:51.437', NULL, NULL, NULL, NULL),
 		(7, 2, 1, 'Sector',  1, 1, @usuario, '2020-02-13 04:32:11.25', NULL, NULL, NULL, NULL)
-
-
 go
