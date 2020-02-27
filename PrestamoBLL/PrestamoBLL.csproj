@@ -55,6 +55,8 @@
     <Compile Include="Marca.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />
+    <Compile Include="VerificarDireccion.cs" />
+    <Compile Include="Ocupacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Territorio.cs" />

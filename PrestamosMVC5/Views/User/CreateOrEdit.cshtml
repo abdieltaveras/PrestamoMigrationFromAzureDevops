@@ -6,6 +6,8 @@
 
 @section PageStyle    {
     <link href="~/Content/ValidationErrors.css" rel="stylesheet" />
+    <link href="~/Content/customcss/switch.css" rel="stylesheet">
+
 }
 
 
@@ -143,14 +145,22 @@
                         </div>
                         <div class="collapse x_content">
                             <h2>Opciones</h2>
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Usuario.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Usuario.Activo, new
-                               { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                    @Html.ValidationMessageFor(model => model.Usuario.Activo, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                            <input data-val="true"
+                                   class="checkbox"
+                                   data-val-required="The isNewlyEnrolled field is required."
+                                   id="Usuario_Activo"
+                                   name="Usuario.Activo"
+                                   type="checkbox"
+                                   value="true" />
+                            <label for="Usuario_Activo" class="switch" id="switch"></label>
+                            @*<div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.Usuario.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        @Html.EditorFor(model => model.Usuario.Activo, new
+                                   { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                        @Html.ValidationMessageFor(model => model.Usuario.Activo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Usuario.Bloqueado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">

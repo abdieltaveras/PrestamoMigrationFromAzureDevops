@@ -9,6 +9,10 @@
         public int Anulado { get; set; } = 0;
     }
 
+    public class BaseCatalogoGetParams : BaseGetParams
+    {
+    }
+
     /// Informaciones basicas de un objeto que tiene datos relaciona a una persona pero sin Codigo
     /// se decidio crearle una concreta PersonaInfoBasicaSinCodigoGetParams
     /// para poder instanciarla en varios escenarios que compartiran todas las cosas que aqui tenemos 

@@ -114,4 +114,20 @@ VALUES (NULL, NULL, 1, 'Division Territorial Raiz (Nunca Borrar)',  1, 0, @usuar
 		(5, 2, 1, 'Sector',  1, 1, @usuario, '2020-02-13 04:25:33.913', NULL, NULL, NULL, NULL),
 		(5, 2, 1, 'Distrito Municipal', 1, 0, @usuario, '2020-02-13 04:31:51.437', NULL, NULL, NULL, NULL),
 		(7, 2, 1, 'Sector',  1, 1, @usuario, '2020-02-13 04:32:11.25', NULL, NULL, NULL, NULL)
+
+
+
+--Nuevos catalogos punto 66
+INSERT INTO tblOcupaciones(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+	VALUES	('Mecanico', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
+	   		('Programador', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+			('Agricultor', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+
+--VERIFICADORES DE DIRECCIONES
+INSERT INTO tblVerificadorDirecciones(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+	VALUES	('Pedro Pizarro', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
+	   		('Mario Hadut', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+			('Lidia Perez', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+--Fin de nuevos catalogos punto 66
+
 go

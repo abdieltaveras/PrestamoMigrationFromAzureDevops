@@ -9,6 +9,11 @@ namespace PrestamoEntidades
     public class Marca : BaseCatalogo
     {
         public int IdMarca { get; set; } = 0;
+
+        public override int GetId()
+        {
+            throw new NotImplementedException();
+        }
     }
     public class MarcaGetParams : BaseGetParams
     {

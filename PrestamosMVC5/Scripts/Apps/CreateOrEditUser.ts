@@ -6,7 +6,7 @@ let idConfirmarContraseñaText = "ConfirmarContrase_a";
 let idUsuarioDebeCambiarContraseñaAlIniciarSesionText = "Usuario_DebeCambiarContrase_aAlIniciarSesion";
 let idLaContraseñaExpiraText = "LaContrase_aExpira";
 let idUsuarioBloqueadoText = "Usuario_Bloqueado";
-let IdUsuarioActivoText = "Usuario_Activo";
+//let IdUsuarioActivoText = "Usuario_Activo";
 let idContraseñaExpiraCadaXMesText = "Contrase_aExpiraCadaXMes";
 let idLimitarVigenciaDeCuentaText = "LimitarVigenciaDeCuenta";
 let idVigenteHastaText = "Usuario_VigenteHasta";
@@ -17,7 +17,7 @@ let elemContraseña = $("#" + idContraseñaText);
 let elemConfirmarContraseña = $("#" + idConfirmarContraseñaText);
 let elemDebeCambiarContrasenaAlIniciarSesion = $("#" + idUsuarioDebeCambiarContraseñaAlIniciarSesionText);
 let elemBloqueado = $("#" + idUsuarioBloqueadoText)
-let elemActivo = $("#" + IdUsuarioActivoText);
+//let elemActivo = $("#" + IdUsuarioActivoText);
 let elemContraseñaExpiraCadaXMes = $("#" + idContraseñaExpiraCadaXMesText);
 let elemContraseñaExpira = $('#' + idLaContraseñaExpiraText);
 let elemLimitarVigenciaDeCuenta = $("#" + idLimitarVigenciaDeCuentaText);
@@ -45,7 +45,7 @@ function initialViewState() {
     //removeDuplicateInputsCreateByRazor();
     if (elemIdUsuario.prop("value")<= 0)
     {
-        elemActivo.prop({ readOnly: true });
+        //elemActivo.prop({ readOnly: true });
         elemBloqueado.prop({ readOnly: true });
     }
     initInputs();
@@ -55,7 +55,7 @@ function initInputs() {
     setInitialCheckedValues();
     //todo: revisar esta linea viene del razor
     //if (@Model.ShowAdvancedOptions.ToString().ToLower()) {
-        onUsuarioActivoChange();
+        //onUsuarioActivoChange();
         onUsuarioBloqueadoChange();
         onCambiarContraseñaAlIniciarSesion();
         onContraseñaExpiraChange();
@@ -66,7 +66,7 @@ function initInputs() {
 function setInitialCheckedValues() {
     //elemLimitarVigenciaDeCuenta.prop({ value: valor });
     setInitValueForCheckAndValueProp(elemDebeCambiarContrasenaAlIniciarSesion, "@Model.Usuario.DebeCambiarContraseñaAlIniciarSesion");
-    setInitValueForCheckAndValueProp(elemActivo, "@Model.Usuario.Activo");
+    //setInitValueForCheckAndValueProp(elemActivo, "@Model.Usuario.Activo");
     setInitValueForCheckAndValueProp(elemBloqueado, "@Model.Usuario.Bloqueado");
     setInitValueForCheckAndValueProp(elemContraseñaExpira, "@Model.LaContraseñaExpira");
     setInitValueForCheckAndValueProp(elemLimitarVigenciaDeCuenta,
@@ -110,9 +110,9 @@ function onChangeProp(elem) {
         case idLimitarVigenciaDeCuentaText:
             onLimitarVigenciaDeCuentaChange()
             break;
-        case IdUsuarioActivoText:
-            onUsuarioActivoChange();
-            break;
+        //case IdUsuarioActivoText:
+        //    onUsuarioActivoChange();
+        //    break;
         case idUsuarioBloqueadoText:
             onUsuarioBloqueadoChange();
         case "verMasOpciones":
@@ -121,12 +121,12 @@ function onChangeProp(elem) {
     }
 }
 
-function onUsuarioActivoChange() {
-    let valor = elemActivo.is(':checked');
-    elemActivo.prop({ value: valor });
-    $("#ForActivo").prop({ value: valor });
+//function onUsuarioActivoChange() {
+//    let valor = elemActivo.is(':checked');
+//    elemActivo.prop({ value: valor });
+//    $("#ForActivo").prop({ value: valor });
 
-}
+//}
 
 function onUsuarioBloqueadoChange() {
     let valor = elemBloqueado.is(':checked');

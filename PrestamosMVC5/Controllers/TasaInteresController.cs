@@ -27,11 +27,13 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public RedirectToRouteResult Index(TasaInteresVM interes)
         {
+
+            var id = Request["TasaInteres.RequiereAutorizacion"];
             pcpSetUsuarioAndIdNegocioTo(interes.TasaInteres);
             
             try
             {
-                BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
+               // BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
             }
             catch (Exception ex)
             {

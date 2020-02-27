@@ -94,7 +94,7 @@ namespace PrestamosMVC5.Controllers
             ActionResult actionResult;
             Usuario usuario;
             prepareUsuarioFromModelForSave(userModel, out actionResult, out usuario);
-            actionResult = SaveData(actionResult, usuario);
+            //actionResult = SaveData(actionResult, usuario);
             return actionResult;
         }
         

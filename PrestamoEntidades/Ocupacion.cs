@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Color : BaseCatalogo
+    public class Ocupacion : BaseCatalogo
     {
-        public int IdColor { get; set; } = 0;
+        public int IdOcupacion { get; set; } = 0;
 
         public override int GetId()
         {
-            throw new NotImplementedException();
+            return IdOcupacion;
         }
     }
-    public class ColorGetParams : BaseGetParams
+
+    public class OcupacionGetParams : BaseCatalogoGetParams
     {
-        public int IdColor { get; set; } = -1;
+        public int IdOcupacion { get; set; } = -1;
     }
 }

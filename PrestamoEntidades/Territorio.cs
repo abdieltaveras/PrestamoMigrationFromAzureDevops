@@ -22,7 +22,10 @@ namespace PrestamoEntidades
         [IgnorarEnParam]
         public string DescripcionPadre { get; set; }
 
-
+        public override int GetId()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class DivisionSearchParams : BaseGetParams

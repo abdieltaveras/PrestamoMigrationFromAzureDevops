@@ -122,6 +122,10 @@
     <Build Include="dbo\Stored Procedures\spGetUsuarios.sql" />
     <Build Include="dbo\Stored Procedures\SpChangePassword.sql" />
     <Build Include="dbo\Stored Procedures\spGetModelosGarantiaByMarca.sql" />
+    <Build Include="dbo\Tables\tblOcupaciones.sql" />
+    <Build Include="dbo\Stored Procedures\spGetOcupaciones.sql" />
+    <Build Include="dbo\Tables\tblVerificadorDirecciones.sql" />
+    <Build Include="dbo\Stored Procedures\spGetVerificadoresDireccion.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

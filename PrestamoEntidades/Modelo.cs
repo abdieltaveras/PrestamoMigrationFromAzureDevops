@@ -10,6 +10,11 @@ namespace PrestamoEntidades
     {
         public int IdModelo { get; set; } = 0;
         public int IdMarca { get; set; } = 0;
+
+        public override int GetId()
+        {
+            throw new NotImplementedException();
+        }
     }
     public class ModeloGetParams : BaseGetParams
     {
