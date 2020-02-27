@@ -79,7 +79,9 @@ function setInitValueForCheckAndValueProp(elem, _value) {
     elem.prop({ value: _value });
 }
 
-function setFecha(elem, name) {
+
+function setFecha(elem, name: string) {
+    alert("setfecha2");
     let d = new Date();
     let fecha = new Date();
     
@@ -89,7 +91,9 @@ function setFecha(elem, name) {
     if (elem.prop("id") == idVigenteDesdeText) {
         fecha = elemVigenteDesde.prop("value") as Date;
     }
-    elem.val(fecha);
+    let n = fecha.toLocaleDateString(dateFormat);
+    elem.val(n);
+    //elem.val(fecha);
 
     //function extractDate(fecha: Date): Date {
     //    let result = new Date().setFullYear(fecha.getFullYear(), fecha.getMonth());

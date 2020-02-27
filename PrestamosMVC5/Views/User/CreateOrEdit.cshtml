@@ -212,23 +212,44 @@
 }
 
 @section Scripts {
-    <script>
-        /*
-* experiencias aprendidas
-* no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
-* ya que aparentemente el razon lo resuelve con el campo oculto y algo que hace el jquery que aun no lo se
-* si es necesario establecer el valor del check  para que el dom usado en jquery tenga conocimiento
-* tambien tenemos como obtener los errores del modelstate para darle una manipulacion distinta a la que razor
-* le da.
-* el Model realmente es una propiedad en el ViewData puedes accesarlo
-* por ejemplo ViewData.Model.Usuario.Contraseña
-* para los data-dash ejemplo "data-val", no funciona con prop sino con attr
-*/
-    </script>
+    <script src="~/Scripts/apps/showImage.js"></script>
+    <script src="~/Scripts/apps/datePickerInit.js"></script>
+
+    @*experiencias aprendidas
+        no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
+        ya que aparentemente el razon lo resuelve con el campo oculto y algo que hace el jquery que aun no lo se
+        si es necesario establecer el valor del check  para que el dom usado en jquery tenga conocimiento
+        tambien tenemos como obtener los errores del modelstate para darle una manipulacion distinta a la que razor
+        le da.
+        el Model realmente es una propiedad en el ViewData puedes accesarlo
+        por ejemplo ViewData.Model.Usuario.Contraseña
+        para los data-dash ejemplo "data-val", no funciona con prop sino con attr*@
     <script src="~/Scripts/Apps/CreateOrEditUser.js"></script>
+    <script>
+        function setFecha(elem, name) {
+            alert("setfecha");
+            let d = new Date();
+            let fecha = new Date();
+
+            if (elem.prop("id") == idVigenteHastaText) {
+                d.setFullYear(@Model.Usuario.VigenteDesde.Year, @Model.Usuario.VigenteDesde.Month-1, @Model.Usuario.VigenteDesde.Day );
+            }
+            if (elem.prop("id") == idVigenteDesdeText) {
+                d.setFullYear(@Model.Usuario.VigenteHasta.Year, @Model.Usuario.VigenteHasta.Month-1, @Model.Usuario.VigenteHasta.Day );
+            }
+            let n = d.toLocaleDateString(dateFormat);
+            elem.val(n);
+        }
+    </script>
+
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
 
-    @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
+    //function extractDate(fecha: Date): Date {
+    //    let result = new Date().setFullYear(fecha.getFullYear(), fecha.getMonth());
+    //    //, fecha.getDay());
+    //}
+}
+@*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
 
 }
 

@@ -2,6 +2,7 @@
 $(document).ready(function () {
     let allDateElems = $('.datetype,input[type="datetime"],input[type="date"]');
     allDateElems.each(function () {
+        
         let propname = $(this).prop("name");
         setFecha($(this), propname);
         //$(this).prop("readonly", true);

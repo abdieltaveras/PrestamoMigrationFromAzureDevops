@@ -141,9 +141,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ControllerBasePcp.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\LocalidadVM.cs" />
     <Compile Include="Models\TerritorioVM.cs" />
+    <Compile Include="Models\Tests.cs" />
     <Compile Include="Models\TipoMoraVM.cs" />
     <Compile Include="SiteUtils\AuthenticationHelper.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
@@ -3993,6 +3995,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
+    <Content Include="Views\Tests\CheckBoxes.cshtml" />
+    <Content Include="Scripts\Apps\CheckInput.js" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />

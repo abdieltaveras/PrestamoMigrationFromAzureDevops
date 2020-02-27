@@ -1,0 +1,68 @@
+﻿@model TestCheckBox
+
+@{
+    ViewBag.Title = "CheckBoxes";
+}
+
+<h2>CheckBoxes</h2>
+
+@{
+    ViewBag.Title = "Crear Editar Usuario";
+    Layout = "~/Views/Shared/_LayoutForms.cshtml";
+}
+<style>
+    input[data-spin=true]::-webkit-inner-spin-button {
+        opacity: 1
+    }
+</style>
+<h4>Recuerda para que funcione bien debes establecerle el value en los html helpers</h4>
+<h4>Luego usar la funcion SetCheckValues</h4>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmTest" }))
+{
+    <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
+    <div class="clearfix"></div>
+    <div class="row">
+        <label> Activo: @Model.Activo</label>
+        <label> Bloqueado: @Model.Bloqueado</label>
+        <!-- form input mask -->
+
+        <div class="col-md-6 col-sm-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @*@Html.EditorFor(model => model.Activo, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)", @value = Model.Activo.ToString().ToLower() } })*@
+                            @Html.EditorFor(model => model.Activo, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                            @Html.ValidationMessageFor(model => model.Activo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Bloqueado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @*@Html.EditorFor(model => model.Bloqueado, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)", @value = Model.Bloqueado.ToString().ToLower() } })*@
+                            @Html.EditorFor(model => model.Bloqueado, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)"  } })
+                            @Html.ValidationMessageFor(model => model.Bloqueado, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+{
+    
+    <script src="~/Scripts/Apps/CheckInput.js"></script>
+    <script>
+        let formulario = $("#frmTest");
+        function onChangeProp(elemReceived) {
+            setCheckValue(elemReceived);
+        }
+        //function setCheckValue(elemReceived) {
+        //    let elem = $('#' + elemReceived.id);
+        //    elem.attr("value", elem.is(':checked'));
+ 
+        //}
+    </script>
+}

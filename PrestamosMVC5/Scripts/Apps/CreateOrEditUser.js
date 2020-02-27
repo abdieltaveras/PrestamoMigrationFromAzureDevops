@@ -72,6 +72,7 @@ function setInitValueForCheckAndValueProp(elem, _value) {
     elem.prop({ value: _value });
 }
 function setFecha(elem, name) {
+    alert("setfecha2");
     var d = new Date();
     var fecha = new Date();
     if (elem.prop("id") == idVigenteHastaText) {
@@ -80,7 +81,9 @@ function setFecha(elem, name) {
     if (elem.prop("id") == idVigenteDesdeText) {
         fecha = elemVigenteDesde.prop("value");
     }
-    elem.val(fecha);
+    var n = fecha.toLocaleDateString(dateFormat);
+    elem.val(n);
+    //elem.val(fecha);
     //function extractDate(fecha: Date): Date {
     //    let result = new Date().setFullYear(fecha.getFullYear(), fecha.getMonth());
     //    //, fecha.getDay());
