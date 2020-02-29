@@ -139,7 +139,7 @@ namespace PrestamoBLL
                 IEnumerable<TInsert2> result = new List<TInsert2>();
                 try
                 {
-                    var searchSqlParams = SearchRec.ToSqlParams(searchParam);
+                   var searchSqlParams = SearchRec.ToSqlParams(searchParam);                   
                    result = PrestamosDB.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
                 }
                 catch (Exception e)

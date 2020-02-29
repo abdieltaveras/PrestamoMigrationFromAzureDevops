@@ -128,6 +128,35 @@ INSERT INTO tblVerificadorDirecciones(Nombre, IdNegocio, Codigo, Activo, Inserta
 	VALUES	('Pedro Pizarro', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
 	   		('Mario Hadut', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
 			('Lidia Perez', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+
+--Tipo de telefonos
+INSERT INTO tblTipoTelefonos(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+	VALUES	('Casa', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
+	   		('Oficina', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+			('Personal', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+
+-- Tipo de sexos
+INSERT INTO tblTipoSexos(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
+	VALUES	('Mujer', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
+	   		('Hombre', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+			('Sin sexo', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+
+-- Tipo de sexos
+INSERT INTO tblTasadores(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+	VALUES	('Michael', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
+	   		('Denzel', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+			('Estarlin', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+
+INSERT INTO tblLocalizadores(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+	VALUES	('Jose', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
+	   		('Juan', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+			('Pedro', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+
+INSERT INTO tblEstadosCiviles(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+	VALUES	('Soltero', 1, '', 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
+	   		('Casado', 1, '', 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+			('Viudo\a', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL),
+			('Union libre', 1, '', 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
 --Fin de nuevos catalogos punto 66
 
 go

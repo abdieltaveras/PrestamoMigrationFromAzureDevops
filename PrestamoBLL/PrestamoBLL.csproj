@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLPrestamo.cs" />
+    <Compile Include="Catalogo.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="ConexionDB.cs" />
     <Compile Include="Cuotas.cs" />

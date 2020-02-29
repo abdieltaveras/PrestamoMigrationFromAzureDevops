@@ -126,6 +126,12 @@
     <Build Include="dbo\Stored Procedures\spGetOcupaciones.sql" />
     <Build Include="dbo\Tables\tblVerificadorDirecciones.sql" />
     <Build Include="dbo\Stored Procedures\spGetVerificadoresDireccion.sql" />
+    <Build Include="dbo\Tables\tblTipoTelefonos.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCatalogos.sql" />
+    <Build Include="dbo\Tables\tblTipoSexos.sql" />
+    <Build Include="dbo\Tables\tblTasadores.sql" />
+    <Build Include="dbo\Tables\tblEstadosCiviles.sql" />
+    <Build Include="dbo\Tables\tblLocalizadores.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

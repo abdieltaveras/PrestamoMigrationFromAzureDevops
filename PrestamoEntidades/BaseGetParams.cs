@@ -11,6 +11,8 @@
 
     public class BaseCatalogoGetParams : BaseGetParams
     {
+        public string IdTabla { get; set; } = string.Empty;
+        public string NombreTabla { get; set; } = string.Empty;
     }
 
     /// Informaciones basicas de un objeto que tiene datos relaciona a una persona pero sin Codigo

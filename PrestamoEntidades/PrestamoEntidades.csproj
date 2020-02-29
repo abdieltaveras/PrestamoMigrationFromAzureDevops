@@ -84,13 +84,17 @@
     <Compile Include="Cuota.cs" />
     <Compile Include="Direccion.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="EstadoCivil.cs" />
     <Compile Include="Garantia.cs" />
     <Compile Include="InfoAccion.cs" />
     <Compile Include="Localidad.cs" />
     <Compile Include="InfoLaboral.cs" />
+    <Compile Include="Localizador.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />
+    <Compile Include="TipoSexo.cs" />
+    <Compile Include="TipoTelefono.cs" />
     <Compile Include="VerificadorDireccion.cs" />
     <Compile Include="Ocupacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
