@@ -32,56 +32,20 @@ $('.collapsed').css('height', 'auto');
 $('.collapsed').find('.x_content').css('display', 'none');
 $('.collapsed').find('i').toggleClass('fa-chevron-up fa-chevron-down');
 
-function removeDuplicateInputsCreateByRazor() {
-    $("input[type=hidden][value=false]").each(function () {
-        let name = $(this).prop("name");
-        let count = $("input[name='" + name + "']");
-        if (count.length > 1) {
-            $(this).remove();
-        }
-    });
-}
 function initialViewState() {
-    //removeDuplicateInputsCreateByRazor();
     if (elemIdUsuario.prop("value")<= 0)
     {
         elemActivo.prop({ readOnly: true });
         elemBloqueado.prop({ readOnly: true });
     }
-    initInputs();
+    onContraseñaExpiraChange();
+    onLimitarVigenciaDeCuentaChange();
 }
 
-function initInputs() {
-    setInitialCheckedValues();
-    //todo: revisar esta linea viene del razor
-    //if (@Model.ShowAdvancedOptions.ToString().ToLower()) {
-        onUsuarioActivoChange();
-        onUsuarioBloqueadoChange();
-        onCambiarContraseñaAlIniciarSesion();
-        onContraseñaExpiraChange();
-        onLimitarVigenciaDeCuentaChange();
-    //}
-}
 
-function setInitialCheckedValues() {
-    //elemLimitarVigenciaDeCuenta.prop({ value: valor });
-    setInitValueForCheckAndValueProp(elemDebeCambiarContrasenaAlIniciarSesion, "@Model.Usuario.DebeCambiarContraseñaAlIniciarSesion");
-    setInitValueForCheckAndValueProp(elemActivo, "@Model.Usuario.Activo");
-    setInitValueForCheckAndValueProp(elemBloqueado, "@Model.Usuario.Bloqueado");
-    setInitValueForCheckAndValueProp(elemContraseñaExpira, "@Model.LaContraseñaExpira");
-    setInitValueForCheckAndValueProp(elemLimitarVigenciaDeCuenta,
-        "@Model.LimitarVigenciaDeCuenta");
-}
-
-function setInitValueForCheckAndValueProp(elem, _value) {
-    _value = _value.toLowerCase();
-    elem.prop(":checked", _value);
-    elem.prop({ value: _value });
-}
 
 
 function setFecha(elem, name: string) {
-    alert("setfecha2");
     let d = new Date();
     let fecha = new Date();
     
@@ -103,7 +67,6 @@ function setFecha(elem, name: string) {
 
 function onChangeProp(elem) {
     let elemId = elem.id;
-
     switch (elemId) {
         case idUsuarioDebeCambiarContraseñaAlIniciarSesionText:
             onCambiarContraseñaAlIniciarSesion();
@@ -114,30 +77,22 @@ function onChangeProp(elem) {
         case idLimitarVigenciaDeCuentaText:
             onLimitarVigenciaDeCuentaChange()
             break;
-        case IdUsuarioActivoText:
-            onUsuarioActivoChange();
-            break;
-        case idUsuarioBloqueadoText:
-            onUsuarioBloqueadoChange();
-        case "verMasOpciones":
-
-            break;
     }
 }
 
-function onUsuarioActivoChange() {
-    let valor = elemActivo.is(':checked');
-    elemActivo.prop({ value: valor });
-    $("#ForActivo").prop({ value: valor });
+//function onUsuarioActivoChange() {
+//    let valor = elemActivo.is(':checked');
+//    elemActivo.prop({ value: valor });
+//    $("#ForActivo").prop({ value: valor });
 
-}
+//}
 
-function onUsuarioBloqueadoChange() {
-    let valor = elemBloqueado.is(':checked');
-    elemBloqueado.prop({ value: valor });
-    $("#ForBloqueado").prop({ value: valor });
-    console.log($("#ForBloqueado").prop("value"));
-}
+//function onUsuarioBloqueadoChange() {
+//    let valor = elemBloqueado.is(':checked');
+//    elemBloqueado.prop({ value: valor });
+//    $("#ForBloqueado").prop({ value: valor });
+//    console.log($("#ForBloqueado").prop("value"));
+//}
 
 function onCambiarContraseñaAlIniciarSesion() {
     var result = (elemDebeCambiarContrasenaAlIniciarSesion.is(':checked'))
@@ -154,15 +109,15 @@ function onCambiarContraseñaAlIniciarSesion() {
         elemContraseña.attr("data-val", "true");
         elemConfirmarContraseña.attr("data-val", "true");
     }
-    elemDebeCambiarContrasenaAlIniciarSesion.prop({ value: result });
-    $("#ForCambiarContrase_aAlIniciarSesion").prop({ value: result });
+    //elemDebeCambiarContrasenaAlIniciarSesion.prop({ value: result });
+    //$("#ForCambiarContrase_aAlIniciarSesion").prop({ value: result });
     elemContraseña.prop('disabled', result);
     elemConfirmarContraseña.prop('disabled', result);
 }
 
 function onContraseñaExpiraChange() {
     let contraseñaExpira = elemContraseñaExpira.is(':checked')
-    elemContraseñaExpira.prop({ value: contraseñaExpira });
+    //elemContraseñaExpira.prop({ value: contraseñaExpira });
     contraseñaExpira ? elemContraseñaExpiraCadaXMes.show() : elemContraseñaExpiraCadaXMes.hide();
     // elemContraseñaExpiraCadaXMes.removeAttr("readonly");
     let elemTextoContraseñaExpiraCadaXMes = $("textoContraseñaExpiraCadaXMes");
@@ -176,7 +131,7 @@ function onContraseñaExpiraChange() {
 }
 function onLimitarVigenciaDeCuentaChange() {
     let limitarVigencia = elemLimitarVigenciaDeCuenta.is(':checked');
-    elemLimitarVigenciaDeCuenta.prop({ value: limitarVigencia });
+    //elemLimitarVigenciaDeCuenta.prop({ value: limitarVigencia });
     limitarVigencia ? elemVigenteHasta.show() : elemVigenteHasta.hide();
     limitarVigencia ? elemVigenteDesde.show() : elemVigenteDesde.hide();
     let elemTextoVigenteDesde = $("#textoVigenteDesde");

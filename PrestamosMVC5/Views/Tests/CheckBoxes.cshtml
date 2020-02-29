@@ -7,7 +7,7 @@
 <h2>CheckBoxes</h2>
 
 @{
-    ViewBag.Title = "Crear Editar Usuario";
+    ViewBag.Title = "test User";
     Layout = "~/Views/Shared/_LayoutForms.cshtml";
 }
 <style>
@@ -32,8 +32,8 @@
                     <div class="@HtmlClass.FormGroupCls">
                         @Html.LabelFor(model => model.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                         <div class="@HtmlClass.DivInputCls">
-                            @*@Html.EditorFor(model => model.Activo, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)", @value = Model.Activo.ToString().ToLower() } })*@
-                            @Html.EditorFor(model => model.Activo, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                            @*@Html.EditorFor(model => model.Activo, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })*@
+                            @Html.EditorFor(model => model.Activo, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls } })
                             @Html.ValidationMessageFor(model => model.Activo, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -52,17 +52,12 @@
 }
 @section scripts
 {
-    
     <script src="~/Scripts/Apps/CheckInput.js"></script>
     <script>
         let formulario = $("#frmTest");
+        attachOnChangeEvent();
         function onChangeProp(elemReceived) {
-            setCheckValue(elemReceived);
+            console.log("onChangeProp was also attached");
         }
-        //function setCheckValue(elemReceived) {
-        //    let elem = $('#' + elemReceived.id);
-        //    elem.attr("value", elem.is(':checked'));
- 
-        //}
     </script>
 }

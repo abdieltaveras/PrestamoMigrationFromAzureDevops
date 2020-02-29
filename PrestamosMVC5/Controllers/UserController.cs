@@ -36,7 +36,7 @@ namespace PrestamosMVC5.Controllers
             model.ShowAdvancedOptions = showAdvancedView;
             prepareUserModelForGet(model);
             defaultTestNewModel(id, model);
-            model.ForActivo = true;
+            //model.ForActivo = true;
             model.Usuario.VigenteDesde = DateTime.Now.AddDays(-10);
             return View("CreateOrEdit", model);
         }
@@ -60,12 +60,9 @@ namespace PrestamosMVC5.Controllers
             var usuario = userModel.Usuario;
             var dyna = new
             {
-                cambiContrInicioSesion = usuario.DebeCambiarContraseñaAlIniciarSesion,
-                _cambsesion = userModel.ForCambiarContraseñaAlIniciarSesion,
-                usuarioactivo = usuario.Activo,
-                _activo = userModel.ForActivo,
+                debeCambiarContraseñaAlIniciarSesion = usuario.DebeCambiarContraseñaAlIniciarSesion,
+                activo = usuario.Activo,
                 bloqueado = usuario.Bloqueado,
-                _bloqueado = userModel.ForBloqueado,
                 contraseñaExpira = userModel.LaContraseñaExpira,
                 limitarVigenciaDeCuenta = userModel.LimitarVigenciaDeCuenta
             };
@@ -73,9 +70,9 @@ namespace PrestamosMVC5.Controllers
             {
                 expiraCadaXMes = userModel.ContraseñaExpiraCadaXMes
             };
-            //return Content(dyna.ToJson());
-            ModelState.AddModelError("", "probando quitar mensaje error");
-            return View(userModel);
+            return Content(dyna.ToJson());
+            //ModelState.AddModelError("", "probando quitar mensaje error");
+            //return View(userModel);
         }
 
         //[AuthorizeUser]
@@ -202,9 +199,9 @@ namespace PrestamosMVC5.Controllers
         {
             Usuario usuario = userModel.Usuario;
             usuario.Contraseña = userModel.Contraseña;
-            usuario.Activo = userModel.ForActivo;
-            usuario.Bloqueado = userModel.ForBloqueado;
-            usuario.DebeCambiarContraseñaAlIniciarSesion = userModel.ForCambiarContraseñaAlIniciarSesion;
+            //usuario.Activo = userModel.ForActivo;
+            //usuario.Bloqueado = userModel.ForBloqueado;
+            //usuario.DebeCambiarContraseñaAlIniciarSesion = userModel.ForCambiarContraseñaAlIniciarSesion;
             usuario.ContraseñaExpiraCadaXMes = userModel.LaContraseñaExpira ?
                                    userModel.ContraseñaExpiraCadaXMes : -1;
             usuario.VigenteHasta = userModel.LimitarVigenciaDeCuenta ?

@@ -19,11 +19,6 @@
     </div>
 
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Usuario.RazonBloqueo);
-    @Html.HiddenFor(model => model.ForActivo);
-    @Html.HiddenFor(model => model.ForBloqueado);
-    @Html.HiddenFor(model => model.ForCambiarContraseñaAlIniciarSesion);
-    @Html.HiddenFor(model => model.Usuario.IdUsuario)
     @*
         getting value from modelstate
         @Html.Raw(@ViewData.ModelState.Values);
@@ -147,7 +142,7 @@
                                 @Html.LabelFor(model => model.Usuario.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
                                     @Html.EditorFor(model => model.Usuario.Activo, new
-                               { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
                                     @Html.ValidationMessageFor(model => model.Usuario.Activo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -214,6 +209,8 @@
 @section Scripts {
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/apps/datePickerInit.js"></script>
+    <script src="~/Scripts/Apps/CheckInput.js"></script>
+    attachOnChangeEvent();
 
     @*experiencias aprendidas
         no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
@@ -227,7 +224,6 @@
     <script src="~/Scripts/Apps/CreateOrEditUser.js"></script>
     <script>
         function setFecha(elem, name) {
-            alert("setfecha");
             let d = new Date();
             let fecha = new Date();
 

@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 namespace PrestamosMVC5.Controllers
 {
+    //Controller to make Test
+
     public class TestsController : Controller
     {
         // GET: Tests

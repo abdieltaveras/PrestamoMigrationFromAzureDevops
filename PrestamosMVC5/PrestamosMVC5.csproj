@@ -3996,7 +3996,8 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="Views\Tests\CheckBoxes.cshtml" />
-    <Content Include="Scripts\Apps\CheckInput.js" />
+    <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
+    <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
@@ -5160,7 +5161,6 @@
     <Content Include="Views\User\CreateOrEdit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Test.cshtml" />
-    <Content Include="Views\User\CreateOrEdit - Copy.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\Configuration\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
