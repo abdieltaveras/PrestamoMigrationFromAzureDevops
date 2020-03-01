@@ -17,8 +17,9 @@
         <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
         @Html.ActionLink("Back to List", "Index")
     </div>
-
+    @Html.HiddenFor(model => model.Usuario.IdUsuario);
     @Html.AntiForgeryToken()
+    
     @*
         getting value from modelstate
         @Html.Raw(@ViewData.ModelState.Values);
@@ -51,8 +52,6 @@
                             }
                         </div>
                     </div>
-
-
                     <div class="@HtmlClass.FormGroupCls">
                         @Html.LabelFor(model => model.Usuario.NombreRealCompleto, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                         <div class="@HtmlClass.DivInputCls">
@@ -69,25 +68,22 @@
                             @Html.ValidationMessageFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    @{
-                        if (Model.Usuario.IdUsuario <= 0)
-                        {
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = (Model.Usuario.DebeCambiarContraseñaAlIniciarSesion ? "disable" : "") } })
-                                    @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.ConfirmarContraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.ConfirmarContraseña, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = (Model.Usuario.DebeCambiarContraseñaAlIniciarSesion ? "disable" : "") } })
-                                    @Html.ValidationMessageFor(model => model.ConfirmarContraseña, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        }
-                    }
+
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = (Model.Usuario.DebeCambiarContraseñaAlIniciarSesion ? "disable" : "") } })
+                            @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.ConfirmarContraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.EditorFor(model => model.ConfirmarContraseña, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = (Model.Usuario.DebeCambiarContraseñaAlIniciarSesion ? "disable" : "") } })
+                            @Html.ValidationMessageFor(model => model.ConfirmarContraseña, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -210,7 +206,7 @@
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/apps/datePickerInit.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
-    attachOnChangeEvent();
+
 
     @*experiencias aprendidas
         no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
@@ -223,14 +219,15 @@
         para los data-dash ejemplo "data-val", no funciona con prop sino con attr*@
     <script src="~/Scripts/Apps/CreateOrEditUser.js"></script>
     <script>
+        attachOnChangeEvent();
         function setFecha(elem, name) {
             let d = new Date();
             let fecha = new Date();
 
-            if (elem.prop("id") == idVigenteHastaText) {
+            if (elem.prop("id") == idVigenteDesdeText) {
                 d.setFullYear(@Model.Usuario.VigenteDesde.Year, @Model.Usuario.VigenteDesde.Month-1, @Model.Usuario.VigenteDesde.Day );
             }
-            if (elem.prop("id") == idVigenteDesdeText) {
+            if (elem.prop("id") == idVigenteHastaText) {
                 d.setFullYear(@Model.Usuario.VigenteHasta.Year, @Model.Usuario.VigenteHasta.Month-1, @Model.Usuario.VigenteHasta.Day );
             }
             let n = d.toLocaleDateString(dateFormat);

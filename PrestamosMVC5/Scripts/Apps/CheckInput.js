@@ -3,21 +3,20 @@ function attachOnChangeEvent() {
     var checkBoxes = $("input:checkbox");
     checkBoxes.each(function () {
         var _this = this;
-        $(this).on("change", function () { return setCheckValue(_this); });
+        $(this).on("change", function () { return setCheckValue($(_this)); });
     });
 }
 function initCheckValues() {
     var checkBoxes = $("input:checkbox");
     checkBoxes.each(function () {
-        var elem = document.getElementById($(this).prop("id"));
-        setCheckValue(elem);
+        setCheckValue($(this));
     });
 }
 function setCheckValue(elemReceived) {
-    var elem = $('#' + elemReceived.id);
-    var elemName = elemReceived.getAttribute("name");
+    //let elem = $('#' + elemReceived.id);
+    var elemName = elemReceived.prop("name");
     console.log("attached", elemName);
-    var isChecked = elem.is(':checked');
+    var isChecked = elemReceived.is(':checked');
     var elems = $("input[name='" + elemName + "'");
     elems.each(function () {
         $(this).prop("value", isChecked);

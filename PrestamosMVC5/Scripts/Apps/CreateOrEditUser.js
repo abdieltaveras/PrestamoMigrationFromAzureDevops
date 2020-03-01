@@ -82,7 +82,6 @@ function onChangeProp(elem) {
 //}
 function onCambiarContraseñaAlIniciarSesion() {
     var result = (elemDebeCambiarContrasenaAlIniciarSesion.is(':checked'));
-    //alert(result);
     if (result) {
         elemContraseña.attr("data-val", "false");
         elemConfirmarContraseña.attr("data-val", "false");

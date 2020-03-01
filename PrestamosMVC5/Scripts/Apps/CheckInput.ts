@@ -2,24 +2,23 @@
 function attachOnChangeEvent() {
     var checkBoxes = $("input:checkbox");
     checkBoxes.each(function () {
-        $(this).on("change", ()=>setCheckValue(this));
+        $(this).on("change", ()=>setCheckValue($(this)));
     });
 }
 
 function initCheckValues() {
     var checkBoxes = $("input:checkbox");
     checkBoxes.each(function () {
-        let elem = document.getElementById($(this).prop("id"));
-        setCheckValue(elem);
+        setCheckValue($(this));
     });
 }
 
-function setCheckValue(elemReceived: HTMLElement)
+function setCheckValue(elemReceived: JQuery)
 {
-    let elem = $('#' + elemReceived.id);
-    let elemName = elemReceived.getAttribute("name");
+    //let elem = $('#' + elemReceived.id);
+    let elemName = elemReceived.prop("name");
     console.log("attached", elemName);
-    let isChecked = elem.is(':checked');
+    let isChecked = elemReceived.is(':checked');
     let elems = $("input[name='" + elemName + "'");
     elems.each(function () {
         $(this).prop("value", isChecked);
