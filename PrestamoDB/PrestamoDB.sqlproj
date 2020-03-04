@@ -123,15 +123,16 @@
     <Build Include="dbo\Stored Procedures\SpChangePassword.sql" />
     <Build Include="dbo\Stored Procedures\spGetModelosGarantiaByMarca.sql" />
     <Build Include="dbo\Tables\tblOcupaciones.sql" />
-    <Build Include="dbo\Stored Procedures\spGetOcupaciones.sql" />
     <Build Include="dbo\Tables\tblVerificadorDirecciones.sql" />
-    <Build Include="dbo\Stored Procedures\spGetVerificadoresDireccion.sql" />
     <Build Include="dbo\Tables\tblTipoTelefonos.sql" />
     <Build Include="dbo\Stored Procedures\spGetCatalogos.sql" />
     <Build Include="dbo\Tables\tblTipoSexos.sql" />
     <Build Include="dbo\Tables\tblTasadores.sql" />
     <Build Include="dbo\Tables\tblEstadosCiviles.sql" />
     <Build Include="dbo\Tables\tblLocalizadores.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdCatalogo.sql" />
+    <Build Include="dbo\Stored Procedures\spToggleStatusCatalogo.sql" />
+    <Build Include="dbo\Stored Procedures\spDelCatalogo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

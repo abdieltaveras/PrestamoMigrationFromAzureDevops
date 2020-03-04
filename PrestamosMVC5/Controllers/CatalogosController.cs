@@ -19,53 +19,76 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
-        public ActionResult CreateOrEdit(string tipoCatalogo)
+        public ActionResult CreateOrEdit(string tabla)
         {
             //Hacer peticion al catalogo elegido
 
             CatalogoVM data = new CatalogoVM();
 
-            //data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones" }, tipoCatalogo);
-            //data.TipoCatalogo = tipoCatalogo;
-
-
-            switch (tipoCatalogo)
+            switch (tabla)
             {
-                case "ocupacion":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" }, tipoCatalogo);
+                case "tblOcupaciones":
+                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
+                    data.TipoCatalogo = "Ocupaciones";
+                    data.IdTabla = "IdOcupacion";
                     break;
-                case "verificadordireccion":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblVerificadorDirecciones", IdTabla = "IdVerificadorDireccion" }, tipoCatalogo);
+                case "tblVerificadorDirecciones":
+                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblVerificadorDirecciones", IdTabla = "IdVerificadorDireccion" });
+                    data.TipoCatalogo = "verificadores de direccion";
+                    data.IdTabla = "IdVerificadorDireccion";
                     break;
-                case "tipotelefono":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTipoTelefonos", IdTabla = "IdTipoTelefono" }, tipoCatalogo);
+                case "tblTipoTelefonos":
+                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTipoTelefonos", IdTabla = "IdTipoTelefono" });
+                    data.TipoCatalogo = "Tipos de telefonos";
+                    data.IdTabla = "IdTipoTelefono";
                     break;
-                case "tiposexo":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTipoSexos", IdTabla = "IdTipoSexo" }, tipoCatalogo);
+                case "tblTipoSexos":
+                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTipoSexos", IdTabla = "IdTipoSexo" });
+                    data.TipoCatalogo = "Sexos";
+                    data.IdTabla = "IdTipoSexo";
                     break;
-                case "tasador":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTasadores", IdTabla = "IdTasador" }, tipoCatalogo);
+                case "tblTasadores":
+                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTasadores", IdTabla = "IdTasador" });
+                    data.TipoCatalogo = "Tasadores";
+                    data.IdTabla = "IdTasador";
                     break;
-                case "localizador":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblLocalizadores", IdTabla = "IdLocalizador" }, tipoCatalogo);
+                case "tblLocalizadores":
+                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblLocalizadores", IdTabla = "IdLocalizador" });
+                    data.TipoCatalogo = "Localizadores";
+                    data.IdTabla = "IdLocalizador";
                     break;
-                case "estadocivil":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblEstadosCiviles", IdTabla = "IdEstadoCivil" }, tipoCatalogo);
+                case "tblEstadosCiviles":
+                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblEstadosCiviles", IdTabla = "IdEstadoCivil" });
+                    data.TipoCatalogo = "Estados civiles";
+                    data.IdTabla = "IdEstadoCivil";
                     break;
                 default:
                     break;
             }
-            data.TipoCatalogo = tipoCatalogo;
+            data.NombreTabla = tabla;
             return View("Catalogos", data);
         }
 
 
         [HttpPost]
-        public RedirectToRouteResult CreateOrEdit(Marca marca)
+        public RedirectToRouteResult CreateOrEdit(Catalogo catalogo)
         {
-            this.pcpSetUsuarioAndIdNegocioTo(marca);
-            BLLPrestamo.Instance.MarcaInsUpd(marca);
-            return RedirectToAction("CreateOrEdit");
+            pcpSetUsuarioAndIdNegocioTo(catalogo);
+            BLLPrestamo.Instance.CatalogoInsUpd(catalogo);
+            return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla});
+        }
+        
+        public RedirectToRouteResult ActivarDesactivar(ToggleStatusCatalogo catalogo)
+        {
+            pcpSetUsuarioTo(catalogo);
+            BLLPrestamo.Instance.CatalogoToggleStatus(catalogo);
+            return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla });
+        }
+        public RedirectToRouteResult Delete(DelCatalogo catalogo)
+        {
+            pcpSetUsuarioTo(catalogo);
+            BLLPrestamo.Instance.CatalogoDel(catalogo);
+            return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla });
         }
     }
 }

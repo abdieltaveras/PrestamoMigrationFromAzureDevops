@@ -103,7 +103,7 @@ namespace PrestamoEntidades
     public class TipoMoraDelParams : BaseAnularParams
     {
         [Required]
-        public override int id
+        public override int Id
         {
             get; set;
         }

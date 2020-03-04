@@ -47,7 +47,7 @@ namespace PrestamosMVC5.Controllers
         {
             try
             {
-                BLLPrestamo.Instance.TasaInteresDelete(new TasaInteresDelParams { id = id, Usuario = usuario });
+                BLLPrestamo.Instance.TasaInteresDelete(new TasaInteresDelParams { Id = id, Usuario = usuario });
             }
             catch (Exception ex)
             {

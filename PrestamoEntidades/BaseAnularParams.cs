@@ -5,8 +5,6 @@ namespace PrestamoEntidades
     public class BaseAnularParams : BaseUsuario
     {
         [Required]
-        public virtual int id { get; set; }
-
+        public virtual int Id { get; set; }
     }
-    
 }

@@ -9,27 +9,39 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<BaseCatalogo> CatalogosGet(BaseCatalogoGetParams searchParam, string tipoCatalogo = null)
+        public IEnumerable<BaseCatalogo>CatalogosGet(BaseCatalogoGetParams searchParam)
         {
-            switch (tipoCatalogo.ToLower())
+            switch (searchParam.NombreTabla)
             {
-                case "ocupacion":
+                case "tblOcupaciones":
                     return BllAcciones.GetData<Ocupacion, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-                case "verificadordireccion":
+                case "tblVerificadorDirecciones":
                     return BllAcciones.GetData<VerificadorDireccion, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-                case "tipotelefono":
+                case "tblTipoTelefonos":
                     return BllAcciones.GetData<TipoTelefono, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-                case "tiposexo":
+                case "tblTipoSexos":
                     return BllAcciones.GetData<TipoSexo, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-                case "tasador":
+                case "tblTasadores":
                     return BllAcciones.GetData<TipoTelefono, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-                case "localizador":
+                case "tblLocalizadores":
                     return BllAcciones.GetData<Localizador, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-                case "estadocivil":
+                case "tblEstadosCiviles":
                     return BllAcciones.GetData<EstadoCivil, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
                 default:
-                    throw new Exception($"El tipocatalogo {tipoCatalogo} , no encontro ninguna eleccion para ejecutar ninguna consulta de datos");
+                    throw new Exception($"La tabla {searchParam.NombreTabla} , no se encontro en ninguna eleccion para ejecutar una consulta de datos");
             }
+        }
+        public void CatalogoInsUpd(Catalogo insUpdParams )
+        {
+            BllAcciones.InsUpdData(insUpdParams, "spInsUpdCatalogo");
+        }
+        public void CatalogoToggleStatus(ToggleStatusCatalogo toggleStatusParams)
+        {
+            BllAcciones.CancelData(toggleStatusParams, "spToggleStatusCatalogo");
+        }
+        public void CatalogoDel(DelCatalogo delParams)
+        {
+            BllAcciones.CancelData(delParams, "spDelCatalogo");
         }
     }
 }

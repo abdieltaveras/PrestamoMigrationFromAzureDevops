@@ -41,7 +41,7 @@ namespace PrestamosMVC5.Controllers
         {
             try
             {
-                BLLPrestamo.Instance.TipoMoraCancel(new TipoMoraDelParams { id = id, Usuario = usuario });
+                BLLPrestamo.Instance.TipoMoraCancel(new TipoMoraDelParams { Id = id, Usuario = usuario });
             }
             catch (Exception ex)
             {

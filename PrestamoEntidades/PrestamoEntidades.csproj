@@ -78,6 +78,7 @@
     <Compile Include="BaseAnularParams.cs" />
     <Compile Include="BaseGetParams.cs" />
     <Compile Include="BaseInsUpd.cs" />
+    <Compile Include="Catalogo.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Conyuge.cs" />

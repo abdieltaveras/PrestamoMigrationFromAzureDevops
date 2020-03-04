@@ -94,7 +94,7 @@ namespace PrestamoBLL
 
         private static void CancelValidation(BaseAnularParams cancelParam)
         {
-            ThrowErrorIfIdNotSet(cancelParam.id);
+            ThrowErrorIfIdNotSet(cancelParam.Id);
         }
 
         private void GetValidation(BaseGetParams getParam)
