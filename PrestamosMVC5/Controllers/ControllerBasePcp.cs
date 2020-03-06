@@ -29,6 +29,13 @@ namespace PrestamosMVC5.Controllers
             entidad.IdNegocio = pcpUserIdNegocio;
             entidad.Usuario = pcpUserLoginName;
         }
+        
+        protected void pcpSetUsuarioAndIdNegocioTo(BaseAnularParams entidad)
+        {
+            entidad.IdNegocio = pcpUserIdNegocio;
+            entidad.Usuario = pcpUserLoginName;
+        }
+
         /// <summary>
         ///  set Id negocio property 
         /// </summary>

@@ -22,7 +22,7 @@ namespace PrestamoBLL
                 case "tblTipoSexos":
                     return BllAcciones.GetData<TipoSexo, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
                 case "tblTasadores":
-                    return BllAcciones.GetData<TipoTelefono, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
+                    return BllAcciones.GetData<Tasador, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
                 case "tblLocalizadores":
                     return BllAcciones.GetData<Localizador, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
                 case "tblEstadosCiviles":

@@ -6,5 +6,6 @@ namespace PrestamoEntidades
     {
         [Required]
         public virtual int Id { get; set; }
+        public virtual int IdNegocio { get; set; }
     }
 }

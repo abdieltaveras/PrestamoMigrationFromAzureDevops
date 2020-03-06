@@ -10,6 +10,6 @@
 as
 begin
 	EXEC(
-		'UPDATE '+ @NombreTabla +' SET AnuladoPor = '''+@Usuario+''', FechaAnulado = GETDATE() WHERE '+@IdTabla + ' = '+@Id
+		'UPDATE '+ @NombreTabla +' SET AnuladoPor = '''+@Usuario+''', FechaAnulado = GETDATE() WHERE '+@IdTabla + ' = '+@Id + 'AND IdNegocio = ' + @IdNegocio
 	)
 End

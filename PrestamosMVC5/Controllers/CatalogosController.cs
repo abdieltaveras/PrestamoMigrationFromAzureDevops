@@ -80,13 +80,16 @@ namespace PrestamosMVC5.Controllers
         
         public RedirectToRouteResult ActivarDesactivar(ToggleStatusCatalogo catalogo)
         {
-            pcpSetUsuarioTo(catalogo);
+            //pcpSetUsuarioTo(catalogo);
+            pcpSetUsuarioAndIdNegocioTo(catalogo);
+
             BLLPrestamo.Instance.CatalogoToggleStatus(catalogo);
             return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla });
         }
         public RedirectToRouteResult Delete(DelCatalogo catalogo)
         {
-            pcpSetUsuarioTo(catalogo);
+            //pcpSetUsuarioTo(catalogo);
+            pcpSetUsuarioAndIdNegocioTo(catalogo);
             BLLPrestamo.Instance.CatalogoDel(catalogo);
             return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla });
         }

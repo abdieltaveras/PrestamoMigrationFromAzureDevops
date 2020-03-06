@@ -9,7 +9,9 @@
 )
 as
 begin
-	EXEC('SELECT '+ @IdTabla +', idNegocio, Activo, Codigo, Nombre, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado from ' + @NombreTabla + '  where (('+@Id+'=-1) or ('+ @IdTabla +' = '+@Id+'))')
+	EXEC(
+			'SELECT '+ @IdTabla +', idNegocio, Activo, Codigo, Nombre, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado from ' + @NombreTabla + '  where (('+@Id+'=-1) or ('+ @IdTabla +' = '+@Id+')) AND IdNegocio = ' + @IdNegocio
+		)
 	--SELECT *
 	--FROM dbo.tblOcupaciones(nolock) 
 	--where 
