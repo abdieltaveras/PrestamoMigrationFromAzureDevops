@@ -138,6 +138,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogosController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
@@ -3998,6 +3999,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="Views\Catalogos\Catalogos.cshtml" />
+    <Content Include="Views\Acceso\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />

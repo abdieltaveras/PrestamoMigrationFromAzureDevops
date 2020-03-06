@@ -94,6 +94,8 @@
     <Compile Include="Marca.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />
+    <Compile Include="Permiso.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="TipoSexo.cs" />
     <Compile Include="TipoTelefono.cs" />
     <Compile Include="VerificadorDireccion.cs" />
