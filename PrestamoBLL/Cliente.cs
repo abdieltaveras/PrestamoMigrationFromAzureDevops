@@ -11,7 +11,6 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        //Todo: incorporar este modelo de trabajo a los metodos get e insupd
         public IEnumerable<Cliente> ClientesGet(ClientesGetParams  searchParam)
         {
             //GetValidation(searchParam as BaseGetParams);

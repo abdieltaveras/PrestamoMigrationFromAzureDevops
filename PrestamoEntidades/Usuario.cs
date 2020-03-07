@@ -45,7 +45,7 @@ namespace PrestamoEntidades
         /// establece si hay una fecha limite de vigencia de la cuenta
         /// </summary>
         [Display(Name = "Cuenta vigente hasta")]
-        
+
         
 
         public DateTime VigenteHasta { get; set; } = InitValues._19000101;
@@ -70,6 +70,7 @@ namespace PrestamoEntidades
             return result;
         }
         public bool LaContrasenaExpira() => this.ContraseñaExpiraCadaXMes > 0;
+        public bool LimitarVigenciaDeLaCuenta() => (this.VigenteHasta != InitValues._19000101);
         public int RazonBloqueo { get; set; } =-1;
     }
 

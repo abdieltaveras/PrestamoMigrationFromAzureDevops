@@ -18,8 +18,9 @@
         @Html.ActionLink("Back to List", "Index")
     </div>
     @Html.HiddenFor(model => model.Usuario.IdUsuario);
+    @Html.HiddenFor(model => model.ShowAdvancedOptions);
     @Html.AntiForgeryToken()
-    
+
     @*
         getting value from modelstate
         @Html.Raw(@ViewData.ModelState.Values);
@@ -205,9 +206,8 @@
 @section Scripts {
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/apps/datePickerInit.js"></script>
+    <script src="~/Scripts/Apps/setMask.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
-
-
     @*experiencias aprendidas
         no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
         ya que aparentemente el razon lo resuelve con el campo oculto y algo que hace el jquery que aun no lo se

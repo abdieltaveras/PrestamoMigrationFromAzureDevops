@@ -3995,6 +3995,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
+    <TypeScriptCompile Include="Scripts\Apps\showImageTs.ts" />
     <Content Include="Views\Tests\CheckBoxes.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
