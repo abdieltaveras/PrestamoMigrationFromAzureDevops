@@ -163,3 +163,21 @@ INSERT INTO tblEstadosCiviles(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, F
 --Fin de nuevos catalogos punto 66
 
 go
+
+INSERT INTO tblRoles(Nombre, Descripcion)
+	VALUES	('Contador', 'Role para contadores de PCP Prog')
+
+INSERT INTO tblOperaciones(Nombre, Descripcion, Codigo)
+	VALUES	('Ver tasa interes', 'Con este permiso podra ver todas las tasas de interes', 'TasaInteresVer'),
+			('Crear tasa interes', 'Con este permiso podra crear tasas de interes', 'TasaInteresCrear'),
+			('Editar tasa interes', 'Con este permiso podra editar todas las tasas de interes', 'TasaInteresEditar'),
+			('Borrar tasa interes', 'Con este permiso podra borrar todas las tasas de interes', 'TasaInteresBorrar')
+
+INSERT INTO tblRolesUsers(UserId, RoleId)
+	VALUES	(1, 1)
+
+INSERT INTO tblRolesOperaciones(OperacionId, RoleId)
+	VALUES	(1, 1),
+			(2, 1),
+			(3, 1),
+			(4, 1)

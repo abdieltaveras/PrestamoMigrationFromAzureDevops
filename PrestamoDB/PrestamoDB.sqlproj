@@ -133,6 +133,10 @@
     <Build Include="dbo\Stored Procedures\spInsUpdCatalogo.sql" />
     <Build Include="dbo\Stored Procedures\spToggleStatusCatalogo.sql" />
     <Build Include="dbo\Stored Procedures\spDelCatalogo.sql" />
+    <Build Include="dbo\Tables\tblRoles.sql" />
+    <Build Include="dbo\Tables\tblOperaciones.sql" />
+    <Build Include="dbo\Tables\tblRolesUsers.sql" />
+    <Build Include="dbo\Tables\tblRolesOperaciones.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
