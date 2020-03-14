@@ -84,7 +84,7 @@
                             @Html.ValidationMessageFor(model => model.ConfirmarContraseña, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    
                 </div>
 
             </div>
@@ -112,27 +112,40 @@
                         @Html.ValidationMessageFor(model => model.Usuario.Telefono2, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
+                
             </div>
         </div>
         @{
+
             if (Model.ShowAdvancedOptions)
             {
 
                 <div class="col-md-6 col-sm-12">
                     <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Mas Opciones <small>avanzadas </small></h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li>
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-down"></i>
-                                    </a>
+                                <div class="x_title">
+                                            <div class="@HtmlClass.FormGroupCls">
+                                                @*@Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                                <div></div>*@
+                                                <label class="display-4">Foto </label>
+                                                <!--//Todo poner imagen dinamica esta estatica-->
+                                                <div class="@HtmlClass.DivInputCls">
+                                                    <img id="imagePreview"
+                                                         src="@Url.Content(SiteImages.NoImage)" sstyle="margin:8px;height:15em; width:30em;" class="col-md-5 img-fluid" />
+                                                    <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="ImageUpLoad" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
+                                                    <span id="container"></span>
+                                                </div>
+                                            </div>
+                                    <h2>Mas Opciones <small>avanzadas </small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </a>
 
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
                         <div class="collapse x_content">
                             <h2>Opciones</h2>
                             <div class="@HtmlClass.FormGroupCls">
@@ -244,5 +257,4 @@
 }
 @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
 
-}
 

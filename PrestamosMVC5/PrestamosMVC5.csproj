@@ -191,7 +191,9 @@
     <Content Include="Content\build\images\forward_disabled.png" />
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
+    <Content Include="Content\build\images\demo.png" />
     <Content Include="Content\build\images\loading.gif" />
+    <Content Include="Content\build\images\PcpLogo250x211.jpg" />
     <Content Include="Content\build\images\noImagen.png" />
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
@@ -3995,7 +3997,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
-    <TypeScriptCompile Include="Scripts\Apps\showImageTs.ts" />
+    <None Include="Scripts\Apps\showImageTs.ts.revisar" />
     <Content Include="Views\Tests\CheckBoxes.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace PrestamosMVC5.Models
 {
@@ -12,8 +13,10 @@ namespace PrestamosMVC5.Models
         /// </summary>
         public static string NoImage => SiteDirectory.Images + "/noimagen.png";
         public static string MainLogo => SiteDirectory.Images + "/mainlogo1.jpeg";
+        public static string Demo => SiteDirectory.Images + "/demo.png";
         public static string SecondaryLogo => SiteDirectory.Images + "/secondlogo.png";
         public static string PcpPrestamo => SiteDirectory.Images + "/pcpPrestamo.png";
+        public static string PcProgLogo => SiteDirectory.Images + "/pcpLogo250x211.jpg";
         public static string Monica => SiteDirectory.Images + "/Monica.jpg";
         public static string PcpPrestamoYMonica => SiteDirectory.Images + "/Monica.jpg";
 

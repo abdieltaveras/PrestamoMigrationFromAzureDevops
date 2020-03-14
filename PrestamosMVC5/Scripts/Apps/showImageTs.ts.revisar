@@ -8,6 +8,7 @@
         reader.onload = function (e) {
             imageElement.attr('src', e.target.result);
             let img = document.getElementById("imagePreview");
+            alert("change");
             changeOrientation(img);
         };
         reader.readAsDataURL(imgFile);
