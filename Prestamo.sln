@@ -51,7 +51,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Propuestas al sistema", "Propuestas al sistema", "{EF60E548-289E-4266-94F6-D9421CBD7326}"
 	ProjectSection(SolutionItems) = preProject
 		Propuestas al sistema\Politicas creacion de negocios y divisiones.txt = Propuestas al sistema\Politicas creacion de negocios y divisiones.txt
-		PrestamoEntidades\TipoMoraExplicacion.txt = PrestamoEntidades\TipoMoraExplicacion.txt
+		Propuestas al sistema\Sobre manejo de imagenes.txt = Propuestas al sistema\Sobre manejo de imagenes.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamosMVC5Tests", "PrestamosMVC5Tests\PrestamosMVC5Tests.csproj", "{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}"

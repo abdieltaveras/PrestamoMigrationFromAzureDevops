@@ -29,5 +29,6 @@ namespace PrestamosMVC5.Models
         }
 
         public string NombreLocalidad { get; set; } = string.Empty;
+        public HttpPostedFileBase ImagenPrincipal { get; set; }
     }
 }

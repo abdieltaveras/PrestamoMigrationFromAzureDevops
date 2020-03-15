@@ -1,0 +1,23 @@
+Fecha: 20200315
+por Abdiel taveras
+Sistema: Prestamo
+
+Manejo de Imagenes
+
+las imagenes almacenaran la siguiente informacion
+en la tabla
+IdImagen: el id
+IdRegistro: el id del registro que esta almacenando la imagen
+TablaNombre: el nombre de la tabla
+Informaciones de la creacion del registro
+
+el bll solo necesitara que le envien la carpeta donde almacenara la imagen
+el debe generar el nombre de la imagen y devolverla cuando exitosamente 
+logre gualdarla.
+
+debe enviarsele un objeto al cual el pueda ponerle ese nombre
+el lo que hara es 
+al insertar una nueva imagen el bll le generara un nombre GUID
+a la imagen y con ese nombre sera insertada
+el usuario puede ponerle descripcion opcional a la imagen
+

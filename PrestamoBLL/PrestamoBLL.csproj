@@ -52,6 +52,7 @@
     <Compile Include="Garantia.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Login.cs" />
+    <Compile Include="ManejoDeImagenes.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />
