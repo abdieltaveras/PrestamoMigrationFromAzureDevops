@@ -137,6 +137,10 @@
     <Build Include="dbo\Tables\tblOperaciones.sql" />
     <Build Include="dbo\Tables\tblRolesUsers.sql" />
     <Build Include="dbo\Tables\tblRolesOperaciones.sql" />
+    <Build Include="dbo\Stored Procedures\spGetRoles.sql" />
+    <Build Include="dbo\Stored Procedures\spGetOperaciones.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdRoleOperacion.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

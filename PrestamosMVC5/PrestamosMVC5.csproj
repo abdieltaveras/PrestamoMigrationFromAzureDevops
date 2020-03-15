@@ -143,9 +143,11 @@
     <Compile Include="Controllers\CatalogosController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ControllerBasePcp.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\CatalogoVM.cs" />
     <Compile Include="Models\LocalidadVM.cs" />
+    <Compile Include="Models\RoleVM.cs" />
     <Compile Include="Models\VerificadorDireccionVM.cs" />
     <Compile Include="Models\OcupacionVM.cs" />
     <Compile Include="Models\TerritorioVM.cs" />
@@ -4000,6 +4002,8 @@
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="Views\Catalogos\Catalogos.cshtml" />
     <Content Include="Views\Acceso\Index.cshtml" />
+    <Content Include="Views\Roles\ListRoles.cshtml" />
+    <Content Include="Views\Roles\CreateOrEdit.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />

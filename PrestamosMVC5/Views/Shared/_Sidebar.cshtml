@@ -9,8 +9,8 @@
             </li>
 
             @*<li>
-                    <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
-                </li>*@
+            <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
+        </li>*@
 
             <li>
                 <a><i class="fa fa-edit"></i>Actualizacion<span class="fa fa-chevron-down"></span></a>
@@ -183,6 +183,29 @@
                                 <a href="@Url.Action("Index","Acceso")">Accesos de usuario</a>
                             </li>
                         </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a>Configuraciones<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    @*<li>
+                    <a href="@Url.Action("CreateOrEdit","Garantias")">Crear Roles</a>
+                </li>*@
+                    <li>
+                        <a>Roles<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("ListRoles","Roles")">Lista de roles</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Roles")">Crear / editar role</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("CreateOrEdit","Garantias")">Lista de operaciones</a>
                     </li>
                 </ul>
             </li>

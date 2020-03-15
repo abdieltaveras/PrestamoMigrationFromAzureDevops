@@ -167,16 +167,24 @@ go
 INSERT INTO tblRoles(Nombre, Descripcion)
 	VALUES	('Contador', 'Role para contadores de PCP Prog')
 
-INSERT INTO tblOperaciones(Nombre, Descripcion, Codigo)
-	VALUES	('Ver tasa interes', 'Con este permiso podra ver todas las tasas de interes', 'TasaInteresVer'),
-			('Crear tasa interes', 'Con este permiso podra crear tasas de interes', 'TasaInteresCrear'),
-			('Editar tasa interes', 'Con este permiso podra editar todas las tasas de interes', 'TasaInteresEditar'),
-			('Borrar tasa interes', 'Con este permiso podra borrar todas las tasas de interes', 'TasaInteresBorrar')
+INSERT INTO tblOperaciones(Nombre, Descripcion, Grupo, Codigo)
+	VALUES	('Ver tasa interes', 'Con este permiso podra ver todas las tasas de interes', 1, 'tasainteres-ver'),
+			('Crear tasa interes', 'Con este permiso podra crear tasas de interes', 1, 'tasainteres-crear'),
+			('Editar tasa interes', 'Con este permiso podra editar todas las tasas de interes', 1, 'tasainteres-editar'),
+			('Borrar tasa interes', 'Con este permiso podra borrar todas las tasas de interes', 1, 'tasainteres-anular'),
+			('Desactivar tasa interes', 'Con este permiso podra desactivar todas las tasas de interes', 1, 'tasainteres-desactivar'),
+			('Ver moras', 'Con este permiso podra ver todas las moras', 2, 'moras-ver'),
+			('Crear moras', 'Con este permiso podra crear moras', 2, 'moras-crear'),
+			('Editar moras', 'Con este permiso podra editar todas las moras', 2, 'moras-editar'),
+			('Borrar moras', 'Con este permiso podra borrar todas las moras', 2, 'moras-anular'),
+			('Desactivar moras', 'Con este permiso podra desactivar todas las moras', 2, 'moras-desactivar'),
+			('Reporte de ventas', 'Con este permiso podra ver el reporte de ventas', 3, 'reporteventas-ver'),
+			('Aplicar descuento', 'Con este permiso podra aplicar descuento a los prestamos', 4, 'aplicardescuento-crear')
 
 INSERT INTO tblRolesUsers(UserId, RoleId)
 	VALUES	(1, 1)
 
-INSERT INTO tblRolesOperaciones(OperacionId, RoleId)
+INSERT INTO tblRolesOperaciones(IdOperacion, IdRole)
 	VALUES	(1, 1),
 			(2, 1),
 			(3, 1),

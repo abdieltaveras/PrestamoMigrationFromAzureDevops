@@ -155,18 +155,22 @@ namespace PrestamoBLL
                 else { databaseErrorMethod(e); };
             }
 
-            public static void InsUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseUsuarioEIdNegocio
+            public static int InsUpdData<TInsert2>(TInsert2 insUpdParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseUsuarioEIdNegocio
             {
                 InsUpdValidation(insUpdParam);
+                var last_id = 0;
                 try
                 {
                     var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
-                    PrestamosDB.ExecSelSP(storedProcedure, _insUpdParam);
+                    var response = PrestamosDB.ExecSelSP(storedProcedure, _insUpdParam);
+                  
+                    last_id = int.Parse(response.Rows[0].ItemArray[0].ToString());
                 }
                 catch (Exception e)
                 {
                     InvokeErrorMethod(databaseErrorMethod, e);
                 }
+                return last_id;
             }
 
             public static void CancelData<TInsert2>(TInsert2 CancelParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseAnularParams

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[tblRolesOperaciones]
 (
-	[RoleId] INT NOT NULL,
-	[OperacionId] INT NOT NULL
+	[IdRole] INT NOT NULL,
+	[IdOperacion] INT NOT NULL
 )

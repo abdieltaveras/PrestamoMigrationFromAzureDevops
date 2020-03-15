@@ -13,30 +13,28 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Index()
         {
 
-            Role rolesDeUsuario = new Role() {            
+            Role rolesDeUsuario = new Role() {
                 IdRole = 1,
                 Codigo = "A01",
                 Nombre = "Cajera",
                 Descripcion = "Este role es para los usuarios de caja",
-                Permisos = new List<Operacion>()
-                {
-                    new Operacion()
-                    {
-                        IdPermiso = 1,
-                        Codigo = "P01",
-                        Nombre = "Cobrar",
-                        Descripcion = "Permiso para realizar cobros a usuarios",
-                        Nivel = 3,
-                    },
-                    new Operacion()
-                    {
-                        IdPermiso = 2,
-                        Codigo = "P02",
-                        Nombre = "ReporteCobro",
-                        Descripcion = "Permiso para reporte de cobros a usuarios",
-                        Nivel = 1,
-                    }
-                }
+                //Permisos = new List<Operacion>()
+                //{
+                //    new Operacion()
+                //    {
+                //        IdOperacion = 1,
+                //        Codigo = "P01",
+                //        Nombre = "Cobrar",
+                //        Descripcion = "Permiso para realizar cobros a usuarios",
+                //    },
+                //    new Operacion()
+                //    {
+                //        IdOperacion = 2,
+                //        Codigo = "P02",
+                //        Nombre = "ReporteCobro",
+                //        Descripcion = "Permiso para reporte de cobros a usuarios",
+                //    }
+                //}
             };
 
             return View(rolesDeUsuario);

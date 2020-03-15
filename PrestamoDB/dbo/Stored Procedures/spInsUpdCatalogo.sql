@@ -15,6 +15,10 @@ if (@Id = 0)
 		(
 			'INSERT INTO ' + @NombreTabla +' (Codigo, Nombre, IdNegocio, InsertadoPor, FechaInsertado) VALUES ('''+@Codigo+''','''+@Nombre+''', '''+@IdNegocio+''', '''+@Usuario+''', GETDATE() )'
 		)
+		EXEC
+		(
+			'SELECT IDENT_CURRENT(''' + @NombreTabla + ''') as last_role'
+		)
 	end
 else
 	begin
