@@ -1,0 +1,40 @@
+﻿@model PrestamosMVC5.Controllers.InfoConImagen
+
+@{
+    ViewBag.Title = "Imagen";
+}
+
+<h2>Imagen</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype="multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Info Con Imagen</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+        <div class="@HtmlClass.FormGroupCls">
+            @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
+            <!--//Todo poner imagen dinamica esta estatica-->
+            <div class="@HtmlClass.DivInputCls">
+                <img id="imagePreview"
+                     src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
+                <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagen" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
+                <span id="container"></span>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts
+{
+    <script src="~/Scripts/apps/showImage.js"></script>
+}

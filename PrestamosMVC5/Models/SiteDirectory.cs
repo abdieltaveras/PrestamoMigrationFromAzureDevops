@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace PrestamosMVC5.Models
 {
@@ -28,4 +30,19 @@ namespace PrestamosMVC5.Models
     }
 
 
+    /// <summary>
+    /// to get paths for images directory for different info
+    /// </summary>
+    public static class ImagePath
+    {
+        /// <summary>
+        /// receive a path and add at the beginning ~/ to return as a url path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string RemoveToUrl(this string path) => "~/" + path;
+        public static string ForCliente => "~/content/ImagesFor/Clientes";
+        public static string ForGarantia => "~/content/ImagesFor/Garantias";
+    }
+    
 }

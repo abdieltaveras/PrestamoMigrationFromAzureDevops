@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,7 +53,6 @@
     <Compile Include="Garantia.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Login.cs" />
-    <Compile Include="ManejoDeImagenes.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />
@@ -63,6 +63,7 @@
     <Compile Include="TipoMora.cs" />
     <Compile Include="TasaInteres.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">

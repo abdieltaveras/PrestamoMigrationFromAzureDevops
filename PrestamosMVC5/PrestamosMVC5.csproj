@@ -3999,6 +3999,7 @@
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <None Include="Scripts\Apps\showImageTs.ts.revisar" />
     <Content Include="Views\Tests\CheckBoxes.cshtml" />
+    <Content Include="Views\Tests\Imagen.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />
@@ -5171,6 +5172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ImagesFor\Clientes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

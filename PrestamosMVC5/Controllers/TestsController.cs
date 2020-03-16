@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using PrestamoBLL;
+using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,31 @@ namespace PrestamosMVC5.Controllers
         {
             return Content(model.ToJson());
         }
+
+        public ActionResult Imagen()
+        {
+            return View(new InfoConImagen());
+        }
+        [HttpPost]
+        public ActionResult Imagen(InfoConImagen infoConImagen)
+        {
+            ActionResult result = null;
+            try
+            {
+                Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), infoConImagen.Imagen);
+                result = Content("imagen procesada");
+            }
+            catch (Exception)
+            {
+                result = Content("imagen no procesada");
+            }
+            return result;
+        }
     }
 
+    public class InfoConImagen
+    {
+        public System.Web.HttpPostedFileBase Imagen { get; set; }
+    }
     
 }
