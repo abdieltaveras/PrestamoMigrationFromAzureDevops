@@ -1,0 +1,148 @@
+﻿@model RoleVM
+
+<link href="~/content/customcss/multiselect/css/multi-select.css" rel="stylesheet">
+
+<div class="row">
+
+    <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
+
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
+        @*<button type="button" class="btn btn-primary" style="float:right;">Agregar<i class="fa fa-plus"></i></button>*@
+
+        @using (Html.BeginForm("UpdateRolesToUser", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+        {
+
+            @*<div id="rolename">
+                <div class="col-5" style="margin: auto; padding: 0%; ">
+                    <h4 style="text-align: center;">Nombre de usuario</h4>
+                    <input class="target form-control" type="text" placeholder="Buscar por nombre de usuario" name="" value="" style="height: 60px" />
+                </div>
+            </div>
+
+            <br />*@
+
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Cambiar role/s a usuario</h2>
+                    <div class="item form-group" style="float: right;">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content col-md-5">
+
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Lista de usuarios</label>
+                        <select class="form-control" id="userSelect" name="iduser">
+                            <option value="0">Seleccione un usuario</option>
+                            @foreach (var usuario in Model.Usuarios)
+                            {
+                                <option value="@usuario.IdUsuario">@usuario.NombreRealCompleto</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="x_panel">
+                        <h2>Seleccione el o los roles del usuario</h2>
+                        <select multiple="multiple" id="roleSelect" name="SelectedRoles[]">
+
+                            @foreach (var role in Model.ListaRoles)
+                            {
+                                <option value="@role.IdRole">@role.Nombre</option>
+                            }
+
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            
+            @*<div class="item form-group" style="float: right;">
+                <div class="col-md-6 col-sm-6 offset-md-3">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>*@
+        }
+    </div>
+</div>
+@section Scripts {
+
+
+    <script src="~/content/customcss/multiselect/js/jquery.multi-select.js" type="text/javascript"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#roleSelect').multiSelect({
+                afterSelect: function (value) {
+                    $('#roleSelect option[value="' + value.toString() + '"]').prop('selected', true);
+                }
+            })
+        });
+
+        $("#userSelect").change(function () {
+            let userid = $(this).children("option:selected").val();
+            $('#roleSelect').multiSelect('deselect_all');
+            console.log(userid);
+            if (userid != 0) {
+                searchRoles(userid);
+            }
+        });
+
+        async function searchRoles(userId) {
+            let elementsToSet = [];
+            try {
+                const res = await BuscarUserRoles(userId);
+                let array = JSON.parse(res);
+
+                for (var item in array) {
+                    elementsToSet.push(array[item].IdRole.toString());
+                    $('#roleSelect option[value="' + array[item].IdRole.toString() + '"]').attr("selected", "selected");
+                    $('#roleSelect option[value="' + array[item].IdRole.toString() + '"]').prop('selected', true);
+                }
+                 $('#roleSelect').multiSelect('select', elementsToSet);
+
+            } catch (err) {
+            }
+        }
+
+
+        function BuscarUserRoles(userId) {
+
+            let dataValue = { "idUsuario": userId };
+
+            return $.ajax({
+                type: "get",
+                url: "/Roles/BuscarUserRoles",
+                data: dataValue,
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                },
+                complete: function (jqXHR, status) {
+                }
+            });
+        }
+
+          //$("#test").click(function () {
+        //    let array_role = []
+        //    //$('#roleSelect').multiSelect('refresh');
+
+        //    console.log('pendejo',$("#roleSelect > option").find("option:selected"))
+
+        //    $("#roleSelect > option").each(function () {
+        //        console.log(this);
+        //        if ($(this).is(':selected')) {
+        //            array_role.push(this.value);
+        //            console.log(this.text + ' ' + this.value);
+        //           // $('#roleSelect').multiSelect('refresh');
+
+        //        }
+        //    });
+        //    console.log(array_role);
+
+        //});
+
+    </script>
+}
+

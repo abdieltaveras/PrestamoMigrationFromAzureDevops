@@ -84,20 +84,76 @@ namespace PrestamosMVC5.Controllers
         {
             var model = GetUserAndSetItToModel(id);
             prepareUserModelForGet(model);
+            model.RoleList = GetRoles();
             return View(model);
         }
-
+        
         // POST: User/Create
         [HttpPost]
         public ActionResult CreateOrEdit(UserModel userModel)
         {
-            ActionResult actionResult;
+            int userid = 0;
             Usuario usuario;
+            ActionResult actionResult;
             prepareUsuarioFromModelForSave(userModel, out actionResult, out usuario);
-            //actionResult = SaveData(actionResult, usuario);
-            return actionResult;
+            userid = SaveData( usuario);
+            SetRolesToUser(userid, userModel.SelectedRoles);
+            return RedirectToAction("index");
         }
-        
+
+        private void SetRolesToUser(int iduser, string[] selectedRoles)
+        {
+            int cont = 0;
+            string roles = string.Empty;
+            foreach (var role in selectedRoles)
+            {
+                cont++;
+                roles += "(" + iduser + "," + role + ")" + ((selectedRoles.Length != cont) ? "," : "");
+            }
+
+            UserRoleInsUpdParams parametros = new UserRoleInsUpdParams()
+            {
+                IdUser = iduser,
+                Values = roles
+            };
+
+            BLLPrestamo.Instance.InsUpdRoleUsuario(parametros);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateRolesToUser(int iduser, string[] SelectedRoles)
+        {
+            if (SelectedRoles == null) return RedirectToAction("EditUserRoles");
+            int cont = 0;
+            string roles = string.Empty;
+            foreach (var role in SelectedRoles)
+            {
+                cont++;
+                roles += "(" + iduser + "," + role + ")" + ((SelectedRoles.Length != cont) ? "," : "");
+            }
+
+            UserRoleInsUpdParams parametros = new UserRoleInsUpdParams()
+            {
+                IdUser = iduser,
+                Values = roles
+            };
+
+            BLLPrestamo.Instance.InsUpdRoleUsuario(parametros);
+
+            return RedirectToAction("EditUserRoles");
+        }
+
+        public ActionResult EditUserRoles()
+        {
+            RoleVM model = new RoleVM()
+            {
+                Usuarios = GetUsers(),
+                ListaRoles = GetRoles(),
+            };
+
+            return View(model);
+        }
+
         public ActionResult ChangePassword(int id = -1)
         {
             var getUsuarioParam = new UsuarioGetParams
@@ -166,23 +222,26 @@ namespace PrestamosMVC5.Controllers
             }
             return model;
         }
-        private ActionResult SaveData(ActionResult actionResult, Usuario usuario)
+        private IEnumerable<Role> GetRoles()
         {
-
+            return BLLPrestamo.Instance.RolesGet(new RoleGetParams { IdNegocio = this.pcpUserIdNegocio });
+        }
+        private int SaveData(Usuario usuario)
+        {
+            int userid = 0;
             if (ModelState.IsValid)
             {
                 try
                 {
                     usuario.Usuario = AuthInSession.GetLoginName();
-                    BLLPrestamo.Instance.InsUpdUsuario(usuario);
-                    actionResult = RedirectToAction("index");
+                    userid = BLLPrestamo.Instance.InsUpdUsuario(usuario);
                 }
                 catch (Exception e)
                 {
                     ModelState.AddModelError(string.Empty, e.Message);
                 }
             }
-            return actionResult;
+            return userid;
         }
 
         public void prepareUsuarioFromModelForSave(UserModel userModel, out ActionResult actionResult, out Usuario usuario)

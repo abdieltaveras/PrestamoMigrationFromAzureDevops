@@ -181,11 +181,11 @@ INSERT INTO tblOperaciones(Nombre, Descripcion, Grupo, Codigo)
 			('Reporte de ventas', 'Con este permiso podra ver el reporte de ventas', 3, 'reporteventas-ver'),
 			('Aplicar descuento', 'Con este permiso podra aplicar descuento a los prestamos', 4, 'aplicardescuento-crear')
 
-INSERT INTO tblRolesUsers(UserId, RoleId)
-	VALUES	(1, 1)
+--INSERT INTO tblRolesUsers(UserId, RoleId)
+--	VALUES	(1, 1)
 
-INSERT INTO tblRolesOperaciones(IdOperacion, IdRole)
-	VALUES	(1, 1),
-			(2, 1),
-			(3, 1),
-			(4, 1)
+--INSERT INTO tblRolesOperaciones(IdOperacion, IdRole)
+--	VALUES	(1, 1),
+--			(2, 1),
+--			(3, 1),
+--			(4, 1)

@@ -77,6 +77,9 @@
                             <li>
                                 <a href="@Url.Action("CreateOrEdit","User")">Crear Usuario Nuevo (Simple)</a>
                             </li>
+                            <li>
+                                <a href="@Url.Action("EditUserRoles","User")">Editar roles de usuario</a>
+                            </li>
 
                         </ul>
                     </li>
@@ -200,12 +203,12 @@
                                 <a href="@Url.Action("ListRoles","Roles")">Lista de roles</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("CreateOrEdit","Roles")">Crear / editar role</a>
+                                <a href="@Url.Action("Create","Roles")">Crear role</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Edit","Roles")">Editar role</a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("CreateOrEdit","Garantias")">Lista de operaciones</a>
                     </li>
                 </ul>
             </li>

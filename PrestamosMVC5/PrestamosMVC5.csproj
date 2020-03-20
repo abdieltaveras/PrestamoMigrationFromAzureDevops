@@ -201,6 +201,11 @@
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
     <Content Include="Content\customcss\global-styles.css" />
+    <Content Include="Content\customcss\multiselect\css\multi-select.css" />
+    <Content Include="Content\customcss\multiselect\css\multi-select.dev.css" />
+    <Content Include="Content\customcss\multiselect\css\multi-select.dist.css" />
+    <Content Include="Content\customcss\multiselect\img\switch.png" />
+    <Content Include="Content\customcss\multiselect\js\jquery.multi-select.js" />
     <Content Include="Content\customcss\switch.css" />
     <Content Include="Content\docs\css\animate.min.css" />
     <Content Include="Content\docs\css\bootstrap.min.css" />
@@ -4003,7 +4008,9 @@
     <Content Include="Views\Catalogos\Catalogos.cshtml" />
     <Content Include="Views\Acceso\Index.cshtml" />
     <Content Include="Views\Roles\ListRoles.cshtml" />
-    <Content Include="Views\Roles\CreateOrEdit.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\User\EditUserRoles.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
@@ -5099,6 +5106,7 @@
     <Content Include="Content\vendors\validator\.gitignore" />
     <Content Include="Content\vendors\validator\README.md" />
     <Content Include="Content\vendors\validator\validator.jquery.json" />
+    <Content Include="Content\customcss\multiselect\css\multi-select.dev.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

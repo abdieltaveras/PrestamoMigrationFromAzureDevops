@@ -18,7 +18,7 @@ if (@IdRole = 0)
 
 		EXEC
 		(
-			'SELECT IDENT_CURRENT(''tblRoles'') as last_role'
+			'SELECT IDENT_CURRENT(''tblRoles'') as last_id'
 		)
 	end
 Else

@@ -33,5 +33,15 @@ namespace PrestamoBLL
             }
         }
 
+        public IEnumerable<UsuarioRole> UserRolesSearch(BuscarUserRolesParams searchParam)
+        {
+            return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarUsuarioRoles", GetValidation);
+        }
+        public IEnumerable<RoleOperacion> RoleOperacionesSearch(BuscarRoleOperacionesParams searchParam)
+        {
+            return BllAcciones.GetData<RoleOperacion, BuscarRoleOperacionesParams>(searchParam, "spBuscarRoleOperaciones", GetValidation);
+        }
+        
+
     }
 }

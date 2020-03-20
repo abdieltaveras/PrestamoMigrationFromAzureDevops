@@ -31,4 +31,19 @@ namespace PrestamoEntidades
         public int IdRole { get; set; } = -1;
         public string Values { get; set; } = string.Empty;
     }
+
+    public class RoleOperacion
+    {
+        public int IdRole { get; set; }
+        public int IdOperacion { get; set; }
+    }
+
+    public class BuscarUserRolesParams : BaseGetParams
+    {
+        public int IdUsuario { get; set; }
+    }
+    public class BuscarRoleOperacionesParams : BaseGetParams
+    {
+        public int IdRole { get; set; }
+    }
 }

@@ -7,6 +7,7 @@
 @section PageStyle    {
     <link href="~/Content/ValidationErrors.css" rel="stylesheet" />
     <link href="~/Content/customcss/switch.css" rel="stylesheet">
+    <link href="~/content/customcss/multiselect/css/multi-select.css" rel="stylesheet">
 
 }
 
@@ -124,6 +125,19 @@
                 </div>
 
             </div>
+
+            <div class="x_panel">
+                <h2>Seleccione el o los roles del usuario</h2>
+                <select multiple="multiple" id="roleSelect" name="SelectedRoles[]">
+
+                    @foreach (var role in Model.RoleList)
+                    {
+                        <option value="@role.IdRole">@role.Nombre</option>
+                    }
+
+                </select>
+            </div>
+
         </div>
         @{
             if (Model.ShowAdvancedOptions)
@@ -237,7 +251,14 @@
     </script>
     <script src="~/Scripts/Apps/CreateOrEditUser.js"></script>
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
-
+    <script src="~/content/customcss/multiselect/js/jquery.multi-select.js" type="text/javascript"></script>
+    <script>
+        $('#roleSelect').multiSelect({
+                afterSelect: function (value) {
+                    $('#roleSelect option[value="' + value.toString() + '"]').prop('selected', true);
+                }
+            })
+    </script>
     @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
 
 }

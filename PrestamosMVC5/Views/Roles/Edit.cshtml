@@ -1,30 +1,39 @@
 ﻿
 @model RoleVM
 
+
+
 <div class="row">
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
-
-        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        @*<button type="button" class="btn btn-primary" style="float:right;">Agregar<i class="fa fa-plus"></i></button>*@
-
+        
         @using (Html.BeginForm("CreateOrEdit", "Roles", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
         {
-            
+
             <div id="rolename">
                 <div class="col-5" style="margin: auto; padding: 0%; ">
-                    <h4 style="text-align: center;">Nombre de role</h4>
-                    <input class="target form-control" type="text" placeholder="Escriba el nombre del role aqui" name="Role.Role.Nombre" value="" style="height: 60px" />
-                    <br />
-                    <input class="target form-control" type="text" placeholder="Descripcion del role" required name="Role.Role.Descripcion" value="" />
+                    <h4 style="text-align: center;">Elija el role a editar</h4>
+
+                    <select name="Role.Role.IdRole" id="role-select" class="form-control form-control-lg">
+                        <option value="0">Seleccione un role</option>
+
+                        @foreach (var role in Model.ListaRoles)
+                        {
+                            <option value="@role.IdRole">@role.Nombre</option>
+                        }
+                    </select>
+
+                    @* <input class="target form-control" type="text" placeholder="Escriba el nombre del role aqui" name="Role.Role.Nombre" value="" style="height: 60px" />*@
                 </div>
-                
+
             </div>
             <br />
 
+            
+
             @*<div class="ln_solid"></div>
 
-            @*</form>*@
+                @*</form>*@
 
 
             <div class="x_panel">
@@ -84,5 +93,53 @@
         }
     </div>
 </div>
+
+<script>
+    $("#role-select").change(function () {
+        let roleId = $(this).children("option:selected").val();
+        console.log(roleId);
+        if (roleId != 0) {
+            searchRoleOperaciones(roleId);
+        }
+    });
+
+    async function searchRoleOperaciones(roleId) {
+       
+        try {
+            const res = await BuscarRoleOperaciones(roleId);
+            let array = JSON.parse(res);
+            console.log(array);
+
+            $(':checkbox').prop("checked", false);
+            $(':checkbox').removeAttr("checked", "checked");
+
+            for (var item in array) {
+                $(':checkbox[value="' + array[item].IdOperacion.toString() + '"]').prop("checked", true);
+                $(':checkbox[value="' + array[item].IdOperacion.toString() + '"]').attr("checked", "checked");
+                console.log($(':checkbox[value="' + array[item].IdOperacion.toString() + '"]'));
+            }
+
+        } catch (err) {
+        }
+    }
+
+    function BuscarRoleOperaciones(idRole) {
+
+        let dataValue = { "idRole": idRole };
+
+        return $.ajax({
+            type: "get",
+            url: "/Roles/BuscarRoleOperaciones",
+            data: dataValue,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+    }
+
+</script>
+
 
 

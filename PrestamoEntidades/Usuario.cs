@@ -93,4 +93,15 @@ namespace PrestamoEntidades
     }
     public class UsuarioAnularParam : BaseAnularParams
     { }
+
+    public class UserRoleInsUpdParams
+    {
+        public int IdUser { get; set; } = -1;
+        public string Values { get; set; } = string.Empty;
+    }
+    public class UsuarioRole
+    {
+        public int IdUser { get; set; }
+        public int IdRole { get; set; }
+    }
 }
