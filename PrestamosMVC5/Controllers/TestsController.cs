@@ -31,28 +31,49 @@ namespace PrestamosMVC5.Controllers
 
         public ActionResult Imagen()
         {
+            var infoImg = new InfoConImagen();
+            infoImg.ImagesForCliente = new List<HttpPostedFileBase>();
             return View(new InfoConImagen());
         }
         [HttpPost]
         public ActionResult Imagen(InfoConImagen infoConImagen)
         {
             ActionResult result = null;
-            try
+            var files = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), infoConImagen.ImagesForCliente).ToList();
+            var mensaje = string.Empty;
+            files.ToList().ForEach(f =>
             {
-                Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), infoConImagen.Imagen);
-                result = Content("imagen procesada");
-            }
-            catch (Exception)
-            {
-                result = Content("imagen no procesada");
-            }
-            return result;
+                mensaje += f;
+                //if (f.IndexOf("error") > 0) 
+            });
+            return Content(mensaje);
         }
     }
 
     public class InfoConImagen
     {
         public System.Web.HttpPostedFileBase Imagen { get; set; }
+        public IEnumerable<System.Web.HttpPostedFileBase> ImagesForCliente { get; set; }
+
+        public ImagesFor imgsForCliente => new ImagesFor("ImagesForCliente", "Clientes") {Qty=3 };
+        
+        public IEnumerable<System.Web.HttpPostedFileBase> ImagesForGarantia { get; set; }
+
+        public ImagesFor imgsForGarantia => new ImagesFor("ImagesForGarantia","Garantia") {Qty=2 };
     }
-    
+
+    public class ImagesFor
+    {
+        public string PropName { get; } = string.Empty;
+
+        public string FriendlyName { get; } = string.Empty;
+
+        public int Qty { get; set; } = 5;
+
+        public ImagesFor(string propName, string friendlyName)
+        {
+            this.PropName = propName;
+            this.FriendlyName = friendlyName;
+        }
+    }
 }
