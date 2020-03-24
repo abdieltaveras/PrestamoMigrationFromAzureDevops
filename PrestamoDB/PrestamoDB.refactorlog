@@ -175,4 +175,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdLocalidadPadre" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="959cdde4-bcf9-4793-a45f-cdaa9dda9a80" ChangeDateTime="03/12/2020 03:23:19">
+    <Property Name="ElementName" Value="[dbo].[tblRolesOperaciones].[RoleId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRolesOperaciones]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdRole" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a0420f2a-9615-4bfa-90ad-84391cdd776e" ChangeDateTime="03/12/2020 03:23:24">
+    <Property Name="ElementName" Value="[dbo].[tblRolesOperaciones].[OperacionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRolesOperaciones]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdOperacion" />
+  </Operation>
 </Operations>

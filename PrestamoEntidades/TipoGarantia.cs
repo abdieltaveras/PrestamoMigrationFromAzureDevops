@@ -10,6 +10,11 @@ namespace PrestamoEntidades
     {
         public int IdTipoGarantia { get; set; } = 0;
         public int IdClasificacion { get; set; } = 1;
+
+        public override int GetId()
+        {
+            throw new NotImplementedException();
+        }
         //public string Nombre { get; set; } = string.Empty;
     }
     public class TipoGetParams : BaseGetParams

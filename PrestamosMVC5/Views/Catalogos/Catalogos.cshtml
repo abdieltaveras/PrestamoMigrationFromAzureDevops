@@ -1,0 +1,200 @@
+﻿@model CatalogoVM
+<div class="row">
+
+    <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
+
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-catalogo" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Tabla de @Model.TipoCatalogo.ToLower()</h2>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table bulk_action ">
+                    <thead>
+                        <tr>
+                            <th>@Model.TipoCatalogo</th>
+                            <th>Codigo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Lista)
+                        {
+                            <tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) ">
+                                <td>
+                                    <strong>
+                                        @item.Nombre
+                                    </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        @item.Codigo
+                                    </strong>
+                                    <strong>
+                                        @item.AnuladoPor
+                                    </strong>
+                                </td>
+                                <td>
+                                    <a href="#" id="edit" data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
+                                        <button class="btn btn-outline-warning">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+                                    <a href="@Url.Action("ActivarDesactivar", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla, activo = !item.Activo })">
+                                        <button type="button" class="btn btn-outline-dark">
+                                            <i class="@Html.Raw(item.Activo ? "fa fa-ban" : " fa fa-check")"></i>
+                                        </button>
+                                    </a>
+                                    @*<a href="@Url.Action("Delete", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla})">*@
+                                   @if (item.Anulado())
+                                   {
+                                    <a href="#" id="deleteItem" data-id="@item.GetId()" data-idtabla="@Model.IdTabla" data-nombretabla="@Model.NombreTabla">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
+
+                                   }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+
+    @* Formulario para agregar tasas de interes *@
+
+
+    @* Fin de formulario para agregar tasas de interes *@
+</div>
+
+@*Modal de agregar intereses*@
+<div class="modal fade modal-catalogo" id="modalCatalogos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>*@
+                <h4 class="modal-title" id="myModalLabel2">@Model.TipoCatalogo</h4>
+            </div>
+            <div class="modal-body">
+
+                @*form*@
+
+                <div class="col-sm-12" id="formAgregarTasaInteres">
+
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <br />
+                            @using (Html.BeginForm("CreateOrEdit", "Catalogos", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+                            {
+
+                                <input type="hidden" name="nombreTabla" value="@Model.NombreTabla" />
+                                <input type="hidden" id="currentid" name="Id" value="0" />
+                                <input type="hidden" name="IdTabla" value="@Model.IdTabla" />
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="nombre">
+                                        Codigo <span class="required">*</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.Codigo, new { @class = "form-control", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="nombre">
+                                        Nombre <span class="required">*</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="item form-group" style="float: right;">
+                                    <div class="col-md-6 col-sm-6 offset-md-3">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                                @*</form>*@
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                @*form*@
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style scoped>
+
+    .delete-row{
+        color: #e92e2e;
+    }
+
+</style>
+
+<script>
+    // Pasar datos del boton edit al modal para ser editados
+    $( "a#edit").click(function() {
+        $("#currentid").val(this.getAttribute("data-id"));
+        $("#Codigo").val(this.getAttribute("data-codigo"));
+        $("#Nombre").val(this.getAttribute("data-nombre"));
+        $('#modalCatalogos').modal('show');
+    });
+
+    //// Borrar 
+    //$( "a#edit").click(function() {
+    //    $("#currentid").val(this.getAttribute("data-id"));
+    //    $("#Codigo").val(this.getAttribute("data-codigo"));
+    //    $("#Nombre").val(this.getAttribute("data-nombre"));
+    //    $('#modalCatalogos').modal('show');
+    //});
+
+    $( "a#deleteItem").click( async function() {
+        $("#currentid").val(this.getAttribute("data-id"));
+        $("#Codigo").val(this.getAttribute("data-idtabla"));
+        $("#Nombre").val(this.getAttribute("data-nombretabla"));
+
+        let id = this.getAttribute("data-id");
+        let idtabla = this.getAttribute("data-idtabla");
+        let nombretabla = this.getAttribute("data-nombretabla");
+
+        console.log(this.getAttribute("data-id"));
+
+        if (confirm("¿Seguro que desea borrar este item?")) {
+            let dataValue = { "Id": id, "IdTabla": idtabla, "NombreTabla": nombretabla };
+            await $.ajax({
+                type: "get",
+                url: "/Catalogos/Delete",
+                data: dataValue,
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                },
+                complete: function (jqXHR, status) {
+                }
+            });
+            window.location.reload();
+        }
+
+    });
+
+
+</script>

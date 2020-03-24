@@ -122,6 +122,29 @@
     <Build Include="dbo\Stored Procedures\spGetUsuarios.sql" />
     <Build Include="dbo\Stored Procedures\SpChangePassword.sql" />
     <Build Include="dbo\Stored Procedures\spGetModelosGarantiaByMarca.sql" />
+    <Build Include="dbo\Tables\tblOcupaciones.sql" />
+    <Build Include="dbo\Tables\tblVerificadorDirecciones.sql" />
+    <Build Include="dbo\Tables\tblTipoTelefonos.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCatalogos.sql" />
+    <Build Include="dbo\Tables\tblTipoSexos.sql" />
+    <Build Include="dbo\Tables\tblTasadores.sql" />
+    <Build Include="dbo\Tables\tblEstadosCiviles.sql" />
+    <Build Include="dbo\Tables\tblLocalizadores.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdCatalogo.sql" />
+    <Build Include="dbo\Stored Procedures\spToggleStatusCatalogo.sql" />
+    <Build Include="dbo\Stored Procedures\spDelCatalogo.sql" />
+    <Build Include="dbo\Tables\tblRoles.sql" />
+    <Build Include="dbo\Tables\tblOperaciones.sql" />
+    <Build Include="dbo\Tables\tblUsersRoles.sql" />
+    <Build Include="dbo\Tables\tblRolesOperaciones.sql" />
+    <Build Include="dbo\Stored Procedures\spGetRoles.sql" />
+    <Build Include="dbo\Stored Procedures\spGetOperaciones.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdRoleOperacion.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdRole.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdUserRoles.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarUsuarioRoles.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarRoleOperaciones.sql" />
+    <Build Include="dbo\User Defined Types\tpUserRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

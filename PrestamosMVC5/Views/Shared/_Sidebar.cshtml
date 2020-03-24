@@ -9,8 +9,8 @@
             </li>
 
             @*<li>
-                    <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
-                </li>*@
+            <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
+        </li>*@
 
             <li>
                 <a><i class="fa fa-edit"></i>Actualizacion<span class="fa fa-chevron-down"></span></a>
@@ -77,6 +77,9 @@
                             <li>
                                 <a href="@Url.Action("CreateOrEdit","User")">Crear Usuario Nuevo (Simple)</a>
                             </li>
+                            <li>
+                                <a href="@Url.Action("EditUserRoles","User")">Editar roles de usuario</a>
+                            </li>
 
                         </ul>
                     </li>
@@ -117,6 +120,93 @@
                                         <a href="@Url.Action("CreateOrEdit","Color")">Crear color</a>
                                     </li>
                                 </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Ocuapaciones<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Catalogos", new { tabla= "tblOcupaciones" } )">Crear ocupacion</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Verificador de direcciones<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblVerificadorDirecciones" })">Crear verificador de direcciones</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Tipo telefono<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblTipoTelefonos" })">Crear tipo de telefono</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Tipo sexo<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblTipoSexos" })">Crear tipo sexo</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Tasadores<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblTasadores" })">Crear tasadores</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Localizadores-Cobradores<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblLocalizadores" })">Crear Localizador / cobrador</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Estado civil<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblEstadosCiviles" })">Crear estado civil</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Accesos de usuario<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("Index","Acceso")">Accesos de usuario</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a>Configuraciones<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    @*<li>
+                    <a href="@Url.Action("CreateOrEdit","Garantias")">Crear Roles</a>
+                </li>*@
+                    <li>
+                        <a>Roles<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("ListRoles","Roles")">Lista de roles</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Create","Roles")">Crear role</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Edit","Roles")">Editar role</a>
                             </li>
                         </ul>
                     </li>

@@ -16,6 +16,11 @@ namespace PrestamoEntidades
         //public string Nombre { get; set; } = string.Empty;
         [IgnorarEnParam]
         public string Descripcion { get; set; } = string.Empty;
+
+        public override int GetId()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class LocalidadInsUptParams

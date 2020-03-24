@@ -9,6 +9,11 @@ namespace PrestamoEntidades
     public class Color : BaseCatalogo
     {
         public int IdColor { get; set; } = 0;
+
+        public override int GetId()
+        {
+            throw new NotImplementedException();
+        }
     }
     public class ColorGetParams : BaseGetParams
     {
