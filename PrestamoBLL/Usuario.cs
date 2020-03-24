@@ -19,7 +19,7 @@ namespace PrestamoBLL
             return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios", this.GetValidation);
         }
 
-        public void InsUpdUsuario(Usuario insUpdParam, string from = "")
+        public int InsUpdUsuario(Usuario insUpdParam, string from = "")
         {
             //TODO Agregar columna inicioVigenciaContraseña
             if ((insUpdParam.LoginName.ToLower() == "admin") && (from != bllUser))
@@ -32,12 +32,27 @@ namespace PrestamoBLL
                 throw new Exception("La fecha de vigencia de la cuenta no es valida debe ser mayor a la de hoy");
             }
             insUpdParam.LoginName = insUpdParam.LoginName.ToLower();
-            BllAcciones.InsUpdData<Usuario>(insUpdParam, "spInsUpdUsuario");
+            return BllAcciones.InsUpdData<Usuario>(insUpdParam, "spInsUpdUsuario");
         }
         
 
         private bool ExistUsers => ExistDataForTable("tblUsuarios");
-        
+
+        public void InsUpdRoleUsuario(List<UsuarioRole> data)
+        {
+            var UserRoleDataTable = data.ToDataTable();
+
+            try
+            {
+                var _insUpdParam = SearchRec.ToSqlParams(new { userrole = UserRoleDataTable });
+                var response = PrestamosDB.ExecSelSP("spInsUpdUserRoles", _insUpdParam);
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
+
     }
 
 }

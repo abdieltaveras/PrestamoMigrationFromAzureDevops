@@ -31,7 +31,7 @@ namespace PrestamosMVC5.Models
         public static SelectList TiposIdentificacion => SLFactory.ForEnum<TiposIdentificacionCliente>();
         public static SelectList TiposTelefonos => SLFactory.ForEnum<TiposTelefono>();
         public static SelectList Sexos => SLFactory.ForEnum<Sexo>();
-        public static SelectList EstadosCiviles => SLFactory.ForEnum<EstadoCivil>();
+        //public static SelectList EstadosCiviles => SLFactory.ForEnum<EstadoCivil>();
         public static SelectList OpcionesBusquedaCliente => SLFactory.ForEnum<EnumBuscarClientePor>();
         public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
         public static SelectList Negocios(string usuario) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = -1, Usuario = usuario }), "IdNegocio", "NombreComercial");

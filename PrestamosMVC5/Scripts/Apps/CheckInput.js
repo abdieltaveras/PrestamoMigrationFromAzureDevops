@@ -15,20 +15,11 @@ function initCheckValues() {
 function setCheckValue(elemReceived) {
     //let elem = $('#' + elemReceived.id);
     var elemName = elemReceived.prop("name");
-    console.log("attached", elemName);
+    //console.log("attached", elemName);
     var isChecked = elemReceived.is(':checked');
     var elems = $("input[name='" + elemName + "'");
     elems.each(function () {
         $(this).prop("value", isChecked);
     });
 }
-//function removeHiddenCheckBoxes() {
-//    var checkBoxes = $("input:checkbox");
-//    checkBoxes.each(function () {
-//        let elemName = $(this).prop("name");
-//        alert(elemName);
-//        let hiddenCheck = $("input[name='" + elemName + "'][type='hidden']");
-//        $("input[name='" + elemName + "']").remove("[type='hidden']");
-//    });
-//}
 //# sourceMappingURL=CheckInput.js.map

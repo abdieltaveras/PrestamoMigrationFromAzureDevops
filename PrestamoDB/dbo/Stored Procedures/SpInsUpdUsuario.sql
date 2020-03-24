@@ -27,6 +27,9 @@ Begin
 			INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion,  Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, idPersonal,ImgFilePath, InsertadoPor, FechaInsertado, VigenteDesde,VigenteHasta, ContraseñaExpiraCadaXMes,RazonBloqueo, InicioVigenciaContraseña)
 			VALUES (@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @DebeCambiarContraseñaAlIniciarSesion, @telefono1, @telefono2, @activo, @bloqueado, @correoelectronico, @esempleado, @IdPersonal, @imgFilePath,@usuario, getdate(), @VigenteDesde,@VigenteHasta, @ContraseñaExpiraCadaXMes, @RazonBloqueo, getdate() )
 			select @@identity
+		
+			SELECT IDENT_CURRENT('tblUsers') as last_id
+		
 		end
 	else
 		begin

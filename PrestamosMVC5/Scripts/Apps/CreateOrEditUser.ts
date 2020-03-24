@@ -6,7 +6,7 @@ let idConfirmarContraseñaText = "ConfirmarContrase_a";
 let idUsuarioDebeCambiarContraseñaAlIniciarSesionText = "Usuario_DebeCambiarContrase_aAlIniciarSesion";
 let idLaContraseñaExpiraText = "LaContrase_aExpira";
 let idUsuarioBloqueadoText = "Usuario_Bloqueado";
-let IdUsuarioActivoText = "Usuario_Activo";
+//let IdUsuarioActivoText = "Usuario_Activo";
 let idContraseñaExpiraCadaXMesText = "Contrase_aExpiraCadaXMes";
 let idLimitarVigenciaDeCuentaText = "LimitarVigenciaDeCuenta";
 let idVigenteHastaText = "Usuario_VigenteHasta";
@@ -17,7 +17,7 @@ let elemContraseña = $("#" + idContraseñaText);
 let elemConfirmarContraseña = $("#" + idConfirmarContraseñaText);
 let elemDebeCambiarContrasenaAlIniciarSesion = $("#" + idUsuarioDebeCambiarContraseñaAlIniciarSesionText);
 let elemBloqueado = $("#" + idUsuarioBloqueadoText)
-let elemActivo = $("#" + IdUsuarioActivoText);
+//let elemActivo = $("#" + IdUsuarioActivoText);
 let elemContraseñaExpiraCadaXMes = $("#" + idContraseñaExpiraCadaXMesText);
 let elemContraseñaExpira = $('#' + idLaContraseñaExpiraText);
 let elemLimitarVigenciaDeCuenta = $("#" + idLimitarVigenciaDeCuentaText);
@@ -35,13 +35,12 @@ $('.collapsed').find('i').toggleClass('fa-chevron-up fa-chevron-down');
 function initialViewState() {
     if (elemIdUsuario.prop("value")<= 0)
     {
-        elemActivo.prop({ readOnly: true });
+        //elemActivo.prop({ readOnly: true });
         elemBloqueado.prop({ readOnly: true });
     }
     onContraseñaExpiraChange();
     onLimitarVigenciaDeCuentaChange();
 }
-
 
 
 

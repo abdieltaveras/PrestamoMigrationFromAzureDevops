@@ -37,7 +37,6 @@ namespace PrestamosMVC5.Controllers
         {
             entidad.IdNegocio = pcpUserIdNegocio;
         }
-
         /// <summary>
         ///  set usuario property 
         /// </summary>
@@ -46,6 +45,16 @@ namespace PrestamosMVC5.Controllers
         {
             entidad.Usuario = pcpUserLoginName;
         }
+        public IEnumerable<ModelError>  GetErrorsFromModelState(ModelStateDictionary modelState)
+        {
+            var result= modelState.Values.SelectMany(v => v.Errors);
+            return result;
+        }
 
+        public string GetErrorsFromModelStateAsString(ModelStateDictionary modelState)
+        {
+            var result = string.Join("; ", GetErrorsFromModelState(modelState).Select(x => x.ErrorMessage));
+            return result;
+        }
     }
 }

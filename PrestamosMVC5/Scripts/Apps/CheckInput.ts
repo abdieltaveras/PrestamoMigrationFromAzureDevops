@@ -17,20 +17,10 @@ function setCheckValue(elemReceived: JQuery)
 {
     //let elem = $('#' + elemReceived.id);
     let elemName = elemReceived.prop("name");
-    console.log("attached", elemName);
+    //console.log("attached", elemName);
     let isChecked = elemReceived.is(':checked');
     let elems = $("input[name='" + elemName + "'");
     elems.each(function () {
         $(this).prop("value", isChecked);
     });
 }
-
-//function removeHiddenCheckBoxes() {
-//    var checkBoxes = $("input:checkbox");
-//    checkBoxes.each(function () {
-//        let elemName = $(this).prop("name");
-//        alert(elemName);
-//        let hiddenCheck = $("input[name='" + elemName + "'][type='hidden']");
-//        $("input[name='" + elemName + "']").remove("[type='hidden']");
-//    });
-//}

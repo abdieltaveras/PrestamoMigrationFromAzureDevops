@@ -78,6 +78,12 @@ namespace PrestamoEntidades
         public decimal MontoCuotaDesde { get; set; }
         [Display(Name = "Hasta el monto de cuota")]
         public decimal MontoCuotaHasta { get; set; }
+
+        public override int GetId()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return Codigo + " " + Nombre;
@@ -97,7 +103,7 @@ namespace PrestamoEntidades
     public class TipoMoraDelParams : BaseAnularParams
     {
         [Required]
-        public override int id
+        public override int Id
         {
             get; set;
         }

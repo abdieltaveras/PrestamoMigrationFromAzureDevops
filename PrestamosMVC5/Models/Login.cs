@@ -83,6 +83,9 @@ namespace PrestamosMVC5.Models
             //this.ForBloqueado = usuario.Bloqueado;
             //this.ForCambiarContraseñaAlIniciarSesion = usuario.DebeCambiarContraseñaAlIniciarSesion;
         }
+
+        public IEnumerable<Role> RoleList { get; set; }
+        public string[] SelectedRoles { get; set; }
     }
     
 }
