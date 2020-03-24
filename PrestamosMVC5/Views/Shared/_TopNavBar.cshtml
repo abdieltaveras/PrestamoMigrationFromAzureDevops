@@ -2,11 +2,22 @@
 <div class="top_nav">
     <div class="nav_menu">
         <div class="nav toggle">
-            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            <a id="menu_toggle"><i id="icon-menu-toggle" class="fa fa-expand" onclick="changeFaIcon()"></i></a>
         </div>
         <nav class="nav navbar-nav">
             @Html.Partial("_UserInfoTopNavBar")
         </nav>
     </div>
 </div>
+<script>
+    function changeFaIcon()
+    {
+        console.log("chageicon");
+        let classtext = $("#icon-menu-toggle").prop("class");
+        if (classtext === "fa fa-expand")
+            $("#icon-menu-toggle").prop("class", "fa fa-compress")
+        else
+            $("#icon-menu-toggle").prop("class", "fa fa-expand")
+    }
+</script>
 <!-- /top navigation -->

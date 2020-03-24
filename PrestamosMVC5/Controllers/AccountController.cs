@@ -33,8 +33,10 @@ namespace PrestamosMVC5.Controllers
             return View(model);
         }
 
+        
+
         [HttpPost]
-        public ActionResult Login(LoginModel loginView, string ReturnUrl = "")
+        public ActionResult Login(LoginModel loginView)
         {
             ActionResult _actResult = View(loginView);
             if (ModelState.IsValid)
@@ -50,7 +52,14 @@ namespace PrestamosMVC5.Controllers
                 {
                     this.LoginUserIntoSession(loginView.IdNegocio, loginView.LoginName, loginView.ImagePath);
                     //AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
-                    _actResult = Redirect(loginView.ReturnUrl);
+                    if (string.IsNullOrEmpty(loginView.ReturnUrl) || loginView.ReturnUrl == "/")
+                    {
+                        _actResult = RedirectToAction("index", "home");
+                    }
+                    else
+                    {
+                        _actResult = Redirect(loginView.ReturnUrl);
+                    }
                 }
             }
             return _actResult;
@@ -89,8 +98,10 @@ namespace PrestamosMVC5.Controllers
         public ActionResult LogOutUser()
         {
             this.pcpLogout();
-            return RedirectToAction("Login", "Account", null);
+            //return RedirectToAction("Login", "Account", null);
+            return Redirect(Url.Content("~/"));
         }
+        #region operaciones
         private void SendEmail(string to, string content)
         {
             try
@@ -105,5 +116,7 @@ namespace PrestamosMVC5.Controllers
                 
             }
         }
+        
+        #endregion
     }
 }

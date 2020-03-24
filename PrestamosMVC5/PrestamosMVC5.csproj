@@ -217,7 +217,7 @@
     <Content Include="Content\docs\js\jquery.min.js" />
     <Content Include="Content\docs\js\shBrushXml.js" />
     <Content Include="Content\docs\js\shCore.js" />
-    <Content Include="Content\Images\ForEntities\ToTest.jpg" />
+    <Content Include="Content\Images\pcpprestamo-07.jpg" />
     <Content Include="Content\production\calendar.html" />
     <Content Include="Content\production\chartjs.html" />
     <Content Include="Content\production\chartjs2.html" />
@@ -4000,6 +4000,7 @@
     <None Include="Scripts\Apps\showImageTs.ts.revisar" />
     <Content Include="Views\Tests\CheckBoxes.cshtml" />
     <Content Include="Views\Tests\Imagen.cshtml" />
+    <Content Include="Views\Tests\CustomizeInputFile1.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />

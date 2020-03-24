@@ -48,6 +48,72 @@ namespace PrestamosMVC5.Controllers
             });
             return Content(mensaje);
         }
+
+        
+
+        public ActionResult Test(int id = -1, bool showAdvancedView = true)
+        {
+            var userContr = new UserController();
+            var model = userContr.GetUserAndSetItToModel(id);
+            model.ShowAdvancedOptions = showAdvancedView;
+            userContr.prepareUserModelForGet(model);
+            defaultTestNewModel(id, model);
+            //model.ForActivo = true;
+            model.Usuario.VigenteDesde = DateTime.Now.AddDays(-10);
+            return View("CreateOrEdit", model);
+        }
+
+        private void defaultTestNewModel(int id, UserModel model)
+        {
+            if (id <= 0)
+            {
+                model.Usuario.NombreRealCompleto = "nombre real";
+                model.Usuario.LoginName = "loginname";
+                model.Usuario.Telefono1 = "8095508455";
+                model.Usuario.Activo = false;
+                model.Usuario.Bloqueado = true;
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Test(UserModel userModel)
+        {
+            var usuario = userModel.Usuario;
+            var dyna = new
+            {
+                debeCambiarContraseñaAlIniciarSesion = usuario.DebeCambiarContraseñaAlIniciarSesion,
+                activo = usuario.Activo,
+                bloqueado = usuario.Bloqueado,
+                contraseñaExpira = userModel.LaContraseñaExpira,
+                limitarVigenciaDeCuenta = userModel.LimitarVigenciaDeCuenta
+            };
+            var dyna2 = new
+            {
+                expiraCadaXMes = userModel.ContraseñaExpiraCadaXMes
+            };
+            return Content(dyna.ToJson());
+            //ModelState.AddModelError("", "probando quitar mensaje error");
+            //return View(userModel);
+        }
+
+        /// <summary>
+        /// to see the return param value
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        public ActionResult test(string returnUrl = "")
+        {
+            var param = new NegociosGetParams { IdNegocio = -1 };
+            var data = BLLPrestamo.Instance.GetNegocios(param);
+            return Content(data.ToJson());
+        }
+
+        public ActionResult CustomizeInputFile1()
+        {
+            return View();
+        }
+
     }
 
     public class InfoConImagen

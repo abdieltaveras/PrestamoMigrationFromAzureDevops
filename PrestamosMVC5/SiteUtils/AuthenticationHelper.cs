@@ -17,7 +17,7 @@ namespace PrestamosMVC5.SiteUtils
         public static readonly string UserImageFilePathKey = "userImage";
         public static readonly string NegocioKey = "negocio";
         public static readonly string IdUsuarioKey = "idUsuario";
-        public static readonly string AnonimousUser = "Anonimo";
+        public static readonly string AnonimousUser = "Anónimo";
         public static System.Web.SessionState.HttpSessionState sessionState => HttpContext.Current.Session;
 
 
@@ -27,6 +27,7 @@ namespace PrestamosMVC5.SiteUtils
             //HttpContext.Current.Session[key] :
             //sessionState[key];
         }
+        public static bool IsAnonimousUser => (GetLoginName() == AnonimousUser);
         public static string GetLoginName(HttpSessionStateBase sessionState = null)
         //HttpSessionStateBase sessionState = null)
         {
@@ -110,6 +111,7 @@ namespace PrestamosMVC5.SiteUtils
             return IsAuthenticated;
         }
 
+        
         public override void OnAuthorization(AuthorizationContext contx)
         {
         //    bool IsAuthenticAttribute =

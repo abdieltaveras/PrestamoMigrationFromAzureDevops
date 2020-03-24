@@ -21,60 +21,6 @@ namespace PrestamosMVC5.Controllers
             ActionResult actResult = View(usuarios);
             return actResult;
         }
-
-        private IEnumerable<Usuario> GetUsers()
-        {
-            var usuarioGetParams = new UsuarioGetParams();
-            this.pcpSetUsuarioAndIdNegocioTo(usuarioGetParams);
-            var usuarios = BLLPrestamo.Instance.GetUsuarios(usuarioGetParams);
-            return usuarios;
-        }
-
-        public ActionResult Test(int id = -1, bool showAdvancedView = true)
-        {
-            var model = GetUserAndSetItToModel(id);
-            model.ShowAdvancedOptions = showAdvancedView;
-            prepareUserModelForGet(model);
-            defaultTestNewModel(id, model);
-            //model.ForActivo = true;
-            model.Usuario.VigenteDesde = DateTime.Now.AddDays(-10);
-            return View("CreateOrEdit", model);
-        }
-
-        private void defaultTestNewModel(int id, UserModel model)
-        {
-            if (id <= 0)
-            {
-                model.Usuario.NombreRealCompleto = "nombre real";
-                model.Usuario.LoginName = "loginname";
-                model.Usuario.Telefono1 = "8095508455";
-                model.Usuario.Activo = false;
-                model.Usuario.Bloqueado = true;
-
-            }
-        }
-
-        [HttpPost]
-        public ActionResult Test(UserModel userModel)
-        {
-            var usuario = userModel.Usuario;
-            var dyna = new
-            {
-                debeCambiarContraseñaAlIniciarSesion = usuario.DebeCambiarContraseñaAlIniciarSesion,
-                activo = usuario.Activo,
-                bloqueado = usuario.Bloqueado,
-                contraseñaExpira = userModel.LaContraseñaExpira,
-                limitarVigenciaDeCuenta = userModel.LimitarVigenciaDeCuenta
-            };
-            var dyna2 = new
-            {
-                expiraCadaXMes = userModel.ContraseñaExpiraCadaXMes
-            };
-            return Content(dyna.ToJson());
-            //ModelState.AddModelError("", "probando quitar mensaje error");
-            //return View(userModel);
-        }
-
         //[AuthorizeUser]
         // GET: User/Create
         public ActionResult CreateOrEdit(int id = -1, bool showAdvancedView = true)
@@ -143,7 +89,14 @@ namespace PrestamosMVC5.Controllers
         }
         #endregion Request
         #region Operations
-        private UserModel GetUserAndSetItToModel(int id)
+        internal IEnumerable<Usuario> GetUsers()
+        {
+            var usuarioGetParams = new UsuarioGetParams();
+            this.pcpSetUsuarioAndIdNegocioTo(usuarioGetParams);
+            var usuarios = BLLPrestamo.Instance.GetUsuarios(usuarioGetParams);
+            return usuarios;
+        }
+        internal UserModel GetUserAndSetItToModel(int id)
         {
             var model = new UserModel();
             model.Usuario = new Usuario();
@@ -163,7 +116,7 @@ namespace PrestamosMVC5.Controllers
             }
             return model;
         }
-        private ActionResult SaveData(ActionResult actionResult, Usuario usuario)
+        internal ActionResult SaveData(ActionResult actionResult, Usuario usuario)
         {
 
             if (ModelState.IsValid)
@@ -182,7 +135,7 @@ namespace PrestamosMVC5.Controllers
             return actionResult;
         }
 
-        public void prepareUsuarioFromModelForSave(UserModel userModel, out ActionResult actionResult, out Usuario usuario)
+        protected void prepareUsuarioFromModelForSave(UserModel userModel, out ActionResult actionResult, out Usuario usuario)
         {
             actionResult = View(userModel);
             usuario = SetUsuarioFromUserModel(userModel);
@@ -195,7 +148,7 @@ namespace PrestamosMVC5.Controllers
             }
         }
 
-        private  Usuario SetUsuarioFromUserModel(UserModel userModel)
+        protected  Usuario SetUsuarioFromUserModel(UserModel userModel)
         {
             Usuario usuario = userModel.Usuario;
             usuario.Contraseña = userModel.Contraseña;
@@ -209,7 +162,7 @@ namespace PrestamosMVC5.Controllers
             return usuario;
         }
 
-        private void prepareUserModelForGet(UserModel model)
+        internal void prepareUserModelForGet(UserModel model)
         {
             var usuario = model.Usuario;
             model.LimitarVigenciaDeCuenta = (usuario.VigenteHasta != InitValues._19000101);

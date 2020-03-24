@@ -4,87 +4,89 @@
     ViewBag.Title = "Imagen";
     var index = 0;
 }
+@section PageStyle    {
+    
+}
+    <h2>Imagen</h2>
 
-<h2>Imagen</h2>
-
-@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <h4>Info Con Imagen</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
-            </div>
-        </div>
-        @*<div class="@HtmlClass.FormGroupCls">
-                @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                //Todo poner imagen dinamica esta estatica
-                <div class="@HtmlClass.DivInputCls">
-                    <img id="imagePreview"
-                         src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-                    <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagen" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
-                    <span id="container"></span>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>Info Con Imagen</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Guardar" class="btn btn-default" />
                 </div>
-            </div>*@
-    <div class="@HtmlClass.FormGroupCls">
-        @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
-        <br>
-        <h3>Imagenes para  @Model.imgsForCliente.FriendlyName</h3>
-        @for (int i = 0; i < Model.imgsForCliente.Qty; i++)
-        {
-            var _id = Model.imgsForCliente.PropName + @i;
-            var _name = $"{Model.imgsForCliente.PropName}[{@i}]";
-            <div class="@HtmlClass.DivInputCls">
-                <img id="@_id"
-                     src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-                <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="@_name" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('@_id'))" />
-                <span id="container"></span>
             </div>
-            index++;
-        }
-        <br>
-        <h3>Imagenes para  @Model.imgsForGarantia.FriendlyName</h3>
-        @for (int i = 0; i < Model.imgsForGarantia.Qty; i++)
-        {
-            var _id = Model.imgsForGarantia.PropName + @i;
-            var _name = $"{Model.imgsForGarantia.PropName}[{@i}]";
-            <div class="@HtmlClass.DivInputCls">
-                <img id="@_id"
-                     src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-                <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="@_name" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('@_id'))" />
-                <span id="container"></span>
+            @*<div class="@HtmlClass.FormGroupCls">
+                    @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    //Todo poner imagen dinamica esta estatica
+                    <div class="@HtmlClass.DivInputCls">
+                        <img id="imagePreview"
+                             src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
+                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagen" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
+                        <span id="container"></span>
+                    </div>
+                </div>*@
+            <div class="@HtmlClass.FormGroupCls">
+                @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                <br>
+                <h3>Imagenes para  @Model.imgsForCliente.FriendlyName</h3>
+                @for (int i = 0; i < Model.imgsForCliente.Qty; i++)
+                {
+                    var _id = Model.imgsForCliente.PropName + @i;
+                    var _name = $"{Model.imgsForCliente.PropName}[{@i}]";
+                    <div class="@HtmlClass.DivInputCls">
+                        <img id="@_id"
+                             src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
+                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="@_name" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('@_id'))" />
+                        <span id="container"></span>
+                    </div>
+                    index++;
+                }
+                <br>
+                <h3>Imagenes para  @Model.imgsForGarantia.FriendlyName</h3>
+                @for (int i = 0; i < Model.imgsForGarantia.Qty; i++)
+                {
+                    var _id = Model.imgsForGarantia.PropName + @i;
+                    var _name = $"{Model.imgsForGarantia.PropName}[{@i}]";
+                    <div class="@HtmlClass.DivInputCls">
+                        <img id="@_id"
+                             src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
+                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="@_name" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('@_id'))" />
+                        <span id="container"></span>
+                    </div>
+                    index++;
+                }
+                @*<div class="@HtmlClass.DivInputCls">
+                        <img id="file0"
+                             src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
+                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagenes[0]" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('file0'))" />
+                        <span id="container"></span>
+                    </div>
+                    <div class="@HtmlClass.DivInputCls">
+                        <img id="file1"
+                             src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
+                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagenes[1]" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('file1'))" />
+                        <span id="container"></span>
+                    </div>
+                    <div class="@HtmlClass.DivInputCls">
+                        <img id="file2"
+                             src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
+                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagenes[2]" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('file2'))" />
+                        <span id="container"></span>
+                    </div>*@
             </div>
-            index++;
-        }
-        @*<div class="@HtmlClass.DivInputCls">
-            <img id="file0"
-                 src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-            <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagenes[0]" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('file0'))" />
-            <span id="container"></span>
         </div>
-        <div class="@HtmlClass.DivInputCls">
-            <img id="file1"
-                 src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-            <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagenes[1]" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('file1'))" />
-            <span id="container"></span>
-        </div>
-        <div class="@HtmlClass.DivInputCls">
-            <img id="file2"
-                 src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-            <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="Imagenes[2]" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('file2'))" />
-            <span id="container"></span>
-        </div>*@
-    </div>
-    </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-@section scripts
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    @section scripts
 {
-    <script src="~/Scripts/apps/showImage.js"></script>
-}
+        <script src="~/Scripts/apps/showImage.js"></script>
+    }
