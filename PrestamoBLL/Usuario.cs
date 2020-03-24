@@ -38,11 +38,13 @@ namespace PrestamoBLL
 
         private bool ExistUsers => ExistDataForTable("tblUsuarios");
 
-        public void InsUpdRoleUsuario(UserRoleInsUpdParams insUpdParam)
+        public void InsUpdRoleUsuario(List<UsuarioRole> data)
         {
+            var UserRoleDataTable = data.ToDataTable();
+
             try
             {
-                var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
+                var _insUpdParam = SearchRec.ToSqlParams(new { userrole = UserRoleDataTable });
                 var response = PrestamosDB.ExecSelSP("spInsUpdUserRoles", _insUpdParam);
             }
             catch (Exception e)

@@ -111,13 +111,19 @@ namespace PrestamosMVC5.Controllers
                 roles += "(" + iduser + "," + role + ")" + ((selectedRoles.Length != cont) ? "," : "");
             }
 
+            List<UsuarioRole> lista = new List<UsuarioRole>();
+            foreach (var role in selectedRoles)
+            {
+                lista.Add(new UsuarioRole() { IdUser = iduser, IdRole = int.Parse(role) });
+            }
+
             UserRoleInsUpdParams parametros = new UserRoleInsUpdParams()
             {
                 IdUser = iduser,
                 Values = roles
             };
 
-            BLLPrestamo.Instance.InsUpdRoleUsuario(parametros);
+            BLLPrestamo.Instance.InsUpdRoleUsuario(lista);
         }
 
         [HttpPost]
@@ -132,13 +138,20 @@ namespace PrestamosMVC5.Controllers
                 roles += "(" + iduser + "," + role + ")" + ((SelectedRoles.Length != cont) ? "," : "");
             }
 
+            List<UsuarioRole> lista = new List<UsuarioRole>();
+           
+            foreach (var role in SelectedRoles)
+            {
+                lista.Add(new UsuarioRole() { IdUser = iduser, IdRole = int.Parse(role) });
+            }
+
             UserRoleInsUpdParams parametros = new UserRoleInsUpdParams()
             {
                 IdUser = iduser,
                 Values = roles
             };
 
-            BLLPrestamo.Instance.InsUpdRoleUsuario(parametros);
+            BLLPrestamo.Instance.InsUpdRoleUsuario(lista);
 
             return RedirectToAction("EditUserRoles");
         }
