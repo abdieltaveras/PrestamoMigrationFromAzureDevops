@@ -19,8 +19,10 @@ namespace PrestamosMVC5.Controllers
         protected string pcpUserImageFile => AuthInSession.GetUserImageFilePath();
         protected int pcpUserIdNegocio => AuthInSession.GetIdNegocio();
         protected int pcpUserIdUsuario => AuthInSession.GetIdUsuario();
-        protected void LoginUserIntoSession(int idNegocio, string loginName, string userImageFile)=>
-            AuthInSession.LoginUserToSession(idNegocio, loginName, userImageFile);
+        protected void LoginUserIntoSession(int idNegocio, string loginName, int idUsuario, string userImageFile)=>
+            AuthInSession.LoginUserToSession(idNegocio, loginName, idUsuario, userImageFile);
+        protected void SetOperacionesToSession(List<string> operaciones) =>
+            AuthInSession.SetOperacionesToUserSession(operaciones);
 
         protected void pcpLogout() => AuthInSession.Logout();
 

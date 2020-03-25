@@ -35,6 +35,9 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public ActionResult CreateOrEdit(UserModel userModel)
         {
+            var Errors = ModelState.Keys.Where(i => ModelState[i].Errors.Count > 0)
+            .Select(k => new KeyValuePair<string, string>(k, ModelState[k].Errors.First().ErrorMessage));
+
             int userid = 0;
             Usuario usuario;
             ActionResult actionResult;
@@ -195,6 +198,10 @@ namespace PrestamosMVC5.Controllers
         private int SaveData(Usuario usuario)
         {
             int userid = 0;
+
+            var Errors = ModelState.Keys.Where(i => ModelState[i].Errors.Count > 0)
+            .Select(k => new KeyValuePair<string, string>(k, ModelState[k].Errors.First().ErrorMessage));
+
             if (ModelState.IsValid)
             {
                 try

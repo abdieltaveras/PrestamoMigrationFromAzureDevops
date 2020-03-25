@@ -188,6 +188,7 @@
     <Compile Include="Models\TipoBusqueda.cs" />
     <Compile Include="Models\TipoVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiteUtils\HasPermission.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\build\css\custom.css" />

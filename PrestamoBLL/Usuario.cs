@@ -53,6 +53,19 @@ namespace PrestamoBLL
             }
         }
 
+        public List<string> GetOperaciones(UsuarioOperacionesGetParams data)
+        {
+            List<string> operaciones = new List<string>();
+            try
+            {
+                operaciones = PrestamosDB.ExecReaderSelSP<string>("UsuarioListaOperacionesSpGet", SearchRec.ToSqlParams(data));
+            }
+            catch (Exception e)
+            {
+            }
+            return operaciones;
+        }
+
     }
 
 }

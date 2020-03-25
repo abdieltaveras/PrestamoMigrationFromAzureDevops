@@ -105,4 +105,9 @@ namespace PrestamoEntidades
         public int IdUser { get; set; }
         public int IdRole { get; set; }
     }
+
+    public class UsuarioOperacionesGetParams
+    {
+        public int IdUsuario { get; set; }
+    }
 }
