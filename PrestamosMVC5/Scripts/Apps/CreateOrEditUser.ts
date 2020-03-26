@@ -42,7 +42,6 @@ function initialViewState() {
     onLimitarVigenciaDeCuentaChange();
 }
 
-
 function setFecha(elem, name: string) {
     let d = new Date();
     let fechaTexto = '';
@@ -58,7 +57,6 @@ function setFecha(elem, name: string) {
     console.log(typeof(fecha), fecha);
     //let n = fecha.toLocaleDateString(dateFormat);
     //const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    
     //let n = fecha.toLocaleDateString(dateFormat, options);
     let n = fecha.toLocaleDateString(dateFormat);
     console.log(n);
