@@ -24,8 +24,8 @@ var elemVigenteHasta = $("#" + idVigenteHastaText);
 var elemVigenteDesde = $("#" + idVigenteDesdeText);
 var equalToValue = elemConfirmarContraseña.attr("data-val-equalto");
 var equalToOtherValue = elemConfirmarContraseña.attr("data-val-equalto-other");
-var dateFormat = 'en-GB';
-var yearRangeForDP = "+0:+1";
+//let dateFormat = 'en-GB';
+//let yearRangeForDP = "+0:+1";
 initialViewState();
 $('.collapsed').css('height', 'auto');
 $('.collapsed').find('.x_content').css('display', 'none');
@@ -38,22 +38,23 @@ function initialViewState() {
     onContraseñaExpiraChange();
     onLimitarVigenciaDeCuentaChange();
 }
-function setFecha(elem, name) {
+var dateFormat = 'en-GB';
+var yearRangeForDP = "+0:+1";
+var _dateFormat = 'dd/mm/yy';
+function setFecha(elem) {
     var d = new Date();
-    var fecha = new Date();
-    if (elem.prop("id") == idVigenteHastaText) {
-        fecha = elemVigenteHasta.prop("value");
-    }
-    if (elem.prop("id") == idVigenteDesdeText) {
-        fecha = elemVigenteDesde.prop("value");
-    }
+    var fechaTexto = '';
+    //if (elem.prop("id") == idVigenteHastaText) {
+    //    fechaTexto = elemVigenteHasta.attr("mmddyyyy")
+    //}
+    //if (elem.prop("id") == idVigenteDesdeText) {
+    //    fechaTexto = elemVigenteDesde.attr("mmddyyyy")
+    //}
+    console.log(elem.attr("mmddyyyy"));
+    fechaTexto = elem.attr("mmddyyyy");
+    var fecha = new Date(fechaTexto);
     var n = fecha.toLocaleDateString(dateFormat);
     elem.val(n);
-    //elem.val(fecha);
-    //function extractDate(fecha: Date): Date {
-    //    let result = new Date().setFullYear(fecha.getFullYear(), fecha.getMonth());
-    //    //, fecha.getDay());
-    //}
 }
 function onChangeProp(elem) {
     var elemId = elem.id;

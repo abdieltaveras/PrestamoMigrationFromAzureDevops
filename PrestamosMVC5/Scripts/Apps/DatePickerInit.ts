@@ -2,11 +2,7 @@
 $(document).ready(function () {
     let allDateElems = $('.datetype,input[type="datetime"],input[type="date"]');
     allDateElems.each(function () {
-        
-        let propname = $(this).prop("name");
-        setFecha($(this), propname);
-        //$(this).prop("readonly", true);
-        //console.log($(this));
+        setFecha($(this));
     });
     // esto es para que no valide la fecha con las reglas que le envia el razor, 
     // asi evitamos que este saliendo el dialogo del datepicker 
@@ -19,7 +15,7 @@ $(document).ready(function () {
     // evitamos que el usuario ponga la fecha y cometa errores
     allDateElems.prop("readonly", true);
     allDateElems.datepicker({
-        dateFormat: 'dd/mm/yy',
+        dateFormat: dateFormat,
         changeMonth: true,
         changeYear: true,
         changeDay: true,
