@@ -15,7 +15,7 @@ $(document).ready(function () {
     // evitamos que el usuario ponga la fecha y cometa errores
     allDateElems.prop("readonly", true);
     allDateElems.datepicker({
-        dateFormat: dateFormat,
+        dateFormat: _dateFormat,
         changeMonth: true,
         changeYear: true,
         changeDay: true,
