@@ -40,20 +40,23 @@ function initialViewState() {
 }
 function setFecha(elem, name) {
     var d = new Date();
-    var fecha = new Date();
+    var fechaTexto = '';
     if (elem.prop("id") == idVigenteHastaText) {
-        fecha = elemVigenteHasta.prop("value");
+        fechaTexto = elemVigenteHasta.prop("value");
+        console.log(elem.prop("id"));
     }
     if (elem.prop("id") == idVigenteDesdeText) {
-        fecha = elemVigenteDesde.prop("value");
+        fechaTexto = elemVigenteDesde.prop("value");
+        console.log(elem.prop("id"));
     }
+    var fecha = new Date(fechaTexto);
+    console.log(typeof (fecha), fecha);
+    //let n = fecha.toLocaleDateString(dateFormat);
+    //const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    //let n = fecha.toLocaleDateString(dateFormat, options);
     var n = fecha.toLocaleDateString(dateFormat);
+    console.log(n);
     elem.val(n);
-    //elem.val(fecha);
-    //function extractDate(fecha: Date): Date {
-    //    let result = new Date().setFullYear(fecha.getFullYear(), fecha.getMonth());
-    //    //, fecha.getDay());
-    //}
 }
 function onChangeProp(elem) {
     var elemId = elem.id;

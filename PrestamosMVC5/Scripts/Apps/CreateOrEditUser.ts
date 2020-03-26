@@ -25,8 +25,8 @@ let elemVigenteHasta = $("#" + idVigenteHastaText);
 let elemVigenteDesde = $("#" + idVigenteDesdeText);
 let equalToValue = elemConfirmarContraseña.attr("data-val-equalto");
 let equalToOtherValue = elemConfirmarContraseña.attr("data-val-equalto-other");
-let dateFormat = 'en-GB';
-let yearRangeForDP = "+0:+1";
+var dateFormat = 'en-GB';
+var yearRangeForDP = "+0:+1";
 initialViewState();
 $('.collapsed').css('height', 'auto');
 $('.collapsed').find('.x_content').css('display', 'none');
@@ -43,25 +43,26 @@ function initialViewState() {
 }
 
 
-
 function setFecha(elem, name: string) {
     let d = new Date();
-    let fecha = new Date();
-    
+    let fechaTexto = '';
     if (elem.prop("id") == idVigenteHastaText) {
-        fecha = elemVigenteHasta.prop("value") as Date;
+        fechaTexto = elemVigenteHasta.prop("value") 
+        console.log(elem.prop("id"));
     }
     if (elem.prop("id") == idVigenteDesdeText) {
-        fecha = elemVigenteDesde.prop("value") as Date;
+        fechaTexto = elemVigenteDesde.prop("value") 
+        console.log(elem.prop("id"));
     }
+    let fecha = new Date(fechaTexto);
+    console.log(typeof(fecha), fecha);
+    //let n = fecha.toLocaleDateString(dateFormat);
+    //const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    
+    //let n = fecha.toLocaleDateString(dateFormat, options);
     let n = fecha.toLocaleDateString(dateFormat);
+    console.log(n);
     elem.val(n);
-    //elem.val(fecha);
-
-    //function extractDate(fecha: Date): Date {
-    //    let result = new Date().setFullYear(fecha.getFullYear(), fecha.getMonth());
-    //    //, fecha.getDay());
-    //}
 }
 
 function onChangeProp(elem) {

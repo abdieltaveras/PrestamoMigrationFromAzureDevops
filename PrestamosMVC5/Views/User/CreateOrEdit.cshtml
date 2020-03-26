@@ -249,18 +249,6 @@
                 $('#roleSelect option[value="' + value.toString() + '"]').prop('selected', true);
             }
         })
-        function setFecha(elem, name) {
-            let d = new Date();
-            let fecha = new Date();
-            if (elem.prop("id") == idVigenteDesdeText) {
-                    d.setFullYear(@Model.Usuario.VigenteDesde.Year, @Model.Usuario.VigenteDesde.Month-1, @Model.Usuario.VigenteDesde.Day );
-                }
-                if (elem.prop("id") == idVigenteHastaText) {
-                    d.setFullYear(@Model.Usuario.VigenteHasta.Year, @Model.Usuario.VigenteHasta.Month-1, @Model.Usuario.VigenteHasta.Day );
-                }
-                let n = d.toLocaleDateString(dateFormat);
-                elem.val(n);
-        }
     </script>
     @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
 
