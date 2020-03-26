@@ -197,21 +197,21 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Usuario.VigenteDesde, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Usuario.VigenteDesde, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.EditorFor(model => model.Usuario.VigenteDesde, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @mmddyyyy = @Model.Usuario.VigenteDesde.Tommddyyyy() } })
                                     @Html.ValidationMessageFor(model => model.Usuario.VigenteDesde, "", new { @class = "text-danger" })
                                     <span id="textoVigenteDesde"></span>
                                 </div>
                             </div>
+
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Usuario.VigenteHasta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Usuario.VigenteHasta, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.EditorFor(model => model.Usuario.VigenteHasta, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @mmddyyyy = @Model.Usuario.VigenteHasta.Tommddyyyy() } })
                                     @Html.ValidationMessageFor(model => model.Usuario.VigenteHasta, "", new { @class = "text-danger" })
-                                    <span id="textoVigenteHasta"></span>
+                                    <span id="textoVigenteDesde"></span>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 

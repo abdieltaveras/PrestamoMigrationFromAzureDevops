@@ -26,6 +26,7 @@ var equalToValue = elemConfirmarContraseña.attr("data-val-equalto");
 var equalToOtherValue = elemConfirmarContraseña.attr("data-val-equalto-other");
 var dateFormat = 'en-GB';
 var yearRangeForDP = "+0:+1";
+var _dateFormat = "dd/mm/yy";
 initialViewState();
 $('.collapsed').css('height', 'auto');
 $('.collapsed').find('.x_content').css('display', 'none');
@@ -38,24 +39,19 @@ function initialViewState() {
     onContraseñaExpiraChange();
     onLimitarVigenciaDeCuentaChange();
 }
-function setFecha(elem, name) {
+function setFecha(elem) {
     var d = new Date();
     var fechaTexto = '';
-    if (elem.prop("id") == idVigenteHastaText) {
-        fechaTexto = elemVigenteHasta.prop("value");
-        console.log(elem.prop("id"));
-    }
-    if (elem.prop("id") == idVigenteDesdeText) {
-        fechaTexto = elemVigenteDesde.prop("value");
-        console.log(elem.prop("id"));
-    }
+    //if (elem.prop("id") == idVigenteHastaText) {
+    //    fechaTexto = elemVigenteHasta.attr("mmddyyyy")
+    //}
+    //if (elem.prop("id") == idVigenteDesdeText) {
+    //    fechaTexto = elemVigenteDesde.attr("mmddyyyy")
+    //}
+    console.log(elem.attr("mmddyyyy"));
+    fechaTexto = elem.attr("mmddyyyy");
     var fecha = new Date(fechaTexto);
-    console.log(typeof (fecha), fecha);
-    //let n = fecha.toLocaleDateString(dateFormat);
-    //const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    //let n = fecha.toLocaleDateString(dateFormat, options);
     var n = fecha.toLocaleDateString(dateFormat);
-    console.log(n);
     elem.val(n);
 }
 function onChangeProp(elem) {
