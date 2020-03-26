@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using PrestamoBLL;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -73,7 +74,12 @@ namespace PrestamosMVC5.SiteUtils
         public static void SetOperacionesToUserSession(List<string> operaciones)
         {
             //Session["your_array"] = new string[] { "Hola", "Adios" };
-            sessionState.Add(Operaciones, operaciones.ToArray());
+            List<string> ListaOperaciones = operaciones;
+            //foreach (var operacion in operaciones)
+            //{
+            //    ListaOperaciones.Add(operacion.Codigo);
+            //}
+            sessionState.Add(Operaciones, ListaOperaciones.ToArray());
         }
 
         public static string[] GetOperacionesToUserSession()

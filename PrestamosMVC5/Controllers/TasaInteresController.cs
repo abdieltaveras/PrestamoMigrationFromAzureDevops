@@ -14,14 +14,10 @@ namespace PrestamosMVC5.Controllers
     public class TasaInteresController : ControllerBasePcp
     {    
         // GET: TasaInteres
-        [HasPermission(Operacion = "ver-tasa-interes")]
+        [HasPermission(Operacion = "tasainteres-ver")]
         public ActionResult Index()
         {
             TasaInteresVM modelo = new TasaInteresVM();
-            Session["your_array"] = new string[] { "Hola", "Adios" };
-
-
-            string[] arr = (string[])Session["your_array"];
 
             modelo.ListaTasaInteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = pcpUserIdNegocio });
             //ViewBag.listaInteres = intereses;

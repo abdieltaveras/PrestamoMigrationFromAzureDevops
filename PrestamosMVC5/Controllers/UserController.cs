@@ -228,6 +228,9 @@ namespace PrestamosMVC5.Controllers
                 ModelState.Remove("ConfirmarContraseña");
                 usuario.Contraseña = string.Empty;
             }
+            //TODO: Esto se debe de borrar
+            ModelState.Remove("Usuario.VigenteDesde");
+            ModelState.Remove("Usuario.VigenteHasta");
         }
 
         protected  Usuario SetUsuarioFromUserModel(UserModel userModel)

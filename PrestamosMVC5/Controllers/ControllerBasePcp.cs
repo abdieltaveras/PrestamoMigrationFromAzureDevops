@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using PrestamoBLL;
+using PrestamoEntidades;
 using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;

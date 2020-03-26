@@ -55,17 +55,46 @@ namespace PrestamoBLL
 
         public List<string> GetOperaciones(UsuarioOperacionesGetParams data)
         {
+            //List<CodigoOperacion> operaciones = new List<CodigoOperacion>();
+            //try
+            //{
+            //    operaciones = PrestamosDB.ExecReaderSelSP<CodigoOperacion>("UsuarioListaOperacionesSpGet", SearchRec.ToSqlParams(data));
+
+            //}
+            //catch (Exception e)
+            //{
+            //}
+
+
             List<string> operaciones = new List<string>();
             try
             {
-                operaciones = PrestamosDB.ExecReaderSelSP<string>("UsuarioListaOperacionesSpGet", SearchRec.ToSqlParams(data));
+                var searchSqlParams = SearchRec.ToSqlParams(data);
+                //operaciones = PrestamosDB.ExecReaderSelSP<CodigoOperacion>("UsuarioListaOperacionesSpGet", searchSqlParams);
+                using(
+                var response = PrestamosDB.ExecReaderSelSP("UsuarioListaOperacionesSpGet", searchSqlParams))
+                {
+                    while (response.Read())
+                    {
+                        operaciones.Add(response["Codigo"].ToString());
+                    }
+                }
+                
             }
             catch (Exception e)
             {
+                
             }
             return operaciones;
+
+
         }
 
+    }
+
+    public class CodigoOperacion
+    {
+        public string Codigo { get; set; }
     }
 
 }

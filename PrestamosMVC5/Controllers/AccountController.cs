@@ -51,7 +51,7 @@ namespace PrestamosMVC5.Controllers
                 {
                     this.LoginUserIntoSession(loginView.IdNegocio, loginView.LoginName, result.Usuario.IdUsuario, loginView.ImagePath);
                     //AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
-                    //AuthInSession.SetOperacionesToUserSession(BLLPrestamo.Instance.GetOperaciones(new UsuarioOperacionesGetParams() { IdUsuario = result.Usuario.IdUsuario }));
+                    AuthInSession.SetOperacionesToUserSession(BLLPrestamo.Instance.GetOperaciones(new UsuarioOperacionesGetParams() { IdUsuario = result.Usuario.IdUsuario }));
                     if (string.IsNullOrEmpty(loginView.ReturnUrl) || loginView.ReturnUrl == "/")
                     {
                         _actResult = RedirectToAction("index", "home");

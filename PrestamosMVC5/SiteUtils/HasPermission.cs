@@ -13,15 +13,13 @@ namespace PrestamosMVC5.SiteUtils
         {
             string name = Operacion;
 
-            // Buscar permiso en arreglo
-            //string[] arr = (string[])sessionState["operaciones"];
-            var aaa = AuthInSession.GetOperacionesToUserSession();
+            var operaciones = AuthInSession.GetOperacionesToUserSession();
 
-            if (string.IsNullOrEmpty(name))
+            if (!Array.Exists(operaciones, element => element == name))
             {
-
                 filterContext.Result = new HttpStatusCodeResult(403);
-            }
+            }           
+
             base.OnActionExecuting(filterContext);
         }
     }
