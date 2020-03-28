@@ -12,5 +12,7 @@ as
 			tblOperaciones ON tblRolesOperaciones.IdOperacion = tblOperaciones.IdOperacion
 		WHERE 
 			tblUsersRoles.IdUser = @IdUsuario
+		GROUP BY 
+			tblOperaciones.Codigo
 	end
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace PrestamosMVC5.SiteUtils
 {
@@ -17,7 +18,7 @@ namespace PrestamosMVC5.SiteUtils
 
             if (!Array.Exists(operaciones, element => element == name))
             {
-                filterContext.Result = new HttpStatusCodeResult(403);
+                filterContext.Result = new RedirectResult("Acceso/AccessDenied");
             }           
 
             base.OnActionExecuting(filterContext);

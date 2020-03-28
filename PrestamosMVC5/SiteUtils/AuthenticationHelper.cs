@@ -73,12 +73,7 @@ namespace PrestamosMVC5.SiteUtils
 
         public static void SetOperacionesToUserSession(List<string> operaciones)
         {
-            //Session["your_array"] = new string[] { "Hola", "Adios" };
             List<string> ListaOperaciones = operaciones;
-            //foreach (var operacion in operaciones)
-            //{
-            //    ListaOperaciones.Add(operacion.Codigo);
-            //}
             sessionState.Add(Operaciones, ListaOperaciones.ToArray());
         }
 

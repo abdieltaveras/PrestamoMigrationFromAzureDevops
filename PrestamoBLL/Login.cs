@@ -105,8 +105,6 @@ namespace PrestamoBLL
             }
             if (usuario.Bloqueado) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.Blocked) };
             if (!usuario.Activo) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.Inactive) };
-            
-            var test = RijndaelSimple.Encrypt(password);
             if (RijndaelSimple.Encrypt(password) != usuario.Contraseña) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.InvalidPassword) };
                 
             if (usuario.DebeCambiarContraseñaAlIniciarSesion) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.MustChangePassword) };

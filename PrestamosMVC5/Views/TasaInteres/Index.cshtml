@@ -1,92 +1,98 @@
-﻿@*@model IEnumerable<PrestamoEntidades.TasaInteres>*@
-@model TasaInteresVM
+﻿@model TasaInteresVM
 <link href="~/Content/customcss/switch.css" rel="stylesheet">
-
-<style>
-</style>
 
 <div class="row">
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
+            @if (Permission.Has("tasainteres-crear"))
+            { 
+                <button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+            }
+            @if (Permission.Has("tasainteres-ver"))
+            {
+                <div class="x_panel">
+                    <div class="x_title">
 
-        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
-        
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de intereses</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <table class="table bulk_action ">
-                    <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>% de interes</th>
-                            <th>Descripcion</th>
-                            <th>Estado</th>
-                            <th>¿Autorizacion?</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        <h2>Tabla de intereses</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table bulk_action ">
+                            <thead>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>% de interes</th>
+                                    <th>Descripcion</th>
+                                    <th>Estado</th>
+                                    <th>¿Autorizacion?</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        @foreach (var item in Model.ListaTasaInteres)
-                        {
-                            <tr class="@(!item.Activo ? "table-active" : "" )">
-                                <td>
-                                    <strong>
-                                        @item.Codigo
-                                    </strong>
-                                </td>
-                                <td>
-                                    <span>@item.InteresMensual%</span>
-                                </td>
-                                <td>
-                                    <span>@item.Nombre</span>
-                                </td>
-                                <td>
-                                    @if (item.Activo)
-                                    {
-                                        <span class="badge badge-success">Activo</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-danger">Desactivado</span>
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.RequiereAutorizacion)
-                                    {
-                                        <span class="badge badge-primary">Si</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-danger">No</span>
-                                    }
-                                </td>
+                                @foreach (var item in Model.ListaTasaInteres)
+                                {
+                                    <tr class="@(!item.Activo ? "table-active" : "" )">
+                                        <td>
+                                            <strong>
+                                                @item.Codigo
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <span>@item.InteresMensual%</span>
+                                        </td>
+                                        <td>
+                                            <span>@item.Nombre</span>
+                                        </td>
+                                        <td>
+                                            @if (item.Activo)
+                                            {
+                                                <span class="badge badge-success">Activo</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">Desactivado</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.RequiereAutorizacion)
+                                            {
+                                                <span class="badge badge-primary">Si</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">No</span>
+                                            }
+                                        </td>
 
-                                <td>
-                                    <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
-                                        <button type="button" class="btn btn-outline-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </a>
-                                    <a href="#">
-                                        <button type="button" class="btn btn-outline-warning">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                                        <td>
+                                            @if (Permission.Has("tasainteres-anular"))
+                                            {
+                                                <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
+                                                    <button type="button" class="btn btn-outline-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </a>
+                                            }
+                                            @if (Permission.Has("tasainteres-editar"))
+                                            {
+                                                <a href="#">
+                                                    <button type="button" class="btn btn-outline-warning">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                </a>
+                                            }
+                                            </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
 </div>
 
 @*Modal de agregar intereses*@
