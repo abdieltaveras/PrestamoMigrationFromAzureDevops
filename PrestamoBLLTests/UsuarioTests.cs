@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PrestamoBLL;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using static PrestamoBLL.BLLPrestamo;
+
 
 namespace PrestamoBLL.Tests
 {
@@ -16,7 +15,7 @@ namespace PrestamoBLL.Tests
     {
         string errorMensaje = string.Empty;
 
-        private Usuario NewSuccessUserInstance
+        static internal Usuario NewSuccessUserInstance
         {
 
             get
@@ -47,20 +46,23 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void InsUpdUsuario_InsertSuccesUser_EmptyErrorMensaje()
         {
-
             var usr = NewSuccessUserInstance;
             if (GetSuccesUser() != null)
             {
                 usr.LoginName += " " + DateTime.Now.ToShortDateString();
+                usr.IdUsuario = -1;
             }
-            try
-            {
-                BLLPrestamo.Instance.InsUpdUsuario(usr);
-            }
-            catch (Exception e)
 
             {
-                errorMensaje = e.Message;
+                try
+                {
+                    BLLPrestamo.Instance.InsUpdUsuario(usr);
+                }
+                catch (Exception e)
+
+                {
+                    errorMensaje = e.Message;
+                }
             }
             Assert.IsTrue(string.IsNullOrEmpty(errorMensaje), errorMensaje);
         }
@@ -117,15 +119,7 @@ namespace PrestamoBLL.Tests
             }
             Assert.IsTrue(loginNameOfUsuario == NewSuccessUserInstance.LoginName.ToLower(), errorMensaje);
         }
-        [TestMethod()]
-        public void GetUsuario_ValidationResult_Success()
-        {
-            UserValidationResultWithMessage result = new UserValidationResultWithMessage(UserValidationResult.Sucess);
-            var usr = NewSuccessUserInstance;
-            UpdateSuccessUser(usr);
-            result = BLLPrestamo.Instance.UsuarioValidateCredential(1, usr.LoginName, usr.Contraseña);
-            Assert.IsTrue(result.UserValidationResult == UserValidationResult.Sucess, $"Se esperaba {UserValidationResult.Sucess} y se obtuvo {result.ToString()}");
-        }
+        
 
         /// <summary>
         /// Update Succes user search  record and update the IdUsuario with the Usuario value instance
@@ -166,27 +160,7 @@ namespace PrestamoBLL.Tests
             usuario.Usuario = "testUser" + DateTime.Now.ToShortDateString();
         }
 
-        [TestMethod()]
-        public void UserValidationResult_NoUserFound()
-        {
-
-            var expected = UserValidationResult.NoUserFound;
-            string loginName = DateTime.Now.ToString();
-            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, loginName, string.Empty);
-            Assert.IsTrue(userValResult.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
-        }
-
-        [TestMethod()]
-        public void UserValidationResult_InvalidPassword()
-        {
-            var expected = UserValidationResult.InvalidPassword;
-            var usr = NewSuccessUserInstance;
-            UpdateSuccessUser(usr);
-            string loginName = usr.LoginName;
-            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, loginName, Guid.NewGuid().ToString());
-            Assert.IsTrue(userValResult.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
-        }
-
+        
         /// <summary>
         /// Get the current Succes User
         /// </summary>
@@ -195,45 +169,15 @@ namespace PrestamoBLL.Tests
         {
             var usr = NewSuccessUserInstance;
             var usuario = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = 1 }).FirstOrDefault();
-            SetUsuario(usuario);
+            if (usuario != null)
+            {
+                SetUsuario(usuario);
+            }
             return usuario;
         }
 
         [TestMethod()]
-        public void UserValidationResult_Blocked()
-        {
-            ExecuteValidation(UserValidationResult.Blocked, usr => usr.Bloqueado = true);
-        }
-        [TestMethod()]
-        public void UserValidationResult_MustChangePassword()
-        {
-            ExecuteValidation(UserValidationResult.MustChangePassword, usr => usr.DebeCambiarContraseñaAlIniciarSesion = true);
-        }
-
-        [TestMethod()]
-        public void UserValidationResultNotActive()
-        {
-            ExecuteValidation(UserValidationResult.Inactive, usr => usr.Activo = false);
-        }
-        [TestMethod()]
-        public void UserValidationResPasswordExpired()
-        {
-            ExecuteValidation(UserValidationResult.ExpiredPassword, usr => usr.VigenteHasta = DateTime.Now.AddDays(-10));
-        }
-        private void ExecuteValidation(UserValidationResult expected, Action<Usuario> cambiarValor)
-        {
-            UpdateSuccessUser(NewSuccessUserInstance);
-            var usuario = GetSuccesUser();
-            cambiarValor(usuario);
-            //usuario.DebeCambiarContraseña = true;
-            BLLPrestamo.Instance.InsUpdUsuario(usuario);
-            var userValResult = BLLPrestamo.Instance.UsuarioValidateCredential(1, usuario.LoginName, usuario.Contraseña);
-            Assert.IsTrue(userValResult.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ToString()}");
-
-        }
-
-        [TestMethod()]
-        public void UsersExistTest_IfExistUser_true()
+        public void UsersExistFoAANegocioTest_IfExistUser_true()
         {
             var expected = true;
 
@@ -242,19 +186,21 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(usersExists == expected,"la tabla no contiene datos para el negocio indicado");
             
         }
+
         [TestMethod()]
         public void CreateAndCreateAdminUserForNegocios()
         {
-            var errorMensaje = string.Empty;
-            try
-            {
-                BLLPrestamo.Instance.CheckAndCreateAdminUserFoNegocios("pcp46232");
-            }
-            catch (Exception e)
-            {
-                errorMensaje = e.Message;
-            }
-            Assert.IsTrue(errorMensaje == string.Empty, errorMensaje);
+            throw new NotImplementedException();
+            //var errorMensaje = string.Empty;
+            //try
+            //{
+            //    BLLPrestamo.Instance.CheckAndCreateAdminUserFoNegocios("pcp46232");
+            //}
+            //catch (Exception e)
+            //{
+            //    errorMensaje = e.Message;
+            //}
+            //Assert.IsTrue(errorMensaje == string.Empty, errorMensaje);
         }
     }
 }

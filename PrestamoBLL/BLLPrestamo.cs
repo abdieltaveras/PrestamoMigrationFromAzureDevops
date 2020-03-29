@@ -31,8 +31,8 @@ namespace PrestamoBLL
         {
             
             var mensaje = e.Message;
-            if (mensaje == "Object reference not set to an instance of an object.")
-                mensaje = $"La cadena de conexion [{ConexionDB.Server}] indicada no permitio establecer la conexion";
+            //if (mensaje == "Object reference not set to an instance of an object.")
+            //    mensaje = $"La cadena de conexion [{ConexionDB.Server}] indicada no permitio establecer la conexion";
             
             var index1 = mensaje.IndexOf("Violation of UNIQUE KEY constraint");
             if (index1 >= 0)
@@ -162,9 +162,13 @@ namespace PrestamoBLL
                 try
                 {
                     var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
-                    var response = PrestamosDB.ExecSelSP(storedProcedure, _insUpdParam);
-                  
-                    last_id = int.Parse(response.Rows[0].ItemArray[0].ToString());
+                    using (var response = PrestamosDB.ExecReaderSelSP(storedProcedure, _insUpdParam))
+                    { 
+                        while (response.Read())
+                        {
+                            last_id = int.Parse(response[0].ToString());
+                        }
+                    }
                 }
                 catch (Exception e)
                 {

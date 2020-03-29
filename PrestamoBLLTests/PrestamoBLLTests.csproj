@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="BllPrestamoTests.cs" />
     <Compile Include="CuotaTests.cs" />
+    <Compile Include="LoginTests.cs" />
     <Compile Include="NegocioTests.cs" />
     <Compile Include="TasaInteresTests.cs" />
     <Compile Include="ClienteTests.cs" />

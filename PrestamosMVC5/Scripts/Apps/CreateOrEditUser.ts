@@ -26,7 +26,7 @@ let elemVigenteDesde = $("#" + idVigenteDesdeText);
 let equalToValue = elemConfirmarContraseña.attr("data-val-equalto");
 let equalToOtherValue = elemConfirmarContraseña.attr("data-val-equalto-other");
 //let dateFormat = 'en-GB';
-//let yearRangeForDP = "+0:+1";
+//len-GBet yearRangeForDP = "+0:+1";
 initialViewState();
 $('.collapsed').css('height', 'auto');
 $('.collapsed').find('.x_content').css('display', 'none');
@@ -47,15 +47,9 @@ let _dateFormat = 'dd/mm/yy';
 function setFecha(elem: JQuery) {
     let d = new Date();
     let fechaTexto = '';
-    //if (elem.prop("id") == idVigenteHastaText) {
-    //    fechaTexto = elemVigenteHasta.attr("mmddyyyy")
-    //}
-    //if (elem.prop("id") == idVigenteDesdeText) {
-    //    fechaTexto = elemVigenteDesde.attr("mmddyyyy")
-    //}
-    console.log(elem.attr("mmddyyyy"));
     fechaTexto = elem.attr("mmddyyyy")
     let fecha = new Date(fechaTexto);
+    //console.log("dia " + fecha.getDate());
     let n = fecha.toLocaleDateString(dateFormat);
     elem.val(n);
 }

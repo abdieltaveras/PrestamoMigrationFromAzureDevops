@@ -26,5 +26,13 @@ namespace PrestamoBLL.Tests
             //var datos = lista.Count() > 0;
             //Assert.IsTrue(datos, "no se econtraron datos");
         }
+
+        [TestMethod()]
+        public void RoleInsUpdTest_result_resultgreaterThanZero()
+        {
+            var ins = new Role { Nombre = "Probando", Usuario = "test", IdNegocio = 1 };
+            var result = BLLPrestamo.Instance.RoleInsUpd(ins);
+            Assert.IsTrue(result>0,$"se esperaba valor mayor a 0 y se obtuvo {result}");
+        }
     }
 }

@@ -25,7 +25,7 @@ var elemVigenteDesde = $("#" + idVigenteDesdeText);
 var equalToValue = elemConfirmarContraseña.attr("data-val-equalto");
 var equalToOtherValue = elemConfirmarContraseña.attr("data-val-equalto-other");
 //let dateFormat = 'en-GB';
-//let yearRangeForDP = "+0:+1";
+//len-GBet yearRangeForDP = "+0:+1";
 initialViewState();
 $('.collapsed').css('height', 'auto');
 $('.collapsed').find('.x_content').css('display', 'none');
@@ -44,15 +44,9 @@ var _dateFormat = 'dd/mm/yy';
 function setFecha(elem) {
     var d = new Date();
     var fechaTexto = '';
-    //if (elem.prop("id") == idVigenteHastaText) {
-    //    fechaTexto = elemVigenteHasta.attr("mmddyyyy")
-    //}
-    //if (elem.prop("id") == idVigenteDesdeText) {
-    //    fechaTexto = elemVigenteDesde.attr("mmddyyyy")
-    //}
-    console.log(elem.attr("mmddyyyy"));
     fechaTexto = elem.attr("mmddyyyy");
     var fecha = new Date(fechaTexto);
+    //console.log("dia " + fecha.getDate());
     var n = fecha.toLocaleDateString(dateFormat);
     elem.val(n);
 }

@@ -18,7 +18,6 @@ namespace PrestamoBLL
         /// </summary>
         /// <param name="idNegocio"></param>
         /// <returns></returns>
-
         public void UsuarioChangePassword(changePassword param)
         {
             var _updParam = SearchRec.ToSqlParams(param);
@@ -27,54 +26,16 @@ namespace PrestamoBLL
         public UserValidationResultWithMessage LoginUser(Usuario usr)
         {
             var result = UsuarioValidateCredential(usr.IdNegocio, usr.LoginName, usr.Contraseña);
-            if (usr.LoginName.ToLower() == "admin")
+            #if DEBUG
+            if (usr.LoginName.ToLower() == "admin") 
             {
-                if (usr.Contraseña.ToLower() == AdminPassword())
-                {
-                    return new UserValidationResultWithMessage(UserValidationResult.Sucess);
-                }
+                    result = new UserValidationResultWithMessage(UserValidationResult.Sucess);
             }
+            #endif
             return result;
         }
 
-        private string AdminPassword()
-        {
-            string valor = "pcp" + DateTime.Now.ToString("yyyyMMdd");
-            #if DEBUG
-            { valor = "pcp"; }
-            #endif
-            return valor;
-        }
-
-        public void CheckAndCreateAdminUserFoNegocios(string key)
-        {
-            if (key != "pcp46232") return;
-
-            var negocios = this.GetNegocios(new NegociosGetParams());
-            negocios.ToList().ForEach(negocio =>
-            {
-                UsuarioCreateAdmin(negocio);
-            });
-        }
-
-        private void UsuarioCreateAdmin(Negocio negocio)
-        {
-            var existeAdminUserForThisNegocio = this.GetUsuarios(new UsuarioGetParams { IdNegocio = negocio.IdNegocio, LoginName = "admin" }).FirstOrDefault() != null;
-            if (!existeAdminUserForThisNegocio)
-            {
-                var usuario = new Usuario
-                {
-                    Usuario = "bllCreateUser",
-                    Contraseña = AdminPassword(),
-                    LoginName = "Admin",
-                    NombreRealCompleto = "Administrador Aplicacion",
-                    ContraseñaExpiraCadaXMes = 3,
-                    DebeCambiarContraseñaAlIniciarSesion = false,
-                    IdNegocio = negocio.IdNegocio
-                };
-                this.InsUpdUsuario(usuario, this.bllUser);
-            };
-        }
+        
         /// <summary>
         /// to validate a user and retrieve his states it returns if is ok the password, 
         /// if user is bloked, active, or if must change password etc.
@@ -119,14 +80,17 @@ namespace PrestamoBLL
             return result;
         }
 
+        public bool ArePasswordsEquals(string pass1, string pass2)
+        {
+            return pass1 == pass2;
+        }
         public bool IsExpiredAccount(DateTime fecha)
         {
-            var result = (fecha != null && fecha != new DateTime(1900, 1, 1) && fecha < DateTime.Now);
+            var result = (fecha != null && fecha != InitValues._19000101 && fecha < DateTime.Now);
             return result;
         }
         public enum UserValidationResult
         {
-
             NoUserFound = 1,
             InvalidPassword,
             MustChangePassword,

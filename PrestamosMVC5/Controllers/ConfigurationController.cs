@@ -14,7 +14,9 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Index()
         {
             BLLPrestamo.Instance.NegocioCreateIfNotExist(key);
-            BLLPrestamo.Instance.CheckAndCreateAdminUserFoNegocios(key);
+            // TODO : this line was removed must be a configuration process in debug mode the initDatabase must create admin account
+            
+            //BLLPrestamo.Instance.CheckAndCreateAdminUserFoNegocios(key);
             return View();
         }
     }

@@ -4024,6 +4024,7 @@
     <Content Include="Views\Roles\Edit.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditUser.ts" />
     <Content Include="Scripts\Apps\searchLocalidad.js" />
+    <TypeScriptCompile Include="Scripts\Apps\cultureInfo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
     <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs.ts" />
     <TypeScriptCompile Include="Scripts\Apps\DatePickerInit.ts" />
