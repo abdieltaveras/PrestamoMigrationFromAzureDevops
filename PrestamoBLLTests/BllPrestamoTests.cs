@@ -7,7 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using PrestamoEntidades;
 
-namespace PrestamoBLL.Tests
+
+namespace PrestamoBLLTests
 {
     [TestClass()]
     public class BllPrestamoTests
@@ -32,7 +33,16 @@ namespace PrestamoBLL.Tests
         {
             var ins = new Role { Nombre = "Probando", Usuario = "test", IdNegocio = 1 };
             var result = BLLPrestamo.Instance.RoleInsUpd(ins);
-            Assert.IsTrue(result>0,$"se esperaba valor mayor a 0 y se obtuvo {result}");
+            Assert.IsTrue(result > 0, $"se esperaba valor mayor a 0 y se obtuvo {result}");
+        }
+
+        
+
+        public void GetOperacionesWithUserId_2()
+        {
+            var response = BLLPrestamo.Instance.GetOperaciones(new PrestamoEntidades.UsuarioOperacionesGetParams() { IdUsuario = 2 });
+            Assert.IsTrue(response.Count() > 0, "No retorno registros");
+
         }
     }
 }

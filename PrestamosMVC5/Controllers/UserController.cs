@@ -35,6 +35,9 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public ActionResult CreateOrEdit(UserModel userModel)
         {
+            var Errors = ModelState.Keys.Where(i => ModelState[i].Errors.Count > 0)
+            .Select(k => new KeyValuePair<string, string>(k, ModelState[k].Errors.First().ErrorMessage));
+
             int userid = 0;
             Usuario usuario;
             ActionResult actionResult;
@@ -144,7 +147,7 @@ namespace PrestamosMVC5.Controllers
             }
             else
             {
-                var changeP = new changePassword { Contraseña = model.Contraseña, IdUsuario = model.IdUsuario };
+                var changeP = new ChangePassword { Contraseña = model.Contraseña, IdUsuario = model.IdUsuario };
                 pcpSetUsuarioTo(changeP);
                 try
                 {
@@ -195,6 +198,10 @@ namespace PrestamosMVC5.Controllers
         private int SaveData(Usuario usuario)
         {
             int userid = 0;
+
+            var Errors = ModelState.Keys.Where(i => ModelState[i].Errors.Count > 0)
+            .Select(k => new KeyValuePair<string, string>(k, ModelState[k].Errors.First().ErrorMessage));
+
             if (ModelState.IsValid)
             {
                 try
@@ -221,6 +228,9 @@ namespace PrestamosMVC5.Controllers
                 ModelState.Remove("ConfirmarContraseña");
                 usuario.Contraseña = string.Empty;
             }
+            //TODO: Esto se debe de borrar
+            ModelState.Remove("Usuario.VigenteDesde");
+            ModelState.Remove("Usuario.VigenteHasta");
         }
 
         protected  Usuario SetUsuarioFromUserModel(UserModel userModel)

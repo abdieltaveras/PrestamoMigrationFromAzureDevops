@@ -166,7 +166,7 @@ namespace PrestamoBLL
                     { 
                         while (response.Read())
                         {
-                            last_id = int.Parse(response[0].ToString());
+                            last_id = response.GetInt32(0);
                         }
                     }
                 }

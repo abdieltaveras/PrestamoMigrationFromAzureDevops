@@ -8,7 +8,8 @@ AS
 			SET Contraseña = @contraseña,
 				ModificadoPor = @usuario,
 				FechaModificado = getdate(),
-				InicioVigenciaContraseña = getdate()
+				InicioVigenciaContraseña = getdate(),
+				DebeCambiarContraseñaAlIniciarSesion=0
 			where IdUsuario = @IdUsuario
 	end
 RETURN 

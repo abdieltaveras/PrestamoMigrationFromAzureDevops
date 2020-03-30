@@ -53,6 +53,47 @@ namespace PrestamoBLL
             }
         }
 
+        public List<string> GetOperaciones(UsuarioOperacionesGetParams data)
+        {
+            var searchSqlParams = SearchRec.ToSqlParams(data);
+            List<string> operaciones = new List<string>();
+            var operaciones2 = new List<CodigoOperacion>();
+            try
+            {
+                operaciones2 = PrestamosDB.ExecReaderSelSP<CodigoOperacion>("UsuarioListaOperacionesSpGet", searchSqlParams);
+            }
+            catch (Exception e)
+            {
+                DatabaseError(e);
+            }
+            operaciones2.ForEach(op => operaciones.Add(op.Codigo));
+            
+            //try
+            //{
+
+            //    //operaciones = PrestamosDB.ExecReaderSelSP<CodigoOperacion>("UsuarioListaOperacionesSpGet", searchSqlParams);
+            //    using(
+            //    var response = PrestamosDB.ExecReaderSelSP("UsuarioListaOperacionesSpGet", searchSqlParams))
+            //    {
+            //        while (response.Read())
+            //        {
+            //            operaciones.Add(response["Codigo"].ToString());
+            //        }
+            //    }
+
+            //}
+            //catch (Exception e)
+            //{
+            //    DatabaseError(e);
+            //}
+
+            return operaciones;
+        }
+        private class CodigoOperacion
+        {
+            public string Codigo { get; set; }
+        }
+
     }
 
 }

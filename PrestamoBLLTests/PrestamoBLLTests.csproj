@@ -66,6 +66,7 @@
     <Compile Include="CuotaTests.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="NegocioTests.cs" />
+    <Compile Include="OperacionesTest.cs" />
     <Compile Include="TasaInteresTests.cs" />
     <Compile Include="ClienteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

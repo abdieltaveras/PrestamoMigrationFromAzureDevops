@@ -54,7 +54,7 @@ namespace PrestamoEntidades
         /// para asi determinar si esta vencida segun los meses que se
         /// indica que la misma vencera
         /// </summary>
-        [IgnorarEnParam]
+
         public DateTime InicioVigenciaContraseña { get; set; } = InitValues._19000101;
         [Display(Name = "Contraseña Expira")]
         public int ContraseñaExpiraCadaXMes { get; set; } = -1;
@@ -86,7 +86,7 @@ namespace PrestamoEntidades
         public int DebeCambiarContraseñaAlIniciarSesion { get; set; } = -1;
     }
 
-    public class changePassword: BaseUsuario
+    public class ChangePassword: BaseUsuario
     {
         public int IdUsuario { get; set; }
         [GuardarEncriptado]
@@ -104,5 +104,10 @@ namespace PrestamoEntidades
     {
         public int IdUser { get; set; }
         public int IdRole { get; set; }
+    }
+
+    public class UsuarioOperacionesGetParams
+    {
+        public int IdUsuario { get; set; }
     }
 }

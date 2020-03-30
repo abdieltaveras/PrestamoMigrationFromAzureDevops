@@ -148,6 +148,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\CatalogoVM.cs" />
     <Compile Include="Models\LocalidadVM.cs" />
+    <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\RoleVM.cs" />
     <Compile Include="Models\VerificadorDireccionVM.cs" />
     <Compile Include="Models\OcupacionVM.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Models\TipoVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteUtils\DateUtils.cs" />
+    <Compile Include="SiteUtils\HasPermission.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\build\css\custom.css" />
@@ -230,6 +232,7 @@
     <Content Include="Content\docs\js\jquery.min.js" />
     <Content Include="Content\docs\js\shBrushXml.js" />
     <Content Include="Content\docs\js\shCore.js" />
+    <Content Include="Content\Images\access-denied.png" />
     <Content Include="Content\Images\pcpprestamo-07.jpg" />
     <Content Include="Content\production\calendar.html" />
     <Content Include="Content\production\chartjs.html" />
@@ -4014,6 +4017,9 @@
     <Content Include="Views\Tests\CheckBoxes.cshtml" />
     <Content Include="Views\Tests\Imagen.cshtml" />
     <Content Include="Views\Tests\CustomizeInputFile1.cshtml" />
+    <Content Include="Views\Shared\AccessDenied.cshtml" />
+    <Content Include="Views\Shared\_Sidebar - Copy.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <Content Include="Views\Catalogos\Catalogos.cshtml" />

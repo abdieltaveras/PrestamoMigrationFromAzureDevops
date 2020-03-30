@@ -7,6 +7,8 @@
     
     public enum TiposIdentificacionPersona { Cedula = 1, Pasaporte, Otro }
 
+    public enum Estado_Civil { Casado = 1, Soltero, Otro }
+
     //public enum TipoLocalidad
     //{
     //    Continente = 1,

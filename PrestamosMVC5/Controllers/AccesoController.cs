@@ -39,5 +39,10 @@ namespace PrestamosMVC5.Controllers
 
             return View(rolesDeUsuario);
         }
+
+        public ActionResult AccessDenied()
+        {
+            return View("AccessDenied");
+        }
     }
 }

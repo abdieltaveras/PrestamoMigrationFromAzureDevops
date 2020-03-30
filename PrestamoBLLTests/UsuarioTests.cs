@@ -6,9 +6,10 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using PrestamoBLL;
 
 
-namespace PrestamoBLL.Tests
+namespace PrestamoBLLTests
 {
     [TestClass()]
     public class UsuarioTests
@@ -17,14 +18,13 @@ namespace PrestamoBLL.Tests
 
         static internal Usuario NewSuccessUserInstance
         {
-
             get
             {
                 var usr = new Usuario
                 {
-                    NombreRealCompleto = "Succes User",
-                    LoginName = "Success",
-                    Contraseña = "Succes12345",
+                    NombreRealCompleto = "Usuario para pruebas BllTest",
+                    LoginName = "BllTest",
+                    Contraseña = "12345",
                     Telefono1 = "829-961-9141",
                     Usuario = "UsuarioTest",
                     CorreoElectronico = "abdieltaveras@hotmail.com",
@@ -180,14 +180,11 @@ namespace PrestamoBLL.Tests
         public void UsersExistFoAANegocioTest_IfExistUser_true()
         {
             var expected = true;
-
             var usersExists = BLLPrestamo.Instance.ExistDataForTable("tblUsuarios",1);
-
             Assert.IsTrue(usersExists == expected,"la tabla no contiene datos para el negocio indicado");
-            
         }
 
-        [TestMethod()]
+     
         public void CreateAndCreateAdminUserForNegocios()
         {
             throw new NotImplementedException();
@@ -201,6 +198,13 @@ namespace PrestamoBLL.Tests
             //    errorMensaje = e.Message;
             //}
             //Assert.IsTrue(errorMensaje == string.Empty, errorMensaje);
+        }
+        [TestMethod()]
+        public void GetOperacionesWithUserId_2()
+        {
+            var response = BLLPrestamo.Instance.GetOperaciones(new PrestamoEntidades.UsuarioOperacionesGetParams() { IdUsuario = 2 });
+            Assert.IsTrue(response.Count() > 0, "No retorno registros");
+
         }
     }
 }

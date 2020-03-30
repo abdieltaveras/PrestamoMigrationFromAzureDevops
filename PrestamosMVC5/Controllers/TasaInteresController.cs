@@ -14,6 +14,7 @@ namespace PrestamosMVC5.Controllers
     public class TasaInteresController : ControllerBasePcp
     {    
         // GET: TasaInteres
+        [HasPermission(Operacion = "tasainteres-ver")]
         public ActionResult Index()
         {
             TasaInteresVM modelo = new TasaInteresVM();

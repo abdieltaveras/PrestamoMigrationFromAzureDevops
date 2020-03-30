@@ -29,7 +29,7 @@ namespace PrestamoBLL
             }
             catch (Exception e)
             {
-                
+                DatabaseError(e);
             }
         }
 

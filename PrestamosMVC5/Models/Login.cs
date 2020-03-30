@@ -27,17 +27,18 @@ namespace PrestamosMVC5.Models
         public string ReturnUrl { get; set; } = string.Empty;
 
         public string ImagePath { get; set; } = string.Empty;
-    
+
     }
 
-    
+
     public class ChangePasswordModel
     {
         public string LoginName { get; set; } = string.Empty;
         public int IdUsuario { get; set; }
+        public int IdNegocio { get; set; }
+
         [Required(ErrorMessage = "Contraseña requerida")]
         [DataType(DataType.Password)]
-
         public string Contraseña { get; set; } = string.Empty;
         [Required(ErrorMessage = "Valor requerido no puede estar vacio")]
         [DataType(DataType.Password)]
@@ -48,7 +49,7 @@ namespace PrestamosMVC5.Models
 
     public class UserModel
     {
-        public Usuario Usuario { get; set; }= new Usuario();
+        public Usuario Usuario { get; set; } = new Usuario();
         [Required]
         public Guid ActivationCode { get; set; } = Guid.NewGuid();
 
@@ -87,5 +88,5 @@ namespace PrestamosMVC5.Models
         public IEnumerable<Role> RoleList { get; set; }
         public string[] SelectedRoles { get; set; }
     }
-    
+
 }
