@@ -11,7 +11,7 @@ as
 		JOIN 
 			tblOperaciones ON tblRolesOperaciones.IdOperacion = tblOperaciones.IdOperacion
 		WHERE 
-			tblUsersRoles.IdUser = @IdUsuario
+			tblUsersRoles.IdUser = @IdUsuario AND tblRolesOperaciones.AnuladoPor = NULL
 		GROUP BY 
 			tblOperaciones.Codigo
 	end

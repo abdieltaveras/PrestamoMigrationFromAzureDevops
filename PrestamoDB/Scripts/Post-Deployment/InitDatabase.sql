@@ -60,6 +60,8 @@ Post-Deployment Script Template
 
 INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
 VALUES (1,'Usuario','Usuario por defecto','slT1cIeEDhgXsnLcD0w/ng==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null),
+			(1,'bryan','bryan','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,null,-1,null,null,
 			@usuario,getdate(),null,null,null,null)
 
 
@@ -202,11 +204,8 @@ INSERT INTO tblOperaciones(Nombre, Descripcion, Grupo, Codigo)
 			('Reporte de ventas', 'Con este permiso podra ver el reporte de ventas', 3, 'reporteventas-ver'),
 			('Aplicar descuento', 'Con este permiso podra aplicar descuento a los prestamos', 4, 'aplicardescuento-crear')
 
---INSERT INTO tblRolesUsers(UserId, RoleId)
---	VALUES	(1, 1)
+INSERT INTO tblUsersRoles(IdUser, IdRole, InsertadoPor)
+	VALUES	(2, 1, @usuario)
 
---INSERT INTO tblRolesOperaciones(IdOperacion, IdRole)
---	VALUES	(1, 1),
---			(2, 1),
---			(3, 1),
---			(4, 1)
+INSERT INTO tblRolesOperaciones(IdOperacion, IdRole, InsertadoPor)
+	VALUES	(1, 1, @usuario)

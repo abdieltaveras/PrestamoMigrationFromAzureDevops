@@ -6,6 +6,11 @@
 as
 BEGIN
 
-select IdRole, IdOperacion from tblRolesOperaciones where IdRole = @IdRole;
+	SELECT 
+		IdRole, IdOperacion 
+	FROM 
+		tblRolesOperaciones 
+	WHERE 
+		IdRole = @IdRole AND AnuladoPor IS NULL;
 
 End

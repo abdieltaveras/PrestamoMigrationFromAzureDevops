@@ -19,6 +19,16 @@ namespace PrestamoBLL
             return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios", this.GetValidation);
         }
 
+        public IEnumerable<UsuarioRole> UserRolesSearch(BuscarUserRolesParams searchParam)
+        {
+            return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarUsuarioRoles", GetValidation);
+        }
+
+        public IEnumerable<UsuarioRole> UserRolesSearchAll(BuscarUserRolesParams searchParam)
+        {
+            return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarTodosUsuarioRoles", GetValidation);
+        }
+
         public int InsUpdUsuario(Usuario insUpdParam, string from = "")
         {
             //TODO Agregar columna inicioVigenciaContraseña
@@ -38,13 +48,26 @@ namespace PrestamoBLL
 
         private bool ExistUsers => ExistDataForTable("tblUsuarios");
 
-        public void InsUpdRoleUsuario(List<UsuarioRole> data)
+        public void InsUpdRoleUsuario(
+            List<UsuarioRoleIns> dataAInsertar,
+            List<UsuarioRoleIns> dataAAnular,
+            List<UsuarioRoleIns> dataAModificar,
+            string usuario)
         {
-            var UserRoleDataTable = data.ToDataTable();
+
+            var DataTableInsertar = dataAInsertar.ToDataTable();
+            var DataTableModificar = dataAModificar.ToDataTable();
+            var DataTableAnular = dataAAnular.ToDataTable();
 
             try
             {
-                var _insUpdParam = SearchRec.ToSqlParams(new { userrole = UserRoleDataTable });
+                var _insUpdParam = SearchRec.ToSqlParams(new
+                {
+                    UsuarioRoleInsertar = DataTableInsertar,
+                    UsuarioRoleModificar = DataTableModificar,
+                    UsuarioRoleAnular = DataTableAnular,
+                    Usuario = usuario
+                });
                 var response = PrestamosDB.ExecSelSP("spInsUpdUserRoles", _insUpdParam);
             }
             catch (Exception e)
@@ -68,25 +91,6 @@ namespace PrestamoBLL
             }
             operaciones2.ForEach(op => operaciones.Add(op.Codigo));
             
-            //try
-            //{
-
-            //    //operaciones = PrestamosDB.ExecReaderSelSP<CodigoOperacion>("UsuarioListaOperacionesSpGet", searchSqlParams);
-            //    using(
-            //    var response = PrestamosDB.ExecReaderSelSP("UsuarioListaOperacionesSpGet", searchSqlParams))
-            //    {
-            //        while (response.Read())
-            //        {
-            //            operaciones.Add(response["Codigo"].ToString());
-            //        }
-            //    }
-
-            //}
-            //catch (Exception e)
-            //{
-            //    DatabaseError(e);
-            //}
-
             return operaciones;
         }
         private class CodigoOperacion

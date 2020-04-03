@@ -1,8 +1,10 @@
-﻿using System;
+﻿using emtSoft.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace PrestamoEntidades
 {
@@ -26,6 +28,11 @@ namespace PrestamoEntidades
         public int IdRole { get; set; } = -1;
     }
 
+    public class RoleOperacionGetParams
+    {
+        public int IdRole { get; set; } = -1;
+    }
+
     public class RoleOperacionInsUpdParams
     {
         public int IdRole { get; set; } = -1;
@@ -36,6 +43,32 @@ namespace PrestamoEntidades
     {
         public int IdRole { get; set; }
         public int IdOperacion { get; set; }
+        [IgnorarEnParam()]
+        [HiddenInput(DisplayValue = false)]
+        public string InsertadoPor { get; set; } = string.Empty;
+        [IgnorarEnParam()]
+        [HiddenInput(DisplayValue = false)]
+        public DateTime FechaInsertado { get; set; } = InitValues._19000101;
+        [IgnorarEnParam()]
+        [HiddenInput(DisplayValue = false)]
+        public string ModificadoPor { get; set; } = string.Empty;
+        [IgnorarEnParam()]
+        [HiddenInput(DisplayValue = false)]
+        public DateTime FechaModificado { get; set; } = InitValues._19000101;
+        [IgnorarEnParam()]
+        [HiddenInput(DisplayValue = false)]
+        public string AnuladoPor { get; set; } = string.Empty;
+        [IgnorarEnParam()]
+        [HiddenInput(DisplayValue = false)]
+        public DateTime FechaAnulado { get; set; } = InitValues._19000101;
+        public bool Anulado() => string.IsNullOrEmpty(AnuladoPor);
+
+    }
+
+    public class RoleOperacionIns
+    {
+        public int IdRole { get; set; }
+        public int IdOperacion { get; set; }        
     }
 
     public class BuscarUserRolesParams : BaseGetParams

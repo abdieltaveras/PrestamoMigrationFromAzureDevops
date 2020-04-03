@@ -146,6 +146,9 @@
     <Build Include="dbo\Stored Procedures\spBuscarRoleOperaciones.sql" />
     <Build Include="dbo\User Defined Types\tpUserRole.sql" />
     <Build Include="dbo\Stored Procedures\UsuarioListaOperacionesSpGet.sql" />
+    <Build Include="dbo\User Defined Types\tpRoleOperacion.sql" />
+    <Build Include="dbo\Stored Procedures\RoleOperacionesSpGet.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarTodosUsuarioRoles.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
