@@ -5,6 +5,9 @@ using System.Web;
 
 namespace PrestamosMVC5.Models
 {
+    /// <summary>
+    ///  Class for testing checkbox behavior
+    /// </summary>
     public class TestCheckBox
     {
         public bool Activo { get; set; } = true;

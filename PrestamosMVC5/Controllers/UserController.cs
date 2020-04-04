@@ -228,9 +228,10 @@ namespace PrestamosMVC5.Controllers
                 ModelState.Remove("ConfirmarContraseña");
                 usuario.Contraseña = string.Empty;
             }
-            //TODO: Esto se debe de borrar
-            ModelState.Remove("Usuario.VigenteDesde");
-            ModelState.Remove("Usuario.VigenteHasta");
+            //TODO revisar porque el binding de la fecha en UsuarioVigente hasta y desde a bryan no le funciona bien
+            //TODO: Esto se debe de borrar, Bryan lo puso asi para evitar un error en el binding aun estamos investigando si da error de nuevo quitarlo de ignorado  y resolverlo definitivamente
+            //ModelState.Remove("Usuario.VigenteDesde");
+            //ModelState.Remove("Usuario.VigenteHasta");
         }
 
         protected  Usuario SetUsuarioFromUserModel(UserModel userModel)

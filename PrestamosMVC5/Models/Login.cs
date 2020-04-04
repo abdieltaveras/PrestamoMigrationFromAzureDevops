@@ -45,6 +45,10 @@ namespace PrestamosMVC5.Models
         [Display(Name = "Confirmar Contraseña")]
         [System.ComponentModel.DataAnnotations.Compare("Contraseña", ErrorMessage = "Error : Las confirmaciones de contraseñas no coinciden o estan vacias")]
         public string ConfirmarContraseña { get; set; } = string.Empty;
+        /// <summary>
+        /// cual es la cause que provoco que se realice la accion de cambiar contrasena
+        /// </summary>
+        public string Motivo { get; set; } = string.Empty;
     }
 
     public class UserModel
@@ -88,5 +92,7 @@ namespace PrestamosMVC5.Models
         public IEnumerable<Role> RoleList { get; set; }
         public string[] SelectedRoles { get; set; }
     }
+
+
 
 }

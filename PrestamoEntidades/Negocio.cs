@@ -9,7 +9,6 @@ namespace PrestamoEntidades
         [Required] [MaxLength(20)]
         public string Codigo { get; set; } = string.Empty;
         [NotMapped]
-        public bool GenerarSecuencia { get; set; } = true;
         public int? IdNegocioPadre { get; set; } = null;
         [Required] [MaxLength(100)] [Display(Name ="Nombre Juridico/Legal")]    
         public string NombreJuridico { get; set; } = string.Empty;

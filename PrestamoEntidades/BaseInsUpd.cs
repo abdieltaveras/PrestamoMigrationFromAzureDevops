@@ -23,12 +23,6 @@ namespace PrestamoEntidades
     /// </summary>
     public abstract class BaseUsuarioEIdNegocio : BaseUsuario
     {
-        /// <summary>
-        /// El id del negocio o empresa o punto comercial que identifica la unidad 
-        /// comercial que opera en el sistema
-        /// </summary>
-        [Required]
-        [HiddenInput(DisplayValue = false)]
         public int IdNegocio { get; set; } = -1; 
     }
 

@@ -11,7 +11,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public static Database PrestamosDB => Database.AdHoc(ConexionDB.Server);
+        private static Database PrestamosDB => Database.AdHoc(ConexionDB.Server);
         #region StaticBLL
         private static BLLPrestamo _bll = null;
         public static  BLLPrestamo Instance
@@ -72,7 +72,7 @@ namespace PrestamoBLL
                 throw new NullReferenceException("El parametro usuario que indica quien esta realizando la accion esta nulo o vacio lo cual no es permitido");
             }
         }
-        private void ThrowErrorIfNegocioIsZero(int idNegocio)
+        private static void ThrowErrorIfNegocioIsZero(int idNegocio)
         {
             if (idNegocio == 0)
             {
@@ -97,7 +97,7 @@ namespace PrestamoBLL
             ThrowErrorIfIdNotSet(cancelParam.Id);
         }
 
-        private void GetValidation(BaseGetParams getParam)
+        private static void GetValidation(BaseGetParams getParam)
         {
             var idNegocio = getParam.IdNegocio;
             ThrowErrorIfNegocioIsZero(getParam.IdNegocio);
@@ -125,7 +125,7 @@ namespace PrestamoBLL
             //var result2 = Database.DataServer.ExecNonQuery(query);
             var result3 = PrestamosDB.ExecEscalar(query); 
             var valor = System.Convert.ToInt32(result3);
-            return valor>0;
+            return valor > 0;
         }
 
         //new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
@@ -133,9 +133,9 @@ namespace PrestamoBLL
         {
             
 
-            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : BaseGetParams
+            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : class
             {
-                getValidations(searchParam);
+                if (searchParam is BaseGetParams) { getValidations(searchParam as BaseGetParams); }
                 IEnumerable<TInsert2> result = new List<TInsert2>();
                 try
                 {

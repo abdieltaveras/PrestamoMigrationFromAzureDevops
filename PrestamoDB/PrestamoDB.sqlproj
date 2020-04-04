@@ -146,6 +146,13 @@
     <Build Include="dbo\Stored Procedures\spBuscarRoleOperaciones.sql" />
     <Build Include="dbo\User Defined Types\tpUserRole.sql" />
     <Build Include="dbo\Stored Procedures\UsuarioListaOperacionesSpGet.sql" />
+    <Build Include="dbo\Tables\tblEquipos.sql" />
+    <Build Include="dbo\Stored Procedures\SpInsUpdEquipos.sql" />
+    <Build Include="dbo\Stored Procedures\spGetEquipos.sql" />
+    <Build Include="dbo\Stored Procedures\spConfirmarRegistroEquipo.sql" />
+    <Build Include="dbo\Stored Procedures\SpRegistrarAccesoAlEquipo.sql" />
+    <Build Include="dbo\Stored Procedures\spBloquearEquipo.sql" />
+    <Build Include="dbo\Stored Procedures\AnularRegistro.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

@@ -107,7 +107,7 @@
             }
 </style>
 <div class="container content">
-    @Html.HiddenFor(model => model.ReturnUrl)
+
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
@@ -116,8 +116,10 @@
                         <img src="@Url.Content(@SiteImages.Demo)" alt="Logo" />
                     </div>
                     <h5 class="card-title text-center">Inicio de sesion</h5>
-                    @using (Html.BeginForm())
+                    @*@using (Html.BeginForm())*@
+                    @using (@Html.BeginForm("Login", "Account", FormMethod.Post, htmlAttributes: new { id = "submitForm", autocomplete = "off" }))
                     {
+                        @Html.HiddenFor(model => model.ReturnUrl)
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger", @id = "mensajeError_x" })
                         @*<div class="form-label-group">
@@ -131,11 +133,11 @@
                             </div>
                         </div>
                         <div class="form-label-group">
-                            @Html.EditorFor(model => model.LoginName, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuario", @required = true, autofocus = "",  @Value=(string.IsNullOrEmpty(@Model.LoginName) ? "aaa" : @Model.LoginName)} })
+                            @Html.EditorFor(model => model.LoginName, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuario", @required = true, autofocus = "", @Value = (string.IsNullOrEmpty(@Model.LoginName) ? "aaa" : @Model.LoginName), @autocomplete = "off" } })
                             <label for="LoginName">Usuario</label>
                         </div>
                         <div class="form-label-group">
-                            <input type="password" id="Password" name="Password" class="form-control" value="@Html.Raw(string.IsNullOrEmpty(@Model.LoginName) ? "123" : @Model.Password)" placeholder="Contraseña" required>
+                            <input type="password" id="Password" name="Password" class="form-control" value="@Html.Raw(string.IsNullOrEmpty(@Model.LoginName) ? "123" : @Model.Password)" placeholder="Contraseña" required autocomplete="off">
                             <label for="Password">Contraseña</label>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">

@@ -21,7 +21,7 @@ namespace PrestamoBLL
         public void UsuarioChangePassword(ChangePassword param)
         {
             var _updParam = SearchRec.ToSqlParams(param);
-            PrestamosDB.ExecSelSP("spChangePassword", _updParam);
+            PrestamosDB.ExecSelSP("spInsUpdRegistro", _updParam);
         }
         public LoginResponse LoginUser(Usuario usr)
         {
@@ -58,8 +58,6 @@ namespace PrestamoBLL
         public LoginResponse UsuarioValidateCredential(int idNegocio, string loginName, string password)
         {
             var usuario = this.GetUsuarios(new UsuarioGetParams { IdNegocio = idNegocio, LoginName = loginName }).FirstOrDefault();
-            
-
             if (usuario == null)
             {
                 if (!ExistUsers)
@@ -76,6 +74,8 @@ namespace PrestamoBLL
             if (usuario.Bloqueado) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.Blocked) };
 
             if (!usuario.Activo) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.Inactive) };
+            
+            if (usuario.DebeCambiarContraseñaAlIniciarSesion) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.MustChangePassword) };
 
             // esta validacion de la contraseña debe estar aqui en esta posicion
             // primero que la que indica cambiar contrasnea , vigencia de cuenta, etc. porque de esta manera si el usuario pone 
@@ -85,8 +85,6 @@ namespace PrestamoBLL
             var pass = RijndaelSimple.Encrypt(password);
             if (RijndaelSimple.Encrypt(password) != usuario.Contraseña) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.InvalidPassword) };
                 
-            if (usuario.DebeCambiarContraseñaAlIniciarSesion) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.MustChangePassword) };
-               
             if (IsExpiredAccount(usuario.VigenteHasta)) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.ExpiredAccount) };
 
             if (IsExpiredPassword(usuario.ContraseñaExpiraCadaXMes, usuario.InicioVigenciaContraseña)) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.ExpiredPassword) };

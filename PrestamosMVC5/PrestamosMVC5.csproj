@@ -149,6 +149,7 @@
     <Compile Include="Models\CatalogoVM.cs" />
     <Compile Include="Models\LocalidadVM.cs" />
     <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\RegistroEquipo.cs" />
     <Compile Include="Models\RoleVM.cs" />
     <Compile Include="Models\VerificadorDireccionVM.cs" />
     <Compile Include="Models\OcupacionVM.cs" />

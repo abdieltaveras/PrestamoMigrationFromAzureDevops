@@ -4,6 +4,10 @@ using System;
 using System.Collections.Generic;
 namespace PrestamoBLL
 {
+    //TODO: cambiar los nombres a los procedimientos segun lo acordado Entidad+Operacion ejemp GetNegocios a NegociosGet, eso debe hacerse cuando Bryan no este trabajando en nada en la rama y yo actualizarlo todo. luego de hacer esto devolverlo de inmediato para proseguir
+    
+
+    //todo revisar los procedimientos que no devuelvan data anulada, o si la devuelven que dicha dada no pueda ser modificada en ningun stored procedure es una condicion a poner en todos los sp
     public partial class BLLPrestamo
     {
         public IEnumerable<Negocio> GetNegocios(NegociosGetParams searchParam)

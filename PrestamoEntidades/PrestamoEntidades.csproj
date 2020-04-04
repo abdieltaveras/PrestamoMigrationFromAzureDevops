@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnulacionDeRegistro.cs" />
     <Compile Include="BaseAnularParams.cs" />
     <Compile Include="BaseGetParams.cs" />
     <Compile Include="BaseInsUpd.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Cuota.cs" />
     <Compile Include="Direccion.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Equipo.cs" />
     <Compile Include="EstadoCivil.cs" />
     <Compile Include="Garantia.cs" />
     <Compile Include="InfoAccion.cs" />

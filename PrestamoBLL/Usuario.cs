@@ -16,12 +16,12 @@ namespace PrestamoBLL
         public IEnumerable<Usuario> GetUsuarios(UsuarioGetParams searchParam)
         {
             //GetValidation(searchParam);
-            return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios", this.GetValidation);
+            return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios", GetValidation);
         }
 
         public int InsUpdUsuario(Usuario insUpdParam, string from = "")
         {
-            //TODO Agregar columna inicioVigenciaContraseña
+            
             if ((insUpdParam.LoginName.ToLower() == "admin") && (from != bllUser))
             {
                 throw new Exception("No puede crear el usuario administrador desde la pantalla de creacion de usuario");

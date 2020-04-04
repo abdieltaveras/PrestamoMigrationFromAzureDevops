@@ -28,6 +28,6 @@
     CONSTRAINT [FK_tblCliente_ToTblNegocios] FOREIGN KEY (IdNegocio) REFERENCES tblNegocios([IdNegocio]),
 	CONSTRAINT [FK_tblCliente_UQ_IdentificationNumber] Unique NonClustered(IdNegocio, IdTipoIdentificacion,NoIdentificacion),
 	CONSTRAINT [FK_tblCliente_UQ_Codigo] Unique NonClustered(IdNegocio, Codigo),
-	CONSTRAINT [CK_Nombres_not_empty_string] CHECK  ((nombres<>N''))
+	CONSTRAINT [CK_Nombres_not_empty_string] CHECK  ((Nombres<>N''))
 )
 	

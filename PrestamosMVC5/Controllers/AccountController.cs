@@ -12,17 +12,12 @@ using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System.Web.Helpers;
-
+using static PrestamoBLL.BLLPrestamo;
+// Todo: Poner en las opciones que permita ver el listado o directamente ir a crear sin necesidad de ver el listado   en guardarpermitir  en las pantallas guardar sin salir desde donde fue llamado, podemos hacerlo interceptando el metodo onsubmit del    post, y retornando de nuevo al formulario con valores iniciales correctos
 namespace PrestamosMVC5.Controllers
 {
-    // TODO: VALIDAR si la cuenta esta fuera del periodo de vigencia,  si la contrasena ya expiro que debe cambiarla
-    // todo: valodar r creando el procedimiento de creacion de una compania
-    // donde debe crear un administrador inicial
-    // con unos parametros datos pero que permita inmediatament sometan un login name
-    // que indique que debe cambiar la contrasena debe automaticamente
-    // redirigir al usuario a ello no esperar que ponga la contrasena.
-    // sino habilitar que realice el cambio de inmediato
-    // revisar el procedimiento que sea seguro.
+    
+    // todo: valodar r creando el procedimiento de creacion de una compania donde debe crear un administrador inicial con unos parametros dados pero que permita inmediatament sometan un login name que indique que debe cambiar la contrasena debe automaticamente redirigir al usuario a ello no esperar que ponga la contrasena. sino habilitar que realice el cambio de inmediato revisar el procedimiento que sea seguro.
     public class AccountController : ControllerBasePcp
     {
         public ActionResult test(string returnUrl = "")
@@ -32,6 +27,17 @@ namespace PrestamosMVC5.Controllers
             return Content(data.ToJson());
         }
 
+        public ActionResult EstaElEquipoRegistrado()
+        {
+            if (RegistroEquipo.EstaRegistrado(this.Request))
+            {
+                return Content("Este equipo ya ha sido registrado");
+            }
+            else
+            {
+                return Content("Este equipo aun no ha sido registrado");
+            }
+        }
         [HttpGet]
         public ActionResult Login(string returnUrl = "")
         {
@@ -41,17 +47,20 @@ namespace PrestamosMVC5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel loginView)
         {
             ActionResult _actResult = View(loginView);
             if (ModelState.IsValid)
             {
                 var getUsr = new Usuario { LoginName = loginView.LoginName, IdNegocio = loginView.IdNegocio, Contraseña = loginView.Password };
+
                 var result = BLLPrestamo.Instance.LoginUser(getUsr);
+
                 if (result.ValidationMessage.UserValidationResult != BLLPrestamo.UserValidationResult.Sucess)
                 {
                     ModelState.AddModelError("", result.ValidationMessage.Mensaje);
-                    _actResult = WhatTodo(result.ValidationMessage.UserValidationResult, _actResult, loginView);
+                    _actResult = WhatTodo(result.ValidationMessage, _actResult, loginView);
                 }
                 else
                 {
@@ -72,17 +81,20 @@ namespace PrestamosMVC5.Controllers
             return _actResult;
         }
 
-        private ActionResult WhatTodo(BLLPrestamo.UserValidationResult userValidationResult, ActionResult actResult, LoginModel loginModel)
+        private ActionResult WhatTodo(UserValidationResultWithMessage userValidationResultMessage, ActionResult actResult, LoginModel loginModel)
         {
+
+            var userValidationResult = userValidationResultMessage.UserValidationResult;
 
             switch (userValidationResult)
             {
                 case BLLPrestamo.UserValidationResult.MustChangePassword:
-                    actResult = RedirectToAction("ChangePassword");
+                    var data = new ChangePasswordModel { LoginName = loginModel.LoginName, IdNegocio = loginModel.IdNegocio, Motivo = userValidationResultMessage.Mensaje };
+                    actResult = RedirectToAction("ChangePassword", data);
                     break;
                 case BLLPrestamo.UserValidationResult.ExpiredPassword:
-                    //ATTENTION: si envias el valor del route value asi new {model=data} no funciona
-                    var data = new ChangePasswordModel { LoginName = loginModel.LoginName, IdNegocio = loginModel.IdNegocio };
+                    //ATTENTION: si envias el valor del route asi RedirectToAction("ChangePassword", new {model=data} en los redirectoActoion no funciona, se envio directamente el objero RedirectToAction("ChangePassword", data);
+                    data = new ChangePasswordModel { LoginName = loginModel.LoginName, IdNegocio = loginModel.IdNegocio, Motivo = userValidationResultMessage.Mensaje };
                     return RedirectToAction("ChangePassword", data);
                 //break;
                 /*case BLLPrestamo.UserValidationResult.NoUserFound:
@@ -108,36 +120,29 @@ namespace PrestamosMVC5.Controllers
 
         // Task: develope Forgot Password
         [HttpGet]
-        public ActionResult ForgotPassword(string returnUrl = "")
+        public ActionResult ForgotPassword(int IdNegocio, string LoginName)
         {
-            return Content("not implemented action yet");
+            return Content("not implemented yet");
+        
         }
         [HttpGet]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            //ori
             return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(ChangePasswordModel model, bool fromAntoherUser = false)
+        public ActionResult ChangePassword(ChangePasswordModel model, string NoData="")
         {
             // Attention: Cuando se ponen propiedades en el html fuera del Form estas no hacen binding
             // ni tampoco sin son label tienen que ser input dentro del form para hacer el binding
             try
             {
-                if (fromAntoherUser)
-                {
-                    model.LoginName = AuthInSession.GetLoginName();
-                }
-                else
-                {
-                    var searchData = new UsuarioGetParams { IdNegocio = model.IdNegocio, LoginName = model.LoginName };
-                    var usuario = BLLPrestamo.Instance.GetUsuarios(searchData).FirstOrDefault();
-                    model.IdUsuario = usuario.IdUsuario;
-                }
+                model.LoginName = AuthInSession.IsAnonimousUser ? model.LoginName : AuthInSession.GetLoginName();
+                var searchData = new UsuarioGetParams { IdNegocio = model.IdNegocio, LoginName = model.LoginName };
+                var usuario = BLLPrestamo.Instance.GetUsuarios(searchData).FirstOrDefault();
+                model.IdUsuario = usuario.IdUsuario;
                 var data = new ChangePassword { Contraseña = model.Contraseña, Usuario = model.LoginName, IdUsuario = model.IdUsuario };
-
                 BLLPrestamo.Instance.UsuarioChangePassword(data);
             }
             catch (Exception e)

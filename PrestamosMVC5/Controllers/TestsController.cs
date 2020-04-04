@@ -12,6 +12,15 @@ namespace PrestamosMVC5.Controllers
 
     public class TestsController : Controller
     {
+        // todo: para agregar seguridad he pensado al hacer el primer request este enviara un _requesVerificationToken
+        // enviara en tempdata una informacion adicional FirsRequestToken, luego al autenticarse el usuario
+        // guardara en la session el equipo y tambien el FirstRequestToken el cual tendra una duracion de 24 horas.
+        // si se observa que del mismo equipo se ha creado otra session, con el mismo o diferente usuario, pero con un first
+        // requesttoken, ahora bien si el mismo usuario no puede loguearse en 2 equipos a la vez, para el area de caja (cobros en efectivo), entonces el sistema debe detectar esto y sacar la otra session e impedir que ese otro token pueda operar.
+
+
+        // todo check when the same user id is trying to log in  on multiple devices https://stackoverflow.com/questions/15903574/when-the-same-user-id-is-trying-to-log-in-on-multiple-devices-how-do-i-kill-the
+
         // GET: Tests
         public ActionResult Index()
         {
@@ -22,6 +31,30 @@ namespace PrestamosMVC5.Controllers
             var model = new TestCheckBox();
             model.Bloqueado = false;
             return View(model);
+        }
+
+        public ActionResult RegistrarEquipo()
+        {
+            RegistroEquipo.Registrar(this.Response, RegistroEquipo.getValue, 1);
+            return Content("el equipo fue registrado");
+        }
+
+        public ActionResult EstaElEquipoRegistrado()
+        {
+            if (RegistroEquipo.EstaRegistrado(this.Request))
+            {
+                return Content("Este equipo ya ha sido registrado");
+            }
+            else
+            {
+                return Content("Este equipo aun no ha sido registrado");
+            }
+        }
+
+        public ActionResult Desvincular()
+        {
+            RegistroEquipo.DesvincularEquipo(this.Request.RequestContext.HttpContext);
+            return Content("Desvinculado");
         }
         [HttpPost]
         public ActionResult CheckBoxes(TestCheckBox model)

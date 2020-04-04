@@ -51,6 +51,7 @@
     <Compile Include="Color.cs" />
     <Compile Include="ConexionDB.cs" />
     <Compile Include="Cuotas.cs" />
+    <Compile Include="Equipo.cs" />
     <Compile Include="Garantia.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Login.cs" />
