@@ -35,9 +35,6 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public ActionResult CreateOrEdit(UserModel userModel)
         {
-            var Errors = ModelState.Keys.Where(i => ModelState[i].Errors.Count > 0)
-            .Select(k => new KeyValuePair<string, string>(k, ModelState[k].Errors.First().ErrorMessage));
-
             int userid = 0;
             Usuario usuario;
             ActionResult actionResult;
@@ -45,63 +42,87 @@ namespace PrestamosMVC5.Controllers
             var result = ModelState.IsValid;
             prepareUsuarioFromModelForSave(userModel, out actionResult, out usuario);
             userid = SaveData(usuario);
-            SetRolesToUser(userid, userModel.SelectedRoles);
+            
+            if (userModel.Usuario.IdUsuario == 0)
+            {
+                SetRolesToUser(userid, userModel.SelectedRoles);
+            }
             return RedirectToAction("index");
         }
 
-        private void SetRolesToUser(int iduser, string[] selectedRoles)
+        private void SetRolesToUser(int iduser, string[] SelectedRoles)
         {
-            int cont = 0;
-            string roles = string.Empty;
-            foreach (var role in selectedRoles)
-            {
-                cont++;
-                roles += "(" + iduser + "," + role + ")" + ((selectedRoles.Length != cont) ? "," : "");
-            }
-
-            List<UsuarioRole> lista = new List<UsuarioRole>();
-            foreach (var role in selectedRoles)
-            {
-                lista.Add(new UsuarioRole() { IdUser = iduser, IdRole = int.Parse(role) });
-            }
-
-            UserRoleInsUpdParams parametros = new UserRoleInsUpdParams()
-            {
-                IdUser = iduser,
-                Values = roles
-            };
-
-            BLLPrestamo.Instance.InsUpdRoleUsuario(lista);
+            LoadAndChangeUserRole(SelectedRoles, iduser);
         }
 
         [HttpPost]
         public ActionResult UpdateRolesToUser(int iduser, string[] SelectedRoles)
         {
             if (SelectedRoles == null) return RedirectToAction("EditUserRoles");
-            int cont = 0;
-            string roles = string.Empty;
-            foreach (var role in SelectedRoles)
-            {
-                cont++;
-                roles += "(" + iduser + "," + role + ")" + ((SelectedRoles.Length != cont) ? "," : "");
-            }
-
-            List<UsuarioRole> lista = new List<UsuarioRole>();
-           
-            foreach (var role in SelectedRoles)
-            {
-                lista.Add(new UsuarioRole() { IdUser = iduser, IdRole = int.Parse(role) });
-            }
-
-            UserRoleInsUpdParams parametros = new UserRoleInsUpdParams()
-            {
-                IdUser = iduser,
-                Values = roles
-            };
-
-            BLLPrestamo.Instance.InsUpdRoleUsuario(lista);
+            
+            LoadAndChangeUserRole(SelectedRoles, iduser);
 
             return RedirectToAction("EditUserRoles");
+        }
+
+        private void LoadAndChangeUserRole(string[] SelectedRoles, int iduser)
+        {
+            List<UsuarioRoleIns> lista = new List<UsuarioRoleIns>();
+
+            foreach (var role in SelectedRoles)
+            {
+                lista.Add(new UsuarioRoleIns() { IdUser = iduser, IdRole = int.Parse(role) });
+            }
+
+            List<UsuarioRole> ListadoDB = (List<UsuarioRole>)BLLPrestamo.Instance.UserRolesSearchAll(new BuscarUserRolesParams { IdUsuario = iduser });
+
+            List<UsuarioRoleIns> ListaAInsertar = GetInsertRoleForUser(lista, ListadoDB, iduser);
+            List<UsuarioRoleIns> ListaAAnular = GetCancelRoleForUser(lista, ListadoDB, iduser);
+            List<UsuarioRoleIns> ListaAModificar = GetModifyRoleForUser(lista, ListadoDB, iduser);
+
+            BLLPrestamo.Instance.InsUpdRoleUsuario(ListaAInsertar, ListaAAnular, ListaAModificar, pcpUserLoginName);
+        }
+
+        private List<UsuarioRoleIns> GetInsertRoleForUser(List<UsuarioRoleIns> lista, List<UsuarioRole> ListadoDB, int user)
+        {
+            List<UsuarioRoleIns> ListaAInsertar = new List<UsuarioRoleIns>();
+
+            // Determinar cuales se insertan
+            foreach (var item in lista)
+            {
+                if (!ListadoDB.Exists(element => element.IdRole == item.IdRole))
+                {
+                    ListaAInsertar.Add(new UsuarioRoleIns() { IdUser = user, IdRole = item.IdRole });
+                }
+            }
+            return ListaAInsertar;
+        }
+        private List<UsuarioRoleIns> GetCancelRoleForUser(List<UsuarioRoleIns> lista, List<UsuarioRole> ListadoDB, int user)
+        {
+            List<UsuarioRoleIns> ListaAAnular = new List<UsuarioRoleIns>();
+
+            foreach (var item in ListadoDB)
+            {
+                if (!lista.Exists(element => element.IdRole == item.IdRole))
+                {
+                    ListaAAnular.Add(new UsuarioRoleIns() { IdUser = user, IdRole = item.IdRole });
+                }
+            }
+            return ListaAAnular;
+        }
+        private List<UsuarioRoleIns> GetModifyRoleForUser(List<UsuarioRoleIns> lista, List<UsuarioRole> ListadoDB, int user)
+        {
+            List<UsuarioRoleIns> ListaAModificar = new List<UsuarioRoleIns>();
+
+            foreach (var item in ListadoDB)
+            {
+                if (lista.Exists(element => element.IdRole == item.IdRole && !item.Anulado()))
+                {
+                    ListaAModificar.Add(new UsuarioRoleIns() { IdUser = user, IdRole = item.IdRole });
+                }
+            }
+
+            return ListaAModificar;
         }
 
         public ActionResult EditUserRoles()
@@ -198,9 +219,6 @@ namespace PrestamosMVC5.Controllers
         private int SaveData(Usuario usuario)
         {
             int userid = 0;
-
-            var Errors = ModelState.Keys.Where(i => ModelState[i].Errors.Count > 0)
-            .Select(k => new KeyValuePair<string, string>(k, ModelState[k].Errors.First().ErrorMessage));
 
             if (ModelState.IsValid)
             {

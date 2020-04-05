@@ -32,9 +32,12 @@ namespace PrestamosMVC5.Controllers
 
             return View("Create", datos);
         }
-        public ActionResult Edit()
+        public ActionResult Edit(int id = 0)
         {
             RoleVM datos = new RoleVM();
+
+            datos.Role = new Role() { IdRole = id };
+
             datos.ListaRoles = BLLPrestamo.Instance.RolesGet(new RoleGetParams { IdNegocio = this.pcpUserIdNegocio });
             datos.Operaciones = BLLPrestamo.Instance.OperacionesGet(new OperacionGetParams { IdNegocio = this.pcpUserIdNegocio });
 
@@ -44,8 +47,6 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreateOrEdit(RoleVM Role)
         {
             int idrole = Role.Role.IdRole;
-            string operaciones = "";
-            int cont = 0;
 
             pcpSetUsuarioAndIdNegocioTo(Role.Role);
 
@@ -54,27 +55,52 @@ namespace PrestamosMVC5.Controllers
                 idrole = BLLPrestamo.Instance.RoleInsUpd(Role.Role);
             }
 
+            // Listado actual del usuario
+            List<RoleOperacion> ListadoDB =  (List<RoleOperacion>)BLLPrestamo.Instance.RoleOperacionesGet(new RoleOperacionGetParams { IdRole = idrole});
 
-            foreach (var item in Role.ListaOperaciones)
+            List<RoleOperacionIns> ListaAInsertar = new List<RoleOperacionIns>();
+            List<RoleOperacionIns> ListaAAnular = new List<RoleOperacionIns>();
+            List<RoleOperacionIns> ListaAModificar = new List<RoleOperacionIns>();
+
+            List<RoleOperacionIns> lista = new List<RoleOperacionIns>();
+ 
+            // Crear lista de seleccion actual
+            if (Role.ListaOperaciones != null)
             {
-                cont++;
-                if (Role.ListaOperaciones.Length != cont)
+                foreach (var operacion in Role.ListaOperaciones)
                 {
-                    operaciones += "(" + idrole + "," + item + "),";
-                }
-                else
-                {
-                    operaciones += "(" + idrole + "," + item + ")";
+                    lista.Add(new RoleOperacionIns() { IdRole = idrole, IdOperacion = int.Parse(operacion) });
                 }
             }
 
-            RoleOperacionInsUpdParams parametros = new RoleOperacionInsUpdParams()
+            // Determinar cuales se insertan
+            foreach (var item in lista)
             {
-                IdRole = idrole,
-                Values = operaciones
-            };
+                if (!ListadoDB.Exists(element => element.IdOperacion == item.IdOperacion ))
+                {
+                    ListaAInsertar.Add(new RoleOperacionIns() { IdRole = idrole, IdOperacion = item.IdOperacion });
+                }
+            }
 
-            BLLPrestamo.Instance.RoleOperacionInsUpd(parametros);
+            // Determinar cuales se borran
+            foreach (var item in ListadoDB)
+            {
+                if (!lista.Exists(element => element.IdOperacion == item.IdOperacion))
+                {
+                    ListaAAnular.Add(new RoleOperacionIns() { IdRole = idrole, IdOperacion = item.IdOperacion });
+                }
+            }
+
+            // Determinar cuales se modifican (se quita el AnuladoPor y se asigna el ModificadoPor)
+            foreach (var item in ListadoDB)
+            {
+                if (lista.Exists(element => element.IdOperacion == item.IdOperacion && !item.Anulado()))
+                {
+                    ListaAModificar.Add(new RoleOperacionIns() { IdRole = idrole, IdOperacion = item.IdOperacion });
+                }
+            }
+
+            BLLPrestamo.Instance.RoleOperacionInsUpd(ListaAInsertar, ListaAModificar, ListaAAnular, this.pcpUserLoginName);
 
             return RedirectToAction("ListRoles");
         }

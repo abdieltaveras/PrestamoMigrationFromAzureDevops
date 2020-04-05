@@ -95,6 +95,19 @@
 </div>
 
 <script>
+
+    $(document).ready(function () {
+
+        let idrole = @Html.Raw(Json.Encode(Model.Role.IdRole));
+        console.log(idrole);
+        if (idrole !== 0) {
+            searchRoleOperaciones(idrole);
+            $('#role-select option[value="' + idrole + '"]').attr("selected", "selected");
+
+        }
+
+    });
+
     $("#role-select").change(function () {
         let roleId = $(this).children("option:selected").val();
         console.log(roleId);

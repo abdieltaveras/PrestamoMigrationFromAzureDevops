@@ -20,26 +20,54 @@ namespace PrestamoBLL
             return BllAcciones.InsUpdData<Role>(insUpdParam, "spInsUpdRole");
         }
 
-        public void RoleOperacionInsUpd(RoleOperacionInsUpdParams insUpdParam)
+        public void RoleOperacionInsUpd(
+            List<RoleOperacionIns> dataAInsertar,
+            List<RoleOperacionIns> dataAModificar,
+            List<RoleOperacionIns> dataAAnular,
+            string usuario
+        )
         {
+            var DataTableInsertar = dataAInsertar.ToDataTable();
+            var DataTableModificar = dataAModificar.ToDataTable();
+            var DataTableAnular = dataAAnular.ToDataTable();
+
             try
             {
-                var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
+                var _insUpdParam = SearchRec.ToSqlParams(new {
+                    RoleOperacionInsertar = DataTableInsertar,
+                    RoleOperacionModificar = DataTableModificar,
+                    RoleOperacionAnular = DataTableAnular,
+                    Usuario = usuario
+                });
                 var response = PrestamosDB.ExecSelSP("spInsUpdRoleOperacion", _insUpdParam);
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
+
+        
+        public IEnumerable<RoleOperacion> RoleOperacionesSearch(BuscarRoleOperacionesParams searchParam)
+        {
+            return BllAcciones.GetData<RoleOperacion, BuscarRoleOperacionesParams>(searchParam, "spBuscarRoleOperaciones", GetValidation);
+        }
+
+        public IEnumerable<RoleOperacion> RoleOperacionesGet(RoleOperacionGetParams data)
+        {
+            var searchSqlParams = SearchRec.ToSqlParams(data);
+            var operaciones = new List<RoleOperacion>();
+
+            try
+            {
+                operaciones = PrestamosDB.ExecReaderSelSP<RoleOperacion>("RoleOperacionesSpGet", searchSqlParams);
             }
             catch (Exception e)
             {
                 DatabaseError(e);
             }
-        }
 
-        public IEnumerable<UsuarioRole> UserRolesSearch(BuscarUserRolesParams searchParam)
-        {
-            return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarUsuarioRoles", GetValidation);
-        }
-        public IEnumerable<RoleOperacion> RoleOperacionesSearch(BuscarRoleOperacionesParams searchParam)
-        {
-            return BllAcciones.GetData<RoleOperacion, BuscarRoleOperacionesParams>(searchParam, "spBuscarRoleOperaciones", GetValidation);
+            return operaciones;
         }
         
 

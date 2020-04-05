@@ -9,6 +9,14 @@
     <link href="~/Content/customcss/switch.css" rel="stylesheet">
     <link href="~/content/customcss/multiselect/css/multi-select.css" rel="stylesheet">
 
+    <style>
+        .custom-header {
+            background: #2A3F54;
+            color: white;
+            text-align:center;
+        }
+    </style>
+
 }
 
 
@@ -119,17 +127,18 @@
 
             </div>
 
+            @if (Model.Usuario.IdUsuario == 0)
+            {
             <div class="x_panel">
                 <h2>Seleccione el o los roles del usuario</h2>
                 <select multiple="multiple" id="roleSelect" name="SelectedRoles[]">
-
                     @foreach (var role in Model.RoleList)
                     {
-                        <option value="@role.IdRole">@role.Nombre</option>
+                        <option value="@role.IdRole" style="text-align: center;">No.(@role.IdRole) - @role.Nombre</option>
                     }
-
                 </select>
             </div>
+            }
 
         </div>
         @{
@@ -249,7 +258,11 @@
         $('#roleSelect').multiSelect({
             afterSelect: function (value) {
                 $('#roleSelect option[value="' + value.toString() + '"]').prop('selected', true);
-            }
+            },
+            selectableHeader: "<div class='custom-header'>Roles disponibles</div>",
+            selectionHeader: "<div class='custom-header'>Roles seleccionados</div>",
+            selectableFooter: "<div class='custom-header'>Roles disponibles</div>",
+            selectionFooter: "<div class='custom-header'>Roles seleccionados</div>"
         })
 
         @*function setFechaWithModel(elem) {
@@ -270,4 +283,3 @@
     @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
 
 }
-

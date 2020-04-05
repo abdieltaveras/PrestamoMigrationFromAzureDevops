@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spBuscarUsuarioRoles]
+﻿CREATE PROCEDURE [dbo].[spBuscarTodosUsuarioRoles]
 	@IdUsuario int,
 	@IdNegocio int,
 	@Usuario varchar(100) = '',
@@ -11,6 +11,6 @@ BEGIN
 	FROM 
 		tblUsersRoles 
 	WHERE 
-		IdUser = @IdUsuario AND AnuladoPor IS NULL;
+		IdUser = @IdUsuario;
 
 End

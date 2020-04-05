@@ -153,6 +153,9 @@
     <Build Include="dbo\Stored Procedures\SpRegistrarAccesoAlEquipo.sql" />
     <Build Include="dbo\Stored Procedures\spBloquearEquipo.sql" />
     <Build Include="dbo\Stored Procedures\AnularRegistro.sql" />
+    <Build Include="dbo\User Defined Types\tpRoleOperacion.sql" />
+    <Build Include="dbo\Stored Procedures\RoleOperacionesSpGet.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarTodosUsuarioRoles.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

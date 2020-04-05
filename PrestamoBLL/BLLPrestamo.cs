@@ -163,10 +163,10 @@ namespace PrestamoBLL
                 {
                     var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
                     using (var response = PrestamosDB.ExecReaderSelSP(storedProcedure, _insUpdParam))
-                    { 
+                    {
                         while (response.Read())
                         {
-                            last_id = response.GetInt32(0);
+                            last_id = int.Parse(response[0].ToString());
                         }
                     }
                 }

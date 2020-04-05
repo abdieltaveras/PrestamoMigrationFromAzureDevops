@@ -16,7 +16,7 @@ namespace PrestamosMVC5.Controllers
     {
         // indicate if user is authenticated
         protected bool pcpIsUserAuthenticated=> (AuthInSession.GetLoginName() != AuthInSession.AnonimousUser);
-        private string pcpUserLoginName => AuthInSession.GetLoginName();
+        protected string pcpUserLoginName => AuthInSession.GetLoginName(); //TODO: verificar si es necesario que este private
         protected string pcpUserImageFile => AuthInSession.GetUserImageFilePath();
         protected int pcpUserIdNegocio => AuthInSession.GetIdNegocio();
         protected int pcpUserIdUsuario => AuthInSession.GetIdUsuario();
