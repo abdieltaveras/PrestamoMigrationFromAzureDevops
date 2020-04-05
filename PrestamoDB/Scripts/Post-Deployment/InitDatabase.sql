@@ -152,15 +152,23 @@ INSERT INTO tblClientes (Activo, AnuladoPor, Apodo, Apellidos, Codigo, EstadoCiv
 -- Table:  tblTipoLocalidades
 
 INSERT INTO tblTipoLocalidades (IdLocalidadPadre, IdDivisionTerritorial, IdNegocio, Nombre, Activo, PermiteCalle, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (NULL, NULL, 1, 'Division Territorial Raiz (Nunca Borrar)',  1, 0, @usuario, '2020-02-13 04:15:54.953', NULL, NULL, NULL, NULL),
-		(1, 0, 1, 'Division Territorial tipo Republica Dominicana',  1, 0, @usuario, '2020-02-13 04:16:17.46', NULL, NULL, NULL, NULL),
-		(2, 2, 1, 'Pais',  1, 0, @usuario, '2020-02-13 04:16:30.96', NULL, NULL, NULL, NULL),
-		(3, 2, 1, 'Provincia', 1, 0, @usuario, '2020-02-13 04:17:36.637', NULL, NULL, NULL, NULL),
-		(4, 2, 1, 'Municipio',  1, 0, @usuario, '2020-02-13 04:17:50.617', NULL, NULL, NULL, NULL),
-		(5, 2, 1, 'Sector',  1, 1, @usuario, '2020-02-13 04:25:33.913', NULL, NULL, NULL, NULL),
-		(5, 2, 1, 'Distrito Municipal', 1, 0, @usuario, '2020-02-13 04:31:51.437', NULL, NULL, NULL, NULL),
-		(7, 2, 1, 'Sector',  1, 1, @usuario, '2020-02-13 04:32:11.25', NULL, NULL, NULL, NULL)
+VALUES (NULL, NULL, 1, 'Division Territorial Raiz (Nunca Borrar)',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(1, 0, 1, 'Division Territorial tipo Republica Dominicana',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(2, 2, 1, 'Pais',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(3, 2, 1, 'Provincia', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(4, 2, 1, 'Municipio',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(5, 2, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(5, 2, 1, 'Distrito Municipal', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(7, 2, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
 
+--Localidades
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (0, 1, 3, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.643', NULL, NULL, NULL, NULL)
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, 4, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:14.683', NULL, NULL, NULL, NULL)
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, 4, 'San Pedro', '', 1, 'bryan', '2020-04-05 14:02:32.96', NULL, NULL, NULL, NULL)
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (2, 1, 5, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:46.863', NULL, NULL, NULL, NULL)
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (4, 1, 6, 'Las Orquideas', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL)
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (2, 1, 5, 'Villa Hermosa', '', 1, 'bryan', '2020-04-05 14:40:42.557', 'bryan', '2020-04-05 14:42:18.387', NULL, NULL)
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (6, 1, 6, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
 
 --Nuevos catalogos
 	declare @codigo1 varchar(50)= 'cod1'
