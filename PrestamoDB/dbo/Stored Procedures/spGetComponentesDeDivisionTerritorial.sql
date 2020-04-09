@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spComponentesDeDivisionTerritorial]
+﻿CREATE PROCEDURE [dbo].[spGetComponentesDeDivisionTerritorial]
 (
 	@IdDivisionTerritorial int=-1,
 	@IdNegocio int=-1,
@@ -7,14 +7,14 @@
 )
 as
 begin
-	SELECT 
+	SELECT
 		IdTipoLocalidad,
 		IdLocalidadPadre,
 		Nombre,
 		PermiteCalle
-	FROM 
-		tblTipoLocalidades 
+	FROM
+		tblTipoLocalidades
 	WHERE
-		IdDivisionTerritorial = @IdDivisionTerritorial 
-		and IdNegocio = @IdNegocio;
+		IdDivisionTerritorial = @IdDivisionTerritorial
+		AND IdNegocio = @IdNegocio;
 End

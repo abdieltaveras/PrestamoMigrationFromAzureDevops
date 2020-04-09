@@ -41,6 +41,9 @@ namespace PrestamosMVC5.Controllers
         {
             IEnumerable<Territorio> territorios = null;
             territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = pcpUserIdNegocio, IdDivisionTerritorial = int.Parse(IdDivision) });
+            
+
+            
             return JsonConvert.SerializeObject(territorios);
         }
 
@@ -54,6 +57,9 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public RedirectToRouteResult GuardarTerritorio(Territorio territorio)
         {
+
+            var request = this.Request;
+
             this.pcpSetUsuarioAndIdNegocioTo(territorio);
             BLLPrestamo.Instance.TerritorioInsUpd(territorio);
             return RedirectToAction("Index", new { division_territorial_id = territorio.IdDivisionTerritorial });
