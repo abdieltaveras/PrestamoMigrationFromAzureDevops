@@ -1,8 +1,12 @@
 ﻿using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,6 +29,20 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+
+        public ActionResult TreeViewExample2()
+        {
+            var treeData = ElementData.CreateTree();
+            return View(treeData);
+        }
+        public ActionResult TreeViewExample3()
+        {
+            var search = new DivisionSearchParams { IdDivisionTerritorial = 2, IdNegocio = 1 };
+            var result = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(search);
+            var divTerritorialTree = new DivisionTerritorialTree(result);
+            return View("treeViewExample2",divTerritorialTree.ElementsForTree);
         }
         public ActionResult CheckBoxes()
         {
@@ -82,7 +100,7 @@ namespace PrestamosMVC5.Controllers
             return Content(mensaje);
         }
 
-        
+
 
         public ActionResult Test(int id = -1, bool showAdvancedView = true)
         {
@@ -154,11 +172,11 @@ namespace PrestamosMVC5.Controllers
         public System.Web.HttpPostedFileBase Imagen { get; set; }
         public IEnumerable<System.Web.HttpPostedFileBase> ImagesForCliente { get; set; }
 
-        public ImagesFor imgsForCliente => new ImagesFor("ImagesForCliente", "Clientes") {Qty=3 };
-        
+        public ImagesFor imgsForCliente => new ImagesFor("ImagesForCliente", "Clientes") { Qty = 3 };
+
         public IEnumerable<System.Web.HttpPostedFileBase> ImagesForGarantia { get; set; }
 
-        public ImagesFor imgsForGarantia => new ImagesFor("ImagesForGarantia","Garantia") {Qty=2 };
+        public ImagesFor imgsForGarantia => new ImagesFor("ImagesForGarantia", "Garantia") { Qty = 2 };
     }
 
     public class ImagesFor

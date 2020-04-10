@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PrestamosMVC5.SiteUtils.Element>
+
+@helper DisplayTree2(IEnumerable<Element> elements)
+{
+    <ul>
+        @foreach (var element in elements)
+        {
+            <li>
+                @element.Nombre
+                @{
+                    var children = Model.Where(e => e.Padre == element).OrderBy(e => e.Id);
+                    if (children.Count() > 0)
+                    {
+                        @DisplayTree2(children)
+                    }
+                }
+            </li>
+        }
+    </ul>
+}
+
+@*@TreeInfo.DisplayTree(Model.Where(e => e.Padre == null).OrderBy(e => e.Id))*@
+
+@DisplayTree2(Model.Where(e => e.Padre == null).OrderBy(e => e.Id))

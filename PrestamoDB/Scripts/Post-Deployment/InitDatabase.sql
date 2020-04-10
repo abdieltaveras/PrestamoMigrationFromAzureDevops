@@ -24,6 +24,13 @@ Post-Deployment Script Template
 			('N01','Empresa no 1','Empresa 1 SRL',@usuario,getdate(), '1',''),
 			('N02','Empresa no 2','Empresa 2 Srl',@usuario,getdate(), '2','')
 
+	INSERT INTO tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+			VALUES 
+			('N03', 'Hija 1 Empresa 1 SRL', 'Hija 1 Empresa no 1', NULL, 1, 0, NULL, '1', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL),
+			('N04', 'Hija 1 Empresa 2 Srl', 'Hija 1 Empresa no 2', NULL, 1, 0, NULL, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL),
+			('N05', 'Hija 2 Empresa 2 Srl', 'Hija 2 Empresa no 2', NULL, 1, 0, NULL, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL),
+			('N06', 'Hija 1 de Hija 1 Empresa 2 Srl', 'Hija 1 de Hija 1 Empresa no 2', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL)			
+
 	declare @idNegocio int = (select top 1 idNegocio from tblNegocios)	
 
 	--Script para datos de Interes

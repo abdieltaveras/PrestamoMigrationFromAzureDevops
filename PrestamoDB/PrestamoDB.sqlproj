@@ -156,6 +156,7 @@
     <Build Include="dbo\User Defined Types\tpRoleOperacion.sql" />
     <Build Include="dbo\Stored Procedures\RoleOperacionesSpGet.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarTodosUsuarioRoles.sql" />
+    <Build Include="dbo\Stored Procedures\spGetNegociosRecursive.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

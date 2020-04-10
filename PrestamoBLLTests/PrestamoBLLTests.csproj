@@ -71,6 +71,7 @@
     <Compile Include="TasaInteresTests.cs" />
     <Compile Include="ClienteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TerritorioTest.cs" />
     <Compile Include="TipoMoraTests.cs" />
     <Compile Include="UsuarioTests.cs" />
   </ItemGroup>

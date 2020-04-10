@@ -10,6 +10,7 @@ begin
 	SELECT 
 		IdTipoLocalidad,
 		IdLocalidadPadre,
+		IdDivisionTerritorial,
 		Nombre,
 		PermiteCalle
 	FROM 

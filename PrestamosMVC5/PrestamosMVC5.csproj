@@ -192,6 +192,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteUtils\DateUtils.cs" />
     <Compile Include="SiteUtils\HasPermission.cs" />
+    <Compile Include="SiteUtils\TreeViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\build\css\custom.css" />
@@ -4014,6 +4015,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
+    <Content Include="App_Code\TreeInfo.cshtml" />
     <None Include="Scripts\Apps\showImageTs.ts.revisar" />
     <Content Include="Views\Tests\CheckBoxes.cshtml" />
     <Content Include="Views\Tests\Imagen.cshtml" />
@@ -4021,6 +4023,7 @@
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Views\Shared\_Sidebar - Copy.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Tests\TreeViewExample2.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <Content Include="Views\Catalogos\Catalogos.cshtml" />

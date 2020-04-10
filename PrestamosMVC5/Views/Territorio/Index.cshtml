@@ -16,6 +16,8 @@
                 <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
                     <div class="col-md-9 col-sm-9 ">
+
+                        
                         <select class="form-control" id="idTipoDivision">
                             <option value="0">Seleccione una opcion</option>
                             @foreach (var item in Model.ListaTerritorios)
@@ -30,6 +32,7 @@
                             }
                         </select>
                     </div>
+
                 </div>
 
                 <div class="form-group row">
@@ -76,7 +79,7 @@
                     </div>
                 </div>
 
-                
+
 
                 @*</form>*@
             }
@@ -92,13 +95,13 @@
 
 <script>
 
-    $( document ).ready(function() {
+    $(document).ready(function () {
         let params = new URLSearchParams(document.location.search.substring(1));
         let id = params.get("division_territorial_id")
         console.log(id);
         if (id !== 0 && id !== null) {
             search(id);
-            
+
         }
     });
 
@@ -162,9 +165,9 @@
         $('#info-component-container').removeClass('d-none');
         $.each(lista, function (index, value) {
             if (index !== lista.length - 1) {
-                $('#component-list').append( '<span class="badge badge-dark">' + value.Nombre+'</span>'  + ' <i class="fa fa-arrow-right"></i> ');
+                $('#component-list').append('<span class="badge badge-dark">' + value.Nombre + '</span>' + ' <i class="fa fa-arrow-right"></i> ');
             } else {
-                $('#component-list').append('<span class="badge badge-primary">' + value.Nombre+'</span>');
+                $('#component-list').append('<span class="badge badge-primary">' + value.Nombre + '</span>');
             }
         });
         $('#component-count').text(componentCount);
