@@ -95,7 +95,7 @@
     <Build Include="dbo\Stored Procedures\SpInsUpdNegocio.sql" />
     <Build Include="dbo\Stored Procedures\SpGetNegocios.sql" />
     <Build Include="dbo\Stored Procedures\spGetDivisionesTerritoriales.sql" />
-    <Build Include="dbo\Stored Procedures\spComponentesDeDivisionTerritorial.sql" />
+    <Build Include="dbo\Stored Procedures\spGetComponentesDeDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\spGetPaisesDeDivisionTerritorial.sql" />
     <Build Include="dbo\User Defined Types\tpCuota.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdCuotas.sql" />

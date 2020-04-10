@@ -13,6 +13,7 @@ using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System.Web.Helpers;
 using static PrestamoBLL.BLLPrestamo;
+using CaptchaMvc.HtmlHelpers;
 // Todo: Poner en las opciones que permita ver el listado o directamente ir a crear sin necesidad de ver el listado   en guardarpermitir  en las pantallas guardar sin salir desde donde fue llamado, podemos hacerlo interceptando el metodo onsubmit del    post, y retornando de nuevo al formulario con valores iniciales correctos
 namespace PrestamosMVC5.Controllers
 {
@@ -51,6 +52,13 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Login(LoginModel loginView)
         {
             ActionResult _actResult = View(loginView);
+            if (!this.IsCaptchaValid(""))
+            {
+                ModelState.AddModelError(" ", "El catcha digitado no es valido");
+                return View();
+            }
+            
+
             if (ModelState.IsValid)
             {
                 var getUsr = new Usuario { LoginName = loginView.LoginName, IdNegocio = loginView.IdNegocio, Contraseña = loginView.Password };

@@ -2,205 +2,260 @@
 @*@model PrestamoEntidades.TerritoriosConHijo*@
 <link href="~/Content/customcss/switch.css" rel="stylesheet">
 
-<div class="col-md-5 col-sm-12" id="formAgregarTasaInteres">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Agregar componentes a division territorial</h2>
+<div class="x_title">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Agregar componentes a division territorial</h2>
 
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            <br />
-            @using (Html.BeginForm("GuardarTerritorio", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
-            {
-                <div class="form-group row">
-                    <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
-                    <div class="col-md-9 col-sm-9 ">
-
-                        
-                        <select class="form-control" id="idTipoDivision">
-                            <option value="0">Seleccione una opcion</option>
-                            @foreach (var item in Model.ListaTerritorios)
-                            {
-                                <option value="@item.IdTipoLocalidad" @(Model.territorioSeleccionado == item.IdTipoLocalidad ? "selected" : "")>
-                                    @item.Nombre
-                                    @if (@item.NombreTipoHijoDe != null)
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    @using (Html.BeginForm("GuardarTerritorio", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
+                    {
+                        <div class="form-group row">
+                            <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <select class="form-control" id="idTipoDivision">
+                                    <option value="0">Seleccione una opcion</option>
+                                    @foreach (var item in Model.ListaTerritorios)
                                     {
-                                        @item.NombreTipoHijoDe
+                                        <option value="@item.IdTipoLocalidad" @(Model.territorioSeleccionado == item.IdTipoLocalidad ? "selected" : "")>
+                                            @item.Nombre
+                                            @if (@item.NombreTipoHijoDe != null)
+                                            {
+                                                @item.NombreTipoHijoDe
+                                            }
+                                        </option>
                                     }
-                                </option>
-                            }
-                        </select>
-                    </div>
+                                </select>
+                            </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <select name="IdLocalidadPadre" class="form-control" id="tipolocalidadeshijas">
+                                    <option value="0">Elije una opcion</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="inputIdDivisionTerritorial" name="IdDivisionTerritorial" value="" required />
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="codigo">
+                                Nombre <span class="required">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="nombre" name="Nombre" value="" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-3">¿Permite calle?</div>
+                            <div class="col-sm-9">
+
+                                <input data-val="true"
+                                       class="checkbox"
+                                       data-val-required="The isNewlyEnrolled field is required."
+                                       id="PermiteCalle"
+                                       name="PermiteCalle"
+                                       type="checkbox"
+                                       value="true" />
+                                @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
+                                <label for="PermiteCalle" class="switch" id="switch"></label>
+
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="item form-group" style="float: right;">
+                            <div class="col-md-6 col-sm-6 offset-md-3">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                        @*</form>*@
+                    }
                 </div>
-
-                <div class="form-group row">
-                    <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
-                    <div class="col-md-9 col-sm-9 ">
-                        <select name="IdLocalidadPadre" class="form-control" id="tipolocalidadeshijas">
-                            <option value="0">Elije una opcion</option>
-                        </select>
-                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="x_panel col-md-6">
+                <div id="info-component-container">
+                    <strong>La cantidad de componentes es:</strong>
+                    <p id="component-count"></p>
+                    <p id="component-list"></p>
                 </div>
-
-                <input type="hidden" id="inputIdDivisionTerritorial" name="IdDivisionTerritorial" value="" required />
-
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" for="codigo">
-                        Nombre <span class="required">*</span>
-                    </label>
-                    <div class="col-sm-9">
-                        <input type="text" id="nombre" name="Nombre" value="" class="form-control" required />
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-3">¿Permite calle?</div>
-                    <div class="col-sm-9">
-
-                        <input data-val="true"
-                               class="checkbox"
-                               data-val-required="The isNewlyEnrolled field is required."
-                               id="PermiteCalle"
-                               name="PermiteCalle"
-                               type="checkbox"
-                               value="true" />
-                        @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
-                        <label for="PermiteCalle" class="switch" id="switch"></label>
-
-                    </div>
-                </div>
-
-                <div class="ln_solid"></div>
-                <div class="item form-group" style="float: right;">
-                    <div class="col-md-6 col-sm-6 offset-md-3">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </div>
-
-
-
-                @*</form>*@
-            }
+            </div>
         </div>
     </div>
 </div>
 
-<div id="info-component-container" class="col-md-6 d-none">
-    <strong>La cantidad de componentes es:</strong>
-    <p id="component-count"></p>
-    <p id="component-list"></p>
-</div>
 
-<script>
 
-    $(document).ready(function () {
-        let params = new URLSearchParams(document.location.search.substring(1));
-        let id = params.get("division_territorial_id")
-        console.log(id);
-        if (id !== 0 && id !== null) {
-            search(id);
+    <script>
 
-        }
-    });
+        let listaLocalidadesMostradas = [];
+        let margenCount = 0;
+        let basemargenes = '{"margenes": [] }';
+        let margenes = JSON.parse(basemargenes);
+        let MARGIN_SPACING = 30;
 
-    $("#idTipoDivision").change(function () {
-        var divisionSeleccionada = $(this).children("option:selected").val();
-        $('#inputIdDivisionTerritorial').val(divisionSeleccionada);
-        //alert("You have selected the country - " + divisionSeleccionada);
-        if (divisionSeleccionada !== '0') {
-            search(divisionSeleccionada);
-        } else {
-            //TODO: Mostrar mensaje de informacion faltante
-        }
-    });
 
-    async function search(division) {
-        try {
-            const res = await BuscarComponentesDeDivisionTerritorial(division);
-            console.log(res);
-            showListTipoLocalidadesHijas(JSON.parse(res), division);
-            showListComponentes(JSON.parse(res));
-        } catch (err) {
+        $(document).ready(function () {
+            let params = new URLSearchParams(document.location.search.substring(1));
+            let id = params.get("division_territorial_id");
 
-        }
-    }
 
-    function BuscarComponentesDeDivisionTerritorial(divisionTerritorial) {
-
-        let dataValue = { "IdDivision": divisionTerritorial };
-
-        return $.ajax({
-            type: "get",
-            url: "/Territorio/BuscarComponenteDeDivision",
-            data: dataValue,
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-            },
-            complete: function (jqXHR, status) {
+            console.log(id);
+            if (id !== 0 && id !== null) {
+                search(id);
+                $('#inputIdDivisionTerritorial').val(id);
             }
         });
-    }
 
-    function showListTipoLocalidadesHijas(lista, idDivision) {
-        $('.divisionoption').remove();
-
-        // Si la division territorial seleccionada no tiene ningun componente (Division terriritorial por debajo de ella) le asignara
-        // como HijoDe el IdTipoLocalidad de la division al que se cree (EJM: Division -> pais)
-
-        if (lista.length > 0) {
-            $.each(lista, function (index, value) {
-                $('#tipolocalidadeshijas').append(`<option class="divisionoption" value="${value.IdTipoLocalidad}">${value.Nombre}</option>`);
-            });
-        } else {
-            $('#tipolocalidadeshijas').append(`<option selected class="divisionoption" value="${idDivision}">Primer componente</option>`);
-        }
-    }
-
-    function showListComponentes(lista) {
-        let text = null;
-        let componentCount = lista.length;
-        $('#component-list').empty();
-        $('#info-component-container').removeClass('d-none');
-        $.each(lista, function (index, value) {
-            if (index !== lista.length - 1) {
-                $('#component-list').append('<span class="badge badge-dark">' + value.Nombre + '</span>' + ' <i class="fa fa-arrow-right"></i> ');
+        $("#idTipoDivision").change(function () {
+            var divisionSeleccionada = $(this).children("option:selected").val();
+            $('#inputIdDivisionTerritorial').val(divisionSeleccionada);
+            //alert("You have selected the country - " + divisionSeleccionada);
+            if (divisionSeleccionada !== '0') {
+                search(divisionSeleccionada);
             } else {
-                $('#component-list').append('<span class="badge badge-primary">' + value.Nombre + '</span>');
+                //TODO: Mostrar mensaje de informacion faltante
             }
         });
-        $('#component-count').text(componentCount);
-    }
 
-    function validarDatos() {
-        if ($('#idTipoDivision').val() == 0) {
-            showMessage('error', 'Debe seleccionar una division territorial');
-            event.preventDefault();
-            return;
+        async function search(division) {
+            try {
+                const res = await BuscarComponentesDeDivisionTerritorial(division);
+                console.log(JSON.parse(res));
+                showListTipoLocalidadesHijas(JSON.parse(res), division);
+                showListComponentes(JSON.parse(res));
+            } catch (err) {
+
+            }
         }
 
-        if ($('#tipolocalidadeshijas').val() == 0) {
-            showMessage('error', 'Debe seleccionar un tipo de componente');
-            event.preventDefault();
-            return;
+        function BuscarComponentesDeDivisionTerritorial(divisionTerritorial) {
+
+            let dataValue = { "IdDivision": divisionTerritorial };
+
+            return $.ajax({
+                type: "get",
+                url: "/Territorio/BuscarComponenteDeDivision",
+                data: dataValue,
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                },
+                complete: function (jqXHR, status) {
+                }
+            });
         }
 
-        if ($('#nombre').val().length <= 2) {
-            showMessage('error', 'El nombre debe ser mayor a 2 caracteres');
-            event.preventDefault();
-            return;
+        function showListTipoLocalidadesHijas(lista, idDivision) {
+            $('.divisionoption').remove();
+
+            // Si la division territorial seleccionada no tiene ningun componente (Division terriritorial por debajo de ella) le asignara
+            // como HijoDe el IdTipoLocalidad de la division al que se cree (EJM: Division -> pais)
+
+            if (lista.length > 0) {
+                $.each(lista, function (index, value) {
+                    $('#tipolocalidadeshijas').append(`<option class="divisionoption" value="${value.IdTipoLocalidad}">${value.Nombre}</option>`);
+                });
+            } else {
+                $('#tipolocalidadeshijas').append(`<option selected class="divisionoption" value="${idDivision}">Primer componente</option>`);
+            }
         }
-        showMessage('success', 'Componente de division guardado correctamente.');
-    }
 
-    function showMessage(typeOfNotification, messageOfNotification) {
-        var notification = new PNotify({
-            title: typeOfNotification === 'error' ? 'Algo ocurrio mal' : 'Todo correcto',
-            text: messageOfNotification,
-            type: typeOfNotification,
-            styling: 'bootstrap3',
-        });
-    }
+        function showListComponentes(lista) {
+            let text = null;
+            let componentCount = lista.length;
+            $('#component-list').empty();
+            $('#info-component-container').removeClass('d-none');
 
-</script>
+            scan(lista.filter(item => item.IdLocalidadPadre == 2), lista, false);
+
+            $('#component-count').text(componentCount);
+        }
+
+
+        async function scan(listaParcial, listaCompleta) {
+
+            for (let i in listaParcial) {
+
+                let saveMargin = undefined;
+                let parentMargin = undefined;
+
+                // Buscar si hay un margen guardado previamente
+                margenes["margenes"].forEach(function (margen) {
+                    if (margen[listaParcial[i].IdLocalidadPadre] !== undefined) {
+                        saveMargin = margen[listaParcial[i].IdLocalidadPadre];
+                    }
+
+                    // Buscar si tiene un margen padre, para asi aplicar el mismo mas la diferencia al hijo
+                    let kiss = listaCompleta.filter(item => item.IdTipoLocalidad == listaParcial[i].IdLocalidadPadre);
+                    if (kiss[0] !== undefined) {
+                        if (margen[kiss[0].IdLocalidadPadre] !== undefined) {
+                            parentMargin = margen[kiss[0].IdLocalidadPadre];
+                        }
+                    }
+                });
+
+                // Determinar cual de los margenes se aplicara al elemento
+                let margenAAplicar = 0;
+                if (saveMargin !== undefined) {
+                    margenAAplicar = saveMargin;
+                } else if (parentMargin !== undefined) {
+                    margenAAplicar = parentMargin + MARGIN_SPACING;
+                } else {
+                    margenAAplicar = margenCount;
+                    margenCount += MARGIN_SPACING;
+                }
+
+                // Guardar en el listado el margen puesto al elemento
+                let tempMerge = JSON.parse('{"' + listaParcial[i].IdLocalidadPadre + '" : ' + margenAAplicar + '}');
+                margenes["margenes"].push(tempMerge);
+                JSON.stringify(margenes);
+
+                // Agregar elemento a la lista
+                $('#component-list').append('<p style="margin-bottom: 4px; margin-left:' + margenAAplicar + 'px" > <i class="fa fa-chevron-right"></i> ' + listaParcial[i].Nombre + ' </p>');
+
+                // Llamar la funcion nuevamente, con el filtro de la lista hija (recursividad)
+                scan(listaCompleta.filter(item => item.IdLocalidadPadre == listaParcial[i].IdTipoLocalidad), listaCompleta)
+            }
+        }
+
+        function validarDatos() {
+            if ($('#idTipoDivision').val() == 0) {
+                showMessage('error', 'Debe seleccionar una division territorial');
+                event.preventDefault();
+                return;
+            }
+
+            if ($('#tipolocalidadeshijas').val() == 0) {
+                showMessage('error', 'Debe seleccionar un tipo de componente');
+                event.preventDefault();
+                return;
+            }
+
+            if ($('#nombre').val().length <= 2) {
+                showMessage('error', 'El nombre debe ser mayor a 2 caracteres');
+                event.preventDefault();
+                return;
+            }
+            showMessage('success', 'Componente de division guardado correctamente.');
+        }
+
+        function showMessage(typeOfNotification, messageOfNotification) {
+            var notification = new PNotify({
+                title: typeOfNotification === 'error' ? 'Algo ocurrio mal' : 'Todo correcto',
+                text: messageOfNotification,
+                type: typeOfNotification,
+                styling: 'bootstrap3',
+            });
+        }
+
+    </script>

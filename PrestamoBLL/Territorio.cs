@@ -32,7 +32,7 @@ namespace PrestamoBLL
 
         public IEnumerable<Territorio> TerritorioBuscarComponentesDivisionesTerritoriales(DivisionSearchParams searchParam)
         {
-            return BllAcciones.GetData<Territorio, DivisionSearchParams>(searchParam, "spComponentesDeDivisionTerritorial", GetValidation);
+            return BllAcciones.GetData<Territorio, DivisionSearchParams>(searchParam, "spGetComponentesDeDivisionTerritorial", GetValidation);
         }
 
         public void TerritorioInsUpd(Territorio insUpdParam)

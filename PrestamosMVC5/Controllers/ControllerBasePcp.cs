@@ -15,19 +15,19 @@ namespace PrestamosMVC5.Controllers
     public class ControllerBasePcp : Controller
     {
         // indicate if user is authenticated
-        protected bool pcpIsUserAuthenticated=> (AuthInSession.GetLoginName() != AuthInSession.AnonimousUser);
+        protected bool pcpIsUserAuthenticated => (AuthInSession.GetLoginName() != AuthInSession.AnonimousUser);
         protected string pcpUserLoginName => AuthInSession.GetLoginName(); //TODO: verificar si es necesario que este private
         protected string pcpUserImageFile => AuthInSession.GetUserImageFilePath();
         protected int pcpUserIdNegocio => AuthInSession.GetIdNegocio();
         protected int pcpUserIdUsuario => AuthInSession.GetIdUsuario();
-        protected void LoginUserIntoSession(int idNegocio, string loginName, int idUsuario, string userImageFile)=>
+        protected void LoginUserIntoSession(int idNegocio, string loginName, int idUsuario, string userImageFile) =>
             AuthInSession.LoginUserToSession(idNegocio, loginName, idUsuario, userImageFile);
         protected void SetOperacionesToSession(List<string> operaciones) =>
             AuthInSession.SetOperacionesToUserSession(operaciones);
 
         protected void pcpLogout() => AuthInSession.Logout();
 
-        protected  void pcpSetUsuarioAndIdNegocioTo(BaseUsuarioEIdNegocio entidad)
+        protected void pcpSetUsuarioAndIdNegocioTo(BaseUsuarioEIdNegocio entidad)
         {
             entidad.IdNegocio = pcpUserIdNegocio;
             entidad.Usuario = pcpUserLoginName;
@@ -48,16 +48,17 @@ namespace PrestamosMVC5.Controllers
         {
             entidad.Usuario = pcpUserLoginName;
         }
-        public IEnumerable<ModelError>  GetErrorsFromModelState(ModelStateDictionary modelState)
+        public IEnumerable<ModelError> GetErrorsFromModelState(ModelStateDictionary modelState)
         {
-            var result= modelState.Values.SelectMany(v => v.Errors);
+            var result = modelState.Values.SelectMany(v => v.Errors);
             return result;
         }
 
-        public string GetErrorsFromModelStateAsString(ModelStateDictionary modelState)
+        protected string GetErrorsFromModelStateAsString(ModelStateDictionary modelState)
         {
             var result = string.Join("; ", GetErrorsFromModelState(modelState).Select(x => x.ErrorMessage));
             return result;
         }
     }
+
 }
