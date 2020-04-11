@@ -238,6 +238,7 @@
     <Content Include="Content\docs\js\shBrushXml.js" />
     <Content Include="Content\docs\js\shCore.js" />
     <Content Include="Content\Images\access-denied.png" />
+    <Content Include="Content\build\images\pcpPrestamo.png" />
     <Content Include="Content\Images\pcpprestamo-07.jpg" />
     <Content Include="Content\production\calendar.html" />
     <Content Include="Content\production\chartjs.html" />

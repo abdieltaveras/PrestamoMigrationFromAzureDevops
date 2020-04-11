@@ -47,12 +47,13 @@
 
     .form-label-group {
         position: relative;
-        margin-bottom: 1rem;
+        margin-bottom: .2rem;
+        margin-top: 0.0rem;
     }
 
         .form-label-group input {
             height: auto;
-            border-radius: 5px;
+            border-radius: 50px;
         }
 
         .form-label-group > input,
@@ -113,9 +114,9 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
-                    <div class="img-container-inline" style="text-align: center; display: block;">
-                        <img src="@Url.Content(@SiteImages.Demo)" alt="Logo" />
-                    </div>
+                    @*<div class="img-container-inline" style="text-align: center; display: block;">
+                            <img src="@Url.Content(@SiteImages.Demo)" alt="Logo" />
+                        </div>*@
                     <h5 class="card-title text-center">Inicio de sesion</h5>
                     @*@using (Html.BeginForm())*@
                     @using (@Html.BeginForm("Login", "Account", FormMethod.Post, htmlAttributes: new { id = "submitForm", autocomplete = "off" }))
@@ -141,13 +142,18 @@
                             <input type="password" id="Password" name="Password" class="form-control" value="@Html.Raw(string.IsNullOrEmpty(@Model.LoginName) ? "1" : @Model.Password)" placeholder="Contraseña" required>
                             <label for="Password">Contraseña</label>
                         </div>
+                        <div id="captchaSection" class="form-label-group">
+                            @{
+                                var captcha = Html.Captcha("Generar otro", "Entre el texto de la imagen", 5, "Campo Requerido", true);
+                                @captcha;
+                                @*@Html.ValidationMessage(captcha.BuildInfo.InputElementId);*@
+                            }
+                        </div>
                         <div class="custom-control custom-checkbox mb-3">
                             <input type="checkbox" class="custom-control-input" id="customCheck1">
                             <label class="custom-control-label" for="customCheck1">¿Olvidaste tu contraseña?</label>
                         </div>
-                        <div id="captchaSection" class="form-group">
-                            @Html.Captcha(5)
-                        </div>
+
                         <div class="form-group">
                             <input type="submit" value="Entrar" class="btn btn-lg btn-primary btn-block text-uppercase submit" />
                         </div>
@@ -159,9 +165,13 @@
 </div>
 @section Scripts
 {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script>
-        let node3 = $("#captchaSection").find("br").get(2).nextSibling;
-        node3.data = "Escriba el captcha";
+        //let nodeRefresh = $("#captchaSection").find("a").get(0);
+        //nodeRefresh.innerHTML = "Generar otro";
+        //let nodeInputCatcha = $("#captchaSection").find("br").get(2).nextSibling;
+        //nodeInputCatcha.data = "Confirma el captcha";
     </script>
 }
