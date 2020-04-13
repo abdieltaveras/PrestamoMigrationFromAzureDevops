@@ -183,11 +183,19 @@
                                             </label>
                                             <div class="col-sm-8">
                                                 @*@Html.EditorFor(model => model.Garantia.IdMarca, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
-                                                @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                               @* @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
                                                 @*@foreach (var item in Model.ListaMarcas)
                                                     {
                                                     <p>@item</p>
                                                     }*@
+                                                <select name="Garantia.IdMarca" class="form-control" id="Garantia_IdMarca">
+                                                    <option value="0">Elije una marca</option>
+                                                    @foreach (var marca in Model.ListaMarcas)
+                                                    {
+                                                        <option value="@marca.IdMarca">@marca.Nombre</option>
+                                                    }
+                                                </select>
+
                                             </div>
                                         </div>
 
