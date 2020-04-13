@@ -3,9 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>@ViewBag.Title | PCP Prestamos</title>
-
     <!-- Bootstrap -->
     <link href="~/content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -17,9 +15,7 @@
     <link href="~/content/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- bootstrap-datetimepicker -->
     <link href="~/content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-
     <link href="~/content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-
     <link href="~/content/vendors/google-code-prettify/bincss/prettify.min.css" rel="stylesheet">
     <!-- Select2 -->
     <link href="~/content/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
@@ -27,12 +23,12 @@
     <link href="~/content/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
     <!-- starrr -->
     <link href="~/content/vendors/starrr/dist/starrr.css" rel="stylesheet">
-
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
-    <link href="~/content/build/css/custom.min.css" rel="stylesheet">
+    <link href="~/content/build/css/custom.css" rel="stylesheet">
     <link href="~/Content/customcss/global-styles.css" rel="stylesheet" />
-    @Scripts.Render("~/bundles/modernizr")
+    <script src="/Content/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/Scripts/modernizr-2.8.3.js"></script>
     @RenderSection("PageStyle", required: false)
 </head>
 
@@ -96,7 +92,6 @@
     @*@Scripts.Render("~/bundles/jquery")*@
 
     <!-- jQuery -->
-    <script src="~/content/vendors/jquery/dist/jquery.js"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="~/content/vendors/moment/min/moment.min.js"></script>
 
@@ -138,9 +133,9 @@
 
     --todo include this files as needed in views
     @*<script src="~/Scripts/apps/showImage.js"></script>
-    <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
-    <script src="~/Scripts/apps/datePickerInit.js"></script>
-    <script src="~/Scripts/Apps/setMask.js"></script>*@
+        <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
+        <script src="~/Scripts/apps/datePickerInit.js"></script>
+        <script src="~/Scripts/Apps/setMask.js"></script>*@
 
     --todo check to see if this file must go above scripts section or under
     <script src="~/content/build/js/custom.min.js"></script>

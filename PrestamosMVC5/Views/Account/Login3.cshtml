@@ -1,8 +1,6 @@
 ﻿@model PrestamosMVC5.Models.LoginModel
 @using CaptchaMvc.HtmlHelpers;
-@{
-//Layout = "~/Views/Shared/_LayoutForms.cshtml";
-}
+
 @section PageStyle    {
     <link href="~/Content/customcss/switch.css" rel="stylesheet">
 }
@@ -12,14 +10,14 @@
         {
             <div class="@HtmlClass.FormGroupCls">
                 <div class="@HtmlClass.DivInputCls">
-                    <img src="@Url.Content(SiteImages.AppLogoSinLetra )" alt="Logo de la aplicacion" height="100em" width="100em" class="center">
+                    <img src="@Url.Content(SiteImages.AppLogo)" alt="Logo de la aplicacion" height="100em" width="100em" class="center">
                 </div>
             </div>
             @Html.HiddenFor(model => model.ReturnUrl)
             @Html.HiddenFor(model => model.ValidateCaptcha)
             @Html.AntiForgeryToken()
             <div class="@HtmlClass.FormGroupCls">
-                <div class="text-center @HtmlClass.DivInputCls" role="alert" id="mensajeError">
+                <div class="text-center @HtmlClass.DivInputCls alert alert-danger" role="alert" id="mensajeError">
                      @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
                 </div>
             </div>
@@ -93,6 +91,8 @@
         }
     </div>
 </div>
+
+
 
 @section scripts {
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>

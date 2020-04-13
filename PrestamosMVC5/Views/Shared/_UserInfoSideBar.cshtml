@@ -1,12 +1,14 @@
 ﻿<!-- User Info sidebar -->
-    <div class="profile clearfix">
+<div class="nav nav-collapse">
+    <div class="profile clearfix ">
         <div class="profile_pic">
             @*<img src="@AuthInSession.GetUserImageFilePath()" alt="..." class="img-circle profile_img">*@
-            <img class="img-circle profile_img" src="~/Content/Images/pcpprestamo-07.jpg" />
+            <img class="img-circle profile_img" src="@Url.Content(SiteImages.NegocioLogoConLetra)" />
         </div>
         <div class="profile_info">
             <span>Bienvenido,</span>
             <h2>@AuthInSession.GetLoginName()</h2>
         </div>
     </div>
+</div>
 <!-- User Info sidebar -->

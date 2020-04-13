@@ -2,6 +2,7 @@
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -17,8 +18,10 @@ namespace PrestamosMVC5.SiteUtils
 
         public static readonly string UsuarioKey = "user";
         public static readonly string UserImageFilePathKey = "userImage";
-        public static readonly string NegocioKey = "negocio";
-        public static readonly string IdUsuarioKey = "idUsuario";
+        public static readonly string NegocioIdKey = "idNegocio";
+        public static readonly string NegocioNombreKey = "negocioNombre";
+        public static readonly string NegocioLogoKey = "negocioLogo";
+        public static readonly string UsuarioIdKey = "idUsuario";
         public static readonly string AnonimousUser = "Anónimo";
         public static readonly string Operaciones = "operaciones";
         public static System.Web.SessionState.HttpSessionState sessionState => HttpContext.Current.Session;
@@ -42,7 +45,7 @@ namespace PrestamosMVC5.SiteUtils
         public static int GetIdUsuario(HttpSessionStateBase sessionState = null)
         {
             object idUsuarioObj = null;
-            idUsuarioObj = getKeyValue(IdUsuarioKey);
+            idUsuarioObj = getKeyValue(UsuarioIdKey);
             return idUsuarioObj == null ? -1 : Convert.ToInt32(idUsuarioObj);
         }
         public static string GetUserImageFilePath(HttpSessionStateBase sessionState = null)
@@ -54,20 +57,36 @@ namespace PrestamosMVC5.SiteUtils
         // to retrieve IdNegocio value from session
         public static int GetIdNegocio(HttpSessionStateBase sessionState = null)
         {
-            object idNegObj = getKeyValue(NegocioKey);
+            object idNegObj = getKeyValue(NegocioIdKey);
             var returnValue = idNegObj == null ? -1 : Convert.ToInt32(idNegObj);
             return returnValue;
         }
 
-
+        public static string GetNegocioNombre(HttpSessionStateBase sessionState = null)
+        {
+            object data = getKeyValue(NegocioNombreKey);
+            var returnValue = data == null ? string.Empty : data.ToString();
+            return returnValue;
+        }
+        public static string GetNegocioLogo(HttpSessionStateBase sessionState = null)
+        {
+            object data = getKeyValue(NegocioLogoKey);
+            var returnValue = data == null ? SiteImages.PcProgLogo : SiteDirectory.ImagesForNegocio+"/"+ data.ToString();
+            return returnValue;
+        }
         public static void LoginUserToSession(int idNegocio, string usuario, int idUsuario, string userImageFilePath)
         {
+            // get negocio info
+            
             var sessionState = HttpContext.Current.Session;
-            sessionState.Add(UsuarioKey, usuario);
-            sessionState.Add(NegocioKey, idNegocio);
-            sessionState.Add(IdUsuarioKey, idUsuario);
-            sessionState.Add(UserImageFilePathKey, userImageFilePath);
             sessionState.Timeout = 60 * 5;
+            sessionState.Add(UsuarioKey, usuario);
+            sessionState.Add(NegocioIdKey, idNegocio);
+            sessionState.Add(UsuarioIdKey, idUsuario);
+            sessionState.Add(UserImageFilePathKey, userImageFilePath);
+            var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, Usuario = usuario }).FirstOrDefault();
+            sessionState.Add(NegocioNombreKey, negocio.NombreComercial);
+            sessionState.Add(NegocioLogoKey, negocio.Logo);
         }
 
         public static void SetOperacionesToUserSession(List<string> operaciones)
@@ -100,8 +119,8 @@ namespace PrestamosMVC5.SiteUtils
         {
             var sessionState = HttpContext.Current.Session;
             sessionState.Remove(UsuarioKey);
-            sessionState.Remove(NegocioKey);
-            sessionState.Remove(IdUsuarioKey);
+            sessionState.Remove(NegocioIdKey);
+            sessionState.Remove(UsuarioIdKey);
             sessionState.Remove(Operaciones);
         }
     }
@@ -120,7 +139,7 @@ namespace PrestamosMVC5.SiteUtils
         {
             var user = session[AuthInSession.UsuarioKey];
             //var user = AuthInSession.GetLoginName();
-            var idNegocioResult = session[AuthInSession.NegocioKey];
+            var idNegocioResult = session[AuthInSession.NegocioIdKey];
             //var idNegocioResult = AuthInSession.GetIdNegocio();
             IsAuthenticated = (user != null && idNegocioResult != null);
             return IsAuthenticated;

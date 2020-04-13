@@ -28,6 +28,8 @@ namespace PrestamoEntidades
         public string OtrosDetalles { get; set; } = string.Empty;
         [NotMapped]
         public string InfoAccion { get; set; } = string.Empty;
+        [MaxLength(100)]
+        public string Logo { get; set; }
     }
 
     public class NegociosGetParams : BaseGetParams
@@ -59,9 +61,7 @@ namespace PrestamoEntidades
         [MaxLength(20)]
         [Phone]
         public string Telefono2 { get; set; }
-        [MaxLength(100)]
-        public string Logo { get; set; }
-        [EmailAddress]
-        public string CorreoElectronico { get; set; }
+        
+        
     }
 }

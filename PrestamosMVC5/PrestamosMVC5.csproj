@@ -165,7 +165,6 @@
     <Compile Include="Controllers\GarantiasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ModelosController.cs" />
     <Compile Include="Controllers\TasaInteresController.cs" />
@@ -187,14 +186,15 @@
     <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\SelectItems.cs" />
-    <Compile Include="Models\SiteDirectory.cs" />
-    <Compile Include="Models\SiteImages.cs" />
+    <Compile Include="SiteUtils\SiteDirectory.cs" />
+    <Compile Include="SiteUtils\SiteImages.cs" />
     <Compile Include="Models\TasaInteresVM.cs" />
     <Compile Include="Models\TipoBusqueda.cs" />
     <Compile Include="Models\TipoVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteUtils\DateUtils.cs" />
     <Compile Include="SiteUtils\HasPermission.cs" />
+    <Compile Include="SiteUtils\HtmlHelpers.cs" />
     <Compile Include="SiteUtils\TreeViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -206,7 +206,7 @@
     <Content Include="Content\build\images\forward_disabled.png" />
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
-    <Content Include="Content\build\images\demo.png" />
+    <Content Include="Content\ImagesFor\Negocios\Papito.png" />
     <Content Include="Content\build\images\loading.gif" />
     <Content Include="Content\build\images\PcpLogo250x211.jpg" />
     <Content Include="Content\build\images\noImagen.png" />
@@ -237,9 +237,12 @@
     <Content Include="Content\docs\js\jquery.min.js" />
     <Content Include="Content\docs\js\shBrushXml.js" />
     <Content Include="Content\docs\js\shCore.js" />
-    <Content Include="Content\Images\access-denied.png" />
+    <Content Include="Content\build\images\access-denied.png" />
     <Content Include="Content\build\images\pcpPrestamo.png" />
-    <Content Include="Content\Images\pcpprestamo-07.jpg" />
+    <Content Include="Content\build\images\iconoPcpPrestamo-sin-letras.png" />
+    <Content Include="Content\build\images\Logo monocromatico-08.png" />
+    <Content Include="Content\build\images\Logo monocromatico-09.png" />
+    <Content Include="Content\build\images\pcpprestamo-07.jpg" />
     <Content Include="Content\production\calendar.html" />
     <Content Include="Content\production\chartjs.html" />
     <Content Include="Content\production\chartjs2.html" />
@@ -4028,6 +4031,9 @@
     <Content Include="Views\Shared\_Sidebar - Copy.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Tests\TreeViewExample2.cshtml" />
+    <Content Include="tsconfig.json" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Login3.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <Content Include="Views\Catalogos\Catalogos.cshtml" />
@@ -4040,6 +4046,7 @@
     <Content Include="Scripts\Apps\searchLocalidad.js" />
     <TypeScriptCompile Include="Scripts\Apps\cultureInfo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\testCommands.ts" />
     <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs.ts" />
     <TypeScriptCompile Include="Scripts\Apps\DatePickerInit.ts" />
     <Content Include="Scripts\Apps\empty.js" />
@@ -4047,7 +4054,7 @@
     <TypeScriptCompile Include="Scripts\Apps\onTodosSelected.ts" />
     <TypeScriptCompile Include="Scripts\Apps\setMask.ts" />
     <Content Include="Scripts\Apps\showImage.js" />
-    <TypeScriptCompile Include="Scripts\Apps\tabPanelsManagemen.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\tabPanelsManagement.ts" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\docs\fonts\fonts\fontawesome-webfont.eot" />
@@ -5162,8 +5169,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Login\Indexp.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -5176,7 +5181,7 @@
     <Content Include="Views\Clientes\_InfoGenerales.cshtml" />
     <Content Include="Views\Clientes\_InfoLaboral2.cshtml" />
     <Content Include="Views\Clientes\_TopNavBar2.cshtml" />
-    <Content Include="Views\Shared\_LayoutForms.cshtml" />
+    <Content Include="Views\Shared\_LayoutFormsNoUsar.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
     <Content Include="Views\Clientes\CreateOrEdit.20191210.cshtml" />
     <Content Include="Views\Clientes\_InfoLaboral.cshtml" />
@@ -5194,8 +5199,7 @@
     <Content Include="Views\Tipo\CreateOrEdit.cshtml" />
     <Content Include="Views\Color\CreateOrEdit.cshtml" />
     <Content Include="Views\Account\Login.20191229.cshtml" />
-    <Content Include="Views\Account\Registration.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Login2.cshtml" />
     <Content Include="Views\Shared\_UserInfoTopNavBar.cshtml" />
     <Content Include="Views\Shared\_UserInfoSideBar.cshtml" />
     <Content Include="Views\User\CreateOrEdit.cshtml" />

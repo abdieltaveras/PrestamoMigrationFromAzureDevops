@@ -13,21 +13,18 @@ namespace PrestamosMVC5.Models
     {
         [HiddenInput(DisplayValue = false)]
         [Required]
+        [Display(Name = "Seleccione un Negocio")]
         public int IdNegocio { get; set; }
-        [Required]
-        [Display(Name = "User Name")]
+        [Required(ErrorMessage = "campo requerido")]
+        [Display(Name = "Nombre de Usuario")]
         public string LoginName { get; set; } = string.Empty;
-        [Required]
-        [Display(Name = "Password")]
+        [Required(ErrorMessage = "campo requerido")]
         [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; } = string.Empty;
-        [Display(Name = "Remember Me")]
-        public bool RememberMe { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string ReturnUrl { get; set; } = string.Empty;
-
-        public string ImagePath { get; set; } = string.Empty;
-
+        public bool ValidateCaptcha { get; set; } = true;
     }
 
 

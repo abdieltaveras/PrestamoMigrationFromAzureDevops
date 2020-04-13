@@ -4,30 +4,73 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title | PCP Prestamos</title>
-
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")*@
+    <link href="/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="/?Content/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+        <link href="/?Content/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />*@
+    <link href="/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link href="/?Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />*@
+    <link href="/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+    @*<link href="/?Content/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+        <link href="/?Content/vendors/nprogress/nprogress.css" rel="stylesheet" />
+        <link href="/?Content/vendors/pnotify/dist/pnotify.css" rel="stylesheet" />
+        <link href="/?Content/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet" />
+        <link href="/?Content/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet" />*@
+    <!-- lo cambiamos al css no minificado hasta que se termine el proyecto porque si cristy hace cambio se actualicen -->
+    <!--For abdiel layout-->
+    <link href="~/content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="~/content/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    @*<link href="~/content/vendors/nprogress/nprogress.css" rel="stylesheet">
+        <link href="~/content/vendors/google-code-prettify/bincss/prettify.min.css" rel="stylesheet">*@
+    <link href="~/content/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="~/content/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    @*<link href="~/content/vendors/starrr/dist/starrr.css" rel="stylesheet">*@
+    <!--For abdiel layout-->
+    <link href="/Content/build/css/custom.css" rel="stylesheet" />
+    <link href="/Content/customcss/global-styles.css" rel="stylesheet" />
+    <!-- scriptst neccesary at head -->
+    <script src="/Content/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/Scripts/modernizr-2.8.3.js"></script>
     @RenderSection("pagestyle", required: false)
 </head>
 
-<body class="nav-md" >
+<body class="nav-md">
     <div class="container body" id="bodyTo">
-        <div class="main_container">
-            <div class="col-md-3 left_col menu_fixed">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="@Url.Action("Index", "Home")" class="site_title"><i class="fa fa-paw"></i> <span>PCP Prestamo</span></a>
+        <div class="main_container blue-medium">
+            <div class="col-md-3 blue-medium left_col menu_fixed ">
+                <div class="left_col scroll-view blue-medium">
+                    <div class="nav nav-collapse">
+                        <div class="profile clearfix ">
+                            <div class="profile_pic">
+                                @*<img src="@AuthInSession.GetUserImageFilePath()" alt="..." class="img-circle profile_img">*@
+                                <img class="img-circle profile_img" src="@Url.Content(SiteImages.AppLogoSinLetra)" />
+                            </div>
+                            <div class="profile_info">
+                                <div class="row">
+                                    <span>PCP PRESTAMO</span>
+                                </div>
+                                <div class="row">
+                                    <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Inicio </a>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-md-4 pt-0">
+                                <img class="img-circle profile_img" src="@Url.Content(SiteImages.AppLogoSinLetra)" />
+                            </div>
+                            <div class="col-md-8">
+                                <span class="small">PCP Prestamo</span>
+                            </div>*@
                     </div>
 
                     <div class="clearfix"></div>
-
                     <!-- menu profile quick info -->
                     @Html.Partial("_UserInfoSideBar")
                     <!-- /menu profile quick info -->
-
                     <br />
-
                     <!-- sidebar menu -->
                     @Html.Partial("_Sidebar")
                     <!-- /sidebar menu -->
@@ -53,23 +96,75 @@
             <!-- top navigation -->
             @Html.Partial("_TopNavBar")
             <!-- /top navigation -->
-
             <!-- page content -->
             <div class="right_col" role="main">
-            <!-- top tiles -->
-            @RenderBody()
+                <!-- top tiles -->
+                @RenderBody()
             </div>
             <!-- /page content -->
-
             <!-- footer content -->
             @Html.Partial("_Footer")
             <!-- /footer content -->
         </div>
     </div>
-
     @*@Scripts.Render("~/bundles/jquery")*@
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*<script src="/Content/vendors/jquery/dist/jquery.min.js"></script>*@
+
+    <script src="/Content/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/Content/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="/Content/vendors/Chart.js/dist/Chart.min.js"></script>
+    @*<script src="?/Content/vendors/flot.curvedlines/curvedLines.js"></script>*@
+    <script src="/Content/vendors/DateJS/build/date.js"></script>
+    @*<script src="?/Content/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="?/Content/vendors/fastclick/lib/fastclick.js"></script>
+        <script src="?/Content/vendors/gauge.js/dist/gauge.min.js"></script>
+        <script src="?/Content/vendors/iCheck/icheck.min.js"></script>*@
+    @*<script src="/Content/vendors/Flot/jquery.flot.js"></script>*@
+    @*<script src="/Content/vendors/Flot/jquery.flot.pie.js"></script>
+        <script src="/Content/vendors/Flot/jquery.flot.time.js"></script>
+        <script src="/Content/vendors/Flot/jquery.flot.stack.js"></script>*@
+    @*<script src="/Content/vendors/Flot/jquery.flot.resize.js"></script>*@
+    @*<script src="?/Content/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="?/Content/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>*@
+    <script src="/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    @*<script src="?/Content/vendors/jqvmap/dist/jquery.vmap.js"></script>
+        <script src="?/Content/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="?/Content/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+        <script src="?/Content/vendors/moment/min/moment.min.js"></script>
+        <script src="?/Content/vendors/nprogress/nprogress.js"></script>
+        <script src="?/Content/vendors/pnotify/dist/pnotify.js"></script>
+        <script src="?/Content/vendors/pnotify/dist/pnotify.buttons.js"></script>
+        <script src="?/Content/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+        <script src="?/Content/vendors/skycons/skycons.js"></script>*@
+    @*<-- for custom.min -->*@
+    <!--abdiel section-->
+    <script src="~/content/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="~/content/vendors/fastclick/lib/fastclick.js"></script>
+    <script src="~/content/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+    <script src="~/content/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script src="~/content/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="~/content/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/content/vendors/iCheck/icheck.min.js"></script>
+    <script src="~/content/vendors/nprogress/nprogress.js"></script>
+    <script src="~/content/vendors/moment/min/moment.min.js"></script>
+    <script src="~/content/vendors/parsleyjs/dist/parsley.min.js"></script>
+    <script src="~/content/vendors/google-code-prettify/src/prettify.js"></script>
+    <script src="~/content/vendors/select2/dist/js/select2.full.min.js"></script>
+    @*<script src="~/content/vendors/starrr/dist/starrr.js"></script>*@
+    <script src="~/content/vendors/switchery/dist/switchery.min.js"></script>
+    <script src="~/Content/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+
+    <script src="/Content/build/js/custom.min.js"></script>
+    @*queremos usar esta version de jquery pero si la colocamos al inicio da errores con el que trajo la plantilla
+        por lo tanto hay que dejarlo asi*@
+    @*<script src="/Scripts/jquery-3.3.1.js"></script>*@
     @RenderSection("scripts", required: false)
 
 </body>
 </html>
+
+

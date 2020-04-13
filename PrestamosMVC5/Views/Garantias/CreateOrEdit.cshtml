@@ -1,5 +1,9 @@
 ﻿
 @model GarantiaVM
+@section pagestyle
+{
+    <link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+}
 <link href="~/Content/customcss/switch.css" rel="stylesheet">
 
 <div class="clearfix"></div>
@@ -104,8 +108,6 @@
                                         </div>
 
                                     </div>
-
-
                                     <div class="col-md-6">
 
                                     </div>
@@ -119,8 +121,6 @@
 
                                 <div class="row" id="inmobiliario_form_container">
                                     <div class="col-md-6">
-
-
                                         <div class="form-group row" style="padding: 0%">
                                             <label class="col-sm-4 col-form-label" for="Direccion_Calle">Localidad</label>
                                             <div class="col-sm-8" style="margin: auto;">
@@ -185,9 +185,9 @@
                                                 @*@Html.EditorFor(model => model.Garantia.IdMarca, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
                                                 @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                                                 @*@foreach (var item in Model.ListaMarcas)
-                                                {
-                                                <p>@item</p>
-                                                }*@
+                                                    {
+                                                    <p>@item</p>
+                                                    }*@
                                             </div>
                                         </div>
 
@@ -213,12 +213,11 @@
                                                 @* @Html.EditorFor(model => model.Garantia.IdModelo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
                                             </div>
                                         </div>
-                                        
+
 
                                     </div>
 
                                     <div class="col-md-6">
-
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label" for="NoMaquina">
                                                 No. Maquina <span class="required">*</span>
@@ -227,7 +226,6 @@
                                                 @Html.EditorFor(model => model.Garantia.DetallesJSON.NoMaquina, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label" for="año">
                                                 Año <span class="required">*</span>
@@ -271,7 +269,7 @@
                                                 Valor <span class="required"></span>
                                             </label>
                                             <div class="col-sm-8">
-                                                <input type="number" class="form-control text-box single-line" name="Garantia.DetallesJSON.Valor" id="Garantia_DetallesJSON_Valor" >
+                                                <input type="number" class="form-control text-box single-line" name="Garantia.DetallesJSON.Valor" id="Garantia_DetallesJSON_Valor">
                                             </div>
                                         </div>
 
@@ -345,28 +343,26 @@
                     {
                         <div class="alert alert-danger alert-dismissible " role="alert">
                             @*<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>*@
+                                    <span aria-hidden="true">×</span>
+                                </button>*@
                             <strong>Error: </strong> @error.Mensaje
                         </div>
                     }
                 }
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
-
+            <img src="~/Content/ImagesFor/Negocios/Papito.png" />
         </div>
     </div>
 </div>
-
+@section scripts
+{
 <script>
-
+    let searchLocalidadElem = $('#searchLocalidad');
     $(document).ready(function () {
-
-        let searchLocalidadElem = $('#searchLocalidad');
-
         //$('input').iCheck({
         //    checkboxClass: 'icheckbox_flat-green',
         //    radioClass: 'iradio_flat-green'
@@ -477,10 +473,10 @@
                 $('#Garantia_IdNegocio').val(selectedGarantia.IdNegocio);
 
                 $('#Garantia_IdTipo option[value="' + selectedGarantia.IdTipoGarantia + '"]').attr("selected", "selected");
-                
+
                 $('#Garantia_IdMarca').val(selectedGarantia.IdMarca);
                 //$('#Garantia_IdMarca option[value="' + selectedGarantia.IdMarca + '"]').attr("selected", "selected");
-                loadModelos(selectedGarantia.IdMarca, selectedGarantia.IdModelo);                
+                loadModelos(selectedGarantia.IdMarca, selectedGarantia.IdModelo);
 
                 $('#Direccion_IdLocalidad').val(detalles.IdLocalidad);
                 $('#Garantia_DetallesJSON_DetallesDireccion').val(detalles.DetallesDireccion);
@@ -534,7 +530,7 @@
                     data-idGarantia="${value.IdGarantia}"
                     role="tab" aria-controls="home">
                     <span class="fa fa-automobile"></span>
-                    <strong id="placeName" > ${value.NoIdentificacion} </strong><br>                
+                    <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
                    <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
                     <br>`);
             }
@@ -607,7 +603,7 @@
 
     function showListModelosByMarca(lista, modeloid) {
         $('#Garantia_IdModelo').empty();
-        
+
         $.each(lista, function (index, value) {
             $('#Garantia_IdModelo').append(`<option value="${value.IdModelo}">${value.Nombre}</option>`);
         });
@@ -645,8 +641,7 @@
     }
 </script>
 
-<script>
-    let searchLocalidadElem = $('#searchLocalidad');
-</script>
 <script src="~/Scripts/Apps/searchLocalidad.js"></script>
+<script src="/Content/vendors/iCheck/icheck.min.js"></script>
+}
 

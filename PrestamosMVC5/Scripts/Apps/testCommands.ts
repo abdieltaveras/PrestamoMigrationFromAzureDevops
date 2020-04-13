@@ -1,0 +1,1 @@
+﻿$("#CaptchaInputText-error").Html;

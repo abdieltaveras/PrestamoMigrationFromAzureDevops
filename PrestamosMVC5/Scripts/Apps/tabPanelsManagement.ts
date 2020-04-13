@@ -1,6 +1,5 @@
 ﻿/// debe ponerle el id btnNextTabPane al elemento que hay que pulsar para avanzar al proximo tab
 
-
 $(document).ready(function () {
     // Get Dom Elements
     let navItems = $('.nav-item');

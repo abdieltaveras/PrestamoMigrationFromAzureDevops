@@ -63,7 +63,7 @@ namespace PrestamosMVC5
                     "~/Content/vendors/bootstrap-daterangepicker/daterangepicker.css",                        
                     "~/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css",
                     "~/Content/customcss/global-styles.css",
-                    "~/Content/build/css/custom.min.css"));
+                    "~/Content/build/css/custom.css"));
         }
     }
 }

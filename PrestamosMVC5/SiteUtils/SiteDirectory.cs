@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PrestamosMVC5.Models
+namespace PrestamosMVC5.SiteUtils
 {
     public static class SiteDirectory
     {
@@ -14,14 +14,16 @@ namespace PrestamosMVC5.Models
         /// </summary>
         public static string Icons => "~/Content/Site/icons";
         /// <summary>
-        /// place for images files to be used on html pages at design times
+        /// place for images files to be used on html pages at design times that are mainly statics
+        /// and will not be changin like logo app, site logo, product logo, etc
         /// </summary>
-        public static string Images => "~/content/build/images";
+        public static string SiteImages => "~/content/build/images";
+        public static string ImagesForNegocio => "~/content/ImagesFor/Negocios";
         public static string Gifs => "~/content/Site/Gifs";
         /// <summary>
         /// place for custom css designed to be used on html pages at design times
         /// </summary>
-        public static string Css => "~/content/Site/css";
+        public static string Css => "~/content/build/css";
         /// <summary>
         /// Place for any kind of uploaded files by users that will be stored permanently
         /// that can be downloaded or needed at any time and can be deleted or updated the  user

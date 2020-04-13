@@ -16,7 +16,8 @@
     [FechaModificado] DATETIME NULL, 
     [AnuladoPor] VARCHAR(200) NULL, 
     [FechaAnulado] DATETIME NULL, 
-	CONSTRAINT [FK_tblNegocio_UQ_TaxIdNo] Unique NonClustered(IdNegocio, TaxIdNo),
+	[Logo] VARCHAR(50) NULL, 
+    CONSTRAINT [FK_tblNegocio_UQ_TaxIdNo] Unique NonClustered(IdNegocio, TaxIdNo),
     CONSTRAINT [FK_tblNegocio_UQ_Codigo] Unique NonClustered(Codigo),
 )
 

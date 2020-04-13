@@ -164,7 +164,7 @@ namespace PrestamoBLLTests
 
         private static Negocio NewInstanceNegocioIntagsa()
         {
-            var negocioInfo = new NegocioInfo { CorreoElectronico = "intagsa@hotmail.com", Direccion1 = "Prol. Gregorio Luperon no 12, Villa España", Direccion2 = "La Romana Rep. Dom.", Telefono1 = "809-813-1719" };
+            var negocioInfo = new NegocioInfo { Direccion1 = "Prol. Gregorio Luperon no 12, Villa España", Direccion2 = "La Romana Rep. Dom.", Telefono1 = "809-813-1719" };
             InfoAccion infoAccion = CreateInfoUAccion();
             var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo = "int001", OtrosDetalles = negocioInfo.ToJson(), Usuario = "TestProject", InfoAccion = infoAccion.ToJson() };
             return negocio;

@@ -1,16 +1,4 @@
-﻿/*Paletas de colores*/
-.blue-light{
-  background-color: #235284;
-}
-
-.blue-medium {
-  background-color: #003366;
-}
-
-.blue-darker {
-  background-color: #012244;
-}
-
+﻿
 .daterangepicker .ranges li {
   color: #73879C; }
   .daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
@@ -1500,9 +1488,10 @@ a:hover, a:focus {
   color: #fff; }
 
 .nav.side-menu > li.active > a {
-  text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
-  background: linear-gradient(#334556, #2C4257), #2A3F54;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0; }
+    text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
+    background: linear-gradient(#012244, #021f3d);
+    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+}
 
 .navbar-brand, .navbar-nav > li > a {
   font-weight: 500;
@@ -4886,3 +4875,17 @@ ul.notifications {
   border: 1px solid #e5e5e5; }
 
 /** /Dropzone.js **/
+
+/*Paletas de colores*/
+.blue-light {
+    background-color: #235284;
+}
+
+.blue-medium {
+    background-color: #003366;
+}
+
+.blue-darker {
+    background-color: #012244;
+}
+-

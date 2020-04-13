@@ -44,6 +44,19 @@ namespace PrestamosMVC5.Controllers
         {
             this.pcpLogout();
             var model = new LoginModel { ReturnUrl = returnUrl };
+            #if (DEBUG)
+            model.LoginName = "bryan";
+            model.Password = "1";
+            model.ValidateCaptcha = false;
+#endif
+            return View( model);
+        }
+
+        [HttpGet]
+        public ActionResult Login2(string returnUrl = "")
+        {
+            this.pcpLogout();
+            var model = new LoginModel { ReturnUrl = returnUrl };
             return View(model);
         }
 
@@ -52,9 +65,13 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Login(LoginModel loginView)
         {
             ActionResult _actResult = View(loginView);
-            if (!this.IsCaptchaValid(""))
+            bool validateCaptcha = true;
+            #if (DEBUG)
+                validateCaptcha = loginView.ValidateCaptcha;
+            #endif
+            if (validateCaptcha && !this.IsCaptchaValid(""))
             {
-                ModelState.AddModelError(" ", "El catcha digitado no es valido");
+                ModelState.AddModelError("CaptchaInputText", "las letras digitadas no coinciden");
                 return View();
             }
             
@@ -72,8 +89,8 @@ namespace PrestamosMVC5.Controllers
                 }
                 else
                 {
-                    this.LoginUserIntoSession(loginView.IdNegocio, loginView.LoginName, result.Usuario.IdUsuario, loginView.ImagePath);
-                    //AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
+                    var userImage = getUserImage(loginView.IdNegocio, loginView.LoginName);
+                    this.LoginUserIntoSession(loginView.IdNegocio, loginView.LoginName, result.Usuario.IdUsuario, userImage);                    //AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
                     var operacionesConAcceso = BLLPrestamo.Instance.GetOperaciones(new UsuarioOperacionesGetParams() { IdUsuario = result.Usuario.IdUsuario });
                     AuthInSession.SetOperacionesToUserSession(operacionesConAcceso);
                     if (string.IsNullOrEmpty(loginView.ReturnUrl) || loginView.ReturnUrl == "/")
@@ -87,6 +104,11 @@ namespace PrestamosMVC5.Controllers
                 }
             }
             return _actResult;
+        }
+
+        private string getUserImage(int idNegocio, string loginName)
+        {
+            return string.Empty;
         }
 
         private ActionResult WhatTodo(UserValidationResultWithMessage userValidationResultMessage, ActionResult actResult, LoginModel loginModel)

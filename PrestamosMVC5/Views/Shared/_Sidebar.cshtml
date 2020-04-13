@@ -1,22 +1,18 @@
 ﻿<!-- sidebar menu -->
-<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
+<div id="sidebar-menu" class="blue-medium main_menu_side hidden-print main_menu ">
     <div class="menu_section">
         <h3>Menu</h3>
         <ul class="nav side-menu">
-            <li>
-                <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Inicio </a>
-            </li>
 
             @*<li>
-                    <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
-                </li>*@
+                <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
+            </li>*@
 
             <li>
-                <a><i class="fa fa-edit text-success"></i>CATALOGOS<span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-edit"></i>Catálogos<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li>
-                        <a class="text-info">Prestamos<span class="fa fa-chevron-down"></span></a>
+                        <a class="text-white-50">Prestamos<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             @if (Permission.Has("tasainteres-ver"))
                             {
@@ -24,7 +20,7 @@
                                     <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
                                 </li>
                             }
-                        
+
                             <li>
                                 <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
                             </li>
@@ -40,7 +36,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="text-info">Clientes<span class="fa fa-chevron-down"></span></a>
+                        <a class="text-white-50">Clientes<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
 
                             <li>
@@ -124,7 +120,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="text-info">Garantias<span class="fa fa-chevron-down"></span></a>
+                        <a class="text-white-50">Garantias<span class="fa fa-chevron-down"></span></a>
 
                         <ul class="nav child_menu">
                             <li>
@@ -174,46 +170,46 @@
                     </li>
                 </ul>
 
-        </li>
-        <li>
-            <a> <i class="glyphicon glyphicon-cog text-warning"> </i> CONFIGURACIONES<span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-                <li>
-                    <a class="text-info">Permisos <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li>
-                            <a>Roles<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li>
-                                    <a href="@Url.Action("ListRoles","Roles")">Lista de roles</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Create","Roles")">Crear role</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Edit","Roles")">Editar role</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a>Usuarios<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li>
-                                    <a href="@Url.Action("Index","User")">Listado de Usuarios</a>
-                                <li>
-                                <li>
-                                    <a href="@Url.Action("CreateOrEdit","User")">Crear Usuario Nuevo (Simple)</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("EditUserRoles","User")">Editar roles de usuario</a>
-                                </li>
+            </li>
+            <li>
+                <a> <i class="fa fa-cog "> </i> Configuraciones<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a class="text-white-50">Permisos <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a>Roles<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="@Url.Action("ListRoles","Roles")">Lista de roles</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Create","Roles")">Crear role</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Edit","Roles")">Editar role</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Usuarios<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="@Url.Action("Index","User")">Listado de Usuarios</a>
+                                    <li>
+                                    <li>
+                                        <a href="@Url.Action("CreateOrEdit","User")">Crear Usuario Nuevo (Simple)</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("EditUserRoles","User")">Editar roles de usuario</a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 

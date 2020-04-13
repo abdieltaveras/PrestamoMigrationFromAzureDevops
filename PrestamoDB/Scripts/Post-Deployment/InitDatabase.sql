@@ -19,17 +19,17 @@ Post-Deployment Script Template
 	
 	--Script para datos de Negocios
 	insert into dbo.tblNegocios
-			(Codigo,NombreComercial,NombreJuridico,InsertadoPor,FechaInsertado, TaxIdNo, OtrosDetalles)
+			(Codigo,NombreComercial,NombreJuridico,InsertadoPor,FechaInsertado, TaxIdNo, OtrosDetalles, logo)
 			VALUES
-			('N01','Empresa no 1','Empresa 1 SRL',@usuario,getdate(), '1',''),
-			('N02','Empresa no 2','Empresa 2 Srl',@usuario,getdate(), '2','')
+			('N01','Empresa no 1','Empresa 1 SRL',@usuario,getdate(), '1','','Papito.png'),
+			('N02','Empresa no 2','Empresa 2 Srl',@usuario,getdate(), '2','''Papito.png')
 
-	INSERT INTO tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+	INSERT INTO tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, logo) 
 			VALUES 
-			('N03', 'Hija 1 Empresa 1 SRL', 'Hija 1 Empresa no 1', NULL, 1, 0, NULL, '1', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL),
-			('N04', 'Hija 1 Empresa 2 Srl', 'Hija 1 Empresa no 2', NULL, 1, 0, NULL, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL),
-			('N05', 'Hija 2 Empresa 2 Srl', 'Hija 2 Empresa no 2', NULL, 1, 0, NULL, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL),
-			('N06', 'Hija 1 de Hija 1 Empresa 2 Srl', 'Hija 1 de Hija 1 Empresa no 2', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL)			
+			('N03', 'Hija 1 Empresa 1 SRL', 'Hija 1 Empresa no 1', NULL, 1, 0, NULL, '1', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png'),
+			('N04', 'Hija 1 Empresa 2 Srl', 'Hija 1 Empresa no 2', NULL, 1, 0, NULL, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png'),
+			('N05', 'Hija 2 Empresa 2 Srl', 'Hija 2 Empresa no 2', NULL, 1, 0, NULL, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png'),
+			('N06', 'Hija 1 de Hija 1 Empresa 2 Srl', 'Hija 1 de Hija 1 Empresa no 2', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png')			
 
 	declare @idNegocio int = (select top 1 idNegocio from tblNegocios)	
 
