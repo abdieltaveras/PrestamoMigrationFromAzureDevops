@@ -243,6 +243,7 @@
     <Content Include="Content\build\images\Logo monocromatico-08.png" />
     <Content Include="Content\build\images\Logo monocromatico-09.png" />
     <Content Include="Content\build\images\pcpprestamo-07.jpg" />
+    <Content Include="Content\ImagesFor\Usuarios\Bryan01.png" />
     <Content Include="Content\production\calendar.html" />
     <Content Include="Content\production\chartjs.html" />
     <Content Include="Content\production\chartjs2.html" />
@@ -4034,6 +4035,7 @@
     <Content Include="tsconfig.json" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Login3.cshtml" />
+    <Content Include="Views\Tests\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <Content Include="Views\Catalogos\Catalogos.cshtml" />

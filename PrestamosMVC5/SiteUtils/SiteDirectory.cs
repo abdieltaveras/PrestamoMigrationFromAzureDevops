@@ -19,6 +19,9 @@ namespace PrestamosMVC5.SiteUtils
         /// </summary>
         public static string SiteImages => "~/content/build/images";
         public static string ImagesForNegocio => "~/content/ImagesFor/Negocios";
+        public static string ImagesForUsuario => "~/content/ImagesFor/Usuarios";
+        public static string ImagesForClientes => "~/content/ImagesFor/Clientess";
+
         public static string Gifs => "~/content/Site/Gifs";
         /// <summary>
         /// place for custom css designed to be used on html pages at design times

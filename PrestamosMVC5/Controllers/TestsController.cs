@@ -102,7 +102,7 @@ namespace PrestamosMVC5.Controllers
 
 
 
-        public ActionResult Test(int id = -1, bool showAdvancedView = true)
+        public ActionResult Usuario(int id = -1, bool showAdvancedView = true)
         {
             var userContr = new UserController();
             var model = userContr.GetUserAndSetItToModel(id);
@@ -111,7 +111,7 @@ namespace PrestamosMVC5.Controllers
             defaultTestNewModel(id, model);
             //model.ForActivo = true;
             model.Usuario.VigenteDesde = DateTime.Now.AddDays(-10);
-            return View("CreateOrEdit", model);
+            return View("../User/CreateOrEdit", model);
         }
 
         private void defaultTestNewModel(int id, UserModel model)
@@ -128,7 +128,7 @@ namespace PrestamosMVC5.Controllers
         }
 
         [HttpPost]
-        public ActionResult Test(UserModel userModel)
+        public ActionResult Usuario(UserModel userModel)
         {
             var usuario = userModel.Usuario;
             var dyna = new
@@ -153,11 +153,15 @@ namespace PrestamosMVC5.Controllers
         /// </summary>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public ActionResult test(string returnUrl = "")
+        public string returnJson()
         {
-            var param = new NegociosGetParams { IdNegocio = -1 };
-            var data = BLLPrestamo.Instance.GetNegocios(param);
-            return Content(data.ToJson());
+            var param = new NegociosGetParams { IdNegocio = -1, Usuario="testController" };
+            var data = BLLPrestamo.Instance.GetNegocios(param).FirstOrDefault();
+            return data.ToJson();
+        }
+        public ActionResult returnUrl(string returnUrl = "")
+        {
+            return Content(returnUrl);
         }
 
         public ActionResult CustomizeInputFile1()

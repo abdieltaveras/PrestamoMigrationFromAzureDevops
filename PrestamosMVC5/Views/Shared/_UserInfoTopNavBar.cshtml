@@ -3,7 +3,7 @@
     <li class="nav-item dropdown open" style="padding-left: 15px;">
         <a href="javascript:;" class="@Html.Raw(AuthInSession.IsAnonimousUser ? "user-profile" : "user-profile dropdown-toggle")" aria-haspopup="true" id="navbarDropdown"
            data-toggle="dropdown" aria-expanded="true">
-            <img src="@AuthInSession.GetUserImageFilePath()" alt="...">@AuthInSession.GetLoginName()
+            <img src="@Url.Content(AuthInSession.GetUserImageFilePath())" alt="...">@AuthInSession.GetLoginName()
         </a>
         @{
             if (!AuthInSession.IsAnonimousUser)

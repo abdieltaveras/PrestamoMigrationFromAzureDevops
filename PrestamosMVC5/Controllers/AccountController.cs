@@ -89,7 +89,7 @@ namespace PrestamosMVC5.Controllers
                 }
                 else
                 {
-                    var userImage = getUserImage(loginView.IdNegocio, loginView.LoginName);
+                    var userImage = result.Usuario.ImgFilePath;
                     this.LoginUserIntoSession(loginView.IdNegocio, loginView.LoginName, result.Usuario.IdUsuario, userImage);                    //AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
                     var operacionesConAcceso = BLLPrestamo.Instance.GetOperaciones(new UsuarioOperacionesGetParams() { IdUsuario = result.Usuario.IdUsuario });
                     AuthInSession.SetOperacionesToUserSession(operacionesConAcceso);
@@ -106,10 +106,7 @@ namespace PrestamosMVC5.Controllers
             return _actResult;
         }
 
-        private string getUserImage(int idNegocio, string loginName)
-        {
-            return string.Empty;
-        }
+        
 
         private ActionResult WhatTodo(UserValidationResultWithMessage userValidationResultMessage, ActionResult actResult, LoginModel loginModel)
         {
