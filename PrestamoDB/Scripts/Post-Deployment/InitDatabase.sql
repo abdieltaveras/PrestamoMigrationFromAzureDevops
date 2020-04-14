@@ -88,9 +88,9 @@ VALUES (@idNegocio, 'usrlivi', 'usuario limitar vigencia', 'B5+69v4bWTp/gX/eR2Wh
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
 VALUES (@idNegocio, 'success', 'Succes User', 'B5+69v4bWTp/gX/eR2Whig==', 0, getdate(), '829-961-9141', '', 1, 0, 'abdieltaveras@hotmail.com', 0, '', '1900-01-01', '1900-01-01', 1, -1, 0, 'UsuarioTest', '2020-03-28 10:17:44.833', 'testUser29-Mar-20', '2020-03-29 22:15:53.987', NULL, NULL)
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
 values	(@idNegocio,'bryan','bryan','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null)
+			@usuario,getdate(),null,null,null,null, 'Bryan0101.png')
 
 
 --@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @debecambiarcontraseñaaliniciarsesion,
