@@ -133,7 +133,7 @@
                 const res = await BuscarComponentesDeDivisionTerritorial(division);
                 console.log(JSON.parse(res));
                 showListTipoLocalidadesHijas(JSON.parse(res), division);
-                showListComponentes(JSON.parse(res));
+                showListComponentes(division, JSON.parse(res));
             } catch (err) {
 
             }
@@ -170,13 +170,13 @@
             }
         }
 
-        function showListComponentes(lista) {
+        function showListComponentes(division, lista) {
             let text = null;
             let componentCount = lista.length;
             $('#component-list').empty();
             $('#info-component-container').removeClass('d-none');
 
-            scan(lista.filter(item => item.IdLocalidadPadre == 2), lista, false);
+            scan(lista.filter(item => item.IdLocalidadPadre == division), lista, false);
 
             $('#component-count').text(componentCount);
         }
