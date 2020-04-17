@@ -62,12 +62,12 @@ namespace PrestamosMVC5.Controllers
             return RedirectToAction("Index");
         }
 
-        public string BuscarLocalidad(string searchToText)
+        public string BuscarLocalidad(string textToSearch)
         {
             IEnumerable<Localidad> localidades = null;
-            if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
+            if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
             {
-                localidades = BLLPrestamo.Instance.LocalidadSearch(new BuscarLocalidadParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });
+                localidades = BLLPrestamo.Instance.LocalidadSearch(new BuscarLocalidadParams { Search = textToSearch, IdNegocio = pcpUserIdNegocio });
             }
              return JsonConvert.SerializeObject(localidades);
         }

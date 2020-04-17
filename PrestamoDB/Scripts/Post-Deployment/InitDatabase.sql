@@ -21,8 +21,8 @@ Post-Deployment Script Template
 	insert into dbo.tblNegocios
 			(Codigo,NombreComercial,NombreJuridico,InsertadoPor,FechaInsertado, TaxIdNo, OtrosDetalles, logo)
 			VALUES
-			('N01','Empresa no 1','Empresa 1 SRL',@usuario,getdate(), '1','','Papito.png'),
-			('N02','Empresa no 2','Empresa 2 Srl',@usuario,getdate(), '2','''Papito.png')
+			('N01','Empresa no 1','Empresa 1 SRL',@usuario,getdate(), '1', '', 'Papito.png'),
+			('N02','Empresa no 2','Empresa 2 Srl',@usuario,getdate(), '2', '', 'Papito.png')
 
 	INSERT INTO tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, logo) 
 			VALUES 

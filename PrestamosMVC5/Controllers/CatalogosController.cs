@@ -1,4 +1,5 @@
-﻿using PrestamoBLL;
+﻿using Newtonsoft.Json;
+using PrestamoBLL;
 using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
@@ -90,5 +91,61 @@ namespace PrestamosMVC5.Controllers
             BLLPrestamo.Instance.CatalogoDel(catalogo);
             return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla });
         }
+ 
+        public string searchInCatalogo1(string textToSearch, string tableName)
+        {
+            switch (tableName)
+            {
+                case "tblOcupaciones":
+                    return JsonConvert.SerializeObject( BLLPrestamo.Instance.catalogoSearch<Ocupacion>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                case "tblVerificadorDirecciones":
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<VerificadorDireccion>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                case "tblTipoTelefonos":
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<TipoTelefono>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                case "tblTipoSexos":
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<TipoSexo>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                case "tblTasadores":
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<TipoTelefono>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                case "tblLocalizadores":
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<Localizador>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                case "tblEstadosCiviles":
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<EstadoCivil>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                default:
+                    return null;// throw new Exception($"La tabla {searchParam.NombreTabla} , no se encontro en ninguna eleccion para ejecutar una consulta de datos");
+            }
+        }
+
+
+        //public List<T> searchInCatalogo<T>(string textToSearch, string tableName) where T : class
+        //{
+        //    List<T> catalogo;
+        //    //if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
+        //    //{
+        //    catalogo = BLLPrestamo.Instance.catalogoSearch<T>(new SearchCatalogoParams { TextToSearch = textToSearch, IdNegocio = pcpUserIdNegocio, TableName = tableName });
+
+        //    switch (tableName)
+        //    {
+        //        case "tblOcupaciones":
+        //            //return BLLPrestamo.Instance.catalogoSearch<T>(new SearchCatalogoParams { Text = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio });
+        //        //case "tblVerificadorDirecciones":
+        //        //    return BllAcciones.GetData<VerificadorDireccion, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
+        //        //case "tblTipoTelefonos":
+        //        //    return BllAcciones.GetData<TipoTelefono, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
+        //        //case "tblTipoSexos":
+        //        //    return BllAcciones.GetData<TipoSexo, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
+        //        //case "tblTasadores":
+        //        //    return BllAcciones.GetData<TipoTelefono, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
+        //        //case "tblLocalizadores":
+        //        //    return BllAcciones.GetData<Localizador, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
+        //        //case "tblEstadosCiviles":
+        //        //    return BllAcciones.GetData<EstadoCivil, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
+        //        default:
+        //            return null;// throw new Exception($"La tabla {searchParam.NombreTabla} , no se encontro en ninguna eleccion para ejecutar una consulta de datos");
+        //    }
+
+
+        //    //}
+        //    return JsonConvert.SerializeObject<T>(catalogo, Formatting.Indented);
+        //}
     }
 }

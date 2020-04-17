@@ -157,6 +157,7 @@
     <Build Include="dbo\Stored Procedures\RoleOperacionesSpGet.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarTodosUsuarioRoles.sql" />
     <Build Include="dbo\Stored Procedures\spGetNegociosRecursive.sql" />
+    <Build Include="dbo\Stored Procedures\CatalogoSpBuscar.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
