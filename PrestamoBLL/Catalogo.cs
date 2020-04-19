@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using emtSoft.DAL;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,24 @@ namespace PrestamoBLL
         public void CatalogoDel(DelCatalogo delParams)
         {
             BllAcciones.CancelData(delParams, "spDelCatalogo");
+        }
+
+        public List<T> catalogoSearch<T>(SearchCatalogoParams searchParams) where T : class
+        {
+            var searchSqlParams = SearchRec.ToSqlParams(searchParams);
+            List<T> catalogo = new List<T>();
+            
+            try
+            {
+                catalogo = PrestamosDB.ExecReaderSelSP<T>("CatalogoSpBuscar", searchSqlParams);
+            }
+            catch (Exception e)
+            {
+                DatabaseError(e);
+            }
+
+            return catalogo;
+
         }
     }
 }

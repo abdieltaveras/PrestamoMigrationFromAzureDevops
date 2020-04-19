@@ -175,6 +175,7 @@
     <Build Include="dbo\Stored Procedures\spGetNegociosAndhijos.sql" />
     <Build Include="dbo\Stored Procedures\spGetNegocioAndPadre.sql" />
     <Build Include="dbo\Stored Procedures\SpUpdContraseñaUsuario.sql" />
+    <Build Include="dbo\Stored Procedures\CatalogoSpBuscar.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

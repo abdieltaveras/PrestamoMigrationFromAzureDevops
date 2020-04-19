@@ -120,7 +120,8 @@
         $("#idTipoDivision").change(function () {
             var divisionSeleccionada = $(this).children("option:selected").val();
             $('#inputIdDivisionTerritorial').val(divisionSeleccionada);
-            //alert("You have selected the country - " + divisionSeleccionada);
+            margenCount = 0;
+
             if (divisionSeleccionada !== '0') {
                 search(divisionSeleccionada);
             } else {
@@ -133,7 +134,7 @@
                 const res = await BuscarComponentesDeDivisionTerritorial(division);
                 console.log(JSON.parse(res));
                 showListTipoLocalidadesHijas(JSON.parse(res), division);
-                showListComponentes(JSON.parse(res));
+                showListComponentes(division, JSON.parse(res));
             } catch (err) {
 
             }
@@ -170,13 +171,13 @@
             }
         }
 
-        function showListComponentes(lista) {
+        function showListComponentes(division, lista) {
             let text = null;
             let componentCount = lista.length;
             $('#component-list').empty();
             $('#info-component-container').removeClass('d-none');
 
-            scan(lista.filter(item => item.IdLocalidadPadre == 2), lista, false);
+            scan(lista.filter(item => item.IdLocalidadPadre == division), lista, false);
 
             $('#component-count').text(componentCount);
         }
@@ -221,7 +222,7 @@
                 JSON.stringify(margenes);
 
                 // Agregar elemento a la lista
-                $('#component-list').append('<p style="margin-bottom: 4px; margin-left:' + margenAAplicar + 'px" > <i class="fa fa-chevron-right"></i> ' + listaParcial[i].Nombre + ' </p>');
+                $('#component-list').append('<p style="margin-bottom: 4px; margin-left:' + margenAAplicar + 'px" > <i class="fa fa-chevron-right"></i> <span style="color: white; padding: 5px;" class="badge badge-pill badge-primary"> ' + listaParcial[i].Nombre + '</span> </p>');
 
                 // Llamar la funcion nuevamente, con el filtro de la lista hija (recursividad)
                 scan(listaCompleta.filter(item => item.IdLocalidadPadre == listaParcial[i].IdTipoLocalidad), listaCompleta)

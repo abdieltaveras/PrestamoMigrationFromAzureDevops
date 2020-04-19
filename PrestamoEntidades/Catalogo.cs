@@ -9,7 +9,7 @@ namespace PrestamoEntidades
     public class Catalogo : BaseCatalogo
     {
         public int Id { get; set; } = 0;
-        public string IdTabla { get; set; } = "";
+        public string IdTabla { get; set; } = string.Empty;
         public string NombreTabla { get; set; }
 
         public override int GetId()
@@ -20,14 +20,21 @@ namespace PrestamoEntidades
 
     public class ToggleStatusCatalogo : BaseAnularParams
     {
-        public string IdTabla { get; set; } = "";
+        public string IdTabla { get; set; } = string.Empty;
         public string NombreTabla { get; set; }
         public bool Activo { get; set; }
     }
 
     public class DelCatalogo : BaseAnularParams
     {
-        public string IdTabla { get; set; } = "";
+        public string IdTabla { get; set; } = string.Empty;
         public string NombreTabla { get; set; }
+    }
+
+    public class SearchCatalogoParams
+    {
+        public string TextToSearch { get; set; } = "";
+        public string TableName { get; set; } = string.Empty;
+        public int IdNegocio { get; set; } = -1;
     }
 }
