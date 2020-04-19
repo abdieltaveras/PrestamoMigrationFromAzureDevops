@@ -93,13 +93,6 @@ namespace PrestamoBLLTests
             Assert.IsTrue(OperacionExitosa, error.Message);
         }
 
-        [TestMethod()]
-        public void BuscarLocalidadTest()
-        {
-            string test = "Crist";
-            //var localidadess = BLLPrestamo.Instance.BuscarLocalidad(new BuscarLocalidadParams { Search = test });
-
-            Assert.Fail();
-        }
+        
     }
 }

@@ -13,6 +13,11 @@ namespace PrestamoBLLTests
     [TestClass()]
     public class EquipoTest
     {
+        [ClassInitialize]
+        public static void Init(TestContext testContext )
+        {
+            InsertEquipo(Guid.NewGuid().ToString());
+        }
         [TestMethod()]
         public void RegistrarEquipo_Codigo_NotEmpty()
         {
@@ -22,7 +27,7 @@ namespace PrestamoBLLTests
 
         private static EquipoIdYCodigo InsertEquipo(string nombreEquipo, string descripcion = "Probando")
         {
-            var eq = new Equipo() { IdNegocio = 1, Nombre = nombreEquipo, Descripcion = descripcion, Usuario = TestInfo.Usuario };
+            var eq = new Equipo() { IdNegocio = 1, Nombre = nombreEquipo,Codigo=nombreEquipo, Descripcion = descripcion, Usuario = TestInfo.Usuario };
             var result = BLLPrestamo.Instance.EquipoInsUpd(eq);
             //var result = BLLPrestamo.Equipo_Operaciones.RegistrarEquipo(eq);
             return result;
@@ -52,8 +57,7 @@ namespace PrestamoBLLTests
             Equipo data = null;
             if (result != null)
             {
-                    data = result.Where(eq => !eq.EstaDesvinculado).FirstOrDefault();
-                data = result.First();
+                    data = result.First();
                     BLLPrestamo.Instance.EquipoDesvincular(new EquiposGetParam2 { IdEquipo = data.IdEquipo, Usuario = TestInfo.Usuario });
                     data = BLLPrestamo.Instance.EquiposGet(new EquiposGetParam {IdEquipo= data.IdEquipo, Usuario= data.Usuario}).FirstOrDefault();
             }
@@ -65,12 +69,19 @@ namespace PrestamoBLLTests
         {
             var result = BLLPrestamo.Instance.EquiposGet(new EquiposGetParam());
             Equipo data = null;
+            if (result == null)
+            {
+                InsertEquipo(Guid.NewGuid().ToString());
+                result = BLLPrestamo.Instance.EquiposGet(new EquiposGetParam());
+            }
             if (result != null)
             {
-                data = result.Where(eq => !eq.EstaBloqueado).FirstOrDefault();
+                data = result.FirstOrDefault();
                 BLLPrestamo.Instance.EquipoBloquearAcceso(new EquiposGetParam2 { IdEquipo = data.IdEquipo, Usuario = TestInfo.Usuario });
-                data = BLLPrestamo.Instance.EquiposGet(new EquiposGetParam { IdEquipo = data.IdEquipo, Usuario = data.Usuario }).FirstOrDefault();
             }
+            result = BLLPrestamo.Instance.EquiposGet(new EquiposGetParam { IdEquipo= data.IdEquipo});
+            data = result.FirstOrDefault();
+
             Assert.IsTrue(data.EstaBloqueado, $"Se esperaba que devolviera true y se recibio {data.EstaBloqueado}");
         }
         [TestMethod()]
@@ -95,16 +106,21 @@ namespace PrestamoBLLTests
             Assert.IsTrue(string.IsNullOrWhiteSpace(tInfo.MensajeError), $"se esperaba que no hubiesen mensajes y se recibio {tInfo.MensajeError}");
         }
         [TestMethod()]
-        public void ConfirmarRegistro_Execute_ConfirmadoEqualTrue_andIdEquipoEqualToFirstFound()
+        public void ConfirmarRegistro_Execute_ConfirmadoEqualTrue()
         {
             var result = BLLPrestamo.Instance.EquiposGet (new EquiposGetParam()).FirstOrDefault();
+            if (result == null)
+            {
+                var nombreEquipo = Guid.NewGuid().ToString();
+                InsertEquipo(nombreEquipo);
+                result = BLLPrestamo.Instance.EquiposGet(new EquiposGetParam { } ).FirstOrDefault();
+            }
             int idEquipo = -1;
             if (result != null)
             {
                 idEquipo = result.IdEquipo;
                 BLLPrestamo.Instance.EquipoConfirmarRegistro(new EquiposGetParam2 { IdEquipo = result.IdEquipo, Usuario = TestInfo.Usuario });
-                result = BLLPrestamo.Instance.EquiposGet(new EquiposGetParam() { IdEquipo = result.IdEquipo }).FirstOrDefault(); 
-             
+                result = BLLPrestamo.Instance.EquiposGet(new EquiposGetParam() { IdEquipo = result.IdEquipo }).FirstOrDefault();
             }
             else
             {

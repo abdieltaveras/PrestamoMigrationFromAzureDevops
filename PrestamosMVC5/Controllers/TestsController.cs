@@ -14,7 +14,7 @@ namespace PrestamosMVC5.Controllers
 {
     //Controller to make Test
 
-    public class TestsController : Controller
+    public class TestsController : ControllerBasePcp
     {
         // todo: para agregar seguridad he pensado al hacer el primer request este enviara un _requesVerificationToken
         // enviara en tempdata una informacion adicional FirsRequestToken, luego al autenticarse el usuario
@@ -49,6 +49,34 @@ namespace PrestamosMVC5.Controllers
             var model = new TestCheckBox();
             model.Bloqueado = false;
             return View(model);
+        }
+
+        public ActionResult DataTables()
+        {
+            CatalogoVM data = new CatalogoVM();
+            var tabla = "tblOcupaciones";
+            data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
+                    data.TipoCatalogo = "Ocupaciones";
+                    data.IdTabla = "IdOcupacion";
+            data.NombreTabla = tabla;
+            return View("", data);
+        }
+
+        public ActionResult Delete(DelCatalogo catalogo)
+        {
+            pcpSetUsuarioTo(catalogo);
+            var borrado = false;
+            try
+            {
+                //BLLPrestamo.Instance.CatalogoDel(catalogo);
+                borrado = true;
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return Json(new { borrado = borrado });
         }
 
         public ActionResult RegistrarEquipo()

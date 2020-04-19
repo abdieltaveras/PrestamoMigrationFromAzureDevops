@@ -14,7 +14,25 @@ namespace PrestamosMVC5.Controllers
     /// </summary>
     public class ControllerBasePcp : Controller
     {
+        public int ShowSummaryErrorsTime = 5;
         // indicate if user is authenticated
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            //ViewBag.ShowSummaryErrorsTime = 11;
+            UpdShowSummaryErrorsTime(5);
+        }
+
+        /// <summary>
+        /// update value for the ViewBag.ShowSummaryErrorsTime so in javascript 
+        /// the funcion multiply this value by 1000 to get time in seconds
+        /// </summary>
+        /// <param name="seconds"></param>
+        public void UpdShowSummaryErrorsTime(int seconds)
+        {
+            ViewBag.ShowSummaryErrorsTime = seconds;
+        }
+
         protected bool pcpIsUserAuthenticated => (AuthInSession.GetLoginName() != AuthInSession.AnonimousUser);
         protected string pcpUserLoginName => AuthInSession.GetLoginName(); //TODO: verificar si es necesario que este private
         protected string pcpUserImageFile => AuthInSession.GetUserImageFilePath();

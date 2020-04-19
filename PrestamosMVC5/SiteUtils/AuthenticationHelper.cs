@@ -84,7 +84,7 @@ namespace PrestamosMVC5.SiteUtils
             sessionState.Add(NegocioIdKey, idNegocio);
             sessionState.Add(UsuarioIdKey, idUsuario);
             sessionState.Add(UsuarioImageFile, userImageFilePath);
-            var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, Usuario = usuario }).FirstOrDefault();
+            var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, Usuario = usuario,  PermitirOperaciones=-1 }).FirstOrDefault();
             sessionState.Add(NegocioNombreKey, negocio.NombreComercial);
             sessionState.Add(NegocioLogoKey, negocio.Logo);
         }

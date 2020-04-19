@@ -21,16 +21,29 @@ namespace PrestamoBLL
         public void UsuarioChangePassword(ChangePassword param)
         {
             var _updParam = SearchRec.ToSqlParams(param);
-            PrestamosDB.ExecSelSP("spInsUpdRegistro", _updParam);
+            PrestamosDB.ExecSelSP("spUpdContraseñaUsuario", _updParam);
         }
         public LoginResponse LoginUser(Usuario usr)
         {
-            var result = UsuarioValidateCredential(usr.IdNegocio, usr.LoginName, usr.Contraseña);
+            var result = LoginValidarUsuario(usr.IdNegocio, usr.LoginName, usr.Contraseña);
+            return result;
+        }
+        /// <summary>
+        /// valida el al usuario dentro del grupo de negocio
+        /// </summary>
+        /// <param name="idNegocioMatriz"> el idNegocio del negocio matriz</param>
+        /// <param name="loginName"></param>
+        /// <param name="contraseña"></param>
+        /// <returns></returns>
+        public LoginResponse LoginUser(int idNegocioMatriz, string loginName, string contraseña)
+        {
+
+            var result = LoginValidarUsuario(idNegocioMatriz, loginName, contraseña);
             #if DEBUG
-            if (usr.LoginName.ToLower() == "admin") 
+            if (loginName.ToLower() == "admin") 
             {
                 //result = new UserValidationResultWithMessage(UserValidationResult.Sucess);
-                if (usr.Contraseña.ToLower() == AdminPassword())
+                if (contraseña.ToLower() == AdminPassword())
                 {
                     return new LoginResponse() { Usuario = new Usuario() { IdUsuario = -1}, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.Sucess) };
                     //return new UserValidationResultWithMessage(UserValidationResult.Sucess);
@@ -45,7 +58,20 @@ namespace PrestamoBLL
             return "pcp";
         }
 
-
+        private class LoginParam
+        { 
+            public int idNegocioMatriz { get; set; }
+            public string LoginName { get; set; } = string.Empty;
+            [GuardarEncriptado]
+            public string Contraseña { get; set; } = string.Empty;
+        }
+        private IEnumerable<Usuario> LoginUsuarioByNegocioMatriz(LoginParam loginParam)
+        {
+            //GetValidation(searchParam);
+            var searchParam = SearchRec.ToSqlParams(loginParam);
+            var result = PrestamosDB.ExecReaderSelSP<Usuario>("spLoginUsuarioByNegocioMatriz", searchParam);
+            return result;
+        }
 
         /// <summary>
         /// to validate a user and retrieve his states it returns if is ok the password, 
@@ -55,9 +81,10 @@ namespace PrestamoBLL
         /// <param name="loginName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public LoginResponse UsuarioValidateCredential(int idNegocio, string loginName, string password)
+        private LoginResponse LoginValidarUsuario(int idNegocio, string loginName, string password)
         {
-            var usuario = this.GetUsuarios(new UsuarioGetParams { IdNegocio = idNegocio, LoginName = loginName }).FirstOrDefault();
+            var usuario = this.LoginUsuarioByNegocioMatriz(new LoginParam { idNegocioMatriz = idNegocio, LoginName = loginName, Contraseña = password }).FirstOrDefault();
+            
             if (usuario == null)
             {
                 if (!ExistUsers)
@@ -82,8 +109,8 @@ namespace PrestamoBLL
             // la contrasena incorrecta es que se le ha olvidado o es otro usuario, para estar seguro de que es el usuario
             // debe coincidir el login name y la contrasena indicando que es el usuario correcto
 
-            var pass = RijndaelSimple.Encrypt(password);
-            if (RijndaelSimple.Encrypt(password) != usuario.Contraseña) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.InvalidPassword) };
+            
+            if (!usuario.ContraseñaValida) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.InvalidPassword) };
                 
             if (IsExpiredAccount(usuario.VigenteHasta)) return new LoginResponse() { Usuario = usuario, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.ExpiredAccount) };
 

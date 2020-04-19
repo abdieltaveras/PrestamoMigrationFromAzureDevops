@@ -2,7 +2,7 @@
 @model GarantiaVM
 @section pagestyle
 {
-    <link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+    @*<link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />*@
 }
 <link href="~/Content/customcss/switch.css" rel="stylesheet">
 
@@ -13,7 +13,6 @@
             <h4 style="text-align: center;">¿Que garantia buscas?</h4>
             <input class="garantia_target form-control" type="text" id="searchinput" placeholder="Buscar por numero de identificacion..." name="name" value=""
                    style="height: 60px" />
-
             <div id="list-garantia-container">
                 <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
                 </div>
@@ -50,7 +49,7 @@
                         <div class="x_content">
                             <br>
 
-                            @using (Html.BeginForm("CreateOrEdit", "Garantias", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+                            @using (Html.BeginForm("CreateOrEdit", "Garantias", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", @id="garantia"}))
                             {
 
                                 <h6>Clasificacion de garantia</h6>
@@ -183,7 +182,7 @@
                                             </label>
                                             <div class="col-sm-8">
                                                 @*@Html.EditorFor(model => model.Garantia.IdMarca, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
-                                               @* @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
+                                                @* @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
                                                 @*@foreach (var item in Model.ListaMarcas)
                                                     {
                                                     <p>@item</p>
@@ -368,7 +367,8 @@
 </div>
 @section scripts
 {
-<script>
+    <script>
+    let formulario = $("#garantia");
     let searchLocalidadElem = $('#searchLocalidad');
     $(document).ready(function () {
         //$('input').iCheck({
@@ -647,9 +647,8 @@
 
         $('#searchLocalidad').val('');
     }
-</script>
-
-<script src="~/Scripts/Apps/searchLocalidad.js"></script>
-<script src="/Content/vendors/iCheck/icheck.min.js"></script>
+    </script>
+    <script src="~/Scripts/Apps/searchLocalidad.js"></script>
+    @*<script src="/Content/vendors/iCheck/icheck.min.js"></script>*@
 }
 

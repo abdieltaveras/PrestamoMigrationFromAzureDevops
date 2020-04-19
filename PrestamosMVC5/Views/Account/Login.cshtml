@@ -1,13 +1,16 @@
 ﻿@model PrestamosMVC5.Models.LoginModel
 @using CaptchaMvc.HtmlHelpers;
 @{
-//Layout = "~/Views/Shared/_LayoutForms.cshtml";
+    //Layout = "~/Views/Shared/_LayoutForms.cshtml";
 }
 @section PageStyle    {
     <link href="~/Content/customcss/switch.css" rel="stylesheet">
 }
+
+
 <div class="row">
     <div class="form-horizontal col-md-6 offset-md-3 mt-5">
+
         @using (@Html.BeginForm("Login", "Account", FormMethod.Post, htmlAttributes: new { id = "loginForm", autocomplete = "off" }))
         {
             <div class="@HtmlClass.FormGroupCls">
@@ -20,16 +23,16 @@
             @Html.AntiForgeryToken()
             <div class="@HtmlClass.FormGroupCls">
                 <div class="text-center @HtmlClass.DivInputCls" role="alert" id="mensajeError">
-                     @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
+                    @Html.ValidationSummary(true, "", new { @id = "validationSummary", data_showerrorstime = @Html.Raw(ViewBag.ShowSummaryErrorsTime) })
                 </div>
             </div>
-
+            // attention :  para mostrar contenido dentro de un objeto anbonimo debemos usar html.raw y luego enviar el valor dentro de un objeto anonimo asi new { @id = "validationSummary", data_showerrorstime =@Html.Raw(ViewBag.ShowSummaryErrorsTime)  })
             @*<div class="@HtmlClass.FormGroupCls">
-                    <input type="hidden" name="topvalidations" id="topvalidations" />
-                    <div class="@HtmlClass.DivInputCls text-center">
-                        @Html.ValidationMessage("topvalidations", null, new { @class = "text-danger", @id = "mensajeError" })
-                    </div>
-                </div>*@
+                <input type="hidden" name="topvalidations" id="topvalidations" />
+                <div class="@HtmlClass.DivInputCls text-center">
+                    @Html.ValidationMessage("topvalidations", null, new { @class = "text-danger", @id = "mensajeError" })
+                </div>
+            </div>*@
             <div class="@HtmlClass.FormGroupCls">
                 <div class="text-center @HtmlClass.DivInputCls">
                     @Html.LabelFor(model => model.IdNegocio)
@@ -37,14 +40,26 @@
                 </div>
             </div>
 
+            if (Model.SoloHayUnNegocioMatriz)
+            {
+                var negociosOperacionesForMatriz = @SelectItems.NegociosOperacionalesForMatriz(Model.NegocioMatrizCuandoSoloHayUno.IdNegocio);
+                <div class="@HtmlClass.FormGroupCls">
+                    <div class="@HtmlClass.DivInputCls">
 
-            <div class="@HtmlClass.FormGroupCls">
-                <div class="@HtmlClass.DivInputCls">
-                    @Html.DropDownListFor(m => m.IdNegocio, SelectItems.Negocios(AuthInSession.AnonimousUser), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                    @Html.ValidationMessageFor(model => model.IdNegocio, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(m => m.IdNegocio, negociosOperacionesForMatriz, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.ValidationMessageFor(model => model.IdNegocio, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-
+            }
+            else
+            {
+                <div class="@HtmlClass.FormGroupCls">
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.DropDownListFor(m => m.IdNegocio, SelectItems.NegociosMatrizRaiz(), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.ValidationMessageFor(model => model.IdNegocio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
             <div class="@HtmlClass.FormGroupCls">
                 @*@Html.LabelFor(model => model.LoginName, htmlAttributes: new { @class = @HtmlClass.LabelCls })*@
                 <div class="@HtmlClass.DivInputCls ">
@@ -96,13 +111,11 @@
 
 @section scripts {
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
-    <script src="~/Scripts/Apps/CheckInput.js"></script>
-
     @*<span id="CaptchaInputText-error" class="">This field is required.</span>*@
     <script>
         let formulario = $("#loginForm");
         let elem = $("[data-valmsg-for='CaptchaInputText']:first");
         elem.remove();
-        console.log(elem);
+        $("#NombreCompaniaSeleccionada").val($( "#myselect option:selected" ).text());
     </script>
 }

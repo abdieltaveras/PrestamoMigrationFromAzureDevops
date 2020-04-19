@@ -5,8 +5,8 @@
         <ul class="nav side-menu">
 
             @*<li>
-                <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
-            </li>*@
+                    <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
+                </li>*@
 
             <li>
                 <a><i class="fa fa-edit"></i>Catálogos<span class="fa fa-chevron-down"></span></a>
@@ -206,9 +206,23 @@
 
                                 </ul>
                             </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="text-white-50">Negocios <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+
+                            <li>
+                                <a href="@Url.Action("Index","Negocios")">Lista de Negocios</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Negocios")">Crear Nuevo Negocios</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
+
             </li>
         </ul>
     </div>
