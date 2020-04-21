@@ -36,5 +36,6 @@ namespace PrestamoEntidades
         public string TextToSearch { get; set; } = "";
         public string TableName { get; set; } = string.Empty;
         public int IdNegocio { get; set; } = -1;
+        
     }
 }

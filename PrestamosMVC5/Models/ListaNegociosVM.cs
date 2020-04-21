@@ -13,6 +13,6 @@ namespace PrestamosMVC5.Models
 
         public SelectList SelectNegocios { get; set; }
 
-        public string returnUrl { get; set; }
+        public string UsuarioNombreReal { get; set; }
     }
 }

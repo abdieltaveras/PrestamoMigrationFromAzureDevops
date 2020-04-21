@@ -1,4 +1,4 @@
-﻿create function dbo.fnGetNegocioAndHijos
+﻿CREATE function dbo.fnGetNegocioAndHijos
 (
 	@IdNegocioPadre int
 )

@@ -23,9 +23,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreateOrEdit(string tabla)
         {
             //Hacer peticion al catalogo elegido
-
             CatalogoVM data = new CatalogoVM();
-
             switch (tabla)
             {
                 case "tblOcupaciones":

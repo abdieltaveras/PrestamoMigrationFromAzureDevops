@@ -37,7 +37,7 @@ Post-Deployment Script Template
 			('INTSV', 'Intagsa SRL', 'Sosua Prestamo', NULL, 1, 0, 3, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
 			('PAPITO-1', 'Inversiones Bancola', 'Papito Prestamo', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
 			('FYG-1', 'Consorcio FYG', 'Consorcio FYG', NULL, 1, 0, 5, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
-			('AIN', 'Aires del Norte', 'Aires del norte', NULL, 1, 0, 5, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1)
+			('AN', 'Aires del Norte', 'Aires del norte', NULL, 1, 0, 5, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1)
 
 --('N06', 'Hija 1 de Hija 1 Empresa 2 Srl', 'Hija 1 de Hija 1 Empresa no 2', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png')
 	declare @idNegocio int = 1
@@ -99,7 +99,24 @@ VALUES (4, 'success', 'Succes User', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '
 
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
 InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
-values	(2,'bryan','bryan','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+values	(2,'bryan','Bryan Pouerie','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+
+INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
+InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
+values	(10,'usrpapito','usr Papito-inv. Bancola','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+
+
+INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
+InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
+values	(11,'usrfyg','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+
+
+INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
+InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
+values	(12,'usran','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
 			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
 
 

@@ -33,11 +33,13 @@
     <link href="~/content/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
     @*<link href="~/content/vendors/starrr/dist/starrr.css" rel="stylesheet">*@
     <!--For abdiel layout-->
+
     <link href="/Content/build/css/custom.css" rel="stylesheet" />
     <link href="/Content/customcss/global-styles.css" rel="stylesheet" />
-    <!-- scriptst neccesary at head -->
+    <!-- scriptst neccesary at head  if it is placed down some pages will not work correctly-->
     <script src="/Content/vendors/jquery/dist/jquery.min.js"></script>
     <script src="/Scripts/modernizr-2.8.3.js"></script>
+
     @RenderSection("pagestyle", required: false)
 </head>
 
@@ -62,37 +64,60 @@
                             </div>
                         </div>
                         @*<div class="col-md-4 pt-0">
-                                <img class="img-circle profile_img" src="@Url.Content(SiteImages.AppLogoSinLetra)" />
-                            </div>
-                            <div class="col-md-8">
-                                <span class="small">PCP Prestamo</span>
-                            </div>*@
+                <img class="img-circle profile_img" src="@Url.Content(SiteImages.AppLogoSinLetra)" />
+            </div>
+            <div class="col-md-8">
+                <span class="small">PCP Prestamo</span>
+            </div>*@
                     </div>
 
-                    <div class="clearfix"></div>
-                    <!-- menu profile quick info -->
-                    @Html.Partial("_UserInfoSideBar")
-                    <!-- /menu profile quick info -->
-                    <br />
-                    <!-- sidebar menu -->
-                    @Html.Partial("_Sidebar")
-                    <!-- /sidebar menu -->
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="@Url.Action("LogOut", "Account")">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <!-- /menu footer buttons -->
+                    @{
+                        if (@ViewBag.ShowSideBar)
+                        {
+                            @*@Html.Partial("_InfoSideBar")*@
+                            <div class="clearfix"></div>
+                            @Html.Partial("_Sidebar")
+
+                            <!-- menu profile quick info -->
+
+                            <!-- /menu profile quick info -->
+                            <br />
+                            <!-- sidebar menu -->
+                            <!-- /sidebar menu -->
+                            <!-- /menu footer buttons -->
+                            <div class="sidebar-footer hidden-small">
+                                <a data-toggle="tooltip" data-placement="top" title="Settings">
+                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                </a>
+                                <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                                    <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                                </a>
+                                <a data-toggle="tooltip" data-placement="top" title="Lock">
+                                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                                </a>
+                                <a data-toggle="tooltip" data-placement="top" title="Logout" href="@Url.Action("LogOut", "Account")">
+                                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                            <!-- /menu footer buttons -->
+                        }
+                        else
+                        {
+                            <div class="clearfix"></div>
+                            <br />
+                            <div class="menu_section">
+                                <h3> Menu</h3>
+                                <h5 class="pl-3">
+                                    Esperando inicies sesion para mostrarte operaciones tales como Crear catalogos, clientes, garantias, prestamos, registrar pagos, informes de las actividades, cuentas atrasadas y mucho mas.
+                                </h5>
+                                <h5 class="pl-3">
+                                    Que esperas?, digita tu cuenta de usuario y credenciales,  eligiendo el negocio al cual deseas realizar operaciones
+                                </h5>
+                            </div>
+
+
+                        }
+                    }
                 </div>
             </div>
             <!-- top navigation -->
@@ -114,6 +139,7 @@
     @*@Scripts.Render("~/bundles/bootstrap")*@
     @*<script src="/Content/vendors/jquery/dist/jquery.min.js"></script>*@
 
+    @RenderSection("prevscripts", required: false)
     <script src="/Content/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/Content/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <script src="/Content/vendors/Chart.js/dist/Chart.min.js"></script>
@@ -160,13 +186,17 @@
     <!--<script src="~/content/vendors/starrr/dist/starrr.js"></script> -->
     <script src="~/content/vendors/switchery/dist/switchery.min.js"></script>
     <script src="~/Content/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-    <script src="/Content/build/js/custom.min.js"></script>
-    @*queremos usar esta version de jquery pero si la colocamos al inicio da errores con el que trajo la plantilla
-        por lo tanto hay que dejarlo asi*@
-    @*<script src="/Scripts/jquery-3.3.1.js"></script>*@
-    @RenderSection("scripts", required: false)
 
+    <script src="/Content/build/js/custom.min.js"></script>
+    @*<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="0bb1a56f5128b05a35436500-|49" defer=""></script>*@
 </body>
+
+@*queremos usar esta version de jquery pero si la colocamos al inicio da errores con el que trajo la plantilla
+    por lo tanto hay que dejarlo asi*@
+@*<script src="/Scripts/jquery-3.3.1.js"></script>*@
+@RenderSection("scripts", required: false)
+
+    </body>
 </html>
 
 

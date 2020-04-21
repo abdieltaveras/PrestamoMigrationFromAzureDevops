@@ -42,10 +42,11 @@ namespace PrestamosMVC5.Controllers
         [HttpGet]
         public ActionResult Login(string returnUrl = "")
         {
-
+            
             this.pcpLogout();
+            this.UpdViewBag_ShowSideBar(false);
             var model = new LoginModel { ReturnUrl = returnUrl };
-#if (DEBUG)
+            #if (DEBUG)
             model.LoginName = "bryan";
             model.Password = "1";
             model.ValidateCaptcha = false;
@@ -75,6 +76,7 @@ namespace PrestamosMVC5.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel loginView)
         {
+            this.UpdViewBag_ShowSideBar(false);
             ActionResult _actResult = View(loginView);
             bool validateCaptcha = true;
 #if (DEBUG)
@@ -89,14 +91,11 @@ namespace PrestamosMVC5.Controllers
             if (ModelState.IsValid)
             {
                 var getUsr = new Usuario { LoginName = loginView.LoginName, IdNegocio = loginView.IdNegocio, Contraseña = loginView.Password };
-
-
                 var result = BLLPrestamo.Instance.LoginUser(getUsr);
-
                 if (result.ValidationMessage.UserValidationResult != BLLPrestamo.UserValidationResult.Sucess)
                 {
-                    this.UpdShowSummaryErrorsTime(9);
-                    ModelState.AddModelError("", result.ValidationMessage.Mensaje + ", tambien podria no haber elegido la empresa o negocio correcto");
+                    this.UpdViewBag_ShowSummaryErrorsTime(9);
+                    ModelState.AddModelError("", result.ValidationMessage.Mensaje + ", o quizas no estas registrado en el negocio que elegiste revisa");
                     _actResult = WhatTodo(result.ValidationMessage, _actResult, loginView);
                 }
                 else
@@ -128,9 +127,10 @@ namespace PrestamosMVC5.Controllers
             return _actResult;
         }
 
-        private void SetLoginDataIntoSessiond(int IdNegocioMatriz, Usuario usuario)
+        private void SetLoginDataIntoSessiond(int IdNegocioSelected, Usuario usuario)
         {
-            this.LoginUserIntoSession(IdNegocioMatriz , usuario.LoginName, usuario.IdUsuario, usuario.ImgFilePath);
+            
+            this.LoginUserIntoSession(IdNegocioSelected , usuario.LoginName, usuario.IdUsuario, usuario.NombreRealCompleto, usuario.ImgFilePath);
             //AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
             var operacionesConAcceso = BLLPrestamo.Instance.GetOperaciones(new UsuarioOperacionesGetParams() { IdUsuario = usuario.IdUsuario });
             AuthInSession.SetOperacionesToUserSession(operacionesConAcceso);
@@ -141,36 +141,34 @@ namespace PrestamosMVC5.Controllers
         [HttpGet]
         private ActionResult ElegirNegocioAOperar(int idNegocioMatriz, Usuario usuario, string returnUrl = "")
         {
-             var model = new ListaNegocioVM();
+            this.UpdViewBag_ShowSideBar(false);
+            var model = new ListaNegocioVM();
             TempData["idNegocioMatriz"] = idNegocioMatriz;
             TempData["Usuario"] = usuario;
+            TempData["returnUrl"] = returnUrl==null ? string.Empty : returnUrl;
             // var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocioMatriz  });
             // var negocios = BLLPrestamo.Instance.GetNegocioYSusHijos(usuario.IdNegocio);
             // model.NombreEmpresaMatriz = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocioMatriz }).FirstOrDefault().NombreComercial;
-            model.returnUrl = returnUrl;
             model.SelectNegocios = SelectItems.NegociosOperacionalesForMatriz(usuario.IdNegocio);
             model.NombreEmpresaMatriz = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocioMatriz }).FirstOrDefault().NombreComercial;
+            model.UsuarioNombreReal = usuario.NombreRealCompleto;
             return View("ElegirNegocioAOperar",model);
         }
 
         [HttpPost]
         public ActionResult IniciarOperacion(ListaNegocioVM model)
         {
+            // se prefirio tener esta informacion en tempdata porque asi evitamos que la envien desde un post o algo asi.
+            var returnUrl = TempData["returnUrl"].ToString();
+            var idNegocioMatriz = (int)TempData["idNegocioMatriz"];
             var usuarioInfo = TempData["usuario"] as Usuario;
-            var idNegocioMatrizValue = TempData["idNegocioMatriz"];
-            int idNegocioMatriz = 0;
-            if (idNegocioMatrizValue != null)
-            {
-                idNegocioMatriz = (int)idNegocioMatrizValue;
-            }
-            SetLoginDataIntoSessiond(idNegocioMatriz, usuarioInfo);
-            return GoToNextUrl(model.returnUrl);
+            SetLoginDataIntoSessiond(model.idNegocioSelected, usuarioInfo);
+            return GoToNextUrl(returnUrl);
         }
         private ActionResult WhatTodo(UserValidationResultWithMessage userValidationResultMessage, ActionResult actResult, LoginModel loginModel)
         {
 
             var userValidationResult = userValidationResultMessage.UserValidationResult;
-
             switch (userValidationResult)
             {
                 case BLLPrestamo.UserValidationResult.MustChangePassword:

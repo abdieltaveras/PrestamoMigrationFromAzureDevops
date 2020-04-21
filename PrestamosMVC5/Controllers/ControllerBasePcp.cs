@@ -15,12 +15,14 @@ namespace PrestamosMVC5.Controllers
     public class ControllerBasePcp : Controller
     {
         public int ShowSummaryErrorsTime = 5;
+
         // indicate if user is authenticated
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
             //ViewBag.ShowSummaryErrorsTime = 11;
-            UpdShowSummaryErrorsTime(5);
+            UpdViewBag_ShowSummaryErrorsTime(5);
+            UpdViewBag_ShowSideBar(true);
         }
 
         /// <summary>
@@ -28,18 +30,30 @@ namespace PrestamosMVC5.Controllers
         /// the funcion multiply this value by 1000 to get time in seconds
         /// </summary>
         /// <param name="seconds"></param>
-        public void UpdShowSummaryErrorsTime(int seconds)
+        public void UpdViewBag_ShowSummaryErrorsTime(int seconds)
         {
             ViewBag.ShowSummaryErrorsTime = seconds;
+            
+        }
+
+        /// <summary>
+        /// update value for the ViewBag.ShowSummaryErrorsTime so in javascript 
+        /// the funcion multiply this value by 1000 to get time in seconds
+        /// </summary>
+        /// <param name="seconds"></param>
+        public void UpdViewBag_ShowSideBar(bool value)
+        {
+            ViewBag.ShowSideBar = value;
         }
 
         protected bool pcpIsUserAuthenticated => (AuthInSession.GetLoginName() != AuthInSession.AnonimousUser);
         protected string pcpUserLoginName => AuthInSession.GetLoginName(); //TODO: verificar si es necesario que este private
         protected string pcpUserImageFile => AuthInSession.GetUserImageFilePath();
-        protected int pcpUserIdNegocio => AuthInSession.GetIdNegocio();
+        protected int pcpUserIdNegocio => AuthInSession.GetSelectedNegocioId();
         protected int pcpUserIdUsuario => AuthInSession.GetIdUsuario();
-        protected void LoginUserIntoSession(int idNegocio, string loginName, int idUsuario, string userImageFile) =>
-            AuthInSession.LoginUserToSession(idNegocio, loginName, idUsuario, userImageFile);
+        
+        protected void LoginUserIntoSession(int idNegocioSelectedToWork, string loginName, int idUsuario, string nombreReal, string userImageFile) =>
+            AuthInSession.LoginUserToSession(idNegocioSelectedToWork, loginName, idUsuario, nombreReal, userImageFile);
         protected void SetOperacionesToSession(List<string> operaciones) =>
             AuthInSession.SetOperacionesToUserSession(operaciones);
 

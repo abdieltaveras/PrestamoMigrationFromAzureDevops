@@ -42,7 +42,7 @@ namespace PrestamosMVC5.Controllers
             var search = new DivisionSearchParams { IdDivisionTerritorial = 2, IdNegocio = 1 };
             var result = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(search);
             var divTerritorialTree = new DivisionTerritorialTree(result);
-            return View("treeViewExample2",divTerritorialTree.ElementsForTree);
+            return View("treeViewExample2", divTerritorialTree.ElementsForTree);
         }
         public ActionResult CheckBoxes()
         {
@@ -56,8 +56,8 @@ namespace PrestamosMVC5.Controllers
             CatalogoVM data = new CatalogoVM();
             var tabla = "tblOcupaciones";
             data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
-                    data.TipoCatalogo = "Ocupaciones";
-                    data.IdTabla = "IdOcupacion";
+            data.TipoCatalogo = "Ocupaciones";
+            data.IdTabla = "IdOcupacion";
             data.NombreTabla = tabla;
             return View("", data);
         }
@@ -128,8 +128,20 @@ namespace PrestamosMVC5.Controllers
             return Content(mensaje);
         }
 
+        public ActionResult CheckSessionInfo(string token)
+        {
+            var data = new
+            {
+                NegocioMatrizIdNegocio = AuthInSession.GetStringValueForKey(AuthInSession.NegocioMatrizIdNegocio),
+                NegocioMatrizNombre = AuthInSession.GetStringValueForKey(AuthInSession.NegocioMatrizNombre),
+                NegocioPadreIdNegocio = AuthInSession.GetStringValueForKey(AuthInSession.NegocioPadreIdNegocio),
+                NegocioPadreNombre = AuthInSession.GetStringValueForKey(AuthInSession.NegocioPadreNombre),
+                NegocioSelectedNombre = AuthInSession.GetStringValueForKey(AuthInSession.NegocioSelectedNombre),
+                NegocioSelectedIdNegocio = AuthInSession.GetStringValueForKey(AuthInSession.NegocioSelectedIdNegocio),
+            };
 
-
+            return Json(data.ToJson(), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Usuario(int id = -1, bool showAdvancedView = true)
         {
             var userContr = new UserController();
@@ -183,7 +195,7 @@ namespace PrestamosMVC5.Controllers
         /// <returns></returns>
         public string returnJson()
         {
-            var param = new NegociosGetParams { IdNegocio = -1, Usuario="testController" };
+            var param = new NegociosGetParams { IdNegocio = -1, Usuario = "testController" };
             var data = BLLPrestamo.Instance.GetNegocios(param).FirstOrDefault();
             return data.ToJson();
         }

@@ -209,6 +209,7 @@
     <Content Include="Content\build\images\forward_disabled.png" />
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
+    <Content Include="Content\build\js\custom2.js" />
     <Content Include="Content\customcss\datatable\DataTables-1.10.20\css\dataTables.bootstrap.css" />
     <Content Include="Content\customcss\datatable\DataTables-1.10.20\css\dataTables.bootstrap.min.css" />
     <Content Include="Content\customcss\datatable\DataTables-1.10.20\css\dataTables.bootstrap4.css" />
@@ -5245,8 +5246,8 @@
     <Content Include="Views\Color\CreateOrEdit.cshtml" />
     <Content Include="Views\Account\Login.20191229.cshtml" />
     <Content Include="Views\Account\Login2.cshtml" />
-    <Content Include="Views\Shared\_UserInfoTopNavBar.cshtml" />
-    <Content Include="Views\Shared\_UserInfoSideBar.cshtml" />
+    <Content Include="Views\Shared\_InfoTopNavBar.cshtml" />
+    <Content Include="Views\Shared\_InfoSideBar.cshtml" />
     <Content Include="Views\User\CreateOrEdit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Test.cshtml" />

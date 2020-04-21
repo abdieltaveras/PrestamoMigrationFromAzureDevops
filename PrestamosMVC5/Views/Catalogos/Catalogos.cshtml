@@ -208,26 +208,29 @@
         </div>
     </div>
 </div>
+@section pagestyle {
+    <style scoped>
 
-<style scoped>
+        .delete-row {
+            color: #e92e2e;
+        }
 
-    .delete-row {
-        color: #e92e2e;
-    }
+        .form-inline {
+            display: unset;
+        }
+    </style>
 
-    .form-inline {
-        display: unset;
-    }
-</style>
+    @* Configuracion con mejoras en el diseño *@
 
-@* Configuracion con mejoras en el diseño *@
+    <link rel="stylesheet" type="text/css" href="~/Content/customcss/datatable/DataTables-1.10.20/css/dataTables.foundation.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/customcss/datatable/DataTables-1.10.20/css/dataTables.jqueryui.css" />
 
-<link rel="stylesheet" type="text/css" href="~/Content/customcss/datatable/DataTables-1.10.20/css/dataTables.foundation.css" />
-<link rel="stylesheet" type="text/css" href="~/Content/customcss/datatable/DataTables-1.10.20/css/dataTables.jqueryui.css" />
+    <script type="text/javascript" src="~/Content/customcss/datatable/DataTables-1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/Content/customcss/datatable/DataTables-1.10.20/js/dataTables.bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/customcss/datatable/datatables.css" />
+}
 
-<script type="text/javascript" src="~/Content/customcss/datatable/DataTables-1.10.20/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="~/Content/customcss/datatable/DataTables-1.10.20/js/dataTables.bootstrap.js"></script>
-
+@section prevscripts{
 @* Para botones *@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
@@ -247,8 +250,8 @@
 
 @* Configuracion plana *@
 
-<link rel="stylesheet" type="text/css" href="~/Content/customcss/datatable/datatables.css" />
-    @*<script type="text/javascript" src="~/Content/customcss/datatable/datatables.js"></script>*@
+
+@*<script type="text/javascript" src="~/Content/customcss/datatable/datatables.js"></script>*@
 
 @* No hacer caso *@
 @*<link rel="stylesheet" type="text/css" href="~/Content/customcss/datatable/DataTables-1.10.20/css/dataTables.bootstrap.css" />*@
@@ -444,3 +447,4 @@
     }
 
 </script>
+}
