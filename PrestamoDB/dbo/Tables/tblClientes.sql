@@ -25,6 +25,7 @@
 	[TelefonoCasa] VARCHAR(20) NOT NULL,
 	[TelefonoMovil] VARCHAR(20) NOT NULL,
     [CorreoElectronico] VARCHAR(30) NOT NULL, 
+	Imagen1FileName varchar(50),
     CONSTRAINT [FK_tblCliente_ToTblNegocios] FOREIGN KEY (IdNegocio) REFERENCES tblNegocios([IdNegocio]),
 	CONSTRAINT [FK_tblCliente_UQ_IdentificationNumber] Unique NonClustered(IdNegocio, IdTipoIdentificacion,NoIdentificacion),
 	CONSTRAINT [FK_tblCliente_UQ_Codigo] Unique NonClustered(IdNegocio, Codigo),

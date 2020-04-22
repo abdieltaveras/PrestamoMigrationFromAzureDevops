@@ -2,7 +2,12 @@
 if (typeof (searchLocalidadElem) === 'undefined') { console.log("Es obligatorio pasar la variable searchLocalidadElem"); }
 
 $(".target").keyup(function () {
-    searchText(searchLocalidadElem.val());
+   if (searchLocalidadElem.val().length > 2)
+    {
+        var value = searchLocalidadElem.val();
+        searchText(value);
+    }
+
 });
 
 async function searchText(location) {
@@ -15,10 +20,11 @@ async function searchText(location) {
 }
 
 function search(location) {
-
-    let dataValue = { "searchtotext": location };
-    let LocalidadABuscar;
-
+    
+    // let dataValue = { "searchtotext": location };
+    // console.log((datavalue.searchtotext)
+    let dataValue = { "texttosearch": location };
+    //let LocalidadABuscar;
     return $.ajax({
         type: "get",
         url: "/Localidades/BuscarLocalidad",
@@ -83,7 +89,7 @@ async function buscarRutaDeLocalidad() {
         AddItem(JSON.parse(res), 'normal');
         //setClickListener();
     }
-    catch (err) {   }
+    catch (err) { }
 }
 
 function BuscarRutaDeLocalidad(IdLocalidad) {

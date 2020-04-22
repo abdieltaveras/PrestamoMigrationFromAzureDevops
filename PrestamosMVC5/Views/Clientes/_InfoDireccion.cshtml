@@ -36,7 +36,7 @@
                 <div class="form-group row" style="padding: 0%">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3" for="Direccion_Calle">Localidad</label>
                     <div class="col-md-9 col-sm-9 col-xs-9" style="margin: auto;">
-                        <input class="target form-control" type="text" id="searchLocalidad" name="searchLocalidad" placeholder="Busca una direccion" value="@Model.NombreLocalidad" autocomplete="off" />
+                        <input class="target form-control" type="text" id="searchLocalidad" name="searchLocalidad" placeholder="Busca una direccion" value="@Model.NombreLocalidad" autocomplete="dummy-no-auto-complete-fix" />
                         <span id="rutadelocalidad"></span>
                         <div id="list-address-container" style=" padding: 0%;">
                             <div class="list-group col-md-12 col-sm-12 col-xs-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding-right: 20px; padding-left: 0px; vertical-align: middle;">
@@ -50,13 +50,6 @@
                 <input type="hidden" class="target form-control" name="Direccion.IdLocalidad" id="Direccion_IdLocalidad" />
 
 
-                @*<div class="@HtmlClass.FormGroupCls">
-                        @Html.LabelFor(model => Model.Direccion.IdLocalidad, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        <div class="@HtmlClass.DivInputCls">
-                            @Html.DropDownListFor(m => m.Direccion.IdLocalidad, SelectItems.Localidades, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                            @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
-                        </div>
-                    </div>*@
 
 
                 <div class="@HtmlClass.FormGroupCls">

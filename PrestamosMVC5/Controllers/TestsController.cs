@@ -213,7 +213,7 @@ namespace PrestamosMVC5.Controllers
 
     public class InfoConImagen
     {
-        public System.Web.HttpPostedFileBase Imagen { get; set; }
+    
         public IEnumerable<System.Web.HttpPostedFileBase> ImagesForCliente { get; set; }
 
         public ImagesFor imgsForCliente => new ImagesFor("ImagesForCliente", "Clientes") { Qty = 3 };
@@ -223,18 +223,5 @@ namespace PrestamosMVC5.Controllers
         public ImagesFor imgsForGarantia => new ImagesFor("ImagesForGarantia", "Garantia") { Qty = 2 };
     }
 
-    public class ImagesFor
-    {
-        public string PropName { get; } = string.Empty;
-
-        public string FriendlyName { get; } = string.Empty;
-
-        public int Qty { get; set; } = 5;
-
-        public ImagesFor(string propName, string friendlyName)
-        {
-            this.PropName = propName;
-            this.FriendlyName = friendlyName;
-        }
-    }
+    
 }

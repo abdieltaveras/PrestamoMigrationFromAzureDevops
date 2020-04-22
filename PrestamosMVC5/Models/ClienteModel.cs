@@ -1,4 +1,5 @@
 ﻿using PrestamoEntidades;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,13 @@ namespace PrestamosMVC5.Models
         }
 
         public string NombreLocalidad { get; set; } = string.Empty;
+        /// <summary>
+        /// propiedad que guarda el contenido de la imagen
+        /// </summary>
         public HttpPostedFileBase ImagenPrincipal { get; set; }
+
+        public IEnumerable<System.Web.HttpPostedFileBase> ImagesForCliente { get; set; }
+
+        public ImagesFor imgsForCliente => new ImagesFor("ImagesForCliente", "Clientes") { Qty = 3 };
     }
 }

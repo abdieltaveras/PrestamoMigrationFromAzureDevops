@@ -15,6 +15,14 @@ namespace PrestamoBLL
         {
             return Convert.ToInt32(objectContainingId.Rows[0][0]);
         }
+        public static string SaveFiles(string path, HttpPostedFileBase file)
+        {
+            var files = new List<HttpPostedFileBase>();
+            files.Add(file);
+            var result = Utils.SaveFiles(path, files);
+            return result.FirstOrDefault();
+
+        }
         /// <summary>
         /// 
         /// </summary>

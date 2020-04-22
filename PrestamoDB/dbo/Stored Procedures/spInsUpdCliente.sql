@@ -13,6 +13,7 @@
 	@infolaboral varchar(400), 
 	@infodireccion varchar(400),  
 	@noidentificacion varchar(20), 
+	@imagen1FileName varchar(50), 
 	@nombres varchar(400), 
 	@sexo int, 
 	@telefonocasa varchar(20), 
@@ -25,8 +26,8 @@ Begin
 		
 		begin
 			INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, EstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado,
-			 NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico)
-		VALUES (@activo, @apodo, @apellidos, @estadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @Sexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico)
+			 NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName)
+		VALUES (@activo, @apodo, @apellidos, @estadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @Sexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName)
 		end
 	Else
 		Begin
@@ -49,7 +50,8 @@ Begin
 				Sexo = @sexo,
 				TelefonoCasa = @telefonocasa,
 				TelefonoMovil = @telefonomovil,
-				CorreoElectronico = @correoElectronico
+				CorreoElectronico = @correoElectronico,
+				Imagen1FileName = @imagen1FileName
 				where IdCliente = IdCliente
 		End
 End
