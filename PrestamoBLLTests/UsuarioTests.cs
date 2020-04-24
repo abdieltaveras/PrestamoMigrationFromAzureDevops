@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using PrestamoBLL;
-
+using System.Data.SqlClient;
 
 namespace PrestamoBLLTests
 {
@@ -24,7 +24,7 @@ namespace PrestamoBLLTests
                 {
                     NombreRealCompleto = "Usuario para pruebas BllTest",
                     LoginName = "BllTest",
-                    Contraseña = "12345",
+                    Contraseña = "1",
                     Telefono1 = "829-961-9141",
                     Usuario = "UsuarioTest",
                     CorreoElectronico = "abdieltaveras@hotmail.com",
@@ -39,39 +39,39 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void getUsuarios_Search_Count()
         {
-            var getUser = new UsuarioGetParams {IdNegocio=13, Usuario="abdiel" };
-            var result = BLLPrestamo.Instance.GetUsuarios(getUser); 
+            var getUser = new UsuarioGetParams { IdNegocio = 13, Usuario = "abdiel" };
+            var result = BLLPrestamo.Instance.GetUsuarios(getUser);
             Assert.IsTrue(result.LongCount() >= 0);
         }
         [TestMethod()]
         public void InsUpdUsuario_InsertSuccesUser_EmptyErrorMensaje()
         {
             var usr = NewSuccessUserInstance;
-            if (GetSuccesUser() != null)
+            var result = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio });
+            if (result.Count() > 0)
             {
-                usr.LoginName += " " + DateTime.Now.ToShortDateString();
+                usr.LoginName = Guid.NewGuid().ToString();
                 usr.IdUsuario = -1;
             }
+            try
+            {
+                BLLPrestamo.Instance.InsUpdUsuario(usr);
+            }
+            catch (Exception e)
 
             {
-                try
-                {
-                    BLLPrestamo.Instance.InsUpdUsuario(usr);
-                }
-                catch (Exception e)
-
-                {
-                    errorMensaje = e.Message;
-                }
+                errorMensaje = e.Message;
             }
+
             Assert.IsTrue(string.IsNullOrEmpty(errorMensaje), errorMensaje);
         }
 
         [TestMethod()]
-        public void InsUpdUsuario_FailDuplicateInsertSuccesUser()
+        public void InsUpdUsuario_ThrowErrorCauseIsADuplicateSuccesUser()
         {
             var usr = NewSuccessUserInstance;
             var usr2 = GetSuccesUser();
+            var OcurrioUnError = false;
             if (usr2 == null)
             {
                 BLLPrestamo.Instance.InsUpdUsuario(NewSuccessUserInstance);
@@ -83,8 +83,16 @@ namespace PrestamoBLLTests
             catch (Exception e)
             {
                 errorMensaje = e.Message;
+                var sqlEx = e as SqlException==null ? (e.InnerException as SqlException) : e as SqlException;
+                if (sqlEx != null)
+                {
+                    var errorNumber = sqlEx.Number;
+                }
+
+                
+                OcurrioUnError = true;
             }
-            Assert.IsTrue(string.IsNullOrEmpty(errorMensaje), this.errorMensaje);
+            Assert.IsTrue(OcurrioUnError, this.errorMensaje);
         }
         [TestMethod()]
         public void InsUpdUsuario_UpdateSuccesUser_EmptyErrorMensaje()
@@ -119,7 +127,7 @@ namespace PrestamoBLLTests
             }
             Assert.IsTrue(loginNameOfUsuario == NewSuccessUserInstance.LoginName.ToLower(), errorMensaje);
         }
-        
+
 
         /// <summary>
         /// Update Succes user search  record and update the IdUsuario with the Usuario value instance
@@ -160,7 +168,7 @@ namespace PrestamoBLLTests
             usuario.Usuario = "testUser" + DateTime.Now.ToShortDateString();
         }
 
-        
+
         /// <summary>
         /// Get the current Succes User
         /// </summary>
@@ -180,11 +188,11 @@ namespace PrestamoBLLTests
         public void UsersExistFoAANegocioTest_IfExistUser_true()
         {
             var expected = true;
-            var usersExists = BLLPrestamo.Instance.ExistDataForTable("tblUsuarios",1);
-            Assert.IsTrue(usersExists == expected,"la tabla no contiene datos para el negocio indicado");
+            var usersExists = BLLPrestamo.Instance.ExistDataForTable("tblUsuarios", 1);
+            Assert.IsTrue(usersExists == expected, "la tabla no contiene datos para el negocio indicado");
         }
 
-     
+
         public void CreateAndCreateAdminUserForNegocios()
         {
             throw new NotImplementedException();
@@ -199,12 +207,6 @@ namespace PrestamoBLLTests
             //}
             //Assert.IsTrue(errorMensaje == string.Empty, errorMensaje);
         }
-        [TestMethod()]
-        public void GetOperacionesWithUserId_2()
-        {
-            var response = BLLPrestamo.Instance.GetOperaciones(new PrestamoEntidades.UsuarioOperacionesGetParams() { IdUsuario = 2 });
-            Assert.IsTrue(response.Count() > 0, "No retorno registros");
 
-        }
     }
 }

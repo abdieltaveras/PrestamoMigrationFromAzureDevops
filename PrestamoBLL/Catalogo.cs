@@ -12,6 +12,7 @@ namespace PrestamoBLL
     {
         public IEnumerable<BaseCatalogo>CatalogosGet(BaseCatalogoGetParams searchParam)
         {
+            
             switch (searchParam.NombreTabla)
             {
                 case "tblOcupaciones":

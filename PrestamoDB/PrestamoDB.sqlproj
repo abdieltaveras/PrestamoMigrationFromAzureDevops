@@ -38,7 +38,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>bin\Debug\</OutputPath>
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +53,18 @@
     <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Abdiel|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
@@ -157,6 +168,13 @@
     <Build Include="dbo\Stored Procedures\RoleOperacionesSpGet.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarTodosUsuarioRoles.sql" />
     <Build Include="dbo\Stored Procedures\spGetNegociosRecursive.sql" />
+    <Build Include="dbo\Functions\fnGetNegocioAndPadres.sql" />
+    <Build Include="dbo\Functions\fnGetNegocioAndHijos.sql" />
+    <Build Include="dbo\Functions\fnGetIdNegocioMatriz.sql" />
+    <Build Include="dbo\Stored Procedures\spLoginUsuarioByNegocioMatriz.sql" />
+    <Build Include="dbo\Stored Procedures\spGetNegociosAndhijos.sql" />
+    <Build Include="dbo\Stored Procedures\spGetNegocioAndPadre.sql" />
+    <Build Include="dbo\Stored Procedures\SpUpdContraseñaUsuario.sql" />
     <Build Include="dbo\Stored Procedures\CatalogoSpBuscar.sql" />
   </ItemGroup>
   <ItemGroup>

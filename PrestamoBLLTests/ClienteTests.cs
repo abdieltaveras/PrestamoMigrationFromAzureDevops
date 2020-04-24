@@ -75,12 +75,12 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void GetClientes_DoesNotThrowError()
         {
-            var searchData = ClienteData.SearchCliente();
-            searchData.IdNegocio = -1;
+            var insData = ClienteData.SearchCliente();
+            insData.IdNegocio = -1;
             var mensajeError = string.Empty;
             try
             {
-                BLLPrestamo.Instance.ClientesGet(searchData);
+                BLLPrestamo.Instance.ClientesGet(insData);
             }
             catch (Exception e)
             {
@@ -95,6 +95,7 @@ namespace PrestamoBLLTests
             var error = new Exception();
             var OperacionExitosa = true;
             var cliente = ClienteData.newCliente();
+            cliente.NoIdentificacion = DateTime.Now.ToString();
             try { BLLPrestamo.Instance.ClientesInsUpd(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion()); }
             catch (Exception e)
             {
@@ -108,6 +109,7 @@ namespace PrestamoBLLTests
         {
             var gParam = new ClientesGetParams();
             gParam.IdNegocio = 0;
+            var ocurrioError = false;
             var error = string.Empty;
             try
             {
@@ -115,11 +117,11 @@ namespace PrestamoBLLTests
             }
             catch (Exception e)
             {
-
                 error = e.Message;
+                ocurrioError = true;
             }
-
-            Assert.IsTrue(string.IsNullOrEmpty(error), error);
+            // debe fallar si el error 
+            Assert.IsTrue(ocurrioError, error);
         }
     }
     

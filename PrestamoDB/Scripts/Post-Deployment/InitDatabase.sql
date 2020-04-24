@@ -18,20 +18,29 @@ Post-Deployment Script Template
 	
 	
 	--Script para datos de Negocios
+	--Negocio Matriz y otras truncales no permite realizar transacciones
 	insert into dbo.tblNegocios
-			(Codigo,NombreComercial,NombreJuridico,InsertadoPor,FechaInsertado, TaxIdNo, OtrosDetalles, logo)
+			(Codigo,NombreJuridico,NombreComercial,InsertadoPor,FechaInsertado, TaxIdNo, OtrosDetalles, logo, PermitirOperaciones, IdNegocioPadre)
 			VALUES
-			('N01','Empresa no 1','Empresa 1 SRL',@usuario,getdate(), '1', '', 'Papito.png'),
-			('N02','Empresa no 2','Empresa 2 Srl',@usuario,getdate(), '2', '', 'Papito.png')
+			('INT-M','Intagsa SRL','Intagsa',@usuario,getdate(), '1','','Papito.png',0,null),
+			('INTR','Intagsa SRL','Romana ',@usuario,getdate(), '2','','Papito.png',0,1),
+			('INTS','Intagsa SRL','Sosua ',@usuario,getdate(), '2','','Papito.png',0,1),
+			('PAPITO-M','Inversiones Bancola','Papito Prestamo',@usuario,getdate(), '1','','Papito.png',0,null),
+			('FYG','Consorcio Empresarial FYG','FYG',@usuario,getdate(), '2','','Papito.png',0,null)
 
-	INSERT INTO tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, logo) 
+	--Negocios para realizar transacciones
+	INSERT INTO tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, logo, PermitirOperaciones) 
 			VALUES 
-			('N03', 'Hija 1 Empresa 1 SRL', 'Hija 1 Empresa no 1', NULL, 1, 0, NULL, '1', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png'),
-			('N04', 'Hija 1 Empresa 2 Srl', 'Hija 1 Empresa no 2', NULL, 1, 0, NULL, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png'),
-			('N05', 'Hija 2 Empresa 2 Srl', 'Hija 2 Empresa no 2', NULL, 1, 0, NULL, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png'),
-			('N06', 'Hija 1 de Hija 1 Empresa 2 Srl', 'Hija 1 de Hija 1 Empresa no 2', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png')			
+			('INTRP','Intagsa SRL', 'Romana Prestamo', NULL, 1, 0, 2, '1', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
+			('INTRV', 'Intagsa SRL', 'Romana ventas', NULL, 1, 0, 2, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
+			('INTSP', 'Intagsa SRL', 'Sosua Prestamo', NULL, 1, 0, 3, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
+			('INTSV', 'Intagsa SRL', 'Sosua Prestamo', NULL, 1, 0, 3, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
+			('PAPITO-1', 'Inversiones Bancola', 'Papito Prestamo', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
+			('FYG-1', 'Consorcio FYG', 'Consorcio FYG', NULL, 1, 0, 5, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1),
+			('AN', 'Aires del Norte', 'Aires del norte', NULL, 1, 0, 5, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png',1)
 
-	declare @idNegocio int = (select top 1 idNegocio from tblNegocios)	
+--('N06', 'Hija 1 de Hija 1 Empresa 2 Srl', 'Hija 1 de Hija 1 Empresa no 2', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png')
+	declare @idNegocio int = 1
 
 	--Script para datos de Interes
 
@@ -65,32 +74,50 @@ Post-Deployment Script Template
 -- Date:   13-Feb-20 5:46 AM
 
 INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
-VALUES (@idNegocio,'Admin','Usuario Administrador','B5+69v4bWTp/gX/eR2Whig==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null)
+VALUES (2,'Admin','Usuario Administrador','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null)
 
 INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
-VALUES (@idNegocio,'Usuario','Usuario por defecto','slT@idNegociocIeEDhgXsnLcD0w/ng==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null)
+VALUES (2,'Usuario','Usuario por defecto','slT@idNegociocIeEDhgXsnLcD0w/ng==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null)
 
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrcc', 'Cambiar Contraseña', 'B5+69v4bWTp/gX/eR2Whig==', 1, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
+VALUES (3, 'usrcc', 'Cambiar Contraseña', 'cu0+Y/VLEdwHc/4vxsazEQ==', 1, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
 
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrina', 'Usuario Inactivo', 'B5+69v4bWTp/gX/eR2Whig==', 1, getdate(), '(809) 813-1719', '', 0, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
+VALUES (3, 'usrina', 'Usuario Inactivo', 'cu0+Y/VLEdwHc/4vxsazEQ==', 1, getdate(), '(809) 813-1719', '', 0, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
 
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrbl', 'usuario bloqueado', 'B5+69v4bWTp/gX/eR2Whig==', 0, getdate(), '(809) 813-1719', '', 1, 1, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
+VALUES (5, 'usrbl', 'usuario bloqueado', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 813-1719', '', 1, 1, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
 
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrconex', 'usuario contrasena expira', 'B5+69v4bWTp/gX/eR2Whig==', 0, getdate(), '(809) 550-2897', '', 1, 0, 'abdieltaveras@gmail.com', 0, '', '2020-03-28', '1900-01-01', 1, -1, 0, 'admin', getdate(), 'usrconex', '2020-03-30 08:35:59.4', NULL, NULL)
+VALUES (5, 'usrconex', 'usuario contrasena expira', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 550-2897', '', 1, 0, 'abdieltaveras@gmail.com', 0, '', '2020-03-28', '1900-01-01', 1, -1, 0, 'admin', getdate(), 'usrconex', '2020-03-30 08:35:59.4', NULL, NULL)
 
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrlivi', 'usuario limitar vigencia', 'B5+69v4bWTp/gX/eR2Whig==', 0, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '2020-03-29', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
+VALUES (4, 'usrlivi', 'usuario limitar vigencia', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '2020-03-29', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
 
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'success', 'Succes User', 'B5+69v4bWTp/gX/eR2Whig==', 0, getdate(), '829-961-9141', '', 1, 0, 'abdieltaveras@hotmail.com', 0, '', '1900-01-01', '1900-01-01', 1, -1, 0, 'UsuarioTest', '2020-03-28 10:17:44.833', 'testUser29-Mar-20', '2020-03-29 22:15:53.987', NULL, NULL)
+VALUES (4, 'success', 'Succes User', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '829-961-9141', '', 1, 0, 'abdieltaveras@hotmail.com', 0, '', '1900-01-01', '1900-01-01', 1, -1, 0, 'UsuarioTest', '2020-03-28 10:17:44.833', 'testUser29-Mar-20', '2020-03-29 22:15:53.987', NULL, NULL)
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-values	(@idNegocio,'bryan','bryan','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null)
+INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
+InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
+values	(2,'bryan','Bryan Pouerie','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+
+INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
+InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
+values	(10,'usrpapito','usr Papito-inv. Bancola','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+
+
+INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
+InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
+values	(11,'usrfyg','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+
+
+INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
+InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
+values	(12,'usran','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
 
 
 --@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @debecambiarcontraseñaaliniciarsesion,

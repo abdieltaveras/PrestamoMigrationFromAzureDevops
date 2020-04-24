@@ -73,6 +73,17 @@ namespace PrestamoEntidades
         public bool LaContrasenaExpira() => this.ContraseñaExpiraCadaXMes > 0;
         public bool LimitarVigenciaDeLaCuenta() => (this.VigenteHasta != InitValues._19000101);
         public int RazonBloqueo { get; set; } =-1;
+        [IgnorarEnParam]
+        /// <summary>
+        ///  es el id del negocio raiz que define todas las ramificaciones
+        /// </summary>
+        public int IdNegocioMatriz { get; set; }
+
+        [IgnorarEnParam]
+        /// <summary>
+        ///  esta propiedad unicamente se usa para el stored procedure retornar la validez de la contraseña
+        /// </summary>
+        public bool ContraseñaValida { get; internal set; } = false;
     }
 
     public enum RazonBloqueo {ContraseñaMalDigitada, PorAdministracionDeUsuario, PorOtroSistema }

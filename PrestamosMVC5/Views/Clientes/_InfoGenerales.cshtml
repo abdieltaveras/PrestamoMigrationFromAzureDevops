@@ -14,7 +14,7 @@
                 <br />
                 @*<form class="form-horizontal form-label-left">*@
                 <div class="@HtmlClass.FormGroupCls">
-                    
+
                     @Html.LabelFor(model => model.Cliente.Codigo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
                         @Html.EditorFor(model => model.Cliente.Codigo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = "disabled" } })
@@ -57,7 +57,7 @@
                         @Html.ValidationMessageFor(model => model.Cliente.EstadoCivil, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                
+
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.Sexo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
@@ -103,8 +103,12 @@
                     <div class="@HtmlClass.DivInputCls">
                         <img id="imagePreview"
                              src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="ImageUpLoad" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
-                        <span id="container"></span>
+                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="ImageUpLoad" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" style="display:none" />
+                        <div class="@HtmlClass.DivInputCls">
+                            <button id="imgbutton1"class="ml-5">+</button>
+                            <button id="imgbutton2">-</button>
+                            <span id="container"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="@HtmlClass.FormGroupCls">
@@ -135,3 +139,8 @@
         </div>
     </div>
 </div>
+<script>
+    $('#imgbutton1').on('click', function() {
+    $('#imgInput').trigger('click');
+});
+</script>

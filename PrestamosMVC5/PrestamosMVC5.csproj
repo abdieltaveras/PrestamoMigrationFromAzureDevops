@@ -206,39 +206,7 @@
     <Content Include="Content\build\images\forward_disabled.png" />
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.bootstrap.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.bootstrap.min.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.bootstrap4.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.bootstrap4.min.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.foundation.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.foundation.min.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.jqueryui.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.jqueryui.min.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.semanticui.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\dataTables.semanticui.min.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\jquery.dataTables.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\css\jquery.dataTables.min.css" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\images\sort_asc.png" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\images\sort_asc_disabled.png" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\images\sort_both.png" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\images\sort_desc.png" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\images\sort_desc_disabled.png" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.bootstrap.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.bootstrap.min.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.bootstrap4.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.bootstrap4.min.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.foundation.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.foundation.min.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.jqueryui.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.jqueryui.min.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.semanticui.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\dataTables.semanticui.min.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\jquery.dataTables.js" />
-    <Content Include="Content\customcss\datatable1\DataTables-1.10.20\js\jquery.dataTables.min.js" />
-    <Content Include="Content\customcss\datatable1\datatables.css" />
-    <Content Include="Content\customcss\datatable1\datatables.js" />
-    <Content Include="Content\customcss\datatable1\datatables.min.css" />
-    <Content Include="Content\customcss\datatable1\datatables.min.js" />
+    <Content Include="Content\customcss\datatable\configuration\js-conf\datatable-conf.js" />
     <Content Include="Content\customcss\datatable\css\buttons.dataTables.min.css" />
     <Content Include="Content\customcss\datatable\css\dataTables.bootstrap4.min.css" />
     <Content Include="Content\customcss\datatable\js\buttons.html5.min.js" />
@@ -5256,6 +5224,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\customcss\datatable\configuration\css-conf\" />
     <Folder Include="Content\ImagesFor\Clientes\" />
   </ItemGroup>
   <ItemGroup>

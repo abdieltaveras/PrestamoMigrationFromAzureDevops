@@ -1,0 +1,39 @@
+﻿@model PrestamosMVC5.Models.ListaNegocioVM
+
+<div class="row">
+    <div class="form-horizontal col-md-6 offset-md-3 mt-5">
+
+        @using (@Html.BeginForm("IniciarOperacion", "Account", FormMethod.Post, htmlAttributes: new { id = "loginForm", autocomplete = "off" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <div class="@HtmlClass.FormGroupCls">
+                <div class="@HtmlClass.DivInputCls">
+                    <img src="@Url.Content(SiteImages.AppLogoSinLetra)" alt="Logo de la aplicacion" height="100em" width="100em" class="center">
+                </div>
+            </div>
+            <div class="@HtmlClass.FormGroupCls">
+                <div class="@HtmlClass.DivInputCls">
+                    <div class="x_title text-center"> Apreciado <span class="font-weight-bolder"> @Model.UsuarioNombreReal </span> </div>
+                    <div class="text-center">Has elegido operar para el grupo Intagsa </div>
+                    <div class="text-center"><h3>@Model.NombreEmpresaMatriz</h3></div>
+                </div>
+            </div>
+            <div class="@HtmlClass.FormGroupCls">
+                <div class="@HtmlClass.DivInputCls">
+                    <div class="text-center">elige el negocio a operar </div>
+                    @Html.DropDownListFor(m => m.idNegocioSelected, Model.SelectNegocios, htmlAttributes: new { @class = @HtmlClass.InputTextCls, onmousedown = "if(this.options.length>5){this.size=5;}", onchange = "this.size=0;", onblur = "this.size=0;" })
+                    @Html.ValidationMessageFor(model => model.idNegocioSelected, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="@HtmlClass.FormGroupCls">
+                <div class="@HtmlClass.DivInputCls">
+                    <input type="submit" value="Operar en el negocio elegido" class="btn btn-lg btn-primary btn-block text-uppercase submit" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

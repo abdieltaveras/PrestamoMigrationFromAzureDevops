@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static PrestamoBLL.BLLPrestamo;
 
 namespace PrestamoBLLTests
 
@@ -18,7 +19,8 @@ namespace PrestamoBLLTests
         public void insertNegocioTest()
         {
             var negocio = NewInstanceNegocioIntagsa();
-
+            var result = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { Codigo = negocio.Codigo });
+            negocio.Codigo = (result.Count() > 0) ? Guid.NewGuid().ToString() : negocio.Codigo;
             //act
             try
             {
@@ -34,8 +36,8 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void insertUpdNegocioWithIdNegocioPadre()
         {
-
             mensajeError = string.Empty;
+            var ocurrioError = false;
             //act
             try
             {
@@ -44,8 +46,9 @@ namespace PrestamoBLLTests
             catch (Exception e)
             {
                 mensajeError = e.Message;
+                ocurrioError = true;
             }
-            Assert.IsTrue(mensajeError == string.Empty, mensajeError);
+            Assert.IsFalse(ocurrioError, mensajeError);
         }
 
         [TestMethod()]
@@ -63,19 +66,27 @@ namespace PrestamoBLLTests
             var infoAccionExpected = CreateInfoUAccion();
             var getParam = GetParamNegocioIntangsa();
             mensajeError = string.Empty;
+            var ocurrioError = false;
             var result = GetNegocioIntagsa(getParam);
-            var infoInsertadoAccion = result.InsertadoPor.ToType<InfoAccion>();
-            Assert.IsTrue(mensajeError == string.Empty, mensajeError);
+            try
+            {
+                var infoInsertadoAccion = result.InsertadoPor.ToType<InfoAccion>();
+            }
+            catch (Exception e)
+            {
+                ocurrioError = true;
+                mensajeError = e.Message;
+            }
+            Assert.IsFalse(ocurrioError, mensajeError);
         }
         [TestMethod()]
         public void GetNegociosHijosTest()
         {
             var negocioPadre = GetNegocios(GetParamNegocioIntangsa()).FirstOrDefault();
-            var getParam = new NegociosGetParams { IdNegocioPadre = negocioPadre.IdNegocio, IdNegocio = -1 };
+            var getParam = new NegociosGetParams { IdNegocioPadre = negocioPadre.IdNegocio, IdNegocio = -1,  };
             mensajeError = string.Empty;
-            var result = GetNegocios(getParam).FirstOrDefault();
-            var mashijos = GetNegocios(new NegociosGetParams {IdNegocioPadre=result.IdNegocio, IdNegocio=-1});
-            Assert.IsTrue(mensajeError == string.Empty, mensajeError);
+            var negociosYSuHijos = BLLPrestamo.Instance.GetNegocioYSusHijos(negocioPadre.IdNegocio);
+            Assert.IsTrue(negociosYSuHijos.Count()>0,$"No se encontraron hijos para el id negocio {negocioPadre.IdNegocio}");
         }
 
         [TestMethod()]
@@ -87,20 +98,70 @@ namespace PrestamoBLLTests
             negocioAActualizar.NombreComercial+= "Modificado";
             negocioAActualizar.Usuario = "NegocioTest";
             negocioAActualizar.InfoAccion = CreateInfoUAccion().ToJson();
+            negocioAActualizar.CorreoElectronico = "intagsa@hotmail.com";
             var nombreEsperado = negocioAActualizar.NombreComercial;
-            InsUpdNegocio(negocioAActualizar);
+            try
+            {
+                InsUpdNegocio(negocioAActualizar);
+            }
+            catch (Exception e)
+            {
+                mensajeError = e.Message;
+            }
+
+            
             var negocioActualizado = GetNegocioIntagsa(new NegociosGetParams { IdNegocio = negocioAActualizar.IdNegocio });
             Assert.IsTrue(negocioActualizado.NombreComercial==nombreEsperado, mensajeError);
         }
 
         [TestMethod()]
-        public void FailInsertDuplicateCodigo()
+        public void GetNegocios_PermitirOperaciones()
+        {
+            var getParam = new NegociosGetParams { IdNegocio = -1, PermitirOperaciones=1, Usuario=TestInfo.Usuario };
+            mensajeError = "No se encontro informacion";
+            var result = GetNegocios(getParam);
+            Assert.IsTrue(result.Count() > 0 && result.FirstOrDefault().PermitirOperaciones, mensajeError);
+        }
+
+        [TestMethod()]
+        public void GetNegociosPadres()
+        {
+            var result = BLLPrestamo.Instance.GetNegocioySusPadres(3);
+            Assert.IsTrue(result.Count() > 0, "no se obtuvieron resultados");
+        }
+        [TestMethod()]
+        public void GetNegociosSinNegociosPadres()
+        {
+            var result = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            Assert.IsTrue(result.Count() > 0, "no se obtuvieron resultados");
+        }
+        [TestMethod()]
+        public void GetNegocioMatriz()
+        {
+            var result = BLLPrestamo.Instance.GetNegocioMatriz(12);
+            Assert.IsTrue(result > 0, "no se obtuvieron resultados");
+        }
+
+        [TestMethod()]
+        public void GetNegocios_NotPermitirOperaciones()
+        {
+            var getParam = new NegociosGetParams { IdNegocio = -1, PermitirOperaciones = 0, Usuario = TestInfo.Usuario };
+            mensajeError = "No se econtro informacion";
+            var result = GetNegocios(getParam);
+            Assert.IsTrue(result.Count() > 0 && !result.FirstOrDefault().PermitirOperaciones, mensajeError);
+        }
+
+
+
+        [TestMethod()]
+        public void InsertDuplicateCodigo_HayError_true()
         {
             var negocio = GetNegocios(GetParamNegocioIntangsa()).FirstOrDefault();
             negocio.IdNegocio = 0;
             negocio.Usuario = "NegocioTest";
             negocio.TaxIdNo = negocio.TaxIdNo + "xxx";
             mensajeError = string.Empty;
+            bool ocurrioError = false;
             try
             {
                 InsUpdNegocio(negocio);
@@ -108,10 +169,53 @@ namespace PrestamoBLLTests
             catch (Exception e)
             {
                 mensajeError = e.Message;
-                Assert.Fail(mensajeError);
+                ocurrioError = true;
             }
-            Assert.IsTrue(string.IsNullOrEmpty(mensajeError));
+            Assert.IsTrue(ocurrioError, mensajeError);
         }
+        [TestMethod()]
+        public void SimulateLogin_Success()
+        {
+            var getNegociosTruncales = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            var selecMatriz = getNegociosTruncales.FirstOrDefault();
+            string loginName = "bryan";
+            int idNegocioMatriz = selecMatriz.IdNegocio;
+            string password = "1";
+            var login = BLLPrestamo.Instance.LoginUser(idNegocioMatriz,loginName,password);
+            Assert.IsTrue(login.ValidationMessage.UserValidationResult == UserValidationResult.Sucess, $"El loginName {loginName} para el negocio Matriz {idNegocioMatriz} con la contrasena {password} no fue exitoso revisar");
+        }
+
+        [TestMethod()]
+        public void SimulateLoginAndGetNegociosHijosQuePermitanOperaciones()
+        {
+            var getNegociosTruncales = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            var selecMatriz = getNegociosTruncales.FirstOrDefault();
+            string loginName = "bryan";
+            int idNegocioMatriz = selecMatriz.IdNegocio;
+            string password = "1";
+            var login = BLLPrestamo.Instance.LoginUser(idNegocioMatriz, loginName, password);
+            var negociosHijosQuePermitenOperaciones = new List<Negocio>();
+            if (login.ValidationMessage.UserValidationResult == UserValidationResult.Sucess)
+            {
+                var idNegocio = login.Usuario.IdNegocio;
+                var negociosHijos = BLLPrestamo.Instance.GetNegocioYSusHijos(idNegocio);
+                negociosHijosQuePermitenOperaciones = negociosHijos.Where(neg => neg.PermitirOperaciones).ToList();
+            }
+        }
+
+        [TestMethod()]
+        public void SimulateLogin_NotFoundByProvidingANonValidIdNegocioMatriz()
+        {
+            var getNegociosTruncales = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            var selecMatriz = getNegociosTruncales.LastOrDefault();
+            string loginName = "bryan";
+            int idNegocioMatriz = selecMatriz.IdNegocio;
+            string password = "1";
+            var login = BLLPrestamo.Instance.LoginUser(idNegocioMatriz, loginName, password);
+            Assert.IsTrue(login.ValidationMessage.UserValidationResult == UserValidationResult.NoUserFound, $"El loginName {loginName} para el negocio Matriz {idNegocioMatriz} con la contrasena {password} no fue exitoso revisar");
+
+        }
+
         [TestMethod()]
         public void ExistDataForTableTest()
         {
@@ -137,36 +241,44 @@ namespace PrestamoBLLTests
         string mensajeError = string.Empty;
         private static void createNegociosWithNegocioPadre()
         {
-            var negocioPadre = GetNegocios(GetParamNegocioIntangsa()).FirstOrDefault();
+            var negocioPadre = BLLPrestamo.Instance.GetNegociosMatrizRaiz().FirstOrDefault();
 
             var negocio1 = NewInstanceNegocioIntagsa();
+            var result = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { Codigo = negocio1.Codigo });
+            negocio1.Codigo = "Guaricano "+Guid.NewGuid().ToString();
             negocio1.IdNegocioPadre = negocioPadre.IdNegocio;
-            negocio1.NombreComercial = "Intagsa La Romana";
-            negocio1.Codigo = "IntLR00";
-            //InsUpdNegocio(negocio1);
-            negocioPadre = GetNegocios(new NegociosGetParams { Codigo = negocio1.Codigo, IdNegocio = -1 }).FirstOrDefault();
+            negocio1.NombreComercial = "Intagsa Santo Domingo";
+            negocio1.PermitirOperaciones = false;
+
+            var idNegocioSubMatrizPadre = InsUpdNegocio(negocio1);
+
+
             var negocio2 = NewInstanceNegocioIntagsa();
-            negocio2.IdNegocioPadre = negocioPadre.IdNegocio;
-            negocio2.NombreComercial = "Intagsa La Romana Prestamos";
-            negocio2.Codigo = "IntLR00-01";
+            negocio2.IdNegocioPadre = idNegocioSubMatrizPadre;
+            negocio2.NombreComercial = "Guaricano Prestamo";
+            negocio2.PermitirOperaciones = true;
+            negocio2.Codigo = "GP "+Guid.NewGuid().ToString();
+
             InsUpdNegocio(negocio2);
             var negocio3 = NewInstanceNegocioIntagsa();
-            negocio3.IdNegocioPadre = negocioPadre.IdNegocio;
-            negocio3.NombreComercial = "Intagsa La Romana Ventas";
-            negocio3.Codigo = "IntLR00-02";
+            negocio3.IdNegocioPadre = idNegocioSubMatrizPadre;
+            negocio3.NombreComercial = "Guaricano Ventas";
+            negocio3.Codigo = "GV "+Guid.NewGuid().ToString();
+            negocio3.PermitirOperaciones = true;
             InsUpdNegocio(negocio3);
         }
 
-        private static void InsUpdNegocio(Negocio negocio)
+        private static int InsUpdNegocio(Negocio negocio)
         {
-            BLLPrestamo.Instance.insUpdNegocio(negocio);
+            // attention: para retornar el id desde un stored procedure debemos usar siempre SCOPE_IDENTITY  porque devuelve el id que dentro de esa insersion fue realizado y no el id ultimo que en esa tabla se ha realizado
+            return BLLPrestamo.Instance.insUpdNegocio(negocio);
         }
 
         private static Negocio NewInstanceNegocioIntagsa()
         {
             var negocioInfo = new NegocioInfo { Direccion1 = "Prol. Gregorio Luperon no 12, Villa España", Direccion2 = "La Romana Rep. Dom.", Telefono1 = "809-813-1719" };
             InfoAccion infoAccion = CreateInfoUAccion();
-            var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo = "int001", OtrosDetalles = negocioInfo.ToJson(), Usuario = "TestProject", InfoAccion = infoAccion.ToJson() };
+            var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo = "int001", OtrosDetalles = negocioInfo.ToJson(), Usuario = "TestProject", InfoAccion = infoAccion.ToJson(), Logo = "papito.png" };
             return negocio;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,18 @@ namespace PrestamoBLL
 {
     public static class Utils
     {
+        public static int GetIdFromDataTable(DataTable objectContainingId)
+        {
+            return Convert.ToInt32(objectContainingId.Rows[0][0]);
+        }
+        public static string SaveFiles(string path, HttpPostedFileBase file)
+        {
+            var files = new List<HttpPostedFileBase>();
+            files.Add(file);
+            var result = Utils.SaveFiles(path, files);
+            return result.FirstOrDefault();
+
+        }
         /// <summary>
         /// 
         /// </summary>

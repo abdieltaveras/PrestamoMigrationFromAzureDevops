@@ -48,7 +48,12 @@ namespace PrestamoEntidades
         /// la informacion laboral en formato json
         /// </summary>
         public string InfoLaboral { get; set; } = string.Empty;
-        
+
+        /// <summary>
+        /// guarda el nombre de la imagen
+        /// </summary>
+        public string Imagen1FileName { get; set; } = string.Empty;
+
         public override  string  ToString()
         {
             //return $"{Codigo}: {Nombres } {Apellidos} {Codigo} ";

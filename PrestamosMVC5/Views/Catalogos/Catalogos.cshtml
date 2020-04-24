@@ -157,6 +157,8 @@
         </div>
     </div>
 </div>
+@section pagestyle {
+    <style scoped>
 
 
 @* CSS for Datatable *@
@@ -205,12 +207,13 @@
             let dataValue = { "Id": id, "IdTabla": idtabla, "NombreTabla": nombretabla };
             await $.ajax({
                 type: "get",
-                url: "/Catalogos/Delete",
+                url: "/Tests/Delete",
                 data: dataValue,
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
                 },
                 complete: function (jqXHR, status) {
+                    alert("borrado");
                 }
             });
             window.location.reload();
@@ -308,3 +311,4 @@
     }
 
 </script>
+}

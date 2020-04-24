@@ -5,8 +5,9 @@
     //Layout = "~/Views/Shared/_LayoutForms.cshtml";
 }
 
+/// attention : para que deshabilitar el autocomplete es necesario poner esta instruccion en el tag for y en el tag input em chrome autocomplete="dummy-no-auto-complete-fix"
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCreateCliente" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCreateCliente", autocomplete = "dummy-no-auto-complete-fix" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -92,6 +93,7 @@
     <script src="~/Scripts/Apps/setMask.js"></script>
 
     <script>
+        
         let searchLocalidadElem = $('#searchLocalidad');
         let formulario = $("#frmCreateCliente");
         let dateFormat = 'en-GB';

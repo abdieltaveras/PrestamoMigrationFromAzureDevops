@@ -13,7 +13,7 @@ namespace PrestamoBLL
         
         public IEnumerable<Cliente> ClientesGet(ClientesGetParams  searchParam)
         {
-            //GetValidation(searchParam as BaseGetParams);
+            GetValidation(searchParam as BaseGetParams);
             return BllAcciones.GetData<Cliente, ClientesGetParams>(searchParam, "spGetClientes", GetValidation);
         }
         public void ClientesInsUpd(Cliente insUpdParam)

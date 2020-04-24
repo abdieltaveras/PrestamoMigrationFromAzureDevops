@@ -11,6 +11,6 @@ BEGIN
 	from
 	tblLocalidades loc, tblTipoLocalidades tipo
 	where loc.IdTipoLocalidad = tipo.IdTipoLocalidad
-	and loc.IdNegocio = @IdNegocio
+	and loc.IdNegocio in (select idNegocio from fnGetNegocioAndPadres(@IdNegocio))
 	AND loc.Nombre LIKE '%' + @search + '%'	
 End

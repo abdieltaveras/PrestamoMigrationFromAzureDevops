@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
+
     public partial class BLLPrestamo
     {
         private static Database PrestamosDB => Database.AdHoc(ConexionDB.Server);
@@ -42,7 +43,8 @@ namespace PrestamoBLL
                 var valueColumna = ExtractValue(mensaje, index1);
                 mensaje = $"Error valor {valueColumna} duplicado en el campo {nombreColumna}, ya existe para otro registro";
             }
-            throw new Exception(mensaje);
+            
+            throw new Exception(mensaje,e);
         }
         private static string ExtractColumnName(string mensaje, int index1)
         {

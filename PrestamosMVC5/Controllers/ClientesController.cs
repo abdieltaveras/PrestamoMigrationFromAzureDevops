@@ -63,6 +63,9 @@ namespace PrestamosMVC5.Controllers
             ActionResult result;
             try
             {
+
+                var file = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), clienteVm.ImagenPrincipal);
+                clienteVm.Cliente.Imagen1FileName = file;
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
                 BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
