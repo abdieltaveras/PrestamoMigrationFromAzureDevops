@@ -3,11 +3,12 @@
 @{
     ViewBag.Title = "Crear Editar Clientes";
     //Layout = "~/Views/Shared/_LayoutForms.cshtml";
+    /// attention : para que deshabilitar el autocomplete es necesario poner esta instruccion en el tag for y en el tag input em chrome autocomplete="dummy-no-auto-complete-fix" -->
 }
 
-/// attention : para que deshabilitar el autocomplete es necesario poner esta instruccion en el tag for y en el tag input em chrome autocomplete="dummy-no-auto-complete-fix"
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmCreateCliente", autocomplete = "dummy-no-auto-complete-fix" }))
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCreateCliente", autocomplete = "dummy-no-auto-complete-fix" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -99,9 +100,10 @@
         let dateFormat = 'en-GB';
         let _dateFormat = 'dd/mm/yy';
         let yearRangeForDP = "-120:+0"
+        
         // convert model into a json object
         // todo how to convert model into json object inside rezor
-        // let model = @Html.Raw(Json.Encode(Model));
+        //let model = Html.Raw(Json.Encode(Model));
         // esta funcion esta aqui porque el archivo externo js no reconoce o entiende el las variables del modelo
         function setFecha(elem, name) {
             d = new Date();

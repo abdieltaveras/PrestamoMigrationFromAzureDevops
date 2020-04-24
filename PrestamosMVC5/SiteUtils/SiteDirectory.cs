@@ -20,7 +20,7 @@ namespace PrestamosMVC5.SiteUtils
         public static string SiteImages => "~/content/build/images";
         public static string ImagesForNegocio => "~/content/ImagesFor/Negocios";
         public static string ImagesForUsuario => "~/content/ImagesFor/Usuarios";
-        public static string ImagesForClientes => "~/content/ImagesFor/Clientess";
+        public static string ImagesForClientes => "~/content/ImagesFor/Clientes";
 
         public static string Gifs => "~/content/Site/Gifs";
         /// <summary>

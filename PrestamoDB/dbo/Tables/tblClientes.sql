@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblClientes]
 (
 	[IdCliente] INT NOT NULL PRIMARY KEY identity(1,1), 
+	[IdNegocio] INT NOT NULL, 
 	[Activo] bit default(1) not null,
 	[AnuladoPor] VARCHAR(100) NULL, 
 	[Apodo] varchar(100),
@@ -11,7 +12,7 @@
 	[FechaModificado] DATETIME NULL, 
 	[FechaInsertado] DateTime not null default getdate(), 
 	[FechaAnulado] DATETIME NULL, 
-	[IdNegocio] INT NOT NULL, 
+	
 	[IdTipoIdentificacion] INT NOT NULL, 
 	[IdTipoProfesionUOcupacion] INT NOT NULL, 
 	[InfoConyuge] VARCHAR(400),
@@ -26,6 +27,7 @@
 	[TelefonoMovil] VARCHAR(20) NOT NULL,
     [CorreoElectronico] VARCHAR(30) NOT NULL, 
 	Imagen1FileName varchar(50),
+	Imagen2FileName varchar(50),
     CONSTRAINT [FK_tblCliente_ToTblNegocios] FOREIGN KEY (IdNegocio) REFERENCES tblNegocios([IdNegocio]),
 	CONSTRAINT [FK_tblCliente_UQ_IdentificationNumber] Unique NonClustered(IdNegocio, IdTipoIdentificacion,NoIdentificacion),
 	CONSTRAINT [FK_tblCliente_UQ_Codigo] Unique NonClustered(IdNegocio, Codigo),

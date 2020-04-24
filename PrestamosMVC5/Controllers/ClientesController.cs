@@ -4,6 +4,8 @@ using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -55,17 +57,24 @@ namespace PrestamosMVC5.Controllers
             }
             return View(model);
         }
-
+        [HttpPost]
+        public void UploadImage(HttpPostedFileBase imagen)
+        {
+            var imagen1Cliente = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), imagen,"probando "+ Guid.NewGuid().ToString());
+        }
+        
         // POST: Clientes/Create
         [HttpPost]
         public ActionResult CreateOrEdit(ClienteModel clienteVm)
         {
+            
             ActionResult result;
             try
             {
-
-                var file = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), clienteVm.ImagenPrincipal);
-                clienteVm.Cliente.Imagen1FileName = file;
+                var fileName = Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), clienteVm.image1PreviewValue);
+                var imagen1Cliente = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), clienteVm.ImagenCliente1);
+                var imagen2Cliente = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), clienteVm.ImagenCliente2);
+                clienteVm.Cliente.Imagen1FileName = fileName;
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
                 BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";

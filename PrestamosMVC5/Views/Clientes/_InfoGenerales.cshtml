@@ -3,19 +3,29 @@
 @Html.HiddenFor(model => model.Cliente.IdNegocio)
 @Html.HiddenFor(model => model.Cliente.Codigo)
 @Html.HiddenFor(model => model.Cliente.Usuario)
+<style>
+    .hiddenfile {
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
+    }
+</style>
 <div class="clearfix"></div>
 <div class="row">
     <!-- form input mask -->
     <div class="col-md-6 col-sm-12  ">
         <div class="x_panel">
-            <h2>   Generales de la Persona </h2>
+            <h2>   Generales de la Persona</h2>
             <hr />
             <div class="x_content">
                 <br />
                 @*<form class="form-horizontal form-label-left">*@
                 <div class="@HtmlClass.FormGroupCls">
 
-                    @Html.LabelFor(model => model.Cliente.Codigo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    @Html.LabelFor(model => model.Cliente.Codigo, htmlAttributes: new
+               {
+                   @class = @HtmlClass.LabelCls
+               })
                     <div class="@HtmlClass.DivInputCls">
                         @Html.EditorFor(model => model.Cliente.Codigo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.Cliente.Codigo, "", new { @class = "text-danger" })
@@ -97,22 +107,74 @@
                         @Html.ValidationMessageFor(model => model.Cliente.FechaNacimiento, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                    <!--//Todo poner imagen dinamica esta estatica-->
-                    <div class="@HtmlClass.DivInputCls">
-                        <img id="imagePreview"
-                             src="@Url.Content(SiteImages.NoImage)" sstyle="margin:10px;height:20em; width:40em;" class="col-md-5 img-fluid" />
-                        <input id="imgInput" class=@HtmlClass.InputTextCls type="file" name="ImageUpLoad" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" style="display:none" />
+                </div>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <!--//Todo poner imagen dinamica esta estatica-->
+                        @{
+                            var image1Url = Url.Content(SiteImages.NoImage);
+                            var image2Url = Url.Content(SiteImages.NoImage);
+                            var imagen1Existe = false;
+                            var imagen2Existe = false;
+                            if (!string.IsNullOrEmpty(Model.Cliente.Imagen1FileName))
+                            {
+                                image1Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen1FileName);
+                                imagen1Existe = true;
+                            }
+                            if (!string.IsNullOrEmpty(Model.Cliente.Imagen2FileName))
+                            {
+                                image1Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen2FileName);
+                                imagen2Existe = true;
+                            }
+
+                        }
+                        <img id="image1Preview"
+                             src="@image1Url" name="image1Preview" style="height:20em; width:60em;" class="col-md-5 img-fluid" />
+                        @Html.HiddenFor(m => m.image1PreviewValue);
+                        <input id="@Html.NameFor(m=> m.ImagenCliente1)" class=@HtmlClass.InputTextCls type="file"
+                               
+                               name="@Html.NameFor(m=> m.ImagenCliente1)" accept="image/jpeg, image/png" capture="camera" 
+                               onchange="ShowImagePreview(this,'image1Preview',this.id)" style="display:none" />
+                               @*onchange="ShowImagePreview(this,document.getElementById('image1Preview'),this.id)" style="display:none" />*@
                         <div class="@HtmlClass.DivInputCls">
-                            <button id="imgbutton1"class="ml-5">+</button>
-                            <button id="imgbutton2">-</button>
-                            <span id="container"></span>
+                            <label id="ImagenPrincipal1Agregar" for="@Html.NameFor(m=> m.ImagenCliente1)" class="ml-4" 
+                                   style="display:@Html.Raw(imagen1Existe ? "none" : "block")"><span class="badge">Agregar</span></label>
+                            <label id="ImagenPrincipal1Quitar" for="ImagenPrincipal1" class="ml-4 text-warning" 
+                                   style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('ImagenPrincipal1','image1Preview')">Quitar</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <img id="image2Preview"
+                             src="@image2Url" style="height:20em; width:40em;" class="col-md-5 img-fluid" />
+                        <input id="@Html.NameFor(m=> m.ImagenCliente2)" class=@HtmlClass.InputTextCls type="file"
+                               name="@Html.NameFor(m=> m.ImagenCliente2)" accept="image/jpeg, image/png" capture="camera" onchange="ShowImagePreview(this,'image2Preview',this.id)" style="display:none" />
+                        <div class="@HtmlClass.DivInputCls">
+                            <label id="ImagenPrincipal2Agregar" for="@Html.NameFor(m=> m.ImagenCliente2)" class="ml-4" 
+                                   style="display:@Html.Raw(imagen2Existe ? "none" : "block")">Agregar</label>
+                            <label id="ImagenPrincipal2Quitar" for="@Html.NameFor(m=> m.ImagenCliente2)" class="ml-4 text-warning" 
+                                   style="display:@Html.Raw(imagen2Existe ? "block" : "none")" onclick="QuitarImagen(@Html.NameFor(m=> m.ImagenCliente2),'image2Preview')">Quitar</label>
+                            @*<span id="container"></span>*@
                         </div>
                     </div>
                 </div>
+                <script>
+                    function QuitarImagen(elemId, imageElemIdText) {
+                        console.log($(elemId, imageElemIdText));
+                        $("#"+imageElemIdText).attr("src", "@Url.Content(SiteImages.NoImage)");
+                        $("#" + elemId + "Agregar").toggle();
+                        $("#" + elemId + "Quitar").toggle();
+                        event.preventDefault();
+                    }
+                </script>
                 <div class="@HtmlClass.FormGroupCls">
-                    @Html.LabelFor(model => model.Cliente.TelefonoMovil, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    @Html.LabelFor(model => model.Cliente.TelefonoMovil, htmlAttributes: new
+                    {
+                        @class = @HtmlClass.LabelCls
+                        })
                     <div class="@HtmlClass.DivInputCls">
                         @Html.EditorFor(model => model.Cliente.TelefonoMovil, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
                         <span class="@HtmlClass.SpanfaphoneCls" aria-hidden="true"></</span>
@@ -140,7 +202,6 @@
     </div>
 </div>
 <script>
-    $('#imgbutton1').on('click', function() {
-    $('#imgInput').trigger('click');
-});
+    var _url = "@Url.Action("UploadImage","clientes")";
 </script>
+

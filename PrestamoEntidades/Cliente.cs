@@ -53,6 +53,7 @@ namespace PrestamoEntidades
         /// guarda el nombre de la imagen
         /// </summary>
         public string Imagen1FileName { get; set; } = string.Empty;
+        public string Imagen2FileName { get; set; } = string.Empty;
 
         public override  string  ToString()
         {

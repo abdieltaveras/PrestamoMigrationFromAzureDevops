@@ -33,10 +33,12 @@ namespace PrestamosMVC5.Models
         /// <summary>
         /// propiedad que guarda el contenido de la imagen
         /// </summary>
-        public HttpPostedFileBase ImagenPrincipal { get; set; }
+        public HttpPostedFileBase ImagenCliente1 { get; set; }
+        public HttpPostedFileBase ImagenCliente2 { get; set; }
+        public string image1PreviewValue { get; set; }
 
-        public IEnumerable<System.Web.HttpPostedFileBase> ImagesForCliente { get; set; }
+        //public IEnumerable<System.Web.HttpPostedFileBase> ImagesForCliente { get; set; }
 
-        public ImagesFor imgsForCliente => new ImagesFor("ImagesForCliente", "Clientes") { Qty = 3 };
+        //public ImagesFor imgsForCliente => new ImagesFor("ImagesForCliente", "Clientes") { Qty = 3 };
     }
 }
