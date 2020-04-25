@@ -1,14 +1,15 @@
-﻿function ShowImagePreview(imageUploader, previewImageElemIdText, elemId) {
-    $("#" + elemId + "Agregar").toggle();
-    $("#" + elemId + "Quitar").toggle();
+﻿function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText) {
+    console.log(elemToggleIdText);
+    $("#" + elemToggleIdText + "Agregar").toggle();
+    $("#" + elemToggleIdText + "Quitar").toggle();
     if (imageUploader.files && imageUploader.files[0]) {
         let imageElement = $("#" + previewImageElemIdText);
+        console.log(hiddenInputForImageElemIdText);
+        let inputTextElemForImage = $("#"+ hiddenInputForImageElemIdText);
         ConsoleLogWidthAndHeigthOfImage(imageElement);
         let orientation = -1;
         let num = 0;
-        uploadPhotos(imageElement, 300, num, imageUploader);
-        imgFile = imageUploader.files[0];
-        
+        uploadPhotos(imageElement, 1800, num, inputTextElemForImage);
         //compress(event, imageElement);
 
         ////codigo que funcionaba antes pero sin hacer resize
@@ -21,11 +22,11 @@
         //};
         //reader.readAsDataURL(imgFile);
         ////fin
-    
-    //console.log(fsize, orientation);
 
-    // https://stackoverflow.com/questions/24658365/img-tag-displays-wrong-orientation 
-}
+        //console.log(fsize, orientation);
+
+        // https://stackoverflow.com/questions/24658365/img-tag-displays-wrong-orientation 
+    }
 }
 
 
@@ -60,13 +61,11 @@ var dataURLToBlob = function (dataURL) {
 
 
 
-window.uploadPhotos = function (imgElem, MAX_SIZE, imgNum, imgFile) {
+window.uploadPhotos = function (imgElem, MAX_SIZE, imgNum, inputElemToSetResizedImage) {
     // Read in file
-    let fsize = imgFile.files[0].size;
-    console.log(fsize);
-    //var file = event.target.files[0];
-    var file = imgFile.files[0];
-    var fileName = imgFile.files[0].name;
+
+    var file = event.target.files[0];
+
     // Ensure it's an image
     if (file.type.match(/image.*/)) {
         console.log('An image has been loaded');
@@ -98,13 +97,10 @@ window.uploadPhotos = function (imgElem, MAX_SIZE, imgNum, imgFile) {
                 var dataUrl = canvas.toDataURL('image/jpeg');
                 //console.log(dataUrl);
                 imgElem.attr("src", dataUrl);
-                $("#image1PreviewValue").val(dataUrl);
+                inputElemToSetResizedImage.val(dataUrl);
+                //$("#image1PreviewValue").val(dataUrl);
                 //imgFile.setAttribute('value', dataUrl);
                 var resizedImage = dataURLToBlob(dataUrl);
-                
-                imgFile.files[0] = this.file;
-                fsize = imgFile.files[0].size;
-                console.log(fsize);
                 console.log(resizedImage);
                 $.event.trigger({
                     type: "imageResized",
@@ -115,17 +111,12 @@ window.uploadPhotos = function (imgElem, MAX_SIZE, imgNum, imgFile) {
 
             };
             image.src = readerEvent.target.result;
-            
+
             //imgElem.attr("src", image.src);
             //ConsoleLogWidthAndHeigthOfImage(imgElem);
         };
         //reader.readAsDataURL(file);
         reader.readAsDataURL(file);
-        console.log(reader);
-        //imgFile.files[0] = 
-        fsize = imgFile.files[0].size;
-        console.log(fsize);
-        //imgElem.attr("src", reader.file);
     }
 };
 

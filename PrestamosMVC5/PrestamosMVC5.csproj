@@ -189,6 +189,7 @@
     <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\SelectItems.cs" />
+    <Compile Include="SiteUtils\Constant.cs" />
     <Compile Include="SiteUtils\ImagesFor.cs" />
     <Compile Include="SiteUtils\SiteDirectory.cs" />
     <Compile Include="SiteUtils\SiteImages.cs" />
@@ -4022,6 +4023,7 @@
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="App_Code\TreeInfo.cshtml" />
     <None Include="Scripts\Apps\showImageTs.ts.revisar" />
+    <Content Include="Scripts\Apps\showImage,20200423.js" />
     <Content Include="Scripts\img.js" />
     <Content Include="Views\Tests\CheckBoxes.cshtml" />
     <Content Include="Views\Tests\Imagen.cshtml" />

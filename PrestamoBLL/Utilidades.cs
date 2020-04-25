@@ -17,7 +17,7 @@ namespace PrestamoBLL
         {
             return Convert.ToInt32(objectContainingId.Rows[0][0]);
         }
-        public static string SaveFiles(string path, HttpPostedFileBase file, string fileName="")
+        public static string SaveFiles(string path, HttpPostedFileBase file, string fileName = "")
         {
             var files = new List<HttpPostedFileBase>();
             files.Add(file);
@@ -41,7 +41,7 @@ namespace PrestamoBLL
                     {
                         try
                         {
-                            var filename= SaveFile(path, f, fileName);
+                            var filename = SaveFile(path, f, fileName);
                             fileNames.Add(filename);
                         }
                         catch (Exception e)
@@ -66,7 +66,7 @@ namespace PrestamoBLL
             }
             else
             {
-                _fileName = fileName + extension; 
+                _fileName = fileName + extension;
             }
             var fullpath = Path.Combine(path, _fileName);
             try
@@ -100,24 +100,38 @@ namespace PrestamoBLL
                 image = Image.FromStream(ms);
                 image.Save(fullPath);
             }
-            
+
             return image;
         }
 
         public static string SaveFile(string path, string base64Image)
         {
-            
             string fileName = string.Empty;
-            var extension = "jpeg";
-            fileName = Guid.NewGuid().ToString() +"."+ extension;
-            var fullpath = Path.Combine(path, fileName);
-            
-            int lengthtoremove = "data:Image/jpeg;base64,".Length;
-            string imgbasestring = base64Image.Remove(0, lengthtoremove);
-            File.WriteAllBytes(fullpath, Convert.FromBase64String(imgbasestring));
- 
-            //var imagen = convertBase64ToImage(base64Image, fullpath);
+            if (!string.IsNullOrEmpty(base64Image) && base64Image != Constant.NoImagen)
+            {
+                var extension = "jpeg";
+                fileName = Guid.NewGuid().ToString() + "." + extension;
+                var fullpath = Path.Combine(path, fileName);
+
+                int lengthtoremove = "data:Image/jpeg;base64,".Length;
+                string imgbasestring = base64Image.Remove(0, lengthtoremove);
+                File.WriteAllBytes(fullpath, Convert.FromBase64String(imgbasestring));
+
+                //var imagen = convertBase64ToImage(base64Image, fullpath);
+            }
             return fileName;
+        }
+
+        /// <summary>
+        /// define valores que se usaran como constantes para evitar errores de tipeados y otros
+        /// </summary>
+
+        public static class Constant
+        {
+            /// <summary>
+            /// El valor para cuando se quiera establecer que no hay imagen 
+            /// </summary>
+            public static string NoImagen => "no imagen";
         }
     }
 }

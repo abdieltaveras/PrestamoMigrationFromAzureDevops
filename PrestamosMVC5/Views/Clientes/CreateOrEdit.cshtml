@@ -6,27 +6,25 @@
     /// attention : para que deshabilitar el autocomplete es necesario poner esta instruccion en el tag for y en el tag input em chrome autocomplete="dummy-no-auto-complete-fix" -->
 }
 
-
-
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCreateCliente", autocomplete = "dummy-no-auto-complete-fix" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        <div class="row  col-md-10">
-            @*<button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" >Agregar <i class="fa fa-plus"></i></button>*@
-
-            @*<input id="btnNextTabPane" type="button" value="proximo panel" class="btn btn-outline-info" />*@
-            @*@Html.ActionLink("Listado Clientes", "Search", null, new { @class = "btn btn-outline-info" })*@
-            <span id="mensajeError" class="text-danger">@Model.MensajeError </span>
-        </div>
         @*navigation*@
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger", @id = "mensajeError" })
         <div class="">
             <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Formulario de cliente</h2>
+                        <h2>Datos Para el Cliente</h2>
+                        @{
+                            // attention colocar los mensajes de validation summary como hijo del la clase x_title , si se colocan antes que ella no son visibles
+
+                         }
+                        <div class="@HtmlClass.FormGroupCls">
+                            <div class="text-center @HtmlClass.DivInputCls" role="alert" id="mensajeError">
+                                @Html.ValidationSummary(true, " ", new { @id = "validationSummary", data_showerrorstime = @Html.Raw(ViewBag.ShowSummaryErrorsTime) })
+                            </div>
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -68,20 +66,20 @@
             </div>
 
             @*<div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-generales" role="tabpanel" aria-labelledby="nav-generales-tab">
-                        @Html.Partial("_infoGenerales", Model)
-                    </div>
-                    <div class="tab-pane fade show" id="nav-direccion" role="tabpanel" aria-labelledby="nav-direccion-tab">
-                        @Html.Partial("_infoDireccion", Model)
-                    </div>
-                     TODO: faltan campos como comentarios, etc.
-                    <div class="tab-pane fade show" id="nav-trabajo" role="tabpanel" aria-labelledby="nav-trabajo-tab">
-                        @Html.Partial("_infoLaboral", Model)
-                    </div>
-                    <div class="tab-pane fade show " id="nav-conyuge" role="tabpanel" aria-labelledby="nav-conyuge-tab">
-                        @Html.Partial("_infoConyuge", Model)
-                    </div>
-                </div>*@
+                <div class="tab-pane fade show active" id="nav-generales" role="tabpanel" aria-labelledby="nav-generales-tab">
+                    @Html.Partial("_infoGenerales", Model)
+                </div>
+                <div class="tab-pane fade show" id="nav-direccion" role="tabpanel" aria-labelledby="nav-direccion-tab">
+                    @Html.Partial("_infoDireccion", Model)
+                </div>
+                 TODO: faltan campos como comentarios, etc.
+                <div class="tab-pane fade show" id="nav-trabajo" role="tabpanel" aria-labelledby="nav-trabajo-tab">
+                    @Html.Partial("_infoLaboral", Model)
+                </div>
+                <div class="tab-pane fade show " id="nav-conyuge" role="tabpanel" aria-labelledby="nav-conyuge-tab">
+                    @Html.Partial("_infoConyuge", Model)
+                </div>
+            </div>*@
         </div>
     </div>
 }

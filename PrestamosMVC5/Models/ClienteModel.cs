@@ -2,6 +2,7 @@
 using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,14 +29,17 @@ namespace PrestamosMVC5.Models
                 throw new Exception("No puedo aceptar un cliente nulo");
             }
         }
-
-        public string NombreLocalidad { get; set; } = string.Empty;
+        [Display(Name ="Localidad Seleccionada")]
+        public string InputRutaLocalidad { get; set; } = string.Empty;
         /// <summary>
         /// propiedad que guarda el contenido de la imagen
         /// </summary>
         public HttpPostedFileBase ImagenCliente1 { get; set; }
         public HttpPostedFileBase ImagenCliente2 { get; set; }
-        public string image1PreviewValue { get; set; }
+        public string image1PreviewValue { get; set; } = string.Empty;
+        public string image2PreviewValue { get; set; } = string.Empty;
+
+        
 
         //public IEnumerable<System.Web.HttpPostedFileBase> ImagesForCliente { get; set; }
 

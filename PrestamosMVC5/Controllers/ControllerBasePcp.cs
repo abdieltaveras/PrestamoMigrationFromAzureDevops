@@ -21,7 +21,7 @@ namespace PrestamosMVC5.Controllers
         {
             base.Initialize(requestContext);
             //ViewBag.ShowSummaryErrorsTime = 11;
-            UpdViewBag_ShowSummaryErrorsTime(5);
+            UpdViewBag_ShowSummaryErrorsTime(8);
             UpdViewBag_ShowSideBar(true);
         }
 
@@ -89,6 +89,19 @@ namespace PrestamosMVC5.Controllers
         protected string GetErrorsFromModelStateAsString(ModelStateDictionary modelState)
         {
             var result = string.Join("; ", GetErrorsFromModelState(modelState).Select(x => x.ErrorMessage));
+            return result;
+        }
+        /// <summary>
+        /// Permite obtener el valor de una llave expexificada del TempData , valida si esta nula devuelve un 
+        /// objeto por defecto o devuelve el contenido convertido al tipo deseado
+        /// debe ser un objeto 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        protected T GetValueFromTempData<T>(string key) where T : class, new()
+        {
+            var result = (TempData[key] == null) ? new T() : TempData[key] as T;
             return result;
         }
     }

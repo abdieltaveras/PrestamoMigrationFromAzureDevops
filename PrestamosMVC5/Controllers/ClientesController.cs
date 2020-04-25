@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+
 namespace PrestamosMVC5.Controllers
 {
     [AuthorizeUser]
@@ -49,6 +50,7 @@ namespace PrestamosMVC5.Controllers
                 {
                     var data = searchResult.DataList.FirstOrDefault();
                     model = CreateClienteVm(false, data);
+                    TempData["Cliente"] = data;
                 }
                 else
                 {
@@ -60,6 +62,7 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public void UploadImage(HttpPostedFileBase imagen)
         {
+
             var imagen1Cliente = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), imagen,"probando "+ Guid.NewGuid().ToString());
         }
         
@@ -67,14 +70,15 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public ActionResult CreateOrEdit(ClienteModel clienteVm)
         {
-            
             ActionResult result;
             try
             {
-                var fileName = Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), clienteVm.image1PreviewValue);
-                var imagen1Cliente = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), clienteVm.ImagenCliente1);
-                var imagen2Cliente = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), clienteVm.ImagenCliente2);
-                clienteVm.Cliente.Imagen1FileName = fileName;
+                var clienteTempData = GetValueFromTempData<Cliente>("Cliente");
+                var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), clienteVm.image1PreviewValue);
+                var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), clienteVm.image2PreviewValue);
+                clienteVm.Cliente.Imagen1FileName = GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
+
+                clienteVm.Cliente.Imagen2FileName = GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
                 BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
@@ -82,12 +86,25 @@ namespace PrestamosMVC5.Controllers
             }
             catch (Exception e)
             {
-                clienteVm.MensajeError = "Ocurrio un error que no permite guardar el cliente, revisar";
+
+                ModelState.AddModelError("", "Ocurrio un error que no permite guardar el cliente, revisar");
                 result = View(clienteVm);
             }
             return result;
             //return RedirectToAction("Index");
         }
+
+        public string GetNameForFile(string imagen1ClienteFileName, string image1PreviewValue, string savedFileName)
+        {
+            string result = string.Empty;
+            if (image1PreviewValue != Constant.NoImagen)
+            { 
+                result = string.IsNullOrEmpty(imagen1ClienteFileName) ? savedFileName : imagen1ClienteFileName;
+            }
+            return result;
+        }
+
+
         // GET: Clientes/Edit/5
         public ActionResult Edit(int id)
         {
@@ -135,7 +152,7 @@ namespace PrestamosMVC5.Controllers
                 var localidadDelCliente = BLLPrestamo.Instance.LocalidadesGet(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad }).FirstOrDefault();
                 if (localidadDelCliente != null)
                 {
-                    clienteVm.NombreLocalidad = localidadDelCliente.Nombre;
+                    clienteVm.InputRutaLocalidad = localidadDelCliente.Nombre;
                 }
                 return clienteVm;
             }

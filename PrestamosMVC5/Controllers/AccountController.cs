@@ -136,7 +136,7 @@ namespace PrestamosMVC5.Controllers
             AuthInSession.SetOperacionesToUserSession(operacionesConAcceso);
         }
 
-        // attention prevent a method from being called by url declare private  son only another method in the controller will have access, REMEMBER TO SPECIFY the Vie by its name if it is not specified will call the view with the name of the method that was called from.
+        // attention prevent a method from being called by url declare private  so only another method in the controller will have access, REMEMBER TO SPECIFY the View by its name if it is not specified will call the view with the name of the method that was called from.
         
         [HttpGet]
         private ActionResult ElegirNegocioAOperar(int idNegocioMatriz, Usuario usuario, string returnUrl = "")

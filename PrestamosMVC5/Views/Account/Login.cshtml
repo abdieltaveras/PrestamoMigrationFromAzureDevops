@@ -26,7 +26,7 @@
                     @Html.ValidationSummary(true, "", new { @id = "validationSummary", data_showerrorstime = @Html.Raw(ViewBag.ShowSummaryErrorsTime) })
                 </div>
             </div>
-            // attention :  para mostrar contenido dentro de un objeto anbonimo debemos usar html.raw y luego enviar el valor dentro de un objeto anonimo asi new { @id = "validationSummary", data_showerrorstime =@Html.Raw(ViewBag.ShowSummaryErrorsTime)  })
+            // attention :  para mostrar contenido dentro de un objeto anonimo debemos usar html.raw y luego enviar el valor dentro de un objeto anonimo asi new { @id = "validationSummary", data_showerrorstime =@Html.Raw(ViewBag.ShowSummaryErrorsTime)  })
             @*<div class="@HtmlClass.FormGroupCls">
                 <input type="hidden" name="topvalidations" id="topvalidations" />
                 <div class="@HtmlClass.DivInputCls text-center">
