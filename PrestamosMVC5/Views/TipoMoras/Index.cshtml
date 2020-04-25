@@ -6,16 +6,21 @@
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo-mora-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
-                
-        
+
+
         <div class="x_panel">
             <div class="x_title">
                 <h2>Tabla de moras</h2>
-                
+
                 <div class="clearfix"></div>
             </div>
-            <div class="x_content">
-                <table class="table bulk_action ">
+
+
+
+            @* data *@
+
+            <div>
+                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th>Codigo</th>
@@ -94,9 +99,13 @@
                                 </td>
                             </tr>
                         }
+
                     </tbody>
                 </table>
             </div>
+
+            @* table *@
+
         </div>
     </div>
 </div>
@@ -114,7 +123,7 @@
             </div>
             <div class="modal-body">
                 <div class="x_panel">
-                    
+
                     <div class="x_content">
                         <br />
                         @using (Html.BeginForm("Index", "TipoMoras", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
@@ -216,10 +225,29 @@
 </div>
 <!-- Fin Modal -->
 
+@* CSS for Datatable *@
+<link rel="stylesheet" href="~/Content/customcss/datatable/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="~/Content/customcss/datatable/css/buttons.dataTables.min.css">
 
+@* JS for datatable *@
 
-<script type="text/javascript">
+<script src="~/Content/customcss/datatable/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/customcss/datatable/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/Content/customcss/datatable/js/dataTables.buttons.min.js"></script>
+<script src="~/Content/customcss/datatable/js/buttons.html5.min.js"></script>
 
+<script src="~/Content/customcss/datatable/js/jszip.min.js"></script>
+<script src="~/Content/customcss/datatable/js/vfs_fonts.js"></script>
+<script src="~/Content/customcss/datatable/js/buttons.print.min.js"></script>
+
+<script src="~/Content/customcss/datatable/configuration/js-conf/datatable-conf.js"></script>
+
+<script>
+     $(document).ready(function () {        
+        $('#datatable').DataTable( dataTableConfiguration );
+        removeTemplateConfiguration();
+    });
 </script>
 
-<script src="../vendors/iCheck/icheck.min.js" type="7970e1e113382da18ac5720e-text/javascript"></script>
+@*<script src="../vendors/iCheck/icheck.min.js" type="7970e1e113382da18ac5720e-text/javascript"></script>*@
+

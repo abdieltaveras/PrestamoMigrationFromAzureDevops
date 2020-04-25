@@ -35,3 +35,17 @@ img.center {
 .padZero {
     margin: 0.5px;
 }
+
+/*Estilos para datatable*/
+.delete-row {
+    color: #e92e2e;
+}
+
+thead tr {
+    height: 40px;
+}
+
+.paging_simple_numbers {
+    float: right;
+}
+/*Fin de estilos para datatable*/
