@@ -13,6 +13,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class UserController : ControllerBasePcp
     {
+        public UserController() : base()
+        {
+            UpdViewBag_LoadCssAndJsGrp2(true);
+        }
         #region Request
         // GET: User
         public ActionResult Index()
@@ -186,7 +190,7 @@ namespace PrestamosMVC5.Controllers
         #region Operations
         internal IEnumerable<Usuario> GetUsers()
         {
-            var usuarioGetParams = new UsuarioGetParams();
+            var usuarioGetParams = new UsuarioGetParams { IdNegocio = pcpUserIdNegocio };
             this.pcpSetUsuarioAndIdNegocioTo(usuarioGetParams);
             var usuarios = BLLPrestamo.Instance.GetUsuarios(usuarioGetParams);
             return usuarios;

@@ -14,6 +14,12 @@ namespace PrestamosMVC5.Controllers
     /// </summary>
     public class ControllerBasePcp : Controller
     {
+        public ControllerBasePcp()
+        {
+            UpdViewBag_ShowSummaryErrorsTime(8);
+            UpdViewBag_ShowSideBar(true);
+            UpdViewBag_LoadCssAndJsGrp2(false);
+        }
         public int ShowSummaryErrorsTime = 5;
 
         // indicate if user is authenticated
@@ -21,8 +27,11 @@ namespace PrestamosMVC5.Controllers
         {
             base.Initialize(requestContext);
             //ViewBag.ShowSummaryErrorsTime = 11;
-            UpdViewBag_ShowSummaryErrorsTime(8);
-            UpdViewBag_ShowSideBar(true);
+        }
+
+        protected void UpdViewBag_LoadCssAndJsGrp2(bool value)
+        {
+            ViewBag.LoadCssAndJsGrp2 = value;
         }
 
         /// <summary>
@@ -30,7 +39,7 @@ namespace PrestamosMVC5.Controllers
         /// the funcion multiply this value by 1000 to get time in seconds
         /// </summary>
         /// <param name="seconds"></param>
-        public void UpdViewBag_ShowSummaryErrorsTime(int seconds)
+        protected void UpdViewBag_ShowSummaryErrorsTime(int seconds)
         {
             ViewBag.ShowSummaryErrorsTime = seconds;
             

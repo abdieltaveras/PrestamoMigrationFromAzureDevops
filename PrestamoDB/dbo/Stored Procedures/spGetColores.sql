@@ -11,5 +11,5 @@ begin
 	FROM dbo.tblColores(nolock) 
 	where 
 		((@IdColor=-1) or (IdColor = @IdColor))
-		and ((@IdNegocio=-1) or (IdNegocio = @IdNegocio))
+		and IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio))
 End

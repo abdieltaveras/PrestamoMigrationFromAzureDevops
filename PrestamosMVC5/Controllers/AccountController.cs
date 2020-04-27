@@ -21,6 +21,10 @@ namespace PrestamosMVC5.Controllers
     // todo: valodar r creando el procedimiento de creacion de una compania donde debe crear un administrador inicial con unos parametros dados pero que permita inmediatament sometan un login name que indique que debe cambiar la contrasena debe automaticamente redirigir al usuario a ello no esperar que ponga la contrasena. sino habilitar que realice el cambio de inmediato revisar el procedimiento que sea seguro.
     public class AccountController : ControllerBasePcp
     {
+        public AccountController()
+        {
+            UpdViewBag_LoadCssAndJsGrp2(true);
+        }
         public ActionResult test(string returnUrl = "")
         {
             var param = new NegociosGetParams { IdNegocio = -1 };

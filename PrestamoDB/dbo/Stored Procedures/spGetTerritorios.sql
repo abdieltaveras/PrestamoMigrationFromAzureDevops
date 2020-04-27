@@ -17,7 +17,7 @@ select
 	left JOIN tblTipoLocalidades m ON m.IdTipoLocalidad = t.IdLocalidadPadre
 	where 
 		((@IdTipoLocalidad=-1) or (t.IdTipoLocalidad = @IdTipoLocalidad))
-		and ((@IdNegocio=-1) or (t.IdNegocio = @IdNegocio))
+		and ((@IdNegocio=-1) or (t.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio))))
 		and ((@IdLocalidadPadre=-1) or (t.IdLocalidadPadre = @IdLocalidadPadre))
 		and ((@Nombre='') or (t.Nombre=@Nombre))	
 	order by t.IdLocalidadPadre asc

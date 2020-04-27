@@ -11,5 +11,5 @@ begin
 	FROM dbo.tblMarcas(nolock) 
 	where 
 		((@IdMarca=-1) or (IdMarca = @IdMarca))
-		and ((@IdNegocio=-1) or (IdNegocio = @IdNegocio))
+		and IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio))
 End

@@ -16,5 +16,5 @@ begin
 		tblTipoLocalidades
 	WHERE
 		IdDivisionTerritorial = @IdDivisionTerritorial
-		AND IdNegocio = @IdNegocio;
+		AND IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio))
 End

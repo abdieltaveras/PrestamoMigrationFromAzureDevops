@@ -17,7 +17,7 @@ begin
 	FROM dbo.tblUsuarios(nolock) 
 	where 
 		((@idUsuario=-1) or (idUsuario = @IdUsuario))
-		and ((@idNegocio=-1) or (idNegocio in (select idNegocio from  dbo.fnGetNegocioAndHijos(@IdNegocio))))
+		and (idNegocio in (select idNegocio from  dbo.fnGetNegocioAndPadres(@IdNegocio)))
 		--and ((@idNegocio=-1) or (idNegocio =@idNegocio))
 		and ((@LoginName='') or (LoginName=@LoginName))
 		and ((@NombreRealCompleto='') or (NombreRealCompleto=@NombreRealCompleto))

@@ -34,7 +34,7 @@
             <hr />
             <div class="x_content">
                 <div class="form-group row" style="padding: 0%">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="Direccion_Calle">Localidad</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="Direccion_Calle">Localidad a buscar</label>
                     <div class="col-md-9 col-sm-9 col-xs-9" style="margin: auto;">
                         <input class="target form-control" type="text" id="searchLocalidad" name="searchLocalidad" placeholder="Busca una direccion" autocomplete="dummy-no-auto-complete-fix" />
                         @*<span id="rutadelocalidad"></span>*@
@@ -46,12 +46,17 @@
                             <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>*@
                     </div>
                 </div>
+                
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.InputRutaLocalidad, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
                         @*<input type="text" class="target form-control" id="InputRutaLocalidad" placeholder="Aqui cargara la ruta">*@
                         <mark>
-                            @Html.EditorFor(model => Model.InputRutaLocalidad, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = "true" } })
+                            @Html.EditorFor(model => Model.InputRutaLocalidad, new
+                            {
+                                htmlAttributes =
+                            new { @class = @HtmlClass.InputTextCls, @readonly = "true" }
+                            })
                         </mark>
                     </div>
                 </div>

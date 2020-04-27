@@ -11,6 +11,6 @@ BEGIN
 	FROM 
 		tblUsersRoles 
 	WHERE 
-		IdUser = @IdUsuario;
+		IdUser = @IdUsuario 
 
 End

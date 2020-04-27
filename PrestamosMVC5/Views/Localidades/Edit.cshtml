@@ -111,6 +111,7 @@ else if (ViewBag.errorMessage != null)
 </div>
 
 
+
 <script>
 
     let locations;
@@ -131,7 +132,7 @@ else if (ViewBag.errorMessage != null)
 
     function search(location) {
 
-        let dataValue = { "searchtotext": location };
+        let dataValue = { "textToSearch": location };
         let TipoDeLocalidadABuscar;
 
         return $.ajax({

@@ -18,7 +18,11 @@ namespace PrestamosMVC5.Controllers
     public class ClientesController : ControllerBasePcp
     {
         // GET: Clientes
-        
+
+        public ClientesController()
+        {
+            UpdViewBag_LoadCssAndJsGrp2(true);
+        }
         public ActionResult Index()
         {
             var clientes = GetClientes();

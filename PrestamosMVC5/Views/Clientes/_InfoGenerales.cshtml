@@ -113,52 +113,59 @@
                     @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
                 </div>
                 <div class="row ">
-                    <div class="col-md-6">
-                        <!--//Todo poner imagen dinamica esta estatica-->
-                        @{
-                            var image1Url = Url.Content(SiteImages.NoImage);
-                            var image2Url = Url.Content(SiteImages.NoImage);
-                            var imagen1Existe = false;
-                            var imagen2Existe = false;
-                            if (!string.IsNullOrEmpty(Model.Cliente.Imagen1FileName))
-                            {
-                                image1Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen1FileName);
-                                imagen1Existe = true;
-                            }
-                            if (!string.IsNullOrEmpty(Model.Cliente.Imagen2FileName))
-                            {
-                                image2Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen2FileName);
-                                imagen2Existe = true;
-                            }
-
+                    <!--//Todo poner imagen dinamica esta estatica-->
+                    @{
+                        var image1Url = Url.Content(SiteImages.NoImage);
+                        var image2Url = Url.Content(SiteImages.NoImage);
+                        var imagen1Existe = false;
+                        var imagen2Existe = false;
+                        if (!string.IsNullOrEmpty(Model.Cliente.Imagen1FileName))
+                        {
+                            image1Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen1FileName);
+                            imagen1Existe = true;
                         }
+                        if (!string.IsNullOrEmpty(Model.Cliente.Imagen2FileName))
+                        {
+                            image2Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen2FileName);
+                            imagen2Existe = true;
+                        }
+
+                    }
+                    
+
+                    <div class="col-md-6">
                         <img id="image1Preview"
-                             src="@image1Url" name="image1Preview" style="height:20em; width:60em;" class="col-md-5 img-fluid" />
-                        @Html.HiddenFor(m => m.image1PreviewValue);
+                             src="@image1Url" style="height:20em; width:60em;" class="img-fluid" />
+                        @Html.HiddenFor(m => m.image1PreviewValue)
                         <input id="@Html.IdFor(m=> m.ImagenCliente1)" class=@HtmlClass.InputTextCls type="file"
-                               name="@Html.NameFor(m=> m.ImagenCliente1)" accept="image/jpeg, image/png" capture="camera"
+                               name="@Html.IdFor(m=> m.ImagenCliente1)" accept="image/jpeg, image/png" capture="camera"
                                onchange="ShowImagePreview(this,'image1Preview','@Html.IdFor(m=> m.ImagenCliente1)', '@Html.IdFor(m => m.image1PreviewValue)')" style="display:none" />
-                        @*onchange="ShowImagePreview(this,document.getElementById('image1Preview'),this.id)" style="display:none" />*@
-                        <div class="@HtmlClass.DivInputCls">
-                            <label id="@Html.IdFor(m=> m.ImagenCliente1)Agregar" for="@Html.NameFor(m=> m.ImagenCliente1)" class="ml-4"
-                                   style="display:@Html.Raw(imagen1Existe ? "none" : "block")"><span class="badge">Agregar</span></label>
-                            <label id="@Html.IdFor(m=> m.ImagenCliente1)Quitar" " for="ImagenPrincipal1" class="ml-4 text-warning"
-                                   style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m => m.ImagenCliente1)','image1Preview', '@Html.IdFor(m => m.image1PreviewValue)')">Quitar</label>
+                        <div class="text-center">
+                            <label id="@Html.IdFor(m=> m.ImagenCliente1)Agregar" for="@Html.NameFor(m=> m.ImagenCliente1)" class="text-info"
+                                   style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
+                            <label id="@Html.IdFor(m=> m.ImagenCliente1)Quitar" for="@Html.NameFor(m=> m.ImagenCliente1)" class="text-danger"
+                                   style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenCliente1)','image1Preview','@Html.IdFor(m => m.image2PreviewValue)')">Quitar imagen</label>
+                            @*<span id="container"></span>*@
                         </div>
                     </div>
 
+
+
+
+
+
                     <div class="col-md-6">
                         <img id="image2Preview"
-                             src="@image2Url" style="height:20em; width:40em;" class="col-md-5 img-fluid" />
-                        @Html.HiddenFor(m => m.image2PreviewValue);
+                             src="@image2Url" style="height:20em; width:60em;" class="img-fluid" />
+                        @Html.HiddenFor(m => m.image2PreviewValue)
                         <input id="@Html.IdFor(m=> m.ImagenCliente2)" class=@HtmlClass.InputTextCls type="file"
                                name="@Html.IdFor(m=> m.ImagenCliente2)" accept="image/jpeg, image/png" capture="camera"
                                onchange="ShowImagePreview(this,'image2Preview','@Html.IdFor(m=> m.ImagenCliente2)', '@Html.IdFor(m => m.image2PreviewValue)')" style="display:none" />
-                        <div class="@HtmlClass.DivInputCls">
-                            <label id="@Html.IdFor(m=> m.ImagenCliente2)Agregar" for="@Html.NameFor(m=> m.ImagenCliente2)" class="ml-4"
-                                   style="display:@Html.Raw(imagen2Existe ? "none" : "block")">Agregar</label>
-                            <label id="@Html.IdFor(m=> m.ImagenCliente2)Quitar" for="@Html.NameFor(m=> m.ImagenCliente2)" class="ml-4 text-warning"
-                                   style="display:@Html.Raw(imagen2Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenCliente2)','image2Preview','@Html.IdFor(m => m.image2PreviewValue)')">Quitar</label>
+                        <div class="text-center">
+                            <label id="@Html.IdFor(m=> m.ImagenCliente2)Agregar" for="@Html.NameFor(m=> m.ImagenCliente2)" class="text-info"
+                                   style="display:@Html.Raw(imagen2Existe ? "none" : "block")">Agregar imagen</label>
+                            <label id="@Html.IdFor(m=> m.ImagenCliente2)Quitar" for="@Html.NameFor(m=> m.ImagenCliente2)" class="text-danger"
+                                   style="display:@Html.Raw(imagen2Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenCliente2)','image2Preview','@Html.IdFor(m => m.image2PreviewValue)')">Quitar imagen</label>
                             @*<span id="container"></span>*@
                         </div>
                     </div>
@@ -185,7 +192,6 @@
                         @Html.ValidationMessageFor(model => model.Cliente.TelefonoMovil, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.TelefonoCasa, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">

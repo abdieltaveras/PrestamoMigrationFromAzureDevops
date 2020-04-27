@@ -18,13 +18,11 @@ AS
         loc.Nombre,
 		loc.IdTipoLocalidad,
         loc.IdLocalidadPadre,
-		
 		tipo.Nombre as Descripcion
     FROM
         tblLocalidades loc, tblTipoLocalidades tipo
     WHERE loc.IdLocalidad = @idlocalidad
 	AND tipo.IdTipoLocalidad = loc.IdTipoLocalidad
-
     UNION ALL
     -- Recursive member that references recursion_location.
 

@@ -10,6 +10,7 @@ FROM dbo.tblEquipos
 where 
 	(@IdEquipo <= -1 or IdEquipo = @idEquipo) and
 	(@Codigo ='' or Codigo=@Codigo) and
-	(@IdNegocio<=-1  or IdNegocio=@IdNegocio)
+	(IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
+
 	
 

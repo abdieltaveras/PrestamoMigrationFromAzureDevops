@@ -11,6 +11,6 @@ BEGIN
 		tblLocalidades
 	WHERE 
 		IdLocalidad = @IdLocalidad
-		and IdNegocio = @IdNegocio
+		and IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)) 
 End
 
