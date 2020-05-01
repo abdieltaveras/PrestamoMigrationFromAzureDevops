@@ -70,7 +70,7 @@ namespace PrestamosMVC5.SiteUtils
         public static string GetUserImageFilePath(HttpSessionStateBase sessionState = null)
         {
             var imageFile = getKeyValue(UsuarioImageFile);
-            return imageFile == null ? SiteImages.NoImage : SiteDirectory.ImagesForUsuario + "/" + imageFile;
+            return imageFile == null ? SiteImages.NoImage : SiteDirectory.ImagesForUsuarios + "/" + imageFile;
         }
         
         // to retrieve IdNegocio value from session
@@ -104,7 +104,7 @@ namespace PrestamosMVC5.SiteUtils
         public static string GetNegocioLogo(HttpSessionStateBase sessionState = null)
         {
             object data = getKeyValue(NegocioLogoKey);
-            var returnValue = data == null ? SiteImages.NoImage : SiteDirectory.ImagesForNegocio+"/"+ data.ToString();
+            var returnValue = data == null ? SiteImages.NoImage : SiteDirectory.ImagesForNegocios+"/"+ data.ToString();
             return returnValue;
         }
         public static void LoginUserToSession(int idNegocio, string usuario, int idUsuario, string usuarioNombreReal,  string userImageFilePath)

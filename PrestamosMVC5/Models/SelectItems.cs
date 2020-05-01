@@ -36,7 +36,7 @@ namespace PrestamosMVC5.Models
         public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
         public static SelectList Negocios(string usuario, int permitirOperaciones, int idNegocio) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, PermitirOperaciones = permitirOperaciones, Usuario = usuario }), "IdNegocio", "NombreComercial");
 
-        public static SelectList NegociosMatrizRaiz() => new SelectList(BLLPrestamo.Instance.GetNegociosMatrizRaiz(), "IdNegocio", "NombreComercial");
+        public static SelectList NegociosMatrizRaiz() => new SelectList(BLLPrestamo.Instance.NegocioGetLosQueSonMatriz(), "IdNegocio", "NombreComercial");
 
         public static SelectList NegociosOperacionalesForMatriz(int idNegocioPadre) => new SelectList(BLLPrestamo.Instance.GetNegocioYSusHijos(idNegocioPadre).Where(neg => neg.PermitirOperaciones), "IdNegocio", "NombreComercial");
 

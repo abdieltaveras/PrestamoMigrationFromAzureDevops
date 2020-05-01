@@ -92,8 +92,10 @@ namespace PrestamosMVC5.Models
 
         public IEnumerable<Role> RoleList { get; set; }
         public string[] SelectedRoles { get; set; }
+
+        public string image1PreviewValue { get; set; } = string.Empty;
+
+        public string ImagenUsuario1 { get; set; } = string.Empty;
+
     }
-
-
-
 }

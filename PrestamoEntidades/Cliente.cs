@@ -31,10 +31,11 @@ namespace PrestamoEntidades
         public string TelefonoMovil { get; set; } = string.Empty;
         [Display(Name = "Telefono Casa")]
         public string TelefonoCasa { get; set; } = string.Empty;
+
         [Display(Name = "Correo Electronico")]
-        [EmailAddress(ErrorMessage ="correo electronico invalido")]
+        //[EmailAddress(ErrorMessage ="correo electronico invalido")]
         public string CorreoElectronico { get; set; } = string.Empty;
-        [Display(Name = "Estado Civil")]
+        [Display(Name = "Estado Civil Legal")]
         public int EstadoCivil { get; set; } = 0;
         //<summary>
         //son los datos en formato string que son traidos de las tablas
@@ -55,6 +56,9 @@ namespace PrestamoEntidades
         public string Imagen1FileName { get; set; } = string.Empty;
         public string Imagen2FileName { get; set; } = string.Empty;
 
+        [Display(Name ="Tiene Pareja o Conyuge")]
+        public bool TieneConyuge { get; set; }
+                
         public override  string  ToString()
         {
             //return $"{Codigo}: {Nombres } {Apellidos} {Codigo} ";

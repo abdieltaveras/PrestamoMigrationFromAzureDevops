@@ -20,7 +20,7 @@ namespace PrestamoBLLTests
             mensajeError = string.Empty;
             try
             {
-                BLLPrestamo.Instance.insUpdCuotas(CreateCuotas()); ;
+                BLLPrestamo.Instance.CuotasinsUpd(CreateCuotas()); ;
             }
             catch (Exception e)
             {

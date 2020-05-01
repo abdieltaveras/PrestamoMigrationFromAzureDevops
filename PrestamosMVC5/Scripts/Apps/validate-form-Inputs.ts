@@ -8,30 +8,32 @@ $(document).ready(function () {
     //let allDateElems = $('input[type="datetime"]');
 
     // la clave para que valide todos los inputs
-    
+
     // como validar todos los inputs
     // validat los inputs dentro de un tab pane no enfocado
-    
+
     // declare variables
     let validForm = false;
     let d = new Date();
     $("#btnSubmit").click(function () {
         //alert("submit 2");
-        formulario.validate().settings.ignore = "";    
+        formulario.validate().settings.ignore = "";
         let isValidForm = true;
         $('input[data-val="true"]').each(function (index, value) {
             let elem = $(this);
-            turnOnOffValidations(elem);
-            let isValid = elem.valid();
-            let elemName = elem.attr("id");
-            if (!isValid) {
-                isValidForm = false;
-                console.log(elemName + " " + isValid);
+            turnOnOffValidationOnElem(elem);
+            if (elem.attr("data-val") == "true") {
+                let isValid = elem.valid();
+                let elemName = elem.attr("id");
+                if (!isValid) {
+                    isValidForm = false;
+                    console.log(elemName + " " + isValid);
+                }
             }
         });
         var validform = formulario.validate();
         //console.log(isValidForm);
-        formulario.validate({ ignore : ":hidden" });
+        formulario.validate({ ignore: ":hidden" });
         if (isValidForm) {
             formulario.submit(); // Submit the form
         }

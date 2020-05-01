@@ -28,7 +28,7 @@ namespace PrestamoBLLTests
             string loginNameOfUsuario = string.Empty;
             try
             {
-                var usuario = BLLPrestamo.Instance.GetUsuarios(getUser).FirstOrDefault();
+                var usuario = BLLPrestamo.Instance.UsuariosGet(getUser).FirstOrDefault();
                 loginNameOfUsuario = usuario.LoginName;
             }
             catch (Exception e)
@@ -55,7 +55,7 @@ namespace PrestamoBLLTests
         private void UpdateSuccessUser(Usuario usr)
         {
             usr.IdUsuario = GetSuccesUserCreateIfNotExist().IdUsuario;
-            BLLPrestamo.Instance.InsUpdUsuario(usr);
+            BLLPrestamo.Instance.UsuarioInsUpd(usr);
         }
 
         [TestMethod()]
@@ -63,15 +63,15 @@ namespace PrestamoBLLTests
         {
             this.errorMensaje = string.Empty;
             var usr = UsuarioTests.NewSuccessUserInstance;
-            var usuario = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio }).FirstOrDefault();
+            var usuario = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio }).FirstOrDefault();
             SetUsuario(usuario);
             var expectedNombreReal = "Modificado " + DateTime.Now.ToString();
             usuario.NombreRealCompleto = expectedNombreReal;
             string currentNombreRealCompleto = string.Empty;
             try
             {
-                BLLPrestamo.Instance.InsUpdUsuario(usuario);
-                var usuarios = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio });
+                BLLPrestamo.Instance.UsuarioInsUpd(usuario);
+                var usuarios = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio });
                 currentNombreRealCompleto = usuarios.FirstOrDefault().NombreRealCompleto;
 
             }
@@ -87,7 +87,7 @@ namespace PrestamoBLLTests
         {
             this.errorMensaje = string.Empty;
             var usr = UsuarioTests.NewSuccessUserInstance;
-            var usuario = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio }).FirstOrDefault();
+            var usuario = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio }).FirstOrDefault();
             SetUsuario(usuario);
             var contraseñaExpected = "5856256";
             var changeP = new ChangePassword { Contraseña = contraseñaExpected, IdUsuario = usuario.IdUsuario, Usuario = "bllTest" };
@@ -114,7 +114,7 @@ namespace PrestamoBLLTests
             var expected = UserValidationResult.NoUserFound;
             string loginName = "bryan";
             var search = new UsuarioGetParams { LoginName = loginName, IdNegocio=-1 };
-            var Result = BLLPrestamo.Instance.GetUsuarios(search);
+            var Result = BLLPrestamo.Instance.UsuariosGet(search);
             var idNegocio = Result.FirstOrDefault().IdNegocio;
             if (Result.Count() > 0)
             {
@@ -151,7 +151,7 @@ namespace PrestamoBLLTests
         private static Usuario GetSuccesUserCreateIfNotExist()
         {
             var usr = UsuarioTests.NewSuccessUserInstance;
-            var usuario = BLLPrestamo.Instance.GetUsuarios(
+            var usuario = BLLPrestamo.Instance.UsuariosGet(
                 new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = 1 })
                 .FirstOrDefault();
             if (usuario != null)
@@ -160,7 +160,7 @@ namespace PrestamoBLLTests
             }
             else
             {
-                BLLPrestamo.Instance.InsUpdUsuario(usr);
+                BLLPrestamo.Instance.UsuarioInsUpd(usr);
             }
             return usuario;
         }
@@ -195,7 +195,7 @@ namespace PrestamoBLLTests
             var usuario = GetSuccesUserCreateIfNotExist();
             cambiarValor(usuario);
             //usuario.DebeCambiarContraseña = true;
-            BLLPrestamo.Instance.InsUpdUsuario(usuario);
+            BLLPrestamo.Instance.UsuarioInsUpd(usuario);
             var userValResult = BLLPrestamo.Instance.LoginUser(1, usuario.LoginName, UsuarioTests.NewSuccessUserInstance.Contraseña);
             Assert.IsTrue(userValResult.ValidationMessage.UserValidationResult == expected, $"Se esperaba {expected} y se obtuvo {userValResult.ValidationMessage.UserValidationResult.ToString()}");
         }

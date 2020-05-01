@@ -118,7 +118,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Imagen(InfoConImagen infoConImagen)
         {
             ActionResult result = null;
-            var files = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), infoConImagen.ImagesForCliente).ToList();
+            var files = Utils.SaveFiles(Server.MapPath(SiteDirectory.ImagesForClientes), infoConImagen.ImagesForCliente).ToList();
             var mensaje = string.Empty;
             files.ToList().ForEach(f =>
             {

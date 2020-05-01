@@ -55,7 +55,7 @@ namespace PrestamosMVC5.Controllers
             model.Password = "1";
             model.ValidateCaptcha = false;
 #endif
-            var negociosMatriz = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            var negociosMatriz = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             model.SoloHayUnNegocioMatriz = negociosMatriz.Count() == 1;
 
             if (model.SoloHayUnNegocioMatriz)
@@ -227,7 +227,7 @@ namespace PrestamosMVC5.Controllers
             {
                 model.LoginName = AuthInSession.IsAnonimousUser ? model.LoginName : AuthInSession.GetLoginName();
                 var searchData = new UsuarioGetParams { IdNegocio = model.IdNegocio, LoginName = model.LoginName };
-                var usuario = BLLPrestamo.Instance.GetUsuarios(searchData).FirstOrDefault();
+                var usuario = BLLPrestamo.Instance.UsuariosGet(searchData).FirstOrDefault();
                 model.IdUsuario = usuario.IdUsuario;
                 var data = new ChangePassword { Contraseña = model.Contraseña, Usuario = model.LoginName, IdUsuario = model.IdUsuario };
                 BLLPrestamo.Instance.UsuarioChangePassword(data);

@@ -1,4 +1,16 @@
-﻿function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText) {
+﻿let _urlNoImage = urlNoImage;
+let _constantNoImagen = constantNoImagen;
+
+function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
+    //console.log(elemId, imageElemIdText);
+    console.log(_urlNoImage, _constantNoImagen);
+    $("#" + imageElemIdText).attr("src", _urlNoImage);
+    $("#" + elemId + "Agregar").toggle();
+    $("#" + elemId + "Quitar").toggle();
+    $("#" + hiddeInputImgElemText).val(_constantNoImagen);
+    event.preventDefault();
+}
+function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText) {
     console.log(elemToggleIdText);
     $("#" + elemToggleIdText + "Agregar").toggle();
     $("#" + elemToggleIdText + "Quitar").toggle();
@@ -102,16 +114,15 @@ window.uploadPhotos = function (imgElem, MAX_SIZE, imgNum, inputElemToSetResized
                 //imgFile.setAttribute('value', dataUrl);
                 var resizedImage = dataURLToBlob(dataUrl);
                 console.log(resizedImage);
-                $.event.trigger({
-                    type: "imageResized",
-                    blob: resizedImage,
-                    num: imgNum,
-                    url: _url
-                });
+                //$.event.trigger({
+                //    type: "imageResized",
+                //    blob: resizedImage,
+                //    num: imgNum,
+                //    url: _url
+                //});
 
             };
             image.src = readerEvent.target.result;
-
             //imgElem.attr("src", image.src);
             //ConsoleLogWidthAndHeigthOfImage(imgElem);
         };
@@ -183,3 +194,4 @@ function compress(e, imgElem) {
     };
 
 }
+

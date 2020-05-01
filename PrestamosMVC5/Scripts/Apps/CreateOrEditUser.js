@@ -131,7 +131,7 @@ function onLimitarVigenciaDeCuentaChange() {
     ;
     // *** elemLimitarVigenciaDeCuenta.prop({ value: limitarVigencia });
 }
-function turnOnOffValidations(elem) {
+function turnOnOffValidationOnElem(elem) {
     var propName = elem.prop("name");
     if (propName === "Contraseña" || propName === "ConfirmarContraseña") {
         if (elemDebeCambiarContrasenaAlIniciarSesion.is(':checked')) {

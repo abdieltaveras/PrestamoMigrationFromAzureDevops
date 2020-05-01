@@ -46,22 +46,26 @@
                             <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>*@
                     </div>
                 </div>
-                
+
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.InputRutaLocalidad, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
                         @*<input type="text" class="target form-control" id="InputRutaLocalidad" placeholder="Aqui cargara la ruta">*@
                         <mark>
-                            @Html.EditorFor(model => Model.InputRutaLocalidad, new
+                            <textarea id="@Html.IdFor(model => Model.InputRutaLocalidad)" name="@Html.NameFor(model => Model.InputRutaLocalidad)"
+                                      class="@HtmlClass.TextAreaResizableCls" readonly value ="@Model.InputRutaLocalidad">@Model.InputRutaLocalidad</textarea>
+
+                            
+                            @*@Html.EditorFor(model => Model.InputRutaLocalidad, new
                             {
                                 htmlAttributes =
                             new { @class = @HtmlClass.InputTextCls, @readonly = "true" }
-                            })
+                            })*@
                         </mark>
+                        @Html.HiddenFor(model => model.Direccion.IdLocalidad)
+                        @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-                @Html.HiddenFor(model => model.Direccion.IdLocalidad)
                 @*<input type="hidden" class="target form-control" name="Direccion.IdLocalidad" id="Direccion_IdLocalidad" />*@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Direccion.Calle, htmlAttributes: new { @class = @HtmlClass.LabelCls })
@@ -71,7 +75,6 @@
                         <span class="@HtmlClass.SpanAddressDetailCls" aria-hidden="true"></</span>
                     </div>
                 </div>
-
 
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Direccion.CodigoPostal, htmlAttributes: new { @class = @HtmlClass.LabelCls })

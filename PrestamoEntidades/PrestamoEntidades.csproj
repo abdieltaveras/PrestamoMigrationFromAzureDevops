@@ -90,6 +90,7 @@
     <Compile Include="BaseGetParams.cs" />
     <Compile Include="BaseInsUpd.cs" />
     <Compile Include="Catalogo.cs" />
+    <Compile Include="Codeudor.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Conyuge.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />
     <Compile Include="Operacion.cs" />
+    <Compile Include="Prestamo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="TipoSexo.cs" />
     <Compile Include="TipoTelefono.cs" />

@@ -22,6 +22,7 @@ namespace PrestamosMVC5.Controllers
         public ClientesController()
         {
             UpdViewBag_LoadCssAndJsGrp2(true);
+            UpdViewBag_ShowSummaryErrorsTime(10);
         }
         public ActionResult Index()
         {
@@ -53,7 +54,7 @@ namespace PrestamosMVC5.Controllers
                 if (searchResult.DatosEncontrados)
                 {
                     var data = searchResult.DataList.FirstOrDefault();
-                    model = CreateClienteVm(false, data);
+                    model = CreateClienteVm(EsNuevo:false, data);
                     TempData["Cliente"] = data;
                 }
                 else
@@ -67,22 +68,34 @@ namespace PrestamosMVC5.Controllers
         public void UploadImage(HttpPostedFileBase imagen)
         {
 
-            var imagen1Cliente = Utils.SaveFiles(Server.MapPath(ImagePath.ForCliente), imagen,"probando "+ Guid.NewGuid().ToString());
+            var imagen1Cliente = Utils.SaveFiles(Server.MapPath(SiteDirectory.ImagesForClientes), imagen,"probando "+ Guid.NewGuid().ToString());
         }
         
         // POST: Clientes/Create
         [HttpPost]
         public ActionResult CreateOrEdit(ClienteModel clienteVm)
         {
+
+            if (!clienteVm.Cliente.TieneConyuge)
+            {
+                ModelState.Remove("Conyuge.Nombres");
+                ModelState.Remove("Conyuge.Apellidos");
+            }
+            if (!ModelState.IsValid)
+            {
+                var modError = GetErrorsFromModelState(ModelState);
+                ModelState.AddModelError("", "revise los tabs algo debe faltar o no haberse digitado bien en algun campo");
+                return View(clienteVm);
+            }
             ActionResult result;
             try
             {
                 var clienteTempData = GetValueFromTempData<Cliente>("Cliente");
-                var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), clienteVm.image1PreviewValue);
-                var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), clienteVm.image2PreviewValue);
-                clienteVm.Cliente.Imagen1FileName = GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
+                var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.image1PreviewValue);
+                var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.image2PreviewValue);
+                clienteVm.Cliente.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
 
-                clienteVm.Cliente.Imagen2FileName = GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
+                clienteVm.Cliente.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
                 BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
@@ -98,15 +111,7 @@ namespace PrestamosMVC5.Controllers
             //return RedirectToAction("Index");
         }
 
-        public string GetNameForFile(string imagen1ClienteFileName, string image1PreviewValue, string savedFileName)
-        {
-            string result = string.Empty;
-            if (image1PreviewValue != Constant.NoImagen)
-            { 
-                result = string.IsNullOrEmpty(imagen1ClienteFileName) ? savedFileName : imagen1ClienteFileName;
-            }
-            return result;
-        }
+        
 
 
         // GET: Clientes/Edit/5
@@ -153,10 +158,11 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
                 pcpSetUsuarioTo(clienteVm.Cliente);
-                var localidadDelCliente = BLLPrestamo.Instance.LocalidadesGet(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad }).FirstOrDefault();
+                var localidadDelCliente = BLLPrestamo.Instance.LocalidadGetFullName(clienteVm.Direccion.IdLocalidad);
                 if (localidadDelCliente != null)
                 {
-                    clienteVm.InputRutaLocalidad = localidadDelCliente.Nombre;
+                    clienteVm.InputRutaLocalidad = localidadDelCliente;
+                        //localidadDelCliente.Nombre;
                 }
                 return clienteVm;
             }

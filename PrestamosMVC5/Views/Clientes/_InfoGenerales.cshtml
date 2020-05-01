@@ -4,6 +4,8 @@
 @Html.HiddenFor(model => model.Cliente.IdNegocio)
 @Html.HiddenFor(model => model.Cliente.Codigo)
 @Html.HiddenFor(model => model.Cliente.Usuario)
+@Html.HiddenFor(model => model.Cliente.Imagen1FileName)
+@Html.HiddenFor(model => model.Cliente.Imagen2FileName)
 <style>
     .hiddenfile {
         width: 0px;
@@ -70,6 +72,14 @@
                 </div>
 
                 <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => model.Cliente.TieneConyuge, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    <div class="@HtmlClass.DivInputCls">
+                        @Html.EditorFor(model => model.Cliente.TieneConyuge, new
+                   { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                        @Html.ValidationMessageFor(model => model.Cliente.TieneConyuge, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.Sexo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
                         Masculino
@@ -129,9 +139,7 @@
                             image2Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen2FileName);
                             imagen2Existe = true;
                         }
-
                     }
-                    
 
                     <div class="col-md-6">
                         <img id="image1Preview"
@@ -144,15 +152,10 @@
                             <label id="@Html.IdFor(m=> m.ImagenCliente1)Agregar" for="@Html.NameFor(m=> m.ImagenCliente1)" class="text-info"
                                    style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
                             <label id="@Html.IdFor(m=> m.ImagenCliente1)Quitar" for="@Html.NameFor(m=> m.ImagenCliente1)" class="text-danger"
-                                   style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenCliente1)','image1Preview','@Html.IdFor(m => m.image2PreviewValue)')">Quitar imagen</label>
+                                   style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenCliente1)','image1Preview','@Html.IdFor(m => m.image1PreviewValue)')">Quitar imagen</label>
                             @*<span id="container"></span>*@
                         </div>
                     </div>
-
-
-
-
-
 
                     <div class="col-md-6">
                         <img id="image2Preview"
@@ -171,15 +174,15 @@
                     </div>
                 </div>
                 <script>
-                    var _url = "@Url.Action("UploadImage","clientes")";
-                    function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
+
+                    @*function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
                         console.log(elemId, imageElemIdText);
                         $("#"+imageElemIdText).attr("src", "@Url.Content(SiteImages.NoImage)");
                         $("#" + elemId + "Agregar").toggle();
                         $("#" + elemId + "Quitar").toggle();
                         $("#" + hiddeInputImgElemText).val('@Constant.NoImagen');
                         event.preventDefault();
-                    }
+                    }*@
                 </script>
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.TelefonoMovil, htmlAttributes: new
@@ -204,7 +207,7 @@
                     @Html.LabelFor(model => Model.Cliente.IdTipoProfesionUOcupacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
                         @Html.DropDownListFor(m => m.Cliente.IdTipoProfesionUOcupacion, SelectItems.Ocupaciones, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                        @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => Model.Cliente.IdTipoProfesionUOcupacion, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

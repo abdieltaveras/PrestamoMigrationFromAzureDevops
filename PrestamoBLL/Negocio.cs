@@ -113,7 +113,7 @@ namespace PrestamoBLL
         /// Todos aquellos negocios que no tienen a ninguno de padre son los matriz Raiz
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Negocio> GetNegociosMatrizRaiz()
+        public IEnumerable<Negocio> NegocioGetLosQueSonMatriz()
         {
             var result = new List<Negocio>();
             try
@@ -141,7 +141,7 @@ namespace PrestamoBLL
         /// texto para cuando no haya correo electronico en un campo que lo requiera y haya que ponerle un valor por defecto
         /// </summary>
         
-        public int insUpdNegocio(Negocio insUpdParam)
+        public int NegocioinsUpd(Negocio insUpdParam)
         {
             InsUpdValidation(insUpdParam);
             var idResult = -1;
@@ -174,7 +174,7 @@ namespace PrestamoBLL
                     NombreComercial = "Empresa Nueva",
                     Usuario = "InitSis",
                 };
-                insUpdNegocio(negocio);
+                NegocioinsUpd(negocio);
                 return 1;
             }
             else

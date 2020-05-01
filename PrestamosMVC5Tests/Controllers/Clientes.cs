@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static PrestamoBLL.Utils;
+using PrestamosMVC5.SiteUtils;
 
 namespace PrestamosMVC5.ControllersTests
 {
@@ -16,7 +17,7 @@ namespace PrestamosMVC5.ControllersTests
         public void GetNameForFile_noImagen()
         {
             var controller = new ClientesController();
-            var result = controller.GetNameForFile("1", Constant.NoImagen, "3");
+            var result = GeneralUtils.GetNameForFile("1", PrestamoBLL.Utils.Constant.NoImagen, "3");
             Assert.IsTrue(string.IsNullOrEmpty(result), $"se esperaba un string vacio y se obtuvo {result}");
 
         }

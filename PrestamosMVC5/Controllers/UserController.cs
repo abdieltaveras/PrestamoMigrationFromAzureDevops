@@ -30,6 +30,10 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreateOrEdit(int id = -1, bool showAdvancedView = true)
         {
             var model = GetUserAndSetItToModel(id);
+            if (model != null)
+            {
+                TempData["Usuario"] = model.Usuario;
+            }
             prepareUserModelForGet(model);
             model.RoleList = GetRoles();
             return View(model);
@@ -39,17 +43,29 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public ActionResult CreateOrEdit(UserModel userModel)
         {
-            int userid = 0;
-            Usuario usuario;
-            ActionResult actionResult;
-            IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
-            var result = ModelState.IsValid;
-            prepareUsuarioFromModelForSave(userModel, out actionResult, out usuario);
-            userid = SaveData(usuario);
-            
-            if (userModel.Usuario.IdUsuario == 0)
+            try
             {
-                SetRolesToUser(userid, userModel.SelectedRoles);
+                var usuarioTempData = GetValueFromTempData<Usuario>("Usuario");
+                var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForUsuarios), userModel.image1PreviewValue);
+                userModel.Usuario.ImgFilePath = GeneralUtils.GetNameForFile(imagen1ClienteFileName, userModel.image1PreviewValue, usuarioTempData.ImgFilePath);
+                int userid = 0;
+                Usuario usuario;
+                ActionResult actionResult;
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                var result = ModelState.IsValid;
+                prepareUsuarioFromModelForSave(userModel, out actionResult, out usuario);
+
+                userid = SaveData(usuario);
+
+                if (userModel.Usuario.IdUsuario == 0)
+                {
+                    SetRolesToUser(userid, userModel.SelectedRoles);
+                }
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(userModel);
             }
             return RedirectToAction("index");
         }
@@ -148,7 +164,7 @@ namespace PrestamosMVC5.Controllers
             };
             this.pcpSetUsuarioTo(getUsuarioParam);
             var model = new ChangePasswordModel();
-            var usr = BLLPrestamo.Instance.GetUsuarios(getUsuarioParam).FirstOrDefault();
+            var usr = BLLPrestamo.Instance.UsuariosGet(getUsuarioParam).FirstOrDefault();
             if (usr != null)
             {
                 model.IdUsuario = usr.IdUsuario;
@@ -192,7 +208,7 @@ namespace PrestamosMVC5.Controllers
         {
             var usuarioGetParams = new UsuarioGetParams { IdNegocio = pcpUserIdNegocio };
             this.pcpSetUsuarioAndIdNegocioTo(usuarioGetParams);
-            var usuarios = BLLPrestamo.Instance.GetUsuarios(usuarioGetParams);
+            var usuarios = BLLPrestamo.Instance.UsuariosGet(usuarioGetParams);
             return usuarios;
         }
         internal UserModel GetUserAndSetItToModel(int id)
@@ -203,10 +219,10 @@ namespace PrestamosMVC5.Controllers
             {
                 var getUsuarioParam = new UsuarioGetParams
                 {
-                    Usuario = AuthInSession.GetLoginName(),
                     IdUsuario = id,
                 };
-                model.Usuario = BLLPrestamo.Instance.GetUsuarios(getUsuarioParam).FirstOrDefault();
+                this.pcpSetUsuarioAndIdNegocioTo(getUsuarioParam);
+                model.Usuario = BLLPrestamo.Instance.UsuariosGet(getUsuarioParam).FirstOrDefault();
                 if (model.Usuario == null)
                 {
                     ModelState.AddModelError(string.Empty, "No se encontro usuario para su peticion");
@@ -226,15 +242,9 @@ namespace PrestamosMVC5.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
+            
                     usuario.Usuario = AuthInSession.GetLoginName();
-                    userid = BLLPrestamo.Instance.InsUpdUsuario(usuario);
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError(string.Empty, e.Message);
-                }
+                    userid = BLLPrestamo.Instance.UsuarioInsUpd(usuario);
             }
             return userid;
         }

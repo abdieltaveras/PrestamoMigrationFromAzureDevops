@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.SiteUtils
 {
+    /// <summary>
+    /// propiedades que indican donde esta determinado folder o directorio
+    /// </summary>
     public static class SiteDirectory
     {
         /// <summary>
@@ -18,9 +21,10 @@ namespace PrestamosMVC5.SiteUtils
         /// and will not be changin like logo app, site logo, product logo, etc
         /// </summary>
         public static string SiteImages => "~/content/build/images";
-        public static string ImagesForNegocio => "~/content/ImagesFor/Negocios";
-        public static string ImagesForUsuario => "~/content/ImagesFor/Usuarios";
+        public static string ImagesForNegocios => "~/content/ImagesFor/Negocios";
+        public static string ImagesForUsuarios => "~/content/ImagesFor/Usuarios";
         public static string ImagesForClientes => "~/content/ImagesFor/Clientes";
+        public static string ImagesForGarantia => "~/content/ImagesFor/Garantias";
 
         public static string Gifs => "~/content/Site/Gifs";
         /// <summary>
@@ -46,8 +50,8 @@ namespace PrestamosMVC5.SiteUtils
         /// <param name="path"></param>
         /// <returns></returns>
         public static string RemoveToUrl(this string path) => "~/" + path;
-        public static string ForCliente => "~/content/ImagesFor/Clientes";
-        public static string ForGarantia => "~/content/ImagesFor/Garantias";
+        //public static string ForCliente => "~/content/ImagesFor/Clientes";
+        
     }
     
 }

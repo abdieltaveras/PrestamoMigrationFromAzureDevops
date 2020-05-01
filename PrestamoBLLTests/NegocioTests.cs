@@ -132,7 +132,7 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void GetNegociosSinNegociosPadres()
         {
-            var result = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            var result = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             Assert.IsTrue(result.Count() > 0, "no se obtuvieron resultados");
         }
         [TestMethod()]
@@ -176,7 +176,7 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void SimulateLogin_Success()
         {
-            var getNegociosTruncales = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            var getNegociosTruncales = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             var selecMatriz = getNegociosTruncales.FirstOrDefault();
             string loginName = "bryan";
             int idNegocioMatriz = selecMatriz.IdNegocio;
@@ -188,7 +188,7 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void SimulateLoginAndGetNegociosHijosQuePermitanOperaciones()
         {
-            var getNegociosTruncales = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            var getNegociosTruncales = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             var selecMatriz = getNegociosTruncales.FirstOrDefault();
             string loginName = "bryan";
             int idNegocioMatriz = selecMatriz.IdNegocio;
@@ -206,7 +206,7 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void SimulateLogin_NotFoundByProvidingANonValidIdNegocioMatriz()
         {
-            var getNegociosTruncales = BLLPrestamo.Instance.GetNegociosMatrizRaiz();
+            var getNegociosTruncales = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             var selecMatriz = getNegociosTruncales.LastOrDefault();
             string loginName = "bryan";
             int idNegocioMatriz = selecMatriz.IdNegocio;
@@ -241,7 +241,7 @@ namespace PrestamoBLLTests
         string mensajeError = string.Empty;
         private static void createNegociosWithNegocioPadre()
         {
-            var negocioPadre = BLLPrestamo.Instance.GetNegociosMatrizRaiz().FirstOrDefault();
+            var negocioPadre = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz().FirstOrDefault();
 
             var negocio1 = NewInstanceNegocioIntagsa();
             var result = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { Codigo = negocio1.Codigo });
@@ -271,7 +271,7 @@ namespace PrestamoBLLTests
         private static int InsUpdNegocio(Negocio negocio)
         {
             // attention: para retornar el id desde un stored procedure debemos usar siempre SCOPE_IDENTITY  porque devuelve el id que dentro de esa insersion fue realizado y no el id ultimo que en esa tabla se ha realizado
-            return BLLPrestamo.Instance.insUpdNegocio(negocio);
+            return BLLPrestamo.Instance.NegocioinsUpd(negocio);
         }
 
         private static Negocio NewInstanceNegocioIntagsa()

@@ -26,6 +26,7 @@
 	[TelefonoCasa] VARCHAR(20) NOT NULL,
 	[TelefonoMovil] VARCHAR(20) NOT NULL,
     [CorreoElectronico] VARCHAR(30) NOT NULL, 
+	[TieneConyuge] bit default 0,
 	Imagen1FileName varchar(50),
 	Imagen2FileName varchar(50),
     CONSTRAINT [FK_tblCliente_ToTblNegocios] FOREIGN KEY (IdNegocio) REFERENCES tblNegocios([IdNegocio]),

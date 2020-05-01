@@ -14,6 +14,22 @@ namespace PrestamoBLL
         {
             return BllAcciones.GetData<Localidad, LocalidadGetParams>(searchParam, "spGetLocalidades", GetValidation);
         }
+
+        /// <summary>
+        /// Busca las localidades padres y devuelve el nombre de la localida mas los padres de ellas, permitiendo
+        /// identificar si el nombre de una localidad existe para mas de una localidad padre, identificar que claramente
+        /// se selecciono o es la correct ejemplo villa Duarte en Santo Domingo o villa Duarte en Santiago
+        /// </summary>
+        /// <param name="idLocalidad"></param>
+        /// <returns></returns>
+        public string LocalidadGetFullName(int idLocalidad)
+        {
+            var result = BLLPrestamo.Instance.LocalidadesGet(new LocalidadGetParams { IdLocalidad = idLocalidad});
+            var localidades = from localidad in result select new { localidad.Nombre };
+            string localidadFullName= string.Empty;
+            result.ToList().ForEach(loc => localidadFullName += loc.Nombre + " ");
+            return localidadFullName;
+        }
         public void LocalidadInsUpd(Localidad insUpdParam)
         {
             BllAcciones.InsUpdData<Localidad>(insUpdParam, "spInsUpdLocalidad");

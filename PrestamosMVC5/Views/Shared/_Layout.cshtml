@@ -12,24 +12,19 @@
     @{
         if (@ViewBag.LoadCssAndJsGrp2)
         {
-
             <link href="~/content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
             <link href="~/content/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
             <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
             <link href="~/content/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-
             <!--For abdiel layout-->
-
             <!-- scriptst neccesary at head  if it is placed down some pages will not work correctly-->
         }
     }
-
     <link href="~/content/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
     <link href="/Content/build/css/custom.css" rel="stylesheet" />
     <link href="/Content/customcss/global-styles.css" rel="stylesheet" />
     <script src="/Content/vendors/jquery/dist/jquery.min.js"></script>
     <script src="/Scripts/modernizr-2.8.3.js"></script>
-
     @RenderSection("pagestyle", required: false)
 </head>
 

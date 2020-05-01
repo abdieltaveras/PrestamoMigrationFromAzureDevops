@@ -1,0 +1,3 @@
+﻿let urlNoImage = "";
+let constantNoImagen = " ";
+

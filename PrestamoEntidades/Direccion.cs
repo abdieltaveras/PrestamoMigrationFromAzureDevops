@@ -31,6 +31,7 @@ namespace PrestamoEntidades
     {
         public int IdDireccion {get;set;}
         [Display(Name ="Localidad")]
+
         [Range(1,99999999,ErrorMessage ="No ha seleccionado ninguna localidad")]
         public int IdLocalidad { get; set; }
         [Required(ErrorMessage = "campo {0} requerido, no puede estar vacio")]

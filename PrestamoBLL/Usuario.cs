@@ -13,7 +13,7 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        public IEnumerable<Usuario> GetUsuarios(UsuarioGetParams searchParam)
+        public IEnumerable<Usuario> UsuariosGet(UsuarioGetParams searchParam)
         {
             //GetValidation(searchParam);
             return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios", GetValidation);
@@ -29,7 +29,7 @@ namespace PrestamoBLL
             return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarTodosUsuarioRoles", GetValidation);
         }
 
-        public int InsUpdUsuario(Usuario insUpdParam, string from = "")
+        public int UsuarioInsUpd(Usuario insUpdParam, string from = "")
         {
             
             if ((insUpdParam.LoginName.ToLower() == "admin") && (from != bllUser))

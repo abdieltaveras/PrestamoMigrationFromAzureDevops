@@ -43,7 +43,10 @@
                                 <a href="@Url.Action("Index","Clientes")">Listado de Clientes</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("CreateOrEdit","Clientes")">Crear Cliente Nuevo</a>
+                                @{
+                                    ///Attention : para que lo pueda crear como nuevo si uno no pone ningun parametro al id para el  URL, entonces toma el ultimo id consultado 
+                                }
+                                <a href="@Url.Action("CreateOrEdit","Clientes", new { id = -1 })">Crear Cliente Nuevo</a>
                             </li>
 
                             <li>
@@ -198,7 +201,7 @@
                                         <a href="@Url.Action("Index","User")">Listado de Usuarios</a>
                                     <li>
                                     <li>
-                                        <a href="@Url.Action("CreateOrEdit","User")">Crear Usuario Nuevo (Simple)</a>
+                                        <a href="@Url.Action("CreateOrEdit","User",new { id = -1 }))">Crear Usuario Nuevo (Simple)</a>
                                     </li>
                                     <li>
                                         <a href="@Url.Action("EditUserRoles","User")">Editar roles de usuario</a>
@@ -217,7 +220,7 @@
                                 <a href="@Url.Action("Index","Negocios")">Lista de Negocios</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("CreateOrEdit","Negocios")">Crear Nuevo Negocios</a>
+                                <a href="@Url.Action("CreateOrEdit","Negocios",new { id = -1 }))">Crear Nuevo Negocios</a>
                             </li>
                         </ul>
                     </li>

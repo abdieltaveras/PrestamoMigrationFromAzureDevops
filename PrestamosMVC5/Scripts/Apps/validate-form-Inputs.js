@@ -17,12 +17,14 @@ $(document).ready(function () {
         var isValidForm = true;
         $('input[data-val="true"]').each(function (index, value) {
             var elem = $(this);
-            turnOnOffValidations(elem);
-            var isValid = elem.valid();
-            var elemName = elem.attr("id");
-            if (!isValid) {
-                isValidForm = false;
-                console.log(elemName + " " + isValid);
+            turnOnOffValidationOnElem(elem);
+            if (elem.attr("data-val") == "true") {
+                var isValid = elem.valid();
+                var elemName = elem.attr("id");
+                if (!isValid) {
+                    isValidForm = false;
+                    console.log(elemName + " " + isValid);
+                }
             }
         });
         var validform = formulario.validate();

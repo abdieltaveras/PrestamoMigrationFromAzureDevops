@@ -23,7 +23,8 @@
             @Html.AntiForgeryToken()
             <div class="@HtmlClass.FormGroupCls">
                 <div class="text-center @HtmlClass.DivInputCls" role="alert" id="mensajeError">
-                    @Html.ValidationSummary(true, "", new { @id = "validationSummary", data_showerrorstime = @Html.Raw(ViewBag.ShowSummaryErrorsTime) })
+                    @*@Html.ValidationSummary(true, "", new { @id = "validationSummary", data_showerrorstime = @Html.Raw(ViewBag.ShowSummaryErrorsTime) })*@
+                    @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
                 </div>
             </div>
             // attention :  para mostrar contenido dentro de un objeto anonimo debemos usar html.raw y luego enviar el valor dentro de un objeto anonimo asi new { @id = "validationSummary", data_showerrorstime =@Html.Raw(ViewBag.ShowSummaryErrorsTime)  })

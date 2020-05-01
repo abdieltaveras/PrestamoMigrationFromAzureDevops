@@ -8,6 +8,8 @@
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCreateCliente", autocomplete = "dummy-no-auto-complete-fix" }))
 {
+    /// attention to make submit validatin befor post  ths  sumbit button add the btnSubmit Id to the element
+    /// Attention: to avoid validation at client side set data-val attribute to false and the validate-form input will not validate
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         @*navigation*@
@@ -15,16 +17,18 @@
             <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Datos Para el Cliente</h2>
+                        <div class="col-md-4 col-sm-12  ">
+                            <h2>Datos Para el Cliente</h2>
+                        </div>
                         @{
                             // attention colocar los mensajes de validation summary como hijo del la clase x_title , si se colocan antes que ella no son visibles
-
-                         }
+                        }
                         <div class="@HtmlClass.FormGroupCls">
                             <div class="text-center @HtmlClass.DivInputCls" role="alert" id="mensajeError">
-                                @Html.ValidationSummary(true, " ", new { @id = "validationSummary", data_showerrorstime = @Html.Raw(ViewBag.ShowSummaryErrorsTime) })
+                                @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
                             </div>
                         </div>
+
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -66,39 +70,49 @@
             </div>
 
             @*<div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-generales" role="tabpanel" aria-labelledby="nav-generales-tab">
-                    @Html.Partial("_infoGenerales", Model)
-                </div>
-                <div class="tab-pane fade show" id="nav-direccion" role="tabpanel" aria-labelledby="nav-direccion-tab">
-                    @Html.Partial("_infoDireccion", Model)
-                </div>
-                 TODO: faltan campos como comentarios, etc.
-                <div class="tab-pane fade show" id="nav-trabajo" role="tabpanel" aria-labelledby="nav-trabajo-tab">
-                    @Html.Partial("_infoLaboral", Model)
-                </div>
-                <div class="tab-pane fade show " id="nav-conyuge" role="tabpanel" aria-labelledby="nav-conyuge-tab">
-                    @Html.Partial("_infoConyuge", Model)
-                </div>
-            </div>*@
+                    <div class="tab-pane fade show active" id="nav-generales" role="tabpanel" aria-labelledby="nav-generales-tab">
+                        @Html.Partial("_infoGenerales", Model)
+                    </div>
+                    <div class="tab-pane fade show" id="nav-direccion" role="tabpanel" aria-labelledby="nav-direccion-tab">
+                        @Html.Partial("_infoDireccion", Model)
+                    </div>
+                     TODO: faltan campos como comentarios, etc.
+                    <div class="tab-pane fade show" id="nav-trabajo" role="tabpanel" aria-labelledby="nav-trabajo-tab">
+                        @Html.Partial("_infoLaboral", Model)
+                    </div>
+                    <div class="tab-pane fade show " id="nav-conyuge" role="tabpanel" aria-labelledby="nav-conyuge-tab">
+                        @Html.Partial("_infoConyuge", Model)
+                    </div>
+                </div>*@
         </div>
     </div>
 }
 
 @section scripts
 {
-    <script src="~/Scripts/apps/showImage.js"></script>
+
     <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
     <script src="~/Scripts/apps/datePickerInit.js"></script>
     <script src="~/Scripts/Apps/setMask.js"></script>
-
-    <script>
-        
+    <script src="~/Scripts/Apps/CheckInput.js"></script>
+    <script type="text/javascript">
+        var urlNoImage = "@Url.Content(SiteImages.NoImage)"
+        var constantNoImagen ="@Constant.NoImagen";
         let searchLocalidadElem = $('#searchLocalidad');
         let formulario = $("#frmCreateCliente");
         let dateFormat = 'en-GB';
         let _dateFormat = 'dd/mm/yy';
         let yearRangeForDP = "-120:+0"
-        
+       //function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
+       //     console.log(elemId, imageElemIdText);
+       //     $("#"+imageElemIdText).attr("src", _urlNoImagen);
+       //     $("#" + elemId + "Agregar").toggle();
+       //    $("#" + elemId + "Quitar").toggle();
+       //    $("#" + hiddeInputImgElemText).val(_constantNoImagen);
+       //     event.preventDefault();
+       // }
+
+        onTieneConyugeChange();
         // convert model into a json object
         // todo how to convert model into json object inside rezor
         //let model = Html.Raw(Json.Encode(Model));
@@ -118,14 +132,63 @@
             ResizeContentContainer();
         });
 
+
+
+        function onChangeProp(elem) {
+            switch (elem.id) {
+                case "@Html.IdFor(model => model.Cliente.TieneConyuge)":
+                    onTieneConyugeChange();
+                    break;
+                default:
+            }
+        };
+
+        function onTieneConyugeChange() {
+            if (tieneConyuge()) {
+                $("#datosConyuge-tab").show()
+                activateValidationsToConyugeTab();
+            }
+            else {
+                $("#datosConyuge-tab").hide()
+                deactivateValidationsToConyugeTab();
+            }
+        }
+
+        function tieneConyuge() {
+            var tieneConyuge = $("#@Html.IdFor(model => model.Cliente.TieneConyuge)").is(':checked');
+            return tieneConyuge;
+        }
         window.onresize = ResizeContentContainer;
         function ResizeContentContainer() {
             var windowHeight = $(window).height();
             $(".body-content").outerHeight(windowHeight + "px");
         }
-        function turnOnOffValidations(elem) { }
 
+        function turnOnOffValidationOnElem(elem) {
+        }
+
+        function removeValidations() {
+             deactivateValidationsToConyugeTab();
+        }
+        function deactivateValidationsToConyugeTab() {
+            $('[data-val-grp="conyuge"]').attr("data-val", false);
+            //$('[data-val-grp="conyuge"]').each(function () {  });
+        }
+        function activateValidationsToConyugeTab() {
+            $('[data-val-grp="conyuge"]').attr("data-val", true);
+            //$('[data-val-grp="conyuge"]').each(function () {  });
+        }
+
+        function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
+            console.log(elemId, imageElemIdText);
+            $("#" + imageElemIdText).attr("src", _urlNoImagen);
+            $("#" + elemId + "Agregar").toggle();
+            $("#" + elemId + "Quitar").toggle();
+            $("#" + hiddeInputImgElemText).val(_constantNoImagen);
+            event.preventDefault();
+        }
     </script>
+    <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/searchLocalidad.js"></script>
