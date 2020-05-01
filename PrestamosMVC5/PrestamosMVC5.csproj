@@ -4051,6 +4051,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Login3.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />
+    <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <Content Include="Views\Catalogos\Catalogos.cshtml" />

@@ -107,6 +107,7 @@
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />
     <Compile Include="Operacion.cs" />
+    <Compile Include="Referencia.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="TipoSexo.cs" />
     <Compile Include="TipoTelefono.cs" />

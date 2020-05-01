@@ -84,7 +84,7 @@
             @* Datatable *@
 
 
-           
+
         </div>
     </div>
 
@@ -158,26 +158,27 @@
     </div>
 </div>
 
-
 @* CSS for Datatable *@
-<link rel="stylesheet" href="~/Content/customcss/datatable/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="~/Content/customcss/datatable/css/buttons.dataTables.min.css">
+@section pagestyle{
+    <link rel="stylesheet" href="~/Content/customcss/datatable/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Content/customcss/datatable/css/buttons.dataTables.min.css">
+}
+
 
 @* JS for datatable *@
+@section prevscripts {
+    <script src="~/Content/customcss/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/customcss/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/customcss/datatable/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/customcss/datatable/js/buttons.html5.min.js"></script>
 
-<script src="~/Content/customcss/datatable/js/jquery.dataTables.min.js"></script>
-<script src="~/Content/customcss/datatable/js/dataTables.bootstrap4.min.js"></script>
-<script src="~/Content/customcss/datatable/js/dataTables.buttons.min.js"></script>
-<script src="~/Content/customcss/datatable/js/buttons.html5.min.js"></script>
+    <script src="~/Content/customcss/datatable/js/jszip.min.js"></script>
+    <script src="~/Content/customcss/datatable/js/vfs_fonts.js"></script>
+    <script src="~/Content/customcss/datatable/js/buttons.print.min.js"></script>
 
-<script src="~/Content/customcss/datatable/js/jszip.min.js"></script>
-<script src="~/Content/customcss/datatable/js/vfs_fonts.js"></script>
-<script src="~/Content/customcss/datatable/js/buttons.print.min.js"></script>
-
-<script src="~/Content/customcss/datatable/configuration/js-conf/datatable-conf.js"></script>
-
+    <script src="~/Content/customcss/datatable/configuration/js-conf/datatable-conf.js"></script>
 <script>
-    $(document).ready(function () {        
+    $(document).ready(function () {
         $('#datatable').DataTable( dataTableConfiguration );
         removeTemplateConfiguration();
     });
@@ -189,7 +190,7 @@
         $("#Nombre").val(this.getAttribute("data-nombre"));
         $('#modalCatalogos').modal('show');
     });
-    
+
     $( "a#deleteItem").click( async function() {
         $("#currentid").val(this.getAttribute("data-id"));
         $("#Codigo").val(this.getAttribute("data-idtabla"));
@@ -308,4 +309,5 @@
         });
     }
 
-</script>
+    </script>
+}

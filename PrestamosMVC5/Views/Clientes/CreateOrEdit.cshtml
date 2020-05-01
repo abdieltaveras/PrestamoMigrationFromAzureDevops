@@ -42,6 +42,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="datosConyuge-tab" data-toggle="tab" href="#datosConyuge" role="tab" aria-controls="datosConyuge" aria-selected="false">Datos del Conyuge</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="datosReferencia-tab" data-toggle="tab" href="#datosReferencia" role="tab" aria-controls="datosReferencia" aria-selected="false">Referencia</a>
+                            </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="datosPersonales" role="tabpanel" aria-labelledby="datosPersonales-tab">
@@ -57,6 +60,9 @@
                             </div>
                             <div class="tab-pane fade" id="datosConyuge" role="tabpanel" aria-labelledby="datosConyuge-tab">
                                 @Html.Partial("_infoConyuge", Model)
+                            </div>
+                            <div class="tab-pane fade" id="datosReferencia" role="tabpanel" aria-labelledby="datosReferencia-tab">
+                                @Html.Partial("_infoReferencia", Model)
                             </div>
                         </div>
                         <input id="btnSubmit" type="button" value="Guardar" class="btn btn-primary" style="float:right;" />

@@ -61,6 +61,15 @@ namespace PrestamosMVC5.Controllers
                     model.MensajeError = "Lo siento no encontramos datos para su peticion";
                 }
             }
+            //model.Referencias = new List<Referencia>(new Referencia[4]);
+
+            //model.Referencias[0] = new Referencia() { Tipo = 2 };
+            //model.Referencias.Add(new Referencia() { NombreCompleto = "hola" });
+            //model.Referencias.Add(new Referencia() { NombreCompleto = "adios" });
+
+            // model.Referencias.Add(new Referencia() {});
+
+
             return View(model);
         }
         [HttpPost]
@@ -78,13 +87,14 @@ namespace PrestamosMVC5.Controllers
             try
             {
                 var clienteTempData = GetValueFromTempData<Cliente>("Cliente");
+                //return RedirectToAction("CreateOrEdit", new { id = -1, mensaje = "s" });
                 var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), clienteVm.image1PreviewValue);
                 var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(ImagePath.ForCliente), clienteVm.image2PreviewValue);
                 clienteVm.Cliente.Imagen1FileName = GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
 
                 clienteVm.Cliente.Imagen2FileName = GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
-                BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
+                BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion, clienteVm.Referencias);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
                 result = RedirectToAction("CreateOrEdit", new { id = -1, mensaje = mensaje });
             }
@@ -144,6 +154,10 @@ namespace PrestamosMVC5.Controllers
                 var newClienteVm = new ClienteModel(new Cliente());
                 newClienteVm.Cliente.Codigo = "Nuevo";
                 pcpSetUsuarioAndIdNegocioTo(newClienteVm.Cliente);
+                for (int i = 0; i < newClienteVm.Referencias.Count; i++)
+                {
+                    newClienteVm.Referencias[i] = new Referencia();
+                }
                 return newClienteVm;
             }
             else
@@ -152,6 +166,13 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Conyuge = cliente.InfoConyuge.ToType<Conyuge>();
                 clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
+                var referencias = cliente.InfoReferencia.ToType<List<Referencia>>();
+
+                for (int i = 0; i < referencias.Count; i++)
+                {
+                    clienteVm.Referencias[i] = referencias[i];
+                }
+                
                 pcpSetUsuarioTo(clienteVm.Cliente);
                 var localidadDelCliente = BLLPrestamo.Instance.LocalidadesGet(new LocalidadGetParams { IdLocalidad = clienteVm.Direccion.IdLocalidad }).FirstOrDefault();
                 if (localidadDelCliente != null)

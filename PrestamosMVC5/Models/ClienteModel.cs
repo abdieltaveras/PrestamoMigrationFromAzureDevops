@@ -15,7 +15,9 @@ namespace PrestamosMVC5.Models
         public InfoLaboral InfoLaboral { get; set; } = new InfoLaboral();
         public Conyuge Conyuge { get; set; } = new Conyuge();
         public Direccion Direccion { get; set; } = new Direccion();
-        
+        //public Referencia[] Referencia { get; set; } = new Referencia[5];
+        public List<Referencia> Referencias { get; set; } = new List<Referencia>(new Referencia[5]);
+        public int Selected { get; set; } = 2;
         public string TipoBusqueda { get; set; } = "normal";
         public string MensajeError { get; set; } = string.Empty;
         public ClienteModel() {

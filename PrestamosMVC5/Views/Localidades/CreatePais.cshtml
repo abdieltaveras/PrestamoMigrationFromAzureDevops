@@ -1,64 +1,115 @@
 ﻿@*@model IEnumerable<PrestamoEntidades.TerritoriosConPadre>*@
 @model TerritorioVM
 
-<div class="col-md-5 col-sm-12" id="formAgregarTasaInteres">
-    @*<h4>Agregar pais de una division territorial</h4>*@
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Agregar pais de una division territorial</h2>
-            @*<ul class="nav navbar-right panel_toolbox">
-                <li>
-                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
 
-                <li>
-                    <a onclick="hideTasaInteresForm()"><i class="fa fa-close"></i></a>
-                </li>
-            </ul>*@
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            <br />
-            @using (Html.BeginForm("GuardarLocalidad", "Localidades", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
-            {
-                <div class="form-group row">
-                    <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
-                    <div class="col-md-9 col-sm-9 ">
-                        <select name="idTipoLocalidad" class="form-control" id="idTipoDivision">
-                            @foreach (var item in Model.ListaTerritorios)
+    <div class="row">
+
+        <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
+
+            @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#division-territorial-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Listado de paises</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table bulk_action ">
+                        <thead>
+                            <tr>
+                                <th>Pais</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.ListaPaises)
                             {
-                                <option value="@item.IdTipoLocalidad">
-                                    @item.Nombre
-                                    @if (@item.DescripcionPadre != null)
-                                    {
-                                        @item.DescripcionPadre
-                                    }
-                                </option>
+                                <tr class="@(!item.Activo ? "table-active" : "" )">
+                                    <td>
+                                        <strong>
+                                            @item.Nombre
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <button class="btn btn-outline-warning">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                             }
-                        </select>
-                    </div>
-                </div>
 
-
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" for="codigo">
-                        Nombre <span class="required">*</span>
-                    </label>
-                    <div class="col-sm-9">
-                        <input type="text" name="Nombre" value="" class="form-control" required />
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="ln_solid"></div>
-                <div class="item form-group" style="float: right;">
-                    <div class="col-md-6 col-sm-6 offset-md-3">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </div>
-            }
+            </div>
         </div>
     </div>
-</div>
+
+
+    <div class="modal fade" id="division-territorial-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar una division a la lista</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <br />
+                            @using (Html.BeginForm("GuardarLocalidad", "Localidades", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+                            {
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <select name="idTipoLocalidad" class="form-control" id="idTipoDivision">
+                                            @foreach (var item in Model.ListaTerritorios)
+                                            {
+                                                <option value="@item.IdTipoLocalidad">
+                                                    @item.Nombre
+                                                    @if (@item.DescripcionPadre != null)
+                                                    {
+                                                        @item.DescripcionPadre
+                                                    }
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="codigo">
+                                        Nombre <span class="required">*</span>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="Nombre" value="" class="form-control" required />
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="item form-group" style="float: right;">
+                                    <div class="col-md-6 col-sm-6 offset-md-3">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 <script>
 

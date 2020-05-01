@@ -53,4 +53,17 @@ namespace PrestamoEntidades
     {
         public int IdLocalidad { get; set; }
     }
+
+    public class LocalidadesHijas : BaseCatalogo
+    {
+        public int IdLocalidad { get; set; }
+        public string TipoLocalidad { get; set; }
+
+        public override int GetId()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class LocalidadPaisesGetParams : BaseGetParams{}
 }

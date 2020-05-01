@@ -33,7 +33,10 @@
         "buttons": {
             "copy": "Copiar",
             "print": "Imprimir",
-            "colvis": "Visibilidad"
+            "colvis": "Visibilidad",
+            "pageLength": "Mostrar %d filas",
+            "copyTitle": "Copiado en portapapeles",
+            "copySuccess": "%d linea/s copiada/s",
         }
     }
 }
@@ -45,5 +48,4 @@ function removeTemplateConfiguration() {
 
     $('.dt-button-collection div button').removeClass('dt-button button-page-length');
     $('.dt-button-collection div button').addClass('btn btn-primary');
-
 }
