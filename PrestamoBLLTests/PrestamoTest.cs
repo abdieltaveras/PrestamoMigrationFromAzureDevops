@@ -21,8 +21,6 @@ namespace PrestamoBLLTests
         {
 
             // Debe tener informacion de si es inmobliario, mobiliario para que pueda determinar que tipo de garantia
-            
-
             var cliente = new Cliente();
             var pre = new Prestamo
             {
@@ -33,15 +31,12 @@ namespace PrestamoBLLTests
                 IdNegocio = 6,
                 IdDivisa = 1, // equivale a la moneda nacional (siempre el codigo 1 es la moneda nacional del pais
                 DineroPrestado = 10000,
-                LlevaGastoDeCiere = false,
                 IdTasaDeInteres = GetTasaDeInteres(),
                 IdPeriodo = GetPeriodo(),
                 CantidadDePeriodo = 5,
-                IdTipoMora=GetTipoMora(),
+                IdTipoMora = GetTipoMora(),
             };
             pre.Clientes.Add(GetClientes());
-            pre.Garantias.Add(GetGarantias());
-            pre.Codeudores.Add(GetCodeudores());
         }
 
         private int GetClasificacion()
