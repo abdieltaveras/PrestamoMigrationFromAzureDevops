@@ -54,7 +54,7 @@ namespace PrestamosMVC5.Controllers
                 if (searchResult.DatosEncontrados)
                 {
                     var data = searchResult.DataList.FirstOrDefault();
-                    model = CreateClienteVm(EsNuevo:false, data);
+                    model = CreateClienteVm(false, data);
                     TempData["Cliente"] = data;
                 }
                 else
@@ -62,6 +62,15 @@ namespace PrestamosMVC5.Controllers
                     model.MensajeError = "Lo siento no encontramos datos para su peticion";
                 }
             }
+            //model.Referencias = new List<Referencia>(new Referencia[4]);
+
+            //model.Referencias[0] = new Referencia() { Tipo = 2 };
+            //model.Referencias.Add(new Referencia() { NombreCompleto = "hola" });
+            //model.Referencias.Add(new Referencia() { NombreCompleto = "adios" });
+
+            // model.Referencias.Add(new Referencia() {});
+
+
             return View(model);
         }
         [HttpPost]
@@ -97,7 +106,7 @@ namespace PrestamosMVC5.Controllers
 
                 clienteVm.Cliente.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
-                BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion);
+                BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion, clienteVm.Referencias);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
                 result = RedirectToAction("CreateOrEdit", new { id = -1, mensaje = mensaje });
             }
@@ -149,6 +158,11 @@ namespace PrestamosMVC5.Controllers
                 var newClienteVm = new ClienteModel(new Cliente());
                 newClienteVm.Cliente.Codigo = "Nuevo";
                 pcpSetUsuarioAndIdNegocioTo(newClienteVm.Cliente);
+                FillReferencias(newClienteVm, newClienteVm.Referencias);
+                //for (int i = 0; i < newClienteVm.Referencias.Count; i++)
+                //{
+                //    newClienteVm.Referencias[i] = new Referencia();
+                //}
                 return newClienteVm;
             }
             else
@@ -157,17 +171,35 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Conyuge = cliente.InfoConyuge.ToType<Conyuge>();
                 clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
+                var referencias = cliente.InfoReferencia.ToType<List<Referencia>>();
+                FillReferencias(clienteVm, referencias);
+
                 pcpSetUsuarioTo(clienteVm.Cliente);
                 var localidadDelCliente = BLLPrestamo.Instance.LocalidadGetFullName(clienteVm.Direccion.IdLocalidad);
                 if (localidadDelCliente != null)
                 {
                     clienteVm.InputRutaLocalidad = localidadDelCliente;
-                        //localidadDelCliente.Nombre;
+                    //localidadDelCliente.Nombre;
                 }
                 return clienteVm;
             }
         }
 
+        private static void FillReferencias(ClienteModel clienteVm, List<Referencia> referencias)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (referencias.Count > i)
+                {
+                    clienteVm.Referencias[i] = referencias[i];
+                }
+                else
+                {
+                    clienteVm.Referencias.Add(new Referencia());
+                    //clienteVm.Referencias[i] = new Referencia();
+                }
+            }
+        }
     }
 
 

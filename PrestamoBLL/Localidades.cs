@@ -54,5 +54,17 @@ namespace PrestamoBLL
             //}
             //return result;
         }
+
+        public IEnumerable<Localidad> PaisesGet(LocalidadPaisesGetParams searchParam)
+        {
+            return BllAcciones.GetData<Localidad, LocalidadPaisesGetParams>(searchParam, "LocalidadPaisesSpGet", GetValidation);
+        }
+
+        public IEnumerable<LocalidadesHijas> LocalidadesHijasGet(LocalidadGetParams searchParam)
+        {
+            return BllAcciones.GetData<LocalidadesHijas, LocalidadGetParams>(searchParam, "LocalidadLocalidadesHijasDeLocalidadSpGet", GetValidation);
+        }
+
+        
     }
 }

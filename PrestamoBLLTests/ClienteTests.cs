@@ -49,6 +49,19 @@ namespace PrestamoBLLTests
             };
             return infoLaboral;
         }
+
+        public static List<Referencia> newInfoReferencia()
+        {
+            var infoReferencia = new Referencia
+            {
+                Direccion = "Gregorio Luperon no 112",
+                Telefono = "809-550-8455",
+                Tipo = 1,
+                Detalles = "es el negocio de computadoras"
+            };
+            var referencias = new List<Referencia> { infoReferencia};
+            return referencias;
+        }
         public static Cliente newCliente()
         {
 
@@ -96,7 +109,7 @@ namespace PrestamoBLLTests
             var OperacionExitosa = true;
             var cliente = ClienteData.newCliente();
             cliente.NoIdentificacion = DateTime.Now.ToString();
-            try { BLLPrestamo.Instance.ClientesInsUpd(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion()); }
+            try { BLLPrestamo.Instance.ClientesInsUpd(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion(), ClienteData.newInfoReferencia() ); }
             catch (Exception e)
             {
                 error = e;

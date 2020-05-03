@@ -15,10 +15,13 @@ namespace PrestamosMVC5.Models
             return (Enum.GetValues(typeof(T)).Cast<int>().Select(e => new SelectListItem()
             {
                 Text = Enum.GetName(typeof(T), e).Replace("_", " "),
-                Value = e.ToString()
+                Value = e.ToString(), 
             })).ToList();
         }
+
+        
         public static SelectList ForEnum<T>() => new SelectList(GetEnumSelectList<T>(), "Value", "Text");
+        //public static SelectList ForEnumAddingStartingValue<T>() => new SelectList(GetEnumSelectListAddingFirstValue<T>("Elija"), "Value", "Text");
     }
 
     public static class SelectItems
@@ -34,6 +37,9 @@ namespace PrestamosMVC5.Models
         public static SelectList EstadosCiviles => SLFactory.ForEnum<Estado_Civil>();
         public static SelectList OpcionesBusquedaCliente => SLFactory.ForEnum<EnumBuscarClientePor>();
         public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
+        public static SelectList TiposReferencias => SLFactory.ForEnum<EnumTiposReferencia>();
+        
+        public static SelectList TiposVinculos => SLFactory.ForEnum<EnumTiposVinculo>();
         public static SelectList Negocios(string usuario, int permitirOperaciones, int idNegocio) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, PermitirOperaciones = permitirOperaciones, Usuario = usuario }), "IdNegocio", "NombreComercial");
 
         public static SelectList NegociosMatrizRaiz() => new SelectList(BLLPrestamo.Instance.NegocioGetLosQueSonMatriz(), "IdNegocio", "NombreComercial");

@@ -1,0 +1,64 @@
+﻿@model ClienteModel
+
+<div class="clearfix"></div>
+<div class="row">
+    <!-- form input mask -->
+    <div class="col-md-12 col-sm-12">
+        <div class="x_panel">
+            <h2>Informacion de referencias</h2>
+            <hr />
+            <div class="x_content">
+                @{
+                    for (int i = 0; i < 5; i++)
+                    {
+                        <div class="row">
+                            <div class="shadow p-3 bg-light rounded">
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(m => m.Referencias[@i].Tipo)
+                                    <select class="form-control select-tipo" data-val="false" data-order="0" data-val-number="The field Tipo must be a number." data-val-required="The Tipo field is required." id='@Html.Raw("Referencias_"+@i+"__Tipo")' name="Referencias[@i].Tipo">
+                                        <option value=@i disabled selected>Elija</option>
+                                        @foreach (var item in SelectItems.TiposReferencias)
+                                        {
+                                            <option value="@item.Value" @Html.Raw(int.Parse(item.Value) == Model.Referencias[i].Tipo ? "selected" : "")>@item.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="@HtmlClass.FormGroupCls col-md-2">
+                                    @Html.LabelFor(m => m.Referencias[@i].Vinculo)
+                                    <select class="form-control select-vinculo" data-val="false" data-val-number="The field Tipo must be a number." data-val-required="The Tipo field is required." 
+                                            id='@Html.Raw("Referencias_"+@i+"__Vinculo")' name="Referencias[@i].Vinculo">
+                                        <option value="0" disabled selected>Elija</option>
+                                        @foreach (var item in SelectItems.TiposVinculos)
+                                        {
+                                            <option value="@item.Value" @Html.Raw(int.Parse(item.Value) == Model.Referencias[@i].Vinculo ? "selected" : "")>@item.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="@HtmlClass.FormGroupCls col-md-5">
+                                    @Html.LabelFor(m => m.Referencias[@i].NombreCompleto)
+                                    @Html.EditorFor(m => m.Referencias[@i].NombreCompleto, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(m => m.Referencias[@i].Telefono)
+                                    @Html.EditorFor(model => model.Referencias[@i].Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    @Html.LabelFor(m => m.Referencias[@i].Direccion)
+                                    @Html.EditorFor(model => model.Referencias[@i].Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    @Html.LabelFor(m => m.Referencias[@i].Detalles)
+                                    @Html.TextAreaFor(model => model.Referencias[@i].Detalles, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

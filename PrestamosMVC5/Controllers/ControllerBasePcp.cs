@@ -101,9 +101,9 @@ namespace PrestamosMVC5.Controllers
             return result;
         }
         /// <summary>
-        /// Permite obtener el valor de una llave expexificada del TempData , valida si esta nula devuelve un 
+        /// Permite obtener el valor de una llave especificada del TempData , valida si esta nula devuelve un 
         /// objeto por defecto o devuelve el contenido convertido al tipo deseado
-        /// debe ser un objeto 
+        /// debe ser un objeto si es string lo devolvera vacio
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>

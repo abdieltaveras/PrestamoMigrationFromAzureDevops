@@ -76,9 +76,15 @@ namespace PrestamosMVC5.Controllers
         {
             TerritorioVM modelo = new TerritorioVM();
             modelo.ListaTerritorios = BLLPrestamo.Instance.TerritorioDivisionesTerritorialesPaisesGet(new TerritorioGetParams() { IdNegocio = pcpUserIdNegocio });
-
+            modelo.ListaPaises = BLLPrestamo.Instance.PaisesGet(new LocalidadPaisesGetParams() { IdNegocio = pcpUserIdNegocio });
             return View("CreatePais", modelo);
         }
 
-    }    
+        public string BuscarLocalidadesHijas(string localidadPadre)
+        {
+            IEnumerable<LocalidadesHijas> localidades = null;
+            localidades = BLLPrestamo.Instance.LocalidadesHijasGet(new LocalidadGetParams() { IdNegocio = pcpUserIdNegocio, IdLocalidad = int.Parse(localidadPadre) });
+            return JsonConvert.SerializeObject(localidades);
+        }
+    }
 }

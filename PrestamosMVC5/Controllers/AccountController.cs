@@ -54,7 +54,7 @@ namespace PrestamosMVC5.Controllers
             model.LoginName = "bryan";
             model.Password = "1";
             model.ValidateCaptcha = false;
-#endif
+            #endif
             var negociosMatriz = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             model.SoloHayUnNegocioMatriz = negociosMatriz.Count() == 1;
 
@@ -163,7 +163,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult IniciarOperacion(ListaNegocioVM model)
         {
             // se prefirio tener esta informacion en tempdata porque asi evitamos que la envien desde un post o algo asi.
-            var returnUrl = TempData["returnUrl"].ToString();
+            var returnUrl = TempData["returnUrl"] !=null? TempData["returnUrl"].ToString() : string.Empty;
             var idNegocioMatriz = (int)TempData["idNegocioMatriz"];
             var usuarioInfo = TempData["usuario"] as Usuario;
             SetLoginDataIntoSessiond(model.idNegocioSelected, usuarioInfo);

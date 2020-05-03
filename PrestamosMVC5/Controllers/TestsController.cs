@@ -209,6 +209,13 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
+        public ActionResult DropDownList1()
+        {
+            var model = new Item();
+            
+            return View(model);
+        }
+
     }
 
     public class InfoConImagen

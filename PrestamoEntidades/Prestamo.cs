@@ -15,6 +15,8 @@ namespace PrestamoEntidades
 
         public int IdPrestamoARenovar { get; set; }
 
+        public string NoPrestamoARenovar { get; set; }
+
         public int IdClasificacion { get; set; }
 
         public int IdAmortizacion { get; set; }
@@ -39,6 +41,9 @@ namespace PrestamoEntidades
         public DateTime FechaVencimiento { get; set; }
 
         public int IdTasaDeInteres { get; set; }
+        
+        [IgnorarEnParam]
+        public double TasaDeInteresPorPeriodo { get; set; }
 
         public int IdTipoMora { get; set; }
 
@@ -62,6 +67,18 @@ namespace PrestamoEntidades
         public bool SumarGastoDeCierreALasCuotas { get; set; }
 
         public bool CargarInteresAlGastoDeCierre { get; set; }
+        
+        public bool AcomodarFechaCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
+        /// <summary>
+        ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
+        /// </summary>
+
+        public DateTime? FechaInicioPrimeraCuota { get; set; } = InitValues._19000101;
+
+        /// <summary>
+        /// este campo es el que tendra la fecha real de donde partira a generar las cuotas y sus fechas de vencimientos, es necesario para cuando al prestamo se le acomode las cuotas
+        /// </summary>
+        public DateTime FechaInicioCalculoPrestamo { get; set; }
     }
 
     public class PrestamoConCuota

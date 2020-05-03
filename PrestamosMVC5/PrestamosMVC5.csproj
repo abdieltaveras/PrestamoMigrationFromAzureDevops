@@ -4038,6 +4038,9 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="App_Code\TreeInfo.cshtml" />
+    <Content Include="Views\Clientes\_infoReferencia.cshtml" />
+    <Content Include="Views\Clientes\_infoReferencia2.cshtml" />
+    <Content Include="Views\Tests\DropDownList1.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
     <Content Include="Scripts\Apps\showImage,20200423.js" />
@@ -4053,6 +4056,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Login3.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />
+    <Content Include="Views\Clientes\_infoReferencia3.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CheckInput.ts" />
     <Content Include="Views\User\CreateOrEdit.20200227.cshtml" />
     <Content Include="Views\Catalogos\Catalogos.cshtml" />

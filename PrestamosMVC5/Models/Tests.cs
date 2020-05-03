@@ -12,6 +12,13 @@ namespace PrestamosMVC5.Models
     {
         public bool Activo { get; set; } = true;
         public bool Bloqueado { get; set; } = true;
-
+    
     }
+
+    public class Item
+    {
+
+        public string Nombre { get; set; } = "Cualquier valor";
+    }
+
 }
