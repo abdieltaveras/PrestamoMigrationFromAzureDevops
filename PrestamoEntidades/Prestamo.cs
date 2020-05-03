@@ -21,9 +21,18 @@ namespace PrestamoEntidades
 
         public int IdAmortizacion { get; set; }
 
+        /// <summary>
+        /// retorna true o false al contar si hay o no garantias para este prestamo
+        /// </summary>
+        public bool TieneGarantias { get { return IdGarantias.Count() > 0; }  }
+        /// <summary>
+        /// La lista de los clientes involucrados en la transaccion
+        /// </summary>
         [IgnorarEnParam]
         public List<Cliente> Clientes { get; set; } = new List<Cliente>();
-
+        /// <summary>
+        /// Los id de los clientes asignado a este prestamo
+        /// </summary>
         public List<int> IdClientes { get; set; } = new List<int>();
 
         [IgnorarEnParam]
@@ -38,7 +47,7 @@ namespace PrestamoEntidades
 
 
         public DateTime FechaEmision { get; set; }
-        public DateTime FechaVencimiento { get; set; }
+        public DateTime FechaVencimiento { get;  }
 
         public int IdTasaDeInteres { get; set; }
         
@@ -60,7 +69,7 @@ namespace PrestamoEntidades
         public bool LlevaGastoDeCiere => TasaGastoDeCierre > 0;
         public float TasaGastoDeCierre { get; set; }
 
-        public float MontoGastoDeCierre { get; protected set; }
+        public float MontoGastoDeCierre { get; internal set; }
 
         public bool GastoDeCierreEsDeducible { get; set; }
 

@@ -75,12 +75,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
-      <Project>{64d406d9-e5d3-4ac3-9c71-57d792569980}</Project>
-      <Name>PrestamoEntidades</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PrestamoBLL;
-using PrestamoEntidades;
+using PrestamoBLL.Entidades;
 using PrestamosMVC5.Models;
 using System;
 using System.Collections.Generic;

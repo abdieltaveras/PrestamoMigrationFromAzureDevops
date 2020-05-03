@@ -94,10 +94,6 @@
       <Project>{c58aeae1-26ea-4087-8bd6-c8deae7b3e77}</Project>
       <Name>PrestamoBLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
-      <Project>{64d406d9-e5d3-4ac3-9c71-57d792569980}</Project>
-      <Name>PrestamoEntidades</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

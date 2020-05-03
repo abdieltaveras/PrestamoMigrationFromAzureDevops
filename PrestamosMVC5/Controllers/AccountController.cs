@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using PrestamoBLL;
-using PrestamoEntidades;
+using PrestamoBLL.Entidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System.Web.Helpers;

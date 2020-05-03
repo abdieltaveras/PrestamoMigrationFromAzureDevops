@@ -1,5 +1,5 @@
 ﻿using emtSoft.DAL;
-using PrestamoEntidades;
+using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,7 +130,12 @@ namespace PrestamoBLL
 
         private void SetCodeuDores(List<Codeudor> codeudores)
         {
-            throw new NotImplementedException();
+
+            foreach (var item in codeudores)
+            {
+                AddCodeudor(prestamoInProgress, item);
+                prestamoInProgress.IdGarantias.Add(item.IdCodeudor);
+            }
         }
 
         private void SetGarantias(List<Garantia> garantias)
@@ -141,7 +146,6 @@ namespace PrestamoBLL
                 prestamoInProgress.IdGarantias.Add(item.IdGarantia);
             }
         }
-
         private void SetCodeudores(List<Codeudor> codeudores)
         {
             foreach (var item in codeudores)
@@ -150,7 +154,6 @@ namespace PrestamoBLL
                 prestamoInProgress.IdGarantias.Add(item.IdCodeudor);
             }
         }
-
         private void SetClientes(List<Cliente> clientes)
         {
             foreach (var item in clientes)

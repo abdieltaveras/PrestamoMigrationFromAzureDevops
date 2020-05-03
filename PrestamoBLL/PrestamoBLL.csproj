@@ -45,10 +45,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SharedDLL\EMTSoft\emtSoft.DAL.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +67,43 @@
     <Compile Include="Color.cs" />
     <Compile Include="ConexionDB.cs" />
     <Compile Include="Cuotas.cs" />
+    <Compile Include="Entidades\AnulacionDeRegistro.cs" />
+    <Compile Include="Entidades\BaseAnularParams.cs" />
+    <Compile Include="Entidades\BaseGetParams.cs" />
+    <Compile Include="Entidades\BaseInsUpd.cs" />
+    <Compile Include="Entidades\Catalogo.cs" />
+    <Compile Include="Entidades\Class1.cs" />
+    <Compile Include="Entidades\Cliente.cs" />
+    <Compile Include="Entidades\Codeudor.cs" />
+    <Compile Include="Entidades\Color.cs" />
+    <Compile Include="Entidades\Conyuge.cs" />
+    <Compile Include="Entidades\Cuota.cs" />
+    <Compile Include="Entidades\Direccion.cs" />
+    <Compile Include="Entidades\Enums.cs" />
+    <Compile Include="Entidades\Equipo.cs" />
+    <Compile Include="Entidades\EstadoCivil.cs" />
+    <Compile Include="Entidades\Garantia.cs" />
+    <Compile Include="Entidades\InfoAccion.cs" />
+    <Compile Include="Entidades\InfoLaboral.cs" />
+    <Compile Include="Entidades\Localidad.cs" />
+    <Compile Include="Entidades\Localizador.cs" />
+    <Compile Include="Entidades\Marca.cs" />
+    <Compile Include="Entidades\Modelo.cs" />
+    <Compile Include="Entidades\Negocio.cs" />
+    <Compile Include="Entidades\Ocupacion.cs" />
+    <Compile Include="Entidades\Operacion.cs" />
+    <Compile Include="Entidades\Prestamo.cs" />
+    <Compile Include="Entidades\Referencia.cs" />
+    <Compile Include="Entidades\Role.cs" />
+    <Compile Include="Entidades\TasaInteres.cs" />
+    <Compile Include="Entidades\Territorio.cs" />
+    <Compile Include="Entidades\TipoGarantia.cs" />
+    <Compile Include="Entidades\TipoMora.cs" />
+    <Compile Include="Entidades\TipoSexo.cs" />
+    <Compile Include="Entidades\TipoTelefono.cs" />
+    <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Entidades\Utils.cs" />
+    <Compile Include="Entidades\VerificadorDireccion.cs" />
     <Compile Include="Equipo.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="Garantia.cs" />
@@ -85,10 +127,12 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
-      <Project>{64d406d9-e5d3-4ac3-9c71-57d792569980}</Project>
-      <Name>PrestamoEntidades</Name>
-    </ProjectReference>
+    <None Include="app.config" />
+    <None Include="Entidades\ClassDiagram1.cd" />
+    <None Include="Entidades\Direccion.cd" />
+    <None Include="Entidades\packages.config" />
+    <None Include="Entidades\TipoMora.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

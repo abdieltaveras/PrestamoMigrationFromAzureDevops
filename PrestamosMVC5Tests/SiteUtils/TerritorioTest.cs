@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PrestamoBLL;
-using PrestamoEntidades;
+using PrestamoBLL.Entidades;
 using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace PrestamosMVC5.SiteUtilsTests
         {
             var search = new DivisionSearchParams { IdDivisionTerritorial = 2, IdNegocio = 1 };
             var result = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(search);
-            var divTerritorialTree = new DivisionTerritorialTree(result);
+            //var divTerritorialTree = new DivisionTerritorialTree(result);
             Assert.IsTrue(true, "nada");
         }
     }

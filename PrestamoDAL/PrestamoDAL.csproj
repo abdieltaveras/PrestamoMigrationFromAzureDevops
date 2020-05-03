@@ -61,11 +61,5 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TasaInteres.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
-      <Project>{64D406D9-E5D3-4AC3-9C71-57D792569980}</Project>
-      <Name>PrestamoEntidades</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

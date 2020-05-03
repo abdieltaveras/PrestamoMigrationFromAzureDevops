@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PrestamoBLL;
-using PrestamoEntidades;
+using PrestamoBLL.Entidades;
 using PrestamosMVC5.SiteUtils;
 using PrestamosMVC5.Models;
 

@@ -1,5 +1,5 @@
 ﻿using PrestamoBLL ;
-using PrestamoEntidades;
+using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;

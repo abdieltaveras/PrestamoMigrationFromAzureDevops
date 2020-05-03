@@ -101,10 +101,6 @@
       <Project>{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}</Project>
       <Name>PrestamoBLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
-      <Project>{64D406D9-E5D3-4AC3-9C71-57D792569980}</Project>
-      <Name>PrestamoEntidades</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PrestamosMVC5\PrestamosMVC5.csproj">
       <Project>{B76A0B71-46B7-4F1E-B0F2-A88E00BFED02}</Project>
       <Name>PrestamosMVC5</Name>

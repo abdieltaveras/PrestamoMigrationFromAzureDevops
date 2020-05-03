@@ -5259,10 +5259,6 @@
       <Project>{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}</Project>
       <Name>PrestamoBLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
-      <Project>{64d406d9-e5d3-4ac3-9c71-57d792569980}</Project>
-      <Name>PrestamoEntidades</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

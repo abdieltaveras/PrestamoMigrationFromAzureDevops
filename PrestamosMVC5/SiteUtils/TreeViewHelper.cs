@@ -1,4 +1,4 @@
-﻿using PrestamoEntidades;
+﻿using PrestamoBLL.Entidades;
 using System.Collections.Generic;
 using System.Linq;
 
