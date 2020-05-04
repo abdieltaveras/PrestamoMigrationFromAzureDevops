@@ -47,7 +47,7 @@ namespace PrestamoBLL.Entidades
 
 
         public DateTime FechaEmision { get; set; }
-        public DateTime FechaVencimiento { get;  }
+        public DateTime FechaVencimiento { get; internal set; }
 
         public int IdTasaDeInteres { get; set; }
         
@@ -98,7 +98,6 @@ namespace PrestamoBLL.Entidades
 
         public List<Cuota> Cuotas { get; set; }
     }
-
 }
 
 

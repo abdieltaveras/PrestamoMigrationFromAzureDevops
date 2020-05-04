@@ -159,10 +159,6 @@ namespace PrestamosMVC5.Controllers
                 newClienteVm.Cliente.Codigo = "Nuevo";
                 pcpSetUsuarioAndIdNegocioTo(newClienteVm.Cliente);
                 FillReferencias(newClienteVm, newClienteVm.Referencias);
-                //for (int i = 0; i < newClienteVm.Referencias.Count; i++)
-                //{
-                //    newClienteVm.Referencias[i] = new Referencia();
-                //}
                 return newClienteVm;
             }
             else
@@ -173,7 +169,6 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
                 var referencias = cliente.InfoReferencia.ToType<List<Referencia>>();
                 FillReferencias(clienteVm, referencias);
-
                 pcpSetUsuarioTo(clienteVm.Cliente);
                 var localidadDelCliente = BLLPrestamo.Instance.LocalidadGetFullName(clienteVm.Direccion.IdLocalidad);
                 if (localidadDelCliente != null)
@@ -191,7 +186,7 @@ namespace PrestamosMVC5.Controllers
             {
                 if (referencias.Count > i)
                 {
-                    clienteVm.Referencias[i] = referencias[i];
+                    clienteVm.Referencias.Add(referencias[i]);
                 }
                 else
                 {

@@ -15,7 +15,13 @@ namespace PrestamoBLL
         List<Codeudor> codeudores = new List<Codeudor>();
         List<Garantia> garantias = new List<Garantia>();
         Prestamo prestamoInProgress = new Prestamo();
-        public void SetPrestamoInfoAndValidate(Prestamo prestamo)
+
+        /// <summary>
+        /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
+        /// a la base de datos.
+        /// </summary>
+        /// <param name="prestamo"></param>
+        public void SetPrestamo(Prestamo prestamo)
         {
             SetFechaDeEmision(prestamo.FechaEmision);
             SetClasificacion(prestamo.IdClasificacion);
@@ -69,15 +75,29 @@ namespace PrestamoBLL
         }
         public void SetMontoAPrestar(decimal monto, int idDivisa)
         {
-            prestamoInProgress.IdDivisa = idDivisa;
+            validateRange(monto, 1, 0, "dinero prestado");
+            //validateRange(idDivisa, 1, 0, "La divisa");
             prestamoInProgress.DineroPrestado = monto;
+            prestamoInProgress.IdDivisa = idDivisa;
         }
 
         private void SetFechaEmision(DateTime fechaEmision)
         {
+            /// validar que la fecha de emision este dentro del rango permitido
             prestamoInProgress.FechaEmision = fechaEmision;
         }
 
+        private void validateRange(decimal valor, decimal minimo, decimal maximo, string propiedad)
+        {
+            if (valor <= minimo)
+            {
+                throw new ArgumentOutOfRangeException($"El valor de {propiedad} e menor al valor minimo aceptado el cual es {minimo}");
+            }
+            if (maximo>0 || valor > maximo)
+            {
+                throw new ArgumentOutOfRangeException($"El valor de {propiedad} es mayor que el valor maximo aceptado el cual es {minimo}");
+            }
+        }
         
         private void setPeriodo(int idPeriodo, int cantidadPeriodo)
         {
@@ -94,9 +114,6 @@ namespace PrestamoBLL
             prestamoInProgress.GastoDeCierreEsDeducible = esDeducible;
         }
         
-
-        
-
         private int SetAcomodarFecha(DateTime? fechaInicioPrimeraCuota)
         {
             // aqui debe tomar la fecha y debe actualizar entonces la propiedad  [FechaInicioCalculoPrestamo]
@@ -109,6 +126,11 @@ namespace PrestamoBLL
         }
 
         private void SetPeriodoYDuracion(int idPeriodo, int cantidadDePeriodo)
+        {
+            prestamoInProgress.FechaVencimiento = CalcularFechaVencimiento();
+        }
+
+        private DateTime CalcularFechaVencimiento()
         {
             throw new NotImplementedException();
         }
