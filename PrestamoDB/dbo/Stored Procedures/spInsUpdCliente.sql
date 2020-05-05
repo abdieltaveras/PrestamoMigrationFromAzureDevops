@@ -21,7 +21,7 @@
 	@telefonocasa varchar(20), 
 	@telefonomovil varchar(20),
 	@correoElectronico varchar(30),
-	@infoReferencia varchar(4000),
+	@inforeferencia varchar(4000),
     @Usuario varchar(100))
 AS
 Begin

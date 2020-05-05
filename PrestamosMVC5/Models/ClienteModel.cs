@@ -17,13 +17,13 @@ namespace PrestamosMVC5.Models
         public Direccion Direccion { get; set; } = new Direccion();
         //public Referencia[] Referencia { get; set; } = new Referencia[5];
         public List<Referencia> Referencias { get; set; } = new List<Referencia>(5);
-        public int? Selected { get; set; } = 2;
-        public string TipoBusqueda { get; set; } = "normal";
-        
+        //public int? Selected { get; set; } = 2;
+        //public string TipoBusqueda { get; set; } = "normal";
+
         public string MensajeError { get; set; } = string.Empty;
-        public int SelectedReferencia { get; set; } = 0;
-        [Range(minimum: 0, maximum: 9)]
-        public int SelectedVinculo { get; set; } = 0;
+        //public int SelectedReferencia { get; set; } = 0;
+        //[Range(minimum: 0, maximum: 9)]
+        //public int SelectedVinculo { get; set; } = 0;
         public ClienteModel() {
             Cliente = new Cliente();
         }

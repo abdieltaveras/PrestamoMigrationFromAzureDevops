@@ -14,10 +14,11 @@ $(document).ready(function () {
     var validForm = false;
     var d = new Date();
     $("#btnSubmit").click(function () {
-        validReferences();
+        //validReferences();
         //return;
         //formulario.submit();
         //alert("submit 2");
+        //return;
         formulario.validate().settings.ignore = "";
         var isValidForm = true;
         $('input[data-val="true"]').each(function (index, value) {
@@ -34,6 +35,10 @@ $(document).ready(function () {
         });
         var validform = formulario.validate();
         //console.log(isValidForm);
+        //Validar referencias
+        if (!validReferences()) {
+            return;
+        }
         formulario.validate({ ignore: ":hidden" });
         if (isValidForm) {
             formulario.submit(); // Submit the form
@@ -41,7 +46,7 @@ $(document).ready(function () {
     });
     $(".select-tipo").change(function () {
         var dataOrder = $(this).data('order');
-        console.log(dataOrder);
+        //console.log(dataOrder);
         var selectedOption = $(this).children("option:selected").val();
         if (selectedOption != FAMILIA) {
             $('#Referencias_' + dataOrder + '__Vinculo').prop("disabled", true);
@@ -53,20 +58,64 @@ $(document).ready(function () {
     });
     function validReferences() {
         var selectsTipo = $('.select-tipo');
+        var isValid = true;
         var count = 0;
+        var validReferences = 0;
         selectsTipo.each(function (index, value) {
             var elem = $(this);
-            var selectedOption = elem.children("option:selected").val();
-            if (selectedOption == FAMILIA) {
-                var vinculo = $('#Referencias_' + count + '__Vinculo').children("option:selected").val();
-                console.log('vinculo', vinculo);
-                if (vinculo == 0) {
-                    console.log('Referencias_' + count + '__Vinculo viola la regla');
+            var selectedOption = $(this).find(":selected");
+            // Evaluar si selecciono un vinculo si el tipo es familiar
+            if (selectedOption.val() == FAMILIA) {
+                var vinculo = $('#Referencias_' + count + '__Vinculo');
+                if (vinculo.children("option:selected").val() == 0) {
+                    vinculo.addClass('is-invalid');
+                    isValid = false;
+                }
+                else {
+                    vinculo.removeClass('is-invalid');
                 }
             }
-            console.log(selectedOption);
+            var nombre = $('#Referencias_' + count + '__NombreCompleto');
+            var telefono = $('#Referencias_' + count + '__Telefono');
+            var direccion = $('#Referencias_' + count + '__Direccion');
+            if (selectedOption.val() != 0) {
+                // Validar nombre
+                if (nombre.val().length < 1) {
+                    nombre.addClass('is-invalid');
+                    isValid = false;
+                }
+                else {
+                    nombre.removeClass('is-invalid');
+                }
+                // Validar Telefono
+                if (telefono.val().length < 1) {
+                    telefono.addClass('is-invalid');
+                    isValid = false;
+                }
+                else {
+                    telefono.removeClass('is-invalid');
+                }
+                // Validar Direccion
+                if (direccion.val().length < 1) {
+                    direccion.addClass('is-invalid');
+                    isValid = false;
+                }
+                else {
+                    direccion.removeClass('is-invalid');
+                }
+                validReferences++;
+            }
             count++;
         });
+        // Evaluar si hay menos de tres referencias
+        if (validReferences < 3) {
+            isValid = false;
+            $('#alert').show();
+        }
+        else {
+            $('#alert').hide();
+        }
+        return isValid;
     }
 });
 //# sourceMappingURL=validate-form-Inputs.js.map

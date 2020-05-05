@@ -41,7 +41,7 @@ namespace PrestamoBLL
             cliente.InfoConyuge = infoConyuge.ToJson();
             cliente.InfoLaboral = infoLaboral.ToJson();
             cliente.InfoDireccion = infoDireccion.ToJson();
-            cliente.InfoReferencia = infoReferencia.ToJson();
+            cliente.InfoReferencia = infoReferencia.FindAll(x => x.Tipo != 0).ToJson();
         }
 
         private static void FixProperties(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral)
