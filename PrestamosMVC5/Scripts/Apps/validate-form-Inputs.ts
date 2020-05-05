@@ -19,10 +19,11 @@ $(document).ready(function () {
     let validForm = false;
     let d = new Date();
     $("#btnSubmit").click(function () {
-        validReferences();
+        //validReferences();
         //return;
         //formulario.submit();
         //alert("submit 2");
+        //return;
         formulario.validate().settings.ignore = "";
         let isValidForm = true;
         $('input[data-val="true"]').each(function (index, value) {
@@ -39,6 +40,12 @@ $(document).ready(function () {
         });
         var validform = formulario.validate();
         //console.log(isValidForm);
+
+        //Validar referencias
+        if (!validReferences()) {
+            return;
+        }
+
         formulario.validate({ ignore: ":hidden" });
         if (isValidForm) {
             beforeSubmit();
@@ -49,7 +56,7 @@ $(document).ready(function () {
     $(".select-tipo").change(function () {
 
         let dataOrder = $(this).data('order');
-        console.log(dataOrder);
+        //console.log(dataOrder);
         let selectedOption = $(this).children("option:selected").val();
 
         if (selectedOption != FAMILIA) {
@@ -64,24 +71,72 @@ $(document).ready(function () {
     function validReferences() {
 
         let selectsTipo = $('.select-tipo');
-
+        let isValid = true;
         let count = 0;
+        let validReferences = 0;
 
         selectsTipo.each(function (index, value) {
             let elem = $(this);
-            let selectedOption = elem.children("option:selected").val();
+            let selectedOption = $(this).find(":selected");
 
-            if (selectedOption == FAMILIA) {
-                let vinculo = $('#Referencias_' + count + '__Vinculo').children("option:selected").val();
-                console.log('vinculo', vinculo)
-                if (vinculo == 0) {
-                    console.log('Referencias_' + count + '__Vinculo viola la regla')
-                } 
+            // Evaluar si selecciono un vinculo si el tipo es familiar
+            if (selectedOption.val() == FAMILIA) {
+                let vinculo = $('#Referencias_' + count + '__Vinculo');
+               
+                if (vinculo.children("option:selected").val() == 0) {
+                    vinculo.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    vinculo.removeClass('is-invalid');
+                }
             }
 
-            console.log(selectedOption);
+            let nombre = $('#Referencias_' + count + '__NombreCompleto');
+            let telefono = $('#Referencias_' + count + '__Telefono');
+            let direccion = $('#Referencias_' + count + '__Direccion');
+
+            if (selectedOption.val() != 0) {
+                
+                // Validar nombre
+                if (nombre.val().length < 1) {
+                    nombre.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    nombre.removeClass('is-invalid');
+                }
+
+                // Validar Telefono
+                if (telefono.val().length < 1) {
+                    telefono.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    telefono.removeClass('is-invalid');
+                }
+
+                // Validar Direccion
+                if (direccion.val().length < 1) {
+                    direccion.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    direccion.removeClass('is-invalid');
+                }
+
+                validReferences++;
+            }
             count++;
         });
+
+        // Evaluar si hay menos de tres referencias
+        if (validReferences < 3) {
+            isValid = false;
+            $('#alert').show();
+        } else {
+            $('#alert').hide();
+        }
+
+        return isValid;
     }
+
+    
 
 });
