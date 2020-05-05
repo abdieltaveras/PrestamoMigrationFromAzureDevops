@@ -113,7 +113,7 @@ namespace PrestamosMVC5.Controllers
             catch (Exception e)
             {
 
-                ModelState.AddModelError("", "Ocurrio un error que no permite guardar el cliente, revisar");
+                ModelState.AddModelError("", "Ocurrio un error que no permite guardar el cliente, revisar" +e.Message);
                 result = View(clienteVm);
             }
             return result;
@@ -182,6 +182,7 @@ namespace PrestamosMVC5.Controllers
 
         private static void FillReferencias(ClienteModel clienteVm, List<Referencia> referencias)
         {
+            Prestamo pre = new Prestamo();
             for (int i = 0; i < 5; i++)
             {
                 if (referencias.Count > i)

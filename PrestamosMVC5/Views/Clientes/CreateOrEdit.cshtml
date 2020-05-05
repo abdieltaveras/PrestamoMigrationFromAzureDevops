@@ -190,6 +190,14 @@
             //$('[data-val-grp="conyuge"]').each(function () {  });
         }
 
+        function beforeSubmit()
+        {
+            $("#@Html.IdFor(m=> m.ImagenCliente1)").remove();
+            $("#@Html.IdFor(m=> m.ImagenCliente2)").remove();
+            $("#image1Preview").remove();
+            $("#image2Preview").remove();
+        }
+
         function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
             console.log(elemId, imageElemIdText);
             $("#" + imageElemIdText).attr("src", _urlNoImagen);

@@ -22,18 +22,19 @@
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEdtUser" }))
 {
     <div class="form-horizontal">
-        <div class="x_title">
-            <div class="col-md-3 col-sm-12 ">
-                <h2>Datos Para el Usuario</h2>
-            </div>
-            <div class="col-md-6 col-sm-12 text-center" id="mensajeError">
-                @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
-            </div>
-            <div class="col-md-3 col-sm-12  text-right">
-                <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
+        <div class="x_panel">
+            <div class="x_title">
+                <div class="col-md-3 col-sm-12 ">
+                    <h2>Datos Para el Usuario</h2>
+                </div>
+                <div class="col-md-6 col-sm-12 text-center" id="mensajeError">
+                    @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
+                </div>
+                <div class="col-md-3 col-sm-12  text-right">
+                    <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
             </div>
         </div>
-
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.ShowAdvancedOptions);
         @Html.HiddenFor(model => model.Usuario.IdUsuario)
@@ -92,34 +93,34 @@
                         }
 
 
-                    <div class="@HtmlClass.FormGroupCls">
-                        <div class="col-md-6">
-                            @Html.LabelFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, htmlAttributes: new { @class = "col-md-6" })
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                @*CambiarContraseñaAlIniciarSesion()*@
-                                @Html.ValidationMessageFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, "", new { @class = "text-danger" })
+                        <div class="@HtmlClass.FormGroupCls">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, htmlAttributes: new { @class = "col-md-6" })
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @*CambiarContraseñaAlIniciarSesion()*@
+                                    @Html.ValidationMessageFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <img id="image1Preview"
+                                     src="@image1Url" style="height:10em; width:12em;" class="img-fluid" />
+                                @Html.HiddenFor(m => m.image1PreviewValue)
+                                <input id="@Html.IdFor(m=> m.ImagenUsuario1)" class=@HtmlClass.InputTextCls type="file"
+                                       name="@Html.IdFor(m=> m.ImagenUsuario1)" accept="image/jpeg, image/png" capture="camera"
+                                       onchange="ShowImagePreview(this, 'image1Preview', '@Html.IdFor(m=> m.ImagenUsuario1)','@Html.IdFor(m => m.image1PreviewValue)')" style="display:none" />
+
+                                <div class="text-center">
+                                    <label id="@Html.IdFor(m=> m.ImagenUsuario1)Agregar" for="@Html.NameFor(m=> m.ImagenUsuario1)" class="text-info"
+                                           style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
+                                    <label id="@Html.IdFor(m=> m.ImagenUsuario1)Quitar" for="@Html.NameFor(m=> m.ImagenUsuario1)" class="text-danger"
+                                           style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenUsuario1)','image1Preview','@Html.IdFor(m => m.image1PreviewValue)')">Quitar imagen</label>
+                                    @*<span id="container"></span>*@
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <img id="image1Preview"
-                                 src="@image1Url" style="height:10em; width:12em;" class="img-fluid" />
-                            @Html.HiddenFor(m => m.image1PreviewValue)
-                            <input id="@Html.IdFor(m=> m.ImagenUsuario1)" class=@HtmlClass.InputTextCls type="file"
-                                   name="@Html.IdFor(m=> m.ImagenUsuario1)" accept="image/jpeg, image/png" capture="camera"
-                                   onchange="ShowImagePreview(this, 'image1Preview', '@Html.IdFor(m=> m.ImagenUsuario1)','@Html.IdFor(m => m.image1PreviewValue)')" style="display:none" />
 
-                            <div class="text-center">
-                                <label id="@Html.IdFor(m=> m.ImagenUsuario1)Agregar" for="@Html.NameFor(m=> m.ImagenUsuario1)" class="text-info"
-                                       style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
-                                <label id="@Html.IdFor(m=> m.ImagenUsuario1)Quitar" for="@Html.NameFor(m=> m.ImagenUsuario1)" class="text-danger"
-                                       style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenUsuario1)','image1Preview','@Html.IdFor(m => m.image1PreviewValue)')">Quitar imagen</label>
-                                @*<span id="container"></span>*@
-                            </div>
-                        </div>
-                    </div>
 
-                        
 
                         <div class="@HtmlClass.FormGroupCls">
                             @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
@@ -270,13 +271,10 @@
 }
 
 @section scripts {
-    <script>
-
-    </script>
     /*
     * experiencias aprendidas
     * no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
-    * ya que aparentemente el razon lo resuelve con el campo oculto y algo que hace el jquery que aun no lo se
+    * ya que aparentemente el razor lo resuelve con el campo oculto y algo que hace el jquery que aun no lo se
     * si es necesario establecer el valor del check  para que el dom usado en jquery tenga conocimiento
     * tambien tenemos como obtener los errores del modelstate para darle una manipulacion distinta a la que razor
     * le da.
@@ -284,7 +282,6 @@
     * por ejemplo ViewData.Model.Usuario.Contraseña
     * para los data-dash ejemplo "data-val", no funciona con prop sino con attr
     */
-
     <script src="~/Scripts/apps/datePickerInit.js"></script>
     <script src="~/Scripts/Apps/setMask.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>

@@ -41,6 +41,7 @@ $(document).ready(function () {
         //console.log(isValidForm);
         formulario.validate({ ignore: ":hidden" });
         if (isValidForm) {
+            beforeSubmit();
             formulario.submit(); // Submit the form
         }
     });

@@ -210,6 +210,7 @@
     <Content Include="Content\build\images\forward_disabled.png" />
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
+    <Content Include="Content\build\js\custom.min - Copy.js" />
     <Content Include="Content\customcss\datatable\configuration\js-conf\datatable-conf.js" />
     <Content Include="Content\customcss\datatable\css\buttons.dataTables.min.css" />
     <Content Include="Content\customcss\datatable\css\dataTables.bootstrap4.min.css" />
@@ -4070,6 +4071,7 @@
     <TypeScriptCompile Include="Scripts\Apps\cultureInfo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
     <TypeScriptCompile Include="Scripts\Apps\testCommands.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs-interface.ts" />
     <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs.ts" />
     <TypeScriptCompile Include="Scripts\Apps\DatePickerInit.ts" />
     <Content Include="Scripts\Apps\empty.js" />

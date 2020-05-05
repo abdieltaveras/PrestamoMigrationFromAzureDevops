@@ -1,6 +1,7 @@
 ﻿using emtSoft.DAL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,11 @@ namespace PrestamoBLL.Entidades
     {
         public int IdPrestamo { get; set; }
 
+        [IgnorarEnParam]
         public string PrestamoNo { get; set; } = string.Empty;
 
         public int IdPrestamoARenovar { get; set; }
-
+        [IgnorarEnParam]
         public string NoPrestamoARenovar { get; set; }
 
         public int IdClasificacion { get; set; }
@@ -24,6 +26,7 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         /// retorna true o false al contar si hay o no garantias para este prestamo
         /// </summary>
+        [IgnorarEnParam]
         public bool TieneGarantias { get { return IdGarantias.Count() > 0; }  }
         /// <summary>
         /// La lista de los clientes involucrados en la transaccion
@@ -42,11 +45,12 @@ namespace PrestamoBLL.Entidades
 
         [IgnorarEnParam]
         public List<Codeudor> Codeudores { get; set; }
-
+        
         public List<int> IdCodeudores { get; set; }
 
 
-        public DateTime FechaEmision { get; set; }
+        public DateTime FechaEmision { get; set; } = DateTime.Now;
+        
         public DateTime FechaVencimiento { get; internal set; }
 
         public int IdTasaDeInteres { get; set; }
@@ -65,7 +69,7 @@ namespace PrestamoBLL.Entidades
         public int IdDivisa { get; set; }
 
         public Decimal CantidadDineroPrestado { get; set; }
-
+        [IgnorarEnParam]
         public bool LlevaGastoDeCiere => TasaGastoDeCierre > 0;
         public float TasaGastoDeCierre { get; set; }
 
@@ -82,12 +86,12 @@ namespace PrestamoBLL.Entidades
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
 
-        public DateTime? FechaInicioPrimeraCuota { get; set; } = InitValues._19000101;
+        public DateTime? FechaInicioPrimeraCuota { get; internal set; } = InitValues._19000101;
 
         /// <summary>
         /// este campo es el que tendra la fecha real de donde partira a generar las cuotas y sus fechas de vencimientos, es necesario para cuando al prestamo se le acomode las cuotas
         /// </summary>
-        public DateTime FechaInicioCalculoPrestamo { get; set; }
+        public DateTime FechaInicioCalculoPrestamo { get; internal set; }
     }
 
     public class PrestamoConCuota
