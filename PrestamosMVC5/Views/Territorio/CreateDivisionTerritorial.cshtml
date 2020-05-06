@@ -9,11 +9,11 @@
       
         <div class="x_panel">
             <div class="x_title">
-                <h2>Listado de divisiones territoriales</h2>                
+                <h2>Listado de divisiones territoriales</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table class="table bulk_action ">
+                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th>Division territorial</th>
@@ -95,7 +95,13 @@
     }
 </style>
 
-<script type="text/javascript">    
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#datatable').DataTable(dataTableConfiguration);
+        removeTemplateConfiguration();
+    });
+
     // Mostrar mensajes
     function validarDatos() {
         

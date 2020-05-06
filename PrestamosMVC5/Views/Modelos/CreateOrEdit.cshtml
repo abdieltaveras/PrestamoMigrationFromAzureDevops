@@ -14,7 +14,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table class="table bulk_action ">
+                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th>Marca</th>
@@ -26,31 +26,31 @@
 
                         @foreach (var item in Model.ListaModelos)
                         {
-                        <tr class="@(!item.Activo ? "table-active" : "" )">
-                            <td>
-                                <strong>
-                                    @item.NombreMarca
-                                </strong>
-                            </td>
-                            <td>
-                                <strong>
-                                    @item.Nombre
-                                </strong>
-                            </td>
+                            <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <td>
+                                    <strong>
+                                        @item.NombreMarca
+                                    </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        @item.Nombre
+                                    </strong>
+                                </td>
 
-                            <td>
-                                @*<a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
-                <button type="button" class="btn btn-outline-danger">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </a>*@
-                                <a href="#">
-                                    <button class="btn btn-outline-warning">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
+                                <td>
+                                    @*<a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
+                                <button type="button" class="btn btn-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </a>*@
+                                    <a href="#">
+                                        <button class="btn btn-outline-warning">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
                         }
 
                     </tbody>
@@ -97,7 +97,7 @@
                                         @*@Html.ValidationMessageFor(model => model.Cliente.EstadoCivil, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <label class="@HtmlClass.LabelCls" for="nombre">
                                         Nombre <span class="required">*</span>
@@ -129,3 +129,12 @@
         </div>
     </div>
 </div>
+
+@section prevscripts {
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable(dataTableConfiguration);
+            removeTemplateConfiguration();
+        });
+    </script>
+}

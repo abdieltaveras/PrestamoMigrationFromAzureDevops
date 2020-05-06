@@ -225,29 +225,11 @@
 </div>
 <!-- Fin Modal -->
 
-@* CSS for Datatable *@
-<link rel="stylesheet" href="~/Content/customcss/datatable/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="~/Content/customcss/datatable/css/buttons.dataTables.min.css">
-
-@* JS for datatable *@
-
-<script src="~/Content/customcss/datatable/js/jquery.dataTables.min.js"></script>
-<script src="~/Content/customcss/datatable/js/dataTables.bootstrap4.min.js"></script>
-<script src="~/Content/customcss/datatable/js/dataTables.buttons.min.js"></script>
-<script src="~/Content/customcss/datatable/js/buttons.html5.min.js"></script>
-
-<script src="~/Content/customcss/datatable/js/jszip.min.js"></script>
-<script src="~/Content/customcss/datatable/js/vfs_fonts.js"></script>
-<script src="~/Content/customcss/datatable/js/buttons.print.min.js"></script>
-
-<script src="~/Content/customcss/datatable/configuration/js-conf/datatable-conf.js"></script>
 
 <script>
-     $(document).ready(function () {        
-        $('#datatable').DataTable( dataTableConfiguration );
+    $(document).ready(function () {
+        $('#datatable').DataTable(dataTableConfiguration);
         removeTemplateConfiguration();
     });
 </script>
-
-@*<script src="../vendors/iCheck/icheck.min.js" type="7970e1e113382da18ac5720e-text/javascript"></script>*@
 
