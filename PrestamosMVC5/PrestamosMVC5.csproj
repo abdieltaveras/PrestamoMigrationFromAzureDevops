@@ -219,6 +219,7 @@
     <Content Include="Content\customcss\datatable\js\dataTables.buttons.min.js" />
     <Content Include="Content\customcss\datatable\js\jquery.dataTables.min.js" />
     <Content Include="Content\customcss\datatable\js\jszip.min.js" />
+    <Content Include="Content\customcss\datatable\js\pdfmake.min.js" />
     <Content Include="Content\customcss\datatable\js\vfs_fonts.js" />
     <Content Include="Content\ImagesFor\Negocios\Papito.png" />
     <Content Include="Content\build\images\loading.gif" />
