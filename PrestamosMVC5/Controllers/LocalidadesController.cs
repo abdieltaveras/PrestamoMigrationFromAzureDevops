@@ -65,10 +65,10 @@ namespace PrestamosMVC5.Controllers
         public string BuscarLocalidad(string textToSearch)
         {
             IEnumerable<Localidad> localidades = null;
-            if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
-            {
-                localidades = BLLPrestamo.Instance.LocalidadSearch(new BuscarLocalidadParams { Search = textToSearch, IdNegocio = pcpUserIdNegocio });
-            }
+            localidades = BLLPrestamo.Instance.LocalidadSearch(new BuscarLocalidadParams { Search = textToSearch, IdNegocio = pcpUserIdNegocio });
+            //if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
+            //{
+            //}
              return JsonConvert.SerializeObject(localidades);
         }
 
