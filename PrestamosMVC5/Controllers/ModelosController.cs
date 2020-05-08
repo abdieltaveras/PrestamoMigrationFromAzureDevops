@@ -14,6 +14,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class ModelosController : ControllerBasePcp
     {
+        public ModelosController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         // GET: Modelos
         public ActionResult Index()
         {

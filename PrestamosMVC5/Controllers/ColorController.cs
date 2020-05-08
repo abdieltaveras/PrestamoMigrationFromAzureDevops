@@ -13,6 +13,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class ColorController : ControllerBasePcp
     {
+        public ColorController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         // GET: Color
         public ActionResult Index()
         {

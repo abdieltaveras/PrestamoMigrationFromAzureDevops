@@ -19,6 +19,7 @@ namespace PrestamosMVC5.Controllers
             UpdViewBag_ShowSummaryErrorsTime(8);
             UpdViewBag_ShowSideBar(true);
             UpdViewBag_LoadCssAndJsGrp2(false);
+            UpdViewBag_LoadCssAndJsForDatatable(false);
         }
         public int ShowSummaryErrorsTime = 5;
 
@@ -32,6 +33,12 @@ namespace PrestamosMVC5.Controllers
         protected void UpdViewBag_LoadCssAndJsGrp2(bool value)
         {
             ViewBag.LoadCssAndJsGrp2 = value;
+        }
+
+        // 
+        protected void UpdViewBag_LoadCssAndJsForDatatable(bool value)
+        {
+            ViewBag.LoadCssAndJsForDatatable = value;
         }
 
         /// <summary>

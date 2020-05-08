@@ -13,6 +13,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class TipoController : ControllerBasePcp
     {
+        public TipoController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         // GET: Tipo
         public ActionResult Index()
         {

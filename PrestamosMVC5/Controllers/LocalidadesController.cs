@@ -15,6 +15,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class LocalidadesController : ControllerBasePcp
     {
+        public LocalidadesController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         const int BUSCAR_A_PARTIR_DE = 2;
         [AllowAnonymous]
         public ActionResult Index()

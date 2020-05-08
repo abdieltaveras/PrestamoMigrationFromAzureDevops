@@ -14,6 +14,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class TerritorioController : ControllerBasePcp
     {
+        public TerritorioController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         // GET: Territorio
         public ActionResult Index(int division_territorial_id = 0)
         {

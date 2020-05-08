@@ -21,7 +21,7 @@
         }
 
         // Definir la condicion para cargar las librerias del datatable
-        if (true)
+        if (@ViewBag.LoadCssAndJsForDatatable)
         {
             <link rel="stylesheet" href="~/Content/customcss/datatable/css/dataTables.bootstrap4.min.css">
             <link rel="stylesheet" href="~/Content/customcss/datatable/css/buttons.dataTables.min.css">
@@ -148,7 +148,7 @@
         }
 
         // Definir la condicion para cargar las librerias del datatable
-        if (true)
+        if (@ViewBag.LoadCssAndJsForDatatable)
         {
             <script src="~/Content/customcss/datatable/js/jquery.dataTables.min.js"></script>
             <script src="~/Content/customcss/datatable/js/dataTables.bootstrap4.min.js"></script>

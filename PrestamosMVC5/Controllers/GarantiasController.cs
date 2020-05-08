@@ -15,7 +15,11 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class GarantiasController : ControllerBasePcp
     {
-        const int BUSCAR_A_PARTIR_DE = 2;
+        int BUSCAR_A_PARTIR_DE = 2;
+        public GarantiasController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
 
         public ActionResult Index()
         {

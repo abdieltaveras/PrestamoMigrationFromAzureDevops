@@ -12,7 +12,11 @@ namespace PrestamosMVC5.Controllers
 {
     [AuthorizeUser]
     public class TasaInteresController : ControllerBasePcp
-    {    
+    {
+        public TasaInteresController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         // GET: TasaInteres
         [HasPermission(Operacion = "tasainteres-ver")]
         public ActionResult Index()

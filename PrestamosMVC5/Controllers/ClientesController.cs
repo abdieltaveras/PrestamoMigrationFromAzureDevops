@@ -23,6 +23,7 @@ namespace PrestamosMVC5.Controllers
         {
             UpdViewBag_LoadCssAndJsGrp2(true);
             UpdViewBag_ShowSummaryErrorsTime(10);
+            UpdViewBag_LoadCssAndJsForDatatable(true);
         }
         public ActionResult Index()
         {

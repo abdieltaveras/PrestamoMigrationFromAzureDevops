@@ -4,9 +4,6 @@ if (typeof (searchLocalidadElem) === 'undefined') { console.log("Es obligatorio 
 let searching = null;
 
 $(".target").keyup(function () {
-   //if (searchLocalidadElem.val().length > 2)
-   // {
-   //}
     clearTimeout(searching);
     searching = setTimeout(function () {
         let value = searchLocalidadElem.val();
@@ -16,8 +13,6 @@ $(".target").keyup(function () {
             $('.direcciones').remove();
         }
     }, 300);
-
-
 });
 
 async function searchText(location) {
