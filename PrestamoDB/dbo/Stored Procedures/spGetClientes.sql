@@ -1,9 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[spGetClientes]
 (
 	@idCliente int=-1,
-	@idNegocio int=-1,
+	@idNegocio int,
 	@Activo int=-1,
 	@Anulado int=0,
+	@NoIdentificacion varchar(20)='',
+	@idTipoIdentificacion int= -1,
 	@Usuario varchar(100)=''
 )
 as
@@ -14,6 +16,7 @@ begin
 		((@idCliente=-1) or (IdCliente = @IdCliente))
 		and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
 		--and ((@Codigo='') or (Codigo = @Codigo))
-		and ((@Activo=-1) or (Activo=@Activo))
-
+		and ((@Activo=-1) or (Activo=@Activo)) 
+		and ((@idTipoIdentificacion=-1) or (idTipoIdentificacion =@idTipoIdentificacion)) 
+		and ((@NoIdentificacion='') or (NoIdentificacion =@NoIdentificacion)) 
 End

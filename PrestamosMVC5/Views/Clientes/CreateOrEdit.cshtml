@@ -2,10 +2,11 @@
 
 @{
     ViewBag.Title = "Crear Editar Clientes";
-    ViewBag.RefView = "_infoReferencia2"; 
+    ViewBag.RefView = "_infoReferencia2";
     //Layout = "~/Views/Shared/_LayoutForms.cshtml";
     /// attention : para que deshabilitar el autocomplete es necesario poner esta instruccion en el tag for y en el tag input em chrome autocomplete="dummy-no-auto-complete-fix" -->
 }
+
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCreateCliente", autocomplete = "dummy-no-auto-complete-fix" }))
 {
@@ -107,8 +108,10 @@
     <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
     <script src="~/Scripts/apps/datePickerInit.js"></script>
     <script src="~/Scripts/Apps/setMask.js"></script>
+    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
     <script type="text/javascript">
+        let cantidadDeReferenciasMinimasPorCliente = 0;
         var urlNoImage = "@Url.Content(SiteImages.NoImage)"
         var constantNoImagen ="@Constant.NoImagen";
         let searchLocalidadElem = $('#searchLocalidad');
@@ -131,15 +134,26 @@
         //let model = Html.Raw(Json.Encode(Model));
         // esta funcion esta aqui porque el archivo externo js no reconoce o entiende el las variables del modelo
         function setFecha(elem, name) {
-            d = new Date();
+            d = new Date(elem.val());
+            var formattedDate = moment(d).format("DD/MM/YYYY")
+            console.log(d, formattedDate);
+
+            @*
+            moment.defaultFormat = "DD/MM/YYYY";
+            var fec = moment(d, moment.defaultFormat).toDate()
+            console.log(fec);
             if (name == "Cliente.FechaNacimiento") {
                 d.setFullYear(@Model.Cliente.FechaNacimiento.Year, @Model.Cliente.FechaNacimiento.Month-1, @Model.Cliente.FechaNacimiento.Day );
+                //elem.val($.datepicker.formatDate(elem.val()))
             }
             if (name == "Cliente_xmlInfoLaboral_FechaInicio") {
                 d.setFullYear(@Model.InfoLaboral.FechaInicio.Year, @Model.InfoLaboral.FechaInicio.Month-1, @Model.InfoLaboral.FechaInicio.Day );
             }
-            let n = d.toLocaleDateString(dateFormat);
-            elem.val(n);
+
+            var options = { month: "numeric", day: "numeric", year: "numeric" }
+            let n = new Date(elem.val()).toLocaleDateString(options);
+            //console.log(moment(d).format("DD/MM/YYYY"));
+            @*elem.val(n);*@
         }
         $(document).ready(function () {
             ResizeContentContainer();
@@ -152,10 +166,33 @@
                 case "@Html.IdFor(model => model.Cliente.TieneConyuge)":
                     onTieneConyugeChange();
                     break;
+                case "@Html.IdFor(m=> m.Cliente.NoIdentificacion)":
+                     validarNoIdentificacionNoRegistrada(elem.value)
+                     break;
                 default:
             }
         };
+        function validarNoIdentificacionNoRegistrada(value) {
+            if (value.match(/\d/g).length > 0) {
+                return $.get("/Clientes/BuscarPorNoIdentificacion", { noIdentificacion: value },
+                    function (data) {
+                        if (data.Codigo != $("#@Html.IdFor(m => m.Cliente.Codigo)").val()) {
+                            setNoIdentificacionDuplicada(data);
+                        }
+                    })
+                    .fail(function () {
+                        //console.log("el documento de identidad digitado no esta registrado a ningun cliente"
+                    })
+            }
+        }
 
+        function setNoIdentificacionDuplicada(data) {
+            let _noidentificacion = $("#@Html.IdFor(m=> m.Cliente.NoIdentificacion)").val();
+            var mensaje = "el numero de documento de identificacion " + _noidentificacion + " fue digitado para otro cliente " + data.Nombre + " codigo no " + data.Codigo;
+            SetSpanErrorForElem("@Html.NameFor(m=> m.Cliente.NoIdentificacion)", mensaje)
+            $("#@Html.IdFor(m => m.Cliente.NoIdentificacion)").val('');
+            $("#@Html.IdFor(m => m.Cliente.NoIdentificacion)").focus();
+        }
         function onTieneConyugeChange() {
             if (tieneConyuge()) {
                 $("#datosConyuge-tab").show()
@@ -185,11 +222,9 @@
         }
         function deactivateValidationsToConyugeTab() {
             $('[data-val-grp="conyuge"]').attr("data-val", false);
-            //$('[data-val-grp="conyuge"]').each(function () {  });
         }
         function activateValidationsToConyugeTab() {
             $('[data-val-grp="conyuge"]').attr("data-val", true);
-            //$('[data-val-grp="conyuge"]').each(function () {  });
         }
 
         function beforeSubmit()
@@ -211,7 +246,6 @@
     </script>
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
-    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/searchLocalidad.js"></script>
 }
 

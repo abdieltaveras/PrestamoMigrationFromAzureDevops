@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spInsUpdCliente](@idCliente varchar(100),
+﻿CREATE PROCEDURE [dbo].[spInsUpdCliente]
+	(@idCliente int,
 	@activo bit, 
 	@apodo varchar(100), 
 	@apellidos varchar(100), 
@@ -26,11 +27,22 @@
 AS
 Begin
 	if (@idCliente<=0)
-		
 		begin
-			INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, EstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado,
-			 NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencia)
-			VALUES (@activo, @apodo, @apellidos, @estadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @Sexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName, @imagen2FileName, @tieneConyuge, @infoReferencia)
+			SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+			BEGIN TRANSACTION 
+			begin try
+				exec dbo.spGenerarSecuenciaString 'Codigo de Clientes',10,1, @codigo output
+				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, EstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencia, codigo)
+
+				VALUES (@activo, @apodo, @apellidos, @estadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @Sexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName, @imagen2FileName, @tieneConyuge, @infoReferencia, @codigo)
+				SELECT SCOPE_IDENTITY(); 
+				commit
+			end try
+			begin catch
+				rollback
+				declare @errorMessage varchar(max) =  (select ERROR_MESSAGE()) 
+				RAISERROR(@errorMessage ,17,1); 
+			end catch
 		end
 	Else
 		Begin
@@ -48,7 +60,7 @@ Begin
 				InfoDireccion = @infodireccion,
 				[ModificadoPor] = @usuario,
 				NoIdentificacion = @noidentificacion,
-				Codigo = @codigo,
+				--Codigo = @codigo, este codigo una vez es creado jamas debe ser actualizado
 				Nombres = @nombres,
 				Sexo = @sexo,
 				TelefonoCasa = @telefonocasa,
@@ -58,7 +70,8 @@ Begin
 				Imagen2FileName = @imagen2FileName,
 				TieneConyuge = @tieneConyuge,
 				InfoReferencia = @infoReferencia
-				where IdCliente = IdCliente
+				where IdCliente = @IdCliente
+				select @idCliente
 		End
 End
 

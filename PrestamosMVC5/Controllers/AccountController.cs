@@ -53,7 +53,6 @@ namespace PrestamosMVC5.Controllers
             #if (DEBUG)
             model.LoginName = "bryan";
             model.Password = "1";
-            model.ValidateCaptcha = false;
             #endif
             var negociosMatriz = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             model.SoloHayUnNegocioMatriz = negociosMatriz.Count() == 1;
@@ -63,7 +62,6 @@ namespace PrestamosMVC5.Controllers
                 TempData.Add("SoloHayUnNegocioMatriz", model.SoloHayUnNegocioMatriz);
                 TempData.Add("IdNegocioMatriz", negociosMatriz.FirstOrDefault().IdNegocioMatriz);
                 model.NegocioMatrizCuandoSoloHayUno = negociosMatriz.FirstOrDefault();
-
             }
             return View(model);
         }

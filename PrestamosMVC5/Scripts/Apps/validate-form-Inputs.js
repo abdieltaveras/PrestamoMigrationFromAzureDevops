@@ -109,7 +109,7 @@ $(document).ready(function () {
             count++;
         });
         // Evaluar si hay menos de tres referencias
-        if (validReferences < 3) {
+        if (validReferences < cantidadDeReferenciasMinimasPorCliente) {
             isValid = false;
             $('#alert').show();
         }

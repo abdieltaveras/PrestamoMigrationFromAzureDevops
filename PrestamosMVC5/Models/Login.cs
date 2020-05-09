@@ -24,7 +24,7 @@ namespace PrestamosMVC5.Models
         public string Password { get; set; } = string.Empty;
         [HiddenInput(DisplayValue = false)]
         public string ReturnUrl { get; set; } = string.Empty;
-        public bool ValidateCaptcha { get; set; } = true;
+        public bool ValidateCaptcha { get; set; } = false;
 
         public bool SoloHayUnNegocioMatriz { get; set; } = false;
 
