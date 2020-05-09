@@ -5,7 +5,7 @@
         ['10 Filas', '25 Filas', '50 Filas', 'Mostrar todas']
     ],
     buttons: [
-        'pageLength', 'copy', 'pdf', 'excel', 'print'
+        'pageLength', 'copy', 'pdfHtml5', 'excel', 'print'
     ],
     "language": {
         "sProcessing": "Procesando...",

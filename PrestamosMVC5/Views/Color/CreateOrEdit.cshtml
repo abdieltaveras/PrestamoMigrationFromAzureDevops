@@ -13,7 +13,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table class="table bulk_action">
+                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th>Color</th>
@@ -113,3 +113,11 @@
     </div>
 </div>
 
+@section prevscripts {
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable(dataTableConfiguration);
+            removeTemplateConfiguration();
+        });
+    </script>
+}

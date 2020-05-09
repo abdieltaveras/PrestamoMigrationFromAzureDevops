@@ -15,6 +15,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class LocalidadesController : ControllerBasePcp
     {
+        public LocalidadesController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         const int BUSCAR_A_PARTIR_DE = 2;
         [AllowAnonymous]
         public ActionResult Index()
@@ -65,10 +69,10 @@ namespace PrestamosMVC5.Controllers
         public string BuscarLocalidad(string textToSearch)
         {
             IEnumerable<Localidad> localidades = null;
-            if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
-            {
-                localidades = BLLPrestamo.Instance.LocalidadSearch(new BuscarLocalidadParams { Search = textToSearch, IdNegocio = pcpUserIdNegocio });
-            }
+            localidades = BLLPrestamo.Instance.LocalidadSearch(new BuscarLocalidadParams { Search = textToSearch, IdNegocio = pcpUserIdNegocio });
+            //if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
+            //{
+            //}
              return JsonConvert.SerializeObject(localidades);
         }
 

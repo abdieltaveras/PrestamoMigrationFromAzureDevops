@@ -14,7 +14,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table class="table bulk_action ">
+                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th>Tipo</th>
@@ -26,31 +26,31 @@
 
                         @foreach (var item in Model.ListaTipos)
                         {
-                        <tr class="@(!item.Activo ? "table-active" : "" )">
-                            <td>
-                                <strong>
-                                    @item.Nombre
-                                </strong>
-                            </td>
-                            <td>
-                                @if (item.IdClasificacion == 1)
-                                {
-                                    <span>Mobiliario</span>
-                                }
-                                else
-                                {
-                                    <span>Inmobiliario</span>
-                                }
-                            </td>
+                            <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <td>
+                                    <strong>
+                                        @item.Nombre
+                                    </strong>
+                                </td>
+                                <td>
+                                    @if (item.IdClasificacion == 1)
+                                    {
+                                        <span>Mobiliario</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Inmobiliario</span>
+                                    }
+                                </td>
 
-                            <td>
-                                <a href="#">
-                                    <button class="btn btn-outline-warning">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
+                                <td>
+                                    <a href="#">
+                                        <button class="btn btn-outline-warning">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
                         }
 
                     </tbody>
@@ -93,12 +93,12 @@
                                 <div class="@HtmlClass.FormGroupCls">
                                     <div class="@HtmlClass.DivInputCls">
                                         <i class="fa fa-home"></i> Inmobiliriario
-                                        <input type="radio" class="flat" name="Tipo.IdClasificacion" id="Tipo_IdClasificacion" checked value="2"  />
+                                        <input type="radio" class="flat" name="Tipo.IdClasificacion" id="Tipo_IdClasificacion" checked value="2" />
                                         <br />
                                         <i class="fa fa-car"></i> Mobiliriario
-                                        <input type="radio" class="flat" name="Tipo.IdClasificacion" id="Tipo_IdClasificacion" value="1"/>
+                                        <input type="radio" class="flat" name="Tipo.IdClasificacion" id="Tipo_IdClasificacion" value="1" />
                                         @*@Html.RadioButtonFor(m => m.Tipo.IdClasificacion, 1)
-                                        @Html.RadioButtonFor(m => m.Tipo.IdClasificacion, 2)*@
+                                            @Html.RadioButtonFor(m => m.Tipo.IdClasificacion, 2)*@
                                     </div>
                                 </div>
 
@@ -133,3 +133,12 @@
         </div>
     </div>
 </div>
+
+@section prevscripts {
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable(dataTableConfiguration);
+            removeTemplateConfiguration();
+        });
+    </script>
+}

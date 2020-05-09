@@ -74,8 +74,8 @@
         }
     </div>
 </div>
-@section Scripts {
 
+@*@section Scripts {*@
 
     <script src="~/content/customcss/multiselect/js/jquery.multi-select.js" type="text/javascript"></script>
     <script>
@@ -95,7 +95,6 @@
         $("#userSelect").change(function () {
             let userid = $(this).children("option:selected").val();
             $('#roleSelect').multiSelect('deselect_all');
-            console.log(userid);
             if (userid != 0) {
                 searchRoles(userid);
             }
@@ -136,5 +135,5 @@
         }
 
     </script>
-}
+@*}*@
 

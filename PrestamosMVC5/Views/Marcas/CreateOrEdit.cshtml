@@ -6,15 +6,15 @@
 
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-marcas" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
-        
+
         <div class="x_panel">
             <div class="x_title">
                 <h2>Tabla de marcas</h2>
-                
+
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table class="table bulk_action ">
+                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th>Marca</th>
@@ -31,13 +31,13 @@
                                         @item.Nombre
                                     </strong>
                                 </td>
-                                
+
                                 <td>
                                     @*<a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
-                                        <button type="button" class="btn btn-outline-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </a>*@
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </a>*@
                                     <a href="#">
                                         <button class="btn btn-outline-warning">
                                             <i class="fa fa-edit"></i>
@@ -55,7 +55,7 @@
 
     @* Formulario para agregar tasas de interes *@
 
-    
+
     @* Fin de formulario para agregar tasas de interes *@
 </div>
 
@@ -74,9 +74,9 @@
                 @*form*@
 
                 <div class="col-sm-12" id="formAgregarTasaInteres">
-                    
+
                     <div class="x_panel">
-                        
+
                         <div class="x_content">
                             <br />
                             @using (Html.BeginForm("CreateOrEdit", "Marcas", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
 
-                               
+
 
                                 <div class="ln_solid"></div>
                                 <div class="item form-group" style="float: right;">
@@ -113,3 +113,12 @@
         </div>
     </div>
 </div>
+
+@section prevscripts {
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable(dataTableConfiguration);
+            removeTemplateConfiguration();
+        });
+    </script>
+}

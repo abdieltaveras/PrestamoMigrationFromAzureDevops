@@ -4,6 +4,10 @@
 # Project specific
 node_modules/*
 
+#Solution folders
+bin/
+obj/
+
 # Database
 *.jfm
 PrestamoBLL/ConexionDB.cs
@@ -137,6 +141,8 @@ AutoTest.Net/
 
 # Web workbench (sass)
 .sass-cache/
+
+
 
 # Installshield output folder
 [Ee]xpress/

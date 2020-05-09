@@ -1,13 +1,18 @@
 ﻿
 if (typeof (searchLocalidadElem) === 'undefined') { console.log("Es obligatorio pasar la variable searchLocalidadElem"); }
 
-$(".target").keyup(function () {
-   if (searchLocalidadElem.val().length > 2)
-    {
-        var value = searchLocalidadElem.val();
-        searchText(value);
-    }
+let searching = null;
 
+$(".target").keyup(function () {
+    clearTimeout(searching);
+    searching = setTimeout(function () {
+        let value = searchLocalidadElem.val();
+        if (value.length >= 1) {
+            searchText(value);
+        } else {
+            $('.direcciones').remove();
+        }
+    }, 300);
 });
 
 async function searchText(location) {
@@ -112,8 +117,6 @@ function AddItem(list, typeOfList) {
     $('rutadelocalidad').text('');
     $('InputRutaLocalidad').text('');
     $('ReverseInputRutaLocalidad').text('');
-
-    console.log("OOOOOOOOH");
 
     switch (typeOfList) {
         case 'inverso':

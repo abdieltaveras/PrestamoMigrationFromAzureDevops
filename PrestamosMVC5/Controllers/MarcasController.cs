@@ -13,6 +13,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class MarcasController : ControllerBasePcp
     {
+        public MarcasController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         public ActionResult Index()
         {
             return View();

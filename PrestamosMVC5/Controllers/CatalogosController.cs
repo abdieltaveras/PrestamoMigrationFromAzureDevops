@@ -14,6 +14,10 @@ namespace PrestamosMVC5.Controllers
     [AuthorizeUser]
     public class CatalogosController : ControllerBasePcp
     {
+        public CatalogosController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         // GET: Catalogos
         public ActionResult Index()
         {
