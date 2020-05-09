@@ -17,9 +17,14 @@ $(document).ready(function () {
         $('#mensajeError').remove();
     }
 });
-function SetSpanErrorForElem(elemName, errorMessage) {
+function setSpanErrorForElem(elemName, errorMessage) {
     var spanToSearch = 'span[data-valmsg-for="' + elemName + '"]';
     var spanForError = $(spanToSearch);
     spanForError.html("<span id='" + elemName + "-error' class=''>" + errorMessage + "</span>");
+}
+function removeSpanErrorForElem(elemName) {
+    var spanToSearch = 'span[data-valmsg-for="' + elemName + '"]';
+    var spanForError = $(spanToSearch);
+    spanForError.remove();
 }
 //# sourceMappingURL=manageErrorMessageOnForms.js.map

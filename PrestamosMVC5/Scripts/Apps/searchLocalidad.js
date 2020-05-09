@@ -46,12 +46,13 @@ function setClickListener() {
     const list = document.querySelectorAll('#listaddresses');
     list.forEach(function (btn) {
         btn.addEventListener('click', function (evt) {
-
             // Aqui consigues el ID de la localidad seleccionada
             LocalidadABuscar = evt.target.getAttribute('data-idlocalidad');
             $('#iddelocalidad').text(` El ID de la localidad es:  ${evt.target.getAttribute('data-idlocalidad')}`);
-            $('#Direccion_IdLocalidad').val(evt.target.getAttribute('data-idlocalidad'));
-
+            /// attention here you check if it is a function defined
+            if (typeof setIdLocalidadToElem === 'function') {
+                setIdLocalidadToElem(evt.target.getAttribute('data-idlocalidad'));
+            }
             buscarRutaDeLocalidad();
             searchLocalidadElem.val($(evt.target.querySelector('strong')).text().trim());
             $('#list-address-container').hide();

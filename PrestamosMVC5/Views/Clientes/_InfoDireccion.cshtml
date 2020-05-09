@@ -53,17 +53,17 @@
                         @*<input type="text" class="target form-control" id="InputRutaLocalidad" placeholder="Aqui cargara la ruta">*@
                         <mark>
                             <textarea id="@Html.IdFor(model => Model.InputRutaLocalidad)" name="@Html.NameFor(model => Model.InputRutaLocalidad)"
-                                      class="@HtmlClass.TextAreaResizableCls" readonly value ="@Model.InputRutaLocalidad">@Model.InputRutaLocalidad</textarea>
-
-                            
+                                      class="@HtmlClass.TextAreaResizableCls" readonly value="@Model.InputRutaLocalidad">@Model.InputRutaLocalidad</textarea>
                             @*@Html.EditorFor(model => Model.InputRutaLocalidad, new
-                            {
-                                htmlAttributes =
-                            new { @class = @HtmlClass.InputTextCls, @readonly = "true" }
-                            })*@
+            {
+                htmlAttributes =
+            new { @class = @HtmlClass.InputTextCls, @readonly = "true" }
+            })*@
                         </mark>
-                        @Html.HiddenFor(model => model.Direccion.IdLocalidad)
+                        @Html.EditorFor(model => model.Direccion.IdLocalidad, new { htmlAttributes = new {  @style = "display:none" } })
+                        @*@Html.HiddenFor(model => model.Direccion.IdLocalidad, htmlAttributes: new { @onchange = "onChangeProp(this)" })*@
                         @Html.ValidationMessageFor(model => Model.Direccion.IdLocalidad, "", new { @class = "text-danger" })
+                        @*@Html.ValidationMessageFor(model => Model.InputRutaLocalidad, "", new { @class = "text-danger" })*@
                     </div>
                 </div>
                 @*<input type="hidden" class="target form-control" name="Direccion.IdLocalidad" id="Direccion_IdLocalidad" />*@

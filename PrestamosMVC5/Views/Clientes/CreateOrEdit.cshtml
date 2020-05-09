@@ -159,16 +159,23 @@
             ResizeContentContainer();
         });
 
-
-
+        $("#@Html.IdFor(model => model.Direccion.IdLocalidad)").bind("change", function () {
+            alert($(this).val());
+        });
+        
+ 
         function onChangeProp(elem) {
+            alert("localidad cambio");
             switch (elem.id) {
                 case "@Html.IdFor(model => model.Cliente.TieneConyuge)":
                     onTieneConyugeChange();
                     break;
                 case "@Html.IdFor(m=> m.Cliente.NoIdentificacion)":
                      validarNoIdentificacionNoRegistrada(elem.value)
-                     break;
+                    break;
+
+                case "@Html.IdFor(model => model.Direccion.IdLocalidad)":
+                    break;
                 default:
             }
         };
@@ -189,7 +196,7 @@
         function setNoIdentificacionDuplicada(data) {
             let _noidentificacion = $("#@Html.IdFor(m=> m.Cliente.NoIdentificacion)").val();
             var mensaje = "el numero de documento de identificacion " + _noidentificacion + " fue digitado para otro cliente " + data.Nombre + " codigo no " + data.Codigo;
-            SetSpanErrorForElem("@Html.NameFor(m=> m.Cliente.NoIdentificacion)", mensaje)
+            setSpanErrorForElem("@Html.NameFor(m=> m.Cliente.NoIdentificacion)", mensaje)
             $("#@Html.IdFor(m => m.Cliente.NoIdentificacion)").val('');
             $("#@Html.IdFor(m => m.Cliente.NoIdentificacion)").focus();
         }
@@ -243,6 +250,16 @@
             $("#" + hiddeInputImgElemText).val(_constantNoImagen);
             event.preventDefault();
         }
+
+        function setIdLocalidadToElem(value) {
+            $("#@Html.IdFor(m=> m.Direccion.IdLocalidad)").val(value);
+            removeSpanErrorForElem("@Html.NameFor(m=> m.Direccion.IdLocalidad)");
+            /// attention here you check if it is a function defined
+            if (typeof setIdLocalidadToElem === 'function') {
+            }
+
+        }
+        
     </script>
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>

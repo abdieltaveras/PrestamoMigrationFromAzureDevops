@@ -38,17 +38,15 @@ namespace PrestamoBLL.Entidades
         [Required]
         [Display(Name = "Cambiar Contraseña al iniciar sesion")]
         public bool DebeCambiarContraseñaAlIniciarSesion { get; set; } = true;
-        [Display(Name = "Cuenta vigente Desde")]
-        
 
+        [Display(Name = "Cuenta vigente Desde")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime VigenteDesde { get; set; } = InitValues._19000101;
         /// <summary>
         /// establece si hay una fecha limite de vigencia de la cuenta
         /// </summary>
         [Display(Name = "Cuenta vigente hasta")]
-
-        
-
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime VigenteHasta { get; set; } = InitValues._19000101;
         /// <summary>
         /// Indica la fecha cuando inicia la vigencia de la contrasena

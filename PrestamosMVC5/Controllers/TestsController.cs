@@ -97,6 +97,11 @@ namespace PrestamosMVC5.Controllers
             }
         }
 
+        public ActionResult Error404()
+        {
+            return new HttpStatusCodeResult(404);
+        }
+
         public ActionResult Desvincular()
         {
             RegistroEquipo.DesvincularEquipo(this.Request.RequestContext.HttpContext);
@@ -230,5 +235,6 @@ namespace PrestamosMVC5.Controllers
         public ImagesFor imgsForGarantia => new ImagesFor("ImagesForGarantia", "Garantia") { Qty = 2 };
     }
 
+    
     
 }

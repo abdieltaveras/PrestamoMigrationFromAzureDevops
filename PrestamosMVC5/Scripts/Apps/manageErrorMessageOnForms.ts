@@ -19,9 +19,16 @@
     
 });
 
-function SetSpanErrorForElem(elemName: string, errorMessage: string)
+function setSpanErrorForElem(elemName: string, errorMessage: string)
 {
     let spanToSearch = 'span[data-valmsg-for="' + elemName + '"]';
     let spanForError = $(spanToSearch);
     spanForError.html("<span id='" + elemName + "-error' class=''>" + errorMessage + "</span>")
+}
+
+
+function removeSpanErrorForElem(elemName: string, ) {
+    let spanToSearch = 'span[data-valmsg-for="' + elemName + '"]';
+    let spanForError = $(spanToSearch);
+    spanForError.remove();
 }

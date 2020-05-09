@@ -45,13 +45,13 @@ let dateFormat = 'en-GB';
 let yearRangeForDP = "+0:+1";
 let _dateFormat = 'dd/mm/yy';
 function setFecha(elem: JQuery) {
-    let d = new Date();
-    let fechaTexto = '';
-    fechaTexto = elem.attr("mmddyyyy")
-    let fecha = new Date(fechaTexto);
-    //console.log("dia " + fecha.getDate());
-    let n = fecha.toLocaleDateString(dateFormat);
-    elem.val(n);
+    //let d = new Date();
+    //let fechaTexto = '';
+    //fechaTexto = elem.attr("mmddyyyy")
+    //let fecha = new Date(fechaTexto);
+    ////console.log("dia " + fecha.getDate());
+    //let n = fecha.toLocaleDateString(dateFormat);
+    //elem.val(n);
 }
 
 
