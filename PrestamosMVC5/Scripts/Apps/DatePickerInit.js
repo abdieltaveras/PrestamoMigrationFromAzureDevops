@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var allDateElems = $('.datetype,input[type="datetime"],input[type="date"]');
+    allDateElems.data("data-val", false);
     allDateElems.each(function () {
         setFecha($(this));
     });
@@ -15,6 +16,7 @@ $(document).ready(function () {
     allDateElems.prop("readonly", true);
     allDateElems.datepicker({
         dateFormat: _dateFormat,
+        timepicker: false,
         changeMonth: true,
         changeYear: true,
         changeDay: true,

@@ -178,6 +178,10 @@
     <Build Include="dbo\Stored Procedures\CatalogoSpBuscar.sql" />
     <Build Include="dbo\Stored Procedures\LocalidadPaisesSpGet.sql" />
     <Build Include="dbo\Stored Procedures\LocalidadLocalidadesHijasDeLocalidadSpGet.sql" />
+    <Build Include="dbo\Tables\tblSecuencias.sql" />
+    <Build Include="dbo\Stored Procedures\spGenerarSecuencia.sql" />
+    <Build Include="dbo\Stored Procedures\spGenerarSecuenciaString.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdTblTest1GenerandoSecuencia" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

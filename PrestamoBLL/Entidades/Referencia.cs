@@ -12,6 +12,7 @@ namespace PrestamoBLL.Entidades
         public int Tipo { get; set; } = 0;
         public int Vinculo { get; set; } = 0;
         public string NombreCompleto { get; set; } = string.Empty;
+        
         public string Telefono { get; set; } = string.Empty;
         public string Direccion { get; set; } = string.Empty;
         public string Detalles { get; set; } = string.Empty;

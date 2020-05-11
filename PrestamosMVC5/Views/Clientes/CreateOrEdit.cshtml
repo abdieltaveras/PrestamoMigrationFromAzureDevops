@@ -2,10 +2,11 @@
 
 @{
     ViewBag.Title = "Crear Editar Clientes";
-    ViewBag.RefView = "_infoReferencia2"; 
+    ViewBag.RefView = "_infoReferencia2";
     //Layout = "~/Views/Shared/_LayoutForms.cshtml";
     /// attention : para que deshabilitar el autocomplete es necesario poner esta instruccion en el tag for y en el tag input em chrome autocomplete="dummy-no-auto-complete-fix" -->
 }
+
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCreateCliente", autocomplete = "dummy-no-auto-complete-fix" }))
 {
@@ -20,6 +21,7 @@
                     <div class="x_title">
                         <div class="col-md-4 col-sm-12  ">
                             <h2>Datos Para el Cliente</h2>
+                            <input id="btnSubmit" type="button" value="Guardar" class="btn btn-primary" style="float:right;" />
                         </div>
                         @{
                             // attention colocar los mensajes de validation summary como hijo del la clase x_title , si se colocan antes que ella no son visibles
@@ -76,7 +78,7 @@
                                 }
                             </div>
                         </div>
-                        <input id="btnSubmit" type="button" value="Guardar" class="btn btn-primary" style="float:right;" />
+
 
                     </div>
                 </div>
@@ -107,8 +109,12 @@
     <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
     <script src="~/Scripts/apps/datePickerInit.js"></script>
     <script src="~/Scripts/Apps/setMask.js"></script>
+    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
+    <script src="~/Scripts/Apps/manageReferenciasForCliente.js"></script>
     <script type="text/javascript">
+        $("#Referencias_1__Telefono").data("val", false);
+        let cantidadDeReferenciasMinimasPorCliente = 0;
         var urlNoImage = "@Url.Content(SiteImages.NoImage)"
         var constantNoImagen ="@Constant.NoImagen";
         let searchLocalidadElem = $('#searchLocalidad');
@@ -124,27 +130,41 @@
        //    $("#" + hiddeInputImgElemText).val(_constantNoImagen);
        //     event.preventDefault();
        // }
-
         onTieneConyugeChange();
+        
         // convert model into a json object
         // todo how to convert model into json object inside rezor
         //let model = Html.Raw(Json.Encode(Model));
         // esta funcion esta aqui porque el archivo externo js no reconoce o entiende el las variables del modelo
         function setFecha(elem, name) {
-            d = new Date();
+            d = new Date(elem.val());
+            var formattedDate = moment(d).format("DD/MM/YYYY")
+            console.log(d, formattedDate);
+
+            @*
+            moment.defaultFormat = "DD/MM/YYYY";
+            var fec = moment(d, moment.defaultFormat).toDate()
+            console.log(fec);
             if (name == "Cliente.FechaNacimiento") {
                 d.setFullYear(@Model.Cliente.FechaNacimiento.Year, @Model.Cliente.FechaNacimiento.Month-1, @Model.Cliente.FechaNacimiento.Day );
+                //elem.val($.datepicker.formatDate(elem.val()))
             }
             if (name == "Cliente_xmlInfoLaboral_FechaInicio") {
                 d.setFullYear(@Model.InfoLaboral.FechaInicio.Year, @Model.InfoLaboral.FechaInicio.Month-1, @Model.InfoLaboral.FechaInicio.Day );
             }
-            let n = d.toLocaleDateString(dateFormat);
-            elem.val(n);
+
+            var options = { month: "numeric", day: "numeric", year: "numeric" }
+            let n = new Date(elem.val()).toLocaleDateString(options);
+            //console.log(moment(d).format("DD/MM/YYYY"));
+            @*elem.val(n);*@
         }
         $(document).ready(function () {
             ResizeContentContainer();
         });
 
+        $("#@Html.IdFor(model => model.Direccion.IdLocalidad)").bind("change", function () {
+            alert($(this).val());
+        });
 
 
         function onChangeProp(elem) {
@@ -152,10 +172,35 @@
                 case "@Html.IdFor(model => model.Cliente.TieneConyuge)":
                     onTieneConyugeChange();
                     break;
+                case "@Html.IdFor(m=> m.Cliente.NoIdentificacion)":
+                     validarNoIdentificacionNoRegistrada(elem.value)
+                    break;
+                case "@Html.IdFor(model => model.Direccion.IdLocalidad)":
+                    break;
                 default:
             }
         };
+        function validarNoIdentificacionNoRegistrada(value) {
+            if (value.match(/\d/g).length > 0) {
+                return $.get("/Clientes/BuscarPorNoIdentificacion", { noIdentificacion: value },
+                    function (data) {
+                        if (data.Codigo != $("#@Html.IdFor(m => m.Cliente.Codigo)").val()) {
+                            setNoIdentificacionDuplicada(data);
+                        }
+                    })
+                    .fail(function () {
+                        //console.log("el documento de identidad digitado no esta registrado a ningun cliente"
+                    })
+            }
+        }
 
+        function setNoIdentificacionDuplicada(data) {
+            let _noidentificacion = $("#@Html.IdFor(m=> m.Cliente.NoIdentificacion)").val();
+            var mensaje = "el numero de documento de identificacion " + _noidentificacion + " fue digitado para otro cliente " + data.Nombre + " codigo no " + data.Codigo;
+            setSpanErrorForElem("@Html.NameFor(m=> m.Cliente.NoIdentificacion)", mensaje)
+            $("#@Html.IdFor(m => m.Cliente.NoIdentificacion)").val('');
+            $("#@Html.IdFor(m => m.Cliente.NoIdentificacion)").focus();
+        }
         function onTieneConyugeChange() {
             if (tieneConyuge()) {
                 $("#datosConyuge-tab").show()
@@ -178,18 +223,29 @@
         }
 
         function turnOnOffValidationOnElem(elem) {
+
         }
 
-        function removeValidations() {
+        function removeValidations_noUsar() {
              deactivateValidationsToConyugeTab();
         }
         function deactivateValidationsToConyugeTab() {
             $('[data-val-grp="conyuge"]').attr("data-val", false);
-            //$('[data-val-grp="conyuge"]').each(function () {  });
         }
         function activateValidationsToConyugeTab() {
             $('[data-val-grp="conyuge"]').attr("data-val", true);
-            //$('[data-val-grp="conyuge"]').each(function () {  });
+        }
+
+        function otherValidations() {
+            return validReferences();
+        }
+
+        function beforeSubmit()
+        {
+            $("#@Html.IdFor(m=> m.ImagenCliente1)").remove();
+            $("#@Html.IdFor(m=> m.ImagenCliente2)").remove();
+            $("#image1Preview").remove();
+            $("#image2Preview").remove();
         }
 
         function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
@@ -200,10 +256,19 @@
             $("#" + hiddeInputImgElemText).val(_constantNoImagen);
             event.preventDefault();
         }
+
+        function setIdLocalidadToElem(value) {
+            $("#@Html.IdFor(m=> m.Direccion.IdLocalidad)").val(value);
+            removeSpanErrorForElem("@Html.NameFor(m=> m.Direccion.IdLocalidad)");
+            /// attention here you check if it is a function defined
+            if (typeof setIdLocalidadToElem === 'function') {
+            }
+
+        }
+
     </script>
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
-    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/searchLocalidad.js"></script>
 }
 

@@ -3,8 +3,11 @@
     ViewBag.Title = "Crear Editar Usuario";
 }
 
+
 @section PageStyle    {
-    <link href="~/Content/ValidationErrors.css" rel="stylesheet" />
+    @* verificar con bryan se quito esta referencia porque tiene unos estilos que dan problema
+        al validation summary ya que pone la letra en rojo*@
+    @*<link href="~/Content/ValidationErrors.css" rel="stylesheet" />*@
     <link href="~/Content/customcss/switch.css" rel="stylesheet">
     <link href="~/content/customcss/multiselect/css/multi-select.css" rel="stylesheet">
 
@@ -22,268 +25,259 @@
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEdtUser" }))
 {
     <div class="form-horizontal">
-        <div class="x_title">
-            <div class="col-md-3 col-sm-12 ">
-                <h2>Datos Para el Usuario</h2>
-            </div>
-            <div class="col-md-6 col-sm-12 text-center" id="mensajeError">
-                @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
-            </div>
-            <div class="col-md-3 col-sm-12  text-right">
-                <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </div>
-
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.ShowAdvancedOptions);
-        @Html.HiddenFor(model => model.Usuario.IdUsuario)
-        @Html.HiddenFor(model => model.Usuario.ImgFilePath)
-        @*
-            getting value from modelstate
-            @Html.Raw(@ViewData.ModelState.Values);
-            var data = @ViewData.ModelState.Values.FirstOrDefault();
-            var error = data.Errors.FirstOrDefault();
-            <h2>@error.ErrorMessage</h2>
-        *@
-        @*@Html.ValidationSummary(true, "", new { @class = "text-danger", @id = "mensajeError" })*@
-
-        <div class="clearfix"></div>
-        <div class="row">
-            <!-- form input mask -->
-            <div class="col-md-6 col-sm-12">
-                <div class="x_panel">
-                    <div class="x_content">
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.Usuario.LoginName, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @{
-                                    if (Model.Usuario.IdUsuario == 0)
-                                    {
-                                        var _class = HtmlClass.InputTextCls + " text-lowercase";
-                                        @Html.EditorFor(model => model.Usuario.LoginName, new { htmlAttributes = new { @class = @_class } })
-                                        @Html.ValidationMessageFor(model => model.Usuario.LoginName, "", new { @class = "text-danger" })
-                                    }
-                                    else
-                                    {
-                                        @Html.HiddenFor(model => model.Usuario.LoginName);
-                                        <p class="h2">@Model.Usuario.LoginName</p>
-                                    }
-                                }
-                            </div>
-                        </div>
-
-
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.Usuario.NombreRealCompleto, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.Usuario.NombreRealCompleto, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                @Html.ValidationMessageFor(model => model.Usuario.NombreRealCompleto, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <br />
-                        @{
-                            var image1Url = Url.Content(SiteImages.NoImage);
-                            var imagen1Existe = false;
-                            if (!string.IsNullOrEmpty(Model.Usuario.ImgFilePath))
-                            {
-                                image1Url = Url.Content(SiteDirectory.ImagesForUsuarios + "/" + Model.Usuario.ImgFilePath);
-                                imagen1Existe = true;
-                            }
-                        }
-
-
-                    <div class="@HtmlClass.FormGroupCls">
-                        <div class="col-md-6">
-                            @Html.LabelFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, htmlAttributes: new { @class = "col-md-6" })
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                @*CambiarContraseñaAlIniciarSesion()*@
-                                @Html.ValidationMessageFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <img id="image1Preview"
-                                 src="@image1Url" style="height:10em; width:12em;" class="img-fluid" />
-                            @Html.HiddenFor(m => m.image1PreviewValue)
-                            <input id="@Html.IdFor(m=> m.ImagenUsuario1)" class=@HtmlClass.InputTextCls type="file"
-                                   name="@Html.IdFor(m=> m.ImagenUsuario1)" accept="image/jpeg, image/png" capture="camera"
-                                   onchange="ShowImagePreview(this, 'image1Preview', '@Html.IdFor(m=> m.ImagenUsuario1)','@Html.IdFor(m => m.image1PreviewValue)')" style="display:none" />
-
-                            <div class="text-center">
-                                <label id="@Html.IdFor(m=> m.ImagenUsuario1)Agregar" for="@Html.NameFor(m=> m.ImagenUsuario1)" class="text-info"
-                                       style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
-                                <label id="@Html.IdFor(m=> m.ImagenUsuario1)Quitar" for="@Html.NameFor(m=> m.ImagenUsuario1)" class="text-danger"
-                                       style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenUsuario1)','image1Preview','@Html.IdFor(m => m.image1PreviewValue)')">Quitar imagen</label>
-                                @*<span id="container"></span>*@
-                            </div>
-                        </div>
+        <div class="">
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="col-md-3 col-sm-12 ">
+                        <h2>Datos Para el Usuario</h2>
                     </div>
-
-                        
-
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = (Model.Usuario.DebeCambiarContraseñaAlIniciarSesion ? "disable" : "") } })
-                                @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.ConfirmarContraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.ConfirmarContraseña, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = (Model.Usuario.DebeCambiarContraseñaAlIniciarSesion ? "disable" : "") } })
-                                @Html.ValidationMessageFor(model => model.ConfirmarContraseña, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
+                    <div class="col-md-6 col-sm-12 text-center" id="mensajeError" role="alert">
+                        @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
+                    </div>
+                    <div class="col-md-3 col-sm-12  text-right">
+                        <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
                     </div>
                 </div>
-                <div class="x_panel">
-                    <h2>Otras Informaciones</h2>
-                    <div class="@HtmlClass.FormGroupCls">
-                        @Html.LabelFor(model => model.Usuario.CorreoElectronico, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        <div class="@HtmlClass.DivInputCls">
-                            @Html.EditorFor(model => model.Usuario.CorreoElectronico, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                            @Html.ValidationMessageFor(model => model.Usuario.CorreoElectronico, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="@HtmlClass.FormGroupCls">
-                        @Html.LabelFor(model => model.Usuario.Telefono1, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        <div class="@HtmlClass.DivInputCls">
-                            @Html.EditorFor(model => model.Usuario.Telefono1, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
-                            @Html.ValidationMessageFor(model => model.Usuario.Telefono1, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+            </div>
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ShowAdvancedOptions);
+            @Html.HiddenFor(model => model.Usuario.IdUsuario)
+            @Html.HiddenFor(model => model.Usuario.ImgFilePath)
+            @*
+                getting value from modelstate
+                @Html.Raw(@ViewData.ModelState.Values);
+                var data = @ViewData.ModelState.Values.FirstOrDefault();
+                var error = data.Errors.FirstOrDefault();
+                <h2>@error.ErrorMessage</h2>
+            *@
+            @*@Html.ValidationSummary(true, "", new { @class = "text-danger", @id = "mensajeError" })*@
 
-                    <div class="@HtmlClass.FormGroupCls">
-                        @Html.LabelFor(model => model.Usuario.Telefono2, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        <div class="@HtmlClass.DivInputCls">
-                            @Html.EditorFor(model => model.Usuario.Telefono2, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
-                            @Html.ValidationMessageFor(model => model.Usuario.Telefono2, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                </div>
-
-                @if (Model.Usuario.IdUsuario == 0)
-                {
+            <div class="clearfix"></div>
+            <div class="row">
+                <!-- form input mask -->
+                <div class="col-md-6 col-sm-12">
                     <div class="x_panel">
-                        <h2>Seleccione el o los roles del usuario</h2>
-                        <select multiple="multiple" id="roleSelect" name="SelectedRoles[]">
-                            @foreach (var role in Model.RoleList)
-                            {
-                                <option value="@role.IdRole" style="text-align: center;">No.(@role.IdRole) - @role.Nombre</option>
-                            }
-                        </select>
-                    </div>
-                }
-
-            </div>
-            @{
-                if (Model.ShowAdvancedOptions)
-                {
-
-                    <div class="col-md-6 col-sm-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>Mas Opciones <small>avanzadas </small></h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li>
-                                        <a class="collapse-link">
-                                            <i class="fa fa-chevron-down"></i>
-                                        </a>
-
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
+                        <div class="x_content">
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Usuario.LoginName, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @{
+                                        if (Model.Usuario.IdUsuario == 0)
+                                        {
+                                            var _class = HtmlClass.InputTextCls + " text-lowercase";
+                                            @Html.EditorFor(model => model.Usuario.LoginName, new { htmlAttributes = new { @class = @_class } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.LoginName, "", new { @class = "text-danger" })
+                                        }
+                                        else
+                                        {
+                                            @Html.HiddenFor(model => model.Usuario.LoginName);
+                                            <p class="h2">@Model.Usuario.LoginName</p>
+                                        }
+                                    }
+                                </div>
                             </div>
-                            <div class="collapse x_content">
-                                <h2>Opciones</h2>
 
-                                <div class="@HtmlClass.FormGroupCls">
-                                    @Html.LabelFor(model => model.Usuario.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                    <div class="@HtmlClass.DivInputCls">
-                                        @Html.EditorFor(model => model.Usuario.Activo, new
-                                   { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                        @Html.ValidationMessageFor(model => model.Usuario.Activo, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="@HtmlClass.FormGroupCls">
-                                    @Html.LabelFor(model => model.Usuario.Bloqueado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                    <div class="@HtmlClass.DivInputCls">
-                                        @Html.EditorFor(model => model.Usuario.Bloqueado, new
-                                   { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                        @Html.ValidationMessageFor(model => model.Usuario.Bloqueado, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
 
-                                <div class="@HtmlClass.FormGroupCls">
-                                    @Html.LabelFor(model => model.LaContraseñaExpira, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                    <div class="@HtmlClass.DivInputCls">
-                                        @Html.EditorFor(model => model.LaContraseñaExpira, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                        @Html.ValidationMessageFor(model => model.LaContraseñaExpira, "", new { @class = "text-danger" })
-                                    </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Usuario.NombreRealCompleto, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Usuario.NombreRealCompleto, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Usuario.NombreRealCompleto, "", new { @class = "text-danger" })
                                 </div>
-                                <div class="@HtmlClass.FormGroupCls">
-                                    @Html.LabelFor(model => model.ContraseñaExpiraCadaXMes, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                    <div class="@HtmlClass.DivInputCls">
-                                        @Html.DropDownListFor(model => model.ContraseñaExpiraCadaXMes, SelectItems.Lista12Meses, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                            </div>
+                            <br />
+                            @{
+                                var image1Url = Url.Content(SiteImages.NoImage);
+                                var imagen1Existe = false;
+                                if (!string.IsNullOrEmpty(Model.Usuario.ImgFilePath))
+                                {
+                                    image1Url = Url.Content(SiteDirectory.ImagesForUsuarios + "/" + Model.Usuario.ImgFilePath);
+                                    imagen1Existe = true;
+                                }
+                            }
 
-                                        @*@Html.ValidationMessageFor(model => model.ContraseñaExpiraCadaXMes, "", new { @class = "text-danger" })*@
-                                        <span id="textoContraseñaExpira"></span>
-                                    </div>
-                                </div>
 
-                                <div class="@HtmlClass.FormGroupCls">
-                                    @Html.LabelFor(model => model.LimitarVigenciaDeCuenta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                    <div class="@HtmlClass.DivInputCls">
-                                        @Html.EditorFor(model => model.LimitarVigenciaDeCuenta, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                        @Html.ValidationMessageFor(model => model.LimitarVigenciaDeCuenta, "", new { @class = "text-danger" })
+                            <div class="@HtmlClass.FormGroupCls">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, htmlAttributes: new { @class = "col-md-6" })
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                        @*CambiarContraseñaAlIniciarSesion()*@
+                                        @Html.ValidationMessageFor(model => model.Usuario.DebeCambiarContraseñaAlIniciarSesion, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="@HtmlClass.FormGroupCls">
-                                    @Html.LabelFor(model => model.Usuario.VigenteDesde, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                    <div class="@HtmlClass.DivInputCls">
-                                        @Html.EditorFor(model => model.Usuario.VigenteDesde, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @mmddyyyy = @Model.Usuario.VigenteDesde.Tommddyyyy() } })
-                                        @Html.ValidationMessageFor(model => model.Usuario.VigenteDesde, "", new { @class = "text-danger" })
-                                        <span id="textoVigenteDesde"></span>
+                                <div class="col-md-6">
+                                    <img id="image1Preview"
+                                         src="@image1Url" style="height:10em; width:12em;" class="img-fluid" />
+                                    @Html.HiddenFor(m => m.image1PreviewValue)
+                                    <input id="@Html.IdFor(m=> m.ImagenUsuario1)" class=@HtmlClass.InputTextCls type="file"
+                                           name="@Html.IdFor(m=> m.ImagenUsuario1)" accept="image/jpeg, image/png" capture="camera"
+                                           onchange="ShowImagePreview(this, 'image1Preview', '@Html.IdFor(m=> m.ImagenUsuario1)','@Html.IdFor(m => m.image1PreviewValue)')" style="display:none" />
+
+                                    <div class="text-center">
+                                        <label id="@Html.IdFor(m=> m.ImagenUsuario1)Agregar" for="@Html.NameFor(m=> m.ImagenUsuario1)" class="text-info"
+                                               style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
+                                        <label id="@Html.IdFor(m=> m.ImagenUsuario1)Quitar" for="@Html.NameFor(m=> m.ImagenUsuario1)" class="text-danger"
+                                               style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenUsuario1)','image1Preview','@Html.IdFor(m => m.image1PreviewValue)')">Quitar imagen</label>
+                                        @*<span id="container"></span>*@
                                     </div>
                                 </div>
-                                <div class="@HtmlClass.FormGroupCls">
-                                    @Html.LabelFor(model => model.Usuario.VigenteHasta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                    <div class="@HtmlClass.DivInputCls">
-                                        @Html.EditorFor(model => model.Usuario.VigenteHasta, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @mmddyyyy = @Model.Usuario.VigenteHasta.Tommddyyyy() } })
-                                        @Html.ValidationMessageFor(model => model.Usuario.VigenteHasta, "", new { @class = "text-danger" })
-                                        <span id="textoVigenteHasta"></span>
-                                    </div>
+                            </div>
+
+
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = (Model.Usuario.DebeCambiarContraseñaAlIniciarSesion ? "disable" : "") } })
+                                    @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.ConfirmarContraseña, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.ConfirmarContraseña, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = (Model.Usuario.DebeCambiarContraseñaAlIniciarSesion ? "disable" : "") } })
+                                    @Html.ValidationMessageFor(model => model.ConfirmarContraseña, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
                         </div>
                     </div>
+                    <div class="x_panel">
+                        <h2>Otras Informaciones</h2>
+                        <div class="@HtmlClass.FormGroupCls">
+                            @Html.LabelFor(model => model.Usuario.CorreoElectronico, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                            <div class="@HtmlClass.DivInputCls">
+                                @Html.EditorFor(model => model.Usuario.CorreoElectronico, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                @Html.ValidationMessageFor(model => model.Usuario.CorreoElectronico, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="@HtmlClass.FormGroupCls">
+                            @Html.LabelFor(model => model.Usuario.Telefono1, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                            <div class="@HtmlClass.DivInputCls">
+                                @Html.EditorFor(model => model.Usuario.Telefono1, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
+                                @Html.ValidationMessageFor(model => model.Usuario.Telefono1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="@HtmlClass.FormGroupCls">
+                            @Html.LabelFor(model => model.Usuario.Telefono2, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                            <div class="@HtmlClass.DivInputCls">
+                                @Html.EditorFor(model => model.Usuario.Telefono2, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @data_tel = "true" } })
+                                @Html.ValidationMessageFor(model => model.Usuario.Telefono2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @if (Model.Usuario.IdUsuario == 0)
+                    {
+                        <div class="x_panel">
+                            <h2>Seleccione el o los roles del usuario</h2>
+                            <select multiple="multiple" id="roleSelect" name="SelectedRoles[]">
+                                @foreach (var role in Model.RoleList)
+                                {
+                                    <option value="@role.IdRole" style="text-align: center;">No.(@role.IdRole) - @role.Nombre</option>
+                                }
+                            </select>
+                        </div>
+                    }
+
+                </div>
+                @{
+                    if (Model.ShowAdvancedOptions)
+                    {
+
+                        <div class="col-md-6 col-sm-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Mas Opciones <small>avanzadas </small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </a>
+
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="collapse x_content">
+                                    <h2>Opciones</h2>
+
+                                    <div class="@HtmlClass.FormGroupCls">
+                                        @Html.LabelFor(model => model.Usuario.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                        <div class="@HtmlClass.DivInputCls">
+                                            @Html.EditorFor(model => model.Usuario.Activo, new
+                                       { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.Activo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="@HtmlClass.FormGroupCls">
+                                        @Html.LabelFor(model => model.Usuario.Bloqueado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                        <div class="@HtmlClass.DivInputCls">
+                                            @Html.EditorFor(model => model.Usuario.Bloqueado, new
+                                       { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.Bloqueado, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="@HtmlClass.FormGroupCls">
+                                        @Html.LabelFor(model => model.LaContraseñaExpira, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                        <div class="@HtmlClass.DivInputCls">
+                                            @Html.EditorFor(model => model.LaContraseñaExpira, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                            @Html.ValidationMessageFor(model => model.LaContraseñaExpira, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="@HtmlClass.FormGroupCls">
+                                        @Html.LabelFor(model => model.ContraseñaExpiraCadaXMes, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                        <div class="@HtmlClass.DivInputCls">
+                                            @Html.DropDownListFor(model => model.ContraseñaExpiraCadaXMes, SelectItems.Lista12Meses, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+
+                                            @*@Html.ValidationMessageFor(model => model.ContraseñaExpiraCadaXMes, "", new { @class = "text-danger" })*@
+                                            <span id="textoContraseñaExpira"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="@HtmlClass.FormGroupCls">
+                                        @Html.LabelFor(model => model.LimitarVigenciaDeCuenta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                        <div class="@HtmlClass.DivInputCls">
+                                            @Html.EditorFor(model => model.LimitarVigenciaDeCuenta, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                            @Html.ValidationMessageFor(model => model.LimitarVigenciaDeCuenta, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="@HtmlClass.FormGroupCls">
+                                        @Html.LabelFor(model => model.Usuario.VigenteDesde, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                        <div class="@HtmlClass.DivInputCls">
+                                            @Html.EditorFor(model => model.Usuario.VigenteDesde, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @mmddyyyy = @Model.Usuario.VigenteDesde.Tommddyyyy() } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.VigenteDesde, "", new { @class = "text-danger" })
+                                            <span id="textoVigenteDesde"></span>
+                                        </div>
+                                    </div>
+                                    <div class="@HtmlClass.FormGroupCls">
+                                        @Html.LabelFor(model => model.Usuario.VigenteHasta, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                        <div class="@HtmlClass.DivInputCls">
+                                            @Html.EditorFor(model => model.Usuario.VigenteHasta, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @mmddyyyy = @Model.Usuario.VigenteHasta.Tommddyyyy() } })
+                                            @Html.ValidationMessageFor(model => model.Usuario.VigenteHasta, "", new { @class = "text-danger" })
+                                            <span id="textoVigenteHasta"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    }
 
                 }
-
-            }
+            </div>
         </div>
     </div>
+
 }
 
 @section scripts {
-    <script>
 
-    </script>
-    /*
-    * experiencias aprendidas
-    * no eliminar los campos ocultos que se crean en los campos checkbox, y no manipular su valor por jquery
-    * ya que aparentemente el razon lo resuelve con el campo oculto y algo que hace el jquery que aun no lo se
-    * si es necesario establecer el valor del check  para que el dom usado en jquery tenga conocimiento
-    * tambien tenemos como obtener los errores del modelstate para darle una manipulacion distinta a la que razor
-    * le da.
-    * el Model realmente es una propiedad en el ViewData puedes accesarlo
-    * por ejemplo ViewData.Model.Usuario.Contraseña
-    * para los data-dash ejemplo "data-val", no funciona con prop sino con attr
-    */
 
     <script src="~/Scripts/apps/datePickerInit.js"></script>
     <script src="~/Scripts/Apps/setMask.js"></script>
@@ -297,6 +291,12 @@
         var constantNoImagen ="@Constant.NoImagen";
 
         attachOnChangeEvent();
+
+        function setFecha(elem, name) {
+            d = new Date(elem.val());
+            var formattedDate = moment(d).format("DD/MM/YYYY")
+            console.log(d, formattedDate);
+        }
         $('#roleSelect').multiSelect({
             afterSelect: function (value) {
                 $('#roleSelect option[value="' + value.toString() + '"]').prop('selected', true);
@@ -306,6 +306,7 @@
             selectableFooter: "<div class='custom-header'>Roles disponibles</div>",
             selectionFooter: "<div class='custom-header'>Roles seleccionados</div>"
         })
+
 
         @{
             ///attention: esta funcion QuitarImagen no se pudo poner dentro de showimage porque alla da erro de que no reconoce las variables
@@ -337,5 +338,4 @@
     </script>
     <script src="~/Scripts/apps/showImage.js"></script>
     @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
-
 }

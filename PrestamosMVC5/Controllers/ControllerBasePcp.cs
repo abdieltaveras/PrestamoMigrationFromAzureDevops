@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace PrestamosMVC5.Controllers
 {
     /// <summary>
@@ -119,6 +120,15 @@ namespace PrestamosMVC5.Controllers
         {
             var result = (TempData[key] == null) ? new T() : TempData[key] as T;
             return result;
+        }
+
+        /// <summary>
+        /// es un error intencional se utiliza para probar como se maneja el error
+        /// una vez este se haya producido
+        /// </summary>
+        protected void ThrowError()
+        {
+            throw new Exception("error intencional para probar que sucede cuando pasa un error");
         }
     }
 

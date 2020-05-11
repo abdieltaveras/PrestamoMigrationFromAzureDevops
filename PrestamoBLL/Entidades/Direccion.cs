@@ -32,9 +32,9 @@ namespace PrestamoBLL.Entidades
         public int IdDireccion {get;set;}
         [Display(Name ="Localidad")]
 
-        [Range(1,99999999,ErrorMessage ="No ha seleccionado ninguna localidad")]
+        [Range(1,99999999,ErrorMessage ="Es necesario establecer una localidad")]
         public int IdLocalidad { get; set; }
-        [Required(ErrorMessage = "campo {0} requerido, no puede estar vacio")]
+        [Required(ErrorMessage = "ingrese informacion en de la calle")]
         /// <summary>
         /// Nombre de la calle incluyendo el numero de la vivienda
         /// </summary>
@@ -48,7 +48,8 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Coordenadas GPS")]
         public string CoordenadasGPS { get; set; } = string.Empty;
         [Display(Name = "Otros Detalles")]
-        [Required(ErrorMessage = "campo requerido, no puede estar vacio")]
+        [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "Digite detalles a la direccion")]
         /// <summary>
         /// Para detallar la direccion esta proximo a la iglesia La Santidad
         /// Doblando por la banca GranPremio detras de la escuela Los Genios

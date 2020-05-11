@@ -12,12 +12,10 @@ $(document).ready(function () {
     // como validar todos los inputs
     // validat los inputs dentro de un tab pane no enfocado
 
-    //Declare const
-    const FAMILIA = 2;
-
+    
     // declare variables
-    let validForm = false;
-    let d = new Date();
+    //let validForm = false;
+    //let d = new Date();
     $("#btnSubmit").click(function () {
         //validReferences();
         //return;
@@ -26,116 +24,44 @@ $(document).ready(function () {
         //return;
         formulario.validate().settings.ignore = "";
         let isValidForm = true;
-        $('input[data-val="true"]').each(function (index, value) {
-            let elem = $(this);
-            turnOnOffValidationOnElem(elem);
-            if (elem.attr("data-val") == "true") {
-                let isValid = elem.valid();
-                let elemName = elem.attr("id");
+
+        $('input[data-val="true"],textarea').each(function () {
+            const elem = $(this);
+            //const elemId = elem.attr("id"); 
+            //console.log(elemId);
+            if (typeof turnOnOffValidationOnElem === 'function') {
+                turnOnOffValidationOnElem(elem);
+            }
+            //const validarElemento = elem.attr("data-val") === "true";
+            const validarElemento = elem.data("val");
+            if (validarElemento) {
+                const isValid = elem.valid();
                 if (!isValid) {
                     isValidForm = false;
-                    console.log(elemName + " " + isValid);
+                    // ignore esta linea si desea ver en la consola cuales inputs  su validacion es falsa
+                    // es decir false que indica que tiene algun error
+                    // console.log(elemId + " " + isValid);
                 }
             }
+            else {
+                //const elemId = elem.attr("id"); 
+                //console.log("no validar "+elemId+" "+elem.data("val"));
+            }
         });
-        var validform = formulario.validate();
-        //console.log(isValidForm);
-
-        //Validar referencias
-        if (!validReferences()) {
-            return;
+        if (isValidForm) {
+            formulario.validate({ ignore: ":hidden, .ignore-error" });
         }
 
-        formulario.validate({ ignore: ":hidden" });
+        if (typeof otherValidations === 'function') {
+            if (!otherValidations()) {
+                return;
+            }
+        }        
         if (isValidForm) {
+            if (typeof beforeSubmit === 'function') {
+                beforeSubmit();
+            }
             formulario.submit(); // Submit the form
         }
     });
-
-    $(".select-tipo").change(function () {
-
-        let dataOrder = $(this).data('order');
-        //console.log(dataOrder);
-        let selectedOption = $(this).children("option:selected").val();
-
-        if (selectedOption != FAMILIA) {
-            $('#Referencias_' + dataOrder + '__Vinculo').prop("disabled", true);
-            $('#Referencias_' + dataOrder + '__Vinculo').val(0);
-        } else {
-            $('#Referencias_' + dataOrder + '__Vinculo').prop("disabled", false);
-
-        }
-    });
-
-    function validReferences() {
-
-        let selectsTipo = $('.select-tipo');
-        let isValid = true;
-        let count = 0;
-        let validReferences = 0;
-
-        selectsTipo.each(function (index, value) {
-            let elem = $(this);
-            let selectedOption = $(this).find(":selected");
-
-            // Evaluar si selecciono un vinculo si el tipo es familiar
-            if (selectedOption.val() == FAMILIA) {
-                let vinculo = $('#Referencias_' + count + '__Vinculo');
-               
-                if (vinculo.children("option:selected").val() == 0) {
-                    vinculo.addClass('is-invalid');
-                    isValid = false;
-                } else {
-                    vinculo.removeClass('is-invalid');
-                }
-            }
-
-            let nombre = $('#Referencias_' + count + '__NombreCompleto');
-            let telefono = $('#Referencias_' + count + '__Telefono');
-            let direccion = $('#Referencias_' + count + '__Direccion');
-
-            if (selectedOption.val() != 0) {
-                
-                // Validar nombre
-                if (nombre.val().length < 1) {
-                    nombre.addClass('is-invalid');
-                    isValid = false;
-                } else {
-                    nombre.removeClass('is-invalid');
-                }
-
-                // Validar Telefono
-                if (telefono.val().length < 1) {
-                    telefono.addClass('is-invalid');
-                    isValid = false;
-                } else {
-                    telefono.removeClass('is-invalid');
-                }
-
-                // Validar Direccion
-                if (direccion.val().length < 1) {
-                    direccion.addClass('is-invalid');
-                    isValid = false;
-                } else {
-                    direccion.removeClass('is-invalid');
-                }
-
-                validReferences++;
-            }
-            count++;
-        });
-
-        // Evaluar si hay menos de tres referencias
-        if (validReferences < 3) {
-            isValid = false;
-            $('#alert').show();
-        } else {
-            $('#alert').hide();
-        }
-
-        return isValid;
-    }
-
-    
-
 });

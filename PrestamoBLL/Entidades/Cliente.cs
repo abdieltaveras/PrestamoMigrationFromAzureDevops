@@ -20,10 +20,11 @@ namespace PrestamoBLL.Entidades
         public int IdTipoIdentificacion { get; set; } = 0;
         [Display(Name = "Profesion u Ocupacion")]
         public int IdTipoProfesionUOcupacion { get; set; } = 0;
-        [Required]
+        [Required(ErrorMessage ="digite el numero de identificacion") ]
         [Display(Name = "No Identificacion")]
         public string NoIdentificacion { get; set; } = string.Empty;
         [Display(Name = "Fecha Nacimiento")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaNacimiento { get; set; } = DateTime.Now;
         [Display(Name = "Telefono movil")]
         public string TelefonoMovil { get; set; } = string.Empty;
@@ -81,8 +82,8 @@ namespace PrestamoBLL.Entidades
         //// PersonaInfoBasicaSinCodigo
         //public string Codigo { get; set; } = string.Empty;
         //// PersonaInfoAmpliadaConCodigoGetParams
-        //public int IdTipoIdentificacion { get; set; } = -1;
-        //public string NoIdentificacion { get; set; } = string.Empty;
+        public int IdTipoIdentificacion { get; set; } = -1;
+        public string NoIdentificacion { get; set; } = string.Empty;
         //public DateTime FechaNacimiento { get; set; } = InitValues._19000101;
         //public int Sexo { get; set; } = 0;
         //[Display(Name = "Estado Civil")]

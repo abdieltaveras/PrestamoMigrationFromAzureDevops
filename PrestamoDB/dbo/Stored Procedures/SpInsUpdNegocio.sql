@@ -13,6 +13,7 @@
 	@Logo   VARCHAR (100),
 	@InfoAccion		 varchar (max),
 	@Usuario varchar(50),
+	@Prefijo varchar(3),
 	@PermitirOperaciones int
 	--@GenerarSecuencia bit
 )
@@ -24,8 +25,8 @@ Begin
 	set @InfoAccion = (select dbo.fnUpdFechaJson(@InfoAccion))
 	if (@idNegocio<=0)	
 		begin
-			INSERT INTO dbo.tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, PermitirOperaciones, Logo, InsertadoPor, FechaInsertado )
-			VALUES (@codigo, @nombrejuridico, @nombrecomercial, @correoElectronico, @activo, @bloqueado, @idnegociopadre, @taxidno, @otrosdetalles,@permitirOperaciones,@Logo,  @infoAccion, getdate() )
+			INSERT INTO dbo.tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, idNegocioPadre, TaxIdNo, OtrosDetalles, PermitirOperaciones, Logo, InsertadoPor, FechaInsertado, Prefijo)
+			VALUES (@codigo, @nombrejuridico, @nombrecomercial, @correoElectronico, @activo, @bloqueado, @idnegociopadre, @taxidno, @otrosdetalles,@permitirOperaciones,@Logo,  @infoAccion, getdate(), @prefijo )
 			SELECT SCOPE_IDENTITY(); 
 		end
 	else

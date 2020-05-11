@@ -3,7 +3,6 @@ let _constantNoImagen = constantNoImagen;
 
 function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
     //console.log(elemId, imageElemIdText);
-    console.log(_urlNoImage, _constantNoImagen);
     $("#" + imageElemIdText).attr("src", _urlNoImage);
     $("#" + elemId + "Agregar").toggle();
     $("#" + elemId + "Quitar").toggle();
@@ -11,33 +10,17 @@ function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
     event.preventDefault();
 }
 function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText) {
-    console.log(elemToggleIdText);
+    
     $("#" + elemToggleIdText + "Agregar").toggle();
     $("#" + elemToggleIdText + "Quitar").toggle();
     if (imageUploader.files && imageUploader.files[0]) {
         let imageElement = $("#" + previewImageElemIdText);
-        console.log(hiddenInputForImageElemIdText);
+        
         let inputTextElemForImage = $("#"+ hiddenInputForImageElemIdText);
-        ConsoleLogWidthAndHeigthOfImage(imageElement);
+        
         let orientation = -1;
         let num = 0;
         uploadPhotos(imageElement, 1800, num, inputTextElemForImage);
-        //compress(event, imageElement);
-
-        ////codigo que funcionaba antes pero sin hacer resize
-        ////inicio
-        //var reader = new FileReader();
-        //reader.onload = function (e) {
-        //    imageElement.attr('src', e.target.result);
-        //    let img = document.getElementById("imagePreview");
-        //    //changeOrientation(img);
-        //};
-        //reader.readAsDataURL(imgFile);
-        ////fin
-
-        //console.log(fsize, orientation);
-
-        // https://stackoverflow.com/questions/24658365/img-tag-displays-wrong-orientation 
     }
 }
 
@@ -113,7 +96,7 @@ window.uploadPhotos = function (imgElem, MAX_SIZE, imgNum, inputElemToSetResized
                 //$("#image1PreviewValue").val(dataUrl);
                 //imgFile.setAttribute('value', dataUrl);
                 var resizedImage = dataURLToBlob(dataUrl);
-                console.log(resizedImage);
+                
                 //$.event.trigger({
                 //    type: "imageResized",
                 //    blob: resizedImage,
@@ -154,44 +137,4 @@ $(document).on("imageResized", function (event) {
 });
 
 
-
-function compress(e, imgElem) {
-    const width = 50;
-    const height = 30;
-    const fileName = e.target.files[0].name;
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-
-    reader.onload = event => {
-        const img = new Image();
-        img.src = event.target.result;
-
-        img.onload = () => {
-            const elem = document.createElement('canvas');
-            elem.width = width;
-            elem.height = height;
-
-            const ctx = elem.getContext('2d');
-            // img.width and img.height will contain the original dimensions
-            ctx.drawImage(img, 0, 0, width, height);
-            ctx.canvas.toBlob((blob) => {
-
-                const file = new File([blob], fileName, {
-                    type: 'image/jpeg',
-                    lastModified: Date.now()
-                });
-            }, 'image/jpeg', 1);
-
-
-        },
-            //imgElem.attr('src', img.attributes("src"));
-            //image.src = readerEvent.target.result;readerEvent.target.result;
-            imgElem.attr("src", reader.result);
-        imageUploader[0].setAttribute('value', reader.result);
-        console.log(reader);
-        ConsoleLogWidthAndHeigthOfImage(imgElem);
-        reader.onerror = error => console.log(error);
-    };
-
-}
 

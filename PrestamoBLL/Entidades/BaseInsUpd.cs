@@ -84,9 +84,9 @@ namespace PrestamoBLL.Entidades
     {
         [Required]
         public bool Activo { get; set; } = true;
-        [Required(ErrorMessage = "el campo {0} es requerido")]
+        [Required(ErrorMessage = "ingrese informacion en {0} ")]
         public string Nombres { get; set; } = string.Empty;
-        [Required(ErrorMessage = "el campo {0} es requerido")]
+        [Required(ErrorMessage = "ingrese informacion en  {0} ")]
         public string Apellidos { get; set; } = string.Empty;
         [Required(ErrorMessage = "el campo {0} es requerido")]
         public string Apodo { get; set; } = string.Empty;
@@ -99,9 +99,9 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Estatus")]
         public bool Activo { get; set; } = true;
         [MaxLength(10)]
-        [Required(ErrorMessage = "el campo {0} es requerido")]
+        [Required(ErrorMessage = "ingrese el codigo ")]
         public string Codigo { get; set; } = string.Empty;
-        [Required(ErrorMessage = "el campo {0} es requerido")]
+        [Required(ErrorMessage = "ingrese el nombre")]
         public string Nombre { get; set; } = string.Empty;
         public abstract int GetId();
         //public string Descripcion { get; set; } = string.Empty;

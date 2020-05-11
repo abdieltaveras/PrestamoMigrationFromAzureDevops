@@ -33,7 +33,7 @@
                     @Html.LabelFor(model => model.InfoLaboral.FechaInicio, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
                         @Html.EditorFor(model => model.InfoLaboral.FechaInicio, new { htmlAttributes = new { @class = "form-control datetype", type = "text" } })
-                        @Html.ValidationMessageFor(model => model.InfoLaboral.FechaInicio, "", new { @class = "text-danger" })
+                        @*@Html.ValidationMessageFor(model => model.InfoLaboral.FechaInicio, "", new { @class = "text-danger" })*@
                     </div>
                 </div>
 

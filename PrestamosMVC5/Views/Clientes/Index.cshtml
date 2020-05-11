@@ -1,7 +1,6 @@
-﻿@model IEnumerable<PrestamoBLL.Entidades.Cliente>
+﻿@model IEnumerable<Cliente>
 
 <div class="row">
-
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
         <a href="@Url.Action("CreateOrEdit", "Clientes")" class="btn btn-primary" role="button" style="float:right;">
@@ -15,13 +14,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-
-
                 @* data *@
-
-                <div>
-                    <table id="datatable" class=" table-bordered row-border " style="width:100%; text-align:center;">
+                <div  class="table-responsive">
+                    <table id="datatable" class="table-bordered row-border " style="width:100%; text-align:center;">
                         <thead>
                             <tr>
                                 <th>

@@ -64,9 +64,6 @@
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PcProgWebBase">
-      <HintPath>..\SharedDLL\PcpProgWebBase\PcProgWebBase.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -146,12 +143,15 @@
     <Compile Include="Controllers\CatalogosController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ControllerBasePcp.cs" />
+    <Compile Include="Controllers\ErrorHandlerController.cs" />
+    <Compile Include="Controllers\NegociosController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\CatalogoVM.cs" />
     <Compile Include="Models\ListaNegociosVM.cs" />
     <Compile Include="Models\LocalidadVM.cs" />
+    <Compile Include="Models\NegocioVM.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\RegistroEquipo.cs" />
     <Compile Include="Models\RoleVM.cs" />
@@ -210,6 +210,7 @@
     <Content Include="Content\build\images\forward_disabled.png" />
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
+    <Content Include="Content\build\js\custom.min - Copy.js" />
     <Content Include="Content\customcss\datatable\configuration\js-conf\datatable-conf.js" />
     <Content Include="Content\customcss\datatable\css\buttons.dataTables.min.css" />
     <Content Include="Content\customcss\datatable\css\dataTables.bootstrap4.min.css" />
@@ -259,24 +260,7 @@
     <Content Include="Content\build\images\Logo monocromatico-09.png" />
     <Content Include="Content\build\images\pcpprestamo-07.jpg" />
     <Content Include="Content\ImagesFor\Usuarios\Bryan01.png" />
-    <Content Include="Content\production\calendar.html" />
-    <Content Include="Content\production\chartjs.html" />
-    <Content Include="Content\production\chartjs2.html" />
-    <Content Include="Content\production\contacts.html" />
     <Content Include="Content\production\css\maps\jquery-jvectormap-2.0.3.css" />
-    <Content Include="Content\production\echarts.html" />
-    <Content Include="Content\production\e_commerce.html" />
-    <Content Include="Content\production\fixed_footer.html" />
-    <Content Include="Content\production\fixed_sidebar.html" />
-    <Content Include="Content\production\form.html" />
-    <Content Include="Content\production\form_advanced.html" />
-    <Content Include="Content\production\form_buttons.html" />
-    <Content Include="Content\production\form_upload.html" />
-    <Content Include="Content\production\form_validation.html" />
-    <Content Include="Content\production\form_wizards.html" />
-    <Content Include="Content\production\general_elements.html" />
-    <Content Include="Content\production\glyphicons.html" />
-    <Content Include="Content\production\icons.html" />
     <Content Include="Content\production\images\american-express.png" />
     <Content Include="Content\production\images\cropper.jpg" />
     <Content Include="Content\production\images\favicon.ico" />
@@ -293,32 +277,8 @@
     <Content Include="Content\production\images\prod-5.jpg" />
     <Content Include="Content\production\images\user.png" />
     <Content Include="Content\production\images\visa.png" />
-    <Content Include="Content\production\inbox.html" />
-    <Content Include="Content\production\index.html" />
-    <Content Include="Content\production\index2.html" />
-    <Content Include="Content\production\index3.html" />
-    <Content Include="Content\production\invoice.html" />
     <Content Include="Content\production\js\datepicker\daterangepicker.js" />
     <Content Include="Content\production\js\moment\moment.min.js" />
-    <Content Include="Content\production\level2.html" />
-    <Content Include="Content\production\login.html" />
-    <Content Include="Content\production\map.html" />
-    <Content Include="Content\production\media_gallery.html" />
-    <Content Include="Content\production\morisjs.html" />
-    <Content Include="Content\production\other_charts.html" />
-    <Content Include="Content\production\page_403.html" />
-    <Content Include="Content\production\page_404.html" />
-    <Content Include="Content\production\page_500.html" />
-    <Content Include="Content\production\plain_page.html" />
-    <Content Include="Content\production\pricing_tables.html" />
-    <Content Include="Content\production\profile.html" />
-    <Content Include="Content\production\projects.html" />
-    <Content Include="Content\production\project_detail.html" />
-    <Content Include="Content\production\tables.html" />
-    <Content Include="Content\production\tables_dynamic.html" />
-    <Content Include="Content\production\typography.html" />
-    <Content Include="Content\production\widgets.html" />
-    <Content Include="Content\production\xx.html" />
     <Content Include="Content\resources\icons\pcprog-logo.jpeg" />
     <Content Include="Content\src\js\custom.js" />
     <Content Include="Content\src\js\helpers\smartresize.js" />
@@ -2307,7 +2267,6 @@
     <Content Include="Content\vendors\Flot\examples\series-toggle\index.html" />
     <Content Include="Content\vendors\Flot\examples\series-types\index.html" />
     <Content Include="Content\vendors\Flot\examples\shared\jquery-ui\jquery-ui.min.css" />
-    <Content Include="Content\vendors\Flot\examples\shared\jquery-ui\jquery-ui.min.js" />
     <Content Include="Content\vendors\Flot\examples\stacking\index.html" />
     <Content Include="Content\vendors\Flot\examples\symbols\index.html" />
     <Content Include="Content\vendors\Flot\examples\threshold\index.html" />
@@ -4039,9 +3998,14 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="App_Code\TreeInfo.cshtml" />
+    <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <Content Include="Views\Clientes\_infoReferencia2.cshtml" />
     <Content Include="Views\Tests\DropDownList1.cshtml" />
+    <Content Include="Views\Negocios\CreateOrEdit.cshtml" />
+    <Content Include="Views\Negocios\Index.cshtml" />
+    <Content Include="Views\ErrorHandler\NotFound.cshtml" />
+    <None Include="Views\ErrorHandler\Default.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
     <Content Include="Scripts\Apps\showImage,20200423.js" />
@@ -4071,6 +4035,7 @@
     <TypeScriptCompile Include="Scripts\Apps\cultureInfo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
     <TypeScriptCompile Include="Scripts\Apps\testCommands.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs-interface.ts" />
     <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs.ts" />
     <TypeScriptCompile Include="Scripts\Apps\DatePickerInit.ts" />
     <Content Include="Scripts\Apps\empty.js" />
@@ -5164,6 +5129,7 @@
     <Content Include="Content\vendors\validator\README.md" />
     <Content Include="Content\vendors\validator\validator.jquery.json" />
     <Content Include="Content\customcss\multiselect\css\multi-select.dev.css.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -5224,8 +5190,6 @@
     <Content Include="Views\Color\CreateOrEdit.cshtml" />
     <Content Include="Views\Account\Login.20191229.cshtml" />
     <Content Include="Views\Account\Login2.cshtml" />
-    <Content Include="Views\Shared\_UserInfoTopNavBar.cshtml" />
-    <Content Include="Views\Shared\_UserInfoSideBar.cshtml" />
     <Content Include="Views\User\CreateOrEdit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Test.cshtml" />

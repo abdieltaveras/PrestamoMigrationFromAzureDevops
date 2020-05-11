@@ -9,8 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
 using System.Web.Routing;
-
+using System.Threading;
 
 namespace PrestamosMVC5.Controllers
 {
@@ -36,7 +37,7 @@ namespace PrestamosMVC5.Controllers
             // TASK agregar columna vivivienda propia (si o no) (analizar si poner alquilada o prestada)
         }
 
-       
+
 
         // GET: Clientes/Details/5
         public ActionResult Details(int id)
@@ -78,11 +79,12 @@ namespace PrestamosMVC5.Controllers
         public void UploadImage(HttpPostedFileBase imagen)
         {
 
-            var imagen1Cliente = Utils.SaveFiles(Server.MapPath(SiteDirectory.ImagesForClientes), imagen,"probando "+ Guid.NewGuid().ToString());
+            var imagen1Cliente = Utils.SaveFiles(Server.MapPath(SiteDirectory.ImagesForClientes), imagen, "probando " + Guid.NewGuid().ToString());
         }
-        
+
         // POST: Clientes/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateOrEdit(ClienteModel clienteVm)
         {
 
@@ -91,6 +93,7 @@ namespace PrestamosMVC5.Controllers
                 ModelState.Remove("Conyuge.Nombres");
                 ModelState.Remove("Conyuge.Apellidos");
             }
+            clienteVm.Cliente.Codigo = "nuevo";
             if (!ModelState.IsValid)
             {
                 var modError = GetErrorsFromModelState(ModelState);
@@ -114,15 +117,37 @@ namespace PrestamosMVC5.Controllers
             catch (Exception e)
             {
 
-                ModelState.AddModelError("", "Ocurrio un error que no permite guardar el cliente, revisar");
+#if (DEBUG)
+                ModelState.AddModelError("", "Ocurrio un error que no permite guardar el cliente, revisar " + e.Message);
+
+#elif (!DEBUG)
+                      ModelState.AddModelError("", "Ocurrio un error que no permite guardar el cliente, revisar" );
+#endif
                 result = View(clienteVm);
             }
             return result;
             //return RedirectToAction("Index");
         }
 
-        
+        public ActionResult BuscarPorNoIdentificacion(string noIdentificacion)
+        {
+            //Thread.Sleep(20000); para probar que sucede cuando el proceso no se realiza tan rapido, no se bloquea nada es decir si sucede un proceso asincrono sin hacer nada fuera de lo normal
+            var search = new ClientesGetParams();
+            this.pcpSetUsuarioAndIdNegocioTo(search);
+            search.NoIdentificacion = noIdentificacion.RemoveAllButNumber();
+            if (!string.IsNullOrEmpty(search.NoIdentificacion))
+            {
+                var result = BLLPrestamo.Instance.ClientesGet(search).FirstOrDefault();
+                if (result != null)
+                {
+                    var data = new { Nombre = result.Nombres + " " + result.Apellidos, Codigo = result.Codigo };
+                    Response.StatusCode = 200;
+                    return Json(data, pcpIsUserAuthenticated ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+                }
 
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+        }
 
         // GET: Clientes/Edit/5
         public ActionResult Edit(int id)
@@ -183,6 +208,7 @@ namespace PrestamosMVC5.Controllers
 
         private static void FillReferencias(ClienteModel clienteVm, List<Referencia> referencias)
         {
+            Prestamo pre = new Prestamo();
             for (int i = 0; i < 5; i++)
             {
                 if (referencias.Count > i)

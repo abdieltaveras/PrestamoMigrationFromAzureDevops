@@ -42,13 +42,13 @@ var dateFormat = 'en-GB';
 var yearRangeForDP = "+0:+1";
 var _dateFormat = 'dd/mm/yy';
 function setFecha(elem) {
-    var d = new Date();
-    var fechaTexto = '';
-    fechaTexto = elem.attr("mmddyyyy");
-    var fecha = new Date(fechaTexto);
-    //console.log("dia " + fecha.getDate());
-    var n = fecha.toLocaleDateString(dateFormat);
-    elem.val(n);
+    //let d = new Date();
+    //let fechaTexto = '';
+    //fechaTexto = elem.attr("mmddyyyy")
+    //let fecha = new Date(fechaTexto);
+    ////console.log("dia " + fecha.getDate());
+    //let n = fecha.toLocaleDateString(dateFormat);
+    //elem.val(n);
 }
 function onChangeProp(elem) {
     var elemId = elem.id;
