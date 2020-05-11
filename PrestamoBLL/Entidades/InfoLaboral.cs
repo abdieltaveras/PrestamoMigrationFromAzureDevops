@@ -13,7 +13,7 @@ namespace PrestamoBLL.Entidades
         /// Nombre de la empresa, negocio, etc donde labora
         /// </summary>
         
-        [Required(ErrorMessage = "campo requerido, no puede estar vacio")]
+        [Required(ErrorMessage = "ingrese el nombre del lugar de trabajo")]
         [Display(Name = "Nombre Lugar donde Trabaja")]
         public string Nombre
         { get; set; } = string.Empty;
@@ -27,7 +27,7 @@ namespace PrestamoBLL.Entidades
         public string NoTelefono1 { get; set; } = string.Empty;
         [Display(Name = "Telefono 2")]
         public string NoTelefono2 { get; set; } = string.Empty;
-        [Required(ErrorMessage = "campo requerido, no puede estar vacio")]
+        [Required(ErrorMessage = "ingrese la direccion donde labora")]
         [Display(Name = "Direccion donde  labora")]
         public string Direccion { get; set; } = string.Empty;
         [Display(Name = "Escriba aqui otros detalles de interes")]

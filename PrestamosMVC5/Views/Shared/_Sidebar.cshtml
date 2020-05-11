@@ -5,36 +5,14 @@
         <ul class="nav side-menu">
 
             @*<li>
-                    <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
-                </li>*@
+            <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
+        </li>*@
 
             <li>
                 <a><i class="fa fa-edit"></i>Catálogos<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li>
-                        <a class="text-white-50">Prestamos<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            @if (Permission.Has("tasainteres-ver"))
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
-                                </li>
-                            }
 
-                            <li>
-                                <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
-                            </li>
-                            <li>
-                                <a>Localizadores-Cobradores<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblLocalizadores" })">Crear Localizador / cobrador</a>
-                                    </li>
-                                </ul>
-                            </li>
 
-                        </ul>
-                    </li>
                     <li>
                         <a class="text-white-50">Clientes<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
@@ -44,7 +22,7 @@
                             </li>
                             <li>
                                 @{
-                                    ///Attention : para que lo pueda crear como nuevo si uno no pone ningun parametro al id para el  URL, entonces toma el ultimo id consultado 
+                                    ///Attention : para que lo pueda crear como nuevo si uno no pone ningun parametro al id para el  URL, entonces toma el ultimo id consultado
                                 }
                                 <a href="@Url.Action("CreateOrEdit","Clientes", new { id = -1 })">Crear Cliente Nuevo</a>
                             </li>
@@ -122,6 +100,7 @@
                             </li>
                         </ul>
                     </li>
+
                     <li>
                         <a class="text-white-50">Garantias<span class="fa fa-chevron-down"></span></a>
 
@@ -169,6 +148,31 @@
                                     </li>
                                 </ul>
                             </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="text-white-50">Prestamos<span class="fa fa-chevron-down"></span></a>
+
+                        <ul class="nav child_menu">
+                            @if (Permission.Has("tasainteres-ver"))
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
+                                </li>
+                            }
+
+                            <li>
+                                <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
+                            </li>
+                            <li>
+                                <a>Localizadores-Cobradores<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblLocalizadores" })">Crear Localizador / cobrador</a>
+                                    </li>
+                                </ul>
+                            </li>
+
                         </ul>
                     </li>
                 </ul>

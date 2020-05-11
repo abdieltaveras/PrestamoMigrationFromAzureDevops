@@ -11,7 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using System.Web.Routing;
-
+using System.Threading;
 
 namespace PrestamosMVC5.Controllers
 {
@@ -129,12 +129,12 @@ namespace PrestamosMVC5.Controllers
             //return RedirectToAction("Index");
         }
 
-
         public ActionResult BuscarPorNoIdentificacion(string noIdentificacion)
         {
+            //Thread.Sleep(20000); para probar que sucede cuando el proceso no se realiza tan rapido, no se bloquea nada es decir si sucede un proceso asincrono sin hacer nada fuera de lo normal
             var search = new ClientesGetParams();
             this.pcpSetUsuarioAndIdNegocioTo(search);
-            search.NoIdentificacion = StringMeth.RemoveAllButNumber(noIdentificacion);
+            search.NoIdentificacion = noIdentificacion.RemoveAllButNumber();
             if (!string.IsNullOrEmpty(search.NoIdentificacion))
             {
                 var result = BLLPrestamo.Instance.ClientesGet(search).FirstOrDefault();

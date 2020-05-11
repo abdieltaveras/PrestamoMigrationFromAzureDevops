@@ -20,7 +20,7 @@ namespace PrestamoBLL.Entidades
         public int IdTipoIdentificacion { get; set; } = 0;
         [Display(Name = "Profesion u Ocupacion")]
         public int IdTipoProfesionUOcupacion { get; set; } = 0;
-        [Required]
+        [Required(ErrorMessage ="digite el numero de identificacion") ]
         [Display(Name = "No Identificacion")]
         public string NoIdentificacion { get; set; } = string.Empty;
         [Display(Name = "Fecha Nacimiento")]

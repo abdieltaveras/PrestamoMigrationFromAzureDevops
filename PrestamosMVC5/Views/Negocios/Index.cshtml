@@ -1,53 +1,78 @@
-﻿@model IEnumerable<PrestamoEntidades.Negocio>
+﻿@model IEnumerable<Negocio>
+<div class="row">
+    <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NombreJuridico)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NombreComercial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Activo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bloqueado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Logo)
-        </th>
-        <th></th>
-    </tr>
+        <a href="@Url.Action("CreateOrEdit", "Negocios",new { idNegocio = -1 })" class="btn btn-primary" role="button" style="float:right;">
+            Agregar <i class="fa fa-plus"></i>
+        </a>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreJuridico)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreComercial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Activo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CorreoElectronico)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
-</table>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Tabla de clientes</h2>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="table-responsive">
+                    <table id="datatable" class="table-bordered row-border " style="width:100%; text-align:center;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Codigo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NombreJuridico)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NombreComercial)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Activo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Bloqueado)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="@(!item.Activo ? "table-active" : "" )">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Codigo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NombreJuridico)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NombreComercial)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Activo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Bloqueado)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "Anular", new { id = @item.IdNegocio }, htmlAttributes: new { @class = "btn btn-outline-danger fa fa-trash" })
+                                        @Html.ActionLink(" ", "CreateOrEdit", new { id = @item.IdNegocio }, htmlAttributes: new { @class = "btn btn-outline-warning fa fa-edit" })
+                                        
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#datatable').DataTable(dataTableConfiguration);
+        removeTemplateConfiguration();
+    });
+</script>

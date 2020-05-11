@@ -97,7 +97,8 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => Model.Direccion.Detalles, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        <textarea id="Direccion_Detalles" name="Direccion.Detalles" class="@HtmlClass.TextAreaResizableCls">@Model.Direccion.Detalles</textarea>
+                        @*<textarea id="Direccion_Detalles" name="Direccion.Detalles" class="@HtmlClass.TextAreaResizableCls">@Model.Direccion.Detalles</textarea>*@
+                        @Html.EditorFor(model => Model.Direccion.Detalles, new { htmlAttributes = new { @class =HtmlClass.TextAreaResizableCls } })
                         @Html.ValidationMessageFor(model => Model.Direccion.Detalles, "", new { @class = "text-danger" })
                         <span class="@HtmlClass.SpanDetailsCls" aria-hidden="true"></</span>
                     </div>

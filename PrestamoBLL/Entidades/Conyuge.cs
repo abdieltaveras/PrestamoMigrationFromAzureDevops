@@ -10,10 +10,10 @@ namespace PrestamoBLL.Entidades
 {
     public class Conyuge
     {
-        [Required(ErrorMessage = "campo {0} requerido, no puede estar vacio")]
+        [Required(ErrorMessage = "ingrese lo nombres")]
         public string Nombres { get; set; } = string.Empty;
         public string Apodo { get; set; } = string.Empty;
-        [Required(ErrorMessage = "campo {0} requerido, no puede estar vacio")]
+        [Required(ErrorMessage = "ingrese los apellidos")]
         public string Apellidos { get; set; } = string.Empty;
         [Display(Name = "Telefono")]
         public string NoTelefono1 { get; set; } = string.Empty;

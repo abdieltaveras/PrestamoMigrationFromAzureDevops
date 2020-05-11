@@ -21,6 +21,7 @@
                     <div class="x_title">
                         <div class="col-md-4 col-sm-12  ">
                             <h2>Datos Para el Cliente</h2>
+                            <input id="btnSubmit" type="button" value="Guardar" class="btn btn-primary" style="float:right;" />
                         </div>
                         @{
                             // attention colocar los mensajes de validation summary como hijo del la clase x_title , si se colocan antes que ella no son visibles
@@ -77,7 +78,7 @@
                                 }
                             </div>
                         </div>
-                        <input id="btnSubmit" type="button" value="Guardar" class="btn btn-primary" style="float:right;" />
+
 
                     </div>
                 </div>
@@ -110,7 +111,9 @@
     <script src="~/Scripts/Apps/setMask.js"></script>
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
+    <script src="~/Scripts/Apps/manageReferenciasForCliente.js"></script>
     <script type="text/javascript">
+        $("#Referencias_1__Telefono").data("val", false);
         let cantidadDeReferenciasMinimasPorCliente = 0;
         var urlNoImage = "@Url.Content(SiteImages.NoImage)"
         var constantNoImagen ="@Constant.NoImagen";
@@ -127,8 +130,8 @@
        //    $("#" + hiddeInputImgElemText).val(_constantNoImagen);
        //     event.preventDefault();
        // }
-
         onTieneConyugeChange();
+        
         // convert model into a json object
         // todo how to convert model into json object inside rezor
         //let model = Html.Raw(Json.Encode(Model));
@@ -162,10 +165,9 @@
         $("#@Html.IdFor(model => model.Direccion.IdLocalidad)").bind("change", function () {
             alert($(this).val());
         });
-        
- 
+
+
         function onChangeProp(elem) {
-            alert("localidad cambio");
             switch (elem.id) {
                 case "@Html.IdFor(model => model.Cliente.TieneConyuge)":
                     onTieneConyugeChange();
@@ -173,7 +175,6 @@
                 case "@Html.IdFor(m=> m.Cliente.NoIdentificacion)":
                      validarNoIdentificacionNoRegistrada(elem.value)
                     break;
-
                 case "@Html.IdFor(model => model.Direccion.IdLocalidad)":
                     break;
                 default:
@@ -222,9 +223,10 @@
         }
 
         function turnOnOffValidationOnElem(elem) {
+
         }
 
-        function removeValidations() {
+        function removeValidations_noUsar() {
              deactivateValidationsToConyugeTab();
         }
         function deactivateValidationsToConyugeTab() {
@@ -232,6 +234,10 @@
         }
         function activateValidationsToConyugeTab() {
             $('[data-val-grp="conyuge"]').attr("data-val", true);
+        }
+
+        function otherValidations() {
+            return validReferences();
         }
 
         function beforeSubmit()
@@ -259,7 +265,7 @@
             }
 
         }
-        
+
     </script>
     <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>

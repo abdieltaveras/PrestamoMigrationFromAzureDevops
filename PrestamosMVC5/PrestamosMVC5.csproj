@@ -144,12 +144,14 @@
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ControllerBasePcp.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
+    <Compile Include="Controllers\NegociosController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\CatalogoVM.cs" />
     <Compile Include="Models\ListaNegociosVM.cs" />
     <Compile Include="Models\LocalidadVM.cs" />
+    <Compile Include="Models\NegocioVM.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\RegistroEquipo.cs" />
     <Compile Include="Models\RoleVM.cs" />
@@ -3996,6 +3998,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="App_Code\TreeInfo.cshtml" />
+    <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <Content Include="Views\Clientes\_infoReferencia2.cshtml" />
     <Content Include="Views\Tests\DropDownList1.cshtml" />

@@ -2,7 +2,7 @@
 
 
 
-@using (@Html.BeginForm("CreateOrEdit", "Negocios", FormMethod.Post, htmlAttributes: new { id = "negocioForm"  }))
+@using (@Html.BeginForm("CreateOrEdit", "Negocios", FormMethod.Post, htmlAttributes: new { id = "negocioForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -16,7 +16,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="x_panel">
                     <div class="x_content">
-                        <div class="d-flex justify-content-end" >
+                        <div class="d-flex justify-content-end">
                             <input type="submit" value="Guardar" class="btn btn-primary" />
                         </div>
                         <div class="@HtmlClass.FormGroupCls">
@@ -42,6 +42,15 @@
                         </div>
 
                         <div class="@HtmlClass.FormGroupCls">
+                            @Html.LabelFor(model => Model.Negocio.TaxIdNo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                            <div class="@HtmlClass.DivInputCls">
+                                @Html.EditorFor(model => Model.Negocio.TaxIdNo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                @Html.ValidationMessageFor(model => Model.Negocio.TaxIdNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="@HtmlClass.FormGroupCls">
                             @Html.LabelFor(model => Model.Negocio.Activo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                             <div class="@HtmlClass.DivInputCls">
                                 <div class="checkbox">
@@ -64,6 +73,15 @@
                         </div>
 
                         <div class="@HtmlClass.FormGroupCls">
+                            @Html.LabelFor(model => Model.Negocio.PermitirOperaciones, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                            <div class="@HtmlClass.DivInputCls">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => Model.Negocio.PermitirOperaciones, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => Model.Negocio.PermitirOperaciones, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="@HtmlClass.FormGroupCls">
                             @Html.LabelFor(model => Model.Negocio.CorreoElectronico, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                             <div class="@HtmlClass.DivInputCls">
                                 @Html.EditorFor(model => Model.Negocio.CorreoElectronico, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
@@ -71,46 +89,50 @@
                             </div>
                         </div>
 
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => Model.Negocio.TaxIdNo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => Model.Negocio.TaxIdNo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                @Html.ValidationMessageFor(model => Model.Negocio.TaxIdNo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
+                        @{
+                            var image1Url = Url.Content(SiteImages.NoImage);
+                            var imagen1Existe = false;
+                            if (!string.IsNullOrEmpty(Model.Negocio.Logo))
+                            {
+                                image1Url = Url.Content(SiteDirectory.ImagesForNegocios + "/" + Model.Negocio.Logo);
+                                imagen1Existe = true;
+                            }
+                        }
                         <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => Model.Negocio.Logo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => Model.Negocio.Logo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                @Html.ValidationMessageFor(model => Model.Negocio.Logo, "", new { @class = "text-danger" })
+                            <div class="col-md-6">
+                                <img id="image1Preview"
+                                     src="@image1Url" style="height:10em; width:12em;" class="img-fluid" />
+                                @Html.HiddenFor(m => m.image1PreviewValue)
+                                <input id="@Html.IdFor(m=> m.ImagenNegocio1)" class=@HtmlClass.InputTextCls type="file"
+                                       name="@Html.IdFor(m=> m.ImagenNegocio1)" accept="image/jpeg, image/png" capture="camera"
+                                       onchange="ShowImagePreview(this, 'image1Preview', '@Html.IdFor(m=> m.ImagenNegocio1)','@Html.IdFor(m => m.image1PreviewValue)')" style="display:none" />
+
+                                <div class="text-center">
+                                    <label id="@Html.IdFor(m=> m.ImagenNegocio1)Agregar" for="@Html.NameFor(m=> m.ImagenNegocio1)" class="text-info"
+                                           style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
+                                    <label id="@Html.IdFor(m=> m.ImagenNegocio1)Quitar" for="@Html.NameFor(m=> m.ImagenNegocio1)" class="text-danger"
+                                           style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.Raw(imagen1Existe ? "none" : "block")','image1Preview','@Html.IdFor(m=> m.ImagenNegocio1)')">Quitar imagen</label>
+                                    @*<span id="container"></span>*@
+                                </div>
                             </div>
                         </div>
+                        @*<div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => Model.Negocio.Logo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => Model.Negocio.Logo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => Model.Negocio.Logo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
 
 
                         <div class="@HtmlClass.FormGroupCls">
                             <label class="@HtmlClass.LabelCls"> Negocio Padre</label>
                             <div class="@HtmlClass.DivInputCls">
-                                @Html.DropDownListFor(m => m.Negocio.IdNegocioPadre, SelectItems.Negocios(AuthInSession.AnonimousUser,0,AuthInSession.GetIdNegocio()), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                @Html.DropDownListFor(m => m.Negocio.IdNegocioPadre, SelectItems.NegociosMatrizRaiz(), null, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                                 @Html.ValidationMessageFor(model => model.Negocio.IdNegocioPadre, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => Model.Negocio.PermitirOperaciones, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => Model.Negocio.PermitirOperaciones, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                @Html.ValidationMessageFor(model => model.Negocio.PermitirOperaciones, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => Model.Negocio.Codigo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => Model.Negocio.Codigo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                @Html.ValidationMessageFor(model => Model.Negocio.Codigo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
@@ -122,7 +144,10 @@
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
     <script>
+        var urlNoImage = "@Url.Content(SiteImages.NoImage)"
+        var constantNoImagen ="@Constant.NoImagen";
         let formulario = $("#negocioform");
     </script>
+    <script src="~/Scripts/apps/showImage.js"></script>
 }
 

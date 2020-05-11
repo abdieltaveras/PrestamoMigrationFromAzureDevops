@@ -1,6 +1,7 @@
 ﻿using PrestamoBLL;
-using PrestamoEntidades;
+using PrestamoBLL.Entidades;
 using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,15 @@ namespace PrestamosMVC5.Controllers
 {
     public class NegociosController : ControllerBasePcp
     {
+        public NegociosController()
+        {
+            UpdViewBag_LoadCssAndJsGrp2(true);
+            this.UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         // GET: Negocios
         public ActionResult Index()
         {
-            var searchParam = new NegociosGetParams { IdNegocio = this.pcpUserIdNegocio, Usuario = this.pcpUserLoginName };
+            var searchParam = new NegociosGetParams { IdNegocio = AuthInSession.GetIntValueForKey(AuthInSession. NegocioMatrizIdNegocio), Usuario = this.pcpUserLoginName };
             var negocios = BLLPrestamo.Instance.GetNegocios(searchParam);
             return View(negocios);
         }
