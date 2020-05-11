@@ -30,11 +30,11 @@ namespace PrestamosMVC5.Controllers
         {
             GarantiaVM datos = garantia == null ? new GarantiaVM() : garantia;
 
-            datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = 1 }), "IdTipo", "Nombre" );
-            datos.ListaTiposReal =  BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = 1 });
-            datos.ListaMarcas =  BLLPrestamo.Instance.MarcasGet(new MarcaGetParams { IdNegocio = 1 });
+            datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = pcpUserIdNegocio }), "IdTipo", "Nombre" );
+            datos.ListaTiposReal =  BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = pcpUserIdNegocio });
+            datos.ListaMarcas =  BLLPrestamo.Instance.MarcasGet(new MarcaGetParams { IdNegocio = pcpUserIdNegocio });
             //datos.ListaModelos = new SelectList( BLLPrestamo.Instance.ModelosGet(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
-            datos.ListaColores = new SelectList(BLLPrestamo.Instance.ColoresGet(new ColorGetParams { IdNegocio = 1 }), "IdColor", "Nombre");
+            datos.ListaColores = new SelectList(BLLPrestamo.Instance.ColoresGet(new ColorGetParams { IdNegocio = pcpUserIdNegocio }), "IdColor", "Nombre");
 
             datos.Garantia = new Garantia();
 
