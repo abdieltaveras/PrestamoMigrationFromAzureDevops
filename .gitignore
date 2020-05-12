@@ -10,7 +10,8 @@ PrestamoBLL/ConexionDB.cs
 
 # ConexionDB File
 PrestamoBLL/ConexionDB.cs
-
+bin/PrestamosMVC5.dll
+obj/Debug/PrestamosMVC5.dll
 
 # These are needed, however, they're generated so don't need/want to track
 css/app.css.map
@@ -137,8 +138,6 @@ AutoTest.Net/
 
 # Web workbench (sass)
 .sass-cache/
-
-
 
 # Installshield output folder
 [Ee]xpress/
