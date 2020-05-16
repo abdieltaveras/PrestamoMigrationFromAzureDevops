@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLPrestamo.cs" />
+    <Compile Include="GeneradorDeCuotas.cs" />
     <Compile Include="Catalogo.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="ConexionDB.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Entidades\Prestamo.cs" />
     <Compile Include="Entidades\Referencia.cs" />
     <Compile Include="Entidades\Role.cs" />
+    <Compile Include="Entidades\Periodo.cs" />
     <Compile Include="Entidades\TasaInteres.cs" />
     <Compile Include="Entidades\Territorio.cs" />
     <Compile Include="Entidades\TipoGarantia.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Equipo.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="Garantia.cs" />
+    <Compile Include="IGeneradorCuotas.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="Marca.cs" />
@@ -116,7 +119,9 @@
     <Compile Include="Negocio.cs" />
     <Compile Include="Operacion.cs" />
     <Compile Include="Prestamo.cs" />
+    <Compile Include="PrestamoBuilder.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="Periodo.cs" />
     <Compile Include="VerificarDireccion.cs" />
     <Compile Include="Ocupacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,22 +134,10 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app2.config" />
     <None Include="Entidades\ClassDiagram1.cd" />
     <None Include="Entidades\Direccion.cd" />
-    <None Include="Entidades\packages.config" />
     <None Include="Entidades\TipoMora.cd" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

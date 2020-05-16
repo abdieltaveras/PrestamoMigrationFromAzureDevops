@@ -73,4 +73,6 @@ namespace PrestamoBLL.Entidades
         public string Search { get; set; } = string.Empty;
     }
 
+    
+
 }

@@ -8,20 +8,22 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL.Entidades
 {
-    public class Prestamo : BaseInsUpd
+    public enum TiposAmortizacion { Cuotas_fijas_No_amortizable=1, Abierto_amortizable_por_dia, Abierto_Amortizable_por_periodo_abierto, Cuotas_fijas_amortizable, Abierto_No_Amortizable }
+    public class Prestamo : BaseInsUpd, IPrestamoForGeneradorCuotas
     {
-        public int IdPrestamo { get; set; }
+        public int IdPrestamo { get; set; } 
 
         [IgnorarEnParam]
-        public string PrestamoNo { get; set; } = string.Empty;
+        public string PrestamoNumero { get; internal set; } = string.Empty;
 
-        public int IdPrestamoARenovar { get; set; }
+        public int IdPrestamoARenovar { get; set; } 
         [IgnorarEnParam]
-        public string NoPrestamoARenovar { get; set; }
+        /// attention analizar poner un objeto InfoPrestamoForView que permita poner todos los campos que uno pudiera necesitar como este NumeroPrestamoARenovar, etc
+        public string NumeroPrestamoARenovar { get; internal set; }
 
         public int IdClasificacion { get; set; }
 
-        public int IdAmortizacion { get; set; }
+        public TiposAmortizacion TipoAmortizacion { get; set; } = TiposAmortizacion.Cuotas_fijas_No_amortizable;
 
         /// <summary>
         /// retorna true o false al contar si hay o no garantias para este prestamo
@@ -33,6 +35,7 @@ namespace PrestamoBLL.Entidades
         /// </summary>
         [IgnorarEnParam]
         public List<Cliente> Clientes { get; set; } = new List<Cliente>();
+        [IgnorarEnParam]
         /// <summary>
         /// Los id de los clientes asignado a este prestamo
         /// </summary>
@@ -40,40 +43,42 @@ namespace PrestamoBLL.Entidades
 
         [IgnorarEnParam]
         public List<Garantia> Garantias { get; set; } = new List<Garantia>();
-
+        [IgnorarEnParam]
         public List<int> IdGarantias { get; set; } = new List<int>();
 
         [IgnorarEnParam]
         public List<Codeudor> Codeudores { get; set; }
-        
+        [IgnorarEnParam]
         public List<int> IdCodeudores { get; set; }
 
+        public DateTime FechaEmisionReal { get; set; } = DateTime.Now;
 
-        public DateTime FechaEmision { get; set; } = DateTime.Now;
-        
+        public DateTime FechaEmisionParaCalculos { get; internal set; } = DateTime.Now;
         public DateTime FechaVencimiento { get; internal set; }
-
-        public int IdTasaDeInteres { get; set; }
-        
+        public int IdTasaInteres { get; set; }
         [IgnorarEnParam]
-        public double TasaDeInteresPorPeriodo { get; set; }
+        public decimal TasaDeInteresPorPeriodo { get; set; }
 
         public int IdTipoMora { get; set; }
 
         public int IdPeriodo { get; set; }
+        [IgnorarEnParam]
+        public Periodo Periodo { get; internal set; }
 
-        public int CantidadDePeriodo { get; set; }
+        public int CantidadDePeriodos { get; set; }
 
-        public Decimal DineroPrestado { get; set; }
+        public decimal MontoPrestado { get; set; }
+        public decimal DeudaRenovacion { get; set; }
+
+        [IgnorarEnParam]
+        public decimal TotalPrestado { get; internal set; }
 
         public int IdDivisa { get; set; }
-
-        public Decimal CantidadDineroPrestado { get; set; }
         [IgnorarEnParam]
-        public bool LlevaGastoDeCiere => TasaGastoDeCierre > 0;
-        public float TasaGastoDeCierre { get; set; }
+        public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
+        public decimal InteresGastoDeCierre { get; set; }
 
-        public float MontoGastoDeCierre { get; internal set; }
+        public decimal MontoGastoDeCierre { get; internal set; }
 
         public bool GastoDeCierreEsDeducible { get; set; }
 
@@ -81,26 +86,44 @@ namespace PrestamoBLL.Entidades
 
         public bool CargarInteresAlGastoDeCierre { get; set; }
         
-        public bool AcomodarFechaCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
+        public bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
 
-        public DateTime? FechaInicioPrimeraCuota { get; internal set; } = InitValues._19000101;
+        public DateTime FechaInicioPrimeraCuota { get; internal set; } = InitValues._19000101;
 
         /// <summary>
         /// este campo es el que tendra la fecha real de donde partira a generar las cuotas y sus fechas de vencimientos, es necesario para cuando al prestamo se le acomode las cuotas
         /// </summary>
-        public DateTime FechaInicioCalculoPrestamo { get; internal set; }
+
+        public Prestamo()
+        {
+
+        }
+
+        public Prestamo(Periodo periodo)
+        {
+            var periodoDest = new Periodo();
+            _type.CopyPropertiesTo(periodo, periodoDest);
+            this.Periodo = periodoDest;
+        }
     }
 
-    public class PrestamoConCuota
+    public class PrestamoConCuotas
     {
-        public int IdPrestamo { get; set; }
+        public Prestamo Prestamo { get; private set; }
 
-        public Prestamo Prestamo { get; set; }
+        private List<Cuota> Cuotas { get; set; }
 
-        public List<Cuota> Cuotas { get; set; }
+        public PrestamoConCuotas(Prestamo prestamo, List<Cuota> cuotas)
+        {
+            this.Prestamo = prestamo;
+            this.Cuotas = cuotas;
+        }
+
+        public List<Cuota> GetCuotas() => this.Cuotas;
+
     }
 }
 

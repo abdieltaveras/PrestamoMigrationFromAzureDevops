@@ -68,7 +68,7 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
         public DateTime FechaAnulado { get; set; } = InitValues._19000101;
-        public bool Anulado() => string.IsNullOrEmpty(AnuladoPor);  
+        public bool Anulado() => !string.IsNullOrEmpty(AnuladoPor);  
         public virtual bool Modificable() => false;
         public virtual bool Anulable()=> false;
         /// <summary>

@@ -42,6 +42,20 @@ Post-Deployment Script Template
 --('N06', 'Hija 1 de Hija 1 Empresa 2 Srl', 'Hija 1 de Hija 1 Empresa no 2', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png')
 	declare @idNegocio int = 1
 
+--tblDivisas
+	INSERT INTO [dbo].[tblDivisas]
+           ([idNegocio]
+           ,[Codigo]
+           ,[Nombre]
+           ,[InsertadoPor]
+           ,[FechaInsertado])
+     VALUES
+           (@idNegocio
+           ,'RD$'
+           ,'Pesos Dominicano'
+           ,@Usuario
+		   ,Getdate())
+
 	--Script para datos de Interes
 
 	INSERT INTO [dbo].[tblTasasInteres] ([idNegocio],[Codigo],[Nombre],[InteresMensual],[InsertadoPor],[FechaInsertado])
@@ -49,11 +63,32 @@ Post-Deployment Script Template
 		   (@idNegocio,'A00', '1% de interes' ,1.0,@usuario,getdate()),
 		   (@idNegocio,'B00', '2% de interes' ,2.0,@usuario,getdate()),
 		   (@idNegocio,'C00', '3% de interes' ,3.0,@usuario,getdate())
-
+	-- tblClasificaciones
+		   INSERT INTO [dbo].[tblClasificaciones]
+           ([Nombre]
+           ,[IdNegocio]
+           ,[ClasificacionFinanciera]
+           ,[Codigo]
+           ,[InsertadoPor]
+           ,[FechaInsertado]
+		   )
+		VALUES
+           ('Prestamos de Vehiculos'
+           ,@idNegocio
+           ,'C'
+           ,'Veh'
+           ,@usuario
+           ,getDate())
+    --Script para periodos
+	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'para cuotas Diarias','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Para Cuotas Semanales', 'seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,3,'QUI',1,'para cuotas Quincenales','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'MES',1,'para cuotas Mensuales','seed', getdate()) 
+	
 	--Script para datos de Moras
 	insert into tblTiposMora
 			(Nombre,
-			idNegocio, Codigo,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,InsertadoPor, FechaInsertado)
+			idNegocio,Codigo,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,InsertadoPor, FechaInsertado)
 		VALUES
 
 			('Porcentual 10% al interes y capital atrasado por cada dia por cada cuota',

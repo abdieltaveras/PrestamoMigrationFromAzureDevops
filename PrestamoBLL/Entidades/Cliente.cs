@@ -9,7 +9,7 @@ namespace PrestamoBLL.Entidades
     {
         [KeyAttribute]
         public int IdCliente { get; set;} = 0;
-        
+        [IgnorarEnParam]
         [StringLength(40)]
         [Required]
         public string Codigo { get; set; } = string.Empty;

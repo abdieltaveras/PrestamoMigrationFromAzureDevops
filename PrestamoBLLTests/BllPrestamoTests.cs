@@ -26,6 +26,7 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void CatalogosGetTestForOcupacion()
         {
+            
             //var lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = 1}, "ocupacion");
             //var datos = lista.Count() > 0;
             //Assert.IsTrue(datos, "no se econtraron datos");
