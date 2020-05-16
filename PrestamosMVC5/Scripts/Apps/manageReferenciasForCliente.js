@@ -29,15 +29,16 @@ function validReferences() {
         let selectedOption = $(this).find(":selected");
 
         // Evaluar si selecciono un vinculo si el tipo es familiar
+        let vinculo = $('#Referencias_' + count + '__Vinculo');
         if (selectedOption.val() == FAMILIA) {
-            let vinculo = $('#Referencias_' + count + '__Vinculo');
-
             if (vinculo.children("option:selected").val() == 0) {
                 vinculo.addClass('is-invalid');
                 isValid = false;
             } else {
                 vinculo.removeClass('is-invalid');
             }
+        } else {
+            vinculo.removeClass('is-invalid');
         }
 
         let nombre = $('#Referencias_' + count + '__NombreCompleto');
@@ -50,6 +51,8 @@ function validReferences() {
             if (nombre.val().length < 1) {
                 nombre.addClass('is-invalid');
                 isValid = false;
+                console.log('hola1');
+
             } else {
                 nombre.removeClass('is-invalid');
             }
@@ -70,6 +73,11 @@ function validReferences() {
             }
 
             validReferences++;
+        } else {
+            console.log('hola2', nombre);
+            nombre.removeClass('is-invalid');
+            telefono.removeClass('is-invalid');
+            direccion.removeClass('is-invalid');
         }
         count++;
     });

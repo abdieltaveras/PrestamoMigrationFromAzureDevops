@@ -22,7 +22,7 @@
                                         <div class="form-group col-md-2">
                                             @Html.LabelFor(m => m.Referencias[@i].Tipo)
                                             <select class="form-control select-tipo" data-val="false" data-order="@i" data-val-number="The field Tipo must be a number." data-val-required="The Tipo field is required." id='@Html.Raw("Referencias_" + @i + "__Tipo")' name="Referencias[@i].Tipo">
-                                                <option value="0" disabled selected>Elija</option>
+                                                <option value="0" selected>Ninguna</option>
                                                 @foreach (var item in SelectItems.TiposReferencias)
                                                 {
                                                     <option value="@item.Value" @Html.Raw(int.Parse(item.Value) == Model.Referencias[i].Tipo ? "selected" : "")>@item.Text</option>
@@ -33,7 +33,7 @@
                                             @Html.LabelFor(m => m.Referencias[@i].Vinculo)
                                             <select class="form-control select-vinculo" data-val="false" data-val-number="The field Tipo must be a number." data-val-required="The Tipo field is required."
                                                     id='@Html.Raw("Referencias_" + @i + "__Vinculo")' name="Referencias[@i].Vinculo">
-                                                <option value="0" disabled selected>Elija</option>
+                                                <option value="0" selected>Ninguna</option>
                                                 @foreach (var item in SelectItems.TiposVinculos)
                                                 {
                                                     <option value="@item.Value" @Html.Raw(int.Parse(item.Value) == Model.Referencias[@i].Vinculo ? "selected" : "")>@item.Text</option>
