@@ -407,6 +407,8 @@
 
     $(".garantia_target").keyup(function (e) {
         if (e.which != 38 && e.which != 40 && e.which != 13) {
+            $('.garantias').remove();
+
             searchGarantiaText($('#searchinput').val());
         }
         // console.log($('#searchinput').val());
@@ -529,7 +531,7 @@
         $('#searchLocalidad').val(resLocalidad);
         $('#list-garantia-container').hide();
 
-        //$('.garantias').remove();
+        $('.garantias').remove();
         $('#searchinput').val(null);
     }
 
