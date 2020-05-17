@@ -14,7 +14,14 @@ begin
 			VALUES (@idnegocio, @prestamoNumero, @idprestamoarenovar, @deudarenovacion, @idclasificacion, @idCliente, @tipoamortizacion, @fechaemisionReal, @fechaemisionParaCalculos, @fechavencimiento, @idtasainteres, @idtipomora, @idperiodo, @cantidaddeperiodos, @montoprestado, @iddivisa, @interesgastodecierre, @montogastodecierre, @gastodecierreesdeducible, @cargarinteresalgastodecierre, @sumargastodecierrealascuotas, @acomodarfechaalascuotas, @fechainicioprimeracuota, @usuario, getdate())
 			  set @idPrestamo = (SELECT SCOPE_IDENTITY());
 			  insert into tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) select @IdPrestamo, Numero, Fecha, Capital, Interes from @cuotas
-			  insert into tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor) select @IdPrestamo, IdGarantia, @usuario from @garantias
+			  if (exists (select 1 from @garantias))
+			  begin
+				insert into tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor) select @IdPrestamo, IdGarantia, @usuario from @garantias
+			  end
+			  if (exists (select 1 from @codeudores))
+			  begin
+				insert into tblPrestamoCodeudores (IdPrestamo, IdCodeudor, InsertadoPor) select @IdPrestamo, IdCodeudor, @usuario from @codeudores
+			  end
 			commit
 		end try
 		begin catch

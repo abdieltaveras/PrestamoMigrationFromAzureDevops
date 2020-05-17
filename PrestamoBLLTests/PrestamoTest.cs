@@ -25,6 +25,7 @@ namespace PrestamoBLLTests
             try
             {
                 idResult = BLLPrestamo.Instance.InsUpdPrestamo(CreatePrestamo());
+                
             }
             catch (Exception e)
             {
