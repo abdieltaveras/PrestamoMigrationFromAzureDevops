@@ -35,9 +35,9 @@ namespace PrestamoBLL
             SetClasificacion(prestamo.IdClasificacion);
             SetAmortizacion(prestamo.TipoAmortizacion);
             SetRenovacion(prestamo.NumeroPrestamoARenovar);
-            SetClientes(prestamo.Clientes);
-            SetGarantias(prestamo.Garantias);
-            SetCodeuDores(prestamo.Codeudores);
+            SetClientes(prestamo.IdCliente);
+            SetGarantias(prestamo._Garantias);
+            SetCodeuDores(prestamo._Codeudores);
             SetMontoAPrestar(prestamo.MontoPrestado, prestamo.IdDivisa);
             SetGastDeCierre(prestamo.InteresGastoDeCierre, prestamo.GastoDeCierreEsDeducible, prestamo.SumarGastoDeCierreALasCuotas, prestamo.CargarInteresAlGastoDeCierre);
             SetTasaInteres(prestamo.IdTasaInteres);
@@ -45,23 +45,12 @@ namespace PrestamoBLL
             SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDePeriodos); ;
             SetMoras(prestamo.IdTipoMora);
         }
-        public void AddCliente(Prestamo prestamo, Cliente cliente)
-        {
-            if (cliente.IdCliente > 0)
-            {
-                prestamo.Clientes.Add(cliente);
-            }
-            else
-            {
-                throw new NullReferenceException("el id del cliente a agregar no es valido debe ser mayor que cero");
-            }
-        }
         public void AddCodeudor(Prestamo prestamo, Codeudor codeudor)
         {
 
             if (codeudor.IdCodeudor > 0)
             {
-                prestamo.Codeudores.Add(codeudor);
+                prestamo._Codeudores.Add(codeudor);
             }
             else
             {
@@ -72,7 +61,7 @@ namespace PrestamoBLL
         {
             if (garantia.IdGarantia > 0)
             {
-                prestamo.Garantias.Add(garantia);
+                prestamo._Garantias.Add(garantia);
             }
             else
             {
@@ -239,23 +228,27 @@ namespace PrestamoBLL
 
         private void SetCodeuDores(List<Codeudor> codeudores)
         {
-            if (codeudores == null)
+            prestamoInProgress.IdCodeudores = new List<int>();
+            if (codeudores != null)
             {
-                return;
-            }
-            foreach (var item in codeudores)
-            {
-                AddCodeudor(prestamoInProgress, item);
-                prestamoInProgress.IdGarantias.Add(item.IdCodeudor);
+                foreach (var item in codeudores)
+                {
+                    AddCodeudor(prestamoInProgress, item);
+                    prestamoInProgress.IdGarantias.Add(item.IdCodeudor);
+                }
             }
         }
 
         private void SetGarantias(List<Garantia> garantias)
         {
-            foreach (var item in garantias)
+            prestamoInProgress.IdGarantias = new List<int>();
+            if (garantias != null)
             {
-                AddGarantia(prestamoInProgress, item);
-                prestamoInProgress.IdGarantias.Add(item.IdGarantia);
+                foreach (var item in garantias)
+                {
+                    AddGarantia(prestamoInProgress, item);
+                    prestamoInProgress.IdGarantias.Add(item.IdGarantia);
+                }
             }
         }
         private void SetCodeudores(List<Codeudor> codeudores)
@@ -266,12 +259,15 @@ namespace PrestamoBLL
                 prestamoInProgress.IdGarantias.Add(item.IdCodeudor);
             }
         }
-        private void SetClientes(List<Cliente> _clientes)
+        private void SetClientes(int idCliente)
         {
-            foreach (var item in _clientes)
+            if (idCliente <= 0)
             {
-                AddCliente(prestamoInProgress, item);
-                prestamoInProgress.IdClientes.Add(item.IdCliente);
+                throw new NullReferenceException("el id del cliente a agregar no es valido debe ser mayor que cero");
+            }
+            else
+            {
+                prestamoInProgress.IdCliente = idCliente;
             }
         }
 
@@ -330,12 +326,13 @@ namespace PrestamoBLL
             return genCuotas;
         }
         #endregion operaciones
-        public PrestamoConCuotas Build()
+        public Prestamo Build()
         {
             IGeneradorCuotas genCuotas = getGeneradorCuotas();
-            cuotas = genCuotas.GenerarCuotas();
-            var prestamoConCuotas = new PrestamoConCuotas(prestamoInProgress, cuotas);
-            return prestamoConCuotas;
+            prestamoInProgress._Cuotas = genCuotas.GenerarCuotas();
+            return prestamoInProgress;
+            //var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,cuotas: cuotas, prestamoInProgress.Codeudores, prestamoInProgress.Garantias);
+            //return prestamoConDependencias;
         }
     }
 }

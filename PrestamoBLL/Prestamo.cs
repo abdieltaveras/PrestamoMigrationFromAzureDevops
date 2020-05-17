@@ -18,7 +18,7 @@ namespace PrestamoBLL
         {
             PrestamoBuilder prToBuild = new PrestamoBuilder(prestamo);
             var result = prToBuild.Build();
-            var prestamoParam = SearchRec.ToSqlParams(result.Prestamo);
+            var prestamoParam = SearchRec.ToSqlParams(result);
             var resultId = PrestamosDB.ExecSelSP("spInsUpdPrestamo",prestamoParam);
             //var result = PrestamosDB.ExecSelSP("spInsUpdNegocio", _insUpdParam);
             //idResult = Utils.GetIdFromDataTable(result);

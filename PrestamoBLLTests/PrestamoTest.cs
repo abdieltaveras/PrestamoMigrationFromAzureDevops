@@ -14,14 +14,14 @@ namespace PrestamoBLLTests
     public class PrestamoTest
     {
         TestInfo testInfo = new TestInfo();
-        
+
         public Dictionary<int, string> Clasificacion = new Dictionary<int, string>();
 
         [TestMethod()]
         public void PrestamoInsUpdTest()
         {
             var idResult = 0;
-            Func<bool> condicion = ()=>(idResult > 0);
+            Func<bool> condicion = () => (idResult > 0);
             try
             {
                 idResult = BLLPrestamo.Instance.InsUpdPrestamo(CreatePrestamo());
@@ -30,7 +30,7 @@ namespace PrestamoBLLTests
             {
                 testInfo.MensajeError = e.Message;
             }
-            
+
             Assert.IsTrue(condicion(), testInfo.MensajeError);
 
         }
@@ -41,7 +41,7 @@ namespace PrestamoBLLTests
             Prestamo pre = CreatePrestamo();
             var prestamoNuevo = new PrestamoBuilder(pre);
 
-            PrestamoConCuotas result = null;
+            Prestamo result = null;
             try
             {
                 result = prestamoNuevo.Build();
@@ -59,6 +59,7 @@ namespace PrestamoBLLTests
             var pre = new Prestamo
             {
                 FechaEmisionReal = DateTime.Now,
+                
                 TipoAmortizacion = TiposAmortizacion.Cuotas_fijas_No_amortizable,
                 IdClasificacion = GetClasificacion(),
                 IdNegocio = 6,
@@ -69,27 +70,47 @@ namespace PrestamoBLLTests
                 CantidadDePeriodos = 5,
                 IdTipoMora = GetTipoMora(),
             };
-            pre.Clientes.Add(GetClientes().FirstOrDefault());
-            pre.Garantias.Add(GetGarantias().FirstOrDefault());
+            pre.IdCliente = GetClientes().FirstOrDefault().IdCliente;
+            pre._Garantias.Add(GetGarantias().FirstOrDefault());
             return pre;
         }
 
         [TestMethod()]
+        public void PrestamoConDependencias()
+        {
+            var pre = CreatePrestamo();
+            var cuotas = CrearCuotasNoAmortizableCincoMeses();
+            //PrestamoInsUpdParam pr = new PrestamoInsUpdParam(null,cuotas,null,null);
+            //
+
+        }
+        [TestMethod()]
         public void GeneradoDeCuotasFijasNoAmortizable()
         {
+            var result = CrearCuotasNoAmortizableCincoMeses();
+            var todoBien = true;
+        }
+
+        private static IEnumerable<Cuota> CrearCuotasNoAmortizableCincoMeses()
+        {
             var periodo = new Periodo { MultiploPeriodoBase = 1, PeriodoBase = PeriodoBase.Mes };
+            var cuotas = CreateCuotasNoAmortizable(periodo, 5);
+            return cuotas;
+        }
+
+        private static IEnumerable<Cuota> CreateCuotasNoAmortizable(Periodo periodo, int duracion)
+        {
             IPrestamoForGeneradorCuotas prestamo = new Prestamo(periodo)
             {
                 FechaEmisionReal = new DateTime(2020, 01, 01),
-                CantidadDePeriodos = 5,
+                CantidadDePeriodos = duracion,
                 TasaDeInteresPorPeriodo = 5,
                 MontoPrestado = 10000,
             };
             var genCuota = new GeneradorCuotasFijasNoAmortizables(prestamo);
             var cuotas = genCuota.GenerarCuotas();
-            var todoBien = true;
+            return cuotas;
         }
-
 
         private int GetClasificacion()
         {

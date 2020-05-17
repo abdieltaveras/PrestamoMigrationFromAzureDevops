@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLPrestamo.cs" />
+    <Compile Include="Entidades\ignorarEnParamAttribute.cs" />
     <Compile Include="GeneradorDeCuotas.cs" />
     <Compile Include="Catalogo.cs" />
     <Compile Include="Color.cs" />

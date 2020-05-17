@@ -1,7 +1,9 @@
 ﻿using emtSoft.DAL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,19 +37,20 @@ namespace PrestamoBLL.Entidades
         /// </summary>
         [IgnorarEnParam]
         public List<Cliente> Clientes { get; set; } = new List<Cliente>();
-        [IgnorarEnParam]
+
         /// <summary>
         /// Los id de los clientes asignado a este prestamo
         /// </summary>
-        public List<int> IdClientes { get; set; } = new List<int>();
+        public int IdCliente { get; set; } = 0;
 
         [IgnorarEnParam]
-        public List<Garantia> Garantias { get; set; } = new List<Garantia>();
+        public List<Garantia> _Garantias { get; set; } = new List<Garantia>();
         [IgnorarEnParam]
         public List<int> IdGarantias { get; set; } = new List<int>();
 
         [IgnorarEnParam]
-        public List<Codeudor> Codeudores { get; set; }
+        public List<Codeudor> _Codeudores { get; set; }
+
         [IgnorarEnParam]
         public List<int> IdCodeudores { get; set; }
 
@@ -69,9 +72,11 @@ namespace PrestamoBLL.Entidades
 
         public decimal MontoPrestado { get; set; }
         public decimal DeudaRenovacion { get; set; }
-
+        /// <summary>
+        /// tiene sumado el dinero emitido al cliente (monto prestado) + le deuda de la r
+        /// </summary>
         [IgnorarEnParam]
-        public decimal TotalPrestado { get; internal set; }
+        public decimal TotalPrestado => MontoPrestado + DeudaRenovacion;
 
         public int IdDivisa { get; set; }
         [IgnorarEnParam]
@@ -108,23 +113,42 @@ namespace PrestamoBLL.Entidades
             _type.CopyPropertiesTo(periodo, periodoDest);
             this.Periodo = periodoDest;
         }
+        internal IEnumerable<Cuota> _Cuotas { get; set; } = new List<Cuota>();
+        public DataTable Cuotas => this._Cuotas.ToDataTable();
+        public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
+        //this._Garantias.ToDataTable();
+        public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
     }
 
-    public class PrestamoConCuotas
+    //public class PrestamoInsUpdParam : Prestamo
+    //{
+    //    private IEnumerable<Cuota> _Cuotas = new List<Cuota>();
+    //    private IEnumerable<Codeudor> _Codeudores = new List<Codeudor>();
+    //    private IEnumerable<Garantia> _Garantias =  new List<Garantia>();
+    //    public PrestamoInsUpdParam(Prestamo prestamo, IEnumerable<Cuota> cuotas, IEnumerable<Codeudor> codeudores, IEnumerable<Garantia> garantias)
+    //    {
+    //        this._Cuotas = cuotas;
+    //        //var data = codeudores.Select(cod => new { idCodeudor = cod.IdCodeudor });
+    //        this._Codeudores = codeudores !=null ? codeudores : new List<Codeudor>(); ;
+    //        this._Garantias = garantias !=null ? garantias : new List<Garantia>(); ;
+    //    }
+    //    internal DataTable Cuotas => this._Cuotas.ToDataTable();
+    //    internal DataTable Garantias => this.IdGarantias.Select(idGar => new { idGarantia = idGar }).ToDataTable();
+    //    //this._Garantias.ToDataTable();
+    //    internal DataTable Codeudores => this._Codeudores.Select(idCod => new { idCodeudor = idCod }).ToDataTable();
+    //    //this._Codeudores.ToDataTable();
+    //}
+
+    internal class PrestamoGarantias
+    { 
+        public int IdGarantia { get; set; }
+    }
+
+    internal class PrestamoCodeudores
     {
-        public Prestamo Prestamo { get; private set; }
-
-        private List<Cuota> Cuotas { get; set; }
-
-        public PrestamoConCuotas(Prestamo prestamo, List<Cuota> cuotas)
-        {
-            this.Prestamo = prestamo;
-            this.Cuotas = cuotas;
-        }
-
-        public List<Cuota> GetCuotas() => this.Cuotas;
-
+        public int IdCodeudor { get; set; }
     }
 }
+
 
 
