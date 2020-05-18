@@ -15,8 +15,17 @@ namespace PrestamoBLL.Entidades
         public DateTime Fecha { get; internal set; } = DateTime.Now;
         public decimal Capital { get; internal set; } = 0;
         public decimal Interes { get; internal set; } = 0;
-        //[ignorarEnParam]
-        //public decimal BalanceTotal => Capital + Interes;
+        //public decimal CapitalOrig { get; internal set; } = 0;
+        //public decimal CapitalBce { get; internal set; } = 0;
+        //public decimal InteresOrig { get; internal set; } = 0;
+        //public decimal InteresBce { get; internal set; } = 0;
+
+        /// attention: revisar con ernesto si esto tiene otra forma de abordarlo
+        /// <summary>
+        /// se decidio hacerlo un metodo para no entrar en conflicto con los parametros del tipo
+        /// </summary>
+        /// <returns></returns>
+        public decimal BalanceTotal() => Capital + Interes;
     }
 }
 

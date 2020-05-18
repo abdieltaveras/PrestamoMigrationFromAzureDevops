@@ -310,3 +310,19 @@ INSERT INTO tblUsersRoles(IdUser, IdRole, InsertadoPor)
 
 INSERT INTO tblRolesOperaciones(IdOperacion, IdRole, InsertadoPor)
 	VALUES	(1, 1, @usuario)
+declare @prestamoNumero varchar(20)
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
+
+-- tblPrestamos
+INSERT INTO tblPrestamos (idNegocio, idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, SumarGastoDeCierreALasCuotas, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (6, 1, @prestamoNumero, NULL, 0, 1, 1, '2020-05-17', '2020-05-17', '2020-10-17', 3, 3, 4, 5, 10000, 1, 0, 0, 0, 0, 0, 0, '1900-01-01', '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
+
+--tblCuotas
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 1, '2020-06-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 2, '2020-07-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 3, '2020-08-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 4, '2020-09-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 5, '2020-10-17', 2000, 300)
+-- PrestamoGarantias
+INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
+
+

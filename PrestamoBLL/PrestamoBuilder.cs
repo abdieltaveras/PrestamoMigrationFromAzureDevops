@@ -34,7 +34,7 @@ namespace PrestamoBLL
             SetFechaDeEmision(prestamo.FechaEmisionReal);
             SetClasificacion(prestamo.IdClasificacion);
             SetAmortizacion(prestamo.TipoAmortizacion);
-            SetRenovacion(prestamo.NumeroPrestamoARenovar);
+            SetRenovacion(prestamo.NumeroPrestamoARenovar, prestamo.IdPrestamoARenovar);
             SetClientes(prestamo.IdCliente);
             SetGarantias(prestamo._Garantias);
             SetCodeuDores(prestamo._Codeudores);
@@ -271,11 +271,16 @@ namespace PrestamoBLL
             }
         }
 
-        private void SetRenovacion(string noPrestamoARenovar)
+        private void SetRenovacion(string noPrestamoARenovar, int? idPrestamoARenovar)
         {
-            if (!string.IsNullOrEmpty(noPrestamoARenovar))
+            if (!string.IsNullOrEmpty(noPrestamoARenovar) && idPrestamoARenovar > 0)
             {
                 this.prestamoInProgress.NumeroPrestamoARenovar = noPrestamoARenovar;
+                this.prestamoInProgress.IdPrestamoARenovar = idPrestamoARenovar;
+            }
+            else
+            {
+                this.prestamoInProgress.IdPrestamoARenovar = null;
             }
         }
 
@@ -326,13 +331,22 @@ namespace PrestamoBLL
             return genCuotas;
         }
         #endregion operaciones
-        public Prestamo Build()
+        public Prestamo Build2()
         {
             IGeneradorCuotas genCuotas = getGeneradorCuotas();
-            prestamoInProgress._Cuotas = genCuotas.GenerarCuotas();
+            // prestamoInProgress._Cuotas = genCuotas.GenerarCuotas();
             return prestamoInProgress;
             //var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,cuotas: cuotas, prestamoInProgress.Codeudores, prestamoInProgress.Garantias);
             //return prestamoConDependencias;
+        }
+        public PrestamoInsUpdParam Build()
+        {
+            IGeneradorCuotas genCuotas = getGeneradorCuotas();
+            var cuotas = genCuotas.GenerarCuotas();
+            // var cuotasVacias = new List<Cuota>();
+            var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,  cuotas,  prestamoInProgress._Codeudores, prestamoInProgress._Garantias);
+            _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
+            return prestamoConDependencias;
         }
     }
 }

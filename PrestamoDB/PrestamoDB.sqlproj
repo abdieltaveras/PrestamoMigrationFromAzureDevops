@@ -193,6 +193,8 @@
     <Build Include="dbo\Tables\tblPrestamoGarantias.sql" />
     <Build Include="dbo\Tables\tblPrestamoCodeudores.sql" />
     <Build Include="dbo\Tables\tblCodeudore.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPrestamoConDetalles.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPrestamos.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

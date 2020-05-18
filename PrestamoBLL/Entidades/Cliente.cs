@@ -4,11 +4,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoBLL.Entidades
 {
-    
+    public class InfoClienteDrCr : Cliente, IInfoClienteDrCr
+    {
+        public string NombreDocumentoIdentidad { get; internal set; }
+
+        public string NumeracionDocumentoIdentidad => this.NoIdentificacion;
+
+        public string TelefonoTrabajo1 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono1;
+
+        public string TelefonoTrabajo2 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono2;
+
+        public string OtrosDetalles { get; internal set; }
+    }
+
     public class Cliente : BasePersonaInsUpd
     {
         [KeyAttribute]
-        public int IdCliente { get; set;} = 0;
+        public int IdCliente { get; set; } = 0;
         [IgnorarEnParam]
         [StringLength(40)]
         [Required]
@@ -20,7 +32,7 @@ namespace PrestamoBLL.Entidades
         public int IdTipoIdentificacion { get; set; } = 0;
         [Display(Name = "Profesion u Ocupacion")]
         public int IdTipoProfesionUOcupacion { get; set; } = 0;
-        [Required(ErrorMessage ="digite el numero de identificacion") ]
+        [Required(ErrorMessage = "digite el numero de identificacion")]
         [Display(Name = "No Identificacion")]
         public string NoIdentificacion { get; set; } = string.Empty;
         [Display(Name = "Fecha Nacimiento")]
@@ -39,11 +51,11 @@ namespace PrestamoBLL.Entidades
         //<summary>
         //son los datos en formato string que son traidos de las tablas
         //</summary>
-        public string InfoConyuge { get; set;} = string.Empty;
+        public string InfoConyuge { get; set; } = string.Empty;
         //<summary>
         //la direccion en formato json
         //</summary>
-        public string  InfoDireccion { get; set; } = string.Empty;
+        public string InfoDireccion { get; set; } = string.Empty;
         /// <summary>
         /// la informacion laboral en formato json
         /// </summary>
@@ -59,17 +71,17 @@ namespace PrestamoBLL.Entidades
         public string Imagen1FileName { get; set; } = string.Empty;
         public string Imagen2FileName { get; set; } = string.Empty;
 
-        [Display(Name ="Tiene Pareja o Conyuge")]
+        [Display(Name = "Tiene Pareja o Conyuge")]
         public bool TieneConyuge { get; set; }
-                
-        public override  string  ToString()
+
+        public override string ToString()
         {
             //return $"{Codigo}: {Nombres } {Apellidos} {Codigo} ";
             return $" {Nombres } {Apellidos} ";
         }
     }
     public class ClientesGetParams : BaseGetParams
-        //: BaseGetParams
+    //: BaseGetParams
     {
         public int IdCliente { get; set; } = -1;
         /// <summary>

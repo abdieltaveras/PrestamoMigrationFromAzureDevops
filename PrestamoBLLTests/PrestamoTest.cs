@@ -18,14 +18,13 @@ namespace PrestamoBLLTests
         public Dictionary<int, string> Clasificacion = new Dictionary<int, string>();
 
         [TestMethod()]
-        public void PrestamoInsUpdTest()
+        public void PrestamoInsUpdWithoutCodeudoresTest()
         {
             var idResult = 0;
             Func<bool> condicion = () => (idResult > 0);
             try
             {
                 idResult = BLLPrestamo.Instance.InsUpdPrestamo(CreatePrestamo());
-                
             }
             catch (Exception e)
             {
@@ -35,6 +34,65 @@ namespace PrestamoBLLTests
             Assert.IsTrue(condicion(), testInfo.MensajeError);
 
         }
+
+        [TestMethod()]
+        public void GetPrestamosTest()
+        {
+            var prestamos = new List<Prestamo>();
+            Func<bool> condicion = () => (prestamos!=null);
+            try
+            {
+                var search = new PrestamoGetParam();
+                prestamos  = BLLPrestamo.Instance.GetPrestamos(search).ToList();
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+            var prestamo = prestamos != null ? prestamos.FirstOrDefault() : new Prestamo();
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+
+        }
+
+        [TestMethod()]
+        public void GetPrestamosConDetalleDrCrTest()
+        {
+            var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamoGetParam()).ToList().FirstOrDefault().IdPrestamo;
+            IPrestamoConDetallesParaCreditosyDebitos prConDetalle=null;
+            Func<bool> condicion = () => (prConDetalle != null);
+            try
+            {
+                prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalle(idPrestamo);
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+
+        }
+
+        [TestMethod()]
+        public void PrestamoInsUpdWithABadGarantiaTest()
+        {
+            var idResult = 0;
+            Func<bool> condicion = () => (idResult > 0);
+            var prestamo = CreatePrestamo();
+            prestamo._Garantias[0].IdGarantia = 7;
+            try
+            {
+                idResult = BLLPrestamo.Instance.InsUpdPrestamo(prestamo);
+
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+
+        }
+
         [TestMethod()]
         public void PrestamoBuilderTest()
         {
@@ -53,7 +111,7 @@ namespace PrestamoBLLTests
             }
             Assert.IsNotNull(result, testInfo.MensajeError);
         }
-
+        
         private Prestamo CreatePrestamo()
         {
             var cliente = new Cliente();
@@ -110,18 +168,13 @@ namespace PrestamoBLLTests
             };
             var genCuota = new GeneradorCuotasFijasNoAmortizables(prestamo);
             var cuotas = genCuota.GenerarCuotas();
+            
             return cuotas;
         }
 
         private int GetClasificacion()
         {
-            Clasificacion.Add(1, "Vehiculo");
-            Clasificacion.Add(2, "Motores");
-            Clasificacion.Add(3, "Personal");
-            Clasificacion.Add(4, "Hipotecario");
-            Clasificacion.Add(5, "Comercial");
-            var itemDict = Clasificacion.Where(item => item.Value == "Vehiculo").FirstOrDefault();
-            return itemDict.Key;
+            return 1;
             
         }
 

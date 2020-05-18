@@ -1,6 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using emtSoft.DAL;
+using Newtonsoft.Json;
 using System;
+using System.CodeDom;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Serialization;
 
 namespace PrestamoBLL.Entidades
@@ -92,29 +96,66 @@ namespace PrestamoBLL.Entidades
 
     }
 
-    public static class _type
+    public static class DataReaderMeth
     {
-        public static void CopyPropertiesTo<T, TU>(this T source, TU dest)
+        public static bool HasColumn(this IDataRecord r, string columnName)
         {
-            var sourceProps = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
-            var destProps = typeof(TU).GetProperties()
-                    .Where(x => x.CanWrite)
-                    .ToList();
-
-            foreach (var sourceProp in sourceProps)
+            try
             {
-                if (destProps.Any(x => x.Name == sourceProp.Name))
+                return r.GetOrdinal(columnName) >= 0;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
+        public static void SetValue(this PropertyInfo pi, IDataReader dr)
+        {
+            if (pi.CanWrite)
+            {
+                string propName = pi.Name;
+                var propValue = dr[propName];
+                try
                 {
-                    var p = destProps.First(x => x.Name == sourceProp.Name);
-                    if (p.CanWrite)
-                    { // check if the property can be set or no.
-                        p.SetValue(dest, sourceProp.GetValue(source, null), null);
+
+                    if (!propValue.IsNull())
+                    {
+                        pi.SetFieldValue(propName, propValue);
                     }
                 }
+                catch (Exception ex)
+                {
+                    pi.SetFieldValue(propName, null);
+                }
+            }
+        }
+    }
+}
+public static class _type
+{
+    public static void CopyPropertiesTo<T, TU>(this T source, TU dest)
+    {
+        var sourceProps = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
+        var destProps = typeof(TU).GetProperties()
+                .Where(x => x.CanWrite)
+                .ToList();
 
+        foreach (var sourceProp in sourceProps)
+        {
+            if (destProps.Any(x => x.Name == sourceProp.Name))
+            {
+                var p = destProps.First(x => x.Name == sourceProp.Name);
+                if (p.CanWrite)
+                { // check if the property can be set or no.
+                    p.SetValue(dest, sourceProp.GetValue(source, null), null);
+                }
             }
 
         }
-    }
 
+    }
 }
+
+
+
