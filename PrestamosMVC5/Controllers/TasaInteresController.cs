@@ -22,8 +22,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Index()
         {
             TasaInteresVM modelo = new TasaInteresVM();
-            var temp = "probando conflict merge";
-
+            var prueba = 2;
             modelo.ListaTasaInteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = pcpUserIdNegocio });
             //ViewBag.listaInteres = intereses;
 
