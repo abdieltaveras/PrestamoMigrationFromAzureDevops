@@ -22,7 +22,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Index()
         {
             TasaInteresVM modelo = new TasaInteresVM();
-
+            var prueba = 2;
             modelo.ListaTasaInteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = pcpUserIdNegocio });
             //ViewBag.listaInteres = intereses;
 
