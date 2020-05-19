@@ -32,7 +32,6 @@ namespace PrestamoBLLTests
             }
 
             Assert.IsTrue(condicion(), testInfo.MensajeError);
-
         }
 
         [TestMethod()]
@@ -71,9 +70,10 @@ namespace PrestamoBLLTests
 
             var infCliente = prConDetalle.infoCliente;
             var infPrestamo = prConDetalle.infoPrestamo;
-            var infDeuda = prConDetalle.InfoDeuda;
+            var cuotas = prConDetalle.Cuotas;
             var infGarantias = prConDetalle.infoGarantias;
-            
+            var infDeuda = prConDetalle.InfoDeuda;
+
             Assert.IsTrue(condicion(), testInfo.MensajeError);
             
         }

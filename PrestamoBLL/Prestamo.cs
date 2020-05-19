@@ -77,7 +77,6 @@ namespace PrestamoBLL
                     infoGarantiasDrCr.Add(infoGarantiaDrCr);
                 }
             }
-
             // las garantia
             // los codeudores
             var PrestamoConDetalle = new PrestamoConDetallesParaCreditosYDebitos();
