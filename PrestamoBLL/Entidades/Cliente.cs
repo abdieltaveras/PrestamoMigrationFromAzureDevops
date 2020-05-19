@@ -107,6 +107,8 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Tiene Pareja o Conyuge")]
         public bool TieneConyuge { get; set; }
 
+        public string NombreCompleto => $"{Nombres} {Apellidos}";
+
         public override string ToString()
         {
             //return $"{Codigo}: {Nombres } {Apellidos} {Codigo} ";

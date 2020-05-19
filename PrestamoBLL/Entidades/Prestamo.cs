@@ -273,7 +273,7 @@ namespace PrestamoBLL.Entidades
         public int IdCodeudor { get; set; }
     }
 
-    public class PrestamoGetParam
+    public class PrestamosGetParam
     {
         public int idPrestamo { get; set; } = -1;
         public int idCliente { get; set; } = -1;

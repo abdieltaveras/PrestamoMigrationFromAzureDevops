@@ -11,5 +11,5 @@ as
 begin
 	SELECT IdPrestamo, idNegocio, idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, TotalPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, SumarGastoDeCierreALasCuotas, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
 	FROM	dbo.tblPrestamos
-	where (@IdPrestamo<=0 or idPrestamo = @IdPrestamo) 
+	where (@IdPrestamo=-1 or idPrestamo = @IdPrestamo) 
 End

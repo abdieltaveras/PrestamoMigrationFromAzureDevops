@@ -28,11 +28,11 @@ namespace PrestamoBLL
             return id;
         }
 
-        public IEnumerable<Prestamo> GetPrestamos(PrestamoGetParam searchParam)
+        public IEnumerable<Prestamo> GetPrestamos(PrestamosGetParam searchParam)
         {
             //GetValidation(searchParam as BaseGetParams);
             
-            var data = BllAcciones.GetData<Prestamo, PrestamoGetParam>(searchParam, "spGetPrestamos", GetValidation);
+            var data = BllAcciones.GetData<Prestamo, PrestamosGetParam>(searchParam, "spGetPrestamos", GetValidation);
             return data;
         }
 
