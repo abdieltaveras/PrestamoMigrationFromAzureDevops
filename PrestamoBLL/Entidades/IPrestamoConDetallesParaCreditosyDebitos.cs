@@ -28,9 +28,7 @@ namespace PrestamoBLL.Entidades
         string OtrosDetalles { get;  }
     }
 
-    
-
-    public interface IInfoDeudaPrestamo {
+    public interface IInfoDeudaPrestamoDrCr {
         int CantidadDeCuotas { get; }
         double CuotasAtrasadas { get;}
         double CuotasNoVencidas { get; }
@@ -40,60 +38,56 @@ namespace PrestamoBLL.Entidades
         decimal TotalMoras { get; }
         decimal TotalOtrosCargos { get; }
         string OtrosDetalles { get; }
-
         decimal DeudaTotal { get;  }
         decimal DeudaVencida { get;  }
-
         decimal DeudaNoVencida { get;  }
-
     }
 
 
-    public interface IInfoClienteDrCr 
-    {
-        int IdCliente { get; }
+    //public interface IInfoClienteDrCr 
+    //{
+    //    int IdCliente { get; }
+    //    string CodigoCliente { get; }
+    //    string InfoLaboral { get; }
+    //    string Nombres { get; }
+    //    string Apellidos { get; }
+    //    int IdTipoIdentificacion { get; }
 
-        string Codigo { get; }
+    //    string NombreDocumentoIdentidad { get; }
 
-        string Nombres { get; }
+    //    string NumeracionDocumentoIdentidad { get; }
 
-        string Apellidos { get; }
+    //    string TelefonoMovil { get; }
 
-        string NombreDocumentoIdentidad { get; }
+    //    string TelefonoCasa { get; }
 
-        string NumeracionDocumentoIdentidad { get; }
+    //    string TelefonoTrabajo1 { get; }
+    //    string TelefonoTrabajo2 { get; }
 
-        string TelefonoMovil { get; }
+    //    string Imagen1FileName { get; }
 
-        string TelefonoCasa { get; }
+    //    string Imagen2FileName { get; }
 
-        string TelefonoTrabajo1 { get; }
-        string TelefonoTrabajo2 { get; }
-
-        string Imagen1FileName { get; }
-
-        string Imagen2FileName { get; }
-
-        string OtrosDetalles { get; }
-    }
+    //    string OtrosDetalles { get; }
+    //}
 
 
-    public interface IInfoGarantia 
-    { 
-        int IdGarantia { get; }
+    //public interface IInfoGarantiaDrCr 
+    //{ 
+    //    int IdGarantia { get; }
 
-        string TipoGarantia { get;  }
+    //    string TipoGarantia { get;  }
 
-        string Numeracion { get; }
+    //    string NumeracionGarantia { get; }
 
-        string OtrosDetalles { get; }
+    //    string OtrosDetalles { get; }
 
-    }
-    public interface IPrestamoConDetallesParaCreditosyDebitos
-    {
-        IInfoPrestamoDrCr infoPrestamo { get; }
-        IInfoClienteDrCr infoCliente { get;  }
-        IInfoGarantia infoGarantia { get;  }
-        IInfoDeudaPrestamo InfoDeuda { get;  }
-    }
+    //}
+    //public interface IPrestamoConDetallesParaCreditosyDebitos
+    //{
+    //    InfoPrestamoDrCr infoPrestamo { get; }
+    //    InfoClienteDrCr infoCliente { get;  }
+    //    InfoGarantiaDrCr infoGarantia { get;  }
+    //    InfoDeudaPrestamoDrCr InfoDeuda { get;  }
+    //}
 }

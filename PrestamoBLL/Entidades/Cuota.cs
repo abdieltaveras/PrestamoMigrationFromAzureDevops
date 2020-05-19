@@ -25,7 +25,21 @@ namespace PrestamoBLL.Entidades
         /// se decidio hacerlo un metodo para no entrar en conflicto con los parametros del tipo
         /// </summary>
         /// <returns></returns>
-        public decimal BalanceTotal() => Capital + Interes;
     }
+    //
+    public class CuotaAmpliada 
+    {
+
+        public DateTime Fecha { get; internal set; } = InitValues._19000101;
+        public decimal BalanceTotal => BceCapital + BceInteres + BceMora + BceOtrosCargos + BceInteresDespuesDeVencido;
+        public bool Atrasada(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
+        public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
+        public decimal BceCapital { get; internal set; } = 0;
+        public decimal BceInteres { get; internal set; } = 0;
+        public decimal BceMora { get; internal set; } = 0;
+        public decimal BceOtrosCargos { get; internal set; } = 0;
+        public decimal BceInteresDespuesDeVencido { get; internal set; } = 0;
+    }
+
 }
 

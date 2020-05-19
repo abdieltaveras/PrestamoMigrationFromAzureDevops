@@ -36,115 +36,57 @@ namespace PrestamoBLL
             return data;
         }
 
-        public IPrestamoConDetallesParaCreditosyDebitos GetPrestamoConDetalle(int idPrestamo)
+        public PrestamoConDetallesParaCreditosYDebitos GetPrestamoConDetalle(int idPrestamo, DateTime fecha)
         {
+            if (idPrestamo <= 0 || fecha == null)
+            {
+                throw new NullReferenceException("el Id del prestamo enviado es invalido, o la fecha esta nula");
+            }
             //GetValidation(searchParam as BaseGetParams    );
             var searchRec = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
             var dr = PrestamosDB.ExecReaderSelSP("spGetPrestamoConDetalle", searchRec);
-            IInfoClienteDrCr infoCliente = new InfoClienteDrCr();
-            IInfoPrestamoDrCr infoPrestamo = new InfoPrestamoDrCr();
-            IInfoDeudaPrestamo infoDeuda = new InfoDeudaPrestamo();
-            IInfoGarantia infoGarantia = null;
+            InfoClienteDrCr infoCliente = new InfoClienteDrCr();
+            InfoPrestamoDrCr infoPrestamo = new InfoPrestamoDrCr();
+            
             while (dr.Read())
             {
-                //var valor = dr["idPrestamo"];
-                //var obj = Convert.ToInt32(valor == null ? 0 : Convert.ToInt32(valor));
-                //infoCliente = DataRowToInfoCliente(dr);
-                infoCliente = DataRowToInfo(dr, infoCliente);
-                //infoPrestamo = DataRowToInfoPrestamoDrCr(dr);
-                //infoGarantia = DataRowToInfoGarantia(dr);
-                //infoDeuda = DataRowToInfoDeuda(dr);
+                dr.DataReaderToType(out infoPrestamo);
+                if (fecha <= infoPrestamo.FechaEmisionReal)
+                {
+                    throw new InvalidOperationException("La fecha enviada es menor a la fecha de emision del prestamo");
+                }
+                dr.DataReaderToType(out infoCliente);
+            }
+            var cuotas = new List<CuotaAmpliada>();
+            if (dr.NextResult())
+            {
+                while (dr.Read())
+                {
+                    var cuota = new CuotaAmpliada();
+                    dr.DataReaderToType(out cuota);
+                    cuotas.Add(cuota);
+                }
+            }
+            List<InfoGarantiaDrCr> infoGarantiasDrCr = new List<InfoGarantiaDrCr>();
+            if (dr.NextResult())
+            {
+                while (dr.Read())
+                {
+                    InfoGarantiaDrCr infoGarantiaDrCr; 
+                    dr.DataReaderToType(out infoGarantiaDrCr );
+                    infoGarantiasDrCr.Add(infoGarantiaDrCr);
+                }
             }
 
-            //tomar los datos de infoprestamo
-            //Tomar los datos de infocliente
-            // tomar los datos de infoGarantia
-            // tomar los datos de infoDeuda
-
+            // las garantia
+            // los codeudores
             var PrestamoConDetalle = new PrestamoConDetallesParaCreditosYDebitos();
             PrestamoConDetalle.infoPrestamo = infoPrestamo;
             PrestamoConDetalle.infoCliente = infoCliente;
-            PrestamoConDetalle.InfoDeuda = infoDeuda;
-            PrestamoConDetalle.infoGarantia = infoGarantia;
+            PrestamoConDetalle.Cuotas = cuotas;
+            PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
+            PrestamoConDetalle.InfoDeuda = new InfoDeudaPrestamoDrCr(cuotas, fecha);
             return PrestamoConDetalle;
-
-            
-        }
-
-        private @type DataRowToInfo<@type>(IDataReader dr, @type obj)
-        {
-            foreach (var pi in obj.GetType().GetProperties())
-            {
-                if (pi.CanWrite)
-                {
-                    string propName = pi.Name;
-                    if (dr.HasColumn(propName))
-                    {
-                        var propValue = dr[propName];
-                        pi.SetValue(obj, Convert.ChangeType(propValue, pi.PropertyType), null);
-                    }
-                }
-            }
-            return obj;
-        }
-
-        private IInfoDeudaPrestamo DataRowToInfoDeuda(IDataReader dr)
-        {
-            var info = new InfoDeudaPrestamo();
-            foreach (var pi in info.GetType().GetProperties())
-            {
-                if (pi.CanWrite)
-                {
-                    string propName = pi.Name;
-                    if (dr.HasColumn(propName))
-                    {
-                        var propValue = dr[propName];
-                        pi.SetValue(info, Convert.ChangeType(propValue, pi.PropertyType), null);
-                    }
-                }
-            }
-            return info;
-        }
-
-        private IInfoGarantia DataRowToInfoGarantia(IDataReader dr)
-        {
-            return null;
-        }
-
-        private static IInfoPrestamoDrCr DataRowToInfoPrestamoDrCr(IDataReader dr)
-        {
-            var info = new InfoPrestamoDrCr();
-            foreach (var pi in info.GetType().GetProperties())
-            {
-                if (pi.CanWrite)
-                {
-                    string propName = pi.Name;
-                    if (dr.HasColumn(propName))
-                    {
-                        var propValue = dr[propName];
-                        pi.SetValue(info, Convert.ChangeType(propValue, pi.PropertyType), null);
-                    }
-                }
-            }
-            return info;
-        }
-
-        private static IInfoClienteDrCr DataRowToInfoCliente(IDataReader dr)
-        {
-            var info = new InfoClienteDrCr();
-            foreach (var pi in info.GetType().GetProperties())
-            {
-                if (pi.CanWrite)
-                {
-                    string propName = pi.Name;
-                    if (dr.HasColumn(propName))
-                    {
-                        var propValue = dr[propName];
-                        pi.SetValue(info, Convert.ChangeType(propValue, pi.PropertyType), null);
-                    }
-                }
-            }
-            return info;
         }
     }
 }

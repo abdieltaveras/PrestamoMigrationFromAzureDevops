@@ -11,55 +11,118 @@ using System.Threading.Tasks;
 namespace PrestamoBLL.Entidades
 {
     public enum TiposAmortizacion { Cuotas_fijas_No_amortizable = 1, Abierto_amortizable_por_dia, Abierto_Amortizable_por_periodo_abierto, Cuotas_fijas_amortizable, Abierto_No_Amortizable }
-    public class InfoDeudaPrestamo : IInfoDeudaPrestamo
+    public class InfoDeudaPrestamoDrCr 
+        //: IInfoDeudaPrestamoDrCr
     {
         public int CantidadDeCuotas { get; internal set; }
 
-        public double CuotasAtrasadas { get; internal set; }
+        public float CuotasAtrasadas { get; internal set; }
 
-        public double CuotasNoVencidas { get; internal set; }
+        public float CuotasLiquidadas {  get; internal set; }
+    
+        public float CuotasFuturasSinVencer => this.CuotasVigentes - this.CuotasAtrasadas;
 
+        public float CuotasVigentes { get; private set; }
         public decimal TotalCapital { get; internal set; }
 
         public decimal TotalInteres { get; internal set; }
 
         public decimal TotalInteresDespuesDeVencido { get; internal set; }
 
-        public decimal TotalMoras { get; internal set; }
+        public decimal TotalMora { get; internal set; }
 
         public decimal TotalOtrosCargos { get; internal set; }
 
-        public decimal DeudaTotal { get; internal set; }
-        public decimal DeudaVencida { get; internal set; }
-        public decimal DeudaNoVencida => DeudaTotal - DeudaVencida;
+        public decimal DeudaTotal => this.TotalCapital + this.TotalInteres + this.TotalMora + this.TotalOtrosCargos + this.TotalInteresDespuesDeVencido;
+        public decimal DeudaAtrasada { get; internal set; }
+
+        public decimal DeudaALaFecha { get; internal set; }
+        public decimal DeudaNoVencida => DeudaTotal - DeudaAtrasada;
 
         public string OtrosDetalles { get; internal set; } = string.Empty;
+        
+
+        readonly IEnumerable<CuotaAmpliada> cuotas;
+        readonly DateTime Fecha;
+        public InfoDeudaPrestamoDrCr(IEnumerable<CuotaAmpliada> cuotas, DateTime fecha)
+        {
+            this.cuotas = cuotas;
+            this.Fecha = fecha;
+            this.CalcularDeuda();
+        }
+
+        private void CalcularDeuda()
+        {
+            foreach (var cuota in cuotas)
+            {
+                this.CantidadDeCuotas++;
+                this.CuotasLiquidadas += (cuota.BalanceTotal == 0) ? 1 : 0;
+                if (cuota.BalanceTotal > 0)
+                {
+                    this.CuotasVigentes++;
+                    this.TotalCapital += cuota.BceCapital;
+                    this.TotalInteres += cuota.BceInteres;
+                    this.TotalMora += cuota.BceMora;
+                    this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
+                    this.TotalOtrosCargos += cuota.BceOtrosCargos;
+                    if (cuota.Atrasada(this.Fecha))
+                    {
+                        this.CuotasAtrasadas++;
+                        this.DeudaAtrasada += this.DeudaTotal;
+                    }
+                    if (cuota.MenorOIgualALaFecha(this.Fecha))
+                    {
+                        this.DeudaALaFecha += this.DeudaTotal;
+                    }
+                }
+            }  
+        }
     }
 
-    public class InfoPrestamoDrCr : Prestamo, IInfoPrestamoDrCr
+    public class InfoPrestamoDrCr : IInfoPrestamoDrCr
     {
-        public string NombreClasificacion { get; internal set; }
+        public int IdTipoAmortizacion { get; internal set; }
+        public string NombreClasificacion { get; internal set; } = string.Empty;
 
-        public string TipoMora { get; internal set; }
+        public string NombreTipoAmortizacion => Enum.GetName(typeof(TiposAmortizacion), IdTipoAmortizacion);
 
-        public string OtrosDetalles { get; internal set; }
+        public string NombreTipoMora { get; internal set; } = string.Empty;
 
-        public string NombreTipoAmortizacion { get; internal set; }
+        public string IdTipoMora { get; internal set; } = string.Empty;
 
-        public string NombreTipoMora { get; internal set; }
+        public string OtrosDetalles { get; internal set; } = string.Empty;
 
-        public string NombrePeriodo { get; internal set; }
+        public string NombrePeriodo { get; internal set; } = string.Empty;
+
+        public int IdPrestamo { get; internal set; } 
+
+        public string PrestamoNumero { get; internal set; } = string.Empty;
+
+        public decimal TotalPrestado { get; internal set; } 
+
+        public DateTime FechaEmisionReal { get; internal set; } = InitValues._19000101;
+
+        public DateTime FechaEmisionParaCalculos { get; internal set; } = InitValues._19000101;
+
+        public DateTime FechaVencimiento { get; internal set; } = InitValues._19000101;
+
+
     }
 
-    public class PrestamoConDetallesParaCreditosYDebitos : IPrestamoConDetallesParaCreditosyDebitos
+    public class PrestamoConDetallesParaCreditosYDebitos 
+        //: IPrestamoConDetallesParaCreditosyDebitos
     {
-        public IInfoPrestamoDrCr infoPrestamo { get; internal set; }
+        public InfoPrestamoDrCr infoPrestamo { get; internal set; }
 
-        public IInfoClienteDrCr infoCliente { get; internal set; }
+        public InfoClienteDrCr infoCliente { get; internal set; }
 
-        public IInfoGarantia infoGarantia { get; internal set; }
+        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
 
-        public IInfoDeudaPrestamo InfoDeuda { get; internal set; }
+        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; }
+
+        public IEnumerable<CuotaAmpliada> Cuotas { get; internal set; }
+
+        public InfoDeudaPrestamoDrCr InfoDeuda { get; internal set; }
     }
     public class Prestamo : BaseInsUpd, IPrestamoForGeneradorCuotas
     {
@@ -76,11 +139,14 @@ namespace PrestamoBLL.Entidades
         public int IdClasificacion { get; set; }
 
         private int _IdTipoAmortizacion { get; set; } = 1;
-        public int IdTipoAmortizacion { 
-                get { return _IdTipoAmortizacion; }  
-                internal set {
+        public int IdTipoAmortizacion
+        {
+            get { return _IdTipoAmortizacion; }
+            internal set
+            {
                 _IdTipoAmortizacion = value;
-                TipoAmortizacion = (TiposAmortizacion)IdTipoAmortizacion; } }
+            }
+        }
 
         [ignorarEnParam]
         public TiposAmortizacion TipoAmortizacion {

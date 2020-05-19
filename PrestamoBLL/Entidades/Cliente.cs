@@ -4,17 +4,50 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoBLL.Entidades
 {
-    public class InfoClienteDrCr : Cliente, IInfoClienteDrCr
-    {
-        public string NombreDocumentoIdentidad { get; internal set; }
 
-        public string NumeracionDocumentoIdentidad => this.NoIdentificacion;
+    public class InfoCodeudorDrCr
+    {
+        public int IdCodeudor { get; internal set; }
+
+        public string Nombres { get; internal set; } = string.Empty;
+
+        public string Apellidos { get; internal set; } = string.Empty;
+
+    }
+
+    public class InfoClienteDrCr 
+        //: IInfoClienteDrCr
+    {
+        
+        public string NombreDocumentoIdentidad => Enum.GetName(typeof(TiposIdentificacionCliente ), IdTipoIdentificacion);
+        
+        public string NumeracionDocumentoIdentidad { get; internal set; } = string.Empty;
+
+        public string InfoLaboral {  get; internal set; } = string.Empty;
 
         public string TelefonoTrabajo1 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono1;
 
         public string TelefonoTrabajo2 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono2;
 
-        public string OtrosDetalles { get; internal set; }
+        public string OtrosDetalles { get; internal set; } = string.Empty;
+
+        public string CodigoCliente { get; internal set; } = string.Empty;
+
+        public int IdCliente { get; internal set; } 
+
+        public string Nombres { get; internal set; } = string.Empty;
+
+        public string Apellidos  { get; internal set; } = string.Empty;
+
+        public string TelefonoMovil  { get; internal set; } = string.Empty;
+
+        public string TelefonoCasa  { get; internal set; } = string.Empty;
+
+        public string Imagen1FileName { get; internal set; } = string.Empty;
+
+        public string Imagen2FileName { get; internal set; } = string.Empty;
+
+        public int IdTipoIdentificacion { get; internal set; }  
     }
 
     public class Cliente : BasePersonaInsUpd

@@ -10,6 +10,19 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL.Entidades
 {
+    public enum TiposClasificacionGarantia { Inmobiliaria=1, Mobiliaria}
+    public class InfoGarantiaDrCr
+        //: IInfoGarantiaDrCr
+    {
+        public int IdClasificacion { get; internal set; }
+
+        public string Clasificacion => Enum.GetName(typeof(TiposClasificacionGarantia), (TiposClasificacionGarantia)IdClasificacion);
+        public string NumeracionGarantia { get; internal set; } = string.Empty;
+        public string NombreMarca { get; internal set; } = string.Empty;
+        public string NombreModelo { get; internal set; } = string.Empty;
+        public string NombreTipoGarantia { get; internal set; } = string.Empty;
+        public string OtrosDetalles { get; internal set; } = string.Empty;
+    }
     public class Garantia : BaseInsUpd
     {
         public int IdGarantia { get; set; } = -1;

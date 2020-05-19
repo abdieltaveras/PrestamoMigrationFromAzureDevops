@@ -58,18 +58,24 @@ namespace PrestamoBLLTests
         public void GetPrestamosConDetalleDrCrTest()
         {
             var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamoGetParam()).ToList().FirstOrDefault().IdPrestamo;
-            IPrestamoConDetallesParaCreditosyDebitos prConDetalle=null;
+            PrestamoConDetallesParaCreditosYDebitos prConDetalle=null;
             Func<bool> condicion = () => (prConDetalle != null);
             try
             {
-                prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalle(idPrestamo);
+                prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalle(idPrestamo, DateTime.Now.AddDays(40));
             }
             catch (Exception e)
             {
                 testInfo.MensajeError = e.Message;
             }
-            Assert.IsTrue(condicion(), testInfo.MensajeError);
 
+            var infCliente = prConDetalle.infoCliente;
+            var infPrestamo = prConDetalle.infoPrestamo;
+            var infDeuda = prConDetalle.InfoDeuda;
+            var infGarantias = prConDetalle.infoGarantias;
+            
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+            
         }
 
         [TestMethod()]
