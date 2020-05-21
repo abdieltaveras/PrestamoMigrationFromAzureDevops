@@ -3,7 +3,6 @@
 	@activo bit, 
 	@apodo varchar(100), 
 	@apellidos varchar(100), 
-	@codigo varchar(100), 
 	@estadocivil int, 
 	@fechanacimiento datetime, 
 	@GenerarSecuencia bit,
@@ -31,6 +30,7 @@ Begin
 			SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
 			BEGIN TRANSACTION 
 			begin try
+				declare @codigo varchar(10)
 				exec dbo.spGenerarSecuenciaString 'Codigo de Clientes',10,1, @codigo output
 				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, EstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencia, codigo)
 
@@ -41,7 +41,7 @@ Begin
 			begin catch
 				rollback
 				declare @errorMessage varchar(max) =  (select ERROR_MESSAGE()) 
-				RAISERROR(@errorMessage ,17,1); 
+				RAISERROR(@errorMessage,17,1); 
 			end catch
 		end
 	Else
@@ -61,6 +61,8 @@ Begin
 				[ModificadoPor] = @usuario,
 				NoIdentificacion = @noidentificacion,
 				--Codigo = @codigo, este codigo una vez es creado jamas debe ser actualizado
+				-- de hacerse estos tipos de operacion requeriran un procedimiento especial
+				-- que deje un informe de estos tipos de cambios
 				Nombres = @nombres,
 				Sexo = @sexo,
 				TelefonoCasa = @telefonocasa,

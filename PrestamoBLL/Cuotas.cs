@@ -8,7 +8,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void CuotasinsUpd(IEnumerable<Cuota> cuotas)
+        internal void CuotasinsUpd(IEnumerable<Cuota> cuotas)
         {
             var cuotasDataTable = cuotas.ToDataTable();
             try

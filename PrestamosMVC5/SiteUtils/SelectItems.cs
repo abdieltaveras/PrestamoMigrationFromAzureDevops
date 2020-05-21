@@ -8,28 +8,11 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Models
 {
-    public static class SLFactory
-    {
-        private static IEnumerable<SelectListItem> GetEnumSelectList<T>()
-        {
-            return (Enum.GetValues(typeof(T)).Cast<int>().Select(e => new SelectListItem()
-            {
-                Text = Enum.GetName(typeof(T), e).Replace("_", " "),
-                Value = e.ToString(), 
-            })).ToList();
-        }
-
-        
-        public static SelectList ForEnum<T>() => new SelectList(GetEnumSelectList<T>(), "Value", "Text");
-        //public static SelectList ForEnumAddingStartingValue<T>() => new SelectList(GetEnumSelectListAddingFirstValue<T>("Elija"), "Value", "Text");
-    }
-
+    
     public static class SelectItems
     {
         public static SelectList TiposCargoMora => SLFactory.ForEnum<TiposCargosMora>();
-
         public static SelectList CalcularMoraPor => SLFactory.ForEnum<CalcularMoraPor>();
-
         public static SelectList AplicarMorasAl => SLFactory.ForEnum<AplicarMoraAl>();
         public static SelectList TiposIdentificacion => SLFactory.ForEnum<TiposIdentificacionCliente>();
         public static SelectList TiposTelefonos => SLFactory.ForEnum<TiposTelefono>();
@@ -38,7 +21,6 @@ namespace PrestamosMVC5.Models
         public static SelectList OpcionesBusquedaCliente => SLFactory.ForEnum<EnumBuscarClientePor>();
         public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
         public static SelectList TiposReferencias => SLFactory.ForEnum<EnumTiposReferencia>();
-        
         public static SelectList TiposVinculos => SLFactory.ForEnum<EnumTiposVinculo>();
         public static SelectList Negocios(string usuario, int permitirOperaciones, int idNegocio) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, PermitirOperaciones = permitirOperaciones, Usuario = usuario }), "IdNegocio", "NombreComercial");
 
@@ -59,7 +41,6 @@ namespace PrestamosMVC5.Models
             return listaNumeros;
         }
 
-        
         private static SelectList CreateSelectList(List<Tuple<string, int>> items)
         {
             var result = items.OrderBy(ord => ord.Item1).Select(e => new SelectListItem()
