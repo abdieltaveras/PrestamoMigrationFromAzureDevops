@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,11 @@ namespace PrestamosMVC5.Controllers
             if(TextToSearch.Length > 0)
             {
                 prestamos = BLLPrestamo.Instance.SearchPrestamos(new PrestamosSearchParams { TextToSearch = TextToSearch, IdNegocio = pcpUserIdNegocio });
+            }
+
+            foreach (var prestamo in prestamos)
+            {
+                prestamo.FotoCliente = Url.Content(SiteDirectory.ImagesForClientes + "/" + prestamo.FotoCliente);
             }
             
             return JsonConvert.SerializeObject(prestamos);

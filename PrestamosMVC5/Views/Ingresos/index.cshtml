@@ -113,7 +113,9 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <img style="text-align: center;" src="http://dummyimage.com/50x50/000/fff&text=TEST" />
+                <div style="text-align: center;">
+                   <img id="foto-cliente" width="100px" height="100px" src="http://dummyimage.com/50x50/000/fff&text=TEST" />
+                </div>
                 <div class="row">
                     <div class="col-md-12">
 
@@ -426,6 +428,7 @@ document.onkeyup = function(e) {
         $('#id-documento-cliente').text(data.infoCliente.NumeracionDocumentoIdentidad);
         $('#tipo-documento-cliente').text(data.infoCliente.NombreDocumentoIdentidad + ':');
         $('#detalles-cliente').text(data.infoCliente.OtrosDetalles);
+        $('#foto-cliente').attr("src", data.infoCliente.FotoCliente);
 
         //Informacion prestamo
         $('#numero-prestamo').text(data.infoPrestamo.PrestamoNumero);
@@ -489,12 +492,14 @@ document.onkeyup = function(e) {
         
             $.each(list, function (index, value) {
 
+
+
                 //var Detalles = JSON.parse(value.Detalles);
                 
                 $("#list-prestamo-tab").append(` <p class="list-group-item prestamos list-group-item-action" data-order="${count}" data-toggle="list"
                     data-idPrestamo="${value.IdPrestamo}"
                     href="#list-home" role="tab" aria-controls="home">
-                    <img src="http://dummyimage.com/50x50/000/fff&text=TEST" class="float-left mr-2"  />
+                    <img src="${value.FotoCliente}" height="60px" width="auto" class="float-left mr-2"  />
                     <strong id="placeName" >Prestamo - ${value.PrestamoNumero} </strong>  | Monto de prestamo: <span style="color: #00c853;"> ${formatter.format(value.MontoPrestado)} </span><br>
                     <small>Cliente: <i>${value.Nombres} ${value.Apellidos} | Sexo: ${value.Sexo}</i></small><br>
                     <small>Clasificacion - ${value.Clasificacion}</small>
