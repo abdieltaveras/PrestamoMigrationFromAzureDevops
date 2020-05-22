@@ -41,7 +41,7 @@ namespace PrestamoBLLTests
             Func<bool> condicion = () => (prestamos!=null);
             try
             {
-                var search = new PrestamosGetParam();
+                var search = new PrestamosGetParams();
                 prestamos  = BLLPrestamo.Instance.GetPrestamos(search).ToList();
             }
             catch (Exception e)
@@ -56,7 +56,7 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void GetPrestamosConDetalleDrCrTest()
         {
-            var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamosGetParam()).ToList().FirstOrDefault().IdPrestamo;
+            var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamosGetParams()).ToList().FirstOrDefault().IdPrestamo;
             PrestamoConDetallesParaCreditosYDebitos prConDetalle=null;
             Func<bool> condicion = () => (prConDetalle != null);
             try
@@ -196,7 +196,7 @@ namespace PrestamoBLLTests
         }
         private IEnumerable<Cliente> GetClientes()
         {
-            var result = BLLPrestamo.Instance.ClientesGet(new ClientesGetParams { IdNegocio = 6 });
+            var result = BLLPrestamo.Instance.ClientesGet(new ClienteGetParams { IdNegocio = 6 });
             return result;
         }
 

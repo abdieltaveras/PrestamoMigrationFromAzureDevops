@@ -1,0 +1,174 @@
+﻿@model  PrestamoVm
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEdtPrestamo" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Prestamo.IdPrestamo)
+    @Html.HiddenFor(model => model.Prestamo.IdNegocio)
+    @Html.HiddenFor(model => model.Prestamo.IdPrestamoARenovar)
+    <div class="form-horizontal">
+        <div class="">
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="col-md-3 col-sm-12 ">
+                        <h2>Datos Para el Usuario</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-center" id="mensajeError" role="alert">
+                        @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
+                    </div>
+                    <div class="col-md-3 col-sm-12  text-right">
+                        <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+            <h4>Prestamo</h4>
+            <hr />
+
+            <div class="row">
+                <!-- form input mask -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.IdClasificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.DropDownListFor(model => model.Prestamo.IdClasificacion, SelectItems.Clasificaciones(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdClasificacion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.IdCliente, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.IdCliente, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdCliente, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.FechaEmisionReal, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.FechaEmisionReal, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.FechaEmisionReal, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.IdPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.IdPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdPeriodo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.IdTasaInteres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.IdTasaInteres, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdTasaInteres, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.TasaDeInteresPorPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.TasaDeInteresPorPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.TasaDeInteresPorPeriodo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.IdTipoMora, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.IdTipoMora, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdTipoMora, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.CantidadDePeriodos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.CantidadDePeriodos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.CantidadDePeriodos, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.MontoPrestado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.MontoPrestado, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.MontoPrestado, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.DeudaRenovacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.DeudaRenovacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.DeudaRenovacion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.IdDivisa, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.IdDivisa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdDivisa, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- form input mask -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.InteresGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.InteresGastoDeCierre, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.InteresGastoDeCierre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.GastoDeCierreEsDeducible, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.GastoDeCierreEsDeducible, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.GastoDeCierreEsDeducible, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                        @Html.ValidationMessageFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                        @Html.ValidationMessageFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

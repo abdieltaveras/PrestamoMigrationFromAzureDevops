@@ -73,12 +73,10 @@ Post-Deployment Script Template
            ,[FechaInsertado]
 		   )
 		VALUES
-           ('Prestamos de Vehiculos'
-           ,@idNegocio
-           ,'C'
-           ,'Veh'
-           ,@usuario
-           ,getDate())
+           ('Con Vehiculos' ,@idNegocio ,'C' ,'Vehic' ,@usuario,getDate()),
+		   ('Con Motocicletas' ,@idNegocio ,'C' ,'Mot' ,@usuario,getDate()),
+		   ('Con Casa' ,@idNegocio ,'C' ,'Casa' ,@usuario,getDate()),
+		   ('Con Solares' ,@idNegocio ,'C' ,'Solar' ,@usuario,getDate())
     --Script para periodos
 	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'para cuotas Diarias','seed', getdate()) 
 	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Para Cuotas Semanales', 'seed', getdate()) 

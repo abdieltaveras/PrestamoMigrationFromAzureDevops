@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace PrestamoBLL.Entidades
 {
@@ -136,7 +137,9 @@ namespace PrestamoBLL.Entidades
         /// attention analizar poner un objeto InfoPrestamoForView que permita poner todos los campos que uno pudiera necesitar como este NumeroPrestamoARenovar, etc
         public string NumeroPrestamoARenovar { get; internal set; }
 
+        [Display(Name = "Seleccione la clasificacion")]
         public int IdClasificacion { get; set; }
+        [Display(Name = "Seleccione el tipo de amortizacion")]
 
         private int _IdTipoAmortizacion { get; set; } = 1;
         public int IdTipoAmortizacion
@@ -161,6 +164,7 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         /// Los id de los clientes asignado a este prestamo
         /// </summary>
+        [Display(Name = "Seleccione el cliente")]
         public int IdCliente { get; set; } = 0;
 
         [IgnorarEnParam]
@@ -170,27 +174,32 @@ namespace PrestamoBLL.Entidades
 
         [IgnorarEnParam]
         public List<Codeudor> _Codeudores { get; set; }
-
+        
         [IgnorarEnParam]
         public List<int> IdCodeudores { get; set; }
-
+        [Display(Name = "Fecha de emision")]
         public DateTime FechaEmisionReal { get; set; } = DateTime.Now;
-
+        [HiddenInput]
+        [ReadOnly(true)]
         public DateTime FechaEmisionParaCalculos { get; internal set; } = DateTime.Now;
+        [Display(Name = "fecha de vencimiento")]
         public DateTime FechaVencimiento { get; internal set; }
+        [Display(Name = "Seleccione el codigo de la tasa de interes")]
         public int IdTasaInteres { get; set; }
+        [Display(Name = "La tasa de interes por periodo")]
         [IgnorarEnParam]
         public decimal TasaDeInteresPorPeriodo { get; set; }
-
+        [Display(Name = "Seleccione la mora")]
         public int IdTipoMora { get; set; }
-
+        [Display(Name = "Seleccione el periodo ?")]
         public int IdPeriodo { get; set; }
         [IgnorarEnParam]
         public Periodo Periodo { get; internal set; }
-
+        [Display(Name = "Cantidad de Periodos")]
         public int CantidadDePeriodos { get; set; }
-
+        [Display(Name = "Monto prestado al cliente?")]
         public decimal MontoPrestado { get; set; }
+        [Display(Name = "Deuda del prestamo a renovar ?")]
         public decimal DeudaRenovacion { get; set; }
         /// <summary>
         /// tiene sumado el dinero emitido al cliente (monto prestado) + le deuda de la r
@@ -198,25 +207,28 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public decimal TotalPrestado => MontoPrestado + DeudaRenovacion;
         // { get { return MontoPrestado + DeudaRenovacion } internal set { var valor = value;} }
-
-        public int IdDivisa { get; set; }
+        [Display(Name = "Seleccione  la Divisa")]
+        public int IdDivisa { get; set; } 
         [IgnorarEnParam]
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
+        [Display(Name = "Interes para el gasto de cierre ?")]
         public decimal InteresGastoDeCierre { get; set; }
 
         public decimal MontoGastoDeCierre { get; internal set; }
-
+        [Display(Name ="Es deducible el gasto de cierre")]
         public bool GastoDeCierreEsDeducible { get; set; }
+        [Display(Name = "Sumo el gasto de cierre a las cuotas ?")]
 
         public bool SumarGastoDeCierreALasCuotas { get; set; }
-
+        [Display(Name = "Cargo interes al gasto de cierre ?")]
         public bool CargarInteresAlGastoDeCierre { get; set; }
-
+        [Display(Name = "Desea acomodar las fechas de las cuotas?")]
         public bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
-
+        [ReadOnly(true)]
+        [HiddenInput]
         public DateTime FechaInicioPrimeraCuota { get; internal set; } = InitValues._19000101;
 
         /// <summary>
@@ -273,7 +285,7 @@ namespace PrestamoBLL.Entidades
         public int IdCodeudor { get; set; }
     }
 
-    public class PrestamosGetParam
+    public class PrestamosGetParams : BaseIdNegocio 
     {
         public int idPrestamo { get; set; } = -1;
         public int idCliente { get; set; } = -1;
