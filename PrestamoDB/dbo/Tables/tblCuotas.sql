@@ -1,8 +1,8 @@
 ﻿
 CREATE TABLE [dbo].[tblCuotas]
 (	IdCuota INT  NOT NULL PRIMARY KEY identity(1,1),
-	IdPrestamo INT not null,
-	IdNumero NUMERIC not null,
+	IdPrestamo INT references tblPrestamos(idPrestamo) not null,
+	Numero int not null unique(IdPrestamo,Numero),
 	Fecha Date not null,
 	Capital Numeric(18,6) not null,
 	Interes Numeric(18,6) not null,

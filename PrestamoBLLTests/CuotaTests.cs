@@ -20,7 +20,7 @@ namespace PrestamoBLLTests
             mensajeError = string.Empty;
             try
             {
-                BLLPrestamo.Instance.CuotasinsUpd(CreateCuotas()); ;
+                //BLLPrestamo.Instance.CuotasinsUpd(CreateCuotas()); ;
             }
             catch (Exception e)
             {
@@ -30,24 +30,24 @@ namespace PrestamoBLLTests
             Assert.IsTrue(mensajeError == string.Empty, mensajeError);
         }
 
-        private IEnumerable<Cuota> CreateCuotas()
-        {
-            List<Cuota> cuotas = new List<Cuota>();
-            var cuota = new Cuota { 
-                IdPrestamo = 1, 
-                Fecha = DateTime.Now, 
-                Capital = 100, 
-                Interes = 100, 
-                Numero = 1 };
+        //private IEnumerable<Cuota> CreateCuotas()
+        //{
+        //    List<Cuota> cuotas = new List<Cuota>();
+        //    var cuota = new Cuota { 
+        //        IdPrestamo = 1, 
+        //        Fecha = DateTime.Now, 
+        //        Capital = 100, 
+        //        Interes = 100, 
+        //        Numero = 1 };
 
-            cuotas.Add(cuota);
-            cuota.Fecha = cuota.Fecha.AddMonths(1);
-            cuota.Numero = 2;
-            cuotas.Add(cuota);
-            cuota.Fecha = cuota.Fecha.AddMonths(2);
-            cuota.Numero = 3;
-            cuotas.Add(cuota);
-            return cuotas;
-        }
+        //    cuotas.Add(cuota);
+        //    cuota.Fecha = cuota.Fecha.AddMonths(1);
+        //    cuota.Numero = 2;
+        //    cuotas.Add(cuota);
+        //    cuota.Fecha = cuota.Fecha.AddMonths(2);
+        //    cuota.Numero = 3;
+        //    cuotas.Add(cuota);
+        //    return cuotas;
+        //}
     }
 }

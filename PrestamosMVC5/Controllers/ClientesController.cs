@@ -24,10 +24,10 @@ namespace PrestamosMVC5.Controllers
         {
             UpdViewBag_LoadCssAndJsGrp2(true);
             UpdViewBag_ShowSummaryErrorsTime(10);
-            UpdViewBag_LoadCssAndJsForDatatable(true);
         }
         public ActionResult Index()
         {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
             var clientes = GetClientes();
             ActionResult _actResult = View(clientes);
             return _actResult;

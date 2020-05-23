@@ -5,33 +5,64 @@
     @*<link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />*@
 }
 
-<div class="clearfix"></div>
-<div>
-    <form autocomplete="off" action="/" method="post" style="padding: 0%">
-        <div class="col-5" style="margin: auto; padding: 0%; ">
-            <h4 style="text-align: center;">¿Que cliente buscas?</h4>
-            <input class="garantia_target form-control" type="text" id="input-client_search" placeholder="Buscar por numero de prestamo" name="name" value=""
-                   style="height: 60px" />
-            <small style="float:right;">Tipo de busqueda por numero de pretamo</small>
-            <div id="list-garantia-container">
-                <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
-                </div>
+<style>
+        p strong {
+            pointer-events: none;
+        }
+
+        p span {
+            pointer-events: none;
+        }
+
+        p span span {
+            pointer-events: none;
+        }
+        p img {
+            pointer-events: none;
+        }
+        i {
+            pointer-events: none;
+        }
+</style>
+
+<div class="mb-5">
+    @*<form autocomplete="off" action="/" method="post" style="padding: 0%">*@
+    <div class="col-5" style="margin: auto; padding: 0%; ">
+        <h4 style="text-align: center;">¿Que cliente buscas?</h4>
+
+      
+
+        <input class="prestamo_target form-control" type="text" id="input-prestamo_search" autocomplete="off" placeholder="Buscar por numero de prestamo" name="name" value=""
+               style="height: 60px" />
+
+       
+        <div style="float:right">
+        <span >Tipo de busqueda: </span>
+
+            <input type="radio" class="flat" checked id="inmobiliario_option" value="1" style="float:right;" />
+            <i class="fa fa-dollar"></i> ID Prestamo
+                
+            <input type="radio" class="flat" id="mobiliario_option" value="2" style="float:right;" />
+            <i class="fa fa-globe"></i> garantia/cliente
+        </div>
+
+        <div id="list-prestamo-container">
+            <div class="list-group col-md-12" id="list-prestamo-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
             </div>
         </div>
-    </form>
+    </div>
+    @*</form>*@
 </div>
-<br />
+<hr />
 
-
-
-<div class="row mt-3 ">
+<div class="row mt-5 mb-5">
     <div style="margin:0 auto;">
         <div class="col-md-4 ">
 
             <div class="card shadow text-white bg-danger amount-container">
                 <span>Monto total de deuda:</span>
                 <div class="card-body">
-                    <span class="amount-prefix"></span> <span class="card-title amount-text">$255,433.98</span>
+                    <span id="monto-prestado-input" class="card-title amount-text">$0.00</span>
                 </div>
             </div>
             <div style="float:right;">
@@ -44,7 +75,7 @@
             <div class="card shadow text-white bg-primary amount-container">
                 <span>Monto de la cuota:</span>
                 <div class="card-body">
-                    <span class="amount-prefix"></span> <span class="card-title amount-text">$5,080.00</span>
+                    <span id="monto-cuota-input" class="card-title amount-text">$0.00</span>
                 </div>
             </div>
             <div style="float:right;">
@@ -63,133 +94,109 @@
                 </div>
             </div>
             <div style="float:right;">
-                <small>cuota a la fecha del 11 mayo 2020</small>                
+                <small>cuota a la fecha del 11 mayo 2020</small>
             </div>
         </div>
     </div>
+</div>
+<hr />
 
     @* Datos personales del usuario *@
-    <div class="col-md-12 mt-5">
-        <div class="shadow p-3 bg-light rounded">
-            <div class="x_title">
-                <h2>Datos personales</h2>
-                <div style="float:right;">
-                    <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver cliente</button>
+    <div class="row mt-5">
+
+        <div class="col-md-4 mt-3">
+            <div class="shadow p-3 bg-light rounded">
+                <div class="x_title">
+                    <h2>Datos personales</h2>
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver cliente</button>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
+                <div style="text-align: center;">
+                   <img id="foto-cliente" width="100px" height="100px" src="http://dummyimage.com/50x50/000/fff&text=TEST" />
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <strong>Nombre:</strong>
+                        <span id="nombre-cliente"></span>
+                        <br />
+                        <br />
+                        <strong>Apellido:</strong>
+                        <span id="apellido-cliente"></span>
+                        <br />
+                        <br />
+                        <strong id="tipo-documento-cliente">Cedula:</strong>
+                        <span id="id-documento-cliente"></span>
+                        <br />
+                        <br />
+                        <strong>Informacion general:</strong>
+                        <span id="detalles-cliente"></span>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
+        </div>
 
-                    <strong>Nombre:</strong>
-                    <span>Bryan Osvaldo</span>
-                    <br />
-                    <br />
-                    <strong>Apellido:</strong>
-                    <span>Pourie Heredia</span>
-                    <br />
-                    <br />
-                    <strong>Cedula:</strong>
-                    <span>402-0001112-3</span>
-                    <br />
-                    <br />                    
-                    <strong>Sexo:</strong>
-                    <span>Masculino</span>
-                    <br />
-                    <br />
-                    <strong>Apodo:</strong>
-                    <span>Sin apodo</span>
-
+        <div class="col-md-4 mt-3">
+            <div class="shadow p-3 bg-light rounded">
+                <div class="x_title">
+                    <h2>Datos de garantia</h2>
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver garantia</button>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="col-md-6">
-                    <strong>Direccion:</strong>
-                    <span>La Romana, La Romana, Quisqueya Calle Guacanagarix</span>
-                    <br />
-                    <br />
-                    <strong>Telefono:</strong>
-                    <span>(809) 123-4444</span>
-                    <br />
-                    <br />
-                    <strong>Estado civil:</strong>
-                    <span>Soltero</span>
-                    <br />
-                    <br />
-                    <strong>Referencia:</strong>
-                    <span>Michael - TEL: (829) 123-4033</span>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>Aqui pienso poner un slider con las diferentes garantias y sus detalles</span>
+                        <img width="100%" height="auto" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/10/slider-5.gif?w=300&ssl=1" alt="Alternate Text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-3">
+            <div class="shadow p-3 bg-light rounded">
+                <div class="x_title">
+                    <h2>Datos de Prestamo</h2>
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver prestamo</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <strong>Numero de prestamo:</strong>
+                        <span id="numero-prestamo"></span>
+                        <br />
+                        <br />
+                        <strong>Fecha emision:</strong>
+                        <span id="fecha-emision-prestamo"></span>
+                        <br />
+                        <br />
+                        <strong>Fecha vencimiento:</strong>
+                        <span id="fecha-vencimiento-prestamo"></span>
+                        <br />
+                        <br />
+                        <strong>Tipo mora:</strong>
+                        <span id="mora-prestamo"></span>
+                        <br />
+                        <br />
+                        <strong>Clasificacion:</strong>
+                        <span id="clasificacion-prestamo"></span>
+                        <br />
+                        <br />
+                        <strong>Informacion general:</strong>
+                        <span id="detalles-prestamo"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-12 mt-3">
-        <div class="shadow p-3 bg-light rounded">
-            <div class="x_title">
-                <h2>Datos de garantia</h2>
-                <div style="float:right;">
-                    <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver garantia</button>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
 
-                    <strong>Nombre:</strong>
-                    <span>Bryan Osvaldo</span>
-                    <br />
-                    <br />
-                    <strong>Apellido:</strong>
-                    <span>Pourie Heredia</span>
-                    <br />
-                    <br />
-                    <strong>Cedula:</strong>
-                    <span>402-0001112-3</span>
-                    <br />
-                    <br />
-                    <strong>Sexo:</strong>
-                    <span>Masculino</span>
-                    <br />
-                    <br />
-                    <strong>Apodo:</strong>
-                    <span>Sin apodo</span>
-
-                </div>
-                <div class="col-md-6">
-                    <strong>Direccion:</strong>
-                    <span>La Romana, La Romana, Quisqueya Calle Guacanagarix</span>
-                    <br />
-                    <br />
-                    <strong>Telefono:</strong>
-                    <span>(809) 123-4444</span>
-                    <br />
-                    <br />
-                    <strong>Estado civil:</strong>
-                    <span>Soltero</span>
-                    <br />
-                    <br />
-                    <strong>Referencia:</strong>
-                    <span>Michael - TEL: (829) 123-4033</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12 mt-3">
-        <div class="shadow p-3 bg-light rounded">
-            <div class="x_title">
-                <h2>Datos de prestamo</h2>
-                <div style="float:right;">
-                    <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver garantia</button>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="col-md-6 col-md-12">
-
-            </div>
-        </div>
-    </div>
-
-
-</div>
 
 <style>
     .containera {
@@ -326,5 +333,195 @@ document.onkeyup = function(e) {
 };
 
 </script>
+
+
+@* Para el buscador de prestamos *@
+<script>
+    let searching = null;
+    let res = null;
+    const SEARCH_DELAY = 300; // en milisegundos
+
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+
+    $(".prestamo_target").keyup(function (e) {
+        if (e.which != 38 && e.which != 40 && e.which != 13) {
+            clearTimeout(searching);
+            searching = setTimeout(function () {
+                let value = $('#input-prestamo_search').val();
+                if (value.length >= 1) {
+                    searchPrestamoText(value);
+                } else {
+                    $('.prestamos').remove();
+                }
+            }, SEARCH_DELAY);
+        }
+    });
+
+     async function searchPrestamoText(text) {
+        console.log('Encontre', text);
+        try {
+            res = await searchPrestamo(text);
+            
+            showListPrestamos(JSON.parse(res));
+            setClickListenerOnPrestamo();
+            console.log(res);
+        } catch (err) {
+
+        }
+    }
+
+    function setClickListenerOnPrestamo() {
+        const list = document.querySelectorAll('.prestamos');
+        list.forEach(function (btn) {
+            btn.addEventListener('click', async function (evt) {
+                res = await loadPrestamoData(evt.target.getAttribute('data-idPrestamo'));
+                showDataInField(JSON.parse(res));
+            });
+        });
+    }
+
+    document.onkeyup = async function(e) {
+        if (e.which == 38) {
+            if ($('#input-prestamo_search').is(':focus')) {
+                if (selectPointer != 0) {
+                    selectPointer--;
+                    $('[data-order="' + (selectPointer + 1) + '"]').removeClass('active');
+                    $('[data-order="' + selectPointer + '"]').addClass('active');
+                }
+            }
+        } else if (e.which == 40) {
+            //$('#input-client_search').focus();
+
+            if ($('.list-group-item').length != selectPointer) {
+                selectPointer++;
+                $('[data-order="' + (selectPointer - 1) + '"]').removeClass('active');
+                $('[data-order="' + selectPointer + '"]').addClass('active');
+            }
+        } else if (e.which == 13) {
+            let idprestamo = $('[data-order="' + selectPointer + '"]').attr('data-idPrestamo');
+            res = await loadPrestamoData(idprestamo);
+            showDataInField(JSON.parse(res));
+            removeList();
+        } else if (e.ctrlKey && e.which == 66) {
+            $('#input-prestamo_search').focus();
+        }
+    };
+
+    function removeList() {
+        let currentList = $('.garantias');
+        $('#input-prestamo_search').val(null);
+        $(".list-group-item").remove();
+    }
+
+    function showDataInField(data) {
+        console.log('el resultado es', data);
+
+        // Encabezado
+        $('#monto-prestado-input').text(formatter.format(data.infoPrestamo.TotalPrestado));
+
+        //Info cliente
+        $('#nombre-cliente').text(data.infoCliente.Nombres);
+        $('#apellido-cliente').text(data.infoCliente.Apellidos);
+        $('#id-documento-cliente').text(data.infoCliente.NumeracionDocumentoIdentidad);
+        $('#tipo-documento-cliente').text(data.infoCliente.NombreDocumentoIdentidad + ':');
+        $('#detalles-cliente').text(data.infoCliente.OtrosDetalles);
+        $('#foto-cliente').attr("src", data.infoCliente.FotoCliente);
+
+        //Informacion prestamo
+        $('#numero-prestamo').text(data.infoPrestamo.PrestamoNumero);
+        $('#fecha-emision-prestamo').text(data.infoPrestamo.FechaEmisionReal);
+        $('#fecha-vencimiento-prestamo').text(data.infoPrestamo.FechaVencimiento);
+        $('#mora-prestamo').text(data.infoPrestamo.NombreTipoMora);
+        $('#clasificacion-prestamo').text(data.infoPrestamo.NombreClasificacion);
+        $('#detalles-prestamo').text(data.infoPrestamo.OtrosDetalles);
+
+    }
+
+    function loadPrestamoData(id) {
+        console.log(id);
+
+        let dataValue = { "idprestamo": id };
+
+        return $.ajax({
+            type: "get",
+            url: "/Ingresos/GetPrestamo",
+            data: dataValue,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+    }
+
+    $("body").click(function (event) {
+        if (event.target.id !== 'input-prestamo_search') {
+            $('#list-prestamo-container').hide();
+        }
+    });
+
+    $("#input-prestamo_search").focus(function () {
+        $('#list-prestamo-container').show();
+    });
+
+    function searchPrestamo(text) {
+
+        let dataValue = { "TextToSearch": text };
+
+        return $.ajax({
+            type: "get",
+            url: "/Ingresos/BuscarPrestamos",
+            data: dataValue,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+    }
+
+    function showListPrestamos(list) {
+        let count = 1;
+        $('.prestamos').remove();
+
+        selectPointer = 0;
+        if (list.length > 0) {
+        
+            $.each(list, function (index, value) {
+
+
+
+                //var Detalles = JSON.parse(value.Detalles);
+                
+                $("#list-prestamo-tab").append(` <p class="list-group-item prestamos list-group-item-action" data-order="${count}" data-toggle="list"
+                    data-idPrestamo="${value.IdPrestamo}"
+                    href="#list-home" role="tab" aria-controls="home">
+                    <img src="${value.FotoCliente}" height="60px" width="auto" class="float-left mr-2"  />
+                    <strong id="placeName" >Prestamo - ${value.PrestamoNumero} </strong>  | Monto de prestamo: <span style="color: #00c853;"> ${formatter.format(value.MontoPrestado)} </span><br>
+                    <small>Cliente: <i>${value.Nombres} ${value.Apellidos} | Sexo: ${value.Sexo}</i></small><br>
+                    <small>Clasificacion - ${value.Clasificacion}</small>
+                    <br>`);
+
+//                $("#list-prestamo-tab").append(` 
+                    
+//    <div class="content">
+//	<img src="http://dummyimage.com/150x150/f0f/fff" alt="" />
+//<div class="details">
+//  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ligula arcu, luctus nec elementum quis, condimentum a lectus. Suspendisse potenti. Proin neque diam, dictum ac elementum scelerisque, aliquet eget diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ligula arcu, luctus nec elementum quis, condimentum a lectus. Suspendisse potenti. Proin neque diam, dictum ac elementum scelerisque, aliquet eget diam....</p>
+//	</div>
+//</div>
+
+//                `);
+                
+                count++;
+            });
+        }
+    }
+
+</script>
+
 }
 

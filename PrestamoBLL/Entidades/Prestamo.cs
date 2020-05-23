@@ -1,107 +1,305 @@
 ﻿using emtSoft.DAL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PrestamoBLL.Entidades
 {
-    public class Prestamo : BaseInsUpd
+    public enum TiposAmortizacion { Cuotas_fijas_No_amortizable = 1, Abierto_amortizable_por_dia, Abierto_Amortizable_por_periodo_abierto, Cuotas_fijas_amortizable, Abierto_No_Amortizable }
+    public class InfoDeudaPrestamoDrCr 
+        //: IInfoDeudaPrestamoDrCr
+    {
+        public int CantidadDeCuotas { get; internal set; }
+
+        public float CuotasAtrasadas { get; internal set; }
+
+        public float CuotasLiquidadas {  get; internal set; }
+    
+        public float CuotasFuturasSinVencer => this.CuotasVigentes - this.CuotasAtrasadas;
+
+        public float CuotasVigentes { get; private set; }
+        public decimal TotalCapital { get; internal set; }
+
+        public decimal TotalInteres { get; internal set; }
+
+        public decimal TotalInteresDespuesDeVencido { get; internal set; }
+
+        public decimal TotalMora { get; internal set; }
+
+        public decimal TotalOtrosCargos { get; internal set; }
+
+        public decimal DeudaTotal => this.TotalCapital + this.TotalInteres + this.TotalMora + this.TotalOtrosCargos + this.TotalInteresDespuesDeVencido;
+        public decimal DeudaAtrasada { get; internal set; }
+
+        public decimal DeudaALaFecha { get; internal set; }
+        public decimal DeudaNoVencida => DeudaTotal - DeudaAtrasada;
+
+        public string OtrosDetalles { get; internal set; } = string.Empty;
+        
+
+        readonly IEnumerable<CuotaAmpliada> cuotas;
+        readonly DateTime Fecha;
+        public InfoDeudaPrestamoDrCr(IEnumerable<CuotaAmpliada> cuotas, DateTime fecha)
+        {
+            this.cuotas = cuotas;
+            this.Fecha = fecha;
+            this.CalcularDeuda();
+        }
+
+        private void CalcularDeuda()
+        {
+            foreach (var cuota in cuotas)
+            {
+                this.CantidadDeCuotas++;
+                this.CuotasLiquidadas += (cuota.BalanceTotal == 0) ? 1 : 0;
+                if (cuota.BalanceTotal > 0)
+                {
+                    this.CuotasVigentes++;
+                    this.TotalCapital += cuota.BceCapital;
+                    this.TotalInteres += cuota.BceInteres;
+                    this.TotalMora += cuota.BceMora;
+                    this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
+                    this.TotalOtrosCargos += cuota.BceOtrosCargos;
+                    if (cuota.Atrasada(this.Fecha))
+                    {
+                        this.CuotasAtrasadas++;
+                        this.DeudaAtrasada += this.DeudaTotal;
+                    }
+                    if (cuota.MenorOIgualALaFecha(this.Fecha))
+                    {
+                        this.DeudaALaFecha += this.DeudaTotal;
+                    }
+                }
+            }  
+        }
+    }
+
+    public class InfoPrestamoDrCr : IInfoPrestamoDrCr
+    {
+        public int IdTipoAmortizacion { get; internal set; }
+        public string NombreClasificacion { get; internal set; } = string.Empty;
+
+        public string NombreTipoAmortizacion => Enum.GetName(typeof(TiposAmortizacion), IdTipoAmortizacion);
+
+        public string NombreTipoMora { get; internal set; } = string.Empty;
+
+        public string IdTipoMora { get; internal set; } = string.Empty;
+
+        public string OtrosDetalles { get; internal set; } = string.Empty;
+
+        public string NombrePeriodo { get; internal set; } = string.Empty;
+
+        public int IdPrestamo { get; internal set; } 
+
+        public string PrestamoNumero { get; internal set; } = string.Empty;
+
+        public decimal TotalPrestado { get; internal set; } 
+
+        public DateTime FechaEmisionReal { get; internal set; } = InitValues._19000101;
+
+        public DateTime FechaEmisionParaCalculos { get; internal set; } = InitValues._19000101;
+
+        public DateTime FechaVencimiento { get; internal set; } = InitValues._19000101;
+
+
+    }
+
+    public class PrestamoConDetallesParaCreditosYDebitos 
+        //: IPrestamoConDetallesParaCreditosyDebitos
+    {
+        public InfoPrestamoDrCr infoPrestamo { get; internal set; }
+
+        public InfoClienteDrCr infoCliente { get; internal set; }
+
+        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
+
+        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; }
+
+        public IEnumerable<CuotaAmpliada> Cuotas { get; internal set; }
+
+        public InfoDeudaPrestamoDrCr InfoDeuda { get; internal set; }
+    }
+    public class PrestamoSearch 
+    {
+        public int IdPrestamo { get; set; }
+        public decimal MontoPrestado { get; set; }
+        public string PrestamoNumero { get; internal set; } = string.Empty;
+        public string Clasificacion { get; set; } = string.Empty;
+        public string Nombres { get; set; } = string.Empty;
+        public string Apellidos { get; set; } = string.Empty;
+        public string Sexo { get; set; } = string.Empty;
+        public string FotoCliente { get; set; } = string.Empty;
+
+    }
+    public class Prestamo : BaseInsUpd, IPrestamoForGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
 
         [IgnorarEnParam]
-        public string PrestamoNo { get; set; } = string.Empty;
+        public string PrestamoNumero { get; internal set; } = string.Empty;
 
-        public int IdPrestamoARenovar { get; set; }
+        public int? IdPrestamoARenovar { get; set; } = 0;
         [IgnorarEnParam]
-        public string NoPrestamoARenovar { get; set; }
+        /// attention analizar poner un objeto InfoPrestamoForView que permita poner todos los campos que uno pudiera necesitar como este NumeroPrestamoARenovar, etc
+        public string NumeroPrestamoARenovar { get; internal set; }
 
         public int IdClasificacion { get; set; }
 
-        public int IdAmortizacion { get; set; }
+        private int _IdTipoAmortizacion { get; set; } = 1;
+        public int IdTipoAmortizacion
+        {
+            get { return _IdTipoAmortizacion; }
+            internal set
+            {
+                _IdTipoAmortizacion = value;
+            }
+        }
+
+        [ignorarEnParam]
+        public TiposAmortizacion TipoAmortizacion {
+            get { return (TiposAmortizacion)IdTipoAmortizacion; }
+            set { _IdTipoAmortizacion = (int)value; } } 
 
         /// <summary>
         /// retorna true o false al contar si hay o no garantias para este prestamo
         /// </summary>
         [IgnorarEnParam]
-        public bool TieneGarantias { get { return IdGarantias.Count() > 0; }  }
-        /// <summary>
-        /// La lista de los clientes involucrados en la transaccion
-        /// </summary>
-        [IgnorarEnParam]
-        public List<Cliente> Clientes { get; set; } = new List<Cliente>();
+        public bool TieneGarantias { get { return IdGarantias.Count() > 0; } }
         /// <summary>
         /// Los id de los clientes asignado a este prestamo
         /// </summary>
-        public List<int> IdClientes { get; set; } = new List<int>();
+        public int IdCliente { get; set; } = 0;
 
         [IgnorarEnParam]
-        public List<Garantia> Garantias { get; set; } = new List<Garantia>();
-
+        public List<Garantia> _Garantias { get; set; } = new List<Garantia>();
+        [IgnorarEnParam]
         public List<int> IdGarantias { get; set; } = new List<int>();
 
         [IgnorarEnParam]
-        public List<Codeudor> Codeudores { get; set; }
-        
+        public List<Codeudor> _Codeudores { get; set; }
+
+        [IgnorarEnParam]
         public List<int> IdCodeudores { get; set; }
 
+        public DateTime FechaEmisionReal { get; set; } = DateTime.Now;
 
-        public DateTime FechaEmision { get; set; } = DateTime.Now;
-        
+        public DateTime FechaEmisionParaCalculos { get; internal set; } = DateTime.Now;
         public DateTime FechaVencimiento { get; internal set; }
-
-        public int IdTasaDeInteres { get; set; }
-        
+        public int IdTasaInteres { get; set; }
         [IgnorarEnParam]
-        public double TasaDeInteresPorPeriodo { get; set; }
+        public decimal TasaDeInteresPorPeriodo { get; set; }
 
         public int IdTipoMora { get; set; }
 
         public int IdPeriodo { get; set; }
+        [IgnorarEnParam]
+        public Periodo Periodo { get; internal set; }
 
-        public int CantidadDePeriodo { get; set; }
+        public int CantidadDePeriodos { get; set; }
 
-        public Decimal DineroPrestado { get; set; }
+        public decimal MontoPrestado { get; set; }
+        public decimal DeudaRenovacion { get; set; }
+        /// <summary>
+        /// tiene sumado el dinero emitido al cliente (monto prestado) + le deuda de la r
+        /// </summary>
+        [IgnorarEnParam]
+        public decimal TotalPrestado => MontoPrestado + DeudaRenovacion;
+        // { get { return MontoPrestado + DeudaRenovacion } internal set { var valor = value;} }
 
         public int IdDivisa { get; set; }
-
-        public Decimal CantidadDineroPrestado { get; set; }
         [IgnorarEnParam]
-        public bool LlevaGastoDeCiere => TasaGastoDeCierre > 0;
-        public float TasaGastoDeCierre { get; set; }
+        public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
+        public decimal InteresGastoDeCierre { get; set; }
 
-        public float MontoGastoDeCierre { get; internal set; }
+        public decimal MontoGastoDeCierre { get; internal set; }
 
         public bool GastoDeCierreEsDeducible { get; set; }
 
         public bool SumarGastoDeCierreALasCuotas { get; set; }
 
         public bool CargarInteresAlGastoDeCierre { get; set; }
-        
-        public bool AcomodarFechaCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
+
+        public bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
 
-        public DateTime? FechaInicioPrimeraCuota { get; internal set; } = InitValues._19000101;
+        public DateTime FechaInicioPrimeraCuota { get; internal set; } = InitValues._19000101;
 
         /// <summary>
         /// este campo es el que tendra la fecha real de donde partira a generar las cuotas y sus fechas de vencimientos, es necesario para cuando al prestamo se le acomode las cuotas
         /// </summary>
-        public DateTime FechaInicioCalculoPrestamo { get; internal set; }
+
+        public Prestamo()
+        {
+
+        }
+
+        public Prestamo(Periodo periodo)
+        {
+            var periodoDest = new Periodo();
+            _type.CopyPropertiesTo(periodo, periodoDest);
+            this.Periodo = periodoDest;
+        }
+        //internal IEnumerable<Cuota> _Cuotas { get; set; } = new List<Cuota>();
+        //public DataTable Cuotas => this._Cuotas.ToDataTable();
+        //public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
+        ////this._Garantias.ToDataTable();
+        //public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
     }
 
-    public class PrestamoConCuota
+    public class PrestamoInsUpdParam : Prestamo
     {
-        public int IdPrestamo { get; set; }
+        private IEnumerable<Cuota> _CuotasList = new List<Cuota>();
+        private IEnumerable<Codeudor> __Codeudores = new List<Codeudor>();
+        private IEnumerable<Garantia> __Garantias = new List<Garantia>();
 
-        public Prestamo Prestamo { get; set; }
+        public PrestamoInsUpdParam(Prestamo prestamo, IEnumerable<Cuota> cuotas, IEnumerable<Codeudor> codeudores, IEnumerable<Garantia> garantias)
+        {
+            this._CuotasList = cuotas;
+            //var data = codeudores.Select(cod => new { idCodeudor = cod.IdCodeudor });
+            //this.__Codeudores = codeudores != null ? codeudores : new List<Codeudor>(); ;
+            //this.__Garantias = garantias != null ? garantias : new List<Garantia>(); ;
+        }
+        public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
+        //this._Garantias.ToDataTable();
+        public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
+        public DataTable Cuotas => this._CuotasList.ToDataTable();
 
-        public List<Cuota> Cuotas { get; set; }
+    }
+
+
+
+    internal class PrestamoGarantias
+    {
+        public int IdGarantia { get; set; }
+    }
+
+    internal class PrestamoCodeudores
+    {
+        public int IdCodeudor { get; set; }
+    }
+
+    public class PrestamosSearchParams : BaseGetParams
+    {
+        public string TextToSearch { set; get; } = string.Empty;
+        //public int SearchType { set; get; } = 0; // valor 0 para prestamos y 1 para clientes / garantias
+    }
+
+    public class PrestamosGetParam
+    {
+        public int idPrestamo { get; set; } = -1;
+        public int idCliente { get; set; } = -1;
+        public int idGarantia { get; set; } = -1;
+        public DateTime fechaEmisionRealDesde { get; set; } = InitValues._19000101;
+        public DateTime fechaEmisionRealHasta { get; set; } = InitValues._19000101;
     }
 }
+
 
 

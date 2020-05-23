@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
@@ -12,72 +13,209 @@ namespace PrestamoBLLTests
     [TestClass()]
     public class PrestamoTest
     {
-        enum CalculoCuotas { PorPagaresNoAmortizable,  AmortizableSoloPagandoInteresPorPeriodo, AmortizableSoloPagandoInteresPorDia, AmortizablePorCuotas, AmortizableInteresFijo }
+        TestInfo testInfo = new TestInfo();
 
         public Dictionary<int, string> Clasificacion = new Dictionary<int, string>();
 
         [TestMethod()]
-        public void PrestamoInsUpdTest()
+        public void PrestamoInsUpdWithoutCodeudoresTest()
         {
+            var idResult = 0;
+            Func<bool> condicion = () => (idResult > 0);
+            try
+            {
+                idResult = BLLPrestamo.Instance.InsUpdPrestamo(CreatePrestamo());
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
 
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+
+        }
+
+        [TestMethod()]
+        public void GetPrestamosTest()
+        {
+            var prestamos = new List<Prestamo>();
+            Func<bool> condicion = () => (prestamos!=null);
+            try
+            {
+                var search = new PrestamosGetParam();
+                prestamos  = BLLPrestamo.Instance.GetPrestamos(search).ToList();
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+            var prestamo = prestamos != null ? prestamos.FirstOrDefault() : new Prestamo();
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+
+        }
+
+        [TestMethod()]
+        public void GetPrestamosConDetalleDrCrTest()
+        {
+            var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamosGetParam()).ToList().FirstOrDefault().IdPrestamo;
+            PrestamoConDetallesParaCreditosYDebitos prConDetalle=null;
+            Func<bool> condicion = () => (prConDetalle != null);
+            try
+            {
+                prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalle(idPrestamo, DateTime.Now.AddDays(40));
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+
+            var infCliente = prConDetalle.infoCliente;
+            var infPrestamo = prConDetalle.infoPrestamo;
+            var infDeuda = prConDetalle.InfoDeuda;
+            var infGarantias = prConDetalle.infoGarantias;
+            
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+            
+        }
+
+        [TestMethod()]
+        public void PrestamoInsUpdWithABadGarantiaTest()
+        {
+            var idResult = 0;
+            Func<bool> condicion = () => (idResult > 0);
+            var prestamo = CreatePrestamo();
+            prestamo._Garantias[0].IdGarantia = 7;
+            try
+            {
+                idResult = BLLPrestamo.Instance.InsUpdPrestamo(prestamo);
+
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+
+        }
+
+        [TestMethod()]
+        public void PrestamoBuilderTest()
+        {
             // Debe tener informacion de si es inmobliario, mobiliario para que pueda determinar que tipo de garantia
+            Prestamo pre = CreatePrestamo();
+            var prestamoNuevo = new PrestamoBuilder(pre);
+
+            Prestamo result = null;
+            try
+            {
+                result = prestamoNuevo.Build();
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+            Assert.IsNotNull(result, testInfo.MensajeError);
+        }
+        
+        private Prestamo CreatePrestamo()
+        {
             var cliente = new Cliente();
             var pre = new Prestamo
             {
-                IdPrestamo = 1,
-                FechaEmision = DateTime.Now,
-                IdAmortizacion = (int)CalculoCuotas.PorPagaresNoAmortizable,
+                FechaEmisionReal = DateTime.Now,
+                
+                TipoAmortizacion = TiposAmortizacion.Cuotas_fijas_No_amortizable,
                 IdClasificacion = GetClasificacion(),
                 IdNegocio = 6,
                 IdDivisa = 1, // equivale a la moneda nacional (siempre el codigo 1 es la moneda nacional del pais
-                DineroPrestado = 10000,
-                IdTasaDeInteres = GetTasaDeInteres(),
+                MontoPrestado = 10000,
+                IdTasaInteres = GetTasaDeInteres(),
                 IdPeriodo = GetPeriodo(),
-                CantidadDePeriodo = 5,
+                CantidadDePeriodos = 5,
                 IdTipoMora = GetTipoMora(),
             };
-            pre.Clientes.Add(GetClientes());
+            pre.IdCliente = GetClientes().FirstOrDefault().IdCliente;
+            pre._Garantias.Add(GetGarantias().FirstOrDefault());
+            return pre;
+        }
+
+        [TestMethod()]
+        public void PrestamoConDependencias()
+        {
+            var pre = CreatePrestamo();
+            var cuotas = CrearCuotasNoAmortizableCincoMeses();
+            //PrestamoInsUpdParam pr = new PrestamoInsUpdParam(null,cuotas,null,null);
+            //
+
+        }
+        [TestMethod()]
+        public void GeneradoDeCuotasFijasNoAmortizable()
+        {
+            var result = CrearCuotasNoAmortizableCincoMeses();
+            var todoBien = true;
+        }
+
+        private static IEnumerable<Cuota> CrearCuotasNoAmortizableCincoMeses()
+        {
+            var periodo = new Periodo { MultiploPeriodoBase = 1, PeriodoBase = PeriodoBase.Mes };
+            var cuotas = CreateCuotasNoAmortizable(periodo, 5);
+            return cuotas;
+        }
+
+        private static IEnumerable<Cuota> CreateCuotasNoAmortizable(Periodo periodo, int duracion)
+        {
+            IPrestamoForGeneradorCuotas prestamo = new Prestamo(periodo)
+            {
+                FechaEmisionReal = new DateTime(2020, 01, 01),
+                CantidadDePeriodos = duracion,
+                TasaDeInteresPorPeriodo = 5,
+                MontoPrestado = 10000,
+            };
+            var genCuota = new GeneradorCuotasFijasNoAmortizables(prestamo);
+            var cuotas = genCuota.GenerarCuotas();
+            
+            return cuotas;
         }
 
         private int GetClasificacion()
         {
-            Clasificacion.Add(1, "Vehiculo");
-            Clasificacion.Add(2, "Motores");
-            Clasificacion.Add(3, "Personal");
-            Clasificacion.Add(4, "Hipotecario");
-            Clasificacion.Add(5, "Comercial");
-            var itemDict = Clasificacion.Where(item => item.Value == "Vehiculo").FirstOrDefault();
-            return itemDict.Key;
+            return 1;
             
         }
 
-        private Garantia GetGarantias()
+        private IEnumerable<Garantia> GetGarantias()
         {
-            throw new NotImplementedException();
+            var result = BLLPrestamo.Instance.GarantiaSearch( new BuscarGarantiaParams { Search = "2626" });
+            return result;
         }
 
         public Codeudor GetCodeudores()
         {
-            throw new NotImplementedException();
+            return null;
         }
-        private Cliente GetClientes()
+        private IEnumerable<Cliente> GetClientes()
         {
-            throw new NotImplementedException();
+            var result = BLLPrestamo.Instance.ClientesGet(new ClientesGetParams { IdNegocio = 6 });
+            return result;
         }
 
         private int GetTipoMora()
         {
-            throw new NotImplementedException();
+            var mora = BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdNegocio = 6, Codigo = "P10I" }).FirstOrDefault();
+                return mora.IdTipoMora;
         }
 
         private int GetPeriodo()
         {
-            throw new NotImplementedException();
+            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 6, Codigo="MES" }).FirstOrDefault();
+            return periodo.idPeriodo;
         }
 
         private int GetTasaDeInteres()
         {
-            throw new NotImplementedException();
+            var tasainteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = 6, Codigo="C00" }).FirstOrDefault();
+            return tasainteres.idTasaInteres;
         }
     }
 }

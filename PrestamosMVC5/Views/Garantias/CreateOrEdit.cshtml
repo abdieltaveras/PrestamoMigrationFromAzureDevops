@@ -3,22 +3,38 @@
 @section pagestyle
 {
     @*<link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />*@
+    <style>
+        p strong {
+            pointer-events: none;
+        }
+
+        p span {
+            pointer-events: none;
+        }
+
+        p span span {
+            pointer-events: none;
+        }
+        i {
+            pointer-events: none;
+        }
+    </style>
 }
 <link href="~/Content/customcss/switch.css" rel="stylesheet">
 
 <div class="clearfix"></div>
 <div>
-    <form autocomplete="off" action="/" method="post" style="padding: 0%">
+    @*<form autocomplete="off" action="/" method="post" style="padding: 0%">*@
         <div class="col-5" style="margin: auto; padding: 0%; ">
             <h4 style="text-align: center;">¿Que garantia buscas?</h4>
-            <input class="garantia_target form-control" type="text" id="searchinput" placeholder="Buscar por numero de identificacion..." name="name" value=""
+            <input class="garantia_target form-control" type="text" autocomplete="off" id="searchinput" placeholder="Buscar por numero de identificacion..." name="name" value=""
                    style="height: 60px" />
             <div id="list-garantia-container">
                 <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
                 </div>
             </div>
         </div>
-    </form>
+    @*</form>*@
 </div>
 <br />
 
@@ -367,9 +383,12 @@
 </div>
 @section scripts
 {
-    <script>
+<script>
     let formulario = $("#garantia");
     let searchLocalidadElem = $('#searchLocalidad');
+    let selectPointer = 0;
+    
+
     $(document).ready(function () {
         //$('input').iCheck({
         //    checkboxClass: 'icheckbox_flat-green',
@@ -402,18 +421,24 @@
     let locations;
     let res;
 
-    $(".garantia_target").keyup(function () {
-        searchGarantiaText($('#searchinput').val());
-        console.log($('#searchinput').val());
+    $(".garantia_target").keyup(function (e) {
+        if (e.which != 38 && e.which != 40 && e.which != 13) {
+            $('.garantias').remove();
+
+            searchGarantiaText($('#searchinput').val());
+        }
+        // console.log($('#searchinput').val());
     });
 
     async function searchGarantiaText(location) {
+        console.log('Encontre', location);
         try {
             res = await searchGarantia(location);
-
+            
             showListGarantia(JSON.parse(res));
+            console.log('Activo')
             setClickListenerOnGarantia();
-            console.log(res);
+            //console.log(res);
         } catch (err) {
 
         }
@@ -459,90 +484,143 @@
         const list = document.querySelectorAll('#listaddresses');
         list.forEach(function (btn) {
             btn.addEventListener('click', async function (evt) {
-
-                const selectedGarantia = JSON.parse(res).find(Garantia => Garantia.IdGarantia == evt.target.getAttribute('data-idGarantia'));
-                const detalles = JSON.parse(selectedGarantia.Detalles);
-
-                console.table(detalles);
-
-                if (selectedGarantia.IdClasificacion === 1) {
-                    $('#inmobiliario_option').iCheck('check');
-                    console.log('Cargue una casa');
-                    loadTipo(2);
-                } else {
-                    $('#mobiliario_option').iCheck('check');
-                    console.log('Cargue un carro');
-
-                    loadTipo(1);
-                }
-                $('#Garantia_IdGarantia').val(selectedGarantia.IdGarantia);
-
-                $('#Garantia_NoIdentificacion').val(selectedGarantia.NoIdentificacion);
-                $('#Garantia_IdNegocio').val(selectedGarantia.IdNegocio);
-
-                $('#Garantia_IdTipo option[value="' + selectedGarantia.IdTipoGarantia + '"]').attr("selected", "selected");
-
-                $('#Garantia_IdMarca').val(selectedGarantia.IdMarca);
-                //$('#Garantia_IdMarca option[value="' + selectedGarantia.IdMarca + '"]').attr("selected", "selected");
-                loadModelos(selectedGarantia.IdMarca, selectedGarantia.IdModelo);
-
-                $('#Direccion_IdLocalidad').val(detalles.IdLocalidad);
-                $('#Garantia_DetallesJSON_DetallesDireccion').val(detalles.DetallesDireccion);
-                $('#Garantia_DetallesJSON_Medida').val(detalles.Medida);
-                $('#Garantia_DetallesJSON_Color').val(detalles.Color);
-                $('#Garantia_DetallesJSON_NoMaquina').val(detalles.NoMaquina);
-                $('#Garantia_DetallesJSON_Ano').val(detalles.Ano);
-                $('#Garantia_DetallesJSON_Placa').val(detalles.Placa);
-                $('#Garantia_DetallesJSON_Matricula').val(detalles.Matricula);
-                $('#Garantia_DetallesJSON_Valor').val(detalles.Valor);
-                $('#Garantia_DetallesJSON_Descripcion').val(detalles.Descripcion);
-
-
-                if (detalles.UsoExclusivo) {
-                    $('#Garantia_DetallesJSON_UsoExclusivo').prop("checked", true);
-                    $('#Garantia_DetallesJSON_UsoExclusivo').attr("checked", "checked");
-                } else {
-                    $('#Garantia_DetallesJSON_UsoExclusivo').prop("checked", false);
-                    $('#Garantia_DetallesJSON_UsoExclusivo').removeAttr("checked", "checked");
-                }
-
-                // Buscar nombre de la localidad con el ID
-                let resLocalidad;
-                if (detalles.IdLocalidad != 0) {
-                    resLocalidad = await searchLocalidadGarantia(detalles.IdLocalidad, selectedGarantia.IdNegocio);
-                }
-
-                $('#searchLocalidad').val(resLocalidad);
-                $('#list-garantia-container').hide();
+                setDataOnField(evt.target.getAttribute('data-idGarantia'));                
+                //console.log(evt.target.getAttribute('data-idGarantia'));
             });
         });
     }
 
-    function showListGarantia(list) {
+    async function setDataOnField(idgarantia) {
+        const selectedGarantia = JSON.parse(res).find(Garantia => Garantia.IdGarantia == idgarantia);
+        const detalles = JSON.parse(selectedGarantia.Detalles);
+
+        console.table(detalles);
+
+        if (selectedGarantia.IdClasificacion === 1) {
+            $('#inmobiliario_option').iCheck('check');
+            console.log('Cargue una casa');
+            loadTipo(2);
+        } else {
+            $('#mobiliario_option').iCheck('check');
+            console.log('Cargue un carro');
+
+            loadTipo(1);
+        }
+        $('#Garantia_IdGarantia').val(selectedGarantia.IdGarantia);
+
+        $('#Garantia_NoIdentificacion').val(selectedGarantia.NoIdentificacion);
+        $('#Garantia_IdNegocio').val(selectedGarantia.IdNegocio);
+
+        $('#Garantia_IdTipo option[value="' + selectedGarantia.IdTipoGarantia + '"]').attr("selected", "selected");
+
+        $('#Garantia_IdMarca').val(selectedGarantia.IdMarca);
+        //$('#Garantia_IdMarca option[value="' + selectedGarantia.IdMarca + '"]').attr("selected", "selected");
+        loadModelos(selectedGarantia.IdMarca, selectedGarantia.IdModelo);
+
+        $('#Direccion_IdLocalidad').val(detalles.IdLocalidad);
+        $('#Garantia_DetallesJSON_DetallesDireccion').val(detalles.DetallesDireccion);
+        $('#Garantia_DetallesJSON_Medida').val(detalles.Medida);
+        $('#Garantia_DetallesJSON_Color').val(detalles.Color);
+        $('#Garantia_DetallesJSON_NoMaquina').val(detalles.NoMaquina);
+        $('#Garantia_DetallesJSON_Ano').val(detalles.Ano);
+        $('#Garantia_DetallesJSON_Placa').val(detalles.Placa);
+        $('#Garantia_DetallesJSON_Matricula').val(detalles.Matricula);
+        $('#Garantia_DetallesJSON_Valor').val(detalles.Valor);
+        $('#Garantia_DetallesJSON_Descripcion').val(detalles.Descripcion);
+
+
+        if (detalles.UsoExclusivo) {
+            $('#Garantia_DetallesJSON_UsoExclusivo').prop("checked", true);
+            $('#Garantia_DetallesJSON_UsoExclusivo').attr("checked", "checked");
+        } else {
+            $('#Garantia_DetallesJSON_UsoExclusivo').prop("checked", false);
+            $('#Garantia_DetallesJSON_UsoExclusivo').removeAttr("checked", "checked");
+        }
+
+        // Buscar nombre de la localidad con el ID
+        let resLocalidad;
+        if (detalles.IdLocalidad != 0) {
+            resLocalidad = await searchLocalidadGarantia(detalles.IdLocalidad, selectedGarantia.IdNegocio);
+        }
+
+        $('#Garantia_NoIdentificacion').focus();
+        $('#searchLocalidad').val(resLocalidad);
+        $('#list-garantia-container').hide();
+
         $('.garantias').remove();
-        $.each(list, function (index, value) {
+        $('#searchinput').val(null);
+    }
 
-            var Detalles = JSON.parse(value.Detalles);
 
-            if (value.IdClasificacion === 1) {
-                $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" id="listaddresses" data-toggle="list"
-                    data-idGarantia="${value.IdGarantia}"
-                    data-idlocalidad="" href="#list-home" role="tab" aria-controls="home">
-                    <span class=" glyphicon glyphicon-home "></span>
-                    <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
-                    ${Detalles.Descripcion !== null ? Detalles.Descripcion : ''}
-                    ${Detalles.Medida !== null ? 'Medida: ' + Detalles.Medida : ''}
-                    <br>`);
-            } else {
-                $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" id="listaddresses" data-toggle="list"
-                    data-idGarantia="${value.IdGarantia}"
-                    role="tab" aria-controls="home">
-                    <span class="fa fa-automobile"></span>
-                    <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
-                   <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
-                    <br>`);
+    document.onkeyup = function(e) {
+        if (e.which == 38) {
+            if ($('#searchinput').is(':focus')) {
+                if (selectPointer != 0) {
+                    selectPointer--;
+                    $('[data-order="' + (selectPointer + 1) + '"]').removeClass('active');
+                    $('[data-order="' + selectPointer + '"]').addClass('active');
+                }
             }
-        });
+        } else if (e.which == 40) {
+            //$('#input-client_search').focus();
+
+            if ($('.list-group-item').length != selectPointer) {
+                selectPointer++;
+                $('[data-order="' + (selectPointer - 1) + '"]').removeClass('active');
+                $('[data-order="' + selectPointer + '"]').addClass('active');
+            }
+        } else if (e.which == 13) {
+            let idgarantia = $('[data-order="' + selectPointer + '"]').attr('data-idGarantia');
+            setDataOnField(idgarantia);
+            removeList();
+        } else if (e.ctrlKey && e.which == 66) {
+            $('#searchinput').focus();
+        }
+
+    };
+
+    function removeList() {
+        let currentList = $('.garantias');
+        $('#searchinput').val(null);
+        $("p#listaddresses").remove();
+
+        //$.each(currentList, function (index, value) {
+        //    console.log('borrrrrrrrrraaa', value);
+        //    value.remove();
+        //});
+    }
+
+    function showListGarantia(list) {
+        let count = 1;
+        selectPointer = 0;
+
+        if (list.length > 0) {
+        
+            $.each(list, function (index, value) {
+
+                var Detalles = JSON.parse(value.Detalles);
+
+                if (value.IdClasificacion === 1) {
+                    $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
+                        data-idGarantia="${value.IdGarantia}"
+                        data-idlocalidad="" href="#list-home" role="tab" aria-controls="home">
+                        <span class=" glyphicon glyphicon-home "></span>
+                        <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
+                        ${Detalles.Descripcion !== null ? Detalles.Descripcion : ''}
+                        ${Detalles.Medida !== null ? 'Medida: ' + Detalles.Medida : ''}
+                        <br>`);
+                } else {
+                    $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
+                        data-idGarantia="${value.IdGarantia}"
+                        role="tab" aria-controls="home">
+                        <span class="fa fa-automobile"></span>
+                        <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
+                       <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
+                        <br>`);
+                }
+                count++;
+            });
+        }
     }
 
     $("body").click(function (event) {
@@ -647,7 +725,7 @@
 
         $('#searchLocalidad').val('');
     }
-    </script>
+</script>
     <script src="~/Scripts/Apps/searchLocalidad.js"></script>
     @*<script src="/Content/vendors/iCheck/icheck.min.js"></script>*@
 }

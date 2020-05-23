@@ -82,7 +82,7 @@
     <RefactorLog Include="PrestamoDB.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\tblTasaInteres.sql" />
+    <Build Include="dbo\Tables\tblTasasInteres.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdTasaInteres.sql" />
     <Build Include="dbo\Stored Procedures\spGetTasasInteres.sql" />
     <PostDeploy Include="Scripts\Post-Deployment\InitDatabase.sql" />
@@ -182,9 +182,24 @@
     <Build Include="dbo\Stored Procedures\spGenerarSecuencia.sql" />
     <Build Include="dbo\Stored Procedures\spGenerarSecuenciaString.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdTblTest1GenerandoSecuencia" />
+    <Build Include="dbo\Tables\tblPeriodos.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPeriodos.sql" />
+    <Build Include="dbo\Tables\tblPrestamo.sql" />
+    <Build Include="dbo\Tables\tblClasificaciones.sql" />
+    <Build Include="dbo\Tables\tblDivisas.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdPrestamo.sql" />
+    <Build Include="dbo\User Defined Types\tpGarantias.sql" />
+    <Build Include="dbo\User Defined Types\tpCodeudores.sql" />
+    <Build Include="dbo\Tables\tblPrestamoGarantias.sql" />
+    <Build Include="dbo\Tables\tblPrestamoCodeudores.sql" />
+    <Build Include="dbo\Tables\tblCodeudore.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPrestamoConDetalles.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPrestamos.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarPrestamos.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
     <None Include="DeployProfile.publish.publish.xml" />
+    <None Include="Prestamo_dev.publish.publish.xml" />
   </ItemGroup>
 </Project>

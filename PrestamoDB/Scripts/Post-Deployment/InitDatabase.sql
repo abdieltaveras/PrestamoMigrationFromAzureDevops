@@ -42,6 +42,20 @@ Post-Deployment Script Template
 --('N06', 'Hija 1 de Hija 1 Empresa 2 Srl', 'Hija 1 de Hija 1 Empresa no 2', NULL, 1, 0, 4, '2', '', 'SeedDBUser', '2020-04-05 14:59:21.693', NULL, NULL, NULL, NULL,'Papito.png')
 	declare @idNegocio int = 1
 
+--tblDivisas
+	INSERT INTO [dbo].[tblDivisas]
+           ([idNegocio]
+           ,[Codigo]
+           ,[Nombre]
+           ,[InsertadoPor]
+           ,[FechaInsertado])
+     VALUES
+           (@idNegocio
+           ,'RD$'
+           ,'Pesos Dominicano'
+           ,@Usuario
+		   ,Getdate())
+
 	--Script para datos de Interes
 
 	INSERT INTO [dbo].[tblTasasInteres] ([idNegocio],[Codigo],[Nombre],[InteresMensual],[InsertadoPor],[FechaInsertado])
@@ -49,11 +63,32 @@ Post-Deployment Script Template
 		   (@idNegocio,'A00', '1% de interes' ,1.0,@usuario,getdate()),
 		   (@idNegocio,'B00', '2% de interes' ,2.0,@usuario,getdate()),
 		   (@idNegocio,'C00', '3% de interes' ,3.0,@usuario,getdate())
-
+	-- tblClasificaciones
+		   INSERT INTO [dbo].[tblClasificaciones]
+           ([Nombre]
+           ,[IdNegocio]
+           ,[ClasificacionFinanciera]
+           ,[Codigo]
+           ,[InsertadoPor]
+           ,[FechaInsertado]
+		   )
+		VALUES
+           ('Prestamos de Vehiculos'
+           ,@idNegocio
+           ,'C'
+           ,'Veh'
+           ,@usuario
+           ,getDate())
+    --Script para periodos
+	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'para cuotas Diarias','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Para Cuotas Semanales', 'seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,3,'QUI',1,'para cuotas Quincenales','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'MES',1,'para cuotas Mensuales','seed', getdate()) 
+	
 	--Script para datos de Moras
 	insert into tblTiposMora
 			(Nombre,
-			idNegocio, Codigo,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,InsertadoPor, FechaInsertado)
+			idNegocio,Codigo,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,InsertadoPor, FechaInsertado)
 		VALUES
 
 			('Porcentual 10% al interes y capital atrasado por cada dia por cada cuota',
@@ -183,7 +218,7 @@ VALUES	(1, 'Vehiculos (Carros, Camionetas, Geepetas, etc)', '', 1, 1, @usuario, 
 declare @codigo varchar(20)
 exec dbo.spGenerarSecuenciaString 'Codigo de Clientes',10,1, @codigo output
 INSERT INTO tblClientes (Activo, AnuladoPor, Apodo, Apellidos, Codigo, EstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaAnulado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, InfoReferencia, imagen1FileName, imagen2FileName) 
-VALUES (1, NULL, 'yeyo', 'Taveras', @codigo, 2, '1969-07-31', '2020-02-13 05:13:26.13', '2020-02-13 05:11:00.03', NULL, 6, 1, 2, '{"Nombres":"YOCASTA","Apodo":"Yami","Apellidos":"RODRIGUEZ","NoTelefono1":"8299619140","LugarTrabajo":"Glipsy Novias","TelefonoTrabajo":"8098339140","DireccionLugarTrabajo":"CALLE SERAPIA NO 3","IdTipoIdentificacion":1,"NoIdentificacion":"02600667543","Notas":null}', '{"Nombre":"Pc Prog","Puesto":"Ingeniero de Sistemas","FechaInicio":"2020-02-13T00:00:00","NoTelefono1":"8095508455","NoTelefono2":"8098131251","Direccion":"General Grerio Luperon no 12","Notas":null}', '{"IdDireccion":0,"IdLocalidad":0,"Calle":"calle serapia no 3 las Orquideas","CodigoPostal":"22000","CoordenadasGPS":null,"Detalles":null,"InsertadoPor":"","FechaInsertado":"1900-01-01T00:00:00","ModificadoPor":"","FechaModificado":"1900-01-01T00:00:00","AnuladoPor":"","FechaAnulado":"1900-01-01T00:00:00","IdNegocio":-1,"Usuario":""}', @usuario, @usuario, '02600679191', 'Abdiel', 1, '8098131438', '8299619141','', '[{"Tipo":1, "Vinculo":3, "NombreCompleto":"Hola", "Telefono":"fg", "Direccion":"dfg", "Detalles":"Hola"}]','imagen1.jpeg','imagen2.jpeg')
+VALUES (1, NULL, 'yeyo', 'Taveras', @codigo, 2, '1969-07-31', '2020-02-13 05:13:26.13', '2020-02-13 05:11:00.03', NULL, 6, 1, 2, '{"Nombres":"YOCASTA","Apodo":"Yami","Apellidos":"RODRIGUEZ","NoTelefono1":"8299619140","LugarTrabajo":"Glipsy Novias","TelefonoTrabajo":"8098339140","DireccionLugarTrabajo":"CALLE SERAPIA NO 3","IdTipoIdentificacion":1,"NoIdentificacion":"02600667543","Notas":null}', '{"Nombre":"Pc Prog","Puesto":"Ingeniero de Sistemas","FechaInicio":"2020-02-13T00:00:00","NoTelefono1":"8095508455","NoTelefono2":"8098131251","Direccion":"General Grerio Luperon no 12","Notas":null}', '{"IdDireccion":0,"IdLocalidad":0,"Calle":"calle serapia no 3 las Orquideas","CodigoPostal":"22000","CoordenadasGPS":null,"Detalles":null,"InsertadoPor":"","FechaInsertado":"1900-01-01T00:00:00","ModificadoPor":"","FechaModificado":"1900-01-01T00:00:00","AnuladoPor":"","FechaAnulado":"1900-01-01T00:00:00","IdNegocio":-1,"Usuario":""}', @usuario, @usuario, '02600679191', 'Abdiel', 2, '8098131438', '8299619141','', '[{"Tipo":1, "Vinculo":3, "NombreCompleto":"Hola", "Telefono":"fg", "Direccion":"dfg", "Detalles":"Hola"}]','imagen1.jpeg','imagen2.jpeg')
 
 -- Server: ABDIELALIENWARE\SQLEXPRESS2016
 -- Date:   13-Feb-20 5:53 AM
@@ -275,3 +310,19 @@ INSERT INTO tblUsersRoles(IdUser, IdRole, InsertadoPor)
 
 INSERT INTO tblRolesOperaciones(IdOperacion, IdRole, InsertadoPor)
 	VALUES	(1, 1, @usuario)
+declare @prestamoNumero varchar(20)
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
+
+-- tblPrestamos
+INSERT INTO tblPrestamos (idNegocio, idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, SumarGastoDeCierreALasCuotas, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (6, 1, @prestamoNumero, NULL, 0, 1, 1, '2020-05-17', '2020-05-17', '2020-10-17', 3, 3, 4, 5, 10000, 1, 0, 0, 0, 0, 0, 0, '1900-01-01', '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
+
+--tblCuotas
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 1, '2020-06-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 2, '2020-07-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 3, '2020-08-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 4, '2020-09-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 5, '2020-10-17', 2000, 300)
+-- PrestamoGarantias
+INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
+
+

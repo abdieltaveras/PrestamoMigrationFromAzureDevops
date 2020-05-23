@@ -1,6 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using emtSoft.DAL;
+using Newtonsoft.Json;
 using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Reflection;
+using System.Web.Mvc;
 using System.Xml.Serialization;
 
 namespace PrestamoBLL.Entidades
@@ -70,6 +76,9 @@ namespace PrestamoBLL.Entidades
         }
 
     }
+    /// <summary>
+    /// extgension methods for strings
+    /// </summary>
     public static class StringMeth
     {
         public static string ConvertNullStringToEmpty(this string value)
@@ -88,4 +97,113 @@ namespace PrestamoBLL.Entidades
         }
 
     }
+
+    public static class DataReaderMeth
+    {
+        public static bool HasColumn(this IDataRecord r, string columnName)
+        {
+            try
+            {
+                return r.GetOrdinal(columnName) >= 0;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return false;
+            }
+        }
+
+        public static void SetValue(this PropertyInfo pi, IDataReader dr)
+        {
+            if (pi.CanWrite)
+            {
+                string propName = pi.Name;
+                var propValue = dr[propName];
+                try
+                {
+
+                    if (!propValue.IsNull())
+                    {
+                        pi.SetFieldValue(propName, propValue);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    pi.SetFieldValue(propName, null);
+                }
+            }
+        }
+        public static @type DataReaderToType<@type>(this IDataReader dr, out @type obj) where @type : class, new()
+        {
+            obj = new @type();
+            foreach (var pi in obj.GetType().GetProperties())
+            {
+                if (pi.CanWrite)
+                {
+                    string propName = pi.Name;
+                    if (dr.HasColumn(propName))
+                    {
+                        var propValue = dr[propName];
+                        pi.SetValue(obj, Convert.ChangeType(propValue, pi.PropertyType), null);
+                    }
+                }
+            }
+            return obj;
+        }
+    }
+
+    public static class _type
+    {
+        public static void CopyPropertiesTo<T, TU>(this T source, TU dest)
+        {
+            var sourceProps = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
+            var destProps = typeof(TU).GetProperties()
+                    .Where(x => x.CanWrite)
+                    .ToList();
+
+            foreach (var sourceProp in sourceProps)
+            {
+                if (destProps.Any(x => x.Name == sourceProp.Name))
+                {
+                    var p = destProps.First(x => x.Name == sourceProp.Name);
+                    if (p.CanWrite)
+                    { // check if the property can be set or no.
+                        p.SetValue(dest, sourceProp.GetValue(source, null), null);
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    public static class EnumUtils
+    {
+        public static string getItemName(this Enum _enum, int itemIndex)
+        {
+            //Enum.GetName(typeof(TiposIdentificacionCliente), (TiposIdentificacionCliente)IdTipoIdentificacion);
+            Type genericEnumType = _enum.GetType();
+            var result = genericEnumType.GetEnumNames()[itemIndex];
+            return result;
+        }
+    }
+    public static class SLFactory
+    {
+        /// <summary>
+        /// Permite obtr
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        private static IEnumerable<SelectListItem> GetEnumSelectList<T>()
+        {
+            return (Enum.GetValues(typeof(T)).Cast<int>().Select(e => new SelectListItem()
+            {
+                Text = Enum.GetName(typeof(T), e).Replace("_", " "),
+                Value = e.ToString(),
+            })).ToList();
+        }
+        public static SelectList ForEnum<T>() => new SelectList(GetEnumSelectList<T>(), "Value", "Text");
+        //public static SelectList ForEnumAddingStartingValue<T>() => new SelectList(GetEnumSelectListAddingFirstValue<T>("Elija"), "Value", "Text");
+    }
+
 }
+

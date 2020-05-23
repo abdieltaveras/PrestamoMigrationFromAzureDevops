@@ -146,6 +146,7 @@
     <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\NegociosController.cs" />
+    <Compile Include="Controllers\PrestamosController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Models\LocalidadVM.cs" />
     <Compile Include="Models\NegocioVM.cs" />
     <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\PrestamoListVM.cs" />
     <Compile Include="Models\RegistroEquipo.cs" />
     <Compile Include="Models\RoleVM.cs" />
     <Compile Include="Models\VerificadorDireccionVM.cs" />
@@ -187,7 +189,7 @@
     <Compile Include="Models\ModeloVM.cs" />
     <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\SelectItems.cs" />
+    <Compile Include="SiteUtils\SelectItems.cs" />
     <Compile Include="SiteUtils\Constant.cs" />
     <Compile Include="SiteUtils\GeneralUtils.cs" />
     <Compile Include="SiteUtils\ImagesFor.cs" />
@@ -4008,6 +4010,7 @@
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
     <None Include="Views\ErrorHandler\Default.cshtml" />
     <Content Include="Views\Ingresos\index.cshtml" />
+    <Content Include="Views\Prestamos\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
     <Content Include="Scripts\Apps\showImage,20200423.js" />
