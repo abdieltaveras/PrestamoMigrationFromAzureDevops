@@ -16,7 +16,8 @@ namespace PrestamosMVC5.Controllers
     {
         public PrestamosController()
         {
-
+            UpdViewBag_LoadCssAndJsGrp2(true);
+            UpdViewBag_ShowSummaryErrorsTime(10);
         }
         // GET: Prestamos
         public ActionResult Index()
@@ -58,7 +59,13 @@ namespace PrestamosMVC5.Controllers
             return View(model);
         }
 
-        private SeachResult<Prestamo> getPrestamo(int id)
+        [HttpPost]
+        public ActionResult CreateOrEdit(PrestamoVm model)
+        {
+            //var prestamo = model.Prestamo;
+            return Content(model.ToJson());
+        }
+            private SeachResult<Prestamo> getPrestamo(int id)
         {
             var searchData = new PrestamosGetParams { idPrestamo = id };
             pcpSetIdNegocioTo(searchData);

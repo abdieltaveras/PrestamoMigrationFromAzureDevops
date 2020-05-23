@@ -125,7 +125,7 @@ namespace PrestamoBLLTests
             {
                 FechaEmisionReal = DateTime.Now,
                 
-                TipoAmortizacion = TiposAmortizacion.Cuotas_fijas_No_amortizable,
+                TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
                 IdClasificacion = GetClasificacion(),
                 IdNegocio = 6,
                 IdDivisa = 1, // equivale a la moneda nacional (siempre el codigo 1 es la moneda nacional del pais

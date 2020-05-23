@@ -1,6 +1,7 @@
 ﻿using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,6 +22,10 @@ namespace PrestamosMVC5.Models
     {
         public string MensajeError { get; internal set; }
         public Prestamo Prestamo { get; set; } = new Prestamo();
+        [Display(Name ="Codigo de cliente")]
+        public string CodigoCliente { get; set; } = string.Empty;
+        [Display(Name = "No Identificacion de la garantia")]
+        public string NumeracionGarantia { get; set; } = string.Empty;
 
     }
 }

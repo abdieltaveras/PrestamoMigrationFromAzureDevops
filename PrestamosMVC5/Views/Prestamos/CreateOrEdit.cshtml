@@ -10,20 +10,25 @@
     <div class="form-horizontal">
         <div class="">
             <div class="x_panel">
-                <div class="x_title">
+                <div>
+                    @*<div class="x_title">*@
                     <div class="col-md-3 col-sm-12 ">
-                        <h2>Datos Para el Usuario</h2>
+                        <h2>Edicion de Prestamos</h2>
                     </div>
-                    <div class="col-md-6 col-sm-12 text-center" id="mensajeError" role="alert">
-                        @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
-                    </div>
+
                     <div class="col-md-3 col-sm-12  text-right">
                         <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
-            <h4>Prestamo</h4>
-            <hr />
+
+            <div class="x_panel">
+                -Informacion para el usuario-
+                <div class="col-md-6 col-sm-12 text-center" id="mensajeError" role="alert">
+                    @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
+                </div>
+            </div>
+
 
             <div class="row">
                 <!-- form input mask -->
@@ -40,54 +45,60 @@
                             </div>
 
                             <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.IdCliente, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                @Html.LabelFor(model => model.Prestamo.IdTipoAmortizacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.IdCliente, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdTipoAmortizacion, SelectItems.TiposAmortizacion, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdClasificacion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.CodigoCliente, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.CodigoCliente, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdCliente, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
                             <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.FechaEmisionReal, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                @Html.LabelFor(model => model.NumeracionGarantia, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.NumeracionGarantia, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdCliente, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.FechaEmisionReal, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
                                 <div class="@HtmlClass.DivInputCls">
                                     @Html.EditorFor(model => model.Prestamo.FechaEmisionReal, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                                     @Html.ValidationMessageFor(model => model.Prestamo.FechaEmisionReal, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.IdPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.IdPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.IdPeriodo, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdTasaInteres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.IdTasaInteres, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdTasaInteres, SelectItems.TasasInteresMuestraCodigoYtasa(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @*@Html.EditorFor(model => model.Prestamo.IdTasaInteres, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdTasaInteres, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.TasaDeInteresPorPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.TasaDeInteresPorPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.EditorFor(model => model.Prestamo.TasaDeInteresPorPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Prestamo.TasaDeInteresPorPeriodo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
                             <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.IdTipoMora, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                @Html.LabelFor(model => model.Prestamo.IdPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.IdTipoMora, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.IdTipoMora, "", new { @class = "text-danger" })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdPeriodo, SelectItems.Periodos(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @*@Html.EditorFor(model => model.Prestamo.IdPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdPeriodo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.CantidadDePeriodos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
@@ -95,6 +106,15 @@
                                     @Html.ValidationMessageFor(model => model.Prestamo.CantidadDePeriodos, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.IdTipoMora, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.DropDownListFor(model => model.Prestamo.IdTasaInteres, SelectItems.TiposMora(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdTipoMora, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.MontoPrestado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
@@ -107,7 +127,7 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.DeudaRenovacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.DeudaRenovacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.EditorFor(model => model.Prestamo.DeudaRenovacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } });
                                     @Html.ValidationMessageFor(model => model.Prestamo.DeudaRenovacion, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -127,7 +147,6 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="x_panel">
                         <div class="x_content">
-
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.InteresGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
@@ -165,10 +184,39 @@
                             </div>
                         </div>
                     </div>
+                    <div class="x_panel">
+                        <div class="x_content">
+                            para informacion de las cuotas
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
     </div>
 }
 
+@section scripts {
+
+    <script src="~/Scripts/apps/datePickerInit.js"></script>
+    <script src="~/Scripts/Apps/setMask.js"></script>
+    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
+    <script src="~/Scripts/Apps/CheckInput.js"></script>
+    @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
+    <script>
+        let dateFormat = 'en-GB';
+        let _dateFormat = 'dd/mm/yy';
+        let yearRangeForDP = "-120:+0"
+
+        attachOnChangeEvent();
+
+        function setFecha(elem, name) {
+            d = new Date(elem.val());
+            var formattedDate = moment(d).format("DD/MM/YYYY")
+            console.log(d, formattedDate);
+        }
+    </script>
+    <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
+}
 

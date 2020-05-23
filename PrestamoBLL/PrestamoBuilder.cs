@@ -314,16 +314,16 @@ namespace PrestamoBLL
             IGeneradorCuotas genCuotas = null;
             switch (prestamoInProgress.TipoAmortizacion)
             {
-                case TiposAmortizacion.Cuotas_fijas_No_amortizable:
+                case TiposAmortizacion.No_Amortizable_cuotas_fijas:
                     genCuotas = new GeneradorCuotasFijasNoAmortizables(prestamoInProgress);
                     break;
-                case TiposAmortizacion.Abierto_amortizable_por_dia:
+                case TiposAmortizacion.Amortizable_por_dia_abierto:
                     break;
-                case TiposAmortizacion.Abierto_Amortizable_por_periodo_abierto:
+                case TiposAmortizacion.Amortizable_por_periodo_abierto:
                     break;
-                case TiposAmortizacion.Cuotas_fijas_amortizable:
+                case TiposAmortizacion.Amortizable_cuotas_fijas:
                     break;
-                case TiposAmortizacion.Abierto_No_Amortizable:
+                case TiposAmortizacion.No_Amortizable_abierto:
                     break;
                 default:
                     break;
