@@ -22,10 +22,16 @@ namespace PrestamosMVC5.Models
     {
         public string MensajeError { get; internal set; }
         public Prestamo Prestamo { get; set; } = new Prestamo();
-        [Display(Name ="Codigo de cliente")]
-        public string CodigoCliente { get; set; } = string.Empty;
+        [Display(Name ="Numeracion Identificacion del Cliente")]
+        public string NumeroIdentificacion { get; set; } = string.Empty;
         [Display(Name = "No Identificacion de la garantia")]
         public string NumeracionGarantia { get; set; } = string.Empty;
+
+        public bool MostrarJsonResult { get; set; } = false;
+        public PrestamoVm()
+        {
+            this.NumeroIdentificacion = "02600679191";
+        }
 
     }
 }

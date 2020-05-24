@@ -131,7 +131,10 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public string PrestamoNumero { get; internal set; } = string.Empty;
 
-        public int? IdPrestamoARenovar { get; set; } = 0;
+        /// <summary>
+        /// el valor menos 1 indica que no se establecio ningun prestamo a renovar
+        /// </summary>
+        public int IdPrestamoARenovar { get; set; } = -1;
         [IgnorarEnParam]
         /// attention analizar poner un objeto InfoPrestamoForView que permita poner todos los campos que uno pudiera necesitar como este NumeroPrestamoARenovar, etc
         public string NumeroPrestamoARenovar { get; internal set; } = string.Empty;
@@ -142,7 +145,7 @@ namespace PrestamoBLL.Entidades
 
         public int IdTipoAmortizacion { get; set; }
 
-        [ignorarEnParam]
+        [IgnorarEnParam]
         public TiposAmortizacion TipoAmortizacion {
             get { return (TiposAmortizacion)IdTipoAmortizacion; }
             set { IdTipoAmortizacion = (int)value; } } 
@@ -190,10 +193,11 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public Periodo Periodo { get; internal set; }
         [Display(Name = "Cantidad de Periodos")]
-        [Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
+        //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
+        [RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
         public int CantidadDePeriodos { get; set; } = 1;
         [Display(Name = "Monto prestado al cliente?")]
-        [Range(0, 999999999, ErrorMessage = "No se aceptan valores negativos")]
+        //[Range(0, 999999999, ErrorMessage = "No se aceptan valores negativos")]
         public decimal MontoPrestado { get; set; }
         [Display(Name = "Deuda del prestamo a renovar ?")]
         [ReadOnly(true)]
@@ -206,7 +210,7 @@ namespace PrestamoBLL.Entidades
         public decimal TotalPrestado => MontoPrestado + DeudaRenovacion;
         // { get { return MontoPrestado + DeudaRenovacion } internal set { var valor = value;} }
         [Display(Name = "Indique  la Divisa")]
-        public int IdDivisa { get; set; } 
+        public int IdDivisa { get; set; } = -1;
         [IgnorarEnParam]
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
         [Display(Name = "Interes para el gasto de cierre ?")]

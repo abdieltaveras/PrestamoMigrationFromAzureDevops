@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL.Entidades
 {
+    enum TiposClasificacionesFinanciera { Consumo=1, Hipotecario, Personal, Estudio }
     public class Clasificacion : BaseCatalogo
     {
         public int IdClasificacion { get; set; } = 0;
-
+        public bool RequiereAutorizacion { get; set; }
+        public bool RequiereGarantia { get; set; }
         public override int GetId() => this.IdClasificacion;
-
-        public string ClasificacionFinanciera { get; set; } = string.Empty;
-
+        public int idClasificacionFinanciera { get; set; } = 1;
     }
     public class ClasificacionesGetParams : BaseGetParams
     {

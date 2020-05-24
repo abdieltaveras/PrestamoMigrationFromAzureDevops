@@ -63,7 +63,23 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreateOrEdit(PrestamoVm model)
         {
             //var prestamo = model.Prestamo;
-            return Content(model.ToJson());
+            try
+            {
+                //var pr = new PrestamoBuilder(model.Prestamo);
+                BLLPrestamo.Instance.InsUpdPrestamo(model.Prestamo);
+            }
+            catch (Exception  e)
+            {
+                ModelState.AddModelError("", e.Message);
+            }
+            if (model.MostrarJsonResult)
+            {
+                return Content(model.ToJson());
+            }
+            else 
+            {
+                return View(model);
+            }
         }
             private SeachResult<Prestamo> getPrestamo(int id)
         {

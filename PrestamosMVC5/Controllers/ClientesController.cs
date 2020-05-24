@@ -140,7 +140,7 @@ namespace PrestamosMVC5.Controllers
                 var result = BLLPrestamo.Instance.ClientesGet(search).FirstOrDefault();
                 if (result != null)
                 {
-                    var data = new { Nombre = result.Nombres + " " + result.Apellidos, Codigo = result.Codigo };
+                    var data = new { Nombre = result.Nombres + " " + result.Apellidos, Codigo = result.Codigo, IdCliente = result.IdCliente, Imagen1= result.Imagen1FileName };
                     Response.StatusCode = 200;
                     return Json(data, pcpIsUserAuthenticated ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
                 }
@@ -148,6 +148,8 @@ namespace PrestamosMVC5.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.NotFound);
         }
+
+        
 
         // GET: Clientes/Edit/5
         public ActionResult Edit(int id)

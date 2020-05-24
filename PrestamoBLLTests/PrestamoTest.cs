@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using emtSoft.DAL;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
@@ -24,7 +25,8 @@ namespace PrestamoBLLTests
             Func<bool> condicion = () => (idResult > 0);
             try
             {
-                idResult = BLLPrestamo.Instance.InsUpdPrestamo(CreatePrestamo());
+                var prestamo = CreatePrestamo();
+                idResult = BLLPrestamo.Instance.InsUpdPrestamo(prestamo) ;
             }
             catch (Exception e)
             {
@@ -124,8 +126,7 @@ namespace PrestamoBLLTests
             var pre = new Prestamo
             {
                 FechaEmisionReal = DateTime.Now,
-                
-                TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
+                IdTipoAmortizacion =(int)TiposAmortizacion.No_Amortizable_cuotas_fijas,
                 IdClasificacion = GetClasificacion(),
                 IdNegocio = 6,
                 IdDivisa = 1, // equivale a la moneda nacional (siempre el codigo 1 es la moneda nacional del pais
@@ -136,7 +137,7 @@ namespace PrestamoBLLTests
                 IdTipoMora = GetTipoMora(),
             };
             pre.IdCliente = GetClientes().FirstOrDefault().IdCliente;
-            pre._Garantias.Add(GetGarantias().FirstOrDefault());
+            pre.IdGarantias.Add(GetGarantias().FirstOrDefault().IdGarantia);
             return pre;
         }
 

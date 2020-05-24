@@ -4040,6 +4040,7 @@
     <TypeScriptCompile Include="Scripts\Apps\cultureInfo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
     <TypeScriptCompile Include="Scripts\Apps\testCommands.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\Utils.ts" />
     <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs-interface.ts" />
     <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs.ts" />
     <TypeScriptCompile Include="Scripts\Apps\DatePickerInit.ts" />
@@ -5202,6 +5203,7 @@
     <Content Include="Views\Configuration\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\ManageClientes.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

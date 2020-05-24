@@ -67,16 +67,18 @@ Post-Deployment Script Template
 		   INSERT INTO [dbo].[tblClasificaciones]
            ([Nombre]
            ,[IdNegocio]
-           ,[ClasificacionFinanciera]
+           ,[IdClasificacionFinanciera]
+		   ,RequiereAutorizacion
+		   ,RequiereGarantia
            ,[Codigo]
            ,[InsertadoPor]
            ,[FechaInsertado]
 		   )
 		VALUES
-           ('Con Vehiculos' ,@idNegocio ,'C' ,'Vehic' ,@usuario,getDate()),
-		   ('Con Motocicletas' ,@idNegocio ,'C' ,'Mot' ,@usuario,getDate()),
-		   ('Con Casa' ,@idNegocio ,'C' ,'Casa' ,@usuario,getDate()),
-		   ('Con Solares' ,@idNegocio ,'C' ,'Solar' ,@usuario,getDate())
+           ('Con Vehiculos' ,@idNegocio ,1 ,0,1,'Vehic' ,@usuario,getDate()),
+		   ('Con Motocicletas' ,@idNegocio ,1,0,1,'Mot' ,@usuario,getDate()),
+		   ('Con Casa' ,@idNegocio ,2,0,1 ,'Casa',@usuario,getDate()),
+		   ('Con Solares' ,@idNegocio ,2 ,0,1,'Solar' ,@usuario,getDate())
     --Script para periodos
 	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'para cuotas Diarias','seed', getdate()) 
 	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Para Cuotas Semanales', 'seed', getdate()) 

@@ -7,6 +7,8 @@
     @Html.HiddenFor(model => model.Prestamo.IdPrestamo)
     @Html.HiddenFor(model => model.Prestamo.IdNegocio)
     @Html.HiddenFor(model => model.Prestamo.IdPrestamoARenovar)
+    @Html.HiddenFor(model => model.Prestamo.IdCliente)
+    <div id="garantias"></div>
     <div class="form-horizontal">
         <div class="">
             <div class="x_panel">
@@ -17,7 +19,7 @@
                     </div>
 
                     <div class="col-md-3 col-sm-12  text-right">
-                        <input id="btnSubmit2" type="submit" value="Guardar" class="btn btn-primary" />
+                        <input id="btnSubmit" type="submit" value="Guardar" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
@@ -52,19 +54,25 @@
                                 </div>
                             </div>
                             <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.CodigoCliente, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                @Html.LabelFor(model => model.NumeroIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.CodigoCliente, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.IdCliente, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.NumeroIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
+                                    <div id="datosDeCliente">
+
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.NumeroIdentificacion, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.NumeracionGarantia, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.NumeracionGarantia, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.IdCliente, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.NumeracionGarantia, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
+                                    <div id="datosDeGarantia">
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.NumeracionGarantia, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.FechaEmisionReal, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
                                 <div class="@HtmlClass.DivInputCls">
@@ -103,13 +111,15 @@
                                 @Html.LabelFor(model => model.Prestamo.CantidadDePeriodos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
                                     @Html.EditorFor(model => model.Prestamo.CantidadDePeriodos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @*@min = 1, @pattern = "[0-9]{10}" } })*@
                                     @Html.ValidationMessageFor(model => model.Prestamo.CantidadDePeriodos, "", new { @class = "text-danger" })
+
                                 </div>
                             </div>
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdTipoMora, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.DropDownListFor(model => model.Prestamo.IdTasaInteres, SelectItems.TiposMora(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdTipoMora, SelectItems.TiposMora(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdTipoMora, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -187,6 +197,14 @@
                     <div class="x_panel">
                         <div class="x_content">
                             para informacion de las cuotas
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.MostrarJsonResult, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.MostrarJsonResult, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => model.MostrarJsonResult, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -203,6 +221,7 @@
     <script src="~/Scripts/Apps/setMask.js"></script>
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
+    <script src="~/Scripts/Apps/ManageClientes.js"></script>
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
     <script>
         let dateFormat = 'en-GB';
@@ -215,8 +234,33 @@
             d = new Date(elem.val());
             var formattedDate = moment(d).format("DD/MM/YYYY")
             console.log(d, formattedDate);
-        }
+    }
+    function onChangeProp(elem) {
+            switch (elem.id) {
+                case "@Html.IdFor(model => model.NumeroIdentificacion)":
+                    getClientesByNumeroIdentificacion(elem.value, fillDatosClientes);
+                    break;
+                case "@Html.IdFor(model => model.NumeracionGarantia)":
+                    getGarantiaByNumeracion(elem.value, fillDatosGarantia);
+                    break;
+            }
+    };
+
+    function fillDatosClientes(data) {
+        const cliente = data;
+        console.log(cliente, cliente.IdCliente);
+        $("#datosDeCliente").html(cliente.Nombre);
+        const elemIdCliente = $("#@Html.IdFor(model => model.Prestamo.IdCliente)");
+        elemIdCliente.val(cliente.IdCliente);
+        console.info(elemIdCliente.val());
+    }
+
+    function fillDatosGarantia(data) {
+        const elemToPlaceGarantiaData = $("#datosDeGarantia");
+        setDatosGarantiaIntoHtml(data, elemToPlaceGarantiaData)
+    }
     </script>
+    <script src="~/Scripts/Apps/utils.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
 }
 
