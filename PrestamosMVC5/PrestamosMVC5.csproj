@@ -4007,9 +4007,11 @@
     <Content Include="Views\Negocios\CreateOrEdit.cshtml" />
     <Content Include="Views\Negocios\Index.cshtml" />
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
+    <Content Include="Views\Account\ElegirNegocioAOperar.cshtml" />
     <None Include="Views\ErrorHandler\Default.cshtml" />
     <Content Include="Views\Prestamos\Index.cshtml" />
     <Content Include="Views\Prestamos\CreateOrEdit.cshtml" />
+    <Content Include="Views\Shared\_InfoTopNavBar.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
