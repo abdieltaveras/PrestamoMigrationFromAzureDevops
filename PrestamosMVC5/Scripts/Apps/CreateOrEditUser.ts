@@ -32,7 +32,7 @@ $('.collapsed').css('height', 'auto');
 $('.collapsed').find('.x_content').css('display', 'none');
 $('.collapsed').find('i').toggleClass('fa-chevron-up fa-chevron-down');
 
-function initialViewState() {
+function  initialViewState() {
     if (elemIdUsuario.prop("value")<= 0)
     {
         //elemActivo.prop({ readOnly: true });

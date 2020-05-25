@@ -195,7 +195,11 @@
     <Build Include="dbo\Tables\tblCodeudore.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamoConDetalles.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamos.sql" />
+<<<<<<< HEAD
     <Build Include="dbo\Stored Procedures\spBuscarPrestamos.sql" />
+=======
+    <Build Include="dbo\Stored Procedures\spInsUpdClasificacion.sql" />
+>>>>>>> prestamo
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

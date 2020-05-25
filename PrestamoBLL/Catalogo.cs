@@ -12,7 +12,10 @@ namespace PrestamoBLL
     {
         public IEnumerable<BaseCatalogo>CatalogosGet(BaseCatalogoGetParams searchParam)
         {
-            
+            if (string.IsNullOrEmpty(searchParam.IdTabla))
+            {
+                throw new NullReferenceException("El valor de la propiedad IdTabla esta vacia, esta propiedad debe asignarle una cadena igual al nombre de la columna principal de esa tabla ejemplo IdColor, IdClasifiacion, idEstadoCivil, etc.");
+            }
             switch (searchParam.NombreTabla)
             {
                 case "tblOcupaciones":
@@ -29,6 +32,8 @@ namespace PrestamoBLL
                     return BllAcciones.GetData<Localizador, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
                 case "tblEstadosCiviles":
                     return BllAcciones.GetData<EstadoCivil, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
+                case "tblClasificaciones":
+                    return BllAcciones.GetData<Clasificacion, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
                 default:
                     throw new Exception($"La tabla {searchParam.NombreTabla} , no se encontro en ninguna eleccion para ejecutar una consulta de datos");
             }

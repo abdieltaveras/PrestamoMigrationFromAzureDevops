@@ -1,5 +1,6 @@
 ﻿create PROCEDURE [dbo].[spGetPrestamos]
 (
+	@idNegocio int,
 	@idPrestamo int =-1,
 	@FechaEmisionRealDesde dateTime,
 	@FechaEmisionRealHasta dateTime,

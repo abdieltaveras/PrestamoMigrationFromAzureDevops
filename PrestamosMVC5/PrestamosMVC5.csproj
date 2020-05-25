@@ -155,7 +155,7 @@
     <Compile Include="Models\LocalidadVM.cs" />
     <Compile Include="Models\NegocioVM.cs" />
     <Compile Include="Models\Permission.cs" />
-    <Compile Include="Models\PrestamoListVM.cs" />
+    <Compile Include="Models\PrestamosListVm.cs" />
     <Compile Include="Models\RegistroEquipo.cs" />
     <Compile Include="Models\RoleVM.cs" />
     <Compile Include="Models\VerificadorDireccionVM.cs" />
@@ -4008,9 +4008,13 @@
     <Content Include="Views\Negocios\CreateOrEdit.cshtml" />
     <Content Include="Views\Negocios\Index.cshtml" />
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
+    <Content Include="Views\Account\ElegirNegocioAOperar.cshtml" />
     <None Include="Views\ErrorHandler\Default.cshtml" />
     <Content Include="Views\Ingresos\index.cshtml" />
     <Content Include="Views\Prestamos\Index.cshtml" />
+    <Content Include="Views\Prestamos\CreateOrEdit.cshtml" />
+    <Content Include="Views\Shared\_InfoTopNavBar.cshtml" />
+    <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
     <Content Include="Scripts\Apps\showImage,20200423.js" />
@@ -4040,6 +4044,7 @@
     <TypeScriptCompile Include="Scripts\Apps\cultureInfo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\manageErrorMessageOnForms.ts" />
     <TypeScriptCompile Include="Scripts\Apps\testCommands.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\Utils.ts" />
     <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs-interface.ts" />
     <TypeScriptCompile Include="Scripts\Apps\validate-form-Inputs.ts" />
     <TypeScriptCompile Include="Scripts\Apps\DatePickerInit.ts" />
@@ -5202,6 +5207,7 @@
     <Content Include="Views\Configuration\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\ManageClientes.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

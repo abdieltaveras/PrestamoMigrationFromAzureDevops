@@ -11,10 +11,10 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        public IEnumerable<Cliente> ClientesGet(ClientesGetParams  searchParam)
+        public IEnumerable<Cliente> ClientesGet(ClienteGetParams  searchParam)
         {
             GetValidation(searchParam as BaseGetParams);
-            return BllAcciones.GetData<Cliente, ClientesGetParams>(searchParam, "spGetClientes", GetValidation);
+            return BllAcciones.GetData<Cliente, ClienteGetParams>(searchParam, "spGetClientes", GetValidation);
         }
         public void ClientesInsUpd(Cliente insUpdParam)
         {
