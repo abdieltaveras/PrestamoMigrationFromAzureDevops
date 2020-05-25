@@ -62,6 +62,7 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public ActionResult CreateOrEdit(PrestamoVm model)
         {
+            ActionResult _actResult = null;
             //var prestamo = model.Prestamo;
             try
             {
@@ -74,12 +75,14 @@ namespace PrestamosMVC5.Controllers
             }
             if (model.MostrarJsonResult)
             {
-                return Content(model.ToJson());
+                _actResult = Content(model.ToJson());
             }
             else 
             {
-                return View(model);
+                ModelState.AddModelError("", "Sus datos fueron gruadados exitosamente, continue trabajando");
+                _actResult = RedirectToAction("CreateOrEdit", new { id = -1 });
             }
+            return _actResult;
         }
             private SeachResult<Prestamo> getPrestamo(int id)
         {

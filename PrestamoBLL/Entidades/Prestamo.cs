@@ -210,7 +210,7 @@ namespace PrestamoBLL.Entidades
         public decimal TotalPrestado => MontoPrestado + DeudaRenovacion;
         // { get { return MontoPrestado + DeudaRenovacion } internal set { var valor = value;} }
         [Display(Name = "Indique  la Divisa")]
-        public int IdDivisa { get; set; } = -1;
+        public int IdDivisa { get; set; } = 1;
         [IgnorarEnParam]
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
         [Display(Name = "Interes para el gasto de cierre ?")]
