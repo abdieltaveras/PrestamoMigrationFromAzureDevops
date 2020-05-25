@@ -299,7 +299,6 @@ namespace PrestamoBLL.Entidades
         public int IdCodeudor { get; set; }
     }
 
-<<<<<<< HEAD
     public class PrestamosSearchParams : BaseGetParams
     {
         public string TextToSearch { set; get; } = string.Empty;
@@ -307,9 +306,7 @@ namespace PrestamoBLL.Entidades
     }
 
     public class PrestamosGetParam
-=======
     public class PrestamosGetParams : BaseIdNegocio 
->>>>>>> prestamo
     {
         public int idPrestamo { get; set; } = -1;
         public int idCliente { get; set; } = -1;
