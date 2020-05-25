@@ -79,7 +79,7 @@ namespace PrestamosMVC5.Controllers
             }
             else 
             {
-                ModelState.AddModelError("", "Sus datos fueron gruadados exitosamente, continue trabajando");
+                ModelState.AddModelError("", "Sus datos fueron guardados exitosamente, continue trabajando");
                 _actResult = RedirectToAction("CreateOrEdit", new { id = -1 });
             }
             return _actResult;
