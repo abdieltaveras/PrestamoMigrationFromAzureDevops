@@ -225,6 +225,7 @@
     <Content Include="Content\customcss\datatable\js\jszip.min.js" />
     <Content Include="Content\customcss\datatable\js\pdfmake.min.js" />
     <Content Include="Content\customcss\datatable\js\vfs_fonts.js" />
+    <Content Include="Content\customcss\Ingresos\garantiasSlider.css" />
     <Content Include="Content\ImagesFor\Negocios\Papito.png" />
     <Content Include="Content\build\images\loading.gif" />
     <Content Include="Content\build\images\PcpLogo250x211.jpg" />
@@ -4001,6 +4002,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="App_Code\TreeInfo.cshtml" />
+    <Content Include="Scripts\Apps\Ingresos\showGarantias.js" />
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <Content Include="Views\Clientes\_infoReferencia2.cshtml" />

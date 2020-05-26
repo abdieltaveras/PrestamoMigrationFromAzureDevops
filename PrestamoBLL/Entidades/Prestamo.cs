@@ -305,7 +305,6 @@ namespace PrestamoBLL.Entidades
         //public int SearchType { set; get; } = 0; // valor 0 para prestamos y 1 para clientes / garantias
     }
 
-    public class PrestamosGetParam
     public class PrestamosGetParams : BaseIdNegocio 
     {
         public int idPrestamo { get; set; } = -1;
