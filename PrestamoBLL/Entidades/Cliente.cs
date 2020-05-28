@@ -129,7 +129,7 @@ namespace PrestamoBLL.Entidades
         //// PersonaInfoBasicaSinCodigo
         //public string Codigo { get; set; } = string.Empty;
         //// PersonaInfoAmpliadaConCodigoGetParams
-        public int IdTipoIdentificacion { get; set; } = -1;
+        public int IdTipoIdentificacion { get; set; } = -1; 
         public string NoIdentificacion { get; set; } = string.Empty;
         //public DateTime FechaNacimiento { get; set; } = InitValues._19000101;
         //public int Sexo { get; set; } = 0;

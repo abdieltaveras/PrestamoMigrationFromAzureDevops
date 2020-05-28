@@ -45,10 +45,7 @@ namespace PrestamoBLL.Entidades
         public int IdNegocio { get; set; } = -1;
     }
 
-    public static class InitValues
-    {
-        public static DateTime _19000101 => new DateTime(1900, 01, 01);
-    }
+    
     /// <summary>
     /// Clase que tiene campos comunes que usaran la mayoria de las entidades que seran usadas
     /// para el registro de informacion como clientes, proveedores, direccion, etc.

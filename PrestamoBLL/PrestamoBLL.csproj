@@ -113,6 +113,7 @@
     <Compile Include="Errors.cs" />
     <Compile Include="Garantia.cs" />
     <Compile Include="IGeneradorCuotas.cs" />
+    <Compile Include="InitValues.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="Marca.cs" />
