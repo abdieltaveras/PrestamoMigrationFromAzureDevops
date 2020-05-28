@@ -4002,7 +4002,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="App_Code\TreeInfo.cshtml" />
-    <Content Include="Scripts\Apps\Ingresos\showGarantias.js" />
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <Content Include="Views\Clientes\_infoReferencia2.cshtml" />

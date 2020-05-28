@@ -40,7 +40,16 @@ namespace PrestamoBLL
         {
             //GetValidation(searchParam as BaseGetParams);
 
-            var data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamos", GetValidation);
+            IEnumerable<PrestamoSearch> data = null;
+
+            if (searchParam.SearchType == 1)
+            {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamos", GetValidation);
+            } else if (searchParam.SearchType == 2) {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamosByCliente", GetValidation);
+            } else if (searchParam.SearchType == 3) {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamosByGarantia", GetValidation);
+            }
             return data;
         }
 

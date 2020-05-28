@@ -353,7 +353,7 @@ INSERT INTO tblPrestamos (idNegocio, idCliente, prestamoNumero, IdPrestamoARenov
 
 
 --insertando garantias a los prestamos
-INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
+--INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
 INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 2, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
 
 INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (2, 2, '', '2020-05-24 09:47:49.927', NULL, NULL, NULL, NULL)

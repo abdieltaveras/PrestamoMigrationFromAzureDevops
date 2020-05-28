@@ -302,6 +302,8 @@ namespace PrestamoBLL.Entidades
     public class PrestamosSearchParams : BaseGetParams
     {
         public string TextToSearch { set; get; } = string.Empty;
+        [IgnorarEnParam]
+        public int SearchType { set; get; } = 0;
         //public int SearchType { set; get; } = 0; // valor 0 para prestamos y 1 para clientes / garantias
     }
 
