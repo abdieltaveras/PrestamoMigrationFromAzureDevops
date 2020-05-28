@@ -115,7 +115,7 @@ namespace PrestamoBLL.Entidades
             return $" {Nombres } {Apellidos} ";
         }
     }
-    public class ClientesGetParams : BaseGetParams
+    public class ClienteGetParams : BaseGetParams
     //: BaseGetParams
     {
         public int IdCliente { get; set; } = -1;

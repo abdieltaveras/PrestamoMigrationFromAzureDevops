@@ -132,7 +132,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult BuscarPorNoIdentificacion(string noIdentificacion)
         {
             //Thread.Sleep(20000); para probar que sucede cuando el proceso no se realiza tan rapido, no se bloquea nada es decir si sucede un proceso asincrono sin hacer nada fuera de lo normal
-            var search = new ClientesGetParams();
+            var search = new ClienteGetParams();
             this.pcpSetUsuarioAndIdNegocioTo(search);
             search.NoIdentificacion = noIdentificacion.RemoveAllButNumber();
             if (!string.IsNullOrEmpty(search.NoIdentificacion))
@@ -140,7 +140,7 @@ namespace PrestamosMVC5.Controllers
                 var result = BLLPrestamo.Instance.ClientesGet(search).FirstOrDefault();
                 if (result != null)
                 {
-                    var data = new { Nombre = result.Nombres + " " + result.Apellidos, Codigo = result.Codigo };
+                    var data = new { Nombre = result.Nombres + " " + result.Apellidos, Codigo = result.Codigo, IdCliente = result.IdCliente, Imagen1= result.Imagen1FileName };
                     Response.StatusCode = 200;
                     return Json(data, pcpIsUserAuthenticated ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
                 }
@@ -148,6 +148,8 @@ namespace PrestamosMVC5.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.NotFound);
         }
+
+        
 
         // GET: Clientes/Edit/5
         public ActionResult Edit(int id)
@@ -158,14 +160,14 @@ namespace PrestamosMVC5.Controllers
         public IEnumerable<Cliente> GetClientes()
         {
             IEnumerable<Cliente> clientes;
-            var getclientes = new ClientesGetParams();
+            var getclientes = new ClienteGetParams();
             this.pcpSetUsuarioAndIdNegocioTo(getclientes);
             clientes = BLLPrestamo.Instance.ClientesGet(getclientes);
             return clientes;
         }
         private SeachResult<Cliente> getCliente(int id)
         {
-            var searchCliente = new ClientesGetParams { IdCliente = id };
+            var searchCliente = new ClienteGetParams { IdCliente = id };
             pcpSetUsuarioAndIdNegocioTo(searchCliente);
             var cliente = BLLPrestamo.Instance.ClientesGet(searchCliente);
             var result = new SeachResult<Cliente>(BLLPrestamo.Instance.ClientesGet(searchCliente));

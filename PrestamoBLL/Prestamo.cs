@@ -28,11 +28,11 @@ namespace PrestamoBLL
             return id;
         }
 
-        public IEnumerable<Prestamo> GetPrestamos(PrestamosGetParam searchParam)
+        public IEnumerable<Prestamo> GetPrestamos(PrestamosGetParams searchParam)
         {
             //GetValidation(searchParam as BaseGetParams);
             
-            var data = BllAcciones.GetData<Prestamo, PrestamosGetParam>(searchParam, "spGetPrestamos", GetValidation);
+            var data = BllAcciones.GetData<Prestamo, PrestamosGetParams>(searchParam, "spGetPrestamos", GetValidation);
             return data;
         }
 
@@ -40,7 +40,16 @@ namespace PrestamoBLL
         {
             //GetValidation(searchParam as BaseGetParams);
 
-            var data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamos", GetValidation);
+            IEnumerable<PrestamoSearch> data = null;
+
+            if (searchParam.SearchType == 1)
+            {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamos", GetValidation);
+            } else if (searchParam.SearchType == 2) {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamosByCliente", GetValidation);
+            } else if (searchParam.SearchType == 3) {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamosByGarantia", GetValidation);
+            }
             return data;
         }
 
@@ -85,7 +94,6 @@ namespace PrestamoBLL
                     infoGarantiasDrCr.Add(infoGarantiaDrCr);
                 }
             }
-
             // las garantia
             // los codeudores
             var PrestamoConDetalle = new PrestamoConDetallesParaCreditosYDebitos();

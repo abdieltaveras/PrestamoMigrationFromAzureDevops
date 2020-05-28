@@ -114,9 +114,9 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.FechaNacimiento, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
                     <div class="@HtmlClass.DivInputCls">
-                        @{
+                        @*@{
                             string formatted = String.Format("{0:yyyy-MM-dd}", Model.Cliente.FechaNacimiento);
-                        }
+                        }*@
                         @*<input type="date" id="@Html.IdFor(m => m.Cliente.FechaNacimiento)" name="@Html.NameFor(m => m.Cliente.FechaNacimiento)" value=@formatted>*@
                         @Html.EditorFor(model => model.Cliente.FechaNacimiento, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @*@Html.ValidationMessageFor(model => model.Cliente.FechaNacimiento, "", new { @class = "text-danger" })*@

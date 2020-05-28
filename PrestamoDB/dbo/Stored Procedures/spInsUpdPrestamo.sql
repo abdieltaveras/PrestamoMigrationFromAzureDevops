@@ -3,6 +3,11 @@
 	
 AS
 begin
+	if (@idPrestamoArenovar<=0) 
+		begin  
+			set @idPrestamoARenovar=null; 
+		end
+
 	if (@idPrestamo<=0)
 	begin
 		SET TRANSACTION ISOLATION LEVEL SERIALIZABLE

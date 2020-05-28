@@ -16,16 +16,16 @@ $(document).ready(function () {
     // declare variables
     //let validForm = false;
     //let d = new Date();
-    $("#btnSubmit").click(function () {
-        //validReferences();
-        //return;
-        //formulario.submit();
-        //alert("submit 2");
-        //return;
+    const elemSubmitForm = $("#btnSubmit")
+    if (!utils.JqElemExist(elemSubmitForm)) {
+        console.error("este formulario no tiene ningun elemento con el id btnSubmit, verifique")
+    }
+    elemSubmitForm.click(function () {
         formulario.validate().settings.ignore = "";
         let isValidForm = true;
-
+        
         $('input[data-val="true"],textarea').each(function () {
+            
             const elem = $(this);
             //const elemId = elem.attr("id"); 
             //console.log(elemId);
@@ -34,6 +34,7 @@ $(document).ready(function () {
             }
             //const validarElemento = elem.attr("data-val") === "true";
             const validarElemento = elem.data("val");
+            
             if (validarElemento) {
                 const isValid = elem.valid();
                 if (!isValid) {
@@ -48,6 +49,7 @@ $(document).ready(function () {
                 //console.log("no validar "+elemId+" "+elem.data("val"));
             }
         });
+        
         if (isValidForm) {
             formulario.validate({ ignore: ":hidden, .ignore-error" });
         }

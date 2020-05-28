@@ -154,13 +154,19 @@
                         <a class="text-white-50">Prestamos<span class="fa fa-chevron-down"></span></a>
 
                         <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("Index", "Prestamos")">Listado De Prestamos</a>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit", "Prestamos", new {idPrestamo=-1 })">Crear Prestamo Nuevo</a>
+                            </li>
                             @if (Permission.Has("tasainteres-ver"))
                             {
                                 <li>
                                     <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
                                 </li>
                             }
-
                             <li>
                                 <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
                             </li>

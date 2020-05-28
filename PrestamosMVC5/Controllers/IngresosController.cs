@@ -18,14 +18,17 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
-        public string BuscarPrestamos(string TextToSearch)
+        public string BuscarPrestamos(string TextToSearch, int SearchType)
         {
             IEnumerable<PrestamoSearch> prestamos = null;
-            if(TextToSearch.Length > 0)
-            {
-                prestamos = BLLPrestamo.Instance.SearchPrestamos(new PrestamosSearchParams { TextToSearch = TextToSearch, IdNegocio = pcpUserIdNegocio });
-            }
+            //if(TextToSearch.Length > 0)
+            //{
+            //    prestamos = BLLPrestamo.Instance.SearchPrestamos(new PrestamosSearchParams { TextToSearch = TextToSearch, IdNegocio = pcpUserIdNegocio });
+            //}
 
+            
+            prestamos = BLLPrestamo.Instance.SearchPrestamos(new PrestamosSearchParams { TextToSearch = TextToSearch, IdNegocio = pcpUserIdNegocio, SearchType = SearchType });
+            
             foreach (var prestamo in prestamos)
             {
                 prestamo.FotoCliente = Url.Content(SiteDirectory.ImagesForClientes + "/" + prestamo.FotoCliente);

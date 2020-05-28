@@ -83,15 +83,12 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.TelefonoCasa)
                                     </td>
-
-
                                     <td>
                                         @Html.ActionLink(" ", "Anular", new { id = @item.IdCliente }, htmlAttributes: new { @class = "btn btn-outline-danger fa fa-trash" })
                                         @Html.ActionLink(" ", "CreateOrEdit", new { id = @item.IdCliente }, htmlAttributes: new { @class = "btn btn-outline-warning fa fa-edit" })
                                     </td>
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>

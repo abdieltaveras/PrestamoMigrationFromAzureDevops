@@ -11,12 +11,11 @@ $(document).ready(function () {
     // declare variables
     //let validForm = false;
     //let d = new Date();
-    $("#btnSubmit").click(function () {
-        //validReferences();
-        //return;
-        //formulario.submit();
-        //alert("submit 2");
-        //return;
+    var elemSubmitForm = $("#btnSubmit");
+    if (!utils.JqElemExist(elemSubmitForm)) {
+        console.error("este formulario no tiene ningun elemento con el id btnSubmit, verifique");
+    }
+    elemSubmitForm.click(function () {
         formulario.validate().settings.ignore = "";
         var isValidForm = true;
         $('input[data-val="true"],textarea').each(function () {

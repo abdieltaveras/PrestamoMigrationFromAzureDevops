@@ -8,10 +8,13 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Models
 {
-    
+
     public static class SelectItems
     {
         public static SelectList TiposCargoMora => SLFactory.ForEnum<TiposCargosMora>();
+        public static SelectList TiposAmortizacion => SLFactory.ForEnum<TiposAmortizacion>();
+        
+        public static SelectList TiposMora(int idNegocio) => new SelectList(BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams {IdNegocio = idNegocio }), "IdTipoMora", "CodigoNombre");
         public static SelectList CalcularMoraPor => SLFactory.ForEnum<CalcularMoraPor>();
         public static SelectList AplicarMorasAl => SLFactory.ForEnum<AplicarMoraAl>();
         public static SelectList TiposIdentificacion => SLFactory.ForEnum<TiposIdentificacionCliente>();
@@ -24,6 +27,24 @@ namespace PrestamosMVC5.Models
         public static SelectList TiposVinculos => SLFactory.ForEnum<EnumTiposVinculo>();
         public static SelectList Negocios(string usuario, int permitirOperaciones, int idNegocio) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, PermitirOperaciones = permitirOperaciones, Usuario = usuario }), "IdNegocio", "NombreComercial");
 
+        public static SelectList Clasificaciones(int idNegocio) => new SelectList(BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { NombreTabla = "tblClasificaciones", IdTabla = "idClasificacion", IdNegocio = idNegocio }), "IdClasificacion", "Nombre");
+
+        public static SelectList Periodos(int idNegocio) => new SelectList(BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = idNegocio }), "IdPeriodo", "Nombre");
+
+        /// <summary>
+        /// muestra un listado de las tasas de interes muestra el codigo y la tasa
+        /// </summary>
+        /// <param name="idNegocio"></param>
+        /// <returns></returns>
+        public static SelectList TasasInteresMuestraCodigoYtasa(int idNegocio) => new SelectList(BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = idNegocio }), "IdTasaInteres", "CodigoTasa");
+        /// <summary>
+        /// muestra un listado de las tasas de interes pero solamente el codigo
+        /// </summary>
+        /// <param name="idNegocio"></param>
+        /// <returns></returns>
+        public static SelectList TasasInteresSoloCodigos(int idNegocio) => new SelectList(BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = idNegocio }), "IdTasaInteres", "CodigoTasa");
+
+        // TasasInteresGet
         public static SelectList NegociosMatrizRaiz() => new SelectList(BLLPrestamo.Instance.NegocioGetLosQueSonMatriz(), "IdNegocio", "NombreComercial");
 
         public static SelectList NegociosOperacionalesForMatriz(int idNegocioPadre) => new SelectList(BLLPrestamo.Instance.GetNegocioYSusHijos(idNegocioPadre).Where(neg => neg.PermitirOperaciones), "IdNegocio", "NombreComercial");
