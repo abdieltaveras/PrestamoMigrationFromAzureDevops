@@ -9,6 +9,7 @@ as
 begin
 
 select 
+	top 10
 	tblPrestamos.IdPrestamo ,
 	tblPrestamos.MontoPrestado as ids,
 	tblPrestamos.prestamoNumero,

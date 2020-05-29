@@ -105,6 +105,9 @@
         </div>
     </div>
 </div>
+<div style="text-align:center;">
+    <button class="btn btn-success">Pagar <i class="fa fa-dollar"></i></button>
+</div>
 <hr />
 
 @* Datos personales del usuario *@
@@ -120,7 +123,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="mb-2">
-                <img id="foto-cliente" width="100" height="100" src="http://dummyimage.com/50x50/000/fff&text=TEST" />
+                <img id="foto-cliente" width="100" height="auto" src="" style="border: 1px solid #666; border-radius: 10px;" />
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -205,7 +208,7 @@
                     <strong>Informacion general:</strong>
                     <span id="detalles-prestamo"></span>
                 </div>
-            </div>
+            </div>    
         </div>
     </div>
 </div>
@@ -341,13 +344,13 @@
         }
 
 
-        document.onkeyup = function (e) {
-            if (e.ctrlKey && e.which == 77) {
-                $('#input-amount-pay').focus(); // Focus a campo de monto
-            } else if (e.ctrlKey && e.which == 66) {
-                $('#input-client_search').focus(); // Focus a campo de busqueda
-            }
-        };
+        //document.onkeyup = function (e) {
+        //    if (e.ctrlKey && e.which == 77) {
+        //        $('#input-amount-pay').focus(); // Focus a campo de monto
+        //    } else if (e.ctrlKey && e.which == 66) {
+        //        $('#input-client_search').focus(); // Focus a campo de busqueda
+        //    }
+        //};
 
     </script>
 
@@ -417,6 +420,7 @@
                 btn.addEventListener('click', async function (evt) {
                     res = await loadPrestamoData(evt.target.getAttribute('data-idPrestamo'));
                     showDataInField(JSON.parse(res), evt.target.getAttribute('data-client-photo'));
+                    removeList();
                 });
             });
         }
@@ -447,6 +451,9 @@
                 removeList();
             } else if (e.ctrlKey && e.which == 66) {
                 $('#input-prestamo_search').focus();
+            }
+            if (e.ctrlKey && e.which == 77) {
+                $('#input-amount-pay').focus(); // Focus a campo de monto
             }
         };
 
@@ -544,7 +551,6 @@
         function searchPrestamo(text) {
             
             let searchType = $(".searchtype:checked").val();
-            console.log('el real valor', searchType);
 
             let dataValue = { "TextToSearch": text, "SearchType": searchType };
 
@@ -569,14 +575,15 @@
 
                 $.each(list, function (index, value) {
 
-                    $("#list-prestamo-tab").append(` <p class="list-group-item prestamos list-group-item-action" data-order="${count}" data-toggle="list"
+                    $("#list-prestamo-tab").append(` <p class="list-group-item prestamos list-group-item-action pb-2 pt-2 pl-2 pr-2 " data-order="${count}" data-toggle="list"
                                 data-idPrestamo="${value.IdPrestamo}"
                                 data-client-photo="${value.FotoCliente}"
-                                href="#list-home" role="tab" aria-controls="home">
-                                <img src="${value.FotoCliente}" height="60px" width="auto" class="float-left mr-2"  />
+                                role="tab" aria-controls="home">
+                                <img src="${value.FotoCliente}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;" />
                                 <strong id="placeName" >Prestamo - ${value.PrestamoNumero} </strong>  | Monto de prestamo: <span style="color: #00c853;"> ${formatter.format(value.MontoPrestado)} </span><br>
-                                <small>Cliente: <i>${value.Nombres} ${value.Apellidos} | Sexo: ${value.Sexo}</i></small><br>
-                                <small>Clasificacion - ${value.Clasificacion}</small>
+                                <small style="font-weight: 600;">Cliente: </small> <i>${value.Nombres} ${value.Apellidos} | <small style="font-weight: 600;"> Sexo: </small> ${value.Sexo}</i></small><br>
+                                <small>Clasificacion: ${value.Clasificacion} 
+                                ${value.NoIdentificacion === undefined ? `` : `No. de identificacion: ${value.NoIdentificacion}` }</small>
                                 <br>`);
 
                     count++;

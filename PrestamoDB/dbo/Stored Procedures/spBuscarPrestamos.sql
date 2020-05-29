@@ -8,7 +8,8 @@
 as
 begin
 
-select 
+select
+	top 10
 	tblPrestamos.IdPrestamo,
 	tblPrestamos.MontoPrestado,
 	tblPrestamos.prestamoNumero,

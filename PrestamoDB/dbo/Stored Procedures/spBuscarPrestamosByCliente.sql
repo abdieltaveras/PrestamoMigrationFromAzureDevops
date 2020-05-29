@@ -9,6 +9,7 @@ as
 begin
 
 select 
+	top 10
 	tblPrestamos.IdPrestamo ,
 	tblPrestamos.MontoPrestado as ids,
 	tblPrestamos.prestamoNumero,
@@ -24,8 +25,7 @@ where
 	tblClientes.IdCliente = tblPrestamos.idCliente  and
 	tblClasificaciones.IdClasificacion = tblPrestamos.idClasificacion  and
 	tblTipoSexos.IdTipoSexo = tblClientes.Sexo and (
-	tblClientes.Nombres LIKE '%' + @TextToSearch + '%' or
-	tblClientes.Apellidos LIKE '%' + @TextToSearch + '%')
+	CONCAT(tblClientes.Nombres, ' ', tblClientes.Apellidos) LIKE '%' + @TextToSearch + '%')
 
 End
 
