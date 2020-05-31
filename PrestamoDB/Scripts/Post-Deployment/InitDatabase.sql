@@ -366,6 +366,7 @@ INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaIns
 INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (6, 2, '', '2020-05-25 06:39:30.46', NULL, NULL, NULL, NULL)
 
 
+
 --insertando cuotas a los prestamos
 INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (2, 1, '2020-06-17', 2000, 300)
 INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (2, 2, '2020-07-17', 2000, 300)
