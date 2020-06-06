@@ -30,6 +30,7 @@
                 <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
                     <thead>
                         <tr>
+                            <th width="5%"></th>
                             <th>@Model.TipoCatalogo</th>
                             <th>Codigo</th>
                             <th>Acciones</th>
@@ -39,7 +40,10 @@
 
                         @foreach (var item in Model.Lista)
                         {
-                            <tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) fila-catalogo ">
+                            @*<tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) fila-catalogo ">*@
+                            <tr class=" fila-catalogo " data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
+
+                                <td></td>
                                 <td>
                                     <strong>
                                         @item.Nombre
@@ -163,9 +167,31 @@
 
 <script>
     $(document).ready(function () {
-        $('#datatable').DataTable( dataTableConfiguration );
+        var table = $('#datatable').DataTable($.extend( dataTableConfiguration, {
+            buttons: [
+                'pageLength', 'copy', 'pdfHtml5', 'excel', 'print', {
+                    text: 'edit',
+                    action: function () {
+                        //console.log(table.row({ selected: true }).data());
+                        //console.log($('tr.selected').data("id"));
+
+                        $("#currentid").val($('tr.selected').data("id"));
+                        $("#Codigo").val($('tr.selected').data("codigo"));
+                        $("#Nombre").val($('tr.selected').data("nombre"));
+                        $('#modalCatalogos').modal('show');
+                    }
+                }
+            ]
+        }));
         removeTemplateConfiguration();
+
+        //$('#datatable tbody').on( 'click', 'tr', function () {
+            
+        //    //table.rows( { selected: true } ).data()[0]
+        //});
     });
+
+
 
     // Pasar datos del boton edit al modal para ser editados
     $("a#edit").click(function () {

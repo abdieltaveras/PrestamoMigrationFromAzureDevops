@@ -18,7 +18,7 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
-        public string BuscarPrestamos(string TextToSearch, int SearchType)
+        public string BuscarPrestamos(string TextToSearch, int SearchType, bool CargarImagenesClientes)
         {
             IEnumerable<PrestamoSearch> prestamos = null;
             //if(TextToSearch.Length > 0)
@@ -29,9 +29,12 @@ namespace PrestamosMVC5.Controllers
             
             prestamos = BLLPrestamo.Instance.SearchPrestamos(new PrestamosSearchParams { TextToSearch = TextToSearch, IdNegocio = pcpUserIdNegocio, SearchType = SearchType });
             
-            foreach (var prestamo in prestamos)
+            if (CargarImagenesClientes)
             {
-                prestamo.FotoCliente = Url.Content(SiteDirectory.ImagesForClientes + "/" + prestamo.FotoCliente);
+                foreach (var prestamo in prestamos)
+                {
+                    prestamo.FotoCliente = Url.Content(SiteDirectory.ImagesForClientes + "/" + prestamo.FotoCliente);
+                }
             }
             
             return JsonConvert.SerializeObject(prestamos);
@@ -43,6 +46,14 @@ namespace PrestamosMVC5.Controllers
             var prestamo = BLLPrestamo.Instance.GetPrestamoConDetalle(idprestamo, DateTime.Now);
             
             return JsonConvert.SerializeObject(prestamo);
+        }
+
+        public void MakePay(string idprestamo, string fechaPrestamo, string montoPrestamo)
+        {
+
+            //var prestamo = BLLPrestamo.Instance.GetPrestamoConDetalle(idprestamo, DateTime.Now);
+            var asd = 4;
+            //return JsonConvert.SerializeObject(prestamo);
         }
 
     }
