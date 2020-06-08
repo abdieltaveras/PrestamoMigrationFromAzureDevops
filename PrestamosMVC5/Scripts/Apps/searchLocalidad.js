@@ -72,10 +72,12 @@ searchLocalidadElem.focus(function () {
 
 function showList(list) {
     $('.direcciones').remove();
-    $.each(list, function (index, value) {
-        console.log('La ruta a buscar es', list);
 
-        $("#list-tab").append(`  <p class="list-group-item direcciones ${!value.PermiteCalle ? 'disabled-list-item' : ''} list-group-item-action" id="listaddresses" data-toggle="list"
+    if (list.length > 0) {
+        $.each(list, function (index, value) {
+            console.log('La ruta a buscar es', list);
+
+            $("#list-tab").append(`  <p class="list-group-item direcciones ${!value.PermiteCalle ? 'disabled-list-item' : ''} list-group-item-action" id="listaddresses" data-toggle="list"
                 data-idlocalidadpadre="${value.IdTipoLocalidad}"
                 data-idlocalidad="${value.IdLocalidad}" href="#list-home" role="tab" aria-controls="home">
                 <span class="glyphicon glyphicon-map-marker"></span>
@@ -84,7 +86,15 @@ function showList(list) {
                 <br>
                 <span id="placeName" style='color: #AAA;' > ${value.TipoNombrePadre} - ${value.NombrePadre} </span>
                 <span style="float: right;">${value.Descripcion}  </span> </p>`);
-    });
+            });
+
+    } else {
+        console.log("asd")
+            $("#list-tab").append(`  <p class="list-group-item direcciones list-group-item-action" id="listaddresses" data-toggle="list"
+                href="#list-home" role="tab" aria-controls="home">
+                <span>No se encontro información</span> </p>`);
+    }
+
 }
 
 // Buscar ruta de la localidad seleccionada
