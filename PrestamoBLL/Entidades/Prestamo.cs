@@ -135,6 +135,8 @@ namespace PrestamoBLL.Entidades
         public string Apellidos { get; set; } = string.Empty;
         public string Sexo { get; set; } = string.Empty;
         public string FotoCliente { get; set; } = string.Empty;
+        public string NoIdentificacion { get; set; } = string.Empty;
+        
 
     }
     public class Prestamo : BaseInsUpd, IPrestamoForGeneradorCuotas
