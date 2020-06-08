@@ -10,7 +10,7 @@
     <link href="~/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
     <!--For abdiel layout-->
     @{
-        if (@ViewBag.LoadCssAndJsGrp2)
+        if (@ViewBag.LoadCssAndJsGrp2!=null && @ViewBag.LoadCssAndJsGrp2)
         {
             <link href="~/content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
             <link href="~/content/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
@@ -19,9 +19,8 @@
             <!--For abdiel layout-->
             <!-- scriptst neccesary at head  if it is placed down some pages will not work correctly-->
         }
-
         // Definir la condicion para cargar las librerias del datatable
-        if (@ViewBag.LoadCssAndJsForDatatable)
+        if (@ViewBag.LoadCssAndJsForDatatable != null && @ViewBag.LoadCssAndJsForDatatable)
         {
             <link rel="stylesheet" href="~/Content/customcss/datatable/css/dataTables.bootstrap4.min.css">
             <link rel="stylesheet" href="~/Content/customcss/datatable/css/buttons.dataTables.min.css">
@@ -48,7 +47,7 @@
                             </div>
                             <div class="profile_info">
                                 <div class="row">
-                                    <span>PCP PRESTAMO @Html.Raw(@ViewBag.LoadCssAndJsGrp2)</span>
+                                    <span>PCP PRESTAMO </span>
 
                                 </div>
                                 <div class="row">
@@ -65,7 +64,7 @@
                     </div>
 
                     @{
-                        if (@ViewBag.ShowSideBar)
+                        if (@ViewBag.ShowSideBar!= null && @ViewBag.ShowSideBar)
                         {
                             @*@Html.Partial("_InfoSideBar")*@
                             <div class="clearfix"></div>
@@ -116,7 +115,7 @@
             <!-- /top navigation -->
             <!-- page content -->
             <div class="right_col" role="main">
-                <span id="showerrorstime" data-value="@Html.Raw(@ViewBag.ShowSummaryErrorsTime)" />
+                <span id="showerrorstime" data-value="@Html.Raw(@ViewBag.ShowSummaryErrorsTime!=null ? @ViewBag.ShowSummaryErrorsTime : 5 )" />
                 <!-- top tiles -->
                 @RenderBody()
             </div>
@@ -133,7 +132,7 @@
     <script src="~/Content/vendors/DateJS/build/date.js"></script>
     <script src="~/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     @{
-        if (@ViewBag.LoadCssAndJsGrp2)
+        if (@ViewBag.LoadCssAndJsGrp2!=null && @ViewBag.LoadCssAndJsGrp2)
         {
             <!--abdiel section-->
             <script src="~/content/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -148,7 +147,7 @@
         }
 
         // Definir la condicion para cargar las librerias del datatable
-        if (@ViewBag.LoadCssAndJsForDatatable)
+        if (@ViewBag.LoadCssAndJsForDatatable!=null && @ViewBag.LoadCssAndJsForDatatable)
         {
             <script src="~/Content/customcss/datatable/js/jquery.dataTables.min.js"></script>
             <script src="~/Content/customcss/datatable/js/dataTables.bootstrap4.min.js"></script>
