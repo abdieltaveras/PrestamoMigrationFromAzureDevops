@@ -188,15 +188,18 @@ namespace PrestamoBLL.Entidades
         public decimal TasaDeInteresPorPeriodo { get; set; }
         [Display(Name = "Indique la mora")]
         public int IdTipoMora { get; set; }
-        [Display(Name = "Indique el periodo de las cuotas?")]
+        [Display(Name = "Indique la forma de las pago?")]
         public int IdPeriodo { get; set; }
         [IgnorarEnParam]
         public Periodo Periodo { get; internal set; }
         [Display(Name = "Cantidad de Periodos")]
         //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
-        [RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
+        //[RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
+        [Min(1,ErrorMessage ="el valor minimo aceptado es 1")]
         public int CantidadDePeriodos { get; set; } = 1;
         [Display(Name = "Monto prestado al cliente?")]
+        [Required(ErrorMessage="debe digitar un valor 0 o un valor")]
+        [RegularExpression(("([0-9][0-9]*)"), ErrorMessage = "no se aceptan valores negativos")]
         //[Range(0, 999999999, ErrorMessage = "No se aceptan valores negativos")]
         public decimal MontoPrestado { get; set; }
         [Display(Name = "Deuda del prestamo a renovar ?")]
@@ -274,8 +277,6 @@ namespace PrestamoBLL.Entidades
         public DataTable Cuotas => this._CuotasList.ToDataTable();
 
     }
-
-
 
     internal class PrestamoGarantias
     {

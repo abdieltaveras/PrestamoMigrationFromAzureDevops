@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Reflection;
 using System.Web.Mvc;
 using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoBLL
 {
@@ -325,6 +326,59 @@ namespace PrestamoBLL
         }
         public static SelectList ForEnum<T>() => new SelectList(GetEnumSelectList<T>(), "Value", "Text");
         //public static SelectList ForEnumAddingStartingValue<T>() => new SelectList(GetEnumSelectListAddingFirstValue<T>("Elija"), "Value", "Text");
+    }
+
+    public class MaxAttribute : ValidationAttribute, IClientValidatable
+    {
+        private readonly int maxValue;
+
+        public MaxAttribute(int maxValue)
+        {
+            this.maxValue = maxValue;
+        }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            var rule = new ModelClientValidationRule();
+
+            rule.ErrorMessage = ErrorMessageString;
+            //, maxValue;
+
+            rule.ValidationType = "max";
+            rule.ValidationParameters.Add("max", maxValue);
+            yield return rule;
+        }
+
+        public override bool IsValid(object value)
+        {
+            return (int)value <= maxValue;
+        }
+    }
+    public class MinAttribute : ValidationAttribute, IClientValidatable
+    {
+        private readonly int minValue;
+
+        public MinAttribute(int minValue)
+        {
+            this.minValue = minValue;
+        }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            var rule = new ModelClientValidationRule();
+
+            rule.ErrorMessage = ErrorMessageString;
+            //, maxValue;
+
+            rule.ValidationType = "min";
+            rule.ValidationParameters.Add("min", minValue);
+            yield return rule;
+        }
+
+        public override bool IsValid(object value)
+        {
+            return (int)value <= minValue;
+        }
     }
 
 }

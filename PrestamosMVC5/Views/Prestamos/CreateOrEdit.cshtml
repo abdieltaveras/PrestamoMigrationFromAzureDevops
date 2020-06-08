@@ -110,7 +110,7 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.CantidadDePeriodos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.CantidadDePeriodos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.EditorFor(model => model.Prestamo.CantidadDePeriodos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_inputmask = "'mask' : '9999'" } })
                                     @*@min = 1, @pattern = "[0-9]{10}" } })*@
                                     @Html.ValidationMessageFor(model => model.Prestamo.CantidadDePeriodos, "", new { @class = "text-danger" })
 
@@ -222,6 +222,7 @@
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
     <script src="~/Scripts/Apps/ManageClientes.js"></script>
+    <script src="~/Scripts/Apps/minMaxAdapter.js"></script>
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
     <script>
         let dateFormat = 'en-GB';
