@@ -595,15 +595,21 @@
                                         data-idPrestamo="${value.IdPrestamo}"
                                         data-client-photo="${value.FotoCliente}"
                                         role="tab" aria-controls="home">
-                                        ${ IMAGEN_CLIENTE_EN_BUSCADOR ? `<img src="${value.FotoCliente}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>` : `` }
+                                        ${ IMAGEN_CLIENTE_EN_BUSCADOR ? `<img src="${value.FotoCliente}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>` : ``}
                                         <strong id="placeName" >Prestamo - ${value.PrestamoNumero} </strong>  | Monto de prestamo: <span style="color: #00c853;"> ${formatter.format(value.MontoPrestado)} </span><br>
                                         <small style="font-weight: 600;">Cliente: </small> <i>${value.Nombres} ${value.Apellidos} | <small style="font-weight: 600;"> Sexo: </small> ${value.Sexo}</i></small><br>
                                         <small>Clasificacion: ${value.Clasificacion}
                                         ${value.NoIdentificacion === undefined ? `` : `No. de identificacion: ${value.NoIdentificacion}`}</small>
-                                        <br>`);
+                                        <br></p>`);
 
                         count++;
                     });
+                } else {
+                    $("#list-prestamo-tab").append(` <p class="list-group-item prestamos list-group-item-action pb-2 pt-2 pl-2 pr-2 "  data-toggle="list"
+                                        role="tab" aria-controls="home">
+                                        No se encontro información
+                                        <br></p>`);
+                    
                 }
             }
 
