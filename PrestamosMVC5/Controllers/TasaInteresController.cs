@@ -18,7 +18,7 @@ namespace PrestamosMVC5.Controllers
             UpdViewBag_LoadCssAndJsForDatatable(true);
         }
         // GET: TasaInteres
-        [HasPermission(Operacion = "tasainteres-ver")]
+        //[HasPermission(Operacion = "tasainteres-ver")]
         public ActionResult Index()
         {
             TasaInteresVM modelo = new TasaInteresVM();
