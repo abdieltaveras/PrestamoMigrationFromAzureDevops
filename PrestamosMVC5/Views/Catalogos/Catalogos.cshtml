@@ -27,11 +27,15 @@
 
             @* Datatable *@
             <div>
-                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
+                <table id="datatable" class=" table-bordered table-striped row-border display nowrap " cellspacing="0" style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th width="5%"></th>
                             <th>@Model.TipoCatalogo</th>
+                            <th>Codigo</th>
+                            <th>Codigo</th>
+                            <th>Codigo</th>
+                            <th>Codigo</th>
                             <th>Codigo</th>
                             <th>Acciones</th>
                         </tr>
@@ -41,45 +45,62 @@
                         @foreach (var item in Model.Lista)
                         {
                             @*<tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) fila-catalogo ">*@
-                            <tr class=" fila-catalogo " data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
+                        <tr class=" fila-catalogo " data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
 
-                                <td></td>
-                                <td>
-                                    <strong>
-                                        @item.Nombre
-                                    </strong>
-                                </td>
-                                <td>
-                                    <strong>
-                                        @item.Codigo
-                                    </strong>
-                                    <strong>
-                                        @item.AnuladoPor
-                                    </strong>
-                                </td>
-                                <td>
-                                    <a href="#" id="edit" data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
-                                        <button class="btn btn-outline-warning">
-                                            <i class="fa fa-edit"></i>
+                            <td></td>
+                            <td>
+                                <strong>
+                                    @item.Nombre
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @item.Codigo
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @item.Codigo
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @item.Codigo
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @item.Codigo
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @item.Codigo
+                                </strong>
+                            </td>
+                            <td>
+                                <a href="#" id="edit" data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
+                                    <button class="btn btn-outline-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </a>
+                                <a href="@Url.Action("ActivarDesactivar", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla, activo = !item.Activo })">
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <i class="@Html.Raw(item.Activo ? "fa fa-ban" : " fa fa-check")"></i>
+                                    </button>
+                                </a>
+                                @*<a href="@Url.Action("Delete", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla})">*@
+                                @if (item.Anulado())
+                                {
+                                    <a href="#" id="deleteItem" data-id="@item.GetId()" data-idtabla="@Model.IdTabla" data-nombretabla="@Model.NombreTabla">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
                                         </button>
                                     </a>
-                                    <a href="@Url.Action("ActivarDesactivar", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla, activo = !item.Activo })">
-                                        <button type="button" class="btn btn-outline-dark">
-                                            <i class="@Html.Raw(item.Activo ? "fa fa-ban" : " fa fa-check")"></i>
-                                        </button>
-                                    </a>
-                                    @*<a href="@Url.Action("Delete", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla})">*@
-                                    @if (item.Anulado())
-                                    {
-                                        <a href="#" id="deleteItem" data-id="@item.GetId()" data-idtabla="@Model.IdTabla" data-nombretabla="@Model.NombreTabla">
-                                            <button type="button" class="btn btn-outline-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </a>
 
-                                    }
-                                </td>
-                            </tr>
+                                }
+                            </td>
+                        </tr>
                         }
 
                     </tbody>

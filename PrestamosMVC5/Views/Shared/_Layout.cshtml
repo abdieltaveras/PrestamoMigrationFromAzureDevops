@@ -10,7 +10,7 @@
     <link href="~/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
     <!--For abdiel layout-->
     @{
-        if (@ViewBag.LoadCssAndJsGrp2!=null && @ViewBag.LoadCssAndJsGrp2)
+        if (@ViewBag.LoadCssAndJsGrp2 != null && @ViewBag.LoadCssAndJsGrp2)
         {
             <link href="~/content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
             <link href="~/content/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
@@ -24,6 +24,8 @@
         {
             <link rel="stylesheet" href="~/Content/customcss/datatable/css/dataTables.bootstrap4.min.css">
             <link rel="stylesheet" href="~/Content/customcss/datatable/css/buttons.dataTables.min.css">
+
+            <link rel="stylesheet" href="//cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.css">
         }
     }
     <link href="~/content/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
@@ -64,7 +66,7 @@
                     </div>
 
                     @{
-                        if (@ViewBag.ShowSideBar!= null && @ViewBag.ShowSideBar)
+                        if (@ViewBag.ShowSideBar != null && @ViewBag.ShowSideBar)
                         {
                             @*@Html.Partial("_InfoSideBar")*@
                             <div class="clearfix"></div>
@@ -132,7 +134,7 @@
     <script src="~/Content/vendors/DateJS/build/date.js"></script>
     <script src="~/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     @{
-        if (@ViewBag.LoadCssAndJsGrp2!=null && @ViewBag.LoadCssAndJsGrp2)
+        if (@ViewBag.LoadCssAndJsGrp2 != null && @ViewBag.LoadCssAndJsGrp2)
         {
             <!--abdiel section-->
             <script src="~/content/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -147,7 +149,7 @@
         }
 
         // Definir la condicion para cargar las librerias del datatable
-        if (@ViewBag.LoadCssAndJsForDatatable!=null && @ViewBag.LoadCssAndJsForDatatable)
+        if (@ViewBag.LoadCssAndJsForDatatable != null && @ViewBag.LoadCssAndJsForDatatable)
         {
             <script src="~/Content/customcss/datatable/js/jquery.dataTables.min.js"></script>
             <script src="~/Content/customcss/datatable/js/dataTables.bootstrap4.min.js"></script>
@@ -159,6 +161,8 @@
             <script src="~/Content/customcss/datatable/js/pdfmake.min.js"></script>
             <script src="~/Content/customcss/datatable/js/vfs_fonts.js"></script>
             <script src="~/Content/customcss/datatable/configuration/js-conf/datatable-conf.js"></script>
+
+            <script src="//cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap4.min.js"></script>
 
             // for multi select
             <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
