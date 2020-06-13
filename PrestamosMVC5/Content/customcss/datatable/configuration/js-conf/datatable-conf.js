@@ -1,8 +1,8 @@
 ﻿let dataTableConfiguration = {
     dom:
         "<'row'<'col-sm-6'f><'col-sm-6'B>>" +
-        "<'row'<'col-sm-6 text-center'><'col-sm-6'l>>" +
-        "<'row'<'col-sm-12'tr>  >" +
+        "<'row'<'#loco.col-sm-6 text-center'><'col-sm-6'l>>" +
+        "<'row'<'col-sm-12'tr>>" +
         "<'row'<'col-sm-6'i><'col-sm-6'p>>",
     lengthMenu: [
         [10, 25, 50, -1],

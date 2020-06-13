@@ -27,7 +27,7 @@
 
             @* Datatable *@
             <div>
-                <table id="datatable" class=" table-bordered table-striped row-border display nowrap " cellspacing="0" style="width:100%; text-align:center;">
+                <table id="datatable" class=" table-bordered table-striped row-border" cellspacing="0" style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th width="5%"></th>
@@ -192,6 +192,11 @@
             buttons: [
                 'pageLength', 'copy', 'pdfHtml5', 'excel', 'print', {
                     text: 'edit',
+                    attr:  {
+                        title: 'Copy',
+                        id: 'btn-edit',
+                        class: ''
+                    },
                     action: function () {
                         //console.log(table.row({ selected: true }).data());
                         //console.log($('tr.selected').data("id"));
@@ -205,6 +210,7 @@
             ]
         }));
         removeTemplateConfiguration();
+        $('#btn-edit').appendTo( '#loco' );
 
         //$('#datatable tbody').on( 'click', 'tr', function () {
             
