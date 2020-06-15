@@ -109,6 +109,17 @@ namespace PrestamoBLL.Entidades
 
 
     }
+    public class PrestamoConDetallesParaUIPrestamo
+    { 
+        public Prestamo infoPrestamo { get; internal set; }
+
+        public InfoClienteDrCr infoCliente { get; internal set; }
+
+        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
+
+        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; }
+
+    }
 
     public class PrestamoConDetallesParaCreditosYDebitos 
         //: IPrestamoConDetallesParaCreditosyDebitos
@@ -256,6 +267,9 @@ namespace PrestamoBLL.Entidades
         //public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
         ////this._Garantias.ToDataTable();
         //public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
+        public InfoClienteDrCr infoCliente { get; internal set; }
+
+        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
     }
 
     public class PrestamoInsUpdParam : Prestamo

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
-using PrestamoBLLTests;
+using PrestamoBLL.Tests;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;

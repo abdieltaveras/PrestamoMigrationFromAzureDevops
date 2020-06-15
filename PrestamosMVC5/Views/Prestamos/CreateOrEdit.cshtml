@@ -8,6 +8,7 @@
     @Html.HiddenFor(model => model.Prestamo.IdNegocio)
     @Html.HiddenFor(model => model.Prestamo.IdPrestamoARenovar)
     @Html.HiddenFor(model => model.Prestamo.IdCliente)
+
     <div id="garantias"></div>
     <div class="form-horizontal">
         <div class="">
@@ -157,38 +158,48 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="x_panel">
                         <div class="x_content">
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.InteresGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.InteresGastoDeCierre, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.InteresGastoDeCierre, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
 
                             <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.GastoDeCierreEsDeducible, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                @Html.LabelFor(model => model.LlevaGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.GastoDeCierreEsDeducible, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.GastoDeCierreEsDeducible, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.LlevaGastoDeCierre, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => model.LlevaGastoDeCierre, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    <div class="checkbox">
-                                        @Html.EditorFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                        @Html.ValidationMessageFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, "", new { @class = "text-danger" })
+                            <div id="seccionGastoDeCierre">
+                                <div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.Prestamo.InteresGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        @Html.EditorFor(model => model.Prestamo.InteresGastoDeCierre, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                        @Html.ValidationMessageFor(model => model.Prestamo.InteresGastoDeCierre, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    <div class="checkbox">
-                                        @Html.EditorFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                        @Html.ValidationMessageFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, "", new { @class = "text-danger" })
+                                <div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.Prestamo.GastoDeCierreEsDeducible, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        @Html.EditorFor(model => model.Prestamo.GastoDeCierreEsDeducible, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                        @Html.ValidationMessageFor(model => model.Prestamo.GastoDeCierreEsDeducible, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                            @Html.ValidationMessageFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                            @Html.ValidationMessageFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -196,12 +207,16 @@
                     </div>
                     <div class="x_panel">
                         <div class="x_content">
-                            para informacion de las cuotas
+                            <div class="@HtmlClass.FormGroupCls">
+                                para informacion de las cuotas
+                            </div>
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.MostrarJsonResult, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.MostrarJsonResult, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                    @Html.ValidationMessageFor(model => model.MostrarJsonResult, "", new { @class = "text-danger" })
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.MostrarJsonResult, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                        @Html.ValidationMessageFor(model => model.MostrarJsonResult, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
 
@@ -229,37 +244,53 @@
         let _dateFormat = 'dd/mm/yy';
         let yearRangeForDP = "-120:+0"
 
-        attachOnChangeEvent();
-
+    attachOnChangeEvent();
+    InitData();
+    function InitData() {
+            $("#datosDeCliente").html("@Model.infoCliente")
+            $("#datosDeGarantia").html("@Model.infoGarantia")
+            hideShowSeccionHastaDeCierre(@Model.LlevaGastoDeCierre.ToString().ToLower());
+        //    = true) { $("#seccionGastoDeCierre").show(); }
+        //else { $("#seccionGastoDeCierre").hide(); }
+        }
         function setFecha(elem, name) {
             d = new Date(elem.val());
             var formattedDate = moment(d).format("DD/MM/YYYY")
             console.log(d, formattedDate);
-    }
+        }
     function onChangeProp(elem) {
-            switch (elem.id) {
-                case "@Html.IdFor(model => model.NumeroIdentificacion)":
-                    getClientesByNumeroIdentificacion(elem.value, fillDatosClientes);
-                    break;
-                case "@Html.IdFor(model => model.NumeracionGarantia)":
-                    getGarantiaByNumeracion(elem.value, fillDatosGarantia);
-                    break;
-            }
-    };
+                switch (elem.id) {
+                    case "@Html.IdFor(model => model.NumeroIdentificacion)":
+                        getClientesByNumeroIdentificacion(elem.value, fillDatosClientes);
+                        break;
+                    case "@Html.IdFor(model => model.NumeracionGarantia)":
+                        getGarantiaByNumeracion(elem.value, fillDatosGarantia);
+                        break;
+                    case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
+                        const llevaGC = elem.checked;
+                        hideShowSeccionHastaDeCierre(llevaGC)
+                        break;
+                }
+        };
 
-    function fillDatosClientes(data) {
-        const cliente = data;
-        console.log(cliente, cliente.IdCliente);
-        $("#datosDeCliente").html(cliente.Nombre);
-        const elemIdCliente = $("#@Html.IdFor(model => model.Prestamo.IdCliente)");
-        elemIdCliente.val(cliente.IdCliente);
-        console.info(elemIdCliente.val());
-    }
+        function hideShowSeccionHastaDeCierre(mostrar) {
+            if (mostrar) { $("#seccionGastoDeCierre").show(); }
+            else { $("#seccionGastoDeCierre").hide(); }
 
-    function fillDatosGarantia(data) {
-        const elemToPlaceGarantiaData = $("#datosDeGarantia");
-        setDatosGarantiaIntoHtml(data, elemToPlaceGarantiaData)
     }
+        function fillDatosClientes(data) {
+            const cliente = data;
+            console.log(cliente, cliente.IdCliente);
+            $("#datosDeCliente").html(cliente.Nombre);
+            const elemIdCliente = $("#@Html.IdFor(model => model.Prestamo.IdCliente)");
+            elemIdCliente.val(cliente.IdCliente);
+            console.info(elemIdCliente.val());
+        }
+
+        function fillDatosGarantia(data) {
+            const elemToPlaceGarantiaData = $("#datosDeGarantia");
+            setDatosGarantiaIntoHtml(data, elemToPlaceGarantiaData)
+        }
     </script>
     <script src="~/Scripts/Apps/utils.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>

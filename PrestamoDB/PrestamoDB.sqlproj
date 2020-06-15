@@ -196,6 +196,7 @@
     <Build Include="dbo\Stored Procedures\spGetPrestamoConDetalles.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamos.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdClasificacion.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPrestamo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

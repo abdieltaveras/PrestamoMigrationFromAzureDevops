@@ -22,6 +22,10 @@ namespace PrestamoBLL.Entidades
         public string NombreModelo { get; internal set; } = string.Empty;
         public string NombreTipoGarantia { get; internal set; } = string.Empty;
         public string OtrosDetalles { get; internal set; } = string.Empty;
+
+        public string InfoVehiculo =>
+            $"{this.NombreTipoGarantia} {this.NombreMarca} {this.NombreModelo} ";
+        
     }
     public class Garantia : BaseInsUpd
     {

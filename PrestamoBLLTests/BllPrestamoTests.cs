@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using PrestamoBLL.Entidades;
 
 
-namespace PrestamoBLLTests
+namespace PrestamoBLL.Tests
 {
     public class TestInfo
     {

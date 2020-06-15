@@ -1,6 +1,5 @@
 ﻿using emtSoft.DAL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
@@ -9,7 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrestamoBLLTests
+
+namespace PrestamoBLL.Tests
 {
     [TestClass()]
     public class PrestamoTest
@@ -17,6 +17,27 @@ namespace PrestamoBLLTests
         TestInfo testInfo = new TestInfo();
 
         public Dictionary<int, string> Clasificacion = new Dictionary<int, string>();
+
+        [TestMethod()]
+        public void GetPrestamoConDetalleForUIPrestamoTest()
+        {
+            var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamosGetParams()).ToList().FirstOrDefault().IdPrestamo;
+            PrestamoConDetallesParaUIPrestamo prConDetalle = null;
+            Func<bool> condicion = () => (prConDetalle != null);
+            try
+            {
+                prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo);
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+
+            var infCliente = prConDetalle.infoCliente;
+            var infPrestamo = prConDetalle.infoPrestamo;
+            var infGarantias = prConDetalle.infoGarantias;
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+        }
 
         [TestMethod()]
         public void PrestamoInsUpdWithoutCodeudoresTest()

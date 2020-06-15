@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrestamoBLLTests
+namespace PrestamoBLL.Tests
 {
     [TestClass()]
     public class TipoMoraTests

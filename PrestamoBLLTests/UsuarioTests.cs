@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using PrestamoBLL;
 using System.Data.SqlClient;
 
-namespace PrestamoBLLTests
+namespace PrestamoBLL.Tests
 {
     [TestClass()]
     public class UsuarioTests

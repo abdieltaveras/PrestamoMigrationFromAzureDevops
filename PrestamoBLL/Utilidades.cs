@@ -266,7 +266,10 @@ namespace PrestamoBLL
                     if (dr.HasColumn(propName))
                     {
                         var propValue = dr[propName];
-                        pi.SetValue(obj, Convert.ChangeType(propValue, pi.PropertyType), null);
+                        if (!propValue.IsNull())
+                        {
+                            pi.SetValue(obj, Convert.ChangeType(propValue, pi.PropertyType), null);
+                        }
                     }
                 }
             }
