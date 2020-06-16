@@ -161,14 +161,17 @@
                             <li>
                                 <a href="@Url.Action("CreateOrEdit", "Prestamos", new {idPrestamo=-1 })">Crear Prestamo Nuevo</a>
                             </li>
-                            @if (Permission.Has("tasainteres-ver"))
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
-                                </li>
-                            }
+                            @*@if (Permission.Has("tasainteres-ver"))
+        {*@
+                            <li>
+                                <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
+                            </li>
+                            @*}*@
                             <li>
                                 <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Periodos")">Periodos</a>
                             </li>
                             <li>
                                 <a>Localizadores-Cobradores<span class="fa fa-chevron-down"></span></a>

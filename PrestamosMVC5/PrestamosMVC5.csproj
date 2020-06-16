@@ -149,6 +149,7 @@
     <Compile Include="Controllers\ControllerBasePcp.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\NegociosController.cs" />
+    <Compile Include="Controllers\PeriodosController.cs" />
     <Compile Include="Controllers\PrestamosController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -4017,6 +4018,8 @@
     <Content Include="Views\Prestamos\Index.cshtml" />
     <Content Include="Views\Prestamos\CreateOrEdit.cshtml" />
     <Content Include="Views\Shared\_InfoTopNavBar.cshtml" />
+    <Content Include="Views\Tests\Periodo.cshtml" />
+    <Content Include="Views\Periodos\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />

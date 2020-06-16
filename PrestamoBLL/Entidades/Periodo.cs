@@ -7,8 +7,10 @@ namespace PrestamoBLL.Entidades
     {
         public int idPeriodo { get; set; } = 0;
         // el valor numerico del interes 10%, 4%, etc
+
         public PeriodoBase PeriodoBase { get; set; } = PeriodoBase.Mes;
         public int MultiploPeriodoBase { get; set; } = 1;
+        [Display(Name = "Periodo base")]
         public bool RequiereAutorizacion { get; set; } = false;
 
         public override int GetId() => this.idPeriodo;
