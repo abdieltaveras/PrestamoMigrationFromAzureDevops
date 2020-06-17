@@ -110,14 +110,14 @@ namespace PrestamoBLL.Entidades
 
     }
     public class PrestamoConDetallesParaUIPrestamo
-    { 
-        public Prestamo infoPrestamo { get; internal set; }
+    {
+        public Prestamo infoPrestamo { get; internal set; } = new Prestamo();
 
-        public InfoClienteDrCr infoCliente { get; internal set; }
+        public InfoClienteDrCr infoCliente { get; internal set; } = new InfoClienteDrCr();
 
-        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
+        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; } = new List<InfoGarantiaDrCr>();
 
-        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; }
+        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; } = new List<InfoCodeudorDrCr>();
 
     }
 
