@@ -148,6 +148,7 @@
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ControllerBasePcp.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
+    <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\NegociosController.cs" />
     <Compile Include="Controllers\PrestamosController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
@@ -228,6 +229,7 @@
     <Content Include="Content\customcss\datatable\js\jszip.min.js" />
     <Content Include="Content\customcss\datatable\js\pdfmake.min.js" />
     <Content Include="Content\customcss\datatable\js\vfs_fonts.js" />
+    <Content Include="Content\customcss\Ingresos\garantiasSlider.css" />
     <Content Include="Content\ImagesFor\Negocios\Papito.png" />
     <Content Include="Content\build\images\loading.gif" />
     <Content Include="Content\build\images\PcpLogo250x211.jpg" />
@@ -4014,6 +4016,7 @@
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
     <Content Include="Views\Account\ElegirNegocioAOperar.cshtml" />
     <None Include="Views\ErrorHandler\Default.cshtml" />
+    <Content Include="Views\Ingresos\index.cshtml" />
     <Content Include="Views\Prestamos\Index.cshtml" />
     <Content Include="Views\Prestamos\CreateOrEdit.cshtml" />
     <Content Include="Views\Shared\_InfoTopNavBar.cshtml" />

@@ -1,4 +1,43 @@
 ﻿@model CatalogoVM
+
+    <style>
+        #datatable_filter {
+            float:left;
+        }
+        #datatable_filter label {
+            float:left;
+        }
+
+        #r1s2 div {
+            float:right;
+        }
+        #r1s2 div button {
+            background: #666;
+            border: none;
+        }
+
+        
+
+        #r2s1 button {
+            background: none;
+            border: none;
+        }
+        #r2s1 button span i{
+            color: #666;
+        }
+        #r2s3 button {
+            float:right;
+        }
+
+        #r1 {
+            margin-bottom: 15px;
+            margin-top: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+    </style>
+
 <div class="row">
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
@@ -6,76 +45,63 @@
 
 
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-catalogo" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+        @*<button id="btn-guardar" type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-catalogo" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
+        <h4>Tabla de @Model.TipoCatalogo.ToLower()</h4>
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de @Model.TipoCatalogo.ToLower()</h2>
-                <div style="float:right;">
-
-                    @*<div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="text" id="searchListInput" class="form-control" placeholder="Buscar" aria-describedby="basic-addon1">
-                        </div>*@
-
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
 
             @* Datatable *@
             <div>
-                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
+                <table id="datatable" class=" table-bordered table-striped row-border" cellspacing="0" style="width:100%; text-align:center;">
                     <thead>
                         <tr>
+                            <th width="5%"></th>
                             <th>@Model.TipoCatalogo</th>
                             <th>Codigo</th>
-                            <th>Acciones</th>
+                            @*<th>Acciones</th>*@
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach (var item in Model.Lista)
                         {
-                            <tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) fila-catalogo ">
-                                <td>
-                                    <strong>
-                                        @item.Nombre
-                                    </strong>
-                                </td>
-                                <td>
-                                    <strong>
-                                        @item.Codigo
-                                    </strong>
-                                    <strong>
-                                        @item.AnuladoPor
-                                    </strong>
-                                </td>
-                                <td>
-                                    <a href="#" id="edit" data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
-                                        <button class="btn btn-outline-warning">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </a>
-                                    <a href="@Url.Action("ActivarDesactivar", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla, activo = !item.Activo })">
-                                        <button type="button" class="btn btn-outline-dark">
-                                            <i class="@Html.Raw(item.Activo ? "fa fa-ban" : " fa fa-check")"></i>
-                                        </button>
-                                    </a>
-                                    @*<a href="@Url.Action("Delete", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla})">*@
-                                    @if (item.Anulado())
-                                    {
-                                        <a href="#" id="deleteItem" data-id="@item.GetId()" data-idtabla="@Model.IdTabla" data-nombretabla="@Model.NombreTabla">
-                                            <button type="button" class="btn btn-outline-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </a>
+                            @*<tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) fila-catalogo ">*@
+                        <tr class=" fila-catalogo " data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre" >
 
-                                    }
-                                </td>
-                            </tr>
+                            <td height="40px"></td>
+                            <td>
+                                <strong>
+                                    @item.Nombre
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @item.Codigo
+                                </strong>
+                            </td>                           
+                            @*<td>
+                                <a href="#" id="edit" data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
+                                    <button class="btn btn-outline-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </a>
+                                <a href="@Url.Action("ActivarDesactivar", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla, activo = !item.Activo })">
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <i class="@Html.Raw(item.Activo ? "fa fa-ban" : " fa fa-check")"></i>
+                                    </button>
+                                </a>
+                                <a href="@Url.Action("Delete", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla})">
+                                @if (item.Anulado())
+                                {
+                                    <a href="#" id="deleteItem" data-id="@item.GetId()" data-idtabla="@Model.IdTabla" data-nombretabla="@Model.NombreTabla">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
+
+                                }
+                            </td>*@
+                        </tr>
                         }
 
                     </tbody>
@@ -163,9 +189,72 @@
 
 <script>
     $(document).ready(function () {
-        $('#datatable').DataTable( dataTableConfiguration );
+        var table = $('#datatable').DataTable($.extend( dataTableConfiguration, {
+            buttons: [
+                'copy', 'pdfHtml5', 'excel', 'print',
+                {
+                    text: '<i class="fa fa-edit"></i>',
+                    attr:  {
+                        title: 'Editar',
+                        id: 'btn-edit',
+                        class: ''
+                    },
+                    action: function () {
+                        //console.log(table.row({ selected: true }).data());
+                        //console.log($('tr.selected').data("id"));
+
+                        $("#currentid").val($('tr.selected').data("id"));
+                        $("#Codigo").val($('tr.selected').data("codigo"));
+                        $("#Nombre").val($('tr.selected').data("nombre"));
+                        $('#modalCatalogos').modal('show');
+                    }
+                },
+                {
+                    text: '<i class="fa fa-ban"></i>',
+                    attr:  {
+                        title: 'Anular',
+                        id: 'btn-anular',
+                        class: ''
+                    },
+                    action: function () {
+                        
+                    }
+                },
+                {
+                    text: '<i class="fa fa-trash"></i>',
+                    attr:  {
+                        title: 'Borrar',
+                        id: 'btn-delete',
+                        class: ''
+                    },
+                    action: function () {
+                        
+                    }
+                },
+                {
+                    text: 'Agregar <i class="fa fa-plus"></i>',
+                    attr:  {
+                        title: 'Guardar',
+                        id: 'btn-save'
+                    },
+                    action: function () {                        
+                        $('#modalCatalogos').modal('show');
+                    }
+                }
+            ]
+        }));
         removeTemplateConfiguration();
+        $('#btn-edit').appendTo( '#r2s1' );
+        $('#btn-anular').appendTo( '#r2s1' );
+        $('#btn-delete').appendTo( '#r2s1' );
+        $('#btn-save').appendTo( '#r2s3' );
+        //$('#datatable tbody').on( 'click', 'tr', function () {
+            
+        //    //table.rows( { selected: true } ).data()[0]
+        //});
     });
+
+
 
     // Pasar datos del boton edit al modal para ser editados
     $("a#edit").click(function () {

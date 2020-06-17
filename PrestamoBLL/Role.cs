@@ -47,7 +47,11 @@ namespace PrestamoBLL
             }
         }
 
-        
+        //public IEnumerable<PrestamoSearch> SearchPrestamos(PrestamosSearchParams prestamosSearchParams)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         public IEnumerable<RoleOperacion> RoleOperacionesSearch(BuscarRoleOperacionesParams searchParam)
         {
             return BllAcciones.GetData<RoleOperacion, BuscarRoleOperacionesParams>(searchParam, "spBuscarRoleOperaciones", GetValidation);

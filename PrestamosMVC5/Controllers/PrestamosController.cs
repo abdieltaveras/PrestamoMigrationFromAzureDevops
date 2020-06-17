@@ -43,6 +43,7 @@ namespace PrestamosMVC5.Controllers
                 if (!searchResult.IsNull())
                 {
                     TempData["Prestamo"] = searchResult;
+                    model = searchResult;
                 }
                 else
                 {

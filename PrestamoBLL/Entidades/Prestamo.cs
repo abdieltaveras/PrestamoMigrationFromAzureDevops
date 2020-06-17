@@ -136,6 +136,20 @@ namespace PrestamoBLL.Entidades
 
         public InfoDeudaPrestamoDrCr InfoDeuda { get; internal set; }
     }
+    public class PrestamoSearch 
+    {
+        public int IdPrestamo { get; set; }
+        public decimal MontoPrestado { get; set; }
+        public string PrestamoNumero { get; internal set; } = string.Empty;
+        public string Clasificacion { get; set; } = string.Empty;
+        public string Nombres { get; set; } = string.Empty;
+        public string Apellidos { get; set; } = string.Empty;
+        public string Sexo { get; set; } = string.Empty;
+        public string FotoCliente { get; set; } = string.Empty;
+        public string NoIdentificacion { get; set; } = string.Empty;
+        
+
+    }
     public class Prestamo : BaseInsUpd, IPrestamoForGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
@@ -300,6 +314,14 @@ namespace PrestamoBLL.Entidades
     internal class PrestamoCodeudores
     {
         public int IdCodeudor { get; set; }
+    }
+
+    public class PrestamosSearchParams : BaseGetParams
+    {
+        public string TextToSearch { set; get; } = string.Empty;
+        [IgnorarEnParam]
+        public int SearchType { set; get; } = 0;
+        //public int SearchType { set; get; } = 0; // valor 0 para prestamos y 1 para clientes / garantias
     }
 
     public class PrestamosGetParams : BaseIdNegocio 

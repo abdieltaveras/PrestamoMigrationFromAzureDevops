@@ -28,6 +28,26 @@ namespace PrestamoBLL
             return id;
         }
 
+        public IEnumerable<PrestamoSearch> SearchPrestamos(PrestamosSearchParams searchParam)
+        {
+            //GetValidation(searchParam as BaseGetParams);
+
+            IEnumerable<PrestamoSearch> data = null;
+
+            if (searchParam.SearchType == 1)
+            {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamos", GetValidation);
+            }
+            else if (searchParam.SearchType == 2)
+            {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamosByCliente", GetValidation);
+            }
+            else if (searchParam.SearchType == 3)
+            {
+                data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamosByGarantia", GetValidation);
+            }
+            return data;
+        }
         public IEnumerable<Prestamo> GetPrestamos(PrestamosGetParams searchParam)
         {
             //GetValidation(searchParam as BaseGetParams);

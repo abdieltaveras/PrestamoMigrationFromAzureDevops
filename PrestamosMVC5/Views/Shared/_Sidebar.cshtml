@@ -16,7 +16,6 @@
                     <li>
                         <a class="text-white-50">Clientes<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-
                             <li>
                                 <a href="@Url.Action("Index","Clientes")">Listado de Clientes</a>
                             </li>
@@ -26,7 +25,7 @@
                                 }
                                 <a href="@Url.Action("CreateOrEdit","Clientes", new { id = -1 })">Crear Cliente Nuevo</a>
                             </li>
-
+                            
                             <li>
                                 <a>Tipo telefono<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -132,6 +131,7 @@
                                     </li>
                                 </ul>
                             </li>
+
                             <li>
                                 <a>Colores<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -182,8 +182,25 @@
                         </ul>
                     </li>
                 </ul>
-
             </li>
+
+            <li>
+                <a> <i class="fa fa-cog "> </i>Prestamos<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+
+                    <li>
+                        <a href="@Url.Action("Index","Ingresos")">Ingreso</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","TasaInteres")">Tasa de Interes</a>
+                    </li>
+                    
+                    <li>
+                        <a href="@Url.Action("CreateOrEdit","Negocios",new { id = -1 }))">Negocios</a>
+                    </li>
+                </ul>
+            </li>
+
             <li>
                 <a> <i class="fa fa-cog "> </i> Configuraciones<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">

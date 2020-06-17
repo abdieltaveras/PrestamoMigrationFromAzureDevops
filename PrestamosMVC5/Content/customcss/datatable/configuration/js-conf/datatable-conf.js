@@ -1,12 +1,15 @@
 ﻿let dataTableConfiguration = {
-    dom: 'Bfrtip',
+    dom:
+        "<'#r1.row'<'col-sm-6'f><'#r1s2.col-sm-6'B>>" +
+        "<'#r2.row'<'#r2s1.col-sm-2'> <'#r2s2.col-sm-4'l> <'#r2s3.col-sm-6'>>" +
+        "<'#r3.row'<'col-sm-12'tr>>" +
+        "<'#r4.row'<'col-sm-6'i><'col-sm-6'p>>",
     lengthMenu: [
         [10, 25, 50, -1],
         ['10 Filas', '25 Filas', '50 Filas', 'Mostrar todas']
     ],
-    buttons: [
-        'pageLength', 'copy', 'pdfHtml5', 'excel', 'print'
-    ],
+    responsive:true,
+    
     "language": {
         "sProcessing": "Procesando...",
         "sLengthMenu": "Mostrar _MENU_ registros",
@@ -38,7 +41,17 @@
             "copyTitle": "Copiado en portapapeles",
             "copySuccess": "%d linea/s copiada/s",
         }
-    }
+    },
+    'columnDefs': [{
+        orderable: false,
+        className: 'select-checkbox',
+        targets: 0
+    }],
+    'select': {
+        style: 'os',
+        selector: 'td:first-child'
+    },
+    'order': [[1, 'asc']],
 }
 
 function removeTemplateConfiguration() {
