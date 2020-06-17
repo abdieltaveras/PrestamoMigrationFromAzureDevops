@@ -37,6 +37,11 @@ namespace PrestamosMVC5.Controllers
             var treeData = ElementData.CreateTree();
             return View(treeData);
         }
+        public ActionResult Periodo()
+        {
+            var model = new Periodo();
+            return View(model);
+        }
         public ActionResult TreeViewExample3()
         {
             var search = new DivisionSearchParams { IdDivisionTerritorial = 2, IdNegocio = 1 };

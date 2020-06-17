@@ -13,12 +13,14 @@ SELECT Pres.IdPrestamo, pres.idNegocio, pres.idCliente, prestamoNumero, FechaEmi
 	FROM	dbo.tblPrestamos  pres
 	inner Join tblClientes clie on clie.idCliente = pres.IdCliente
 	inner Join tblPeriodos peri on  peri.idPeriodo = pres.idPeriodo
-	inner join tblPrestamoGarantias preGara on preGara.IdPrestamo = pres.IdPrestamo
-	inner join tblGarantias gara on gara.IdGarantia = preGara.Idgarantia
+	--si falla algo en el join no se genera nada y esto esta mas abajo
+	--inner join tblPrestamoGarantias preGara on preGara.IdPrestamo = pres.IdPrestamo
+	--inner join tblGarantias gara on gara.IdGarantia = preGara.Idgarantia
 	inner join tblClasificaciones  clas on clas.IdClasificacion = pres.idClasificacion
 	inner join tblTiposMora mora on mora.idTipoMora = pres.idTipoMora
 	where pres.IdPrestamo = @IdPrestamo	
 	select  Fecha, Capital, Interes, IdCuota, Numero from tblCuotas where IdPrestamo = @IdPrestamo
+	
 	SELECT IdGarantia, gara.IdClasificacion, NoIdentificacion as NumeracionGarantia, Detalles ,
 	marc.Nombre as NombreMarca, mode.Nombre as NombreModelo, tiga.Nombre as NombreTipoGarantia
 	from tblGarantias as gara

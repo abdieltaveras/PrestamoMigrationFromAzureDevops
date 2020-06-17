@@ -4,7 +4,7 @@
 	idNegocio int foreign key references tblNegocios(idNegocio) not null,
 	idCliente int foreign key references tblClientes(idCliente) not null,
 	prestamoNumero varchar(20) not null unique(idNegocio, PrestamoNumero),
-	IdPrestamoARenovar int references tblPrestamos(idPrestamo), 
+	IdPrestamoARenovar int, 
 	DeudaRenovacion decimal (14,2) default 0,
 	idClasificacion int foreign key references tblClasificaciones(idClasificacion) not null,
 	IdTipoAmortizacion int not null,
@@ -32,5 +32,6 @@
     [AnuladoPor] VARCHAR(100) NULL, 
     [FechaAnulado] DATETIME NULL,
 	constraint TotalCapitalMayorQueCero check (TotalPrestado > 0),
+	constraint fk_idPrestamoARenovar foreign KEY (IdPrestamoARenovar) REFERENCES tblPrestamos([IdPrestamo])
 )
 	

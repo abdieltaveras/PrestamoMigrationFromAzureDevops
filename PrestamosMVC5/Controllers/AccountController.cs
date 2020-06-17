@@ -50,9 +50,10 @@ namespace PrestamosMVC5.Controllers
             this.pcpLogout();
             this.UpdViewBag_ShowSideBar(false);
             var model = new LoginModel { ReturnUrl = returnUrl };
+            //model.ValidateCaptcha = true;
             #if (DEBUG)
-            model.LoginName = "bryan";
-            model.Password = "1";
+                model.LoginName = "bryan";
+                model.Password = "1";
             #endif
             var negociosMatriz = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             model.SoloHayUnNegocioMatriz = negociosMatriz.Count() == 1;
@@ -80,11 +81,7 @@ namespace PrestamosMVC5.Controllers
         {
             this.UpdViewBag_ShowSideBar(false);
             ActionResult _actResult = View(loginView);
-            bool validateCaptcha = true;
-#if (DEBUG)
-            validateCaptcha = loginView.ValidateCaptcha;
-#endif
-            if (validateCaptcha && !this.IsCaptchaValid(""))
+            if (loginView.ValidateCaptcha && !this.IsCaptchaValid(""))
             {
                 ModelState.AddModelError("CaptchaInputText", "las letras digitadas no coinciden");
                 return View();

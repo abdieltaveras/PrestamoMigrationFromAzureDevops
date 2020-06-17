@@ -6,10 +6,14 @@ using System.Web.Mvc;
 
 namespace PrestamoBLL.Entidades
 {
+    public interface IUsuario
+    {
+        string Usuario {get; set;}
+    }
     /// <summary>
     /// esta clase solo contiene el campo Usuario 
     /// </summary>
-    public abstract class BaseUsuario
+    public abstract class BaseUsuario: IUsuario
     {
         /// <summary>
         /// El loginName del usuario que se logueo o se registro y que esta trabajando en el sistema
@@ -21,12 +25,16 @@ namespace PrestamoBLL.Entidades
     /// <summary>
     /// Clase base que tiene el campo usuario y idNegocio
     /// </summary>
-    public abstract class BaseUsuarioEIdNegocio : BaseUsuario
+    public abstract class BaseUsuarioEIdNegocio : BaseUsuario, IIdNegocio
     {
         public int IdNegocio { get; set; } = -1; 
     }
 
-    public abstract class BaseIdNegocio
+    public interface IIdNegocio
+    {
+        int IdNegocio { get; set; }
+    }
+    public abstract class BaseIdNegocio : IIdNegocio
     {
         /// <summary>
         /// El id del negocio o empresa o punto comercial que identifica la unidad 
@@ -37,10 +45,7 @@ namespace PrestamoBLL.Entidades
         public int IdNegocio { get; set; } = -1;
     }
 
-    public static class InitValues
-    {
-        public static DateTime _19000101 => new DateTime(1900, 01, 01);
-    }
+    
     /// <summary>
     /// Clase que tiene campos comunes que usaran la mayoria de las entidades que seran usadas
     /// para el registro de informacion como clientes, proveedores, direccion, etc.

@@ -5,7 +5,7 @@
 	@apellidos varchar(100), 
 	@estadocivil int, 
 	@fechanacimiento datetime, 
-	@GenerarSecuencia bit,
+	@GenerarSecuencia bit=1,
 	@idnegocio int, 
 	@idtipoidentificacion int, 
 	@IdTipoProfesionUOcupacion int, 
@@ -31,7 +31,10 @@ Begin
 			BEGIN TRANSACTION 
 			begin try
 				declare @codigo varchar(10)
-				exec dbo.spGenerarSecuenciaString 'Codigo de Clientes',10,1, @codigo output
+				if (@GenerarSecuencia=1)
+				begin
+					exec dbo.spGenerarSecuenciaString 'Codigo de Clientes',10,1, @codigo output
+				end
 				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, EstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencia, codigo)
 
 				VALUES (@activo, @apodo, @apellidos, @estadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @Sexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName, @imagen2FileName, @tieneConyuge, @infoReferencia, @codigo)

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrestamoBLLTests
+namespace PrestamoBLL.Tests
 {
     
     public class ClienteData
@@ -76,9 +76,9 @@ namespace PrestamoBLLTests
             };
             return cliente;
         }
-        public static ClientesGetParams SearchCliente()
+        public static ClienteGetParams SearchCliente()
         {
-            return new ClientesGetParams() { };
+            return new ClienteGetParams() { };
 
         }
     }
@@ -120,7 +120,7 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void ClientesGet_SetIdNegocioTOZero_ThrowError_Test()
         {
-            var gParam = new ClientesGetParams();
+            var gParam = new ClienteGetParams();
             gParam.IdNegocio = 0;
             var ocurrioError = false;
             var error = string.Empty;

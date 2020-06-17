@@ -28,19 +28,60 @@ namespace PrestamoBLL
             return id;
         }
 
-        public IEnumerable<Prestamo> GetPrestamos(PrestamosGetParam searchParam)
+        public IEnumerable<Prestamo> GetPrestamos(PrestamosGetParams searchParam)
         {
             //GetValidation(searchParam as BaseGetParams);
             
-            var data = BllAcciones.GetData<Prestamo, PrestamosGetParam>(searchParam, "spGetPrestamos", GetValidation);
+            var data = BllAcciones.GetData<Prestamo, PrestamosGetParams>(searchParam, "spGetPrestamos", GetValidation);
             return data;
+        }
+
+        public PrestamoConDetallesParaUIPrestamo GetPrestamoConDetalleForUIPrestamo(int idPrestamo)
+        {
+            if (idPrestamo <= 0)
+            {
+                throw new NullReferenceException("el Id del prestamo enviado es invalido, o la fecha esta nula");
+            }
+            
+            //GetValidation(searchParam as BaseGetParams    );
+            var searchRec = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
+            var dr = PrestamosDB.ExecReaderSelSP("spGetPrestamo", searchRec);
+            Prestamo infoPrestamo = new Prestamo();
+            InfoClienteDrCr infoCliente = new InfoClienteDrCr();
+            while (dr.Read())
+            {
+                dr.DataReaderToType(out infoPrestamo);
+                dr.DataReaderToType(out infoCliente);
+            }
+            
+            List<InfoGarantiaDrCr> infoGarantiasDrCr = new List<InfoGarantiaDrCr>();
+            if (dr.NextResult())
+            {
+                while (dr.Read())
+                {
+                    InfoGarantiaDrCr infoGarantiaDrCr;
+                    dr.DataReaderToType(out infoGarantiaDrCr);
+                    infoGarantiasDrCr.Add(infoGarantiaDrCr);
+                }
+            }
+            // las garantia
+            // los codeudores
+            var PrestamoConDetalle = new PrestamoConDetallesParaUIPrestamo();
+            PrestamoConDetalle.infoPrestamo = infoPrestamo;
+            PrestamoConDetalle.infoCliente = infoCliente;
+            PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
+            return PrestamoConDetalle;
         }
 
         public PrestamoConDetallesParaCreditosYDebitos GetPrestamoConDetalle(int idPrestamo, DateTime fecha)
         {
-            if (idPrestamo <= 0 || fecha == null)
+            if (idPrestamo <= 0)
             {
                 throw new NullReferenceException("el Id del prestamo enviado es invalido, o la fecha esta nula");
+            }
+            if (fecha.IsNull())
+            {
+                fecha = DateTime.Now;
             }
             //GetValidation(searchParam as BaseGetParams    );
             var searchRec = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });

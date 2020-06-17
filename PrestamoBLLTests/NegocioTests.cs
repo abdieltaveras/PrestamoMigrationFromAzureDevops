@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static PrestamoBLL.BLLPrestamo;
 
-namespace PrestamoBLLTests
+namespace PrestamoBLL.Tests
 
 {
     [TestClass()]

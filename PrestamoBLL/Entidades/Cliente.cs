@@ -47,7 +47,8 @@ namespace PrestamoBLL.Entidades
 
         public string Imagen2FileName { get; internal set; } = string.Empty;
 
-        public int IdTipoIdentificacion { get; internal set; }  
+        public int IdTipoIdentificacion { get; internal set; }
+        public string InfoDelCliente => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";
     }
 
     public class Cliente : BasePersonaInsUpd
@@ -107,6 +108,7 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Tiene Pareja o Conyuge")]
         public bool TieneConyuge { get; set; }
 
+        [IgnorarEnParam]
         public string NombreCompleto => $"{Nombres} {Apellidos}";
 
         public override string ToString()
@@ -115,7 +117,7 @@ namespace PrestamoBLL.Entidades
             return $" {Nombres } {Apellidos} ";
         }
     }
-    public class ClientesGetParams : BaseGetParams
+    public class ClienteGetParams : BaseGetParams
     //: BaseGetParams
     {
         public int IdCliente { get; set; } = -1;
@@ -129,7 +131,7 @@ namespace PrestamoBLL.Entidades
         //// PersonaInfoBasicaSinCodigo
         //public string Codigo { get; set; } = string.Empty;
         //// PersonaInfoAmpliadaConCodigoGetParams
-        public int IdTipoIdentificacion { get; set; } = -1;
+        public int IdTipoIdentificacion { get; set; } = -1; 
         public string NoIdentificacion { get; set; } = string.Empty;
         //public DateTime FechaNacimiento { get; set; } = InitValues._19000101;
         //public int Sexo { get; set; } = 0;

@@ -1,5 +1,6 @@
 ﻿using PrestamoBLL.Entidades;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,13 +31,15 @@ namespace PrestamoBLL
         private void SetPrestamo(Prestamo prestamo)
         {
             //_type.CopyPropertiesTo(prestamo, prestamoInProgress);
+            validarIdNoMenorNiIgualACero(prestamo.IdNegocio,"IdNegocio");
             prestamoInProgress.IdNegocio = prestamo.IdNegocio;
             SetFechaDeEmision(prestamo.FechaEmisionReal);
             SetClasificacion(prestamo.IdClasificacion);
-            SetAmortizacion(prestamo.TipoAmortizacion);
+            //SetAmortizacion(prestamo.TipoAmortizacion);
+            SetAmortizacion(prestamo.IdTipoAmortizacion);
             SetRenovacion(prestamo.NumeroPrestamoARenovar, prestamo.IdPrestamoARenovar);
             SetClientes(prestamo.IdCliente);
-            SetGarantias(prestamo._Garantias);
+            SetGarantias(prestamo.IdGarantias);
             SetCodeuDores(prestamo._Codeudores);
             SetMontoAPrestar(prestamo.MontoPrestado, prestamo.IdDivisa);
             SetGastDeCierre(prestamo.InteresGastoDeCierre, prestamo.GastoDeCierreEsDeducible, prestamo.SumarGastoDeCierreALasCuotas, prestamo.CargarInteresAlGastoDeCierre);
@@ -47,7 +50,7 @@ namespace PrestamoBLL
         }
         public void AddCodeudor(Prestamo prestamo, Codeudor codeudor)
         {
-
+            validarIdNoMenorNiIgualACero(codeudor.IdCodeudor, "IdCodeudor");
             if (codeudor.IdCodeudor > 0)
             {
                 prestamo._Codeudores.Add(codeudor);
@@ -88,7 +91,7 @@ namespace PrestamoBLL
         private decimal getValorMinimo()
         {
             // si hay un valor por renovacion esto pueder ser 0, pero si no es renovacion el valor no puede ser 0
-            if (prestamoInProgress.IdPrestamoARenovar == 0)
+            if (prestamoInProgress.IdPrestamoARenovar < 0  )
             {
                 return 1;
             }
@@ -104,23 +107,23 @@ namespace PrestamoBLL
             prestamoInProgress.FechaEmisionReal = fechaEmision;
         }
 
+        private void validarIdNoMenorNiIgualACero(int id, string nombrePropiedad)
+        {
+            if (id <= 0) { throw new NullReferenceException($"el valor de la propiedad {nombrePropiedad} no puede ser menor o igual a cero"); }
+        }
+
         private void validateRange(decimal valor, decimal minimo, decimal maximo, string propiedad)
         {
             if (valor < minimo)
             {
-                throw new ArgumentOutOfRangeException($"El valor de {propiedad} e menor al valor minimo aceptado el cual es {minimo}");
+                throw new ArgumentOutOfRangeException($"El valor de {propiedad} es menor al valor minimo aceptado el cual es {minimo}");
             }
             if (valor > maximo)
             {
                 throw new ArgumentOutOfRangeException($"El valor de {propiedad} es mayor que el valor maximo aceptado el cual es {minimo}");
             }
         }
-
-
-        private void chkFiel()
-        {
-
-        }
+        
         private void CargarGastoDeCierre(decimal tasaGastoDeCiere = 0, bool esDeducible = false)
         {
             prestamoInProgress.InteresGastoDeCierre = tasaGastoDeCiere;
@@ -135,6 +138,7 @@ namespace PrestamoBLL
 
         private void SetMoras(int idTipoMora)
         {
+            validarIdNoMenorNiIgualACero(idTipoMora, "IdTipoMora");
             var mora = BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdNegocio = prestamoInProgress.IdNegocio, IdTipoMora = idTipoMora }).FirstOrDefault();
             prestamoInProgress.IdTipoMora = mora.IdTipoMora;
 
@@ -193,6 +197,8 @@ namespace PrestamoBLL
 
         private void SetPeriodo(int idPeriodo, int cantidadPeriodo)
         {
+            validarIdNoMenorNiIgualACero(idPeriodo, "IdPeriodo");
+            validarIdNoMenorNiIgualACero(cantidadPeriodo, "cantidadPeriodo");
             var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = prestamoInProgress.IdNegocio, idPeriodo = idPeriodo }).FirstOrDefault();
             if (!periodo.Activo)
             {
@@ -209,6 +215,7 @@ namespace PrestamoBLL
 
         private void SetTasaInteres(int idTasaDeInteres)
         {
+            validarIdNoMenorNiIgualACero(idTasaDeInteres, "IdTasaDeInteres");
             var tasaDeInteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
 
             this.prestamoInProgress.IdTasaInteres = idTasaDeInteres;
@@ -224,8 +231,6 @@ namespace PrestamoBLL
             prestamoInProgress.SumarGastoDeCierreALasCuotas = sumargastoDeCierreALasCuotas;
         }
 
-
-
         private void SetCodeuDores(List<Codeudor> codeudores)
         {
             prestamoInProgress.IdCodeudores = new List<int>();
@@ -234,7 +239,8 @@ namespace PrestamoBLL
                 foreach (var item in codeudores)
                 {
                     AddCodeudor(prestamoInProgress, item);
-                    prestamoInProgress.IdGarantias.Add(item.IdCodeudor);
+                    validarIdNoMenorNiIgualACero(item.IdCodeudor, "IdCodeudor");
+                    prestamoInProgress.IdCodeudores.Add(item.IdCodeudor);
                 }
             }
         }
@@ -247,7 +253,20 @@ namespace PrestamoBLL
                 foreach (var item in garantias)
                 {
                     AddGarantia(prestamoInProgress, item);
+                    validarIdNoMenorNiIgualACero(item.IdGarantia, "IdGarantia");
                     prestamoInProgress.IdGarantias.Add(item.IdGarantia);
+                }
+            }
+        }
+        private void SetGarantias(IEnumerable<int> idGarantias)
+        {
+            prestamoInProgress.IdGarantias = new List<int>();
+            if (garantias != null)
+            {
+                foreach (var item in idGarantias)
+                {
+                    validarIdNoMenorNiIgualACero(item,"IdGarantia");
+                    prestamoInProgress.IdGarantias.Add(item);
                 }
             }
         }
@@ -256,41 +275,41 @@ namespace PrestamoBLL
             foreach (var item in codeudores)
             {
                 AddCodeudor(prestamoInProgress, item);
-                prestamoInProgress.IdGarantias.Add(item.IdCodeudor);
+                prestamoInProgress.IdCodeudores.Add(item.IdCodeudor);
             }
         }
         private void SetClientes(int idCliente)
         {
-            if (idCliente <= 0)
-            {
-                throw new NullReferenceException("el id del cliente a agregar no es valido debe ser mayor que cero");
-            }
-            else
-            {
-                prestamoInProgress.IdCliente = idCliente;
-            }
+            validarIdNoMenorNiIgualACero(idCliente, "IdCliente");
+            prestamoInProgress.IdCliente = idCliente;
         }
 
-        private void SetRenovacion(string noPrestamoARenovar, int? idPrestamoARenovar)
+        private void SetRenovacion(string noPrestamoARenovar, int idPrestamoARenovar)
         {
+            if (idPrestamoARenovar == 0) { throw new NullReferenceException("el valor de idPrestamoARenovar no puede ser 0"); }
             if (!string.IsNullOrEmpty(noPrestamoARenovar) && idPrestamoARenovar > 0)
             {
                 this.prestamoInProgress.NumeroPrestamoARenovar = noPrestamoARenovar;
                 this.prestamoInProgress.IdPrestamoARenovar = idPrestamoARenovar;
             }
-            else
-            {
-                this.prestamoInProgress.IdPrestamoARenovar = null;
-            }
+            
         }
 
         private void SetAmortizacion(TiposAmortizacion tipoAmortizacion)
         {
-            prestamoInProgress.TipoAmortizacion = tipoAmortizacion;
+            //prestamoInProgress.TipoAmortizacion = tipoAmortizacion;
+        }
+
+        private void SetAmortizacion(int idTipoAmortizacion)
+        {
+            validarIdNoMenorNiIgualACero(idTipoAmortizacion, "Tipo Amortizacion");
+            var amorti = (TiposAmortizacion)idTipoAmortizacion; 
+            prestamoInProgress.IdTipoAmortizacion = idTipoAmortizacion;
         }
 
         private void SetClasificacion(int idClasificacion)
         {
+            validarIdNoMenorNiIgualACero(idClasificacion, "IdClasifiacion");
             // seria bueno analizar que impida que en un prestamo inmobiliario no ponga un vehiculo o incluso que la clasificacion la tome por las garantias
             this.prestamoInProgress.IdClasificacion = idClasificacion;
 
@@ -312,18 +331,19 @@ namespace PrestamoBLL
         private IGeneradorCuotas getGeneradorCuotas()
         {
             IGeneradorCuotas genCuotas = null;
-            switch (prestamoInProgress.TipoAmortizacion)
+            var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
+            switch (tipoAmortizacion)
             {
-                case TiposAmortizacion.Cuotas_fijas_No_amortizable:
+                case TiposAmortizacion.No_Amortizable_cuotas_fijas:
                     genCuotas = new GeneradorCuotasFijasNoAmortizables(prestamoInProgress);
                     break;
-                case TiposAmortizacion.Abierto_amortizable_por_dia:
+                case TiposAmortizacion.Amortizable_por_dia_abierto:
                     break;
-                case TiposAmortizacion.Abierto_Amortizable_por_periodo_abierto:
+                case TiposAmortizacion.Amortizable_por_periodo_abierto:
                     break;
-                case TiposAmortizacion.Cuotas_fijas_amortizable:
+                case TiposAmortizacion.Amortizable_cuotas_fijas:
                     break;
-                case TiposAmortizacion.Abierto_No_Amortizable:
+                case TiposAmortizacion.No_Amortizable_abierto:
                     break;
                 default:
                     break;
@@ -331,7 +351,7 @@ namespace PrestamoBLL
             return genCuotas;
         }
         #endregion operaciones
-        public Prestamo Build2()
+        private Prestamo Build2()
         {
             IGeneradorCuotas genCuotas = getGeneradorCuotas();
             // prestamoInProgress._Cuotas = genCuotas.GenerarCuotas();

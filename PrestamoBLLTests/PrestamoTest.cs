@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿using emtSoft.DAL;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
@@ -8,7 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrestamoBLLTests
+
+namespace PrestamoBLL.Tests
 {
     [TestClass()]
     public class PrestamoTest
@@ -18,13 +19,35 @@ namespace PrestamoBLLTests
         public Dictionary<int, string> Clasificacion = new Dictionary<int, string>();
 
         [TestMethod()]
+        public void GetPrestamoConDetalleForUIPrestamoTest()
+        {
+            var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamosGetParams()).ToList().FirstOrDefault().IdPrestamo;
+            PrestamoConDetallesParaUIPrestamo prConDetalle = null;
+            Func<bool> condicion = () => (prConDetalle != null);
+            try
+            {
+                prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo);
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+            }
+
+            var infCliente = prConDetalle.infoCliente;
+            var infPrestamo = prConDetalle.infoPrestamo;
+            var infGarantias = prConDetalle.infoGarantias;
+            Assert.IsTrue(condicion(), testInfo.MensajeError);
+        }
+
+        [TestMethod()]
         public void PrestamoInsUpdWithoutCodeudoresTest()
         {
             var idResult = 0;
             Func<bool> condicion = () => (idResult > 0);
             try
             {
-                idResult = BLLPrestamo.Instance.InsUpdPrestamo(CreatePrestamo());
+                var prestamo = CreatePrestamo();
+                idResult = BLLPrestamo.Instance.InsUpdPrestamo(prestamo) ;
             }
             catch (Exception e)
             {
@@ -41,7 +64,7 @@ namespace PrestamoBLLTests
             Func<bool> condicion = () => (prestamos!=null);
             try
             {
-                var search = new PrestamosGetParam();
+                var search = new PrestamosGetParams();
                 prestamos  = BLLPrestamo.Instance.GetPrestamos(search).ToList();
             }
             catch (Exception e)
@@ -56,7 +79,7 @@ namespace PrestamoBLLTests
         [TestMethod()]
         public void GetPrestamosConDetalleDrCrTest()
         {
-            var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamosGetParam()).ToList().FirstOrDefault().IdPrestamo;
+            var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamosGetParams()).ToList().FirstOrDefault().IdPrestamo;
             PrestamoConDetallesParaCreditosYDebitos prConDetalle=null;
             Func<bool> condicion = () => (prConDetalle != null);
             try
@@ -124,8 +147,7 @@ namespace PrestamoBLLTests
             var pre = new Prestamo
             {
                 FechaEmisionReal = DateTime.Now,
-                
-                TipoAmortizacion = TiposAmortizacion.Cuotas_fijas_No_amortizable,
+                IdTipoAmortizacion =(int)TiposAmortizacion.No_Amortizable_cuotas_fijas,
                 IdClasificacion = GetClasificacion(),
                 IdNegocio = 6,
                 IdDivisa = 1, // equivale a la moneda nacional (siempre el codigo 1 es la moneda nacional del pais
@@ -136,7 +158,7 @@ namespace PrestamoBLLTests
                 IdTipoMora = GetTipoMora(),
             };
             pre.IdCliente = GetClientes().FirstOrDefault().IdCliente;
-            pre._Garantias.Add(GetGarantias().FirstOrDefault());
+            pre.IdGarantias.Add(GetGarantias().FirstOrDefault().IdGarantia);
             return pre;
         }
 
@@ -196,7 +218,7 @@ namespace PrestamoBLLTests
         }
         private IEnumerable<Cliente> GetClientes()
         {
-            var result = BLLPrestamo.Instance.ClientesGet(new ClientesGetParams { IdNegocio = 6 });
+            var result = BLLPrestamo.Instance.ClientesGet(new ClienteGetParams { IdNegocio = 6 });
             return result;
         }
 

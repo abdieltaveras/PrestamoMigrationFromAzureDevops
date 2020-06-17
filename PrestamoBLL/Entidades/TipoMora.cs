@@ -75,11 +75,10 @@ namespace PrestamoBLL.Entidades
         public decimal MontoCuotaDesde { get; set; }
         [Display(Name = "Hasta el monto de cuota")]
         public decimal MontoCuotaHasta { get; set; }
-
-        public override int GetId()
-        {
-            throw new NotImplementedException();
-        }
+        [IgnorarEnParam]
+        public string CodigoNombre => this.Codigo + "-" + this.Nombre;
+        public override int GetId()=>   this.IdTipoMora;
+        
 
         public override string ToString()
         {

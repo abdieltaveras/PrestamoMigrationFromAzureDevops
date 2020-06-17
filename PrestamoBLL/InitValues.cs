@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrestamoBLL.Entidades
+namespace PrestamoBLL
 {
-    class Class1
+    public static class InitValues
     {
+        public static DateTime _19000101 => new DateTime(1900, 01, 01);
     }
 }
