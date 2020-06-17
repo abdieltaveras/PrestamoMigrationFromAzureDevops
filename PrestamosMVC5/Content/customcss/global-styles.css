@@ -12,6 +12,11 @@ select option,
 textarea.form-control {
     border-radius: 20px;
 }
+
+button {
+    border-radius: 20px !important;
+}
+
 img.perc10 {
     height: 10%;
     width: 10%;
