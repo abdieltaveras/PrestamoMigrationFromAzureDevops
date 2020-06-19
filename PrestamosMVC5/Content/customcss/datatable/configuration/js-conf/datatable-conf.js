@@ -7,9 +7,7 @@
     lengthMenu: [
         [10, 25, 50, -1],
         ['10 Filas', '25 Filas', '50 Filas', 'Mostrar todas']
-    ],
-    responsive:true,
-    
+    ],    
     "language": {
         "sProcessing": "Procesando...",
         "sLengthMenu": "Mostrar _MENU_ registros",

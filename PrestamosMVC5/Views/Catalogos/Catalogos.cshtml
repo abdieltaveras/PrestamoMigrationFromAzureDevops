@@ -52,7 +52,7 @@
 
             @* Datatable *@
             <div>
-                <table id="datatable" class=" table-bordered table-striped row-border" cellspacing="0" style="width:100%; text-align:center;">
+                <table id="datatable" class=" table-bordered row-border" cellspacing="0" style="width:100%; text-align:center;">
                     <thead>
                         <tr>
                             <th width="5%"></th>
@@ -66,7 +66,7 @@
                         @foreach (var item in Model.Lista)
                         {
                             @*<tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) fila-catalogo ">*@
-                        <tr class=" fila-catalogo " data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre" >
+                        <tr class="fila-catalogo @(!item.Activo ? "table-active" : "" ) @(item.Anulado() ? "delete-row" : "" )" data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre" data-idtabla="@Model.IdTabla" data-nombretabla="@Model.NombreTabla" data-activo="@item.Activo">
 
                             <td height="40px"></td>
                             <td>
@@ -206,7 +206,11 @@
                         $("#currentid").val($('tr.selected').data("id"));
                         $("#Codigo").val($('tr.selected').data("codigo"));
                         $("#Nombre").val($('tr.selected').data("nombre"));
-                        $('#modalCatalogos').modal('show');
+                        console.log('Mi id', $('tr.selected').data("id"));
+
+                        if ($('tr.selected').data("id") !== undefined) {
+                            $('#modalCatalogos').modal('show');
+                        }
                     }
                 },
                 {
@@ -216,8 +220,25 @@
                         id: 'btn-anular',
                         class: ''
                     },
-                    action: function () {
+                    action: async function () {
                         
+                        let id = $('tr.selected').data("id");
+                        let idTabla = $('tr.selected').data("idtabla");
+                        let nombreTabla = $('tr.selected').data("nombretabla");
+                        let status = $('tr.selected').data("activo").toString() == "True" ? false : true; 
+                        let data = { id: id, idTabla: idTabla, nombreTabla: nombreTabla, activo: status };
+
+                        await $.ajax({
+                            type: "get",
+                            url: "/Catalogos/ActivarDesactivar",
+                            data: data,
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                            },
+                            complete: function (jqXHR, status) {
+                            }
+                        });
+                        location.reload();
                     }
                 },
                 {
@@ -227,8 +248,25 @@
                         id: 'btn-delete',
                         class: ''
                     },
-                    action: function () {
-                        
+                    action: async function () {
+
+                        let id = $('tr.selected').data("id");
+                        let idTabla = $('tr.selected').data("idtabla");
+                        let nombreTabla = $('tr.selected').data("nombretabla");
+
+                        let data = { id: id, idTabla: idTabla, nombreTabla: nombreTabla };
+
+                        await $.ajax({
+                            type: "get",
+                            url: "/Catalogos/Delete",
+                            data: data,
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                            },
+                            complete: function (jqXHR, status) {
+                            }
+                        });
+                        location.reload();
                     }
                 },
                 {
@@ -237,7 +275,10 @@
                         title: 'Guardar',
                         id: 'btn-save'
                     },
-                    action: function () {                        
+                    action: function () {
+                        $("#currentid").val(null);
+                        $("#Codigo").val(null);
+                        $("#Nombre").val(null);
                         $('#modalCatalogos').modal('show');
                     }
                 }
@@ -254,7 +295,9 @@
         //});
     });
 
-
+    //$('#modalCatalogos').on('hidden.bs.modal', function (e) {
+    //    console.log('cerre');
+    //})
 
     // Pasar datos del boton edit al modal para ser editados
     $("a#edit").click(function () {
@@ -292,7 +335,6 @@
         }
 
     });
-
 
      $("#searchListInput").keyup(function () {
         searchCatalogoText($('#searchListInput').val());
