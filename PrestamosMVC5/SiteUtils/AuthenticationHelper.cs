@@ -26,7 +26,7 @@ namespace PrestamosMVC5.SiteUtils
         public static readonly string AnonimousUser = "Anonimo";
         public static readonly string Operaciones = "#$%%^&&&$kjklsal";
 
-        public static readonly string NegocioMatrizIdNegocio= "$ed!@rdr^%%sdsd";
+        public static readonly string NegocioMatrizIdNegocio = "$ed!@rdr^%%sdsd";
         public static readonly string NegocioMatrizNombre = "$$##dsd%$$%%";
 
         public static readonly string NegocioPadreIdNegocio = "@df))7%$%h&^7";
@@ -58,7 +58,7 @@ namespace PrestamosMVC5.SiteUtils
         }
 
         private static string GetAnonimoName() => "Anonimo";
-        
+
 
         public static int GetIdUsuario(HttpSessionStateBase sessionState = null)
         {
@@ -72,7 +72,7 @@ namespace PrestamosMVC5.SiteUtils
             var imageFile = getKeyValue(UsuarioImageFile);
             return imageFile == null ? SiteImages.NoImage : SiteDirectory.ImagesForUsuarios + "/" + imageFile;
         }
-        
+
         // to retrieve IdNegocio value from session
         public static int GetSelectedNegocioId(HttpSessionStateBase sessionState = null)
         {
@@ -99,15 +99,15 @@ namespace PrestamosMVC5.SiteUtils
             object idNegObj = getKeyValue(key);
             var returnValue = idNegObj == null ? -1 : Convert.ToInt32(idNegObj);
             return returnValue;
-            
+
         }
         public static string GetNegocioLogo(HttpSessionStateBase sessionState = null)
         {
             object data = getKeyValue(NegocioLogoKey);
-            var returnValue = data == null ? SiteImages.NoImage : SiteDirectory.ImagesForNegocios+"/"+ data.ToString();
+            var returnValue = data == null ? SiteImages.NoImage : SiteDirectory.ImagesForNegocios + "/" + data.ToString();
             return returnValue;
         }
-        public static void LoginUserToSession(int idNegocio, string usuario, int idUsuario, string usuarioNombreReal,  string userImageFilePath)
+        public static void LoginUserToSession(int idNegocio, string usuario, int idUsuario, string usuarioNombreReal, string userImageFilePath)
         {
             // get negocio info
             var sessionState = HttpContext.Current.Session;
@@ -131,7 +131,7 @@ namespace PrestamosMVC5.SiteUtils
             sessionState.Add(NegocioPadreIdNegocio, negocioPadre.IdNegocio);
             sessionState.Add(NegocioPadreNombre, negocioPadre.NombreComercial);
 
-            var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, Usuario = usuario,  PermitirOperaciones=-1 }).FirstOrDefault();
+            var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, Usuario = usuario, PermitirOperaciones = -1 }).FirstOrDefault();
             // si el hijo no tiene logo buscar el de un papa que tenga logo
             sessionState.Add(NegocioLogoKey, negocio.Logo);
         }
@@ -194,25 +194,35 @@ namespace PrestamosMVC5.SiteUtils
             return IsAuthenticated;
         }
 
-        
+
         public override void OnAuthorization(AuthorizationContext contx)
         {
-        //    bool IsAuthenticAttribute =
-        //(filterContext.ActionDescriptor.IsDefined(typeof(Authenticate), true) ||
-        //filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AuthenticateAttribute), true)) &&
-        //filterContext.HttpContext.User.Identity.IsAuthenticated;
+            //    bool IsAuthenticAttribute =
+            //(filterContext.ActionDescriptor.IsDefined(typeof(Authenticate), true) ||
+            //filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AuthenticateAttribute), true)) &&
+            //filterContext.HttpContext.User.Identity.IsAuthenticated;
 
-        //    if (!IsAuthenticAttribute)
-        //    {
-        //        base.OnAuthorization(filterContext);
-        //    }
-            
+            //    if (!IsAuthenticAttribute)
+            //    {
+            //        base.OnAuthorization(filterContext);
+            //    }
+
             IsUserAuthenticatedInSession(contx.HttpContext.Session);
             if (!IsAuthenticated)
             {
-                HandleUnauthorizedRequest(contx); //call the HandleUnauthorizedRequest function
+                #if DEBUG
+                    {
+                        var usuario = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = "bryan", IdNegocio = 6 }).FirstOrDefault();
+                        var result = BLLPrestamo.Instance.LoginUser(usuario);
+                        AuthInSession.LoginUserToSession(1, result.Usuario.LoginName, result.Usuario.IdUsuario, result.Usuario.NombreRealCompleto, result.Usuario.ImgFilePath);
+                    }
+                #else
+                    {
+                    HandleUnauthorizedRequest(contx); //call the HandleUnauthorizedRequest function
+                    }
+            #endif
             }
-            
+
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {

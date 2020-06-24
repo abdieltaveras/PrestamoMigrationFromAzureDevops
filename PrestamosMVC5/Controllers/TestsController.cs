@@ -31,6 +31,12 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
+        public ActionResult Create()
+        {
+            var periodo = new Periodo();
+            periodo.Nombre = "Semana";
+            return View(periodo);
+        }
 
         public ActionResult TreeViewExample2()
         {
