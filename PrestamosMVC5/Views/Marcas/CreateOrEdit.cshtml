@@ -1,5 +1,31 @@
 ﻿@model MarcaVM
 
+
+<div class="mb-5">
+    <div class="col-5" style="margin: auto; padding: 0%; ">
+        <h4 style="text-align: center;">¿Que cliente buscas?</h4>
+
+        <input class="prestamo_target form-control" type="text" id="input-prestamo_search" autocomplete="off" placeholder="Buscar por numero de prestamo" name="name" value=""
+               style="height: 60px" />
+
+        <div style="float:right">
+            <span>Tipo de busqueda: </span>
+            <input type="radio" class="flat searchtype" checked id="search-by-prestamo" value="1" style="float:right;" />
+            <i class="fa fa-dollar"></i> NO. Prestamo
+            <input type="radio" class="flat searchtype" id="search-by-user" value="2" style="float:right;" />
+            <i class="fa fa-user"></i> Cliente
+            <input type="radio" class="flat searchtype" id="search-by-garantia" value="3" style="float:right;" />
+            <i class="fa fa-automobile"></i> Garantia
+        </div>
+
+        <div id="list-prestamo-container">
+
+            <div class="list-group col-md-12" id="list-prestamo-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
@@ -115,10 +141,38 @@
 </div>
 
 @section prevscripts {
+
+
+
     <script>
+        //Parametros de configuracion
+        IMAGEN_CLIENTE_EN_BUSCADOR = false;
+        IMAGEN_CLIENTE_EN_DETALLES = false;
+        DETALLES = true;
+
+        const onEnter = async function () {
+            let idPrestamo = $('[data-order="' + selectPointer + '"]').attr('data-idPrestamo');
+            let photoRoot = $('[data-order="' + selectPointer + '"]').attr('data-client-photo');
+
+            // Funcion para buscar informacion del prestamo
+            res = await loadPrestamoData(idPrestamo);
+            showdata(res);
+        };
+        const onClick = async function (evt) {
+            let idPrestamo = evt.target.getAttribute('data-idPrestamo');
+            let photoRoot = evt.target.getAttribute('data-client-photo');
+
+        };
+
+        function showdata(data) {
+            alert("Hola mundo");
+            console.log('esto son datos de prueba', data);
+        }
+
         $(document).ready(function () {
             $('#datatable').DataTable(dataTableConfiguration);
             removeTemplateConfiguration();
         });
     </script>
+    <script src="~/Scripts/Apps/Prestamo/search.js"></script>
 }

@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<Cliente>
+<link href="~/Content/customcss/datatable/css/customStyle.css" rel="stylesheet">
 
 <div class="row">
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
-        <a href="@Url.Action("CreateOrEdit", "Clientes")" class="btn btn-primary" role="button" style="float:right;">
+        @*<a href="@Url.Action("CreateOrEdit", "Clientes")" class="btn btn-primary" role="button" style="float:right;">
             Agregar <i class="fa fa-plus"></i>
-        </a>
+        </a>*@
 
+        <h4>Tabla de clientes</h4>
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de clientes</h2>
-
-                <div class="clearfix"></div>
-            </div>
+            
             <div class="x_content">
                 @* data *@
-                <div  class="table-responsive">
-                    <table id="datatable" class="table-bordered row-border " style="width:100%; text-align:center;">
+                <div class="table-responsive">
+                    <table id="datatable" class="table bulk_action " style="width:100%; text-align:center;">
                         <thead>
                             <tr>
+                                <th>
+                                </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Activo)
                                 </th>
@@ -55,6 +55,8 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="@(!item.Activo ? "table-active" : "" )">
+                                    <td>
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Activo)
                                     </td>
@@ -102,7 +104,68 @@
 
 <script>
     $(document).ready(function () {
-        $('#datatable').DataTable(dataTableConfiguration);
+
+        // Datatable
+        var table = $('#datatable').DataTable($.extend(dataTableConfiguration, {
+            buttons: [
+                'copy', 'pdfHtml5', 'excel', 'print',
+                {
+                    text: '<i class="fa fa-edit"></i>',
+                    attr: {
+                        title: 'Editar',
+                        id: 'btn-edit',
+                        class: ''
+                    },
+                    action: function () {
+                        $("#currentid").val($('tr.selected').data("id"));
+                        $("#Codigo").val($('tr.selected').data("codigo"));
+                        $("#Nombre").val($('tr.selected').data("nombre"));
+                        console.log('Mi id', $('tr.selected').data("id"));
+
+                        if ($('tr.selected').data("id") !== undefined) {
+                            $('#modalCatalogos').modal('show');
+                        }
+                    }
+                },
+                {
+                    text: '<i class="fa fa-ban"></i>',
+                    attr: {
+                        title: 'Anular',
+                        id: 'btn-anular',
+                        class: ''
+                    },
+                    action: async function () {
+
+                    }
+                },
+                {
+                    text: '<i class="fa fa-trash"></i>',
+                    attr: {
+                        title: 'Borrar',
+                        id: 'btn-delete',
+                        class: ''
+                    },
+                    action: async function () {
+
+                    }
+                },
+                {
+                    text: 'Agregar <i class="fa fa-plus"></i>',
+                    attr: {
+                        title: 'Guardar',
+                        id: 'btn-save'
+                    },
+                    action: function () {
+
+                    }
+                }
+            ]
+        }));
         removeTemplateConfiguration();
+        $('#btn-edit').appendTo('#r2s1');
+        $('#btn-anular').appendTo('#r2s1');
+        $('#btn-delete').appendTo('#r2s1');
+        $('#btn-save').appendTo('#r2s3');
+
     });
 </script>

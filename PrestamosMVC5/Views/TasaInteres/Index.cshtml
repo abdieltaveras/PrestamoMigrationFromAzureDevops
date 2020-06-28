@@ -3,6 +3,7 @@
 @section pagestyle
 {
     <link href="~/Content/customcss/switch.css" rel="stylesheet">
+    <link href="~/Content/customcss/datatable/css/customStyle.css" rel="stylesheet">
     <style>
         #period span {
             font-size: 1em;
@@ -14,20 +15,16 @@
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
-        <button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres"  style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+        @*<button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres"  style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
+        <h4>Tabla de intereses</h4>
         <div class="x_panel">
-            <div class="x_title">
 
-                <h2>Tabla de intereses</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                </ul>
-                <div class="clearfix"></div>
-            </div>
             <div class="x_content">
-                <table class="table bulk_action ">
+                <table id="datatable" class="table bulk_action ">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Codigo</th>
                             <th>% de interes</th>
                             <th>Descripcion</th>
@@ -41,6 +38,8 @@
                         @foreach (var item in Model.ListaTasaInteres)
                         {
                             <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <td>
+                                </td>
                                 <td>
                                     <strong>
                                         @item.Codigo
@@ -207,37 +206,97 @@
             </div>
         </div>
 
-
     </div>
 </div>
 
-@section scripts
-{
 
-    <script>
+<script>
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            let BASE_MENSUAL = 30;
-            let LONG_DIARIO = 1;
-            let LONG_SEMANAL = 7;
-            let LONG_QUINCENAL = 15;
-            let LONG_ANUAL = 360;
+        let BASE_MENSUAL = 30;
+        let LONG_DIARIO = 1;
+        let LONG_SEMANAL = 7;
+        let LONG_QUINCENAL = 15;
+        let LONG_ANUAL = 360;
 
-            $('#TasaInteres_InteresMensual').keyup(function () {
-                calcularPorcentajes();
-            });
-
-            function calcularPorcentajes() {
-                let tasaMensual = $('#TasaInteres_InteresMensual').val();
-
-                $('#porcentaje-diario').text(`${((tasaMensual / BASE_MENSUAL) * LONG_DIARIO).toFixed(2)}%` );
-                $('#porcentaje-semanal').text(`${((tasaMensual / BASE_MENSUAL) * LONG_SEMANAL).toFixed(2)}%`);
-                $('#porcentaje-quincenal').text(`${((tasaMensual / BASE_MENSUAL) * LONG_QUINCENAL).toFixed(2)}%`);
-                $('#porcentaje-anual').text(`${((tasaMensual / BASE_MENSUAL) * LONG_ANUAL).toFixed(2)}%`);
-            }
+        $('#TasaInteres_InteresMensual').keyup(function () {
+            calcularPorcentajes();
         });
 
-    </script>
+        function calcularPorcentajes() {
+            let tasaMensual = $('#TasaInteres_InteresMensual').val();
 
-}
+            $('#porcentaje-diario').text(`${((tasaMensual / BASE_MENSUAL) * LONG_DIARIO).toFixed(2)}%`);
+            $('#porcentaje-semanal').text(`${((tasaMensual / BASE_MENSUAL) * LONG_SEMANAL).toFixed(2)}%`);
+            $('#porcentaje-quincenal').text(`${((tasaMensual / BASE_MENSUAL) * LONG_QUINCENAL).toFixed(2)}%`);
+            $('#porcentaje-anual').text(`${((tasaMensual / BASE_MENSUAL) * LONG_ANUAL).toFixed(2)}%`);
+        }
+
+        // Datatable
+        var table = $('#datatable').DataTable($.extend(dataTableConfiguration, {
+            buttons: [
+                'copy', 'pdfHtml5', 'excel', 'print',
+                {
+                    text: '<i class="fa fa-edit"></i>',
+                    attr: {
+                        title: 'Editar',
+                        id: 'btn-edit',
+                        class: ''
+                    },
+                    action: function () {
+                        $("#currentid").val($('tr.selected').data("id"));
+                        $("#Codigo").val($('tr.selected').data("codigo"));
+                        $("#Nombre").val($('tr.selected').data("nombre"));
+                        console.log('Mi id', $('tr.selected').data("id"));
+
+                        if ($('tr.selected').data("id") !== undefined) {
+                            $('#modalCatalogos').modal('show');
+                        }
+                    }
+                },
+                {
+                    text: '<i class="fa fa-ban"></i>',
+                    attr: {
+                        title: 'Anular',
+                        id: 'btn-anular',
+                        class: ''
+                    },
+                    action: async function () {
+
+                    }
+                },
+                {
+                    text: '<i class="fa fa-trash"></i>',
+                    attr: {
+                        title: 'Borrar',
+                        id: 'btn-delete',
+                        class: ''
+                    },
+                    action: async function () {
+
+                    }
+                },
+                {
+                    text: 'Agregar <i class="fa fa-plus"></i>',
+                    attr: {
+                        title: 'Guardar',
+                        id: 'btn-save'
+                    },
+                    action: function () {
+
+                    }
+                }
+            ]
+        }));
+        removeTemplateConfiguration();
+        $('#btn-edit').appendTo('#r2s1');
+        $('#btn-anular').appendTo('#r2s1');
+        $('#btn-delete').appendTo('#r2s1');
+        $('#btn-save').appendTo('#r2s3');
+
+
+    });
+
+</script>
+
