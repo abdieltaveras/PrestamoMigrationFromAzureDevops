@@ -1,0 +1,76 @@
+﻿@model PrestamosMVC5.Models.TestMask
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Input type number never use inputmask for this html element </h2>
+        <h4>TestMask</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control", data_inputmask_nousar = "'mask' : '9999'", @min = 0 } })
+                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+         <div class="form-group">
+            @Html.LabelFor(model => model.TextAsNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TextAsNumber, new { htmlAttributes = new { @class = "form-control", data_inputmask = "'mask' : '9999'" } })
+                @Html.ValidationMessageFor(model => model.TextAsNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TextAsNumber2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TextAsNumber2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TextAsNumber2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="/content/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="/Scripts/Apps/minMaxAdapter.js"></script>
+    <script>
+        $(document).ready(function ($) {
+            //$('#Number').mask('9999').val('@Model.Number').trigger('input')
+            $('#@Html.IdFor(m => m.TextAsNumber2)').inputmask('999-9999');
+        });
+    </script>
+}

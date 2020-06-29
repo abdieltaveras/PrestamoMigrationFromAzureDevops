@@ -213,11 +213,11 @@ namespace PrestamoBLL.Entidades
         public decimal TasaDeInteresPorPeriodo { get; set; }
         [Display(Name = "Indique la mora")]
         public int IdTipoMora { get; set; }
-        [Display(Name = "Indique la forma de las pago?")]
+        [Display(Name = "Indique la forma (periodo) de las pago?")]
         public int IdPeriodo { get; set; }
         [IgnorarEnParam]
         public Periodo Periodo { get; internal set; }
-        [Display(Name = "Cantidad de Periodos")]
+        [Display(Name = "Cantidad de Cuotas")]
         //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
         //[RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
         [Min(1,ErrorMessage ="el valor minimo aceptado es 1")]

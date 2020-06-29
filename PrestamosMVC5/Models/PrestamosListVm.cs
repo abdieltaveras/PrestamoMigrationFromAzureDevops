@@ -28,12 +28,15 @@ namespace PrestamosMVC5.Models
         public string infoCliente { get; set; }
         [Display(Name = "No Identificacion de la garantia")]
         public string NumeracionGarantia { get; set; } = string.Empty;
+        [Display(Name = "Prestamo a Renovar Numero")]
+        public string NumeroPrestamoARenovar { get; set; } = string.Empty;
         [HiddenInput(DisplayValue =false)]
         public string infoGarantia { get; set; }
         [Display(Name ="Lleva gasto de cierre")]
         public bool LlevaGastoDeCierre { get; set; } = false;
         [Display(Name = "probando si desea ver el json result al hacer post")]
         public bool MostrarJsonResult { get; set; } = false;
+
         public PrestamoVm()
         {
             
