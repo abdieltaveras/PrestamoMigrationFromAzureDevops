@@ -47,14 +47,15 @@
                                     Telefono Movil
                                 </th>
 
-                                <th></th>
+                                @*<th></th>*@
                             </tr>
                         </thead>
                         <tbody>
 
                             @foreach (var item in Model)
                             {
-                                <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <tr class="@(!item.Activo ? "table-active" : "" )"
+                                    data-id="@item.IdCliente">
                                     <td>
                                     </td>
                                     <td>
@@ -85,10 +86,10 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.TelefonoCasa)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.ActionLink(" ", "Anular", new { id = @item.IdCliente }, htmlAttributes: new { @class = "btn btn-outline-danger fa fa-trash" })
                                         @Html.ActionLink(" ", "CreateOrEdit", new { id = @item.IdCliente }, htmlAttributes: new { @class = "btn btn-outline-warning fa fa-edit" })
-                                    </td>
+                                    </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -103,64 +104,30 @@
 </div>
 
 <script>
+    let onEditButton = function () {
+        let id = $('tr.selected').data("id");
+
+        if (id) {
+            window.location.href ='/Clientes/CreateOrEdit/' + id;
+        }
+    }
+    let onCancelButton = function () {
+        let id = $('tr.selected').data("id");
+
+        if (id) {
+            window.location.href ='/Clientes/Anular/' + id;
+        }
+    }
+    let onDeleteButton = function () {
+        console.log('Delete');
+    }
+    let onNewButton = function () {
+        window.location.href ='/Clientes/CreateOrEdit';
+    }
+    
     $(document).ready(function () {
-
         // Datatable
-        var table = $('#datatable').DataTable($.extend(dataTableConfiguration, {
-            buttons: [
-                'copy', 'pdfHtml5', 'excel', 'print',
-                {
-                    text: '<i class="fa fa-edit"></i>',
-                    attr: {
-                        title: 'Editar',
-                        id: 'btn-edit',
-                        class: ''
-                    },
-                    action: function () {
-                        $("#currentid").val($('tr.selected').data("id"));
-                        $("#Codigo").val($('tr.selected').data("codigo"));
-                        $("#Nombre").val($('tr.selected').data("nombre"));
-                        console.log('Mi id', $('tr.selected').data("id"));
-
-                        if ($('tr.selected').data("id") !== undefined) {
-                            $('#modalCatalogos').modal('show');
-                        }
-                    }
-                },
-                {
-                    text: '<i class="fa fa-ban"></i>',
-                    attr: {
-                        title: 'Anular',
-                        id: 'btn-anular',
-                        class: ''
-                    },
-                    action: async function () {
-
-                    }
-                },
-                {
-                    text: '<i class="fa fa-trash"></i>',
-                    attr: {
-                        title: 'Borrar',
-                        id: 'btn-delete',
-                        class: ''
-                    },
-                    action: async function () {
-
-                    }
-                },
-                {
-                    text: 'Agregar <i class="fa fa-plus"></i>',
-                    attr: {
-                        title: 'Guardar',
-                        id: 'btn-save'
-                    },
-                    action: function () {
-
-                    }
-                }
-            ]
-        }));
+        var table = $('#datatable').DataTable(dataTableConfiguration);
         removeTemplateConfiguration();
         $('#btn-edit').appendTo('#r2s1');
         $('#btn-anular').appendTo('#r2s1');

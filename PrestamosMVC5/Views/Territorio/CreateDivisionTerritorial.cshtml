@@ -1,11 +1,16 @@
 ﻿@model IEnumerable<PrestamoBLL.Entidades.Territorio>
 <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<style scoped>
+    button {
+        padding-bottom: 100px;
+    }
+</style>
 <div class="row">
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#division-territorial-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#division-territorial-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
       
         <div class="x_panel">
             <div class="x_title">
@@ -13,9 +18,10 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
+                <table id="datatable" class="table bulk_action" style="width:100%; text-align:center;">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Division territorial</th>
                             <th>Acciones</th>
                         </tr>
@@ -25,6 +31,8 @@
                         @foreach (var item in Model)
                         {
                             <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <td>
+                                </td>
                                 <td>
                                     <strong>
                                         @item.Nombre
@@ -89,17 +97,31 @@
     </div>
 </div>
 
-<style scoped>
-    button{
-        padding-bottom: 100px;
-    }
-</style>
+
 
 <script type="text/javascript">
 
+    let onEditButton = function () {
+        
+    }
+    let onCancelButton = function () {
+        
+    }
+    let onDeleteButton = function () {
+    
+    } 
+    let onNewButton = function () {
+        $('#division-territorial-modal').modal('show');
+    }
+
     $(document).ready(function () {
         $('#datatable').DataTable(dataTableConfiguration);
+
         removeTemplateConfiguration();
+        $('#btn-edit').appendTo('#r2s1');
+        $('#btn-anular').appendTo('#r2s1');
+        $('#btn-delete').appendTo('#r2s1');
+        $('#btn-save').appendTo('#r2s3');
     });
 
     // Mostrar mensajes

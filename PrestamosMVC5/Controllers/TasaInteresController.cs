@@ -48,11 +48,13 @@ namespace PrestamosMVC5.Controllers
             return  RedirectToAction("Index");
         }
 
-        public RedirectToRouteResult Delete(int id, string usuario)
+        public RedirectToRouteResult Delete(int id)
         {
+            var tasaInteres = new TasaInteresDelParams { Id = id };
+            pcpSetUsuarioTo(tasaInteres);
             try
             {
-                BLLPrestamo.Instance.TasaInteresDelete(new TasaInteresDelParams { Id = id, Usuario = usuario });
+                BLLPrestamo.Instance.TasaInteresDelete(tasaInteres);
             }
             catch (Exception ex)
             {

@@ -30,14 +30,15 @@
                             <th>Descripcion</th>
                             <th>Estado</th>
                             <th>¿Autorizacion?</th>
-                            <th>Acciones</th>
+                            @*<th>Acciones</th>*@
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach (var item in Model.ListaTasaInteres)
                         {
-                            <tr class="@(!item.Activo ? "table-active" : "" )">
+                            <tr class="@(!item.Activo ? "table-active" : "" )" 
+                                data-id="@item.idTasaInteres">
                                 <td>
                                 </td>
                                 <td>
@@ -72,7 +73,7 @@
                                     }
                                 </td>
 
-                                <td>
+                                @*<td>
 
                                     <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
                                         <button type="button" class="btn btn-outline-danger">
@@ -86,7 +87,7 @@
                                         </button>
                                     </a>
 
-                                </td>
+                                </td>*@
                             </tr>
                         }
                     </tbody>
@@ -212,6 +213,30 @@
 
 <script>
 
+    let onEditButton = function () {
+        
+    }
+    let onCancelButton = function () {
+        
+    }
+    let onDeleteButton = async function () {
+        let id = $('tr.selected').data("id");
+
+        let data = { id: id };
+
+        await $.ajax({
+            type: "get",
+            url: "/TasaInteres/Delete",
+            data: data,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+        location.reload();
+    }    
+
     $(document).ready(function () {
 
         let BASE_MENSUAL = 30;
@@ -234,61 +259,8 @@
         }
 
         // Datatable
-        var table = $('#datatable').DataTable($.extend(dataTableConfiguration, {
-            buttons: [
-                'copy', 'pdfHtml5', 'excel', 'print',
-                {
-                    text: '<i class="fa fa-edit"></i>',
-                    attr: {
-                        title: 'Editar',
-                        id: 'btn-edit',
-                        class: ''
-                    },
-                    action: function () {
-                        $("#currentid").val($('tr.selected').data("id"));
-                        $("#Codigo").val($('tr.selected').data("codigo"));
-                        $("#Nombre").val($('tr.selected').data("nombre"));
-                        console.log('Mi id', $('tr.selected').data("id"));
+        var table = $('#datatable').DataTable(dataTableConfiguration);
 
-                        if ($('tr.selected').data("id") !== undefined) {
-                            $('#modalCatalogos').modal('show');
-                        }
-                    }
-                },
-                {
-                    text: '<i class="fa fa-ban"></i>',
-                    attr: {
-                        title: 'Anular',
-                        id: 'btn-anular',
-                        class: ''
-                    },
-                    action: async function () {
-
-                    }
-                },
-                {
-                    text: '<i class="fa fa-trash"></i>',
-                    attr: {
-                        title: 'Borrar',
-                        id: 'btn-delete',
-                        class: ''
-                    },
-                    action: async function () {
-
-                    }
-                },
-                {
-                    text: 'Agregar <i class="fa fa-plus"></i>',
-                    attr: {
-                        title: 'Guardar',
-                        id: 'btn-save'
-                    },
-                    action: function () {
-
-                    }
-                }
-            ]
-        }));
         removeTemplateConfiguration();
         $('#btn-edit').appendTo('#r2s1');
         $('#btn-anular').appendTo('#r2s1');

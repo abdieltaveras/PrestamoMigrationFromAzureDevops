@@ -5,24 +5,15 @@
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo-mora-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo-mora-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
-
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de moras</h2>
-
-                <div class="clearfix"></div>
-            </div>
-
-
-
-            @* data *@
-
+        <h4>Tabla de moras</h4>
+        <div class="x_panel">        
             <div>
-                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
+                <table id="datatable" class="table bulk_action" style="width:100%; text-align:center;">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Codigo</th>
                             <th>Tipo del Cargo</th>
                             <th>Periodo</th>
@@ -32,14 +23,15 @@
 
                             <th>Descripcion</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach (var item in Model.ListaTipoMoras)
                         {
-                            <tr class="@(!item.Activo ? "table-active" : "" )">
+                            <tr class="@(!item.Activo ? "table-active" : "" )"
+                                data-id="@item.IdTipoMora">
+                                <td></td>
                                 <td>
                                     <strong>
                                         @item.Codigo
@@ -84,7 +76,7 @@
                                         <span class="badge badge-danger">Inactivo</span>
                                     }
                                 </td>
-                                <td>
+                                @*<td>
                                     <a href="@Url.Action("Delete", "TipoMoras", new { Id = item.IdTipoMora, Usuario = "Bryan" })">
                                         <button type="button" class="btn btn-outline-danger">
                                             <i class="fa fa-trash"></i>
@@ -95,7 +87,7 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </a>
-                                </td>
+                                </td>*@
                             </tr>
                         }
 
@@ -226,6 +218,33 @@
 
 
 <script>
+     let onEditButton = function () {
+    }
+    let onCancelButton = function () {
+        
+    }
+    let onDeleteButton = async function () {
+        let id = $('tr.selected').data("id");
+
+        if (id) {
+            let data = { id: id };
+
+            await $.ajax({
+                type: "get",
+                url: "/TipoMoras/Delete",
+                data: data,
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                },
+                complete: function (jqXHR, status) {
+                }
+            });
+            location.reload();
+        }
+    }
+    let onNewButton = function () {
+    }
+
     $(document).ready(function () {
         $('#datatable').DataTable(dataTableConfiguration);
         removeTemplateConfiguration();
