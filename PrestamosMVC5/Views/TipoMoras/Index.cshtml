@@ -8,12 +8,12 @@
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tipo-mora-modal" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
         <h4>Tabla de moras</h4>
-        <div class="x_panel">        
+        <div class="x_panel">
             <div>
-                <table id="datatable" class="table bulk_action" style="width:100%; text-align:center;">
+                <table id="datatable" class="table-bordered row-border" >
                     <thead>
                         <tr>
-                            <th></th>
+                            <th class="checkColumn"></th>
                             <th>Codigo</th>
                             <th>Tipo del Cargo</th>
                             <th>Periodo</th>
@@ -218,7 +218,7 @@
 
 
 <script>
-     let onEditButton = function () {
+    let onEditButton = function () {
     }
     let onCancelButton = function () {
         

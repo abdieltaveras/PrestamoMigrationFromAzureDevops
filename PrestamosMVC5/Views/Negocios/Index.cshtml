@@ -6,17 +6,14 @@
             Agregar <i class="fa fa-plus"></i>
         </a>
 
+        <h4>Tabla de negocios</h4>
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de clientes</h2>
-
-                <div class="clearfix"></div>
-            </div>
             <div class="x_content">
                 <div class="table-responsive">
-                    <table id="datatable" class="table-bordered row-border " style="width:100%; text-align:center;">
+                    <table id="datatable" class="table-bordered row-border" >
                         <thead>
                             <tr>
+                                <th class="checkColumn"></th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Codigo)
                                 </th>
@@ -32,13 +29,15 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Bloqueado)
                                 </th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <tr class="@(!item.Activo ? "table-active" : "" )"
+                                     data-id="@item.IdNegocio">
+                                    <td>
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Codigo)
                                     </td>
@@ -54,11 +53,11 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Bloqueado)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.ActionLink(" ", "Anular", new { id = @item.IdNegocio }, htmlAttributes: new { @class = "btn btn-outline-danger fa fa-trash" })
                                         @Html.ActionLink(" ", "CreateOrEdit", new { id = @item.IdNegocio }, htmlAttributes: new { @class = "btn btn-outline-warning fa fa-edit" })
-                                        
-                                    </td>
+
+                                    </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -71,6 +70,27 @@
 
 
 <script>
+
+    let onEditButton = function () {
+        let id = $('tr.selected').data("id");
+
+        if (id) {
+            window.location.href = "/Negocios/CreateOrEdit/" + id;
+        }
+    }
+    let onCancelButton = function () {
+    }
+    let onDeleteButton = async function () {
+        let id = $('tr.selected').data("id");
+
+        if (id) {
+            window.location.href = "/Negocios/Anular/" + id;
+        }
+    }
+    let onNewButton = function () {
+        window.location.href = "/Negocios/CreateOrEdit?idNegocio=-1";
+    }
+
     $(document).ready(function () {
         $('#datatable').DataTable(dataTableConfiguration);
         removeTemplateConfiguration();

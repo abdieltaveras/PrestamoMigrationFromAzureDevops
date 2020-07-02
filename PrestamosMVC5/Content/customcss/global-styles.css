@@ -57,4 +57,18 @@ thead tr {
 .paging_simple_numbers {
     float: right;
 }
+
+.checkColumn {
+    width: 5%;
+}
+
+#datatable {
+    width: 100%;
+    text-align: center;
+}
+
+#datatable td {
+    height: 40px;
+}
+
 /*Fin de estilos para datatable*/
