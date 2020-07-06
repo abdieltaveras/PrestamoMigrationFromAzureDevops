@@ -219,6 +219,8 @@
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
     <Content Include="Content\build\js\custom.min - Copy.js" />
+    <Content Include="Content\customcss\datatable\css\customStyle.css" />
+    <Content Include="Content\customcss\searcher-style.css" />
     <Content Include="Content\customcss\datatable\configuration\js-conf\datatable-conf.js" />
     <Content Include="Content\customcss\datatable\css\buttons.dataTables.min.css" />
     <Content Include="Content\customcss\datatable\css\dataTables.bootstrap4.min.css" />
@@ -4009,6 +4011,7 @@
     <Content Include="App_Code\TreeInfo.cshtml" />
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Scripts\Apps\minMaxAdapter.js" />
+    <Content Include="Scripts\Apps\Prestamo\search.js" />
     <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <Content Include="Views\Clientes\_infoReferencia2.cshtml" />
     <Content Include="Views\Tests\DropDownList1.cshtml" />

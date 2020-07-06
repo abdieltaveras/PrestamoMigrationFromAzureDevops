@@ -206,5 +206,7 @@
     <None Include="PrestamoDB.publish.xml" />
     <None Include="DeployProfile.publish.publish.xml" />
     <None Include="Prestamo_dev.publish.publish.xml" />
+    <None Include="PrestamoDB_Dev.publish.publish.xml" />
+    <None Include="Prestamo_ing.publish.publish.xml" />
   </ItemGroup>
 </Project>

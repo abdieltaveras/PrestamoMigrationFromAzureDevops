@@ -5,37 +5,13 @@
     
     @*<link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />*@
     <link href="~/Content/customcss/Ingresos/garantiasSlider.css" rel="stylesheet" />
+    <link href="~/Content/customcss/searcher-style.css" rel="stylesheet" />
 }
 
 <style>
-    p strong {
-        pointer-events: none;
-    }
-
-    p span {
-        pointer-events: none;
-    }
-
-    p small {
-        pointer-events: none;
-    }
-
-
-    p span span {
-        pointer-events: none;
-    }
-
-    p img {
-        pointer-events: none;
-    }
-
-    i {
-        pointer-events: none;
-    }
 </style>
 
 <div class="mb-5">
-    @*<form autocomplete="off" action="/" method="post" style="padding: 0%">*@
     <div class="col-5" style="margin: auto; padding: 0%; ">
         <h4 style="text-align: center;">¿Que cliente buscas?</h4>
 
@@ -58,7 +34,6 @@
             </div>
         </div>
     </div>
-    @*</form>*@
 </div>
 <hr />
 
@@ -119,500 +94,332 @@
 
 }
 
-    <hr />
+<hr />
 
-    @* Datos personales del usuario *@
-    <div class="row mt-5 pb-5" id="details-container" style="display: none;">
+@* Datos personales del usuario *@
+<div class="row mt-5 pb-5" id="details-container" style="display: none;">
 
-        <div class="col-md-4 mt-3">
-            <div class="shadow p-3 bg-light rounded">
-                <div class="x_title">
-                    <h2>Datos personales</h2>
-                    <div style="float:right;">
-                        <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver cliente</button>
-                    </div>
-                    <div class="clearfix"></div>
+    <div class="col-md-4 mt-3">
+        <div class="shadow p-3 bg-light rounded">
+            <div class="x_title">
+                <h2>Datos personales</h2>
+                <div style="float:right;">
+                    <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver cliente</button>
                 </div>
-                <div class="mb-2">
-                    <img id="foto-cliente" width="100" height="auto" src="" style="border: 1px solid #666; border-radius: 10px;" />
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <strong>Nombre:</strong>
-                        <span id="nombre-cliente"></span>
-                        <br />
-                        <br />
-                        <strong>Apellido:</strong>
-                        <span id="apellido-cliente"></span>
-                        <br />
-                        <br />
-                        <strong id="tipo-documento-cliente">Cedula:</strong>
-                        <span id="id-documento-cliente"></span>
-                        <br />
-                        <br />
-                        <strong>Informacion general:</strong>
-                        <span id="detalles-cliente"></span>
-                    </div>
-                </div>
+                <div class="clearfix"></div>
             </div>
-        </div>
-
-        <div class="col-md-4 mt-3">
-            <div class="shadow p-3 bg-light rounded">
-                <div class="x_title">
-                    <h2>Datos de garantia</h2>
-                    <div style="float:right;">
-                        <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver garantia</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        @*<span>Aqui pienso poner un slider con las diferentes garantias y sus detalles</span>*@
-                        @*<img width="100%" height="auto" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/10/slider-5.gif?w=300&ssl=1" alt="Alternate Text" />*@
-
-                        <div class="slider">
-                            <div id="buttons">
-                            </div>
-                            <div class="slides">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+            <div class="mb-2">
+                <img id="foto-cliente" width="100" height="auto" src="" style="border: 1px solid #666; border-radius: 10px;" />
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-12">
 
-        <div class="col-md-4 mt-3">
-            <div class="shadow p-3 bg-light rounded">
-                <div class="x_title">
-                    <h2>Datos de Prestamo</h2>
-                    <div style="float:right;">
-                        <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver prestamo</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <strong>Numero de prestamo:</strong>
-                        <span id="numero-prestamo"></span>
-                        <br />
-                        <br />
-                        <strong>Fecha emision:</strong>
-                        <span id="fecha-emision-prestamo"></span>
-                        <br />
-                        <br />
-                        <strong>Fecha vencimiento:</strong>
-                        <span id="fecha-vencimiento-prestamo"></span>
-                        <br />
-                        <br />
-                        <strong>Tipo mora:</strong>
-                        <span id="mora-prestamo"></span>
-                        <br />
-                        <br />
-                        <strong>Clasificacion:</strong>
-                        <span id="clasificacion-prestamo"></span>
-                        <br />
-                        <br />
-                        <strong>Informacion general:</strong>
-                        <span id="detalles-prestamo"></span>
-                    </div>
+                    <strong>Nombre:</strong>
+                    <span id="nombre-cliente"></span>
+                    <br />
+                    <br />
+                    <strong>Apellido:</strong>
+                    <span id="apellido-cliente"></span>
+                    <br />
+                    <br />
+                    <strong id="tipo-documento-cliente">Cedula:</strong>
+                    <span id="id-documento-cliente"></span>
+                    <br />
+                    <br />
+                    <strong>Informacion general:</strong>
+                    <span id="detalles-cliente"></span>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-    <style>
-        .containera {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .amount-text {
-            text-align: center;
-            font-weight: 600;
-            font-size: 30px;
-        }
-
-        .card-body {
-            text-align: center;
-        }
-
-        .amount-container {
-            padding: 5px;
-        }
-
-        .amount-prefix {
-            font-weight: 400;
-            font-size: 16px;
-        }
-
-        /*amount input*/
-        .input-amount {
-            border: 0px solid #333;
-            border-radius: 5px;
-            color: #333;
-            width: 100%;
-            background-color: #f8f9fa;
-            text-align: center;
-            font-weight: 600;
-            font-size: 30px;
-        }
-    </style>
-
-
-    @section scripts
-{
-        <script>
-
-
-            $("input[data-type='currency']").on({
-                keyup: function () {
-                    formatCurrency($(this));
-                },
-                blur: function () {
-                    formatCurrency($(this), "blur");
-                }
-            });
-
-
-            function formatNumber(n) {
-                // format number 1000000 to 1,234,567
-                return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            }
-
-
-            function formatCurrency(input, blur) {
-                // appends $ to value, validates decimal side
-                // and puts cursor back in right position.
-
-                // get input value
-                var input_val = input.val();
-
-                // don't validate empty input
-                if (input_val === "") { return; }
-
-                // original length
-                var original_len = input_val.length;
-
-                // initial caret position
-                var caret_pos = input.prop("selectionStart");
-
-                // check for decimal
-                if (input_val.indexOf(".") >= 0) {
-
-                    // get position of first decimal
-                    // this prevents multiple decimals from
-                    // being entered
-                    var decimal_pos = input_val.indexOf(".");
-
-                    // split number by decimal point
-                    var left_side = input_val.substring(0, decimal_pos);
-                    var right_side = input_val.substring(decimal_pos);
-
-                    // add commas to left side of number
-                    left_side = formatNumber(left_side);
-
-                    // validate right side
-                    right_side = formatNumber(right_side);
-
-                    // On blur make sure 2 numbers after decimal
-                    if (blur === "blur") {
-                        right_side += "00";
-                    }
-
-                    // Limit decimal to only 2 digits
-                    right_side = right_side.substring(0, 2);
-
-                    // join number by .
-                    input_val = "$" + left_side + "." + right_side;
-
-                } else {
-                    // no decimal entered
-                    // add commas to number
-                    // remove all non-digits
-                    input_val = formatNumber(input_val);
-                    input_val = "$" + input_val;
-
-                    // final formatting
-                    if (blur === "blur") {
-                        input_val += ".00";
-                    }
-                }
-
-                // send updated string to input
-                input.val(input_val);
-
-                // put caret back in the right position
-                var updated_len = input_val.length;
-                caret_pos = updated_len - original_len + caret_pos;
-                input[0].setSelectionRange(caret_pos, caret_pos);
-            }
-            
-        </script>
-
-
-        @* Para el buscador de prestamos *@
-        <script>
-            let searching = null;
-            let res = null;
-            const SEARCH_DELAY = 300; // en milisegundos
-
-            //Parametros de configuracion
-            IMAGEN_CLIENTE_EN_BUSCADOR = false;
-            IMAGEN_CLIENTE_EN_DETALLES = false;
-            DETALLES = true;
-
-
-            var formatter = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-            });
-
-            $(document).ready(function () {
-            });
-            $('input').on('ifChecked', function (event) {
-                if (event.target.id === 'search-by-prestamo') {
-                    console.log(event.target.id);
-                    $('#search-by-prestamo').iCheck('check');
-                    $('#search-by-user').iCheck('uncheck');
-                    $('#search-by-garantia').iCheck('uncheck');
-                } else if (event.target.id === 'search-by-user') {
-                    console.log(event.target.id);
-                    $('#search-by-user').iCheck('check');
-                    $('#search-by-prestamo').iCheck('uncheck');
-                    $('#search-by-garantia').iCheck('uncheck');
-                } else if (event.target.id === 'search-by-garantia') {
-                    $('#search-by-garantia').iCheck('check');
-                    $('#search-by-user').iCheck('uncheck');
-                    $('#search-by-prestamo').iCheck('uncheck');
-                }
-                removeList();
-            });
-
-            $(".prestamo_target").keyup(function (e) {
-                if (e.which != 38 && e.which != 40 && e.which != 13) {
-                    clearTimeout(searching);
-                    searching = setTimeout(function () {
-                        let value = $('#input-prestamo_search').val();
-                        if (value.length >= 1) {
-                            searchPrestamoText(value);
-                        } else {
-                            $('.prestamos').remove();
-                        }
-                    }, SEARCH_DELAY);
-                }
-            });
-
-            async function searchPrestamoText(text) {
-                console.log('Encontre', text);
-                try {
-                    res = await searchPrestamo(text);
-
-                    showListPrestamos(JSON.parse(res));
-                    setClickListenerOnPrestamo();
-                    console.log(res);
-                } catch (err) {
-
-                }
-            }
-
-            function setClickListenerOnPrestamo() {
-                const list = document.querySelectorAll('.prestamos');
-                list.forEach(function (btn) {
-                    btn.addEventListener('click', async function (evt) {
-                        res = await loadPrestamoData(evt.target.getAttribute('data-idPrestamo'));
-                        let photoDetails = null;
-                        if (IMAGEN_CLIENTE_EN_DETALLES) {
-                           photoDetails = evt.target.getAttribute('data-client-photo');
-                        }
-                        showDataInField(JSON.parse(res), photoDetails);
-
-                        removeList();
-                    });
-                });
-            }
-
-            document.onkeyup = async function (e) {
-                if (e.which == 38) {
-                    if ($('#input-prestamo_search').is(':focus')) {
-                        if (selectPointer != 0) {
-                            selectPointer--;
-                            $('[data-order="' + (selectPointer + 1) + '"]').removeClass('active');
-                            $('[data-order="' + selectPointer + '"]').addClass('active');
-                        }
-                    }
-                } else if (e.which == 40) {
-                    //$('#input-client_search').focus();
-
-                    if ($('.list-group-item').length != selectPointer) {
-                        selectPointer++;
-                        $('[data-order="' + (selectPointer - 1) + '"]').removeClass('active');
-                        $('[data-order="' + selectPointer + '"]').addClass('active');
-                    }
-                } else if (e.which == 13) {
-                    let idprestamo = $('[data-order="' + selectPointer + '"]').attr('data-idPrestamo');
-                    let photoRoot = $('[data-order="' + selectPointer + '"]').attr('data-client-photo');
-
-                    res = await loadPrestamoData(idprestamo);
-                    showDataInField(JSON.parse(res), photoRoot);
-                    removeList();
-                } else if (e.ctrlKey && e.which == 66) {
-                    $('#input-prestamo_search').focus();
-                }
-                if (e.ctrlKey && e.which == 77) {
-                    $('#input-amount-pay').focus(); // Focus a campo de monto
-                }
-            };
-
-            function removeList() {
-                let currentList = $('.garantias');
-                $('#input-prestamo_search').val(null);
-                $(".list-group-item").remove();
-            }
-
-            function showDataInField(data, photo) {
-                console.log('el resultado es', data);
-                console.log('el resultado foto', photo);
-
-                // Encabezado
-                $('#monto-prestado-input').text(formatter.format(data.infoPrestamo.TotalPrestado));
-
-                //Info cliente
-                $('#nombre-cliente').text(data.infoCliente.Nombres);
-                $('#apellido-cliente').text(data.infoCliente.Apellidos);
-                $('#id-documento-cliente').text(data.infoCliente.NumeracionDocumentoIdentidad);
-                $('#tipo-documento-cliente').text(data.infoCliente.NombreDocumentoIdentidad + ':');
-                $('#detalles-cliente').text(data.infoCliente.OtrosDetalles);
-                if (photo === null) {
-                    $('#foto-cliente').hide();
-                } else {
-                    $('#foto-cliente').attr("src", photo);
-                }
-
-                //Informacion prestamo
-                $('#numero-prestamo').text(data.infoPrestamo.PrestamoNumero);
-                $('#fecha-emision-prestamo').text(data.infoPrestamo.FechaEmisionReal);
-                $('#fecha-vencimiento-prestamo').text(data.infoPrestamo.FechaVencimiento);
-                $('#mora-prestamo').text(data.infoPrestamo.NombreTipoMora);
-                $('#clasificacion-prestamo').text(data.infoPrestamo.NombreClasificacion);
-                $('#detalles-prestamo').text(data.infoPrestamo.OtrosDetalles);
-
-                // Cargar garantias
-
-                if (data.infoGarantias.length > 0) {
-                    $(".slider #buttons").empty();
-                    $(".slides").empty();
-                    $.each(data.infoGarantias, function (index, value) {
-                        $(".slider #buttons").append(` <a href="#slide-${index + 1}">${index + 1}</a> `);
-                        $(".slides").append(`
-                                <div id="slide-${index + 1}">
-                                    <strong>Clasificacion:</strong>
-                                    <span id="clasificacion-garantia">${value.Clasificacion}</span>
-                                    <br />
-                                    <br />
-                                    <strong>Numeracion de garantia:</strong>
-                                    <span id="numeracion-garantia">${value.NumeracionGarantia}</span>
-                                    <br />
-                                    <br />
-                                    ${
-                                    value.NombreMarca !== undefined ? `<strong>Marca:</strong> <span id="marca-garantia">${value.NombreMarca}</span> <br/><br/> ` : ''
-                                    }
-                                            ${
-                                    value.NombreModelo !== undefined ? `<strong>Modelo:</strong> <span id="modelo-garantia">${value.NombreModelo}</span> <br/><br/> ` : ''
-                                    }
-                                            ${
-                                    value.NombreTipoGarantia !== undefined ? `<strong>Tipo:</strong> <span id="tipo-garantia">${value.NombreTipoGarantia}</span> <br/><br/> ` : ''
-                                    }
-                                    <strong>Informacion general:</strong>
-                                    <span id="detalles-cliente">${value.OtrosDetalles}</span>
-                                </div> `);
-                    });
-                }
-
-                $('#details-container').show();
-
-            }
-
-            function loadPrestamoData(id) {
-                console.log(id);
-
-                let dataValue = { "idprestamo": id };
-
-                return $.ajax({
-                    type: "get",
-                    url: "/Ingresos/GetPrestamo",
-                    data: dataValue,
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-                    },
-                    complete: function (jqXHR, status) {
-                    }
-                });
-            }
-
-            $("body").click(function (event) {
-                if (event.target.id !== 'input-prestamo_search') {
-                    $('#list-prestamo-container').hide();
-                }
-            });
-
-            $("#input-prestamo_search").focus(function () {
-                $('#list-prestamo-container').show();
-            });
-
-            function searchPrestamo(text) {
-
-                let searchType = $(".searchtype:checked").val();
-                let dataValue = { "TextToSearch": text, "SearchType": searchType, "CargarImagenesClientes": IMAGEN_CLIENTE_EN_BUSCADOR };
-
-                return $.ajax({
-                    type: "get",
-                    url: "/Ingresos/BuscarPrestamos",
-                    data: dataValue,
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        console.log("Request: " + XMLHttpRequest.toString(27) + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-                    },
-                    complete: function (jqXHR, status) {
-                    }
-                });
-            }
-
-            function showListPrestamos(list) {
-                let count = 1;
-                $('.prestamos').remove();
-
-                selectPointer = 0;
-                if (list.length > 0) {
-
-                    $.each(list, function (index, value) {
-
-                        $("#list-prestamo-tab").append(` <p class="list-group-item prestamos list-group-item-action pb-2 pt-2 pl-2 pr-2 " data-order="${count}" data-toggle="list"
-                                        data-idPrestamo="${value.IdPrestamo}"
-                                        data-client-photo="${value.FotoCliente}"
-                                        role="tab" aria-controls="home">
-                                        ${ IMAGEN_CLIENTE_EN_BUSCADOR ? `<img src="${value.FotoCliente}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>` : ``}
-                                        <strong id="placeName" >Prestamo - ${value.PrestamoNumero} </strong>  | Monto de prestamo: <span style="color: #00c853;"> ${formatter.format(value.MontoPrestado)} </span><br>
-                                        <small style="font-weight: 600;">Cliente: </small> <i>${value.Nombres} ${value.Apellidos} | <small style="font-weight: 600;"> Sexo: </small> ${value.Sexo}</i></small><br>
-                                        <small>Clasificacion: ${value.Clasificacion}
-                                        ${value.NoIdentificacion === undefined ? `` : `No. de identificacion: ${value.NoIdentificacion}`}</small>
-                                        <br></p>`);
-
-                        count++;
-                    });
-                } else {
-                    $("#list-prestamo-tab").append(` <p class="list-group-item prestamos list-group-item-action pb-2 pt-2 pl-2 pr-2 "  data-toggle="list"
-                                        role="tab" aria-controls="home">
-                                        No se encontro información
-                                        <br></p>`);
-                }
-            }
-
-        </script>
+    <div class="col-md-4 mt-3">
+        <div class="shadow p-3 bg-light rounded">
+            <div class="x_title">
+                <h2>Datos de garantia</h2>
+                <div style="float:right;">
+                    <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver garantia</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @*<span>Aqui pienso poner un slider con las diferentes garantias y sus detalles</span>*@
+                    @*<img width="100%" height="auto" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/10/slider-5.gif?w=300&ssl=1" alt="Alternate Text" />*@
+
+                    <div class="slider">
+                        <div id="buttons">
+                        </div>
+                        <div class="slides">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mt-3">
+        <div class="shadow p-3 bg-light rounded">
+            <div class="x_title">
+                <h2>Datos de Prestamo</h2>
+                <div style="float:right;">
+                    <button type="button" class="btn btn-primary" id="btnFormTasaInteres">Ver prestamo</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <strong>Numero de prestamo:</strong>
+                    <span id="numero-prestamo"></span>
+                    <br />
+                    <br />
+                    <strong>Fecha emision:</strong>
+                    <span id="fecha-emision-prestamo"></span>
+                    <br />
+                    <br />
+                    <strong>Fecha vencimiento:</strong>
+                    <span id="fecha-vencimiento-prestamo"></span>
+                    <br />
+                    <br />
+                    <strong>Tipo mora:</strong>
+                    <span id="mora-prestamo"></span>
+                    <br />
+                    <br />
+                    <strong>Clasificacion:</strong>
+                    <span id="clasificacion-prestamo"></span>
+                    <br />
+                    <br />
+                    <strong>Informacion general:</strong>
+                    <span id="detalles-prestamo"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .containera {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+
+    .amount-text {
+        text-align: center;
+        font-weight: 600;
+        font-size: 30px;
+    }
+
+    .card-body {
+        text-align: center;
+    }
+
+    .amount-container {
+        padding: 5px;
+    }
+
+    .amount-prefix {
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    /*amount input*/
+    .input-amount {
+        border: 0px solid #333;
+        border-radius: 5px;
+        color: #333;
+        width: 100%;
+        background-color: #f8f9fa;
+        text-align: center;
+        font-weight: 600;
+        font-size: 30px;
+    }
+</style>
+
+
+@section scripts
+{
+    <script>
+
+        $("input[data-type='currency']").on({
+            keyup: function () {
+                formatCurrency($(this));
+            },
+            blur: function () {
+                formatCurrency($(this), "blur");
+            }
+        });
+
+        function formatNumber(n) {
+            // format number 1000000 to 1,234,567
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+
+        function formatCurrency(input, blur) {
+            // appends $ to value, validates decimal side
+            // and puts cursor back in right position.
+
+            // get input value
+            var input_val = input.val();
+
+            // don't validate empty input
+            if (input_val === "") { return; }
+
+            // original length
+            var original_len = input_val.length;
+
+            // initial caret position
+            var caret_pos = input.prop("selectionStart");
+
+            // check for decimal
+            if (input_val.indexOf(".") >= 0) {
+
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+
+                // validate right side
+                right_side = formatNumber(right_side);
+
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                    right_side += "00";
+                }
+
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+
+                // join number by .
+                input_val = "$" + left_side + "." + right_side;
+
+            } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val = "$" + input_val;
+
+                // final formatting
+                if (blur === "blur") {
+                    input_val += ".00";
+                }
+            }
+
+            // send updated string to input
+            input.val(input_val);
+
+            // put caret back in the right position
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
+    </script>
+    <script src="~/Scripts/Apps/Prestamo/search.js"></script>
+
+
+    @* Para el buscador de prestamos *@
+    <script>
+
+        //Parametros de configuracion
+        IMAGEN_CLIENTE_EN_BUSCADOR = true;
+        IMAGEN_CLIENTE_EN_DETALLES = false;
+        DETALLES = true;
+        const onClick = async function (evt) {
+            //let idPrestamo = evt.target.getAttribute('data-idPrestamo');
+            //let photoRoot = evt.target.getAttribute('data-client-photo');
+
+            res = await loadPrestamoData(evt.target.getAttribute('data-idPrestamo'));
+            let photoDetails = null;
+            if (IMAGEN_CLIENTE_EN_DETALLES) {
+                photoDetails = evt.target.getAttribute('data-client-photo');
+            }
+            showDataInField(JSON.parse(res), photoDetails);
+        };
+        const onEnter = async function () {
+
+            let idprestamo = $('[data-order="' + selectPointer + '"]').attr('data-idPrestamo');
+            let photoRoot = $('[data-order="' + selectPointer + '"]').attr('data-client-photo');
+
+            res = await loadPrestamoData(idprestamo);
+            showDataInField(JSON.parse(res), photoRoot);
+        };
+        
+        //Funcion que se ejecutara al ser presionado el item
+        function showDataInField(data, photo) {
+            console.log('el resultado es', data);
+            console.log('el resultado foto', photo);
+
+            // Encabezado
+            $('#monto-prestado-input').text(formatter.format(data.infoPrestamo.TotalPrestado));
+
+            //Info cliente
+            $('#nombre-cliente').text(data.infoCliente.Nombres);
+            $('#apellido-cliente').text(data.infoCliente.Apellidos);
+            $('#id-documento-cliente').text(data.infoCliente.NumeracionDocumentoIdentidad);
+            $('#tipo-documento-cliente').text(data.infoCliente.NombreDocumentoIdentidad + ':');
+            $('#detalles-cliente').text(data.infoCliente.OtrosDetalles);
+            if (photo === null) {
+                $('#foto-cliente').hide();
+            } else {
+                $('#foto-cliente').attr("src", photo);
+            }
+
+            //Informacion prestamo
+            $('#numero-prestamo').text(data.infoPrestamo.PrestamoNumero);
+            $('#fecha-emision-prestamo').text(data.infoPrestamo.FechaEmisionReal);
+            $('#fecha-vencimiento-prestamo').text(data.infoPrestamo.FechaVencimiento);
+            $('#mora-prestamo').text(data.infoPrestamo.NombreTipoMora);
+            $('#clasificacion-prestamo').text(data.infoPrestamo.NombreClasificacion);
+            $('#detalles-prestamo').text(data.infoPrestamo.OtrosDetalles);
+
+            // Cargar garantias
+
+            if (data.infoGarantias.length > 0) {
+                $(".slider #buttons").empty();
+                $(".slides").empty();
+                $.each(data.infoGarantias, function (index, value) {
+                    $(".slider #buttons").append(` <a href="#slide-${index + 1}">${index + 1}</a> `);
+                    $(".slides").append(`
+                                            <div id="slide-${index + 1}">
+                                                <strong>Clasificacion:</strong>
+                                                <span id="clasificacion-garantia">${value.Clasificacion}</span>
+                                                <br />
+                                                <br />
+                                                <strong>Numeracion de garantia:</strong>
+                                                <span id="numeracion-garantia">${value.NumeracionGarantia}</span>
+                                                <br />
+                                                <br />
+                                                ${
+                        value.NombreMarca !== undefined ? `<strong>Marca:</strong> <span id="marca-garantia">${value.NombreMarca}</span> <br/><br/> ` : ''
+                        }
+                                                        ${
+                        value.NombreModelo !== undefined ? `<strong>Modelo:</strong> <span id="modelo-garantia">${value.NombreModelo}</span> <br/><br/> ` : ''
+                        }
+                                                        ${
+                        value.NombreTipoGarantia !== undefined ? `<strong>Tipo:</strong> <span id="tipo-garantia">${value.NombreTipoGarantia}</span> <br/><br/> ` : ''
+                        }
+                                                <strong>Informacion general:</strong>
+                                                <span id="detalles-cliente">${value.OtrosDetalles}</span>
+                                            </div> `);
+                });
+            }
+
+            $('#details-container').show();
+
+        }
+
+    </script>
+}
 

@@ -6,6 +6,7 @@ input[type=password],
 input[type=number],
 input[type=search],
 input[type=file],
+input[type=submit],
 input[type=datetime],
 select.form-control,
 select option,
@@ -57,4 +58,18 @@ thead tr {
 .paging_simple_numbers {
     float: right;
 }
+
+.checkColumn {
+    width: 5%;
+}
+
+#datatable {
+    width: 100%;
+    text-align: center;
+}
+
+#datatable td {
+    height: 40px;
+}
+
 /*Fin de estilos para datatable*/
