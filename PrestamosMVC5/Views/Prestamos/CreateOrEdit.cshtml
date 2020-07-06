@@ -48,6 +48,13 @@
                                 </div>
                             </div>
                             <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.NumeroPrestamoARenovar, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.NumeroPrestamoARenovar, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } });
+                                    @Html.ValidationMessageFor(model => model.NumeroPrestamoARenovar, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.NumeroIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
                                     @Html.EditorFor(model => model.NumeroIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
@@ -128,13 +135,7 @@
                                 </div>
                             </div>
 
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.NumeroPrestamoARenovar, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.NumeroPrestamoARenovar, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } });
-                                    @Html.ValidationMessageFor(model => model.NumeroPrestamoARenovar, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                            
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.DeudaRenovacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
@@ -147,6 +148,7 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdDivisa, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
+                                    randy
                                     @Html.EditorFor(model => model.Prestamo.IdDivisa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly=true } })
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdDivisa, "", new { @class = "text-danger" })
                                 </div>
