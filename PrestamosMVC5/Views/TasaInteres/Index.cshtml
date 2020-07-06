@@ -216,10 +216,10 @@
     let onEditButton = function () {
         
     }
-    let onCancelButton = function () {
+    let onDeactivateButton = function () {
         
     }
-    let onDeleteButton = async function () {
+    let onCancelButton = async function () {
         let id = $('tr.selected').data("id");
 
         let data = { id: id };
@@ -266,8 +266,8 @@
 
         removeTemplateConfiguration();
         $('#btn-edit').appendTo('#r2s1');
-        $('#btn-anular').appendTo('#r2s1');
-        $('#btn-delete').appendTo('#r2s1');
+        $('#btn-deactivate').appendTo('#r2s1');
+        $('#btn-cancel').appendTo('#r2s1');
         $('#btn-save').appendTo('#r2s3');
 
 

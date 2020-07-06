@@ -111,14 +111,14 @@
             window.location.href ='/Clientes/CreateOrEdit/' + id;
         }
     }
-    let onCancelButton = function () {
+    let onDeactivateButton = function () {
         let id = $('tr.selected').data("id");
 
         if (id) {
             window.location.href ='/Clientes/Anular/' + id;
         }
     }
-    let onDeleteButton = function () {
+    let onCancelButton = function () {
         console.log('Delete');
     }
     let onNewButton = function () {

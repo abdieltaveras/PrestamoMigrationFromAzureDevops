@@ -67,23 +67,23 @@
         {
             text: '<i class="fa fa-ban"></i>',
                 attr: {
-                title: 'Anular',
-                    id: 'btn-anular',
+                title: 'Desactivar',
+                    id: 'btn-deactivate',
                         class: ''
             },
             action: async function () {
-                onCancelButton();
+                onDeactivateButton();
             }
             },
         {
             text: '<i class="fa fa-trash"></i>',
                 attr: {
-                title: 'Borrar',
-                    id: 'btn-delete',
+                title: 'Anular',
+                    id: 'btn-cancel',
                         class: ''
             },
             action: async function () {
-                onDeleteButton();
+                onCancelButton();
             }
         },
         {
@@ -109,7 +109,7 @@ function removeTemplateConfiguration() {
     $('.dt-button-collection div button').addClass('btn btn-primary');
 
     $('#btn-edit').appendTo('#r2s1');
-    $('#btn-anular').appendTo('#r2s1');
-    $('#btn-delete').appendTo('#r2s1');
+    $('#btn-deactivate').appendTo('#r2s1');
+    $('#btn-cancel').appendTo('#r2s1');
     $('#btn-save').appendTo('#r2s3');
 }

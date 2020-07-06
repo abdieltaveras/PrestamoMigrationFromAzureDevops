@@ -167,7 +167,7 @@
             $('#modalCatalogos').modal('show');
         }
     }
-    let onCancelButton = async function () {
+    let onDeactivateButton = async function () {
         let id = $('tr.selected').data("id");
         let idTabla = $('tr.selected').data("idtabla");
         let nombreTabla = $('tr.selected').data("nombretabla");
@@ -186,7 +186,7 @@
         });
         location.reload();
     }
-    let onDeleteButton = async function () {
+    let onCancelButton = async function () {
         let id = $('tr.selected').data("id");
         let idTabla = $('tr.selected').data("idtabla");
         let nombreTabla = $('tr.selected').data("nombretabla");
