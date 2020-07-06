@@ -484,7 +484,7 @@
         const list = document.querySelectorAll('#listaddresses');
         list.forEach(function (btn) {
             btn.addEventListener('click', async function (evt) {
-                setDataOnField(evt.target.getAttribute('data-idGarantia'));                
+                setDataOnField(evt.target.getAttribute('data-idGarantia'));
                 //console.log(evt.target.getAttribute('data-idGarantia'));
             });
         });
@@ -595,7 +595,7 @@
         selectPointer = 0;
 
         if (list.length > 0) {
-        
+
             $.each(list, function (index, value) {
 
                 var Detalles = JSON.parse(value.Detalles);
@@ -608,7 +608,7 @@
                         <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
                         ${Detalles.Descripcion !== null ? Detalles.Descripcion : ''}
                         ${Detalles.Medida !== null ? 'Medida: ' + Detalles.Medida : ''}
-                        <br>`);
+                        <br></p>`);
                 } else {
                     $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
                         data-idGarantia="${value.IdGarantia}"
@@ -616,10 +616,15 @@
                         <span class="fa fa-automobile"></span>
                         <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
                        <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
-                        <br>`);
+                        <br></p>`);
                 }
                 count++;
             });
+        } else {
+            $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" id="listaddresses" data-toggle="list"                        
+                        role="tab" aria-controls="home">                       
+                       <span">No se encontro información</span>
+                        <br></p>`);
         }
     }
 

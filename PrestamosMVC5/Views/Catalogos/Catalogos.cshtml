@@ -1,4 +1,5 @@
 ﻿@model CatalogoVM
+
 <div class="row">
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
@@ -6,76 +7,69 @@
 
 
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-catalogo" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+        @*<button id="btn-guardar" type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-catalogo" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
+        <h4>Tabla de @Model.TipoCatalogo.ToLower()</h4>
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de @Model.TipoCatalogo.ToLower()</h2>
-                <div style="float:right;">
-
-                    @*<div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="text" id="searchListInput" class="form-control" placeholder="Buscar" aria-describedby="basic-addon1">
-                        </div>*@
-
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
 
             @* Datatable *@
             <div>
-                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
+                <table id="datatable" class=" table-bordered row-border" cellspacing="0" >
                     <thead>
                         <tr>
+                            <th class="checkColumn"></th>
                             <th>@Model.TipoCatalogo</th>
                             <th>Codigo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach (var item in Model.Lista)
                         {
-                            <tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) fila-catalogo ">
-                                <td>
-                                    <strong>
-                                        @item.Nombre
-                                    </strong>
-                                </td>
-                                <td>
-                                    <strong>
-                                        @item.Codigo
-                                    </strong>
-                                    <strong>
-                                        @item.AnuladoPor
-                                    </strong>
-                                </td>
-                                <td>
-                                    <a href="#" id="edit" data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
-                                        <button class="btn btn-outline-warning">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </a>
-                                    <a href="@Url.Action("ActivarDesactivar", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla, activo = !item.Activo })">
-                                        <button type="button" class="btn btn-outline-dark">
-                                            <i class="@Html.Raw(item.Activo ? "fa fa-ban" : " fa fa-check")"></i>
-                                        </button>
-                                    </a>
-                                    @*<a href="@Url.Action("Delete", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla})">*@
-                                    @if (item.Anulado())
-                                    {
-                                        <a href="#" id="deleteItem" data-id="@item.GetId()" data-idtabla="@Model.IdTabla" data-nombretabla="@Model.NombreTabla">
-                                            <button type="button" class="btn btn-outline-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </a>
+                            @*<tr class="@(!item.Activo ? "table-active" : "" ) @(!item.Anulado() ? " table-active delete-row" : "" ) fila-catalogo ">*@
+                        <tr class="fila-catalogo @(!item.Activo ? "table-active" : "" )
+                            @(item.Anulado() ? "delete-row" : "" )"
+                            data-id="@item.GetId()"
+                            data-codigo="@item.Codigo"
+                            data-nombre="@item.Nombre"
+                            data-idtabla="@Model.IdTabla"
+                            data-nombretabla="@Model.NombreTabla"
+                            data-activo="@item.Activo">
 
-                                    }
-                                </td>
-                            </tr>
+                            <td></td>
+                            <td>
+                                <strong>
+                                    @item.Nombre
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @item.Codigo
+                                </strong>
+                            </td>
+                            @*<td>
+                                <a href="#" id="edit" data-id="@item.GetId()" data-codigo="@item.Codigo" data-nombre="@item.Nombre">
+                                    <button class="btn btn-outline-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </a>
+                                <a href="@Url.Action("ActivarDesactivar", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla, activo = !item.Activo })">
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <i class="@Html.Raw(item.Activo ? "fa fa-ban" : " fa fa-check")"></i>
+                                    </button>
+                                </a>
+                                <a href="@Url.Action("Delete", "Catalogos", new { Id = item.GetId(), idTabla = Model.IdTabla, nombreTabla = Model.NombreTabla})">
+                                @if (item.Anulado())
+                                {
+                                    <a href="#" id="deleteItem" data-id="@item.GetId()" data-idtabla="@Model.IdTabla" data-nombretabla="@Model.NombreTabla">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
+
+                                }
+                            </td>*@
+                        </tr>
                         }
 
                     </tbody>
@@ -162,8 +156,64 @@
 @section prevscripts {
 
 <script>
+
+    let onEditButton = function () {
+        $("#currentid").val($('tr.selected').data("id"));
+        $("#Codigo").val($('tr.selected').data("codigo"));
+        $("#Nombre").val($('tr.selected').data("nombre"));
+        console.log('Mi id', $('tr.selected').data("id"));
+
+        if ($('tr.selected').data("id") !== undefined) {
+            $('#modalCatalogos').modal('show');
+        }
+    }
+    let onDeactivateButton = async function () {
+        let id = $('tr.selected').data("id");
+        let idTabla = $('tr.selected').data("idtabla");
+        let nombreTabla = $('tr.selected').data("nombretabla");
+        let status = $('tr.selected').data("activo").toString() == "True" ? false : true; 
+        let data = { id: id, idTabla: idTabla, nombreTabla: nombreTabla, activo: status };
+
+        await $.ajax({
+            type: "get",
+            url: "/Catalogos/ActivarDesactivar",
+            data: data,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+        location.reload();
+    }
+    let onCancelButton = async function () {
+        let id = $('tr.selected').data("id");
+        let idTabla = $('tr.selected').data("idtabla");
+        let nombreTabla = $('tr.selected').data("nombretabla");
+
+        let data = { id: id, idTabla: idTabla, nombreTabla: nombreTabla };
+
+        await $.ajax({
+            type: "get",
+            url: "/Catalogos/Delete",
+            data: data,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+        location.reload();
+    }
+    let onNewButton = function () {
+        $("#currentid").val(null);
+        $("#Codigo").val(null);
+        $("#Nombre").val(null);
+        $('#modalCatalogos').modal('show');
+    }
+
     $(document).ready(function () {
-        $('#datatable').DataTable( dataTableConfiguration );
+        var table = $('#datatable').DataTable(dataTableConfiguration);
         removeTemplateConfiguration();
     });
 
@@ -203,7 +253,6 @@
         }
 
     });
-
 
      $("#searchListInput").keyup(function () {
         searchCatalogoText($('#searchListInput').val());

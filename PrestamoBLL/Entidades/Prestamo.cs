@@ -110,14 +110,14 @@ namespace PrestamoBLL.Entidades
 
     }
     public class PrestamoConDetallesParaUIPrestamo
-    { 
-        public Prestamo infoPrestamo { get; internal set; }
+    {
+        public Prestamo infoPrestamo { get; internal set; } = new Prestamo();
 
-        public InfoClienteDrCr infoCliente { get; internal set; }
+        public InfoClienteDrCr infoCliente { get; internal set; } = new InfoClienteDrCr();
 
-        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
+        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; } = new List<InfoGarantiaDrCr>();
 
-        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; }
+        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; } = new List<InfoCodeudorDrCr>();
 
     }
 
@@ -135,6 +135,20 @@ namespace PrestamoBLL.Entidades
         public IEnumerable<CuotaAmpliada> Cuotas { get; internal set; }
 
         public InfoDeudaPrestamoDrCr InfoDeuda { get; internal set; }
+    }
+    public class PrestamoSearch 
+    {
+        public int IdPrestamo { get; set; }
+        public decimal MontoPrestado { get; set; }
+        public string PrestamoNumero { get; internal set; } = string.Empty;
+        public string Clasificacion { get; set; } = string.Empty;
+        public string Nombres { get; set; } = string.Empty;
+        public string Apellidos { get; set; } = string.Empty;
+        public string Sexo { get; set; } = string.Empty;
+        public string FotoCliente { get; set; } = string.Empty;
+        public string NoIdentificacion { get; set; } = string.Empty;
+        
+
     }
     public class Prestamo : BaseInsUpd, IPrestamoForGeneradorCuotas
     {
@@ -199,11 +213,11 @@ namespace PrestamoBLL.Entidades
         public decimal TasaDeInteresPorPeriodo { get; set; }
         [Display(Name = "Indique la mora")]
         public int IdTipoMora { get; set; }
-        [Display(Name = "Indique la forma de las pago?")]
+        [Display(Name = "Indique la forma (periodo) de las pago?")]
         public int IdPeriodo { get; set; }
         [IgnorarEnParam]
         public Periodo Periodo { get; internal set; }
-        [Display(Name = "Cantidad de Periodos")]
+        [Display(Name = "Cantidad de Cuotas")]
         //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
         //[RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
         [Min(1,ErrorMessage ="el valor minimo aceptado es 1")]
@@ -300,6 +314,14 @@ namespace PrestamoBLL.Entidades
     internal class PrestamoCodeudores
     {
         public int IdCodeudor { get; set; }
+    }
+
+    public class PrestamosSearchParams : BaseGetParams
+    {
+        public string TextToSearch { set; get; } = string.Empty;
+        [IgnorarEnParam]
+        public int SearchType { set; get; } = 0;
+        //public int SearchType { set; get; } = 0; // valor 0 para prestamos y 1 para clientes / garantias
     }
 
     public class PrestamosGetParams : BaseIdNegocio 

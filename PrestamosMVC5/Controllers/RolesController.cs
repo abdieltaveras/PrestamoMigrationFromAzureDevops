@@ -12,6 +12,10 @@ namespace PrestamosMVC5.Controllers
 {
     public class RolesController : ControllerBasePcp
     {
+        public RolesController()
+        {
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+        }
         // GET: Roles
         public ActionResult Index()
         {

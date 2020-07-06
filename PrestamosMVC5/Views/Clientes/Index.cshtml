@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<Cliente>
+<link href="~/Content/customcss/datatable/css/customStyle.css" rel="stylesheet">
 
 <div class="row">
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
-        <a href="@Url.Action("CreateOrEdit", "Clientes")" class="btn btn-primary" role="button" style="float:right;">
+        @*<a href="@Url.Action("CreateOrEdit", "Clientes")" class="btn btn-primary" role="button" style="float:right;">
             Agregar <i class="fa fa-plus"></i>
-        </a>
+        </a>*@
 
+        <h4>Tabla de clientes</h4>
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de clientes</h2>
-
-                <div class="clearfix"></div>
-            </div>
+            
             <div class="x_content">
                 @* data *@
-                <div  class="table-responsive">
-                    <table id="datatable" class="table-bordered row-border " style="width:100%; text-align:center;">
+                <div class="table-responsive">
+                    <table id="datatable" class="table-bordered row-border" >
                         <thead>
                             <tr>
+                                <th class="checkColumn">
+                                </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Activo)
                                 </th>
@@ -47,14 +47,17 @@
                                     Telefono Movil
                                 </th>
 
-                                <th></th>
+                                @*<th></th>*@
                             </tr>
                         </thead>
                         <tbody>
 
                             @foreach (var item in Model)
                             {
-                                <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <tr class="@(!item.Activo ? "table-active" : "" )"
+                                    data-id="@item.IdCliente">
+                                    <td>
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Activo)
                                     </td>
@@ -83,10 +86,10 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.TelefonoCasa)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.ActionLink(" ", "Anular", new { id = @item.IdCliente }, htmlAttributes: new { @class = "btn btn-outline-danger fa fa-trash" })
                                         @Html.ActionLink(" ", "CreateOrEdit", new { id = @item.IdCliente }, htmlAttributes: new { @class = "btn btn-outline-warning fa fa-edit" })
-                                    </td>
+                                    </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -101,8 +104,30 @@
 </div>
 
 <script>
+    let onEditButton = function () {
+        let id = $('tr.selected').data("id");
+
+        if (id) {
+            window.location.href ='/Clientes/CreateOrEdit/' + id;
+        }
+    }
+    let onDeactivateButton = function () {
+        let id = $('tr.selected').data("id");
+
+        if (id) {
+            window.location.href ='/Clientes/Anular/' + id;
+        }
+    }
+    let onCancelButton = function () {
+        console.log('Delete');
+    }
+    let onNewButton = function () {
+        window.location.href ='/Clientes/CreateOrEdit';
+    }
+    
     $(document).ready(function () {
-        $('#datatable').DataTable(dataTableConfiguration);
+        // Datatable
+        var table = $('#datatable').DataTable(dataTableConfiguration);
         removeTemplateConfiguration();
     });
 </script>

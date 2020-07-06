@@ -16,6 +16,7 @@ namespace PrestamosMVC5.Controllers
         public UserController() : base()
         {
             UpdViewBag_LoadCssAndJsGrp2(true);
+            UpdViewBag_LoadCssAndJsForDatatable(true);
         }
         #region Request
         // GET: User

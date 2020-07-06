@@ -16,8 +16,8 @@ namespace PrestamoBLL.Tests
         ///  Usuario del proyecto 
         /// </summary>
         public static string Usuario => "PrestamoBllTestProject";
-
-        public string MensajeError { get; set; }
+        public string _Usuario => Usuario;
+        public string MensajeError { get; set; } = string.Empty;
     }
 
     [TestClass()]

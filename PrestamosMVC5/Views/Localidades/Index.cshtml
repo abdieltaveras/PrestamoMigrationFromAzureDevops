@@ -186,16 +186,22 @@ else if (ViewBag.errorMessage != null)
 
             function showList(list) {
                 $('.direcciones').remove();
-                $.each(list, function (index, value) {
-                    $("#list-tab").append(`<p class="list-group-item direcciones list-group-item-action" id="listaddresses" data-toggle="list"
-                        data-idlocalidadpadre="${value.IdTipoLocalidad}"
-                        data-idlocalidad="${value.IdLocalidad}" href="#list-home" role="tab" aria-controls="home">
-                        <strong id="placeName" > ${value.Nombre} </strong>
-                        <span style="float: right;">${value.Descripcion}
-                        <button type="button" class="btn btn-outline-info"> <i class="fa fa-edit"></i> </button> </span> </p>`);
+                if (list.length > 0) {
+                    $.each(list, function (index, value) {
+                        $("#list-tab").append(`<p class="list-group-item direcciones list-group-item-action" id="listaddresses" data-toggle="list"
+                            data-idlocalidadpadre="${value.IdTipoLocalidad}"
+                            data-idlocalidad="${value.IdLocalidad}" href="#list-home" role="tab" aria-controls="home">
+                            <strong id="placeName" > ${value.Nombre} </strong>
+                            <span style="float: right;">${value.Descripcion}
+                            <button type="button" class="btn btn-outline-info"> <i class="fa fa-edit"></i> </button> </span> </p>`);
 
-                    console.table(value);
-                });
+                        console.table(value);
+                    });
+                } else {
+                    $("#list-tab").append(`<p class="list-group-item direcciones list-group-item-action" id="listaddresses" data-toggle="list"
+                        href="#list-home" role="tab" aria-controls="home">
+                        <span">No se encontro información</span> </p>`);
+                }
             }
 
 
@@ -205,7 +211,6 @@ else if (ViewBag.errorMessage != null)
                 try {
 
                     const res = await BuscarTipoDeLocalidad(TipoDeLocalidadABuscar);
-                    
 
                     const json_list = JSON.parse(res);
 

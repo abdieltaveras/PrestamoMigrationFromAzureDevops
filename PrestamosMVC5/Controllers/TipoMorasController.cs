@@ -41,11 +41,13 @@ namespace PrestamosMVC5.Controllers
             }
             return RedirectToAction("Index");
         }
-        public RedirectToRouteResult Delete(int id, string usuario)
+        public RedirectToRouteResult Delete(int id)
         {
             try
             {
-                BLLPrestamo.Instance.TipoMoraCancel(new TipoMoraDelParams { Id = id, Usuario = usuario });
+                var tipoMora = new TipoMoraDelParams { Id = id};
+                pcpSetUsuarioTo(tipoMora);
+                BLLPrestamo.Instance.TipoMoraCancel(tipoMora);
             }
             catch (Exception ex)
             {

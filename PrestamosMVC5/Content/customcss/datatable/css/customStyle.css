@@ -1,0 +1,38 @@
+﻿#datatable_filter {
+    float: left;
+}
+
+#datatable_filter label {
+    float: left;
+}
+
+#r1s2 div {
+    float: right;
+}
+
+#r1s2 div button {
+    background: #666;
+    border: none;
+}
+
+
+
+#r2s1 button {
+    background: none;
+    border: none;
+}
+
+#r2s1 button span i {
+    color: #666;
+}
+
+#r2s3 button {
+    float: right;
+}
+
+#r1 {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}

@@ -42,14 +42,8 @@ namespace PrestamosMVC5.Controllers
                 var searchResult = getPrestamo(id);
                 if (!searchResult.IsNull())
                 {
-                    model = new PrestamoVm();
-                    model.Prestamo = searchResult.infoPrestamo;
-                    model.NumeracionGarantia = searchResult.infoGarantias.FirstOrDefault().NumeracionGarantia;
-                    model.NumeroIdentificacion = searchResult.infoCliente.NumeracionDocumentoIdentidad;
-                    model.infoCliente = searchResult.infoCliente.InfoDelCliente;
-                    model.infoGarantia = searchResult.infoGarantias.FirstOrDefault().InfoVehiculo;
-                    model.LlevaGastoDeCierre = (model.Prestamo.InteresGastoDeCierre > 0);
                     TempData["Prestamo"] = searchResult;
+                    model = searchResult;
                 }
                 else
                 {
@@ -85,11 +79,21 @@ namespace PrestamosMVC5.Controllers
             }
             return _actResult;
         }
-        private PrestamoConDetallesParaUIPrestamo getPrestamo(int id)
+        private PrestamoVm getPrestamo(int id)
         {
-            var result = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(id);
-            return result;
+            PrestamoVm model = null;
+            var searchResult = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(id);
+            if (searchResult != null)
+            {
+                model = new PrestamoVm();
+                model.Prestamo = searchResult.infoPrestamo;
+                model.NumeracionGarantia = searchResult.infoGarantias.FirstOrDefault().NumeracionGarantia;
+                model.NumeroIdentificacion = searchResult.infoCliente.NumeracionDocumentoIdentidad;
+                model.infoCliente = searchResult.infoCliente.InfoDelCliente;
+                model.infoGarantia = searchResult.infoGarantias.FirstOrDefault().InfoVehiculo;
+                model.LlevaGastoDeCierre = (model.Prestamo.InteresGastoDeCierre > 0);
+            }
+            return model;
         }
-        
     }
 }

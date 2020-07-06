@@ -37,11 +37,19 @@ namespace PrestamosMVC5.Controllers
             var treeData = ElementData.CreateTree();
             return View(treeData);
         }
+
         public ActionResult Periodo()
         {
             var model = new Periodo();
             return View(model);
         }
+        [HttpPost]
+        public ActionResult Periodo(Periodo periodo)
+        {
+            return Content("no me importa lo que me enviaste");
+            //periodo.ToJson());
+        }
+
         public ActionResult TreeViewExample3()
         {
             var search = new DivisionSearchParams { IdDivisionTerritorial = 2, IdNegocio = 1 };
@@ -117,6 +125,17 @@ namespace PrestamosMVC5.Controllers
         {
             return Content(model.ToJson());
         }
+
+        public ActionResult masks()
+        {
+            var model = new TestMask();
+            model.Text = "randy";
+            model.Number = 12;
+            model.Fecha = DateTime.Now;
+            model.TextAsNumber = model.Number.ToString();
+            return View(model);
+        }
+
 
         public ActionResult Imagen()
         {

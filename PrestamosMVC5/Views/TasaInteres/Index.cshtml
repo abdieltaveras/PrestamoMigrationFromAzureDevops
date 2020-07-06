@@ -1,98 +1,101 @@
 ﻿@model TasaInteresVM
-<link href="~/Content/customcss/switch.css" rel="stylesheet">
+
+@section pagestyle
+{
+    <link href="~/Content/customcss/switch.css" rel="stylesheet">
+    <link href="~/Content/customcss/datatable/css/customStyle.css" rel="stylesheet">
+    <style>
+        #period span {
+            font-size: 1em;
+        }
+    </style>
+}
 
 <div class="row">
 
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
-            @if (Permission.Has("tasainteres-crear"))
-            { 
-                <button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
-            }
-            @if (Permission.Has("tasainteres-ver"))
-            {
-                <div class="x_panel">
-                    <div class="x_title">
 
-                        <h2>Tabla de intereses</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <table class="table bulk_action ">
-                            <thead>
-                                <tr>
-                                    <th>Codigo</th>
-                                    <th>% de interes</th>
-                                    <th>Descripcion</th>
-                                    <th>Estado</th>
-                                    <th>¿Autorizacion?</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+        @*<button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres"  style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
-                                @foreach (var item in Model.ListaTasaInteres)
-                                {
-                                    <tr class="@(!item.Activo ? "table-active" : "" )">
-                                        <td>
-                                            <strong>
-                                                @item.Codigo
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <span>@item.InteresMensual%</span>
-                                        </td>
-                                        <td>
-                                            <span>@item.Nombre</span>
-                                        </td>
-                                        <td>
-                                            @if (item.Activo)
-                                            {
-                                                <span class="badge badge-success">Activo</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge badge-danger">Desactivado</span>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (item.RequiereAutorizacion)
-                                            {
-                                                <span class="badge badge-primary">Si</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge badge-danger">No</span>
-                                            }
-                                        </td>
+        <h4>Tabla de intereses</h4>
+        <div class="x_panel">
 
-                                        <td>
-                                            @if (Permission.Has("tasainteres-anular"))
-                                            {
-                                                <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
-                                                    <button type="button" class="btn btn-outline-danger">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </a>
-                                            }
-                                            @if (Permission.Has("tasainteres-editar"))
-                                            {
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-outline-warning">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                </a>
-                                            }
-                                            </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            }
+            <div class="x_content">
+                <table id="datatable" class="table-bordered row-border">
+                    <thead>
+                        <tr>
+                            <th class="checkColumn"></th>
+                            <th>Codigo</th>
+                            <th>% de interes</th>
+                            <th>Descripcion</th>
+                            <th>Estado</th>
+                            <th>¿Autorizacion?</th>
+                            @*<th>Acciones</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.ListaTasaInteres)
+                        {
+                            <tr class="@(!item.Activo ? "table-active" : "" )" 
+                                data-id="@item.idTasaInteres">
+                                <td>
+                                </td>
+                                <td>
+                                    <strong>
+                                        @item.Codigo
+                                    </strong>
+                                </td>
+                                <td>
+                                    <span>@item.InteresMensual%</span>
+                                </td>
+                                <td>
+                                    <span>@item.Nombre</span>
+                                </td>
+                                <td>
+                                    @if (item.Activo)
+                                    {
+                                        <span class="badge badge-success">Activo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Desactivado</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.RequiereAutorizacion)
+                                    {
+                                        <span class="badge badge-primary">Si</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">No</span>
+                                    }
+                                </td>
+
+                                @*<td>
+
+                                    <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
+
+                                    <a href="#">
+                                        <button type="button" class="btn btn-outline-warning">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </a>
+
+                                </td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+    </div>
 </div>
 
 @*Modal de agregar intereses*@
@@ -176,7 +179,99 @@
                     </div>
                 </div>
 
+                @*  *@
+                @*  *@
+                <div>
+                    <h5>% por periodos</h5>
+                    <ul id="period" class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            DIARIO
+                            <span id="porcentaje-diario" class="badge badge-primary badge-pill"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            SEMANAL
+                            <span id="porcentaje-semanal" class="badge badge-primary badge-pill"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            QUINCENAL
+                            <span id="porcentaje-quincenal" class="badge badge-primary badge-pill"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ANUAL
+                            <span id="porcentaje-anual" class="badge badge-primary badge-pill"></span>
+                        </li>
+                    </ul>
+                </div>
+
+
             </div>
         </div>
+
     </div>
 </div>
+
+
+<script>
+
+    let onEditButton = function () {
+        
+    }
+    let onDeactivateButton = function () {
+        
+    }
+    let onCancelButton = async function () {
+        let id = $('tr.selected').data("id");
+
+        let data = { id: id };
+
+        await $.ajax({
+            type: "get",
+            url: "/TasaInteres/Delete",
+            data: data,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+            }
+        });
+        location.reload();
+    }
+    let onNewButton = function () {
+        
+    }
+
+    $(document).ready(function () {
+
+        let BASE_MENSUAL = 30;
+        let LONG_DIARIO = 1;
+        let LONG_SEMANAL = 7;
+        let LONG_QUINCENAL = 15;
+        let LONG_ANUAL = 360;
+
+        $('#TasaInteres_InteresMensual').keyup(function () {
+            calcularPorcentajes();
+        });
+
+        function calcularPorcentajes() {
+            let tasaMensual = $('#TasaInteres_InteresMensual').val();
+
+            $('#porcentaje-diario').text(`${((tasaMensual / BASE_MENSUAL) * LONG_DIARIO).toFixed(2)}%`);
+            $('#porcentaje-semanal').text(`${((tasaMensual / BASE_MENSUAL) * LONG_SEMANAL).toFixed(2)}%`);
+            $('#porcentaje-quincenal').text(`${((tasaMensual / BASE_MENSUAL) * LONG_QUINCENAL).toFixed(2)}%`);
+            $('#porcentaje-anual').text(`${((tasaMensual / BASE_MENSUAL) * LONG_ANUAL).toFixed(2)}%`);
+        }
+
+        // Datatable
+        var table = $('#datatable').DataTable(dataTableConfiguration);
+
+        removeTemplateConfiguration();
+        $('#btn-edit').appendTo('#r2s1');
+        $('#btn-deactivate').appendTo('#r2s1');
+        $('#btn-cancel').appendTo('#r2s1');
+        $('#btn-save').appendTo('#r2s3');
+
+
+    });
+
+</script>
+

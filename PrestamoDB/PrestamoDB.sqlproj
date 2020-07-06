@@ -195,12 +195,18 @@
     <Build Include="dbo\Tables\tblCodeudore.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamoConDetalles.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamos.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarPrestamos.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdClasificacion.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamo.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarPrestamosByCliente.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarPrestamosByGarantia.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdPeriodo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
     <None Include="DeployProfile.publish.publish.xml" />
     <None Include="Prestamo_dev.publish.publish.xml" />
+    <None Include="PrestamoDB_Dev.publish.publish.xml" />
+    <None Include="Prestamo_ing.publish.publish.xml" />
   </ItemGroup>
 </Project>

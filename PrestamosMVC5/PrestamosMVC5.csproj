@@ -148,9 +148,11 @@
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Controllers\ControllerBasePcp.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
+    <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\NegociosController.cs" />
     <Compile Include="Controllers\PeriodosController.cs" />
     <Compile Include="Controllers\PrestamosController.cs" />
+    <Compile Include="Models\TestMask.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -218,6 +220,8 @@
     <Content Include="Content\build\images\forward_enabled.png" />
     <Content Include="Content\build\images\forward_enabled_hover.png" />
     <Content Include="Content\build\js\custom.min - Copy.js" />
+    <Content Include="Content\customcss\datatable\css\customStyle.css" />
+    <Content Include="Content\customcss\searcher-style.css" />
     <Content Include="Content\customcss\datatable\configuration\js-conf\datatable-conf.js" />
     <Content Include="Content\customcss\datatable\css\buttons.dataTables.min.css" />
     <Content Include="Content\customcss\datatable\css\dataTables.bootstrap4.min.css" />
@@ -229,6 +233,7 @@
     <Content Include="Content\customcss\datatable\js\jszip.min.js" />
     <Content Include="Content\customcss\datatable\js\pdfmake.min.js" />
     <Content Include="Content\customcss\datatable\js\vfs_fonts.js" />
+    <Content Include="Content\customcss\Ingresos\garantiasSlider.css" />
     <Content Include="Content\ImagesFor\Negocios\Papito.png" />
     <Content Include="Content\build\images\loading.gif" />
     <Content Include="Content\build\images\PcpLogo250x211.jpg" />
@@ -4007,6 +4012,7 @@
     <Content Include="App_Code\TreeInfo.cshtml" />
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Scripts\Apps\minMaxAdapter.js" />
+    <Content Include="Scripts\Apps\Prestamo\search.js" />
     <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <Content Include="Views\Clientes\_infoReferencia2.cshtml" />
     <Content Include="Views\Tests\DropDownList1.cshtml" />
@@ -4015,11 +4021,13 @@
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
     <Content Include="Views\Account\ElegirNegocioAOperar.cshtml" />
     <None Include="Views\ErrorHandler\Default.cshtml" />
+    <Content Include="Views\Ingresos\index.cshtml" />
     <Content Include="Views\Prestamos\Index.cshtml" />
     <Content Include="Views\Prestamos\CreateOrEdit.cshtml" />
     <Content Include="Views\Shared\_InfoTopNavBar.cshtml" />
     <Content Include="Views\Tests\Periodo.cshtml" />
     <Content Include="Views\Periodos\Index.cshtml" />
+    <Content Include="Views\Tests\masks.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
