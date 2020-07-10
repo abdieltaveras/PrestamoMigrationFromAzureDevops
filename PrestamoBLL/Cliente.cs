@@ -62,5 +62,10 @@ namespace PrestamoBLL
         {
             PrestamosDB.ExecSelSP("spDelCliente", SearchRec.ToSqlParams(delParam));
         }
+
+        public IEnumerable<Cliente> ClienteSearch(BuscarClienteParams searchParam)
+        {
+            return BllAcciones.GetData<Cliente, BuscarClienteParams>(searchParam, "spBuscarClientes", GetValidation);
+        }
     }
 }

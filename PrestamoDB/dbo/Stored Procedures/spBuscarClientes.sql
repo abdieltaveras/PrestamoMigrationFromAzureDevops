@@ -1,0 +1,27 @@
+﻿CREATE PROCEDURE [dbo].[spBuscarClientes]
+(
+	@TextToSearch varchar(50),
+	@IdNegocio int,
+	@Usuario varchar(100) = '',
+	@Anulado int=0
+)
+as
+begin
+
+select 
+	top 10
+	tblClientes.IdCliente,
+	tblClientes.Nombres,
+	tblClientes.Apellidos,
+	tblClientes.Imagen1FileName as FotoCliente,
+	tblClientes.NoIdentificacion,
+	tblClientes.TelefonoMovil,
+	tblTipoSexos.Nombre as Sexo
+from 
+	tblClientes, tblTipoSexos
+where
+	tblClientes.IdNegocio = @IdNegocio AND
+	tblTipoSexos.IdTipoSexo = tblClientes.Sexo AND (
+	CONCAT(tblClientes.Nombres, ' ', tblClientes.Apellidos) LIKE '%' + @TextToSearch + '%' 
+	OR tblClientes.NoIdentificacion LIKE '%' + @TextToSearch + '%')
+End

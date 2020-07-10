@@ -144,6 +144,11 @@ namespace PrestamoBLL.Entidades
 
     }
 
+    public class BuscarClienteParams : BaseGetParams
+    {
+        public string TextToSearch { get; set; } = string.Empty;
+    }
+
 }
 
 

@@ -201,6 +201,7 @@
     <Build Include="dbo\Stored Procedures\spBuscarPrestamosByCliente.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarPrestamosByGarantia.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdPeriodo.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarClientes.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

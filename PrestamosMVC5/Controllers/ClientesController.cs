@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Net;
 using System.Web.Routing;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace PrestamosMVC5.Controllers
 {
@@ -224,6 +225,16 @@ namespace PrestamosMVC5.Controllers
                 }
             }
         }
+
+        public string BuscarClientes(string searchToText)
+        {
+            IEnumerable<Cliente> clientes = null;
+
+            clientes = BLLPrestamo.Instance.ClienteSearch(new BuscarClienteParams { TextToSearch = searchToText, IdNegocio = pcpUserIdNegocio });
+            
+            return JsonConvert.SerializeObject(clientes);
+        }
+
     }
 
 

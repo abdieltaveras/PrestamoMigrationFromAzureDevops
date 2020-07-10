@@ -61,22 +61,6 @@
         }
     }
 
-    //function setClickListenerOnPrestamo() {
-    //    const list = document.querySelectorAll('.prestamos');
-    //    list.forEach(function (btn) {
-    //        btn.addEventListener('click', async function (evt) {
-    //            res = await loadPrestamoData(evt.target.getAttribute('data-idPrestamo'));
-    //            let photoDetails = null;
-    //            if (IMAGEN_CLIENTE_EN_DETALLES) {
-    //                photoDetails = evt.target.getAttribute('data-client-photo');
-    //            }
-    //            showDataInField(JSON.parse(res), photoDetails);
-
-    //            removeList();
-    //        });
-    //    });
-    //}
-
     // Funcion que asignara a cada item de la lista una funcion
     function setClickListenerOnPrestamo() {
         const list = document.querySelectorAll('.prestamos');

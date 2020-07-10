@@ -4010,6 +4010,8 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="App_Code\TreeInfo.cshtml" />
+    <Content Include="Scripts\Apps\Cliente\search.js" />
+    <Content Include="Scripts\Apps\Garantia\search.js" />
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Scripts\Apps\minMaxAdapter.js" />
     <Content Include="Scripts\Apps\Prestamo\search.js" />

@@ -80,31 +80,63 @@
                             @* Fin prestamo a renovar *@
 
                             @*<div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.NumeroPrestamoARenovar, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.NumeroPrestamoARenovar, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } });
-                                    @Html.ValidationMessageFor(model => model.NumeroPrestamoARenovar, "", new { @class = "text-danger" })
-                                </div>
-                            </div>*@
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.NumeroIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.NumeroIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
-                                    <div id="datosDeCliente">
+                                    @Html.LabelFor(model => model.NumeroPrestamoARenovar, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        @Html.EditorFor(model => model.NumeroPrestamoARenovar, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } });
+                                        @Html.ValidationMessageFor(model => model.NumeroPrestamoARenovar, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                            @*<div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.NumeroIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        @Html.EditorFor(model => model.NumeroIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
+                                        <div id="datosDeCliente">
 
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.NumeroIdentificacion, "", new { @class = "text-danger" })
                                     </div>
-                                    @Html.ValidationMessageFor(model => model.NumeroIdentificacion, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                                </div>*@
+                            @*<div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.NumeracionGarantia, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        @Html.EditorFor(model => model.NumeracionGarantia, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
+                                        <div id="datosDeGarantia">
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.NumeracionGarantia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+
                             <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.NumeracionGarantia, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Cliente</label>
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.NumeracionGarantia, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
-                                    <div id="datosDeGarantia">
+                                    <div style="margin: auto; padding: 0%;">
+
+                                        <input class="cliente_target form-control" type="text" autocomplete="off" id="search-cliente-input" placeholder="Buscar cliente (nombre, cedula)..." name="name" value="" />
+
+                                        <div id="list-cliente-container">
+                                            <div class="list-group col-md-12" id="list-clientes-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+                                            </div>
+                                        </div>
                                     </div>
-                                    @Html.ValidationMessageFor(model => model.NumeracionGarantia, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Garantia</label>
+                                <div class="@HtmlClass.DivInputCls">
+                                    <div style="margin: auto; padding: 0%;">
+
+                                        <input class="garantia_target form-control" type="text" autocomplete="off" id="search-garantia-input" placeholder="Buscar garantia..." name="name" value="" />
+
+                                        <div id="list-garantia-container">
+                                            <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.FechaEmisionReal, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
@@ -355,14 +387,31 @@
         };
 
         function showdata(data) {
-            alert("Hola mundo");
-            console.log('esto son datos de prueba', data);
+            alert("Presione un prestamo");
         }
+
+        //// Buscador de garantias
+        const onGarantiaEnter = async function () {
+            let idGarantia = $('[data-order="' + selectPointer + '"]').attr('data-idGarantia');
+            setDataOnField(idGarantia);
+        };
+        const onGarantiaClick = async function (evt) {
+            let idGarantia = evt.target.getAttribute('data-idGarantia');
+            console.log('super', evt)
+            setDataOnField(idGarantia);
+        };
+
+        async function setDataOnField(idgarantia) {
+            alert('Presione una garantia');
+        };
 
     </script>
     <script src="~/Scripts/Apps/utils.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
     <script src="~/Scripts/Apps/Prestamo/search.js"></script>
+    <script src="~/Scripts/Apps/Garantia/search.js"></script>
+    <script src="~/Scripts/Apps/Cliente/search.js"></script>
+
 
 }
 
