@@ -8,8 +8,17 @@ $(".garantia_target").keyup(function (e) {
         $('.garantias').remove();
 
         searchGarantiaText($('#search-garantia-input').val());
+    } else if (e.which === 13) {
+        
     }
-    // console.log($('#searchinput').val());
+});
+
+$(".garantia_target").keydown(function (e) {
+    if (e.which === 13) {
+        onGarantiaEnter();
+        removeList();
+    }
+    console.log($('#searchinput').val());
 });
 
 async function searchGarantiaText(location) {
@@ -76,13 +85,13 @@ function setClickListenerOnGarantia() {
 
 document.onkeyup = function (e) {
     if (e.which == 38) {
-        if ($('#search-garantia-input').is(':focus')) {
+        //if ($('#search-garantia-input').is(':focus')) {
             if (selectPointer != 0) {
                 selectPointer--;
                 $('[data-order="' + (selectPointer + 1) + '"]').removeClass('active');
                 $('[data-order="' + selectPointer + '"]').addClass('active');
             }
-        }
+        //}
     } else if (e.which == 40) {
         //$('#input-client_search').focus();
 
@@ -91,11 +100,6 @@ document.onkeyup = function (e) {
             $('[data-order="' + (selectPointer - 1) + '"]').removeClass('active');
             $('[data-order="' + selectPointer + '"]').addClass('active');
         }
-    } else if (e.which == 13) {
-        //let idgarantia = $('[data-order="' + selectPointer + '"]').attr('data-idGarantia');
-        //setDataOnField(idgarantia);
-        onGarantiaEnter();
-        removeList();
     } else if (e.ctrlKey && e.which == 66) {
         $('#search-garantia-input').focus();
     }

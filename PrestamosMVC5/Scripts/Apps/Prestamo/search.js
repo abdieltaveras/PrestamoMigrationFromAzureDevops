@@ -48,6 +48,14 @@
         }
     });
 
+    $(".prestamo_target").keydown(function (e) {
+        if (e.which === 13) {
+            onEnter();
+            removeList();
+        }
+        console.log($('#searchinput').val());
+    });
+
     async function searchPrestamoText(text) {
         console.log('Encontre', text);
         try {
@@ -90,9 +98,6 @@
                 $('[data-order="' + (selectPointer - 1) + '"]').removeClass('active');
                 $('[data-order="' + selectPointer + '"]').addClass('active');
             }
-        } else if (e.which == 13) {
-            onEnter();
-            removeList();
         } else if (e.ctrlKey && e.which == 66) {
             $('#input-prestamo_search').focus();
         }

@@ -199,8 +199,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.DeudaRenovacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
@@ -314,44 +312,46 @@
     @*<script src="~/Scripts/Apps/minMaxAdapter.js"></script>*@
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
     <script>
+
         let dateFormat = 'en-GB';
         let _dateFormat = 'dd/mm/yy';
         let yearRangeForDP = "-120:+0"
 
-    attachOnChangeEvent();
-    InitData();
-    function InitData() {
+        attachOnChangeEvent();
+        InitData();
+        function InitData() {
             $("#datosDeCliente").html("@Model.infoCliente")
             $("#datosDeGarantia").html("@Model.infoGarantia")
             hideShowSeccionHastaDeCierre(@Model.LlevaGastoDeCierre.ToString().ToLower());
-        //    = true) { $("#seccionGastoDeCierre").show(); }
-        //else { $("#seccionGastoDeCierre").hide(); }
+            //    = true) { $("#seccionGastoDeCierre").show(); }
+            //else { $("#seccionGastoDeCierre").hide(); }
         }
+
         function setFecha(elem, name) {
             d = new Date(elem.val());
             var formattedDate = moment(d).format("DD/MM/YYYY")
             console.log(d, formattedDate);
         }
-    function onChangeProp(elem) {
-                switch (elem.id) {
-                    case "@Html.IdFor(model => model.NumeroIdentificacion)":
-                        getClientesByNumeroIdentificacion(elem.value, fillDatosClientes);
-                        break;
-                    case "@Html.IdFor(model => model.NumeracionGarantia)":
-                        getGarantiaByNumeracion(elem.value, fillDatosGarantia);
-                        break;
-                    case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
-                        const llevaGC = elem.checked;
-                        hideShowSeccionHastaDeCierre(llevaGC)
-                        break;
-                }
+        function onChangeProp(elem) {
+            switch (elem.id) {
+                case "@Html.IdFor(model => model.NumeroIdentificacion)":
+                    getClientesByNumeroIdentificacion(elem.value, fillDatosClientes);
+                    break;
+                case "@Html.IdFor(model => model.NumeracionGarantia)":
+                    getGarantiaByNumeracion(elem.value, fillDatosGarantia);
+                    break;
+                case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
+                    const llevaGC = elem.checked;
+                    hideShowSeccionHastaDeCierre(llevaGC)
+                    break;
+            }
         };
 
         function hideShowSeccionHastaDeCierre(mostrar) {
             if (mostrar) { $("#seccionGastoDeCierre").show(); }
             else { $("#seccionGastoDeCierre").hide(); }
 
-    }
+        }
         function fillDatosClientes(data) {
             const cliente = data;
             console.log(cliente, cliente.IdCliente);
@@ -387,23 +387,38 @@
         };
 
         function showdata(data) {
-            alert("Presione un prestamo");
+            alert("Presione un prestamo", data);
         }
 
         //// Buscador de garantias
+        let searchType = 'garantia';
         const onGarantiaEnter = async function () {
             let idGarantia = $('[data-order="' + selectPointer + '"]').attr('data-idGarantia');
             setDataOnField(idGarantia);
         };
         const onGarantiaClick = async function (evt) {
             let idGarantia = evt.target.getAttribute('data-idGarantia');
-            console.log('super', evt)
             setDataOnField(idGarantia);
         };
 
         async function setDataOnField(idgarantia) {
             alert('Presione una garantia');
         };
+
+        //// Buscador de garantias
+        const onClienteEnter = async function () {
+            let idCliente = $('[data-order="' + selectPointer + '"]').attr('data-idCliente');
+            showCliente(idCliente);
+        };
+        const onClienteClick = async function (evt) {
+            let idCliente = evt.target.getAttribute('data-idCliente');
+            showCliente(idCliente);
+        };
+
+        async function showCliente(idcliente) {
+            alert('Presione un cliente', idcliente);
+        };
+
 
     </script>
     <script src="~/Scripts/Apps/utils.js"></script>

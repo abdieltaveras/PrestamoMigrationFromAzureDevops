@@ -3,12 +3,19 @@
 let clienteRes;
 
 $(".cliente_target").keyup(function (e) {
+    console.log('no lo podia creer', e.which)
     if (e.which != 38 && e.which != 40 && e.which != 13) {
         $('.clientes').remove();
 
         searchClienteText($('#search-cliente-input').val());
     }
-     console.log($('#searchinput').val());
+});
+$(".cliente_target").keydown(function (e) {
+    console.log('no lo podia creer', e.which)
+     if (e.which === 13) {
+        onClienteEnter();
+    }
+    console.log($('#searchinput').val());
 });
 
 async function searchClienteText(cliente) {
@@ -57,27 +64,27 @@ function setClickListenerOnCliente() {
 
 document.onkeyup = function (e) {
     if (e.which == 38) {
-        if ($('#search-cliente-input').is(':focus')) {
+        //if ($('#search-cliente-input').is(':focus')) {
             if (selectPointer != 0) {
                 selectPointer--;
                 $('[data-order="' + (selectPointer + 1) + '"]').removeClass('active');
                 $('[data-order="' + selectPointer + '"]').addClass('active');
             }
-        }
+        //}
     } else if (e.which == 40) {
         //$('#input-client_search').focus();
+        //if ($('#search-cliente-input').is(':focus')) {
+            if ($('.list-group-item').length != selectPointer) {
+                selectPointer++;
+                $('[data-order="' + (selectPointer - 1) + '"]').removeClass('active');
+                $('[data-order="' + selectPointer + '"]').addClass('active');
+            }
+        //}
 
-        if ($('.list-group-item').length != selectPointer) {
-            selectPointer++;
-            $('[data-order="' + (selectPointer - 1) + '"]').removeClass('active');
-            $('[data-order="' + selectPointer + '"]').addClass('active');
-        }
-    } else if (e.which == 13) {
-        onClienteEnter();
-        removeList();
     } else if (e.ctrlKey && e.which == 66) {
         $('#search-cliente-input').focus();
     }
+    console.log('puntero', selectPointer)
 };
 
 function showListCliente(list) {
