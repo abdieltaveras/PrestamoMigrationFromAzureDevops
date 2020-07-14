@@ -405,7 +405,9 @@
             alert('Presione una garantia');
         };
 
-        //// Buscador de garantias
+        //// Buscador de cliente
+        let IMAGEN_CLIENTE_EN_BUSCADOR_CLIENTE = true;
+
         const onClienteEnter = async function () {
             let idCliente = $('[data-order="' + selectPointer + '"]').attr('data-idCliente');
             showCliente(idCliente);

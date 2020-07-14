@@ -13,7 +13,7 @@ select
 	tblClientes.IdCliente,
 	tblClientes.Nombres,
 	tblClientes.Apellidos,
-	tblClientes.Imagen1FileName as FotoCliente,
+	tblClientes.Imagen1FileName,
 	tblClientes.NoIdentificacion,
 	tblClientes.TelefonoMovil,
 	tblTipoSexos.Nombre as Sexo

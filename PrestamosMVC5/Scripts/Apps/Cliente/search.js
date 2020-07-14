@@ -19,6 +19,7 @@ $(".cliente_target").keydown(function (e) {
 });
 
 async function searchClienteText(cliente) {
+
     console.log('Encontre', cliente);
     try {
         clienteRes = await searchCliente(cliente);
@@ -34,8 +35,7 @@ async function searchClienteText(cliente) {
 
 function searchCliente(location) {
 
-    let dataValue = { "searchtotext": location };
-    let LocalidadABuscar;
+    let dataValue = { "searchtotext": location, "CargarImagenesClientes": IMAGEN_CLIENTE_EN_BUSCADOR_CLIENTE  };
 
     return $.ajax({
         type: "get",
@@ -95,37 +95,21 @@ function showListCliente(list) {
 
         $.each(list, function (index, value) {
 
-            $("#list-clientes-tab").append(` <p class="list-group-item clientes list-group-item-action" data-order="${count}" id="listclientes" data-toggle="list"
-                        data-idCliente="${value.IdCliente}"
-                        href="#list-home" role="tab" aria-controls="home">
-                        <strong id="placeName" > ${value.Nombres} ${value.Apellidos} </strong><br>
-                        <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
-                        <br></p>`);
+            $("#list-clientes-tab").append(` <p class="list-group-item clientes list-group-item-action pb-2 pt-2 pl-2 pr-2 " data-order="${count}" data-toggle="list"
+                                            data-idPrestamo="${value.IdCliente}"
+                                            data-client-photo="${value.Imagen1FileName}"
+                                            role="tab" aria-controls="home">
+                                            ${ IMAGEN_CLIENTE_EN_BUSCADOR_CLIENTE ? `<img src="${value.Imagen1FileName}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>` : ``}
+                                            <strong id="placeName" >Cliente: <i>${value.Nombres} ${value.Apellidos} | <small style="font-weight: 600;"> Sexo: ${value.Sexo}</i> </span><br>
+                                            <span style="font-weight: 600;">Telefono: </span> ${value.TelefonoMovil} ${value.NoIdentificacion === undefined ? `` : ` | No. de identificacion: ${value.NoIdentificacion}`}</i><br>
+                                            <br></p>`);
 
-            //if (value.IdClasificacion === 1) {
-            //    $("#list-address-tab").append(` <p class="list-group-item clientes list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
-            //            data-idCliente="${value.IdCliente}"
-            //            data-idlocalidad="" href="#list-home" role="tab" aria-controls="home">
-            //            <span class=" glyphicon glyphicon-home "></span>
-            //            <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
-            //            ${Detalles.Descripcion !== null ? Detalles.Descripcion : ''}
-            //            ${Detalles.Medida !== null ? 'Medida: ' + Detalles.Medida : ''}
-            //            <br></p>`);
-            //} else {
-            //    $("#list-address-tab").append(` <p class="list-group-item clientes list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
-            //            data-idCliente="${value.IdCliente}"
-            //            role="tab" aria-controls="home">
-            //            <span class="fa fa-automobile"></span>
-            //            <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
-            //           <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
-            //            <br></p>`);
-            //}
             count++;
         });
     } else {
         $("#list-clientes-tab").append(` <p class="list-group-item clientes list-group-item-action" id="listclientes" data-toggle="list"
                         role="tab" aria-controls="home">
-                       <span">No se encontro información</span>
+                        <span">No se encontro información</span>
                         <br></p>`);
     }
 }

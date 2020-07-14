@@ -226,12 +226,20 @@ namespace PrestamosMVC5.Controllers
             }
         }
 
-        public string BuscarClientes(string searchToText)
+        public string BuscarClientes(string searchToText, bool CargarImagenesClientes)
         {
             IEnumerable<Cliente> clientes = null;
 
             clientes = BLLPrestamo.Instance.ClienteSearch(new BuscarClienteParams { TextToSearch = searchToText, IdNegocio = pcpUserIdNegocio });
-            
+
+            if (CargarImagenesClientes)
+            {
+                foreach (var cliente in clientes)
+                {
+                    cliente.Imagen1FileName = Url.Content(SiteDirectory.ImagesForClientes + "/" + cliente.Imagen1FileName);
+                }
+            }
+
             return JsonConvert.SerializeObject(clientes);
         }
 

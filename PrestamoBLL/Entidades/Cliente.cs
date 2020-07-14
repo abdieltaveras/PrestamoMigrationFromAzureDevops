@@ -104,6 +104,7 @@ namespace PrestamoBLL.Entidades
         /// </summary>
         public string Imagen1FileName { get; set; } = string.Empty;
         public string Imagen2FileName { get; set; } = string.Empty;
+        public string Sexo { get; set; } = string.Empty;
 
         [Display(Name = "Tiene Pareja o Conyuge")]
         public bool TieneConyuge { get; set; }
