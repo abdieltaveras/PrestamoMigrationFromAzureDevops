@@ -46,7 +46,6 @@ namespace PrestamosMVC5.Controllers
         [HttpGet]
         public ActionResult Login(string returnUrl = "")
         {
-            
             this.pcpLogout();
             this.UpdViewBag_ShowSideBar(false);
             var model = new LoginModel { ReturnUrl = returnUrl };
@@ -54,16 +53,15 @@ namespace PrestamosMVC5.Controllers
             #if (DEBUG)
                 model.LoginName = "bryan";
                 model.Password = "1";
+                model.SoloHayUnaLocalidad = true;
+                model.NombreLocalidad = "La Romana";
+                model.IdLocalidad = 1;
             #endif
-            var negociosMatriz = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
-            model.SoloHayUnNegocioMatriz = negociosMatriz.Count() == 1;
-
-            if (model.SoloHayUnNegocioMatriz)
-            {
-                TempData.Add("SoloHayUnNegocioMatriz", model.SoloHayUnNegocioMatriz);
-                TempData.Add("IdNegocioMatriz", negociosMatriz.FirstOrDefault().IdNegocioMatriz);
-                model.NegocioMatrizCuandoSoloHayUno = negociosMatriz.FirstOrDefault();
-            }
+            //var negociosMatriz = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
+            //model.SoloHayUnNegocioMatriz = negociosMatriz.Count() == 1;
+            var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams() ).FirstOrDefault();
+            model.IdNegocio = negocio.IdNegocio;
+            model.NombreNegocio = negocio.NombreComercial; 
             return View(model);
         }
 
@@ -99,13 +97,8 @@ namespace PrestamosMVC5.Controllers
                 }
                 else
                 {
-                    if (TempData["SoloHayUnNegocioMatriz"] == null)
-                    {
-                        var idNegocioMatriz = Convert.ToInt32(TempData["SoloHayUnNegocioMatriz"]);
-                        TempData["loginResponse"] = result;
-                        //_actResult = RedirectToAction("ElegirNegocioAOperar", new { idNegocio = result.Usuario.IdNegocio, returnUrl = loginView.ReturnUrl, token = internalToken });
-                        return ElegirNegocioAOperar(loginView.IdNegocio,  result.Usuario, loginView.ReturnUrl);
-                    }
+                    //_actResult = RedirectToAction("ElegirNegocioAOperar", new { idNegocio = result.Usuario.IdNegocio, returnUrl = loginView.ReturnUrl, token = internalToken });
+                    return LoginToLocalidad(loginView.IdNegocio,  result.Usuario, loginView.ReturnUrl);
                     //_actResult = GoToNextUrl(loginView);
                 }
             }
@@ -141,27 +134,31 @@ namespace PrestamosMVC5.Controllers
         private ActionResult ElegirNegocioAOperar(int idNegocioMatriz, Usuario usuario, string returnUrl = "")
         {
             this.UpdViewBag_ShowSideBar(false);
-            var model = new ListaNegocioVM();
-            TempData["idNegocioMatriz"] = idNegocioMatriz;
+            var model = new ListaLocalidadNegocioVM();
+            TempData["idNegocio"] = idNegocioMatriz;
             TempData["Usuario"] = usuario;
             TempData["returnUrl"] = returnUrl==null ? string.Empty : returnUrl;
             // var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocioMatriz  });
             // var negocios = BLLPrestamo.Instance.GetNegocioYSusHijos(usuario.IdNegocio);
             // model.NombreEmpresaMatriz = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocioMatriz }).FirstOrDefault().NombreComercial;
-            model.SelectNegocios = SelectItems.NegociosOperacionalesForMatriz(usuario.IdNegocio);
-            model.NombreEmpresaMatriz = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocioMatriz }).FirstOrDefault().NombreComercial;
+            model.SelectLocalidadNegocio = SelectItems.LocalidadesNegocios();
+            model.NombreNegocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocioMatriz }).FirstOrDefault().NombreComercial;
             model.UsuarioNombreReal = usuario.NombreRealCompleto;
             return View("ElegirNegocioAOperar",model);
         }
-
+        private ActionResult LoginToLocalidad(int idNegocio, Usuario usuario, string returnUrl = "")
+        {
+            SetLoginDataIntoSessiond(idNegocio, usuario);
+            return GoToNextUrl(returnUrl);
+        }
         [HttpPost]
-        public ActionResult IniciarOperacion(ListaNegocioVM model)
+        public ActionResult IniciarOperacion(ListaLocalidadNegocioVM model)
         {
             // se prefirio tener esta informacion en tempdata porque asi evitamos que la envien desde un post o algo asi.
             var returnUrl = TempData["returnUrl"] !=null? TempData["returnUrl"].ToString() : string.Empty;
             var idNegocioMatriz = (int)TempData["idNegocioMatriz"];
             var usuarioInfo = TempData["usuario"] as Usuario;
-            SetLoginDataIntoSessiond(model.idNegocioSelected, usuarioInfo);
+            SetLoginDataIntoSessiond(model.idLocalidadNegocioSelected, usuarioInfo);
             return GoToNextUrl(returnUrl);
         }
         private ActionResult WhatTodo(UserValidationResultWithMessage userValidationResultMessage, ActionResult actResult, LoginModel loginModel)

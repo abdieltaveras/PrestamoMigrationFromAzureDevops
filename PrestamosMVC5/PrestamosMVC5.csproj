@@ -5223,7 +5223,7 @@
     <Content Include="Views\Configuration\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
-    <TypeScriptCompile Include="Scripts\Apps\ManageClientes.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\ManageSearchOnprestamo.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

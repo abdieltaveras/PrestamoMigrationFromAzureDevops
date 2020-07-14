@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Models
 {
-    public class ListaNegocioVM
+    public class ListaLocalidadNegocioVM
     {
-        public int idNegocioSelected { get; set; }
-        public string NombreEmpresaMatriz { get; set; }
+        public int idLocalidadNegocioSelected { get; set; }
+        public string NombreNegocio { get; set; }
 
-        public SelectList SelectNegocios { get; set; }
+        public SelectList SelectLocalidadNegocio { get; set; }
 
         public string UsuarioNombreReal { get; set; }
     }

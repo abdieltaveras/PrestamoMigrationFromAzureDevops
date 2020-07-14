@@ -10,6 +10,7 @@ namespace PrestamoBLL.Entidades
     {
         [Required]
         public int IdUsuario { get; set; } = 0;
+        
         public bool Activo { get; set; } = true;
         [Required(ErrorMessage = "el campo {0} es requerido")]
         [Display(Name ="Nombre Real")]

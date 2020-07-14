@@ -17,7 +17,6 @@
     [AnuladoPor] VARCHAR(200) NULL, 
     [FechaAnulado] DATETIME NULL, 
 	[Logo] VARCHAR(50) NULL, 
-    [PermitirOperaciones] BIT NOT NULL DEFAULT 1, 
     Prefijo varchar(3) 
     CONSTRAINT [FK_tblNegocio_UQ_TaxIdNo] Unique NonClustered(IdNegocio, TaxIdNo),
     CONSTRAINT [FK_tblNegocio_UQ_Codigo] Unique NonClustered(Codigo),

@@ -154,8 +154,8 @@ namespace PrestamoBLL.Entidades
     {
         public int IdPrestamo { get; set; }
         [IgnorarEnParam]
+        [Display(Name ="Prestamo Numero")]
         public string PrestamoNumero { get; internal set; } = string.Empty;
-
         /// <summary>
         /// el valor menos 1 indica que no se establecio ningun prestamo a renovar
         /// </summary>

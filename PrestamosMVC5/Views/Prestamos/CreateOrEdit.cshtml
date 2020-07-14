@@ -20,17 +20,69 @@
             </div>
 
             <div class="x_panel">
-                -Informacion para el usuario-
                 <div class="col-md-6 col-sm-12 text-center" id="mensajeError" role="alert">
                     @Html.ValidationSummary(true, "", new { @id = "validationSummary" })
                 </div>
             </div>
-
             <div class="row">
                 <!-- form input mask -->
                 <div class="col-md-6 col-sm-12">
                     <div class="x_panel">
                         <div class="x_content">
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.PrestamoNumero, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.PrestamoNumero, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = "true", @Value = (Model.Prestamo.IdPrestamo <= 0 ? "Nuevo" : Model.Prestamo.PrestamoNumero) } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.PrestamoNumero, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.FechaEmisionReal, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.FechaEmisionReal, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                                    @Html.ValidationMessageFor(model => model.Prestamo.FechaEmisionReal, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.IncluirRenovacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.IncluirRenovacion, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                    @Html.ValidationMessageFor(model => model.IncluirRenovacion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @* Prestamos a renovar *@
+                            <div id="seccionRenovacion">
+                                <div class="@HtmlClass.FormGroupCls">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Prestamo a renovar</label>
+                                    <div class="@HtmlClass.DivInputCls">
+                                        <div style="margin: auto; padding: 0%;">
+                                            <input class="prestamo_target form-control" type="text" id="input-prestamo_search" autocomplete="dummy-no-auto-complete-fix" placeholder="indique criterio de busqueda" name="name" value="" />
+                                            <div style="float:right">
+                                                <span>buscar por </span>
+                                                <input type="radio" class="flat searchtype" checked id="search-by-prestamo" value="1" style="float:right;" />
+                                                <i class="fa fa-dollar"></i> Prestamo
+                                                <input type="radio" class="flat searchtype" id="search-by-user" value="2" style="float:right;" />
+                                                <i class="fa fa-user"></i> Cliente
+                                                <input type="radio" class="flat searchtype" id="search-by-garantia" value="3" style="float:right;" />
+                                                <i class="fa fa-automobile"></i> Garantia
+                                            </div>
+
+                                            <div id="list-prestamo-container">
+                                                <div class="list-group col-md-12" id="list-prestamo-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="@HtmlClass.FormGroupCls">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Renovacion Seleccionado</label>
+                                    <div class="@HtmlClass.DivInputCls">
+                                        <input class=" form-control" type="text" id="prestamo-a-renovar" readonly value="" />
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdClasificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
@@ -39,7 +91,6 @@
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdClasificacion, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdTipoAmortizacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
@@ -48,34 +99,6 @@
                                 </div>
                             </div>
 
-                            @* Prestamos a renovar *@
-
-
-                            <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Prestamo a renovar</label>
-                                <div class="@HtmlClass.DivInputCls">
-                                    <div style="margin: auto; padding: 0%;">
-
-                                        <input class="prestamo_target form-control" type="text" id="input-prestamo_search" autocomplete="off" placeholder="Buscar por numero de prestamo" name="name" value="" />
-
-                                        <div style="float:right">
-                                            <span>Tipo de busqueda: </span>
-                                            <input type="radio" class="flat searchtype" checked id="search-by-prestamo" value="1" style="float:right;" />
-                                            <i class="fa fa-dollar"></i> NO. Prestamo
-                                            <input type="radio" class="flat searchtype" id="search-by-user" value="2" style="float:right;" />
-                                            <i class="fa fa-user"></i> Cliente
-                                            <input type="radio" class="flat searchtype" id="search-by-garantia" value="3" style="float:right;" />
-                                            <i class="fa fa-automobile"></i> Garantia
-                                        </div>
-
-                                        <div id="list-prestamo-container">
-
-                                            <div class="list-group col-md-12" id="list-prestamo-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             @* Fin prestamo a renovar *@
 
@@ -111,7 +134,7 @@
                                 <div class="@HtmlClass.DivInputCls">
                                     <div style="margin: auto; padding: 0%;">
 
-                                        <input class="cliente_target form-control" type="text" autocomplete="off" id="search-cliente-input" placeholder="Buscar cliente (nombre, cedula)..." name="name" value="" />
+                                        <input class="cliente_target form-control" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-cliente-input" placeholder="Buscar cliente (nombre, cedula)..." name="name" value="" />
 
                                         <div id="list-cliente-container">
                                             <div class="list-group col-md-12" id="list-clientes-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
@@ -126,7 +149,7 @@
                                 <div class="@HtmlClass.DivInputCls">
                                     <div style="margin: auto; padding: 0%;">
 
-                                        <input class="garantia_target form-control" type="text" autocomplete="off" id="search-garantia-input" placeholder="Buscar garantia..." name="name" value="" />
+                                        <input class="garantia_target form-control" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-garantia-input" placeholder="Buscar garantia..." name="name" value="" />
 
                                         <div id="list-garantia-container">
                                             <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
@@ -138,13 +161,6 @@
 
 
 
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.FechaEmisionReal, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.FechaEmisionReal, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.FechaEmisionReal, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdTasaInteres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
@@ -307,8 +323,6 @@
     <script src="~/Scripts/Apps/setMask.js"></script>
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
-    <script src="~/Scripts/Apps/ManageClientes.js"></script>
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.4-beta.33/bindings/inputmask.binding.js"></script>"*@
     @*<script src="~/Scripts/Apps/minMaxAdapter.js"></script>*@
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
     <script>
@@ -316,17 +330,14 @@
         let dateFormat = 'en-GB';
         let _dateFormat = 'dd/mm/yy';
         let yearRangeForDP = "-120:+0"
-
-        attachOnChangeEvent();
+        attachOnChangeEventToCheckBoxes();
         InitData();
         function InitData() {
             $("#datosDeCliente").html("@Model.infoCliente")
             $("#datosDeGarantia").html("@Model.infoGarantia")
             hideShowSeccionHastaDeCierre(@Model.LlevaGastoDeCierre.ToString().ToLower());
-            //    = true) { $("#seccionGastoDeCierre").show(); }
-            //else { $("#seccionGastoDeCierre").hide(); }
+            hideShowSeccionRenovacion(@Model.IncluirRenovacion.ToString().ToLower())
         }
-
         function setFecha(elem, name) {
             d = new Date(elem.val());
             var formattedDate = moment(d).format("DD/MM/YYYY")
@@ -344,6 +355,10 @@
                     const llevaGC = elem.checked;
                     hideShowSeccionHastaDeCierre(llevaGC)
                     break;
+                case "@Html.IdFor(model => model.IncluirRenovacion)":
+                    const esUnaRenovacion = elem.checked;
+                    hideShowSeccionRenovacion(esUnaRenovacion)
+                    break;
             }
         };
 
@@ -351,7 +366,12 @@
             if (mostrar) { $("#seccionGastoDeCierre").show(); }
             else { $("#seccionGastoDeCierre").hide(); }
 
-        }
+    }
+    function hideShowSeccionRenovacion(mostrar) {
+        if (mostrar) { $("#seccionRenovacion").show(); }
+        else { $("#seccionRenovacion").hide(); }
+
+    }
         function fillDatosClientes(data) {
             const cliente = data;
             console.log(cliente, cliente.IdCliente);

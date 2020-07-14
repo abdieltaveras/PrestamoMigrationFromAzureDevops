@@ -1,5 +1,5 @@
 ﻿initCheckValues();
-function attachOnChangeEvent() {
+function attachOnChangeEventToCheckBoxes() {
     var checkBoxes = $("input:checkbox");
     checkBoxes.each(function () {
         $(this).on("change", ()=>setCheckValue($(this)));

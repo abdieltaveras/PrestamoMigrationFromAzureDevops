@@ -34,13 +34,12 @@ namespace PrestamosMVC5.Models
         public string infoGarantia { get; set; }
         [Display(Name ="Lleva gasto de cierre")]
         public bool LlevaGastoDeCierre { get; set; } = false;
+        [Display(Name = "Desea Renovar Prestamo")]
+        public bool IncluirRenovacion { get; set; } = false;
         [Display(Name = "probando si desea ver el json result al hacer post")]
         public bool MostrarJsonResult { get; set; } = false;
 
-        public PrestamoVm()
-        {
-            
-        }
+        
 
     }
 }

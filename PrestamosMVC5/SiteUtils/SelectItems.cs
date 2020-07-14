@@ -45,9 +45,11 @@ namespace PrestamosMVC5.Models
         public static SelectList TasasInteresSoloCodigos(int idNegocio) => new SelectList(BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = idNegocio }), "IdTasaInteres", "CodigoTasa");
 
         // TasasInteresGet
-        public static SelectList NegociosMatrizRaiz() => new SelectList(BLLPrestamo.Instance.NegocioGetLosQueSonMatriz(), "IdNegocio", "NombreComercial");
+        //public static SelectList NegociosMatrizRaiz() => new SelectList(BLLPrestamo.Instance.NegocioGetLosQueSonMatriz(), "IdNegocio", "NombreComercial");
 
-        public static SelectList NegociosOperacionalesForMatriz(int idNegocioPadre) => new SelectList(BLLPrestamo.Instance.GetNegocioYSusHijos(idNegocioPadre).Where(neg => neg.PermitirOperaciones), "IdNegocio", "NombreComercial");
+        public static SelectList LocalidadesNegocios() => new SelectList(LocalidadesNegocios(), "key", "value");
+
+        //public static SelectList NegociosOperacionalesForMatriz(int idNegocioPadre) => new SelectList(BLLPrestamo.Instance.GetNegocioYSusHijos(idNegocioPadre).Where(neg => neg.PermitirOperaciones), "IdNegocio", "NombreComercial");
 
         public static SelectList Lista12Meses => new SelectList(_12MesesNUmericos(), "key", "value");
         public static SelectList Ocupaciones => _Ocupaciones();
@@ -62,6 +64,12 @@ namespace PrestamosMVC5.Models
             return listaNumeros;
         }
 
+        private static Dictionary<int, string> _LocalidadesNegociosFake()
+        {
+            var lista = new Dictionary<int, string>();
+           lista.Add(1,"Romana");
+            return lista;
+        }
         private static SelectList CreateSelectList(List<Tuple<string, int>> items)
         {
             var result = items.OrderBy(ord => ord.Item1).Select(e => new SelectListItem()

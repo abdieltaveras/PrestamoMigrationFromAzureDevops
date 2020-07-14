@@ -14,7 +14,6 @@ begin
 	FROM dbo.tblClientes(nolock) 
 	where 
 		((@idCliente=-1) or (IdCliente = @IdCliente))
-		and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
 		--and ((@Codigo='') or (Codigo = @Codigo))
 		and ((@Activo=-1) or (Activo=@Activo)) 
 		and ((@idTipoIdentificacion=-1) or (idTipoIdentificacion =@idTipoIdentificacion)) 

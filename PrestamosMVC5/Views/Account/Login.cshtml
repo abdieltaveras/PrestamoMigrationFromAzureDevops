@@ -29,26 +29,24 @@
             </div>
             // attention :  para mostrar contenido dentro de un objeto anonimo debemos usar html.raw y luego enviar el valor dentro de un objeto anonimo asi new { @id = "validationSummary", data_showerrorstime =@Html.Raw(ViewBag.ShowSummaryErrorsTime)  })
             @*<div class="@HtmlClass.FormGroupCls">
-                <input type="hidden" name="topvalidations" id="topvalidations" />
-                <div class="@HtmlClass.DivInputCls text-center">
-                    @Html.ValidationMessage("topvalidations", null, new { @class = "text-danger", @id = "mensajeError" })
-                </div>
-            </div>*@
+                    <input type="hidden" name="topvalidations" id="topvalidations" />
+                    <div class="@HtmlClass.DivInputCls text-center">
+                        @Html.ValidationMessage("topvalidations", null, new { @class = "text-danger", @id = "mensajeError" })
+                    </div>
+                </div>*@
+
             <div class="@HtmlClass.FormGroupCls">
-                <div class="text-center @HtmlClass.DivInputCls">
-                    @Html.LabelFor(model => model.IdNegocio)
-                    @*htmlAttributes: new { @class = string.Concat(@HtmlClass.LabelCls, " text-center") })*@
+                <div class="@HtmlClass.DivInputCls text-center" style="color:green">
+                    <h2>   Compañia @Model.NombreNegocio </h2>
                 </div>
             </div>
 
-            if (Model.SoloHayUnNegocioMatriz)
+            if (@Model.SoloHayUnaLocalidad)
             {
-                var negociosOperacionesForMatriz = @SelectItems.NegociosOperacionalesForMatriz(Model.NegocioMatrizCuandoSoloHayUno.IdNegocio);
                 <div class="@HtmlClass.FormGroupCls">
+                    Operando en la localidad de
                     <div class="@HtmlClass.DivInputCls">
-
-                        @Html.DropDownListFor(m => m.IdNegocio, negociosOperacionesForMatriz, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                        @Html.ValidationMessageFor(model => model.IdNegocio, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.NombreLocalidad, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
                     </div>
                 </div>
             }
@@ -56,7 +54,7 @@
             {
                 <div class="@HtmlClass.FormGroupCls">
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(m => m.IdNegocio, SelectItems.NegociosMatrizRaiz(), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.DropDownListFor(m => m.IdLocalidad, SelectItems.LocalidadesNegocios(), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                         @Html.ValidationMessageFor(model => model.IdNegocio, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -106,6 +104,7 @@
                     <input type="submit" value="Entrar" class="btn btn-lg btn-primary btn-block text-uppercase submit" />
                 </div>
             </div>
+            @Html.HiddenFor(m => m.IdNegocio);
         }
     </div>
 </div>
@@ -117,6 +116,6 @@
         let formulario = $("#loginForm");
         let elem = $("[data-valmsg-for='CaptchaInputText']:first");
         elem.remove();
-        $("#NombreCompaniaSeleccionada").val($( "#myselect option:selected" ).text());
+        $("#NombreCompaniaSeleccionada").val($("#myselect option:selected").text());
     </script>
 }

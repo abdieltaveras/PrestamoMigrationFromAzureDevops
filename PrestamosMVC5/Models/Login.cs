@@ -12,9 +12,12 @@ namespace PrestamosMVC5.Models
     public class LoginModel
     {
         [HiddenInput(DisplayValue = false)]
-        [Required]
         [Display(Name = "Seleccione un Negocio")]
         public int IdNegocio { get; set; }
+        public string NombreNegocio { get; set; } = string.Empty;
+        [Required]
+        [Display(Name = "Seleccione La Localidad Del Negocio")]
+        public int IdLocalidad { get; set; }
         [Required(ErrorMessage = "campo requerido")]
         [Display(Name = "Nombre de Usuario")]
         public string LoginName { get; set; } = string.Empty;
@@ -26,9 +29,8 @@ namespace PrestamosMVC5.Models
         public string ReturnUrl { get; set; } = string.Empty;
         public bool ValidateCaptcha { get; set; } = false;
 
-        public bool SoloHayUnNegocioMatriz { get; set; } = false;
-
-        public Negocio NegocioMatrizCuandoSoloHayUno { get; set; }
+        public bool SoloHayUnaLocalidad { get; set; } = false;
+        public string NombreLocalidad { get; set; } = string.Empty;
     }
 
 

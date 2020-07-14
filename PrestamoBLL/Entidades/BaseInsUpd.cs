@@ -27,7 +27,9 @@ namespace PrestamoBLL.Entidades
     /// </summary>
     public abstract class BaseUsuarioEIdNegocio : BaseUsuario, IIdNegocio
     {
-        public int IdNegocio { get; set; } = -1; 
+        public int IdNegocio { get; set; } = -1;
+        [IgnorarEnParam]
+        public int IdLocalidad { get; set; } = -1;
     }
 
     public interface IIdNegocio
