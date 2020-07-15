@@ -1,15 +1,24 @@
 ﻿// Buscador de Clientes
 
 let clienteRes;
+let searchingCliente = null;
+const SEARCH_CLIENTE_DELAY = 300; // en milisegundos
 
 $(".cliente_target").keyup(function (e) {
-    console.log('no lo podia creer', e.which)
     if (e.which != 38 && e.which != 40 && e.which != 13) {
-        $('.clientes').remove();
 
-        searchClienteText($('#search-cliente-input').val());
+        clearTimeout(searchingCliente);
+        searchingCliente = setTimeout(function () {
+            let value = $('#search-cliente-input').val();
+            if (value.length >= 1) {
+                searchClienteText($('#search-cliente-input').val());
+            } else {
+                $('.clientes').remove();
+            }
+        }, SEARCH_CLIENTE_DELAY);
     }
 });
+
 $(".cliente_target").keydown(function (e) {
     console.log('no lo podia creer', e.which)
      if (e.which === 13) {
@@ -19,7 +28,6 @@ $(".cliente_target").keydown(function (e) {
 });
 
 async function searchClienteText(cliente) {
-
     console.log('Encontre', cliente);
     try {
         clienteRes = await searchCliente(cliente);

@@ -1,6 +1,6 @@
 ﻿    let searching = null;
-    let res = null;
     const SEARCH_DELAY = 300; // en milisegundos
+    let res = null;
 
     //Parametros de configuracion
     //IMAGEN_CLIENTE_EN_BUSCADOR = false;
