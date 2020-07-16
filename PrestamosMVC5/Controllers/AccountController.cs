@@ -49,20 +49,24 @@ namespace PrestamosMVC5.Controllers
             this.pcpLogout();
             this.UpdViewBag_ShowSideBar(false);
             var model = new LoginModel { ReturnUrl = returnUrl };
+            ActionResult actResult = View(model);
             //model.ValidateCaptcha = true;
+            var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams()).FirstOrDefault();
+            model.IdNegocio = negocio.IdNegocio;
+            model.NombreNegocio = negocio.NombreComercial;
             #if (DEBUG)
                 model.LoginName = "bryan";
                 model.Password = "1";
+                var getUsr = new Usuario { LoginName = model.LoginName, IdNegocio = model.IdNegocio, Contraseña = model.Password};
+                var result = BLLPrestamo.Instance.LoginUser(getUsr);
                 model.SoloHayUnaLocalidad = true;
                 model.NombreLocalidad = "La Romana";
                 model.IdLocalidad = 1;
+                actResult= LoginToLocalidad(model.IdNegocio, result.Usuario, returnUrl);
             #endif
             //var negociosMatriz = BLLPrestamo.Instance.NegocioGetLosQueSonMatriz();
             //model.SoloHayUnNegocioMatriz = negociosMatriz.Count() == 1;
-            var negocio = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams() ).FirstOrDefault();
-            model.IdNegocio = negocio.IdNegocio;
-            model.NombreNegocio = negocio.NombreComercial; 
-            return View(model);
+            return actResult ;
         }
 
         [HttpGet]
