@@ -1,15 +1,21 @@
 ﻿// Buscador de garantias
-
 let locations;
 let garantiaRes;
+let searchingGarantia = null;
+const SEARCH_GARANTIA_DELAY = 300; // en milisegundos
+
 
 $(".garantia_target").keyup(function (e) {
     if (e.which != 38 && e.which != 40 && e.which != 13) {
-        $('.garantias').remove();
-
-        searchGarantiaText($('#search-garantia-input').val());
-    } else if (e.which === 13) {
-        
+        clearTimeout(searchingGarantia);
+        searchingGarantia = setTimeout(function () {
+            let value = $('#search-garantia-input').val();
+            if (value.length >= 1) {
+                searchGarantiaText($('#search-garantia-input').val());
+            } else {
+                $('.garantias').remove();
+            }
+        }, SEARCH_GARANTIA_DELAY);
     }
 });
 
