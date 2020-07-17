@@ -381,8 +381,8 @@
             showdata(res);
         };
         const onClick = async function (evt) {
-            let idPrestamo = evt.target.getAttribute('data-idPrestamo');
-            let photoRoot = evt.target.getAttribute('data-client-photo');
+            let idPrestamo = evt.currentTarget.getAttribute('data-idPrestamo');
+            let photoRoot = evt.currentTarget.getAttribute('data-client-photo');
 
         };
 
@@ -397,7 +397,7 @@
             setDataOnField(idGarantia);
         };
         const onGarantiaClick = async function (evt) {
-            let idGarantia = evt.target.getAttribute('data-idGarantia');
+            let idGarantia = evt.currentTarget.getAttribute('data-idGarantia');
             setDataOnField(idGarantia);
         };
 
@@ -413,7 +413,7 @@
             showCliente(idCliente);
         };
         const onClienteClick = async function (evt) {
-            let idCliente = evt.target.getAttribute('data-idCliente');
+            let idCliente = evt.currentTarget.getAttribute('data-idCliente');
             showCliente(idCliente);
         };
 
