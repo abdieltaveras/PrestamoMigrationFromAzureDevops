@@ -412,8 +412,6 @@
             showPrestamo(idPrestamo, prestamoNumero);
         };
         const onPrestamoClick = async function (evt) {
-
-            console.log("recibido",evt.target)
             let idPrestamo = evt.currentTarget.getAttribute('data-idprestamo');
             let photoRoot = evt.currentTarget.getAttribute('data-client-photo');
             let prestamoNumero = evt.currentTarget.getAttribute('data-prestamonumero');
@@ -421,6 +419,7 @@
         };
 
         function showPrestamo(IdPrestamo, prestamoNumero) {
+            alert(IdPrestamo);
             $("#info-prestamo-a-renovar").val("Numero: "+prestamoNumero + " Deuda actual :???");
             //res = await loadPrestamoData(idPrestamo);
             //showPrestamodata(res);
