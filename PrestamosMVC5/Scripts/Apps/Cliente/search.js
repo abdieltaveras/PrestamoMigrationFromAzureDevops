@@ -31,6 +31,7 @@ async function searchClienteText(cliente) {
     //console.log('Encontre', cliente);
     try {
         clienteRes = await searchCliente(cliente);
+        // analizar esto con bryan
         $("#list-clientes-tab").empty();
         showListCliente(JSON.parse(clienteRes));
         //console.log('Activo', clienteRes)
