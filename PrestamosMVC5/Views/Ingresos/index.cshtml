@@ -335,7 +335,7 @@
         IMAGEN_CLIENTE_EN_BUSCADOR = true;
         IMAGEN_CLIENTE_EN_DETALLES = false;
         DETALLES = true;
-        const onClick = async function (evt) {
+        const onPrestamoClick = async function (evt) {
             //let idPrestamo = evt.target.getAttribute('data-idPrestamo');
             //let photoRoot = evt.target.getAttribute('data-client-photo');
 
@@ -346,7 +346,7 @@
             }
             showDataInField(JSON.parse(res), photoDetails);
         };
-        const onEnter = async function () {
+        const onPrestamoEnter = async function () {
 
             let idprestamo = $('[data-order="' + selectPointer + '"]').attr('data-idPrestamo');
             let photoRoot = $('[data-order="' + selectPointer + '"]').attr('data-client-photo');

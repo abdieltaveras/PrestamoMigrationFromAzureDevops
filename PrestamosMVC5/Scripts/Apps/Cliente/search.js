@@ -20,20 +20,20 @@ $(".cliente_target").keyup(function (e) {
 });
 
 $(".cliente_target").keydown(function (e) {
-    console.log('no lo podia creer', e.which)
+    //console.log('no lo podia creer', e.which)
      if (e.which === 13) {
         onClienteEnter();
     }
-    console.log($('#searchinput').val());
+    //console.log($('#searchinput').val());
 });
 
 async function searchClienteText(cliente) {
-    console.log('Encontre', cliente);
+    //console.log('Encontre', cliente);
     try {
         clienteRes = await searchCliente(cliente);
-
+        $("#list-clientes-tab").empty();
         showListCliente(JSON.parse(clienteRes));
-        console.log('Activo', clienteRes)
+        //console.log('Activo', clienteRes)
         setClickListenerOnCliente();
         //console.log(res);
     } catch (err) {
@@ -50,7 +50,7 @@ function searchCliente(location) {
         url: "/Clientes/BuscarClientes",
         data: dataValue,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            //console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         complete: function (jqXHR, status) {
         }
@@ -63,7 +63,6 @@ function setClickListenerOnCliente() {
     const list = document.querySelectorAll('.clientes');
     list.forEach(function (btn) {
         btn.addEventListener('click', async function (evt) {
-
             onClienteClick(evt);
             removeList();
         });
@@ -92,26 +91,28 @@ document.onkeyup = function (e) {
     } else if (e.ctrlKey && e.which == 66) {
         $('#search-cliente-input').focus();
     }
-    console.log('puntero', selectPointer)
+    //console.log('puntero', selectPointer)
 };
 
 function showListCliente(list) {
     let count = 1;
     selectPointer = 0;
-    console.log('lista', list);
+    infoClientes = [];
+    //console.log('lista', list);
     if (list.length > 0) {
-
         $.each(list, function (index, value) {
-
+            let infoCliente = {
+                IdCliente: value.IdCliente, NombreCompleto: value.Nombres + " " + value.Apellidos, Telefonos: value.TelefonoMovil, NoIdentificacion: value.NoIdentificacion, Imagen1Filename: value.Imagen1FileName
+            };
+            infoClientes.push(infoCliente);
             $("#list-clientes-tab").append(` <p class="list-group-item clientes list-group-item-action pb-2 pt-2 pl-2 pr-2 " data-order="${count}" data-toggle="list"
-                                            data-idPrestamo="${value.IdCliente}"
-                                            data-client-photo="${value.Imagen1FileName}"
+                                            data-index=${index}
+                                            data-idCliente = "${value.IdCliente}"
                                             role="tab" aria-controls="home">
                                             ${ IMAGEN_CLIENTE_EN_BUSCADOR_CLIENTE ? `<img src="${value.Imagen1FileName}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>` : ``}
                                             <strong id="placeName" >Cliente: <i>${value.Nombres} ${value.Apellidos} | <small style="font-weight: 600;"> Sexo: ${value.Sexo}</i> </span><br>
                                             <span style="font-weight: 600;">Telefono: </span> ${value.TelefonoMovil} ${value.NoIdentificacion === undefined ? `` : ` | No. de identificacion: ${value.NoIdentificacion}`}</i><br>
-                                            <br></p>`);
-
+                                            <br> </p>`);
             count++;
         });
     } else {

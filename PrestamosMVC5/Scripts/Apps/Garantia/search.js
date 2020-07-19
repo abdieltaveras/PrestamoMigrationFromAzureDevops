@@ -22,7 +22,7 @@ $(".garantia_target").keyup(function (e) {
 $(".garantia_target").keydown(function (e) {
     if (e.which === 13) {
         onGarantiaEnter();
-        removeList();
+        //removeList();
     }
     console.log($('#searchinput').val());
 });
@@ -82,9 +82,8 @@ function setClickListenerOnGarantia() {
     const list = document.querySelectorAll('.garantias');
     list.forEach(function (btn) {
         btn.addEventListener('click', async function (evt) {
-
             onGarantiaClick(evt);
-            removeList();
+            removeListGarantia();
         });
     });
 }
@@ -114,15 +113,16 @@ document.onkeyup = function (e) {
 function showListGarantia(list) {
     let count = 1;
     selectPointer = 0;
-
+    infoGarantias=[]
     if (list.length > 0) {
 
         $.each(list, function (index, value) {
-
-            var Detalles = JSON.parse(value.Detalles);
-
+            let Detalles = JSON.parse(value.Detalles);
+            infoGarantias.push(value);
+            let infoGarantia = { };
             if (value.IdClasificacion === 1) {
                 $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
+                        data-index =${index}
                         data-idGarantia="${value.IdGarantia}"
                         data-idlocalidad="" href="#list-home" role="tab" aria-controls="home">
                         <span class=" glyphicon glyphicon-home "></span>
@@ -133,6 +133,7 @@ function showListGarantia(list) {
             } else {
                 $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
                         data-idGarantia="${value.IdGarantia}"
+                        data-index =${index}
                         role="tab" aria-controls="home">
                         <span class="fa fa-automobile"></span>
                         <strong id="placeName" > ${value.NoIdentificacion} </strong><br>
@@ -149,8 +150,9 @@ function showListGarantia(list) {
     }
 }
 
-function removeList() {
+function removeListGarantia() {
     let currentList = $('.garantias');
+    
     $('#search-garantia-input').val(null);
     $("p#listaddresses").remove();
 }

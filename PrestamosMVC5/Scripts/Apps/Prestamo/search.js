@@ -31,7 +31,7 @@
             $('#search-by-user').iCheck('uncheck');
             $('#search-by-prestamo').iCheck('uncheck');
         }
-        removeList();
+        removeListPrestamo();
     });
 
     $(".prestamo_target").keyup(function (e) {
@@ -50,8 +50,8 @@
 
     $(".prestamo_target").keydown(function (e) {
         if (e.which === 13) {
-            onEnter();
-            removeList();
+            onPrestamoEnter();
+            removeListPrestamo();
         }
         console.log($('#searchinput').val());
     });
@@ -60,10 +60,9 @@
         console.log('Encontre', text);
         try {
             res = await searchPrestamo(text);
-
             showListPrestamos(JSON.parse(res));
             setClickListenerOnPrestamo();
-            console.log(res);
+            //console.log(res);
         } catch (err) {
             console.log('Encontre error', err);
         }
@@ -74,9 +73,8 @@
         const list = document.querySelectorAll('.prestamos');
         list.forEach(function (btn) {
             btn.addEventListener('click', async function (evt) {
-
-                onClick(evt);
-                removeList();
+                onPrestamoClick(evt);
+                removeListPrestamo();
             });
         });
     }
@@ -106,7 +104,7 @@
         }
     };
 
-    function removeList() {
+    function removeListPrestamo() {
         let currentList = $('.garantias');
         $('#input-prestamo_search').val(null);
         $(".list-group-item").remove();
@@ -144,8 +142,8 @@
         let searchType = $(".searchtype:checked").val();
         let dataValue = { "TextToSearch": text, "SearchType": searchType, "CargarImagenesClientes": IMAGEN_CLIENTE_EN_BUSCADOR };
 
-        console.log('type', searchType);
-        console.log('data', dataValue);
+        //console.log('type', searchType);
+        //console.log('data', dataValue);
 
         return $.ajax({
             type: "get",
@@ -167,9 +165,9 @@
         if (list.length > 0) {
 
             $.each(list, function (index, value) {
-
-                $("#list-prestamo-tab").append(` <p class="list-group-item prestamos list-group-item-action pb-2 pt-2 pl-2 pr-2 " data-order="${count}" data-toggle="list"
-                                            data-idPrestamo="${value.IdPrestamo}"
+                $("#list-prestamo-tab").append(`<p class="list-group-item prestamos list-group-item-action pb-2 pt-2 pl-2 pr-2 " data-order="${count}" data-toggle="list"
+                                            data-idprestamo="${value.IdPrestamo}"
+                                            data-prestamonumero="${value.PrestamoNumero}"
                                             data-client-photo="${value.FotoCliente}"
                                             role="tab" aria-controls="home">
                                             ${ IMAGEN_CLIENTE_EN_BUSCADOR ? `<img src="${value.FotoCliente}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>` : ``}

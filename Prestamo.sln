@@ -49,6 +49,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Propuestas al sistema", "Pr
 		Propuestas al sistema\Interface no grafica para informe deuda de prestamo.rtf = Propuestas al sistema\Interface no grafica para informe deuda de prestamo.rtf
 		Propuestas al sistema\sobre las cuotas.rtf = Propuestas al sistema\sobre las cuotas.rtf
 		Propuestas al sistema\Sobre manejo de imagenes.rtf = Propuestas al sistema\Sobre manejo de imagenes.rtf
+		Propuestas al sistema\visual Federacion Imagen 1 sistemas pcp prestamo.docx = Propuestas al sistema\visual Federacion Imagen 1 sistemas pcp prestamo.docx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamosMVC5Tests", "PrestamosMVC5Tests\PrestamosMVC5Tests.csproj", "{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}"
