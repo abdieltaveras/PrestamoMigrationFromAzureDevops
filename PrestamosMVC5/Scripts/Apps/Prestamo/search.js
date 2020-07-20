@@ -105,9 +105,8 @@
     };
 
     function removeListPrestamo() {
-        let currentList = $('.garantias');
         $('#input-prestamo_search').val(null);
-        $(".clientes").remove();
+        $(".prestamos").remove();
     }
 
     function loadPrestamoData(id) {
