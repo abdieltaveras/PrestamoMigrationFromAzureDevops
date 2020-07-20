@@ -31,7 +31,7 @@
         <input class="garantia_target form-control" type="text" autocomplete="off" id="search-garantia-input" placeholder="Buscar por numero de identificacion..." name="name" value=""
                style="height: 60px" />
         <div id="list-garantia-container">
-            <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+            <div class="list-group col-md-12" id="list-garantia-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
             </div>
         </div>
     </div>
@@ -429,7 +429,7 @@
     };
 
     async function setDataOnField(idgarantia) {
-        const selectedGarantia = JSON.parse(res).find(Garantia => Garantia.IdGarantia == idgarantia);
+        const selectedGarantia = JSON.parse(garantiaRes).find(Garantia => Garantia.IdGarantia == idgarantia);
         const detalles = JSON.parse(selectedGarantia.Detalles);
 
         console.table(detalles);
