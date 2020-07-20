@@ -55,10 +55,11 @@
                             @* Prestamos a renovar *@
                             <div id="seccionRenovacion">
                                 <div class="@HtmlClass.FormGroupCls">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3 text-search">Busqueda Prestamo a renovar</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3 font-italic">**Busqueda Prestamo a renovar**</label>
                                     <div class="@HtmlClass.DivInputCls">
                                         <div style="margin: auto; padding: 0%;">
                                             <input class="prestamo_target form-control text-search" type="text" id="input-prestamo_search" autocomplete="off" placeholder="indique criterio de busqueda" name="name" value="" />
+                                            <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
                                             <div style="float:right">
                                                 <span>buscar por </span>
                                                 <input type="radio" class="flat searchtype" checked id="search-by-prestamo" value="1" style="float:right;" />
@@ -130,10 +131,13 @@
         </div>*@
 
                             <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3"> </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3 font-italic">**Cliente** </label>
+
                                 <div class="@HtmlClass.DivInputCls">
+
                                     <div style="margin: auto; padding: 0%;">
                                         <input class="cliente_target form-control text-search" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-cliente-input" placeholder="Buscar cliente (nombre, cedula)..." name="name" value="" />
+                                        <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
                                         <div id="list-cliente-container">
                                             <div class="list-group col-md-12" id="list-clientes-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
                                             </div>
@@ -142,19 +146,19 @@
                                 </div>
                             </div>
                             <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Informacion Cliente</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Cliente seleccionado</label>
                                 <div class="@HtmlClass.DivInputCls" id="info-cliente">
                                     @*<textarea class="form-control" id="info-cliente" name="comment" form="frmEdtPrestamo" disabled>Informacion del cliente</textarea>*@
                                 </div>
                             </div>
 
                             <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3" ></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3 font-italic" >**Garantia**</label>
                                 <div class="@HtmlClass.DivInputCls">
                                     <div style="margin: auto; padding: 0%;">
 
                                         <input class="garantia_target form-control text-search" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-garantia-input" placeholder="Buscar garantia..." name="name" value="" />
-
+                                        <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
                                         <div id="list-garantia-container">
                                             <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
                                             </div>
@@ -164,7 +168,7 @@
                             </div>
 
                             <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Informacion de la Garantia</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Garantia seleccionada</label>
                                 <div class="@HtmlClass.DivInputCls" id="info-garantia">
                                     @*<textarea class="form-control" id="info-garantia" name="comment" form="frmEdtPrestamo" disabled>Informacion de la garantia</textarea>*@
                                 </div>
@@ -235,7 +239,6 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdDivisa, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    randy
                                     @Html.EditorFor(model => model.Prestamo.IdDivisa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdDivisa, "", new { @class = "text-danger" })
                                 </div>
