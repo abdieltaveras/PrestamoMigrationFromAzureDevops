@@ -103,32 +103,6 @@
 
                             @* Fin prestamo a renovar *@
 
-                            @*<div class="@HtmlClass.FormGroupCls">
-            @Html.LabelFor(model => model.NumeroPrestamoARenovar, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-            <div class="@HtmlClass.DivInputCls">
-                @Html.EditorFor(model => model.NumeroPrestamoARenovar, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } });
-                @Html.ValidationMessageFor(model => model.NumeroPrestamoARenovar, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-                            @*<div class="@HtmlClass.FormGroupCls">
-            @Html.LabelFor(model => model.NumeroIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-            <div class="@HtmlClass.DivInputCls">
-                @Html.EditorFor(model => model.NumeroIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
-                <div id="datosDeCliente">
-
-                </div>
-                @Html.ValidationMessageFor(model => model.NumeroIdentificacion, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-                            @*<div class="@HtmlClass.FormGroupCls">
-            @Html.LabelFor(model => model.NumeracionGarantia, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-            <div class="@HtmlClass.DivInputCls">
-                @Html.EditorFor(model => model.NumeracionGarantia, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @onfocusout = "onChangeProp(this)" } })
-                <div id="datosDeGarantia">
-                </div>
-                @Html.ValidationMessageFor(model => model.NumeracionGarantia, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
                             <div class="@HtmlClass.FormGroupCls">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3 font-italic">**Cliente** </label>
@@ -160,7 +134,7 @@
                                         <input class="garantia_target form-control text-search" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-garantia-input" placeholder="Buscar garantia..." name="name" value="" />
                                         <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
                                         <div id="list-garantia-container">
-                                            <div class="list-group col-md-12" id="list-address-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+                                            <div class="list-group col-md-12" id="list-garantia-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
                                             </div>
                                         </div>
                                     </div>
@@ -400,7 +374,7 @@
         }
 
 
-        //Parametros de configuracion
+        //Buscador de clientes
         IMAGEN_CLIENTE_EN_BUSCADOR = false;
         IMAGEN_CLIENTE_EN_DETALLES = false;
 
@@ -437,9 +411,7 @@
                 "Telefonos" : cliente.TelefonoMovil,
                 "NoIdentificacion" : cliente.NumeracionDocumentoIdentidad
             }
-            //console.log(infoClienteTmp);
             showCliente(infoClienteTmp);
-            //showGarantia()
         }
 
         //// Buscador de garantias

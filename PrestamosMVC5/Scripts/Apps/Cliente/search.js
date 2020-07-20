@@ -6,7 +6,6 @@ const SEARCH_CLIENTE_DELAY = 300; // en milisegundos
 
 $(".cliente_target").keyup(function (e) {
     if (e.which != 38 && e.which != 40 && e.which != 13) {
-
         clearTimeout(searchingCliente);
         searchingCliente = setTimeout(function () {
             let value = $('#search-cliente-input').val();
@@ -20,11 +19,10 @@ $(".cliente_target").keyup(function (e) {
 });
 
 $(".cliente_target").keydown(function (e) {
-    //console.log('no lo podia creer', e.which)
      if (e.which === 13) {
-        onClienteEnter();
+         onClienteEnter();
+         removeListCliente();
     }
-    //console.log($('#searchinput').val());
 });
 
 async function searchClienteText(cliente) {
@@ -65,7 +63,7 @@ function setClickListenerOnCliente() {
     list.forEach(function (btn) {
         btn.addEventListener('click', async function (evt) {
             onClienteClick(evt);
-            removeList();
+            removeListCliente();
         });
     });
 }
@@ -98,6 +96,7 @@ document.onkeyup = function (e) {
 function showListCliente(list) {
     let count = 1;
     selectPointer = 0;
+    $('.clientes').remove();
     infoClientes = [];
     //console.log('lista', list);
     if (list.length > 0) {
@@ -124,7 +123,7 @@ function showListCliente(list) {
     }
 }
 
-function removeList() {
+function removeListCliente() {
     //let currentList = $('.clientes');
     $('#search-cliente-input').val(null);
     $(".clientes").remove();

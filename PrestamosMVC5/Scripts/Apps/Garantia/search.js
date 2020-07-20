@@ -22,7 +22,7 @@ $(".garantia_target").keyup(function (e) {
 $(".garantia_target").keydown(function (e) {
     if (e.which === 13) {
         onGarantiaEnter();
-        //removeList();
+        removeListGarantia();
     }
     console.log($('#searchinput').val());
 });
@@ -113,6 +113,7 @@ document.onkeyup = function (e) {
 function showListGarantia(list) {
     let count = 1;
     selectPointer = 0;
+    $('.garantias').remove();
     infoGarantias=[]
     if (list.length > 0) {
 
@@ -121,7 +122,7 @@ function showListGarantia(list) {
             infoGarantias.push(value);
             let infoGarantia = { };
             if (value.IdClasificacion === 1) {
-                $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
+                $("#list-garantia-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
                         data-index =${index}
                         data-idGarantia="${value.IdGarantia}"
                         data-idlocalidad="" href="#list-home" role="tab" aria-controls="home">
@@ -131,7 +132,7 @@ function showListGarantia(list) {
                         ${Detalles.Medida !== null ? 'Medida: ' + Detalles.Medida : ''}
                         <br></p>`);
             } else {
-                $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
+                $("#list-garantia-tab").append(` <p class="list-group-item garantias list-group-item-action" data-order="${count}" id="listaddresses" data-toggle="list"
                         data-idGarantia="${value.IdGarantia}"
                         data-index =${index}
                         role="tab" aria-controls="home">
@@ -143,7 +144,7 @@ function showListGarantia(list) {
             count++;
         });
     } else {
-        $("#list-address-tab").append(` <p class="list-group-item garantias list-group-item-action" id="listaddresses" data-toggle="list"
+        $("#list-garantia-tab").append(` <p class="list-group-item garantias list-group-item-action" id="listaddresses" data-toggle="list"
                         role="tab" aria-controls="home">
                        <span">No se encontro información</span>
                         <br></p>`);
@@ -154,7 +155,7 @@ function removeListGarantia() {
     let currentList = $('.garantias');
     
     $('#search-garantia-input').val(null);
-    $("p#listaddresses").remove();
+    $("garantias").remove();
 }
 
 $("body").click(function (event) {

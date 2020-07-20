@@ -100,14 +100,14 @@
             $('#input-prestamo_search').focus();
         }
         if (e.ctrlKey && e.which == 77) {
-            $('#input-amount-pay').focus(); // Focus a campo de monto
+            $('#input-amount-pay').focus();
         }
     };
 
     function removeListPrestamo() {
         let currentList = $('.garantias');
         $('#input-prestamo_search').val(null);
-        $(".list-group-item").remove();
+        $(".clientes").remove();
     }
 
     function loadPrestamoData(id) {
@@ -141,8 +141,6 @@
         let searchType = $(".searchtype:checked").val();
         let dataValue = { "TextToSearch": text, "SearchType": searchType, "CargarImagenesClientes": IMAGEN_CLIENTE_EN_BUSCADOR };
 
-        //console.log('type', searchType);
-        //console.log('data', dataValue);
 
         return $.ajax({
             type: "get",
