@@ -112,7 +112,6 @@
 
     function loadPrestamoData(id) {
         console.log(id);
-
         let dataValue = { "idprestamo": id };
 
         return $.ajax({
@@ -160,13 +159,15 @@
     function showListPrestamos(list) {
         let count = 1;
         $('.prestamos').remove();
-
+        infoPrestamos=[]
         selectPointer = 0;
         if (list.length > 0) {
 
             $.each(list, function (index, value) {
+                infoPrestamos.push(value)
                 $("#list-prestamo-tab").append(`<p class="list-group-item prestamos list-group-item-action pb-2 pt-2 pl-2 pr-2 " data-order="${count}" data-toggle="list"
                                             data-idprestamo="${value.IdPrestamo}"
+                                            data-index=${index}      
                                             data-prestamonumero="${value.PrestamoNumero}"
                                             data-client-photo="${value.FotoCliente}"
                                             role="tab" aria-controls="home">

@@ -26,7 +26,7 @@ namespace PrestamoBLL.Tests
             Func<bool> condicion = () => (prConDetalle != null);
             try
             {
-                prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo);
+                 prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo);
             }
             catch (Exception e)
             {

@@ -334,8 +334,8 @@
     <script src="~/Scripts/Apps/CheckInput.js"></script>
     @*<script src="~/Scripts/Apps/minMaxAdapter.js"></script>*@
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
-    <script>
-        
+<script>
+
         let dateFormat = 'en-GB';
         let _dateFormat = 'dd/mm/yy';
         let yearRangeForDP = "-120:+0"
@@ -385,11 +385,10 @@
     }
         function fillDatosClientes(data) {
             const cliente = data;
-            console.log(cliente, cliente.IdCliente);
             $("#datosDeCliente").html(cliente.Nombre);
             const elemIdCliente = $("#@Html.IdFor(model => model.Prestamo.IdCliente)");
             elemIdCliente.val(cliente.IdCliente);
-            console.info(elemIdCliente.val());
+
         }
 
         function fillDatosGarantia(data) {
@@ -401,9 +400,9 @@
         //Parametros de configuracion
         IMAGEN_CLIENTE_EN_BUSCADOR = false;
         IMAGEN_CLIENTE_EN_DETALLES = false;
-        
-        DETALLES = true;
 
+        DETALLES = true;
+        let infoPrestamos=[]
         const onPrestamoEnter = async function () {
             let idPrestamo = $('[data-order="' + selectPointer + '"]').attr('data-idprestamo');
             let photoRoot = $('[data-order="' + selectPointer + '"]').attr('data-client-photo');
@@ -413,16 +412,31 @@
         };
         const onPrestamoClick = async function (evt) {
             let idPrestamo = evt.currentTarget.getAttribute('data-idprestamo');
-            let photoRoot = evt.currentTarget.getAttribute('data-client-photo');
             let prestamoNumero = evt.currentTarget.getAttribute('data-prestamonumero');
+            const index = evt.currentTarget.getAttribute('data-index');
             showPrestamo(idPrestamo, prestamoNumero);
         };
 
-        function showPrestamo(IdPrestamo, prestamoNumero) {
-            alert(IdPrestamo);
-            $("#info-prestamo-a-renovar").val("Numero: "+prestamoNumero + " Deuda actual :???");
-            //res = await loadPrestamoData(idPrestamo);
-            //showPrestamodata(res);
+        async function showPrestamo(idPrestamo, prestamoNumero) {
+            $("#info-prestamo-a-renovar").val("Numero: " + prestamoNumero + " Deuda actual :???");
+            // buscar datos del cliente y datos de la garantia de la renovacion.
+            const res = await loadPrestamoData(idPrestamo);
+            const dataPrestamo = JSON.parse(res)
+            const infoPrestamoRenovacion = dataPrestamo.infoPrestamo;
+            const cliente = dataPrestamo.infoCliente;
+            const infoGarantias = dataPrestamo.infoGarantias;
+            console.log(dataPrestamo);
+            let fotoCliente = "@Url.Content(@SiteDirectory.ImagesForClientes)/" + cliente.Imagen1FileName;
+                //cliente.Imagen1FileName;
+            let infoClienteTmp = {
+                "Imagen1Filename": fotoCliente,
+                "NombreCompleto"  : cliente.Nombres + " " + cliente.Apellidos,
+                "Telefonos" : cliente.TelefonoMovil,
+                "NoIdentificacion" : cliente.NumeracionDocumentoIdentidad
+            }
+            //console.log(infoClienteTmp);
+            showCliente(infoClienteTmp);
+            //showGarantia()
         }
 
         //// Buscador de garantias
@@ -431,16 +445,17 @@
         const onGarantiaEnter = async function () {
             let idGarantia = $('[data-order="' + selectPointer + '"]').attr('data-idGarantia');
             let index = $('[data-order="' + selectPointer + '"]').attr('data-index');
-            showGarantia(index); 
+            const infoGarantia = infoGarantias[index]
+            showGarantia(infoGarantia);
         };
         const onGarantiaClick = async function (evt) {
             let idGarantia = evt.target.getAttribute('data-idGarantia');
             const index = evt.currentTarget.getAttribute('data-index');
-            showGarantia(index);
+            const infoGarantia = infoGarantias[index]
+            showGarantia(infoGarantia);
         };
 
-        async function showGarantia(index) {
-            const infoGarantia = infoGarantias[index]
+        async function showGarantia(infoGarantia) {
             let Detalles = JSON.parse(infoGarantia.Detalles);
             $("#p-info-garantia").remove()
             $("#info-garantia").append(`<p id="p-info-garantia"> ${infoGarantia.NoIdentificacion} </strong><br>
@@ -454,17 +469,19 @@
         const onClienteEnter = async function () {
             //let idCliente = $('[data-order="' + selectPointer + '"]').attr('data-idCliente');
             const index = $('[data-order="' + selectPointer + '"]').attr('data-index');
-            showCliente(index);
+            const infoCliente = infoClientes[index]
+            showCliente(infoCliente);
         };
 
         const onClienteClick = async function (evt) {
             //let idCliente = evt.currentTarget.getAttribute('data-idCliente');
             const index = evt.currentTarget.getAttribute('data-index');
-            showCliente(index);
+            const infoCliente = infoClientes[index]
+            showCliente(infoCliente);
         };
 
-        async function showCliente(index) {
-            const infoCliente= infoClientes[index]
+        async function showCliente(infoCliente) {
+
             $("#p-info-cliente").remove()
             $("#info-cliente").append(`<p id="p-info-cliente"> <img src="${infoCliente.Imagen1Filename}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>
                                             <strong id="placeName" >Cliente: <i>${infoCliente.NombreCompleto} | <small style="font-weight: 600;"> </i> </span><br>
@@ -473,7 +490,7 @@
         };
 
 
-    </script>
+</script>
     <script src="~/Scripts/Apps/utils.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
     <script src="~/Scripts/Apps/Prestamo/search.js"></script>

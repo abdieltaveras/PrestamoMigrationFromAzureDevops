@@ -35,6 +35,7 @@ namespace PrestamosMVC5.Controllers
         {
             var cl = new Cliente() { Activo = false };
             var model = new PrestamoVm();
+            model.IncluirRenovacion = true;
             model.MensajeError = mensaje;
             if (id != -1)
             {

@@ -14,6 +14,7 @@ namespace PrestamoBLL.Entidades
     public class InfoGarantiaDrCr
         //: IInfoGarantiaDrCr
     {
+        public int IdGarantia { get; internal set; }
         public int IdClasificacion { get; internal set; }
 
         public string Clasificacion => Enum.GetName(typeof(TiposClasificacionGarantia), (TiposClasificacionGarantia)IdClasificacion);
