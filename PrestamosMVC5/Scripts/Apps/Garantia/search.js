@@ -155,7 +155,7 @@ function removeListGarantia() {
     let currentList = $('.garantias');
     
     $('#search-garantia-input').val(null);
-    $("garantias").remove();
+    $(".garantias").remove();
 }
 
 $("body").click(function (event) {
