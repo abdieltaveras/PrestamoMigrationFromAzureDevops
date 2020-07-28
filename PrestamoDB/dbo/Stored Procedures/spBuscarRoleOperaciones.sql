@@ -6,10 +6,12 @@
 as
 BEGIN
 
-	SELECT 
-		IdRole, IdOperacion 
+	SELECT
+		IdRole, tblRolesOperaciones.IdOperacion, tblOperaciones.Grupo
 	FROM 
-		tblRolesOperaciones 
+		tblRolesOperaciones
+	JOIN 
+		tblOperaciones ON tblRolesOperaciones.IdOperacion = tblOperaciones.IdOperacion
 	WHERE 
 		IdRole = @IdRole AND AnuladoPor IS NULL;
 

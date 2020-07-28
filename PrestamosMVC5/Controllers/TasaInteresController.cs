@@ -18,7 +18,7 @@ namespace PrestamosMVC5.Controllers
             UpdViewBag_LoadCssAndJsForDatatable(true);
         }
         // GET: TasaInteres
-        //[HasPermission(Operacion = "tasainteres-ver")]
+        [HasPermission(Operacion = "tasainteres-view")]
         public ActionResult Index()
         {
             TasaInteresVM modelo = new TasaInteresVM();
@@ -32,7 +32,6 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public RedirectToRouteResult Index(TasaInteresVM interes)
         {
-
             var id = Request["TasaInteres.RequiereAutorizacion"];
             pcpSetUsuarioAndIdNegocioTo(interes.TasaInteres);
             

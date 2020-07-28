@@ -292,6 +292,7 @@
     <Content Include="Content\production\js\datepicker\daterangepicker.js" />
     <Content Include="Content\production\js\moment\moment.min.js" />
     <Content Include="Content\resources\icons\pcprog-logo.jpeg" />
+    <Content Include="Content\resources\images\acceso-denegado.png" />
     <Content Include="Content\src\js\custom.js" />
     <Content Include="Content\src\js\helpers\smartresize.js" />
     <Content Include="Content\themes\base\accordion.css" />

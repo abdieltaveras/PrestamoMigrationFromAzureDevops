@@ -2,6 +2,7 @@
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using PrestamosMVC5.Models;
+using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
+    [AuthorizeUser]
     public class RolesController : ControllerBasePcp
     {
         public RolesController()

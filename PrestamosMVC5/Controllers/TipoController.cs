@@ -18,10 +18,11 @@ namespace PrestamosMVC5.Controllers
             UpdViewBag_LoadCssAndJsForDatatable(true);
         }
         // GET: Tipo
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+        [HasPermission(Operacion = "tiposgarantias-view")]
         public ActionResult CreateOrEdit()
         {
             TipoVM datos = new TipoVM();
@@ -33,16 +34,9 @@ namespace PrestamosMVC5.Controllers
         
         // TODO: Cambiar este modelo por la estructura que lleva
         [HttpPost]
+        [HasPermission(Operacion = "tiposgarantias-create")]
         public RedirectToRouteResult CreateOrEdit(TipoGarantia tipo)
         {
-            //TipoInsUpdParams TipoAInsertar = new TipoInsUpdParams()
-            //{
-            //    Nombre = tipo.Nombre,
-            //    IdNegocio = pcpUserIdNegocio,
-            //    IdClasificacion = tipo.IdClasificacion,
-            //    InsertadoPor = "Bryan"
-            //};
-
             this.pcpSetUsuarioAndIdNegocioTo(tipo);
 
             BLLPrestamo.Instance.TipoGarantiaInsUpd(tipo);

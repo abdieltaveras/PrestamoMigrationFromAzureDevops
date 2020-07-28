@@ -104,7 +104,24 @@
 </div>
 
 <script>
+
+    function showMessage(typeOfNotification, titleMessage, messageOfNotification) {
+        var notification = new PNotify({
+            title: titleMessage,
+            text: messageOfNotification,
+            type: typeOfNotification,
+            styling: 'bootstrap3',
+        });
+    }
+
     let onEditButton = function () {
+
+        if (!@Permission.Has("clientes-edit").ToString().ToLower() )
+        {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para editar.');
+            return;
+        }
+
         let id = $('tr.selected').data("id");
 
         if (id) {
@@ -112,6 +129,13 @@
         }
     }
     let onDeactivateButton = function () {
+
+        if (!@Permission.Has("clientes-deactivate").ToString().ToLower() )
+        {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para desactivar.');
+            return;
+        }
+
         let id = $('tr.selected').data("id");
 
         if (id) {
@@ -119,9 +143,21 @@
         }
     }
     let onCancelButton = function () {
+        if (!@Permission.Has("clientes-cancel").ToString().ToLower() )
+        {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para borrar.');
+            return;
+        }
+
         console.log('Delete');
     }
     let onNewButton = function () {
+        if (!@Permission.Has("clientes-create").ToString().ToLower() )
+        {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para agregar.');
+            return;
+        }
+
         window.location.href ='/Clientes/CreateOrEdit';
     }
     

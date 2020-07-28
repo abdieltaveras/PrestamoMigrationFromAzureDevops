@@ -43,6 +43,7 @@ namespace PrestamoBLL.Entidades
     {
         public int IdRole { get; set; }
         public int IdOperacion { get; set; }
+        public int Grupo { get; set; }
         [IgnorarEnParam()]
         [HiddenInput(DisplayValue = false)]
         public string InsertadoPor { get; set; } = string.Empty;

@@ -18,8 +18,7 @@
         @*<button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres"  style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
         <h4>Tabla de intereses</h4>
-        <div class="x_panel">
-
+        <div class="x_panel">            
             <div class="x_content">
                 <table id="datatable" class="table-bordered row-border">
                     <thead>
@@ -37,7 +36,7 @@
 
                         @foreach (var item in Model.ListaTasaInteres)
                         {
-                            <tr class="@(!item.Activo ? "table-active" : "" )" 
+                            <tr class="@(!item.Activo ? "table-active" : "" )"
                                 data-id="@item.idTasaInteres">
                                 <td>
                                 </td>
@@ -75,19 +74,19 @@
 
                                 @*<td>
 
-                                    <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
-                                        <button type="button" class="btn btn-outline-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </a>
+                                        <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </a>
 
-                                    <a href="#">
-                                        <button type="button" class="btn btn-outline-warning">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </a>
+                                        <a href="#">
+                                            <button type="button" class="btn btn-outline-warning">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                        </a>
 
-                                </td>*@
+                                    </td>*@
                             </tr>
                         }
                     </tbody>
@@ -210,16 +209,39 @@
     </div>
 </div>
 
-
 <script>
 
+    function showMessage(typeOfNotification, titleMessage, messageOfNotification) {
+        var notification = new PNotify({
+            title: titleMessage,
+            text: messageOfNotification,
+            type: typeOfNotification,
+            styling: 'bootstrap3',
+        });
+    }
+
     let onEditButton = function () {
-        
+        if (!@Permission.Has("tasainteres-edit").ToString().ToLower() )
+        {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para editar.');
+            return;
+        }
+
+        // Codigo a ejecutar
     }
     let onDeactivateButton = function () {
-        
+        if (!@Permission.Has("tasainteres-deactivate").ToString().ToLower() )
+        {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para desactivar.');
+            return;
+        }
     }
     let onCancelButton = async function () {
+        if (!@Permission.Has("tasainteres-cancel").ToString().ToLower() )
+        {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para borrar.');
+            return;
+        }
         let id = $('tr.selected').data("id");
 
         let data = { id: id };
@@ -237,7 +259,15 @@
         location.reload();
     }
     let onNewButton = function () {
-        
+        if (!@Permission.Has("tasainteres-create").ToString().ToLower() )
+        {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para agregar.');
+            return;
+        }
+
+        $('.modal-tasa-interes').modal('show');
+        //if ($('tr.selected').data("id") !== undefined) {
+        //}
     }
 
     $(document).ready(function () {
@@ -269,6 +299,7 @@
         $('#btn-deactivate').appendTo('#r2s1');
         $('#btn-cancel').appendTo('#r2s1');
         $('#btn-save').appendTo('#r2s3');
+
 
 
     });

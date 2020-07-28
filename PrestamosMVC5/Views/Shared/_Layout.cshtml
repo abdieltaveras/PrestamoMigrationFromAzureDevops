@@ -8,6 +8,11 @@
     <link href="~/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <link href="~/Content/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+
+    <link href="~/Content/vendors/pnotify/dist/pnotify.css" rel="stylesheet" />
+    <link href="~/Content/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet" />
+    <link href="~/Content/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet" />
+
     <!--For abdiel layout-->
     @{
         if (@ViewBag.LoadCssAndJsGrp2 != null && @ViewBag.LoadCssAndJsGrp2)
@@ -183,7 +188,12 @@
     <script src="~/Content/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script src="~/Content/build/js/custom.js"></script>
 
+    
+    <script src="~/Content/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="~/Content/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="~/Content/vendors/pnotify/dist/pnotify.nonblock.js"></script>
 </body>
+
 
 @*queremos usar esta version de jquery pero si la colocamos al inicio da errores con el que trajo la plantilla
     por lo tanto hay que dejarlo asi*@

@@ -10,7 +10,7 @@ namespace PrestamosMVC5.SiteUtils
     public class HasPermission : ActionFilterAttribute
     {
         public string Operacion { get; set; }
-        public override void   OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             //string name = Operacion;
             //var operaciones = AuthInSession.GetOperacionesToUserSession();

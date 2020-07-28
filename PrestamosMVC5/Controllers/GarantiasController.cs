@@ -21,11 +21,11 @@ namespace PrestamosMVC5.Controllers
             UpdViewBag_LoadCssAndJsForDatatable(true);
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+        [HasPermission(Operacion = "garantias-view")]
         public ActionResult CreateOrEdit(List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
         {
             GarantiaVM datos = garantia == null ? new GarantiaVM() : garantia;
@@ -44,6 +44,7 @@ namespace PrestamosMVC5.Controllers
         }
 
         [HttpPost]
+        [HasPermission(Operacion = "garantias-create")]
         public RedirectToRouteResult CreateOrEdit(Garantia garantia)
         {
             // Convertir detalles a JSON y crear el objeto de garantia para insertar / modificar en la tabla
@@ -83,7 +84,7 @@ namespace PrestamosMVC5.Controllers
         public string BuscarGarantias(string searchToText)
         {
             IEnumerable<Garantia> garantias = null;
-            if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
+            if (searchToText.Length >= BUSCAR_A_PARTIR_DE) // Esta limitacion debe quitarse
             {
                 garantias = BLLPrestamo.Instance.GarantiaSearch(new BuscarGarantiaParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });
             }

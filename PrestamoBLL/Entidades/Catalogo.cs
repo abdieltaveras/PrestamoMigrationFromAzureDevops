@@ -11,6 +11,7 @@ namespace PrestamoBLL.Entidades
         public int Id { get; set; } = 0;
         public string IdTabla { get; set; } = string.Empty;
         public string NombreTabla { get; set; }
+        public string Tipo { get; set; }
 
         public override int GetId()
         {

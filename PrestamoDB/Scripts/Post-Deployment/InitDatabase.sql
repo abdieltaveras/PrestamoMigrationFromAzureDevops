@@ -282,27 +282,57 @@ INSERT INTO tblEstadosCiviles(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, F
 --Fin de nuevos catalogos punto 66
 
 INSERT INTO tblRoles(Nombre, Descripcion)
-	VALUES	('Contador', 'Role para contadores de PCP Prog')
+	VALUES	('Administrador', 'Role para contadores de PCP Prog'),
+			('Contador', 'Role para contadores de PCP Prog')
 
 INSERT INTO tblOperaciones(Nombre, Descripcion, Grupo, Codigo)
-	VALUES	('Ver tasa interes', 'Con este permiso podra ver todas las tasas de interes', 1, 'tasainteres-ver'),
-			('Crear tasa interes', 'Con este permiso podra crear tasas de interes', 1, 'tasainteres-crear'),
-			('Editar tasa interes', 'Con este permiso podra editar todas las tasas de interes', 1, 'tasainteres-editar'),
-			('Borrar tasa interes', 'Con este permiso podra borrar todas las tasas de interes', 1, 'tasainteres-anular'),
-			('Desactivar tasa interes', 'Con este permiso podra desactivar todas las tasas de interes', 1, 'tasainteres-desactivar'),
-			('Ver moras', 'Con este permiso podra ver todas las moras', 2, 'moras-ver'),
-			('Crear moras', 'Con este permiso podra crear moras', 2, 'moras-crear'),
-			('Editar moras', 'Con este permiso podra editar todas las moras', 2, 'moras-editar'),
-			('Borrar moras', 'Con este permiso podra borrar todas las moras', 2, 'moras-anular'),
-			('Desactivar moras', 'Con este permiso podra desactivar todas las moras', 2, 'moras-desactivar'),
-			('Reporte de ventas', 'Con este permiso podra ver el reporte de ventas', 3, 'reporteventas-ver'),
-			('Aplicar descuento', 'Con este permiso podra aplicar descuento a los prestamos', 4, 'aplicardescuento-crear')
+	VALUES	
+		--Tasa de interes
+		('Ver tasa interes', 'Con este permiso podra ver todas las tasas de interes', 1, 'tasainteres-view'),
+		('Crear tasa interes', 'Con este permiso podra crear tasas de interes', 1, 'tasainteres-create'),
+		('Editar tasa interes', 'Con este permiso podra editar todas las tasas de interes', 1, 'tasainteres-edit'),
+		('Borrar tasa interes', 'Con este permiso podra borrar todas las tasas de interes', 1, 'tasainteres-cancel'),
+		('Desactivar tasa interes', 'Con este permiso podra desactivar todas las tasas de interes', 1, 'tasainteres-deactivate'),
+		--MORAS
+		('Ver moras', 'Con este permiso podra ver todas las moras', 2, 'moras-view'),
+		('Crear moras', 'Con este permiso podra crear moras', 2, 'moras-create'),
+		('Editar moras', 'Con este permiso podra editar todas las moras', 2, 'moras-edit'),
+		('Borrar moras', 'Con este permiso podra borrar todas las moras', 2, 'moras-cancel'),
+		('Desactivar moras', 'Con este permiso podra desactivar todas las moras', 2, 'moras-deactivate'),
+		--Cliente
+		('Ver clientes', 'Con este permiso podra ver todos los clientes', 3, 'clientes-view'),
+		('Crear clientes', 'Con este permiso podra crear clientes', 3, 'clientes-create'),
+		('Editar clientes', 'Con este permiso podra editar todos los clientes', 3, 'clientes-edit'),
+		('Borrar clientes', 'Con este permiso podra borrar todos los clientes', 3, 'clientes-cancel'),
+		('Desactivar clientes', 'Con este permiso podra desactivar todos los clientes', 3, 'clientes-deactivate'),
+		--Garantia
+		('Ver garantias', 'Con este permiso podra ver todas las garantias', 4, 'garantias-view'),
+		('Crear garantias', 'Con este permiso podra crear garantias', 4, 'garantias-create'),
+		('Editar garantias', 'Con este permiso podra editar todas las garantias', 4, 'garantias-edit'),
+		('Borrar garantias', 'Con este permiso podra borrar todas las garantias', 4, 'garantias-cancel'),
+		('Desactivar garantias', 'Con este permiso podra desactivar todas las garantias', 4, 'garantias-deactivate'),
+		--Tipos de Garantias
+		('Ver tipos de garantias', 'Con este permiso podra ver todos los tipos de garantias', 5, 'tiposgarantias-view'),
+		('Crear tipos de garantias', 'Con este permiso podra crear los tipos de garantias', 5, 'tiposgarantias-create'),
+		('Editar tipos de garantias', 'Con este permiso podra editar todos los tipos de garantias', 5, 'tiposgarantias-edit'),
+		('Borrar tipos de garantias', 'Con este permiso podra borrar todos los tipos de garantias', 5, 'tiposgarantias-cancel'),
+		('Desactivar tipos de garantias', 'Con este permiso podra desactivar todos los tipos de garantias', 5, 'tiposgarantias-deactivate'),
+		--Catalogos comunes
+		('Ver catalogos comunes', 'Con este permiso podra ver todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-view'),
+		('Crear catalogos comunes', 'Con este permiso podra crear los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-create'),
+		('Editar catalogos comunes', 'Con este permiso podra editar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-edit'),
+		('Borrar catalogos comunes', 'Con este permiso podra borrar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-cancel'),
+		('Desactivar catalogos comunes', 'Con este permiso podra desactivar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-deactivate')
+		--OTROS
+		-- ('Reporte de ventas', 'Con este permiso podra ver el reporte de ventas', 4, 'reporteventas-view'),
+		-- ('Aplicar descuento', 'Con este permiso podra aplicar descuento a los prestamos', 5, 'aplicardescuento-create')
 
 INSERT INTO tblUsersRoles(IdUser, IdRole, InsertadoPor)
 	VALUES	(2, 1, @usuario)
 
 INSERT INTO tblRolesOperaciones(IdOperacion, IdRole, InsertadoPor)
 	VALUES	(1, 1, @usuario)
+
 declare @prestamoNumero varchar(20)
 exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
 

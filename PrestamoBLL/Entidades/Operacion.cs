@@ -8,10 +8,12 @@ namespace PrestamoBLL.Entidades
 {
     public class Operacion
     {
-
         public static string[] Grupos = {
             "Tasa interes", // 0
             "Moras", // 1
+            "Clientes",
+            "Garantias",
+            "Tipos de garantias",
             "Reportes",
             "Otros",
         };

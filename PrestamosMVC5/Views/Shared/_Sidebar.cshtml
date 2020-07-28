@@ -12,20 +12,23 @@
                 <a><i class="fa fa-edit"></i>Catálogos<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
 
-
                     <li>
                         <a class="text-white-50">Clientes<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li>
-                                <a href="@Url.Action("Index","Clientes")">Listado de Clientes</a>
-                            </li>
-                            <li>
-                                @{
-                                    ///Attention : para que lo pueda crear como nuevo si uno no pone ningun parametro al id para el  URL, entonces toma el ultimo id consultado
-                                }
-                                <a href="@Url.Action("CreateOrEdit","Clientes", new { id = -1 })">Crear Cliente Nuevo</a>
-                            </li>
-                            
+                            @if (Permission.Has("clientes-view"))
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Clientes")">Listado de Clientes</a>
+                                </li>
+                            }
+                            @if (Permission.Has("clientes-create"))
+                            {
+                                //Attention : para que lo pueda crear como nuevo si uno no pone ningun parametro al id para el  URL, entonces toma el ultimo id consultado
+                                <li>
+                                    <a href="@Url.Action("CreateOrEdit","Clientes", new { id = -1 })">Crear Cliente Nuevo</a>
+                                </li>
+                            }
+
                             <li>
                                 <a>Tipo telefono<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -104,17 +107,23 @@
                         <a class="text-white-50">Garantias<span class="fa fa-chevron-down"></span></a>
 
                         <ul class="nav child_menu">
-                            <li>
-                                <a href="@Url.Action("CreateOrEdit","Garantias")">Crear garantia</a>
-                            </li>
-                            <li>
-                                <a>Tipo<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Tipo")">Crear Tipo</a>
-                                    </li>
-                                </ul>
-                            </li>
+                            @if (Permission.Has("garantias-view"))
+                            {
+                                <li>
+                                    <a href="@Url.Action("CreateOrEdit","Garantias")">Crear garantia</a>
+                                </li>
+                            }
+                            @if (Permission.Has("tiposgarantias-view"))
+                            {
+                                <li>
+                                    <a>Tipo<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("CreateOrEdit", "Tipo")">Crear Tipo</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
                             <li>
                                 <a>Marcas<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -161,12 +170,12 @@
                             <li>
                                 <a href="@Url.Action("CreateOrEdit", "Prestamos", new {idPrestamo=-1 })">Crear Prestamo Nuevo</a>
                             </li>
-                            @*@if (Permission.Has("tasainteres-ver"))
-        {*@
+                            @if (Permission.Has("tasainteres-view"))
+                            {
                             <li>
                                 <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
                             </li>
-                            @*}*@
+                            }
                             <li>
                                 <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
                             </li>
@@ -194,9 +203,9 @@
                     <li>
                         <a href="@Url.Action("Index","Ingresos")">Ingreso</a>
                     </li>
-                    <li>
+                    @*<li>
                         <a href="@Url.Action("Index","TasaInteres")">Tasa de Interes</a>
-                    </li>
+                    </li>*@
                     
                     <li>
                         <a href="@Url.Action("CreateOrEdit","Negocios",new { id = -1 }))">Negocios</a>
