@@ -147,21 +147,21 @@
         }
 
         let onEditButton = function () {
-            if (!@Permission.Has("tiposgarantias-edit").ToString().ToLower() )
+            if (!@Permission.Has("catalogoscomunes-edit").ToString().ToLower() )
             {
                 showMessage('warning', 'Sin permiso', 'No tienes permiso para editar.');
                 return;
             }
         }
         let onDeactivateButton = function () {
-            if (!@Permission.Has("tiposgarantias-deactivate").ToString().ToLower() )
+            if (!@Permission.Has("catalogoscomunes-deactivate").ToString().ToLower() )
             {
                 showMessage('warning', 'Sin permiso', 'No tienes permiso para realizar esta anular.');
                 return;
             }
         }
         let onCancelButton = async function () {
-            if (!@Permission.Has("tiposgarantias-cancel").ToString().ToLower() )
+            if (!@Permission.Has("catalogoscomunes-cancel").ToString().ToLower() )
             {
                 showMessage('warning', 'Sin permiso', 'No tienes permiso para borrar.');
                 return;
@@ -170,7 +170,7 @@
 
         let onNewButton = function () {
 
-            if (!@Permission.Has("tiposgarantias-create").ToString().ToLower() )
+            if (!@Permission.Has("catalogoscomunes-create").ToString().ToLower() )
             {
                 showMessage('warning', 'Sin permiso', 'No tienes permiso para realizar esta accion.');
                 return;

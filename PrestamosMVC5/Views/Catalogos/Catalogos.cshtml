@@ -157,7 +157,21 @@
 
 <script>
 
+     function showMessage(typeOfNotification, titleMessage, messageOfNotification) {
+        var notification = new PNotify({
+            title: titleMessage,
+            text: messageOfNotification,
+            type: typeOfNotification,
+            styling: 'bootstrap3',
+        });
+    }
+
     let onEditButton = function () {
+
+        if (!@Permission.Has("catalogoscomunes-edit").ToString().ToLower() ) {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para editar.');
+            return;
+        }
         $("#currentid").val($('tr.selected').data("id"));
         $("#Codigo").val($('tr.selected').data("codigo"));
         $("#Nombre").val($('tr.selected').data("nombre"));
@@ -168,6 +182,10 @@
         }
     }
     let onDeactivateButton = async function () {
+        if (!@Permission.Has("catalogoscomunes-deactivate").ToString().ToLower() ) {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para desactivar.');
+            return;
+        }
         let id = $('tr.selected').data("id");
         let idTabla = $('tr.selected').data("idtabla");
         let nombreTabla = $('tr.selected').data("nombretabla");
@@ -187,6 +205,10 @@
         location.reload();
     }
     let onCancelButton = async function () {
+        if (!@Permission.Has("catalogoscomunes-cancel").ToString().ToLower() ) {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para borrar.');
+            return;
+        }
         let id = $('tr.selected').data("id");
         let idTabla = $('tr.selected').data("idtabla");
         let nombreTabla = $('tr.selected').data("nombretabla");
@@ -206,6 +228,10 @@
         location.reload();
     }
     let onNewButton = function () {
+        if (!@Permission.Has("catalogoscomunes-create").ToString().ToLower() ) {
+            showMessage('warning', 'Sin permiso', 'No tienes permiso para crear.');
+            return;
+        }
         $("#currentid").val(null);
         $("#Codigo").val(null);
         $("#Nombre").val(null);

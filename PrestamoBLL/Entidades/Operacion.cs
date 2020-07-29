@@ -13,7 +13,7 @@ namespace PrestamoBLL.Entidades
             "Moras", // 1
             "Clientes",
             "Garantias",
-            "Tipos de garantias",
+            "Catalogos comunes",
             "Reportes",
             "Otros",
         };

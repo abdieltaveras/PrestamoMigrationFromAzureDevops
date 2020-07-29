@@ -29,40 +29,42 @@
                                 </li>
                             }
 
-                            <li>
-                                <a>Tipo telefono<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblTipoTelefonos" })">Crear tipo de telefono</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>Estado civil<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblEstadosCiviles" })">Crear estado civil</a>
-                                    </li>
-                                </ul>
-                            </li>
+                            @if (Permission.Has("catalogoscomunes-view"))
+                            {
+                                <li>
+                                    <a>Tipo telefono<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblTipoTelefonos" })">Crear tipo de telefono</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>Estado civil<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblEstadosCiviles" })">Crear estado civil</a>
+                                        </li>
+                                    </ul>
+                                </li>
 
-                            <li>
-                                <a>Tipo sexo<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblTipoSexos" })">Crear tipo sexo</a>
-                                    </li>
-                                </ul>
-
-                            <li>
-                                <a>Verificador de direcciones<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblVerificadorDirecciones" })">Crear verificador de direcciones</a>
-                                    </li>
-                                </ul>
-                            </li>
-
+                                <li>
+                                    <a>Tipo sexo<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblTipoSexos" })">Crear tipo sexo</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>Verificador de direcciones<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblVerificadorDirecciones" })">Crear verificador de direcciones</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
                             <li>
                                 <a>Division Territorial<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -92,73 +94,81 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a>Ocupaciones<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Catalogos", new { tabla= "tblOcupaciones" } )">Crear ocupacion</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a class="text-white-50">Garantias<span class="fa fa-chevron-down"></span></a>
-
-                        <ul class="nav child_menu">
-                            @if (Permission.Has("garantias-view"))
+                            @if (Permission.Has("catalogoscomunes-view"))
                             {
                                 <li>
-                                    <a href="@Url.Action("CreateOrEdit","Garantias")">Crear garantia</a>
-                                </li>
-                            }
-                            @if (Permission.Has("tiposgarantias-view"))
-                            {
-                                <li>
-                                    <a>Tipo<span class="fa fa-chevron-down"></span></a>
+                                    <a>Ocupaciones<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href="@Url.Action("CreateOrEdit", "Tipo")">Crear Tipo</a>
+                                            <a href="@Url.Action("CreateOrEdit", "Catalogos", new { tabla = "tblOcupaciones" })">Crear ocupacion</a>
                                         </li>
                                     </ul>
                                 </li>
                             }
-                            <li>
-                                <a>Marcas<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Marcas")">Crear marcas</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>Modelos<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Modelos")">Crear modelo</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a>Colores<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Color")">Crear color</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>Tasadores<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblTasadores" })">Crear tasadores</a>
-                                    </li>
-                                </ul>
-                            </li>
                         </ul>
                     </li>
+
+                     @if (Permission.Has("garantias-view") || Permission.Has("catalogoscomunes-view"))
+                     {
+                        <li>
+                            <a class="text-white-50">Garantias<span class="fa fa-chevron-down"></span></a>
+
+                            <ul class="nav child_menu">
+                                @if (Permission.Has("garantias-view"))
+                                {
+                                    <li>
+                                        <a href="@Url.Action("CreateOrEdit", "Garantias")">Crear garantia</a>
+                                    </li>
+                                }
+                                @if (Permission.Has("catalogoscomunes-view"))
+                                {
+                                    <li>
+                                        <a>Tipo<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="@Url.Action("CreateOrEdit", "Tipo")">Crear tipo</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a>Marcas<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="@Url.Action("CreateOrEdit", "Marcas")">Crear marcas</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>Modelos<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="@Url.Action("CreateOrEdit", "Modelos")">Crear modelo</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a>Colores<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="@Url.Action("CreateOrEdit", "Color")">Crear color</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a>Tasadores<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="@Url.Action("CreateOrEdit", "Catalogos", new { tabla = "tblTasadores" })">Crear tasadores</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                     }
                     <li>
                         <a class="text-white-50">Prestamos<span class="fa fa-chevron-down"></span></a>
 
@@ -172,9 +182,9 @@
                             </li>
                             @if (Permission.Has("tasainteres-view"))
                             {
-                            <li>
-                                <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
-                            </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
+                                </li>
                             }
                             <li>
                                 <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
@@ -182,15 +192,17 @@
                             <li>
                                 <a href="@Url.Action("Index", "Periodos")">Periodos</a>
                             </li>
-                            <li>
-                                <a>Localizadores-Cobradores<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li>
-                                        <a href="@Url.Action("CreateOrEdit","Catalogos",  new { tabla= "tblLocalizadores" })">Crear Localizador / cobrador</a>
-                                    </li>
-                                </ul>
-                            </li>
-
+                            @if (Permission.Has("catalogoscomunes-view"))
+                            {
+                                <li>
+                                    <a>Localizadores-Cobradores<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="@Url.Action("CreateOrEdit", "Catalogos", new { tabla = "tblLocalizadores" })">Crear Localizador / cobrador</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
                         </ul>
                     </li>
                 </ul>
@@ -203,9 +215,6 @@
                     <li>
                         <a href="@Url.Action("Index","Ingresos")">Ingreso</a>
                     </li>
-                    @*<li>
-                        <a href="@Url.Action("Index","TasaInteres")">Tasa de Interes</a>
-                    </li>*@
                     
                     <li>
                         <a href="@Url.Action("CreateOrEdit","Negocios",new { id = -1 }))">Negocios</a>

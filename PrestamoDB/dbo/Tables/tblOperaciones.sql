@@ -4,5 +4,5 @@
 	[Nombre] NVARCHAR(100) NOT NULL,
 	[Codigo] NVARCHAR(50) NOT NULL,
 	[Grupo] INT NOT NULL,
-	[Descripcion] NVARCHAR(100) NOT NULL
+	[Descripcion] NVARCHAR(250) NOT NULL
 )

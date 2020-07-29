@@ -311,18 +311,18 @@ INSERT INTO tblOperaciones(Nombre, Descripcion, Grupo, Codigo)
 		('Editar garantias', 'Con este permiso podra editar todas las garantias', 4, 'garantias-edit'),
 		('Borrar garantias', 'Con este permiso podra borrar todas las garantias', 4, 'garantias-cancel'),
 		('Desactivar garantias', 'Con este permiso podra desactivar todas las garantias', 4, 'garantias-deactivate'),
-		--Tipos de Garantias
-		('Ver tipos de garantias', 'Con este permiso podra ver todos los tipos de garantias', 5, 'tiposgarantias-view'),
-		('Crear tipos de garantias', 'Con este permiso podra crear los tipos de garantias', 5, 'tiposgarantias-create'),
-		('Editar tipos de garantias', 'Con este permiso podra editar todos los tipos de garantias', 5, 'tiposgarantias-edit'),
-		('Borrar tipos de garantias', 'Con este permiso podra borrar todos los tipos de garantias', 5, 'tiposgarantias-cancel'),
-		('Desactivar tipos de garantias', 'Con este permiso podra desactivar todos los tipos de garantias', 5, 'tiposgarantias-deactivate'),
 		--Catalogos comunes
-		('Ver catalogos comunes', 'Con este permiso podra ver todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-view'),
-		('Crear catalogos comunes', 'Con este permiso podra crear los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-create'),
-		('Editar catalogos comunes', 'Con este permiso podra editar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-edit'),
-		('Borrar catalogos comunes', 'Con este permiso podra borrar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-cancel'),
-		('Desactivar catalogos comunes', 'Con este permiso podra desactivar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 6, 'catalogoscomunes-deactivate')
+		('Ver catalogos comunes', 'Con este permiso podra ver todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 5, 'catalogoscomunes-view'),
+		('Crear catalogos comunes', 'Con este permiso podra crear los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 5, 'catalogoscomunes-create'),
+		('Editar catalogos comunes', 'Con este permiso podra editar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 5, 'catalogoscomunes-edit'),
+		('Borrar catalogos comunes', 'Con este permiso podra borrar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 5, 'catalogoscomunes-cancel'),
+		('Desactivar catalogos comunes', 'Con este permiso podra desactivar todos los catalogos comunes (ejm: Colores, Sexo, ocupaciones, etc...)', 5, 'catalogoscomunes-deactivate')
+		--Tipos de Garantias
+		--('Ver tipos de garantias', 'Con este permiso podra ver todos los tipos de garantias', 5, 'tiposgarantias-view'),
+		--('Crear tipos de garantias', 'Con este permiso podra crear los tipos de garantias', 5, 'tiposgarantias-create'),
+		--('Editar tipos de garantias', 'Con este permiso podra editar todos los tipos de garantias', 5, 'tiposgarantias-edit'),
+		--('Borrar tipos de garantias', 'Con este permiso podra borrar todos los tipos de garantias', 5, 'tiposgarantias-cancel'),
+		--('Desactivar tipos de garantias', 'Con este permiso podra desactivar todos los tipos de garantias', 5, 'tiposgarantias-deactivate'),
 		--OTROS
 		-- ('Reporte de ventas', 'Con este permiso podra ver el reporte de ventas', 4, 'reporteventas-view'),
 		-- ('Aplicar descuento', 'Con este permiso podra aplicar descuento a los prestamos', 5, 'aplicardescuento-create')
