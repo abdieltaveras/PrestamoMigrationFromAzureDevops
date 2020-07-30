@@ -38,7 +38,8 @@
         if (e.which != 38 && e.which != 40 && e.which != 13) {
             clearTimeout(searching);
             searching = setTimeout(function () {
-                let value = $('#input-prestamo_search').val();
+                let elem = $('#input-prestamo_search');
+                let value = elem.val();
                 if (value.length >= 1) {
                     searchPrestamoText(value);
                 } else {

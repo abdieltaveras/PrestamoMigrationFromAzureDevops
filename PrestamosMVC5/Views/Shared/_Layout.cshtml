@@ -154,8 +154,6 @@
             <script src="~/Scripts/Apps/minMaxAdapter.js"></script>
             <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
             <script src="~/content/vendors/moment/min/moment.min.js"></script>
-
-
             <!--abdiel section-->
         }
         // Definir la condicion para cargar las librerias del datatable
@@ -195,13 +193,23 @@
     <!--pnotify section-->
     <script src="~/Content/vendors/pnotify/dist/pnotify.js"></script>
     <script src="~/Content/vendors/pnotify/dist/pnotify.buttons.js"></script>
-
+    <script src="/Content/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    <script>
+        function showMessage(typeOfNotification, titleMessage, messageOfNotification) {
+            var notification = new PNotify({
+                title: titleMessage,
+                text: messageOfNotification,
+                type: typeOfNotification,
+                styling: 'bootstrap3',
+            });
+        }
+    </script>
+    @RenderSection("scripts", required: false)
 </body>
 
 @*queremos usar esta version de jquery pero si la colocamos al inicio da errores con el que trajo la plantilla
     por lo tanto hay que dejarlo asi*@
 @*<script src="/Scripts/jquery-3.3.1.js"></script>*@
-@RenderSection("scripts", required: false)
 
 </html>
 

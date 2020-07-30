@@ -9,7 +9,7 @@ create PROCEDURE [dbo].[spGetCatalogos]
 	@IdTabla varchar(100)
 )
 as
-begin `
+begin 
 	if (@idNegocio=-1) 
 	begin 
 		 RAISERROR ('Envio un valor menor o igual a cero para el parametro idNegocio, lo cual no es aceptado',
