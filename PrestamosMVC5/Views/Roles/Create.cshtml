@@ -24,62 +24,75 @@
             </div>
             <br />
 
-            
+
 
             @*<div class="ln_solid"></div>
 
-                @*</form>*@
-
+            @*</form>*@
 
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Operaciones</h2>
+                    <h2>Grupos de permisos</h2>
 
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content col-md-12">
-                    @{
-                        int grupo = 0;
-                        int lastgrupo = 0;
-                    }
-                    @*<div class="row">*@
-                    @foreach (var operacion in Model.Operaciones)
-                    {
+                @{
+                    int grupo = 0;
+                    int countElement = @Model.Operaciones.Count();
+                    int counter = 0;
+                }
 
-                        if (grupo != operacion.Grupo)
-                        {
-
-                            @*@Html.Raw("<div class=\"col-md-5\">")*@
-                            <h2>@Operacion.Grupos[operacion.Grupo - 1]</h2>
-                            <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                                <input type="checkbox" class="custom-control-input" name="Role.ListaOperaciones[]" id="@operacion.Codigo" value="@operacion.IdOperacion">
-                                <label class="custom-control-label" for="@operacion.Codigo">@operacion.Nombre</label>
-                                <br />
-                                <small>@operacion.Descripcion</small>
-                            </div>
-                            grupo = operacion.Grupo;
-                            lastgrupo = grupo - 1;
-                        }
-                        else
-                        {
-                            if (grupo != lastgrupo)
+                <div class="container md-10">
+                    <div class="py-5">
+                        <div class="row">
+                            @foreach (var operacion in Model.Operaciones)
                             {
-                                @*@Html.Raw("</div>")*@
-                                lastgrupo = grupo;
 
+                                counter++;
+
+                                if (grupo != operacion.Grupo)
+                                {
+                                    if (grupo != 0)
+                                    {
+                                        @Html.Raw("</div> </div> </div> </div>")
+                                    }
+
+                                    @Html.Raw("<div class=\"col-lg-6 mb-5\">")
+
+                                    <a data-toggle="collapse" href="@Html.Raw("#collapseExample" + grupo)" role="button" aria-expanded="true" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
+                                        <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">@Operacion.Grupos[operacion.Grupo - 1] <i id="@Html.Raw("check-grupo-" + (grupo+1))" class="fa fa-check check-group" style="display: none;"></i> </strong><i class="fa fa-angle-down"></i></p>
+                                    </a>
+
+                                    @Html.Raw(" <div id=\"collapseExample" + grupo + "\" class=\"collapse shadow-sm \"> <div class=\"card\"> <div class=\"card-body\">")
+
+                                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                        <input type="checkbox" class="custom-control-input" name="Role.ListaOperaciones[]" id="@operacion.Codigo" value="@operacion.IdOperacion">
+                                        <label class="custom-control-label" for="@operacion.Codigo">@operacion.Nombre</label>
+                                        <br />
+                                        <small>@operacion.Descripcion</small>
+                                    </div>
+                                    grupo = operacion.Grupo;
+                                }
+                                else
+                                {
+                                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                        <input type="checkbox" class="custom-control-input" name="Role.ListaOperaciones[]" id="@operacion.Codigo" value="@operacion.IdOperacion">
+                                        <label class="custom-control-label" for="@operacion.Codigo">@operacion.Nombre</label>
+                                        <br />
+                                        <small>@operacion.Descripcion</small>
+                                    </div>
+                                    if (countElement == counter)
+                                    {
+                                        @Html.Raw("</div> </div> </div> </div>")
+                                    }
+                                }
                             }
-                            <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                                <input type="checkbox" class="custom-control-input" name="Role.ListaOperaciones[]" id="@operacion.Codigo" value="@operacion.IdOperacion">
-                                <label class="custom-control-label" for="@operacion.Codigo">@operacion.Nombre</label>
-                                <br />
-                                <small>@operacion.Descripcion</small>
-                            </div>
-                        }
-                    }
-                    @*</div>*@
-
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
             <div class="item form-group" style="float: right;">
                 <div class="col-md-6 col-sm-6 offset-md-3">
                     <button type="submit" class="btn btn-primary">Guardar</button>

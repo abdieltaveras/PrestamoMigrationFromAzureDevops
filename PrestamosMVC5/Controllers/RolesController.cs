@@ -58,6 +58,10 @@ namespace PrestamosMVC5.Controllers
 
             if (idrole == 0)
             {
+                if (Role.Role.Nombre == "")
+                {
+                    return RedirectToAction("ListRoles");
+                }
                 idrole = BLLPrestamo.Instance.RoleInsUpd(Role.Role);
             }
 
