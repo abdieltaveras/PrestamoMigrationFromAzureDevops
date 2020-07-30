@@ -15,6 +15,10 @@ namespace PrestamosMVC5.Models
         public string TextAsNumber2 { get; set; }
         [Min(minValue: 1, ErrorMessage ="no se acepta valores menor a 1")]
         public int Number { get; set; } = 1;
+
+        public int Currency1 { get; set; } = 1;
+
+        public int Currency2 { get; set; } = 1;
         public DateTime Fecha { get;  set; }
     }
 }

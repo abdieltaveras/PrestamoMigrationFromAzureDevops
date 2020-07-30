@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CustomDateModelBinder.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
@@ -4012,6 +4013,7 @@
     <Content Include="App_Code\TreeInfo.cshtml" />
     <Content Include="Scripts\Apps\Cliente\search.js" />
     <Content Include="Scripts\Apps\Garantia\search.js" />
+    <Content Include="Scripts\Apps\Numbers\manageCurrency01.js" />
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Scripts\Apps\minMaxAdapter.js" />
     <Content Include="Scripts\Apps\Prestamo\search.js" />
@@ -4030,7 +4032,9 @@
     <Content Include="Views\Tests\Periodo.cshtml" />
     <Content Include="Views\Periodos\Index.cshtml" />
     <Content Include="Views\Tests\masks.cshtml" />
+    <Content Include="Views\Tests\bindingDates.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
+    <TypeScriptCompile Include="Scripts\Apps\Prestamo\validaciones.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
     <Content Include="Scripts\Apps\showImage,20200423.js" />

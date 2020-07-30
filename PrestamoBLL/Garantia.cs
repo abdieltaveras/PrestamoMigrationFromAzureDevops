@@ -10,9 +10,9 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Garantia> GarantiaSearch(BuscarGarantiaParams searchParam)
+        public IEnumerable<GarantiaConMarcaYModelo> GarantiaSearch(BuscarGarantiaParams searchParam)
         {
-            return BllAcciones.GetData<Garantia, BuscarGarantiaParams>(searchParam, "spBuscarGarantias", GetValidation);
+            return BllAcciones.GetData<GarantiaConMarcaYModelo, BuscarGarantiaParams>(searchParam, "spBuscarGarantias", GetValidation);
         }
 
         public void GarantiaInsUpd(Garantia insUpdParam)

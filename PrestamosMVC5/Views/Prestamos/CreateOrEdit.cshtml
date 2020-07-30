@@ -1,10 +1,12 @@
 ﻿@model  PrestamoVm
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEdtPrestamo"  }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEdtPrestamo" }))
+
 {
     @Html.AntiForgeryToken()
 
     <div id="garantias"></div>
+
     <div class="form-horizontal">
         <div class="">
             <div class="x_panel">
@@ -14,7 +16,7 @@
                         <h2>Edicion de Prestamos</h2>
                     </div>
                     <div class="col-md-3 col-sm-12  text-right">
-                        <input id="btnSubmit" type="submit" value="Guardar" class="btn btn-primary" />
+                        <input id="btnSubmit" type="submit" value="Guardar" onclick="probarConversion()" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
@@ -83,6 +85,13 @@
                                         <textarea class="form-control" id="info-prestamo-a-renovar" name="comment" form="frmEdtPrestamo" disabled>Informacion del prestamo a renovar</textarea>
                                     </div>
                                 </div>
+                                <div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.Prestamo.DeudaRenovacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        @Html.EditorFor(model => model.Prestamo.DeudaRenovacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
+                                        @Html.ValidationMessageFor(model => model.Prestamo.DeudaRenovacion, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="@HtmlClass.FormGroupCls">
@@ -104,49 +113,8 @@
                             @* Fin prestamo a renovar *@
 
 
-                            <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3 font-italic">**Cliente** </label>
 
-                                <div class="@HtmlClass.DivInputCls">
 
-                                    <div style="margin: auto; padding: 0%;">
-                                        <input class="cliente_target form-control text-search" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-cliente-input" placeholder="Buscar cliente (nombre, cedula)..." name="name" value="" />
-                                        <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
-                                        <div id="list-cliente-container">
-                                            <div class="list-group col-md-12" id="list-clientes-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Cliente seleccionado</label>
-                                <div class="@HtmlClass.DivInputCls" id="info-cliente">
-                                    @*<textarea class="form-control" id="info-cliente" name="comment" form="frmEdtPrestamo" disabled>Informacion del cliente</textarea>*@
-                                </div>
-                            </div>
-
-                            <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3 font-italic" >**Garantia**</label>
-                                <div class="@HtmlClass.DivInputCls">
-                                    <div style="margin: auto; padding: 0%;">
-
-                                        <input class="garantia_target form-control text-search" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-garantia-input" placeholder="Buscar garantia..." name="name" value="" />
-                                        <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
-                                        <div id="list-garantia-container">
-                                            <div class="list-group col-md-12" id="list-garantia-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="@HtmlClass.FormGroupCls">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Garantia seleccionada</label>
-                                <div class="@HtmlClass.DivInputCls" id="info-garantia">
-                                    @*<textarea class="form-control" id="info-garantia" name="comment" form="frmEdtPrestamo" disabled>Informacion de la garantia</textarea>*@
-                                </div>
-                            </div>
 
 
                             <div class="@HtmlClass.FormGroupCls">
@@ -192,31 +160,22 @@
                                 </div>
                             </div>
 
-
+                            @*<div class="@HtmlClass.FormGroupCls">
+                                    @Html.LabelFor(model => model.Prestamo.MontoPrestado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        @Html.EditorFor(model => model.Prestamo.MontoPrestado, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_type = "currency" } })
+                                        @Html.ValidationMessageFor(model => model.Prestamo.MontoPrestado, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.MontoPrestado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.MontoPrestado, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.MontoPrestado, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.MontoAPrestar, new { htmlattributes = new { @class = HtmlClass.InputTextCls, data_type = "currency", pattern = @"^\$\d{1,3}(,\d{3})*(\.\d+)?$", placeholder = "$0.00", value = "0.00" } })
+                                    @*<input type="text" name="_MontoAPrestar" id="_MontoAPrestar" class="input-amount-1" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$0.00">*@
                                 </div>
                             </div>
 
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.DeudaRenovacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.DeudaRenovacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } });
-                                    @Html.ValidationMessageFor(model => model.Prestamo.DeudaRenovacion, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.IdDivisa, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.IdDivisa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.IdDivisa, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -225,6 +184,53 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="x_panel">
                         <div class="x_content">
+                            <div class="@HtmlClass.FormGroupCls">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3 font-italic">**Cliente** </label>
+
+                                <div class="@HtmlClass.DivInputCls">
+
+                                    <div style="margin: auto; padding: 0%;">
+                                        <input class="cliente_target form-control text-search" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-cliente-input" placeholder="Buscar cliente (nombre, cedula)..." name="name" value="" />
+                                        <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
+                                        <div id="list-cliente-container">
+                                            <div class="list-group col-md-12" id="list-clientes-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Cliente seleccionado</label>
+                                <div class="@HtmlClass.DivInputCls" id="info-cliente">
+                                    @*<textarea class="form-control" id="info-cliente" name="comment" form="frmEdtPrestamo" disabled>Informacion del cliente</textarea>*@
+                                </div>
+                            </div>
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3 font-italic">**Garantia**</label>
+                                <div class="@HtmlClass.DivInputCls">
+                                    <div style="margin: auto; padding: 0%;">
+                                        <input class="garantia_target form-control text-search" type="text" autocomplete="dummy-no-auto-complete-fix" id="search-garantia-input" placeholder="Buscar garantia..." name="name" value="" />
+                                        <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
+                                        <div id="list-garantia-container">
+                                            <div class="list-group col-md-12" id="list-garantia-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                                    Garantias Seleccionadas
+                                    <div class="tile-stats">
+                                        <div id="cantidadDeGarantias" class="count">0</div>
+                                    </div>
+                                </div>
+                                <div class="@HtmlClass.DivInputCls" id="info-garantia">
+                                    @*<textarea class="form-control" id="info-garantia" name="comment" form="frmEdtPrestamo" disabled>Informacion de la garantia</textarea>*@
+                                </div>
+                            </div>
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.LlevaGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
@@ -250,8 +256,8 @@
                                     </div>
                                 </div>
 
-                                <div class="@HtmlClass.FormGroupCls">
-                                    @Html.LabelFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.IdDivisa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
                                     <div class="@HtmlClass.DivInputCls">
                                         <div class="checkbox">
                                             @Html.EditorFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
@@ -286,7 +292,15 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="@HtmlClass.FormGroupCls">
+                                <label>Probando convertir el valor digitado a decimal</label>
+                                <div class="@HtmlClass.DivInputCls">
+                                    <div class="checkbox">
+                                        <button type="button" class="btn btn-primary" onclick="postForm()"> PostAjax</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="PNotify.error({title: 'Test Error', text: 'This is a test error alert.'})">PNotify</button>
                         </div>
                     </div>
 
@@ -294,25 +308,31 @@
                 </div>
             </div>
         </div>
+
     </div>
     <section name="hiddenProps">
         @Html.HiddenFor(model => model.Prestamo.IdPrestamo)
-        @Html.HiddenFor(model => model.Prestamo.IdNegocio)
         @Html.HiddenFor(model => model.Prestamo.IdPrestamoARenovar)
         @Html.HiddenFor(model => model.Prestamo.IdCliente)
+        @Html.HiddenFor(model => model.Prestamo.IdLocalidad)
+        @Html.HiddenFor(model => model.Prestamo.IdNegocio)
+        @Html.HiddenFor(model => model.Prestamo.MontoPrestado)
+        <span id="forIdGarantias"></span>
+        <span id="forIdCodeudores"></span>
     </section>
 }
 
 @section scripts {
-
     <script src="~/Scripts/apps/datePickerInit.js"></script>
     <script src="~/Scripts/Apps/setMask.js"></script>
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
+    <script src="~/Scripts/Apps/Numbers/manageCurrency01.js"></script>
     @*<script src="~/Scripts/Apps/minMaxAdapter.js"></script>*@
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
-<script>
-
+    <script>
+        var idGarantias = []
+        const idClasifLLevanGarantias = @Html.Raw(Model.ClasificacionesQueLlevanGarantia());
         let dateFormat = 'en-GB';
         let _dateFormat = 'dd/mm/yy';
         let yearRangeForDP = "-120:+0"
@@ -331,14 +351,15 @@
             console.log(d, formattedDate);
         }
 
+        function probarConversion() {
+            alert("probar")
+            let value = $("#@Html.IdFor(model => model.MontoAPrestar)").val();
+            let converted = toFloat(value);
+            console.log("conversion", value, converted);
+        }
+
         function onChangeProp(elem) {
             switch (elem.id) {
-                case "@Html.IdFor(model => model.NumeroIdentificacion)":
-                    getClientesByNumeroIdentificacion(elem.value, fillDatosClientes);
-                    break;
-                case "@Html.IdFor(model => model.NumeracionGarantia)":
-                    getGarantiaByNumeracion(elem.value, fillDatosGarantia);
-                    break;
                 case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
                     const llevaGC = elem.checked;
                     hideShowSeccionHastaDeCierre(llevaGC)
@@ -360,18 +381,11 @@
         else { $("#seccionRenovacion").hide(); }
 
     }
-        function fillDatosClientes(data) {
-            const cliente = data;
-            $("#datosDeCliente").html(cliente.Nombre);
+        function setIdCliente(idCliente) {
             const elemIdCliente = $("#@Html.IdFor(model => model.Prestamo.IdCliente)");
-            elemIdCliente.val(cliente.IdCliente);
-
-        }
-
-        function fillDatosGarantia(data) {
-            const elemToPlaceGarantiaData = $("#datosDeGarantia");
-            setDatosGarantiaIntoHtml(data, elemToPlaceGarantiaData)
-        }
+            elemIdCliente.val(idCliente);
+            console.log("id cliente establecida ", idCliente)
+       }
 
 
         //Buscador de clientes
@@ -395,23 +409,38 @@
         };
 
         async function showPrestamo(idPrestamo, prestamoNumero) {
-            $("#info-prestamo-a-renovar").val("Numero: " + prestamoNumero + " Deuda actual :???");
+
             // buscar datos del cliente y datos de la garantia de la renovacion.
             const res = await loadPrestamoData(idPrestamo);
             const dataPrestamo = JSON.parse(res)
             const infoPrestamoRenovacion = dataPrestamo.infoPrestamo;
+            infoPrestamoRenovacion.DeudaActual = 10000;
+            $("#info-prestamo-a-renovar").val("Numero: " + prestamoNumero + " Deuda actual :" + infoPrestamoRenovacion.DeudaActual);
+            $("#@Html.IdFor(model => model.Prestamo.DeudaRenovacion)").val(infoPrestamoRenovacion.DeudaActual);
+            $("#@Html.IdFor(model => model.Prestamo.IdPrestamoARenovar)").val(idPrestamo);
             const cliente = dataPrestamo.infoCliente;
-            const infoGarantias = dataPrestamo.infoGarantias;
-            console.log(dataPrestamo);
-            let fotoCliente = "@Url.Content(@SiteDirectory.ImagesForClientes)/" + cliente.Imagen1FileName;
+            const rutaFotoCliente = "@Url.Content(@SiteDirectory.ImagesForClientes)/";
+            let fotoCliente = rutaFotoCliente + cliente.Imagen1FileName;
                 //cliente.Imagen1FileName;
             let infoClienteTmp = {
                 "Imagen1Filename": fotoCliente,
                 "NombreCompleto"  : cliente.Nombres + " " + cliente.Apellidos,
                 "Telefonos" : cliente.TelefonoMovil,
-                "NoIdentificacion" : cliente.NumeracionDocumentoIdentidad
+                "NoIdentificacion": cliente.NumeracionDocumentoIdentidad,
+                "IdCliente": cliente.IdCliente
             }
             showCliente(infoClienteTmp);
+            const infoGarantias = [];
+            $.each(dataPrestamo.infoGarantias, function (index, value) {
+                const data = JSON.parse(value.Detalles);
+                value.NoIdentificacion = value.NumeracionGarantia;
+                //infoGarantias.push(value);
+                //let infoGarantiaTmp = infoGarantias[0];
+                //console.log(value);
+                showGarantia(value);
+
+            });
+
         }
 
         //// Buscador de garantias
@@ -427,22 +456,30 @@
             let idGarantia = evt.target.getAttribute('data-idGarantia');
             const index = evt.currentTarget.getAttribute('data-index');
             const infoGarantia = infoGarantias[index]
+            console.log(infoGarantia);
             showGarantia(infoGarantia);
         };
 
         async function showGarantia(infoGarantia) {
-            let Detalles = JSON.parse(infoGarantia.Detalles);
-            $("#p-info-garantia").remove()
-            $("#info-garantia").append(`<p id="p-info-garantia"> ${infoGarantia.NoIdentificacion} </strong><br>
-                       <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
-                        <br></p>`);
-        };
 
+        let Detalles = JSON.parse(infoGarantia.Detalles);
+        //$("#p-info-garantia").remove()
+        let idGarantia = infoGarantia.IdGarantia;
+        let garantiaEnListado = idGarantias.includes(idGarantia);
+        if (garantiaEnListado) return;
+        $("#forIdGarantias").append(`<input id = "inputGarantia${idGarantia}" type = "hidden" name = "Prestamo.IdGarantias[${idGarantias.length}]" value = "${idGarantia}"/>`)
+            idGarantias.push(idGarantia);
+            updateCantidadDeGarantias(idGarantias.length);
+            $("#info-garantia").append(`<span id="spanGarantia${idGarantia}"><button type="button" class="fa fa-remove" title="quitar garantia" onclick="removeGarantia(this)" value="${idGarantia}"></button><p id="p-info-garantia"> ${infoGarantia.NoIdentificacion} </strong> <strong> Marca:</strong> ${infoGarantia.NombreMarca} <strong> Modelo:</strong> ${infoGarantia.NombreModelo }<br>
+                       <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
+                          <br></p> </span>`);
+        };
+    function updateCantidadDeGarantias(cantidad) { $("#cantidadDeGarantias").text(cantidad); }
         //// Buscador de cliente
         let IMAGEN_CLIENTE_EN_BUSCADOR_CLIENTE = true;
         let infoClientes=[]
         const onClienteEnter = async function () {
-            //let idCliente = $('[data-order="' + selectPointer + '"]').attr('data-idCliente');
+            // let idCliente = $('[data-order="' + selectPointer + '"]').attr('data-idCliente');
             const index = $('[data-order="' + selectPointer + '"]').attr('data-index');
             const infoCliente = infoClientes[index]
             showCliente(infoCliente);
@@ -456,16 +493,143 @@
         };
 
         async function showCliente(infoCliente) {
-
             $("#p-info-cliente").remove()
+            setIdCliente(infoCliente.IdCliente)
             $("#info-cliente").append(`<p id="p-info-cliente"> <img src="${infoCliente.Imagen1Filename}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>
                                             <strong id="placeName" >Cliente: <i>${infoCliente.NombreCompleto} | <small style="font-weight: 600;"> </i> </span><br>
                                             <span style="font-weight: 600;">Telefono: </span> ${infoCliente.Telefonos} ${infoCliente.NoIdentificacion === undefined ? `` : ` | No. de identificacion: ${infoCliente.NoIdentificacion}`}</i><br>
                                             <br></p>`);
         };
+        const toDate = (dateStr) => {
+            const [day, month, year] = dateStr.split("/")
+            return new Date(year, month - 1, day)
+        }
+        function BuildPrestamoData()
+        {
+            const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val();
+            var fechaJs = "2020-07-31T00:00:00" //toDate(fecha);
+            alert(fechaJs);
+            var prestamo =
+            {
+                "IdPrestamo": -1,
+                "PrestamoNumero": "1",
+                "IdPrestamoARenovar": 1,
+                "IdClasificacion": 1,
+                "IdTipoAmortizacion": 1,
+                "IdCliente": 1,
+                "IdGarantias": idGarantias,
+                "FechaEmisionReal": fechaJs,
+                /*IdCodeudores: [1, 2],
+                FechaEmisionParaCalculos: fecha,
+                IdTasaInteres: 1,
+                IdTipoMora: 1,
+                IdPeriodo: 1,
+                CantidadDePeriodos: 10,
+                MontoPrestado: 10000,
+                DeudaRenovacion: 1000,
+                LlevaGastoDeCierre: true,
+                InteresGastaDeCierre: 5,
+                MontoGastaoDeCierre: 500,
+                GastoDeCierreEsDeducible: false,
+                SumarGastoDeCierreALasCuotas: true,
+                AcomodarFechaALasCuotas: false,
+                FechaEmisionPrimeraCuota: "190001T00:00:00:00",
+                IdNegocio: 1,
+                IdLocalidad: 1,
+                Usuario:"bryan"*/
+            }
+            return prestamo;
+    }
+    function removeGarantia(element) {
+        const idGarantia = parseInt(element.value);
+        const index = idGarantias.indexOf(idGarantia);
+        if (index > -1) {
+            idGarantias.splice(index, idGarantia);
+            updateCantidadDeGarantias(idGarantias.length);
+        }
+        const findInput = $("#inputGarantia" + idGarantia);
+        const findSpan = $("#spanGarantia" + idGarantia);
+        //alert(`"input :${findInput.length} span ${findSpan.length}"`);
+        findInput.remove();
+        findSpan.remove();
+        //console.log(idGarantias);
+    }
+    function showResponse(response) {
+        //alert("respuesta recibida");
+        //console.log(response);
+    }
 
+    function validarFormulario() {
+        // el monto no puede estar en 0
+        var validaciones = [];
+        let value = $("#@Html.IdFor(model => model.MontoAPrestar)").val()
+        let valorMontoPrestado = toFloat(value);
+        //if (isNaN(valorMontoPrestado)) valorMontoPrestado = 0;
+        //console.log(valorMontoPrestado);
+        $("#@Html.IdFor(model => model.Prestamo.MontoPrestado)").val(valorMontoPrestado);
+        const montoAPrestar = parseFloat($("#@Html.IdFor(m => m.Prestamo.MontoPrestado)").val());
+        const deudaRenovacion = parseFloat($("#@Html.IdFor(m => m.Prestamo.DeudaRenovacion)").val());
+        const totalAPrestar = montoAPrestar + deudaRenovacion
+        if (totalAPrestar <= 0) {
+            validaciones.push("no ha especificado monto a prestar")
+        }
+        if ($("#@Html.IdFor(model => model.Prestamo.IdCliente)").val() <= 0) {
+            validaciones.push("no ha especificado cliente");
+        }
+        console.log(idGarantias.length = 0)
+        if ((llevaGarantia()) && (idGarantias.length = 0)) 
+        {
+            console.log("lleva garantias",idGarantias)
+                //&& (idGarantias.length = 0))
+            validaciones.push("no ha especificado Garantias y este tipo de prestamo lleva garantias")
+        }
+        if ($("#@Html.IdFor(model => model.IncluirRenovacion)").val()===true)
+        {
+                alert("si");
+                if ($("#@Html.IdFor(model => model.Prestamo.IdPrestamoARenovar)").val() <= 0) {
+                    validaciones.push("no ha especificado Prestamo a renovar")
+                }
+        }
+        const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val()
+        const fechaDelPrestamo = moment(fecha, "DD/MM/YYYY");
+        if (fechaDelPrestamo > moment()) {
+            validaciones.push("la fecha del prestamo no puede ser mayor a la fecha de hoy")
+        }
+        if (validaciones.length > 0) {
+                console.log(validaciones);
+                alert("tiene varios errores revise");
+        }
+    }
 
-</script>
+    function postForm() {
+        const postData = { idGarantias: idGarantias };
+        validarFormulario();
+        let prestamoData2 = $("#frmEdtPrestamo").serialize();
+        //prestamoData2 =  JSON.stringify(BuildPrestamoData()) ;
+        //console.log(prestamoData2);
+        return $.ajax({
+            type: "post",
+            url: "/Prestamos/SavePrestamo2",
+            data: prestamoData2,
+            success: function (response) {
+                showResponse(response);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            complete: function (jqXHR, status) {
+                //console.log("complete");
+            },
+            dataType: "json",
+            tradition: true
+        })
+    }
+        function llevaGarantia() {
+            const idClasif = parseFloat($("#@Html.IdFor(model => model.Prestamo.IdClasificacion)").val());
+            const result = idClasifLLevanGarantias.includes(idClasif)
+            return result
+        }
+    </script>
     <script src="~/Scripts/Apps/utils.js"></script>
     <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
     <script src="~/Scripts/Apps/Prestamo/search.js"></script>

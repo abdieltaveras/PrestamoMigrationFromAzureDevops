@@ -23,9 +23,7 @@ namespace PrestamoBLL.Tests
             IEnumerable<BaseCatalogo> result = null;
             try
             {
-
                 result = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { NombreTabla = "tblClasificaciones", IdNegocio = 6, IdTabla="idClasificacion"});
-             
             }
             catch (Exception e)
             {

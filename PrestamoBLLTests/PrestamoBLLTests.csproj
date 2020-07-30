@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="BllPrestamoTests.cs" />
     <Compile Include="CatalogosTest.cs" />
+    <Compile Include="ClasificacionTests.cs" />
     <Compile Include="CuotaTests.cs" />
     <Compile Include="EquipoTest.cs" />
     <Compile Include="LoginTests.cs" />

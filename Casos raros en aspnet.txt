@@ -1,0 +1,6 @@
+ERROR AL HACE EL BINDINGS
+	Tuve la experiencia de que en el modelo PrestamoVm, tenia una propiedad anidada prestamo, que tiene
+
+
+ERRROR GENERANDO ID DE UN ELEMENTO CON EL IDFOR
+Cuando una propiedad inicia su nombre con underscore, me dio problema luego para encontrar el idDelaMisma con el htmlHelper.IdFor

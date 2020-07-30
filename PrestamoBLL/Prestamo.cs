@@ -93,7 +93,7 @@ namespace PrestamoBLL
             return PrestamoConDetalle;
         }
 
-        public PrestamoConDetallesParaCreditosYDebitos GetPrestamoConDetalle(int idPrestamo, DateTime fecha)
+        public PrestamoConDetallesParaCreditosYDebitos GetPrestamoConDetalle(int idPrestamo, DateTime fecha, bool ConvertDetallesGarantiaToJson = false)
         {
             if (idPrestamo <= 0)
             {
@@ -135,6 +135,10 @@ namespace PrestamoBLL
                 {
                     InfoGarantiaDrCr infoGarantiaDrCr; 
                     dr.DataReaderToType(out infoGarantiaDrCr );
+                    if (ConvertDetallesGarantiaToJson)
+                    {
+                        infoGarantiaDrCr.DetallesForJsonConvert();
+                    }
                     infoGarantiasDrCr.Add(infoGarantiaDrCr);
                 }
             }

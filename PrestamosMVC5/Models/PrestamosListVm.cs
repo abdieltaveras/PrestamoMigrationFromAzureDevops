@@ -1,4 +1,5 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoBLL;
+using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,25 +22,38 @@ namespace PrestamosMVC5.Models
     public class PrestamoVm
     {
         public string MensajeError { get; internal set; }
-        public Prestamo Prestamo { get; set; } = new Prestamo();
-        [Display(Name ="Numeracion Identificacion del Cliente")]
-        public string NumeroIdentificacion { get; set; } = string.Empty;
+        public string MontoAPrestar { get; set; }
+        public Prestamo Prestamo { get; set; }
+        //[Display(Name ="Numeracion Identificacion del Cliente")]
+        //public string _NumeroIdentificacion { get; set; } = string.Empty;
         [HiddenInput(DisplayValue = false)]
         public string infoCliente { get; set; }
-        [Display(Name = "No Identificacion de la garantia")]
-        public string NumeracionGarantia { get; set; } = string.Empty;
+        //[Display(Name = "No Identificacion de la garantia")]
+        //public string _NumeracionGarantia { get; set; } = string.Empty;
+
         [Display(Name = "Prestamo a Renovar Numero")]
         public string NumeroPrestamoARenovar { get; set; } = string.Empty;
-        [HiddenInput(DisplayValue =false)]
+        [HiddenInput(DisplayValue = false)]
         public string infoGarantia { get; set; }
-        [Display(Name ="Lleva gasto de cierre")]
+        [Display(Name = "Lleva gasto de cierre")]
         public bool LlevaGastoDeCierre { get; set; } = false;
         [Display(Name = "Desea Renovar Prestamo")]
         public bool IncluirRenovacion { get; set; } = false;
         [Display(Name = "probando si desea ver el json result al hacer post")]
+
         public bool MostrarJsonResult { get; set; } = false;
 
-        
+        public string ClasificacionesQueLlevanGarantia()
+        {
+            var data = BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(1).Select(item => item.IdClasificacion);
+            return data.ToJson();
+        }
+
+        //public List<int> IdGarantias { get; set; } = new List<int>(2);
+        public PrestamoVm()
+        {
+            this.Prestamo = new Prestamo();
+        }
 
     }
 }

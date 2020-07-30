@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLPrestamo.cs" />
+    <Compile Include="Clasificacion.cs" />
     <Compile Include="Entidades\Clasificacion.cs" />
     <Compile Include="Entidades\IPrestamoConDetallesParaCreditosyDebitos.cs" />
     <Compile Include="GeneradorDeCuotas.cs" />

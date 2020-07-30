@@ -7,7 +7,7 @@ as
 BEGIN
 
 SELECT
-	garantias.*
+	garantias.*, marcas.nombre as NombreMarca, modelos.nombre as NombreModelo
 from
 	tblGarantias garantias
 INNER JOIN 

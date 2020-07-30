@@ -69,6 +69,7 @@ namespace PrestamosMVC5.Controllers
             {
                 ModelState.AddModelError("", e.Message);
             }
+
             if (model.MostrarJsonResult)
             {
                 _actResult = Content(model.ToJson());
@@ -80,6 +81,21 @@ namespace PrestamosMVC5.Controllers
             }
             return _actResult;
         }
+        
+        public JsonResult SavePrestamo(PrestamoVm prestamovm)
+        {
+            Response.StatusCode = 200;
+            var data = prestamovm.Prestamo.ToJson();
+            return Json(data,JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult SavePrestamo2(Prestamo prestamo)
+        {
+            Response.StatusCode = 200;
+            var data = prestamo.ToJson();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         private PrestamoVm getPrestamo(int id)
         {
             PrestamoVm model = null;
@@ -88,8 +104,6 @@ namespace PrestamosMVC5.Controllers
             {
                 model = new PrestamoVm();
                 model.Prestamo = searchResult.infoPrestamo;
-                model.NumeracionGarantia = searchResult.infoGarantias.FirstOrDefault().NumeracionGarantia;
-                model.NumeroIdentificacion = searchResult.infoCliente.NumeracionDocumentoIdentidad;
                 model.infoCliente = searchResult.infoCliente.InfoDelCliente;
                 model.infoGarantia = searchResult.infoGarantias.FirstOrDefault().InfoVehiculo;
                 model.LlevaGastoDeCierre = (model.Prestamo.InteresGastoDeCierre > 0);

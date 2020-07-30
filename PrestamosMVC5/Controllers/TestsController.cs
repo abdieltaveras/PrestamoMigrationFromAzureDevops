@@ -1,9 +1,11 @@
-﻿using PrestamoBLL;
+﻿using Microsoft.Ajax.Utilities;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -43,6 +45,22 @@ namespace PrestamosMVC5.Controllers
             var model = new Periodo();
             return View(model);
         }
+
+        public ActionResult BindingDates()
+        {
+            UpdViewBag_LoadCssAndJsGrp2(true);
+            UpdViewBag_ShowSummaryErrorsTime(10);
+
+            var model = new FormatosFecha();
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult BindingDates2(FormatosFecha fechas)
+        {
+            var data = fechas.ToJson();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult Periodo(Periodo periodo)
         {
@@ -259,6 +277,16 @@ namespace PrestamosMVC5.Controllers
         public ImagesFor imgsForGarantia => new ImagesFor("ImagesForGarantia", "Garantia") { Qty = 2 };
     }
 
-    
+
+    public class FormatosFecha
+    {
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime Fecha1 { get; set; } = DateTime.Now;
+        public DateTime Fecha2 { get; set; } = DateTime.Now;
+        public DateTime Fecha3 { get; set; } = DateTime.Now;
+
+        public string FechaSt1 { get; set; } = DateTime.Now.ToShortDateString();
+        public string FechaSt2 { get; set; } = DateTime.Now.ToShortDateString();
+    }
     
 }

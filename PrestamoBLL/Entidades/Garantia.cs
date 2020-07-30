@@ -23,6 +23,10 @@ namespace PrestamoBLL.Entidades
         public string NombreModelo { get; internal set; } = string.Empty;
         public string NombreTipoGarantia { get; internal set; } = string.Empty;
         public string OtrosDetalles { get; internal set; } = string.Empty;
+        public string Detalles { get; internal set; } = string.Empty;
+        public DetalleGarantia DetallesForJson { get; internal set; }
+
+        public void DetallesForJsonConvert()   { this.DetallesForJson = this.Detalles.ToType<DetalleGarantia>(); }
 
         public string InfoVehiculo =>
             $"{this.NombreTipoGarantia} {this.NombreMarca} {this.NombreModelo} ";
@@ -41,11 +45,16 @@ namespace PrestamoBLL.Entidades
         //[StringLength(3)]
         public string NoIdentificacion { get; set; } = string.Empty;
         [IgnorarEnParam]
-        public DetalleGaratia DetallesJSON { get; set; }
+        public DetalleGarantia DetallesJSON { get; set; }
         public string Detalles { get; set; } = string.Empty;
     }
+    public class GarantiaConMarcaYModelo : Garantia
+    {
+        public string NombreMarca { get; internal set; }
+        public string NombreModelo { get; internal set; }
+    }
 
-    public class DetalleGaratia : BaseInsUpd
+    public class DetalleGarantia : BaseInsUpd
     {
         // Mobiliarios
         public string Color { get; set; } = string.Empty;

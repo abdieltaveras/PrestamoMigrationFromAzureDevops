@@ -179,7 +179,7 @@ namespace PrestamoBLL.Entidades
         /// retorna true o false al contar si hay o no garantias para este prestamo
         /// </summary>
         [IgnorarEnParam]
-        public bool TieneGarantias { get { return IdGarantias.Count() > 0; } }
+        public bool TieneGarantias { get { return IdGarantias==null ? false : IdGarantias.Count() > 0; } }
         /// <summary>
         /// Los id de los clientes asignado a este prestamo
         /// </summary>
@@ -224,7 +224,7 @@ namespace PrestamoBLL.Entidades
         public int CantidadDePeriodos { get; set; } = 1;
         [Display(Name = "Monto prestado al cliente?")]
         [Required(ErrorMessage="debe digitar un valor 0 o un valor")]
-        [RegularExpression(("([0-9][0-9]*)"), ErrorMessage = "no se aceptan valores negativos")]
+        //[RegularExpression(("([0-9][0-9]*)"), ErrorMessage = "no se aceptan valores negativos")]
         //[Range(0, 999999999, ErrorMessage = "No se aceptan valores negativos")]
         public decimal MontoPrestado { get; set; }
         [Display(Name = "Deuda del prestamo a renovar ?")]
