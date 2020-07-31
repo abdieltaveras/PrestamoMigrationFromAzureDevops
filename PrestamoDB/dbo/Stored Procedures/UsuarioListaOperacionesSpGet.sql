@@ -1,6 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[UsuarioListaOperacionesSpGet]
-	@IdUsuario int
+	@IdUsuario int,
+	@IsAdmin bit = 0
 as
+if (@IsAdmin = 0)	
 	begin
 		SELECT 
 			tblOperaciones.Codigo
@@ -15,4 +17,8 @@ as
 		GROUP BY 
 			tblOperaciones.Codigo
 	end
-
+else
+	SELECT 
+		Codigo 
+	FROM 
+		tblOperaciones

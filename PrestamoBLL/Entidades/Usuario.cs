@@ -145,5 +145,6 @@ namespace PrestamoBLL.Entidades
     public class UsuarioOperacionesGetParams
     {
         public int IdUsuario { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

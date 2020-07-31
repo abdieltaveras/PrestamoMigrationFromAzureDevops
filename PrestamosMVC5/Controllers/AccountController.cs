@@ -125,10 +125,10 @@ namespace PrestamosMVC5.Controllers
 
         private void SetLoginDataIntoSessiond(int IdNegocioSelected, Usuario usuario)
         {
-            
             this.LoginUserIntoSession(IdNegocioSelected , usuario.LoginName, usuario.IdUsuario, usuario.NombreRealCompleto, usuario.ImgFilePath);
             //AuthInSession.CreateUserWithIdNegocioInSession(this.Session, loginView.IdNegocio, loginView.LoginName, string.Empty);
-            var operacionesConAcceso = BLLPrestamo.Instance.GetOperaciones(new UsuarioOperacionesGetParams() { IdUsuario = usuario.IdUsuario });
+            bool isAdmin = BLLPrestamo.Instance.IsAdministrator(new BuscarUserRolesParams() { IdUsuario = usuario.IdUsuario });            
+            var operacionesConAcceso = BLLPrestamo.Instance.GetOperaciones(new UsuarioOperacionesGetParams() { IdUsuario = usuario.IdUsuario, IsAdmin = isAdmin });                        
             AuthInSession.SetOperacionesToUserSession(operacionesConAcceso);
         }
 

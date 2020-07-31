@@ -93,6 +93,26 @@ namespace PrestamoBLL
             
             return operaciones;
         }
+
+        public bool IsAdministrator(BuscarUserRolesParams UserId)
+        {
+            var result = new List<UsuarioRole>();
+            var searchSqlParams = SearchRec.ToSqlParams(UserId);
+
+            try
+            {
+                result = PrestamosDB.ExecReaderSelSP<UsuarioRole>("spGetIsAdministrator", searchSqlParams);
+                if(result.Count() > 0)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                DatabaseError(e);
+            }
+            return false;
+        }
         private class CodigoOperacion
         {
             public string Codigo { get; set; }
