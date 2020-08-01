@@ -1,6 +1,8 @@
-ERROR AL HACE EL BINDINGS
-	Tuve la experiencia de que en el modelo PrestamoVm, tenia una propiedad anidada prestamo, que tiene
-
-
 ERRROR GENERANDO ID DE UN ELEMENTO CON EL IDFOR
-Cuando una propiedad inicia su nombre con underscore, me dio problema luego para encontrar el idDelaMisma con el htmlHelper.IdFor
+Cuando una propiedad inicia su nombre con underscore, me dio problema luego para encontrar el idDelaMisma con el htmlHelper.IdFor ejemp _Nombre
+
+El contenType: en las peticiones ajx, si es un json debe establecer 
+	contentType: 'application/json; charset=utf-8',
+y si serializa el formulario
+	contentType: 'text/html; charset=utf-8',
+en otras modalidades tambien debe indicar otros tipos

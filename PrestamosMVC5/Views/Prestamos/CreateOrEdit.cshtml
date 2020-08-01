@@ -71,9 +71,6 @@
                                             <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
                                             <span class="field-validation-valid text-danger" data-valmsg-for="input-prestamo_search" data-valmsg-replace="true"></span>
 
-
-                                            
-
                                             <div style="float:right">
                                                 <span>buscar por </span>
                                                 <input type="radio" class="flat searchtype" checked id="search-by-prestamo" value="1" style="float:right;" />
@@ -140,7 +137,6 @@
 
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.TasaDeInteresPorPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-
                                 <div class="@HtmlClass.DivInputCls">
                                     @Html.EditorFor(model => model.Prestamo.TasaDeInteresPorPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Prestamo.TasaDeInteresPorPeriodo, "", new { @class = "text-danger" })
@@ -183,7 +179,7 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.MontoPrestado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.MontoAPrestar, new { htmlattributes = new { @class = HtmlClass.InputTextCls+" remove-error", data_type = "currency", pattern = @"^\$\d{1,3}(,\d{3})*(\.\d+)?$", placeholder = "$0.00", value = "0.00" } })
+                                    @Html.EditorFor(model => model.MontoAPrestar, new { htmlattributes = new { @class = HtmlClass.InputTextCls + " remove-error", data_type = "currency", pattern = @"^\$\d{1,3}(,\d{3})*(\.\d+)?$", placeholder = "$0.00", value = "0.00" } })
                                     @Html.ValidationMessageFor(model => model.MontoAPrestar, "", new { @class = "text-danger" })
                                     @*<input type="text" name="_MontoAPrestar" id="_MontoAPrestar" class="input-amount-1" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$0.00">*@
                                 </div>
@@ -221,7 +217,7 @@
                                     @*<textarea class="form-control" id="info-cliente" name="comment" form="frmEdtPrestamo" disabled>Informacion del cliente</textarea>*@
                                 </div>
                             </div>
-                            <div class="text-center mensajes-secciones"  id="mensaje-seccionGarantia"></div>
+                            <div class="text-center  mensajes-secciones" id="mensaje-seccionGarantia"></div>
 
                             <div id="seccionGarantia">
                                 <div class="@HtmlClass.FormGroupCls">
@@ -274,16 +270,6 @@
                                     </div>
                                 </div>
 
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.IdDivisa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
-                                    <div class="@HtmlClass.DivInputCls">
-                                        <div class="checkbox">
-                                            @Html.EditorFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                            @Html.ValidationMessageFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="@HtmlClass.FormGroupCls">
                                     @Html.LabelFor(model => model.Prestamo.CargarInteresAlGastoDeCierre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                     <div class="@HtmlClass.DivInputCls">
@@ -294,9 +280,19 @@
                                     </div>
                                 </div>
                             </div>
+                            @*<div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.Prestamo.IdDivisa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
+                                    <div class="@HtmlClass.DivInputCls">
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                                            @Html.ValidationMessageFor(model => model.Prestamo.SumarGastoDeCierreALasCuotas, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
-                    <div class="x_panel">
+
+                    <div class="x_panel bg-blue-sky">
                         <div class="x_content">
                             <div class="@HtmlClass.FormGroupCls">
                                 para informacion de las cuotas
@@ -348,8 +344,8 @@
         let yearRangeForDP = "-120:+0"
         attachOnChangeEventToCheckBoxes();
         InitData();
-        
-        
+
+
 
         function InitData() {
             $("#datosDeCliente").html("@Model.infoCliente")
@@ -397,17 +393,17 @@
             else { $("#seccionRenovacion").hide(); }
         }
         function hideShowSeccionGarantia() {
-            
+            const cscClass = 'bg-blue'
+            //"alert alert-primary"
             if (llevaGarantia()) {
-                $("#mensaje-seccionGarantia").removeClass("alert alert-primary");
+                $("#mensaje-seccionGarantia").removeClass(cscClass);
                 $("#seccionGarantia").show();
                 $("#mensaje-seccionGarantia").text("");
             }
             else {
-                $("#mensaje-seccionGarantia").addClass("alert alert-primary");
+                $("#mensaje-seccionGarantia").addClass(cscClass);
                 $("#seccionGarantia").hide();
-                $("#mensaje-seccionGarantia").text("Esta clasificacion no lleva garantia");
-            
+                $("#mensaje-seccionGarantia").text("la clasificacion seleccionada no lleva garantia");
             }
 
         }
@@ -536,18 +532,18 @@
         function BuildPrestamoData()
         {
             const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val();
-            var fechaJs = "2020-07-31T00:00:00" //toDate(fecha);
+            var fechaJs = "2020-08-30T00:00:00" //toDate(fecha);
             alert(fechaJs);
             var prestamo =
             {
-                "IdPrestamo": -1,
-                "PrestamoNumero": "1",
-                "IdPrestamoARenovar": 1,
-                "IdClasificacion": 1,
-                "IdTipoAmortizacion": 1,
-                "IdCliente": 1,
-                "IdGarantias": idGarantias,
-                "FechaEmisionReal": fechaJs,
+                IdPrestamo: -1,
+                PrestamoNumero: '1',
+                IdPrestamoARenovar: 1,
+                IdClasificacion: 1,
+                IdTipoAmortizacion: 1,
+                IdCliente: 1,
+                IdGarantias: idGarantias,
+                FechaEmisionReal: fechaJs,
                 /*IdCodeudores: [1, 2],
                 FechaEmisionParaCalculos: fecha,
                 IdTasaInteres: 1,
@@ -585,7 +581,7 @@
     }
     function showResponse(response) {
         //alert("respuesta recibida");
-        //console.log(response);
+        console.log(response);
     }
 
     function validarFormulario() {
@@ -600,13 +596,14 @@
         const montoAPrestar = parseFloat($("#@Html.IdFor(m => m.Prestamo.MontoPrestado)").val());
         const deudaRenovacion = parseFloat($("#@Html.IdFor(m => m.Prestamo.DeudaRenovacion)").val());
         const totalAPrestar = montoAPrestar + deudaRenovacion
-        
+
         if (totalAPrestar <= 0) {
             alert("monto a prestar");
             hayErrores = true;
             validaciones.push("no ha especificado monto a prestar")
             setSpanErrorForElem("@Html.NameFor(m=> m.MontoAPrestar)", "no ha especificado el monto a prestar")
         }
+        else { (console.log(totalAPrestar, typeof (totalAPrestar))); }
         if ($("#@Html.IdFor(model => model.Prestamo.IdCliente)").val() <= 0) {
             hayErrores = true;
             setSpanErrorForElem("search-cliente-input", "no ha especificado ningun cliente")
@@ -629,16 +626,19 @@
         const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val()
         const fechaDelPrestamo = moment(fecha, "DD/MM/YYYY");
         if (fechaDelPrestamo > moment()) {
-            validaciones.push("la fecha del prestamo no puede ser mayor a la fecha de hoy")
+            setSpanErrorForElem("@Html.NameFor(m => m.Prestamo.FechaEmisionReal)", "la fecha es invalida");
+            hayErrores = true;
         }
-        if (validaciones.length > 0 || hayErrores) {
+        console.log("hay errores",hayErrores)
+        if (hayErrores) {
             showMessage('error', 'Revisar', 'Tiene varios errores');
         }
+        return hayErrores;
     }
 
     function postForm() {
         const postData = { idGarantias: idGarantias };
-        validarFormulario();
+        if (validarFormulario()) return;
         let prestamoData2 = $("#frmEdtPrestamo").serialize();
         //prestamoData2 =  JSON.stringify(BuildPrestamoData()) ;
         //console.log(prestamoData2);
@@ -648,15 +648,19 @@
             url: "/Prestamos/SavePrestamo2",
             data: prestamoData2,
             success: function (response) {
-                showResponse(response);
+                alert("el prestamo ha sido guardado exitosamente, gracias puede continuar")
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Lo siento ha ocurrido un error que no permitio que se guardara el prestamo")
                 //console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
             },
             complete: function (jqXHR, status) {
+                alert("Operacion completada")
                 //console.log("complete");
             },
             dataType: "json",
+            contentType: 'text/html; charset=utf-8',
+            //contentType: 'application/json; charset=utf-8',
             tradition: true
         })
     }

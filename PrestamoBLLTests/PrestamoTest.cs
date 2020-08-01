@@ -26,7 +26,7 @@ namespace PrestamoBLL.Tests
             Func<bool> condicion = () => (prConDetalle != null);
             try
             {
-                 prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo);
+                prConDetalle = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo);
             }
             catch (Exception e)
             {
@@ -47,7 +47,7 @@ namespace PrestamoBLL.Tests
             try
             {
                 var prestamo = CreatePrestamo();
-                idResult = BLLPrestamo.Instance.InsUpdPrestamo(prestamo) ;
+                idResult = BLLPrestamo.Instance.InsUpdPrestamo(prestamo);
             }
             catch (Exception e)
             {
@@ -61,11 +61,11 @@ namespace PrestamoBLL.Tests
         public void GetPrestamosTest()
         {
             var prestamos = new List<Prestamo>();
-            Func<bool> condicion = () => (prestamos!=null);
+            Func<bool> condicion = () => (prestamos != null);
             try
             {
                 var search = new PrestamosGetParams();
-                prestamos  = BLLPrestamo.Instance.GetPrestamos(search).ToList();
+                prestamos = BLLPrestamo.Instance.GetPrestamos(search).ToList();
             }
             catch (Exception e)
             {
@@ -80,7 +80,7 @@ namespace PrestamoBLL.Tests
         public void GetPrestamosConDetalleDrCrTest()
         {
             var idPrestamo = BLLPrestamo.Instance.GetPrestamos(new PrestamosGetParams()).ToList().FirstOrDefault().IdPrestamo;
-            PrestamoConDetallesParaCreditosYDebitos prConDetalle=null;
+            PrestamoConDetallesParaCreditosYDebitos prConDetalle = null;
             Func<bool> condicion = () => (prConDetalle != null);
             try
             {
@@ -98,7 +98,7 @@ namespace PrestamoBLL.Tests
             var infDeuda = prConDetalle.InfoDeuda;
 
             Assert.IsTrue(condicion(), testInfo.MensajeError);
-            
+
         }
 
         [TestMethod()]
@@ -140,14 +140,14 @@ namespace PrestamoBLL.Tests
             }
             Assert.IsNotNull(result, testInfo.MensajeError);
         }
-        
+
         private Prestamo CreatePrestamo()
         {
             var cliente = new Cliente();
             var pre = new Prestamo
             {
                 FechaEmisionReal = DateTime.Now,
-                IdTipoAmortizacion =(int)TiposAmortizacion.No_Amortizable_cuotas_fijas,
+                IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas,
                 IdClasificacion = GetClasificacion(),
                 IdNegocio = 6,
                 IdDivisa = 1, // equivale a la moneda nacional (siempre el codigo 1 es la moneda nacional del pais
@@ -187,7 +187,7 @@ namespace PrestamoBLL.Tests
 
         private static IEnumerable<Cuota> CreateCuotasNoAmortizable(Periodo periodo, int duracion)
         {
-            IPrestamoForGeneradorCuotas prestamo = new Prestamo(periodo)
+            IInfoGeneradorCuotas prestamo = new Prestamo(periodo)
             {
                 FechaEmisionReal = new DateTime(2020, 01, 01),
                 CantidadDePeriodos = duracion,
@@ -196,19 +196,19 @@ namespace PrestamoBLL.Tests
             };
             var genCuota = new GeneradorCuotasFijasNoAmortizables(prestamo);
             var cuotas = genCuota.GenerarCuotas();
-            
+
             return cuotas;
         }
 
         private int GetClasificacion()
         {
             return 1;
-            
+
         }
 
         private IEnumerable<Garantia> GetGarantias()
         {
-            var result = BLLPrestamo.Instance.GarantiaSearch( new BuscarGarantiaParams { Search = "2626" });
+            var result = BLLPrestamo.Instance.GarantiaSearch(new BuscarGarantiaParams { Search = "2626" });
             return result;
         }
 
@@ -225,19 +225,25 @@ namespace PrestamoBLL.Tests
         private int GetTipoMora()
         {
             var mora = BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdNegocio = 6, Codigo = "P10I" }).FirstOrDefault();
-                return mora.IdTipoMora;
+            return mora.IdTipoMora;
         }
 
         private int GetPeriodo()
         {
-            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 6, Codigo="MES" }).FirstOrDefault();
+            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 6, Codigo = "MES" }).FirstOrDefault();
             return periodo.idPeriodo;
         }
 
         private int GetTasaDeInteres()
         {
-            var tasainteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = 6, Codigo="C00" }).FirstOrDefault();
+            var tasainteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = 6, Codigo = "C00" }).FirstOrDefault();
             return tasainteres.idTasaInteres;
+        }
+
+        [TestMethod()]
+        public void GetPrestamoConDetalleTest()
+        {
+            Assert.Fail();
         }
     }
 }

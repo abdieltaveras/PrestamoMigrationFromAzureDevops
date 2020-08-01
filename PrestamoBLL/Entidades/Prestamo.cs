@@ -150,7 +150,7 @@ namespace PrestamoBLL.Entidades
         
 
     }
-    public class Prestamo : BaseInsUpd, IPrestamoForGeneradorCuotas
+    public class Prestamo : BaseInsUpd, IInfoGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
         [IgnorarEnParam]
@@ -235,7 +235,7 @@ namespace PrestamoBLL.Entidades
         /// tiene sumado el dinero emitido al cliente (monto prestado) + le deuda de la r
         /// </summary>
         [IgnorarEnParam]
-        public decimal TotalPrestado => MontoPrestado + DeudaRenovacion;
+        public decimal MontoCapital => MontoPrestado + DeudaRenovacion;
         // { get { return MontoPrestado + DeudaRenovacion } internal set { var valor = value;} }
         [Display(Name = "Indique  la Divisa")]
         public int IdDivisa { get; set; } = 1;
@@ -284,6 +284,8 @@ namespace PrestamoBLL.Entidades
         public InfoClienteDrCr infoCliente { get; internal set; }
 
         public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
+
+        
     }
 
     public class PrestamoInsUpdParam : Prestamo

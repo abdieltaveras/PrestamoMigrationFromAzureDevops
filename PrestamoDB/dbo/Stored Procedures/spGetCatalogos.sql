@@ -10,11 +10,11 @@ create PROCEDURE [dbo].[spGetCatalogos]
 )
 as
 begin 
-	if (@idNegocio=-1) 
-	begin 
-		 RAISERROR ('Envio un valor menor o igual a cero para el parametro idNegocio, lo cual no es aceptado',
-		11,1)
-	end 
+	--if (@idNegocio=-1) 
+	--begin 
+	--	 RAISERROR ('Envio un valor menor o igual a cero para el parametro idNegocio, lo cual no es aceptado',
+	--	11,1)
+	--end 
 	-- original instruction by bryan EXEC('SELECT '+ @IdTabla +', idNegocio, Activo, Codigo, Nombre, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado from ' + @NombreTabla + '  where (('+@Id+'=-1) or ('+ @IdTabla +' = '+@Id+'))')
 
 		exec ('SELECT  * from ' + @NombreTabla + '  where (('+@Id+'=-1) 

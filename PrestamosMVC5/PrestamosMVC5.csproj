@@ -4033,6 +4033,7 @@
     <Content Include="Views\Periodos\Index.cshtml" />
     <Content Include="Views\Tests\masks.cshtml" />
     <Content Include="Views\Tests\bindingDates.cshtml" />
+    <Content Include="Views\Tests\PostPeriodoWithJson.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />

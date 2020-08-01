@@ -33,7 +33,7 @@ namespace PrestamoBLL
             //GetValidation(searchParam as BaseGetParams);
 
             IEnumerable<PrestamoSearch> data = null;
-
+            searchParam.TextToSearch = searchParam.TextToSearch.Trim();
             if (searchParam.SearchType == 1)
             {
                 data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamos", GetValidation);

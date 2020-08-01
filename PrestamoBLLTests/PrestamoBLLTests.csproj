@@ -86,10 +86,12 @@
     <Compile Include="ClasificacionTests.cs" />
     <Compile Include="CuotaTests.cs" />
     <Compile Include="EquipoTest.cs" />
+    <Compile Include="GeneradorCuotasTest.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="NegocioTests.cs" />
     <Compile Include="PeriodosTests.cs" />
     <Compile Include="PrestamoTest.cs" />
+    <Compile Include="TasaInteresTest.cs" />
     <Compile Include="TasaInteresTests.cs" />
     <Compile Include="ClienteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

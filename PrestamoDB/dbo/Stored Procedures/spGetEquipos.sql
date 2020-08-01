@@ -9,8 +9,8 @@ SELECT IdEquipo, IdNegocio, Nombre, Descripcion, UltimoAcceso, AccesadoPor, Fech
 FROM dbo.tblEquipos
 where 
 	(@IdEquipo <= -1 or IdEquipo = @idEquipo) and
-	(@Codigo ='' or Codigo=@Codigo) and
-	(IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
+	(@Codigo ='' or Codigo=@Codigo)
+	-- and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
 
 	
 

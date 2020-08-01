@@ -15,7 +15,7 @@ begin
 	FROM dbo.tblTasasInteres(nolock) 
 	where 
 		((@idTasaInteres=-1) or (idTasaInteres = @IdTasaInteres))
-		and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
+		--and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
 		and ((@Codigo='') or (Codigo = @Codigo))
 		and ((@InteresMensual =-1) or (InteresMensual=@InteresMensual))
 		and ((@Activo=-1) or (Activo=@Activo))

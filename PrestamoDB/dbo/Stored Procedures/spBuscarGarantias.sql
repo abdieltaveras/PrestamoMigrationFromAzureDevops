@@ -17,8 +17,7 @@ left JOIN
 left JOIN 
 	tblLocalidades localidades ON JSON_VALUE(Detalles, '$.IdLocalidad') = localidades.IdLocalidad
 where 
-	garantias.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@idNegocio))
-	AND marcas.Nombre LIKE '%' + @search + '%'
+	marcas.Nombre LIKE '%' + @search + '%'
 	OR modelos.Nombre LIKE '%' + @search + '%'
 	OR localidades.Nombre LIKE '%' + @search + '%'
 	OR NoIdentificacion LIKE '%' + @search + '%'

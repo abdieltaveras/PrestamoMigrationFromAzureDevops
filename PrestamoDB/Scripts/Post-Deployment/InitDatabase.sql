@@ -64,12 +64,12 @@ Post-Deployment Script Template
            ('Con Vehiculos' ,@idNegocio ,1 ,0,1,'Vehic' ,@usuario,getDate()),
 		   ('Con Motocicletas' ,@idNegocio ,1,0,1,'Mot' ,@usuario,getDate()),
 		   ('Con Casa' ,@idNegocio ,2,0,1 ,'Casa',@usuario,getDate()),
-		   ('Con Solares' ,@idNegocio ,2 ,0,1,'Solar' ,@usuario,getDate())
+		   ('Personal' ,@idNegocio ,2 ,1,0,'Personal' ,@usuario,getDate())
     --Script para periodos
-	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'para cuotas Diarias','seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Para Cuotas Semanales', 'seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,3,'QUI',1,'para cuotas Quincenales','seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, PeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'MES',1,'para cuotas Mensuales','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'para cuotas Diarias','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Para Cuotas Semanales', 'seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,3,'QUI',1,'para cuotas Quincenales','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'MES',1,'para cuotas Mensuales','seed', getdate()) 
 	
 	--Script para datos de Moras
 	insert into tblTiposMora

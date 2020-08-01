@@ -139,6 +139,7 @@
     function searchPrestamo(text) {
 
         let searchType = $(".searchtype:checked").val();
+        console.log("tipoBusqueda", searchType);
         let dataValue = { "TextToSearch": text, "SearchType": searchType, "CargarImagenesClientes": IMAGEN_CLIENTE_EN_BUSCADOR };
 
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using emtSoft.DAL;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoBLL.Entidades
 {
@@ -7,8 +8,13 @@ namespace PrestamoBLL.Entidades
     {
         public int idPeriodo { get; set; } = 0;
         // el valor numerico del interes 10%, 4%, etc
+        [IgnorarEnParam]
+        public PeriodoBase PeriodoBase { 
+            get { return (PeriodoBase)IdPeriodoBase; } 
+            set { IdPeriodoBase = (int)value; } 
+        }
 
-        public PeriodoBase PeriodoBase { get; set; } = PeriodoBase.Mes;
+        public int IdPeriodoBase { get; internal set; } = 1;
         public int MultiploPeriodoBase { get; set; } = 1;
         [Display(Name = "Periodo base")]
         public bool RequiereAutorizacion { get; set; } = false;

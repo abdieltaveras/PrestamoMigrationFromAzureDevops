@@ -14,5 +14,5 @@ begin
 	where
 		((@IdTipoGarantia=-1) or (IdTipoGarantia = @IdTipoGarantia))
 		and ((@IdClasificacion=-1) or (IdClasificacion = @IdClasificacion))
-		and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
+		--and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
 End

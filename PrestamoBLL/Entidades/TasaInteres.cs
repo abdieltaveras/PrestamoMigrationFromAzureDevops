@@ -3,11 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoBLL.Entidades
 {
+    
     public class TasaInteres : BaseCatalogo
     {
         public int idTasaInteres { get; set; } = 0;
         // el valor numerico del interes 10%, 4%, etc
         public decimal InteresMensual { get; set; } = 0;
+        
         public bool RequiereAutorizacion { get; set; } = false;
         [IgnorarEnParam]
         public string CodigoTasa => $"{Codigo} - {InteresMensual}";

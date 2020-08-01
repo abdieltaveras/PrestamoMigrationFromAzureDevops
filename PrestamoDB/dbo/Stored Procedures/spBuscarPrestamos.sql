@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spBuscarPrestamos]
 (
 	@TextToSearch varchar(50),
-	@IdNegocio int,
+	@IdNegocio int=-1,
 	@Usuario varchar(100) = '',
 	@Anulado int=0
 )

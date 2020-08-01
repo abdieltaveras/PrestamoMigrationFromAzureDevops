@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 namespace PrestamosMVC5.Controllers
 {
@@ -261,6 +262,17 @@ namespace PrestamosMVC5.Controllers
             var model = new Item();
             
             return View(model);
+        }
+
+        public ActionResult PostPeriodoWithJson()
+        {
+            var model = new Periodo();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult PostPeriodoWithJson(Periodo periodo)
+        {
+            return Json(periodo.ToJson(), JsonRequestBehavior.AllowGet);
         }
 
     }
