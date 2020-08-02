@@ -147,6 +147,7 @@ namespace PrestamoBLL
         {
             this.TipoAmortizacion = TipoAmortizacion;
         }
+        public infoGeneradorDeCuotas() { }
     }
     public interface IInfoGeneradorCuotas
     {

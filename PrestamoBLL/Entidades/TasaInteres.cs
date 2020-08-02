@@ -10,9 +10,12 @@ namespace PrestamoBLL.Entidades
         // el valor numerico del interes 10%, 4%, etc
         public decimal InteresMensual { get; set; } = 0;
         
+        [IgnorarEnParam]
+        public decimal InteresAnual { get { return InteresMensual * 12; } }
+
         public bool RequiereAutorizacion { get; set; } = false;
         [IgnorarEnParam]
-        public string CodigoTasa => $"{Codigo} - {InteresMensual}";
+        public string CodigoTasa => $"{Codigo} - {InteresMensual} - {InteresAnual} ";
         public override int GetId()
         {
             throw new System.NotImplementedException();

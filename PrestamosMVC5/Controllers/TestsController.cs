@@ -53,6 +53,9 @@ namespace PrestamosMVC5.Controllers
             UpdViewBag_ShowSummaryErrorsTime(10);
 
             var model = new FormatosFecha();
+            model.Fecha1 = DateTime.Now;
+            model.Fecha2 = DateTime.Now;
+            model.Fecha3 = DateTime.Now;
             return View(model);
         }
         [HttpPost]
@@ -62,6 +65,12 @@ namespace PrestamosMVC5.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult BindingDates3(FormatosFecha fechas)
+        {
+            var data = fechas.ToJson();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult Periodo(Periodo periodo)
         {
@@ -293,12 +302,12 @@ namespace PrestamosMVC5.Controllers
     public class FormatosFecha
     {
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime Fecha1 { get; set; } = DateTime.Now;
-        public DateTime Fecha2 { get; set; } = DateTime.Now;
-        public DateTime Fecha3 { get; set; } = DateTime.Now;
+        public DateTime Fecha1 { get; set; } = InitValues._19000101;
+        public DateTime Fecha2 { get; set; } = InitValues._19000101;
+        public DateTime Fecha3 { get; set; } = InitValues._19000101;
 
-        public string FechaSt1 { get; set; } = DateTime.Now.ToShortDateString();
-        public string FechaSt2 { get; set; } = DateTime.Now.ToShortDateString();
+        public string FechaSt1 { get; set; } = InitValues._19000101.ToShortDateString();
+        public string FechaSt2 { get; set; } = InitValues._19000101.ToShortDateString();
     }
     
 }

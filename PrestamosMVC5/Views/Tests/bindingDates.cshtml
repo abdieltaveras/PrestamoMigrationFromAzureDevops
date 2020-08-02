@@ -88,21 +88,31 @@
         }
 
         function postForm() {
-            const prestamoData1 = $("#frmEdtFechas").serialize();
-            const prestamoData2 = {
-                "Fecha1": $("#@Html.IdFor(m => m.Fecha1)").val(),
-                "Fecha2": $("#@Html.IdFor(m => m.Fecha2)").val(),
-                "Fecha3": $("#@Html.IdFor(m => m.Fecha3)").val(),
-                "FechaSt1": $("#@Html.IdFor(m => m.FechaSt1)").val(),
-                "FechaSt2" :  $("#@Html.IdFor(m => m.FechaSt2)").val()
+            const paramFecha1 = $("#frmEdtFechas").serialize();
+            const valorFecha1 = $("#@Html.IdFor(m => m.Fecha1)").val();
+            const fechaFromInput = moment(valorFecha1).toISOString();
+            console.log(fechaFromInput);
+            var date = new Date();
+            var fecha1 = new Date(2020, 07, 03, 0, 0, 0).toISOString();
+            console.log(valorFecha1, fechaFromInput, fecha1);
+            const paramFecha2 = {
+                Fecha1: fecha1,
+                Fecha2: fechaFromInput,
+                Fecha3: '01/08/2020',
+                FechaSt1: '03/08/2020',
+                FechaSt2 :  $("#@Html.IdFor(m => m.FechaSt2)").val()
             }
 
-            console.log(prestamoData1, prestamoData2);
+            const paramFecha3 = {
+                Fecha1: '02-08-2020'
+            }
+            console.log(paramFecha1, paramFecha2);
             return $.ajax({
-                type: "post",
-                url: "/tests/bindingDates2",
-                processData: false,
-                data: prestamoData2,
+                type: "get",
+                url: "/tests/bindingDates3",
+                data: paramFecha2,
+                contentType: 'application/json; charset=utf-8',
+
                 success: function (response) {
                     console.log("respuesta",response);
                     alert("data");
@@ -118,5 +128,4 @@
             })
         };
 
-    </script>
-}
+    </script>}

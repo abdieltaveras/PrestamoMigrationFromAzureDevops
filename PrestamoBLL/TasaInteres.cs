@@ -26,6 +26,8 @@ namespace PrestamoBLL
         }
 
         public class TasaInteresPorPeriodos {
+            public string PeriodoCodigo { get; internal set; }
+            public string PeriodoNombre { get; internal set; }
             public decimal InteresDiario { get; internal set; }
             public decimal InteresSemanal { get; internal set; }
             public decimal InteresQuincenal { get; internal set; }
@@ -37,6 +39,8 @@ namespace PrestamoBLL
         {
             
             var tasaInteresPorPeriodos = new TasaInteresPorPeriodos { InteresMensual = tasaInteresMensual };
+            tasaInteresPorPeriodos.PeriodoCodigo = periodo.Codigo;
+            tasaInteresPorPeriodos.PeriodoNombre = periodo.Nombre;
             tasaInteresPorPeriodos.InteresDiario = (tasaInteresMensual / 30) * 1;
             tasaInteresPorPeriodos.InteresSemanal = (tasaInteresMensual / 30) * 7;
             tasaInteresPorPeriodos.InteresQuincenal = (tasaInteresMensual / 30) * 15;

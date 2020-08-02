@@ -64,5 +64,11 @@ namespace PrestamosMVC5.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public JsonResult GetAllTasasDeInteres()
+        {
+            var data = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams());
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

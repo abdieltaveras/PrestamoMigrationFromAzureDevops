@@ -328,14 +328,20 @@ namespace PrestamoBLL
         {
             return true;
         }
-        private IGeneradorCuotas getGeneradorCuotas()
+        private IGeneradorCuotas GetGeneradorCuotas()
         {
-            IGeneradorCuotas genCuotas = null;
-            var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
+            //var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
+            return GetGeneradorDeCuotas(prestamoInProgress);
+        }
+
+        public static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)
+        {
+            IGeneradorCuotas generadorCuotas = null;
+            var tipoAmortizacion = info.TipoAmortizacion;
             switch (tipoAmortizacion)
             {
                 case TiposAmortizacion.No_Amortizable_cuotas_fijas:
-                    genCuotas = new GeneradorCuotasFijasNoAmortizables(prestamoInProgress);
+                    generadorCuotas= new GeneradorCuotasFijasNoAmortizables(info);
                     break;
                 case TiposAmortizacion.Amortizable_por_dia_abierto:
                     break;
@@ -348,12 +354,13 @@ namespace PrestamoBLL
                 default:
                     break;
             }
-            return genCuotas;
+
+            return generadorCuotas;
         }
         #endregion operaciones
         private Prestamo Build2()
         {
-            IGeneradorCuotas genCuotas = getGeneradorCuotas();
+            IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             // prestamoInProgress._Cuotas = genCuotas.GenerarCuotas();
             return prestamoInProgress;
             //var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,cuotas: cuotas, prestamoInProgress.Codeudores, prestamoInProgress.Garantias);
@@ -361,7 +368,7 @@ namespace PrestamoBLL
         }
         public PrestamoInsUpdParam Build()
         {
-            IGeneradorCuotas genCuotas = getGeneradorCuotas();
+            IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             var cuotas = genCuotas.GenerarCuotas();
             // var cuotasVacias = new List<Cuota>();
             var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,  cuotas,  prestamoInProgress._Codeudores, prestamoInProgress._Garantias);

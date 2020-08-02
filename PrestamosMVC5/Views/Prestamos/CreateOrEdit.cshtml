@@ -5,27 +5,19 @@
 {
     @Html.AntiForgeryToken()
 
-
     <div class="form-horizontal">
         <div class="">
             <div class="x_panel">
-                <div>
-                    @*<div class="x_title">*@
-                    <div class="col-md-3 col-sm-12 ">
-                        <h2>Edicion de Prestamos</h2>
-                    </div>
-                    <div class="col-md-3 col-sm-12  text-right">
-                        <input id="btnSubmit" type="submit" value="Guardar" title="realiza un submit del form" onclick="probarConversion()" class="btn btn-primary" />
-                    </div>
+                @*<div class="x_title">*@
+                <div class="col-md-2 col-sm-12 ">
+                    <h2>Edicion de Prestamos</h2>
                 </div>
-                <div class="@HtmlClass.FormGroupCls">
-                    <div class="@HtmlClass.DivInputCls">
-                        <div class="checkbox">
-                            <button type="button" class="btn btn-primary" onclick="postForm()" title="Hace una llamada ajax"> PostAjax</button>
-                        </div>
-                    </div>
+                <div class="col-md-2 col-sm-12 ">
+                    <button type="button" class="btn btn-primary" onclick="postForm()" title="Hace una llamada ajax"> PostAjax</button>
                 </div>
-
+                <div class="col-md-2 col-sm-12 ">
+                    <button type="button" id="probando" class="btn btn-primary"> </button>
+                </div>
             </div>
 
             <div class="x_panel">
@@ -97,7 +89,7 @@
                                 <div class="@HtmlClass.FormGroupCls">
                                     @Html.LabelFor(model => model.Prestamo.DeudaRenovacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                     <div class="@HtmlClass.DivInputCls">
-                                        @Html.EditorFor(model => model.Prestamo.DeudaRenovacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
+                                        @Html.EditorFor(model => model.Prestamo.DeudaRenovacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @disabled = true } })
                                         @Html.ValidationMessageFor(model => model.Prestamo.DeudaRenovacion, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -129,26 +121,27 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdTasaInteres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.DropDownListFor(model => model.Prestamo.IdTasaInteres, SelectItems.TasasInteresMuestraCodigoYtasa(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdTasaInteres, SelectItems.TasasInteresMuestraCodigoYtasa(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls, onchange = "onChangeProp(this)" })
                                     @*@Html.EditorFor(model => model.Prestamo.IdTasaInteres, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdTasaInteres, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
+
+
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.IdPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.DropDownListFor(model => model.Prestamo.IdPeriodo, SelectItems.Periodos(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls, onchange = "onChangeProp(this)" })
+                                    @*@Html.EditorFor(model => model.Prestamo.IdPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
+                                    @Html.ValidationMessageFor(model => model.Prestamo.IdPeriodo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.TasaDeInteresPorPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
                                     @Html.EditorFor(model => model.Prestamo.TasaDeInteresPorPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Prestamo.TasaDeInteresPorPeriodo, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.Prestamo.IdPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    @Html.DropDownListFor(model => model.Prestamo.IdPeriodo, SelectItems.Periodos(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                                    @*@Html.EditorFor(model => model.Prestamo.IdPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
-                                    @Html.ValidationMessageFor(model => model.Prestamo.IdPeriodo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="@HtmlClass.FormGroupCls">
@@ -179,7 +172,7 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.MontoPrestado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.MontoAPrestar, new { htmlattributes = new { @class = HtmlClass.InputTextCls + " remove-error", data_type = "currency", pattern = @"^\$\d{1,3}(,\d{3})*(\.\d+)?$", placeholder = "$0.00", value = "0.00" } })
+                                    @Html.EditorFor(model => model.MontoAPrestar, new { htmlattributes = new { @class = HtmlClass.InputTextCls + " remove-error", onchange = "onChangeProp(this)", data_type = "currency", pattern = @"^\$\d{1,3}(,\d{3})*(\.\d+)?$", placeholder = "$0.00", value = "0.00" } })
                                     @Html.ValidationMessageFor(model => model.MontoAPrestar, "", new { @class = "text-danger" })
                                     @*<input type="text" name="_MontoAPrestar" id="_MontoAPrestar" class="input-amount-1" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$0.00">*@
                                 </div>
@@ -297,16 +290,6 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 para informacion de las cuotas
                             </div>
-                            <div class="@HtmlClass.FormGroupCls">
-                                @Html.LabelFor(model => model.MostrarJsonResult, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                <div class="@HtmlClass.DivInputCls">
-                                    <div class="checkbox">
-                                        @Html.EditorFor(model => model.MostrarJsonResult, new { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                                        @Html.ValidationMessageFor(model => model.MostrarJsonResult, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
@@ -323,6 +306,9 @@
         @Html.HiddenFor(model => model.Prestamo.IdLocalidad)
         @Html.HiddenFor(model => model.Prestamo.IdNegocio)
         @Html.HiddenFor(model => model.Prestamo.MontoPrestado)
+        @Html.HiddenFor(model => model.Prestamo.AcomodarFechaALasCuotas)
+        <input type="hidden" id="totalAPrestar" />
+        <label style="display:none" id="TasaDeInteresPorPeriodoNumber" value="0" />
         <span id="forIdGarantias"></span>
         <span id="forIdCodeudores"></span>
     </section>
@@ -337,233 +323,330 @@
     @*<script src="~/Scripts/Apps/minMaxAdapter.js"></script>*@
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
     <script>
-        var idGarantias = []
-        const idClasifLLevanGarantias = @Html.Raw(Model.ClasificacionesQueLlevanGarantia());
-        let dateFormat = 'en-GB';
-        let _dateFormat = 'dd/mm/yy';
-        let yearRangeForDP = "-120:+0"
-        attachOnChangeEventToCheckBoxes();
-        InitData();
+    $(document).ready(function() {
+    $("#probando").text("Calcular Cuotas").
+        //    on("click", () => calcularTasaInteresPorPeriodo());
+        on("click", () => calcularCuotas());
 
+    var idGarantias = []
+    var idClasifLLevanGarantias = [];
+    getClasificacionesQueLlevanGarantia();
+    calcularTasaInteresPorPeriodo();
+    let tasasDeInteres = [];
+    getTasasDeInteres();
+    let dateFormat = 'en-GB';
+    let _dateFormat = 'dd/mm/yy';
+    let yearRangeForDP = "-120:+0"
+    attachOnChangeEventToCheckBoxes();
+    onEnterAvoidSubmitForm();
+    InitData();
 
+    function InitData() {
+        $("#datosDeCliente").html("@Model.infoCliente")
+        $("#datosDeGarantia").html("@Model.infoGarantia")
 
-        function InitData() {
-            $("#datosDeCliente").html("@Model.infoCliente")
-            $("#datosDeGarantia").html("@Model.infoGarantia")
+        hideShowSeccionGastoDeCierre(@Model.LlevaGastoDeCierre.ToString().ToLower());
+        hideShowSeccionRenovacion(@Model.IncluirRenovacion.ToString().ToLower())
+    }
 
-            hideShowSeccionGastoDeCierre(@Model.LlevaGastoDeCierre.ToString().ToLower());
-            hideShowSeccionRenovacion(@Model.IncluirRenovacion.ToString().ToLower())
-        }
-
+    function setFecha(elem, name) {
+        d = new Date(elem.val());
+        var formattedDate = moment(d).format("DD/MM/YYYY")
+        console.log(d, formattedDate);
+    }
+    function onEnterAvoidSubmitForm() {
         $('form input').keydown(function (e) {
             if (e.keyCode == 13) {
                 e.preventDefault();
                 return false;
             }
         });
-        function setFecha(elem, name) {
-            d = new Date(elem.val());
-            var formattedDate = moment(d).format("DD/MM/YYYY")
-            console.log(d, formattedDate);
-        }
+    }
 
-        function onChangeProp(elem) {
-            switch (elem.id) {
-                case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
-                    const llevaGC = elem.checked;
-                    hideShowSeccionGastoDeCierre(llevaGC)
-                    break;
-                case "@Html.IdFor(model => model.IncluirRenovacion)":
-                    const esUnaRenovacion = elem.checked;
-                    hideShowSeccionRenovacion(esUnaRenovacion)
-                    break;
-                case "@Html.IdFor(model => model.Prestamo.IdClasificacion)":
-                    hideShowSeccionGarantia();
-                    break;
+        function getClasificacionesQueLlevanGarantia() {
+
+        return $.ajax({
+            type: "get",
+            url: "/Prestamos/ClasificacionesQueLlevanGarantia",
+            dataType: "json",
+            //contentType: 'text/html; charset=utf-8',
+            contentType: 'application/json; charset=utf-8',
+            tradition: true,
+            success: function (response) {
+                idClasifLLevanGarantias = response;
+                //console.log(response);
+                return response;
             }
-        };
+        });
+    }
 
-        function hideShowSeccionGastoDeCierre(mostrar) {
-            if (mostrar) { $("#seccionGastoDeCierre").show(); }
-            else { $("#seccionGastoDeCierre").hide(); }
-
-        }
-        function hideShowSeccionRenovacion(mostrar) {
-            if (mostrar) { $("#seccionRenovacion").show(); }
-            else { $("#seccionRenovacion").hide(); }
-        }
-        function hideShowSeccionGarantia() {
-            const cscClass = 'bg-blue'
-            //"alert alert-primary"
-            if (llevaGarantia()) {
-                $("#mensaje-seccionGarantia").removeClass(cscClass);
-                $("#seccionGarantia").show();
-                $("#mensaje-seccionGarantia").text("");
+    function getTasasDeInteres() {
+        $.ajax({
+            type: "get",
+            url: "/TasaInteres/GetAllTasasDeInteres",
+            dataType: "json",
+            //contentType: 'text/html; charset=utf-8',
+            contentType: 'application/json; charset=utf-8',
+            tradition: true,
+            success: function (data) {
+                tasasDeInteres = data;
+                //console.log(tasasDeInteres);
+                //const result = response.find(function (item, i) { console.log(item);});
+                //{ if (item.idTasaDeInteres === 5) return item.InteresMensual })
             }
-            else {
-                $("#mensaje-seccionGarantia").addClass(cscClass);
-                $("#seccionGarantia").hide();
-                $("#mensaje-seccionGarantia").text("la clasificacion seleccionada no lleva garantia");
-            }
+        });
 
+    }
+
+    function onChangeProp(elem) {
+        switch (elem.id) {
+            case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
+                const llevaGC = elem.checked;
+                hideShowSeccionGastoDeCierre(llevaGC)
+                break;
+            case "@Html.IdFor(model => model.IncluirRenovacion)":
+                const esUnaRenovacion = elem.checked;
+                hideShowSeccionRenovacion(esUnaRenovacion)
+                break;
+            case "@Html.IdFor(model => model.Prestamo.IdClasificacion)":
+                hideShowSeccionGarantia();
+                break;
+            case "@Html.IdFor(model => model.Prestamo.IdPeriodo)":
+                calcularTasaInteresPorPeriodo();
+                break;
+            case "@Html.IdFor(model => model.Prestamo.IdTasaInteres)":
+                calcularTasaInteresPorPeriodo();
+                break;
+            case "@Html.IdFor(model => model.MontoAPrestar)":
+                calcularTotalAPrestar();
+                break;
         }
-        function setIdCliente(idCliente) {
-            const elemIdCliente = $("#@Html.IdFor(model => model.Prestamo.IdCliente)");
-            elemIdCliente.val(idCliente);
-            console.log("id cliente establecida ", idCliente)
-       }
+    };
 
+    function hideShowSeccionGastoDeCierre(mostrar) {
+        if (mostrar) { $("#seccionGastoDeCierre").show(); }
+        else { $("#seccionGastoDeCierre").hide(); }
 
-        //Buscador de clientes
-        IMAGEN_CLIENTE_EN_BUSCADOR = false;
-        IMAGEN_CLIENTE_EN_DETALLES = false;
-
-        DETALLES = true;
-        let infoPrestamos=[]
-        const onPrestamoEnter = async function () {
-            let idPrestamo = $('[data-order="' + selectPointer + '"]').attr('data-idprestamo');
-            let photoRoot = $('[data-order="' + selectPointer + '"]').attr('data-client-photo');
-            let prestamoNumero = $('[data-order="' + selectPointer + '"]').attr('data-prestamonumero');
-            // Funcion para buscar informacion del prestamo
-            showPrestamo(idPrestamo, prestamoNumero);
-        };
-        const onPrestamoClick = async function (evt) {
-            let idPrestamo = evt.currentTarget.getAttribute('data-idprestamo');
-            let prestamoNumero = evt.currentTarget.getAttribute('data-prestamonumero');
-            const index = evt.currentTarget.getAttribute('data-index');
-            showPrestamo(idPrestamo, prestamoNumero);
-        };
-
-        async function showPrestamo(idPrestamo, prestamoNumero) {
-
-            // buscar datos del cliente y datos de la garantia de la renovacion.
-            const res = await loadPrestamoData(idPrestamo);
-            const dataPrestamo = JSON.parse(res)
-            const infoPrestamoRenovacion = dataPrestamo.infoPrestamo;
-            infoPrestamoRenovacion.DeudaActual = 10000;
-            $("#info-prestamo-a-renovar").val("Numero: " + prestamoNumero + " Deuda actual :" + infoPrestamoRenovacion.DeudaActual);
-            $("#@Html.IdFor(model => model.Prestamo.DeudaRenovacion)").val(infoPrestamoRenovacion.DeudaActual);
-            $("#@Html.IdFor(model => model.Prestamo.IdPrestamoARenovar)").val(idPrestamo);
-            const cliente = dataPrestamo.infoCliente;
-            const rutaFotoCliente = "@Url.Content(@SiteDirectory.ImagesForClientes)/";
-            let fotoCliente = rutaFotoCliente + cliente.Imagen1FileName;
-                //cliente.Imagen1FileName;
-            let infoClienteTmp = {
-                "Imagen1Filename": fotoCliente,
-                "NombreCompleto"  : cliente.Nombres + " " + cliente.Apellidos,
-                "Telefonos" : cliente.TelefonoMovil,
-                "NoIdentificacion": cliente.NumeracionDocumentoIdentidad,
-                "IdCliente": cliente.IdCliente
-            }
-            showCliente(infoClienteTmp);
-            const infoGarantias = [];
-            $.each(dataPrestamo.infoGarantias, function (index, value) {
-                const data = JSON.parse(value.Detalles);
-                value.NoIdentificacion = value.NumeracionGarantia;
-                //infoGarantias.push(value);
-                //let infoGarantiaTmp = infoGarantias[0];
-                //console.log(value);
-                showGarantia(value);
-            });
-
+    }
+    function calcularTotalAPrestar() {
+        alert("calculando");
+        const value = $("#@Html.IdFor(model => model.MontoAPrestar)").val()
+        const valorMontoPrestado = toFloat(value);
+        $("#@Html.IdFor(model => model.Prestamo.MontoPrestado)").val(valorMontoPrestado);
+        const montoAPrestar = parseFloat($("#@Html.IdFor(m => m.Prestamo.MontoPrestado)").val());
+        const deudaRenovacion = parseFloat($("#@Html.IdFor(m => m.Prestamo.DeudaRenovacion)").val());
+        const totalAPrestar = montoAPrestar + deudaRenovacion;
+        $("#totalAPrestar").val(totalAPrestar);
+        return totalAPrestar;
+    }
+    function hideShowSeccionRenovacion(mostrar) {
+        if (mostrar) { $("#seccionRenovacion").show(); }
+        else { $("#seccionRenovacion").hide(); }
+    }
+    function hideShowSeccionGarantia() {
+        const cscClass = 'bg-blue'
+        //"alert alert-primary"
+        if (llevaGarantia()) {
+            $("#mensaje-seccionGarantia").removeClass(cscClass);
+            $("#seccionGarantia").show();
+            $("#mensaje-seccionGarantia").text("");
+        }
+        else {
+            $("#mensaje-seccionGarantia").addClass(cscClass);
+            $("#seccionGarantia").hide();
+            $("#mensaje-seccionGarantia").text("la clasificacion seleccionada no lleva garantia");
         }
 
-        //// Buscador de garantias
-        let searchType = 'garantia';
-        let infoGarantias = []
-        const onGarantiaEnter = async function () {
-            let idGarantia = $('[data-order="' + selectPointer + '"]').attr('data-idGarantia');
-            let index = $('[data-order="' + selectPointer + '"]').attr('data-index');
-            const infoGarantia = infoGarantias[index]
-            showGarantia(infoGarantia);
-        };
-        const onGarantiaClick = async function (evt) {
-            let idGarantia = evt.target.getAttribute('data-idGarantia');
-            const index = evt.currentTarget.getAttribute('data-index');
-            const infoGarantia = infoGarantias[index]
-            console.log(infoGarantia);
-            showGarantia(infoGarantia);
+    }
+    function setIdCliente(idCliente) {
+        const elemIdCliente = $("#@Html.IdFor(model => model.Prestamo.IdCliente)");
+        elemIdCliente.val(idCliente);
+        console.log("id cliente establecida ", idCliente)
+    }
+
+
+    //Buscador de clientes
+    IMAGEN_CLIENTE_EN_BUSCADOR = false;
+    IMAGEN_CLIENTE_EN_DETALLES = false;
+
+    DETALLES = true;
+    let infoPrestamos=[]
+    const onPrestamoEnter = async function () {
+        let idPrestamo = $('[data-order="' + selectPointer + '"]').attr('data-idprestamo');
+        let photoRoot = $('[data-order="' + selectPointer + '"]').attr('data-client-photo');
+        let prestamoNumero = $('[data-order="' + selectPointer + '"]').attr('data-prestamonumero');
+        // Funcion para buscar informacion del prestamo
+        showPrestamo(idPrestamo, prestamoNumero);
+    };
+    const onPrestamoClick = async function (evt) {
+        let idPrestamo = evt.currentTarget.getAttribute('data-idprestamo');
+        let prestamoNumero = evt.currentTarget.getAttribute('data-prestamonumero');
+        const index = evt.currentTarget.getAttribute('data-index');
+        showPrestamo(idPrestamo, prestamoNumero);
+    };
+
+    async function showPrestamo(idPrestamo, prestamoNumero) {
+
+        // buscar datos del cliente y datos de la garantia de la renovacion.
+        const res = await loadPrestamoData(idPrestamo);
+        const dataPrestamo = JSON.parse(res)
+        const infoPrestamoRenovacion = dataPrestamo.infoPrestamo;
+        infoPrestamoRenovacion.DeudaActual = 10000;
+        $("#info-prestamo-a-renovar").val("Numero: " + prestamoNumero + " Deuda actual :" + infoPrestamoRenovacion.DeudaActual);
+        $("#@Html.IdFor(model => model.Prestamo.DeudaRenovacion)").val(infoPrestamoRenovacion.DeudaActual);
+        calcularTotalAPrestar();
+        $("#@Html.IdFor(model => model.Prestamo.IdPrestamoARenovar)").val(idPrestamo);
+        const cliente = dataPrestamo.infoCliente;
+        const rutaFotoCliente = "@Url.Content(@SiteDirectory.ImagesForClientes)/";
+        let fotoCliente = rutaFotoCliente + cliente.Imagen1FileName;
+            //cliente.Imagen1FileName;
+        let infoClienteTmp = {
+            "Imagen1Filename": fotoCliente,
+            "NombreCompleto"  : cliente.Nombres + " " + cliente.Apellidos,
+            "Telefonos" : cliente.TelefonoMovil,
+            "NoIdentificacion": cliente.NumeracionDocumentoIdentidad,
+            "IdCliente": cliente.IdCliente
+        }
+        showCliente(infoClienteTmp);
+        const infoGarantias = [];
+        $.each(dataPrestamo.infoGarantias, function (index, value) {
+            const data = JSON.parse(value.Detalles);
+            value.NoIdentificacion = value.NumeracionGarantia;
+            //infoGarantias.push(value);
+            //let infoGarantiaTmp = infoGarantias[0];
+            //console.log(value);
+            showGarantia(value);
+        });
+
+    }
+
+    //// Buscador de garantias
+    let searchType = 'garantia';
+    let infoGarantias = []
+    const onGarantiaEnter = async function () {
+        let idGarantia = $('[data-order="' + selectPointer + '"]').attr('data-idGarantia');
+        let index = $('[data-order="' + selectPointer + '"]').attr('data-index');
+        const infoGarantia = infoGarantias[index]
+        showGarantia(infoGarantia);
+    };
+    const onGarantiaClick = async function (evt) {
+        let idGarantia = evt.target.getAttribute('data-idGarantia');
+        const index = evt.currentTarget.getAttribute('data-index');
+        const infoGarantia = infoGarantias[index]
+        console.log(infoGarantia);
+        showGarantia(infoGarantia);
+    };
+
+    async function showGarantia(infoGarantia) {
+
+    let Detalles = JSON.parse(infoGarantia.Detalles);
+    //$("#p-info-garantia").remove()
+    let idGarantia = infoGarantia.IdGarantia;
+    let garantiaEnListado = idGarantias.includes(idGarantia);
+    if (garantiaEnListado) return;
+    $("#forIdGarantias").append(`<input id = "inputGarantia${idGarantia}" type = "hidden" name = "Prestamo.IdGarantias[${idGarantias.length}]" value = "${idGarantia}"/>`)
+        idGarantias.push(idGarantia);
+        updateCantidadDeGarantias(idGarantias.length);
+        $("#info-garantia").append(`<span id="spanGarantia${idGarantia}"><button type="button" class="fa fa-remove" title="quitar garantia" onclick="removeGarantia(this)" value="${idGarantia}"></button><p id="p-info-garantia"> ${infoGarantia.NoIdentificacion} </strong> <strong> Marca:</strong> ${infoGarantia.NombreMarca} <strong> Modelo:</strong> ${infoGarantia.NombreModelo }<br>
+                    <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
+                        <br></p> </span>`);
+    };
+
+    function calcularTasaInteresPorPeriodo() {
+        alert("calcular tasa de interes");
+        const idTasaDeInteresSelected = $("#@Html.IdFor(m=>m.Prestamo.IdTasaInteres)").val();
+        //console.log(tasasDeInteres);
+        const tasaDeInteres = tasasDeInteres.find(function (item, i) {
+            const igual = item.idTasaInteres == idTasaDeInteresSelected;
+            //console.log(item, item.idTasaInteres, igual);
+            if (igual) return item;
+        }).InteresMensual;
+        //console.log(tasaDeInteres);
+        const searchParam = {
+            tasaInteresMensual: tasaDeInteres,
+            idPeriodo: $("#@Html.IdFor(model => model.Prestamo.IdPeriodo)").val()
         };
 
-        async function showGarantia(infoGarantia) {
-
-        let Detalles = JSON.parse(infoGarantia.Detalles);
-        //$("#p-info-garantia").remove()
-        let idGarantia = infoGarantia.IdGarantia;
-        let garantiaEnListado = idGarantias.includes(idGarantia);
-        if (garantiaEnListado) return;
-        $("#forIdGarantias").append(`<input id = "inputGarantia${idGarantia}" type = "hidden" name = "Prestamo.IdGarantias[${idGarantias.length}]" value = "${idGarantia}"/>`)
-            idGarantias.push(idGarantia);
-            updateCantidadDeGarantias(idGarantias.length);
-            $("#info-garantia").append(`<span id="spanGarantia${idGarantia}"><button type="button" class="fa fa-remove" title="quitar garantia" onclick="removeGarantia(this)" value="${idGarantia}"></button><p id="p-info-garantia"> ${infoGarantia.NoIdentificacion} </strong> <strong> Marca:</strong> ${infoGarantia.NombreMarca} <strong> Modelo:</strong> ${infoGarantia.NombreModelo }<br>
-                       <i> ${Detalles.Descripcion !== null ? Detalles.Descripcion + ', ' : ''}</i><strong> Año:</strong> ${Detalles.Ano} <strong> Placa:</strong> ${Detalles.Placa} <strong> Maquina:</strong> ${Detalles.NoMaquina}
-                          <br></p> </span>`);
-        };
+        $.ajax({
+            type: "get",
+            url: "/Prestamos/CalcularTasaInteresPorPeriodo",
+            data: searchParam,
+            dataType: "json",
+            //contentType: 'text/html; charset=utf-8',
+            contentType: 'application/json; charset=utf-8',
+            tradition: true,
+            success: function (response) {
+                $("#TasaDeInteresPorPeriodoNumber").val(response.InteresDelPeriodo.toFixed(6));
+                const valor = response.InteresDelPeriodo.toFixed(4).replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1') + "%";
+                $("#@Html.IdFor(model => model.Prestamo.TasaDeInteresPorPeriodo)").val(valor);
+            },
+        });
+    }
     function updateCantidadDeGarantias(cantidad) { $("#cantidadDeGarantias").text(cantidad); }
-        //// Buscador de cliente
-        let IMAGEN_CLIENTE_EN_BUSCADOR_CLIENTE = true;
-        let infoClientes=[]
-        const onClienteEnter = async function () {
-            // let idCliente = $('[data-order="' + selectPointer + '"]').attr('data-idCliente');
-            const index = $('[data-order="' + selectPointer + '"]').attr('data-index');
-            const infoCliente = infoClientes[index]
-            showCliente(infoCliente);
-        };
+    //// Buscador de cliente
+    let IMAGEN_CLIENTE_EN_BUSCADOR_CLIENTE = true;
+    let infoClientes=[]
+    const onClienteEnter = async function () {
+        // let idCliente = $('[data-order="' + selectPointer + '"]').attr('data-idCliente');
+        const index = $('[data-order="' + selectPointer + '"]').attr('data-index');
+        const infoCliente = infoClientes[index]
+        showCliente(infoCliente);
+    };
 
-        const onClienteClick = async function (evt) {
-            //let idCliente = evt.currentTarget.getAttribute('data-idCliente');
-            const index = evt.currentTarget.getAttribute('data-index');
-            const infoCliente = infoClientes[index]
-            showCliente(infoCliente);
-        };
+    const onClienteClick = async function (evt) {
+        //let idCliente = evt.currentTarget.getAttribute('data-idCliente');
+        const index = evt.currentTarget.getAttribute('data-index');
+        const infoCliente = infoClientes[index]
+        showCliente(infoCliente);
+    };
 
-        async function showCliente(infoCliente) {
-            $("#p-info-cliente").remove()
-            setIdCliente(infoCliente.IdCliente)
-            $("#info-cliente").append(`<p id="p-info-cliente"> <img src="${infoCliente.Imagen1Filename}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>
-                                            <strong id="placeName" >Cliente: <i>${infoCliente.NombreCompleto} | <small style="font-weight: 600;"> </i> </span><br>
-                                            <span style="font-weight: 600;">Telefono: </span> ${infoCliente.Telefonos} ${infoCliente.NoIdentificacion === undefined ? `` : ` | No. de identificacion: ${infoCliente.NoIdentificacion}`}</i><br>
-                                            <br></p>`);
-        };
-        const toDate = (dateStr) => {
-            const [day, month, year] = dateStr.split("/")
-            return new Date(year, month - 1, day)
-        }
-        function BuildPrestamoData()
+    async function showCliente(infoCliente) {
+        $("#p-info-cliente").remove()
+        setIdCliente(infoCliente.IdCliente)
+        $("#info-cliente").append(`<p id="p-info-cliente"> <img src="${infoCliente.Imagen1Filename}" height="60px" width="auto" class="float-left mr-2" style="border: 1px solid #666; border-radius: 10px;"/>
+                                        <strong id="placeName" >Cliente: <i>${infoCliente.NombreCompleto} | <small style="font-weight: 600;"> </i> </span><br>
+                                        <span style="font-weight: 600;">Telefono: </span> ${infoCliente.Telefonos} ${infoCliente.NoIdentificacion === undefined ? `` : ` | No. de identificacion: ${infoCliente.NoIdentificacion}`}</i><br>
+                                        <br></p>`);
+    };
+    const toDate = (dateStr) => {
+        const [day, month, year] = dateStr.split("/")
+        return new Date(year, month - 1, day)
+    }
+    function BuildPrestamoData()
+    {
+        const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val();
+        var fechaJs = "2020-08-30T00:00:00" //toDate(fecha);
+        alert(fechaJs);
+        var prestamo =
         {
-            const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val();
-            var fechaJs = "2020-08-30T00:00:00" //toDate(fecha);
-            alert(fechaJs);
-            var prestamo =
-            {
-                IdPrestamo: -1,
-                PrestamoNumero: '1',
-                IdPrestamoARenovar: 1,
-                IdClasificacion: 1,
-                IdTipoAmortizacion: 1,
-                IdCliente: 1,
-                IdGarantias: idGarantias,
-                FechaEmisionReal: fechaJs,
-                /*IdCodeudores: [1, 2],
-                FechaEmisionParaCalculos: fecha,
-                IdTasaInteres: 1,
-                IdTipoMora: 1,
-                IdPeriodo: 1,
-                CantidadDePeriodos: 10,
-                MontoPrestado: 10000,
-                DeudaRenovacion: 1000,
-                LlevaGastoDeCierre: true,
-                InteresGastaDeCierre: 5,
-                MontoGastaoDeCierre: 500,
-                GastoDeCierreEsDeducible: false,
-                SumarGastoDeCierreALasCuotas: true,
-                AcomodarFechaALasCuotas: false,
-                FechaEmisionPrimeraCuota: "190001T00:00:00:00",
-                IdNegocio: 1,
-                IdLocalidad: 1,
-                Usuario:"bryan"*/
-            }
-            return prestamo;
+            IdPrestamo: -1,
+            PrestamoNumero: '1',
+            IdPrestamoARenovar: 1,
+            IdClasificacion: 1,
+            IdTipoAmortizacion: 1,
+            IdCliente: 1,
+            IdGarantias: idGarantias,
+            FechaEmisionReal: fechaJs,
+            /*IdCodeudores: [1, 2],
+            FechaEmisionParaCalculos: fecha,
+            IdTasaInteres: 1,
+            IdTipoMora: 1,
+            IdPeriodo: 1,
+            CantidadDePeriodos: 10,
+            MontoPrestado: 10000,
+            DeudaRenovacion: 1000,
+            LlevaGastoDeCierre: true,
+            InteresGastaDeCierre: 5,
+            MontoGastaoDeCierre: 500,
+            GastoDeCierreEsDeducible: false,
+            SumarGastoDeCierreALasCuotas: true,
+            AcomodarFechaALasCuotas: false,
+            FechaEmisionPrimeraCuota: "190001T00:00:00:00",
+            IdNegocio: 1,
+            IdLocalidad: 1,
+            Usuario:"bryan"*/
+        }
+        return prestamo;
     }
     function removeGarantia(element) {
         const idGarantia = parseInt(element.value);
@@ -588,20 +671,14 @@
         // el monto no puede estar en 0
         var validaciones = [];
         hayErrores = false;
-        let value = $("#@Html.IdFor(model => model.MontoAPrestar)").val()
-        let valorMontoPrestado = toFloat(value);
+
         //if (isNaN(valorMontoPrestado)) valorMontoPrestado = 0;
         //console.log(valorMontoPrestado);
-        $("#@Html.IdFor(model => model.Prestamo.MontoPrestado)").val(valorMontoPrestado);
-        const montoAPrestar = parseFloat($("#@Html.IdFor(m => m.Prestamo.MontoPrestado)").val());
-        const deudaRenovacion = parseFloat($("#@Html.IdFor(m => m.Prestamo.DeudaRenovacion)").val());
-        const totalAPrestar = montoAPrestar + deudaRenovacion
 
-        if (totalAPrestar <= 0) {
-            alert("monto a prestar");
+        if (calcularTotalAPrestar() <= 0) {
             hayErrores = true;
-            validaciones.push("no ha especificado monto a prestar")
-            setSpanErrorForElem("@Html.NameFor(m=> m.MontoAPrestar)", "no ha especificado el monto a prestar")
+            validaciones.push("")
+            setSpanErrorForElem("@Html.NameFor(m=> m.MontoAPrestar)", "no hay monto a renovar ni ha especificado monto a prestar")
         }
         else { (console.log(totalAPrestar, typeof (totalAPrestar))); }
         if ($("#@Html.IdFor(model => model.Prestamo.IdCliente)").val() <= 0) {
@@ -643,10 +720,14 @@
         //prestamoData2 =  JSON.stringify(BuildPrestamoData()) ;
         //console.log(prestamoData2);
 
-        return $.ajax({
+            $.ajax({
             type: "post",
             url: "/Prestamos/SavePrestamo2",
             data: prestamoData2,
+            dataType: "json",
+            contentType: 'text/html; charset=utf-8',
+            //contentType: 'application/json; charset=utf-8',
+            tradition: true,
             success: function (response) {
                 alert("el prestamo ha sido guardado exitosamente, gracias puede continuar")
             },
@@ -658,21 +739,52 @@
                 alert("Operacion completada")
                 //console.log("complete");
             },
-            dataType: "json",
-            contentType: 'text/html; charset=utf-8',
-            //contentType: 'application/json; charset=utf-8',
-            tradition: true
+
         })
     }
-        function llevaGarantia() {
-            const idClasif = parseFloat($("#@Html.IdFor(model => model.Prestamo.IdClasificacion)").val());
-            const result = idClasifLLevanGarantias.includes(idClasif)
-            return result;
+    function llevaGarantia() {
+        const idClasif = parseFloat($("#@Html.IdFor(model => model.Prestamo.IdClasificacion)").val());
+        const result = idClasifLLevanGarantias.includes(idClasif)
+        return result;
 
+    }
+
+    function calcularMontoGastoDeCierre() { return 0; }
+
+    function calcularCuotas() {
+        alert("calculando cuota");
+        const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val();
+        const infoGenCuota = {
+            CantidadDePeriodos: $("#@Html.IdFor(m => m.Prestamo.CantidadDePeriodos)").val(),
+            IdPeriodo: $("#@Html.IdFor(m => m.Prestamo.IdPeriodo)").val(),
+            IdTipoAmortizacion: $("#@Html.IdFor(m => m.Prestamo.IdTipoAmortizacion)").val(),
+            MontoCapital: calcularTotalAPrestar(),
+            MontoGastoDeCierre: calcularMontoGastoDeCierre(),
+            CargarInteresAlGastoDeCierre: $("#@Html.IdFor(m => m.Prestamo.CargarInteresAlGastoDeCierre)").val(),
+            FechaEmisionReal: moment($("#@Html.IdFor(m => m.Prestamo.FechaEmisionReal)").val()).toISOString(),
+            AcomodarFechaALasCuotas: $("#@Html.IdFor(m => m.Prestamo.AcomodarFechaALasCuotas)").val(),
+            FechaInicioPrimeraCuota: $("#@Html.IdFor(m => m.Prestamo.FechaInicioPrimeraCuota)").val(),
+            TasaDeInteresPorPeriodo :$("#TasaDeInteresPorPeriodoNumber").val()
         }
+        console.log(infoGenCuota);
+        $.ajax({
+            type: "get",
+            url: "/Prestamos/GenerarCuotas",
+            data: infoGenCuota,
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            tradition: true,
+            success: function (response) {
+                alert("respuesta");
+                console.log(response);
+
+            },
+        });
+        }
+    })
     </script>
     <script src="~/Scripts/Apps/utils.js"></script>
-    <script src="~/Scripts/Apps/validate-form-Inputs.js"></script>
+    @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
     <script src="~/Scripts/Apps/Prestamo/search.js"></script>
     <script src="~/Scripts/Apps/Garantia/search.js"></script>
     <script src="~/Scripts/Apps/Cliente/search.js"></script>

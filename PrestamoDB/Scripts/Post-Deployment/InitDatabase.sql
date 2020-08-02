@@ -48,7 +48,25 @@ Post-Deployment Script Template
      VALUES
 		   (@idNegocio,'A00', '1% de interes' ,1.0,@usuario,getdate()),
 		   (@idNegocio,'B00', '2% de interes' ,2.0,@usuario,getdate()),
-		   (@idNegocio,'C00', '3% de interes' ,3.0,@usuario,getdate())
+		   (@idNegocio,'C00', '3% de interes' ,3.0,@usuario,getdate()),
+		   (@idNegocio,'D00', '4% de interes' ,4.0,@usuario,getdate()),
+		   (@idNegocio,'E00', '5% de interes' ,5.0,@usuario,getdate()),
+		   (@idNegocio,'F00', '6% de interes' ,6.0,@usuario,getdate()),
+		   (@idNegocio,'G00', '7% de interes' ,7.0,@usuario,getdate()),
+		   (@idNegocio,'H00', '8% de interes' ,8.0,@usuario,getdate()),
+		   (@idNegocio,'I00', '9% de interes' ,9.0,@usuario,getdate()),
+		   (@idNegocio,'J00', '10% de interes' ,10.0,@usuario,getdate()),
+		   (@idNegocio,'K00', '11% de interes' ,11.0,@usuario,getdate()),
+		   (@idNegocio,'L00', '12% de interes' ,12.0,@usuario,getdate()),
+		   (@idNegocio,'M00', '13% de interes' ,13.0,@usuario,getdate()),
+		   (@idNegocio,'N00', '143% de interes' ,14.0,@usuario,getdate()),
+		   (@idNegocio,'O00', '15% de interes' ,15.0,@usuario,getdate()),
+		   (@idNegocio,'P00', '16% de interes' ,16.0,@usuario,getdate()),
+		   (@idNegocio,'Q00', '17% de interes' ,17.0,@usuario,getdate()),
+		   (@idNegocio,'R00', '18% de interes' ,18.0,@usuario,getdate()),
+		   (@idNegocio,'S00', '19% de interes' ,19.0,@usuario,getdate()),
+		   (@idNegocio,'T00', '20% de interes' ,20.0,@usuario,getdate())
+		   
 	-- tblClasificaciones
 		   INSERT INTO [dbo].[tblClasificaciones]
            ([Nombre]
@@ -66,11 +84,13 @@ Post-Deployment Script Template
 		   ('Con Casa' ,@idNegocio ,2,0,1 ,'Casa',@usuario,getDate()),
 		   ('Personal' ,@idNegocio ,2 ,1,0,'Personal' ,@usuario,getDate())
     --Script para periodos
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'para cuotas Diarias','seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Para Cuotas Semanales', 'seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,3,'QUI',1,'para cuotas Quincenales','seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'MES',1,'para cuotas Mensuales','seed', getdate()) 
-	
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'Cuotas Diarias','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'INTD',2,'Cuotas Inter Diario','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'4DIAS',4,'Cuotas cada 4 dias','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Cuotas Semanales', 'seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,3,'QUI',1,'Cuotas Quincenales','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'MES',1,'Cuotas Mensuales','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'BIMES',2,'Cuotas BiMensuales','seed', getdate()) 
 	--Script para datos de Moras
 	insert into tblTiposMora
 			(Nombre,

@@ -39,17 +39,6 @@ namespace PrestamosMVC5.Models
         public bool LlevaGastoDeCierre { get; set; } = false;
         [Display(Name = "Desea Renovar Prestamo")]
         public bool IncluirRenovacion { get; set; } = false;
-        [Display(Name = "probando si desea ver el json result al hacer post")]
-
-        public bool MostrarJsonResult { get; set; } = false;
-
-        public string ClasificacionesQueLlevanGarantia()
-        {
-            var data = BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(1).Select(item => item.IdClasificacion);
-            return data.ToJson();
-        }
-
-        //public List<int> IdGarantias { get; set; } = new List<int>(2);
         public PrestamoVm()
         {
             this.Prestamo = new Prestamo();
