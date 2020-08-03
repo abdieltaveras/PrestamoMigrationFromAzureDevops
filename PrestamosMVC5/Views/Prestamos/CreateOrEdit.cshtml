@@ -1,5 +1,18 @@
 ﻿@model  PrestamoVm
+@section pageStyle
+{<style>
+    #outerDiv {
+        height: 100%;
+        margin: 0em;
+    }
 
+    .scrollableContent {
+        height: 100%;
+        margin: 0em;
+        overflow-y: auto;
+    }
+</style>
+}
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmEdtPrestamo" }))
 
 {
@@ -16,7 +29,7 @@
                     <button type="button" class="btn btn-primary" onclick="postForm()" title="Hace una llamada ajax"> PostAjax</button>
                 </div>
                 <div class="col-md-2 col-sm-12 ">
-                    <button type="button" id="probando" class="btn btn-primary"> </button>
+                    <button id="probando" class="btn btn-primary"> </button>
                 </div>
             </div>
 
@@ -98,14 +111,15 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdClasificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.DropDownListFor(model => model.Prestamo.IdClasificacion, SelectItems.Clasificaciones(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls, @onchange = "onChangeProp(this)" })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdClasificacion, SelectItems.Clasificaciones(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls, @onchange = "onChangeProp(this)", data_input = "true" })
+
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdClasificacion, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdTipoAmortizacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.DropDownListFor(model => model.Prestamo.IdTipoAmortizacion, SelectItems.TiposAmortizacion, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdTipoAmortizacion, SelectItems.TiposAmortizacion, htmlAttributes: new { @class = @HtmlClass.InputTextCls, data_input = "true" })
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdClasificacion, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -121,7 +135,7 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.IdTasaInteres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.DropDownListFor(model => model.Prestamo.IdTasaInteres, SelectItems.TasasInteresMuestraCodigoYtasa(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls, onchange = "onChangeProp(this)" })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdTasaInteres, SelectItems.TasasInteresMuestraCodigoYtasa(Model.Prestamo.IdNegocio), htmlAttributes: new { @class = @HtmlClass.InputTextCls, onchange = "onChangeProp(this)", data_input = "true" })
                                     @*@Html.EditorFor(model => model.Prestamo.IdTasaInteres, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdTasaInteres, "", new { @class = "text-danger" })
                                 </div>
@@ -140,14 +154,15 @@
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.TasaDeInteresPorPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.TasaDeInteresPorPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })
-                                    @Html.ValidationMessageFor(model => model.Prestamo.TasaDeInteresPorPeriodo, "", new { @class = "text-danger" })
+                                    <input class="form-control text-box single-line"  id="Prestamo_TasaDeInteresPorPeriodo" name="Prestamo.TasaDeInteresPorPeriodo" disabled type="text" value="@Model.Prestamo.TasaDeInteresPorPeriodo">
+                                    @*@Html.EditorFor(model => model.Prestamo.TasaDeInteresPorPeriodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @readonly = true } })*@
+                                    @*@Html.ValidationMessageFor(model => model.Prestamo.TasaDeInteresPorPeriodo, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                             <div class="@HtmlClass.FormGroupCls">
                                 @Html.LabelFor(model => model.Prestamo.CantidadDePeriodos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 <div class="@HtmlClass.DivInputCls">
-                                    @Html.EditorFor(model => model.Prestamo.CantidadDePeriodos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @min = 1, @pattern = "[0-9]{10}" } })
+                                    @Html.EditorFor(model => model.Prestamo.CantidadDePeriodos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @min = 1, @pattern = "[0-9]{10}", onchange = "onChangeProp(this)" } })
                                     @*@min = 1, @pattern = "[0-9]{10}" } })*@
                                     @Html.ValidationMessageFor(model => model.Prestamo.CantidadDePeriodos, "", new { @class = "text-danger" })
                                 </div>
@@ -287,17 +302,22 @@
 
                     <div class="x_panel bg-blue-sky">
                         <div class="x_content">
-                            <div class="@HtmlClass.FormGroupCls">
-                                para informacion de las cuotas
+
+                            <div class="row">
+                                <p>para informacion de las cuotas</p>
+                                <label id="cuota-hotkey"></label>
+                            </div>
+                            <div class="row">
+                                <label> Monto total del Prestamo <span id="totalAPrestar"></span></label>
+                            </div>
+                            <div id="outerDiv">
+                                <div id="lista-cuotas" class="scrollableContent" style="height:10em"></div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
-
     </div>
     <section name="hiddenProps">
         @Html.HiddenFor(model => model.Prestamo.IdPrestamo)
@@ -307,8 +327,8 @@
         @Html.HiddenFor(model => model.Prestamo.IdNegocio)
         @Html.HiddenFor(model => model.Prestamo.MontoPrestado)
         @Html.HiddenFor(model => model.Prestamo.AcomodarFechaALasCuotas)
-        <input type="hidden" id="totalAPrestar" />
-        <label style="display:none" id="TasaDeInteresPorPeriodoNumber" value="0" />
+        <label id="TasaDeInteresPorPeriodoNumber" style="display:none"></label>
+        @*<input type="hidden" id="totalAPrestar" />*@
         <span id="forIdGarantias"></span>
         <span id="forIdCodeudores"></span>
     </section>
@@ -320,23 +340,26 @@
     <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
     <script src="~/Scripts/Apps/CheckInput.js"></script>
     <script src="~/Scripts/Apps/Numbers/manageCurrency01.js"></script>
+    <script src="~/Content/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
     @*<script src="~/Scripts/Apps/minMaxAdapter.js"></script>*@
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
     <script>
-    $(document).ready(function() {
-    $("#probando").text("Calcular Cuotas").
+        $("#probando").hide();
+        //    .text("Ctrl-c: Calcular Cuotas").css('color', 'yellow')
         //    on("click", () => calcularTasaInteresPorPeriodo());
-        on("click", () => calcularCuotas());
+        //.on("click", () => calcularCuotas());
+        $("#cuota-hotkey").text("-Ctrl-c: Calcular Cuotas").css('color', 'yellow').css('background','black')
+        .on("click", () => calcularCuotas());
+        $('.form-control').bind('keydown', 'ctrl+c', function () { calcularCuotas() })
+        //$('input').bind('keydown', 'ctrl+c', function () { calcularCuotas() })
+        //$('select').bind('keydown', 'ctrl+c', function () { calcularCuotas() })
 
-    var idGarantias = []
-    var idClasifLLevanGarantias = [];
-    getClasificacionesQueLlevanGarantia();
-    calcularTasaInteresPorPeriodo();
+    let idGarantias = []
+    let idClasifLLevanGarantias = [];
     let tasasDeInteres = [];
-    getTasasDeInteres();
-    let dateFormat = 'en-GB';
+    let dateFormat = 'es-DO';
     let _dateFormat = 'dd/mm/yy';
-    let yearRangeForDP = "-120:+0"
+    let yearRangeForDP = "-120:+0";
     attachOnChangeEventToCheckBoxes();
     onEnterAvoidSubmitForm();
     InitData();
@@ -344,15 +367,17 @@
     function InitData() {
         $("#datosDeCliente").html("@Model.infoCliente")
         $("#datosDeGarantia").html("@Model.infoGarantia")
-
         hideShowSeccionGastoDeCierre(@Model.LlevaGastoDeCierre.ToString().ToLower());
         hideShowSeccionRenovacion(@Model.IncluirRenovacion.ToString().ToLower())
+        getClasificacionesQueLlevanGarantia();
+        getTasasDeInteres();
+        calcularTotalAPrestar();
     }
 
     function setFecha(elem, name) {
         d = new Date(elem.val());
         var formattedDate = moment(d).format("DD/MM/YYYY")
-        console.log(d, formattedDate);
+
     }
     function onEnterAvoidSubmitForm() {
         $('form input').keydown(function (e) {
@@ -393,7 +418,8 @@
                 //console.log(tasasDeInteres);
                 //const result = response.find(function (item, i) { console.log(item);});
                 //{ if (item.idTasaDeInteres === 5) return item.InteresMensual })
-            }
+            },
+            complete: function () {calcularTasaInteresPorPeriodo();}
         });
 
     }
@@ -413,12 +439,19 @@
                 break;
             case "@Html.IdFor(model => model.Prestamo.IdPeriodo)":
                 calcularTasaInteresPorPeriodo();
+
+                break;
+            case "@Html.IdFor(model => model.Prestamo.CantidadDePeriodos)":
+                calcularCuotas();
                 break;
             case "@Html.IdFor(model => model.Prestamo.IdTasaInteres)":
                 calcularTasaInteresPorPeriodo();
+                calcularCuotas();
                 break;
             case "@Html.IdFor(model => model.MontoAPrestar)":
+                alert("calclando");
                 calcularTotalAPrestar();
+                calcularCuotas();
                 break;
         }
     };
@@ -429,14 +462,16 @@
 
     }
     function calcularTotalAPrestar() {
-        alert("calculando");
-        const value = $("#@Html.IdFor(model => model.MontoAPrestar)").val()
+        let value = $("#@Html.IdFor(model => model.MontoAPrestar)").val()
+        if (value.indexOf(".") < 0) { value += ".00"; }
         const valorMontoPrestado = toFloat(value);
+        console.log(typeof (value), value, toFloat(value));
         $("#@Html.IdFor(model => model.Prestamo.MontoPrestado)").val(valorMontoPrestado);
-        const montoAPrestar = parseFloat($("#@Html.IdFor(m => m.Prestamo.MontoPrestado)").val());
+        const montoAPrestar = valorMontoPrestado;
         const deudaRenovacion = parseFloat($("#@Html.IdFor(m => m.Prestamo.DeudaRenovacion)").val());
         const totalAPrestar = montoAPrestar + deudaRenovacion;
-        $("#totalAPrestar").val(totalAPrestar);
+        //console.log(montoAPrestar, deudaRenovacion, totalAPrestar);
+        $("#totalAPrestar").val(totalAPrestar).text(totalAPrestar);
         return totalAPrestar;
     }
     function hideShowSeccionRenovacion(mostrar) {
@@ -461,7 +496,7 @@
     function setIdCliente(idCliente) {
         const elemIdCliente = $("#@Html.IdFor(model => model.Prestamo.IdCliente)");
         elemIdCliente.val(idCliente);
-        console.log("id cliente establecida ", idCliente)
+        //console.log("id cliente establecida ", idCliente)
     }
 
 
@@ -533,7 +568,7 @@
         let idGarantia = evt.target.getAttribute('data-idGarantia');
         const index = evt.currentTarget.getAttribute('data-index');
         const infoGarantia = infoGarantias[index]
-        console.log(infoGarantia);
+        //console.log(infoGarantia);
         showGarantia(infoGarantia);
     };
 
@@ -553,7 +588,6 @@
     };
 
     function calcularTasaInteresPorPeriodo() {
-        alert("calcular tasa de interes");
         const idTasaDeInteresSelected = $("#@Html.IdFor(m=>m.Prestamo.IdTasaInteres)").val();
         //console.log(tasasDeInteres);
         const tasaDeInteres = tasasDeInteres.find(function (item, i) {
@@ -576,10 +610,13 @@
             contentType: 'application/json; charset=utf-8',
             tradition: true,
             success: function (response) {
-                $("#TasaDeInteresPorPeriodoNumber").val(response.InteresDelPeriodo.toFixed(6));
-                const valor = response.InteresDelPeriodo.toFixed(4).replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1') + "%";
-                $("#@Html.IdFor(model => model.Prestamo.TasaDeInteresPorPeriodo)").val(valor);
+                const valor = parseFloat(response.InteresDelPeriodo.toFixed(6));
+                //console.log(typeof(valor));
+                $("#TasaDeInteresPorPeriodoNumber").val(valor);
+                const valorst = valor.toString().replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1') + "%";
+                $("#@Html.IdFor(model => model.Prestamo.TasaDeInteresPorPeriodo)").val(valorst);
             },
+            complete: function () { calcularCuotas();}
         });
     }
     function updateCantidadDeGarantias(cantidad) { $("#cantidadDeGarantias").text(cantidad); }
@@ -616,7 +653,7 @@
     {
         const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val();
         var fechaJs = "2020-08-30T00:00:00" //toDate(fecha);
-        alert(fechaJs);
+
         var prestamo =
         {
             IdPrestamo: -1,
@@ -706,7 +743,7 @@
             setSpanErrorForElem("@Html.NameFor(m => m.Prestamo.FechaEmisionReal)", "la fecha es invalida");
             hayErrores = true;
         }
-        console.log("hay errores",hayErrores)
+
         if (hayErrores) {
             showMessage('error', 'Revisar', 'Tiene varios errores');
         }
@@ -751,42 +788,58 @@
 
     function calcularMontoGastoDeCierre() { return 0; }
 
-    function calcularCuotas() {
-        alert("calculando cuota");
-        const fecha = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val();
-        const infoGenCuota = {
-            CantidadDePeriodos: $("#@Html.IdFor(m => m.Prestamo.CantidadDePeriodos)").val(),
-            IdPeriodo: $("#@Html.IdFor(m => m.Prestamo.IdPeriodo)").val(),
-            IdTipoAmortizacion: $("#@Html.IdFor(m => m.Prestamo.IdTipoAmortizacion)").val(),
-            MontoCapital: calcularTotalAPrestar(),
-            MontoGastoDeCierre: calcularMontoGastoDeCierre(),
-            CargarInteresAlGastoDeCierre: $("#@Html.IdFor(m => m.Prestamo.CargarInteresAlGastoDeCierre)").val(),
-            FechaEmisionReal: moment($("#@Html.IdFor(m => m.Prestamo.FechaEmisionReal)").val()).toISOString(),
-            AcomodarFechaALasCuotas: $("#@Html.IdFor(m => m.Prestamo.AcomodarFechaALasCuotas)").val(),
-            FechaInicioPrimeraCuota: $("#@Html.IdFor(m => m.Prestamo.FechaInicioPrimeraCuota)").val(),
-            TasaDeInteresPorPeriodo :$("#TasaDeInteresPorPeriodoNumber").val()
-        }
-        console.log(infoGenCuota);
-        $.ajax({
-            type: "get",
-            url: "/Prestamos/GenerarCuotas",
-            data: infoGenCuota,
-            dataType: "json",
-            contentType: 'application/json; charset=utf-8',
-            tradition: true,
-            success: function (response) {
-                alert("respuesta");
-                console.log(response);
+        function calcularCuotas() {
+            const montoPrestado = calcularTotalAPrestar();
+            console.log(montoPrestado);
+            $("#lista-cuotas").empty();
+            if (montoPrestado == 0) {
+                    return;
+                }
+                //alert("calculando cuota 1");
+                const fechaEmisionPrestamo = $("#@Html.IdFor(model => model.Prestamo.FechaEmisionReal)").val();
+                const infoGenCuota = {
+                    CantidadDePeriodos: $("#@Html.IdFor(m => m.Prestamo.CantidadDePeriodos)").val(),
+                    IdPeriodo: $("#@Html.IdFor(m => m.Prestamo.IdPeriodo)").val(),
+                    IdTipoAmortizacion: $("#@Html.IdFor(m => m.Prestamo.IdTipoAmortizacion)").val(),
+                    MontoCapital: montoPrestado,
+                    MontoGastoDeCierre: calcularMontoGastoDeCierre(),
+                    CargarInteresAlGastoDeCierre: $("#@Html.IdFor(m => m.Prestamo.CargarInteresAlGastoDeCierre)").val(),
+                    FechaEmisionReal: toDate(fechaEmisionPrestamo).toISOString(),
+                    AcomodarFechaALasCuotas: $("#@Html.IdFor(m => m.Prestamo.AcomodarFechaALasCuotas)").val(),
+                    FechaInicioPrimeraCuota: $("#@Html.IdFor(m => m.Prestamo.FechaInicioPrimeraCuota)").val(),
+                    TasaDeInteresPorPeriodo: $("#TasaDeInteresPorPeriodoNumber").val()
+            }
+            //alert("calculando cuota 2");
+                //console.log(infoGenCuota);
+                $.ajax({
+                    type: "get",
+                    url: "/Prestamos/GenerarCuotas",
+                    data: infoGenCuota,
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    tradition: true,
+                    success: function (response) {
+                        console.log(response);
+                        response.forEach(function (value, index) {
+                            $("#lista-cuotas").append(
+                                `<ul>
+                                <li>No ${index + 1} Fecha ${value.FechaSt} Capital ${value.Capital.toFixed(2)} Interes ${value.Interes.toFixed(2)} Total ${value.Total.toFixed(2)}</li>
+                            </ul>`)
+                        });
 
-            },
-        });
+                    },
+                });
         }
-    })
+
+
     </script>
     <script src="~/Scripts/Apps/utils.js"></script>
     @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
     <script src="~/Scripts/Apps/Prestamo/search.js"></script>
     <script src="~/Scripts/Apps/Garantia/search.js"></script>
     <script src="~/Scripts/Apps/Cliente/search.js"></script>
+    @*<script src="~/Scripts/Apps/keyBehavior.js"></script>*@
+
+
 }
 

@@ -39,6 +39,9 @@ namespace PrestamosMVC5.Controllers
             var model = new PrestamoVm();
             model.IncluirRenovacion = false;
             model.MensajeError = mensaje;
+            model.Prestamo.IdTasaInteres = 5;
+            model.Prestamo.IdPeriodo = 6;
+            model.Prestamo.CantidadDePeriodos = 5;
             if (id != -1)
             {
                 // Buscar el cliente
@@ -126,11 +129,16 @@ namespace PrestamosMVC5.Controllers
             //info.FechaEmisionReal
             //info.FechaInicioPrimeraCuota
             //info.AcomodarFechaALasCuotas
-
             //var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
             //var data = BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(1).Select(item => item.IdClasificacion);
-            var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
-            return Json(data.ToJson(), JsonRequestBehavior.AllowGet);
+            
+            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
+            info.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
+            info.Periodo = periodo;
+            var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
+            var cuotas = generadorCuotas.GenerarCuotas();
+            //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
+            return Json(cuotas, JsonRequestBehavior.AllowGet);
         }
         private PrestamoVm getPrestamo(int id)
         {

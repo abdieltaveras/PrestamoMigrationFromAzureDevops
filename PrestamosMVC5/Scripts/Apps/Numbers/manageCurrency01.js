@@ -20,7 +20,6 @@ function formatCurrency(input, blur) {
 
     // get input value
     var input_val = input.val();
-    
     // don't validate empty input
     if (input_val === "") { return; }
 
@@ -38,6 +37,7 @@ function formatCurrency(input, blur) {
         // being entered
         var decimal_pos = input_val.indexOf(".");
 
+
         // split number by decimal point
         var left_side = input_val.substring(0, decimal_pos);
         var right_side = input_val.substring(decimal_pos);
@@ -45,6 +45,7 @@ function formatCurrency(input, blur) {
         left_side = formatNumber(left_side);
 
         // validate right side
+
         right_side = formatNumber(right_side);
 
         // On blur make sure 2 numbers after decimal
@@ -53,8 +54,7 @@ function formatCurrency(input, blur) {
         }
 
         // Limit decimal to only 2 digits
-        right_side = right_side.substring(0, 2);
-
+         right_side = right_side.substring(0, 2);
         // join number by .
         input_val = "$" + left_side + "." + right_side;
 
@@ -73,6 +73,7 @@ function formatCurrency(input, blur) {
 
     // send updated string to input
     input.val(input_val);
+    //console.log(input.val());
     //input.attr("value", input_val);
     //console.log("valor del input ", input.val(), "nombre ", input.attr("name"), input.attr("value"));
     // put caret back in the right position
@@ -86,8 +87,9 @@ function toFloat(num) {
     dotPos = num.indexOf('.');
     commaPos = num.indexOf(',');
 
-    if (dotPos < 0)
+    if (dotPos < 0) {
         dotPos = 0;
+    }
 
     if (commaPos < 0)
         commaPos = 0;
@@ -100,15 +102,15 @@ function toFloat(num) {
         else
             sep = false;
     }
-
-    if (sep == false)
-        return parseFloat(num.replace(/[^\d]/g, ""));
-
-    return parseFloat(
+    
+    
+    
+    let result= parseFloat(
         num.substr(0, sep).replace(/[^\d]/g, "") + '.' +
         num.substr(sep + 1, num.length).replace(/[^0-9]/, "")
+        
     );
-
+    return result;
 }
 //Usage: toFloat("$1,100.00") or toFloat("1,100.00$")
 

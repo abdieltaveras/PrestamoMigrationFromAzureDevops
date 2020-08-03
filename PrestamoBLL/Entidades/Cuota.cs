@@ -1,6 +1,7 @@
 ﻿using emtSoft.DAL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,12 @@ namespace PrestamoBLL.Entidades
         public int IdPrestamo { get; internal set; } = 0;
         public decimal Numero { get; internal set; } = 0;
         public DateTime Fecha { get; internal set; } = DateTime.Now;
+        [IgnorarEnParam]
+        public string FechaSt => Fecha.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
         public decimal Capital { get; internal set; } = 0;
         public decimal Interes { get; internal set; } = 0;
+        [IgnorarEnParam]
+        public decimal Total => Capital + Interes;
         //public decimal CapitalOrig { get; internal set; } = 0;
         //public decimal CapitalBce { get; internal set; } = 0;
         //public decimal InteresOrig { get; internal set; } = 0;

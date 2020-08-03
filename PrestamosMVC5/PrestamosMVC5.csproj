@@ -4013,6 +4013,7 @@
     <Content Include="App_Code\TreeInfo.cshtml" />
     <Content Include="Scripts\Apps\Cliente\search.js" />
     <Content Include="Scripts\Apps\Garantia\search.js" />
+    <Content Include="Scripts\Apps\keyBehavior.js" />
     <Content Include="Scripts\Apps\Numbers\manageCurrency01.js" />
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Scripts\Apps\minMaxAdapter.js" />
@@ -4024,6 +4025,7 @@
     <Content Include="Views\Negocios\Index.cshtml" />
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
     <Content Include="Views\Account\ElegirNegocioAOperar.cshtml" />
+    <Content Include="Scripts\Apps\keyBehavior.js.map" />
     <None Include="Views\ErrorHandler\Default.cshtml" />
     <Content Include="Views\Ingresos\index.cshtml" />
     <Content Include="Views\Prestamos\Index.cshtml" />
