@@ -7,7 +7,7 @@
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-marcas" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-marcas" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
         <div class="x_panel">
             <div class="x_title">
@@ -58,7 +58,7 @@
 </div>
 
 @*Modal de agregar intereses*@
-<div class="modal fade modal-marcas" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade modal-periodos" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -204,6 +204,17 @@
 
 @section prevscripts {
     <script>
+
+        let onEditButton = function () {
+        }
+        let onDeactivateButton = function () {
+        }
+        let onCancelButton = async function () {
+        }
+        let onNewButton = function () {
+            $('.modal-periodos').modal('show');
+        }
+
         $(document).ready(function () {
             $('#datatable').DataTable(dataTableConfiguration);
             removeTemplateConfiguration();
