@@ -21,6 +21,7 @@ namespace PrestamosMVC5.Controllers
         public PrestamosController()
         {
             UpdViewBag_LoadCssAndJsGrp2(true);
+            UpdViewBag_LoadCssAndJsForDatatable(true);
             UpdViewBag_ShowSummaryErrorsTime(10);
         }
         // GET: Prestamos
@@ -42,6 +43,13 @@ namespace PrestamosMVC5.Controllers
             model.Prestamo.IdTasaInteres = 5;
             model.Prestamo.IdPeriodo = 6;
             model.Prestamo.CantidadDePeriodos = 5;
+            model.MontoAPrestar = "10000";
+            model.Prestamo.IdClasificacion = 4;
+            model.Prestamo.InteresGastoDeCierre = 10;
+            model.Prestamo.GastoDeCierreEsDeducible = false;
+            model.Prestamo.FinanciarGastoDeCierre = true;
+            model.Prestamo.CargarInteresAlGastoDeCierre = true;
+            model.LlevaGastoDeCierre = model.Prestamo.LlevaGastoDeCierre;
             if (id != -1)
             {
                 // Buscar el cliente
@@ -79,17 +87,23 @@ namespace PrestamosMVC5.Controllers
             return _actResult;
         }
 
-        public JsonResult SavePrestamo(PrestamoVm prestamovm)
-        {
-            Response.StatusCode = 200;
-            var data = prestamovm.Prestamo.ToJson();
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
         [HttpPost]
-        public JsonResult SavePrestamo2(Prestamo prestamo)
+        public JsonResult GuardarPrestamo(Prestamo prestamo)
         {
-            Response.StatusCode = 200;
-            var data = prestamo.ToJson();
+            
+            var mensaje = string.Empty;
+            try
+            {
+                BLLPrestamo.Instance.InsUpdPrestamo(prestamo);
+                Response.StatusCode = 200;
+                mensaje = " datos procesados exitosamente";
+            }
+            catch (Exception e)
+            {
+                mensaje = "sus datos no fueron guardados ocurrio estos errores " + e.Message;
+                Response.StatusCode = 400;
+            }
+            var data = new {  Prestamo = prestamo, Mensaje =  mensaje };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

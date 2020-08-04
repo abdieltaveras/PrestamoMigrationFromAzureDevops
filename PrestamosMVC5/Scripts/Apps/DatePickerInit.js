@@ -4,6 +4,11 @@ $(document).ready(function () {
     allDateElems.each(function () {
         setFecha($(this));
     });
+    function setFecha(jQelem) {
+        var fecha = toDate(jQelem.val());
+        var formattedDate = moment(fecha).format("DD/MM/YYYY");
+        jQelem.val(formattedDate);
+    }
     // esto es para que no valide la fecha con las reglas que le envia el razor, 
     // asi evitamos que este saliendo el dialogo del datepicker 
     // al ejecutar un submit del formulario

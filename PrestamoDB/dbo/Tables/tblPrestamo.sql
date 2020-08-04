@@ -22,7 +22,7 @@
 	MontoGastoDeCierre decimal (14,2) not null,
 	GastoDeCierreEsDeducible bit not null,
 	CargarInteresAlGastoDeCierre bit not null,
-	SumarGastoDeCierreALasCuotas bit not null default 0,
+	FinanciarGastoDeCierre bit not null default 0,
 	AcomodarFechaALasCuotas bit not null default 0,
 	FechaInicioPrimeraCuota  dateTime not null,
 	[InsertadoPor] varchar(100) not null,

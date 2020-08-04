@@ -3,8 +3,11 @@
 	IdCuota INT,
 	Numero int,
 	Fecha Date,
-	Capital Numeric(18,6),
-	Interes Numeric(18,6)
+	Capital Numeric(18,2),
+	Interes Numeric(18,2),
+	GastoDeCierre Numeric(18,2),
+    InteresDelGastoDeCierre Numeric(18,2),
+	OtrosCargosSinInteres Numeric(18,2)
 )
 	
 	

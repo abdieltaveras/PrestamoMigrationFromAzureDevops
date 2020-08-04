@@ -26,9 +26,13 @@ namespace PrestamoBLL.Tests
                 Periodo = periodo,
                 MontoCapital = 10000,
                 TipoAmortizacion = Entidades.TiposAmortizacion.No_Amortizable_cuotas_fijas,
+                MontoGastoDeCierre = 1000,
+                CargarInteresAlGastoDeCierre = true,
+                FinanciarGastoDeCierre = true,
+                OtrosCargosSinInteres = 200
             };
 
-            var generadorCuota = new GeneradorCuotasFijasNoAmortizables(infCuota);
+            var generadorCuota = new GeneradorCuotasFijasNoAmortizable(infCuota);
 
             var cuotas = generadorCuota.GenerarCuotas();
 

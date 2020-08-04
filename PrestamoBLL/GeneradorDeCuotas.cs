@@ -7,28 +7,29 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    public class GeneradorCuotasFijasNoAmortizables : IGeneradorCuotas
+    public class GeneradorCuotasFijasNoAmortizable : IGeneradorCuotas
     {
         internal readonly IInfoGeneradorCuotas fuente;
         internal readonly Periodo periodo;
         DateTime fechaCuotaAnterior = InitValues._19000101;
-
-        public  GeneradorCuotasFijasNoAmortizables(IInfoGeneradorCuotas info)
+        List<Cuota> cuotas = new List<Cuota>();
+        public GeneradorCuotasFijasNoAmortizable(IInfoGeneradorCuotas info)
         {
             if (info.TipoAmortizacion != TiposAmortizacion.No_Amortizable_cuotas_fijas)
-            { throw new InvalidOperationException("para generar este tipo de cuotas, solo se admite el tipo de amortizacion No Amortizable Cuota Fija");  }
+            { throw new InvalidOperationException("para generar este tipo de cuotas, solo se admite el tipo de amortizacion No Amortizable Cuota Fija"); }
             fuente = info;
             periodo = info.Periodo;
         }
 
         public List<Cuota> GenerarCuotas()
         {
+
+            GastoDeCierreSinFinanciamiento();
             decimal capitalPorCuota = getCapitalPorCuota();
             decimal interesPorCuota = getInteresPorCuota();
-            decimal GastoCierrePorCuota = getGastoCierrePorCuota();
-            decimal OtrosGastosSinInteresPorCuota = getOtrosGastosSinInteresPorCuota();
+            decimal otrosCargosSinInteres = getOtrosCargosSinInteresPorCuota();
             this.fechaCuotaAnterior = fuente.FechaEmisionReal;
-            List<Cuota> cuotas = new List<Cuota>();
+
             // Como se manejara el gasto de cierre aqui
             // que seran las cuotas realmente en este sistema
             // sera algo mas abierto como cuentas por cobrar de monica que manejara lo que es un doc_cc
@@ -37,12 +38,22 @@ namespace PrestamoBLL
             // el sistema con cuotas o si a lass cuotas se le pondra alguna informacion que detalle otros casos
             for (int i = 1; i <= fuente.CantidadDePeriodos; i++)
             {
-                var cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = i };
+                var cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = i, OtrosCargosSinInteres = otrosCargosSinInteres };
+                setGastoDeCierreFinaciadoEnCuotas(i, cuota);
                 cuota.Fecha = getFecha(i);
                 this.fechaCuotaAnterior = cuota.Fecha;
                 cuotas.Add(cuota);
             }
             return cuotas;
+        }
+
+        private void GastoDeCierreSinFinanciamiento()
+        {
+            if ((this.fuente.MontoGastoDeCierre > 0) && (!this.fuente.FinanciarGastoDeCierre))
+            {
+                var cuota = new Cuota { GastoDeCierre = this.fuente.MontoGastoDeCierre, Fecha = this.fuente.FechaEmisionReal, Numero = 0 };
+                this.cuotas.Add(cuota);
+            }
         }
 
         private DateTime getFecha(int i)
@@ -99,19 +110,34 @@ namespace PrestamoBLL
             return 0;
         }
 
-        private decimal getGastoCierrePorCuota()
+        private void setGastoDeCierreFinaciadoEnCuotas(int index, Cuota cuota)
         {
-            return 0;
+            if ((this.fuente.MontoGastoDeCierre > 0) &&
+               (this.fuente.FinanciarGastoDeCierre))
+            {
+                cuota.GastoDeCierre = this.fuente.MontoGastoDeCierre / this.fuente.CantidadDePeriodos;
+                if (this.fuente.CargarInteresAlGastoDeCierre)
+                {
+                    cuota.InteresDelGastoDeCierre = this.fuente.MontoGastoDeCierre *(this.fuente.TasaDeInteresPorPeriodo/100);
+                }
+            }
         }
-
 
         private decimal getInteresPorCuota()
         {
             var tasaInteresPorPeriodo = fuente.TasaDeInteresPorPeriodo;
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
-            decimal interesPorCuota = fuente.MontoCapital * (tasaInteresPorPeriodo/100);
+            decimal interesPorCuota = fuente.MontoCapital * (tasaInteresPorPeriodo / 100);
             return interesPorCuota;
+        }
+        private decimal getOtrosCargosSinInteresPorCuota()
+        {
+            var tasaInteresPorPeriodo = fuente.TasaDeInteresPorPeriodo;
+            // empezaremos pensando en que no tiene interes el gasto de cierre
+            // ni tampoco los otros gastos
+            decimal otrosCargosSininteresPorCuota = fuente.OtrosCargosSinInteres / fuente.CantidadDePeriodos;
+            return otrosCargosSininteresPorCuota;
         }
         private decimal getCapitalPorCuota()
         {
@@ -142,7 +168,11 @@ namespace PrestamoBLL
 
         public decimal TasaDeInteresPorPeriodo { get; set; } = 0;
 
-        public Periodo Periodo {get; set;}
+        public Periodo Periodo { get; set; }
+
+        public bool FinanciarGastoDeCierre { get; set; }
+        public decimal OtrosCargosSinInteres { get; set; }
+
         public infoGeneradorDeCuotas(TiposAmortizacion tipoAMortizacion)
         {
             this.TipoAmortizacion = TipoAmortizacion;
@@ -156,7 +186,10 @@ namespace PrestamoBLL
         decimal MontoCapital { get; }
 
         decimal MontoGastoDeCierre { get; }
+        decimal OtrosCargosSinInteres { get; }
         bool CargarInteresAlGastoDeCierre { get; }
+
+        bool FinanciarGastoDeCierre { get; }
         int CantidadDePeriodos { get; }
         bool AcomodarFechaALasCuotas { get; }
         DateTime FechaInicioPrimeraCuota { get; }

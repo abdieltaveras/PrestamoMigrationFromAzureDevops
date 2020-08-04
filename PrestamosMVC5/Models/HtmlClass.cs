@@ -11,11 +11,11 @@ namespace PrestamosMVC5.Models
         /// html class for div tags that wrap a group of control
         /// </summary>
         public static string FormGroupCls => "form-group row";
-        public static string LabelCls => "control-label col-md-3 col-sm-3 col-xs-3";
+        public static string LabelCls => "control-label col-md-4 col-sm-12 col-xs-12";
         /// <summary>
         /// html class for div tags that wrap an input control
         /// </summary>
-        public static string DivInputCls => "col-md-9 col-sm-9 col-xs-9";
+        public static string DivInputCls => "col-md-8 col-sm-9 col-xs-9";
         /// <summary>
         /// html class for input tag
         /// </summary>

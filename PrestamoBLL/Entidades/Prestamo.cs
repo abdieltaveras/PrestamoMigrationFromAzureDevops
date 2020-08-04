@@ -197,7 +197,7 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public List<int> IdCodeudores { get; set; }
         [Display(Name = "Fecha de emision")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaEmisionReal { get; set; } = DateTime.Now;
         [HiddenInput]
         [ReadOnly(true)]
@@ -241,16 +241,16 @@ namespace PrestamoBLL.Entidades
         public int IdDivisa { get; set; } = 1;
         [IgnorarEnParam]
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
-        [Display(Name = "Interes para el gasto de cierre ?")]
+        [Display(Name = "Interes al G/C/?")]
         public decimal InteresGastoDeCierre { get; set; }
         [ReadOnly(true)]
         public decimal MontoGastoDeCierre { get; internal set; }
-        [Display(Name ="Es deducible el gasto de cierre")]
+        [Display(Name ="Es deducible el G/C?")]
         public bool GastoDeCierreEsDeducible { get; set; }
-        [Display(Name = "Sumo el gasto de cierre a las cuotas ?")]
+        [Display(Name = "Financiar el G/C?")]
 
-        public bool SumarGastoDeCierreALasCuotas { get; set; } = true;
-        [Display(Name = "Cargo interes al gasto de cierre ?")]
+        public bool FinanciarGastoDeCierre { get; set; } = true;
+        [Display(Name = "Cargo interes al G/C ?")]
         public bool CargarInteresAlGastoDeCierre { get; set; } = true;
         [Display(Name = "Desea acomodar las fechas de las cuotas?")]
         public bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
@@ -282,21 +282,20 @@ namespace PrestamoBLL.Entidades
         ////this._Garantias.ToDataTable();
         //public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
         public InfoClienteDrCr infoCliente { get; internal set; }
-
         public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
-
-        
+        public decimal OtrosCargosSinInteres { get; internal set; }
     }
 
     public class PrestamoInsUpdParam : Prestamo
     {
-        private IEnumerable<Cuota> _CuotasList = new List<Cuota>();
+        private IEnumerable<CuotaForSqlType> _CuotasList = new List<CuotaForSqlType>();
         private IEnumerable<Codeudor> __Codeudores = new List<Codeudor>();
         private IEnumerable<Garantia> __Garantias = new List<Garantia>();
 
-        public PrestamoInsUpdParam(Prestamo prestamo, IEnumerable<Cuota> cuotas, IEnumerable<Codeudor> codeudores, IEnumerable<Garantia> garantias)
+        public PrestamoInsUpdParam(Prestamo prestamo, IEnumerable<CuotaForSqlType> cuotas, IEnumerable<Codeudor> codeudores, IEnumerable<Garantia> garantias)
         {
             this._CuotasList = cuotas;
+            
             //var data = codeudores.Select(cod => new { idCodeudor = cod.IdCodeudor });
             //this.__Codeudores = codeudores != null ? codeudores : new List<Codeudor>(); ;
             //this.__Garantias = garantias != null ? garantias : new List<Garantia>(); ;

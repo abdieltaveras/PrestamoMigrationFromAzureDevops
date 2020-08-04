@@ -42,7 +42,7 @@ namespace PrestamoBLL
             SetGarantias(prestamo.IdGarantias);
             SetCodeuDores(prestamo._Codeudores);
             SetMontoAPrestar(prestamo.MontoPrestado, prestamo.IdDivisa);
-            SetGastDeCierre(prestamo.InteresGastoDeCierre, prestamo.GastoDeCierreEsDeducible, prestamo.SumarGastoDeCierreALasCuotas, prestamo.CargarInteresAlGastoDeCierre);
+            SetGastDeCierre(prestamo.InteresGastoDeCierre, prestamo.GastoDeCierreEsDeducible, prestamo.FinanciarGastoDeCierre, prestamo.CargarInteresAlGastoDeCierre);
             SetTasaInteres(prestamo.IdTasaInteres);
             SetAcomodarFecha(prestamo.FechaInicioPrimeraCuota);
             SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDePeriodos); ;
@@ -228,7 +228,7 @@ namespace PrestamoBLL
             this.prestamoInProgress.InteresGastoDeCierre = tasaGastoDeCierre;
             prestamoInProgress.GastoDeCierreEsDeducible = EsDeducible;
             prestamoInProgress.CargarInteresAlGastoDeCierre = cargarInteresAlGastoDeCierre;
-            prestamoInProgress.SumarGastoDeCierreALasCuotas = sumargastoDeCierreALasCuotas;
+            prestamoInProgress.FinanciarGastoDeCierre = sumargastoDeCierreALasCuotas;
         }
 
         private void SetCodeuDores(List<Codeudor> codeudores)
@@ -341,7 +341,7 @@ namespace PrestamoBLL
             switch (tipoAmortizacion)
             {
                 case TiposAmortizacion.No_Amortizable_cuotas_fijas:
-                    generadorCuotas= new GeneradorCuotasFijasNoAmortizables(info);
+                    generadorCuotas= new GeneradorCuotasFijasNoAmortizable(info);
                     break;
                 case TiposAmortizacion.Amortizable_por_dia_abierto:
                     break;
