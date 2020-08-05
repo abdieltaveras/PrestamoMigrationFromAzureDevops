@@ -23,6 +23,7 @@ namespace PrestamosMVC5.Models
     {
         public string MensajeError { get; internal set; }
         public string MontoAPrestar { get; set; }
+        public string OtrosCargosSinInteres { get; set; }
         public Prestamo Prestamo { get; set; }
         //[Display(Name ="Numeracion Identificacion del Cliente")]
         //public string _NumeroIdentificacion { get; set; } = string.Empty;

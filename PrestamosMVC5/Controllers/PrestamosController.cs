@@ -132,20 +132,6 @@ namespace PrestamosMVC5.Controllers
         public JsonResult GenerarCuotas(infoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
         {
-            var info2 = new infoGeneradorDeCuotas(TiposAmortizacion.Amortizable_cuotas_fijas);
-            //info.Periodo
-            //info.CantidadDePeriodos
-            //info.TasaDeInteresPorPeriodo
-            //info.TipoAmortizacion
-            //info.MontoCapital
-            //info.MontoGastoDeCierre
-            //info.CargarInteresAlGastoDeCierre
-            //info.FechaEmisionReal
-            //info.FechaInicioPrimeraCuota
-            //info.AcomodarFechaALasCuotas
-            //var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
-            //var data = BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(1).Select(item => item.IdClasificacion);
-            
             var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
             info.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
             info.Periodo = periodo;

@@ -14,15 +14,15 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GenerarCuotasTest()
         {
-            var periodo = BLLPrestamo.Instance.GetPeriodos(new Entidades.PeriodoGetParams { Codigo = "QUI", IdNegocio=1 }).FirstOrDefault();
+            var periodo = BLLPrestamo.Instance.GetPeriodos(new Entidades.PeriodoGetParams { Codigo = "MES", IdNegocio=1 }).FirstOrDefault();
 
             // necesito aqui un objeto que sea capaz de indicarme la tasa de interes para el periodo quincenal
 
             var infCuota = new infoGeneradorDeCuotas(Entidades.TiposAmortizacion.Amortizable_cuotas_fijas)
             {
                 AcomodarFechaALasCuotas = false,
-                CantidadDePeriodos = 10,
-                TasaDeInteresPorPeriodo = 10,
+                CantidadDePeriodos = 7,
+                TasaDeInteresPorPeriodo = 5,
                 Periodo = periodo,
                 MontoCapital = 10000,
                 TipoAmortizacion = Entidades.TiposAmortizacion.No_Amortizable_cuotas_fijas,

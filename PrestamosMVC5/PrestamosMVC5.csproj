@@ -820,6 +820,10 @@
     <Content Include="Content\vendors\cropper\src\js\template.js" />
     <Content Include="Content\vendors\cropper\src\js\utilities.js" />
     <Content Include="Content\vendors\cropper\src\js\variables.js" />
+    <Content Include="Content\vendors\datatables-checkbox\dataTables.checkboxes.css" />
+    <Content Include="Content\vendors\datatables-checkbox\dataTables.checkboxes.min.js" />
+    <Content Include="Content\vendors\datatables-select\dataTables.select.min.js" />
+    <Content Include="Content\vendors\datatables-select\select.dataTables.min.css" />
     <Content Include="Content\vendors\datatables.net-bs\css\dataTables.bootstrap.css" />
     <Content Include="Content\vendors\datatables.net-bs\css\dataTables.bootstrap.min.css" />
     <Content Include="Content\vendors\datatables.net-bs\js\dataTables.bootstrap.js" />

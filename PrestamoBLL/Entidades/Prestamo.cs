@@ -283,6 +283,7 @@ namespace PrestamoBLL.Entidades
         //public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
         public InfoClienteDrCr infoCliente { get; internal set; }
         public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
+        [Display(Name ="Otros Cargos Sin Interes")]
         public decimal OtrosCargosSinInteres { get; internal set; }
     }
 

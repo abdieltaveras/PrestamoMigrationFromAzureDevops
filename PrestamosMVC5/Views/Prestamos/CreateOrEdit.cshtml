@@ -191,6 +191,14 @@
                                 </div>
                             </div>
 
+                            <div class="@HtmlClass.FormGroupCls">
+                                @Html.LabelFor(model => model.Prestamo.OtrosCargosSinInteres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                <div class="@HtmlClass.DivInputCls">
+                                    @Html.EditorFor(model => model.OtrosCargosSinInteres, new { htmlattributes = new { @class = HtmlClass.InputTextCls + " remove-error", onchange = "onChangeProp(this)", data_type = "currency", pattern = @"^\$\d{1,3}(,\d{3})*(\.\d+)?$", placeholder = "$0.00", value = "0.00" } })
+                                    @Html.ValidationMessageFor(model => model.OtrosCargosSinInteres, "", new { @class = "text-danger" })
+                                    @*<input type="text" name="_MontoAPrestar" id="_MontoAPrestar" class="input-amount-1" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$0.00">*@
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -366,7 +374,7 @@
     <script src="~/Content/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
     @*<script src="~/Scripts/Apps/minMaxAdapter.js"></script>*@
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
-    <script>
+<script>
         $(document).ready(function () {
             $('#table-cuotas').DataTable({
                 "scrollX": true
@@ -391,7 +399,9 @@
     let deudaRenovacion = 0;
     let montoGastoDeCierre = 0;
     let GCEsDeducible = false;
+    let montoDeducible = 0;
     let montoEmitidoAlCliente = 0;
+    let montoOtrosCargosSinInteres = 0;
     let totalCapital = 0;
 
     let counter = 0;
@@ -401,6 +411,8 @@
     function InitData() {
         $("#datosDeCliente").html("@Model.infoCliente")
         $("#datosDeGarantia").html("@Model.infoGarantia")
+        onChangeProp($("#@Html.IdFor(m=>m.Prestamo.IdClasificacion)")[0]);
+        formatValuesToCurrency();
         hideShowSeccionGastoDeCierre(@Model.LlevaGastoDeCierre.ToString().ToLower());
         hideShowSeccionRenovacion(@Model.IncluirRenovacion.ToString().ToLower())
         getClasificacionesQueLlevanGarantia();
@@ -408,7 +420,10 @@
         calcularTotalPrestado();
     }
 
-
+    function formatValuesToCurrency () {
+        formatCurrency($("#@Html.IdFor(m=>m.MontoAPrestar)"));
+        formatCurrency($("#@Html.IdFor(m=>m.OtrosCargosSinInteres)"));
+    }
     function onEnterAvoidSubmitForm() {
         $('form input').keydown(function (e) {
             if (e.keyCode == 13) {
@@ -457,8 +472,17 @@
     function onChangeProp(elem) {
         switch (elem.id) {
             case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
+
                 const llevaGC = elem.checked;
                 hideShowSeccionGastoDeCierre(llevaGC)
+                if (llevaGC) {
+                    $("#@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)").val(10);
+                }
+                else {
+                    $("#@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)").val(0);
+                }
+                calcularTotalPrestado();
+                calcularCuotas();
                 break;
             case "@Html.IdFor(model => model.IncluirRenovacion)":
                 const esUnaRenovacion = elem.checked;
@@ -481,8 +505,18 @@
                 calcularTotalPrestado();
                 calcularCuotas();
                 break;
+            case "@Html.IdFor(model => model.OtrosCargosSinInteres)":
+                calcularTotalPrestado();
+                calcularCuotas();
+                break;
+            case "@Html.IdFor(m => m.Prestamo.GastoDeCierreEsDeducible)":
+                calcularTotalPrestado();
+                calcularCuotas();
+                break;
             case "@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)":
-                calcularMontoGastoDeCierre();
+                //calcularMontoGastoDeCierre();
+                calcularTotalPrestado();
+                calcularCuotas();
                 break;
         }
     }
@@ -496,10 +530,14 @@
         let value = $("#@Html.IdFor(model => model.MontoAPrestar)").val()
         if (value.indexOf(".") < 0) { value += ".00"; }
         montoEmitidoAlCliente = toFloat(value);
+        value = $("#@Html.IdFor(model => model.OtrosCargosSinInteres)").val()
+        if (value.indexOf(".") < 0) { value += ".00"; }
+        montoOtrosCargosSinInteres = toFloat(value);
         //console.log(typeof (value), value, toFloat(value));
         $("#@Html.IdFor(model => model.Prestamo.MontoPrestado)").val(montoEmitidoAlCliente);
+        $("#@Html.IdFor(model => model.Prestamo.OtrosCargosSinInteres)").val(montoOtrosCargosSinInteres);
         deudaRenovacion = parseFloat($("#@Html.IdFor(m => m.Prestamo.DeudaRenovacion)").val());
-        totalCapital = montoEmitidoAlCliente + deudaRenovacion;
+        totalCapital = montoEmitidoAlCliente + deudaRenovacion ;
         //console.log(montoAPrestar, deudaRenovacion, totalPrestado);
         console.log(counter++);
         return totalCapital;
@@ -508,9 +546,9 @@
     function calcularTotalPrestado() {
         calcularTotalCapital();
         calcularMontoGastoDeCierre();
+        setTotalPrestado()
         const textoExplicacionPrestamo = explicacionPrestamo();
         $("#totalPrestado").val(totalPrestado).text(textoExplicacionPrestamo);
-
     }
 
     function calcularMontoGastoDeCierre() {
@@ -518,33 +556,43 @@
         const intGC = parseFloat($("#@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)").val());
         montoGastoDeCierre = totalCapital * (intGC / 100);
         $("#MontoDelGastoDeCierre").text(montoGastoDeCierre.toFixed(2));
-        if (!GCEsDeducible) {
-            totalPrestado = totalCapital + montoGastoDeCierre;
-        }
-        else {
-            totalPrestado = totalCapital;
+        if (GCEsDeducible) {
+            montoDeducible = montoGastoDeCierre;
         }
         return montoGastoDeCierre;
     }
 
+    function setTotalPrestado() {
+        if (!GCEsDeducible) {
+            totalPrestado = totalCapital + montoGastoDeCierre + montoOtrosCargosSinInteres;
+        }
+        else {
+            totalPrestado = totalCapital + montoOtrosCargosSinInteres;
+        }
+    }
     function explicacionPrestamo() {
         let mensaje = '';
         //console.log(` montoEmitidoAlCliente ${typeof (montoEmitidoAlCliente)} valor ${montoEmitidoAlCliente}`);
         //console.log(` deudaRenovacion ${typeof (deudaRenovacion)} valor ${deudaRenovacion}`);
         //console.log(` montoGastoDeCierre ${typeof (montoGastoDeCierre)} valor ${montoGastoDeCierre }`);
         if (montoEmitidoAlCliente > 0) {
-            mensaje += ` el dinero a entregar al cliente es por la suma de ${montoEmitidoAlCliente}`
+            mensaje += ` el dinero a entregar al cliente es por la suma de ${montoEmitidoAlCliente-montoDeducible}`
         }
         if (deudaRenovacion > 0) {
-            mensaje += ` + la deuda de la renovacion es de ${deudaRenovacion}`
+            mensaje += ` + ${deudaRenovacion} por  deuda de renovacion de prestamo`
+        }
+
+        if (montoOtrosCargosSinInteres > 0) {
+            mensaje += ` + ${montoOtrosCargosSinInteres} por otros cargos sin interes `
         }
 
         if (montoGastoDeCierre > 0) {
             if (GCEsDeducible)
-                mensaje += ` + el total del gasto de cierre es de ${montoGastoDeCierre} pero como es deducible no aumenta el valor total del prestamo`
+                mensaje += ` + ${montoGastoDeCierre} por gasto de cierre  pero como es deducible  no  aumenta,`
             else
-                mensaje += ` + el total del gasto de cierre es de ${montoGastoDeCierre} lo que hace que el valor todal del prestamo sea ${totalPrestado}`
+                mensaje += ` + ${montoGastoDeCierre} por gasto de cierre,`
         }
+        mensaje += ` el valor total del prestamo es  ${ totalPrestado }`
         console.log();
         return mensaje;
     }
@@ -885,7 +933,7 @@
                     AcomodarFechaALasCuotas: $("#@Html.IdFor(m => m.Prestamo.AcomodarFechaALasCuotas)").val(),
                     FechaInicioPrimeraCuota: $("#@Html.IdFor(m => m.Prestamo.FechaInicioPrimeraCuota)").val(),
                     TasaDeInteresPorPeriodo: valorTasaDeInteresPorPeriodo,
-                    OtrosGastosSinInteres: 0,
+                    OtrosCargosSinInteres: montoOtrosCargosSinInteres,
             }
             //alert("calculando cuota 2");
                 console.log(infoGenCuota);
@@ -897,12 +945,12 @@
                     contentType: 'application/json; charset=utf-8',
                     tradition: true,
                     success: function (response) {
-                        
+
                         let contador = 0;
                         let valorCuota = 0;
                         $("#lista-cuotas").append(
-                            ` <tr> <th>Cuota</th> 
-                                    <th>Fecha</th><th>Total</th> <th>Capital</th> <th> Interes </th> <th>G/Cierre</th> <th>Int. G.C.</th> <th>Ot. Cargos Sin int</th>  </tr>
+                            ` <tr> <th>Cuota</th>
+                                    <th>Fecha</th><th>Total</th> <th>Capital</th> <th> Interes </th> <th>G/Cierre</th> <th>Int. G.C.</th> <th>Cargos S/int</th>  </tr>
                             `);
                         response.forEach(function (value, index) {
                             contador++;
@@ -910,15 +958,15 @@
                             valorCuota = value.Total.toFixed(2);
                             $("#lista-cuotas").append(
                                 `<tr>
-                                    <td> ${index + 1}</td> 
-                                    <td>${value.FechaSt}  </td> 
-                                    <td>${value.Total.toFixed(2)} </td> 
-                                    <td>${value.Capital.toFixed(2)}  </td> 
-                                    <td>${value.Interes.toFixed(2)} </td> 
-                                    <td>${value.GastoDeCierre.toFixed(2)} </td> 
-                                    <td>${value.InteresDelGastoDeCierre.toFixed(2)} </td> 
-                                    <td>${value.OtrosCargosSinInteres.toFixed(2)} </td> 
-                                    
+                                    <td> ${index + 1}</td>
+                                    <td>${value.FechaSt}  </td>
+                                    <td>${value.Total.toFixed(2)} </td>
+                                    <td>${value.Capital.toFixed(2)}  </td>
+                                    <td>${value.Interes.toFixed(2)} </td>
+                                    <td>${value.GastoDeCierre.toFixed(2)} </td>
+                                    <td>${value.InteresDelGastoDeCierre.toFixed(2)} </td>
+                                    <td>${value.OtrosCargosSinInteres.toFixed(2)} </td>
+
                                 </tr>`)
                             $("#lista-cuotas").append(`</table>`)
                             });
@@ -926,8 +974,7 @@
                     },
                 });
         }
-
-    </script>
+</script>
 
     @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
     <script src="~/Scripts/Apps/Prestamo/search.js"></script>

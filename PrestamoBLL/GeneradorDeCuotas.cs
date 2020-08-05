@@ -44,7 +44,50 @@ namespace PrestamoBLL
                 this.fechaCuotaAnterior = cuota.Fecha;
                 cuotas.Add(cuota);
             }
+            ajustarValores();
             return cuotas;
+        }
+
+        /// <summary>
+        /// revisa si la sumatoria de los valores de las cuotas tienen alguna diferencia y lo ajustan
+        /// ejemplo si de capital debe ser 1000 y la sumatoria de las cuotas da 998.75
+        /// el sistema a la ultima cuota le hace un ajuste
+        /// </summary>
+        private void ajustarValores()
+        {
+            decimal totalCapitalCuotas = 0;
+            decimal totalOtrosCargosSinInteresCuotas = 0;
+            decimal totalGastoDeCierreCuotas = 0;
+
+            foreach (var cuota in cuotas)
+            {
+                totalCapitalCuotas += cuota.Capital;
+                totalOtrosCargosSinInteresCuotas += cuota.OtrosCargosSinInteres; 
+                totalGastoDeCierreCuotas += cuota.GastoDeCierre; 
+            }
+
+            
+            decimal ajusteCapital = fuente.MontoCapital - totalCapitalCuotas;
+            decimal ajusteOtrosCargosSinInteres = fuente.OtrosCargosSinInteres - totalOtrosCargosSinInteresCuotas;
+            decimal ajusteGastoDeCierre = fuente.MontoGastoDeCierre - totalGastoDeCierreCuotas;
+            var ultimaCuotaAjustada = cuotas[cuotas.Count()-1];
+
+            if (ajusteCapital != 0)
+            {
+                ultimaCuotaAjustada.Capital += ajusteCapital;
+            }
+
+            if (ajusteOtrosCargosSinInteres != 0)
+            {
+                ultimaCuotaAjustada.OtrosCargosSinInteres += ajusteOtrosCargosSinInteres;
+            }
+
+            if (ajusteGastoDeCierre != 0)
+            {
+                ultimaCuotaAjustada.GastoDeCierre += ajusteGastoDeCierre;
+            }
+
+            cuotas[cuotas.Count()-1] = ultimaCuotaAjustada;
         }
 
         private void GastoDeCierreSinFinanciamiento()
@@ -105,20 +148,18 @@ namespace PrestamoBLL
             return fecha;
         }
 
-        private decimal getOtrosGastosSinInteresPorCuota()
-        {
-            return 0;
-        }
+        
 
         private void setGastoDeCierreFinaciadoEnCuotas(int index, Cuota cuota)
         {
             if ((this.fuente.MontoGastoDeCierre > 0) &&
                (this.fuente.FinanciarGastoDeCierre))
             {
-                cuota.GastoDeCierre = this.fuente.MontoGastoDeCierre / this.fuente.CantidadDePeriodos;
+                cuota.GastoDeCierre = Math.Round(this.fuente.MontoGastoDeCierre / this.fuente.CantidadDePeriodos);
+                // ahora calculamos el interes del gasto de cierre si debe cargarlo
                 if (this.fuente.CargarInteresAlGastoDeCierre)
                 {
-                    cuota.InteresDelGastoDeCierre = this.fuente.MontoGastoDeCierre *(this.fuente.TasaDeInteresPorPeriodo/100);
+                    cuota.InteresDelGastoDeCierre = Math.Round(this.fuente.MontoGastoDeCierre *(this.fuente.TasaDeInteresPorPeriodo/100),2);
                 }
             }
         }
@@ -128,7 +169,7 @@ namespace PrestamoBLL
             var tasaInteresPorPeriodo = fuente.TasaDeInteresPorPeriodo;
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
-            decimal interesPorCuota = fuente.MontoCapital * (tasaInteresPorPeriodo / 100);
+            decimal interesPorCuota = Math.Round(fuente.MontoCapital * (tasaInteresPorPeriodo / 100),2);
             return interesPorCuota;
         }
         private decimal getOtrosCargosSinInteresPorCuota()
@@ -136,12 +177,12 @@ namespace PrestamoBLL
             var tasaInteresPorPeriodo = fuente.TasaDeInteresPorPeriodo;
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
-            decimal otrosCargosSininteresPorCuota = fuente.OtrosCargosSinInteres / fuente.CantidadDePeriodos;
+            decimal otrosCargosSininteresPorCuota = Math.Round(fuente.OtrosCargosSinInteres / fuente.CantidadDePeriodos,2);
             return otrosCargosSininteresPorCuota;
         }
         private decimal getCapitalPorCuota()
         {
-            var capitalPorCuota = fuente.MontoCapital / fuente.CantidadDePeriodos;
+            var capitalPorCuota = Math.Round(fuente.MontoCapital / fuente.CantidadDePeriodos,2);
             return capitalPorCuota;
         }
 
