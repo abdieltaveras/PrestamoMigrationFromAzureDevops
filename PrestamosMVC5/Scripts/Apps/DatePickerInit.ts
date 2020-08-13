@@ -35,3 +35,12 @@
         }
     });
 });
+
+function convertUtcDateToFormat(date: string, format: string): string {
+    const fecha = moment.utc(date).format(format);
+    return fecha;
+}
+
+function avoidFunctionsError() {
+    convertUtcDateToFormat(null, null);
+}

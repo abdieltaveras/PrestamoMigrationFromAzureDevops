@@ -17,12 +17,12 @@
     //});
     $('input').on('ifChecked', function (event) {
         if (event.target.id === 'search-by-prestamo') {
-            console.log(event.target.id);
+            //console.log(event.target.id);
             $('#search-by-prestamo').iCheck('check');
             $('#search-by-user').iCheck('uncheck');
             $('#search-by-garantia').iCheck('uncheck');
         } else if (event.target.id === 'search-by-user') {
-            console.log(event.target.id);
+            //console.log(event.target.id);
             $('#search-by-user').iCheck('check');
             $('#search-by-prestamo').iCheck('uncheck');
             $('#search-by-garantia').iCheck('uncheck');
@@ -54,18 +54,19 @@
             onPrestamoEnter();
             removeListPrestamo();
         }
-        console.log($('#searchinput').val());
+        //console.log($('#searchinput').val());
     });
 
-    async function searchPrestamoText(text) {
-        console.log('Encontre', text);
+async function searchPrestamoText(text) {
+        console.log('lenth text', text.trim().length);
+        if (text.trim().length < 2) return;
         try {
             res = await searchPrestamo(text);
             showListPrestamos(JSON.parse(res));
             setClickListenerOnPrestamo();
             //console.log(res);
         } catch (err) {
-            console.log('Encontre error', err);
+            //console.log('Encontre error', err);
         }
     }
 
@@ -111,7 +112,7 @@
     }
 
     function loadPrestamoData(id) {
-        console.log(id);
+        //console.log(id);
         let dataValue = { "idprestamo": id };
 
         return $.ajax({

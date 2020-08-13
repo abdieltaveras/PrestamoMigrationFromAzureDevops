@@ -16,7 +16,9 @@ select
 	tblClientes.Imagen1FileName,
 	tblClientes.NoIdentificacion,
 	tblClientes.TelefonoMovil,
-	tblTipoSexos.Nombre as Sexo
+	tblClientes.Activo,
+	tblClientes.Sexo
+
 from 
 	tblClientes, tblTipoSexos
 where

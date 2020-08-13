@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -165,10 +166,10 @@ namespace PrestamoBLL.Entidades
         public string NumeroPrestamoARenovar { get; internal set; } = string.Empty;
 
         [Display(Name = "Indique la clasificacion")]
-        public int IdClasificacion { get; set; }
+        public int IdClasificacion { get; set; } = 4;
         [Display(Name = "Indique el tipo de amortizacion")]
 
-        public int IdTipoAmortizacion { get; set; }
+        public int IdTipoAmortizacion { get; set; } = 1;
 
         [IgnorarEnParam]
         public TiposAmortizacion TipoAmortizacion {
@@ -206,21 +207,27 @@ namespace PrestamoBLL.Entidades
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaVencimiento { get; internal set; }
         [Display(Name = "Indique el codigo de la tasa de interes")]
-        public int IdTasaInteres { get; set; }
+        public int IdTasaInteres { get; set; } = 1;
         [Display(Name = "La tasa de interes por periodo")]
         [IgnorarEnParam]
         [ReadOnly(true)]
         public decimal TasaDeInteresPorPeriodo { get; set; }
         [Display(Name = "Indique la mora")]
-        public int IdTipoMora { get; set; }
+        public int IdTipoMora { get; set; } = 1;
         [Display(Name = "Indique la forma (periodo) de las pago?")]
-        public int IdPeriodo { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        [IgnorarEnParam]
+        public bool Saldado { get; internal set; } = false;
+        [Display(Name = "Seleccione el Periodo")]
+        public int IdPeriodo { get; set; } = 4;
         [IgnorarEnParam]
         public Periodo Periodo { get; internal set; }
         [Display(Name = "Cantidad de Cuotas")]
         //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
         //[RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
-        [Min(1,ErrorMessage ="el valor minimo aceptado es 1")]
+        [Range(typeof(int),"1","99999999", ErrorMessage ="solo se acepta valores mayor a 0")]
+        //[Min(1,ErrorMessage ="el valor minimo aceptado es 1")]
         public int CantidadDePeriodos { get; set; } = 1;
         [Display(Name = "Monto prestado al cliente?")]
         [Required(ErrorMessage="debe digitar un valor 0 o un valor")]
@@ -232,6 +239,15 @@ namespace PrestamoBLL.Entidades
         [Range(0, 999999999, ErrorMessage = "No se aceptan valores negativos")]
         public decimal DeudaRenovacion { get; set; }
         /// <summary>
+        /// esta propiedad es solo visual no tiene efectos en la tabla su proposito
+        /// es poder indicar si el prestamo que se esta trabajando llevara o no renovacion
+        /// para que las vistas habiliten entonces la interaccion con el usuario
+        /// </summary>
+        [IgnorarEnParam]
+        [NotMapped]
+        [Display(Name = "Habilitar Renovacion")]
+        public bool HabilitarRenovacion { get; set; } = false;
+        /// <summary>
         /// tiene sumado el dinero emitido al cliente (monto prestado) + le deuda de la r
         /// </summary>
         [IgnorarEnParam]
@@ -239,16 +255,22 @@ namespace PrestamoBLL.Entidades
         // { get { return MontoPrestado + DeudaRenovacion } internal set { var valor = value;} }
         [Display(Name = "Indique  la Divisa")]
         public int IdDivisa { get; set; } = 1;
+        /// <summary>
+        /// esta propiedad es solo visual no tiene efectos en la tabla su proposito
+        /// es poder indicar si el prestamo que se esta trabajando llevara o no gasto de cierre
+        /// inducido si el campo interes gasto de cierre es mayor a cero
+        /// </summary>
         [IgnorarEnParam]
+        [NotMapped]
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
+        [Range(0.0, 30.00, ErrorMessage = "rango permitido entre 1 y 30%")]
         [Display(Name = "Interes al G/C/?")]
-        public decimal InteresGastoDeCierre { get; set; }
+        public decimal InteresGastoDeCierre { get; set; } = 10.00m;
         [ReadOnly(true)]
         public decimal MontoGastoDeCierre { get; internal set; }
-        [Display(Name ="Es deducible el G/C?")]
-        public bool GastoDeCierreEsDeducible { get; set; }
+        [Display(Name = "Es deducible el G/C?")]
+        public bool GastoDeCierreEsDeducible { get; set; } = false;
         [Display(Name = "Financiar el G/C?")]
-
         public bool FinanciarGastoDeCierre { get; set; } = true;
         [Display(Name = "Cargo interes al G/C ?")]
         public bool CargarInteresAlGastoDeCierre { get; set; } = true;
@@ -283,8 +305,9 @@ namespace PrestamoBLL.Entidades
         //public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
         public InfoClienteDrCr infoCliente { get; internal set; }
         public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
+        [Range(0.00,999999999999.99, ErrorMessage = "no se aceptan valores negativos")]
         [Display(Name ="Otros Cargos Sin Interes")]
-        public decimal OtrosCargosSinInteres { get; internal set; }
+        public decimal OtrosCargosSinInteres { get;  set; }
     }
 
     public class PrestamoInsUpdParam : Prestamo

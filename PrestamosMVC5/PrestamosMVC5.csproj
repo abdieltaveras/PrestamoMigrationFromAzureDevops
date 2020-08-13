@@ -4022,6 +4022,8 @@
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Scripts\Apps\minMaxAdapter.js" />
     <Content Include="Scripts\Apps\Prestamo\search.js" />
+    <Content Include="Scripts\Apps\UtilsForJs.js" />
+    <Content Include="Scripts\Apps\Utils.js" />
     <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <Content Include="Views\Clientes\_infoReferencia2.cshtml" />
     <Content Include="Views\Tests\DropDownList1.cshtml" />
@@ -4040,6 +4042,10 @@
     <Content Include="Views\Tests\masks.cshtml" />
     <Content Include="Views\Tests\bindingDates.cshtml" />
     <Content Include="Views\Tests\PostPeriodoWithJson.cshtml" />
+    <Content Include="Views\Tests\DialogBox.cshtml" />
+    <Content Include="Views\Tests\PNotifyConfirm.cshtml" />
+    <Content Include="Views\Shared\_LayoutWithNoContent.cshtml" />
+    <Content Include="Views\Tests\JQueryConfirm.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
@@ -5231,6 +5237,7 @@
     <Content Include="Views\User\Test.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\Configuration\Index.cshtml" />
+    <TypeScriptCompile Include="Scripts\typings\jquery.pnotify\jquery.pnotify.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
     <TypeScriptCompile Include="Scripts\Apps\ManageSearchOnprestamo.ts" />

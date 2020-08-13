@@ -31,7 +31,7 @@ async function searchClienteText(cliente) {
         clienteRes = await searchCliente(cliente);
         // analizar esto con bryan
         $("#list-clientes-tab").empty();
-        showListCliente(JSON.parse(clienteRes));
+        showListCliente(clienteRes);
         //console.log('Activo', clienteRes)
         setClickListenerOnCliente();
         //console.log(res);
@@ -41,12 +41,10 @@ async function searchClienteText(cliente) {
 }
 
 function searchCliente(location) {
-
     let dataValue = { "searchtotext": location, "CargarImagenesClientes": IMAGEN_CLIENTE_EN_BUSCADOR_CLIENTE  };
-
     return $.ajax({
         type: "get",
-        url: "/Clientes/BuscarClientes",
+        url: "/Clientes/BuscarClientesJson",
         data: dataValue,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             //console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
@@ -101,10 +99,10 @@ function showListCliente(list) {
     //console.log('lista', list);
     if (list.length > 0) {
         $.each(list, function (index, value) {
-            let infoCliente = {
-                IdCliente: value.IdCliente, NombreCompleto: value.Nombres + " " + value.Apellidos, Telefonos: value.TelefonoMovil, NoIdentificacion: value.NoIdentificacion, Imagen1Filename: value.Imagen1FileName
-            };
-            infoClientes.push(infoCliente);
+            infoClientes.push(value);
+            //    {
+            //    IdCliente: value.IdCliente, NombreCompleto: value.Nombres + " " + value.Apellidos, Telefonos: value.TelefonoMovil, NoIdentificacion: value.NoIdentificacion, Imagen1Filename: value.Imagen1FileName, Activo,
+            //};
             $("#list-clientes-tab").append(` <p class="list-group-item clientes list-group-item-action pb-2 pt-2 pl-2 pr-2 " data-order="${count}" data-toggle="list"
                                             data-index=${index}
                                             data-idCliente = "${value.IdCliente}"

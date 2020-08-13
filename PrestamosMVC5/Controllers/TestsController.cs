@@ -103,6 +103,21 @@ namespace PrestamosMVC5.Controllers
             return View("", data);
         }
 
+
+        public ActionResult DialogBox()
+        {
+            return View();
+        }
+
+        public ActionResult PNotifyConfirm()
+        {
+            return View();
+        }
+
+        public ActionResult JQueryConfirm()
+        {
+            return View();
+        }
         public ActionResult Delete(DelCatalogo catalogo)
         {
             pcpSetUsuarioTo(catalogo);

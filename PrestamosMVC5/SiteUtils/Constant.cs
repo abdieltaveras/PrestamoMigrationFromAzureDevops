@@ -1,7 +1,10 @@
-﻿using System;
+﻿using PrestamoBLL;
+using PrestamoBLL.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 
 namespace PrestamosMVC5.SiteUtils
 {
@@ -15,6 +18,19 @@ namespace PrestamosMVC5.SiteUtils
         /// El valor para cuando se quiera establecer que no hay imagen 
         /// </summary>
         public static string NoImagen => PrestamoBLL.Utils.Constant.NoImagen;
+        public static string Nuevo => "Nuevo";
+        
+        public static string prestamoDefaultInJson => getDefaultPrestamo().ToJson();
+
+        public static Prestamo prestamoDefault => getDefaultPrestamo();
+
+        private static Prestamo getDefaultPrestamo()
+        {
+            var prestamo = new Prestamo();
+            return new Prestamo();
+        }
+
+        public static DateTime FechaHoy => DateTime.Now;
     }
     
 }

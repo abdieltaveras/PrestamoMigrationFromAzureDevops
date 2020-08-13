@@ -228,7 +228,7 @@ Switchery.prototype.colorize = function() {
  * @api private
  */
 
-Switchery.prototype.handleOnchange = function(state) {
+Switchery.prototype.handleOnchange = function (state) {
   if (document.dispatchEvent) {
     var event = document.createEvent('HTMLEvents');
     event.initEvent('change', true, true);

@@ -54,6 +54,20 @@ namespace PrestamoBLL.Entidades
         public string NombreModelo { get; internal set; }
     }
 
+    public class GarantiaConMarcaYModeloYPrestamos : Garantia
+    {
+        public string NombreMarca { get; internal set; }
+        public string NombreModelo { get; internal set; }
+
+        public bool TienePrestamosVigentes => IdPrestamos.Count() > 0;
+
+        public List<int> IdPrestamos { get; internal set; } = new List<int>();
+
+        public List<string> PrestamosNumero { get; internal set; } = new List<string>();
+
+        public string ListaPrestamosVigentes => string.Join(", ", PrestamosNumero);
+    }
+
     public class DetalleGarantia : BaseInsUpd
     {
         // Mobiliarios

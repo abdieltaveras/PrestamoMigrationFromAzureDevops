@@ -23,6 +23,7 @@
 	GastoDeCierreEsDeducible bit not null,
 	CargarInteresAlGastoDeCierre bit not null,
 	FinanciarGastoDeCierre bit not null default 0,
+	OtrosCargosSinInteres bit not null default 0,
 	AcomodarFechaALasCuotas bit not null default 0,
 	FechaInicioPrimeraCuota  dateTime not null,
 	[InsertadoPor] varchar(100) not null,
@@ -31,6 +32,7 @@
     [FechaModificado] DATETIME NULL, 
     [AnuladoPor] VARCHAR(100) NULL, 
     [FechaAnulado] DATETIME NULL,
+	[Saldado] bit not null default 0,
 	constraint TotalCapitalMayorQueCero check (TotalPrestado > 0),
 	constraint fk_idPrestamoARenovar foreign KEY (IdPrestamoARenovar) REFERENCES tblPrestamos([IdPrestamo])
 )

@@ -1,10 +1,5 @@
-﻿using PrestamoBLL;
-using PrestamoBLL.Entidades;
-using System;
-using System.Collections.Generic;
+﻿using PrestamoBLL.Entidades;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PrestamosMVC5.Models
@@ -25,6 +20,7 @@ namespace PrestamosMVC5.Models
         public string MontoAPrestar { get; set; }
         public string OtrosCargosSinInteres { get; set; }
         public Prestamo Prestamo { get; set; }
+        
         //[Display(Name ="Numeracion Identificacion del Cliente")]
         //public string _NumeroIdentificacion { get; set; } = string.Empty;
         [HiddenInput(DisplayValue = false)]
@@ -38,7 +34,7 @@ namespace PrestamosMVC5.Models
         public string infoGarantia { get; set; }
         [Display(Name = "Lleva gasto de cierre")]
         public bool LlevaGastoDeCierre { get; set; } = false;
-        [Display(Name = "Desea Renovar Prestamo")]
+        [Display(Name = "Incluir Prestamo para renovacion")]
         public bool IncluirRenovacion { get; set; } = false;
         public PrestamoVm()
         {

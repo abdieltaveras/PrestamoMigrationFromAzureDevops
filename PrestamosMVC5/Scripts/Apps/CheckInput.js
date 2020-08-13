@@ -1,4 +1,13 @@
-initCheckValues();
+function setCheckValue(elemReceived) {
+    //let elem = $('#' + elemReceived.id);
+    var elemName = elemReceived.prop("name");
+    //console.log("attached", elemName);
+    var isChecked = elemReceived.is(':checked');
+    var elems = $("input[name='" + elemName + "'");
+    elems.each(function () {
+        $(this).prop("value", isChecked);
+    });
+}
 function attachOnChangeEventToCheckBoxes() {
     var checkBoxes = $("input:checkbox");
     checkBoxes.each(function () {
@@ -12,14 +21,5 @@ function initCheckValues() {
         setCheckValue($(this));
     });
 }
-function setCheckValue(elemReceived) {
-    //let elem = $('#' + elemReceived.id);
-    var elemName = elemReceived.prop("name");
-    //console.log("attached", elemName);
-    var isChecked = elemReceived.is(':checked');
-    var elems = $("input[name='" + elemName + "'");
-    elems.each(function () {
-        $(this).prop("value", isChecked);
-    });
-}
+initCheckValues();
 //# sourceMappingURL=CheckInput.js.map

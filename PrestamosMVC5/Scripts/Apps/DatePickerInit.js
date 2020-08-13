@@ -34,4 +34,11 @@ $(document).ready(function () {
         }
     });
 });
+function convertUtcDateToFormat(date, format) {
+    var fecha = moment.utc(date).format(format);
+    return fecha;
+}
+function avoidFunctionsError() {
+    convertUtcDateToFormat(null, null);
+}
 //# sourceMappingURL=DatePickerInit.js.map

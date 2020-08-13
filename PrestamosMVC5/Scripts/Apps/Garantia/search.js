@@ -42,14 +42,20 @@ async function searchGarantiaText(location) {
 }
 
 function searchGarantia(location) {
-
     let dataValue = { "searchtotext": location };
     let LocalidadABuscar;
-
+    let _garantiaSearchUrl = '';
+    if (typeof garantiaSearchUrl === 'undefined') {
+        _garantiaSearchUrl = "/Garantias/BuscarGarantias";    
+    }
+    else {
+        _garantiaSearchUrl = garantiaSearchUrl;        
+    }
     return $.ajax({
         type: "get",
-        url: "/Garantias/BuscarGarantias",
+        url: _garantiaSearchUrl,
         data: dataValue,
+        success: function (response) { console.log(response); },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },

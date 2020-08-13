@@ -33,6 +33,7 @@ namespace PrestamoBLL
             //_type.CopyPropertiesTo(prestamo, prestamoInProgress);
             validarIdNoMenorNiIgualACero(prestamo.IdNegocio,"IdNegocio");
             prestamoInProgress.IdNegocio = prestamo.IdNegocio;
+            prestamoInProgress.OtrosCargosSinInteres = prestamo.OtrosCargosSinInteres;
             SetFechaDeEmision(prestamo.FechaEmisionReal);
             SetClasificacion(prestamo.IdClasificacion);
             //SetAmortizacion(prestamo.TipoAmortizacion);
@@ -260,6 +261,9 @@ namespace PrestamoBLL
         }
         private void SetGarantias(IEnumerable<int> idGarantias)
         {
+            // que las garantias en cuestion no tengan otros prestamos vigente
+            var tienenPrestamosVigentes = BLLPrestamo.Instance.IdGarantiasTienenPrestamosVigentes(idGarantias);
+
             prestamoInProgress.IdGarantias = new List<int>();
             if (garantias != null)
             {

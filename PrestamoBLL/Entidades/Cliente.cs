@@ -47,6 +47,7 @@ namespace PrestamoBLL.Entidades
 
         public string Imagen2FileName { get; internal set; } = string.Empty;
 
+        public bool Activo { get; internal set; } = false;
         public int IdTipoIdentificacion { get; internal set; }
         public string InfoDelCliente => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";
     }

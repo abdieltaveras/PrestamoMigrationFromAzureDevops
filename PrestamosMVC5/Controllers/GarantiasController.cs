@@ -89,6 +89,15 @@ namespace PrestamosMVC5.Controllers
             }
             return JsonConvert.SerializeObject(garantias);
         }
+        public string BuscarGarantiasConPrestamos(string searchToText)
+        {
+            IEnumerable<Garantia> garantias = null;
+            if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
+            {
+                garantias = BLLPrestamo.Instance.GarantiaSearchConPrestamos(new BuscarGarantiaParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });
+            }
+            return JsonConvert.SerializeObject(garantias);
+        }
 
         public string BuscarLocalidadGarantias(int IdLocalidad, int IdNegocio)
         {

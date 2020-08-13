@@ -228,6 +228,19 @@ namespace PrestamosMVC5.Controllers
 
         public string BuscarClientes(string searchToText, bool CargarImagenesClientes)
         {
+            var clientes = searchCliente(searchToText, CargarImagenesClientes);
+            return JsonConvert.SerializeObject(clientes);
+        }
+
+        public JsonResult BuscarClientesJson(string searchToText, bool CargarImagenesClientes)
+        {
+            var clientes = searchCliente(searchToText, CargarImagenesClientes);
+            return Json(clientes, JsonRequestBehavior.AllowGet);
+            //Convert.SerializeObject(clientes);
+        }
+
+        private IEnumerable<Cliente> searchCliente(string searchToText, bool CargarImagenesClientes)
+        {
             IEnumerable<Cliente> clientes = null;
 
             clientes = BLLPrestamo.Instance.ClienteSearch(new BuscarClienteParams { TextToSearch = searchToText, IdNegocio = pcpUserIdNegocio });
@@ -240,9 +253,8 @@ namespace PrestamosMVC5.Controllers
                 }
             }
 
-            return JsonConvert.SerializeObject(clientes);
+            return clientes;
         }
-
     }
 
 

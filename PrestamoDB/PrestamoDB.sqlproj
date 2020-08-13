@@ -203,6 +203,8 @@
     <Build Include="dbo\Stored Procedures\spInsUpdPeriodo.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarClientes.sql" />
     <Build Include="dbo\Tables\tblLocalidadNegocio.sql" />
+    <Build Include="dbo\Stored Procedures\spBuscarGarantiasConPrestamo.sql" />
+    <Build Include="dbo\Stored Procedures\spGetGarantiasConPrestamosVigentes.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
