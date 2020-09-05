@@ -11,15 +11,15 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<GarantiaConMarcaYModelo> GarantiaSearch(BuscarGarantiaParams searchParam)
+        public IEnumerable<GarantiaConMarcaYModelo> SearchGarantias(BuscarGarantiaParams searchParam)
         {
             return BllAcciones.GetData<GarantiaConMarcaYModelo, BuscarGarantiaParams>(searchParam, "spBuscarGarantias", GetValidation);
         }
 
-        public IEnumerable<GarantiaConMarcaYModeloYPrestamos> GarantiaSearchConPrestamos(BuscarGarantiaParams searchParam)
+        public IEnumerable<GarantiaConMarcaYModeloYPrestamos> SearchGarantiaConDetallesDePrestamos(BuscarGarantiaParams searchParam)
         {
             var search_Param = SearchRec.ToSqlParams(searchParam);
-            var dr = PrestamosDB.ExecReaderSelSP("spBuscarGarantiasConPrestamos", search_Param);
+            var dr = DBPrestamo.ExecReaderSelSP("spBuscarGarantiasConPrestamos", search_Param);
             var GarantiaConPrestamo = new GarantiaConMarcaYModeloYPrestamos();
             var GarantiasConPrestamos = new List<GarantiaConMarcaYModeloYPrestamos>();
             while (dr.Read())
@@ -51,20 +51,14 @@ namespace PrestamoBLL
             public int idPrestamo { get; set; }
             public string prestamoNumero { get; set; }
         }
-        public void GarantiaInsUpd(Garantia insUpdParam)
+        public void InsUpdGarantia(Garantia insUpdParam)
         {
             BllAcciones.InsUpdData<Garantia>(insUpdParam, "spInsUpdGarantias");
         }
 
-        public bool IdGarantiasTienenPrestamosVigentes(IEnumerable<int> idGarantias)
+        public bool GarantiasTienenPrestamosVigentes(IEnumerable<int> idGarantias)
         {
-            //var tpIdGarantias = new List<tpIdGarantia>();
-            //var result = idGarantias.Select(data => new tpIdGarantia() { IdGarantia = data });
-            ////tpIdGarantias.Add(new tpIdGarantia { IdGarantia = idGarantias[ });
-            ////tpIdGarantias.Add(new tpIdGarantia { IdGarantia = 3 });
-            //var idGarantiasDataTable = result.ToDataTable();
-            //var searchParam = SearchRec.ToSqlParams(new { idGarantias = idGarantiasDataTable });
-            //var dr = PrestamosDB.ExecSelSP("spGarantiasConPrestamosVigentes", searchParam);
+            
             var result = IdGarantiasConPrestamos(idGarantias);
             return (result!=null);
         }
@@ -76,7 +70,7 @@ namespace PrestamoBLL
             //tpIdGarantias.Add(new tpIdGarantia { IdGarantia = 3 });
             var idGarantiasDataTable = result.ToDataTable();
             var searchParam = SearchRec.ToSqlParams(new { idGarantias = idGarantiasDataTable });
-            var result2 = PrestamosDB.ExecReaderSelSP<GarantiasConPrestamo>("spGarantiasConPrestamosVigentes", searchParam);
+            var result2 = DBPrestamo.ExecReaderSelSP<GarantiasConPrestamo>("spGarantiasConPrestamosVigentes", searchParam);
             return result2;
         }
     }

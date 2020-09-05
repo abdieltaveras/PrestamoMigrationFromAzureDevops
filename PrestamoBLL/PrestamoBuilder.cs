@@ -262,7 +262,7 @@ namespace PrestamoBLL
         private void SetGarantias(IEnumerable<int> idGarantias)
         {
             // que las garantias en cuestion no tengan otros prestamos vigente
-            var tienenPrestamosVigentes = BLLPrestamo.Instance.IdGarantiasTienenPrestamosVigentes(idGarantias);
+            var tienenPrestamosVigentes = BLLPrestamo.Instance.GarantiasTienenPrestamosVigentes(idGarantias);
 
             prestamoInProgress.IdGarantias = new List<int>();
             if (garantias != null)

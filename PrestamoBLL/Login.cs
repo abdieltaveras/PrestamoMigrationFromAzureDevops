@@ -18,14 +18,14 @@ namespace PrestamoBLL
         /// </summary>
         /// <param name="idNegocio"></param>
         /// <returns></returns>
-        public void UsuarioChangePassword(ChangePassword param)
+        public void ChangePassword(ChangePassword param)
         {
             var _updParam = SearchRec.ToSqlParams(param);
-            PrestamosDB.ExecSelSP("spUpdContraseñaUsuario", _updParam);
+            DBPrestamo.ExecSelSP("spUpdContraseñaUsuario", _updParam);
         }
-        public LoginResponse LoginUser(Usuario usr)
+        public LoginResponse Login(Usuario usr)
         {
-            var result = LoginValidarUsuario(usr.IdNegocio, usr.LoginName, usr.Contraseña);
+            var result = ValidateUser(usr.IdNegocio, usr.LoginName, usr.Contraseña);
             return result;
         }
         /// <summary>
@@ -35,10 +35,10 @@ namespace PrestamoBLL
         /// <param name="loginName"></param>
         /// <param name="contraseña"></param>
         /// <returns></returns>
-        public LoginResponse LoginUser(int idNegocioMatriz, string loginName, string contraseña)
+        public LoginResponse Login(int idNegocioMatriz, string loginName, string contraseña)
         {
 
-            var result = LoginValidarUsuario(idNegocioMatriz, loginName, contraseña);
+            var result = ValidateUser(idNegocioMatriz, loginName, contraseña);
             #if DEBUG
             if (loginName.ToLower() == "admin") 
             {
@@ -65,11 +65,11 @@ namespace PrestamoBLL
             [GuardarEncriptado]
             public string Contraseña { get; set; } = string.Empty;
         }
-        private IEnumerable<Usuario> LoginUsuarioByNegocioMatriz(LoginParam loginParam)
+        private IEnumerable<Usuario> LoginByNegocioMatriz(LoginParam loginParam)
         {
             //GetValidation(searchParam);
             var searchParam = SearchRec.ToSqlParams(loginParam);
-            var result = PrestamosDB.ExecReaderSelSP<Usuario>("spLoginUsuarioByNegocioMatriz", searchParam);
+            var result = DBPrestamo.ExecReaderSelSP<Usuario>("spLoginUsuarioByNegocioMatriz", searchParam);
             return result;
         }
 
@@ -81,9 +81,9 @@ namespace PrestamoBLL
         /// <param name="loginName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private LoginResponse LoginValidarUsuario(int idNegocio, string loginName, string password)
+        private LoginResponse ValidateUser(int idNegocio, string loginName, string password)
         {
-            var usuario = this.LoginUsuarioByNegocioMatriz(new LoginParam { idNegocioMatriz = idNegocio, LoginName = loginName, Contraseña = password }).FirstOrDefault();
+            var usuario = this.LoginByNegocioMatriz(new LoginParam { idNegocioMatriz = idNegocio, LoginName = loginName, Contraseña = password }).FirstOrDefault();
             
             if (usuario == null)
             {

@@ -12,10 +12,13 @@ using System.Web.Mvc;
 using System.Xml.Serialization;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace PrestamoBLL
 {
     public static class Utils
     {
+        private static readonly object PrestamoDB;
+
         public static int GetIdFromDataTable(DataTable objectContainingId)
         {
             return Convert.ToInt32(objectContainingId.Rows[0][0]);
@@ -28,7 +31,16 @@ namespace PrestamoBLL
             return result.FirstOrDefault();
 
         }
-
+        /// <summary>
+        /// gets date from the sql server instance running
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime GetDateFromSqlServer()
+        {
+            var result = BLLPrestamo.DBPrestamo.ExecQuery("select GetDate() as DT", "SysDate");
+            var r = Convert.ToDateTime(result.Rows[0][0]);
+            return r;
+        }
         /// <summary>
         /// 
         /// </summary>

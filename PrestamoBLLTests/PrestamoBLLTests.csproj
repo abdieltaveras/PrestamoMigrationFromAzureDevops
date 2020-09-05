@@ -98,6 +98,7 @@
     <Compile Include="TerritorioTest.cs" />
     <Compile Include="TipoMoraTests.cs" />
     <Compile Include="UsuarioTests.cs" />
+    <Compile Include="UtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -96,7 +96,7 @@ namespace PrestamosMVC5.Controllers
         {
             CatalogoVM data = new CatalogoVM();
             var tabla = "tblOcupaciones";
-            data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
+            data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
             data.TipoCatalogo = "Ocupaciones";
             data.IdTabla = "IdOcupacion";
             data.NombreTabla = tabla;

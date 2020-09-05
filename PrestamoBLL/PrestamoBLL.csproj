@@ -155,7 +155,6 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app2.config" />
     <None Include="Entidades\Direccion.cd" />
     <None Include="Entidades\TipoMora.cd" />
     <None Include="packages.config" />

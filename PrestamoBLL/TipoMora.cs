@@ -29,7 +29,7 @@ namespace PrestamoBLL
 
         public void TipoMoraDelete(TipoMoraDelParams delParam)
         {
-            PrestamosDB.ExecSelSP("spDelTipoMora", SearchRec.ToSqlParams(delParam));
+            DBPrestamo.ExecSelSP("spDelTipoMora", SearchRec.ToSqlParams(delParam));
         }
     }
 }

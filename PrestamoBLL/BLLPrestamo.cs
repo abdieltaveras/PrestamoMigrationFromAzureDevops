@@ -9,10 +9,18 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-
+    /// <summary>
+    /// Clase que contiene toda la logica de negocios y operaciones que insertan, actualizan, borran, buscan,  datos entre los objetos y la base de datos
+    /// </summary>
     public partial class BLLPrestamo
     {
-        private static Database PrestamosDB => Database.AdHoc(ConexionDB.Server);
+        /// <summary>
+        /// instancia que tiene el objeto dataserver con la conexion de la base de datos
+        /// la cual es obtenida del la propiedad Server del objeto ConexionDB
+        /// </summary>
+
+
+        internal static Database DBPrestamo => Database.AdHoc(ConexionDB.Server);
         #region StaticBLL
         private static BLLPrestamo _bll = null;
         public static  BLLPrestamo Instance
@@ -28,9 +36,12 @@ namespace PrestamoBLL
         }
 
         #endregion StaticBLL
+        /// <summary>
+        /// Es un objeto que maneja los errores que se producen a nivel de la base de datos o del Bll
+        /// </summary>
+        /// <param name="e"></param>
         internal static void DatabaseError(Exception e)
         {
-            
             var mensaje = e.Message;
             //if (mensaje == "Object reference not set to an instance of an object.")
             //    mensaje = $"La cadena de conexion [{ConexionDB.Server}] indicada no permitio establecer la conexion";
@@ -39,21 +50,27 @@ namespace PrestamoBLL
             if (index1 >= 0)
             {
                 /// donde inicia el nombre de la columna
-                var nombreColumna = ExtractColumnName(mensaje, index1);
-                var valueColumna = ExtractValue(mensaje, index1);
+                var nombreColumna = GetColumnNameFromSqlErrorMessage(mensaje, index1);
+                var valueColumna = GetValueFromSqlErrorMessage(mensaje, index1);
                 mensaje = $"Error valor {valueColumna} duplicado en el campo {nombreColumna}, ya existe para otro registro";
             }
             
             throw new Exception(mensaje,e);
         }
-        private static string ExtractColumnName(string mensaje, int index1)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mensaje"></param>
+        /// <param name="index1"></param>
+        /// <returns></returns>
+        private static string GetColumnNameFromSqlErrorMessage(string mensaje, int index1)
         {
             var index2 = mensaje.IndexOf("UQ_") + 3;
             var index3 = mensaje.IndexOf(" ", index2);
             var nombreColumna = mensaje.Substring(index2, (index3 - index2));
             return nombreColumna;
         }
-        private static string ExtractValue(string mensaje, int index1)
+        private static string GetValueFromSqlErrorMessage(string mensaje, int index1)
         {
             var index2 = mensaje.IndexOf("is (")+4;
             var index3 = mensaje.IndexOf(")");
@@ -125,24 +142,26 @@ namespace PrestamoBLL
                 //query = string.Format("SELECT count(*) FROM " + table);
             }
             //var result2 = Database.DataServer.ExecNonQuery(query);
-            var result3 = PrestamosDB.ExecEscalar(query); 
+            var result3 = DBPrestamo.ExecEscalar(query); 
             var valor = System.Convert.ToInt32(result3);
             return valor > 0;
         }
 
-        //new Exception("Lo siento ha ocurrido un error a nivel de la base de datos");
+        /// <summary>
+        /// Acciones comunes de Bll Get, Insert, Update
+        /// </summary>
         protected  class BllAcciones
         {
-            
 
             public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : class
             {
+                
                 if (searchParam is BaseGetParams) { getValidations(searchParam as BaseGetParams); }
                 IEnumerable<TInsert2> result = new List<TInsert2>();
                 try
                 {
                    var searchSqlParams = SearchRec.ToSqlParams(searchParam);                   
-                   result = PrestamosDB.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
+                   result = DBPrestamo.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
                 }
                 catch (Exception e)
                 {
@@ -164,7 +183,7 @@ namespace PrestamoBLL
                 try
                 {
                     var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
-                    using (var response = PrestamosDB.ExecReaderSelSP(storedProcedure, _insUpdParam))
+                    using (var response = DBPrestamo.ExecReaderSelSP(storedProcedure, _insUpdParam))
                     {
                         while (response.Read())
                         {
@@ -185,7 +204,7 @@ namespace PrestamoBLL
                 try
                 {
                     var _cancelParam = SearchRec.ToSqlParams(CancelParam);
-                    PrestamosDB.ExecSelSP(storedProcedure, _cancelParam);
+                    DBPrestamo.ExecSelSP(storedProcedure, _cancelParam);
                 }
                 catch (Exception e)
                 {

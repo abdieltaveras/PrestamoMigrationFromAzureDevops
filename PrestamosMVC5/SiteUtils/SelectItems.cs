@@ -27,7 +27,7 @@ namespace PrestamosMVC5.Models
         public static SelectList TiposVinculos => SLFactory.ForEnum<EnumTiposVinculo>();
         public static SelectList Negocios(string usuario, int permitirOperaciones, int idNegocio) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, PermitirOperaciones = permitirOperaciones, Usuario = usuario }), "IdNegocio", "NombreComercial");
 
-        public static SelectList Clasificaciones(int idNegocio) => new SelectList(BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { NombreTabla = "tblClasificaciones", IdTabla = "idClasificacion", IdNegocio = idNegocio }), "IdClasificacion", "Nombre");
+        public static SelectList Clasificaciones(int idNegocio) => new SelectList(BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { NombreTabla = "tblClasificaciones", IdTabla = "idClasificacion", IdNegocio = idNegocio }), "IdClasificacion", "Nombre");
 
         public static SelectList Periodos(int idNegocio) => new SelectList(BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = idNegocio }), "IdPeriodo", "Nombre");
 

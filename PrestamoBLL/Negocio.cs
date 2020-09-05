@@ -19,7 +19,7 @@ namespace PrestamoBLL
             try
             {
                 var searchSqlParams = SearchRec.ToSqlParams(searchParam);
-                result = PrestamosDB.ExecReaderSelSP<Negocio>("spGetNegocios", searchSqlParams);
+                result = DBPrestamo.ExecReaderSelSP<Negocio>("spGetNegocios", searchSqlParams);
             }
             catch (Exception e)
             {
@@ -38,7 +38,7 @@ namespace PrestamoBLL
             IEnumerable<Negocio> result = new List<Negocio>();
             try
             {
-                result = PrestamosDB.ExecReaderSelSP<Negocio>("spGetNegocioAndPadres", SearchRec.ToSqlParams(new { idNegocio = idNegocio }));
+                result = DBPrestamo.ExecReaderSelSP<Negocio>("spGetNegocioAndPadres", SearchRec.ToSqlParams(new { idNegocio = idNegocio }));
             }
             catch (Exception e)
             {
@@ -58,7 +58,7 @@ namespace PrestamoBLL
             try
             {
 
-                result = PrestamosDB.ExecReaderSelSP<Negocio>("spGetNegociosAndHijos", SearchRec.ToSqlParams(new { idNegocio = idNegocio }));
+                result = DBPrestamo.ExecReaderSelSP<Negocio>("spGetNegociosAndHijos", SearchRec.ToSqlParams(new { idNegocio = idNegocio }));
             }
             catch (Exception e)
             {
@@ -97,7 +97,7 @@ namespace PrestamoBLL
             try
             {
                 var searchSqlParams = SearchRec.ToSqlParams(idNegocio);
-                var response = PrestamosDB.ExecEscalar($"select dbo.fnGetIdNegocioMatriz({idNegocio})");
+                var response = DBPrestamo.ExecEscalar($"select dbo.fnGetIdNegocioMatriz({idNegocio})");
                 if (!response.IsNull())
                 {
                     idNegocioResponse = Convert.ToInt32(response);
@@ -120,7 +120,7 @@ namespace PrestamoBLL
             {
                 var searchSqlParams = SearchRec.ToSqlParams(0);
                 //$"select * from fnGetNegociosPadre({idNegocio})"
-                using (var response = PrestamosDB.ExecQuery("select IdNegocio, NombreComercial  from tblNegocios where IdNegocioPadre is NULL", searchSqlParams))
+                using (var response = DBPrestamo.ExecQuery("select IdNegocio, NombreComercial  from tblNegocios where IdNegocioPadre is NULL", searchSqlParams))
                 {
                     while (response.Read())
                     {
@@ -148,7 +148,7 @@ namespace PrestamoBLL
             var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
             try
             {
-                var result = PrestamosDB.ExecSelSP("spInsUpdNegocio", _insUpdParam);
+                var result = DBPrestamo.ExecSelSP("spInsUpdNegocio", _insUpdParam);
                 idResult = Utils.GetIdFromDataTable(result);
             }
             catch (Exception e)

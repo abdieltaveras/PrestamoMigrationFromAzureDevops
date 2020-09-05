@@ -22,7 +22,7 @@ namespace PrestamoBLL
         
         public void TasaInteresDelete(TasaInteresDelParams delParam)
         {
-            PrestamosDB.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
+            DBPrestamo.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
         }
 
         public class TasaInteresPorPeriodos {

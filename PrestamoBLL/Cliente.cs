@@ -11,24 +11,24 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        public IEnumerable<Cliente> ClientesGet(ClienteGetParams  searchParam)
+        public IEnumerable<Cliente> GetClientes(ClienteGetParams  searchParam)
         {
             GetValidation(searchParam as BaseGetParams);
             return BllAcciones.GetData<Cliente, ClienteGetParams>(searchParam, "spGetClientes", GetValidation);
         }
-        public void ClientesInsUpd(Cliente insUpdParam)
+        public void InsUpdClientes(Cliente insUpdParam)
         {
             BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
         }
 
-        public void ClientesInsUpd(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia)
+        public void InsUpdClientes(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia)
         {
             FixProperties(cliente, infoConyuge, infoLaboral);
             convertToJson(cliente, infoConyuge, infoLaboral, infoDireccion, infoReferencia);
             try
             {
                 var _insUpdParam = SearchRec.ToSqlParams(cliente);
-                PrestamosDB.ExecSelSP("spInsUpdCliente", _insUpdParam);
+                DBPrestamo.ExecSelSP("spInsUpdCliente", _insUpdParam);
             }
             catch (Exception e)
             {
@@ -58,12 +58,12 @@ namespace PrestamoBLL
             cliente.TelefonoMovil = StringMeth.ConvertNullStringToEmpty(cliente.TelefonoMovil);
         }
 
-        public void ClientesAnular(ClienteDelParams delParam)
+        public void AnularClientes(ClienteDelParams delParam)
         {
-            PrestamosDB.ExecSelSP("spDelCliente", SearchRec.ToSqlParams(delParam));
+            DBPrestamo.ExecSelSP("spDelCliente", SearchRec.ToSqlParams(delParam));
         }
 
-        public IEnumerable<Cliente> ClienteSearch(BuscarClienteParams searchParam)
+        public IEnumerable<Cliente> SearchCliente(BuscarClienteParams searchParam)
         {
             return BllAcciones.GetData<Cliente, BuscarClienteParams>(searchParam, "spBuscarClientes", GetValidation);
         }

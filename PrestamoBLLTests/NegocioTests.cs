@@ -181,7 +181,7 @@ namespace PrestamoBLL.Tests
             string loginName = "bryan";
             int idNegocioMatriz = selecMatriz.IdNegocio;
             string password = "1";
-            var login = BLLPrestamo.Instance.LoginUser(idNegocioMatriz,loginName,password);
+            var login = BLLPrestamo.Instance.Login(idNegocioMatriz,loginName,password);
             Assert.IsTrue(login.ValidationMessage.UserValidationResult == UserValidationResult.Sucess, $"El loginName {loginName} para el negocio Matriz {idNegocioMatriz} con la contrasena {password} no fue exitoso revisar");
         }
 
@@ -193,7 +193,7 @@ namespace PrestamoBLL.Tests
             string loginName = "bryan";
             int idNegocioMatriz = selecMatriz.IdNegocio;
             string password = "1";
-            var login = BLLPrestamo.Instance.LoginUser(idNegocioMatriz, loginName, password);
+            var login = BLLPrestamo.Instance.Login(idNegocioMatriz, loginName, password);
             var negociosHijosQuePermitenOperaciones = new List<Negocio>();
             if (login.ValidationMessage.UserValidationResult == UserValidationResult.Sucess)
             {
@@ -211,7 +211,7 @@ namespace PrestamoBLL.Tests
             string loginName = "bryan";
             int idNegocioMatriz = selecMatriz.IdNegocio;
             string password = "1";
-            var login = BLLPrestamo.Instance.LoginUser(idNegocioMatriz, loginName, password);
+            var login = BLLPrestamo.Instance.Login(idNegocioMatriz, loginName, password);
             Assert.IsTrue(login.ValidationMessage.UserValidationResult == UserValidationResult.NoUserFound, $"El loginName {loginName} para el negocio Matriz {idNegocioMatriz} con la contrasena {password} no fue exitoso revisar");
 
         }

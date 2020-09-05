@@ -23,7 +23,7 @@ namespace PrestamoBLL
 
         public void anularPeriodo(Periodo delParam)
         {
-            PrestamosDB.ExecSelSP("spdelPeriodo", SearchRec.ToSqlParams(delParam));
+            DBPrestamo.ExecSelSP("spdelPeriodo", SearchRec.ToSqlParams(delParam));
         }
     }
 }

@@ -58,7 +58,7 @@ namespace PrestamosMVC5.Controllers
                 model.LoginName = "bryan";
                 model.Password = "1";
                 var getUsr = new Usuario { LoginName = model.LoginName, IdNegocio = model.IdNegocio, Contraseña = model.Password};
-                var result = BLLPrestamo.Instance.LoginUser(getUsr);
+                var result = BLLPrestamo.Instance.Login(getUsr);
                 model.SoloHayUnaLocalidad = true;
                 model.NombreLocalidad = "La Romana";
                 model.IdLocalidad = 1;
@@ -92,7 +92,7 @@ namespace PrestamosMVC5.Controllers
             if (ModelState.IsValid)
             {
                 var getUsr = new Usuario { LoginName = loginView.LoginName, IdNegocio = loginView.IdNegocio, Contraseña = loginView.Password };
-                var result = BLLPrestamo.Instance.LoginUser(getUsr);
+                var result = BLLPrestamo.Instance.Login(getUsr);
                 if (result.ValidationMessage.UserValidationResult != BLLPrestamo.UserValidationResult.Sucess)
                 {
                     this.UpdViewBag_ShowSummaryErrorsTime(9);
@@ -226,7 +226,7 @@ namespace PrestamosMVC5.Controllers
                 var usuario = BLLPrestamo.Instance.UsuariosGet(searchData).FirstOrDefault();
                 model.IdUsuario = usuario.IdUsuario;
                 var data = new ChangePassword { Contraseña = model.Contraseña, Usuario = model.LoginName, IdUsuario = model.IdUsuario };
-                BLLPrestamo.Instance.UsuarioChangePassword(data);
+                BLLPrestamo.Instance.ChangePassword(data);
             }
             catch (Exception e)
             {

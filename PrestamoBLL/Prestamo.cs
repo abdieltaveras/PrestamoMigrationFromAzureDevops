@@ -21,7 +21,7 @@ namespace PrestamoBLL
             
             var prestamoParam2 = SearchRec.ToSqlParams(result);
             //var resultId = PrestamosDB.ExecSelSP("spInsUpdPrestamo",prestamoParam);
-            var resultId = PrestamosDB.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
+            var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
             //var result = PrestamosDB.ExecSelSP("spInsUpdNegocio", _insUpdParam);
             //idResult = Utils.GetIdFromDataTable(result);
             var  id= Utils.GetIdFromDataTable(resultId);
@@ -65,7 +65,7 @@ namespace PrestamoBLL
             
             //GetValidation(searchParam as BaseGetParams    );
             var searchRec = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
-            var dr = PrestamosDB.ExecReaderSelSP("spGetPrestamo", searchRec);
+            var dr = DBPrestamo.ExecReaderSelSP("spGetPrestamo", searchRec);
             Prestamo infoPrestamo = new Prestamo();
             InfoClienteDrCr infoCliente = new InfoClienteDrCr();
             while (dr.Read())
@@ -105,7 +105,7 @@ namespace PrestamoBLL
             }
             //GetValidation(searchParam as BaseGetParams    );
             var searchRec = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
-            var dr = PrestamosDB.ExecReaderSelSP("spGetPrestamoConDetalle", searchRec);
+            var dr = DBPrestamo.ExecReaderSelSP("spGetPrestamoConDetalle", searchRec);
             InfoClienteDrCr infoCliente = new InfoClienteDrCr();
             InfoPrestamoDrCr infoPrestamo = new InfoPrestamoDrCr();
             

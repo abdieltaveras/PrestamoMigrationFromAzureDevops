@@ -24,7 +24,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult ListRoles()
         {
             RoleVM datos = new RoleVM();
-            datos.ListaRoles = BLLPrestamo.Instance.RolesGet(new RoleGetParams { IdNegocio = this.pcpUserIdNegocio });
+            datos.ListaRoles = BLLPrestamo.Instance.GetRoles(new RoleGetParams { IdNegocio = this.pcpUserIdNegocio });
 
             return View("ListRoles", datos);
         }
@@ -32,7 +32,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult Create()
         {
             RoleVM datos = new RoleVM();
-            datos.Operaciones = BLLPrestamo.Instance.OperacionesGet(new OperacionGetParams { IdNegocio = this.pcpUserIdNegocio });
+            datos.Operaciones = BLLPrestamo.Instance.GetOperaciones(new OperacionGetParams { IdNegocio = this.pcpUserIdNegocio });
 
             return View("Create", datos);
         }
@@ -42,8 +42,8 @@ namespace PrestamosMVC5.Controllers
 
             datos.Role = new Role() { IdRole = id };
 
-            datos.ListaRoles = BLLPrestamo.Instance.RolesGet(new RoleGetParams { IdNegocio = this.pcpUserIdNegocio });
-            datos.Operaciones = BLLPrestamo.Instance.OperacionesGet(new OperacionGetParams { IdNegocio = this.pcpUserIdNegocio });
+            datos.ListaRoles = BLLPrestamo.Instance.GetRoles(new RoleGetParams { IdNegocio = this.pcpUserIdNegocio });
+            datos.Operaciones = BLLPrestamo.Instance.GetOperaciones(new OperacionGetParams { IdNegocio = this.pcpUserIdNegocio });
 
             return View("edit", datos);
         }
@@ -56,11 +56,11 @@ namespace PrestamosMVC5.Controllers
 
             if (idrole == 0)
             {
-                idrole = BLLPrestamo.Instance.RoleInsUpd(Role.Role);
+                idrole = BLLPrestamo.Instance.InsUpdRole(Role.Role);
             }
 
             // Listado actual del usuario
-            List<RoleOperacion> ListadoDB =  (List<RoleOperacion>)BLLPrestamo.Instance.RoleOperacionesGet(new RoleOperacionGetParams { IdRole = idrole});
+            List<RoleOperacion> ListadoDB =  (List<RoleOperacion>)BLLPrestamo.Instance.GetRoleOperaciones(new RoleOperacionGetParams { IdRole = idrole});
 
             List<RoleOperacionIns> ListaAInsertar = new List<RoleOperacionIns>();
             List<RoleOperacionIns> ListaAAnular = new List<RoleOperacionIns>();
@@ -104,7 +104,7 @@ namespace PrestamosMVC5.Controllers
                 }
             }
 
-            BLLPrestamo.Instance.RoleOperacionInsUpd(ListaAInsertar, ListaAModificar, ListaAAnular, this.pcpUserLoginName);
+            BLLPrestamo.Instance.insUpdRoleOperacion(ListaAInsertar, ListaAModificar, ListaAAnular, this.pcpUserLoginName);
 
             return RedirectToAction("ListRoles");
         }
@@ -123,7 +123,7 @@ namespace PrestamosMVC5.Controllers
         public string BuscarRoleOperaciones(int idRole)
         {
             IEnumerable<RoleOperacion> roles = null;
-            roles = BLLPrestamo.Instance.RoleOperacionesSearch(new BuscarRoleOperacionesParams { IdRole = idRole });
+            roles = BLLPrestamo.Instance.SearchRoleOperaciones(new BuscarRoleOperacionesParams { IdRole = idRole });
             return JsonConvert.SerializeObject(roles);
         }
 

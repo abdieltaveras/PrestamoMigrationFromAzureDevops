@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Localidad> LocalidadesGet(LocalidadGetParams searchParam)
+        public IEnumerable<Localidad> GetLocalidades(LocalidadGetParams searchParam)
         {
             return BllAcciones.GetData<Localidad, LocalidadGetParams>(searchParam, "spGetLocalidades", GetValidation);
         }
@@ -22,23 +22,23 @@ namespace PrestamoBLL
         /// </summary>
         /// <param name="idLocalidad"></param>
         /// <returns></returns>
-        public string LocalidadGetFullName(int idLocalidad)
+        public string GetFullNameLocalidad(int idLocalidad)
         {
-            var result = BLLPrestamo.Instance.LocalidadesGet(new LocalidadGetParams { IdLocalidad = idLocalidad});
+            var result = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad});
             var localidades = from localidad in result select new { localidad.Nombre };
             string localidadFullName= string.Empty;
             result.ToList().ForEach(loc => localidadFullName += loc.Nombre + " ");
             return localidadFullName;
         }
-        public void LocalidadInsUpd(Localidad insUpdParam)
+        public void InsUpdLocalidad(Localidad insUpdParam)
         {
             BllAcciones.InsUpdData<Localidad>(insUpdParam, "spInsUpdLocalidad");
         }
-        public IEnumerable<BuscarLocalidad> LocalidadSearch(BuscarLocalidadParams searchParam)
+        public IEnumerable<BuscarLocalidad> SearchLocalida(BuscarLocalidadParams searchParam)
         {
             return BllAcciones.GetData<BuscarLocalidad, BuscarLocalidadParams>(searchParam, "spBuscarLocalidad", GetValidation);
         }
-        public IEnumerable<string> LocalidadSearchName(BuscarNombreLocalidadParams searchParam)
+        public IEnumerable<string> SearchLocalidadByName(BuscarNombreLocalidadParams searchParam)
         {
             return BllAcciones.GetData<string, BuscarNombreLocalidadParams>(searchParam, "spGetLocalidadById", GetValidation);
 
@@ -55,12 +55,12 @@ namespace PrestamoBLL
             //return result;
         }
 
-        public IEnumerable<Localidad> PaisesGet(LocalidadPaisesGetParams searchParam)
+        public IEnumerable<Localidad> GetPaises(LocalidadPaisesGetParams searchParam)
         {
             return BllAcciones.GetData<Localidad, LocalidadPaisesGetParams>(searchParam, "LocalidadPaisesSpGet", GetValidation);
         }
 
-        public IEnumerable<LocalidadesHijas> LocalidadesHijasGet(LocalidadGetParams searchParam)
+        public IEnumerable<LocalidadesHijas> GetHijasLocalidades(LocalidadGetParams searchParam)
         {
             return BllAcciones.GetData<LocalidadesHijas, LocalidadGetParams>(searchParam, "LocalidadLocalidadesHijasDeLocalidadSpGet", GetValidation);
         }

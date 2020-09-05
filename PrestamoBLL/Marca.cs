@@ -10,11 +10,11 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Marca>MarcasGet(MarcaGetParams searchParam)
+        public IEnumerable<Marca> GetMarcas(MarcaGetParams searchParam)
         {
             return BllAcciones.GetData<Marca, MarcaGetParams>(searchParam, "spGetMarcas", GetValidation);
         }
-        public void MarcaInsUpd(Marca insUpdParam)
+        public void InsUpdMarca(Marca insUpdParam)
         {
             BllAcciones.InsUpdData<Marca>(insUpdParam, "spInsUpdMarca");
         }

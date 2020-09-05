@@ -8,7 +8,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        internal void CuotasinsUpd(IEnumerable<Cuota> cuotas)
+        internal void InsUpdCuotas(IEnumerable<Cuota> cuotas)
         {
             var cuotasDataTable = cuotas.ToDataTable();
             try
@@ -18,7 +18,7 @@ namespace PrestamoBLL
                 /// debe crear un parametro anonimo que coincida el nombre del parametro
                 /// y asignarle un objeto datatable
                 var _insUpdParam = SearchRec.ToSqlParams(new { cuotas = cuotasDataTable });
-                PrestamosDB.ExecSelSP("spInsUpdCuotas", _insUpdParam);
+                DBPrestamo.ExecSelSP("spInsUpdCuotas", _insUpdParam);
             }
             catch (Exception e)
             {

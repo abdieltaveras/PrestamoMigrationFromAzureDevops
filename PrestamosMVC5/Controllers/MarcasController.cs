@@ -25,7 +25,7 @@ namespace PrestamosMVC5.Controllers
         public ActionResult CreateOrEdit()
         {
             MarcaVM datos = new MarcaVM();
-            datos.ListaMarcas = BLLPrestamo.Instance.MarcasGet(new MarcaGetParams { IdNegocio = this.pcpUserIdNegocio});
+            datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = this.pcpUserIdNegocio});
 
             return View("CreateOrEdit", datos);
         }
@@ -35,7 +35,8 @@ namespace PrestamosMVC5.Controllers
             //marca.IdNegocio = 1;
             //marca.InsertadoPor = "Bryan";
             this.pcpSetUsuarioAndIdNegocioTo(marca);
-            BLLPrestamo.Instance.MarcaInsUpd(marca);
+            BLLPrestamo.Instance.InsUpdMarca(marca);
+
             return RedirectToAction("CreateOrEdit");
         }
     }

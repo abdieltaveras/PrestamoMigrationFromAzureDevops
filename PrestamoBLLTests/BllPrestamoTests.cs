@@ -43,7 +43,7 @@ namespace PrestamoBLL.Tests
         public void RoleInsUpdTest_result_resultgreaterThanZero()
         {
             var ins = new Role { Nombre = "Probando", Usuario = "test", IdNegocio = 1 };
-            var result = BLLPrestamo.Instance.RoleInsUpd(ins);
+            var result = BLLPrestamo.Instance.InsUpdRole(ins);
             Assert.IsTrue(result > 0, $"se esperaba valor mayor a 0 y se obtuvo {result}");
         }
 
