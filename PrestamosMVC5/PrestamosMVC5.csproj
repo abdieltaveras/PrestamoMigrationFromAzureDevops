@@ -196,6 +196,7 @@
     <Compile Include="Models\ModeloVM.cs" />
     <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="SiteUtils\EmailService.cs" />
     <Compile Include="SiteUtils\SelectItems.cs" />
     <Compile Include="SiteUtils\Constant.cs" />
     <Compile Include="SiteUtils\GeneralUtils.cs" />
