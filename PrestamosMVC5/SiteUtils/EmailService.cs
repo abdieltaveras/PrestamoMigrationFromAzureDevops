@@ -9,6 +9,8 @@ using System.Threading;
 using System.Web.Configuration;
 using System.Configuration;
 using System.Security.Cryptography;
+using System.IO;
+using System.Data.Common;
 
 namespace PrestamosMVC5.SiteUtils
 {
@@ -41,6 +43,26 @@ namespace PrestamosMVC5.SiteUtils
             }
             
         }
-  
+    
+        public static string CreateTemplatePrestamo(PrestamoBLL.Entidades.Cliente cl, PrestamoBLL.Entidades.Prestamo prestamo)
+        {
+            string body = string.Empty;
+
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/MailTemplates/EmailTemplate.html")))
+            {
+                body = reader.ReadToEnd();
+
+                //En esta parte se deben espeficicar los parametros que se enviaran al email.
+                // ejemplo
+                // Body = body.Replace({fname}, nombre)
+                body = body.Replace("{Nombre}", cl.NombreCompleto);
+                body = body.Replace("{Fecha}", DateTime.Now.ToString());
+                body = body.Replace("{Prestamo}", prestamo.MontoCapital.ToString());
+                body = body.Replace("{tasa}", prestamo.InteresGastoDeCierre.ToString());
+                body = body.Replace("{cuotas}", prestamo.CantidadDePeriodos.ToString());
+
+                return body;
+            }
+        }
     }
 }

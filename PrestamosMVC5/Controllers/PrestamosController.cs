@@ -46,6 +46,7 @@ namespace PrestamosMVC5.Controllers
                 var searchResult = getPrestamoForUi(id);
                 if (!searchResult.IsNull())
                 {
+                   
                     TempData["Prestamo"] = searchResult;
                     model = searchResult;
                 }
@@ -103,6 +104,10 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public JsonResult GuardarPrestamo(Prestamo prestamo)
         {
+            var cli = new Cliente();
+            //var cliente = getCliente(prestamo.IdCliente);
+                //ClienteGetParams(prestamo.IdCliente);
+
             var message = string.Empty;
             Thread.Sleep(5000);
             try
@@ -111,6 +116,8 @@ namespace PrestamosMVC5.Controllers
                 Response.StatusCode = 205;
                 //Response.StatusCode = 500;
                 message = "datos procesados exitosamente";
+                EmailService.SendMail("armpmartinez@gmail.com", "Notificacion de prestamo", EmailService.CreateTemplatePrestamo(cli, prestamo), true);
+
             }
             catch (Exception e)
             {
