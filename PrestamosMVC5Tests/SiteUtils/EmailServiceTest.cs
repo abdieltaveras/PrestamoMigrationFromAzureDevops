@@ -10,9 +10,9 @@ namespace PrestamosMVC5Tests.SiteUtils
         [TestMethod]
         public void TestSendMail()
         {
-            var result = EmailService.SendMail("AbdielTaveras@gmail.com", "prueba", "Una prueba");
+            var result = EmailService.SendMail("AbdielTaveras@gmail.com", "prueba", "mensaje para cristian como usar obs");
 
-            Assert.IsTrue(result);
+            Assert.IsTrue(result,"el correo no pudo ser enviado");
         }
     }
 }
