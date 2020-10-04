@@ -84,12 +84,17 @@ namespace PrestamoBLL
                     infoGarantiasDrCr.Add(infoGarantiaDrCr);
                 }
             }
+            if (infoGarantiasDrCr.Count() <= 0)
+            {
+                infoGarantiasDrCr.Add(new InfoGarantiaDrCr());
+            }
             // las garantia
             // los codeudores
             var PrestamoConDetalle = new PrestamoConDetallesParaUIPrestamo();
             PrestamoConDetalle.infoPrestamo = infoPrestamo;
             PrestamoConDetalle.infoCliente = infoCliente;
             PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
+                
             return PrestamoConDetalle;
         }
 
@@ -133,14 +138,18 @@ namespace PrestamoBLL
             {
                 while (dr.Read())
                 {
-                    InfoGarantiaDrCr infoGarantiaDrCr; 
-                    dr.DataReaderToType(out infoGarantiaDrCr );
+                    InfoGarantiaDrCr infoGarantiaDrCr;
+                    dr.DataReaderToType(out infoGarantiaDrCr);
                     if (ConvertDetallesGarantiaToJson)
                     {
                         infoGarantiaDrCr.DetallesForJsonConvert();
                     }
                     infoGarantiasDrCr.Add(infoGarantiaDrCr);
                 }
+            }
+            else
+            {
+                infoGarantiasDrCr.Add(new InfoGarantiaDrCr());
             }
             // las garantia
             // los codeudores
