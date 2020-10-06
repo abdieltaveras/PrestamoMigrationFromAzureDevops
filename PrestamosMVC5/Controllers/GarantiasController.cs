@@ -6,6 +6,7 @@ using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,7 +27,7 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
-        public ActionResult CreateOrEdit(List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
+        public ActionResult CreateOrEdit(HttpPostedFileBase[] files, List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
         {
             GarantiaVM datos = garantia == null ? new GarantiaVM() : garantia;
 
@@ -39,7 +40,12 @@ namespace PrestamosMVC5.Controllers
             datos.Garantia = new Garantia();
 
             datos.ListaMensajes = TempData["list"] as List<ResponseMessage>;
-
+            //*******Imagenes Garantia****//
+            var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
+            var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
+            var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image2PreviewValue);
+            datos.Garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, garantia.image1PreviewValue, garantiaTempData.Imagen1FileName);
+            datos.Garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, garantia.image2PreviewValue, garantiaTempData.Imagen2FileName);
             return View(datos);
         }
 
@@ -52,6 +58,13 @@ namespace PrestamosMVC5.Controllers
             pcpSetUsuarioAndIdNegocioTo(garantia);
 
             List<ResponseMessage> listaMensajes = new List<ResponseMessage>();
+
+            //*******Imagenes Garantia****//
+            var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
+            var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
+            var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image2PreviewValue);
+            garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, garantia.image1PreviewValue, garantiaTempData.Imagen1FileName);
+            garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, garantia.image2PreviewValue, garantiaTempData.Imagen2FileName);
             //if (!ModelState.IsValid)
             //{
             //    foreach (var errors in ModelState.Values)
@@ -104,6 +117,31 @@ namespace PrestamosMVC5.Controllers
             List<string> localidad = null;
             localidad = BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio }).ToList();
             return localidad[0];
+        }
+
+        [HttpPost]
+        public ActionResult SubirImagenes(HttpPostedFileBase[] files)
+        {
+
+            //Ensure model state is valid  
+            if (ModelState.IsValid)
+            {   //iterating through multiple file collection   
+                foreach (HttpPostedFileBase file in files)
+                {
+                    //Checking file is available to save.  
+                    if (file != null)
+                    {
+                        var InputFileName = Path.GetFileName(file.FileName);
+                        var ServerSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + InputFileName);
+                        //Save file to server folder  
+                        file.SaveAs(ServerSavePath);
+                        //assigning file uploaded status to ViewBag for showing message to user.  
+                        ViewBag.UploadStatus = files.Count().ToString() + " files uploaded successfully.";
+                    }
+
+                }
+            }
+            return View();
         }
 
     }

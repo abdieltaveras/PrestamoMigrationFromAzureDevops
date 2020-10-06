@@ -101,7 +101,7 @@ var uploadPhotos = function (imgElem, MAX_SIZE, imgNum, inputElemToSetResizedIma
                 //    num: imgNum,
                 //    url: _url
                 //});
-                image.src = readerEvent.target.result.toString();
+                //Comentado por error a Luis Heskey// image.src = readerEvent.target.result.toString();
             };
             //imgElem.attr("src", image.src);
             //ConsoleLogWidthAndHeigthOfImage(imgElem);

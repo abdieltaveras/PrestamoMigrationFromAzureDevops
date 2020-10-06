@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using System.Web;
 
 namespace PrestamoBLL.Entidades
 {
@@ -25,6 +24,7 @@ namespace PrestamoBLL.Entidades
         public string OtrosDetalles { get; internal set; } = string.Empty;
         public string Detalles { get; internal set; } = string.Empty;
         public DetalleGarantia DetallesForJson { get; internal set; }
+        
 
         public void DetallesForJsonConvert()   { this.DetallesForJson = this.Detalles.ToType<DetalleGarantia>(); }
 
@@ -39,7 +39,10 @@ namespace PrestamoBLL.Entidades
         public int IdTipoGarantia { get; set; } = -1;
         public int IdModelo { get; set; } = -1;
         public int IdMarca { get; set; } = -1;
-
+        public string Imagen1FileName { get; set; } = string.Empty;
+        public string Imagen2FileName { get; set; } = string.Empty;
+        public string image1PreviewValue { get; set; } = string.Empty;
+        public string image2PreviewValue { get; set; } = string.Empty;
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
         //[StringLength(3)]
@@ -47,6 +50,7 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public DetalleGarantia DetallesJSON { get; set; }
         public string Detalles { get; set; } = string.Empty;
+        
     }
     public class GarantiaConMarcaYModelo : Garantia
     {

@@ -5246,6 +5246,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\customcss\datatable\configuration\css-conf\" />
     <Folder Include="Content\ImagesFor\Clientes\" />
+    <Folder Include="Content\ImagesFor\Garantias\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

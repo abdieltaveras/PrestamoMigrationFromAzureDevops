@@ -1,5 +1,9 @@
 ﻿
 @model GarantiaVM
+
+@Html.HiddenFor(model => model.Garantia.Imagen1FileName)
+@Html.HiddenFor(model => model.Garantia.Imagen2FileName)
+
 @section pagestyle
 {
     @*<link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />*@
@@ -80,6 +84,62 @@
                                     </div>
 
                                 </div>
+                                //*******************************Imagenes
+                                <div class="@HtmlClass.FormGroupCls">
+                                    @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                </div>
+                                <div class="row ">
+                                    <!--//Todo poner imagen dinamica esta estatica-->
+                                    @{
+                                        var image1Url = Url.Content(SiteImages.NoImage);
+                                        var image2Url = Url.Content(SiteImages.NoImage);
+                                        var imagen1Existe = false;
+                                        var imagen2Existe = false;
+                                        if (!string.IsNullOrEmpty(Model.Garantia.Imagen1FileName))
+                                        {
+                                            image1Url = Url.Content(SiteDirectory.ImagesForGarantia + "/" + Model.Garantia.Imagen1FileName);
+                                            imagen1Existe = true;
+                                        }
+                                        if (!string.IsNullOrEmpty(Model.Garantia.Imagen2FileName))
+                                        {
+                                            image2Url = Url.Content(SiteDirectory.ImagesForGarantia + "/" + Model.Garantia.Imagen2FileName);
+                                            imagen2Existe = true;
+                                        }
+                                    }
+
+                                    <div class="col-md-6">
+                                        <img id="image1Preview"
+                                             src="@image1Url" style="height:20em; width:60em;" class="img-fluid" />
+                                        @Html.HiddenFor(m => m.image1PreviewValue)
+                                        <input id="@Html.IdFor(m=> m.ImagenGarantia1)" class=@HtmlClass.InputTextCls type="file"
+                                               name="@Html.IdFor(m=> m.ImagenGarantia2)" accept="image/jpeg, image/png" capture="camera"
+                                               onchange="ShowImagePreview(this,'image1Preview','@Html.IdFor(m=> m.ImagenGarantia1)', '@Html.IdFor(m => m.image1PreviewValue)')" style="display:none" />
+                                        <div class="text-center">
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia1)Agregar" for="@Html.NameFor(m=> m.ImagenGarantia1)" class="text-info"
+                                                   style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia2)Quitar" for="@Html.NameFor(m=> m.ImagenGarantia2)" class="text-danger"
+                                                   style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenGarantia1)','image1Preview','@Html.IdFor(m => m.image1PreviewValue)')">Quitar imagen</label>
+                                            @*<span id="container"></span>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <img id="image2Preview"
+                                             src="@image2Url" style="height:20em; width:60em;" class="img-fluid" />
+                                        @Html.HiddenFor(m => m.image2PreviewValue)
+                                        <input id="@Html.IdFor(m=> m.ImagenGarantia2)" class=@HtmlClass.InputTextCls type="file"
+                                               name="@Html.IdFor(m=> m.ImagenGarantia2)" accept="image/jpeg, image/png" capture="camera"
+                                               onchange="ShowImagePreview(this,'image2Preview','@Html.IdFor(m=> m.ImagenGarantia2)', '@Html.IdFor(m => m.image2PreviewValue)')" style="display:none" />
+                                        <div class="text-center">
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia2)Agregar" for="@Html.NameFor(m=> m.ImagenGarantia2)" class="text-info"
+                                                   style="display:@Html.Raw(imagen2Existe ? "none" : "block")">Agregar imagen</label>
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia2)Quitar" for="@Html.NameFor(m=> m.ImagenGarantia2)" class="text-danger"
+                                                   style="display:@Html.Raw(imagen2Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenGarantia2)','image2Preview','@Html.IdFor(m => m.image2PreviewValue)')">Quitar imagen</label>
+                                            @*<span id="container"></span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                //Imagenes
                                 <hr />
 
                                 //Datos iniciales formulario
@@ -388,6 +448,8 @@
     let formulario = $("#garantia");
     let searchLocalidadElem = $('#searchLocalidad');
     let selectPointer = 0;
+     var urlNoImage = "@Url.Content(SiteImages.NoImage)";
+     var constantNoImagen = "@Constant.NoImagen";
 
 
     $(document).ready(function () {
@@ -599,11 +661,29 @@
         $('#Garantia_DetallesJSON_UsoExclusivo').removeAttr("checked", "checked");
 
         $('#searchLocalidad').val('');
+
+
+       
+        function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
+            console.log(elemId, imageElemIdText);
+            $("#" + imageElemIdText).attr("src", _urlNoImagen);
+            $("#" + elemId + "Agregar").toggle();
+            $("#" + elemId + "Quitar").toggle();
+            $("#" + hiddeInputImgElemText).val(_constantNoImagen);
+            event.preventDefault();
+        }
+        
     }
     </script>
     <script src="~/Scripts/Apps/searchLocalidad.js"></script>
     <script src="~/Scripts/Apps/Garantia/search.js"></script>
-
+    @*Imagenes script*@
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+    <script src="~/Scripts/apps/showImage.js"></script>
     @*<script src="/Content/vendors/iCheck/icheck.min.js"></script>*@
+
+
 }
 
