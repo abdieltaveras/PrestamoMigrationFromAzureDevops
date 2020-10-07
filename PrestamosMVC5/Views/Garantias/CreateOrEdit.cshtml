@@ -109,15 +109,15 @@
 
                                     <div class="col-md-6">
                                         <img id="image1Preview"
-                                             src="@image1Url" style="height:20em; width:60em;" class="img-fluid" />
+                                             src="@image1Url" style="height:20em; width:20em;" class="img-fluid" />
                                         @Html.HiddenFor(m => m.image1PreviewValue)
                                         <input id="@Html.IdFor(m=> m.ImagenGarantia1)" class=@HtmlClass.InputTextCls type="file"
-                                               name="@Html.IdFor(m=> m.ImagenGarantia2)" accept="image/jpeg, image/png" capture="camera"
+                                               name="@Html.IdFor(m=> m.ImagenGarantia1)" accept="image/jpeg, image/png" capture="camera"
                                                onchange="ShowImagePreview(this,'image1Preview','@Html.IdFor(m=> m.ImagenGarantia1)', '@Html.IdFor(m => m.image1PreviewValue)')" style="display:none" />
                                         <div class="text-center">
                                             <label id="@Html.IdFor(m=> m.ImagenGarantia1)Agregar" for="@Html.NameFor(m=> m.ImagenGarantia1)" class="text-info"
                                                    style="display:@Html.Raw(imagen1Existe ? "none" : "block")">Agregar imagen</label>
-                                            <label id="@Html.IdFor(m=> m.ImagenGarantia2)Quitar" for="@Html.NameFor(m=> m.ImagenGarantia2)" class="text-danger"
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia1)Quitar" for="@Html.NameFor(m=> m.ImagenGarantia1)" class="text-danger"
                                                    style="display:@Html.Raw(imagen1Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenGarantia1)','image1Preview','@Html.IdFor(m => m.image1PreviewValue)')">Quitar imagen</label>
                                             @*<span id="container"></span>*@
                                         </div>
@@ -125,7 +125,7 @@
 
                                     <div class="col-md-6">
                                         <img id="image2Preview"
-                                             src="@image2Url" style="height:20em; width:60em;" class="img-fluid" />
+                                             src="@image2Url" style="height:20em; width:20em;" class="img-fluid" />
                                         @Html.HiddenFor(m => m.image2PreviewValue)
                                         <input id="@Html.IdFor(m=> m.ImagenGarantia2)" class=@HtmlClass.InputTextCls type="file"
                                                name="@Html.IdFor(m=> m.ImagenGarantia2)" accept="image/jpeg, image/png" capture="camera"
@@ -138,6 +138,7 @@
                                             @*<span id="container"></span>*@
                                         </div>
                                     </div>
+
                                 </div>
                                 //Imagenes
                                 <hr />
@@ -662,8 +663,14 @@
 
         $('#searchLocalidad').val('');
 
+        function beforeSubmit()
+        {
+            $("#@Html.IdFor(m=> m.ImagenGarantia1)").remove();
+            $("#@Html.IdFor(m=> m.ImagenGarantia2)").remove();
+            $("#image1Preview").remove();
+            $("#image2Preview").remove();
+        }
 
-       
         function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
             console.log(elemId, imageElemIdText);
             $("#" + imageElemIdText).attr("src", _urlNoImagen);
@@ -672,16 +679,13 @@
             $("#" + hiddeInputImgElemText).val(_constantNoImagen);
             event.preventDefault();
         }
-        
+
     }
     </script>
+    <script src="~/Scripts/apps/showImage.js"></script>
     <script src="~/Scripts/Apps/searchLocalidad.js"></script>
     <script src="~/Scripts/Apps/Garantia/search.js"></script>
-    @*Imagenes script*@
-    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
-    <script src="~/Scripts/apps/showImage.js"></script>
+
     @*<script src="/Content/vendors/iCheck/icheck.min.js"></script>*@
 
 
