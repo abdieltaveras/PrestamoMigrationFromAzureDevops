@@ -7,6 +7,8 @@
 	@IdMarca int,
 	@NoIdentificacion varchar(100),
 	@Detalles varchar(4000),
+	@Imagen1FileName varchar(50),
+	@Imagen2Filename varchar(50),
 	@Usuario varchar(100)
 AS
 Begin
@@ -15,9 +17,9 @@ if (@IdGarantia <= 0)
 	begin
 		insert into 
 			tblGarantias
-				(IdClasificacion, IdNegocio, IdTipoGarantia, IdModelo, IdMarca, NoIdentificacion, Detalles, InsertadoPor, FechaInsertado)
+				(IdClasificacion, IdNegocio, IdTipoGarantia, IdModelo, IdMarca, NoIdentificacion, Detalles, Imagen1FileName,Imagen2FileName, InsertadoPor, FechaInsertado)
 		values
-				(@IdClasificacion, @IdNegocio, @IdTipoGarantia, @IdModelo, @IdMarca, @NoIdentificacion, @Detalles, @Usuario, GetDate())
+				(@IdClasificacion, @IdNegocio, @IdTipoGarantia, @IdModelo, @IdMarca, @NoIdentificacion, @Detalles,@Imagen1FileName,@Imagen2Filename, @Usuario, GetDate())
 	end
 Else
 	Begin
@@ -30,6 +32,8 @@ Else
 				IdModelo = @IdModelo,
 				NoIdentificacion = @NoIdentificacion,
 				Detalles = @Detalles,
+				Imagen1FileName = @Imagen1FileName,
+				Imagen2FileName = @Imagen2Filename,
 				ModificadoPor = @Usuario,
 				FechaModificado = getdate()
 			where 

@@ -27,7 +27,7 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
-        public ActionResult CreateOrEdit(HttpPostedFileBase[] files, List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
+        public ActionResult CreateOrEdit(List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
         {
             GarantiaVM datos = garantia == null ? new GarantiaVM() : garantia;
 
@@ -42,15 +42,15 @@ namespace PrestamosMVC5.Controllers
             datos.ListaMensajes = TempData["list"] as List<ResponseMessage>;
             //*******Imagenes Garantia****//
             var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
-            var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
-            var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image2PreviewValue);
-            datos.Garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, garantia.image1PreviewValue, garantiaTempData.Imagen1FileName);
-            datos.Garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, garantia.image2PreviewValue, garantiaTempData.Imagen2FileName);
+            var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
+            var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image2PreviewValue);
+            garantia.Garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1GarantiaFileName, garantia.image1PreviewValue, garantiaTempData.Imagen1FileName);
+            garantia.Garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantia.image2PreviewValue, garantiaTempData.Imagen2FileName);
             return View(datos);
         }
 
         [HttpPost]
-        public RedirectToRouteResult CreateOrEdit(Garantia garantia)
+        public RedirectToRouteResult CreateOrEdit(Garantia garantia,GarantiaVM garantiavm =null)
         {
             // Convertir detalles a JSON y crear el objeto de garantia para insertar / modificar en la tabla
             string JsonDetalesGarantia = JsonConvert.SerializeObject(garantia.DetallesJSON);
@@ -61,10 +61,10 @@ namespace PrestamosMVC5.Controllers
 
             //*******Imagenes Garantia****//
             var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
-            var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
-            var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image2PreviewValue);
-            garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, garantia.image1PreviewValue, garantiaTempData.Imagen1FileName);
-            garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, garantia.image2PreviewValue, garantiaTempData.Imagen2FileName);
+            var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image1PreviewValue);
+            var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image2PreviewValue);
+            garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1GarantiaFileName, garantiavm.image1PreviewValue, garantiaTempData.Imagen1FileName);
+            garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantiavm.image2PreviewValue, garantiaTempData.Imagen2FileName);
             //if (!ModelState.IsValid)
             //{
             //    foreach (var errors in ModelState.Values)
@@ -119,30 +119,30 @@ namespace PrestamosMVC5.Controllers
             return localidad[0];
         }
 
-        [HttpPost]
-        public ActionResult SubirImagenes(HttpPostedFileBase[] files)
-        {
+        //[HttpPost]
+        //public ActionResult SubirImagenes(HttpPostedFileBase[] files)
+        //{
 
-            //Ensure model state is valid  
-            if (ModelState.IsValid)
-            {   //iterating through multiple file collection   
-                foreach (HttpPostedFileBase file in files)
-                {
-                    //Checking file is available to save.  
-                    if (file != null)
-                    {
-                        var InputFileName = Path.GetFileName(file.FileName);
-                        var ServerSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + InputFileName);
-                        //Save file to server folder  
-                        file.SaveAs(ServerSavePath);
-                        //assigning file uploaded status to ViewBag for showing message to user.  
-                        ViewBag.UploadStatus = files.Count().ToString() + " files uploaded successfully.";
-                    }
+        //    //Ensure model state is valid  
+        //    if (ModelState.IsValid)
+        //    {   //iterating through multiple file collection   
+        //        foreach (HttpPostedFileBase file in files)
+        //        {
+        //            //Checking file is available to save.  
+        //            if (file != null)
+        //            {
+        //                var InputFileName = Path.GetFileName(file.FileName);
+        //                var ServerSavePath = Path.Combine(Server.MapPath("~/UploadedFiles/") + InputFileName);
+        //                //Save file to server folder  
+        //                file.SaveAs(ServerSavePath);
+        //                //assigning file uploaded status to ViewBag for showing message to user.  
+        //                ViewBag.UploadStatus = files.Count().ToString() + " files uploaded successfully.";
+        //            }
 
-                }
-            }
-            return View();
-        }
+        //        }
+        //    }
+        //    return View();
+        //}
 
     }
 }

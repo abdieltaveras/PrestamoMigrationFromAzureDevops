@@ -8,6 +8,8 @@
     [NoIdentificacion] NVARCHAR(50) NOT NULL, 
     [IdNegocio] INT NOT NULL,
     [Detalles] VARCHAR(4000) NULL,
+	[Imagem1FileName] varchar(50),
+	[Imagem2FileName] varchar(50),
 	[InsertadoPor] varchar(100) not null,
 	[FechaInsertado] DateTime not null default getdate(), 
     [ModificadoPor] VARCHAR(100) NULL, 
