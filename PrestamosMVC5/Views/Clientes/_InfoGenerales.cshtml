@@ -79,7 +79,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.EstadoCivil, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(model => model.Cliente.EstadoCivil, SelectItems.EstadosCiviles, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.DropDownListFor(model => model.Cliente.EstadoCivil, SelectItems.EstadoCiviles(), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                         @Html.ValidationMessageFor(model => model.Cliente.EstadoCivil, "", new { @class = "text-danger" })
                     </div>
                 </div>

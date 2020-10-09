@@ -105,6 +105,7 @@ namespace PrestamosMVC5.Controllers
         public JsonResult GuardarPrestamo(Prestamo prestamo)
         {
             var cli = new Cliente();
+            
             //var cliente = getCliente(prestamo.IdCliente);
                 //ClienteGetParams(prestamo.IdCliente);
 

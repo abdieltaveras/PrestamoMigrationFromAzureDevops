@@ -93,7 +93,8 @@ namespace PrestamoBLL.Tests
             var mensajeError = string.Empty;
             try
             {
-                BLLPrestamo.Instance.ClientesGet(insData);
+                var datos = BLLPrestamo.Instance.ClientesGet(insData); ;
+                //BLLPrestamo.Instance.ClientesGet(insData);
             }
             catch (Exception e)
             {
