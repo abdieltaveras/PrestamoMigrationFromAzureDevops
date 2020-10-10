@@ -107,9 +107,12 @@ namespace PrestamosMVC5.Controllers
                 var clienteTempData = GetValueFromTempData<Cliente>("Cliente");
                 var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.image1PreviewValue);
                 var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.image2PreviewValue);
+                var imagenDocumentoFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.DocumentoCliente);
                 clienteVm.Cliente.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
 
                 clienteVm.Cliente.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
+
+                clienteVm.Cliente.ImagenDocumentoName = GeneralUtils.GetNameForFile(imagenDocumentoFileName, clienteVm.DocumentoPreviewValue, clienteTempData.ImagenDocumentoName);
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
                 BLLPrestamo.Instance.InsUpdClientes(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion, clienteVm.Referencias);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";

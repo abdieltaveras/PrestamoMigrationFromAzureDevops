@@ -17,6 +17,8 @@ namespace PrestamosMVC5.Models
         public Direccion Direccion { get; set; } = new Direccion();
         //public Referencia[] Referencia { get; set; } = new Referencia[5];
         public List<Referencia> Referencias { get; set; } = new List<Referencia>(5);
+
+        public List<RedesSociales> redesSociales { get; set; } = new List<RedesSociales>(4);
         //public int? Selected { get; set; } = 2;
         //public string TipoBusqueda { get; set; } = "normal";
 
@@ -40,10 +42,15 @@ namespace PrestamosMVC5.Models
         /// <summary>
         /// propiedad que guarda el contenido de la imagen
         /// </summary>
+        public HttpPostedFileBase DocumentoCliente { get; set; }
         public HttpPostedFileBase ImagenCliente1 { get; set; }
         public HttpPostedFileBase ImagenCliente2 { get; set; }
+
+        public string DocumentoPreviewValue { get; set; } = string.Empty;
         public string image1PreviewValue { get; set; } = string.Empty;
         public string image2PreviewValue { get; set; } = string.Empty;
+
+        
 
         
 

@@ -13,6 +13,8 @@
     public enum Estado_Civil { Casado = 1, Soltero, Otro }
 
     public enum EnumTiposReferencia { Comercial = 1, Familiar, Personal}
+
+    public enum EnumRedesSociales { Facebook = 1, Linkdlin, Twitter, Instagram }
     public enum EnumTiposVinculo { Madre = 1, Padre, Hermano, Primo, Tio, Abuelo, Sobrino, Esposa, Hijo, Nieto}
 
 

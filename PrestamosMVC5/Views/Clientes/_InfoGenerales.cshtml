@@ -13,6 +13,32 @@
         overflow: hidden;
     }
 </style>
+<!--//Todo poner imagen dinamica esta estatica-->
+@{
+    var image1Url = Url.Content(SiteImages.NoImage);
+    var image2Url = Url.Content(SiteImages.NoImage);
+    var imagenDocumentoUrl = Url.Content(SiteImages.NoImage);
+    var imagen1Existe = false;
+    var imagen2Existe = false;
+    var imagenDocumentoExiste = false;
+
+    if (!string.IsNullOrEmpty(Model.Cliente.ImagenDocumentoName))
+    {
+        imagenDocumentoUrl = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.ImagenDocumentoName);
+        imagenDocumentoExiste = true;
+    }
+
+    if (!string.IsNullOrEmpty(Model.Cliente.Imagen1FileName))
+    {
+        image1Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen1FileName);
+        imagen1Existe = true;
+    }
+    if (!string.IsNullOrEmpty(Model.Cliente.Imagen2FileName))
+    {
+        image2Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen2FileName);
+        imagen2Existe = true;
+    }
+}
 <div class="clearfix"></div>
 <div class="row">
     <!-- form input mask -->
@@ -46,61 +72,82 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.NoIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_inputmask = "'mask' : '999-9999999-9'", @onfocusout="onChangeProp(this)" }})
+                        @Html.EditorFor(model => model.Cliente.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_inputmask = "'mask' : '999-9999999-9'", @onfocusout = "onChangeProp(this)" } })
                         @Html.ValidationMessageFor(model => model.Cliente.NoIdentificacion, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="@HtmlClass.FormGroupCls">
-                    @Html.LabelFor(model => model.Cliente.Nombres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                    <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.Nombres, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                        @Html.ValidationMessageFor(model => model.Cliente.Nombres, "", new { @class = "text-danger" })
-                        <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
 
-                    </div>
-                </div>
-                <div class="@HtmlClass.FormGroupCls">
-                    @Html.LabelFor(model => model.Cliente.Apellidos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                    <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.Apellidos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                        @Html.ValidationMessageFor(model => model.Cliente.Apellidos, "", new { @class = "text-danger" })
-                        <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
 
-                    </div>
-                </div>
-                <div class="@HtmlClass.FormGroupCls">
-                    @Html.LabelFor(model => model.Cliente.Apodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                    <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.Apodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                        @Html.ValidationMessageFor(model => model.Cliente.Apodo, "", new { @class = "text-danger" })
-                        <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
-                    </div>
-                </div>
-                <div class="@HtmlClass.FormGroupCls">
-                    @Html.LabelFor(model => model.Cliente.EstadoCivil, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                    <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(model => model.Cliente.EstadoCivil, SelectItems.EstadosCiviles, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                        @Html.ValidationMessageFor(model => model.Cliente.EstadoCivil, "", new { @class = "text-danger" })
+                <div class="row ">
+
+                    <div class="col-md-6">
+                        <img id="DocumentoPreviewValue"
+                             src="@imagenDocumentoUrl" style="height:20em; width:60em;" class="img-fluid" />
+                        @Html.HiddenFor(m => m.DocumentoPreviewValue)
+                        <input id="@Html.IdFor(m=> m.DocumentoCliente)" class=@HtmlClass.InputTextCls type="file"
+                               name="@Html.IdFor(m=> m.DocumentoCliente)" accept="image/jpeg, image/png" capture="camera"
+                               onchange="ShowImagePreview(this,'DocumentoPreviewValue','@Html.IdFor(m=> m.DocumentoCliente)', '@Html.IdFor(m => m.DocumentoPreviewValue)')" style="display:none" />
+                        <div class="text-center">
+                            <label id="@Html.IdFor(m=> m.DocumentoCliente)Agregar" for="@Html.NameFor(m=> m.DocumentoCliente)" class="text-info"
+                                   style="display:@Html.Raw(imagenDocumentoExiste ? "none" : "block")">Agregar imagen</label>
+                            <label id="@Html.IdFor(m=> m.DocumentoCliente)Quitar" for="@Html.NameFor(m=> m.DocumentoCliente)" class="text-danger"
+                                   style="display:@Html.Raw(imagenDocumentoExiste ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.DocumentoCliente)','DocumentoPreviewValue','@Html.IdFor(m => m.DocumentoPreviewValue)')">Quitar imagen</label>
+                            @*<span id="container"></span>*@
+                        </div>
                     </div>
                 </div>
 
-                <div class="@HtmlClass.FormGroupCls">
-                    @Html.LabelFor(model => model.Cliente.TieneConyuge, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                    <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.TieneConyuge, new
-                   { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
-                        @Html.ValidationMessageFor(model => model.Cliente.TieneConyuge, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="@HtmlClass.FormGroupCls">
-                    @Html.LabelFor(model => model.Cliente.Sexo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                    <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(model => model.Cliente.Sexo,  SelectItems.Sexos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                    </div>
-                </div>
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Cliente.Nombres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.EditorFor(model => model.Cliente.Nombres, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                            @Html.ValidationMessageFor(model => model.Cliente.Nombres, "", new { @class = "text-danger" })
+                            <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
 
-                @*</form>*@
-            </div>
+                        </div>
+                    </div>
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Cliente.Apellidos, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.EditorFor(model => model.Cliente.Apellidos, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                            @Html.ValidationMessageFor(model => model.Cliente.Apellidos, "", new { @class = "text-danger" })
+                            <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
+
+                        </div>
+                    </div>
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Cliente.Apodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.EditorFor(model => model.Cliente.Apodo, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                            @Html.ValidationMessageFor(model => model.Cliente.Apodo, "", new { @class = "text-danger" })
+                            <span class="@HtmlClass.SpanfauserCls" aria-hidden="true"></</span>
+                        </div>
+                    </div>
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Cliente.EstadoCivil, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.DropDownListFor(model => model.Cliente.EstadoCivil, SelectItems.EstadosCiviles, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                            @Html.ValidationMessageFor(model => model.Cliente.EstadoCivil, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Cliente.TieneConyuge, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.EditorFor(model => model.Cliente.TieneConyuge, new
+                       { htmlAttributes = new { @class = @HtmlClass.CheckBoxCls, @onchange = "onChangeProp(this)" } })
+                            @Html.ValidationMessageFor(model => model.Cliente.TieneConyuge, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Cliente.Sexo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        <div class="@HtmlClass.DivInputCls">
+                            @Html.DropDownListFor(model => model.Cliente.Sexo, SelectItems.Sexos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        </div>
+                    </div>
+
+                    @*</form>*@
+                </div>
         </div>
     </div>
     <div class="col-md-6 col-sm-12  ">
@@ -110,8 +157,8 @@
                     @Html.LabelFor(model => model.Cliente.FechaNacimiento, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
                     <div class="@HtmlClass.DivInputCls">
                         @*@{
-                            string formatted = String.Format("{0:yyyy-MM-dd}", Model.Cliente.FechaNacimiento);
-                        }*@
+                                string formatted = String.Format("{0:yyyy-MM-dd}", Model.Cliente.FechaNacimiento);
+                            }*@
                         @*<input type="date" id="@Html.IdFor(m => m.Cliente.FechaNacimiento)" name="@Html.NameFor(m => m.Cliente.FechaNacimiento)" value=@formatted>*@
                         @Html.EditorFor(model => model.Cliente.FechaNacimiento, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
                         @*@Html.ValidationMessageFor(model => model.Cliente.FechaNacimiento, "", new { @class = "text-danger" })*@
@@ -122,24 +169,9 @@
                     @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
                 </div>
                 <div class="row ">
-                    <!--//Todo poner imagen dinamica esta estatica-->
-                    @{
-                        var image1Url = Url.Content(SiteImages.NoImage);
-                        var image2Url = Url.Content(SiteImages.NoImage);
-                        var imagen1Existe = false;
-                        var imagen2Existe = false;
-                        if (!string.IsNullOrEmpty(Model.Cliente.Imagen1FileName))
-                        {
-                            image1Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen1FileName);
-                            imagen1Existe = true;
-                        }
-                        if (!string.IsNullOrEmpty(Model.Cliente.Imagen2FileName))
-                        {
-                            image2Url = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen2FileName);
-                            imagen2Existe = true;
-                        }
-                    }
 
+
+                    @* TODO: ver estilos y colocar campo parecido arriba *@
                     <div class="col-md-6">
                         <img id="image1Preview"
                              src="@image1Url" style="height:20em; width:60em;" class="img-fluid" />
@@ -171,6 +203,8 @@
                             @*<span id="container"></span>*@
                         </div>
                     </div>
+
+
                 </div>
                 <script>
 

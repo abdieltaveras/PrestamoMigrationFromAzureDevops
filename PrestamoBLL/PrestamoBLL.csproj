@@ -86,6 +86,7 @@
     <Compile Include="Clasificacion.cs" />
     <Compile Include="Entidades\Clasificacion.cs" />
     <Compile Include="Entidades\IPrestamoConDetallesParaCreditosyDebitos.cs" />
+    <Compile Include="Entidades\RedesSociales.cs" />
     <Compile Include="GeneradorDeCuotas.cs" />
     <Compile Include="Catalogo.cs" />
     <Compile Include="Color.cs" />
