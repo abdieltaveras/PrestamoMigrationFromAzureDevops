@@ -3,6 +3,8 @@
 
 @Html.HiddenFor(model => model.Garantia.Imagen1FileName)
 @Html.HiddenFor(model => model.Garantia.Imagen2FileName)
+@Html.HiddenFor(model => model.Garantia.Imagen3FileName)
+@Html.HiddenFor(model => model.Garantia.Imagen4FileName)
 
 @section pagestyle
 {
@@ -84,17 +86,22 @@
                                     </div>
 
                                 </div>
+                                <hr/>
                                 //*******************************Imagenes
                                 <div class="@HtmlClass.FormGroupCls">
-                                    @Html.Label("Foto", htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                                    @Html.Label("Imagenes Para Garantias", htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                 </div>
-                                <div class="row ">
+                                <div class="row" id="imagenesgarantia">
                                     <!--//Todo poner imagen dinamica esta estatica-->
-                                    @{ 
+                                    @{
                                         var image1Url = Url.Content(SiteImages.NoImage);
                                         var image2Url = Url.Content(SiteImages.NoImage);
+                                        var image3Url = Url.Content(SiteImages.NoImage);
+                                        var image4Url = Url.Content(SiteImages.NoImage);
                                         var imagen1Existe = false;
                                         var imagen2Existe = false;
+                                        var imagen3Existe = false;
+                                        var imagen4Existe = false;
                                         if (!string.IsNullOrEmpty(Model.Garantia.Imagen1FileName))
                                         {
                                             image1Url = Url.Content(SiteDirectory.ImagesForGarantia + "/" + Model.Garantia.Imagen1FileName);
@@ -105,11 +112,21 @@
                                             image2Url = Url.Content(SiteDirectory.ImagesForGarantia + "/" + Model.Garantia.Imagen2FileName);
                                             imagen2Existe = true;
                                         }
+                                        if (!string.IsNullOrEmpty(Model.Garantia.Imagen3FileName))
+                                        {
+                                            image3Url = Url.Content(SiteDirectory.ImagesForGarantia + "/" + Model.Garantia.Imagen3FileName);
+                                            imagen3Existe = true;
+                                        }
+                                        if (!string.IsNullOrEmpty(Model.Garantia.Imagen4FileName))
+                                        {
+                                            image4Url = Url.Content(SiteDirectory.ImagesForGarantia + "/" + Model.Garantia.Imagen4FileName);
+                                            imagen4Existe = true;
+                                        }
                                     }
 
-                                    <div class="col-md-6">
+                                    <div class="col">
                                         <img id="image1Preview"
-                                             src="@image1Url" style="height:20em; width:20em;" class="img-fluid" />
+                                             src="@image1Url" style="height:15em; width:20em;" class="img-fluid" />
                                         @Html.HiddenFor(m => m.image1PreviewValue)
                                         <input id="@Html.IdFor(m=> m.ImagenGarantia1)" class=@HtmlClass.InputTextCls type="file"
                                                name="@Html.IdFor(m=> m.ImagenGarantia1)" accept="image/jpeg, image/png" capture="camera"
@@ -123,9 +140,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col">
                                         <img id="image2Preview"
-                                             src="@image2Url" style="height:20em; width:20em;" class="img-fluid" />
+                                             src="@image2Url" style="height:15em; width:20em;" class="img-fluid" />
                                         @Html.HiddenFor(m => m.image2PreviewValue)
                                         <input id="@Html.IdFor(m=> m.ImagenGarantia2)" class=@HtmlClass.InputTextCls type="file"
                                                name="@Html.IdFor(m=> m.ImagenGarantia2)" accept="image/jpeg, image/png" capture="camera"
@@ -135,6 +152,38 @@
                                                    style="display:@Html.Raw(imagen2Existe ? "none" : "block")">Agregar imagen</label>
                                             <label id="@Html.IdFor(m=> m.ImagenGarantia2)Quitar" for="@Html.NameFor(m=> m.ImagenGarantia2)" class="text-danger"
                                                    style="display:@Html.Raw(imagen2Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenGarantia2)','image2Preview','@Html.IdFor(m => m.image2PreviewValue)')">Quitar imagen</label>
+                                            @*<span id="container"></span>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <img id="image3Preview"
+                                             src="@image3Url" style="height:15em; width:20em;" class="img-fluid" />
+                                        @Html.HiddenFor(m => m.image3PreviewValue)
+                                        <input id="@Html.IdFor(m=> m.ImagenGarantia3)" class=@HtmlClass.InputTextCls type="file"
+                                               name="@Html.IdFor(m=> m.ImagenGarantia3)" accept="image/jpeg, image/png" capture="camera"
+                                               onchange="ShowImagePreview(this,'image3Preview','@Html.IdFor(m=> m.ImagenGarantia3)', '@Html.IdFor(m => m.image3PreviewValue)')" style="display:none" />
+                                        <div class="text-center">
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia3)Agregar" for="@Html.NameFor(m=> m.ImagenGarantia3)" class="text-info"
+                                                   style="display:@Html.Raw(imagen3Existe ? "none" : "block")">Agregar imagen</label>
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia3)Quitar" for="@Html.NameFor(m=> m.ImagenGarantia3)" class="text-danger"
+                                                   style="display:@Html.Raw(imagen3Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenGarantia3)','image3Preview','@Html.IdFor(m => m.image3PreviewValue)')">Quitar imagen</label>
+                                            @*<span id="container"></span>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <img id="image4Preview"
+                                             src="@image4Url" style="height:15em; width:20em;" class="img-fluid" />
+                                        @Html.HiddenFor(m => m.image4PreviewValue)
+                                        <input id="@Html.IdFor(m=> m.ImagenGarantia4)" class=@HtmlClass.InputTextCls type="file"
+                                               name="@Html.IdFor(m=> m.ImagenGarantia4)" accept="image/jpeg, image/png" capture="camera"
+                                               onchange="ShowImagePreview(this,'image4Preview','@Html.IdFor(m=> m.ImagenGarantia4)', '@Html.IdFor(m => m.image4PreviewValue)')" style="display:none" />
+                                        <div class="text-center">
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia4)Agregar" for="@Html.NameFor(m=> m.ImagenGarantia4)" class="text-info"
+                                                   style="display:@Html.Raw(imagen4Existe ? "none" : "block")">Agregar imagen</label>
+                                            <label id="@Html.IdFor(m=> m.ImagenGarantia4)Quitar" for="@Html.NameFor(m=> m.ImagenGarantia4)" class="text-danger"
+                                                   style="display:@Html.Raw(imagen4Existe ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.ImagenGarantia4)','image4Preview','@Html.IdFor(m => m.image4PreviewValue)')">Quitar imagen</label>
                                             @*<span id="container"></span>*@
                                         </div>
                                     </div>
@@ -449,9 +498,10 @@
     let formulario = $("#garantia");
     let searchLocalidadElem = $('#searchLocalidad');
     let selectPointer = 0;
-     var urlNoImage = "@Url.Content(SiteImages.NoImage)";
-     var constantNoImagen = "@Constant.NoImagen";
+    var urlNoImage = "@Url.Content(SiteImages.NoImage)";
+    var constantNoImagen = "@Constant.NoImagen";
 
+    const rutaFotoGarantia = "@Url.Content(SiteDirectory.ImagesForGarantia)/";
 
     $(document).ready(function () {
         //$('input').iCheck({
@@ -494,6 +544,17 @@
     async function setDataOnField(idgarantia) {
         const selectedGarantia = JSON.parse(garantiaRes).find(Garantia => Garantia.IdGarantia == idgarantia);
         const detalles = JSON.parse(selectedGarantia.Detalles);
+        //*****Prueba Luiss Imagen1FileName
+        console.log(selectedGarantia);
+
+        let fotoGarantia1 = rutaFotoGarantia + selectedGarantia.Imagen1FileName;
+        let fotoGarantia2 = rutaFotoGarantia + selectedGarantia.Imagen2FileName;
+        let fotoGarantia3 = rutaFotoGarantia + selectedGarantia.Imagen3FileName;
+        let fotoGarantia4 = rutaFotoGarantia + selectedGarantia.Imagen4FileName;
+        $('#image1Preview').attr("src", fotoGarantia1);
+        $('#image2Preview').attr("src", fotoGarantia2);
+        $('#image3Preview').attr("src", fotoGarantia3);
+        $('#image4Preview').attr("src", fotoGarantia4);
 
         console.table(detalles);
 
@@ -508,6 +569,8 @@
             loadTipo(1);
         }
         $('#Garantia_IdGarantia').val(selectedGarantia.IdGarantia);
+
+
 
         $('#Garantia_NoIdentificacion').val(selectedGarantia.NoIdentificacion);
         $('#Garantia_IdNegocio').val(selectedGarantia.IdNegocio);

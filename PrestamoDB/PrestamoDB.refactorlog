@@ -189,4 +189,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdOperacion" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="dc8f9ce8-0f84-4d36-8331-d556539ad679" ChangeDateTime="10/09/2020 00:29:57">
+    <Property Name="ElementName" Value="[dbo].[tblGarantias].[Imagem1FileName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblGarantias]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Imagen1FileName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="69cef186-09f4-4b55-82cc-d13a426c8c37" ChangeDateTime="10/09/2020 00:30:01">
+    <Property Name="ElementName" Value="[dbo].[tblGarantias].[Imagem2FileName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblGarantias]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Imagen2FileName" />
+  </Operation>
 </Operations>

@@ -26,6 +26,9 @@ namespace PrestamoBLL.Entidades
         public string Imagen1FileName { get; internal set; } = string.Empty;
 
         public string Imagen2FileName { get; internal set; } = string.Empty;
+        public string Imagen3FileName { get; internal set; } = string.Empty;
+
+        public string Imagen4FileName { get; internal set; } = string.Empty;
         public DetalleGarantia DetallesForJson { get; internal set; }
         
 
@@ -44,7 +47,8 @@ namespace PrestamoBLL.Entidades
         public int IdMarca { get; set; } = -1;
         public string Imagen1FileName { get; set; } = string.Empty;
         public string Imagen2FileName { get; set; } = string.Empty;
-        
+        public string Imagen3FileName { get; set; } = string.Empty;
+        public string Imagen4FileName { get; set; } = string.Empty;
 
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
@@ -113,7 +117,8 @@ namespace PrestamoBLL.Entidades
         public int IdNegocio { get; set; }
         public string Imagen1FileName { get; set; } = string.Empty;
         public string Imagen2FileName { get; set; } = string.Empty;
-
+        public string Imagen3FileName { get;  set; } = string.Empty;
+        public string Imagen4FileName { get;  set; } = string.Empty;
         //Aqui esta propiedad es string porque sera convertido en un JSON
         public string Detalles { get; set; }
     }

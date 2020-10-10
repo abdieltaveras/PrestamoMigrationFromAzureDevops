@@ -44,8 +44,13 @@ namespace PrestamosMVC5.Controllers
             var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
             var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
             var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image2PreviewValue);
+            var imagen3GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image3PreviewValue);
+            var imagen4GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image4PreviewValue);
             garantia.Garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1GarantiaFileName, garantia.image1PreviewValue, garantiaTempData.Imagen1FileName);
             garantia.Garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantia.image2PreviewValue, garantiaTempData.Imagen2FileName);
+            
+            garantia.Garantia.Imagen3FileName = GeneralUtils.GetNameForFile(imagen3GarantiaFileName, garantia.image3PreviewValue, garantiaTempData.Imagen3FileName);
+            garantia.Garantia.Imagen4FileName = GeneralUtils.GetNameForFile(imagen4GarantiaFileName, garantia.image4PreviewValue, garantiaTempData.Imagen4FileName);
             return View(datos);
         }
 
@@ -63,8 +68,12 @@ namespace PrestamosMVC5.Controllers
             var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
             var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image1PreviewValue);
             var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image2PreviewValue);
+            var imagen3GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image3PreviewValue);
+            var imagen4GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image4PreviewValue);
             garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1GarantiaFileName, garantiavm.image1PreviewValue, garantiaTempData.Imagen1FileName);
             garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantiavm.image2PreviewValue, garantiaTempData.Imagen2FileName);
+            garantia.Imagen3FileName = GeneralUtils.GetNameForFile(imagen3GarantiaFileName, garantiavm.image3PreviewValue, garantiaTempData.Imagen3FileName);
+            garantia.Imagen4FileName = GeneralUtils.GetNameForFile(imagen4GarantiaFileName, garantiavm.image4PreviewValue, garantiaTempData.Imagen4FileName);
             //if (!ModelState.IsValid)
             //{
             //    foreach (var errors in ModelState.Values)
