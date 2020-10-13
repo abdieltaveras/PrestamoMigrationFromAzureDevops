@@ -546,16 +546,43 @@
         const detalles = JSON.parse(selectedGarantia.Detalles);
         //*****Prueba Luiss Imagen1FileName
         console.log(selectedGarantia);
-
+        let fotoNoimage = "/content/build/images/noimagen.png";
         let fotoGarantia1 = rutaFotoGarantia + selectedGarantia.Imagen1FileName;
         let fotoGarantia2 = rutaFotoGarantia + selectedGarantia.Imagen2FileName;
         let fotoGarantia3 = rutaFotoGarantia + selectedGarantia.Imagen3FileName;
         let fotoGarantia4 = rutaFotoGarantia + selectedGarantia.Imagen4FileName;
+             
         $('#image1Preview').attr("src", fotoGarantia1);
         $('#image2Preview').attr("src", fotoGarantia2);
         $('#image3Preview').attr("src", fotoGarantia3);
         $('#image4Preview').attr("src", fotoGarantia4);
 
+        //$('#ImagenGarantia1').attr("onchange", onch1);
+        //$('#image2PreviewValue').attr("value", fotoGarantia2);
+        //$('#image3PreviewValue').attr("value", fotoGarantia3);
+        //$('#image4PreviewValue').attr("value", fotoGarantia4);
+        if (fotoGarantia1 == rutaFotoGarantia) {
+            console.log("No hay imagen en la garantia1");
+            $('#image1Preview').attr("src", fotoNoimage);
+            
+        }
+
+        if (fotoGarantia2 == rutaFotoGarantia) {
+            console.log("No hay imagen en la garantia2");
+            $('#image2Preview').attr("src", fotoNoimage);
+            
+        }
+        if (fotoGarantia3 == rutaFotoGarantia) {
+            $('#image3Preview').attr("src", fotoNoimage);
+            
+        }
+        if (fotoGarantia4 == rutaFotoGarantia) {
+            $('#image4Preview').attr("src", fotoNoimage);
+            
+        }
+        
+
+        //*******Controles de Imagenes
         console.table(detalles);
 
         if (selectedGarantia.IdClasificacion === 1) {
