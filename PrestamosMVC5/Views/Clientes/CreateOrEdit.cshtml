@@ -21,6 +21,7 @@
                     <div class="x_title">
                         <div class="col-md-4 col-sm-12  ">
                             <h2>Datos Para el Cliente</h2>
+                            <input id="test" type="button" value="Probar Img" onclick="probarImg()" class="btn btn-primary" style="float:right;" />
                             <input id="btnSubmit" type="button" value="Guardar" class="btn btn-primary" style="float:right;" />
                         </div>
                         @{
@@ -117,6 +118,7 @@
         $("#Referencias_1__Telefono").data("val", false);
         let cantidadDeReferenciasMinimasPorCliente = 0;
         var urlNoImage = "@Url.Content(SiteImages.NoImage)"
+        var pathForImgClientes = "@Url.Content(SiteDirectory.ImagesForClientes)"
         var constantNoImagen ="@Constant.NoImagen";
         let searchLocalidadElem = $('#searchLocalidad');
         let formulario = $("#frmCreateCliente");
@@ -265,6 +267,12 @@
             if (typeof setIdLocalidadToElem === 'function') {
             }
 
+        }
+
+        function probarImg() {
+            const urlTest = pathForImgClientes + "/132ce285-6074-416b-87db-d64f4f618e32.jpeg";
+            console.log(urlTest);
+            ShowImagePreviewBySrc(urlTest,'image1Preview','@Html.IdFor(m=> m.ImagenCliente1)', '@Html.IdFor(m => m.image1PreviewValue)')
         }
 
     </script>

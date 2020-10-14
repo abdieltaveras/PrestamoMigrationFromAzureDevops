@@ -1,0 +1,31 @@
+[33mcommit 69bab3a8f4d26e8ba3e2952065ea1bfaac5e02d3[m[33m ([m[1;36mHEAD -> [m[1;32mingreso[m[33m, [m[1;31morigin/ingreso[m[33m)[m
+Merge: ac67739 9e32ca9
+Author: abdiel taveras <abdieltaveras@hotmail.com>
+Date:   Mon Jul 6 10:55:37 2020 -0400
+
+    [UPD] merge changed buttons name data table
+
+[33mcommit 9e32ca9823b9e21549fe7c0a21ee51c2f32ffd5d[m
+Author: Bryan <bryan.osvaldo1@gmail.com>
+Date:   Mon Jul 6 10:49:05 2020 -0400
+
+    [FIX] Change incorrect function name
+
+[33mcommit ac67739816ec616320b3d2fe78a1d217fab6e0d5[m
+Merge: b3102c1 64fd34d
+Author: abdiel taveras <abdieltaveras@hotmail.com>
+Date:   Mon Jul 6 08:43:42 2020 -0400
+
+    Merge branch 'ingreso' of https://abdieltaveras.visualstudio.com/Prestamo/_git/Prestamo into ingreso
+
+[33mcommit b3102c14ee52ebb6fba23d4f57a79425820981fc[m
+Author: abdiel taveras <abdieltaveras@hotmail.com>
+Date:   Mon Jul 6 08:43:26 2020 -0400
+
+    [UPD] changed database connection for abdiel in web.config
+
+[33mcommit 64fd34d1682cb48cc3e4270b7a9b80b2ecaf6aff[m
+Author: Bryan <bryan.osvaldo1@gmail.com>
+Date:   Mon Jul 6 08:30:44 2020 -0400
+
+    [ADD] Improvements on design

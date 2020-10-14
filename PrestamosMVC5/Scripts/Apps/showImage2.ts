@@ -10,7 +10,7 @@ function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
     $("#" + hiddeInputImgElemText).val(_constantNoImagen);
     event.preventDefault();
 }
-function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText ) {
+function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText) {
     console.log(elemToggleIdText);
     $("#" + elemToggleIdText + "Agregar").toggle();
     $("#" + elemToggleIdText + "Quitar").toggle();

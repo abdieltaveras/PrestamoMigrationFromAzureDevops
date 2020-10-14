@@ -9,6 +9,7 @@ function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
     $("#" + hiddeInputImgElemText).val(_constantNoImagen);
     event.preventDefault();
 }
+
 function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText) {
     
     $("#" + elemToggleIdText + "Agregar").toggle();
@@ -24,6 +25,16 @@ function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdTex
     }
 }
 
+function ShowImagePreviewBySrc(srcUrl, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText) {
+
+    $("#" + elemToggleIdText + "Agregar").toggle();
+    $("#" + elemToggleIdText + "Quitar").toggle();
+    if (srcUrl!=="") {
+        let imageElement = $("#" + previewImageElemIdText);
+        imageElement.attr("src",srcUrl)
+        let inputTextElemForImage = $("#" + hiddenInputForImageElemIdText);
+    }
+}
 
 function ConsoleLogWidthAndHeigthOfImage(img) {
     console.log(img.css("width"), img.css("height"));
