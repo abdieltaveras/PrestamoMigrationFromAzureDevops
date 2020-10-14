@@ -2,7 +2,7 @@
 @model GarantiaVM
 @section pagestyle
 {
-    
+
     @*<link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />*@
     <link href="~/Content/customcss/Ingresos/garantiasSlider.css" rel="stylesheet" />
 }
@@ -87,7 +87,8 @@
 
     <div style="text-align:center;">
         @*<button class="btn btn-success">Pagar <i class="fa fa-dollar"></i></button>*@
-        <button type="submit" class="btn btn-primary" style="float:right;">Pagar <i class="fa fa-dollar"></i></button>
+        <button type="submit"  class="btn btn-primary" style="float:right;">Pagar <i class="fa fa-dollar"></i></button>
+        <a href="#" id="btnPagar" class="btn btn-primary">Calcular</a>
 
     </div>
 
@@ -242,7 +243,15 @@
 
 @section scripts
 {
+
+
+
+
     <script>
+        //Funcion Aregadada para poner eliminar los '$' a la hora de calcular los ingresos
+        function formatN($num) {
+            return $num.replace("$", "");
+        }
 
         $("input[data-type='currency']").on({
             keyup: function () {
@@ -325,6 +334,21 @@
             input[0].setSelectionRange(caret_pos, caret_pos);
         }
     </script>
+
+
+    <script>
+
+        $("#garantia").on('submit', function (evt) {
+
+            var montoPrestado = formatN($("#monto-prestado-input").text());
+            
+            if (monto == 0 || monto == "0.00") {
+                alert("Debe seleccionar un Prestamo");
+                evt.preventDefault();
+            } 
+        });
+
+    </script>
     <script src="~/Scripts/Apps/Prestamo/search.js"></script>
 
 
@@ -345,6 +369,7 @@
                 photoDetails = evt.currentTarget.getAttribute('data-client-photo');
             }
             showDataInField(JSON.parse(res), photoDetails);
+            datosCalcIngreso(JSON.parse(res));
         };
         const onPrestamoEnter = async function () {
 
@@ -353,15 +378,61 @@
 
             res = await loadPrestamoData(idprestamo);
             showDataInField(JSON.parse(res), photoRoot);
+            datosCalcIngreso(JSON.parse(res));
         };
-        
+
+
+        //***************Calcular Pagos*******************//
+        function datosCalcIngreso(datos) {
+
+            var myButton = document.getElementById("btnPagar");
+            myButton.addEventListener('click', function () {
+           // $("#garantia").on('submit', function (evt) {
+                var montoCuota = 0;
+                var montoPagar = 0;
+                var montoPrestado = datos.infoPrestamo.TotalPrestado;
+                montoCuota = formatN($('#monto-cuota-input').val());
+                montoPagar = formatN();
+                
+                montoPagar = montoPagar.toFixed(2);
+                montoPrestado = montoPrestado.toFixed(2);
+                var Bce = 0;
+                var NBce = 0;
+                //En esta parte el Nuevo Balance es NBce = Bce - montoPagar;
+                /*Deberá crearse una nueva tabla llamada Ingresos la cual
+                 será llenada con numPrestamo,numCuota,montCuota,AbonoCuota
+                 para enlazarse con las cuota
+                 así haremos un select en la base de datos que nos ahorre codigo
+                 en el front end*/
+                //if (montoPagar != 0 || montoPagar != "0.00") {
+                if (montoPagar > montoPrestado) {
+                    alert("El monto a Pagar:" + montoPagar + " no puede ser mayor al Monto Prestado: " + montoPrestado);
+                    evt.preventDefault();
+                }
+
+                //} 
+                //else {
+                //    alert("El Monto a Pagar debe ser mayor que Cero");
+                //    evt.preventDefault();
+                //}
+                
+
+            });
+            //});
+        }
+        //***************Cierre Calcular Pagos*******************//
+
+
+
         //Funcion que se ejecutara al ser presionado el item
         function showDataInField(data, photo) {
             console.log('el resultado es', data);
             console.log('el resultado foto', photo);
 
+
             // Encabezado
             $('#monto-prestado-input').text(formatter.format(data.infoPrestamo.TotalPrestado));
+
 
             //Info cliente
             $('#nombre-cliente').text(data.infoCliente.Nombres);
@@ -391,24 +462,40 @@
                 $.each(data.infoGarantias, function (index, value) {
                     $(".slider #buttons").append(` <a href="#slide-${index + 1}">${index + 1}</a> `);
                     $(".slides").append(`
-                                <div id="slide-${index + 1}">
-                                    <strong>Clasificacion:</strong>
-                                    <span id="clasificacion-garantia">${value.Clasificacion}</span>
-                                    <br />
-                                    <br />
-                                    <strong>Numeracion de garantia:</strong>
-                                    <span id="numeracion-garantia">${value.NumeracionGarantia}</span>
-                                    <br />
-                                    <br />
-                                    ${value.NombreMarca !== undefined ? `<strong>Marca:</strong> <span id="marca-garantia">${value.NombreMarca}</span> <br/><br/> ` : ''}
-                                    ${value.NombreModelo !== undefined ? `<strong>Modelo:</strong> <span id="modelo-garantia">${value.NombreModelo}</span> <br/><br/> ` : ''}
-                                    ${value.NombreTipoGarantia !== undefined ? `<strong>Tipo:</strong> <span id="tipo-garantia">${value.NombreTipoGarantia}</span> <br/><br/> `:''}
-                                    <strong>Informacion general:</strong>
-                                    <span id="detalles-cliente">${value.OtrosDetalles}</span>
-                                </div> `);
+                                        <div id="slide-${index + 1}">
+                                            <strong>Clasificacion:</strong>
+                                            <span id="clasificacion-garantia">${value.Clasificacion}</span>
+                                            <br />
+                                            <br />
+                                            <strong>Numeracion de garantia:</strong>
+                                            <span id="numeracion-garantia">${value.NumeracionGarantia}</span>
+                                            <br />
+                                            <br />
+                                            ${value.NombreMarca !== undefined ? `<strong>Marca:</strong> <span id="marca-garantia">${value.NombreMarca}</span> <br/><br/> ` : ''}
+                                            ${value.NombreModelo !== undefined ? `<strong>Modelo:</strong> <span id="modelo-garantia">${value.NombreModelo}</span> <br/><br/> ` : ''}
+                                            ${value.NombreTipoGarantia !== undefined ? `<strong>Tipo:</strong> <span id="tipo-garantia">${value.NombreTipoGarantia}</span> <br/><br/> ` : ''}
+                                            <strong>Informacion general:</strong>
+                                            <span id="detalles-cliente">${value.OtrosDetalles}</span>
+                                        </div> `);
                 });
             }
             $('#details-container').show();
         }
+
+
     </script>
+
+    @* Para calcular el pago *@
+    @*<script>
+            var myButton = document.getElementById("btnPagar");
+            myButton.addEventListener('click', function () {
+
+                let montoprestado = $('#monto-prestado-input').val();
+                let cuota = $('#monto-cuota-input').val();
+                let montoApagar = $('#input-amount-pay').val();
+                let cadenaCalc = "Monto Prestado: " + montoprestado + " Monto Cuota: " + cuota + " Monto A Pagar: " + montoApagar;
+                alert(cadenaCalc);
+            });
+
+        </script>*@
 }
