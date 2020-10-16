@@ -87,7 +87,7 @@
 
     <div style="text-align:center;">
         @*<button class="btn btn-success">Pagar <i class="fa fa-dollar"></i></button>*@
-        <button type="submit"  class="btn btn-primary" style="float:right;">Pagar <i class="fa fa-dollar"></i></button>
+        <button type="submit" class="btn btn-primary" style="float:right;">Pagar <i class="fa fa-dollar"></i></button>
         <a href="#" id="btnPagar" class="btn btn-primary">Calcular</a>
 
     </div>
@@ -402,19 +402,19 @@
                 //montoCuota = formatNumber($('#monto-cuota-input').val());
                 montoPagar = formatN($('#input-amount-pay').val());
                 // nuevo commit
-                
+
                 //En esta parte el Nuevo Balance es NBce = Bce - montoPagar;
                 /*Deberá crearse una nueva tabla llamada Ingresos la cual
                  será llenada con numPrestamo,numCuota,montCuota,AbonoCuota
                  para enlazarse con las cuota
                  así haremos un select en la base de datos que nos ahorre codigo
                  en el front end*/
-                
-                if (Number(montoPagar) >  montoPrestado) {
+
+                if (Number(montoPagar) > montoPrestado) {
                     alert("El monto a Pagar:" + montoPagar + " no puede ser mayor al Monto Prestado: " + montoPrestado);
                     evt.preventDefault();
                 }
-                
+
 
             });
         }
@@ -460,21 +460,21 @@
                 $.each(data.infoGarantias, function (index, value) {
                     $(".slider #buttons").append(` <a href="#slide-${index + 1}">${index + 1}</a> `);
                     $(".slides").append(`
-                                        <div id="slide-${index + 1}">
-                                            <strong>Clasificacion:</strong>
-                                            <span id="clasificacion-garantia">${value.Clasificacion}</span>
-                                            <br />
-                                            <br />
-                                            <strong>Numeracion de garantia:</strong>
-                                            <span id="numeracion-garantia">${value.NumeracionGarantia}</span>
-                                            <br />
-                                            <br />
-                                            ${value.NombreMarca !== undefined ? `<strong>Marca:</strong> <span id="marca-garantia">${value.NombreMarca}</span> <br/><br/> ` : ''}
-                                            ${value.NombreModelo !== undefined ? `<strong>Modelo:</strong> <span id="modelo-garantia">${value.NombreModelo}</span> <br/><br/> ` : ''}
-                                            ${value.NombreTipoGarantia !== undefined ? `<strong>Tipo:</strong> <span id="tipo-garantia">${value.NombreTipoGarantia}</span> <br/><br/> ` : ''}
-                                            <strong>Informacion general:</strong>
-                                            <span id="detalles-cliente">${value.OtrosDetalles}</span>
-                                        </div> `);
+                                            <div id="slide-${index + 1}">
+                                                <strong>Clasificacion:</strong>
+                                                <span id="clasificacion-garantia">${value.Clasificacion}</span>
+                                                <br />
+                                                <br />
+                                                <strong>Numeracion de garantia:</strong>
+                                                <span id="numeracion-garantia">${value.NumeracionGarantia}</span>
+                                                <br />
+                                                <br />
+                                                ${value.NombreMarca !== undefined ? `<strong>Marca:</strong> <span id="marca-garantia">${value.NombreMarca}</span> <br/><br/> ` : ''}
+                                                ${value.NombreModelo !== undefined ? `<strong>Modelo:</strong> <span id="modelo-garantia">${value.NombreModelo}</span> <br/><br/> ` : ''}
+                                                ${value.NombreTipoGarantia !== undefined ? `<strong>Tipo:</strong> <span id="tipo-garantia">${value.NombreTipoGarantia}</span> <br/><br/> ` : ''}
+                                                <strong>Informacion general:</strong>
+                                                <span id="detalles-cliente">${value.OtrosDetalles}</span>
+                                            </div> `);
                 });
             }
             $('#details-container').show();

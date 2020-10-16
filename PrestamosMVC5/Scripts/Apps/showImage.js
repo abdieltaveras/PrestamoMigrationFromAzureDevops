@@ -10,14 +10,11 @@ function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
     event.preventDefault();
 }
 function ShowImagePreview(imageUploader, previewImageElemIdText, elemToggleIdText, hiddenInputForImageElemIdText) {
-    
     $("#" + elemToggleIdText + "Agregar").toggle();
     $("#" + elemToggleIdText + "Quitar").toggle();
     if (imageUploader.files && imageUploader.files[0]) {
         let imageElement = $("#" + previewImageElemIdText);
-        
         let inputTextElemForImage = $("#"+ hiddenInputForImageElemIdText);
-        
         let orientation = -1;
         let num = 0;
         uploadPhotos(imageElement, 1800, num, inputTextElemForImage);
