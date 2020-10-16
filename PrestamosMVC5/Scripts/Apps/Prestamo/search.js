@@ -123,7 +123,9 @@ async function searchPrestamoText(text) {
                 console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
             },
             complete: function (jqXHR, status) {
+                
             }
+            
         });
     }
 
