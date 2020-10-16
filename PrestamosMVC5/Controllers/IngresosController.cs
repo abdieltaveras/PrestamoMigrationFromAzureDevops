@@ -39,7 +39,7 @@ namespace PrestamosMVC5.Controllers
         }
         public string GetPrestamo(int idprestamo)
         {
-            throw new Exception("error para ver que pasa");
+            //throw new Exception("error para ver que pasa");
             var prestamo = BLLPrestamo.Instance.GetPrestamoConDetalle(idprestamo, DateTime.Now);
             return JsonConvert.SerializeObject(prestamo);
         }
