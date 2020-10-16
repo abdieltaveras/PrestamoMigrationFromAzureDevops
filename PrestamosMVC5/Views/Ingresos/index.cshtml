@@ -249,8 +249,9 @@
 
     <script>
         //Funcion Aregadada para poner eliminar los '$' a la hora de calcular los ingresos
-        function formatN($num) {
-            return $num.replace("$", "");
+        function formatN(num) {
+            // return num.replace(/\D/g, "");
+            return num.replace(/[$',']/g, "");
         }
 
         $("input[data-type='currency']").on({
@@ -341,11 +342,16 @@
         $("#garantia").on('submit', function (evt) {
 
             var montoPrestado = formatN($("#monto-prestado-input").text());
-            
-            if (monto == 0 || monto == "0.00") {
+            var montoPagar = formatN($('#input-amount-pay').val());
+            if (montoPrestado == 0 || montoPrestado == "0.00") {
                 alert("Debe seleccionar un Prestamo");
                 evt.preventDefault();
-            } 
+            } else {
+                if (montoPagar == 0 || montoPagar == "0.00") {
+                    alert("El Monto a pagar debe ser mayor a Cero");
+                    evt.preventDefault();
+                }
+            }
         });
 
     </script>
