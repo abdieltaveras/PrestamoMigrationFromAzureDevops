@@ -249,8 +249,9 @@
 
     <script>
         //Funcion Aregadada para poner eliminar los '$' a la hora de calcular los ingresos
-        function formatN($num) {
-            return $num.replace("$", "");
+        function formatN(num) {
+            // return num.replace(/\D/g, "");
+            return num.replace(/[$',']/g, "");
         }
 
         $("input[data-type='currency']").on({
@@ -341,11 +342,16 @@
         $("#garantia").on('submit', function (evt) {
 
             var montoPrestado = formatN($("#monto-prestado-input").text());
-            
-            if (monto == 0 || monto == "0.00") {
+            var montoPagar = formatN($('#input-amount-pay').val());
+            if (montoPrestado == 0 || montoPrestado == "0.00") {
                 alert("Debe seleccionar un Prestamo");
                 evt.preventDefault();
-            } 
+            } else {
+                if (montoPagar == 0 || montoPagar == "0.00") {
+                    alert("El Monto a pagar debe ser mayor a Cero");
+                    evt.preventDefault();
+                }
+            }
         });
 
     </script>
@@ -385,40 +391,31 @@
         //***************Calcular Pagos*******************//
         function datosCalcIngreso(datos) {
 
-            var myButton = document.getElementById("btnPagar");
-            myButton.addEventListener('click', function () {
-           // $("#garantia").on('submit', function (evt) {
+            //var myButton = document.getElementById("btnPagar");
+            //myButton.addEventListener('click', function () {
+            $("#garantia").on('submit', function (evt) {
+                var Bce = 0;
+                var NBce = 0;
                 var montoCuota = 0;
                 var montoPagar = 0;
                 var montoPrestado = datos.infoPrestamo.TotalPrestado;
-                montoCuota = formatN($('#monto-cuota-input').val());
-                montoPagar = formatN();
+                //montoCuota = formatNumber($('#monto-cuota-input').val());
+                montoPagar = formatN($('#input-amount-pay').val());
                 
-                montoPagar = montoPagar.toFixed(2);
-                montoPrestado = montoPrestado.toFixed(2);
-                var Bce = 0;
-                var NBce = 0;
                 //En esta parte el Nuevo Balance es NBce = Bce - montoPagar;
                 /*Deberá crearse una nueva tabla llamada Ingresos la cual
                  será llenada con numPrestamo,numCuota,montCuota,AbonoCuota
                  para enlazarse con las cuota
                  así haremos un select en la base de datos que nos ahorre codigo
                  en el front end*/
-                //if (montoPagar != 0 || montoPagar != "0.00") {
-                if (montoPagar > montoPrestado) {
+                
+                if (Number(montoPagar) >  montoPrestado) {
                     alert("El monto a Pagar:" + montoPagar + " no puede ser mayor al Monto Prestado: " + montoPrestado);
                     evt.preventDefault();
                 }
-
-                //} 
-                //else {
-                //    alert("El Monto a Pagar debe ser mayor que Cero");
-                //    evt.preventDefault();
-                //}
                 
 
             });
-            //});
         }
         //***************Cierre Calcular Pagos*******************//
 
