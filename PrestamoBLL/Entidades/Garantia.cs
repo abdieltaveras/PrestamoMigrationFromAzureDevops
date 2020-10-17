@@ -128,6 +128,15 @@ namespace PrestamoBLL.Entidades
         public string Search { get; set; } = string.Empty;
     }
 
-    
+    public class GarantiaGetParams : BaseGetParams
+    //: BaseGetParams
+    {
+        public int IdGarantia { get; set; } = -1;
+        //public int IdClasificacion { get; set; } = -1;
+        //public int IdTipoGarantia { get; set; } = -1;
+        //public int IdModelo { get; set; } = -1;
+    }
+
+
 
 }

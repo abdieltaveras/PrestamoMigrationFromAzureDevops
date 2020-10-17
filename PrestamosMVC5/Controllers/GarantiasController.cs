@@ -24,7 +24,10 @@ namespace PrestamosMVC5.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            UpdViewBag_LoadCssAndJsForDatatable(true);
+            var garantias = GetGarantias();
+            ActionResult _actResult = View(garantias);
+            return _actResult;
         }
 
         public ActionResult CreateOrEdit(List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
@@ -126,6 +129,14 @@ namespace PrestamosMVC5.Controllers
             List<string> localidad = null;
             localidad = BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio }).ToList();
             return localidad[0];
+        }
+
+        private IEnumerable<Garantia> GetGarantias()
+        {
+            var getGarantiasParams = new GarantiaGetParams();
+            this.pcpSetUsuarioAndIdNegocioTo(getGarantiasParams);
+            var garantias = BLLPrestamo.Instance.GetGarantias(getGarantiasParams);
+            return garantias;
         }
 
         //[HttpPost]

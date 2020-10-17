@@ -4046,6 +4046,7 @@
     <Content Include="Views\Tests\PNotifyConfirm.cshtml" />
     <Content Include="Views\Shared\_LayoutWithNoContent.cshtml" />
     <Content Include="Views\Tests\JQueryConfirm.cshtml" />
+    <Content Include="Views\Garantias\Index.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />

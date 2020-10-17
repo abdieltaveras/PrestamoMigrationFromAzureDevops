@@ -213,5 +213,6 @@
     <None Include="PrestamoDB_Dev.publish.publish.xml" />
     <None Include="Prestamo_ing.publish.publish.xml" />
     <None Include="Prestamo_permisos.publish.publish.xml" />
+    <None Include="dbo\Stored Procedures\spGetGarantias.sql" />
   </ItemGroup>
 </Project>
