@@ -20,6 +20,11 @@ namespace PrestamosMVC5.Models
         public IEnumerable<ResponseMessage> ListaMensajes { get; set; }
         public string Mensaje { get; set; }
 
+        public GarantiaVM()
+        {
+            Garantia = new Garantia();
+        }
+
         public HttpPostedFileBase ImagenGarantia1 { get; set; }
         public HttpPostedFileBase ImagenGarantia2 { get; set; }
         public HttpPostedFileBase ImagenGarantia3 { get; set; }

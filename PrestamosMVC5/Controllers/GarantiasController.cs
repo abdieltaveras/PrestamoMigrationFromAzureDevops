@@ -30,30 +30,32 @@ namespace PrestamosMVC5.Controllers
             return _actResult;
         }
 
-        public ActionResult CreateOrEdit(List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
+        public ActionResult CreateOrEdit( List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
         {
             GarantiaVM datos = garantia == null ? new GarantiaVM() : garantia;
-
+            
             datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = pcpUserIdNegocio }), "IdTipo", "Nombre" );
             datos.ListaTiposReal =  BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = pcpUserIdNegocio });
             datos.ListaMarcas =  BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = pcpUserIdNegocio });
-            //datos.ListaModelos = new SelectList( BLLPrestamo.Instance.ModelosGet(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
+            datos.ListaModelos = new SelectList( BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
             datos.ListaColores = new SelectList(BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = pcpUserIdNegocio }), "IdColor", "Nombre");
-
             datos.Garantia = new Garantia();
 
+            var datosGarantia = GetGarantia(1).DataList.FirstOrDefault();
+            datos.Garantia = datosGarantia;
+            datos.Garantia.DetallesJSON = datosGarantia.Detalles.ToType<DetalleGarantia>();
             datos.ListaMensajes = TempData["list"] as List<ResponseMessage>;
-            //*******Imagenes Garantia****//
-            var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
-            var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
-            var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image2PreviewValue);
-            var imagen3GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image3PreviewValue);
-            var imagen4GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image4PreviewValue);
-            garantia.Garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1GarantiaFileName, garantia.image1PreviewValue, garantiaTempData.Imagen1FileName);
-            garantia.Garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantia.image2PreviewValue, garantiaTempData.Imagen2FileName);
+            ////*******Imagenes Garantia****//
+            //var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
+            //var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
+            //var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image2PreviewValue);
+            //var imagen3GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image3PreviewValue);
+            //var imagen4GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image4PreviewValue);
+            //garantia.Garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1GarantiaFileName, garantia.image1PreviewValue, garantiaTempData.Imagen1FileName);
+            //garantia.Garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantia.image2PreviewValue, garantiaTempData.Imagen2FileName);
             
-            garantia.Garantia.Imagen3FileName = GeneralUtils.GetNameForFile(imagen3GarantiaFileName, garantia.image3PreviewValue, garantiaTempData.Imagen3FileName);
-            garantia.Garantia.Imagen4FileName = GeneralUtils.GetNameForFile(imagen4GarantiaFileName, garantia.image4PreviewValue, garantiaTempData.Imagen4FileName);
+            //garantia.Garantia.Imagen3FileName = GeneralUtils.GetNameForFile(imagen3GarantiaFileName, garantia.image3PreviewValue, garantiaTempData.Imagen3FileName);
+            //garantia.Garantia.Imagen4FileName = GeneralUtils.GetNameForFile(imagen4GarantiaFileName, garantia.image4PreviewValue, garantiaTempData.Imagen4FileName);
             return View(datos);
         }
 
@@ -68,15 +70,15 @@ namespace PrestamosMVC5.Controllers
             List<ResponseMessage> listaMensajes = new List<ResponseMessage>();
 
             //*******Imagenes Garantia****//
-            var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
-            var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image1PreviewValue);
-            var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image2PreviewValue);
-            var imagen3GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image3PreviewValue);
-            var imagen4GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image4PreviewValue);
-            garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1GarantiaFileName, garantiavm.image1PreviewValue, garantiaTempData.Imagen1FileName);
-            garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantiavm.image2PreviewValue, garantiaTempData.Imagen2FileName);
-            garantia.Imagen3FileName = GeneralUtils.GetNameForFile(imagen3GarantiaFileName, garantiavm.image3PreviewValue, garantiaTempData.Imagen3FileName);
-            garantia.Imagen4FileName = GeneralUtils.GetNameForFile(imagen4GarantiaFileName, garantiavm.image4PreviewValue, garantiaTempData.Imagen4FileName);
+            //var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
+            //var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image1PreviewValue);
+            //var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image2PreviewValue);
+            //var imagen3GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image3PreviewValue);
+            //var imagen4GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image4PreviewValue);
+            //garantia.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1GarantiaFileName, garantiavm.image1PreviewValue, garantiaTempData.Imagen1FileName);
+            //garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantiavm.image2PreviewValue, garantiaTempData.Imagen2FileName);
+            //garantia.Imagen3FileName = GeneralUtils.GetNameForFile(imagen3GarantiaFileName, garantiavm.image3PreviewValue, garantiaTempData.Imagen3FileName);
+            //garantia.Imagen4FileName = GeneralUtils.GetNameForFile(imagen4GarantiaFileName, garantiavm.image4PreviewValue, garantiaTempData.Imagen4FileName);
             //if (!ModelState.IsValid)
             //{
             //    foreach (var errors in ModelState.Values)
@@ -138,7 +140,34 @@ namespace PrestamosMVC5.Controllers
             var garantias = BLLPrestamo.Instance.GetGarantias(getGarantiasParams);
             return garantias;
         }
+        private SeachResult<Garantia> GetGarantia(int id)
+        {
+            var searchGarantia = new GarantiaGetParams { IdGarantia = id };
+            pcpSetUsuarioAndIdNegocioTo(searchGarantia);
+            var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
+            var result = new SeachResult<Garantia>(garantias);
+            return result;
+        }
 
+
+        public class SeachResult<T>
+        {
+            public bool DatosEncontrados { get; private set; } = false;
+            public IEnumerable<T> DataList
+            {
+                get;
+                private set;
+            }
+
+            public SeachResult(IEnumerable<T> data)
+            {
+                this.DatosEncontrados = (data != null & data.Count() > 0);
+                if (DatosEncontrados)
+                    DataList = data;
+                else
+                    DataList = new List<T>();
+            }
+        }
         //[HttpPost]
         //public ActionResult SubirImagenes(HttpPostedFileBase[] files)
         //{

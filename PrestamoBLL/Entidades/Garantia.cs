@@ -87,6 +87,8 @@ namespace PrestamoBLL.Entidades
         public string Ano { get; set; } = string.Empty;
         public string Placa { get; set; } = string.Empty;
         public string Matricula { get; set; } = string.Empty;
+        public string Modelo { get; set; } = string.Empty;
+        public string Marca { get; set; } = string.Empty;
 
         // Inmobiliarios
         public int IdLocalidad { get; set; }
