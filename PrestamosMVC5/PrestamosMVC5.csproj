@@ -4018,6 +4018,7 @@
     <Content Include="Scripts\Apps\Cliente\search.js" />
     <Content Include="Scripts\Apps\Garantia\search.js" />
     <Content Include="Scripts\Apps\keyBehavior.js" />
+    <Content Include="Scripts\Apps\Numbers\manageCurrency02Es6.js" />
     <Content Include="Scripts\Apps\Numbers\manageCurrency01.js" />
     <Content Include="Scripts\Apps\manageReferenciasForCliente.js" />
     <Content Include="Scripts\Apps\minMaxAdapter.js" />

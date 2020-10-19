@@ -9,7 +9,7 @@ $("input[data-type='currency']").on({
 });
 
 function formatNumber(n) {
-    // format number 1000000 to 1,234,567
+    // format number 1234567 to 1,234,567
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
@@ -102,9 +102,6 @@ function toFloat(num) {
         else
             sep = false;
     }
-    
-    
-    
     let result= parseFloat(
         num.substr(0, sep).replace(/[^\d]/g, "") + '.' +
         num.substr(sep + 1, num.length).replace(/[^0-9]/, "")
