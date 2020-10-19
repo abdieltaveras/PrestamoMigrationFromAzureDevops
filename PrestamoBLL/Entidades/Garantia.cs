@@ -82,6 +82,7 @@ namespace PrestamoBLL.Entidades
     public class DetalleGarantia : BaseInsUpd
     {
         // Mobiliarios
+        public string TipoGarantia { get; set; } = string.Empty;
         public string Color { get; set; } = string.Empty;
         public string NoMaquina { get; set; } = string.Empty;
         public string Ano { get; set; } = string.Empty;

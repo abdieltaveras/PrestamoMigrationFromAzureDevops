@@ -1,6 +1,7 @@
 ﻿
 @model GarantiaVM
-@Html.HiddenFor(model=>model.Garantia.IdGarantia)
+@Html.HiddenFor(model=>model.Garantia.IdClasificacion)
+@Html.HiddenFor(model => model.Garantia.IdClasificacion)
 @Html.HiddenFor(model => model.Garantia.Imagen1FileName)
 @Html.HiddenFor(model => model.Garantia.Imagen2FileName)
 @Html.HiddenFor(model => model.Garantia.Imagen3FileName)
@@ -32,15 +33,15 @@
 <div class="clearfix"></div>
 <div>
     @*<form autocomplete="off" action="/" method="post" style="padding: 0%">*@
-    <div class="col-5" style="margin: auto; padding: 0%; ">
-        <h4 style="text-align: center;">¿Que garantia buscas?</h4>
-        <input class="garantia_target form-control" type="text" autocomplete="off" id="search-garantia-input" placeholder="Buscar por numero de identificacion..." name="name" value=""
-               style="height: 60px" />
-        <div id="list-garantia-container">
-            <div class="list-group col-md-12" id="list-garantia-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+    @*<div class="col-5" style="margin: auto; padding: 0%; ">
+            <h4 style="text-align: center;">¿Que garantia buscas?</h4>
+            <input class="garantia_target form-control" type="text" autocomplete="off" id="search-garantia-input" placeholder="Buscar por numero de identificacion..." name="name" value=""
+                   style="height: 60px" />
+            <div id="list-garantia-container">
+                <div class="list-group col-md-12" id="list-garantia-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
+                </div>
             </div>
-        </div>
-    </div>
+        </div>*@
     @*</form>*@
 </div>
 <br />
@@ -60,7 +61,7 @@
                             {
                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#errorModal">Ver errores</button>
                             }
-                            <button type="button" class="btn btn-primary" id="btnFormTasaInteres" onclick="clearForm()">Nuevo</button>
+                            @*<button type="button" class="btn btn-primary" id="btnFormTasaInteres" onclick="clearForm()">Nuevo</button>*@
                         </div>
 
                         <div class="clearfix"></div>
@@ -86,7 +87,7 @@
                                     </div>
 
                                 </div>
-                                <hr/>
+                                <hr />
                                 //*******************************Imagenes
                                 <div class="@HtmlClass.FormGroupCls">
                                     @Html.Label("Imagenes Para Garantias", htmlAttributes: new { @class = @HtmlClass.LabelCls })
@@ -223,11 +224,14 @@
                                                 Tipo <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                <select name="Garantia.IdTipoGarantia" class="form-control" id="Garantia_IdTipo">
-                                                    <option value="0">Elije una opcion</option>
-                                                </select>
+                                                @*<select name="Garantia.IdTipoGarantia" class="form-control" id="Garantia_IdTipo">
+                                                        <option value="0">Elije una opcion</option>
+                                                    </select>*@
 
-                                                @*@Html.DropDownListFor(model => model.Garantia.IdTipo, Model.ListaTipos, htmlAttributes: new { @class = @HtmlClass.FormControlCls })*@
+                                                @Html.DropDownListFor(model => model.Garantia.IdTipoGarantia, Model.ListaTipos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+
+
+                                                @*@Html.DropDownListFor(model => model.Garantia.DetallesJSON.TipoGarantia, Model.ListaTipos, htmlAttributes: new { @class = @HtmlClass.FormControlCls })*@
 
                                                 @*@Html.EditorFor(model => model.Garantia.IdTipo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
                                             </div>
@@ -308,20 +312,20 @@
                                                 Marca <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                
+
                                                 @*@Html.EditorFor(model => model.Garantia.IdMarca, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
-                                                @* @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
+                                                @Html.DropDownListFor(model => model.Garantia.IdMarca, Model.ListaMarcas, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                                                 @*@foreach (var item in Model.ListaMarcas)
-        {
-        <p>@item</p>
-        }*@
+                                                    {
+                                                    <p>@item</p>
+                                                    }*@
                                                 @*<select name="Garantia.IdMarca" class="form-control" id="Garantia_IdMarca">
-            <option value="0">Elije una marca</option>
-            @foreach (var marca in Model.ListaMarcas)
-            {
-                <option value="@marca.IdMarca">@marca.Nombre</option>
-            }
-        </select>*@
+                                                        <option value="0">Elije una marca</option>
+                                                        @foreach (var marca in Model.ListaMarcas)
+                                                        {
+                                                            <option value="@marca.IdMarca">@marca.Nombre</option>
+                                                        }
+                                                    </select>*@
 
                                             </div>
                                         </div>
@@ -331,11 +335,11 @@
                                                 Modelo <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.Garantia.DetallesJSON.Modelo, Model.ListaModelos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                                @Html.DropDownListFor(model => model.Garantia.IdModelo, Model.ListaModelos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                                                 @*@Html.DropDownListFor(model => model.Garantia.IdModelo, Model.ListaModelos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
                                                 @*<select name="Garantia.IdModelo" class="form-control" id="Garantia_IdModelo">
-            <option value="0">Elije una modelo</option>
-        </select>*@
+                                                        <option value="0">Elije una modelo</option>
+                                                    </select>*@
                                             </div>
                                         </div>
 
@@ -499,7 +503,7 @@
 @section scripts
 {
     <script>
-    @*let formulario = $("#garantia");
+    let formulario = $("#garantia");
     let searchLocalidadElem = $('#searchLocalidad');
     let selectPointer = 0;
     var urlNoImage = "@Url.Content(SiteImages.NoImage)";
@@ -523,15 +527,26 @@
                 $('#mobiliario_form_container').show();
                 $('#inmobiliario_form_container').hide();
                 loadTipo(1);
-                clearForm();
+                
 
             } else if (event.target.id === 'inmobiliario_option') {
                 $('#mobiliario_form_container').hide();
                 $('#inmobiliario_form_container').show();
                 loadTipo(2);
-                clearForm();
+                
             }
         });
+
+        let idclasificacion = $('#Garantia_IdClasificacion').val()
+        if (idclasificacion === 2) {
+            $('#mobiliario_option').iCheck('check');
+            console.log('Cargue un carro');
+            loadTipo(1);
+        } else {
+            $('#inmobiliario_option').iCheck('check');
+            console.log('Cargue una casa');
+            loadTipo(2);
+        }
     });
 
     //// Buscador de garantias
@@ -555,7 +570,7 @@
         let fotoGarantia2 = rutaFotoGarantia + selectedGarantia.Imagen2FileName;
         let fotoGarantia3 = rutaFotoGarantia + selectedGarantia.Imagen3FileName;
         let fotoGarantia4 = rutaFotoGarantia + selectedGarantia.Imagen4FileName;
-             
+
         $('#image1Preview').attr("src", fotoGarantia1);
         $('#image2Preview').attr("src", fotoGarantia2);
         $('#image3Preview').attr("src", fotoGarantia3);
@@ -568,23 +583,23 @@
         if (fotoGarantia1 == rutaFotoGarantia) {
             console.log("No hay imagen en la garantia1");
             $('#image1Preview').attr("src", fotoNoimage);
-            
+
         }
 
         if (fotoGarantia2 == rutaFotoGarantia) {
             console.log("No hay imagen en la garantia2");
             $('#image2Preview').attr("src", fotoNoimage);
-            
+
         }
         if (fotoGarantia3 == rutaFotoGarantia) {
             $('#image3Preview').attr("src", fotoNoimage);
-            
+
         }
         if (fotoGarantia4 == rutaFotoGarantia) {
             $('#image4Preview').attr("src", fotoNoimage);
-            
+
         }
-        
+
 
         //*******Controles de Imagenes
         console.table(detalles);
@@ -645,7 +660,7 @@
         $('.garantias').remove();
         $('#searchinput').val(null);
     }
-
+    
     function searchLocalidadGarantia(IdLocation, IdNegocio) {
 
         let dataValue = {
@@ -665,8 +680,9 @@
         });
     }
 
+    
     function loadTipo(type) {
-        var data = @Html.Raw(Json.Encode(Model.ListaTiposReal));
+        var data = @Html.Raw(Json.Encode(Model.ListaTipos));
 
         $('.typeoption').remove();
 
@@ -730,7 +746,7 @@
         }
     }
 
-
+    @*
     function clearForm() {
 
         $('#Garantia_IdGarantia').val('');
@@ -774,15 +790,15 @@
         }
 
     }*@
-    
+
     </script>
-  
+
     <script src="~/Scripts/apps/showImage.js"></script>
-    @*<script src="~/Scripts/Apps/searchLocalidad.js"></script>
-    <script src="~/Scripts/Apps/Garantia/search.js"></script>*@
+    <script src="~/Scripts/Apps/searchLocalidad.js"></script>
+    @*<script src="~/Scripts/Apps/Garantia/search.js"></script>*@
 
     @*<script src="/Content/vendors/iCheck/icheck.min.js"></script>*@
 
-    
+
 }
 

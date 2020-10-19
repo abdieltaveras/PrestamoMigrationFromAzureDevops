@@ -30,21 +30,25 @@ namespace PrestamosMVC5.Controllers
             return _actResult;
         }
 
-        public ActionResult CreateOrEdit( List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
+        public ActionResult CreateOrEdit(int id = -1,List<ResponseMessage> ListaMensajes = null, GarantiaVM garantia = null)
         {
             GarantiaVM datos = garantia == null ? new GarantiaVM() : garantia;
             
-            datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = pcpUserIdNegocio }), "IdTipo", "Nombre" );
+            datos.ListaTipos = new SelectList( BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = pcpUserIdNegocio }), "IdTipoGarantia", "Nombre" );
             datos.ListaTiposReal =  BLLPrestamo.Instance.TiposGarantiaGet(new TipoGetParams { IdNegocio = pcpUserIdNegocio });
-            datos.ListaMarcas =  BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = pcpUserIdNegocio });
+            datos.ListaMarcas = new SelectList( BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = pcpUserIdNegocio }), "IdMarca", "Nombre");
             datos.ListaModelos = new SelectList( BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
             datos.ListaColores = new SelectList(BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = pcpUserIdNegocio }), "IdColor", "Nombre");
             datos.Garantia = new Garantia();
-
-            var datosGarantia = GetGarantia(1).DataList.FirstOrDefault();
-            datos.Garantia = datosGarantia;
-            datos.Garantia.DetallesJSON = datosGarantia.Detalles.ToType<DetalleGarantia>();
             datos.ListaMensajes = TempData["list"] as List<ResponseMessage>;
+
+            if (id != -1)
+            {
+                var datosGarantia = GetGarantia(id).DataList.FirstOrDefault();
+                datos.Garantia = datosGarantia;
+                datos.Garantia.DetallesJSON = datosGarantia.Detalles.ToType<DetalleGarantia>();
+            }
+            
             ////*******Imagenes Garantia****//
             //var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
             //var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantia.image1PreviewValue);
@@ -79,22 +83,22 @@ namespace PrestamosMVC5.Controllers
             //garantia.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2GarantiaFileName, garantiavm.image2PreviewValue, garantiaTempData.Imagen2FileName);
             //garantia.Imagen3FileName = GeneralUtils.GetNameForFile(imagen3GarantiaFileName, garantiavm.image3PreviewValue, garantiaTempData.Imagen3FileName);
             //garantia.Imagen4FileName = GeneralUtils.GetNameForFile(imagen4GarantiaFileName, garantiavm.image4PreviewValue, garantiaTempData.Imagen4FileName);
-            //if (!ModelState.IsValid)
-            //{
-            //    foreach (var errors in ModelState.Values)
-            //    {
-            //        foreach (var error in errors.Errors)
-            //        {
-            //            listaMensajes.Add(new ResponseMessage()
-            //            {
-            //                Tipo = ResponseMessage.TYPE_ERROR,
-            //                Mensaje = error.ErrorMessage
-            //            });
-            //        }
-            //    }
-            //    TempData["list"] = listaMensajes;
-            //    return RedirectToAction("CreateOrEdit", new { @ListaMensajes = listaMensajes, @garantia = garantia });
-            //}
+            if (!ModelState.IsValid)
+            {
+                foreach (var errors in ModelState.Values)
+                {
+                    foreach (var error in errors.Errors)
+                    {
+                        listaMensajes.Add(new ResponseMessage()
+                        {
+                            Tipo = ResponseMessage.TYPE_ERROR,
+                            Mensaje = error.ErrorMessage
+                        });
+                    }
+                }
+                TempData["list"] = listaMensajes;
+                return RedirectToAction("CreateOrEdit", new { @ListaMensajes = listaMensajes, @garantia = garantia });
+            }
 
             try
             {
@@ -104,7 +108,7 @@ namespace PrestamosMVC5.Controllers
             {
             }
 
-            return RedirectToAction("CreateOrEdit", new { listaMensajes });
+            return RedirectToAction("Index", new { listaMensajes });
         }
 
         public string BuscarGarantias(string searchToText)
