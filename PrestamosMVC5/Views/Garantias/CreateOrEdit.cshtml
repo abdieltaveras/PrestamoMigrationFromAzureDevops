@@ -79,7 +79,7 @@
                                 <h6>Clasificacion de garantia</h6>
                                 <div class="@HtmlClass.FormGroupCls">
                                     <div class="@HtmlClass.DivInputCls">
-                                        <input type="radio" class="flat" name="Garantia.IdClasificacion" checked id="inmobiliario_option" value="1" style="float:right;" />
+                                        <input type="radio" class="flat" name="Garantia.IdClasificacion" id="inmobiliario_option" value="1" style="float:right;" />
                                         <i class="fa fa-home"></i> Inmobiliriario
                                         <br />
                                         <input type="radio" class="flat" name="Garantia.IdClasificacion" id="mobiliario_option" value="2" style="float:right;" />
@@ -124,7 +124,7 @@
                                             imagen4Existe = true;
                                         }
                                     }
-
+                             
                                     <div class="col">
                                         <img id="image1Preview"
                                              src="@image1Url" style="height:15em; width:20em;" class="img-fluid" />
@@ -230,7 +230,6 @@
 
                                                 @Html.DropDownListFor(model => model.Garantia.IdTipoGarantia, Model.ListaTipos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
 
-
                                                 @*@Html.DropDownListFor(model => model.Garantia.DetallesJSON.TipoGarantia, Model.ListaTipos, htmlAttributes: new { @class = @HtmlClass.FormControlCls })*@
 
                                                 @*@Html.EditorFor(model => model.Garantia.IdTipo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
@@ -268,14 +267,16 @@
                                         </div>
 
                                         <input type="hidden" class="target form-control" name="Garantia.DetallesJSON.IdLocalidad" id="Direccion_IdLocalidad" />
+                                        @Html.HiddenFor(model=>model.Garantia.DetallesJSON.IdLocalidad)
 
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label" for="interes">
                                                 Detalles de direccion <span class="required">*</span>
                                             </label>
                                             <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.Garantia.DetallesJSON.DetallesDireccion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @id = "InputRutaLocalidad" }, @required = true })
 
-                                                <textarea class="form-control rounded-0" name="Garantia.DetallesJSON.DetallesDireccion" id="InputRutaLocalidad" rows="3"></textarea>
+                                                @*<textarea class="form-control rounded-0" name="Garantia.DetallesJSON.DetallesDireccion" id="InputRutaLocalidad" rows="3"></textarea>*@
 
                                                 @*<textarea name="Garantia.DetallesJSON.DetallesDireccion" class="form-control" id="InputRutaLocalidad" value="" />*@
 
@@ -538,7 +539,7 @@
         });
 
         let idclasificacion = $('#Garantia_IdClasificacion').val()
-        if (idclasificacion === 2) {
+        if (idclasificacion == 2) {
             $('#mobiliario_option').iCheck('check');
             console.log('Cargue un carro');
             loadTipo(1);
@@ -565,40 +566,40 @@
         const detalles = JSON.parse(selectedGarantia.Detalles);
         //*****Prueba Luiss Imagen1FileName
         console.log(selectedGarantia);
-        let fotoNoimage = "/content/build/images/noimagen.png";
-        let fotoGarantia1 = rutaFotoGarantia + selectedGarantia.Imagen1FileName;
-        let fotoGarantia2 = rutaFotoGarantia + selectedGarantia.Imagen2FileName;
-        let fotoGarantia3 = rutaFotoGarantia + selectedGarantia.Imagen3FileName;
-        let fotoGarantia4 = rutaFotoGarantia + selectedGarantia.Imagen4FileName;
+        //let fotoNoimage = "/content/build/images/noimagen.png";
+        //let fotoGarantia1 = rutaFotoGarantia + selectedGarantia.Imagen1FileName;
+        //let fotoGarantia2 = rutaFotoGarantia + selectedGarantia.Imagen2FileName;
+        //let fotoGarantia3 = rutaFotoGarantia + selectedGarantia.Imagen3FileName;
+        //let fotoGarantia4 = rutaFotoGarantia + selectedGarantia.Imagen4FileName;
 
-        $('#image1Preview').attr("src", fotoGarantia1);
-        $('#image2Preview').attr("src", fotoGarantia2);
-        $('#image3Preview').attr("src", fotoGarantia3);
-        $('#image4Preview').attr("src", fotoGarantia4);
+        //$('#image1Preview').attr("src", fotoGarantia1);
+        //$('#image2Preview').attr("src", fotoGarantia2);
+        //$('#image3Preview').attr("src", fotoGarantia3);
+        //$('#image4Preview').attr("src", fotoGarantia4);
 
         //$('#ImagenGarantia1').attr("onchange", onch1);
         //$('#image2PreviewValue').attr("value", fotoGarantia2);
         //$('#image3PreviewValue').attr("value", fotoGarantia3);
         //$('#image4PreviewValue').attr("value", fotoGarantia4);
-        if (fotoGarantia1 == rutaFotoGarantia) {
-            console.log("No hay imagen en la garantia1");
-            $('#image1Preview').attr("src", fotoNoimage);
+        //if (fotoGarantia1 == rutaFotoGarantia) {
+        //    console.log("No hay imagen en la garantia1");
+        //    $('#image1Preview').attr("src", fotoNoimage);
 
-        }
+        //}
 
-        if (fotoGarantia2 == rutaFotoGarantia) {
-            console.log("No hay imagen en la garantia2");
-            $('#image2Preview').attr("src", fotoNoimage);
+        //if (fotoGarantia2 == rutaFotoGarantia) {
+        //    console.log("No hay imagen en la garantia2");
+        //    $('#image2Preview').attr("src", fotoNoimage);
 
-        }
-        if (fotoGarantia3 == rutaFotoGarantia) {
-            $('#image3Preview').attr("src", fotoNoimage);
+        //}
+        //if (fotoGarantia3 == rutaFotoGarantia) {
+        //    $('#image3Preview').attr("src", fotoNoimage);
 
-        }
-        if (fotoGarantia4 == rutaFotoGarantia) {
-            $('#image4Preview').attr("src", fotoNoimage);
+        //}
+        //if (fotoGarantia4 == rutaFotoGarantia) {
+        //    $('#image4Preview').attr("src", fotoNoimage);
 
-        }
+        //}
 
 
         //*******Controles de Imagenes
@@ -745,10 +746,24 @@
             $('#Garantia_IdModelo').val(modeloid);
         }
     }
+    function beforeSubmit() {
+            $("#@Html.IdFor(m=> m.ImagenGarantia1)").remove();
+            $("#@Html.IdFor(m=> m.ImagenGarantia2)").remove();
+            $("#image1Preview").remove();
+            $("#image2Preview").remove();
+    }
 
-    @*
+    function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
+            console.log(elemId, imageElemIdText);
+            $("#" + imageElemIdText).attr("src", _urlNoImagen);
+            $("#" + elemId + "Agregar").toggle();
+            $("#" + elemId + "Quitar").toggle();
+            $("#" + hiddeInputImgElemText).val(_constantNoImagen);
+            event.preventDefault();
+    }
+   
     function clearForm() {
-
+        @*
         $('#Garantia_IdGarantia').val('');
         $('#Garantia_NoIdentificacion').val("");
         $('#Garantia_IdNegocio').val("");
@@ -772,24 +787,10 @@
         $('#Garantia_DetallesJSON_UsoExclusivo').removeAttr("checked", "checked");
 
         $('#searchLocalidad').val('');
+        *@
 
-        function beforeSubmit() {
-            $("#@Html.IdFor(m=> m.ImagenGarantia1)").remove();
-            $("#@Html.IdFor(m=> m.ImagenGarantia2)").remove();
-            $("#image1Preview").remove();
-            $("#image2Preview").remove();
-        }
 
-        function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {
-            console.log(elemId, imageElemIdText);
-            $("#" + imageElemIdText).attr("src", _urlNoImagen);
-            $("#" + elemId + "Agregar").toggle();
-            $("#" + elemId + "Quitar").toggle();
-            $("#" + hiddeInputImgElemText).val(_constantNoImagen);
-            event.preventDefault();
-        }
-
-    }*@
+    }
 
     </script>
 
