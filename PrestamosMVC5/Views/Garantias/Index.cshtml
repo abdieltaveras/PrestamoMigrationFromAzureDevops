@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Garantia>
+﻿@model IEnumerable<GarantiaConMarcaYModelo>
 <link href="~/Content/customcss/datatable/css/customStyle.css" rel="stylesheet">
 
 <div class="row">
@@ -16,21 +16,22 @@
                                 <th class="checkColumn">
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.IdGarantia)
+                                    @Html.DisplayNameFor(model => model.DetallesJSON.Matricula)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.IdModelo)
+                                    @Html.DisplayNameFor(model => model.DetallesJSON.Placa)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.IdNegocio)
+                                    @Html.DisplayNameFor(model => model.NombreMarca)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.IdTipoGarantia)
+                                    @Html.DisplayNameFor(model => model.NombreModelo)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.IdClasificacion)
+                                    @Html.DisplayNameFor(model => model.DetallesJSON.Color)
                                 </th>
-                                
+
+
 
                                 @*<th></th>*@
                             </tr>
@@ -39,25 +40,24 @@
 
                             @foreach (var item in Model)
                             {
-                                <tr class=" " data-id="@item.IdGarantia">
-                                    <td>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdGarantia)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdModelo)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdNegocio)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdTipoGarantia)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IdClasificacion)
-                                    </td>
-                                </tr>
+                            <tr class=" " data-id="@item.IdGarantia">
+                                <td></td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DetallesJSON.Matricula)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DetallesJSON.Placa)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NombreMarca)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NombreModelo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DetallesJSON.Color)
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

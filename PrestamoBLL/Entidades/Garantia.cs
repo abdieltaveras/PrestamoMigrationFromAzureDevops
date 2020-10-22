@@ -23,12 +23,12 @@ namespace PrestamoBLL.Entidades
         public string NombreTipoGarantia { get; internal set; } = string.Empty;
         public string OtrosDetalles { get; internal set; } = string.Empty;
         public string Detalles { get; internal set; } = string.Empty;
-        public string Imagen1FileName { get; internal set; } = string.Empty;
+        public string Imagen1FileName { get; internal set; }
 
-        public string Imagen2FileName { get; internal set; } = string.Empty;
-        public string Imagen3FileName { get; internal set; } = string.Empty;
+        public string Imagen2FileName { get; internal set; }
+        public string Imagen3FileName { get; internal set; }
 
-        public string Imagen4FileName { get; internal set; } = string.Empty;
+        public string Imagen4FileName { get; internal set; }
         public DetalleGarantia DetallesForJson { get; internal set; }
         
 
@@ -45,10 +45,10 @@ namespace PrestamoBLL.Entidades
         public int IdTipoGarantia { get; set; } = -1;
         public int IdModelo { get; set; } = -1;
         public int IdMarca { get; set; } = -1;
-        public string Imagen1FileName { get; set; } = string.Empty;
-        public string Imagen2FileName { get; set; } = string.Empty;
-        public string Imagen3FileName { get; set; } = string.Empty;
-        public string Imagen4FileName { get; set; } = string.Empty;
+        public string Imagen1FileName { get; set; } 
+        public string Imagen2FileName { get; set; } 
+        public string Imagen3FileName { get; set; }
+        public string Imagen4FileName { get; set; }
 
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
@@ -82,14 +82,11 @@ namespace PrestamoBLL.Entidades
     public class DetalleGarantia : BaseInsUpd
     {
         // Mobiliarios
-        public string TipoGarantia { get; set; } = string.Empty;
         public string Color { get; set; } = string.Empty;
         public string NoMaquina { get; set; } = string.Empty;
         public string Ano { get; set; } = string.Empty;
         public string Placa { get; set; } = string.Empty;
         public string Matricula { get; set; } = string.Empty;
-        public string Modelo { get; set; } = string.Empty;
-        public string Marca { get; set; } = string.Empty;
 
         // Inmobiliarios
         public int IdLocalidad { get; set; }

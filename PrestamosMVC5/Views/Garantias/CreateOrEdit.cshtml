@@ -507,8 +507,8 @@
     let formulario = $("#garantia");
     let searchLocalidadElem = $('#searchLocalidad');
     let selectPointer = 0;
-    var urlNoImage = "@Url.Content(SiteImages.NoImage)";
-    var constantNoImagen = "@Constant.NoImagen";
+    var urlNoImage = "@Url.Content(SiteImages.NoImage)"
+    var constantNoImagen ="@Constant.NoImagen";
 
     const rutaFotoGarantia = "@Url.Content(SiteDirectory.ImagesForGarantia)/";
 
@@ -548,6 +548,13 @@
             console.log('Cargue una casa');
             loadTipo(2);
         }
+
+        
+        $("#Garantia_IdMarca").change(async function () {
+        loadModelos(null, null);
+    });
+        
+
     });
 
     //// Buscador de garantias
@@ -749,8 +756,12 @@
     function beforeSubmit() {
             $("#@Html.IdFor(m=> m.ImagenGarantia1)").remove();
             $("#@Html.IdFor(m=> m.ImagenGarantia2)").remove();
+            $("#@Html.IdFor(m=> m.ImagenGarantia3)").remove();
+            $("#@Html.IdFor(m=> m.ImagenGarantia4)").remove();
             $("#image1Preview").remove();
             $("#image2Preview").remove();
+            $("#image3Preview").remove();
+            $("#image4Preview").remove();
     }
 
     function QuitarImagen(elemId, imageElemIdText, hiddeInputImgElemText) {

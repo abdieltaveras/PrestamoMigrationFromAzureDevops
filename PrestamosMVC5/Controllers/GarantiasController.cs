@@ -40,13 +40,15 @@ namespace PrestamosMVC5.Controllers
             datos.ListaModelos = new SelectList( BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 }), "IdModelo", "Nombre" );
             datos.ListaColores = new SelectList(BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = pcpUserIdNegocio }), "IdColor", "Nombre");
             datos.Garantia = new Garantia();
+            
             datos.ListaMensajes = TempData["list"] as List<ResponseMessage>;
 
             if (id != -1)
             {
                 var datosGarantia = GetGarantia(id).DataList.FirstOrDefault();
                 datos.Garantia = datosGarantia;
-                datos.Garantia.DetallesJSON = datosGarantia.DetallesJSON;
+                datos.Garantia.DetallesJSON = datosGarantia.Detalles.ToType<DetalleGarantia>();
+                TempData["Garantia"] = datosGarantia;
             }
 
             ////*******Imagenes Garantia****//
@@ -144,13 +146,25 @@ namespace PrestamosMVC5.Controllers
             return localidad[0];
         }
 
-        private IEnumerable<Garantia> GetGarantias()
+        private IEnumerable<GarantiaConMarcaYModelo> GetGarantias()
         {
             var getGarantiasParams = new GarantiaGetParams();
             this.pcpSetUsuarioAndIdNegocioTo(getGarantiasParams);
             var garantias = BLLPrestamo.Instance.GetGarantias(getGarantiasParams);
+            foreach (var item in garantias)
+            {
+                item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>();
+            }
             return garantias;
         }
+        //private SeachResult<GarantiaConMarcaYModelo> GetGarantias()
+        //{
+        //    var getGarantiasParams = new GarantiaGetParams();
+        //    this.pcpSetUsuarioAndIdNegocioTo(getGarantiasParams);
+        //    var garantias = BLLPrestamo.Instance.GetGarantias(getGarantiasParams);
+        //    var result = new SeachResult<GarantiaConMarcaYModelo>(garantias);
+        //    return result;
+        //}
         private SeachResult<Garantia> GetGarantia(int id)
         {
             var searchGarantia = new GarantiaGetParams { IdGarantia = id };
