@@ -189,4 +189,60 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdOperacion" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="44776590-1fcc-4213-a7e4-dc501c421d51" ChangeDateTime="10/20/2020 00:22:55">
+    <Property Name="ElementName" Value="[dbo].[tblRedesSociales].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRedesSociales]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdRedSocial" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7dab44e4-a11f-4060-a562-8fc84f536f66" ChangeDateTime="10/20/2020 00:24:08">
+    <Property Name="ElementName" Value="[dbo].[tblRedesSociales].[Perfil]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRedesSociales]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PerfilUrl" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="80c1b802-5c63-43ea-87d0-2ed314c75fc4" ChangeDateTime="10/20/2020 01:03:19">
+    <Property Name="ElementName" Value="[dbo].[tblRedesSociales].[IdRedSocial]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRedesSociales]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdRedesSocialesCliente" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="605b56af-dbeb-4112-b64a-8e92de938767" ChangeDateTime="10/20/2020 01:03:24">
+    <Property Name="ElementName" Value="[dbo].[tblRedesSociales].[Tipo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRedesSociales]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdTipoRedesSociales" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="59cbfc35-3a32-48cf-ab2e-8045b2f15a84" ChangeDateTime="10/20/2020 01:04:02">
+    <Property Name="ElementName" Value="[dbo].[tblRedesSociales].[IdRedesSocialesCliente]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRedesSociales]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdRedesSociales" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a74c246d-2f65-4dbe-b6ec-bee210c9a98e" ChangeDateTime="10/20/2020 01:04:20">
+    <Property Name="ElementName" Value="[dbo].[tblRedesSociales].[IdTipoRedesSociales]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRedesSociales]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdRedesSociales" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f778e176-e3f2-4bdf-8db2-162b658109db" ChangeDateTime="10/24/2020 21:48:21">
+    <Property Name="ElementName" Value="[dbo].[tblClientes].[ReedesSociales]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblClientes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="InfoRedesSociales" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6c7ea335-2a98-4797-9b44-2eb4cd073e23" ChangeDateTime="10/24/2020 22:45:34">
+    <Property Name="ElementName" Value="[dbo].[tblRedesSociales].[NombreUsuario]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblRedesSociales]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Nombre" />
+  </Operation>
 </Operations>

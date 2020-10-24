@@ -100,6 +100,8 @@ namespace PrestamoBLL.Entidades
         /// </summary>
         public string InfoReferencia { get; set; } = string.Empty;
 
+        public string InfoRedesSociales { get; set; } = string.Empty;
+
         /// <summary>
         /// guarda el nombre de la imagen
         /// </summary>

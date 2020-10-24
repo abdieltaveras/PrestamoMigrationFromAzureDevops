@@ -142,6 +142,7 @@
     <Compile Include="Operacion.cs" />
     <Compile Include="Prestamo.cs" />
     <Compile Include="PrestamoBuilder.cs" />
+    <Compile Include="RedesSociales.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Periodo.cs" />
     <Compile Include="VerificarDireccion.cs" />

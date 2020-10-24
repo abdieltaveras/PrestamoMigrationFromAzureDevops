@@ -190,6 +190,7 @@ namespace PrestamosMVC5.Controllers
                 newClienteVm.Cliente.Codigo = "Nuevo";
                 pcpSetUsuarioAndIdNegocioTo(newClienteVm.Cliente);
                 FillReferencias(newClienteVm, newClienteVm.Referencias);
+                FillRedesSociales(newClienteVm, newClienteVm.redesSociales);
                 return newClienteVm;
             }
             else
@@ -199,7 +200,9 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
                 clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
                 var referencias = cliente.InfoReferencia.ToType<List<Referencia>>();
+                var redesSociales = cliente.InfoRedesSociales.ToType<List<RedesSociales>>();
                 FillReferencias(clienteVm, referencias);
+                FillRedesSociales(clienteVm, redesSociales);
                 pcpSetUsuarioTo(clienteVm.Cliente);
                 var localidadDelCliente = BLLPrestamo.Instance.GetFullNameLocalidad(clienteVm.Direccion.IdLocalidad);
                 if (localidadDelCliente != null)
@@ -228,6 +231,20 @@ namespace PrestamosMVC5.Controllers
             }
         }
 
+        private static void FillRedesSociales (ClienteModel clienteVm, List<RedesSociales> redesSociales)
+        {
+            for (int i = 0; i< 4; i++)
+            {
+                if (redesSociales.Count > i)
+                {
+                    clienteVm.redesSociales.Add(redesSociales[i]);
+                }
+                else
+                {
+                    clienteVm.redesSociales.Add(new RedesSociales());
+                }
+            }
+        }
         public string BuscarClientes(string searchToText, bool CargarImagenesClientes)
         {
             var clientes = searchCliente(searchToText, CargarImagenesClientes);

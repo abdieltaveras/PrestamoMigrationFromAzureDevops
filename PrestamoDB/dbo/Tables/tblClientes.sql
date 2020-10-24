@@ -29,6 +29,7 @@
 	Imagen1FileName varchar(50),
 	Imagen2FileName varchar(50),
 	[InfoReferencia] VARCHAR(4000),
+    [InfoRedesSociales] VARCHAR(800) NULL, 
     CONSTRAINT [FK_tblCliente_ToTblNegocios] FOREIGN KEY (IdNegocio) REFERENCES tblNegocios([IdNegocio]),
 	CONSTRAINT [FK_tblCliente_UQ_IdentificationNumber] Unique NonClustered (idNegocio, IdTipoIdentificacion,NoIdentificacion),
 	CONSTRAINT [FK_tblCliente_UQ_Codigo] Unique NonClustered(IdNegocio, Codigo),

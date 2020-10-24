@@ -12,23 +12,23 @@
                 <div class="row">
                     <div class="shadow p-3 bg-light rounded">
                         <div class="form-group col-md-2">
-                            @Html.LabelFor(m => m.Referencias[0].Tipo)
+                            @Html.LabelFor(m => m.redesSociales[0].Tipo)
                             @*@Html.DropDownListFor(m => m.Referencias[0].Tipo, SelectItems.TiposReferencias, new { @class = "form-control", data_val = false })*@
                             <select class="form-control select-tipo" data-val="False" data-order="0" data-val-number="The field Tipo must be a number." data-val-required="The Tipo field is required." id="Referencias_0__Tipo" name="redesSociales[0].Tipo">
                                 <option value="0">Ninguna</option>
-                                @foreach (var item in SelectItems.TiposReferencias)
+                                @*@foreach (var item in SelectItems.EnumRedesSociales)
                                 {
                                     <option value="@item.Value" @Html.Raw(int.Parse(item.Value) == Model.Referencias[0].Tipo ? "selected" : "")>@item.Text</option>
-                                }
+                                }*@
                             </select>
                         </div>
 
 
 
-                        @*<div class="@HtmlClass.FormGroupCls col-md-5">
+                        <div class="@HtmlClass.FormGroupCls col-md-5">
                             @Html.LabelFor(m => m.redesSociales[0].NombreUsuario)
                             @Html.EditorFor(m => m.redesSociales[0].NombreUsuario, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>*@
+                        </div>
 
                         @*<div class="form-group col-md-3">
                             @Html.LabelFor(m => m.redesSociales[0].PerfilUrl)
