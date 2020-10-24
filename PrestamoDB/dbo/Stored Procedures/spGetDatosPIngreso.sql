@@ -1,9 +1,9 @@
-﻿CREATE PROC spGetDatosPIngreso
-@IdPrestamo int,
-@Anulado int=0,
-@IdNegocio int=0,
-@Usuario varchar(50)=''
-as
+﻿CREATE PROCEDURE [dbo].[spGetDatosPIngreso]
+	@IdPrestamo int,
+	@Anulado int=0,
+	@IdNegocio int=0,
+	@Usuario varchar(50)=''
+AS
 IF  exists(select top 1 * from tblIngresos where IdPrestamo = @IdPrestamo)
 	BEGIN
 		select top 1 ing.IdPrestamo,
