@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[tblIngresos]
 (
-	[IdIngreso] INT NOT NULL PRIMARY KEY, 
+	[IdIngreso] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
     [IdPrestamo] INT NOT NULL, 
     [IdCuota] INT NOT NULL, 
     [Num_Cuota] NUMERIC(7, 3) NOT NULL,
