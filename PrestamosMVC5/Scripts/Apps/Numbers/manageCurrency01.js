@@ -9,17 +9,30 @@ $("input[data-type='currency']").on({
 });
 
 function formatNumber(n) {
-    // format number 1000000 to 1,234,567
+    // format number 1234567.01 to 1,234,567.01
+
+    //if ((n !== "0") || (n !== ".00")) {
+    //    var stringNumber = Array.from(n);
+    //    if (stringNumber[1]==="0")
+    //    console.log(stringNumber,n);
+    //}
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
+
 
 function formatCurrency(input, blur) {
     
     // appends $ to value, validates decimal side
     // and puts cursor back in right position.
-
+    
     // get input value
     var input_val = input.val();
+    if (input_val.substr(1, 4) === "0.00" && input_val.length>5)
+      {
+        input_val = input_val.replace("0.00", '');
+      }
+
+    
     // don't validate empty input
     if (input_val === "") { return; }
 
@@ -36,7 +49,6 @@ function formatCurrency(input, blur) {
         // this prevents multiple decimals from
         // being entered
         var decimal_pos = input_val.indexOf(".");
-
 
         // split number by decimal point
         var left_side = input_val.substring(0, decimal_pos);

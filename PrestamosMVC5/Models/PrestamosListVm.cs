@@ -17,8 +17,8 @@ namespace PrestamosMVC5.Models
     public class PrestamoVm
     {
         public string MensajeError { get; internal set; }
-        public string MontoAPrestar { get; set; }
-        public string OtrosCargosSinInteres { get; set; }
+        public string MontoAPrestar { get; set; } = "0.00";
+        public string OtrosCargosSinInteres { get; set; } = "0.00";
         public Prestamo Prestamo { get; set; }
         
         //[Display(Name ="Numeracion Identificacion del Cliente")]

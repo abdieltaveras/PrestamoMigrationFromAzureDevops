@@ -1,0 +1,14 @@
+﻿<div class="form-group row">
+    <label class="control-label col-md-4 col-sm-12 col-xs-12" for="Prestamo_MontoPrestado">Monto prestado al cliente?</label>
+    <div class="col-md-8 col-sm-9 col-xs-9">
+        <input class="form-control remove-error text-box single-line valid" data-type="currency" id="MontoAPrestar" name="MontoAPrestar"  placeholder="$0.00" type="text" value="$0.00" aria-invalid="false">
+        <span class="field-validation-valid text-danger" data-valmsg-for="MontoAPrestar" data-valmsg-replace="true"></span>
+    </div>
+</div>
+@section scripts {
+    <script src="~/Scripts/Apps/Numbers/manageCurrency03.js"></script>
+    <script>
+        let currencyMoney = new CurrencyNumberTS();
+        getElements(currencyMoney);
+    </script>
+}

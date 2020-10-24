@@ -65,7 +65,7 @@ namespace PrestamosMVC5.Controllers
             }
             model.IncluirRenovacion = false;
             model.MensajeError = mensaje;
-            model.MontoAPrestar = model.Prestamo.MontoPrestado.ToString(); ;
+            model.MontoAPrestar = model.Prestamo.MontoPrestado.ToString(); 
             model.LlevaGastoDeCierre = model.Prestamo.LlevaGastoDeCierre;
         }
         private static void setInitialValueForTesting(string mensaje, PrestamoVm model)
@@ -75,7 +75,6 @@ namespace PrestamosMVC5.Controllers
             model.MensajeError = mensaje;
             model.Prestamo.IdTasaInteres = 5;
             model.Prestamo.IdPeriodo = 6;
-            model.Prestamo.CantidadDePeriodos = 5;
             model.Prestamo.CantidadDePeriodos = 5;
             model.MontoAPrestar = "10000.00";
             model.LlevaGastoDeCierre = model.Prestamo.LlevaGastoDeCierre;

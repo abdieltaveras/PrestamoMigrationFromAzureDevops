@@ -194,8 +194,6 @@
             </div>
         </div>*@
 
-
-
                                 <div class="@HtmlClass.FormGroupCls">
                                     @Html.LabelFor(model => model.Prestamo.OtrosCargosSinInteres, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                                     <div class="@HtmlClass.DivInputCls">
@@ -358,8 +356,6 @@
 </form>
 @section scripts {
     <script>
-        
-
         let dateFormat = 'es-DO';
         let _dateFormat = 'dd/mm/yy';
         let yearRangeForDP = "-120:+0";
@@ -381,7 +377,7 @@
     <script src="~/Content/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
     @*<script src="~/Scripts/Apps/minMaxAdapter.js"></script>*@
     @*<script src="~/Scripts/Apps/cultureInfo.js"></script>*@
-    <script>
+<script>
 
         //$(document).ready(function () {
         //    $('#table-cuotas').DataTable({
@@ -440,11 +436,10 @@
         calculateTotalPrestado();
     }
 
+    function formatValuesToCurrency() {
 
-
-    function formatValuesToCurrency () {
-        formatCurrency($("#@Html.IdFor(m=>m.MontoAPrestar)"));
-        formatCurrency($("#@Html.IdFor(m=>m.OtrosCargosSinInteres)"));
+        formatCurrency($("#@Html.IdFor(m=>m.MontoAPrestar)"),"blur");
+        formatCurrency($("#@Html.IdFor(m=>m.OtrosCargosSinInteres)"),"blur");
     }
     function onEnterAvoidSubmitForm() {
         $('form input').keydown(function (e) {
@@ -495,19 +490,7 @@
     function onChangeProp(elem) {
         console.log(`elemento cambiado nombre ${elem.name} `);
         switch (elem.id) {
-            case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
 
-                const llevaGC = elem.checked;
-                hideShowGastoDeCierreSection(llevaGC)
-                if (llevaGC) {
-                    $("#@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)").val(10);
-                }
-                else {
-                    $("#@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)").val(0);
-                }
-                calculateTotalPrestado();
-                calculateCuotas();
-                break;
             case "@Html.IdFor(model => model.Prestamo.HabilitarRenovacion)":
                 const esUnaRenovacion = elem.checked;
                 hideShowRenovacionSection(esUnaRenovacion)
@@ -530,6 +513,23 @@
                 calculateTotalPrestado();
                 calculateCuotas();
                 break;
+            case "@Html.IdFor(model => model.LlevaGastoDeCierre)":
+
+                const llevaGC = elem.checked;
+                hideShowGastoDeCierreSection(llevaGC)
+                if (llevaGC) {
+                    $("#@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)").val(10);
+                }
+                else {
+                    $("#@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)").val(0);
+                }
+                calculateTotalPrestado();
+                calculateCuotas();
+                break;
+            case "@Html.IdFor(model => model.Prestamo.GastoDeCierreEsDeducible)":
+                calculateTotalPrestado();
+                calculateCuotas();
+                break;
             case "@Html.IdFor(model => model.OtrosCargosSinInteres)":
                 calculateTotalPrestado();
                 calculateCuotas();
@@ -538,8 +538,15 @@
                 calculateTotalPrestado();
                 calculateCuotas();
                 break;
-            case "@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)":
-                //calcularMontoGastoDeCierre();
+            case "@Html.IdFor(m => m.Prestamo.FinanciarGastoDeCierre)":
+                calculateTotalPrestado();
+                calculateCuotas();
+                break;
+            case "@Html.IdFor(model => model.Prestamo.CargarInteresAlGastoDeCierre)":
+                @*const value = $("#@Html.IdFor(model => model.Prestamo.CargarInteresAlGastoDeCierre)").prop("checked");
+                console.log(elem.value, elem.checked, value);*@
+                //alert(elemCargarInteresAlGC.checked);
+                //elemCargarInteresAlGC.val(elem.checked);
                 calculateTotalPrestado();
                 calculateCuotas();
                 break;
@@ -577,13 +584,16 @@
     }
 
     function calcularMontoGastoDeCierre() {
-        GCEsDeducible = $("#@Html.IdFor(m => m.Prestamo.GastoDeCierreEsDeducible)").val() == 'true' ;
+        GCEsDeducible = $("#@Html.IdFor(model => model.Prestamo.GastoDeCierreEsDeducible)").prop("checked");
+        console.log("deducible", GCEsDeducible);
         const intGC = parseFloat($("#@Html.IdFor(model => model.Prestamo.InteresGastoDeCierre)").val());
         montoGastoDeCierre = totalCapital * (intGC / 100);
         $("#MontoDelGastoDeCierre").text(montoGastoDeCierre.toFixed(2));
-        if (GCEsDeducible) {
-            montoDeducible = montoGastoDeCierre;
-        }
+        //montoDeducible = 0;
+        //if (GCEsDeducible) {
+            montoDeducible = (GCEsDeducible) ?  montoGastoDeCierre: 0;
+        //}
+        console.log(montoDeducible);
         return montoGastoDeCierre;
     }
 
@@ -780,7 +790,9 @@
         elemGCDeducible.changeCheckVal(dataPrestamo.GastoDeCierreEsDeducible)
         $("#@Html.IdFor(m=> m.Prestamo.InteresGastoDeCierre)").val(dataPrestamo.InteresGastoDeCierre);
         //invokeClickOnCheck(elemCargarInteresAlGC, dataPrestamo.CargarInteresAlGastoDeCierre);
+
         elemCargarInteresAlGC.changeCheckVal(dataPrestamo.CargarInteresAlGastoDeCierre)
+
         //invokeClickOnCheck(elemFinanciarGastoDeCierre, dataPrestamo.FinanciarGastoDeCierre);
         elemFinanciarGastoDeCierre.changeCheckVal(dataPrestamo.FinanciarGastoDeCierre)
         event.preventDefault();
@@ -1079,15 +1091,17 @@
                     IdTipoAmortizacion: $("#@Html.IdFor(m => m.Prestamo.IdTipoAmortizacion)").val(),
                     MontoCapital: totalCapital,
                     MontoGastoDeCierre: montoGastoDeCierre,
-                    FinanciarGastoDeCierre: ($("#@Html.IdFor(m=> m.Prestamo.FinanciarGastoDeCierre)").val() == 'true'),
-                    CargarInteresAlGastoDeCierre: $("#@Html.IdFor(m => m.Prestamo.CargarInteresAlGastoDeCierre)").val(),
+                    FinanciarGastoDeCierre: $("#@Html.IdFor(m=> m.Prestamo.FinanciarGastoDeCierre)").prop("checked"),
+                    CargarInteresAlGastoDeCierre: $("#@Html.IdFor(model => model.Prestamo.CargarInteresAlGastoDeCierre)").prop("checked"),
+                        //elemCargarInteresAlGC.val() == 'true',
                     FechaEmisionReal: toDate(fechaEmisionPrestamo).toISOString(),
-                    AcomodarFechaALasCuotas: $("#@Html.IdFor(m => m.Prestamo.AcomodarFechaALasCuotas)").val(),
+                    AcomodarFechaALasCuotas: $("#@Html.IdFor(m => m.Prestamo.AcomodarFechaALasCuotas)").prop("checked"),
                     FechaInicioPrimeraCuota: $("#@Html.IdFor(m => m.Prestamo.FechaInicioPrimeraCuota)").val(),
                     TasaDeInteresPorPeriodo: valorTasaDeInteresPorPeriodo,
                     OtrosCargosSinInteres: montoOtrosCargosSinInteres,
-            }
-            //alert("calculando cuota 2");
+                }
+                alert("pendiente calcular cuando es deducible el gasto de cierre");
+                //alert("calculando cuota 2");
                 //console.log(infoGenCuota);
                 $.ajax({
                     type: "get",
@@ -1147,7 +1161,7 @@
     //            .then(r => console.log(r));
     //    }
     //};
-    </script>
+</script>
 
     @*<script src="~/Scripts/Apps/validate-form-Inputs.js"></script>*@
     <script src="~/Scripts/Apps/Prestamo/search.js"></script>

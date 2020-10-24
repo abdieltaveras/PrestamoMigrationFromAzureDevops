@@ -199,7 +199,11 @@ namespace PrestamosMVC5.Controllers
             });
             return Content(mensaje);
         }
+        public ActionResult Currency01()
+        {
+            return View();
 
+        }
         public ActionResult CheckSessionInfo(string token)
         {
             var data = new

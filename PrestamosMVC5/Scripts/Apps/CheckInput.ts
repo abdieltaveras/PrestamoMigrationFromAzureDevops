@@ -1,9 +1,9 @@
 ﻿function setCheckValue(elemReceived: JQuery) {
     //let elem = $('#' + elemReceived.id);
-    let elemName = elemReceived.prop("name");
+    const elemName = elemReceived.prop("name");
     //console.log("attached", elemName);
-    let isChecked = elemReceived.is(':checked');
-    let elems = $("input[name='" + elemName + "'");
+    const isChecked = elemReceived.is(':checked');
+    const elems = $("input[name='" + elemName + "'");
     elems.each(function () {
         $(this).prop("value", isChecked);
     });
