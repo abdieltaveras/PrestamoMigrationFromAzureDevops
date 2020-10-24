@@ -205,6 +205,7 @@
     <Build Include="dbo\Tables\tblLocalidadNegocio.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarGarantiasConPrestamo.sql" />
     <Build Include="dbo\Stored Procedures\spGetGarantiasConPrestamosVigentes.sql" />
+    <Build Include="dbo\Tables\tblIngresos.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
@@ -214,5 +215,7 @@
     <None Include="Prestamo_ing.publish.publish.xml" />
     <None Include="Prestamo_permisos.publish.publish.xml" />
     <None Include="dbo\Stored Procedures\spGetGarantias.sql" />
+    <None Include="dbo\Stored Procedures\spGetDatosPIngreso.sql" />
+    <None Include="dbo\Stored Procedures\spInsUpdIngresos.sql" />
   </ItemGroup>
 </Project>

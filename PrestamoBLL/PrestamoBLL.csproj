@@ -85,6 +85,7 @@
     <Compile Include="BLLPrestamo.cs" />
     <Compile Include="Clasificacion.cs" />
     <Compile Include="Entidades\Clasificacion.cs" />
+    <Compile Include="Entidades\Ingreso.cs" />
     <Compile Include="Entidades\IPrestamoConDetallesParaCreditosyDebitos.cs" />
     <Compile Include="GeneradorDeCuotas.cs" />
     <Compile Include="Catalogo.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Errors.cs" />
     <Compile Include="Garantia.cs" />
     <Compile Include="IGeneradorCuotas.cs" />
+    <Compile Include="Ingreso.cs" />
     <Compile Include="InitValues.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Login.cs" />
