@@ -23,12 +23,12 @@ namespace PrestamoBLL.Entidades
         public string NombreTipoGarantia { get; internal set; } = string.Empty;
         public string OtrosDetalles { get; internal set; } = string.Empty;
         public string Detalles { get; internal set; } = string.Empty;
-        public string Imagen1FileName { get; internal set; } = string.Empty;
+        public string Imagen1FileName { get; internal set; }
 
-        public string Imagen2FileName { get; internal set; } = string.Empty;
-        public string Imagen3FileName { get; internal set; } = string.Empty;
+        public string Imagen2FileName { get; internal set; }
+        public string Imagen3FileName { get; internal set; }
 
-        public string Imagen4FileName { get; internal set; } = string.Empty;
+        public string Imagen4FileName { get; internal set; }
         public DetalleGarantia DetallesForJson { get; internal set; }
         
 
@@ -45,10 +45,10 @@ namespace PrestamoBLL.Entidades
         public int IdTipoGarantia { get; set; } = -1;
         public int IdModelo { get; set; } = -1;
         public int IdMarca { get; set; } = -1;
-        public string Imagen1FileName { get; set; } = string.Empty;
-        public string Imagen2FileName { get; set; } = string.Empty;
-        public string Imagen3FileName { get; set; } = string.Empty;
-        public string Imagen4FileName { get; set; } = string.Empty;
+        public string Imagen1FileName { get; set; } 
+        public string Imagen2FileName { get; set; } 
+        public string Imagen3FileName { get; set; }
+        public string Imagen4FileName { get; set; }
 
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
@@ -128,6 +128,15 @@ namespace PrestamoBLL.Entidades
         public string Search { get; set; } = string.Empty;
     }
 
-    
+    public class GarantiaGetParams : BaseGetParams
+    //: BaseGetParams
+    {
+        public int IdGarantia { get; set; } = -1;
+        //public int IdClasificacion { get; set; } = -1;
+        //public int IdTipoGarantia { get; set; } = -1;
+        //public int IdModelo { get; set; } = -1;
+    }
+
+
 
 }

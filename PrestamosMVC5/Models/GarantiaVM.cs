@@ -14,11 +14,17 @@ namespace PrestamosMVC5.Models
         public SelectList ListaTipos { get; set; }
         public IEnumerable<TipoGarantia> ListaTiposReal { get; set; }
         //public SelectList ListaMarcas { get; set; }
-        public IEnumerable<Marca> ListaMarcas { get; set; }
+        //Luis public IEnumerable<Marca> ListaMarcas { get; set; }
+        public SelectList ListaMarcas { get; set; }
         public SelectList ListaModelos { get; set; }
         public SelectList ListaColores { get; set; }
         public IEnumerable<ResponseMessage> ListaMensajes { get; set; }
         public string Mensaje { get; set; }
+
+        public GarantiaVM()
+        {
+            Garantia = new Garantia();
+        }
 
         public HttpPostedFileBase ImagenGarantia1 { get; set; }
         public HttpPostedFileBase ImagenGarantia2 { get; set; }

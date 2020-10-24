@@ -203,4 +203,60 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Imagen2FileName" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d862b048-3bde-426e-8aa1-2721fd9ab638" ChangeDateTime="10/24/2020 13:12:58">
+    <Property Name="ElementName" Value="[dbo].[tblIngresos].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblIngresos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdIngresos" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ce0a0a50-e1a2-47b5-a9b1-ef13b6e8b513" ChangeDateTime="10/24/2020 13:13:05">
+    <Property Name="ElementName" Value="[dbo].[tblIngresos].[IdIngresos]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblIngresos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdIngreso" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0c75dedf-37f8-4736-8927-b461124a1a76" ChangeDateTime="10/24/2020 13:15:56">
+    <Property Name="ElementName" Value="[dbo].[tblIngresos].[monto_pago]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblIngresos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="num_cuota" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bedf2cee-1f12-46e6-9f98-f2c9c31887a2" ChangeDateTime="10/24/2020 13:27:56">
+    <Property Name="ElementName" Value="[dbo].[tblIngresos].[idprestamo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblIngresos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdPrestamo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="036108f2-fa9b-4cd4-9b84-6d9ada18b2d0" ChangeDateTime="10/24/2020 13:28:00">
+    <Property Name="ElementName" Value="[dbo].[tblIngresos].[idcuota]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblIngresos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdCuota" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3793934c-3a29-494e-945d-f78ee12a063b" ChangeDateTime="10/24/2020 13:28:07">
+    <Property Name="ElementName" Value="[dbo].[tblIngresos].[num_cuota]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblIngresos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Num_Cuota" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ef4cb2db-c0a0-40ab-a28f-14a830a42142" ChangeDateTime="10/24/2020 13:28:14">
+    <Property Name="ElementName" Value="[dbo].[tblIngresos].[monto_cuota]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblIngresos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Monto_Cuota" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0e7a1d00-0ceb-40ef-94c4-6d44c8a97202" ChangeDateTime="10/24/2020 13:28:20">
+    <Property Name="ElementName" Value="[dbo].[tblIngresos].[monto_abonado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblIngresos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Monto_Abonado" />
+  </Operation>
 </Operations>

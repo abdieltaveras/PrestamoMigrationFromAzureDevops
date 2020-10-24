@@ -88,6 +88,7 @@
     <Compile Include="EquipoTest.cs" />
     <Compile Include="GarantiaTest.cs" />
     <Compile Include="GeneradorCuotasTest.cs" />
+    <Compile Include="IngresoTests.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="NegocioTests.cs" />
     <Compile Include="PeriodosTests.cs" />
