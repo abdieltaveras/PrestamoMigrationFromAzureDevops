@@ -55,7 +55,6 @@ namespace PrestamoBLL
         {
             var searchSqlParams = SearchRec.ToSqlParams(searchParams);
             List<T> catalogo = new List<T>();
-            
             try
             {
                 catalogo = DBPrestamo.ExecReaderSelSP<T>("CatalogoSpBuscar", searchSqlParams);
@@ -64,9 +63,7 @@ namespace PrestamoBLL
             {
                 DatabaseError(e);
             }
-
             return catalogo;
-
         }
     }
 }
