@@ -50,6 +50,7 @@ namespace PrestamosMVC5.Controllers
                 datos.Garantia.DetallesJSON = datosGarantia.Detalles.ToType<DetalleGarantia>();
                 TempData["Garantia"] = datosGarantia;
             }
+            
 
             ////*******Imagenes Garantia****//
             //var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
@@ -68,21 +69,15 @@ namespace PrestamosMVC5.Controllers
         [HttpPost]
         public RedirectToRouteResult CreateOrEdit(Garantia garantia,GarantiaVM garantiavm =null)
         {
+             string errol = string.Empty;
             // Convertir detalles a JSON y crear el objeto de garantia para insertar / modificar en la tabla
             string JsonDetalesGarantia = JsonConvert.SerializeObject(garantia.DetallesJSON);
             garantia.Detalles = garantia.DetallesJSON.ToJson();
             pcpSetUsuarioAndIdNegocioTo(garantia);
 
             List<ResponseMessage> listaMensajes = new List<ResponseMessage>();
-
-            //var clienteTempData = GetValueFromTempData<Garantia>("Garantia");
-            //var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), garantiavm.image1PreviewValue);
-            //var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.image2PreviewValue);
-            //clienteVm.Cliente.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
-
-            //clienteVm.Cliente.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
-
-            //*******Imagenes Garantia****//
+            
+            
             var garantiaTempData = GetValueFromTempData<Garantia>("Garantia");
             var imagen1GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image1PreviewValue);
             var imagen2GarantiaFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForGarantia), garantiavm.image2PreviewValue);
@@ -115,6 +110,7 @@ namespace PrestamosMVC5.Controllers
             }
             catch(Exception err)
             {
+                errol = err.Message;
             }
 
             return RedirectToAction("Index", new { listaMensajes });

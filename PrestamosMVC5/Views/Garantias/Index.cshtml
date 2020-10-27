@@ -16,20 +16,18 @@
                                 <th class="checkColumn">
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DetallesJSON.Matricula)
+                                    @Html.DisplayNameFor(model => model.NoIdentificacion)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DetallesJSON.Placa)
+                                    @Html.DisplayNameFor(model => model.DetallesJSON.Descripcion)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.NombreMarca)
+                                    @Html.DisplayNameFor(model => model.DetallesJSON.DetallesDireccion)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.NombreModelo)
+                                    @Html.DisplayNameFor(model => model.FechaInsertado)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DetallesJSON.Color)
-                                </th>
+                                
 
 
 
@@ -43,20 +41,18 @@
                             <tr class=" " data-id="@item.IdGarantia">
                                 <td></td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.DetallesJSON.Matricula)
+                                    @Html.DisplayFor(modelItem => item.NoIdentificacion)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.DetallesJSON.Placa)
+                                    @Html.DisplayFor(modelItem => item.DetallesJSON.Descripcion)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NombreMarca)
+                                    @Html.DisplayFor(modelItem => item.DetallesJSON.DetallesDireccion)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NombreModelo)
+                                    @Html.DisplayFor(modelItem => item.FechaInsertado)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DetallesJSON.Color)
-                                </td>
+                                
                             </tr>
                             }
                         </tbody>
