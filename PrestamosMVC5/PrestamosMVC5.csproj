@@ -68,6 +68,21 @@
       <HintPath>..\SharedDLL\EMTSoft\emtSoft.DAL.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="ReportViewerForMvc, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReportViewerForMvc.1.1.1\lib\net45\ReportViewerForMvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -196,6 +211,7 @@
     <Compile Include="Models\ModeloVM.cs" />
     <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="SiteUtils\ReportViewerUtils.cs" />
     <Compile Include="SiteUtils\SelectItems.cs" />
     <Compile Include="SiteUtils\Constant.cs" />
     <Compile Include="SiteUtils\GeneralUtils.cs" />
@@ -210,6 +226,12 @@
     <Compile Include="SiteUtils\HasPermission.cs" />
     <Compile Include="SiteUtils\HtmlHelpers.cs" />
     <Compile Include="SiteUtils\TreeViewHelper.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Views\Reportes\MyDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyDataSet.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\build\css\custom.css" />
@@ -4013,6 +4035,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="Scripts\Apps\ActivateDataTable.js" />
     <Content Include="App_Code\TreeInfo.cshtml" />
     <Content Include="Scripts\Apps\Cliente\search.js" />
@@ -4024,6 +4047,11 @@
     <Content Include="Scripts\Apps\Prestamo\search.js" />
     <Content Include="Scripts\Apps\UtilsForJs.js" />
     <Content Include="Scripts\Apps\Utils.js" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll" />
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll" />
+    <Content Include="SqlServerTypes\x86\msvcr120.dll" />
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll" />
     <Content Include="Views\Clientes\_infoReferencia.cshtml" />
     <Content Include="Views\Clientes\_infoReferencia2.cshtml" />
     <Content Include="Views\Tests\DropDownList1.cshtml" />
@@ -4032,6 +4060,7 @@
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
     <Content Include="Views\Account\ElegirNegocioAOperar.cshtml" />
     <Content Include="Scripts\Apps\keyBehavior.js.map" />
+    <Content Include="Views\Clientes\ReporteClientes.cshtml" />
     <None Include="Views\ErrorHandler\Default.cshtml" />
     <Content Include="Views\Ingresos\index.cshtml" />
     <Content Include="Views\Prestamos\Index.cshtml" />
@@ -4047,6 +4076,17 @@
     <Content Include="Views\Shared\_LayoutWithNoContent.cshtml" />
     <Content Include="Views\Tests\JQueryConfirm.cshtml" />
     <Content Include="Views\Garantias\Index.cshtml" />
+    <Content Include="Views\Reportes\MyDataSet.xsc">
+      <DependentUpon>MyDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Views\Reportes\MyDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MyDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Reportes\MyDataSet.xss">
+      <DependentUpon>MyDataSet.xsd</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />
@@ -5270,6 +5310,9 @@
       <Project>{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}</Project>
       <Name>PrestamoBLL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Reportes\rptClientes.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
