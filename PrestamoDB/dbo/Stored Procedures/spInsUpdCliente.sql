@@ -12,7 +12,9 @@
 	@infoconyuge varchar(400), 
 	@infolaboral varchar(400), 
 	@infodireccion varchar(400),  
-	@noidentificacion varchar(20), 
+	@noidentificacion varchar(20),
+	@Imagen1DocumentoName varchar(50),
+	@Imagen2DocumentoName varchar(50),
 	@imagen1FileName varchar(50), 
 	@imagen2FileName varchar(50), 
 	@nombres varchar(400), 
@@ -22,7 +24,9 @@
 	@telefonomovil varchar(20),
 	@correoElectronico varchar(30),
 	@inforeferencia varchar(4000),
+	@infoRedesSociales varchar (800),
     @Usuario varchar(100))
+
 AS
 Begin
 	if (@idCliente<=0)
@@ -35,9 +39,9 @@ Begin
 				begin
 					exec dbo.spGenerarSecuenciaString 'Codigo de Clientes',10,1, @codigo output
 				end
-				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, EstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencia, codigo)
+				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, EstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, Imagen1DocumentoName,Imagen2DocumentoName,  TieneConyuge, infoReferencia, infoRedesSociales, codigo)
 
-				VALUES (@activo, @apodo, @apellidos, @estadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @Sexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName, @imagen2FileName, @tieneConyuge, @infoReferencia, @codigo)
+				VALUES (@activo, @apodo, @apellidos, @estadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @Sexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName, @imagen2FileName, @Imagen1DocumentoName, @Imagen2DocumentoName, @tieneConyuge, @infoReferencia,@infoRedesSociales , @codigo)
 				SELECT SCOPE_IDENTITY(); 
 				commit
 			end try
@@ -73,8 +77,11 @@ Begin
 				CorreoElectronico = @correoElectronico,
 				Imagen1FileName = @imagen1FileName,
 				Imagen2FileName = @imagen2FileName,
+				Imagen1DocumentoName = @Imagen1DocumentoName,
+				Imagen2DocumentoName = @Imagen2DocumentoName,
 				TieneConyuge = @tieneConyuge,
-				InfoReferencia = @infoReferencia
+				InfoReferencia = @infoReferencia,
+				infoRedesSociales = @infoRedesSociales
 				where IdCliente = @IdCliente
 				select @idCliente
 		End

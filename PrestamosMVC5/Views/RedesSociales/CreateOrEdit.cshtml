@@ -1,0 +1,124 @@
+﻿@model RedSocialVM
+
+<div class="row">
+
+    <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
+
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-color" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
+        <h4>Tabla de redes sociales</h4>
+        <div class="x_panel">
+            <div class="x_content">
+                <table id="datatable" class="table-bordered row-border">
+                    <thead>
+                        <tr>
+                            <th class="checkColumn"></th>
+                            <th>Red Social</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.ListaRedesSociales)
+                        {
+                            <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <td></td>
+                                <td>
+                                    <strong>
+                                        @item.Nombre
+                                    </strong>
+                                </td>
+
+                                @*<td>
+                                        <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
+                                                <button type="button" class="btn btn-outline-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </a>
+                                        <a href="#">
+                                            <button class="btn btn-outline-warning">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                        </a>
+                                    </td>*@
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @* Formulario para agregar tasas de interes *@
+
+
+    @* Fin de formulario para agregar tasas de interes *@
+</div>
+
+@*Modal de agregar intereses*@
+<div class="modal fade modal-redessociales" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel2">Agrega Red social</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @*form*@
+
+                <div class="col-sm-12" id="formAgregarTasaInteres">
+
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <br />
+                            @using (Html.BeginForm("CreateOrEdit", "RedesSociales", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+                            {
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" for="nombre">
+                                        Nombre <span class="required">*</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.RedSocial.Nombre, new { @class = "form-control", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="RedSocial.Usuario" id="RedSocial_Usuario" value="Bryan" />
+
+                                <div class="ln_solid"></div>
+                                <div class="item form-group" style="float: right;">
+                                    <div class="col-md-6 col-sm-6 offset-md-3">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                                @*</form>*@
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                @*form*@
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section prevscripts {
+    <script>
+        let onNewButton = function () {
+            $('.modal-redessociales').modal('show');
+        }
+
+        $(document).ready(function () {
+            $('#datatable').DataTable(dataTableConfiguration);
+            removeTemplateConfiguration();
+        });
+    </script>
+}

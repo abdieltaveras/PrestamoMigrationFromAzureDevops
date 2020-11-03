@@ -207,6 +207,7 @@
     <Build Include="dbo\Stored Procedures\spGetGarantiasConPrestamosVigentes.sql" />
     <Build Include="dbo\Tables\tblRedesSociales.sql" />
     <Build Include="dbo\Stored Procedures\spGetRedesSociales.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdRedesSociales.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

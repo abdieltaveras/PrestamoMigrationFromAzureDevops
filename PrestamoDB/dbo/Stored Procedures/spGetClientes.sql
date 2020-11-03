@@ -10,7 +10,7 @@
 )
 as
 begin
-	SELECT IdCliente, Codigo,Activo, AnuladoPor, Apodo, Apellidos, EstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaAnulado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge,infoReferencia,infoRedesSociales
+	SELECT IdCliente, Codigo,Activo, AnuladoPor, Apodo, Apellidos, EstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaAnulado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge,infoReferencia,infoRedesSociales,Imagen1DocumentoName,Imagen2DocumentoName
 	FROM dbo.tblClientes(nolock) 
 	where 
 		((@idCliente=-1) or (IdCliente = @IdCliente))

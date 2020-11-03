@@ -153,6 +153,8 @@
     <Compile Include="Controllers\NegociosController.cs" />
     <Compile Include="Controllers\PeriodosController.cs" />
     <Compile Include="Controllers\PrestamosController.cs" />
+    <Compile Include="Controllers\RedesSocialesController.cs" />
+    <Compile Include="Models\RedSocialVM.cs" />
     <Compile Include="Models\TestMask.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -4047,6 +4049,8 @@
     <Content Include="Views\Tests\PNotifyConfirm.cshtml" />
     <Content Include="Views\Shared\_LayoutWithNoContent.cshtml" />
     <Content Include="Views\Tests\JQueryConfirm.cshtml" />
+    <Content Include="Views\RedesSociales\Index.cshtml" />
+    <Content Include="Views\RedesSociales\CreateOrEdit.cshtml" />
     <TypeScriptCompile Include="Scripts\Apps\CreateOrEditPrestamo.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImageRequirements.ts" />
     <TypeScriptCompile Include="Scripts\Apps\showImage2.ts" />

@@ -1,6 +1,7 @@
 ﻿using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,13 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<RedesSociales> GetRedesSociales(RedesSocialesGetParams searchParam)
+        public IEnumerable<RedSocial> GetRedesSociales(RedSocialGetParams searchParam)
         {
-            return BllAcciones.GetData<RedesSociales, RedesSocialesGetParams>(searchParam, "spGetRedesSociales", GetValidation);
+            return DBPrestamo.ExecReaderSelSP<RedSocial>("spGetRedesSociales");
         }
-        public void InsUpdRedesSociales(RedesSociales insUpdParam)
+        public void InsUpdRedesSociales(RedSocial insUpdParam)
         {
-            BllAcciones.InsUpdData<RedesSociales>(insUpdParam, "spGetRedesSociales");
+            BllAcciones.InsUpdData<RedSocial>(insUpdParam, "spInsUpdRedesSociales");
         }
     }
 }

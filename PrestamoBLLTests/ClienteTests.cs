@@ -62,6 +62,18 @@ namespace PrestamoBLL.Tests
             var referencias = new List<Referencia> { infoReferencia};
             return referencias;
         }
+
+        public static List<RedesSociales> newInfoRedesSociales()
+        {
+            var inforedesSociales = new RedesSociales
+            {
+                NombreUsuario = "Alvaro",
+                Tipo = 1,
+                PerfilUrl = "url"
+            };
+            var redesSociales = new List<RedesSociales> { inforedesSociales };
+            return redesSociales;
+        }
         public static Cliente newCliente()
         {
 
@@ -109,7 +121,7 @@ namespace PrestamoBLL.Tests
             var OperacionExitosa = true;
             var cliente = ClienteData.newCliente();
             cliente.NoIdentificacion = DateTime.Now.ToString();
-            try { BLLPrestamo.Instance.InsUpdClientes(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion(), ClienteData.newInfoReferencia() ); }
+            try { BLLPrestamo.Instance.InsUpdClientes(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion(), ClienteData.newInfoReferencia(), ClienteData.newInfoRedesSociales() ); }
             catch (Exception e)
             {
                 error = e;

@@ -21,10 +21,10 @@ namespace PrestamoBLL
             BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
         }
 
-        public void InsUpdClientes(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia)
+        public void InsUpdClientes(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia, List<RedesSociales> redesSociales)
         {
             FixProperties(cliente, infoConyuge, infoLaboral);
-            convertToJson(cliente, infoConyuge, infoLaboral, infoDireccion, infoReferencia);
+            convertToJson(cliente, infoConyuge, infoLaboral, infoDireccion, infoReferencia, redesSociales);
             try
             {
                 var _insUpdParam = SearchRec.ToSqlParams(cliente);
@@ -36,12 +36,13 @@ namespace PrestamoBLL
             }
         }
 
-        private static void convertToJson(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia)
+        private static void convertToJson(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia, List<RedesSociales> redesSociales)
         {
             cliente.InfoConyuge = infoConyuge.ToJson();
             cliente.InfoLaboral = infoLaboral.ToJson();
             cliente.InfoDireccion = infoDireccion.ToJson();
             cliente.InfoReferencia = infoReferencia.FindAll(x => x.Tipo != 0).ToJson();
+            cliente.InfoRedesSociales = infoReferencia.FindAll(x => x.Tipo != 0).ToJson();
         }
 
         private static void FixProperties(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral)

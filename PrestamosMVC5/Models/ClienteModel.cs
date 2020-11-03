@@ -42,11 +42,13 @@ namespace PrestamosMVC5.Models
         /// <summary>
         /// propiedad que guarda el contenido de la imagen
         /// </summary>
-        public HttpPostedFileBase DocumentoCliente { get; set; }
+        public HttpPostedFileBase DocumentoCliente1 { get; set; }
+        public HttpPostedFileBase DocumentoCliente2 { get; set; }
         public HttpPostedFileBase ImagenCliente1 { get; set; }
         public HttpPostedFileBase ImagenCliente2 { get; set; }
 
-        public string DocumentoPreviewValue { get; set; } = string.Empty;
+        public string Documento1PreviewValue { get; set; } = string.Empty;
+        public string Documento2PreviewValue { get; set; } = string.Empty;
         public string image1PreviewValue { get; set; } = string.Empty;
         public string image2PreviewValue { get; set; } = string.Empty;
 

@@ -103,18 +103,20 @@ namespace PrestamosMVC5.Controllers
             }
             ActionResult result;
             try
-            {
+                {
                 var clienteTempData = GetValueFromTempData<Cliente>("Cliente");
                 var imagen1ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.image1PreviewValue);
                 var imagen2ClienteFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.image2PreviewValue);
-                var imagenDocumentoFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.DocumentoCliente);
+                var imagen1DocumentoFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.Documento1PreviewValue);
+                var imagen2DocumentoFileName = Utils.SaveFile(Server.MapPath(SiteDirectory.ImagesForClientes), clienteVm.Documento2PreviewValue);
                 clienteVm.Cliente.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
 
                 clienteVm.Cliente.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
 
-                clienteVm.Cliente.ImagenDocumentoName = GeneralUtils.GetNameForFile(imagenDocumentoFileName, clienteVm.DocumentoPreviewValue, clienteTempData.ImagenDocumentoName);
+                clienteVm.Cliente.Imagen1DocumentoName = GeneralUtils.GetNameForFile(imagen1DocumentoFileName, clienteVm.Documento1PreviewValue, clienteTempData.Imagen1DocumentoName);
+                clienteVm.Cliente.Imagen2DocumentoName = GeneralUtils.GetNameForFile(imagen2DocumentoFileName, clienteVm.Documento2PreviewValue, clienteTempData.Imagen2DocumentoName);
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
-                BLLPrestamo.Instance.InsUpdClientes(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion, clienteVm.Referencias);
+                BLLPrestamo.Instance.InsUpdClientes(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion, clienteVm.Referencias,clienteVm.redesSociales);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
                 result = RedirectToAction("CreateOrEdit", new { id = -1, mensaje = mensaje });
             }

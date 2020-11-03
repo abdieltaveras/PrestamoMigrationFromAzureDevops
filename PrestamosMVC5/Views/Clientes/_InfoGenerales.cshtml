@@ -6,6 +6,8 @@
 @Html.HiddenFor(model => model.Cliente.Codigo)
 @Html.HiddenFor(model => model.Cliente.Imagen1FileName)
 @Html.HiddenFor(model => model.Cliente.Imagen2FileName)
+@Html.HiddenFor(model => model.Cliente.Imagen1DocumentoName)
+@Html.HiddenFor(model => model.Cliente.Imagen2DocumentoName)
 <style>
     .hiddenfile {
         width: 0px;
@@ -17,15 +19,22 @@
 @{
     var image1Url = Url.Content(SiteImages.NoImage);
     var image2Url = Url.Content(SiteImages.NoImage);
-    var imagenDocumentoUrl = Url.Content(SiteImages.NoImage);
+    var imagen1DocumentoUrl = Url.Content(SiteImages.NoImage);
+    var imagen2DocumentoUrl = Url.Content(SiteImages.NoImage);
     var imagen1Existe = false;
     var imagen2Existe = false;
-    var imagenDocumentoExiste = false;
+    var imagen1DocumentoExiste = false;
+    var imagen2DocumentoExiste = false;
 
-    if (!string.IsNullOrEmpty(Model.Cliente.ImagenDocumentoName))
+    if (!string.IsNullOrEmpty(Model.Cliente.Imagen1DocumentoName))
     {
-        imagenDocumentoUrl = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.ImagenDocumentoName);
-        imagenDocumentoExiste = true;
+        imagen2DocumentoUrl = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen1DocumentoName);
+        imagen1DocumentoExiste = true;
+    }
+    if (!string.IsNullOrEmpty(Model.Cliente.Imagen2DocumentoName))
+    {
+        imagen1DocumentoUrl = Url.Content(SiteDirectory.ImagesForClientes + "/" + Model.Cliente.Imagen2DocumentoName);
+        imagen2DocumentoExiste = true;
     }
 
     if (!string.IsNullOrEmpty(Model.Cliente.Imagen1FileName))
@@ -81,18 +90,34 @@
                 <div class="row ">
 
                     <div class="col-md-6">
-                        <img id="DocumentoPreviewValue"
-                             src="@imagenDocumentoUrl" style="height:20em; width:60em;" class="img-fluid" />
-                        @Html.HiddenFor(m => m.DocumentoPreviewValue)
-                        <input id="@Html.IdFor(m=> m.DocumentoCliente)" class=@HtmlClass.InputTextCls type="file"
-                               name="@Html.IdFor(m=> m.DocumentoCliente)" accept="image/jpeg, image/png" capture="camera"
-                               onchange="ShowImagePreview(this,'DocumentoPreviewValue','@Html.IdFor(m=> m.DocumentoCliente)', '@Html.IdFor(m => m.DocumentoPreviewValue)')" style="display:none" />
+                        <img id="DocumentoPreview"
+                             src="@imagen1DocumentoUrl" style="height:20em; width:60em;" class="img-fluid" />
+                        @Html.HiddenFor(m => m.Documento1PreviewValue)
+                        <input id="@Html.IdFor(m=> m.DocumentoCliente1)" class=@HtmlClass.InputTextCls type="file"
+                               name="@Html.IdFor(m=> m.DocumentoCliente1)" accept="image/jpeg, image/png" capture="camera"
+                               onchange="ShowImagePreview(this,'DocumentoPreview','@Html.IdFor(m=> m.DocumentoCliente1)', '@Html.IdFor(m => m.Documento1PreviewValue)')" style="display:none" />
                         <div class="text-center">
-                            <label id="@Html.IdFor(m=> m.DocumentoCliente)Agregar" for="@Html.NameFor(m=> m.DocumentoCliente)" class="text-info"
-                                   style="display:@Html.Raw(imagenDocumentoExiste ? "none" : "block")">Agregar imagen</label>
-                            <label id="@Html.IdFor(m=> m.DocumentoCliente)Quitar" for="@Html.NameFor(m=> m.DocumentoCliente)" class="text-danger"
-                                   style="display:@Html.Raw(imagenDocumentoExiste ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.DocumentoCliente)','DocumentoPreviewValue','@Html.IdFor(m => m.DocumentoPreviewValue)')">Quitar imagen</label>
+                            <label id="@Html.IdFor(m=> m.DocumentoCliente1)Agregar" for="@Html.NameFor(m=> m.DocumentoCliente1)" class="text-info"
+                                   style="display:@Html.Raw(imagen1DocumentoExiste ? "none" : "block")">Agregar imagen</label>
+                            <label id="@Html.IdFor(m=> m.DocumentoCliente1)Quitar" for="@Html.NameFor(m=> m.DocumentoCliente1)" class="text-danger"
+                                   style="display:@Html.Raw(imagen1DocumentoExiste ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.DocumentoCliente1)','DocumentoPreview','@Html.IdFor(m => m.Documento1PreviewValue)')">Quitar imagen</label>
                             @*<span id="container"></span>*@
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <img id="DocumentoPreview2"
+                             src="@imagen2DocumentoUrl" style="height:20em; width:60em;" class="img-fluid" />
+                        @Html.HiddenFor(m => m.Documento2PreviewValue)
+                        <input id="@Html.IdFor(m=> m.DocumentoCliente2)" class=@HtmlClass.InputTextCls type="file"
+                               name="@Html.IdFor(m=> m.DocumentoCliente2)" accept="image/jpeg, image/png" capture="camera"
+                               onchange="ShowImagePreview(this,'DocumentoPreview','@Html.IdFor(m=> m.DocumentoCliente2)', '@Html.IdFor(m => m.Documento2PreviewValue)')" style="display:none" />
+                        <div class="text-center">
+                            <label id="@Html.IdFor(m=> m.DocumentoCliente2)Agregar" for="@Html.NameFor(m=> m.DocumentoCliente2)" class="text-info"
+                                   style="display:@Html.Raw(imagen2DocumentoExiste ? "none" : "block")">Agregar imagen</label>
+                            <label id="@Html.IdFor(m=> m.DocumentoCliente2)Quitar" for="@Html.NameFor(m=> m.DocumentoCliente2)" class="text-danger"
+                                   style="display:@Html.Raw(imagen2DocumentoExiste ? "block" : "none")" onclick="QuitarImagen('@Html.IdFor(m=> m.DocumentoCliente2)','DocumentoPreview','@Html.IdFor(m => m.Documento2PreviewValue)')">Quitar imagen</label>
+                            <span id="container"></span>
                         </div>
                     </div>
                 </div>
