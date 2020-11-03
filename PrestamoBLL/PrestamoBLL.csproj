@@ -87,6 +87,7 @@
     <Compile Include="Entidades\Clasificacion.cs" />
     <Compile Include="Entidades\Ingreso.cs" />
     <Compile Include="Entidades\IPrestamoConDetallesParaCreditosyDebitos.cs" />
+    <Compile Include="Entidades\Status.cs" />
     <Compile Include="GeneradorDeCuotas.cs" />
     <Compile Include="Catalogo.cs" />
     <Compile Include="Color.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="PrestamoBuilder.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Periodo.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="VerificarDireccion.cs" />
     <Compile Include="Ocupacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
