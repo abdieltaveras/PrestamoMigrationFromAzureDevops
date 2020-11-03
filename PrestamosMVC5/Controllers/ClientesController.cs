@@ -29,9 +29,11 @@ namespace PrestamosMVC5.Controllers
         MyDataSet dts = new MyDataSet();
         public ActionResult ReporteClientes()
         {
-            /*var parametros = new ClienteGetParams { };
+            /*
+             * var parametros = new ClienteGetParams { };
             string tablename = dts.spGetClientes.TableName;
-            string procedurename = "spGetClientes";*/
+            string procedurename = "spGetClientes";
+            */
             DataTable clientes = ReportViewerUtils.ToDataTable(GetClientes().ToList<Cliente>());
             var path = Request.MapPath(Request.ApplicationPath) + @"Views\Reportes\rptClientes.rdlc";
             var reportViewer = ReportViewerUtils.ReporteCl(path,clientes);
