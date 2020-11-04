@@ -8,7 +8,7 @@
 	@Usuario varchar
 AS
 BEGIN
-	IF(@IdStatus=-1)
+	IF(@IdStatus<=0)
 		BEGIN
 			insert into tblStatus (IdTipoStatus,Tipo,Concepto,Estado)
 			values (@IdTipoStatus,@Tipo,@Concepto,@Estado)

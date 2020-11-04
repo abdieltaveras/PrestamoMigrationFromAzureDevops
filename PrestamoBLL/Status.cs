@@ -15,7 +15,7 @@ namespace PrestamoBLL
             BllAcciones.InsUpdData<Status>(insUpdParam, "spInsUpdStatus");
         }
 
-        public IEnumerable<Status> GetColores(StatusGetParams searchParam)
+        public IEnumerable<Status> GetStatus(StatusGetParams searchParam)
         {
             return BllAcciones.GetData<Status, StatusGetParams>(searchParam, "spGetStatus", GetValidation);
         }

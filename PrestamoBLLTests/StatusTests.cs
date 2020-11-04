@@ -5,6 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using emtSoft.DAL;
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
+using System.Linq;
+
 namespace PrestamoBLLTests
 {
     /// <summary>
@@ -61,7 +63,7 @@ namespace PrestamoBLLTests
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void InsUpdStatusMethod()
         {
             //
             // TODO: Add test logic here
@@ -71,7 +73,8 @@ namespace PrestamoBLLTests
             {
                 var parametros = new Status
                 {
-                    IdTipoStatus = 1,
+                    IdStatus = 1,
+                    IdTipoStatus = 2,
                     Tipo = "Garantia",
                     Concepto ="Garantia Desaparecida",
                     Estado = 1,
@@ -85,5 +88,45 @@ namespace PrestamoBLLTests
                 throw;
             }
         }
+
+        [TestMethod]
+        public void GetStatusMethod()
+        {
+            //
+            // TODO: Add test logic here
+            //
+            string result = "";
+            try
+            {
+                var parametros = new StatusGetParams
+                {
+                };
+                var datos = BLLPrestamo.Instance.GetStatus(parametros);
+            }
+            catch (Exception e)
+            {
+                result = e.Message + e.StackTrace;
+                throw;
+            }
+        }
+        public class SeachResult<T>
+        {
+            public bool DatosEncontrados { get; private set; } = false;
+            public IEnumerable<T> DataList
+            {
+                get;
+                private set;
+            }
+
+            public SeachResult(IEnumerable<T> data)
+            {
+                this.DatosEncontrados = (data != null & data.Count() > 0);
+                if (DatosEncontrados)
+                    DataList = data;
+                else
+                    DataList = new List<T>();
+            }
+        }
+
     }
 }

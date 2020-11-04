@@ -1,0 +1,73 @@
+﻿@model StatusVM
+
+@{
+    ViewBag.Title = "Crear Editar Status";
+}
+    <h4>Crear Editar Status</h4>
+@using (Html.BeginForm("CreateOrEdit", "Status", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+{
+    @Html.HiddenFor(model => model.Status.IdStatus)
+    @Html.HiddenFor(model => model.Status.IdTipoStatus)
+    @Html.HiddenFor(model => model.Status.Estado)
+
+    <div class="form-horizontal">
+        @*navigation*@
+        <div class="">
+            <div class="col-md-6 col-sm-12  ">
+                <div class="x_panel">
+
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Status.Tipo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        @Html.DropDownListFor(model => model.Status.Tipo,Model.Status.ListaTipo, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.ValidationMessageFor(model => model.Status.Tipo, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Status.Concepto, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        @Html.EditorFor(model => model.Status.Concepto, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_inputmask = "'mask' : '999-9999999-9'", @onfocusout = "onChangeProp(this)" } })
+                        @Html.ValidationMessageFor(model => model.Status.Concepto, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Status.Estado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        @Html.CheckBoxFor(model => model.Status.Estado)
+                        @Html.ValidationMessageFor(model => model.Status.Estado, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="ln_solid"></div>
+                    <div class="item form-group" style="float: right;">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                    @*</form>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+    {
+    <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
+    <script src="~/Scripts/apps/datePickerInit.js"></script>
+    <script src="~/Scripts/Apps/setMask.js"></script>
+    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
+    <script src="~/Scripts/Apps/CheckInput.js"></script>
+    <script src="~/Scripts/Apps/manageReferenciasForCliente.js"></script>
+    <script src="~/Scripts/Apps/Utils.js"></script>
+
+    <script>
+                                                        //let onNewButton = function () {
+                                                        //    $('.modal-modelos').modal('show');
+                                                        //}
+
+                                                        //$(document).ready(function () {
+                                                        //    $('#datatable').DataTable(dataTableConfiguration);
+                                                        //    removeTemplateConfiguration();
+                                                        //});
+    </script>
+}
+
