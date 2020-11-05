@@ -34,13 +34,12 @@ namespace PrestamosMVC5.Controllers
             
             StatusVM datos = status == null ? new StatusVM() : status;
             datos.Status = new Status();
-            datos.Status.ListaTipo = GetListaTipoStatus();
+            //datos.Status.ListaTipo = GetListaTipoStatus();
             
             if (id != -1)
             {
                 var datosStatus = GetStatus(id).DataList.FirstOrDefault();
                 datos.Status = datosStatus;
-                datos.Status.Tipo = 1;
             }
             return View(datos);
         }
@@ -106,12 +105,12 @@ namespace PrestamosMVC5.Controllers
             }
         }
 
-        public static SelectList GetListaTipoStatus()
-        {
-            var enumValues = Enum.GetValues(typeof(ListaTipo)).Cast<ListaTipo>().Select(e => new { Value = Convert.ToInt32(e), Text = e.ToString() }).ToList();
-            return new SelectList(enumValues,"Value", "Text", "");
+        //public static SelectList GetListaTipoStatus()
+        //{
+        //    //var enumValues = Enum.GetValues(typeof(ListaTipo)).Cast<ListaTipo>().Select(e => new { Value = Convert.ToInt32(e), Text = e.ToString() }).ToList();
+        //    //return new SelectList(enumValues,"Value", "Text", "");
 
-        }
+        //}
 
         public SeachResult<Status> GetStatus(int id)
         {

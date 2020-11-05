@@ -17,10 +17,9 @@
                 <div class="x_panel">
 
                     <div class="@HtmlClass.FormGroupCls">
-                        @Html.LabelFor(model => model.Status.Tipo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        @Html.DropDownListFor(model => model.Status.Tipo,Model.Status.ListaTipo, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                        @Html.ValidationMessageFor(model => model.Status.Tipo, "", new { @class = "text-danger" })
-
+                        @Html.LabelFor(model => model.Status.IdTipoStatus, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        @Html.DropDownListFor(model => model.Status.IdTipoStatus, SelectItems.ListaTipoStatus, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.ValidationMessageFor(model => model.Status.IdTipoStatus, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="@HtmlClass.FormGroupCls">
@@ -51,23 +50,16 @@
 }
 @section scripts
     {
-    <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
-    <script src="~/Scripts/apps/datePickerInit.js"></script>
-    <script src="~/Scripts/Apps/setMask.js"></script>
-    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
-    <script src="~/Scripts/Apps/CheckInput.js"></script>
-    <script src="~/Scripts/Apps/manageReferenciasForCliente.js"></script>
-    <script src="~/Scripts/Apps/Utils.js"></script>
 
     <script>
-                                                        //let onNewButton = function () {
-                                                        //    $('.modal-modelos').modal('show');
-                                                        //}
+        //let onNewButton = function () {
+        //    $('.modal-modelos').modal('show');
+        //}
 
-                                                        //$(document).ready(function () {
-                                                        //    $('#datatable').DataTable(dataTableConfiguration);
-                                                        //    removeTemplateConfiguration();
-                                                        //});
+        //$(document).ready(function () {
+        //    $('#datatable').DataTable(dataTableConfiguration);
+        //    removeTemplateConfiguration();
+        //});
     </script>
 }
 
