@@ -13,12 +13,35 @@ using System.Net;
 using System.Web.Routing;
 using System.Threading;
 using Newtonsoft.Json;
+using PrestamosMVC5.Views.Reportes;
+using Microsoft.Reporting.WebForms;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+using System.Reflection;
 
 namespace PrestamosMVC5.Controllers
 {
     [AuthorizeUser]
     public class ClientesController : ControllerBasePcp
     {
+        MyDataSet dts = new MyDataSet();
+        public ActionResult ReporteClientes()
+        {
+            /*
+             * var parametros = new ClienteGetParams { };
+            string tablename = dts.spGetClientes.TableName;
+            string procedurename = "spGetClientes";
+            */
+            DataTable clientes = ReportViewerUtils.ToDataTable(GetClientes().ToList<Cliente>());
+            var path = Request.MapPath(Request.ApplicationPath) + @"Views\Reportes\rptClientes.rdlc";
+            var reportViewer = ReportViewerUtils.ReporteCl(path,clientes);
+            
+            ViewBag.ReportViewer = reportViewer;
+            return View();
+        }
+
         // GET: Clientes
 
         public ClientesController()
@@ -254,6 +277,8 @@ namespace PrestamosMVC5.Controllers
 
             return clientes;
         }
+
+
     }
 
 
@@ -275,5 +300,7 @@ namespace PrestamosMVC5.Controllers
                 DataList = new List<T>();
         }
     }
+
+
 
 }

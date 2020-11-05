@@ -517,7 +517,7 @@
         //    checkboxClass: 'icheckbox_flat-green',
         //    radioClass: 'iradio_flat-green'
         //});
-
+        //clearDropDown();
         $('#mobiliario_form_container').hide();
         loadTipo(2);
 
@@ -527,12 +527,14 @@
             if (event.target.id === 'mobiliario_option') {
                 $('#mobiliario_form_container').show();
                 $('#inmobiliario_form_container').hide();
+                $('#Garantia_IdTipoGarantia').val('1');
                 loadTipo(1);
                 
 
             } else if (event.target.id === 'inmobiliario_option') {
                 $('#mobiliario_form_container').hide();
                 $('#inmobiliario_form_container').show();
+                $('#Garantia_IdTipoGarantia').val('3');
                 loadTipo(2);
                 
             }
@@ -612,16 +614,16 @@
         //*******Controles de Imagenes
         console.table(detalles);
 
-        if (selectedGarantia.IdClasificacion === 1) {
-            $('#inmobiliario_option').iCheck('check');
-            console.log('Cargue una casa');
-            loadTipo(2);
-        } else {
-            $('#mobiliario_option').iCheck('check');
-            console.log('Cargue un carro');
+        //if (selectedGarantia.IdClasificacion === 1) {
+        //    $('#inmobiliario_option').iCheck('check');
+        //    console.log('Cargue una casa');
+        //    loadTipo(2);
+        //} else {
+        //    $('#mobiliario_option').iCheck('check');
+        //    console.log('Cargue un carro');
 
-            loadTipo(1);
-        }
+        //    loadTipo(1);
+        //}
         $('#Garantia_IdGarantia').val(selectedGarantia.IdGarantia);
 
 
@@ -772,8 +774,18 @@
             $("#" + hiddeInputImgElemText).val(_constantNoImagen);
             event.preventDefault();
     }
-   
+
+    function clearDropDown() {
+
+         $('#Garantia_IdMarca').val("");
+         $('#Garantia_IdModelo').val("");
+         $('#Garantia_DetallesJSON_Color').val("");
+
+    }
     function clearForm() {
+
+        //$('#IdModelo').val("");
+        //$('#IdMarca').val("");
         @*
         $('#Garantia_IdGarantia').val('');
         $('#Garantia_NoIdentificacion').val("");

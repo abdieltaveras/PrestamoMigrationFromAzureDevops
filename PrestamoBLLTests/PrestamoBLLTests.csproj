@@ -92,6 +92,7 @@
     <Compile Include="LoginTests.cs" />
     <Compile Include="NegocioTests.cs" />
     <Compile Include="PeriodosTests.cs" />
+    <Compile Include="StatusTests.cs" />
     <Compile Include="TasaInteresTest.cs" />
     <Compile Include="TasaInteresTests.cs" />
     <Compile Include="ClienteTests.cs" />
