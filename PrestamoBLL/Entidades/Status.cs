@@ -1,4 +1,5 @@
-﻿using System;
+﻿using emtSoft.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,14 @@ namespace PrestamoBLL.Entidades
     public class Status : BaseInsUpd
     {
         public int IdStatus { get; set; }
-        public int IdTipoStatus { get; set; }
+        public int IdTipoStatus { get; set; } 
         public string Concepto { get; set; }
-        public bool Estado { get; set; }
-       // public ListaTipo ListaTipo { get; set; }
-        public SelectList ListaTipo { get; set; }
-        public string Tipo { get; set; }
-       
+        public bool Estado { get; set; } = true;
+        // public ListaTipo ListaTipo { get; set; }
+        //public SelectList ListaTipo { get; set; }
+        //public string Tipo { get; set; }
+       // [IgnorarEnParam]
+
 
     }
 
@@ -24,6 +26,6 @@ namespace PrestamoBLL.Entidades
         public int IdStatus { get; set; } = -1;
         public int IdTipoStatus { get; set; } = -1;
     }
-    public enum ListaTipo { Garantia = 1, Prestamo = 2, GPS = 3 }
+    public enum ListaTipoStatus { Garantia = 1, Prestamo, GPS }
 
 }

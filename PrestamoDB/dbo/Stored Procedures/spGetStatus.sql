@@ -6,4 +6,4 @@
 	@Usuario varchar(100)=''
 AS
 	SELECT * from tblStatus
-	where IdStatus = @IdStatus or IdTipoStatus = @IdTipoStatus and Estado = 1
+	where ((@IdStatus=-1) or IdStatus=@IdStatus and Estado = 1)

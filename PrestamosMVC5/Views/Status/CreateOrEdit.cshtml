@@ -1,26 +1,24 @@
 ﻿@model StatusVM
 
+
 @{
     ViewBag.Title = "Crear Editar Status";
 }
-    <h4>Crear Editar Status</h4>
+<h4>Crear Editar Status</h4>
 @using (Html.BeginForm("CreateOrEdit", "Status", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
 {
-    @Html.HiddenFor(model => model.Status.IdStatus)
-    @Html.HiddenFor(model => model.Status.IdTipoStatus)
-    @Html.HiddenFor(model => model.Status.Estado)
 
     <div class="form-horizontal">
         @*navigation*@
         <div class="">
             <div class="col-md-6 col-sm-12  ">
                 <div class="x_panel">
+                    @Html.HiddenFor(model => model.Status.IdStatus)
 
                     <div class="@HtmlClass.FormGroupCls">
-                        @Html.LabelFor(model => model.Status.Tipo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        @Html.DropDownListFor(model => model.Status.Tipo,Model.Status.ListaTipo, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                        @Html.ValidationMessageFor(model => model.Status.Tipo, "", new { @class = "text-danger" })
-
+                        @Html.LabelFor(model => model.Status.IdTipoStatus, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        @Html.DropDownListFor(model => model.Status.IdTipoStatus, SelectItems.ListaTipoStatus, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.ValidationMessageFor(model => model.Status.IdTipoStatus, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="@HtmlClass.FormGroupCls">
@@ -30,8 +28,8 @@
                     </div>
 
                     <div class="@HtmlClass.FormGroupCls">
-                        @Html.LabelFor(model => model.Status.Estado, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        @Html.CheckBoxFor(model => model.Status.Estado)
+                        @*@Html.LabelFor(model => model.Status.Estado, htmlAttributes: new { @class = @HtmlClass.LabelCls })*@
+                        <h6>Activo: @Html.CheckBoxFor(model => model.Status.Estado, htmlAttributes: new { @class = HtmlClass.CheckBoxCls})</h6>
                         @Html.ValidationMessageFor(model => model.Status.Estado, "", new { @class = "text-danger" })
                     </div>
 
@@ -51,23 +49,16 @@
 }
 @section scripts
     {
-    <script src="~/Scripts/apps/tabPanelsManagement.js"></script>
-    <script src="~/Scripts/apps/datePickerInit.js"></script>
-    <script src="~/Scripts/Apps/setMask.js"></script>
-    <script src="~/Scripts/Apps/manageErrorMessageOnForms.js"></script>
-    <script src="~/Scripts/Apps/CheckInput.js"></script>
-    <script src="~/Scripts/Apps/manageReferenciasForCliente.js"></script>
-    <script src="~/Scripts/Apps/Utils.js"></script>
 
     <script>
-                                                        //let onNewButton = function () {
-                                                        //    $('.modal-modelos').modal('show');
-                                                        //}
+            //let onNewButton = function () {
+            //    $('.modal-modelos').modal('show');
+            //}
 
-                                                        //$(document).ready(function () {
-                                                        //    $('#datatable').DataTable(dataTableConfiguration);
-                                                        //    removeTemplateConfiguration();
-                                                        //});
+            //$(document).ready(function () {
+            //    $('#datatable').DataTable(dataTableConfiguration);
+            //    removeTemplateConfiguration();
+            //});
     </script>
 }
 
