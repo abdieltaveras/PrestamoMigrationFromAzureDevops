@@ -1,4 +1,5 @@
-﻿using System;
+﻿using emtSoft.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,12 @@ namespace PrestamoBLL.Entidades
         public int IdStatus { get; set; }
         public int IdTipoStatus { get; set; } 
         public string Concepto { get; set; }
-        public bool Estado { get; set; }
-       // public ListaTipo ListaTipo { get; set; }
+        public bool Estado { get; set; } = true;
+        // public ListaTipo ListaTipo { get; set; }
         //public SelectList ListaTipo { get; set; }
-        public ListaTipoStatus ListaTipo { get; set; }
-        public string Tipo { get; set; }
-        
+        //public string Tipo { get; set; }
+       // [IgnorarEnParam]
+
 
     }
 
