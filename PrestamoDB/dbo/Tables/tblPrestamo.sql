@@ -3,6 +3,7 @@
 	IdPrestamo Int PRIMARY KEY identity(1,1),
 	idNegocio int foreign key references tblNegocios(idNegocio) not null,
 	idCliente int foreign key references tblClientes(idCliente) not null,
+	IdStatus int foreign key references tblStatus(IdStatus) null,
 	prestamoNumero varchar(20) not null unique(idNegocio, PrestamoNumero),
 	IdPrestamoARenovar int, 
 	DeudaRenovacion decimal (14,2) default 0,

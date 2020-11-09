@@ -12,6 +12,7 @@ namespace PrestamosMVC5.Models
     {
         public Garantia Garantia { get; set; }
         public SelectList ListaTipos { get; set; }
+        
         public IEnumerable<TipoGarantia> ListaTiposReal { get; set; }
         //public SelectList ListaMarcas { get; set; }
         //Luis public IEnumerable<Marca> ListaMarcas { get; set; }

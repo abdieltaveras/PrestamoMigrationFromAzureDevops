@@ -154,6 +154,8 @@ namespace PrestamoBLL.Entidades
     public class Prestamo : BaseInsUpd, IInfoGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
+        public int IdStatus { get; set; } = -1;
+        
         [IgnorarEnParam]
         [Display(Name ="Prestamo Numero")]
         public string PrestamoNumero { get; internal set; } = string.Empty;

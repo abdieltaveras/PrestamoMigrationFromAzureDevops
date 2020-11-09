@@ -16,6 +16,7 @@ namespace PrestamosMVC5.Models
 
     public class PrestamoVm
     {
+        public SelectList ListaStatus { get; set; }
         public string MensajeError { get; internal set; }
         public string MontoAPrestar { get; set; }
         public string OtrosCargosSinInteres { get; set; }
@@ -39,6 +40,7 @@ namespace PrestamosMVC5.Models
         public PrestamoVm()
         {
             this.Prestamo = new Prestamo();
+
         }
 
     }
