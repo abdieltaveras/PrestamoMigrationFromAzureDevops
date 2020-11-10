@@ -200,9 +200,17 @@
                     <li>
                         <a href="@Url.Action("Index","TasaInteres")">Tasa de Interes</a>
                     </li>
-                    
+
                     <li>
                         <a href="@Url.Action("CreateOrEdit","Negocios",new { id = -1 }))">Negocios</a>
+                    </li>
+                    <li>
+                        <a>Status<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Status",  new { tabla= "tblStatus" })">Agregar Status</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
