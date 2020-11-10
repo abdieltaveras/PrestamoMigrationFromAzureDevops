@@ -209,7 +209,7 @@
 
                                 <div class="@HtmlClass.FormGroupCls">
                                     @Html.LabelFor(model => model.Prestamo.IdStatus, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                                    @Html.DropDownListFor(model => model.Prestamo.IdStatus, Model.ListaStatus, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                                    @Html.DropDownListFor(model => model.Prestamo.IdStatus, Model.ListaStatus,"Seleccione un Status", htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                                     @Html.ValidationMessageFor(model => model.Prestamo.IdStatus, "", new { @class = "text-danger" })
                                 </div>
 

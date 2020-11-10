@@ -39,7 +39,7 @@ namespace PrestamosMVC5.Controllers
 
             var cl = new Cliente() { Activo = false };
             var model = new PrestamoVm();
-            model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio }), "IdStatus", "Concepto");
+            model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio, IdTipoStatus = 1 }), "IdStatus", "Concepto");
             model.Prestamo.IdPrestamo = id;
             setInitialValue(mensaje, model);
             if (id != -1)

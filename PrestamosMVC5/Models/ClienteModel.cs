@@ -17,6 +17,7 @@ namespace PrestamosMVC5.Models
         public Direccion Direccion { get; set; } = new Direccion();
         //public Referencia[] Referencia { get; set; } = new Referencia[5];
         public List<Referencia> Referencias { get; set; } = new List<Referencia>(5);
+        public SelectList ListaStatus { get; set; }
         //public int? Selected { get; set; } = 2;
         //public string TipoBusqueda { get; set; } = "normal";
 

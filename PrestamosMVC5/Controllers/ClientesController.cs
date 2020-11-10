@@ -72,6 +72,7 @@ namespace PrestamosMVC5.Controllers
         {
             var cl = new Cliente() { Activo = false };
             ClienteModel model = CreateClienteVm(true, null);
+            model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio, IdTipoStatus = 2 }), "IdStatus", "Concepto");
             model.MensajeError = mensaje;
             if (id != -1)
             {
@@ -80,7 +81,9 @@ namespace PrestamosMVC5.Controllers
                 if (searchResult.DatosEncontrados)
                 {
                     var data = searchResult.DataList.FirstOrDefault();
+                    
                     model = CreateClienteVm(false, data);
+                    model.ListaStatus = model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio, IdTipoStatus = 2 }), "IdStatus", "Concepto");
                     TempData["Cliente"] = data;
                 }
                 else
@@ -133,6 +136,8 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Cliente.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
 
                 clienteVm.Cliente.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
+
+                clienteVm.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio, IdTipoStatus = 1 }), "IdStatus", "Concepto");
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
                 BLLPrestamo.Instance.InsUpdClientes(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion, clienteVm.Referencias);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
@@ -191,9 +196,11 @@ namespace PrestamosMVC5.Controllers
         private SeachResult<Cliente> getCliente(int id)
         {
             var searchCliente = new ClienteGetParams { IdCliente = id };
+
             pcpSetUsuarioAndIdNegocioTo(searchCliente);
             var clientes = BLLPrestamo.Instance.GetClientes(searchCliente);
             var result = new SeachResult<Cliente>(clientes);
+            
             return result;
         }
 

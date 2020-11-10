@@ -26,6 +26,6 @@ namespace PrestamoBLL.Entidades
         public int IdStatus { get; set; } = -1;
         public int IdTipoStatus { get; set; } = -1;
     }
-    public enum ListaTipoStatus { Garantia = 1, Prestamo, GPS }
+    public enum ListaTipoStatus { Prestamo = 1,Cliente, GPS }
 
 }
