@@ -46,7 +46,7 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.NoIdentificacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.EditorFor(model => model.Cliente.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_inputmask = "'mask' : '999-9999999-9'", @onfocusout="onChangeProp(this)" }})
+                        @Html.EditorFor(model => model.Cliente.NoIdentificacion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_inputmask = "'mask' : '999-9999999-9'", @onfocusout = "onChangeProp(this)" } })
                         @Html.ValidationMessageFor(model => model.Cliente.NoIdentificacion, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -95,8 +95,16 @@
                 <div class="@HtmlClass.FormGroupCls">
                     @Html.LabelFor(model => model.Cliente.Sexo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
                     <div class="@HtmlClass.DivInputCls">
-                        @Html.DropDownListFor(model => model.Cliente.Sexo,  SelectItems.Sexos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.DropDownListFor(model => model.Cliente.Sexo, SelectItems.Sexos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                     </div>
+                </div>
+
+                @* Added For Status Link  *@
+
+                <div class="@HtmlClass.FormGroupCls">
+                    @Html.LabelFor(model => model.Cliente.IdStatus, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                    @Html.DropDownListFor(model => model.Cliente.IdStatus, Model.ListaStatus, "Seleccione un Status", htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                    @Html.ValidationMessageFor(model => model.Cliente.IdStatus, "", new { @class = "text-danger" })
                 </div>
 
                 @*</form>*@

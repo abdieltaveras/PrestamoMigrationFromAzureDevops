@@ -17,13 +17,13 @@
 
                     <div class="@HtmlClass.FormGroupCls">
                         @Html.LabelFor(model => model.Status.IdTipoStatus, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        @Html.DropDownListFor(model => model.Status.IdTipoStatus, SelectItems.ListaTipoStatus, htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.DropDownListFor(model => model.Status.IdTipoStatus, SelectItems.ListaTipoStatus,"Seleccione un tipo de Status", htmlAttributes: new { @class = @HtmlClass.InputTextCls })
                         @Html.ValidationMessageFor(model => model.Status.IdTipoStatus, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="@HtmlClass.FormGroupCls">
                         @Html.LabelFor(model => model.Status.Concepto, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                        @Html.EditorFor(model => model.Status.Concepto, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, data_inputmask = "'mask' : '999-9999999-9'", @onfocusout = "onChangeProp(this)" } })
+                        @Html.EditorFor(model => model.Status.Concepto, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, autocomplete= "off" } })
                         @Html.ValidationMessageFor(model => model.Status.Concepto, "", new { @class = "text-danger" })
                     </div>
 

@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spInsUpdPrestamo]
-(@idPrestamo int, @idnegocio int, @idprestamoarenovar int=null, @idCliente int, @deudarenovacion decimal(14,2), 
+(@idPrestamo int, @idnegocio int, @idprestamoarenovar int=null, @idCliente int,@IdStatus int, @deudarenovacion decimal(14,2), 
  @idclasificacion int,	@IdTipoamortizacion int, @fechaemisionReal date, @fechaemisionParaCalculos dateTime, 
  @fechavencimiento datetime, @idtasainteres int, @idtipomora int, @idperiodo int, 
  @cantidaddeperiodos int, @montoprestado decimal(14,2), @iddivisa int,  @interesgastodecierre decimal(6,2), 
@@ -22,8 +22,8 @@ begin
 		begin try
 			declare @prestamoNumero varchar(20) 
 			exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
-			INSERT INTO dbo.tblPrestamos (idNegocio, PrestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, idCliente, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa,  InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre,FinanciarGastoDeCierre,  AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, OtrosCargosSinInteres)
-			VALUES (@idnegocio, @prestamoNumero, @idprestamoarenovar, @deudarenovacion, @idclasificacion, @idCliente, @Idtipoamortizacion, @fechaemisionReal, @fechaemisionParaCalculos, @fechavencimiento, @idtasainteres, @idtipomora, @idperiodo, @cantidaddeperiodos, @montoprestado, @iddivisa, @interesgastodecierre, @montogastodecierre, @gastodecierreesdeducible, @cargarinteresalgastodecierre, @financiarGastoDeCierre, @acomodarfechaalascuotas, @fechainicioprimeracuota, @usuario, getdate(), @otrosCargosSinInteres)
+			INSERT INTO dbo.tblPrestamos (idNegocio, PrestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, idCliente,IdStatus, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa,  InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre,FinanciarGastoDeCierre,  AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, OtrosCargosSinInteres)
+			VALUES (@idnegocio, @prestamoNumero, @idprestamoarenovar, @deudarenovacion, @idclasificacion, @idCliente,@IdStatus, @Idtipoamortizacion, @fechaemisionReal, @fechaemisionParaCalculos, @fechavencimiento, @idtasainteres, @idtipomora, @idperiodo, @cantidaddeperiodos, @montoprestado, @iddivisa, @interesgastodecierre, @montogastodecierre, @gastodecierreesdeducible, @cargarinteresalgastodecierre, @financiarGastoDeCierre, @acomodarfechaalascuotas, @fechainicioprimeracuota, @usuario, getdate(), @otrosCargosSinInteres)
 			  set @idPrestamo = (SELECT SCOPE_IDENTITY());
 			  if ((select count(*) from @cuotas) > 0)
 			  begin

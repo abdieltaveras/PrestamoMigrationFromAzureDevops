@@ -36,8 +36,10 @@ namespace PrestamosMVC5.Controllers
 
         public ActionResult CreateOrEdit(int id = -1, string mensaje = "")
         {
+
             var cl = new Cliente() { Activo = false };
             var model = new PrestamoVm();
+            model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio, IdTipoStatus = 1 }), "IdStatus", "Concepto");
             model.Prestamo.IdPrestamo = id;
             setInitialValue(mensaje, model);
             if (id != -1)
@@ -161,6 +163,7 @@ namespace PrestamosMVC5.Controllers
             if (searchResult != null)
             {
                 model = new PrestamoVm();
+                model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio }), "IdStatus", "Concepto");
                 model.Prestamo = searchResult.infoPrestamo;
                 model.infoCliente = searchResult.infoCliente.InfoDelCliente;
                 model.infoGarantia = searchResult.infoGarantias.FirstOrDefault().InfoVehiculo;
