@@ -75,9 +75,8 @@ namespace PrestamoBLLTests
                 {
                     IdStatus = 1,
                     IdTipoStatus = 2,
-                    Tipo = "Garantia",
                     Concepto ="Garantia Desaparecida",
-                    Estado = 1,
+                    Estado = false,
                     Usuario = "Luis"
                 };
                 BLLPrestamo.Instance.InsUpdStatus(parametros);
