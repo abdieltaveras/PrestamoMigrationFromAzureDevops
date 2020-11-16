@@ -165,7 +165,14 @@ namespace PrestamoBLL
             var objConversion = default(T);
             if (convType == ConversionType.ToJsonFormat)
             {
-                objConversion = JsonConvert.DeserializeObject<T>(value);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    objConversion = JsonConvert.DeserializeObject<T>(value);
+                }
+                else
+                {
+                    objConversion = default(T);
+                }
                 //return objConversion;
             }
             if (convType == ConversionType.ToXmlFormat)

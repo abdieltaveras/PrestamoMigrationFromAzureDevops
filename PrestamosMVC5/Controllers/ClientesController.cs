@@ -235,15 +235,19 @@ namespace PrestamosMVC5.Controllers
 
         private static void FillRedesSociales (ClienteModel clienteVm, List<RedesSociales> redesSociales)
         {
-            for (int i = 0; i< 4; i++)
+            if (redesSociales==null) { redesSociales = new List<RedesSociales>(5); }
             {
-                if (redesSociales.Count > i)
+
+                for (int i = 0; i < 4; i++)
                 {
-                    clienteVm.redesSociales.Add(redesSociales[i]);
-                }
-                else
-                {
-                    clienteVm.redesSociales.Add(new RedesSociales());
+                    if (redesSociales.Count > i)
+                    {
+                        clienteVm.redesSociales.Add(redesSociales[i]);
+                    }
+                    else
+                    {
+                        clienteVm.redesSociales.Add(new RedesSociales());
+                    }
                 }
             }
         }
