@@ -38,7 +38,7 @@ namespace PrestamoBLL
             // el sistema con cuotas o si a lass cuotas se le pondra alguna informacion que detalle otros casos
             for (int i = 1; i <= fuente.CantidadDePeriodos; i++)
             {
-                var cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = i, OtrosCargosSinInteres = otrosCargosSinInteres };
+                var cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = i, OtrosCargos = otrosCargosSinInteres };
                 setGastoDeCierreFinaciadoEnCuotas(i, cuota);
                 cuota.Fecha = getFecha(i);
                 this.fechaCuotaAnterior = cuota.Fecha;
@@ -62,8 +62,8 @@ namespace PrestamoBLL
             foreach (var cuota in cuotas)
             {
                 totalCapitalCuotas += cuota.Capital;
-                totalOtrosCargosSinInteresCuotas += cuota.OtrosCargosSinInteres; 
-                totalGastoDeCierreCuotas += cuota.GastoDeCierre; 
+                totalOtrosCargosSinInteresCuotas += (decimal)cuota.OtrosCargos; 
+                totalGastoDeCierreCuotas += (decimal)cuota.GastoDeCierre; 
             }
 
             
@@ -79,7 +79,7 @@ namespace PrestamoBLL
 
             if (ajusteOtrosCargosSinInteres != 0)
             {
-                ultimaCuotaAjustada.OtrosCargosSinInteres += ajusteOtrosCargosSinInteres;
+                ultimaCuotaAjustada.OtrosCargos += ajusteOtrosCargosSinInteres;
             }
 
             if (ajusteGastoDeCierre != 0)

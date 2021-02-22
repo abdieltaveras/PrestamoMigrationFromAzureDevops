@@ -117,22 +117,22 @@ namespace PrestamoBLL.Entidades
         public int IdRole { get; set; }
 
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public string InsertadoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaInsertado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public string ModificadoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaModificado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public string AnuladoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaAnulado { get; set; } = InitValues._19000101;
         public bool Anulado() => string.IsNullOrEmpty(AnuladoPor);
     }

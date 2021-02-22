@@ -7,14 +7,12 @@
  @financiarGastoDeCierre bit, @acomodarfechaalascuotas bit, 
  @fechainicioprimeracuota dateTime, @cuotas tpCuota READONLY, @codeudores tpCodeudores readonly, 
  @garantias tpGarantias readonly, @usuario varchar(40), @otrosCargosSinInteres decimal(14,2))
-	
 AS
 begin
 	if (@idPrestamoArenovar<=0) 
 		begin  
 			set @idPrestamoARenovar=null; 
 		end
-
 	if (@idPrestamo<=0)
 	begin
 		SET TRANSACTION ISOLATION LEVEL SERIALIZABLE

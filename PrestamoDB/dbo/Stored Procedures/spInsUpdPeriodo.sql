@@ -28,6 +28,6 @@ Else
 		RequiereAutorizacion = @requiereautorizacion,
 		ModificadoPor = @usuario,
 		FechaModificado = getDate()
-		where idPeriodo = @idPeriodo
+		where idPeriodo = @idPeriodo and AnuladoPor is null
 	End
 End

@@ -7,11 +7,12 @@
 -- los prefijos seran de 3 digitos y unicos dentro de una federacion
 as
 Begin
-	if not exists(select 1 from tblSecuencias where nombre = @nombre)
+	if not exists(select 1 from tblSecuencias where nombre = @nombre) 
 	begin
 		insert into tblSecuencias (nombre, idNegocio) values (@nombre, @idNegocio)
 	end
 	update tblSecuencias  set contador = contador +1
+	
 	declare @secuencia int  = (select contador from tblSecuencias where nombre = @nombre)
 	set @secuenciaSt = (select Replace(Str(@secuencia, @digitos), ' ', '0'))
 End

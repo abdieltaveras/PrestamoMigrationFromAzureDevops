@@ -44,29 +44,30 @@ namespace PrestamoBLL.Entidades
         public string OtrosDetalles { get; internal set; } = string.Empty;
         
 
-        readonly IEnumerable<CuotaAmpliada> cuotas;
+        //readonly IEnumerable<CuotaAmpliada> cuotas;
         readonly DateTime Fecha;
-        public InfoDeudaPrestamoDrCr(IEnumerable<CuotaAmpliada> cuotas, DateTime fecha)
+        public InfoDeudaPrestamoDrCr(IEnumerable<Cuota> cuotas, DateTime fecha)
         {
             this.cuotas = cuotas;
             this.Fecha = fecha;
             this.CalcularDeuda();
         }
 
+        public IEnumerable<Cuota> cuotas { get; set; }
         private void CalcularDeuda()
         {
             foreach (var cuota in cuotas)
             {
                 this.CantidadDeCuotas++;
-                this.CuotasLiquidadas += (cuota.BalanceTotal == 0) ? 1 : 0;
-                if (cuota.BalanceTotal > 0)
+                this.CuotasLiquidadas += (cuota.BceGeneral == 0) ? 1 : 0;
+                if (cuota.BceGeneral > 0)
                 {
                     this.CuotasVigentes++;
                     this.TotalCapital += cuota.BceCapital;
                     this.TotalInteres += cuota.BceInteres;
-                    this.TotalMora += cuota.BceMora;
-                    this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
-                    this.TotalOtrosCargos += cuota.BceOtrosCargos;
+                    //this.TotalMora += cuota.BceMora;
+                    //this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
+                    this.TotalOtrosCargos += (decimal)cuota.BceOtrosCargos;
                     if (cuota.Atrasada(this.Fecha))
                     {
                         this.CuotasAtrasadas++;
@@ -133,7 +134,7 @@ namespace PrestamoBLL.Entidades
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; }
 
-        public IEnumerable<CuotaAmpliada> Cuotas { get; internal set; }
+        public IEnumerable<Cuota> Cuotas { get; internal set; }
 
         public InfoDeudaPrestamoDrCr InfoDeuda { get; internal set; }
     }
@@ -218,7 +219,7 @@ namespace PrestamoBLL.Entidades
         public int IdTipoMora { get; set; } = 1;
         [Display(Name = "Indique la forma (periodo) de las pago?")]
 
-        [HiddenInput(DisplayValue = false)]
+        
         [IgnorarEnParam]
         public bool Saldado { get; internal set; } = false;
         [Display(Name = "Seleccione el Periodo")]
