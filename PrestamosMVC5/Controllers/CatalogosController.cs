@@ -31,37 +31,37 @@ namespace PrestamosMVC5.Controllers
             switch (tabla)
             {
                 case "tblOcupaciones":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
+                    data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
                     data.TipoCatalogo = "Ocupaciones";
                     data.IdTabla = "IdOcupacion";
                     break;
                 case "tblVerificadorDirecciones":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblVerificadorDirecciones", IdTabla = "IdVerificadorDireccion" });
+                    data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblVerificadorDirecciones", IdTabla = "IdVerificadorDireccion" });
                     data.TipoCatalogo = "verificadores de direccion";
                     data.IdTabla = "IdVerificadorDireccion";
                     break;
                 case "tblTipoTelefonos":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTipoTelefonos", IdTabla = "IdTipoTelefono" });
+                    data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTipoTelefonos", IdTabla = "IdTipoTelefono" });
                     data.TipoCatalogo = "Tipos de telefonos";
                     data.IdTabla = "IdTipoTelefono";
                     break;
                 case "tblTipoSexos":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTipoSexos", IdTabla = "IdTipoSexo" });
+                    data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTipoSexos", IdTabla = "IdTipoSexo" });
                     data.TipoCatalogo = "Sexos";
                     data.IdTabla = "IdTipoSexo";
                     break;
                 case "tblTasadores":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTasadores", IdTabla = "IdTasador" });
+                    data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblTasadores", IdTabla = "IdTasador" });
                     data.TipoCatalogo = "Tasadores";
                     data.IdTabla = "IdTasador";
                     break;
                 case "tblLocalizadores":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblLocalizadores", IdTabla = "IdLocalizador" });
+                    data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblLocalizadores", IdTabla = "IdLocalizador" });
                     data.TipoCatalogo = "Localizadores";
                     data.IdTabla = "IdLocalizador";
                     break;
                 case "tblEstadosCiviles":
-                    data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblEstadosCiviles", IdTabla = "IdEstadoCivil" });
+                    data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblEstadosCiviles", IdTabla = "IdEstadoCivil" });
                     data.TipoCatalogo = "Estados civiles";
                     data.IdTabla = "IdEstadoCivil";
                     break;
@@ -77,7 +77,7 @@ namespace PrestamosMVC5.Controllers
         public RedirectToRouteResult CreateOrEdit(Catalogo catalogo)
         {
             pcpSetUsuarioAndIdNegocioTo(catalogo);
-            BLLPrestamo.Instance.CatalogoInsUpd(catalogo);
+            BLLPrestamo.Instance.InsUpdCatalogo(catalogo);
             return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla});
         }
         
@@ -90,7 +90,7 @@ namespace PrestamosMVC5.Controllers
         public RedirectToRouteResult Delete(DelCatalogo catalogo)
         {
             pcpSetUsuarioTo(catalogo);
-            BLLPrestamo.Instance.CatalogoDel(catalogo);
+            BLLPrestamo.Instance.AnularCatalogo(catalogo);
             return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla });
         }
  
@@ -99,19 +99,19 @@ namespace PrestamosMVC5.Controllers
             switch (tableName)
             {
                 case "tblOcupaciones":
-                    return JsonConvert.SerializeObject( BLLPrestamo.Instance.catalogoSearch<Ocupacion>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                    return JsonConvert.SerializeObject( BLLPrestamo.Instance.SearchCatalogos<Ocupacion>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
                 case "tblVerificadorDirecciones":
-                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<VerificadorDireccion>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.SearchCatalogos<VerificadorDireccion>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
                 case "tblTipoTelefonos":
-                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<TipoTelefono>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.SearchCatalogos<TipoTelefono>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
                 case "tblTipoSexos":
-                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<TipoSexo>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.SearchCatalogos<TipoSexo>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
                 case "tblTasadores":
-                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<TipoTelefono>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.SearchCatalogos<TipoTelefono>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
                 case "tblLocalizadores":
-                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<Localizador>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.SearchCatalogos<Localizador>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
                 case "tblEstadosCiviles":
-                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.catalogoSearch<EstadoCivil>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
+                    return JsonConvert.SerializeObject(BLLPrestamo.Instance.SearchCatalogos<EstadoCivil>(new SearchCatalogoParams { TextToSearch = textToSearch, TableName = tableName, IdNegocio = pcpUserIdNegocio }));
                 default:
                     return null;// throw new Exception($"La tabla {searchParam.NombreTabla} , no se encontro en ninguna eleccion para ejecutar una consulta de datos");
             }

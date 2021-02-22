@@ -1,6 +1,8 @@
 ﻿// to clean error message when user input value
 // need to be used togehter with <div class="invalid-feedback">
 // that is when using bootstrap 4 show hide validation message
+$(".remove-error").on("click", (removeMensajesError));
+
 $(".remove-error").keypress(function () {
     if (this.value.length === 0) {
         const jQElem = $(this);
@@ -8,6 +10,10 @@ $(".remove-error").keypress(function () {
     }
 })
 
+function removeMensajesError() {
+    const jqEleme = $(this);
+    removeErrorMessageForElem(jqEleme);
+}
 
 $(document).ready(function () {
     const validElem = $('#validationSummary');
@@ -38,12 +44,17 @@ function setSpanErrorForElem(elemName: string, errorMessage: string)
 }
 
 
+// esta funcion quita el elemento que maneja los mensajes de error
+// al quitarlo luego ya no hay formar de mostrarlo de nuevo
 function removeSpanErrorForElem(elemName: string ) {
     const spanToSearch = 'span[data-valmsg-for="' + elemName + '"]';
     const spanForError = $(spanToSearch);
     spanForError.remove();
 }
 
+// esta funcion quita el mensaje del span que tiene el mensaje unicamente pero
+// deja el span que contiene la logica para mostrar el error 
+// lo cual permite luego agregar el mensaje
 function removeErrorMessageForElem(elem: JQuery) {
     const elemErrorId = elem.attr("id") + "-error";
     const elemError = $("#" + elemErrorId);

@@ -10,6 +10,6 @@ AS
 	where 
 		((@IdMarca=-1) or (mo.IdMarca = @IdMarca))
 		and ((@IdModelo=-1) or (IdModelo = @IdModelo))
-		and (ma.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
+		--and (ma.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
 		and (mo.IdMarca = ma.IdMarca)
 RETURN 0

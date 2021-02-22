@@ -10,12 +10,12 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public void ColorInsUpd(Color insUpdParam)
+        public void InsUpdColor(Color insUpdParam)
         {
             BllAcciones.InsUpdData<Color>(insUpdParam, "spInsUpdColor");
         }
 
-        public IEnumerable<Color> ColoresGet(ColorGetParams searchParam)
+        public IEnumerable<Color> GetColores(ColorGetParams searchParam)
         {
             return BllAcciones.GetData<Color, ColorGetParams>(searchParam, "spGetColores", GetValidation);
         }

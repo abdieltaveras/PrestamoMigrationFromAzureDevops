@@ -9,7 +9,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Operacion> OperacionesGet(OperacionGetParams searchParam)
+        public IEnumerable<Operacion> GetOperaciones(OperacionGetParams searchParam)
         {
             return BllAcciones.GetData<Operacion, OperacionGetParams>(searchParam, "spGetOperaciones", GetValidation);
         }

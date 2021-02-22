@@ -9,12 +9,12 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Ocupacion> OcupacionesGet(OcupacionGetParams searchParam)
+        public IEnumerable<Ocupacion> GetOcupaciones(OcupacionGetParams searchParam)
         {
             return BllAcciones.GetData<Ocupacion, OcupacionGetParams>(searchParam, "spGetOcupaciones", GetValidation);
         }
 
-        public void OcupacionInsUpd(Ocupacion insUpdParam)
+        public void InsUpdOcupacion(Ocupacion insUpdParam)
         {
             BllAcciones.InsUpdData<Ocupacion>(insUpdParam, "spInsUpdOcupacion");
         }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -43,29 +44,30 @@ namespace PrestamoBLL.Entidades
         public string OtrosDetalles { get; internal set; } = string.Empty;
         
 
-        readonly IEnumerable<CuotaAmpliada> cuotas;
+        //readonly IEnumerable<CuotaAmpliada> cuotas;
         readonly DateTime Fecha;
-        public InfoDeudaPrestamoDrCr(IEnumerable<CuotaAmpliada> cuotas, DateTime fecha)
+        public InfoDeudaPrestamoDrCr(IEnumerable<Cuota> cuotas, DateTime fecha)
         {
             this.cuotas = cuotas;
             this.Fecha = fecha;
             this.CalcularDeuda();
         }
 
+        public IEnumerable<Cuota> cuotas { get; set; }
         private void CalcularDeuda()
         {
             foreach (var cuota in cuotas)
             {
                 this.CantidadDeCuotas++;
-                this.CuotasLiquidadas += (cuota.BalanceTotal == 0) ? 1 : 0;
-                if (cuota.BalanceTotal > 0)
+                this.CuotasLiquidadas += (cuota.BceGeneral == 0) ? 1 : 0;
+                if (cuota.BceGeneral > 0)
                 {
                     this.CuotasVigentes++;
                     this.TotalCapital += cuota.BceCapital;
                     this.TotalInteres += cuota.BceInteres;
-                    this.TotalMora += cuota.BceMora;
-                    this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
-                    this.TotalOtrosCargos += cuota.BceOtrosCargos;
+                    //this.TotalMora += cuota.BceMora;
+                    //this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
+                    this.TotalOtrosCargos += (decimal)cuota.BceOtrosCargos;
                     if (cuota.Atrasada(this.Fecha))
                     {
                         this.CuotasAtrasadas++;
@@ -132,7 +134,7 @@ namespace PrestamoBLL.Entidades
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; }
 
-        public IEnumerable<CuotaAmpliada> Cuotas { get; internal set; }
+        public IEnumerable<Cuota> Cuotas { get; internal set; }
 
         public InfoDeudaPrestamoDrCr InfoDeuda { get; internal set; }
     }
@@ -150,12 +152,14 @@ namespace PrestamoBLL.Entidades
         
 
     }
-    public class Prestamo : BaseInsUpd, IPrestamoForGeneradorCuotas
+    public class Prestamo : BaseInsUpd, IInfoGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
+        public int IdStatus { get; set; } = -1;
+        
         [IgnorarEnParam]
+        [Display(Name ="Prestamo Numero")]
         public string PrestamoNumero { get; internal set; } = string.Empty;
-
         /// <summary>
         /// el valor menos 1 indica que no se establecio ningun prestamo a renovar
         /// </summary>
@@ -165,10 +169,10 @@ namespace PrestamoBLL.Entidades
         public string NumeroPrestamoARenovar { get; internal set; } = string.Empty;
 
         [Display(Name = "Indique la clasificacion")]
-        public int IdClasificacion { get; set; }
+        public int IdClasificacion { get; set; } = 4;
         [Display(Name = "Indique el tipo de amortizacion")]
 
-        public int IdTipoAmortizacion { get; set; }
+        public int IdTipoAmortizacion { get; set; } = 1;
 
         [IgnorarEnParam]
         public TiposAmortizacion TipoAmortizacion {
@@ -179,7 +183,7 @@ namespace PrestamoBLL.Entidades
         /// retorna true o false al contar si hay o no garantias para este prestamo
         /// </summary>
         [IgnorarEnParam]
-        public bool TieneGarantias { get { return IdGarantias.Count() > 0; } }
+        public bool TieneGarantias { get { return IdGarantias==null ? false : IdGarantias.Count() > 0; } }
         /// <summary>
         /// Los id de los clientes asignado a este prestamo
         /// </summary>
@@ -197,7 +201,7 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public List<int> IdCodeudores { get; set; }
         [Display(Name = "Fecha de emision")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaEmisionReal { get; set; } = DateTime.Now;
         [HiddenInput]
         [ReadOnly(true)]
@@ -206,25 +210,31 @@ namespace PrestamoBLL.Entidades
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaVencimiento { get; internal set; }
         [Display(Name = "Indique el codigo de la tasa de interes")]
-        public int IdTasaInteres { get; set; }
+        public int IdTasaInteres { get; set; } = 1;
         [Display(Name = "La tasa de interes por periodo")]
         [IgnorarEnParam]
         [ReadOnly(true)]
         public decimal TasaDeInteresPorPeriodo { get; set; }
         [Display(Name = "Indique la mora")]
-        public int IdTipoMora { get; set; }
-        [Display(Name = "Indique la forma de las pago?")]
-        public int IdPeriodo { get; set; }
+        public int IdTipoMora { get; set; } = 1;
+        [Display(Name = "Indique la forma (periodo) de las pago?")]
+
+        
+        [IgnorarEnParam]
+        public bool Saldado { get; internal set; } = false;
+        [Display(Name = "Seleccione el Periodo")]
+        public int IdPeriodo { get; set; } = 4;
         [IgnorarEnParam]
         public Periodo Periodo { get; internal set; }
-        [Display(Name = "Cantidad de Periodos")]
+        [Display(Name = "Cantidad de Cuotas")]
         //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
         //[RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
-        [Min(1,ErrorMessage ="el valor minimo aceptado es 1")]
+        [Range(typeof(int),"1","99999999", ErrorMessage ="solo se acepta valores mayor a 0")]
+        //[Min(1,ErrorMessage ="el valor minimo aceptado es 1")]
         public int CantidadDePeriodos { get; set; } = 1;
         [Display(Name = "Monto prestado al cliente?")]
         [Required(ErrorMessage="debe digitar un valor 0 o un valor")]
-        [RegularExpression(("([0-9][0-9]*)"), ErrorMessage = "no se aceptan valores negativos")]
+        //[RegularExpression(("([0-9][0-9]*)"), ErrorMessage = "no se aceptan valores negativos")]
         //[Range(0, 999999999, ErrorMessage = "No se aceptan valores negativos")]
         public decimal MontoPrestado { get; set; }
         [Display(Name = "Deuda del prestamo a renovar ?")]
@@ -232,25 +242,40 @@ namespace PrestamoBLL.Entidades
         [Range(0, 999999999, ErrorMessage = "No se aceptan valores negativos")]
         public decimal DeudaRenovacion { get; set; }
         /// <summary>
+        /// esta propiedad es solo visual no tiene efectos en la tabla su proposito
+        /// es poder indicar si el prestamo que se esta trabajando llevara o no renovacion
+        /// para que las vistas habiliten entonces la interaccion con el usuario
+        /// </summary>
+        [IgnorarEnParam]
+        [NotMapped]
+        [Display(Name = "Habilitar Renovacion")]
+        public bool HabilitarRenovacion { get; set; } = false;
+        /// <summary>
         /// tiene sumado el dinero emitido al cliente (monto prestado) + le deuda de la r
         /// </summary>
         [IgnorarEnParam]
-        public decimal TotalPrestado => MontoPrestado + DeudaRenovacion;
+        public decimal MontoCapital => MontoPrestado + DeudaRenovacion;
         // { get { return MontoPrestado + DeudaRenovacion } internal set { var valor = value;} }
         [Display(Name = "Indique  la Divisa")]
         public int IdDivisa { get; set; } = 1;
+        /// <summary>
+        /// esta propiedad es solo visual no tiene efectos en la tabla su proposito
+        /// es poder indicar si el prestamo que se esta trabajando llevara o no gasto de cierre
+        /// inducido si el campo interes gasto de cierre es mayor a cero
+        /// </summary>
         [IgnorarEnParam]
+        [NotMapped]
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
-        [Display(Name = "Interes para el gasto de cierre ?")]
-        public decimal InteresGastoDeCierre { get; set; }
+        [Range(0.0, 30.00, ErrorMessage = "rango permitido entre 1 y 30%")]
+        [Display(Name = "Interes al G/C/?")]
+        public decimal InteresGastoDeCierre { get; set; } = 10.00m;
         [ReadOnly(true)]
         public decimal MontoGastoDeCierre { get; internal set; }
-        [Display(Name ="Es deducible el gasto de cierre")]
-        public bool GastoDeCierreEsDeducible { get; set; }
-        [Display(Name = "Sumo el gasto de cierre a las cuotas ?")]
-
-        public bool SumarGastoDeCierreALasCuotas { get; set; } = true;
-        [Display(Name = "Cargo interes al gasto de cierre ?")]
+        [Display(Name = "Es deducible el G/C?")]
+        public bool GastoDeCierreEsDeducible { get; set; } = false;
+        [Display(Name = "Financiar el G/C?")]
+        public bool FinanciarGastoDeCierre { get; set; } = true;
+        [Display(Name = "Cargo interes al G/C ?")]
         public bool CargarInteresAlGastoDeCierre { get; set; } = true;
         [Display(Name = "Desea acomodar las fechas de las cuotas?")]
         public bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
@@ -282,19 +307,22 @@ namespace PrestamoBLL.Entidades
         ////this._Garantias.ToDataTable();
         //public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
         public InfoClienteDrCr infoCliente { get; internal set; }
-
         public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
+        [Range(0.00,999999999999.99, ErrorMessage = "no se aceptan valores negativos")]
+        [Display(Name ="Otros Cargos Sin Interes")]
+        public decimal OtrosCargosSinInteres { get;  set; }
     }
 
     public class PrestamoInsUpdParam : Prestamo
     {
-        private IEnumerable<Cuota> _CuotasList = new List<Cuota>();
+        private IEnumerable<CuotaForSqlType> _CuotasList = new List<CuotaForSqlType>();
         private IEnumerable<Codeudor> __Codeudores = new List<Codeudor>();
         private IEnumerable<Garantia> __Garantias = new List<Garantia>();
 
-        public PrestamoInsUpdParam(Prestamo prestamo, IEnumerable<Cuota> cuotas, IEnumerable<Codeudor> codeudores, IEnumerable<Garantia> garantias)
+        public PrestamoInsUpdParam(Prestamo prestamo, IEnumerable<CuotaForSqlType> cuotas, IEnumerable<Codeudor> codeudores, IEnumerable<Garantia> garantias)
         {
             this._CuotasList = cuotas;
+            
             //var data = codeudores.Select(cod => new { idCodeudor = cod.IdCodeudor });
             //this.__Codeudores = codeudores != null ? codeudores : new List<Codeudor>(); ;
             //this.__Garantias = garantias != null ? garantias : new List<Garantia>(); ;

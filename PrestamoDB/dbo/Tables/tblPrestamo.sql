@@ -3,6 +3,7 @@
 	IdPrestamo Int PRIMARY KEY identity(1,1),
 	idNegocio int foreign key references tblNegocios(idNegocio) not null,
 	idCliente int foreign key references tblClientes(idCliente) not null,
+	IdStatus int foreign key references tblStatus(IdStatus) null,
 	prestamoNumero varchar(20) not null unique(idNegocio, PrestamoNumero),
 	IdPrestamoARenovar int, 
 	DeudaRenovacion decimal (14,2) default 0,
@@ -22,7 +23,8 @@
 	MontoGastoDeCierre decimal (14,2) not null,
 	GastoDeCierreEsDeducible bit not null,
 	CargarInteresAlGastoDeCierre bit not null,
-	SumarGastoDeCierreALasCuotas bit not null default 0,
+	FinanciarGastoDeCierre bit not null default 0,
+	OtrosCargosSinInteres bit not null default 0,
 	AcomodarFechaALasCuotas bit not null default 0,
 	FechaInicioPrimeraCuota  dateTime not null,
 	[InsertadoPor] varchar(100) not null,
@@ -31,6 +33,7 @@
     [FechaModificado] DATETIME NULL, 
     [AnuladoPor] VARCHAR(100) NULL, 
     [FechaAnulado] DATETIME NULL,
+	[Saldado] bit not null default 0,
 	constraint TotalCapitalMayorQueCero check (TotalPrestado > 0),
 	constraint fk_idPrestamoARenovar foreign KEY (IdPrestamoARenovar) REFERENCES tblPrestamos([IdPrestamo])
 )

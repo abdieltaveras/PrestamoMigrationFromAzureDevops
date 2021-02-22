@@ -10,11 +10,11 @@
 )
 as
 begin
-	SELECT idPeriodo, Codigo, Nombre, Activo, RequiereAutorizacion, MultiploPeriodoBase, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
+	SELECT idPeriodo, Codigo, Nombre, Activo, RequiereAutorizacion, IdPeriodoBase, MultiploPeriodoBase, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
 	FROM dbo.tblPeriodos(nolock) 
 	where 
 		((@idPeriodo=-1) or (idPeriodo = @IdPeriodo))
-		and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
+		--and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
 		and ((@Codigo='') or (Codigo = @Codigo))
 		and ((@Activo=-1) or (Activo=@Activo))
 		and ((@RequiereAutorizacion=-1) or (RequiereAutorizacion = @RequiereAutorizacion))

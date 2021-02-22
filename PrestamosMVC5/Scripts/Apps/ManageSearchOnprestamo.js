@@ -1,3 +1,5 @@
+// esta funcion se hizo inicialmente para hacer ciertas pruebas directa, luego bryan incorporo los metodos
+// para realizar busqueda mas ampliados, se dejo aqui para fines de consulta o algun posible uso
 function getClientesByNumeroIdentificacion(numeroIdentificacion, fsetDataTo) {
     var url = "/Clientes/BuscarPorNoIdentificacion";
     if (numeroIdentificacion.match(/\d/g).length > 0) {
@@ -35,4 +37,4 @@ function setDatosGarantiaIntoHtml(data, garantiaElem) {
         $("#Prestamo_IdGarantias_0").remove();
     }
 }
-//# sourceMappingURL=ManageClientes.js.map
+//# sourceMappingURL=ManageSearchOnprestamo.js.map

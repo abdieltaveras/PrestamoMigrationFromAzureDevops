@@ -20,8 +20,8 @@ begin
 							tblTipoLocalidades t1,
 							tblTipoLocalidades t2
 						WHERE
-							t1.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio))
-							AND t1.IdLocalidadPadre = t2.IdTipoLocalidad
+							--t1.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)) and
+							t1.IdLocalidadPadre = t2.IdTipoLocalidad
 							AND t2.IdLocalidadPadre IS NULL)
 		AND t1.IdLocalidadPadre = t2.IdTipoLocalidad
 End

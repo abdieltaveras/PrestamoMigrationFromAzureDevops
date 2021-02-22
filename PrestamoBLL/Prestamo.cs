@@ -21,7 +21,7 @@ namespace PrestamoBLL
             
             var prestamoParam2 = SearchRec.ToSqlParams(result);
             //var resultId = PrestamosDB.ExecSelSP("spInsUpdPrestamo",prestamoParam);
-            var resultId = PrestamosDB.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
+            var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
             //var result = PrestamosDB.ExecSelSP("spInsUpdNegocio", _insUpdParam);
             //idResult = Utils.GetIdFromDataTable(result);
             var  id= Utils.GetIdFromDataTable(resultId);
@@ -33,7 +33,7 @@ namespace PrestamoBLL
             //GetValidation(searchParam as BaseGetParams);
 
             IEnumerable<PrestamoSearch> data = null;
-
+            searchParam.TextToSearch = searchParam.TextToSearch.Trim();
             if (searchParam.SearchType == 1)
             {
                 data = BllAcciones.GetData<PrestamoSearch, PrestamosSearchParams>(searchParam, "spBuscarPrestamos", GetValidation);
@@ -65,7 +65,7 @@ namespace PrestamoBLL
             
             //GetValidation(searchParam as BaseGetParams    );
             var searchRec = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
-            var dr = PrestamosDB.ExecReaderSelSP("spGetPrestamo", searchRec);
+            var dr = DBPrestamo.ExecReaderSelSP("spGetPrestamo", searchRec);
             Prestamo infoPrestamo = new Prestamo();
             InfoClienteDrCr infoCliente = new InfoClienteDrCr();
             while (dr.Read())
@@ -93,7 +93,7 @@ namespace PrestamoBLL
             return PrestamoConDetalle;
         }
 
-        public PrestamoConDetallesParaCreditosYDebitos GetPrestamoConDetalle(int idPrestamo, DateTime fecha)
+        public PrestamoConDetallesParaCreditosYDebitos GetPrestamoConDetalle(int idPrestamo, DateTime fecha, bool ConvertDetallesGarantiaToJson = false)
         {
             if (idPrestamo <= 0)
             {
@@ -105,7 +105,7 @@ namespace PrestamoBLL
             }
             //GetValidation(searchParam as BaseGetParams    );
             var searchRec = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
-            var dr = PrestamosDB.ExecReaderSelSP("spGetPrestamoConDetalle", searchRec);
+            var dr = DBPrestamo.ExecReaderSelSP("spGetPrestamoConDetalle", searchRec);
             InfoClienteDrCr infoCliente = new InfoClienteDrCr();
             InfoPrestamoDrCr infoPrestamo = new InfoPrestamoDrCr();
             
@@ -118,12 +118,12 @@ namespace PrestamoBLL
                 }
                 dr.DataReaderToType(out infoCliente);
             }
-            var cuotas = new List<CuotaAmpliada>();
+            var cuotas = new List<Cuota>();
             if (dr.NextResult())
             {
                 while (dr.Read())
                 {
-                    var cuota = new CuotaAmpliada();
+                    var cuota = new Cuota();
                     dr.DataReaderToType(out cuota);
                     cuotas.Add(cuota);
                 }
@@ -135,6 +135,10 @@ namespace PrestamoBLL
                 {
                     InfoGarantiaDrCr infoGarantiaDrCr; 
                     dr.DataReaderToType(out infoGarantiaDrCr );
+                    if (ConvertDetallesGarantiaToJson)
+                    {
+                        infoGarantiaDrCr.DetallesForJsonConvert();
+                    }
                     infoGarantiasDrCr.Add(infoGarantiaDrCr);
                 }
             }

@@ -50,6 +50,54 @@
         selector: 'td:first-child'
     },
     'order': [[1, 'asc']],
+    
+    buttons: [
+        'copy', 'pdfHtml5', 'excel', 'print',
+        {
+            text: '<i class="fa fa-edit"></i>',
+                attr: {
+                title: 'Editar',
+                    id: 'btn-edit',
+                        class: ''
+            },
+            action: function () {
+                onEditButton();
+            }
+        },
+        {
+            text: '<i class="fa fa-ban"></i>',
+                attr: {
+                title: 'Desactivar',
+                    id: 'btn-deactivate',
+                        class: ''
+            },
+            action: async function () {
+                onDeactivateButton();
+            }
+            },
+        {
+            text: '<i class="fa fa-trash"></i>',
+                attr: {
+                title: 'Anular',
+                    id: 'btn-cancel',
+                        class: ''
+            },
+            action: async function () {
+                onCancelButton();
+            }
+        },
+        {
+            text: 'Agregar <i class="fa fa-plus"></i>',
+                attr: {
+                title: 'Guardar',
+                    id: 'btn-save'
+            },
+            action: function () {
+                onNewButton();
+            }
+        }
+    ]
+        
 }
 
 function removeTemplateConfiguration() {
@@ -59,4 +107,9 @@ function removeTemplateConfiguration() {
 
     $('.dt-button-collection div button').removeClass('dt-button button-page-length');
     $('.dt-button-collection div button').addClass('btn btn-primary');
+
+    $('#btn-edit').appendTo('#r2s1');
+    $('#btn-deactivate').appendTo('#r2s1');
+    $('#btn-cancel').appendTo('#r2s1');
+    $('#btn-save').appendTo('#r2s3');
 }

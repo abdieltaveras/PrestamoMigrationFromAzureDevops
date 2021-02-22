@@ -27,8 +27,8 @@ namespace PrestamosMVC5.Models
         public static SelectList TiposVinculos => SLFactory.ForEnum<EnumTiposVinculo>();
         public static SelectList Negocios(string usuario, int permitirOperaciones, int idNegocio) => new SelectList(BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { IdNegocio = idNegocio, PermitirOperaciones = permitirOperaciones, Usuario = usuario }), "IdNegocio", "NombreComercial");
 
-        public static SelectList Clasificaciones(int idNegocio) => new SelectList(BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { NombreTabla = "tblClasificaciones", IdTabla = "idClasificacion", IdNegocio = idNegocio }), "IdClasificacion", "Nombre");
-
+        public static SelectList Clasificaciones(int idNegocio) => new SelectList(BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { NombreTabla = "tblClasificaciones", IdTabla = "idClasificacion", IdNegocio = idNegocio }), "IdClasificacion", "Nombre");
+        public static SelectList ListaTipoStatus => SLFactory.ForEnum<ListaTipoStatus>();
         public static SelectList Periodos(int idNegocio) => new SelectList(BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = idNegocio }), "IdPeriodo", "Nombre");
 
         /// <summary>
@@ -45,9 +45,11 @@ namespace PrestamosMVC5.Models
         public static SelectList TasasInteresSoloCodigos(int idNegocio) => new SelectList(BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = idNegocio }), "IdTasaInteres", "CodigoTasa");
 
         // TasasInteresGet
-        public static SelectList NegociosMatrizRaiz() => new SelectList(BLLPrestamo.Instance.NegocioGetLosQueSonMatriz(), "IdNegocio", "NombreComercial");
+        //public static SelectList NegociosMatrizRaiz() => new SelectList(BLLPrestamo.Instance.NegocioGetLosQueSonMatriz(), "IdNegocio", "NombreComercial");
 
-        public static SelectList NegociosOperacionalesForMatriz(int idNegocioPadre) => new SelectList(BLLPrestamo.Instance.GetNegocioYSusHijos(idNegocioPadre).Where(neg => neg.PermitirOperaciones), "IdNegocio", "NombreComercial");
+        public static SelectList LocalidadesNegocios() => new SelectList(LocalidadesNegocios(), "key", "value");
+
+        //public static SelectList NegociosOperacionalesForMatriz(int idNegocioPadre) => new SelectList(BLLPrestamo.Instance.GetNegocioYSusHijos(idNegocioPadre).Where(neg => neg.PermitirOperaciones), "IdNegocio", "NombreComercial");
 
         public static SelectList Lista12Meses => new SelectList(_12MesesNUmericos(), "key", "value");
         public static SelectList Ocupaciones => _Ocupaciones();
@@ -62,6 +64,12 @@ namespace PrestamosMVC5.Models
             return listaNumeros;
         }
 
+        private static Dictionary<int, string> _LocalidadesNegociosFake()
+        {
+            var lista = new Dictionary<int, string>();
+           lista.Add(1,"Romana");
+            return lista;
+        }
         private static SelectList CreateSelectList(List<Tuple<string, int>> items)
         {
             var result = items.OrderBy(ord => ord.Item1).Select(e => new SelectListItem()

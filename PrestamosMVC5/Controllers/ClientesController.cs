@@ -12,12 +12,36 @@ using System.Web.Mvc;
 using System.Net;
 using System.Web.Routing;
 using System.Threading;
+using Newtonsoft.Json;
+using PrestamosMVC5.Views.Reportes;
+using Microsoft.Reporting.WebForms;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+using System.Reflection;
 
 namespace PrestamosMVC5.Controllers
 {
     [AuthorizeUser]
     public class ClientesController : ControllerBasePcp
     {
+        MyDataSet dts = new MyDataSet();
+        public ActionResult ReporteClientes()
+        {
+            /*
+             * var parametros = new ClienteGetParams { };
+            string tablename = dts.spGetClientes.TableName;
+            string procedurename = "spGetClientes";
+            */
+            DataTable clientes = ReportViewerUtils.ToDataTable(GetClientes().ToList<Cliente>());
+            var path = Request.MapPath(Request.ApplicationPath) + @"Views\Reportes\rptClientes.rdlc";
+            var reportViewer = ReportViewerUtils.ReporteCl(path,clientes);
+            
+            ViewBag.ReportViewer = reportViewer;
+            return View();
+        }
+
         // GET: Clientes
 
         public ClientesController()
@@ -48,6 +72,7 @@ namespace PrestamosMVC5.Controllers
         {
             var cl = new Cliente() { Activo = false };
             ClienteModel model = CreateClienteVm(true, null);
+            model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio, IdTipoStatus = 2 }), "IdStatus", "Concepto");
             model.MensajeError = mensaje;
             if (id != -1)
             {
@@ -56,7 +81,9 @@ namespace PrestamosMVC5.Controllers
                 if (searchResult.DatosEncontrados)
                 {
                     var data = searchResult.DataList.FirstOrDefault();
+                    
                     model = CreateClienteVm(false, data);
+                    model.ListaStatus = model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio, IdTipoStatus = 2 }), "IdStatus", "Concepto");
                     TempData["Cliente"] = data;
                 }
                 else
@@ -109,8 +136,10 @@ namespace PrestamosMVC5.Controllers
                 clienteVm.Cliente.Imagen1FileName = GeneralUtils.GetNameForFile(imagen1ClienteFileName, clienteVm.image1PreviewValue, clienteTempData.Imagen1FileName);
 
                 clienteVm.Cliente.Imagen2FileName = GeneralUtils.GetNameForFile(imagen2ClienteFileName, clienteVm.image2PreviewValue, clienteTempData.Imagen2FileName);
+
+                clienteVm.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio, IdTipoStatus = 1 }), "IdStatus", "Concepto");
                 pcpSetUsuarioAndIdNegocioTo(clienteVm.Cliente);
-                BLLPrestamo.Instance.ClientesInsUpd(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion, clienteVm.Referencias);
+                BLLPrestamo.Instance.InsUpdClientes(clienteVm.Cliente, clienteVm.Conyuge, clienteVm.InfoLaboral, clienteVm.Direccion, clienteVm.Referencias);
                 var mensaje = "Sus datos fueron guardados correctamente, Gracias";
                 result = RedirectToAction("CreateOrEdit", new { id = -1, mensaje = mensaje });
             }
@@ -137,7 +166,7 @@ namespace PrestamosMVC5.Controllers
             search.NoIdentificacion = noIdentificacion.RemoveAllButNumber();
             if (!string.IsNullOrEmpty(search.NoIdentificacion))
             {
-                var result = BLLPrestamo.Instance.ClientesGet(search).FirstOrDefault();
+                var result = BLLPrestamo.Instance.GetClientes(search).FirstOrDefault();
                 if (result != null)
                 {
                     var data = new { Nombre = result.Nombres + " " + result.Apellidos, Codigo = result.Codigo, IdCliente = result.IdCliente, Imagen1= result.Imagen1FileName };
@@ -157,20 +186,21 @@ namespace PrestamosMVC5.Controllers
             return View();
         }
 
-        public IEnumerable<Cliente> GetClientes()
+        private IEnumerable<Cliente> GetClientes()
         {
-            IEnumerable<Cliente> clientes;
-            var getclientes = new ClienteGetParams();
-            this.pcpSetUsuarioAndIdNegocioTo(getclientes);
-            clientes = BLLPrestamo.Instance.ClientesGet(getclientes);
+            var getclientesParams = new ClienteGetParams();
+            this.pcpSetUsuarioAndIdNegocioTo(getclientesParams);
+            var clientes = BLLPrestamo.Instance.GetClientes(getclientesParams);
             return clientes;
         }
         private SeachResult<Cliente> getCliente(int id)
         {
             var searchCliente = new ClienteGetParams { IdCliente = id };
+
             pcpSetUsuarioAndIdNegocioTo(searchCliente);
-            var cliente = BLLPrestamo.Instance.ClientesGet(searchCliente);
-            var result = new SeachResult<Cliente>(BLLPrestamo.Instance.ClientesGet(searchCliente));
+            var clientes = BLLPrestamo.Instance.GetClientes(searchCliente);
+            var result = new SeachResult<Cliente>(clientes);
+            
             return result;
         }
 
@@ -198,7 +228,7 @@ namespace PrestamosMVC5.Controllers
                 var referencias = cliente.InfoReferencia.ToType<List<Referencia>>();
                 FillReferencias(clienteVm, referencias);
                 pcpSetUsuarioTo(clienteVm.Cliente);
-                var localidadDelCliente = BLLPrestamo.Instance.LocalidadGetFullName(clienteVm.Direccion.IdLocalidad);
+                var localidadDelCliente = BLLPrestamo.Instance.GetFullNameLocalidad(clienteVm.Direccion.IdLocalidad);
                 if (localidadDelCliente != null)
                 {
                     clienteVm.InputRutaLocalidad = localidadDelCliente;
@@ -224,6 +254,38 @@ namespace PrestamosMVC5.Controllers
                 }
             }
         }
+
+        public string BuscarClientes(string searchToText, bool CargarImagenesClientes)
+        {
+            var clientes = searchCliente(searchToText, CargarImagenesClientes);
+            return JsonConvert.SerializeObject(clientes);
+        }
+
+        public JsonResult BuscarClientesJson(string searchToText, bool CargarImagenesClientes)
+        {
+            var clientes = searchCliente(searchToText, CargarImagenesClientes);
+            return Json(clientes, JsonRequestBehavior.AllowGet);
+            //Convert.SerializeObject(clientes);
+        }
+
+        private IEnumerable<Cliente> searchCliente(string searchToText, bool CargarImagenesClientes)
+        {
+            IEnumerable<Cliente> clientes = null;
+
+            clientes = BLLPrestamo.Instance.SearchCliente(new BuscarClienteParams { TextToSearch = searchToText, IdNegocio = pcpUserIdNegocio });
+
+            if (CargarImagenesClientes)
+            {
+                foreach (var cliente in clientes)
+                {
+                    cliente.Imagen1FileName = Url.Content(SiteDirectory.ImagesForClientes + "/" + cliente.Imagen1FileName);
+                }
+            }
+
+            return clientes;
+        }
+
+
     }
 
 
@@ -245,5 +307,7 @@ namespace PrestamosMVC5.Controllers
                 DataList = new List<T>();
         }
     }
+
+
 
 }

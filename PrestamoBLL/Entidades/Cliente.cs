@@ -47,6 +47,7 @@ namespace PrestamoBLL.Entidades
 
         public string Imagen2FileName { get; internal set; } = string.Empty;
 
+        public bool Activo { get; internal set; } = false;
         public int IdTipoIdentificacion { get; internal set; }
         public string InfoDelCliente => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";
     }
@@ -60,6 +61,7 @@ namespace PrestamoBLL.Entidades
         [Required]
         public string Codigo { get; set; } = string.Empty;
 
+        public int IdStatus { get; set; } = -1;
         public bool GenerarSecuencia { get; set; } = true;
 
         [Display(Name = "Tipo Identificacion")]
@@ -104,6 +106,7 @@ namespace PrestamoBLL.Entidades
         /// </summary>
         public string Imagen1FileName { get; set; } = string.Empty;
         public string Imagen2FileName { get; set; } = string.Empty;
+        
 
         [Display(Name = "Tiene Pareja o Conyuge")]
         public bool TieneConyuge { get; set; }
@@ -142,6 +145,11 @@ namespace PrestamoBLL.Entidades
     public class ClienteDelParams : BaseAnularParams
     {
 
+    }
+
+    public class BuscarClienteParams : BaseGetParams
+    {
+        public string TextToSearch { get; set; } = string.Empty;
     }
 
 }

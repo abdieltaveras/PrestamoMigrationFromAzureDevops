@@ -35,14 +35,12 @@ namespace PrestamosMVC5.Controllers
                     prestamo.FotoCliente = Url.Content(SiteDirectory.ImagesForClientes + "/" + prestamo.FotoCliente);
                 }
             }
-            
             return JsonConvert.SerializeObject(prestamos);
         }
         public string GetPrestamo(int idprestamo)
         {
-            
+            //throw new Exception("error para ver que pasa");
             var prestamo = BLLPrestamo.Instance.GetPrestamoConDetalle(idprestamo, DateTime.Now);
-            
             return JsonConvert.SerializeObject(prestamo);
         }
 

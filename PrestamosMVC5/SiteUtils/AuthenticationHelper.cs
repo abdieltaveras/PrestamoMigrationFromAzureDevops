@@ -213,7 +213,7 @@ namespace PrestamosMVC5.SiteUtils
                 #if DEBUG
                     {
                         var usuario = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = "bryan", IdNegocio = 6 }).FirstOrDefault();
-                        var result = BLLPrestamo.Instance.LoginUser(usuario);
+                        var result = BLLPrestamo.Instance.Login(usuario);
                         AuthInSession.LoginUserToSession(1, result.Usuario.LoginName, result.Usuario.IdUsuario, result.Usuario.NombreRealCompleto, result.Usuario.ImgFilePath);
                     }
                 #else

@@ -6,7 +6,7 @@ as
 begin
 SELECT Pres.IdPrestamo, pres.idNegocio, pres.idCliente, prestamoNumero, FechaEmisionReal, FechaVencimiento,					
 	pres.IdTipoAmortizacion, pres.idClasificacion, pres.TotalPrestado, pres.idTipoMora,
-	clie.Codigo as CodigoCliente,clie.InfoLaboral, clie.Nombres, clie.Apellidos, clie.IdTipoIdentificacion , clie.NoIdentificacion as NumeracionDocumentoIdentidad, clie.TelefonoCasa, clie.TelefonoMovil, clie.Imagen1FileName, clie.Imagen2FileName,
+	clie.Codigo as CodigoCliente,clie.InfoLaboral, clie.Nombres, clie.Apellidos, clie.IdTipoIdentificacion , clie.NoIdentificacion as NumeracionDocumentoIdentidad, clie.TelefonoCasa, clie.TelefonoMovil, clie.Imagen1FileName, clie.Imagen2FileName, clie.Activo,
 	peri.Nombre as NombrePeriodo,
 	clas.Nombre as NombreClasificacion,
 	mora.Nombre as NombreTipoMora

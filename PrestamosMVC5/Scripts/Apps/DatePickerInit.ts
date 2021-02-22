@@ -1,10 +1,14 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
     let allDateElems = $('.datetype,input[type="datetime"],input[type="date"]');
     allDateElems.data("data-val", false);
     allDateElems.each(function () {
         setFecha($(this));
     });
+    function setFecha(jQelem: JQuery) {
+        const fecha = toDate(jQelem.val());
+        const formattedDate = moment(fecha).format("DD/MM/YYYY")
+        jQelem.val(formattedDate);
+    }
     // esto es para que no valide la fecha con las reglas que le envia el razor, 
     // asi evitamos que este saliendo el dialogo del datepicker 
     // al ejecutar un submit del formulario
@@ -27,6 +31,16 @@ $(document).ready(function () {
         //altFormat: "yy-mm-dd",
         onClose: function (dateText, inst) {
             //$(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectDay));
+            
         }
     });
 });
+
+function convertUtcDateToFormat(date: string, format: string): string {
+    const fecha = moment.utc(date).format(format);
+    return fecha;
+}
+
+function avoidFunctionsError() {
+    convertUtcDateToFormat(null, null);
+}

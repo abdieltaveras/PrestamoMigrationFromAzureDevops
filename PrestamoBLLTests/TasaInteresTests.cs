@@ -92,7 +92,22 @@ namespace PrestamoBLL.Tests
             }
             Assert.IsTrue(OperacionExitosa, error.Message);
         }
+        [TestMethod()]
+        public void CalcularTasaInterePorPeriodoTest()
+        {
+            var search = new PeriodoGetParams();
+            var periodos = BLLPrestamo.Instance.GetPeriodos(search);
 
-        
+            foreach (var item in periodos)
+            {
+                var result = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(10, item);
+                var NombrePeriodo = item.Nombre;
+                var tasaInteresPeriodo = result.InteresDelPeriodo;
+            }
+
+            Assert.Fail();
+        }
+
+
     }
 }

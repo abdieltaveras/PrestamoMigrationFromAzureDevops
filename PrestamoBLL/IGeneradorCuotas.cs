@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PrestamoBLL
 {
-    internal interface IGeneradorCuotas
+    public interface IGeneradorCuotas
     {
         List<Cuota> GenerarCuotas();
     }

@@ -1,7 +1,7 @@
 ﻿create table tblPeriodos
 ( idPeriodo int primary key identity(1,1),
   Idnegocio int foreign key references tblNegocios(idNegocio),
-  PeriodoBase int not null,
+  IdPeriodoBase int not null,
   -- valores 1 para dia, 2 para semana, 3 para quincena, 4 para mes, 5 para año
   Codigo varchar(10) not null,
   Activo bit not null default 1,
@@ -14,6 +14,6 @@
     [FechaModificado] DATETIME NULL, 
     [AnuladoPor] VARCHAR(100) NULL, 
     [FechaAnulado] DATETIME NULL,
-  CONSTRAINT PeriodoBaseCk CHECK (PeriodoBase IN (1, 2, 3, 4,5)),
+  CONSTRAINT PeriodoBaseCk CHECK (IdPeriodoBase IN (1, 2, 3, 4,5)),
   constraint UK_Codigo unique(IdNegocio,Codigo) 
 )

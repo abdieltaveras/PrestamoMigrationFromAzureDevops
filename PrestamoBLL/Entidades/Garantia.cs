@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using System.Web;
 
 namespace PrestamoBLL.Entidades
 {
@@ -14,6 +13,7 @@ namespace PrestamoBLL.Entidades
     public class InfoGarantiaDrCr
         //: IInfoGarantiaDrCr
     {
+        public int IdGarantia { get; internal set; }
         public int IdClasificacion { get; internal set; }
 
         public string Clasificacion => Enum.GetName(typeof(TiposClasificacionGarantia), (TiposClasificacionGarantia)IdClasificacion);
@@ -22,6 +22,17 @@ namespace PrestamoBLL.Entidades
         public string NombreModelo { get; internal set; } = string.Empty;
         public string NombreTipoGarantia { get; internal set; } = string.Empty;
         public string OtrosDetalles { get; internal set; } = string.Empty;
+        public string Detalles { get; internal set; } = string.Empty;
+        public string Imagen1FileName { get; internal set; }
+
+        public string Imagen2FileName { get; internal set; }
+        public string Imagen3FileName { get; internal set; }
+
+        public string Imagen4FileName { get; internal set; }
+        public DetalleGarantia DetallesForJson { get; internal set; }
+        
+
+        public void DetallesForJsonConvert()   { this.DetallesForJson = this.Detalles.ToType<DetalleGarantia>(); }
 
         public string InfoVehiculo =>
             $"{this.NombreTipoGarantia} {this.NombreMarca} {this.NombreModelo} ";
@@ -34,17 +45,41 @@ namespace PrestamoBLL.Entidades
         public int IdTipoGarantia { get; set; } = -1;
         public int IdModelo { get; set; } = -1;
         public int IdMarca { get; set; } = -1;
+        public string Imagen1FileName { get; set; } 
+        public string Imagen2FileName { get; set; } 
+        public string Imagen3FileName { get; set; }
+        public string Imagen4FileName { get; set; }
 
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
         //[StringLength(3)]
         public string NoIdentificacion { get; set; } = string.Empty;
         [IgnorarEnParam]
-        public DetalleGaratia DetallesJSON { get; set; }
+        public DetalleGarantia DetallesJSON { get; set; }
         public string Detalles { get; set; } = string.Empty;
+        
+    }
+    public class GarantiaConMarcaYModelo : Garantia
+    {
+        public string NombreMarca { get; internal set; }
+        public string NombreModelo { get; internal set; }
     }
 
-    public class DetalleGaratia : BaseInsUpd
+    public class GarantiaConMarcaYModeloYPrestamos : Garantia
+    {
+        public string NombreMarca { get; internal set; }
+        public string NombreModelo { get; internal set; }
+
+        public bool TienePrestamosVigentes => IdPrestamos.Count() > 0;
+
+        public List<int> IdPrestamos { get; internal set; } = new List<int>();
+
+        public List<string> PrestamosNumero { get; internal set; } = new List<string>();
+
+        public string ListaPrestamosVigentes => string.Join(", ", PrestamosNumero);
+    }
+
+    public class DetalleGarantia : BaseInsUpd
     {
         // Mobiliarios
         public string Color { get; set; } = string.Empty;
@@ -80,7 +115,10 @@ namespace PrestamoBLL.Entidades
         public int IdMarca { get; set; }
         public string NoIdentificacion { get; set; }
         public int IdNegocio { get; set; }
-
+        public string Imagen1FileName { get; set; } = string.Empty;
+        public string Imagen2FileName { get; set; } = string.Empty;
+        public string Imagen3FileName { get;  set; } = string.Empty;
+        public string Imagen4FileName { get;  set; } = string.Empty;
         //Aqui esta propiedad es string porque sera convertido en un JSON
         public string Detalles { get; set; }
     }
@@ -90,6 +128,15 @@ namespace PrestamoBLL.Entidades
         public string Search { get; set; } = string.Empty;
     }
 
-    
+    public class GarantiaGetParams : BaseGetParams
+    //: BaseGetParams
+    {
+        public int IdGarantia { get; set; } = -1;
+        //public int IdClasificacion { get; set; } = -1;
+        //public int IdTipoGarantia { get; set; } = -1;
+        //public int IdModelo { get; set; } = -1;
+    }
+
+
 
 }

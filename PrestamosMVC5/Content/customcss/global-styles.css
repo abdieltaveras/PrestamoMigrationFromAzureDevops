@@ -6,6 +6,7 @@ input[type=password],
 input[type=number],
 input[type=search],
 input[type=file],
+input[type=submit],
 input[type=datetime],
 select.form-control,
 select option,
@@ -13,6 +14,10 @@ textarea.form-control {
     border-radius: 20px;
 }
 
+.text-search {
+    color:green;
+    background-color:antiquewhite;
+}
 button {
     border-radius: 20px !important;
 }
@@ -57,4 +62,64 @@ thead tr {
 .paging_simple_numbers {
     float: right;
 }
+
+.checkColumn {
+    width: 5%;
+}
+
+#datatable {
+    width: 100%;
+    text-align: center;
+}
+
+#datatable td {
+    height: 40px;
+}
+
 /*Fin de estilos para datatable*/
+
+/* para usarlo en div que uno desea que sean scrollable
+    lo utilice en la ui de prestamos para mostrar las cuotas
+*/
+#outerDiv {
+    height: 100%;
+    margin: 0em;
+}
+
+.scrollableContent {
+    height: 100%;
+    margin: 0em;
+    overflow-y: auto;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+.dtHorizontalExampleWrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#dtHorizontalExample th, td {
+    white-space: nowrap;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+    bottom: .5em;
+}
+/* fin de estilos para escrollable div*/

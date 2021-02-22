@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spInsUpdPeriodo]
 	@idnegocio int, 
 	@idPeriodo int,
-	@periodobase int,
+	@idPeriodobase int,
 	@codigo varchar(10), 
 	@activo bit,
 	@nombre varchar(50),
@@ -13,15 +13,14 @@ AS
 Begin
 if (@idPeriodo <= 0)
 	begin
-	
-		INSERT INTO dbo.tblPeriodos (Idnegocio, PeriodoBase, Codigo, Activo, Nombre, MultiploPeriodoBase, RequiereAutorizacion, InsertadoPor, FechaInsertado)
-		VALUES (@idnegocio, @periodobase, @codigo, @activo, @nombre, @multiploperiodobase, @requiereautorizacion, @usuario, getdate()) 
+		INSERT INTO dbo.tblPeriodos (Idnegocio, IdPeriodoBase, Codigo, Activo, Nombre, MultiploPeriodoBase, RequiereAutorizacion, InsertadoPor, FechaInsertado)
+		VALUES (@idnegocio, @idPeriodobase, @codigo, @activo, @nombre, @multiploperiodobase, @requiereautorizacion, @usuario, getdate()) 
 	end
 Else
 	Begin
 	UPDATE dbo.tblPeriodos
 	SET 
-		PeriodoBase = @periodobase,
+		IdPeriodoBase = @IdPeriodobase,
 		Codigo = @codigo,
 		Activo = @activo,
 		Nombre = @nombre,
@@ -29,6 +28,6 @@ Else
 		RequiereAutorizacion = @requiereautorizacion,
 		ModificadoPor = @usuario,
 		FechaModificado = getDate()
-		where idPeriodo = @idPeriodo
+		where idPeriodo = @idPeriodo and AnuladoPor is null
 	End
 End

@@ -1,6 +1,6 @@
 ﻿namespace PrestamoBLL.Entidades
 {
-    public enum Sexo { Masculino=1, Femenino, NoAplica }
+    public enum Sexo { Masculino=1, Femenino }
    // public enum EstadoCivil { Soltero=1, Casado, Union_Libre, Viudo, Divorciado }
     public enum TiposTelefono { Movil=1, Casa, Trabajo, Fax, Otros }
     /// <summary>

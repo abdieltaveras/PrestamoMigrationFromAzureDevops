@@ -42,7 +42,7 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Localidad> localidades = new List<Localidad>();
             if (IDLocalidad != "")
             {
-                localidades = BLLPrestamo.Instance.LocalidadesGet(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
+                localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
             }
             
             return JsonConvert.SerializeObject(localidades);
@@ -56,7 +56,7 @@ namespace PrestamosMVC5.Controllers
             pcpSetUsuarioAndIdNegocioTo(localidad);
             try
             {
-                BLLPrestamo.Instance.LocalidadInsUpd(localidad);
+                BLLPrestamo.Instance.InsUpdLocalidad(localidad);
             }
             catch (Exception)
             {
@@ -69,7 +69,7 @@ namespace PrestamosMVC5.Controllers
         public string BuscarLocalidad(string textToSearch)
         {
             IEnumerable<Localidad> localidades = null;
-            localidades = BLLPrestamo.Instance.LocalidadSearch(new BuscarLocalidadParams { Search = textToSearch, IdNegocio = pcpUserIdNegocio });
+            localidades = BLLPrestamo.Instance.SearchLocalida(new BuscarLocalidadParams { Search = textToSearch, IdNegocio = pcpUserIdNegocio });
             //if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
             //{
             //}
@@ -80,14 +80,14 @@ namespace PrestamosMVC5.Controllers
         {
             TerritorioVM modelo = new TerritorioVM();
             modelo.ListaTerritorios = BLLPrestamo.Instance.TerritorioDivisionesTerritorialesPaisesGet(new TerritorioGetParams() { IdNegocio = pcpUserIdNegocio });
-            modelo.ListaPaises = BLLPrestamo.Instance.PaisesGet(new LocalidadPaisesGetParams() { IdNegocio = pcpUserIdNegocio });
+            modelo.ListaPaises = BLLPrestamo.Instance.GetPaises(new LocalidadPaisesGetParams() { IdNegocio = pcpUserIdNegocio });
             return View("CreatePais", modelo);
         }
 
         public string BuscarLocalidadesHijas(string localidadPadre)
         {
             IEnumerable<LocalidadesHijas> localidades = null;
-            localidades = BLLPrestamo.Instance.LocalidadesHijasGet(new LocalidadGetParams() { IdNegocio = pcpUserIdNegocio, IdLocalidad = int.Parse(localidadPadre) });
+            localidades = BLLPrestamo.Instance.GetHijasLocalidades(new LocalidadGetParams() { IdNegocio = pcpUserIdNegocio, IdLocalidad = int.Parse(localidadPadre) });
             return JsonConvert.SerializeObject(localidades);
         }
     }

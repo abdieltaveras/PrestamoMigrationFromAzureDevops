@@ -10,7 +10,7 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<BaseCatalogo>CatalogosGet(BaseCatalogoGetParams searchParam)
+        public IEnumerable<BaseCatalogo> GetCatalogos(BaseCatalogoGetParams searchParam)
         {
             if (string.IsNullOrEmpty(searchParam.IdTabla))
             {
@@ -38,7 +38,7 @@ namespace PrestamoBLL
                     throw new Exception($"La tabla {searchParam.NombreTabla} , no se encontro en ninguna eleccion para ejecutar una consulta de datos");
             }
         }
-        public void CatalogoInsUpd(Catalogo insUpdParams )
+        public void InsUpdCatalogo(Catalogo insUpdParams )
         {
             BllAcciones.InsUpdData(insUpdParams, "spInsUpdCatalogo");
         }
@@ -46,27 +46,24 @@ namespace PrestamoBLL
         {
             BllAcciones.CancelData(toggleStatusParams, "spToggleStatusCatalogo");
         }
-        public void CatalogoDel(DelCatalogo delParams)
+        public void AnularCatalogo(DelCatalogo delParams)
         {
             BllAcciones.CancelData(delParams, "spDelCatalogo");
         }
 
-        public List<T> catalogoSearch<T>(SearchCatalogoParams searchParams) where T : class
+        public List<T> SearchCatalogos<T>(SearchCatalogoParams searchParams) where T : class
         {
             var searchSqlParams = SearchRec.ToSqlParams(searchParams);
             List<T> catalogo = new List<T>();
-            
             try
             {
-                catalogo = PrestamosDB.ExecReaderSelSP<T>("CatalogoSpBuscar", searchSqlParams);
+                catalogo = DBPrestamo.ExecReaderSelSP<T>("CatalogoSpBuscar", searchSqlParams);
             }
             catch (Exception e)
             {
                 DatabaseError(e);
             }
-
             return catalogo;
-
         }
     }
 }

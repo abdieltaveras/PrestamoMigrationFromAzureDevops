@@ -14,7 +14,7 @@ begin
 	FROM dbo.tblTiposMora(nolock) 
 	where 
 		((@idTipoMora=-1) or (idTipoMora = @idTipoMora))
-		and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
+		--and (IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)))
 		and ((@Codigo='') or (Codigo = @Codigo))
 		and ((@Activo=-1) or (Activo=@Activo))
 		and ((@RequiereAutorizacion=-1) or (RequiereAutorizacion = @RequiereAutorizacion))

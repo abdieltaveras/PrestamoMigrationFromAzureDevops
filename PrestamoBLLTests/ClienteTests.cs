@@ -93,7 +93,7 @@ namespace PrestamoBLL.Tests
             var mensajeError = string.Empty;
             try
             {
-                BLLPrestamo.Instance.ClientesGet(insData);
+                BLLPrestamo.Instance.GetClientes(insData);
             }
             catch (Exception e)
             {
@@ -109,7 +109,7 @@ namespace PrestamoBLL.Tests
             var OperacionExitosa = true;
             var cliente = ClienteData.newCliente();
             cliente.NoIdentificacion = DateTime.Now.ToString();
-            try { BLLPrestamo.Instance.ClientesInsUpd(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion(), ClienteData.newInfoReferencia() ); }
+            try { BLLPrestamo.Instance.InsUpdClientes(cliente, ClienteData.newConyuge(), ClienteData.newInfoLaboral(), ClienteData.newDireccion(), ClienteData.newInfoReferencia() ); }
             catch (Exception e)
             {
                 error = e;
@@ -126,7 +126,7 @@ namespace PrestamoBLL.Tests
             var error = string.Empty;
             try
             {
-                BLLPrestamo.Instance.ClientesGet(gParam);
+                BLLPrestamo.Instance.GetClientes(gParam);
             }
             catch (Exception e)
             {

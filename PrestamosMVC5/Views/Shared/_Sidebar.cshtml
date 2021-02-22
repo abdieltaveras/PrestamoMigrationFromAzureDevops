@@ -4,9 +4,9 @@
         <h3>Menu</h3>
         <ul class="nav side-menu">
 
-            <li>
+            @*<li>
                 <a href="@Url.Action("Index", "TasaInteres")"><i class="fa fa-percent"></i>Tasas de interes</a>
-            </li>
+            </li>*@
 
             <li>
                 <a><i class="fa fa-edit"></i>Catálogos<span class="fa fa-chevron-down"></span></a>
@@ -25,7 +25,7 @@
                                 }
                                 <a href="@Url.Action("CreateOrEdit","Clientes", new { id = -1 })">Crear Cliente Nuevo</a>
                             </li>
-                            
+
                             <li>
                                 <a>Tipo telefono<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -105,6 +105,9 @@
 
                         <ul class="nav child_menu">
                             <li>
+                                <a href="@Url.Action("Index","Garantias")">Listado de Garantias</a>
+                            </li>
+                            <li>
                                 <a href="@Url.Action("CreateOrEdit","Garantias")">Crear garantia</a>
                             </li>
                             <li>
@@ -161,14 +164,17 @@
                             <li>
                                 <a href="@Url.Action("CreateOrEdit", "Prestamos", new {idPrestamo=-1 })">Crear Prestamo Nuevo</a>
                             </li>
-                            @if (Permission.Has("tasainteres-ver"))
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
-                                </li>
-                            }
+                            @*@if (Permission.Has("tasainteres-ver"))
+                {*@
+                            <li>
+                                <a href="@Url.Action("Index", "TasaInteres")">Tasas de interes</a>
+                            </li>
+                            @*}*@
                             <li>
                                 <a href="@Url.Action("Index", "TipoMoras")">Catalogo de moras</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Periodos")">Periodos</a>
                             </li>
                             <li>
                                 <a>Localizadores-Cobradores<span class="fa fa-chevron-down"></span></a>
@@ -179,6 +185,18 @@
                                 </ul>
                             </li>
 
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Status<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="@Url.Action("Index","Status",  new { tabla= "tblStatus" })">Listado De Status</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("CreateOrEdit","Status",  new { tabla= "tblStatus" })">Agregar Status</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -194,10 +212,11 @@
                     <li>
                         <a href="@Url.Action("Index","TasaInteres")">Tasa de Interes</a>
                     </li>
-                    
+
                     <li>
                         <a href="@Url.Action("CreateOrEdit","Negocios",new { id = -1 }))">Negocios</a>
                     </li>
+                    
                 </ul>
             </li>
 

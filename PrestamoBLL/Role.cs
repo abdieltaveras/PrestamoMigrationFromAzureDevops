@@ -10,17 +10,17 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Role> RolesGet(RoleGetParams searchParam)
+        public IEnumerable<Role> GetRoles(RoleGetParams searchParam)
         {
             return BllAcciones.GetData<Role, RoleGetParams>(searchParam, "spGetRoles", GetValidation);
         }
 
-        public int RoleInsUpd(Role insUpdParam)
+        public int InsUpdRole(Role insUpdParam)
         {
             return BllAcciones.InsUpdData<Role>(insUpdParam, "spInsUpdRole");
         }
 
-        public void RoleOperacionInsUpd(
+        public void insUpdRoleOperacion(
             List<RoleOperacionIns> dataAInsertar,
             List<RoleOperacionIns> dataAModificar,
             List<RoleOperacionIns> dataAAnular,
@@ -39,7 +39,7 @@ namespace PrestamoBLL
                     RoleOperacionAnular = DataTableAnular,
                     Usuario = usuario
                 });
-                var response = PrestamosDB.ExecSelSP("spInsUpdRoleOperacion", _insUpdParam);
+                var response = DBPrestamo.ExecSelSP("spInsUpdRoleOperacion", _insUpdParam);
             }
             catch (Exception e)
             {
@@ -52,19 +52,19 @@ namespace PrestamoBLL
         //    throw new NotImplementedException();
         //}
 
-        public IEnumerable<RoleOperacion> RoleOperacionesSearch(BuscarRoleOperacionesParams searchParam)
+        public IEnumerable<RoleOperacion> SearchRoleOperaciones(BuscarRoleOperacionesParams searchParam)
         {
             return BllAcciones.GetData<RoleOperacion, BuscarRoleOperacionesParams>(searchParam, "spBuscarRoleOperaciones", GetValidation);
         }
 
-        public IEnumerable<RoleOperacion> RoleOperacionesGet(RoleOperacionGetParams data)
+        public IEnumerable<RoleOperacion> GetRoleOperaciones(RoleOperacionGetParams data)
         {
             var searchSqlParams = SearchRec.ToSqlParams(data);
             var operaciones = new List<RoleOperacion>();
 
             try
             {
-                operaciones = PrestamosDB.ExecReaderSelSP<RoleOperacion>("RoleOperacionesSpGet", searchSqlParams);
+                operaciones = DBPrestamo.ExecReaderSelSP<RoleOperacion>("RoleOperacionesSpGet", searchSqlParams);
             }
             catch (Exception e)
             {

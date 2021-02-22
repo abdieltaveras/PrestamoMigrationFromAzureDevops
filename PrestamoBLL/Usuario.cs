@@ -68,7 +68,7 @@ namespace PrestamoBLL
                     UsuarioRoleAnular = DataTableAnular,
                     Usuario = usuario
                 });
-                var response = PrestamosDB.ExecSelSP("spInsUpdUserRoles", _insUpdParam);
+                var response = DBPrestamo.ExecSelSP("spInsUpdUserRoles", _insUpdParam);
             }
             catch (Exception e)
             {
@@ -83,7 +83,7 @@ namespace PrestamoBLL
             var operaciones2 = new List<CodigoOperacion>();
             try
             {
-                operaciones2 = PrestamosDB.ExecReaderSelSP<CodigoOperacion>("UsuarioListaOperacionesSpGet", searchSqlParams);
+                operaciones2 = DBPrestamo.ExecReaderSelSP<CodigoOperacion>("UsuarioListaOperacionesSpGet", searchSqlParams);
             }
             catch (Exception e)
             {

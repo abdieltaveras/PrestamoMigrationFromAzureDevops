@@ -5,19 +5,15 @@
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-color" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-color" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
+        <h4>Tabla de colores</h4>
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de colores</h2>
-
-                <div class="clearfix"></div>
-            </div>
             <div class="x_content">
-                <table id="datatable" class=" table-bordered table-striped row-border " style="width:100%; text-align:center;">
+                <table id="datatable" class="table-bordered row-border" >
                     <thead>
                         <tr>
+                            <th class="checkColumn"></th>
                             <th>Color</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,24 +21,25 @@
                         @foreach (var item in Model.ListaColores)
                         {
                             <tr class="@(!item.Activo ? "table-active" : "" )">
+                                <td></td>
                                 <td>
                                     <strong>
                                         @item.Nombre
                                     </strong>
                                 </td>
 
-                                <td>
-                                    @*<a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
+                                @*<td>
+                                    <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
                                             <button type="button" class="btn btn-outline-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                        </a>*@
+                                        </a>
                                     <a href="#">
                                         <button class="btn btn-outline-warning">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </a>
-                                </td>
+                                </td>*@
                             </tr>
                         }
 
@@ -115,6 +112,10 @@
 
 @section prevscripts {
     <script>
+        let onNewButton = function () {
+            $('.modal-color').modal('show');
+        }
+
         $(document).ready(function () {
             $('#datatable').DataTable(dataTableConfiguration);
             removeTemplateConfiguration();

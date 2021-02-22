@@ -16,46 +16,46 @@ namespace PrestamoBLL
         /// <returns></returns>
         // Registrar Equipo
 
-        public EquipoIdYCodigo EquipoInsUpd(Equipo data)
+        public EquipoIdYCodigo InsUpdEquipo(Equipo data)
         { 
             var _updParam = SearchRec.ToSqlParams(data);
-            var resultSet = PrestamosDB.ExecReaderSelSP<EquipoIdYCodigo>("spInsUpdEquipo", _updParam);
+            var resultSet = DBPrestamo.ExecReaderSelSP<EquipoIdYCodigo>("spInsUpdEquipo", _updParam);
             return resultSet.FirstOrDefault();
         }
 
         // GetEquipoRegistrado(CodigoEquipo)
-        public IEnumerable<Equipo> EquiposGet(EquiposGetParam searchParam)
+        public IEnumerable<Equipo> GetEquipos(EquiposGetParam searchParam)
         {
             return BllAcciones.GetData<Equipo, EquiposGetParam>(searchParam, "spGetEquipos", GetValidation);
         }
         /// <summary>
         /// Confirma el registro para poder operar
         /// </summary>
-        public void EquipoConfirmarRegistro(EquiposGetParam2 searchParam)
+        public void ConfirRegistroEquipo(EquiposGetParam2 searchParam)
         {
             var _searchParam = SearchRec.ToSqlParams(searchParam);
-            PrestamosDB.ExecSelSP("SpConfirmarRegistro", _searchParam);
+            DBPrestamo.ExecSelSP("SpConfirmarRegistro", _searchParam);
         }
         /// <summary>
         /// Para registrar un log de registro a este dispositivo  
         /// </summary>
         /// <param name="idEquipo"></param>
         /// <param name="usuario"></param>
-        public void EquipoRegistrarAcceso(EquiposGetParam2 getParam)
+        public void LogOperationsOfEquipo(EquiposGetParam2 getParam)
         {
             //todo: analizar esta implementacion si hacerlo aqui, o donde pues el objetivo sera llevar un control de quien ha accesado el sistema desde este equipo y a que hora lo hizo
             throw new NotImplementedException();
         }
 
-        public void EquipoBloquearAcceso(EquiposGetParam2 getParam)
+        public void BloquearAccesoAEquipo(EquiposGetParam2 getParam)
         {
             var _searchParam = SearchRec.ToSqlParams(getParam);
-            PrestamosDB.ExecSelSP("SpBloquearEquipo", _searchParam);
+            DBPrestamo.ExecSelSP("SpBloquearEquipo", _searchParam);
         }
         
         // Registrar acceso al equipo (el log)
         // Bloquear El Equipo
-        public void EquipoDesvincular(EquiposGetParam2 getParam)
+        public void DesvincularEquipo(EquiposGetParam2 getParam)
         {
             var anularRegistro = new AnulacionDeRegistro
             {
@@ -65,7 +65,7 @@ namespace PrestamoBLL
                 Usuario = getParam.Usuario
             };
             var _updateData = SearchRec.ToSqlParams(anularRegistro);
-            PrestamosDB.ExecSelSP("SpAnularRegistro", _updateData);
+            DBPrestamo.ExecSelSP("SpAnularRegistro", _updateData);
         }
 
 

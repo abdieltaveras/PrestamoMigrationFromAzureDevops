@@ -9,29 +9,27 @@
     <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
 
         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" style="float:right;">Agregar modal</button>*@
-        <button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>
+        @*<button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres" onclick="showTasaInteresForm()" style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
+        <h4>Tabla de roles</h4>
         <div class="x_panel">
-            <div class="x_title">
-                <h2>Tabla de intereses</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                </ul>
-                <div class="clearfix"></div>
-            </div>
+            
             <div class="x_content">
-                <table class="table bulk_action ">
+                <table id="datatable" class="table-bordered row-border" >
                     <thead>
                         <tr>
+                            <th class="checkColumn"></th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach (var item in Model.ListaRoles)
                         {
-                            <tr>
+                            <tr
+                                data-id="@item.IdRole">
+                                <td></td>
                                 <td>
                                     <span>@item.Nombre</span>
                                 </td>
@@ -39,7 +37,7 @@
                                     @item.Descripcion
                                 </td>
 
-                                <td>
+                                @*<td>
                                     <a href="#">
                                         <button type="button" class="btn btn-outline-danger">
                                             <i class="fa fa-trash"></i>
@@ -50,7 +48,7 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </a>
-                                </td>
+                                </td>*@
                             </tr>
                         }
                     </tbody>
@@ -61,7 +59,7 @@
 </div>
 
 @*Modal de agregar intereses*@
-<div class="modal fade modal-tasa-interes" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade modal-roles" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -114,3 +112,28 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    let onEditButton = function () {
+        let id = $('tr.selected').data("id");
+
+        if (id) {
+
+            window.location.href = "/Roles/Edit/" + id;
+
+        }
+    }
+    let onDeactivateButton = function () {        
+    }
+    let onCancelButton = async function () {
+    }
+    let onNewButton = function () {
+        $('.modal-roles').modal('show');
+    }
+
+    $(document).ready(function () {
+        $('#datatable').DataTable(dataTableConfiguration);
+        removeTemplateConfiguration();
+    });
+</script>

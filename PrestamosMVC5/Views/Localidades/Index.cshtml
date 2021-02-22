@@ -144,7 +144,7 @@ else if (ViewBag.errorMessage != null)
 
                 return $.ajax({
                     type: "get",
-                    url: "localidades/buscarlocalidad",
+                    url: "/localidades/buscarlocalidad",
                     data: dataValue,
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
@@ -243,7 +243,7 @@ else if (ViewBag.errorMessage != null)
 
                 return $.ajax({
                     type: "get",
-                    url: "territorio/BuscarTerritorios",
+                    url: "/territorio/BuscarTerritorios",
                     data: dataValue,
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
@@ -299,7 +299,7 @@ else if (ViewBag.errorMessage != null)
 
                 return $.ajax({
                     type: "get",
-                    url: "Localidades/BuscarLocalidadesHijas",
+                    url: "/Localidades/BuscarLocalidadesHijas",
                     data: dataValue,
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);

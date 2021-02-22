@@ -12,10 +12,13 @@ using System.Web.Mvc;
 using System.Xml.Serialization;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace PrestamoBLL
 {
     public static class Utils
     {
+        private static readonly object PrestamoDB;
+
         public static int GetIdFromDataTable(DataTable objectContainingId)
         {
             return Convert.ToInt32(objectContainingId.Rows[0][0]);
@@ -28,7 +31,16 @@ namespace PrestamoBLL
             return result.FirstOrDefault();
 
         }
-
+        /// <summary>
+        /// gets date from the sql server instance running
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime GetDateFromSqlServer()
+        {
+            var result = BLLPrestamo.DBPrestamo.ExecQuery("select GetDate() as DT", "SysDate");
+            var r = Convert.ToDateTime(result.Rows[0][0]);
+            return r;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -96,14 +108,12 @@ namespace PrestamoBLL
             //data:image/gif;base64,
             //this image is a single pixel (black)
             byte[] bytes = Convert.FromBase64String(imgbasestring);
-
             Image image;
             using (MemoryStream ms = new MemoryStream(bytes))
             {
                 image = Image.FromStream(ms);
                 image.Save(fullPath);
             }
-
             return image;
         }
 
@@ -115,11 +125,9 @@ namespace PrestamoBLL
                 var extension = "jpeg";
                 fileName = Guid.NewGuid().ToString() + "." + extension;
                 var fullpath = Path.Combine(path, fileName);
-
                 int lengthtoremove = "data:Image/jpeg;base64,".Length;
                 string imgbasestring = base64Image.Remove(0, lengthtoremove);
                 File.WriteAllBytes(fullpath, Convert.FromBase64String(imgbasestring));
-
                 //var imagen = convertBase64ToImage(base64Image, fullpath);
             }
             return fileName;

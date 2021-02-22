@@ -1,4 +1,6 @@
-﻿function getClientesByNumeroIdentificacion(numeroIdentificacion: string, fsetDataTo: Function) {
+﻿// esta funcion se hizo inicialmente para hacer ciertas pruebas directa, luego bryan incorporo los metodos
+// para realizar busqueda mas ampliados, se dejo aqui para fines de consulta o algun posible uso
+function getClientesByNumeroIdentificacion(numeroIdentificacion: string, fsetDataTo: Function) {
     const url = "/Clientes/BuscarPorNoIdentificacion"
 
     if (numeroIdentificacion.match(/\d/g).length > 0) {

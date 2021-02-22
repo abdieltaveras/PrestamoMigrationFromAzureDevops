@@ -18,7 +18,7 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         /// El loginName del usuario que se logueo o se registro y que esta trabajando en el sistema
         /// </summary>
-        [HiddenInput(DisplayValue = false)]
+        
         [NotMapped]
         public string Usuario { get; set; } = string.Empty;
     }
@@ -27,7 +27,9 @@ namespace PrestamoBLL.Entidades
     /// </summary>
     public abstract class BaseUsuarioEIdNegocio : BaseUsuario, IIdNegocio
     {
-        public int IdNegocio { get; set; } = -1; 
+        public int IdNegocio { get; set; } = -1;
+        [IgnorarEnParam]
+        public int IdLocalidad { get; set; } = -1;
     }
 
     public interface IIdNegocio
@@ -41,7 +43,7 @@ namespace PrestamoBLL.Entidades
         /// comercial que opera en el sistema
         /// </summary>
         [Required]
-        [HiddenInput(DisplayValue = false)]
+        
         public int IdNegocio { get; set; } = -1;
     }
 
@@ -55,23 +57,23 @@ namespace PrestamoBLL.Entidades
     {
 
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public string InsertadoPor { get; internal set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaInsertado { get; internal set; } = InitValues._19000101;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public string ModificadoPor { get; internal set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaModificado { get; internal set; } = InitValues._19000101;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
 
         public string AnuladoPor { get; internal set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaAnulado { get; internal set; } = InitValues._19000101;
         public bool Anulado() => !string.IsNullOrEmpty(AnuladoPor);  
         public virtual bool Modificable() => false;

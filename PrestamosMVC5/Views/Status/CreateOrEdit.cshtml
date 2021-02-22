@@ -1,0 +1,64 @@
+﻿@model StatusVM
+
+
+@{
+    ViewBag.Title = "Crear Editar Status";
+}
+<h4>Crear Editar Status</h4>
+@using (Html.BeginForm("CreateOrEdit", "Status", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+{
+
+    <div class="form-horizontal">
+        @*navigation*@
+        <div class="">
+            <div class="col-md-6 col-sm-12  ">
+                <div class="x_panel">
+                    @Html.HiddenFor(model => model.Status.IdStatus)
+
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Status.IdTipoStatus, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        @Html.DropDownListFor(model => model.Status.IdTipoStatus, SelectItems.ListaTipoStatus,"Seleccione un tipo de Status", htmlAttributes: new { @class = @HtmlClass.InputTextCls })
+                        @Html.ValidationMessageFor(model => model.Status.IdTipoStatus, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="@HtmlClass.FormGroupCls">
+                        @Html.LabelFor(model => model.Status.Concepto, htmlAttributes: new { @class = @HtmlClass.LabelCls })
+                        @Html.EditorFor(model => model.Status.Concepto, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, autocomplete= "off" } })
+                        @Html.ValidationMessageFor(model => model.Status.Concepto, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="@HtmlClass.FormGroupCls">
+                        @*@Html.LabelFor(model => model.Status.Estado, htmlAttributes: new { @class = @HtmlClass.LabelCls })*@
+                        <h6>Activo: @Html.CheckBoxFor(model => model.Status.Estado, htmlAttributes: new { @class = HtmlClass.CheckBoxCls})</h6>
+                        @Html.ValidationMessageFor(model => model.Status.Estado, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="ln_solid"></div>
+                    <div class="item form-group" style="float: right;">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                    @*</form>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+    {
+
+    <script>
+            //let onNewButton = function () {
+            //    $('.modal-modelos').modal('show');
+            //}
+
+            //$(document).ready(function () {
+            //    $('#datatable').DataTable(dataTableConfiguration);
+            //    removeTemplateConfiguration();
+            //});
+    </script>
+}
+

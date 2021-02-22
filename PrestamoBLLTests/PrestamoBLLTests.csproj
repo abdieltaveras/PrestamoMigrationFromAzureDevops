@@ -83,18 +83,24 @@
   <ItemGroup>
     <Compile Include="BllPrestamoTests.cs" />
     <Compile Include="CatalogosTest.cs" />
+    <Compile Include="ClasificacionTests.cs" />
     <Compile Include="CuotaTests.cs" />
     <Compile Include="EquipoTest.cs" />
+    <Compile Include="GarantiaTest.cs" />
+    <Compile Include="GeneradorCuotasTest.cs" />
+    <Compile Include="IngresoTests.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="NegocioTests.cs" />
     <Compile Include="PeriodosTests.cs" />
-    <Compile Include="PrestamoTest.cs" />
+    <Compile Include="StatusTests.cs" />
+    <Compile Include="TasaInteresTest.cs" />
     <Compile Include="TasaInteresTests.cs" />
     <Compile Include="ClienteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TerritorioTest.cs" />
     <Compile Include="TipoMoraTests.cs" />
     <Compile Include="UsuarioTests.cs" />
+    <Compile Include="UtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

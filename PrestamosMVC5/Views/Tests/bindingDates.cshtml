@@ -1,0 +1,131 @@
+﻿@model PrestamosMVC5.Controllers.FormatosFecha
+
+
+@using (Html.BeginForm("bindingDates2","tests", null, FormMethod.Post, new { id = "frmEdtFechas" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>FormatosFecha</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="@HtmlClass.FormGroupCls">
+            @Html.LabelFor(model => model.Fecha1, htmlAttributes: new { @class = @HtmlClass.LabelCls, @type = "date" })
+            <div class="@HtmlClass.DivInputCls">
+                @Html.EditorFor(model => model.Fecha1, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
+                @Html.ValidationMessageFor(model => model.Fecha1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Fecha1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fecha1, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.Fecha1, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fecha2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fecha2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fecha3, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fecha3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaSt1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FechaSt1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaSt1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaSt2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FechaSt2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaSt2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" onclick="postForm()" class="btn btn-primary">Post Form </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/apps/datePickerInit.js"></script>
+    <script>
+        let dateFormat = 'en-GB';
+        let _dateFormat = 'dd/mm/yy';
+        let yearRangeForDP = "-120:+0"
+        function setFecha(elem, name) {
+            d = new Date(elem.val());
+            var formattedDate = moment(d).format("DD/MM/YYYY")
+            console.log(d, formattedDate);
+        }
+
+        function postForm() {
+            const paramFecha1 = $("#frmEdtFechas").serialize();
+            const valorFecha1 = $("#@Html.IdFor(m => m.Fecha1)").val();
+            const fechaFromInput = moment(valorFecha1).toISOString();
+            console.log(fechaFromInput);
+            var date = new Date();
+            var fecha1 = new Date(2020, 07, 03, 0, 0, 0).toISOString();
+            console.log(valorFecha1, fechaFromInput, fecha1);
+            const paramFecha2 = {
+                Fecha1: fecha1,
+                Fecha2: fechaFromInput,
+                Fecha3: '01/08/2020',
+                FechaSt1: '03/08/2020',
+                FechaSt2 :  $("#@Html.IdFor(m => m.FechaSt2)").val()
+            }
+
+            const paramFecha3 = {
+                Fecha1: '02-08-2020'
+            }
+            console.log(paramFecha1, paramFecha2);
+            return $.ajax({
+                type: "get",
+                url: "/tests/bindingDates3",
+                data: paramFecha2,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    console.log("respuesta",response);
+                    alert("data");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                },
+                complete: function (jqXHR, status) {
+                    console.log("complete");
+                },
+                dataType: "json",
+                tradition: true
+            })
+        };
+
+    </script>}

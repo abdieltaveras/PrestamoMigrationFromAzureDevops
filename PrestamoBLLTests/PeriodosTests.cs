@@ -52,5 +52,14 @@ namespace PrestamoBLL.Tests
             var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 6, Codigo = "MES" }).FirstOrDefault();
             return periodo.idPeriodo;
         }
+        [TestMethod()]
+        public void GetInvalidIdPeriodoTest()
+        {
+            var searchPeriodo = new PeriodoGetParams { idPeriodo = 1526 };
+            var periodo = BLLPrestamo.Instance.GetPeriodos(searchPeriodo).FirstOrDefault();
+            Assert.IsTrue(periodo == null, "el id invalido retorno un valor diferente de null");
+        }
+
     }
+    
 }

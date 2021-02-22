@@ -38,7 +38,7 @@ namespace PrestamosMVC5.Controllers
             
             try
             {
-               // BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
+               BLLPrestamo.Instance.TasaInteresInsUpd(interes.TasaInteres);
             }
             catch (Exception ex)
             {
@@ -48,11 +48,13 @@ namespace PrestamosMVC5.Controllers
             return  RedirectToAction("Index");
         }
 
-        public RedirectToRouteResult Delete(int id, string usuario)
+        public RedirectToRouteResult Delete(int id)
         {
+            var tasaInteres = new TasaInteresDelParams { Id = id };
+            pcpSetUsuarioTo(tasaInteres);
             try
             {
-                BLLPrestamo.Instance.TasaInteresDelete(new TasaInteresDelParams { Id = id, Usuario = usuario });
+                BLLPrestamo.Instance.TasaInteresDelete(tasaInteres);
             }
             catch (Exception ex)
             {
@@ -61,6 +63,12 @@ namespace PrestamosMVC5.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public JsonResult GetAllTasasDeInteres()
+        {
+            var data = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams());
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

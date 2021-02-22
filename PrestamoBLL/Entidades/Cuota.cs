@@ -1,13 +1,14 @@
 ﻿using emtSoft.DAL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PrestamoBLL.Entidades
 {
-    public class Cuota
+    public class CuotaForSqlType
     {
         public int idCuota { get; internal set; } = 0;
         public int IdPrestamo { get; internal set; } = 0;
@@ -15,31 +16,52 @@ namespace PrestamoBLL.Entidades
         public DateTime Fecha { get; internal set; } = DateTime.Now;
         public decimal Capital { get; internal set; } = 0;
         public decimal Interes { get; internal set; } = 0;
-        //public decimal CapitalOrig { get; internal set; } = 0;
-        //public decimal CapitalBce { get; internal set; } = 0;
-        //public decimal InteresOrig { get; internal set; } = 0;
-        //public decimal InteresBce { get; internal set; } = 0;
+        public decimal? GastoDeCierre { get; internal set; } = 0;
+        public decimal? InteresDelGastoDeCierre { get; internal set; } = 0;
+        public decimal? OtrosCargos { get; internal set; } = 0;
 
-        /// attention: revisar con ernesto si esto tiene otra forma de abordarlo
-        /// <summary>
-        /// se decidio hacerlo un metodo para no entrar en conflicto con los parametros del tipo
-        /// </summary>
-        /// <returns></returns>
+        public decimal? InteresOtrosCargos { get; set; }
     }
-    //
-    public class CuotaAmpliada 
+    public class Cuota : CuotaForSqlType
     {
-
-        public DateTime Fecha { get; internal set; } = InitValues._19000101;
-        public decimal BalanceTotal => BceCapital + BceInteres + BceMora + BceOtrosCargos + BceInteresDespuesDeVencido;
-        public bool Atrasada(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
-        public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
+        [IgnorarEnParam]
+        public string FechaSt => Fecha.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+        [IgnorarEnParam]
+        public decimal TotalOrig => Capital + Interes + +(decimal)GastoDeCierre + (decimal)InteresDelGastoDeCierre + (decimal)OtrosCargos + (decimal)InteresOtrosCargos;
+        public decimal BceGeneral => BceCapital + BceInteres + (decimal)BceGastoDeCierre + (decimal)BceInteresDelGastoDeCierre + (decimal)BceOtrosCargos + (decimal)BceInteresOtrosCargos;
         public decimal BceCapital { get; internal set; } = 0;
         public decimal BceInteres { get; internal set; } = 0;
-        public decimal BceMora { get; internal set; } = 0;
-        public decimal BceOtrosCargos { get; internal set; } = 0;
-        public decimal BceInteresDespuesDeVencido { get; internal set; } = 0;
+        public decimal? BceGastoDeCierre { get; internal set; } = 0;
+        public decimal? BceInteresDelGastoDeCierre { get; internal set; } = 0;
+        public decimal? BceOtrosCargos { get; internal set; } = 0;
+        public decimal? BceInteresOtrosCargos { get; set; }
+        public DateTime? UltActFechaMora { get; set; } = null;
+        public DateTime? UltActFechaInteres { get; set; } = null;
+
+        public bool Atrasada(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
+        public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
+
     }
 
-}
+    public class OtrosCargosPrestamo
+    {
+        public int idOtrosCargosCuotas { get; set; }
+        public int idCuenta { get; set; }
+        public int idTipoCargo { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal Monto { get; set; }
+        public decimal Balance { get; set; }
+        public string Detalle { get; set; } = null;
+        public string OtrosDetalle { get; set; } = null;
+        public bool? esInteresOMoraPeriodica { get; set; }
+        public bool? EsDefinitivo { get; set; }
+        // los cargos deberan decir sin son definitivos o no,  los NODEFINITIVO, 
+        // como los que se procesan a fin de mes Y DEFINITIVO los que se cargan cuando se realiza el pago
+        // o el credito, ya que ese es el momento real cuando esos cargos ya se hacen definitivos
+        // y para fines de calcularlos debera iniciar a partir del ultimo cargo definitivo 
+        // que sea de interesOMora y rebajar al total que produzca, los cargos NODEFINITIVO
+        // que indican que son cargos tentativos mientras se hace ese calculo al momento del pago
+    }
 
+    
+}

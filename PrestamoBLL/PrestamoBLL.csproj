@@ -83,8 +83,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLPrestamo.cs" />
+    <Compile Include="Clasificacion.cs" />
     <Compile Include="Entidades\Clasificacion.cs" />
+    <Compile Include="Entidades\Ingreso.cs" />
     <Compile Include="Entidades\IPrestamoConDetallesParaCreditosyDebitos.cs" />
+    <Compile Include="Entidades\Status.cs" />
     <Compile Include="GeneradorDeCuotas.cs" />
     <Compile Include="Catalogo.cs" />
     <Compile Include="Color.cs" />
@@ -131,6 +134,7 @@
     <Compile Include="Errors.cs" />
     <Compile Include="Garantia.cs" />
     <Compile Include="IGeneradorCuotas.cs" />
+    <Compile Include="Ingreso.cs" />
     <Compile Include="InitValues.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Login.cs" />
@@ -142,6 +146,7 @@
     <Compile Include="PrestamoBuilder.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Periodo.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="VerificarDireccion.cs" />
     <Compile Include="Ocupacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -154,7 +159,6 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app2.config" />
     <None Include="Entidades\Direccion.cd" />
     <None Include="Entidades\TipoMora.cd" />
     <None Include="packages.config" />

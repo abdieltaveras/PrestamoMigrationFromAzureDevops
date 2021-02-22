@@ -289,8 +289,7 @@
     <script>
         var urlNoImage = "@Url.Content(SiteImages.NoImage)"
         var constantNoImagen ="@Constant.NoImagen";
-
-        attachOnChangeEvent();
+        attachOnChangeEventToCheckBoxes();
 
         function setFecha(elem, name) {
             d = new Date(elem.val());

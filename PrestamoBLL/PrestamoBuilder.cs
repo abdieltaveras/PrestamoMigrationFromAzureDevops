@@ -33,6 +33,7 @@ namespace PrestamoBLL
             //_type.CopyPropertiesTo(prestamo, prestamoInProgress);
             validarIdNoMenorNiIgualACero(prestamo.IdNegocio,"IdNegocio");
             prestamoInProgress.IdNegocio = prestamo.IdNegocio;
+            prestamoInProgress.OtrosCargosSinInteres = prestamo.OtrosCargosSinInteres;
             SetFechaDeEmision(prestamo.FechaEmisionReal);
             SetClasificacion(prestamo.IdClasificacion);
             //SetAmortizacion(prestamo.TipoAmortizacion);
@@ -42,7 +43,7 @@ namespace PrestamoBLL
             SetGarantias(prestamo.IdGarantias);
             SetCodeuDores(prestamo._Codeudores);
             SetMontoAPrestar(prestamo.MontoPrestado, prestamo.IdDivisa);
-            SetGastDeCierre(prestamo.InteresGastoDeCierre, prestamo.GastoDeCierreEsDeducible, prestamo.SumarGastoDeCierreALasCuotas, prestamo.CargarInteresAlGastoDeCierre);
+            SetGastDeCierre(prestamo.InteresGastoDeCierre, prestamo.GastoDeCierreEsDeducible, prestamo.FinanciarGastoDeCierre, prestamo.CargarInteresAlGastoDeCierre);
             SetTasaInteres(prestamo.IdTasaInteres);
             SetAcomodarFecha(prestamo.FechaInicioPrimeraCuota);
             SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDePeriodos); ;
@@ -228,7 +229,7 @@ namespace PrestamoBLL
             this.prestamoInProgress.InteresGastoDeCierre = tasaGastoDeCierre;
             prestamoInProgress.GastoDeCierreEsDeducible = EsDeducible;
             prestamoInProgress.CargarInteresAlGastoDeCierre = cargarInteresAlGastoDeCierre;
-            prestamoInProgress.SumarGastoDeCierreALasCuotas = sumargastoDeCierreALasCuotas;
+            prestamoInProgress.FinanciarGastoDeCierre = sumargastoDeCierreALasCuotas;
         }
 
         private void SetCodeuDores(List<Codeudor> codeudores)
@@ -260,6 +261,9 @@ namespace PrestamoBLL
         }
         private void SetGarantias(IEnumerable<int> idGarantias)
         {
+            // que las garantias en cuestion no tengan otros prestamos vigente
+            var tienenPrestamosVigentes = BLLPrestamo.Instance.GarantiasTienenPrestamosVigentes(idGarantias);
+
             prestamoInProgress.IdGarantias = new List<int>();
             if (garantias != null)
             {
@@ -328,14 +332,20 @@ namespace PrestamoBLL
         {
             return true;
         }
-        private IGeneradorCuotas getGeneradorCuotas()
+        private IGeneradorCuotas GetGeneradorCuotas()
         {
-            IGeneradorCuotas genCuotas = null;
-            var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
+            //var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
+            return GetGeneradorDeCuotas(prestamoInProgress);
+        }
+
+        public static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)
+        {
+            IGeneradorCuotas generadorCuotas = null;
+            var tipoAmortizacion = info.TipoAmortizacion;
             switch (tipoAmortizacion)
             {
                 case TiposAmortizacion.No_Amortizable_cuotas_fijas:
-                    genCuotas = new GeneradorCuotasFijasNoAmortizables(prestamoInProgress);
+                    generadorCuotas= new GeneradorCuotasFijasNoAmortizable(info);
                     break;
                 case TiposAmortizacion.Amortizable_por_dia_abierto:
                     break;
@@ -348,12 +358,13 @@ namespace PrestamoBLL
                 default:
                     break;
             }
-            return genCuotas;
+
+            return generadorCuotas;
         }
         #endregion operaciones
         private Prestamo Build2()
         {
-            IGeneradorCuotas genCuotas = getGeneradorCuotas();
+            IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             // prestamoInProgress._Cuotas = genCuotas.GenerarCuotas();
             return prestamoInProgress;
             //var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,cuotas: cuotas, prestamoInProgress.Codeudores, prestamoInProgress.Garantias);
@@ -361,7 +372,7 @@ namespace PrestamoBLL
         }
         public PrestamoInsUpdParam Build()
         {
-            IGeneradorCuotas genCuotas = getGeneradorCuotas();
+            IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             var cuotas = genCuotas.GenerarCuotas();
             // var cuotasVacias = new List<Cuota>();
             var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,  cuotas,  prestamoInProgress._Codeudores, prestamoInProgress._Garantias);

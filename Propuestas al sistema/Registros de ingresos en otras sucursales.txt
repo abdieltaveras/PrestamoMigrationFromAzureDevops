@@ -1,0 +1,16 @@
+el negocio a recibe un pago de un cliente para un prestamo del negocio b 
+
+
+el sistema en a debera buscar la informacion de ese prestamo en el negocio b, aceptara el monto del pago y  luego sometera el pago negocio b para que este lo procese y devuelva el  resultado de dicha operacion 
+
+si todo funciona exitosamente entonces 
+
+El negocio a tendra una cuenta por pagar al negocio b contra caja (ya que no puede registrar esta operacion como un ingreso, pero si debe informar que es un dinero que esta en caja)
+
+en caja debe aparecer toda operacion de entrada/salida de dinero de la misma.
+
+y el negocio b
+tendra un registro de ingresos por el pago, contra cuenta por cobrar al negocio a. (mas no habra registro en caja de dicha operacion)
+
+
+los demas casos no tiene sentido hacerlo desde otra sucursal.

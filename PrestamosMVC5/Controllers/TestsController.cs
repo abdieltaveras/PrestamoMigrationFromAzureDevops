@@ -1,14 +1,17 @@
-﻿using PrestamoBLL;
+﻿using Microsoft.Ajax.Utilities;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 namespace PrestamosMVC5.Controllers
 {
@@ -43,11 +46,44 @@ namespace PrestamosMVC5.Controllers
             var treeData = ElementData.CreateTree();
             return View(treeData);
         }
+
         public ActionResult Periodo()
         {
             var model = new Periodo();
             return View(model);
         }
+
+        public ActionResult BindingDates()
+        {
+            UpdViewBag_LoadCssAndJsGrp2(true);
+            UpdViewBag_ShowSummaryErrorsTime(10);
+
+            var model = new FormatosFecha();
+            model.Fecha1 = DateTime.Now;
+            model.Fecha2 = DateTime.Now;
+            model.Fecha3 = DateTime.Now;
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult BindingDates2(FormatosFecha fechas)
+        {
+            var data = fechas.ToJson();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult BindingDates3(FormatosFecha fechas)
+        {
+            var data = fechas.ToJson();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult Periodo(Periodo periodo)
+        {
+            return Content("no me importa lo que me enviaste");
+            //periodo.ToJson());
+        }
+
         public ActionResult TreeViewExample3()
         {
             var search = new DivisionSearchParams { IdDivisionTerritorial = 2, IdNegocio = 1 };
@@ -66,13 +102,28 @@ namespace PrestamosMVC5.Controllers
         {
             CatalogoVM data = new CatalogoVM();
             var tabla = "tblOcupaciones";
-            data.Lista = BLLPrestamo.Instance.CatalogosGet(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
+            data.Lista = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { IdNegocio = pcpUserIdNegocio, NombreTabla = "tblOcupaciones", IdTabla = "IdOcupacion" });
             data.TipoCatalogo = "Ocupaciones";
             data.IdTabla = "IdOcupacion";
             data.NombreTabla = tabla;
             return View("", data);
         }
 
+
+        public ActionResult DialogBox()
+        {
+            return View();
+        }
+
+        public ActionResult PNotifyConfirm()
+        {
+            return View();
+        }
+
+        public ActionResult JQueryConfirm()
+        {
+            return View();
+        }
         public ActionResult Delete(DelCatalogo catalogo)
         {
             pcpSetUsuarioTo(catalogo);
@@ -123,6 +174,17 @@ namespace PrestamosMVC5.Controllers
         {
             return Content(model.ToJson());
         }
+
+        public ActionResult masks()
+        {
+            var model = new TestMask();
+            model.Text = "randy";
+            model.Number = 12;
+            model.Fecha = DateTime.Now;
+            model.TextAsNumber = model.Number.ToString();
+            return View(model);
+        }
+
 
         public ActionResult Imagen()
         {
@@ -232,6 +294,17 @@ namespace PrestamosMVC5.Controllers
             return View(model);
         }
 
+        public ActionResult PostPeriodoWithJson()
+        {
+            var model = new Periodo();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult PostPeriodoWithJson(Periodo periodo)
+        {
+            return Json(periodo.ToJson(), JsonRequestBehavior.AllowGet);
+        }
+
     }
 
     public class InfoConImagen
@@ -246,6 +319,16 @@ namespace PrestamosMVC5.Controllers
         public ImagesFor imgsForGarantia => new ImagesFor("ImagesForGarantia", "Garantia") { Qty = 2 };
     }
 
-    
+
+    public class FormatosFecha
+    {
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime Fecha1 { get; set; } = InitValues._19000101;
+        public DateTime Fecha2 { get; set; } = InitValues._19000101;
+        public DateTime Fecha3 { get; set; } = InitValues._19000101;
+
+        public string FechaSt1 { get; set; } = InitValues._19000101.ToShortDateString();
+        public string FechaSt2 { get; set; } = InitValues._19000101.ToShortDateString();
+    }
     
 }

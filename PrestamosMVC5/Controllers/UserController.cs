@@ -16,6 +16,7 @@ namespace PrestamosMVC5.Controllers
         public UserController() : base()
         {
             UpdViewBag_LoadCssAndJsGrp2(true);
+            UpdViewBag_LoadCssAndJsForDatatable(true);
         }
         #region Request
         // GET: User
@@ -192,7 +193,7 @@ namespace PrestamosMVC5.Controllers
                 pcpSetUsuarioTo(changeP);
                 try
                 {
-                    BLLPrestamo.Instance.UsuarioChangePassword(changeP);
+                    BLLPrestamo.Instance.ChangePassword(changeP);
                     actResult = RedirectToAction("index");
                 }
                 catch (Exception e)
@@ -234,7 +235,7 @@ namespace PrestamosMVC5.Controllers
         // internal ActionResult SaveData(ActionResult actionResult, Usuario usuario);
         private IEnumerable<Role> GetRoles()
         {
-            return BLLPrestamo.Instance.RolesGet(new RoleGetParams { IdNegocio = this.pcpUserIdNegocio });
+            return BLLPrestamo.Instance.GetRoles(new RoleGetParams { IdNegocio = this.pcpUserIdNegocio });
         }
         private int SaveData(Usuario usuario)
         {

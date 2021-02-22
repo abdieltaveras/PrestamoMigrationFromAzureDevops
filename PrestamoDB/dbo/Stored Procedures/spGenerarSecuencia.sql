@@ -3,7 +3,7 @@ as
 Begin
 	if not exists(select 1 from tblSecuencias where nombre = @nombre )
 	begin
-		insert into tblSecuencias (nombre, idNegocio) values (@nombre, @idNegocio)
+		insert into tblSecuencias (nombre, idNegocio) values (@nombre, @IdNegocio)
 	end
 	update tblSecuencias set contador = contador +1
 	select contador from tblSecuencias where nombre = @nombre

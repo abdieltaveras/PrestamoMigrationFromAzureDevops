@@ -1,0 +1,21 @@
+algoritmo para el cache de la data a implementar
+en el BLL
+
+para aquella data (los catalogos comunes) que son los que mas se consultan con data mas estaticas
+
+Dicho objeto debe ser un singleton
+
+a) en los metodo Get debera revisar esto
+consultar el cache para la tabla
+y comparar si ultimaFechaInsUpd > UltimaFechaGet
+entonces debe hacer una consulta a la base de datos
+de lo contrario tomar datos del cache
+
+actualizar ultimaFechaGet
+
+en los metodos insert
+al insertar o actualizar crear un cache 
+que indique nombre de la tabla, 
+UltimaFechaInsUpd, 
+UltimaFechaGet
+

@@ -126,9 +126,9 @@ namespace PrestamosMVC5.Controllers
         /// es un error intencional se utiliza para probar como se maneja el error
         /// una vez este se haya producido
         /// </summary>
-        protected void ThrowError()
+        protected void ThrowError(string mensaje = "error intencional para probar que sucede cuando pasa un error")
         {
-            throw new Exception("error intencional para probar que sucede cuando pasa un error");
+            throw new Exception(mensaje);
         }
     }
 
