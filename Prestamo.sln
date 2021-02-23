@@ -58,6 +58,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Propuestas al sistema", "Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamosMVC5Tests", "PrestamosMVC5Tests\PrestamosMVC5Tests.csproj", "{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoWS", "PrestamoWS\PrestamoWS.csproj", "{0D8B1E76-2BD8-479B-A7A8-F88B4762548D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU
@@ -98,6 +100,12 @@ Global
 		{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70B83D0A-2EA2-4E86-8EEE-FA2DE8AF2A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8B1E76-2BD8-479B-A7A8-F88B4762548D}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8B1E76-2BD8-479B-A7A8-F88B4762548D}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{0D8B1E76-2BD8-479B-A7A8-F88B4762548D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8B1E76-2BD8-479B-A7A8-F88B4762548D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8B1E76-2BD8-479B-A7A8-F88B4762548D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8B1E76-2BD8-479B-A7A8-F88B4762548D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

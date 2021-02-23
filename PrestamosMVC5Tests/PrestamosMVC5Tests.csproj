@@ -103,7 +103,7 @@
       <Name>PrestamoBLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\PrestamosMVC5\PrestamosMVC5.csproj">
-      <Project>{B76A0B71-46B7-4F1E-B0F2-A88E00BFED02}</Project>
+      <Project>{b76a0b71-46b7-4f1e-b0f2-a88e00bfed02}</Project>
       <Name>PrestamosMVC5</Name>
     </ProjectReference>
   </ItemGroup>
