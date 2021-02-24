@@ -6,33 +6,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 namespace PrestamoWS.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class MarcasController : Controller
+    public class ColorController : Controller
     {
-        [HttpGet]
-        public Marca Get()
-        {
-            return new Marca();
-        }
         [HttpGet]
         public void SaveGet()
         {
-            MarcaVM datos = new MarcaVM();
-            //Hay que agregar el controller
-            datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
+            ColorVM datos = new ColorVM();
+            datos.ListaColores = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
 
             //return View("CreateOrEdit", datos);
         }
+
         [HttpPost]
-        public void SavePost(Marca marca)
+        public void SavePost(Color color)
         {
-            //marca.IdNegocio = 1;
+            //color.IdNegocio = 1;
             //marca.InsertadoPor = "Bryan";
-            //this.pcpSetUsuarioAndIdNegocioTo(marca);
-            BLLPrestamo.Instance.InsUpdMarca(marca);
+            //this.pcpSetUsuarioAndIdNegocioTo(color);
+            BLLPrestamo.Instance.InsUpdColor(color);
             //return RedirectToAction("CreateOrEdit");
         }
     }
