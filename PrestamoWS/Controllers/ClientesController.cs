@@ -16,7 +16,6 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<Cliente> GetAll()
         {
-            var result = ConfigurationManager.AppSettings["emtsoft.ECS"];
             var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams());
             return data;
         }
