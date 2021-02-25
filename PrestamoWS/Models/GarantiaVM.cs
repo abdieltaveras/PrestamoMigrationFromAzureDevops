@@ -37,8 +37,8 @@ namespace PrestamoWS.Models
 
 
         //*************************Imagenes***************************//
-        [Required(ErrorMessage = "Please select file.")]
-        [Display(Name = "Browse File")]
+        //[Required(ErrorMessage = "Please select file.")]
+        //[Display(Name = "Browse File")]
         //public HttpPostedFileBase[] files { get; set; }
 
     }
