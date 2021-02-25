@@ -140,6 +140,11 @@ namespace PrestamoBLL.Entidades
         //public int Sexo { get; set; } = 0;
         //[Display(Name = "Estado Civil")]
         //public int EstadoCivil { get; set; } = -1;
+        public string Nombre { get; set; }
+
+        public string Apellidos { get; set; }
+
+
     }
 
     public class ClienteDelParams : BaseAnularParams

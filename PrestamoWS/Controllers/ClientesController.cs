@@ -14,43 +14,63 @@ namespace PrestamoWS.Controllers
     public class ClientesController : Controller
     {
         [HttpGet]
-        public IEnumerable<Cliente> GetAll()
+        public IEnumerable<Cliente> Get()
         {
             var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams());
             return data;
         }
 
-        [HttpGet]
-        public IEnumerable<Cliente> GetById(int id)
+        [HttpGet("{id:int}")]
+        public IEnumerable<Cliente> Get(int id)
         {
             var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams {IdCliente=id });
             return data;
         }
-        [HttpGet]
-        public IEnumerable<Cliente> GetByParams(string noIdentificacion, string nombre, string apellido)
+        [HttpGet("{noIdentificacion}/{nombre}/{apellidos}")]
+        public IEnumerable<Cliente> Get(string noIdentificacion, string nombre, string apellidos)
         {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams {  });
+            // todo: el GetClientes hay que adecuarlo para buscar por nombres y apellidos
+            //var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { NoIdentificacion = noIdentificacion, Nombre = nombre, Apellidos= apellidos });
+            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { NoIdentificacion = noIdentificacion });
             return data;
         }
 
         [HttpGet]
-        public IEnumerable<Cliente> GetByParams2(ClienteGetParams param)
+        public IEnumerable<Cliente> GetByParams(ClienteGetParams param)
         {
             var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { });
             return data;
         }
 
-        [HttpGet]
-        public IEnumerable<Cliente> BuscarClientes(string searchToText, bool CargarImagenesClientes)
+        [HttpGet("{searchToText}/{CargarImagenesClientes:bool}")]
+        public IEnumerable<Cliente> Get(string searchText, bool CargarImagenesClientes)
         {
-            var clientes = searchCliente(searchToText, CargarImagenesClientes);
+            var clientes = searchCliente(searchText, CargarImagenesClientes);
             return clientes;
         }
-        private IEnumerable<Cliente> searchCliente(string searchToText, bool CargarImagenesClientes)
+        /// <summary>
+        /// esto es para insertar o actualizar un cliente
+        /// </summary>
+        /// <param name="cliente"></param>
+        [HttpPost]
+        public void Post(Cliente cliente)
+        {
+            BLLPrestamo.Instance.InsUpdCliente(cliente);
+        }
+        /// <summary>
+        /// Esto es para Borrar, anular un cliente
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpDelete]
+        public void Del(int id)
+        {
+            BLLPrestamo.Instance.AnularClientes(new ClienteDelParams { Id = id, Usuario = "pendiente" });
+        }
+        private IEnumerable<Cliente> searchCliente(string searchText, bool CargarImagenesClientes)
         {
             IEnumerable<Cliente> clientes = null;
 
-            clientes = BLLPrestamo.Instance.SearchCliente(new BuscarClienteParams { TextToSearch = searchToText, IdNegocio = 1 });
+            clientes = BLLPrestamo.Instance.SearchCliente(new BuscarClienteParams { TextToSearch = searchText, IdNegocio = 1 });
 
             if (CargarImagenesClientes)
             {
