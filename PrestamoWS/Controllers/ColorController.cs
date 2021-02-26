@@ -14,21 +14,22 @@ namespace PrestamoWS.Controllers
     public class ColorController : Controller
     {
         [HttpGet]
-        public void SaveGet()
+        public IEnumerable<Color> Get()
         {
             ColorVM datos = new ColorVM();
             datos.ListaColores = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
-
+            return datos.ListaColores;
             //return View("CreateOrEdit", datos);
         }
 
         [HttpPost]
-        public void SavePost(Color color)
+        public IActionResult Post(Color color)
         {
             //color.IdNegocio = 1;
             //marca.InsertadoPor = "Bryan";
             //this.pcpSetUsuarioAndIdNegocioTo(color);
             BLLPrestamo.Instance.InsUpdColor(color);
+            return Ok();
             //return RedirectToAction("CreateOrEdit");
         }
     }

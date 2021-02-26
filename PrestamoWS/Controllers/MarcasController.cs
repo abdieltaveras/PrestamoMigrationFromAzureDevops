@@ -12,27 +12,28 @@ namespace PrestamoWS.Controllers
     [Route("api/[controller]/[action]")]
     public class MarcasController : Controller
     {
+        //[HttpGet]
+        //public Marca Get()
+        //{
+        //    return new Marca();
+        //}
         [HttpGet]
-        public Marca Get()
-        {
-            return new Marca();
-        }
-        [HttpGet]
-        public void SaveGet()
+        public IEnumerable<Marca> Get()
         {
             MarcaVM datos = new MarcaVM();
             //Hay que agregar el controller
             datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
-
+            return datos.ListaMarcas;
             //return View("CreateOrEdit", datos);
         }
         [HttpPost]
-        public void SavePost(Marca marca)
+        public IActionResult Post(Marca marca)
         {
             //marca.IdNegocio = 1;
             //marca.InsertadoPor = "Bryan";
             //this.pcpSetUsuarioAndIdNegocioTo(marca);
             BLLPrestamo.Instance.InsUpdMarca(marca);
+            return Ok();
             //return RedirectToAction("CreateOrEdit");
         }
     }
