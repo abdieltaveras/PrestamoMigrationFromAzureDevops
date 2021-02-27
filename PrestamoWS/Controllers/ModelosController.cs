@@ -15,28 +15,19 @@ namespace PrestamoWS.Controllers
     public class ModelosController : Controller
     {
         [HttpGet]
-        public void SaveGet()
+        public IEnumerable<Modelo> Get()
         {
             ModeloVM datos = new ModeloVM();
 
             datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 });
-            datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
+            return datos.ListaModelos;
+            //datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
 
-            datos.ListaSeleccionMarcas = new SelectList(datos.ListaMarcas, "IdMarca", "Nombre");
+            //datos.ListaSeleccionMarcas = new SelectList(datos.ListaMarcas, "IdMarca", "Nombre");
            // return View("CreateOrEdit", datos);
         }
-
-        [HttpPost]
-        public void SavePost(Modelo modelo)
-        {
-            //modelo.IdNegocio = 1;
-            //modelo.InsertadoPor = "Bryan";
-            //this.pcpSetUsuarioAndIdNegocioTo(modelo);
-            BLLPrestamo.Instance.InsUpdModelo(modelo);
-            //return RedirectToAction("CreateOrEdit");
-        }
-        [HttpGet]
-        public IEnumerable<Modelo> GetModeloByIdMarca(int idMarca)
+        [HttpGet("{idMarca:int}")]
+        public IEnumerable<Modelo> Get(int idMarca)
         {
             IEnumerable<Modelo> modelos = null;
 
@@ -44,6 +35,18 @@ namespace PrestamoWS.Controllers
             return modelos;
             //return JsonConvert.SerializeObject(modelos);
         }
+
+        [HttpPost]
+        public IActionResult Post(Modelo modelo)
+        {
+            //modelo.IdNegocio = 1;
+            //modelo.InsertadoPor = "Bryan";
+            //this.pcpSetUsuarioAndIdNegocioTo(modelo);
+            BLLPrestamo.Instance.InsUpdModelo(modelo);
+            return Ok();
+            //return RedirectToAction("CreateOrEdit");
+        }
+
 
     }
 }
