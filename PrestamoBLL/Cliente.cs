@@ -17,9 +17,10 @@ namespace PrestamoBLL
             var result= BllAcciones.GetData<Cliente, ClienteGetParams>(searchParam, "spGetClientes", GetValidation);
             return result;
         }
-        public void InsUpdCliente(Cliente insUpdParam)
+        public int InsUpdCliente(Cliente insUpdParam)
         {
-            BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
+            var result = BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
+            return result;
         }
 
         public void InsUpdClientes(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia)

@@ -19,11 +19,18 @@ namespace PrestamoWS.Controllers
             var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams());
             return data;
         }
-
-        [HttpGet("{id:int}")]
-        public IEnumerable<Cliente> Get(int id)
+        
+        [HttpGet]
+        public IActionResult Get2()
         {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams {IdCliente=id });
+            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams());
+            return Ok(data);
+        }
+
+        [HttpGet("{idCliente:int}")]
+        public IEnumerable<Cliente> Get(int idCliente)
+        {
+            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idCliente });
             return data;
         }
         [HttpGet("{noIdentificacion}/{nombre}/{apellidos}")]
@@ -53,25 +60,33 @@ namespace PrestamoWS.Controllers
         /// </summary>
         /// <param name="cliente"></param>
         [HttpPost]
-        public void Post(Cliente cliente)
+        public ActionResult Post(Cliente cliente)
         {
-            BLLPrestamo.Instance.InsUpdCliente(cliente);
+            var id = BLLPrestamo.Instance.InsUpdCliente(cliente);
+            return Ok(id);
         }
         /// <summary>
         /// Esto es para Borrar, anular un cliente
         /// </summary>
         /// <param name="id"></param>
-        [HttpDelete]
-        public void Del(int id)
+        [HttpDelete("{idCliente:int}")]
+        public ActionResult Delete(int idCliente)
         {
-            BLLPrestamo.Instance.AnularClientes(new ClienteDelParams { Id = id, Usuario = "pendiente" });
+            try
+            {
+                BLLPrestamo.Instance.AnularClientes(new ClienteDelParams { Id = idCliente, Usuario = "pendiente" });
+                return Ok("Registro fue eliminado exitosamente");
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
+
         private IEnumerable<Cliente> searchCliente(string searchText, bool CargarImagenesClientes)
         {
             IEnumerable<Cliente> clientes = null;
-
             clientes = BLLPrestamo.Instance.SearchCliente(new BuscarClienteParams { TextToSearch = searchText, IdNegocio = 1 });
-
             if (CargarImagenesClientes)
             {
                 foreach (var cliente in clientes)
@@ -79,7 +94,6 @@ namespace PrestamoWS.Controllers
                     //cliente.Imagen1FileName = Url.Content(SiteDirectory.ImagesForClientes + "/" + cliente.Imagen1FileName);
                 }
             }
-
             return clientes;
         }
     }
