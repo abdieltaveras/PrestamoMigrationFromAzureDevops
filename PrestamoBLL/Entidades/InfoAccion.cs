@@ -1,4 +1,5 @@
-﻿using System;
+﻿using emtSoft.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,11 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         ///  el Id del negocio que esta realizacion la accion
         /// </summary>
-        public int idNegocio { get; set; }
+        public int IdLocalidad { get; set; }
         /// <summary>
         /// La Fecha en que se realiza la accion
         /// </summary>
+        [IgnorarEnParam]
         public DateTime Fecha { get; set; }
         /// <summary>
         /// Nombre del usuario
@@ -35,9 +37,5 @@ namespace PrestamoBLL.Entidades
         /// El id De la aplicacion
         /// </summary>
         public int IdAplicacion { get; set; }
-        /// <summary>
-        /// Por que razon va a realizar esta accion
-        /// </summary>
-        public string Detalle { get; set; }
     }
 }

@@ -287,7 +287,7 @@ namespace PrestamoBLL.Tests
             return new InfoAccion
             {
                 IdAplicacion = 1,
-                idNegocio = 1,
+                IdLocalidad = 1,
                 IdUsuario = 0,
                 Usuario = "NegocioTest"
             };

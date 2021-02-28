@@ -3,9 +3,12 @@
 	@idCliente int=-1,
 	@idNegocio int,
 	@Activo int=-1,
+	@IdLocalidad int=-1,
 	@Anulado int=0,
 	@NoIdentificacion varchar(20)='',
 	@idTipoIdentificacion int= -1,
+	@Nombres varchar(100),
+	@Apellidos varchar(100),
 	@Usuario varchar(100)=''
 )
 as
@@ -18,4 +21,6 @@ begin
 		and ((@Activo=-1) or (Activo=@Activo)) 
 		and ((@idTipoIdentificacion=-1) or (idTipoIdentificacion =@idTipoIdentificacion)) 
 		and ((@NoIdentificacion='') or (NoIdentificacion =@NoIdentificacion)) 
+		and ((@Nombres='') or (Nombres =@Nombres)) 
+		and ((@Apellidos='') or (Apellidos =@Apellidos)) 
 End

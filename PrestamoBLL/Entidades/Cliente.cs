@@ -140,9 +140,9 @@ namespace PrestamoBLL.Entidades
         //public int Sexo { get; set; } = 0;
         //[Display(Name = "Estado Civil")]
         //public int EstadoCivil { get; set; } = -1;
-        public string Nombre { get; set; }
+        public string Nombres { get; set; } = string.Empty;
 
-        public string Apellidos { get; set; }
+        public string Apellidos { get; set; } = string.Empty;
 
 
     }

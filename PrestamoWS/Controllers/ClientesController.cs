@@ -11,36 +11,50 @@ namespace PrestamoWS.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class ClientesController : Controller
+    public abstract class BaseController : Controller
+    {
+
+        protected InfoAccion InfoAutenticacionDeLaSesion()
+        {
+            // esto lo obtendra mas real por ahora es para desarrollo
+            return new InfoAccion
+            {
+                IdAplicacion = 1,
+                IdDispositivo = 1,
+                IdLocalidad = 1,
+                IdUsuario = 1,
+                Usuario = "UsrDevelopement"
+            };
+        }
+
+    }
+
+
+    public class ClientesController : BaseController
     {
         [HttpGet]
-        public IEnumerable<Cliente> Get()
+        public IEnumerable<Cliente> GetAll()
         {
             var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams());
             return data;
         }
-        
-        [HttpGet]
-        public IActionResult Get2()
-        {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams());
-            return Ok(data);
-        }
+
 
         [HttpGet("{idCliente:int}")]
-        public IEnumerable<Cliente> Get(int idCliente)
+        public IEnumerable<Cliente> Get([FromQuery]int idCliente)
         {
             var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idCliente });
             return data;
         }
-        [HttpGet("{noIdentificacion}/{nombre}/{apellidos}")]
-        public IEnumerable<Cliente> Get(string noIdentificacion, string nombre, string apellidos)
+        [HttpGet("{nombre} {apellidos} {activo:int} {idCliente:int} {idLocalidad:int} {idTipoIdentificacion:int} {noIdentificacion} {anulado:int}")]
+        public IEnumerable<Cliente> Get(string nombre = "", string apellidos = "", int Activo = -1, int idCliente = -1, 
+            int idLocalidad = -1, int idTipoIdentificacion = -1, string noIdentificacion = "", int anulado = -1)
         {
-            // todo: el GetClientes hay que adecuarlo para buscar por nombres y apellidos
-            //var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { NoIdentificacion = noIdentificacion, Nombre = nombre, Apellidos= apellidos });
+            var getP = new ClienteGetParams { Nombres = nombre, Apellidos = apellidos, IdCliente = idCliente, IdLocalidad = idLocalidad, IdNegocio = -1, Activo = Activo, Anulado = anulado, IdTipoIdentificacion = idTipoIdentificacion, NoIdentificacion = noIdentificacion };
             var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { NoIdentificacion = noIdentificacion });
             return data;
         }
+
 
         [HttpGet]
         public IEnumerable<Cliente> GetByParams(ClienteGetParams param)
@@ -49,10 +63,10 @@ namespace PrestamoWS.Controllers
             return data;
         }
 
-        [HttpGet("{searchToText}/{CargarImagenesClientes:bool}")]
-        public IEnumerable<Cliente> Get(string searchText, bool CargarImagenesClientes)
+        [HttpGet("{textoABuscar}/{CargarImagenesClientes:bool}")]
+        public IEnumerable<Cliente> Get(string textoABuscar, bool CargarImagenesClientes)
         {
-            var clientes = searchCliente(searchText, CargarImagenesClientes);
+            var clientes = searchCliente(textoABuscar, CargarImagenesClientes);
             return clientes;
         }
         /// <summary>
@@ -62,8 +76,17 @@ namespace PrestamoWS.Controllers
         [HttpPost]
         public ActionResult Post(Cliente cliente)
         {
-            var id = BLLPrestamo.Instance.InsUpdCliente(cliente);
-            return Ok(id);
+            try
+            {
+                var id = BLLPrestamo.Instance.InsUpdCliente(cliente);
+                return Ok(id);
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception("El cliente no pudo ser creado");
+                
+            }
         }
         /// <summary>
         /// Esto es para Borrar, anular un cliente
@@ -79,7 +102,7 @@ namespace PrestamoWS.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new Exception("Lo siento el registro no pudo ser eliminado");
             }
         }
 
