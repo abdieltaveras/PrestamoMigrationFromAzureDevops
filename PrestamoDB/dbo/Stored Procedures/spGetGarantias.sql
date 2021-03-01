@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spGetGarantias]
 	@IdGarantia int=-1,
 	@IdNegocio int=0,
+		@IdLocalidad int=-1,
 	@Usuario varchar(100) = '',
 	@Anulado int=0
 as

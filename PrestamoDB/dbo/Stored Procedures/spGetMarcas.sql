@@ -3,6 +3,7 @@
 	@IdMarca int=-1,
 	@IdNegocio int=-1,
 	@Anulado int=0,
+	@IdLocalidad int = -1,
 	@Usuario varchar(100)=''
 )
 as

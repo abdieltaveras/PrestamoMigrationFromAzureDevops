@@ -12,8 +12,8 @@ namespace WSPrestamo.Controllers
 {
     public class ModelosController : ApiController
     {
-        [HttpGet]
-        public IEnumerable<Modelo> Get()
+        //[HttpGet]
+        public IEnumerable<ModeloWithMarca> Get()
         {
             ModeloVM datos = new ModeloVM();
 
