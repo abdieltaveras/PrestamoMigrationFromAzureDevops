@@ -36,7 +36,7 @@ namespace WSPrestamo.Controllers
 
         public IEnumerable<Equipo>get( int idEquipo,string codigo ,int idLocalidad )
         {
-            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { IdEquipo = idEquipo, Codigo = codigo, IdLocalidad = idLocalidad });
+            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { IdEquipo = idEquipo, Codigo = codigo, IdLocalidadNegocio = idLocalidad });
         }
     }
 }

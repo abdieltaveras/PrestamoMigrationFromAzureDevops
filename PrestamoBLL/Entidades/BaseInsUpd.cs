@@ -29,7 +29,7 @@ namespace PrestamoBLL.Entidades
     {
         public int IdNegocio { get; set; } = -1;
         
-        public int IdLocalidad { get; set; } = -1;
+        public int IdLocalidadNegocio { get; set; } = -1;
     }
 
     public interface IIdNegocio

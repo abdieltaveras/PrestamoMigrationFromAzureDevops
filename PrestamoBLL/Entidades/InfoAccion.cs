@@ -15,7 +15,7 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         ///  el Id del negocio que esta realizacion la accion
         /// </summary>
-        public int IdLocalidad { get; set; }
+        public int IdLocalidadNegocio { get; set; }
         /// <summary>
         /// La Fecha en que se realiza la accion
         /// </summary>
