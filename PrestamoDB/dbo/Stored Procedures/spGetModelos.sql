@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spGetModelos]
 	@IdMarca int=-1,
 	@IdModelo int=-1,
-	@IdNegocio int=-1,
+	@IdLocalidad int = -1,
 	@Anulado int=0,
 	@Usuario varchar(100)=''
 AS

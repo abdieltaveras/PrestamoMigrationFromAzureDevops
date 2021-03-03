@@ -115,8 +115,8 @@ namespace PrestamoBLL
         {
             ThrowErrorIfIdNotSet(cancelParam.Id);
         }
-
-        private static void GetValidation(BaseGetParams getParam)
+        //Luis estaba private
+        public static void GetValidation(BaseGetParams getParam)
         {
             var idNegocio = getParam.IdNegocio;
             ThrowErrorIfNegocioIsZero(getParam.IdNegocio);
@@ -146,11 +146,11 @@ namespace PrestamoBLL
             var valor = System.Convert.ToInt32(result3);
             return valor > 0;
         }
-
+        //Luis Mod. estaba declara la clase como Protected
         /// <summary>
         /// Acciones comunes de Bll Get, Insert, Update
         /// </summary>
-        protected  class BllAcciones
+        public  class BllAcciones
         {
 
             public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : class
