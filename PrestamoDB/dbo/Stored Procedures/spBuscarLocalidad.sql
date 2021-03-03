@@ -2,6 +2,7 @@
 	@search varchar(50),
 	@IdNegocio int,
 	@Anulado int=0,
+    @IdLocalidad int,
 	@Usuario varchar(100)=''
 as
 BEGIN
