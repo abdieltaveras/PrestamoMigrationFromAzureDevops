@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace WSPrestamo.Controllers
 {
     
-    public abstract class BaseController : ApiController
+    public abstract class BaseApiController : ApiController
     {
 
         protected InfoAccion InfoAutenticacionDeLaSesion()
@@ -29,7 +29,7 @@ namespace WSPrestamo.Controllers
     }
 
 
-    public class ClientesController : BaseController
+    public class ClientesController : BaseApiController
     {
         
         public IEnumerable<Cliente> GetAll()

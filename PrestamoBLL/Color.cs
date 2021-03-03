@@ -19,5 +19,14 @@ namespace PrestamoBLL
         {
             return BllAcciones.GetData<Color, ColorGetParams>(searchParam, "spGetColores", GetValidation);
         }
+
+        public void AnularColor(int idColor)
+        {
+            // verificar si el color ha sido usado en algun registro de alguna tabla relacionada
+
+
+            // segundo si no ha sido usado proceder a anularlo
+            BLLPrestamo.DBPrestamo.ExecNonQuery($"delete from tblColores where idColor={idColor}");
+        }
     }
 }

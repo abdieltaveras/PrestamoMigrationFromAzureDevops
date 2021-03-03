@@ -27,7 +27,17 @@ namespace PrestamoBLL.Entidades
 
     public class DelCatalogo : BaseAnularParams
     {
-        public string IdTabla { get; set; } = string.Empty;
+        /// <summary>
+        /// el id del registro a borrar
+        /// </summary>
+        public string IdRegistro { get; set; } = string.Empty;
+        /// <summary>
+        /// El nombre del campo o columna que hara la comparacion
+        /// </summary>
+        public string NombreColumna { get; internal set; } 
+        /// <summary>
+        /// el nombre de la tabla que se ejecutara la anulacion
+        /// </summary>
         public string NombreTabla { get; set; }
     }
 
@@ -36,6 +46,5 @@ namespace PrestamoBLL.Entidades
         public string TextToSearch { get; set; } = "";
         public string TableName { get; set; } = string.Empty;
         public int IdNegocio { get; set; } = -1;
-        
     }
 }
