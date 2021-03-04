@@ -35,10 +35,10 @@ namespace PrestamoBLL
         /// <param name="loginName"></param>
         /// <param name="contraseña"></param>
         /// <returns></returns>
-        public LoginResponse Login(int idNegocioMatriz, string loginName, string contraseña)
+        public LoginResponse Login(string loginName, string contraseña, int idLocalidadNegocio)
         {
 
-            var result = ValidateUser(idNegocioMatriz, loginName, contraseña);
+            var result = ValidateUser(idLocalidadNegocio, loginName, contraseña);
             #if DEBUG
             if (loginName.ToLower() == "admin") 
             {
@@ -60,7 +60,7 @@ namespace PrestamoBLL
 
         private class LoginParam
         { 
-            public int idNegocioMatriz { get; set; }
+            public int idLocalidadNegocio { get; set; }
             public string LoginName { get; set; } = string.Empty;
             [GuardarEncriptado]
             public string Contraseña { get; set; } = string.Empty;
@@ -77,13 +77,13 @@ namespace PrestamoBLL
         /// to validate a user and retrieve his states it returns if is ok the password, 
         /// if user is bloked, active, or if must change password etc.
         /// </summary>
-        /// <param name="idNegocio"></param>
+        /// <param name="idLocalidadNegocio"></param>
         /// <param name="loginName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private LoginResponse ValidateUser(int idNegocio, string loginName, string password)
+        private LoginResponse ValidateUser(int idLocalidadNegocio, string loginName, string password)
         {
-            var usuario = this.LoginByNegocioMatriz(new LoginParam { idNegocioMatriz = idNegocio, LoginName = loginName, Contraseña = password }).FirstOrDefault();
+            var usuario = this.LoginByNegocioMatriz(new LoginParam { idLocalidadNegocio = idLocalidadNegocio, LoginName = loginName, Contraseña = password }).FirstOrDefault();
             
             if (usuario == null)
             {

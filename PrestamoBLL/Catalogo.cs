@@ -46,7 +46,7 @@ namespace PrestamoBLL
         {
             BllAcciones.CancelData(toggleStatusParams, "spToggleStatusCatalogo");
         }
-        public void AnularCatalogo(DelCatalogo delParams)
+        public void AnularCatalogo(AnularCatalogo delParams)
         {
             BllAcciones.CancelData(delParams, "spDelCatalogo");
         }

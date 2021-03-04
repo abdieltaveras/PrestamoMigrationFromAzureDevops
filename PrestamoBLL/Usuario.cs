@@ -13,7 +13,7 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        public IEnumerable<Usuario> UsuariosGet(UsuarioGetParams searchParam)
+        public IEnumerable<Usuario> GetUsuarios(UsuarioGetParams searchParam)
         {
             //GetValidation(searchParam);
             return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios", GetValidation);
@@ -29,7 +29,7 @@ namespace PrestamoBLL
             return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarTodosUsuarioRoles", GetValidation);
         }
 
-        public int UsuarioInsUpd(Usuario insUpdParam, string from = "")
+        public int InsUpdUsuario(Usuario insUpdParam, string from = "")
         {
             
             if ((insUpdParam.LoginName.ToLower() == "admin") && (from != bllUser))
@@ -44,7 +44,18 @@ namespace PrestamoBLL
             insUpdParam.LoginName = insUpdParam.LoginName.ToLower();
             return BllAcciones.InsUpdData<Usuario>(insUpdParam, "spInsUpdUsuario");
         }
-        
+
+        public void DeleteUsuario(int idUsuario, string usuario )
+        {
+            var delParam = new UsuarioDeleteParam { Id = idUsuario, Usuario = usuario };
+            //todo: implementar
+            throw new NotImplementedException("debe implementar el stored procedure");
+        }
+
+        public void CambiarContrasena(int idUsuario, string newContrasena)
+        {
+            throw new NotImplementedException("debe implementar el stored procedure");
+        }
 
         private bool ExistUsers => ExistDataForTable("tblUsuarios");
 

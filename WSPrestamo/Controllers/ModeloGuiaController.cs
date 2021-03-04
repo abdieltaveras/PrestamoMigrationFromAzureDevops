@@ -19,6 +19,7 @@ namespace WSPrestamo.Controllers
         public IEnumerable<Color> GetAll()
         {
             //
+            var getParam = new ColorGetParams();
             var data = BLLPrestamo.Instance.GetColores(new ColorGetParams());
             return data;
         }
@@ -44,12 +45,13 @@ namespace WSPrestamo.Controllers
             //return RedirectToAction("CreateOrEdit");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public IHttpActionResult Anular(int idRegistro)
         {
             // llenar el parametro de borrado si lo requier el metodo
-            var elimParam = new DelCatalogo {
-                NombreTabla="tblColor",
+            var elimParam = new AnularCatalogo
+            {
+                NombreTabla = "tblColor",
                 IdRegistro = idRegistro.ToString()
             };
             try
@@ -64,5 +66,7 @@ namespace WSPrestamo.Controllers
 
             //return RedirectToAction("CreateOrEdit");
         }
+
+        
     }
 }

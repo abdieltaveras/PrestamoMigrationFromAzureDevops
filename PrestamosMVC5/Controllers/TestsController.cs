@@ -124,7 +124,7 @@ namespace PrestamosMVC5.Controllers
         {
             return View();
         }
-        public ActionResult Delete(DelCatalogo catalogo)
+        public ActionResult Delete(AnularCatalogo catalogo)
         {
             pcpSetUsuarioTo(catalogo);
             var borrado = false;

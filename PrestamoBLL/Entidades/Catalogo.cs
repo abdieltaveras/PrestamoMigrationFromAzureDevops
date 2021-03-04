@@ -18,14 +18,14 @@ namespace PrestamoBLL.Entidades
         }
     }
 
-    public class ToggleStatusCatalogo : BaseAnularParams
+    public class ToggleStatusCatalogo : BaseAnularOrDeleteParams
     {
         public string IdTabla { get; set; } = string.Empty;
         public string NombreTabla { get; set; }
         public bool Activo { get; set; }
     }
 
-    public class DelCatalogo : BaseAnularParams
+    public class AnularCatalogo : BaseAnularOrDeleteParams
     {
         /// <summary>
         /// el id del registro a borrar

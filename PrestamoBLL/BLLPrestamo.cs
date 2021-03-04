@@ -111,7 +111,7 @@ namespace PrestamoBLL
         /// </summary>
         /// <param name="insUpdParam"></param>
 
-        private static void CancelValidation(BaseAnularParams cancelParam)
+        private static void CancelValidation(BaseAnularOrDeleteParams cancelParam)
         {
             ThrowErrorIfIdNotSet(cancelParam.Id);
         }
@@ -198,7 +198,7 @@ namespace PrestamoBLL
                 return last_id;
             }
 
-            public static void CancelData<TInsert2>(TInsert2 CancelParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseAnularParams
+            public static void CancelData<TInsert2>(TInsert2 CancelParam, string storedProcedure, Action<Exception> databaseErrorMethod = null) where TInsert2 : BaseAnularOrDeleteParams
             {
                 CancelValidation(CancelParam);
                 try

@@ -31,7 +31,7 @@ namespace PrestamoBLL.Entidades
         public int RequiereAutorizacion { get; set; } = -1;
         
     }
-    public class TasaInteresDelParams : BaseAnularParams
+    public class TasaInteresDelParams : BaseAnularOrDeleteParams
     {
 
     }

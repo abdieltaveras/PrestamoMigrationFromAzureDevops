@@ -84,7 +84,7 @@ namespace PrestamoBLL.Entidades
     }
 
     
-    public class CodeudorDelParams : BaseAnularParams
+    public class CodeudorDelParams : BaseAnularOrDeleteParams
     {
 
     }
