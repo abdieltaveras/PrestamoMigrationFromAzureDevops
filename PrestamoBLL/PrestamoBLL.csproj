@@ -94,7 +94,7 @@
     <Compile Include="ConexionDB.cs" />
     <Compile Include="Cuotas.cs" />
     <Compile Include="Entidades\AnulacionDeRegistro.cs" />
-    <Compile Include="Entidades\BaseAnularParams.cs" />
+    <Compile Include="Entidades\BaseAnularOrDeleteParams.cs" />
     <Compile Include="Entidades\BaseGetParams.cs" />
     <Compile Include="Entidades\BaseInsUpd.cs" />
     <Compile Include="Entidades\Catalogo.cs" />

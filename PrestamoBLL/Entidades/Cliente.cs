@@ -147,7 +147,7 @@ namespace PrestamoBLL.Entidades
 
     }
 
-    public class ClienteDelParams : BaseAnularParams
+    public class ClienteDelParams : BaseAnularOrDeleteParams
     {
 
     }

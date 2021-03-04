@@ -18,8 +18,6 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         /// El loginName del usuario que se logueo o se registro y que esta trabajando en el sistema
         /// </summary>
-        
-        [NotMapped]
         public string Usuario { get; set; } = string.Empty;
     }
     /// <summary>

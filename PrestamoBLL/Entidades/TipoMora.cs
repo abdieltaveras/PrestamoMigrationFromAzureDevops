@@ -94,7 +94,7 @@ namespace PrestamoBLL.Entidades
         public virtual string Codigo { get; set; } = string.Empty;
     }
     
-    public class TipoMoraDelParams : BaseAnularParams
+    public class TipoMoraDelParams : BaseAnularOrDeleteParams
     {
         [Required]
         public override int Id

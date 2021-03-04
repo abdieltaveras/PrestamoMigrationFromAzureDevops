@@ -103,7 +103,7 @@ namespace PrestamoBLL.Entidades
         [GuardarEncriptado]
         public string Contraseña { get; set; } = string.Empty;
     }
-    public class UsuarioAnularParam : BaseAnularParams
+    public class UsuarioDeleteParam : BaseAnularOrDeleteParams
     { }
 
     //public class UserRoleInsUpdParams

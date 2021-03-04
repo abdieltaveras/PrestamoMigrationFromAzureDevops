@@ -165,7 +165,7 @@ namespace PrestamosMVC5.Controllers
             };
             this.pcpSetUsuarioTo(getUsuarioParam);
             var model = new ChangePasswordModel();
-            var usr = BLLPrestamo.Instance.UsuariosGet(getUsuarioParam).FirstOrDefault();
+            var usr = BLLPrestamo.Instance.GetUsuarios(getUsuarioParam).FirstOrDefault();
             if (usr != null)
             {
                 model.IdUsuario = usr.IdUsuario;
@@ -209,7 +209,7 @@ namespace PrestamosMVC5.Controllers
         {
             var usuarioGetParams = new UsuarioGetParams { IdNegocio = pcpUserIdNegocio };
             this.pcpSetUsuarioAndIdNegocioTo(usuarioGetParams);
-            var usuarios = BLLPrestamo.Instance.UsuariosGet(usuarioGetParams);
+            var usuarios = BLLPrestamo.Instance.GetUsuarios(usuarioGetParams);
             return usuarios;
         }
         internal UserModel GetUserAndSetItToModel(int id)
@@ -223,7 +223,7 @@ namespace PrestamosMVC5.Controllers
                     IdUsuario = id,
                 };
                 this.pcpSetUsuarioAndIdNegocioTo(getUsuarioParam);
-                model.Usuario = BLLPrestamo.Instance.UsuariosGet(getUsuarioParam).FirstOrDefault();
+                model.Usuario = BLLPrestamo.Instance.GetUsuarios(getUsuarioParam).FirstOrDefault();
                 if (model.Usuario == null)
                 {
                     ModelState.AddModelError(string.Empty, "No se encontro usuario para su peticion");
@@ -245,7 +245,7 @@ namespace PrestamosMVC5.Controllers
             {
             
                     usuario.Usuario = AuthInSession.GetLoginName();
-                    userid = BLLPrestamo.Instance.UsuarioInsUpd(usuario);
+                    userid = BLLPrestamo.Instance.InsUpdUsuario(usuario);
             }
             return userid;
         }

@@ -223,7 +223,7 @@ namespace PrestamosMVC5.Controllers
             {
                 model.LoginName = AuthInSession.IsAnonimousUser ? model.LoginName : AuthInSession.GetLoginName();
                 var searchData = new UsuarioGetParams { IdNegocio = model.IdNegocio, LoginName = model.LoginName };
-                var usuario = BLLPrestamo.Instance.UsuariosGet(searchData).FirstOrDefault();
+                var usuario = BLLPrestamo.Instance.GetUsuarios(searchData).FirstOrDefault();
                 model.IdUsuario = usuario.IdUsuario;
                 var data = new ChangePassword { Contraseña = model.Contraseña, Usuario = model.LoginName, IdUsuario = model.IdUsuario };
                 BLLPrestamo.Instance.ChangePassword(data);

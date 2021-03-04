@@ -40,14 +40,14 @@ namespace PrestamoBLL.Tests
         public void getUsuarios_Search_Count()
         {
             var getUser = new UsuarioGetParams { IdNegocio = 13, Usuario = "abdiel" };
-            var result = BLLPrestamo.Instance.UsuariosGet(getUser);
+            var result = BLLPrestamo.Instance.GetUsuarios(getUser);
             Assert.IsTrue(result.LongCount() >= 0);
         }
         [TestMethod()]
         public void InsUpdUsuario_InsertSuccesUser_EmptyErrorMensaje()
         {
             var usr = NewSuccessUserInstance;
-            var result = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio });
+            var result = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio });
             if (result.Count() > 0)
             {
                 usr.LoginName = Guid.NewGuid().ToString();
@@ -55,7 +55,7 @@ namespace PrestamoBLL.Tests
             }
             try
             {
-                BLLPrestamo.Instance.UsuarioInsUpd(usr);
+                BLLPrestamo.Instance.InsUpdUsuario(usr);
             }
             catch (Exception e)
 
@@ -74,11 +74,11 @@ namespace PrestamoBLL.Tests
             var OcurrioUnError = false;
             if (usr2 == null)
             {
-                BLLPrestamo.Instance.UsuarioInsUpd(NewSuccessUserInstance);
+                BLLPrestamo.Instance.InsUpdUsuario(NewSuccessUserInstance);
             }
             try
             {
-                BLLPrestamo.Instance.UsuarioInsUpd(usr);
+                BLLPrestamo.Instance.InsUpdUsuario(usr);
             }
             catch (Exception e)
             {
@@ -103,7 +103,7 @@ namespace PrestamoBLL.Tests
             usr.IdUsuario = idUsuario;
             try
             {
-                BLLPrestamo.Instance.UsuarioInsUpd(usr);
+                BLLPrestamo.Instance.InsUpdUsuario(usr);
             }
             catch (Exception e)
             {
@@ -118,7 +118,7 @@ namespace PrestamoBLL.Tests
             string loginNameOfUsuario = string.Empty;
             try
             {
-                var usuario = BLLPrestamo.Instance.UsuariosGet(getUser).FirstOrDefault();
+                var usuario = BLLPrestamo.Instance.GetUsuarios(getUser).FirstOrDefault();
                 loginNameOfUsuario = usuario.LoginName;
             }
             catch (Exception e)
@@ -136,7 +136,7 @@ namespace PrestamoBLL.Tests
         private void UpdateSuccessUser(Usuario usr)
         {
             usr.IdUsuario = GetSuccesUser().IdUsuario;
-            BLLPrestamo.Instance.UsuarioInsUpd(usr);
+            BLLPrestamo.Instance.InsUpdUsuario(usr);
         }
 
         [TestMethod()]
@@ -144,15 +144,15 @@ namespace PrestamoBLL.Tests
         {
             this.errorMensaje = string.Empty;
             var usr = NewSuccessUserInstance;
-            var usuario = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio }).FirstOrDefault();
+            var usuario = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio }).FirstOrDefault();
             SetUsuario(usuario);
             var expectedNombreReal = "Modificado " + DateTime.Now.ToShortDateString();
             usuario.NombreRealCompleto = expectedNombreReal;
             string currentNombreRealCompleto = string.Empty;
             try
             {
-                BLLPrestamo.Instance.UsuarioInsUpd(usuario);
-                var usuarios = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio });
+                BLLPrestamo.Instance.InsUpdUsuario(usuario);
+                var usuarios = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = usr.IdNegocio });
                 currentNombreRealCompleto = usuarios.FirstOrDefault().NombreRealCompleto;
 
             }
@@ -176,7 +176,7 @@ namespace PrestamoBLL.Tests
         private Usuario GetSuccesUser()
         {
             var usr = NewSuccessUserInstance;
-            var usuario = BLLPrestamo.Instance.UsuariosGet(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = 1 }).FirstOrDefault();
+            var usuario = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = 1 }).FirstOrDefault();
             if (usuario != null)
             {
                 SetUsuario(usuario);

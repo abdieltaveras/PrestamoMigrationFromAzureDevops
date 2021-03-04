@@ -87,7 +87,7 @@ namespace PrestamosMVC5.Controllers
             BLLPrestamo.Instance.CatalogoToggleStatus(catalogo);
             return RedirectToAction("CreateOrEdit", new { tabla = catalogo.NombreTabla });
         }
-        public RedirectToRouteResult Delete(DelCatalogo catalogo)
+        public RedirectToRouteResult Delete(AnularCatalogo catalogo)
         {
             pcpSetUsuarioTo(catalogo);
             BLLPrestamo.Instance.AnularCatalogo(catalogo);
