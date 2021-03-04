@@ -10,41 +10,51 @@ using WSPrestamo.Models;
 
 namespace WSPrestamo.Controllers
 {
-    public class ModelosController : ApiController
+    public class ModelosController : BaseApiController
     {
         //[HttpGet]
-        public IEnumerable<ModeloWithMarca> Get()
+        public IEnumerable<ModeloWithMarca> GetAll()
         {
             ModeloVM datos = new ModeloVM();
 
             datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 });
             return datos.ListaModelos;
-            //datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
-
-            //datos.ListaSeleccionMarcas = new SelectList(datos.ListaMarcas, "IdMarca", "Nombre");
-           // return View("CreateOrEdit", datos);
         }
         
         public IEnumerable<Modelo> Get(int idMarca)
         {
             IEnumerable<Modelo> modelos = null;
-
             modelos = BLLPrestamo.Instance.GetModelosByMarca(new ModeloGetParams { IdMarca = idMarca, IdNegocio = 1 });
             return modelos;
-            //return JsonConvert.SerializeObject(modelos);
         }
 
         [HttpPost]
         public IHttpActionResult Post(Modelo modelo)
         {
-            //modelo.IdNegocio = 1;
-            //modelo.InsertadoPor = "Bryan";
-            //this.pcpSetUsuarioAndIdNegocioTo(modelo);
             BLLPrestamo.Instance.InsUpdModelo(modelo);
             return Ok();
-            //return RedirectToAction("CreateOrEdit");
         }
 
+        [HttpDelete]
+        public IHttpActionResult Anular(int idRegistro)
+        {
+            // llenar el parametro de borrado si lo requier el metodo
+            var elimParam = new DelCatalogo
+            {
+                NombreTabla = "tblModelos",
+                IdRegistro = idRegistro.ToString()
+            };
+            try
+            {
+                BLLPrestamo.Instance.AnularCatalogo(elimParam);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Registro no pudo ser anulado");
+            }
 
+            //return RedirectToAction("CreateOrEdit");
+        }
     }
 }

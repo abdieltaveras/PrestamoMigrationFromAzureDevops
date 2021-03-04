@@ -3,16 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using PrestamoBLL;
 using WSPrestamo.Models;
 using System.Web.Http;
 namespace WSPrestamo.Controllers
 {
-    public class LocalidadesController : ApiController
+    public class LocalidadesController : BaseApiController
     {
         // GET: Localidades
-        public IEnumerable<Localidad> Get()
+        public IEnumerable<Localidad> GetAll()
         {
             BLLPrestamo bl = new BLLPrestamo();
             var a= BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams());
@@ -36,11 +35,11 @@ namespace WSPrestamo.Controllers
             return localidadFullName;
         }
 
-        [System.Web.Http.HttpPost]
-        public IHttpActionResult Post(int IdLocalidad, int IdLocalidadPadre,int IdTipoLocalidad)
+        [HttpPost]
+        public IHttpActionResult Post(Localidad localidad)
         {
-            var localidadparams = new Localidad { IdLocalidad = IdLocalidad, IdLocalidadPadre = IdLocalidadPadre, IdTipoLocalidad = IdTipoLocalidad,  };
-            BLLPrestamo.Instance.InsUpdLocalidad(localidadparams);
+            //var localidadparams = new Localidad { IdLocalidad = IdLocalidad, IdLocalidadPadre = IdLocalidadPadre, IdTipoLocalidad = IdTipoLocalidad,  };
+            BLLPrestamo.Instance.InsUpdLocalidad(localidad);
             return Ok();
         }
         
@@ -58,13 +57,33 @@ namespace WSPrestamo.Controllers
         public IEnumerable<Localidad> Get2()
         {
             return BLLPrestamo.Instance.GetPaises(new LocalidadPaisesGetParams { });
-
         }
 
         public IEnumerable<LocalidadesHijas> Get3(int idLocalidad = -1)
         {
             var paramlocalidad = new LocalidadGetParams { IdLocalidad = idLocalidad };
             return BLLPrestamo.Instance.GetHijasLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad });
+        }
+        [HttpDelete]
+        public IHttpActionResult Anular(int idRegistro)
+        {
+            // llenar el parametro de borrado si lo requier el metodo
+            var elimParam = new DelCatalogo
+            {
+                NombreTabla = "tblLocalidades",
+                IdRegistro = idRegistro.ToString()
+            };
+            try
+            {
+                BLLPrestamo.Instance.AnularCatalogo(elimParam);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Registro no pudo ser anulado");
+            }
+
+            //return RedirectToAction("CreateOrEdit");
         }
     }
 }

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using PrestamoBLL;
 using WSPrestamo.Models;
 using System.Web.Http;
@@ -12,6 +11,14 @@ namespace WSPrestamo.Controllers
 {
     public class EquipoController : ApiController
     {
+        public IEnumerable<Equipo> GetAll()
+        {
+            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam {  });
+        }
+        public IEnumerable<Equipo> Get(int idEquipo, string codigo, int idLocalidad)
+        {
+            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { IdEquipo = idEquipo, Codigo = codigo, IdLocalidadNegocio = idLocalidad });
+        }
         /// <summary>
         /// Para registrar el equipo pero no actualiza el campo confirmado ni en la insersion
         /// ni en la actualicion esas son 2 operaciones apartes
@@ -20,23 +27,33 @@ namespace WSPrestamo.Controllers
         /// <returns></returns>
         // Registrar Equipo
 
-        //public EquipoIdYCodigo InsUpdEquipo(Equipo data)
-        //{
-        //    var _updParam = SearchRec.ToSqlParams(data);
-        //    var resultSet = DBPrestamo.ExecReaderSelSP<EquipoIdYCodigo>("spInsUpdEquipo", _updParam);
-        //    return resultSet.FirstOrDefault();
-        //}
-        [System.Web.Http.HttpPost]
-        public IHttpActionResult Post ()
+        [HttpPost]
+        public IHttpActionResult Post( Equipo equipo)
         {
-            var equipoParam = new Equipo {  };
-            BLLPrestamo.Instance.InsUpdEquipo(equipoParam);
+            BLLPrestamo.Instance.InsUpdEquipo(equipo);
             return Ok();
         }
 
-        public IEnumerable<Equipo>get( int idEquipo,string codigo ,int idLocalidad )
+        [HttpDelete]
+        public IHttpActionResult Anular(int idRegistro)
         {
-            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { IdEquipo = idEquipo, Codigo = codigo, IdLocalidadNegocio = idLocalidad });
+            // llenar el parametro de borrado si lo requier el metodo
+            var elimParam = new DelCatalogo
+            {
+                NombreTabla = "tblEquipo",
+                IdRegistro = idRegistro.ToString()
+            };
+            try
+            {
+                BLLPrestamo.Instance.AnularCatalogo(elimParam);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Registro no pudo ser anulado");
+            }
+
+            //return RedirectToAction("CreateOrEdit");
         }
     }
 }

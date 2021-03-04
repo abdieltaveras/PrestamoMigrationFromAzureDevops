@@ -15,9 +15,9 @@ namespace PrestamoBLL
         {
             return BllAcciones.GetData<TasaInteres, TasaInteresGetParams>(searchParam, "spGetTasasInteres", GetValidation);
         }
-        public void TasaInteresInsUpd(TasaInteres insUpdParam)
+        public int TasaInteresInsUpd(TasaInteres insUpdParam)
         {
-            BllAcciones.InsUpdData<TasaInteres>(insUpdParam, "spInsUpdTasaInteres");
+           return BllAcciones.InsUpdData<TasaInteres>(insUpdParam, "spInsUpdTasaInteres");
         }
         
         public void TasaInteresDelete(TasaInteresDelParams delParam)

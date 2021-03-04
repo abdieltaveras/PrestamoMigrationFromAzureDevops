@@ -11,10 +11,10 @@ using WSPrestamo.Models;
 namespace WSPrestamo.Controllers
 {
  
-    public class ColorController : ApiController
+    public class ColorController : BaseApiController
     {
 
-        public IEnumerable<Color> Get()
+        public IEnumerable<Color> GetAll()
         {
             ColorVM datos = new ColorVM();
             datos.ListaColores = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
