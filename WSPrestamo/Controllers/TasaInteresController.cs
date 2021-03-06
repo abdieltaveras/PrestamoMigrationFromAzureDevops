@@ -25,7 +25,7 @@ namespace WSPrestamo.Controllers
         public IHttpActionResult Anular(int idRegistro)
         {
             // llenar el parametro de borrado si lo requier el metodo
-            var elimParam = new DelCatalogo
+            var elimParam = new AnularCatalogo
             {
                 NombreTabla = "tblTasaInteres",
                 IdRegistro = idRegistro.ToString()

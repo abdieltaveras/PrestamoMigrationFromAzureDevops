@@ -15,7 +15,7 @@ namespace WSPrestamo.Controllers
         public IEnumerable<Usuario> Get(UsuarioGetParams searchParam)
         {
             //GetValidation(searchParam);
-            return BLLPrestamo.Instance.UsuariosGet(searchParam);
+            return BLLPrestamo.Instance.GetUsuarios(searchParam);
         }
 
         public IEnumerable<UsuarioRole> GetRoles(BuscarUserRolesParams searchParam)
@@ -32,7 +32,7 @@ namespace WSPrestamo.Controllers
         [HttpPost]
         public int UsuarioInsUpd(Usuario insUpdParam, string from = "")
         {
-            return BLLPrestamo.Instance.UsuarioInsUpd(insUpdParam, from);
+            return BLLPrestamo.Instance.InsUpdUsuario(insUpdParam, from);
             //if ((insUpdParam.LoginName.ToLower() == "admin") && (from != bllUser))
             //{
             //    throw new Exception("No puede crear el usuario administrador desde la pantalla de creacion de usuario");
