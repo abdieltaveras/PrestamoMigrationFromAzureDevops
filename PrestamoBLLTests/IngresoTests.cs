@@ -68,8 +68,8 @@ namespace PrestamoBLLTests
             // TODO: Add test logic here
             //
            
-            var searchIngresoParams = new IngresoPGetParams { IdPrestamo = 1};
-            var datosPrestamo = BLLPrestamo.Instance.GetDatosPIngreso(searchIngresoParams);
+            var searchIngresoParams = new IngresoGetParams { IdPrestamo = 1};
+            var datosPrestamo = BLLPrestamo.Instance.GetIngresos(searchIngresoParams);
             decimal montoabonado = 100;
             decimal balance = 0;
             try

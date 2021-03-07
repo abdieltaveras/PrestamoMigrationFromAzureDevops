@@ -8,16 +8,21 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL.Entidades
 {
+    /// <summary>
+    /// la representacion de la cuota como va en la tabla
+    /// </summary>
     public class CuotaForSqlType
     {
         public int idCuota { get; internal set; } = 0;
         public int IdPrestamo { get; internal set; } = 0;
         public decimal Numero { get; internal set; } = 0;
         public DateTime Fecha { get; internal set; } = DateTime.Now;
-        public decimal Capital { get; internal set; } = 0;
-        public decimal Interes { get; internal set; } = 0;
+        public decimal? Capital { get; internal set; } = 0;
+        public decimal? Interes { get; internal set; } = 0;
         public decimal? GastoDeCierre { get; internal set; } = 0;
         public decimal? InteresDelGastoDeCierre { get; internal set; } = 0;
+
+        public int? idTipoCargo { get; internal set; } 
         public decimal? OtrosCargos { get; internal set; } = 0;
 
         public decimal? InteresOtrosCargos { get; set; }
@@ -27,8 +32,14 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public string FechaSt => Fecha.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
         [IgnorarEnParam]
-        public decimal TotalOrig => Capital + Interes + +(decimal)GastoDeCierre + (decimal)InteresDelGastoDeCierre + (decimal)OtrosCargos + (decimal)InteresOtrosCargos;
-        public decimal BceGeneral => BceCapital + BceInteres + (decimal)BceGastoDeCierre + (decimal)BceInteresDelGastoDeCierre + (decimal)BceOtrosCargos + (decimal)BceInteresOtrosCargos;
+        public decimal TotalOrig {
+            get 
+            {  var valor = Capital ?? 0 + Interes ?? 0 + +GastoDeCierre ?? 0 + InteresDelGastoDeCierre ?? 0 + OtrosCargos ?? 0 + InteresOtrosCargos ?? 0;
+               var valor2 = Capital + Interes  + +GastoDeCierre  + InteresDelGastoDeCierre + OtrosCargos  + InteresOtrosCargos ;
+                return valor;
+            }
+        }
+        public decimal BceGeneral => BceCapital + BceInteres + BceGastoDeCierre??0 + BceInteresDelGastoDeCierre??0 + BceOtrosCargos??0 + BceInteresOtrosCargos??0;
         public decimal BceCapital { get; internal set; } = 0;
         public decimal BceInteres { get; internal set; } = 0;
         public decimal? BceGastoDeCierre { get; internal set; } = 0;

@@ -19,24 +19,23 @@ namespace WSPrestamo.Controllers
     {
         public IEnumerable<Usuario> GetAll()
         {
-            
             var usrGetParams = new UsuarioGetParams { IdLocalidadNegocio = this.idLocalidadNegocio};
             var data = BLLPrestamo.Instance.GetUsuarios(usrGetParams);
             return data;
         }
 
-        public Usuario Get(string loginName)
+        public Usuario Get(string loginName, int idUsuario=-1, int IdLocalidadNegocio=-1)
         {
-
-            var usrGetParams = new UsuarioGetParams { LoginName = loginName };
+            var usrGetParams = new UsuarioGetParams { LoginName = loginName, IdUsuario=idUsuario, IdLocalidadNegocio = IdLocalidadNegocio};
             var data = BLLPrestamo.Instance.GetUsuarios(usrGetParams);
             return data.FirstOrDefault();
         }
 
-        public LoginResponse  Login(string loginName, string password)
+        public Tuple<LoginResponse,string>  Login(string loginName, string password, string returnUrl)
         {
             var result = BLLPrestamo.Instance.Login(loginName, password, this.idLocalidadNegocio);
-            return result;
+            var response = new Tuple<LoginResponse, string>(result, returnUrl);
+            return response;
         }
 
         [HttpPost]

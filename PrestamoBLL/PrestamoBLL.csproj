@@ -160,7 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Entidades\Direccion.cd" />
-    <None Include="Entidades\TipoMora.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

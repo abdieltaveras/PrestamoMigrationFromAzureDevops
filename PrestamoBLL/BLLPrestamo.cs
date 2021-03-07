@@ -14,6 +14,7 @@ namespace PrestamoBLL
     /// </summary>
     public partial class BLLPrestamo
     {
+        public Exception PendienteDeImplementacionException() => throw new NotImplementedException("Pendiente de implementacion");
         /// <summary>
         /// instancia que tiene el objeto dataserver con la conexion de la base de datos
         /// la cual es obtenida del la propiedad Server del objeto ConexionDB

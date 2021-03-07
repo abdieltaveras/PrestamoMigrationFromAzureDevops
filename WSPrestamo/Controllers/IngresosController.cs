@@ -12,36 +12,26 @@ namespace WSPrestamo.Controllers
 {
  
     /// <summary>
-    /// Para registrar los pagos realizados por los clientes a los prestamos
+    /// para tomarlo como modelo y copiarlo para hacer los demas
     /// </summary>
-    public class IngresoController : BaseApiController
+    public class ModeloGuiaController : BaseApiController
     {
-        /// <summary>
-        /// este metodo es valido usarlo en los catalogos, cuyas tablas no 
-        /// tendran tanta informacion, pero no en tablas con mas de 100 registros.
-        /// nadie suele estar viendo todas las operaciones registrada, normalmente se filtran
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Color> GetAll()
+        
+        public IEnumerable<Ingreso> Get(int idIngreso,int idLocalidadNegocio, DateTime FechaDesde, DateTime fechaHasta, string numeroTransaccion )
         {
-            
-            var getParam = new ColorGetParams();
-            var data = BLLPrestamo.Instance.GetColores(new ColorGetParams());
-            return data;
-        }
-
-        public IEnumerable<Color> Get(int idColor)
-        {
-            var data = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdColor = idColor });
+            //
+            var getParam = new IngresoGetParams { IdIngreso= idIngreso,FechaDesde= FechaDesde, FechaHasta= fechaHasta,
+                            IdLocalidadNegocio= idLocalidadNegocio, NumeroTransaccion= numeroTransaccion} ;
+            var data = BLLPrestamo.Instance.GetIngresos(getParam);
             return data;
         }
 
         [HttpPost]
-        public IHttpActionResult Post(Color color)
+        public IHttpActionResult Post(Ingreso ingreso)
         {
             try
             {
-                BLLPrestamo.Instance.InsUpdColor(color);
+                BLLPrestamo.Instance.InsUpdIngreso(ingreso);
                 return Ok();
             }
             catch (Exception e)
@@ -57,8 +47,7 @@ namespace WSPrestamo.Controllers
             // llenar el parametro de borrado si lo requier el metodo
             var elimParam = new AnularCatalogo
             {
-                NombreTabla = "tblColor",
-                IdRegistro = idRegistro.ToString()
+            
             };
             try
             {
