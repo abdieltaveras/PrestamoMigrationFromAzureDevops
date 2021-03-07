@@ -212,6 +212,7 @@
     <Build Include="dbo\Tables\tblStatus.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdStatus.sql" />
     <Build Include="dbo\Stored Procedures\spGetStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spGetOcupaciones.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

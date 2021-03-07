@@ -8,7 +8,7 @@ using System.Web.Http;
 using PrestamoBLL;
 namespace WSPrestamo.Controllers
 {
-    public class TipoMoraController : BaseApiController
+    public class TipoMorasController : BaseApiController
     {
         public IEnumerable<TipoMora> Get(TipoMoraGetParams searchParam)
         {

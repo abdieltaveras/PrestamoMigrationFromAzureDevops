@@ -2,6 +2,7 @@
 	@IdClasificacion int,
 	@Nombre varchar(50),
 	@IdNegocio int,
+		@IdLocalidadNegocio int = -1,
 	@Usuario varchar(50),
 	@Codigo varchar(10),
 	@RequiereGarantia bit,

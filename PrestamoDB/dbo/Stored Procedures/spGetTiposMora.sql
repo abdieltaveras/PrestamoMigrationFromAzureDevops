@@ -2,6 +2,7 @@
 (
 	@idTipoMora int=-1,
 	@idNegocio int,
+		@IdLocalidadNegocio int = -1,
 	@Codigo varchar(10)='',
 	@Activo int=-1,
 	@RequiereAutorizacion int=-1,

@@ -172,7 +172,7 @@
     <Compile Include="Controllers\OcupacionController.cs" />
     <Compile Include="Controllers\TasaInteresController.cs" />
     <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\TipoMoraController.cs" />
+    <Compile Include="Controllers\TipoMorasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

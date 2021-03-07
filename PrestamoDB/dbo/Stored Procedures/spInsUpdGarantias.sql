@@ -2,6 +2,7 @@
 	@IdGarantia int,
 	@IdClasificacion int,
 	@IdNegocio int,
+	@IdLocalidadNegocio int = -1,
 	@IdTipoGarantia int,
 	@IdModelo int,
 	@IdMarca int,

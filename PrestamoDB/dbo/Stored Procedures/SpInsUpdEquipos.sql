@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE dbo.spInsUpdEquipo
 	@IdEquipo INT,
 	@IdNegocio INT  ,
+	@IdLocalidadNegocio int = -1,
 	@Nombre VARCHAR(50),
 	@Descripcion varchar(50),
 	@UltimoAcceso datetime, 

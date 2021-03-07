@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spBuscarTodosUsuarioRoles]
 	@IdUsuario int,
 	@IdNegocio int,
+		@IdLocalidadNegocio int = -1,
 	@Usuario varchar(100) = '',
 	@Anulado int=0
 as
