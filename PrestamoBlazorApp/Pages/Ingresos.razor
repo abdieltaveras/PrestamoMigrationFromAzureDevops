@@ -1,0 +1,12 @@
+﻿@page "/ingresos"
+
+
+<h2>Probando operacion de ingreso</h2>
+<p>al pusar sobre uno de los botones ejecutara el proceso de hacer el request al api</p>
+<p>es solo para probar de manera basica e inicial la comunicacion entre blazor  y el api</p>
+
+<button class="btn btn-primary" @onclick="GetIngresosByParam">Get Ingresos By Param</button>
+<button class="btn btn-primary" @onclick="GetIngresosById">Get Ingresos by Id</button>
+
+<button class="btn btn-primary" @onclick="SaveIngreso">Save Ingreso</button>
+

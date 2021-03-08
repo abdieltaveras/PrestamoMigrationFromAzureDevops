@@ -21,7 +21,7 @@ namespace PrestamoWS.Controllers
             {
                 IdAplicacion = 1,
                 IdDispositivo = 1,
-                IdLocalidad = 1,
+                IdLocalidadNegocio = 1,
                 IdUsuario = 1,
                 Usuario = "UsrDevelopement"
             };

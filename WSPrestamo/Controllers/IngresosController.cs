@@ -14,20 +14,32 @@ namespace WSPrestamo.Controllers
     /// <summary>
     /// para tomarlo como modelo y copiarlo para hacer los demas
     /// </summary>
-    public class ModeloGuiaController : BaseApiController
+    public class IngresosController : BaseApiController
     {
         
         public IEnumerable<Ingreso> Get(int idIngreso,int idLocalidadNegocio, DateTime FechaDesde, DateTime fechaHasta, string numeroTransaccion )
         {
             //
             var getParam = new IngresoGetParams { IdIngreso= idIngreso,FechaDesde= FechaDesde, FechaHasta= fechaHasta,
-                            IdLocalidadNegocio= idLocalidadNegocio, NumeroTransaccion= numeroTransaccion} ;
+                            IdLocalidadNegocio= idLocalidadNegocio, NumeroTransaccion= numeroTransaccion, Usuario = this.LoginName} ;
             var data = BLLPrestamo.Instance.GetIngresos(getParam);
+
             return data;
         }
 
-        [HttpPost]
-        public IHttpActionResult Post(Ingreso ingreso)
+        public IEnumerable<Ingreso> Get(int id)
+        {
+            //
+            var getParam = new IngresoGetParams
+            {
+                IdIngreso = id
+            };
+            var data = BLLPrestamo.Instance.GetIngresos(getParam);
+
+            return data;
+        }
+
+        public IHttpActionResult Post([FromBody] Ingreso ingreso)
         {
             try
             {
@@ -41,7 +53,7 @@ namespace WSPrestamo.Controllers
             //return RedirectToAction("CreateOrEdit");
         }
 
-        [HttpPost]
+        
         public IHttpActionResult Anular(int idRegistro)
         {
             // llenar el parametro de borrado si lo requier el metodo

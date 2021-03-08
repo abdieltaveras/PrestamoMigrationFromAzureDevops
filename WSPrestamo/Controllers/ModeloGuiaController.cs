@@ -14,7 +14,7 @@ namespace WSPrestamo.Controllers
     /// <summary>
     /// Para registrar los pagos realizados por los clientes a los prestamos
     /// </summary>
-    public class IngresoController : BaseApiController
+    public class ModeloGuiaController : BaseApiController
     {
         /// <summary>
         /// este metodo es valido usarlo en los catalogos, cuyas tablas no 
