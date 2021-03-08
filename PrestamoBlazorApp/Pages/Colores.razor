@@ -8,7 +8,25 @@
 <button class="btn btn-primary" @onclick="GetColoresByParam">Get By Param</button>
 <button class="btn btn-primary" @onclick="GetAll">Get All</button>
 <button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>
-<button class="btn btn-primary" @onclick="SaveColor">Save Color</button>
+
+<EditForm Model="@Color" OnValidSubmit="SaveColor" OnInvalidSubmit="RaiseInvalidSubmit">
+
+    <div class="form-group">
+        <label for="codigo">Codigo</label>
+        <InputText id="codigo" class="form-control col-md-2" @bind-Value="Color.Codigo"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <InputText id="nombre" class="form-control col-md-4" @bind-Value="Color.Nombre"></InputText>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Guardar" />
+    </div>
+
+
+</EditForm>
+
+
 
 @if (colores == null)
 {

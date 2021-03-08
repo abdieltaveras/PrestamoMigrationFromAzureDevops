@@ -13,10 +13,15 @@ namespace WSPrestamo.Controllers
     public abstract class BaseApiController : ApiController
     {
 
-        protected int idLocalidadNegocio { get; set; } = -1;
+        protected int IdLocalidadNegocio { get; } = 1;
 
-        protected string LoginName { get; set; } = string.Empty;
+        
+        protected string LoginName { get { return this.GetLoginName(); }  }
 
+        private string GetLoginName()
+        {
+            return "development"+DateTime.Now;
+        }
 
         protected bool IsUserAuthenticaded => UserIsAuthenticated();
         protected InfoAccion InfoAccion { get { return this.InfoAccionFromSesion(); } }

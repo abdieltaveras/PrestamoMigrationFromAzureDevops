@@ -13,9 +13,16 @@ namespace PrestamoBlazorApp.Pages
         [Inject]
         ColoresService coloresService { get; set; }
         IEnumerable<Color> colores;
+        [Parameter]
+        public Color Color { get; set; } 
         bool loading = false;
         void Clear() => colores = null;
-        
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            this.Color = new Color();
+        }
+
         async Task GetColoresByParam()
         {
             loading = true;
@@ -33,8 +40,11 @@ namespace PrestamoBlazorApp.Pages
 
         async Task SaveColor()
         {
-            var color = new Color { Codigo = "azul", Nombre = "azul"};
-            await coloresService.SaveColor(new Color());
+            await coloresService.SaveColor(this.Color);
+        }
+
+        void RaiseInvalidSubmit()
+        {
             
         }
     }

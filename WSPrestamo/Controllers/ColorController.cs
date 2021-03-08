@@ -33,6 +33,7 @@ namespace WSPrestamo.Controllers
         public IHttpActionResult Post(Color color)
         {
             color.Usuario = this.LoginName;
+            color.IdLocalidadNegocio = this.IdLocalidadNegocio;
             BLLPrestamo.Instance.InsUpdColor(color);
             return Ok();
             //return RedirectToAction("CreateOrEdit");

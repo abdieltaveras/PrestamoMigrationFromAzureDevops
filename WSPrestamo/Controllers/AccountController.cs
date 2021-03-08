@@ -19,7 +19,7 @@ namespace WSPrestamo.Controllers
     {
         public IEnumerable<Usuario> GetAll()
         {
-            var usrGetParams = new UsuarioGetParams { IdLocalidadNegocio = this.idLocalidadNegocio};
+            var usrGetParams = new UsuarioGetParams { IdLocalidadNegocio = this.IdLocalidadNegocio};
             var data = BLLPrestamo.Instance.GetUsuarios(usrGetParams);
             return data;
         }
@@ -33,7 +33,7 @@ namespace WSPrestamo.Controllers
 
         public Tuple<LoginResponse,string>  Login(string loginName, string password, string returnUrl)
         {
-            var result = BLLPrestamo.Instance.Login(loginName, password, this.idLocalidadNegocio);
+            var result = BLLPrestamo.Instance.Login(loginName, password, this.IdLocalidadNegocio);
             var response = new Tuple<LoginResponse, string>(result, returnUrl);
             return response;
         }
