@@ -44,6 +44,7 @@ namespace PrestamoBlazorApp
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddHttpClient();
             services.AddSingleton<IngresosService>();
+            services.AddSingleton<ColoresService>();
             services.AddSingleton<WeatherForecastService>();
         }
 

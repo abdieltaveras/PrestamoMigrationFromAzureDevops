@@ -24,7 +24,6 @@ namespace WSPrestamo.Controllers
         /// <returns></returns>
         public IEnumerable<Color> GetAll()
         {
-            
             var getParam = new ColorGetParams();
             var data = BLLPrestamo.Instance.GetColores(new ColorGetParams());
             return data;

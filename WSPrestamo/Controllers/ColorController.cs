@@ -16,18 +16,23 @@ namespace WSPrestamo.Controllers
 
         public IEnumerable<Color> GetAll()
         {
-            ColorVM datos = new ColorVM();
-            datos.ListaColores = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
-            return datos.ListaColores;
+            var result = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
+            return result;
+            //return View("CreateOrEdit", datos);
+        }
+
+        public IEnumerable<Color> Get(int idColor, int idLocalidadNegocio)
+        {
+            var search = new ColorGetParams { IdColor = idColor, IdLocalidadNegocio = idLocalidadNegocio };
+            var result = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
+            return result;
             //return View("CreateOrEdit", datos);
         }
 
         [HttpPost]
         public IHttpActionResult Post(Color color)
         {
-            //color.IdNegocio = 1;
-            //marca.InsertadoPor = "Bryan";
-            //this.pcpSetUsuarioAndIdNegocioTo(color);
+            color.Usuario = this.LoginName;
             BLLPrestamo.Instance.InsUpdColor(color);
             return Ok();
             //return RedirectToAction("CreateOrEdit");

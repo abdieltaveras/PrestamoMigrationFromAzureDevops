@@ -1,0 +1,27 @@
+﻿@page "/colores"
+
+
+<h2>Probando operacion de Colores</h2>
+<p>al pusar sobre uno de los botones ejecutara el proceso de hacer el request al api</p>
+<p>es solo para probar de manera basica e inicial la comunicacion entre blazor  y el api</p>
+
+<button class="btn btn-primary" @onclick="GetColoresByParam">Get By Param</button>
+<button class="btn btn-primary" @onclick="GetAll">Get All</button>
+<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>
+<button class="btn btn-primary" @onclick="SaveColor">Save Color</button>
+
+@if (colores == null)
+{
+    <p>Cargando datos ejecute una busqueda</p>
+}
+else
+{
+    @foreach (var item in colores)
+    {
+        <ol>
+            <li>
+                @item.IdColor @item.Codigo  @item.Nombre
+            </li>
+        </ol>
+    }
+}
