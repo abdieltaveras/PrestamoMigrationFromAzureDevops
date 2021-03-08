@@ -15,9 +15,9 @@ namespace PrestamoBLL
         {
             return BllAcciones.GetData<TipoMora, TipoMoraGetParams>(searchParam, "spGetTiposMora", GetValidation);
         }
-        public void TipoMoraInsUpd(TipoMora insUpdParam)
+        public int TipoMoraInsUpd(TipoMora insUpdParam)
         {
-            BllAcciones.InsUpdData<TipoMora>(insUpdParam, "spInsUpdTipoMora");
+            return BllAcciones.InsUpdData<TipoMora>(insUpdParam, "spInsUpdTipoMora");
         }
         
         public void TipoMoraCancel(TipoMoraDelParams delParam)

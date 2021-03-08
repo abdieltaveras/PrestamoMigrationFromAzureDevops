@@ -2,6 +2,7 @@
 	@IdMarca int,
 	@Nombre varchar(50),
 	@IdNegocio int,
+	@IdLocalidadNegocio int = -1,
 	@Usuario varchar(100),
 	@Codigo varchar(10)='',
 	@Activo bit = 1

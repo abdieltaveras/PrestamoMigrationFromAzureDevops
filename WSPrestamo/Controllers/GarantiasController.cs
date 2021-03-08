@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace WSPrestamo.Controllers
 {
-    public class GarantiasController : ApiController
+    public class GarantiasController : BaseApiController
     {
         int BUSCAR_A_PARTIR_DE = 2;
         [HttpGet]

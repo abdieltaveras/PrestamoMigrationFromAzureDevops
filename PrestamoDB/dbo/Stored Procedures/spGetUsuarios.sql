@@ -2,6 +2,7 @@
 (
 	@IdUsuario int = -1,
 	@IdNegocio int,
+		@IdLocalidadNegocio int = -1,
 	@LoginName varchar(100),
 	@NombreRealCompleto varchar(100)='',
     @Bloqueado int =-1,

@@ -3,7 +3,8 @@
 	@Codigo varchar (40),
 	@usuario varchar(40) ='',
 	@Anulado bit=0,
-	@Idnegocio int =-1
+	@Idnegocio int =-1,
+	@IdLocalidadNegocio int = -1
 AS
 SELECT IdEquipo, IdNegocio, Nombre, Descripcion, UltimoAcceso, AccesadoPor, FechaConfirmado, ConfirmadoPor, FechaBloqueado, BloqueadoPor, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
 FROM dbo.tblEquipos

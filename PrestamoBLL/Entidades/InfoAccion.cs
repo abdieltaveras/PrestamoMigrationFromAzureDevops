@@ -37,5 +37,9 @@ namespace PrestamoBLL.Entidades
         /// El id De la aplicacion
         /// </summary>
         public int IdAplicacion { get; set; }
+        /// <summary>
+        /// El id De la localidad
+        /// </summary>
+        public int IdLocalidad { get; set; }
     }
 }
