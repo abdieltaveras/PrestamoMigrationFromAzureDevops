@@ -24,10 +24,11 @@ namespace WSPrestamo.Controllers
             return data;
         }
 
-        public Usuario Get(string loginName, int idUsuario=-1, int IdLocalidadNegocio=-1)
+        public Usuario Get(string loginName, int idUsuario=-1)
         {
             var usrGetParams = new UsuarioGetParams { LoginName = loginName, IdUsuario=idUsuario, IdLocalidadNegocio = IdLocalidadNegocio};
             var data = BLLPrestamo.Instance.GetUsuarios(usrGetParams);
+            
             return data.FirstOrDefault();
         }
 
@@ -54,14 +55,14 @@ namespace WSPrestamo.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult CambiarContraseña(int idUsuario, string nuevaContraseña)
+        public IHttpActionResult CambiarContraseña(string loginName, string nuevaContraseña, string returnUrl)
         {
             try
             {
                 // todo indagar con ernesto si en el api, debe tener todo ese proceso que se tiene en la vista
                 // a veces de validar contrasena anterior, u otra opcion, analizarlo con el
-                BLLPrestamo.Instance.CambiarContrasena(idUsuario, nuevaContraseña);
-                return Ok();
+                BLLPrestamo.Instance.CambiarContrasena(loginName, nuevaContraseña);
+                return Ok(returnUrl);
             }
             catch (Exception e)
             {
@@ -70,14 +71,14 @@ namespace WSPrestamo.Controllers
             //return RedirectToAction("CreateOrEdit");
         }
 
-        [HttpPost]
-        public IHttpActionResult OlvideLaContraseña(int idUsuario)
-        {
-            // metodo para restaurar contrasena, sera segun el usuario siu
-            
-            return null;
-        }
 
+        [HttpPost]
+        public IHttpActionResult OlvideLaContraseña(string loginName, string urlCambioContrasena)
+        {
+            return null;
+            // esto deve devolver un link a un correo para debloquear o 
+            // o reenviarlo al url para cambio de contrasena
+        }
 
         [HttpPost]
         public IHttpActionResult Delete(int idUsuario)

@@ -57,6 +57,11 @@ namespace PrestamoBLL
             throw new NotImplementedException("debe implementar el stored procedure");
         }
 
+        public void CambiarContrasena(string loginName, string newContrasena)
+        {
+            throw new NotImplementedException("debe implementar el stored procedure");
+        }
+
         private bool ExistUsers => ExistDataForTable("tblUsuarios");
 
         public void InsUpdRoleUsuario(
