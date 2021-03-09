@@ -45,6 +45,7 @@ namespace PrestamoBlazorApp
             services.AddHttpClient();
             services.AddSingleton<IngresosService>();
             services.AddSingleton<ColoresService>();
+            services.AddSingleton<MarcasService>();
             services.AddSingleton<WeatherForecastService>();
         }
 
