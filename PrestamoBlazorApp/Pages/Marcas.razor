@@ -1,9 +1,8 @@
 ﻿@page "/marcas"
 
 
-<h2>Probando operacion de marcas</h2>
-<p>al pusar sobre uno de los botones ejecutara el proceso de hacer el request al api</p>
-<p>es solo para probar de manera basica e inicial la comunicacion entre blazor  y el api</p>
+<h2>Marcas</h2>
+
 
 <button class="btn btn-primary" @onclick="GetMarcasByParam">Get By Param</button>
 <button class="btn btn-primary" @onclick="GetAll">Get All</button>
@@ -28,18 +27,28 @@
 
 
 
-@if (marcas == null)
-{
-    <p>Cargando datos ejecute una busqueda</p>
-}
-else
-{
-    @foreach (var item in marcas)
-    {
-        <ol>
-            <li>
-                @item.IdMarca @item.Codigo  @item.Nombre
-            </li>
-        </ol>
-    }
-}
+
+<table class="table table-responsive-md table-hover">
+    <thead>
+        <tr>
+            <th>IdMarca</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (marcas == null)
+        {
+            <p>Cargando datos ejecute una busqueda</p>
+        }
+        else
+        {
+            @foreach (var item in marcas)
+            {
+                <tr>
+                    <td>@item.IdMarca</td>
+                    <td>@item.Nombre</td>
+                </tr>
+            }
+        }
+        </tbody>
+</table>

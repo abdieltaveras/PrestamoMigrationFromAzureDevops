@@ -14,20 +14,27 @@ namespace WSPrestamo.Controllers
     {
         public IEnumerable<Marca> GetAll()
         {
-            MarcaVM datos = new MarcaVM();
             //Hay que agregar el controller
-            datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
-            return datos.ListaMarcas;
+            var result = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
+            return result;
             //return View("CreateOrEdit", datos);
         }
         [HttpPost]
         public IHttpActionResult Post(Marca marca)
         {
-            //marca.IdNegocio = 1;
-            //marca.InsertadoPor = "Bryan";
-            //this.pcpSetUsuarioAndIdNegocioTo(marca);
-            BLLPrestamo.Instance.InsUpdMarca(marca);
-            return Ok();
+            try
+            {
+                marca.Usuario = this.LoginName;
+                marca.IdLocalidadNegocio = this.IdLocalidadNegocio;
+                BLLPrestamo.Instance.InsUpdMarca(marca);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
             //return RedirectToAction("CreateOrEdit");
         }
         [HttpDelete]

@@ -17,16 +17,16 @@ namespace PrestamoBlazorApp.Pages
         public Marca Marca { get; set; } 
         bool loading = false;
         void Clear() => marcas = null;
-        //protected override void OnInitialized()
-        //{
-        //    base.OnInitialized();
-        //    this.Marca = new Marca();
-        //}
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            this.Marca = new Marca();
+        }
 
         async Task GetMarcasByParam()
         {
             loading = true;
-            var getAzul = new MarcaGetParams { IdMarca = 4 };
+            var getAzul = new MarcaGetParams { IdMarca = 1 };
             marcas = await marcasService.GetMarcasAsync(getAzul);
             loading = false;
         }

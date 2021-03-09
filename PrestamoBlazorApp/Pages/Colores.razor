@@ -28,18 +28,27 @@
 
 
 
-@if (colores == null)
-{
-    <p>Cargando datos ejecute una busqueda</p>
-}
-else
-{
-    @foreach (var item in colores)
-    {
-        <ol>
-            <li>
-                @item.IdColor @item.Codigo  @item.Nombre
-            </li>
-        </ol>
-    }
-}
+<table class="table table-responsive-md table-hover">
+    <thead>
+        <tr>
+            <th>IdColor</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (colores == null)
+        {
+            <p>Cargando datos ejecute una busqueda</p>
+        }
+        else
+        {
+            @foreach (var item in colores)
+            {
+                <tr>
+                    <td>@item.IdColor</td>
+                    <td>@item.Nombre</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
