@@ -3,6 +3,7 @@
 	[IdCliente] INT NOT NULL PRIMARY KEY identity(1,1), 
 	[IdStatus] INT NULL,
 	[IdNegocio] INT NOT NULL, 
+	[IdLocalidadNegocio] INT NOT NULL, 
 	[Activo] bit default(1) not null,
 	[AnuladoPor] VARCHAR(100) NULL, 
 	[Apodo] varchar(100),
@@ -30,9 +31,10 @@
 	Imagen1FileName varchar(50),
 	Imagen2FileName varchar(50),
 	[InfoReferencia] VARCHAR(4000),
-    CONSTRAINT [FK_tblCliente_ToTblNegocios] FOREIGN KEY (IdNegocio) REFERENCES tblNegocios([IdNegocio]),
+    --CONSTRAINT [FK_tblCliente_ToTblNegocios] FOREIGN KEY (IdNegocio) REFERENCES tblNegocios([IdNegocio]),
+	CONSTRAINT [FK_tblCliente_ToTblLocalidadNegocios] FOREIGN KEY (IdLocalidadNegocio) REFERENCES tblLocalidadesNegocio([IdLocalidadNegocio]),
 	CONSTRAINT [FK_tblCliente_UQ_IdentificationNumber] Unique NonClustered (idNegocio, IdTipoIdentificacion,NoIdentificacion),
-	CONSTRAINT [FK_tblCliente_UQ_Codigo] Unique NonClustered(IdNegocio, Codigo),
+	CONSTRAINT [FK_tblCliente_UQ_Codigo] Unique NonClustered(IdLocalidadNegocio, Codigo),
 	CONSTRAINT [CK_NombresClientes_not_empty_string] CHECK  ((Nombres<>N''))
 )
 	

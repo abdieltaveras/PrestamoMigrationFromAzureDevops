@@ -88,12 +88,13 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetClientes_DoesNotThrowError()
         {
-            var insData = ClienteData.SearchCliente();
-            insData.IdNegocio = -1;
+            var searhData = ClienteData.SearchCliente();
+            searhData.IdNegocio = -1;
             var mensajeError = string.Empty;
+            
             try
             {
-                BLLPrestamo.Instance.GetClientes(insData);
+                var result = BLLPrestamo.Instance.GetClientes(searhData);
             }
             catch (Exception e)
             {

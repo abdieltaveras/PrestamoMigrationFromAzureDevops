@@ -27,19 +27,17 @@
 </EditForm>
 
 
-
-@if (marcas == null)
+@if (loading)
 {
-    <p>Cargando datos ejecute una busqueda</p>
+    <div class="loader">Cargando datos, espere...</div>
 }
-else
+
+@foreach (var item in marcas)
 {
-    @foreach (var item in marcas)
-    {
-        <ol>
-            <li>
-                @item.IdMarca @item.Codigo  @item.Nombre
-            </li>
-        </ol>
-    }
+    <ol>
+        <li>
+            @item.IdMarca @item.Codigo  @item.Nombre
+        </li>
+    </ol>
+}
 }

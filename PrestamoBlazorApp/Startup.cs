@@ -46,6 +46,7 @@ namespace PrestamoBlazorApp
             services.AddSingleton<IngresosService>();
             services.AddSingleton<ColoresService>();
             services.AddSingleton<MarcasService>();
+            services.AddSingleton<ClientesService>();
             services.AddSingleton<WeatherForecastService>();
         }
 
@@ -81,3 +82,4 @@ namespace PrestamoBlazorApp
         }
     }
 }
+

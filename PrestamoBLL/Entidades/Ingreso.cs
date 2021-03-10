@@ -14,6 +14,16 @@ namespace PrestamoBLL.Entidades
         public DateTime Fecha { get; set; }
         public decimal Monto { get; set; }
 
+        // old property to be removed only to avoid errors on blltest was again placed here
+        public int IdCuota { get; set; }
+        public int Num_Cuota { get; set; }
+        public decimal Monto_Original_Cuota
+        {
+            get; set;
+        }
+        public decimal Monto_Abonado { get; set; }
+        public decimal Balance { get; set; }
+
     }
 
 

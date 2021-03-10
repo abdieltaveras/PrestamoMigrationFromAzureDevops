@@ -11,7 +11,8 @@ using System.Net.Http.Json;
 
 namespace PrestamoBlazorApp.Services
 {
-    public class ServiceBase
+    
+    public abstract class ServiceBase
     {
         [Inject] IConfiguration Configuration { get; set; }
 

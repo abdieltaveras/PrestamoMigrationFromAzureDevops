@@ -6,7 +6,7 @@
         /// para indicar si desea o no registros anulado
         /// -1 todos, 0 los normales que no estan marcados como anulado y 1 los marcados como anulados
         /// </summary>
-        public int Anulado { get; set; } = 0;
+        public int Anulado { get; set; } = -1;
     }
 
     public class BaseCatalogoGetParams : BaseGetParams

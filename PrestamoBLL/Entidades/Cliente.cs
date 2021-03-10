@@ -123,6 +123,7 @@ namespace PrestamoBLL.Entidades
     public class ClienteGetParams : BaseGetParams
     //: BaseGetParams
     {
+        public string Codigo { get; set; } = string.Empty;
         public int IdCliente { get; set; } = -1;
         /// <summary>
         /// indica si esta o no activo, por defecto pone que sea true
@@ -134,7 +135,7 @@ namespace PrestamoBLL.Entidades
         //// PersonaInfoBasicaSinCodigo
         //public string Codigo { get; set; } = string.Empty;
         //// PersonaInfoAmpliadaConCodigoGetParams
-        public int IdTipoIdentificacion { get; set; } = -1; 
+        public int IdTipoIdentificacion { get; set; } = -1;
         public string NoIdentificacion { get; set; } = string.Empty;
         //public DateTime FechaNacimiento { get; set; } = InitValues._19000101;
         //public int Sexo { get; set; } = 0;
@@ -144,7 +145,23 @@ namespace PrestamoBLL.Entidades
 
         public string Apellidos { get; set; } = string.Empty;
 
+        public DateTime? InsertadoDesde { get; set; } = null;
 
+        public DateTime? InsertadoHasta { get; set; } = null;
+
+        /// <summary>
+        /// cantidad de registros a seleccionar enviar null
+        /// hara que por defecto el procedimiento seleccione 100
+        /// -1 hara que seleccione todo
+        /// </summary>
+        public int CantidadRegistrosASeleccionar { get; set; } = -1;
+
+        /// <summary>
+        /// selecciona esta cantidad de registros cada vez que hace el get
+        /// </summary>
+        public int SeleccionarLuegoDelIdCliente { get; set; } = -1;
+        
+        public int IdLocalidad { get; set; } = -1;
     }
 
     public class ClienteDelParams : BaseAnularOrDeleteParams

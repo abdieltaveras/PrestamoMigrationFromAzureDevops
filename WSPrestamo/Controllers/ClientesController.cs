@@ -18,35 +18,32 @@ namespace WSPrestamo.Controllers
     public class ClientesController : BaseApiController
     {
 
-        public IEnumerable<Cliente> GetAll()
+
+        public IEnumerable<Cliente> Get(int idCliente, string codigo="",string nombres = "", string apellidos = "", int Activo = -1, 
+            int idLocalidad = -1, int idTipoIdentificacion = -1, string noIdentificacion = "", int anulado = -1, DateTime? insertadoDesde = null, DateTime? insertadoHasta=null, int seleccionarCantidadRegistros = -1, int idRegistroInicioSeleccion = -1 
+            )
         {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams());
-            return data;
-
-        }
-
-        public IEnumerable<Cliente> Get(int idCliente)
-        {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idCliente });
-            return data;
-        }
-
-        public IEnumerable<Cliente> Get(string nombre = "", string apellidos = "", int Activo = -1, int idCliente = -1,
-            int idLocalidad = -1, int idTipoIdentificacion = -1, string noIdentificacion = "", int anulado = -1)
-        {
-            var getP = new ClienteGetParams { Nombres = nombre, Apellidos = apellidos, IdCliente = idCliente, IdLocalidadNegocio = idLocalidad, IdNegocio = -1, Activo = Activo, Anulado = anulado, IdTipoIdentificacion = idTipoIdentificacion, NoIdentificacion = noIdentificacion };
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { NoIdentificacion = noIdentificacion });
-            return data;
-        }
-
-
-
-        public IEnumerable<Cliente> Get(ClienteGetParams param)
-        {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { });
+            var getParams = new ClienteGetParams
+            {
+                Codigo = codigo,
+                Nombres = nombres,
+                Apellidos = apellidos,
+                IdCliente = idCliente,
+                IdLocalidadNegocio = idLocalidad,
+                IdNegocio = -1,
+                Activo = Activo,
+                Anulado = anulado,
+                IdTipoIdentificacion = idTipoIdentificacion,
+                NoIdentificacion = noIdentificacion,
+                InsertadoDesde = insertadoDesde,
+                InsertadoHasta = insertadoHasta,
+                CantidadRegistrosASeleccionar = seleccionarCantidadRegistros,
+                SeleccionarLuegoDelIdCliente = idRegistroInicioSeleccion,
+                Usuario = this.LoginName
+            };
+            var data = BLLPrestamo.Instance.GetClientes(getParams);
             return data;
         }
-
 
         public IEnumerable<Cliente> Get(string textoABuscar, bool CargarImagenesClientes)
         {
@@ -65,7 +62,6 @@ namespace WSPrestamo.Controllers
                 var id = BLLPrestamo.Instance.InsUpdCliente(cliente);
                 return Ok(id);
             }
-
             catch (Exception e)
             {
                 throw new Exception("El cliente no pudo ser creado");
@@ -103,27 +99,5 @@ namespace WSPrestamo.Controllers
             }
             return clientes;
         }
-        //[HttpDelete]
-        //public IHttpActionResult Anular(int idRegistro)
-        //{
-        //    // llenar el parametro de borrado si lo requier el metodo
-        //    var elimParam = new DelCatalogo
-        //    {
-        //        NombreTabla = "tblClientes",
-        //        IdRegistro = idRegistro.ToString()
-        //    };
-        //    try
-        //    {
-        //        BLLPrestamo.Instance.AnularCatalogo(elimParam);
-        //        return Ok();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new Exception("Registro no pudo ser anulado");
-        //    }
-
-        //    //return RedirectToAction("CreateOrEdit");
-        //}
     }
-
 }

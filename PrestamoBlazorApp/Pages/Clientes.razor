@@ -1,0 +1,69 @@
+﻿@page "/clientes"
+
+
+<div class="grid-container">
+    <div class="header"><h3>Buscar Estudiantes</h3></div>
+    <div class="search">
+        <EditForm Model="@searchClientes" OnValidSubmit="@GetClientes">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <InputText id="Codigo" @bind-Value="searchClientes.Codigo" placeholder="Código" />
+            <InputText id="nombres" @bind-Value="searchClientes.Nombres" placeholder="Nombres" />
+            <InputText id="Apellidos" @bind-Value="searchClientes.Apellidos" placeholder="Primer Apellido" />
+
+            <button type="submit">Buscar</button>
+            <label>Total de clientes @totalClientes</label>
+        </EditForm>
+    </div>
+</div>
+
+<div class="grid">
+    @if (loading)
+    {
+        <div class="loader">Cargando...</div>
+    }
+    else
+    {
+        if (clientes == null)
+        {
+            <p><em>datos no encontrados</em></p>
+        }
+        else
+        {
+
+            if (totalClientes> 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombres</th>
+                            <th>Telefono</th>
+                            <th>Tipo Identificacion</th>
+                            <th>Identificacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cliente in clientes)
+                        {
+                            <tr>
+                                <td>@cliente.Codigo</td>
+                                <td>@cliente.NombreCompleto</td>
+                                <td>@cliente.TelefonoMovil</td>                                
+                                <td>@cliente.NoIdentificacion</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p><em>No datos encontrados</em></p>
+            }
+        }
+    }
+
+</div>
+
+
+
