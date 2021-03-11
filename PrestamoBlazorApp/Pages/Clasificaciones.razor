@@ -1,0 +1,68 @@
+﻿@page "/clasificaciones"
+
+
+<h2>Marcas</h2>
+
+
+<button class="btn btn-primary" @onclick="GetClasificacionesByParam">Get By Param</button>
+@*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
+<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>
+
+<EditForm Model="@ClasificacionesService" OnValidSubmit="SaveClasificacion" OnInvalidSubmit="RaiseInvalidSubmit">
+
+    <div class="form-group">
+        <label for="codigo">Codigo</label>
+        <InputText id="codigo" class="form-control col-md-2" @bind-Value="Clasificacion.Codigo"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <InputText id="nombre" class="form-control col-md-4" @bind-Value="Clasificacion.Nombre"></InputText>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Guardar" />
+    </div>
+
+
+</EditForm>
+
+
+@*@if (loading)
+{
+    <div class="loader">Cargando datos, espere...</div>
+}
+
+@foreach (var item in marcas)
+{
+    <ol>
+        <li>
+            @item.IdMarca @item.Codigo  @item.Nombre
+        </li>
+    </ol>
+}
+}*@
+
+
+<table class="table table-responsive-md table-hover">
+    <thead>
+        <tr>
+            <th>IdMarca</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (clasificaciones == null)
+        {
+            <p>Cargando datos ejecute una busqueda</p>
+        }
+        else
+        {
+            @foreach (var item in clasificaciones)
+            {
+                <tr>
+                    <td>@item.IdClasificacion</td>
+                    <td>@item.Nombre</td>
+                </tr>
+            }
+        }
+        </tbody>
+</table>

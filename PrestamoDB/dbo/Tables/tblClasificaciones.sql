@@ -3,6 +3,7 @@
 	[IdClasificacion]INT NOT NULL PRIMARY KEY  identity(1,1),
 	[Nombre] NVARCHAR(50) NOT NULL,
 	[IdNegocio] INT NOT NULL references tblNegocios(idNegocio),
+	[IdLocalidadNegocio] int null,
 	IdClasificacionFinanciera int DEFAULT 1,
 	RequiereGarantia bit DEFAULT 1,
 	RequiereAutorizacion bit,
