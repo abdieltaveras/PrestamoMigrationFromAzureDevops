@@ -2,6 +2,7 @@
 (
 	[IdEquipo]INT NOT NULL PRIMARY KEY  identity(1,1),
 	[IdNegocio] INT NOT NULL ,
+	[IdLocalidadNegocio] int null,
 	[Codigo] varchar (40), 
 	[Nombre] VARCHAR(50) NOT NULL,
 	[Descripcion] varchar(200),

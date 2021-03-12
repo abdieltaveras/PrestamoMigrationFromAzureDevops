@@ -1,22 +1,26 @@
-﻿@page "/marcas"
+﻿@page "/equipos"
 
 
 <h2>Marcas</h2>
 
 
-<button class="btn btn-primary" @onclick="GetMarcasByParam">Get By Param</button>
-<button class="btn btn-primary" @onclick="GetAll">Get All</button>
+<button class="btn btn-primary" @onclick="GetEquiposByParam">Get By Param</button>
+@*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
 <button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>
 
-<EditForm Model="@Marca" OnValidSubmit="SaveMarca" OnInvalidSubmit="RaiseInvalidSubmit">
+<EditForm Model="@EquiposService" OnValidSubmit="SaveEquipo" OnInvalidSubmit="RaiseInvalidSubmit">
 
     <div class="form-group">
         <label for="codigo">Codigo</label>
-        <InputText id="codigo" class="form-control col-md-2" @bind-Value="Marca.Codigo"></InputText>
+        <InputText id="codigo" class="form-control col-md-2" @bind-Value="Equipo.Codigo"></InputText>
     </div>
     <div class="form-group">
         <label for="nombre">Nombre</label>
-        <InputText id="nombre" class="form-control col-md-4" @bind-Value="Marca.Nombre"></InputText>
+        <InputText id="nombre" class="form-control col-md-4" @bind-Value="Equipo.Nombre"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="descripcion">Descripcion</label>
+        <InputText id="descripcion" class="form-control col-md-4" @bind-Value="Equipo.Descripcion"></InputText>
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-primary" value="Guardar" />
@@ -47,20 +51,22 @@
         <tr>
             <th>IdMarca</th>
             <th>Nombre</th>
+            <th>Descripcion</th>
         </tr>
     </thead>
     <tbody>
-        @if (marcas == null)
+        @if (equipos == null)
         {
             <p>Cargando datos ejecute una busqueda</p>
         }
         else
         {
-            @foreach (var item in marcas)
+            @foreach (var item in equipos)
             {
                 <tr>
-                    <td>@item.IdMarca</td>
+                    <td>@item.IdEquipo</td>
                     <td>@item.Nombre</td>
+                    <td>@item.Descripcion</td>
                 </tr>
             }
         }

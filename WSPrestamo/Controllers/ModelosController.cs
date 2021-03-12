@@ -31,6 +31,8 @@ namespace WSPrestamo.Controllers
         [HttpPost]
         public IHttpActionResult Post(Modelo modelo)
         {
+            modelo.Usuario = this.LoginName;
+            modelo.IdLocalidadNegocio = this.IdLocalidadNegocio;
             BLLPrestamo.Instance.InsUpdModelo(modelo);
             return Ok();
         }

@@ -1,22 +1,22 @@
-﻿@page "/marcas"
+﻿@page "/clasificaciones"
 
 
 <h2>Marcas</h2>
 
 
-<button class="btn btn-primary" @onclick="GetMarcasByParam">Get By Param</button>
-<button class="btn btn-primary" @onclick="GetAll">Get All</button>
+<button class="btn btn-primary" @onclick="GetClasificacionesByParam">Get By Param</button>
+@*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
 <button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>
 
-<EditForm Model="@Marca" OnValidSubmit="SaveMarca" OnInvalidSubmit="RaiseInvalidSubmit">
+<EditForm Model="@ClasificacionesService" OnValidSubmit="SaveClasificacion" OnInvalidSubmit="RaiseInvalidSubmit">
 
     <div class="form-group">
         <label for="codigo">Codigo</label>
-        <InputText id="codigo" class="form-control col-md-2" @bind-Value="Marca.Codigo"></InputText>
+        <InputText id="codigo" class="form-control col-md-2" @bind-Value="Clasificacion.Codigo"></InputText>
     </div>
     <div class="form-group">
         <label for="nombre">Nombre</label>
-        <InputText id="nombre" class="form-control col-md-4" @bind-Value="Marca.Nombre"></InputText>
+        <InputText id="nombre" class="form-control col-md-4" @bind-Value="Clasificacion.Nombre"></InputText>
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-primary" value="Guardar" />
@@ -50,16 +50,16 @@
         </tr>
     </thead>
     <tbody>
-        @if (marcas == null)
+        @if (clasificaciones == null)
         {
             <p>Cargando datos ejecute una busqueda</p>
         }
         else
         {
-            @foreach (var item in marcas)
+            @foreach (var item in clasificaciones)
             {
                 <tr>
-                    <td>@item.IdMarca</td>
+                    <td>@item.IdClasificacion</td>
                     <td>@item.Nombre</td>
                 </tr>
             }

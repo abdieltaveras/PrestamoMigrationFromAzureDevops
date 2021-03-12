@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace WSPrestamo.Controllers
 {
-    public class EquipoController : ApiController
+    public class EquipoController : BaseApiController
     {
         public IEnumerable<Equipo> GetAll()
         {
@@ -28,8 +28,11 @@ namespace WSPrestamo.Controllers
         // Registrar Equipo
 
         [HttpPost]
-        public IHttpActionResult Post( Equipo equipo)
+        public IHttpActionResult Post(Equipo equipo)
         {
+            equipo.Usuario = this.LoginName;
+            equipo.IdNegocio = 1;
+            equipo.IdLocalidadNegocio = this.IdLocalidadNegocio;
             BLLPrestamo.Instance.InsUpdEquipo(equipo);
             return Ok();
         }
