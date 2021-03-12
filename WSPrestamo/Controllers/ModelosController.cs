@@ -13,20 +13,20 @@ namespace WSPrestamo.Controllers
     public class ModelosController : BaseApiController
     {
         //[HttpGet]
-        public IEnumerable<ModeloWithMarca> GetAll()
+        public IEnumerable<ModeloWithMarca> GetAll(string Nombre ="")
         {
             ModeloVM datos = new ModeloVM();
 
-            datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 });
+            datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1, Nombre = Nombre });
             return datos.ListaModelos;
         }
         
-        public IEnumerable<Modelo> Get(int idMarca)
-        {
-            IEnumerable<Modelo> modelos = null;
-            modelos = BLLPrestamo.Instance.GetModelosByMarca(new ModeloGetParams { IdMarca = idMarca, IdNegocio = 1 });
-            return modelos;
-        }
+        //public IEnumerable<Modelo> Get(int idMarca)
+        //{
+        //    IEnumerable<Modelo> modelos = null;
+        //    modelos = BLLPrestamo.Instance.GetModelosByMarca(new ModeloGetParams { IdMarca = idMarca, IdNegocio = 1 });
+        //    return modelos;
+        //}
 
         [HttpPost]
         public IHttpActionResult Post(Modelo modelo)

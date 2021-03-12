@@ -4,15 +4,19 @@
 <h2>Modelos</h2>
 
 
-<button class="btn btn-primary" @onclick="GetModelosByParam">Get By Param</button>
-<button class="btn btn-primary" @onclick="GetAll">Get All</button>
-<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>
+@*<button class="btn btn-primary" @onclick="GetModelosByParam">Get By Param</button>*@
+@*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
+@*<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>*@
 
 <EditForm Model="@Modelo" OnValidSubmit="SaveModelo" OnInvalidSubmit="RaiseInvalidSubmit">
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label for="codigo">Codigo</label>
         <InputText id="codigo" class="form-control col-md-2" @bind-Value="Modelo.Codigo"></InputText>
+    </div>*@
+    <div class="form-group">
+        <label for="marca">Marca</label>
+        <InputText id="marca" class="form-control col-md-2" @bind-Value="Modelo.Codigo"></InputText>
     </div>
     <div class="form-group">
         <label for="nombre">Nombre</label>
@@ -30,7 +34,23 @@
 {
     <div class="loader">Cargando datos, espere...</div>
 }
+<div class="search">
+    <EditForm Model="@SearchModelo" OnValidSubmit="@GetModelos">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        LLene el valor indicado y pulse buscar
+        @*<InputText id="Codigo" @bind-Value="SearchModelo.Codigo" placeholder="Código" />*@
+        <InputText id="nombres" @bind-Value="SearchModelo.Nombre" placeholder="Nombre" />
+        @*<InputText id="Apellidos" @bind-Value="SearchModelo.Apellidos" placeholder="Primer Apellido" />*@
 
+        <button type="submit">Buscar</button>
+        @if (@modelos.Count() > 0)
+        {
+            <label>Total de clientes encontrados para su peticion @modelos.Count().ToString()</label>
+        }
+
+    </EditForm>
+</div>
 
 <table class="table table-responsive-md table-hover">
     <thead>

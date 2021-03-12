@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace PrestamoBlazorApp.Pages
+namespace PrestamoBlazorApp.Pages.Modelos
 {
     public partial class Modelos
     {
         [Inject]
         ModelosService modelosService { get; set; }
+        ModeloGetParams SearchModelo { get; set; } = new ModeloGetParams();
         IEnumerable<Modelo> modelos { get; set; } = new List<Modelo>();
         [Parameter]
         public Modelo Modelo { get; set; } 
@@ -23,18 +24,19 @@ namespace PrestamoBlazorApp.Pages
             this.Modelo = new Modelo();
         }
 
-        async Task GetModelosByParam()
-        {
-            loading = true;
-            var getAzul = new ModeloGetParams { IdModelo = 1 };
-            modelos = await modelosService.GetModelosAsync(getAzul);
-            loading = false;
-        }
+        //async Task GetModelosByParam()
+        //{
+        //    loading = true;
+        //    var getAzul = new ModeloGetParams { Nombre = SearchModelo.Nombre };
+        //    modelos = await modelosService.GetModelosAsync(getAzul);
+        //    loading = false;
+        //}
 
-        async Task GetAll()
+        async Task GetModelos()
         {
             loading = true;
-            modelos = await modelosService.GetAll();
+            var result = new ModeloGetParams { Nombre = SearchModelo.Nombre };
+            modelos = await modelosService.GetAll(result);
             loading = false;
         }
 
