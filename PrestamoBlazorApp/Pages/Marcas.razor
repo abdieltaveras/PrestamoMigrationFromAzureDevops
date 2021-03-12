@@ -26,7 +26,7 @@
 </EditForm>
 
 
-@*@if (loading)
+@if (loading)
 {
     <div class="loader">Cargando datos, espere...</div>
 }
@@ -39,8 +39,6 @@
         </li>
     </ol>
 }
-}*@
-
 
 <table class="table table-responsive-md table-hover">
     <thead>
@@ -50,11 +48,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (marcas == null)
-        {
-            <p>Cargando datos ejecute una busqueda</p>
-        }
-        else
+        @if (marcas.Count()>0)
         {
             @foreach (var item in marcas)
             {
@@ -64,5 +58,10 @@
                 </tr>
             }
         }
-        </tbody>
+        else
+        {
+            <p> no existen datos</p>
+            
+        }
+    </tbody>
 </table>

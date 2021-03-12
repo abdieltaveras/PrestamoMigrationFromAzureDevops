@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace PrestamoBlazorApp.Pages
+namespace PrestamoBlazorApp.Pages.Clientes
 {
     public partial class Clientes
     {

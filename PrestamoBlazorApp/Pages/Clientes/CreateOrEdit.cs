@@ -7,9 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace PrestamoBlazorApp.Pages
+namespace PrestamoBlazorApp.Pages.Clientes
 {
-    public partial class ClientesAddOrEdit
+    public partial class CreateOrEdit
     {
         [Parameter]
         public int idCliente { get; set; }

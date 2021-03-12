@@ -12,7 +12,7 @@ namespace PrestamoBlazorApp.Pages
     {
         [Inject]
         MarcasService marcasService { get; set; }
-        IEnumerable<Marca> marcas;
+        IEnumerable<Marca> marcas { get; set; }=new List<Marca>();
         [Parameter]
         public Marca Marca { get; set; } 
         bool loading = false;
