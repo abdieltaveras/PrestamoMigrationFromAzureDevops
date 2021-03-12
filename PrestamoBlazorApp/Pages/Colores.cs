@@ -12,7 +12,7 @@ namespace PrestamoBlazorApp.Pages
     {
         [Inject]
         ColoresService coloresService { get; set; }
-        IEnumerable<Color> colores;
+        IEnumerable<Color> colores { get; set; } = new List<Color>();
         [Parameter]
         public Color Color { get; set; } 
         bool loading = false;

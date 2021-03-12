@@ -36,11 +36,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (colores == null)
-        {
-            <p>Cargando datos ejecute una busqueda</p>
-        }
-        else
+        @if (colores.Count() > 0)
         {
             @foreach (var item in colores)
             {
@@ -49,6 +45,13 @@
                     <td>@item.Nombre</td>
                 </tr>
             }
+
+        }
+        else
+        {
+            <tr>
+                <td>No Existen Datos</td>
+            </tr>
         }
     </tbody>
 </table>

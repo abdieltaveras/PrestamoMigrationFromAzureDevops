@@ -30,20 +30,11 @@
 </EditForm>
 
 
-@*@if (loading)
+@if (loading)
 {
     <div class="loader">Cargando datos, espere...</div>
 }
 
-@foreach (var item in marcas)
-{
-    <ol>
-        <li>
-            @item.IdMarca @item.Codigo  @item.Nombre
-        </li>
-    </ol>
-}
-}*@
 
 
 <table class="table table-responsive-md table-hover">
@@ -55,20 +46,22 @@
         </tr>
     </thead>
     <tbody>
-        @if (equipos == null)
-        {
-            <p>Cargando datos ejecute una busqueda</p>
-        }
-        else
+        @if (equipos.Count() > 0)
         {
             @foreach (var item in equipos)
             {
                 <tr>
                     <td>@item.IdEquipo</td>
                     <td>@item.Nombre</td>
-                    <td>@item.Descripcion</td>
                 </tr>
             }
+
         }
-        </tbody>
+        else
+        {
+            <tr>
+                <td>No Existen Datos</td>
+            </tr>
+        }
+    </tbody>
 </table>

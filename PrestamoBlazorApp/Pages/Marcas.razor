@@ -31,14 +31,6 @@
     <div class="loader">Cargando datos, espere...</div>
 }
 
-@foreach (var item in marcas)
-{
-    <ol>
-        <li>
-            @item.IdMarca @item.Codigo  @item.Nombre
-        </li>
-    </ol>
-}
 
 <table class="table table-responsive-md table-hover">
     <thead>
@@ -48,7 +40,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (marcas.Count()>0)
+        @if (marcas.Count() > 0)
         {
             @foreach (var item in marcas)
             {
@@ -57,11 +49,13 @@
                     <td>@item.Nombre</td>
                 </tr>
             }
+
         }
         else
         {
-            <p> no existen datos</p>
-            
+            <tr>
+                <td>Cargando datos ejecute una busqueda</td>
+            </tr>
         }
     </tbody>
 </table>

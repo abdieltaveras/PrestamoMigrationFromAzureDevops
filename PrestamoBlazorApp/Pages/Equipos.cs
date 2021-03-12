@@ -12,7 +12,7 @@ namespace PrestamoBlazorApp.Pages
     {
         [Inject]
         EquiposService EquiposService { get; set; }
-        IEnumerable<Equipo> equipos;
+        IEnumerable<Equipo> equipos { get; set; } = new List<Equipo>();
         [Parameter]
         public Equipo Equipo { get; set; } 
         bool loading = false;
