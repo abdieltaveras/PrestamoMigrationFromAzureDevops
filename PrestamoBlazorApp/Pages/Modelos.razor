@@ -26,20 +26,10 @@
 </EditForm>
 
 
-@*@if (loading)
+@if (loading)
 {
     <div class="loader">Cargando datos, espere...</div>
 }
-
-@foreach (var item in modelos)
-{
-    <ol>
-        <li>
-            @item.IdModelo @item.Codigo  @item.Nombre
-        </li>
-    </ol>
-}
-}*@
 
 
 <table class="table table-responsive-md table-hover">
@@ -50,11 +40,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (modelos == null)
-        {
-            <p>Cargando datos ejecute una busqueda</p>
-        }
-        else
+        @if (modelos.Count() > 0)
         {
             @foreach (var item in modelos)
             {
@@ -63,6 +49,13 @@
                     <td>@item.Nombre</td>
                 </tr>
             }
+
         }
-        </tbody>
+        else
+        {
+            <tr>
+                <td>Cargando datos ejecute una busqueda</td>
+            </tr>
+        }
+    </tbody>
 </table>

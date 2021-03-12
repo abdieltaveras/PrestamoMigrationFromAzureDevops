@@ -26,35 +26,20 @@
 </EditForm>
 
 
-@*@if (loading)
+@if (loading)
 {
     <div class="loader">Cargando datos, espere...</div>
 }
 
-@foreach (var item in marcas)
-{
-    <ol>
-        <li>
-            @item.IdMarca @item.Codigo  @item.Nombre
-        </li>
-    </ol>
-}
-}*@
-
-
 <table class="table table-responsive-md table-hover">
     <thead>
         <tr>
-            <th>IdMarca</th>
+            <th>IdClasificacion</th>
             <th>Nombre</th>
         </tr>
     </thead>
     <tbody>
-        @if (clasificaciones == null)
-        {
-            <p>Cargando datos ejecute una busqueda</p>
-        }
-        else
+        @if (clasificaciones.Count() > 0)
         {
             @foreach (var item in clasificaciones)
             {
@@ -63,6 +48,13 @@
                     <td>@item.Nombre</td>
                 </tr>
             }
+       
         }
-        </tbody>
+        else
+        {
+             <tr>     
+                 <td>Cargando datos ejecute una busqueda</td>
+             </tr>
+        }
+    </tbody>
 </table>

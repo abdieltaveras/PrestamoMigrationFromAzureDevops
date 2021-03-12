@@ -12,7 +12,7 @@ namespace PrestamoBlazorApp.Pages
     {
         [Inject]
         ClasificacionesService ClasificacionesService { get; set; }
-        IEnumerable<Clasificacion> clasificaciones;
+        IEnumerable<Clasificacion> clasificaciones { get; set; } = new List<Clasificacion>();
         [Parameter]
         public Clasificacion Clasificacion { get; set; } 
         bool loading = false;
