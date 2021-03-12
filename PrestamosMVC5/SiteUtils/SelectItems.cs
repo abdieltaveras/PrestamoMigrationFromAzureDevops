@@ -20,7 +20,7 @@ namespace PrestamosMVC5.Models
         public static SelectList TiposIdentificacion => SLFactory.ForEnum<TiposIdentificacionCliente>();
         public static SelectList TiposTelefonos => SLFactory.ForEnum<TiposTelefono>();
         public static SelectList Sexos => SLFactory.ForEnum<Sexo>();
-        public static SelectList EstadosCiviles => SLFactory.ForEnum<Estado_Civil>();
+        public static SelectList EstadosCiviles => SLFactory.ForEnum<EstadosCiviles>();
         public static SelectList OpcionesBusquedaCliente => SLFactory.ForEnum<EnumBuscarClientePor>();
         public static SelectList OpcionesBusquedaCatalogo => SLFactory.ForEnum<EnumBuscarCatalogosPor>();
         public static SelectList TiposReferencias => SLFactory.ForEnum<EnumTiposReferencia>();

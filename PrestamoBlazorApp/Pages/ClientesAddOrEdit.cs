@@ -27,11 +27,9 @@ namespace PrestamoBlazorApp.Pages
             base.OnInitialized();
             this.cliente = new Cliente();
             this.cliente.Codigo = "Nuevo";
-            cliente.IdTipoIdentificacion = (int)TiposIdentificacionPersona.Cedula;
             //TiposIdentificacionPersonaList = EnumToAList.GetEnumTiposIdentificacionPersona();
         }
 
-        
         private bool loading { get; set; }
         //async Task SaveCliente()
         void SaveCliente()
@@ -69,7 +67,7 @@ namespace PrestamoBlazorApp.Pages
         }
         public static List<EnumModel> GetEnumEstadosCiviles()
         {
-            var result = ((Estado_Civil[])Enum.GetValues(typeof(Estado_Civil))).Select(c => new EnumModel() { IdValue = (int)c, Text = c.ToString() }).ToList();
+            var result = ((EstadosCiviles[])Enum.GetValues(typeof(EstadosCiviles))).Select(c => new EnumModel() { IdValue = (int)c, Text = c.ToString() }).ToList();
             return result;
         }
     }

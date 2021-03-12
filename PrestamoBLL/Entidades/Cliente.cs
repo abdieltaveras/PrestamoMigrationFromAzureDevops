@@ -65,7 +65,7 @@ namespace PrestamoBLL.Entidades
         public bool GenerarSecuencia { get; set; } = true;
 
         [Display(Name = "Tipo Identificacion")]
-        public int IdTipoIdentificacion { get; set; } = 0;
+        public int IdTipoIdentificacion { get; set; } = (int)TiposIdentificacionPersona.Cedula;
         [Display(Name = "Profesion u Ocupacion")]
         public int IdTipoProfesionUOcupacion { get; set; } = 0;
         [Required(ErrorMessage = "digite el numero de identificacion")]
@@ -83,7 +83,7 @@ namespace PrestamoBLL.Entidades
         //[EmailAddress(ErrorMessage ="correo electronico invalido")]
         public string CorreoElectronico { get; set; } = string.Empty;
         [Display(Name = "Estado Civil Legal")]
-        public int EstadoCivil { get; set; } = 0;
+        public int IdEstadoCivil { get; set; } = (int)EstadosCiviles.Soltero;
         //<summary>
         //son los datos en formato string que son traidos de las tablas
         //</summary>

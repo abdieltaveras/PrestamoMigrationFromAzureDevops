@@ -10,7 +10,7 @@
     
     public enum TiposIdentificacionPersona { Cedula = 1, Pasaporte, Otro }
 
-    public enum Estado_Civil { Casado = 1, Soltero, Otro }
+    public enum EstadosCiviles { Casado = 1, Soltero, Otro }
 
     public enum EnumTiposReferencia { Comercial = 1, Familiar, Personal}
     public enum EnumTiposVinculo { Madre = 1, Padre, Hermano, Primo, Tio, Abuelo, Sobrino, Esposa, Hijo, Nieto}

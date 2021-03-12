@@ -2,17 +2,24 @@
 
 
 <div class="grid-container">
-    <div class="header"><h3>Buscar Estudiantes</h3></div>
+    <div class="bg-secondary">
+        <h3 class="text-left">Listado de clientes</h3>
+    </div>
     <div class="search">
         <EditForm Model="@searchClientes" OnValidSubmit="@GetClientes">
             <DataAnnotationsValidator />
             <ValidationSummary />
+            LLene el valor indicado y pulse buscar
             <InputText id="Codigo" @bind-Value="searchClientes.Codigo" placeholder="Código" />
             <InputText id="nombres" @bind-Value="searchClientes.Nombres" placeholder="Nombres" />
             <InputText id="Apellidos" @bind-Value="searchClientes.Apellidos" placeholder="Primer Apellido" />
 
             <button type="submit">Buscar</button>
-            <label>Total de clientes @totalClientes</label>
+            @if (totalClientes > 0)
+            {
+                <label>Total de clientes encontrados para su peticion @totalClientes</label>
+            }
+
         </EditForm>
     </div>
 </div>
@@ -31,7 +38,7 @@
         else
         {
 
-            if (totalClientes> 0)
+            if (totalClientes > 0)
             {
                 <table class="table">
                     <thead>
@@ -49,7 +56,7 @@
                             <tr>
                                 <td>@cliente.Codigo</td>
                                 <td>@cliente.NombreCompleto</td>
-                                <td>@cliente.TelefonoMovil</td>                                
+                                <td>@cliente.TelefonoMovil</td>
                                 <td>@cliente.NoIdentificacion</td>
                             </tr>
                         }

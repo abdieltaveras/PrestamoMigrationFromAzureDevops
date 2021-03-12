@@ -95,7 +95,7 @@ namespace PrestamoBLL.Entidades
         public string Apellidos { get; set; } = string.Empty;
         [Required(ErrorMessage = "el campo {0} es requerido")]
         public string Apodo { get; set; } = string.Empty;
-        public int Sexo { get; set; } = 1;
+        public int idSexo { get; set; } = (int)Sexo.Masculino;
     }
 
     public abstract class BaseCatalogo : BaseInsUpd
