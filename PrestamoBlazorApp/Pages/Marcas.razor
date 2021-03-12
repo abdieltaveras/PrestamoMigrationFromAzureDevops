@@ -1,6 +1,7 @@
 ﻿@page "/marcas"
 
 
+
 <h2>Marcas</h2>
 
 
@@ -8,22 +9,36 @@
 <button class="btn btn-primary" @onclick="GetAll">Get All</button>
 <button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>
 
-<EditForm Model="@Marca" OnValidSubmit="SaveMarca" OnInvalidSubmit="RaiseInvalidSubmit">
 
-    <div class="form-group">
-        <label for="codigo">Codigo</label>
-        <InputText id="codigo" class="form-control col-md-2" @bind-Value="Marca.Codigo"></InputText>
+<div class="modal fade" id="edtMarca" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edtMarcaTitel">Editar Marca</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <EditForm Model="@Marca" OnValidSubmit="SaveMarca" OnInvalidSubmit="RaiseInvalidSubmit">
+                <div class="form-group">
+                    <label for="codigo">Codigo</label>
+                    <InputText id="codigo" class="form-control col-md-2" @bind-Value="Marca.Codigo"></InputText>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <InputText id="nombre" class="form-control col-md-4" @bind-Value="Marca.Nombre"></InputText>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" @onclick="()=>SaveMarca()">Guardar</button>
+                </div>
+
+            </EditForm>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <InputText id="nombre" class="form-control col-md-4" @bind-Value="Marca.Nombre"></InputText>
-    </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Guardar" />
-    </div>
+</div>
 
 
-</EditForm>
+
 
 
 @if (loading)
@@ -31,37 +46,31 @@
     <div class="loader">Cargando datos, espere...</div>
 }
 
-@foreach (var item in marcas)
-{
-    <ol>
-        <li>
-            @item.IdMarca @item.Codigo  @item.Nombre
-        </li>
-    </ol>
-}
+
 
 <table class="table table-responsive-md table-hover">
     <thead>
         <tr>
-            <th>IdMarca</th>
             <th>Nombre</th>
+            <th>Operacion</th>
         </tr>
     </thead>
     <tbody>
-        @if (marcas.Count()>0)
+        @if (marcas.Count() > 0)
         {
             @foreach (var item in marcas)
             {
-                <tr>
-                    <td>@item.IdMarca</td>
-                    <td>@item.Nombre</td>
-                </tr>
-            }
+        <tr>
+            <td>@item.Nombre</td>
+            <button @onclick="()=>CreateOrEdit(item.IdMarca)"> Editar </button>
+        </tr>
+            
+        }
         }
         else
         {
             <p> no existen datos</p>
-            
+
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>

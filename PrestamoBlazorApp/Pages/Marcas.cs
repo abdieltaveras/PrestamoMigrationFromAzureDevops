@@ -5,18 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using PrestamoBlazorApp.Pages.Base;
+using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages
 {
-    public partial class Marcas
+    
+    public partial class Marcas 
+
     {
+        [Inject]
+        IJSRuntime jsRuntime { get; set; }
+
+        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         MarcasService marcasService { get; set; }
         IEnumerable<Marca> marcas { get; set; }=new List<Marca>();
         [Parameter]
         public Marca Marca { get; set; } 
         bool loading = false;
-        void Clear() => marcas = null;
+        void Clear() => marcas = new List<Marca>();
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -43,9 +52,16 @@ namespace PrestamoBlazorApp.Pages
             await marcasService.SaveMarca(this.Marca);
         }
 
+        
+        void CreateOrEdit(int idMarca)
+        {
+            this.Marca = marcas.Where(m => m.IdMarca == idMarca).FirstOrDefault();
+            JsInteropUtils.ShowModal(jsRuntime, "#edtMarca");
+        }
         void RaiseInvalidSubmit()
         {
             
         }
+
     }
 }

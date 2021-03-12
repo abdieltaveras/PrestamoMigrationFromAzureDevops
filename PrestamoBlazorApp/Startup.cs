@@ -39,11 +39,14 @@ namespace PrestamoBlazorApp
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            
+            
+            services.AddHttpClient();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddHttpClient();
 
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
