@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using PrestamoBlazorApp.Areas.Identity;
 using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Services;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,12 @@ namespace PrestamoBlazorApp
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddHttpClient();
+
+            services.AddScoped<DialogService>();
+            services.AddScoped<NotificationService>();
+            services.AddScoped<TooltipService>();
+            services.AddScoped<ContextMenuService>();
+
             services.AddSingleton<IngresosService>();
             services.AddSingleton<ColoresService>();
             services.AddSingleton<MarcasService>();

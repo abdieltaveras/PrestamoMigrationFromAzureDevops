@@ -24,7 +24,7 @@ namespace PrestamoBlazorApp.Services
 
         }
 
-        public async Task SaveClientes(Cliente cliente)
+        public async Task SaveCliente(Cliente cliente)
         {
             try
             {
