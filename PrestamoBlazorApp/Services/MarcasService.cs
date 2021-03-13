@@ -11,11 +11,11 @@ namespace PrestamoBlazorApp.Services
     public class MarcasService : ServiceBase
     {
         string apiUrl = "api/marcas";
-        public async Task<IEnumerable<Marca>> GetMarcasAsync(MarcaGetParams search)
-        {
-            var result = await GetAsync<Marca>(apiUrl, search);
-            return result;
-        }
+        //public async Task<IEnumerable<Marca>> GetMarcasAsync(MarcaGetParams search)
+        //{
+        //    var result = await GetAsync<Marca>(apiUrl, search);
+        //    return result;
+        //}
 
         public async Task<IEnumerable<Marca>> GetAll()
         {

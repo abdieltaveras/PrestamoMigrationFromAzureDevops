@@ -13,13 +13,10 @@ namespace PrestamoBlazorApp.Services
 {
     public class ModelosService : ServiceBase
     {
-        public string GetQueryString(object obj)
+        public async Task<IEnumerable<Marca>> GetMarcasForModelo()
         {
-            var properties = from p in obj.GetType().GetProperties()
-                             where p.GetValue(obj, null) != null
-                             select p.Name + "=" + HttpUtility.UrlEncode(p.GetValue(obj, null).ToString());
-
-            return String.Join("&", properties.ToArray());
+            var result = await GetAsync<Marca>("api/marcas" + "/getall", null);
+            return result;
         }
         string apiUrl = "api/Modelos";
         public async Task<IEnumerable<Modelo>> GetModelosAsync(ModeloGetParams search)

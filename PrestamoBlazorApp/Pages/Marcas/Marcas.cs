@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 using PrestamoBlazorApp.Pages.Base;
 using PrestamoBlazorApp.Shared;
 
-namespace PrestamoBlazorApp.Pages
+namespace PrestamoBlazorApp.Pages.Marcas
 {
     
     public partial class Marcas 
@@ -21,7 +21,7 @@ namespace PrestamoBlazorApp.Pages
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         MarcasService marcasService { get; set; }
-        IEnumerable<Marca> marcas { get; set; }=new List<Marca>();
+        public IEnumerable<Marca> marcas { get; set; }=new List<Marca>();
         [Parameter]
         public Marca Marca { get; set; } 
         bool loading = false;
@@ -32,15 +32,15 @@ namespace PrestamoBlazorApp.Pages
             this.Marca = new Marca();
         }
 
-        async Task GetMarcasByParam()
-        {
-            loading = true;
-            var getAzul = new MarcaGetParams { IdMarca = 1 };
-            marcas = await marcasService.GetMarcasAsync(getAzul);
-            loading = false;
-        }
+        //async Task GetMarcasByParam()
+        //{
+        //    loading = true;
+        //    var getAzul = new MarcaGetParams { IdMarca = 1 };
+        //    marcas = await marcasService.GetMarcasAsync(getAzul);
+        //    loading = false;
+        //}
 
-        async Task GetAll()
+        public async Task GetAll()
         {
             loading = true;
             marcas = await marcasService.GetAll();
@@ -50,18 +50,23 @@ namespace PrestamoBlazorApp.Pages
         async Task SaveMarca()
         {
             await marcasService.SaveMarca(this.Marca);
+            await JsInteropUtils.Reload(jsRuntime, true);
         }
-
-        
-        void CreateOrEdit(int idMarca)
+        void CreateOrEdit(int idMarca = -1)
         {
-            this.Marca = marcas.Where(m => m.IdMarca == idMarca).FirstOrDefault();
+            if (idMarca>0)
+            {
+                this.Marca = marcas.Where(m => m.IdMarca == idMarca).FirstOrDefault();
+            }
+            else
+            {
+                this.Marca = new Marca();
+            }
             JsInteropUtils.ShowModal(jsRuntime, "#edtMarca");
         }
         void RaiseInvalidSubmit()
         {
             
         }
-
     }
 }
