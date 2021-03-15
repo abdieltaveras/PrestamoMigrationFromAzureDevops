@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Services;
+using PrestamoBlazorApp.Shared;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
@@ -11,31 +14,48 @@ namespace PrestamoBlazorApp.Pages.Clientes
 {
     public partial class CreateOrEdit
     {
+        [Inject]
+        OcupacionesService ocupacionesService { get; set; }
+
         [Parameter]
         public int idCliente { get; set; }
         public Cliente cliente { get; set; }
 
+        EventConsole console;
         string TextoForActivo { get; set; } = "Si";
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
 
+        [Inject]
         ClientesService clientesService { get; set; }
 
-        bool disableCodigo { get; set; } = true;
+        private IEnumerable<EnumModel> EstadosCiviles = EnumToList.GetEnumEstadosCiviles();
+        private IEnumerable<EnumModel> TiposIdentificacion = EnumToList.GetEnumTiposIdentificacionPersona();
 
-        protected override void OnInitialized()
+        private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
+
+        private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
         {
-            base.OnInitialized();
+            var result = await ocupacionesService.GetOcupacionesAsync();
+            return result;
+        }
+
+        bool disableCodigo { get; set; } = true;
+        protected override async Task OnInitializedAsync()
+        {
+            
+            await base.OnInitializedAsync();
             this.cliente = new Cliente();
             this.cliente.Codigo = "Nuevo";
+            Ocupaciones = await GetOcupaciones();
             //TiposIdentificacionPersonaList = EnumToAList.GetEnumTiposIdentificacionPersona();
         }
 
         private bool loading { get; set; }
         //async Task SaveCliente()
-        void SaveCliente()
+        async Task SaveCliente()
         {
             loading = true;
-            //wait clientesService.SaveCliente(this.cliente);
+            await clientesService.SaveCliente(this.cliente);
             loading = false;
         }
 
@@ -44,33 +64,22 @@ namespace PrestamoBlazorApp.Pages.Clientes
         {
             var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
             var selectedValue = Convert.ToInt32(str);
-            Console.WriteLine($"{name} value changed to {str}");
+            //console.Log($"{name} value changed to {str}");
         }
 
+        void OnInputFileChange(InputFileChangeEventArgs e)
+        {
+            var imageFiles = e.GetMultipleFiles();
+
+        }
+        
+        private void SetImages(IList<string> images)
+        {
+            this.cliente.ImagesForCliente = images;
+        }
 
         
     }
-    public class EnumModel
-    {
-        public int IdValue { get; set; }
 
-        public string Text { get; set; }
-    }
-
-    static class EnumToAList
-    {
-
-        public static List<EnumModel> GetEnumTiposIdentificacionPersona()
-        {
-            var result = ((TiposIdentificacionPersona[])Enum.GetValues(typeof(TiposIdentificacionPersona))).Select(c => new EnumModel() { IdValue = (int)c, Text = c.ToString() }).ToList();
-            return result;
-        }
-        public static List<EnumModel> GetEnumEstadosCiviles()
-        {
-            var result = ((EstadosCiviles[])Enum.GetValues(typeof(EstadosCiviles))).Select(c => new EnumModel() { IdValue = (int)c, Text = c.ToString() }).ToList();
-            return result;
-        }
-    }
-
-    
 }
+

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using PrestamoBlazorApp.Pages.Base;
-using PrestamoBlazorApp.Shared;
+//using PrestamoBlazorApp.Pages.Base;
+//using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Marcas
 {
@@ -15,6 +15,7 @@ namespace PrestamoBlazorApp.Pages.Marcas
     public partial class Marcas 
 
     {
+        
         [Inject]
         IJSRuntime jsRuntime { get; set; }
 

@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Radzen;
 using PrestamoBlazorApp.Pages.Clientes;
 
 namespace PrestamoBlazorApp.Pages.Modelos
 {
     public partial class Modelos
     {
+        [Inject]
+        DialogService dialogService { get; set; }
         [Inject]
         IJSRuntime jsRuntime { get; set; }
 
@@ -20,11 +23,11 @@ namespace PrestamoBlazorApp.Pages.Modelos
         ModelosService modelosService { get; set; }
         ModeloGetParams SearchModelo { get; set; } = new ModeloGetParams();
         IEnumerable<Modelo> modelos { get; set; } = new List<Modelo>();
-        public IEnumerable<Marca> marcas { get; set; } = new List<Marca>();
+        IEnumerable<Marca> marcas { get; set; } = new List<Marca>();
         [Parameter]
         public Modelo Modelo { get; set; } 
         bool loading = false;
-        void Clear() => modelos = null;
+        void Clear() => modelos = new List<Modelo>();
         protected override void OnInitialized()
         {
             base.OnInitialized();

@@ -10,17 +10,21 @@ namespace PrestamoBlazorApp.Services
 {
     public class OcupacionesService : ServiceBase
     {
-        string apiUrl = "api/Ocupacion";
-        public async Task<IEnumerable<Ocupacion>> GetOcupacionesAsync(OcupacionGetParams search)
+        string apiUrl = "api/Ocupaciones";
+        public async Task<IEnumerable<Ocupacion>> GetOcupacionesAsync(OcupacionGetParams search = null)
         {
+            
+            if (search == null)
+            {
+                search = new OcupacionGetParams();
+            }
             var result = await GetAsync<Ocupacion>(apiUrl, search);
             return result;
         }
 
         public async Task<IEnumerable<Ocupacion>> GetAll()
         {
-            var result =  await GetAsync<Ocupacion>(apiUrl+"/getall", null);
-            return result;
+            return await GetAsync<Ocupacion>(apiUrl+"/get", new OcupacionGetParams());
         }
         public OcupacionesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {

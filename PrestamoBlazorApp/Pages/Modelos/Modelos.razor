@@ -3,6 +3,15 @@
 
 <h1>Modelos  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
 
+@*Aqui funciona para que funcione en un modal hay que entrarlo dentro de un dialogo
+vamos a experimentar con esto luego*@
+@*<RadzenDropDown @bind-value="Modelo.IdMarca" class="col-sm-4" AllowClear="true" TValue="int"
+                Data=@marcas
+                TextProperty="Nombre" ValueProperty="IdMarca" />*@
+
+@*<button class="btn btn-primary" @onclick="GetModelosByParam">Get By Param</button>*@
+@*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
+@*<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>*@
 <div class="modal fade" id="edtMarca" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -27,14 +36,14 @@
                             <div class="form-group">
                                 <label for="ListadoMarcas" class="col-sm-2 col-form-label text-right">Marcas</label>
                                 <InputSelect id="ListadoMarcas" @bind-Value="@Modelo.IdMarca" class="form-control col-md-6">
-                                   @foreach (var item in marcas)
-                                   {
-                                       <option value="@item.IdMarca">@item.Nombre</option>
-                                   }
+                                    @foreach (var item in marcas)
+                                    {
+                                        <option value="@item.IdMarca">@item.Nombre</option>
+                                    }
                                 </InputSelect>
-                                @*<RadzenDropDown @bind-value="Modelo.IdMarca" class="col-sm-4" AllowClear="true" TValue="int"
-                                                Data=@(marcas)
-                                                TextProperty="Nombre" ValueProperty="idMarca" />*@
+
+                                
+
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
