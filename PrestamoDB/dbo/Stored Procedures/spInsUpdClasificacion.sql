@@ -2,7 +2,7 @@
 	@IdClasificacion int,
 	@Nombre varchar(50),
 	@IdNegocio int,
-		@IdLocalidadNegocio int = -1,
+	@IdLocalidadNegocio int = -1,
 	@Usuario varchar(50),
 	@Codigo varchar(10),
 	@RequiereGarantia bit,
@@ -10,7 +10,7 @@
 	@Activo bit = 1
 AS
 Begin
-if (@IdClasificacion = 0)
+if (@IdClasificacion <= 0)
 	begin
 		insert into tblClasificaciones
 		( Nombre, IdNegocio, Codigo, RequiereGarantia, RequiereAutorizacion, InsertadoPor, FechaInsertado)

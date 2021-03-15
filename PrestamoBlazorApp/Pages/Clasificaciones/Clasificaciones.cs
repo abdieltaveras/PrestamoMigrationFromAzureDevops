@@ -5,11 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
-namespace PrestamoBlazorApp.Pages
+namespace PrestamoBlazorApp.Pages.Clasificaciones
 {
     public partial class Clasificaciones
     {
+        [Inject]
+        IJSRuntime jsRuntime { get; set; }
+        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         ClasificacionesService ClasificacionesService { get; set; }
         IEnumerable<Clasificacion> clasificaciones { get; set; } = new List<Clasificacion>();
@@ -42,7 +46,18 @@ namespace PrestamoBlazorApp.Pages
         {
             await ClasificacionesService.SaveClasificacion(this.Clasificacion);
         }
-
+        void CreateOrEdit(int idClasificacion = -1)
+        {
+            if (idClasificacion > 0)
+            {
+                this.Clasificacion = clasificaciones.Where(m => m.IdClasificacion == idClasificacion).FirstOrDefault();
+            }
+            else
+            {
+                this.Clasificacion = new Clasificacion();
+            }
+            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+        }
         void RaiseInvalidSubmit()
         {
             
