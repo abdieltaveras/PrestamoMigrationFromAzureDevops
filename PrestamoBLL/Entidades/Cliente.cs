@@ -1,5 +1,6 @@
 ﻿using emtSoft.DAL;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoBLL.Entidades
@@ -113,6 +114,9 @@ namespace PrestamoBLL.Entidades
 
         [IgnorarEnParam]
         public string NombreCompleto => $"{Nombres} {Apellidos}";
+
+        [IgnorarEnParam]
+        public IEnumerable<string> ImagesForCliente { get; set; }
 
         public override string ToString()
         {

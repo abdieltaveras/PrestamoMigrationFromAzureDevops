@@ -8,11 +8,15 @@ using System.Web.Http;
 using PrestamoBLL;
 namespace WSPrestamo.Controllers
 {
-    public class OcupacionController : BaseApiController
+    public class OcupacionesController : BaseApiController
     {
-        public IEnumerable<Ocupacion> Get(OcupacionGetParams searchParam)
+        public IEnumerable<Ocupacion> Get(int idOcupacion = -1, int idLocalidadNegocio = -1)
         {
-            return BLLPrestamo.Instance.GetOcupaciones(searchParam);
+            var search = new OcupacionGetParams();
+            search.Usuario = this.LoginName;
+            search.IdOcupacion = idOcupacion;
+            search.IdLocalidadNegocio = idLocalidadNegocio;
+            return BLLPrestamo.Instance.GetOcupaciones(search);
         }
 
         [HttpPost]

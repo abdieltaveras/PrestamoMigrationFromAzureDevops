@@ -60,6 +60,7 @@ namespace PrestamoBlazorApp
             services.AddSingleton<ClientesService>();
             services.AddSingleton<ClasificacionesService>();
             services.AddSingleton<EquiposService>();
+            services.AddSingleton<OcupacionesService>();
             services.AddSingleton<WeatherForecastService>();
         }
 

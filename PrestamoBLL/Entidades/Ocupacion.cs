@@ -16,8 +16,9 @@ namespace PrestamoBLL.Entidades
         }
     }
 
-    public class OcupacionGetParams : BaseCatalogoGetParams
+    public class OcupacionGetParams : BaseGetParams
     {
         public int IdOcupacion { get; set; } = -1;
+        
     }
 }

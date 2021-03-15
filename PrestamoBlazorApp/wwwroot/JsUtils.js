@@ -14,3 +14,7 @@ window.ShowModal = function (selector) {
 window.Reload = function (force) {
     window.location.reload(force);
 }
+
+window.scrollToBottom= function (ref) {
+    ref.scrollTop = ref.scrollHeight;
+}

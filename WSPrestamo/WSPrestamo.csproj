@@ -171,7 +171,7 @@
     <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ModelosController.cs" />
-    <Compile Include="Controllers\OcupacionController.cs" />
+    <Compile Include="Controllers\OcupacionesController.cs" />
     <Compile Include="Controllers\TasaInteresController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TipoMorasController.cs" />
