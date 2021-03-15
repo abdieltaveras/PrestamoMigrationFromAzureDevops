@@ -1,0 +1,57 @@
+﻿@page "/ocupaciones"
+
+
+@*<h2>Probando operacion de Colores</h2>
+<p>al pusar sobre uno de los botones ejecutara el proceso de hacer el request al api</p>
+<p>es solo para probar de manera basica e inicial la comunicacion entre blazor  y el api</p>*@
+
+@*<button class="btn btn-primary" @onclick="GetColoresByParam">Get By Param</button>
+<button class="btn btn-primary" @onclick="GetAll">Get All</button>
+<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>*@
+
+<EditForm Model="@Ocupacion" OnValidSubmit="SaveOcupacion" OnInvalidSubmit="RaiseInvalidSubmit">
+
+    <div class="form-group">
+        <label for="codigo">Codigo</label>
+        <InputText id="codigo" class="form-control col-md-2" @bind-Value="Ocupacion.Codigo"></InputText>
+    </div>
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <InputText id="nombre" class="form-control col-md-4" @bind-Value="Ocupacion.Nombre"></InputText>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Guardar" />
+    </div>
+
+
+</EditForm>
+
+
+
+<table class="table table-responsive-md table-hover">
+    <thead>
+        <tr>
+            <th>IdColor</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ocupaciones.Count() > 0)
+        {
+            @foreach (var item in ocupaciones)
+            {
+                <tr>
+                    <td>@item.IdOcupacion</td>
+                    <td>@item.Nombre</td>
+                </tr>
+            }
+
+        }
+        else
+        {
+            <tr>
+                <td>No Existen Datos</td>
+            </tr>
+        }
+    </tbody>
+</table>
