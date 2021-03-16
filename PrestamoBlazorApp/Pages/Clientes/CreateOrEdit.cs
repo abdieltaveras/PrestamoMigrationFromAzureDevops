@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoBLL.Entidades;
+using Radzen;
+using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +20,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Inject]
         OcupacionesService ocupacionesService { get; set; }
 
+        string searchSector = string.Empty;
+        string selectedLocalidad = "Ninguna";
         [Parameter]
         public int idCliente { get; set; }
         public Cliente cliente { get; set; }
@@ -46,9 +51,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
             await base.OnInitializedAsync();
             this.cliente = new Cliente();
             this.cliente.Codigo = "Nuevo";
+            
             Ocupaciones = await GetOcupaciones();
             //TiposIdentificacionPersonaList = EnumToAList.GetEnumTiposIdentificacionPersona();
         }
+        
 
         private bool loading { get; set; }
         //async Task SaveCliente()
@@ -78,7 +85,25 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.cliente.ImagesForCliente = images;
         }
 
+        int zoom = 10;
+        bool showMadridMarker;
         
+
+        void OnMapClick(GoogleMapClickEventArgs args)
+        {
+            console.Log($"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
+        }
+
+        void OnMarkerClick(RadzenGoogleMapMarker marker)
+        {
+            console.Log($"Map {marker.Title} marker clicked. Marker position -> Lat: {marker.Position.Lat}, Lng: {marker.Position.Lng}");
+        }
+
+        public void Test(bool test)
+        {
+            Console.WriteLine(test);
+        }
+
     }
 
 }

@@ -222,11 +222,7 @@ namespace PrestamosMVC5.Controllers
             else
             {
                 var clienteVm = new ClienteModel(cliente);
-                clienteVm.Conyuge = cliente.InfoConyuge.ToType<Conyuge>();
-                clienteVm.Direccion = cliente.InfoDireccion.ToType<Direccion>();
-                clienteVm.InfoLaboral = cliente.InfoLaboral.ToType<InfoLaboral>();
-                var referencias = cliente.InfoReferencia.ToType<List<Referencia>>();
-                FillReferencias(clienteVm, referencias);
+                FillReferencias(clienteVm, cliente.InfoReferenciasObj);
                 pcpSetUsuarioTo(clienteVm.Cliente);
                 var localidadDelCliente = BLLPrestamo.Instance.GetFullNameLocalidad(clienteVm.Direccion.IdLocalidad);
                 if (localidadDelCliente != null)

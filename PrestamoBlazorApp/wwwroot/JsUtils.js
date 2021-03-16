@@ -18,3 +18,4 @@ window.Reload = function (force) {
 window.scrollToBottom= function (ref) {
     ref.scrollTop = ref.scrollHeight;
 }
+

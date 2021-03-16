@@ -55,6 +55,13 @@ namespace PrestamoBLL.Entidades
 
     public class Cliente : BasePersonaInsUpd
     {
+        //public Cliente()
+        //{
+        //    this.InfoConyugeObj = new Conyuge();
+        //    this.InfoDireccionObj = new Direccion();
+        //    this.InfoLaboralObj = new InfoLaboral();
+        //    this.InfoReferenciasObj = new List<Referencia>();
+        //}
         [KeyAttribute]
         public int IdCliente { get; set; } = 0;
         [IgnorarEnParam]
@@ -88,19 +95,27 @@ namespace PrestamoBLL.Entidades
         //<summary>
         //son los datos en formato string que son traidos de las tablas
         //</summary>
-        public string InfoConyuge { get; set; } = string.Empty;
+        internal string InfoConyuge { get; set; } = string.Empty;
+        [IgnorarEnParam]
+        public Conyuge InfoConyugeObj { get { return string.IsNullOrEmpty(InfoConyuge) ? new Conyuge() : InfoConyuge.ToType<Conyuge>(); }  set { InfoConyuge = value.ToJson(); } }
         //<summary>
         //la direccion en formato json
         //</summary>
-        public string InfoDireccion { get; set; } = string.Empty;
+        internal string InfoDireccion { get; set; } = string.Empty;
+        [IgnorarEnParam]
+        public Direccion InfoDireccionObj { get { return string.IsNullOrEmpty(InfoDireccion) ? new Direccion(): InfoDireccion.ToType<Direccion>() ; } set { InfoDireccion = value.ToJson(); } }
         /// <summary>
         /// la informacion laboral en formato json
         /// </summary>
-        public string InfoLaboral { get; set; } = string.Empty;
+        internal string InfoLaboral { get; set; } = string.Empty;
+        [IgnorarEnParam]
+        public InfoLaboral InfoLaboralObj { get { return string.IsNullOrEmpty(InfoConyuge) ? new InfoLaboral() : InfoLaboral.ToType<InfoLaboral>(); } set { InfoLaboral = value.ToJson(); } }
         /// <summary>
         /// la informacion de referencias en formato json
         /// </summary>
-        public string InfoReferencia { get; set; } = string.Empty;
+        internal string InfoReferencia { get; set; } = string.Empty;
+        [IgnorarEnParam]
+        public List<Referencia> InfoReferenciasObj { get { return InfoReferencia.ToType<List<Referencia>>(); } set { InfoDireccion = value.ToJson(); } }
 
         /// <summary>
         /// guarda el nombre de la imagen

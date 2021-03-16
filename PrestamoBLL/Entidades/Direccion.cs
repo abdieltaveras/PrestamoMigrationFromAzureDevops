@@ -45,8 +45,10 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         /// las coordenadas dadas por google sobre la ubicacion gps de la direccion
         /// </summary>
-        [Display(Name = "Coordenadas GPS")]
-        public string CoordenadasGPS { get; set; } = string.Empty;
+        
+        public float Latitud { get; set; } 
+        
+        public float Longitud { get; set; }
         [Display(Name = "Otros Detalles")]
         [DataType(DataType.MultilineText)]
         [Required(ErrorMessage = "Digite detalles a la direccion")]
