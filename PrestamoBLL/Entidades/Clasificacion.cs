@@ -17,6 +17,8 @@ namespace PrestamoBLL.Entidades
     }
     public class ClasificacionesGetParams : BaseGetParams
     {
-        public int IdColor { get; set; } = -1;
+        public int IdClasificacion { get; set; } = -1;
+        public string Nombre { get; set; } = string.Empty;
+        
     }
 }

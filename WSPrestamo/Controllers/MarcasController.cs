@@ -12,7 +12,7 @@ namespace WSPrestamo.Controllers
 {
     public class MarcasController : BaseApiController
     {
-        public IEnumerable<Marca> GetAll()
+        public IEnumerable<Marca> Get()
         {
             //Hay que agregar el controller
             var result = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });

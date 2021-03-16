@@ -17,9 +17,9 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
-        public async Task<IEnumerable<Color>> GetAll()
+        public async Task<IEnumerable<Color>> Get()
         {
-            return await GetAsync<Color>(apiUrl+"/getall", null);
+            return await GetAsync<Color>(apiUrl, null);
         }
         public ColoresService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {

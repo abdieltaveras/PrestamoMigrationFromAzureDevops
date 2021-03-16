@@ -23,6 +23,7 @@ namespace WSPrestamo.Controllers
         {
             try
             {
+                clasificacion.IdNegocio = 1;
                 clasificacion.Usuario = this.LoginName;
                 clasificacion.IdLocalidadNegocio = this.IdLocalidadNegocio;
                 BLLPrestamo.Instance.InsUpdClasificacion(clasificacion);

@@ -37,6 +37,7 @@ namespace PrestamoBlazorApp.Pages.Modelos
         protected override async Task OnInitializedAsync()
         {
             marcas = await modelosService.GetMarcasForModelo();
+            modelos = await modelosService.Get(new ModeloGetParams());
         }
         //async Task GetModelosByParam()
         //{
@@ -50,7 +51,7 @@ namespace PrestamoBlazorApp.Pages.Modelos
         {
             loading = true;
             var result = new ModeloGetParams { Nombre = SearchModelo.Nombre };
-            modelos = await modelosService.GetAll(result);
+            modelos = await modelosService.Get(result);
             loading = false;
         }
         async Task GetMarcas()

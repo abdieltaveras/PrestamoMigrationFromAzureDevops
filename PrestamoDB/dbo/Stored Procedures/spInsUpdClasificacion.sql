@@ -7,6 +7,7 @@
 	@Codigo varchar(10),
 	@RequiereGarantia bit,
 	@RequiereAutorizacion bit,
+	@idClasificacionFinanciera int,
 	@Activo bit = 1
 AS
 Begin

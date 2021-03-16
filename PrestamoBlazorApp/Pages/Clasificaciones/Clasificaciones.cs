@@ -20,6 +20,7 @@ namespace PrestamoBlazorApp.Pages.Clasificaciones
         [Parameter]
         public Clasificacion Clasificacion { get; set; } 
         bool loading = false;
+        ClasificacionesGetParams SearchClasificacion { get; set; } = new ClasificacionesGetParams();
         void Clear() => clasificaciones = null;
         protected override void OnInitialized()
         {
@@ -27,7 +28,7 @@ namespace PrestamoBlazorApp.Pages.Clasificaciones
             this.Clasificacion = new Clasificacion();
         }
 
-        async Task GetClasificacionesByParam()
+        async Task GetClasificaciones()
         {
             loading = true;
             var param = new ClasificacionesGetParams { IdNegocio = 1 };

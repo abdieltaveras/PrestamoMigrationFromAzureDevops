@@ -13,7 +13,7 @@ namespace WSPrestamo.Controllers
     public class ModelosController : BaseApiController
     {
         //[HttpGet]
-        public IEnumerable<ModeloWithMarca> GetAll(string Nombre ="")
+        public IEnumerable<ModeloWithMarca> Get(string Nombre ="")
         {
             ModeloVM datos = new ModeloVM();
 

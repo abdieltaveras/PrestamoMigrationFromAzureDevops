@@ -1,12 +1,11 @@
 ﻿@page "/clasificaciones"
 
+<h1>Clasificaciones  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
 
-<h2>Marcas</h2>
 
-
-<button class="btn btn-primary" @onclick="GetClasificacionesByParam">Get By Param</button>
+<!--<button class="btn btn-primary" @onclick="GetClasificaciones">Get By Param</button>-->
 @*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
-<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>
+<!--<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>-->
 
 <div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -26,7 +25,7 @@
                 </button>
             </div>
             <div class="col-md-12">
-                <EditForm Model="@Clasificacion" OnValidSubmit="SaveClasificacion" OnInvalidSubmit="RaiseInvalidSubmit">
+                <EditForm autocomplete="off" Model="@Clasificacion" OnValidSubmit="SaveClasificacion" OnInvalidSubmit="RaiseInvalidSubmit">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -49,31 +48,56 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="search float-right">
+            <EditForm autocomplete="off" Model="@SearchClasificacion" OnValidSubmit="@GetClasificaciones">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                    <div class="input-group">
+                        <InputText id="nombres" @bind-Value="SearchClasificacion.Nombre" placeholder="Nombre" class="form-control" />
+                        <span>
+                            <button type="submit" class="btn btn-info">Buscar</button>
+                        </span>
+                    </div>
+                @*<div></div>
+                @if (clasificaciones.Count() > 0)
+                {
+                    <label>Total de Datos encontrados para su peticion @clasificaciones.Count().ToString()</label>
+                }*@
 
-
-<table class="table table-responsive-md table-hover">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Operacion</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (clasificaciones.Count() > 0)
-        {
-            @foreach (var item in clasificaciones)
-            {
+            </EditForm>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-responsive-md table-hover">
+            <thead>
                 <tr>
-                    <td>@item.Nombre</td>
-                    <td> <button @onclick="()=>CreateOrEdit(item.IdClasificacion)" class="btn btn-info"> Editar </button></td>
+                    <th>Nombre</th>
+                    <th>Operacion</th>
                 </tr>
+            </thead>
+            <tbody>
+                @if (clasificaciones.Count() > 0)
+                {
+                    @foreach (var item in clasificaciones)
+                    {
+                        <tr>
+                            <td>@item.Nombre</td>
+                            <td> <button @onclick="()=>CreateOrEdit(item.IdClasificacion)" class="btn btn-info"> Editar </button></td>
+                        </tr>
 
-            }
-        }
-        else
-        {
-            <p> no existen datos</p>
+                    }
+                }
+                else
+                {
+                    <p> no existen datos</p>
 
-        }
-    </tbody>
-</table>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
