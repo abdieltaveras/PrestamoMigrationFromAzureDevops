@@ -7,6 +7,14 @@
     }
 
 }
+
+window.Confirm = function (message) {
+    let result = false; 
+    if (confirm(message)) {
+        result = true;
+    }
+    return result;
+}
 window.ShowModal = function (selector) {
     let options = { backdrop: 'static' };
     $(selector).modal(options);

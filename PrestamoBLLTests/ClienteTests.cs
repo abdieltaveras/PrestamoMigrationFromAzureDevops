@@ -31,7 +31,6 @@ namespace PrestamoBLL.Tests
             {
                 Calle = "Serapia no 3",
                 IdLocalidad = 1,
-                CoordenadasGPS="25263536",
                 Detalles="Vive proximo a la puerta Oeste"
             };
             return direccion;

@@ -25,7 +25,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Parameter]
         public int idCliente { get; set; }
         public Cliente cliente { get; set; }
-
         EventConsole console;
         string TextoForActivo { get; set; } = "Si";
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
@@ -51,7 +50,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
             await base.OnInitializedAsync();
             this.cliente = new Cliente();
             this.cliente.Codigo = "Nuevo";
-            
             Ocupaciones = await GetOcupaciones();
             //TiposIdentificacionPersonaList = EnumToAList.GetEnumTiposIdentificacionPersona();
         }
@@ -84,7 +82,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         {
             this.cliente.ImagesForCliente = images;
         }
-
+        
         int zoom = 10;
         bool showMadridMarker;
         
@@ -102,6 +100,22 @@ namespace PrestamoBlazorApp.Pages.Clientes
         public void Test(bool test)
         {
             Console.WriteLine(test);
+        }
+
+
+        ConfirmBase DeleteConfirmation { get; set; } 
+
+        protected void Delete_Click()
+        {
+            DeleteConfirmation.Show();
+        }
+
+        protected void ConfirmDelete_Click(bool deleteConfirmed)
+        {
+            if (deleteConfirmed)
+            {
+                console.Log("borrando data");
+            }
         }
 
     }

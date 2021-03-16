@@ -14,11 +14,14 @@
                 </div>
             </div>
 
-            
+
             <RadzenTabs style="height: 880px">
                 <Tabs>
                     <RadzenTabsItem Text="Generales">
                         <div class="row">
+                            @*<div class="col-xl-6">
+                                    <EventConsole @ref=@console />
+                                </div>*@
                             <div class="col-sm-6">
                                 <div class="form-group row">
                                     <label for="codigo" class="col-sm-2 col-form-label text-right">Codigo</label>
@@ -107,8 +110,9 @@
                                         }
                                     </InputSelect>
                                 </div>
+                                
                                 <div class="ml-5">
-                                    <InputImages OnImageSet="SetImages" ImageQty="2" Text="Seleccione las imagenes para el cliente"></InputImages>
+                                    <InputImages @key="1" OnImageSet="SetImages" ImageQty="2" Text="Seleccione las imagenes para el cliente"></InputImages>
                                 </div>
                             </div>
 
@@ -116,7 +120,7 @@
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Direccion">
 
-                        
+
                         <div class="row">
                             <div class="col-sm-6">
                                 <h2> donde vive la persona ?</h2>
@@ -139,7 +143,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label text-right">Latitud</label>
                                     <input type="number" value="@cliente.InfoDireccionObj.Latitud" class="col-sm-8" />
-                                    
+
                                 </div>
 
                                 <div class="form-group row">

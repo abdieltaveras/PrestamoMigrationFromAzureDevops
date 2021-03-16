@@ -3,31 +3,34 @@
     <label class="ml-2">@Text</label>
 </div>
 <div class="form-group row">
-    @if (imageDataUrls.Count()>= ImageQty)
+    @if (imageDataUrls.Count() >= ImageQty)
     {
-        <label class="ml-4" >Si desea agregar imagenes debe quitar de las que ya estan</label>
+        <label class="ml-4">Si desea agregar imagenes debe quitar de las que ya estan</label>
     }
     else
     {
-        <InputFile  OnChange="OnInputFileChange" accept="image/*" capture  class="form-control col-sm-4"/>
+        <InputFile OnChange="OnInputFileChange" accept="image/*" capture class="form-control col-sm-4" />
     }
 
     @*<InputFile @onclick="Validate" OnChange="OnInputFileChange" accept="image/*" capture multiple />*@
     @*@onclick:preventDefault="preventDefault"*@
 </div>
 <br />
+
 <div class="image-list col-md-5">
     <table class="table">
         <tbody>
             <tr>
                 @{
+
                     int imageIndex = 0;
                     @foreach (var imageDataUrl in imageDataUrls)
                     {
                         var sendIndex = imageIndex;
                         <td width="50%">
                             <img src="@imageDataUrl" />
-                            <button @onclick:preventDefault @onclick="@(() => QuitarImagen(sendIndex))">Quitar</button>
+                            @*<button @onclick:preventDefault @onclick="@(() => OnQuitarImagen(sendIndex))">Quitar</button>*@
+                            <ConfirmationDialog ButtonText="Quitar" objRef="sendIndex" OnOk="QuitarImagenByIndex2" Title="Confirmar Quitar Foto" ConfirmationMessage="Realmente desea quitar la foto" />
                         </td>
                         imageIndex++;
                     }
@@ -37,10 +40,12 @@
     </table>
 
 </div>
+
 @code {
     [Inject]
     IJSRuntime JsRuntime { get; set; }
 
+    int imagelist = 0;
     JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
 
     IList<string> imageDataUrls = new List<string>();
@@ -81,10 +86,42 @@
         await OnImageSet.InvokeAsync(imageDataUrls);
     }
 
-    async Task QuitarImagen(int imageIndex)
+    ConfirmBase DeleteConfirmation { get; set; }
+    int SelectedImageToDelete = -1;
+    async Task OnQuitarImagen(int imageIndex)
     {
-        await JsInteropUtils.Alert(JsRuntime, "hiciste click sobre la imagen " + imageIndex.ToString());
+        SelectedImageToDelete = imageIndex;
+        // activar esta linea
+        //DeleteConfirmation.Show();
+        if (await JsInteropUtils.Confirm(JsRuntime, "Desea Borrar la imagen"))
+        {
+            imageDataUrls.RemoveAt(SelectedImageToDelete);
+        }
+    }
+
+    void QuitarImagenByIndex(int imageIndex)
+    {
+        SelectedImageToDelete = imageIndex;
+
         imageDataUrls.RemoveAt(imageIndex);
+    }
+    void QuitarImagenByIndex2(object ob)
+    {
+        int imageIndex = (int)ob;
+        imageDataUrls.RemoveAt(imageIndex);
+    }
+    void QuitarImagen(bool deleteConfirmed)
+    {
+        if (deleteConfirmed)
+        {
+            if (SelectedImageToDelete != -1)
+            {
+                imageDataUrls.RemoveAt(SelectedImageToDelete);
+                SelectedImageToDelete = -1;
+            }
+        }
+        SelectedImageToDelete = -1;
+
     }
 
 }
