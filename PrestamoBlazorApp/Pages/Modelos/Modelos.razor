@@ -67,23 +67,23 @@ vamos a experimentar con esto luego*@
 {
     <div class="loader">Cargando datos, espere...</div>
 }
-<div class="search">
+<!--<div class="search">
     <EditForm Model="@SearchModelo" OnValidSubmit="@GetModelos">
         <DataAnnotationsValidator />
         <ValidationSummary />
-        LLene el valor indicado y pulse buscar
+        LLene el valor indicado y pulse buscar-->
         @*<InputText id="Codigo" @bind-Value="SearchModelo.Codigo" placeholder="Código" />*@
-        <InputText id="nombres" @bind-Value="SearchModelo.Nombre" placeholder="Nombre" />
+        <!--<InputText id="nombres" @bind-Value="SearchModelo.Nombre" placeholder="Nombre" />-->
         @*<InputText id="Apellidos" @bind-Value="SearchModelo.Apellidos" placeholder="Primer Apellido" />*@
 
-        <button type="submit">Buscar</button>
+        <!--<button type="submit">Buscar</button>
         @if (@modelos.Count() > 0)
         {
             <label>Total de Datos encontrados para su peticion @modelos.Count().ToString()</label>
         }
 
     </EditForm>
-</div>
+</div>-->
 
 <table class="table table-responsive-md table-hover">
     <thead>

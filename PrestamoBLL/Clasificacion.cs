@@ -17,5 +17,13 @@ namespace PrestamoBLL
             var result2 = result.Where(clas => clas.RequiereGarantia);
             return result2;
         }
+        public IEnumerable<Clasificacion> GetClasificaciones(ClasificacionesGetParams searchParam)
+        {
+            return BllAcciones.GetData<Clasificacion, ClasificacionesGetParams>(searchParam, "spGetClasificaciones", GetValidation);
+        }
+        public void InsUpdClasificacion(Clasificacion insUpdParam)
+        {
+            BllAcciones.InsUpdData<Clasificacion>(insUpdParam, "spInsUpdClasificacion");
+        }
     }
 }

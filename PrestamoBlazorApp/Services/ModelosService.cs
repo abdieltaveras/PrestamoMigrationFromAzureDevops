@@ -15,19 +15,19 @@ namespace PrestamoBlazorApp.Services
     {
         public async Task<IEnumerable<Marca>> GetMarcasForModelo()
         {
-            var result = await GetAsync<Marca>("api/marcas" + "/getall", null);
+            var result = await GetAsync<Marca>("api/marcas" , null);
             return result;
         }
         string apiUrl = "api/Modelos";
-        public async Task<IEnumerable<Modelo>> GetModelosAsync(ModeloGetParams search)
-        {
-            var result = await GetAsync<Modelo>(apiUrl, search);
-            return result;
-        }
+        //public async Task<IEnumerable<Modelo>> GetModelosAsync(ModeloGetParams search)
+        //{
+        //    var result = await GetAsync<Modelo>(apiUrl, search);
+        //    return result;
+        //}
 
-        public async Task<IEnumerable<Modelo>> GetAll(ModeloGetParams modeloGetParams)
+        public async Task<IEnumerable<Modelo>> Get(ModeloGetParams modeloGetParams)
         {
-            var result =  await GetAsync<Modelo>(apiUrl+"/getall", modeloGetParams );
+            var result =  await GetAsync<Modelo>(apiUrl, modeloGetParams );
             return result;
         }
         public ModelosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)

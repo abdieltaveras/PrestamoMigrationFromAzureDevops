@@ -15,7 +15,7 @@ namespace PrestamoBlazorApp.Pages.Marcas
     public partial class Marcas 
 
     {
-        
+        MarcaGetParams SearchMarca { get; set; } = new MarcaGetParams();
         [Inject]
         IJSRuntime jsRuntime { get; set; }
 
@@ -32,7 +32,10 @@ namespace PrestamoBlazorApp.Pages.Marcas
             base.OnInitialized();
             this.Marca = new Marca();
         }
-
+        protected override async Task OnInitializedAsync()
+        {
+            marcas = await marcasService.Get();
+        }
         //async Task GetMarcasByParam()
         //{
         //    loading = true;
@@ -41,10 +44,10 @@ namespace PrestamoBlazorApp.Pages.Marcas
         //    loading = false;
         //}
 
-        public async Task GetAll()
+        public async Task GetMarcas()
         {
             loading = true;
-            marcas = await marcasService.GetAll();
+            marcas = await marcasService.Get();
             loading = false;
         }
 

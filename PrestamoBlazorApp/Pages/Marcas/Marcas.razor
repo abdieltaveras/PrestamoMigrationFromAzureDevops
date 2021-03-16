@@ -3,7 +3,7 @@
 
 
 <h1>Marcas  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
-<button class="btn btn-info" @onclick="GetAll">Buscar</button>
+@*<button class="btn btn-info" @onclick="GetMarcas">Buscar</button>*@
 
 @*<button class="btn btn-primary" @onclick="GetMarcasByParam">Get By Param</button>
 <button class="btn btn-primary" @onclick="GetAll">Get All</button>
@@ -59,7 +59,23 @@
 {
     <div class="loader">Cargando datos, espere...</div>
 }
+<div class="row">
+    <div class="col-md-12">
+        <div class="search float-right">
+            <EditForm autocomplete="off" Model="@SearchMarca" OnValidSubmit="@GetMarcas">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <!--<div class="input-group">-->
+                    @*<InputText id="nombres" @bind-Value="SearchMarca.IdMarca" placeholder="Nombre" class="form-control" />*@
+                    <!--<span>
+                        <button type="submit" class="btn btn-info">Buscar</button>
+                    </span>
+                </div>-->
 
+            </EditForm>
+        </div>
+    </div>
+</div>
 
 
 <table class="table table-responsive-md table-hover">
