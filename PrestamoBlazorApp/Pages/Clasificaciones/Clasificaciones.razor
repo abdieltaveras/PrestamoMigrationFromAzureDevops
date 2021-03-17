@@ -47,11 +47,14 @@
         </div>
     </div>
 </div>
-
+@if (loading)
+{
+    <div class="loader">Cargando datos, espere...</div>
+}
 <div class="row">
     <div class="col-md-12">
         <div class="search float-right">
-            <EditForm autocomplete="off" Model="@SearchClasificacion" OnValidSubmit="@GetClasificaciones">
+            <!--<EditForm autocomplete="off" Model="@SearchClasificacion" OnValidSubmit="@GetClasificaciones">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                     <div class="input-group">
@@ -59,17 +62,21 @@
                         <span>
                             <button type="submit" class="btn btn-info">Buscar</button>
                         </span>
-                    </div>
-                @*<div></div>
+                    </div>-->
+            @*<div></div>
                 @if (clasificaciones.Count() > 0)
                 {
                     <label>Total de Datos encontrados para su peticion @clasificaciones.Count().ToString()</label>
                 }*@
 
-            </EditForm>
+            <!--</EditForm>-->
         </div>
     </div>
 </div>
+@if (loading)
+{
+    <div class="loader">Cargando datos, espere...</div>
+}
 <div class="row">
     <div class="col-md-12">
         <table class="table table-responsive-md table-hover">

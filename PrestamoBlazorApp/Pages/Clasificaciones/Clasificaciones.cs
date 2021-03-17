@@ -27,7 +27,10 @@ namespace PrestamoBlazorApp.Pages.Clasificaciones
             base.OnInitialized();
             this.Clasificacion = new Clasificacion();
         }
-
+        protected override async Task OnInitializedAsync()
+        {
+            clasificaciones = await ClasificacionesService.GetClasificacionesAsync(new ClasificacionesGetParams { IdNegocio = 1});
+        }
         async Task GetClasificaciones()
         {
             loading = true;

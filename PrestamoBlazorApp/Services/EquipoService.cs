@@ -11,17 +11,17 @@ namespace PrestamoBlazorApp.Services
     public class EquiposService : ServiceBase
     {
         string apiUrl = "api/Equipo";
-        public async Task<IEnumerable<Equipo>> GetEquiposAsync(EquiposGetParam search)
+        public async Task<IEnumerable<Equipo>> Get(EquiposGetParam search)
         {
-            var result = await GetAsync<Equipo>(apiUrl, search);
+            var result = await GetAsync<Equipo>(apiUrl, null);
             return result;
         }
 
-        public async Task<IEnumerable<Equipo>> GetAll()
-        {
-            var result =  await GetAsync<Equipo>(apiUrl+"/getall", null);
-            return result;
-        }
+        //public async Task<IEnumerable<Equipo>> GetAll()
+        //{
+        //    var result =  await GetAsync<Equipo>(apiUrl+"/getall", null);
+        //    return result;
+        //}
         public EquiposService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 

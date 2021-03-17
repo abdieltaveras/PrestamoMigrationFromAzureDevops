@@ -5,11 +5,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
-namespace PrestamoBlazorApp.Pages
+namespace PrestamoBlazorApp.Pages.Equipos
 {
     public partial class Equipos
     {
+        ColorGetParams SearchMarca { get; set; } = new ColorGetParams();
+        [Inject]
+        IJSRuntime jsRuntime { get; set; }
+
+        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         EquiposService EquiposService { get; set; }
         IEnumerable<Equipo> equipos { get; set; } = new List<Equipo>();
@@ -22,12 +28,15 @@ namespace PrestamoBlazorApp.Pages
             base.OnInitialized();
             this.Equipo = new Equipo();
         }
-
-        async Task GetEquiposByParam()
+        protected override async Task OnInitializedAsync()
+        {
+            equipos = await EquiposService.Get(new EquiposGetParam());
+        }
+        async Task Get()
         {
             loading = true;
             var param = new EquiposGetParam { IdNegocio = 1 };
-            equipos = await EquiposService.GetEquiposAsync(param);
+            equipos = await EquiposService.Get(param);
             loading = false;
         }
 
@@ -42,7 +51,18 @@ namespace PrestamoBlazorApp.Pages
         {
             await EquiposService.SaveEquipo(this.Equipo);
         }
-
+        void CreateOrEdit(int IdEquipo = -1)
+        {
+            if (IdEquipo > 0)
+            {
+                this.Equipo = equipos.Where(m => m.IdEquipo == IdEquipo).FirstOrDefault();
+            }
+            else
+            {
+                this.Equipo = new Equipo();
+            }
+            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+        }
         void RaiseInvalidSubmit()
         {
             
