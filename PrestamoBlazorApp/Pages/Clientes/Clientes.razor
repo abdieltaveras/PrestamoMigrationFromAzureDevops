@@ -53,12 +53,16 @@
                     <tbody>
                         @foreach (var cliente in clientes)
                         {
-                            <tr>
-                                <td>@cliente.Codigo</td>
-                                <td>@cliente.NombreCompleto</td>
-                                <td>@cliente.TelefonoMovil</td>
-                                <td>@cliente.NoIdentificacion</td>
-                            </tr>
+                        <tr>
+                            <td>@cliente.Codigo</td>
+                            <td>@cliente.NombreCompleto</td>
+                            <td>@cliente.TelefonoMovil</td>
+                            @{
+                                var tident = (TiposIdentificacionPersona)cliente.IdTipoIdentificacion;
+                                <td> @tident</td>
+                            }
+                            <td>@cliente.NoIdentificacion</td>
+                        </tr>
                         }
                     </tbody>
                 </table>

@@ -22,6 +22,12 @@ namespace PrestamoBlazorApp.Data
             var result = ((TiposIdentificacionPersona[])Enum.GetValues(typeof(TiposIdentificacionPersona))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();
             return result;
         }
+
+        public static List<EnumModel> GetEnumTiposReferencias()
+        {
+            var result = ((EnumTiposReferencia[])Enum.GetValues(typeof(EnumTiposReferencia))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();
+            return result;
+        }
         public static List<EnumModel> GetEnumEstadosCiviles()
         {
             var result = ((EstadosCiviles[])Enum.GetValues(typeof(EstadosCiviles))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();

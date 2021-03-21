@@ -19,7 +19,9 @@ namespace PrestamoBLL.Entidades
         public string NoTelefono1 { get; set; } = string.Empty;
         [Display(Name = "Donde Labora")]
         public string LugarTrabajo { get; set; } = string.Empty;
+        
         [Display(Name = "Telefono del Trabajajo")]
+
         public string TelefonoTrabajo { get; set; } = string.Empty;
         [Display(Name = "Direccion donde trabaja")]
         public string DireccionLugarTrabajo { get; set; } = string.Empty;

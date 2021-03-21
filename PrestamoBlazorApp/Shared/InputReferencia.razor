@@ -1,0 +1,47 @@
+﻿@using PrestamoBLL.Entidades;
+
+
+<div class="form-group row bg-dark">
+    <label class="col-sm-1 text-left text-white">No @Index</label>
+    <label class="col-sm-1 text-center text-white"> Tipo </label>
+    <label class="col-sm-5 text-center text-white">Nombre Completo </label>
+    <label class="col-sm-5 text-center text-white">Telefonos </label>
+</div>
+<div class="form-group row">
+    <InputSelect id="select1" @bind-Value="@referencia.Tipo" class="form-control col-sm-2">
+        @{
+            int indexEnum = 0;
+        }
+        @foreach (var tipoReferencia in Enum.GetValues(typeof(EnumTiposReferencia)))
+        {
+            indexEnum++;
+            <option value="@indexEnum"> @tipoReferencia </option>
+        }
+    </InputSelect>
+
+    <input id="NombreCompleto-referencia" @bind-value=@referencia.NombreCompleto class="col-sm-5" />
+    @*@onchange="@(e=> cliente.InfoReferenciasObj[referencia.Index].NombreCompleto=e.Value.ToString())"*@
+    <input value=@referencia.Telefono class="col-sm-5" />
+</div>
+
+<div class="form-group row bg-info">
+    <label class="col-sm-2 text-center text-white">Vinculo </label>
+    <label class="col-sm-5 text-center text-white">Direccion </label>
+    <label class="col-sm-5 text-center text-white">Detalles </label>
+</div>
+<div class="form-group row">
+    <input value=@referencia.Vinculo class="col-sm-2" />
+    <textarea value=@referencia.Direccion class="col-sm-5" />
+    <textarea value=@referencia.Detalles class="col-sm-5" />
+</div>
+
+
+@code {
+
+    [Parameter]
+    public Referencia referencia { get; set; } = new Referencia();
+
+    [Parameter]
+    public int Index { get; set; }
+
+}

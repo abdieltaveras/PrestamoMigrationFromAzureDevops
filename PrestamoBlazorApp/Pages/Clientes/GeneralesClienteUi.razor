@@ -1,0 +1,119 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group row">
+            <label for="codigo" class="col-sm-2 col-form-label text-right">Codigo</label>
+            @if (disableCodigo)
+            {
+                <label class="col-sm-3 mt-2">@cliente.Codigo </label>
+            }
+            else
+            {
+                <InputText @bind-Value="cliente.Codigo" class="col-sm-3" />
+            }
+            <label class="col-sm-2 col-form-label text-right">Activo</label>
+            <label class="col-sm-1 col-form-label text-left">@TextoForActivo</label>
+        </div>
+        <div class="form-group row">
+            <label for="tiposIdentificacionPersonas" class="col-sm-3 col-form-label text-right"> Tipo Identif</label>
+            <InputSelect id="tiposIdentificacion" @bind-Value="cliente.IdTipoIdentificacion" class="form-control col-sm-4">
+                @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
+                {
+                    <option value=@item.Value>@item.Text</option>
+                }
+            </InputSelect>
+            <label for="noIdentificacion" class="col-sm-2 col-form-label text-right">Numeracion </label>
+            <RadzenMask Mask="***-*******-*" Pattern="[^0-9]" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion " class="col-sm-3" />
+        </div>
+        <div class="form-group row">
+            <label for="nombres" class="col-sm-2 col-form-label text-right">Nombres</label>
+            <InputText @bind-Value="cliente.Nombres" class="col-sm-10" />
+
+        </div>
+        <div class="form-group row">
+            <label for="apellidos" class="col-sm-2 col-form-label text-right">Apellidos</label>
+            <InputText @bind-Value="cliente.Apellidos" class="col-sm-10" />
+        </div>
+        <div class="form-group row">
+            <label for="apodo" class="col-sm-2 col-form-label text-right">Apodo</label>
+            <InputText @bind-Value="cliente.Apodo" class="col-sm-10" />
+        </div>
+
+        <div class="form-group row">
+            <label for="tiposEstadosCiviles" class="col-sm-2 col-form-label text-right">Estado Civil</label>
+            <InputSelect id="tiposEstadosCiviles" @bind-Value="cliente.IdEstadoCivil" class="form-control col-sm-4">
+                @foreach (var item in EnumToList.GetEnumEstadosCiviles())
+                {
+                    <option value=@item.Value>@item.Text</option>
+                }
+            </InputSelect>
+
+        </div>
+
+        <div class="form-group row">
+            <InputCheckbox id="tieneConyuge" @bind-Value=cliente.TieneConyuge TValue="bool" class="offset-2 mt-1" />
+            <label for="tieneConyuge" class="ml-2" style="margin-left: 5px">Tiene Conyuge o Pareja</label>
+        </div>
+        <div class="form-group row">
+            <label for="sexos" class="col-sm-2 col-form-label text-right">Sexo</label>
+            <InputSelect id="sexos" @bind-Value="cliente.idSexo" class="form-control col-sm-4">
+                <option value="1">Masculino</option>
+                <option value="2">Femenino</option>
+            </InputSelect>
+        </div>
+        <div class="form-group row">
+            <label for="fechaDeNacimiento" class="col-sm-2 col-form-label text-right">Apodo</label>
+            <InputDate @bind-Value="cliente.FechaNacimiento" class="col-sm-10" />
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-group row mt-5">
+            <label class="col-sm-3 col-form-label text-right">Telefono Casa</label>
+            <RadzenMask Mask="(***)-***-****" Pattern="[^0-9]" placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoCasa " class="col-sm-3" />
+
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-right">Telefono movil</label>
+            <RadzenMask Mask="(***)-***-****" Pattern="[^0-9]" placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoMovil " class="col-sm-3" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label text-right">Profesion</label>
+            <InputSelect id="Ocupaciones" @bind-Value="cliente.IdTipoProfesionUOcupacion" class="form-control col-sm-4">
+                @foreach (var item in  Ocupaciones)
+                {
+                    <option value=@item.IdOcupacion>@item.Nombre</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="ml-5">
+            <InputImages OnImageSet="SetImages" ImageQty="2" Text="Seleccione las imagenes para el cliente"></InputImages>
+        </div>
+    </div>
+
+</div>
+
+@code {
+
+    [Inject]
+    OcupacionesService ocupacionesService { get; set; }
+
+    [Parameter]
+    public Cliente cliente { get; set; }
+    IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
+    [Parameter]
+    public bool disableCodigo { get; set; } = true;
+    [Parameter]
+    public string TextoForActivo { get; set; } = "Si";
+
+    private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
+    {
+        var result = await ocupacionesService.GetOcupacionesAsync();
+        return result;
+    }
+
+    private void SetImages(IList<string> images)
+    {
+        this.cliente.ImagesForCliente = images;
+    }
+}

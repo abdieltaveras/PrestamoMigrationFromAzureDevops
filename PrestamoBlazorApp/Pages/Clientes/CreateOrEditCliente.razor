@@ -1,0 +1,142 @@
+﻿@page "/clientes/CreateOrEdit"
+@page "/clientes/CreateOrEdit/{idCliente}"
+@using PrestamoBLL.Entidades;
+@using PrestamoBlazorApp.Shared;
+
+<div class="grid-container">
+    <div class="search">
+        <EditForm Model="@cliente" OnValidSubmit="@SaveCliente">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="bg-secondary">
+                <h3 class="text-left">Crear o Editar clientes</h3>
+                <div class="text-right">
+                    <button type="submit">Guardar</button>
+                </div>
+            </div>
+
+
+            <RadzenTabs style="height: 880px">
+                <Tabs>
+                    <RadzenTabsItem Text="Generales">
+                        
+                            @*<div class="col-xl-6">
+                                    <EventConsole @ref=@console />
+                                </div>*@
+                            
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Conyuge">
+                        <ConyugeUI cliente="@cliente"/>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Direccion">
+
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2> donde vive la persona ?</h2>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label text-right">buscar Sector</label>
+                                    <InputText @bind-Value=@searchSector class="col-sm-8" />
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label text-right">Localidad Seleccionada</label>
+                                    <InputText @bind-Value=@selectedLocalidad class="col-sm-8" />
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label text-right">Calle</label>
+                                    <InputText @bind-Value=@cliente.InfoDireccionObj.Calle class="col-sm-8" />
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label text-right">Latitud</label>
+                                    <input type="number" value="@cliente.InfoDireccionObj.Latitud" class="col-sm-8" />
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label text-right">Longitud</label>
+                                    <input type="number" value="@cliente.InfoDireccionObj.Longitud" class="col-sm-8" />
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label text-right">Detalles</label>
+                                    <InputText @bind-Value=@cliente.InfoDireccionObj.Detalles class="col-sm-8" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h2>Mapa</h2>
+                                <div>
+                                    <RadzenGoogleMap style="height: 400px" Zoom=@zoom Center=@(new GoogleMapPosition() { Lat = 18.43190, Lng = -69.98503 }) MapClick=@OnMapClick MarkerClick=@OnMarkerClick>
+                                        <Markers>
+                                            <RadzenGoogleMapMarker Title="Clinica Coral" Label="CLinca Coral" Position=@(new GoogleMapPosition() { Lat = 18.43190, Lng = -68.98503 }) />
+                                        </Markers>
+                                    </RadzenGoogleMap>
+                                </div>
+                            </div>
+                        </div>
+
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Laborales">
+                        <h3> Datos empresa o negocio donde labora</h3>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Nombre</label>
+                                <InputText @bind-Value=@cliente.InfoLaboralObj.Nombre class="col-sm-8" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Direccion</label>
+                                <InputText @bind-Value=@cliente.InfoLaboralObj.Direccion class="col-sm-8" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Puesto</label>
+                                <InputText @bind-Value=@cliente.InfoLaboralObj.Puesto class="col-sm-8" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Telefono 1</label>
+                                <InputText @bind-Value="cliente.InfoLaboralObj.NoTelefono1" class="col-sm-8" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Telefono 2</label>
+                                <InputText @bind-Value="cliente.InfoLaboralObj.NoTelefono2" class="col-sm-8" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Telefono 2</label>
+                                <InputText @bind-Value="cliente.InfoLaboralObj.NoTelefono2" class="col-sm-8" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Otros detalles</label>
+                                <InputText @bind-Value="cliente.InfoLaboralObj.Notas" class="col-sm-8" />
+                            </div>
+                        </div>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Referencias">
+
+                        @for (int i = 0; i < referencias.Count; i++)
+                        {
+                            <InputReferencia referencia="@referencias[i]" Index="@i" />
+                        }
+
+                    </RadzenTabsItem>
+
+                </Tabs>
+
+            </RadzenTabs>
+
+        </EditForm>
+        @*<EventConsole @ref="@console"> </EventConsole>*@
+    </div>
+</div>
+
+<div class="grid">
+    @if (loading)
+    {
+        <div class="loader">Cargando...</div>
+    }
+
+</div>
+
+
+

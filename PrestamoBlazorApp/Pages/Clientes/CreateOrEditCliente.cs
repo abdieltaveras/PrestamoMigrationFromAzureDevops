@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
-    public partial class CreateOrEdit
+    public partial class CreateOrEditCliente
     {
         [Inject]
         OcupacionesService ocupacionesService { get; set; }
@@ -32,9 +32,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Inject]
         ClientesService clientesService { get; set; }
 
-        private IEnumerable<EnumModel> EstadosCiviles = EnumToList.GetEnumEstadosCiviles();
-        private IEnumerable<EnumModel> TiposIdentificacion = EnumToList.GetEnumTiposIdentificacionPersona();
-
+        
+        
         private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
 
         private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
@@ -42,24 +41,33 @@ namespace PrestamoBlazorApp.Pages.Clientes
             var result = await ocupacionesService.GetOcupacionesAsync();
             return result;
         }
+        List<Referencia> referencias = new List<Referencia>();
 
+        Referencia referencia1 = new Referencia();
+        Referencia referencia2 = new Referencia();
+        Referencia referencia3 = new Referencia();
         bool disableCodigo { get; set; } = true;
+
         protected override async Task OnInitializedAsync()
         {
-            
-            await base.OnInitializedAsync();
             this.cliente = new Cliente();
             this.cliente.Codigo = "Nuevo";
             Ocupaciones = await GetOcupaciones();
-            //TiposIdentificacionPersonaList = EnumToAList.GetEnumTiposIdentificacionPersona();
+            referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal };
+            referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial };
+            referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar };
+            referencias.Add(referencia1);
+            referencias.Add(referencia2);
+            referencias.Add(referencia3);
+            await base.OnInitializedAsync();
         }
         
-
         private bool loading { get; set; }
         //async Task SaveCliente()
         async Task SaveCliente()
         {
             loading = true;
+            this.cliente.SetReferencias(referencias);
             await clientesService.SaveCliente(this.cliente);
             loading = false;
         }
@@ -75,7 +83,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
         void OnInputFileChange(InputFileChangeEventArgs e)
         {
             var imageFiles = e.GetMultipleFiles();
-
         }
         
         private void SetImages(IList<string> images)
@@ -85,7 +92,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
         
         int zoom = 10;
         bool showMadridMarker;
-        
 
         void OnMapClick(GoogleMapClickEventArgs args)
         {
@@ -95,27 +101,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
         void OnMarkerClick(RadzenGoogleMapMarker marker)
         {
             console.Log($"Map {marker.Title} marker clicked. Marker position -> Lat: {marker.Position.Lat}, Lng: {marker.Position.Lng}");
-        }
-
-        public void Test(bool test)
-        {
-            Console.WriteLine(test);
-        }
-
-
-        ConfirmBase DeleteConfirmation { get; set; } 
-
-        protected void Delete_Click()
-        {
-            DeleteConfirmation.Show();
-        }
-
-        protected void ConfirmDelete_Click(bool deleteConfirmed)
-        {
-            if (deleteConfirmed)
-            {
-                console.Log("borrando data");
-            }
         }
 
     }

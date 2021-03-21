@@ -5,7 +5,6 @@
     else {
         alert(JSON.stringify(message));
     }
-
 }
 
 window.Confirm = function (message) {

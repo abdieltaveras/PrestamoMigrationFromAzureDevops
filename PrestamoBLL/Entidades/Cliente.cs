@@ -1,7 +1,10 @@
 ﻿using emtSoft.DAL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+
 
 namespace PrestamoBLL.Entidades
 {
@@ -97,26 +100,39 @@ namespace PrestamoBLL.Entidades
         //</summary>
         internal string InfoConyuge { get; set; } = string.Empty;
         [IgnorarEnParam]
-        public Conyuge InfoConyugeObj { get { return string.IsNullOrEmpty(InfoConyuge) ? new Conyuge() : InfoConyuge.ToType<Conyuge>(); }  set { InfoConyuge = value.ToJson(); } }
+        public Conyuge InfoConyugeObj { get { return string.IsNullOrEmpty(InfoConyuge) ? new Conyuge() : InfoConyuge.ToType<Conyuge>(); } set { InfoConyuge = value.ToJson(); } }
         //<summary>
         //la direccion en formato json
         //</summary>
         internal string InfoDireccion { get; set; } = string.Empty;
         [IgnorarEnParam]
-        public Direccion InfoDireccionObj { get { return string.IsNullOrEmpty(InfoDireccion) ? new Direccion(): InfoDireccion.ToType<Direccion>() ; } set { InfoDireccion = value.ToJson(); } }
+        public Direccion InfoDireccionObj { get { return string.IsNullOrEmpty(InfoDireccion) ? new Direccion() : InfoDireccion.ToType<Direccion>(); } set { InfoDireccion = value.ToJson(); } }
         /// <summary>
         /// la informacion laboral en formato json
         /// </summary>
         internal string InfoLaboral { get; set; } = string.Empty;
         [IgnorarEnParam]
-        public InfoLaboral InfoLaboralObj { get { return string.IsNullOrEmpty(InfoConyuge) ? new InfoLaboral() : InfoLaboral.ToType<InfoLaboral>(); } set { InfoLaboral = value.ToJson(); } }
+        public InfoLaboral InfoLaboralObj { get { return string.IsNullOrEmpty(InfoLaboral) ? new InfoLaboral() : InfoLaboral.ToType<InfoLaboral>(); } set { InfoLaboral = value.ToJson(); } }
         /// <summary>
         /// la informacion de referencias en formato json
         /// </summary>
-        internal string InfoReferencia { get; set; } = string.Empty;
+        internal string InfoReferencias { get; set; } = string.Empty;
         [IgnorarEnParam]
-        public List<Referencia> InfoReferenciasObj { get { return InfoReferencia.ToType<List<Referencia>>(); } set { InfoDireccion = value.ToJson(); } }
+        public IEnumerable<Referencia> InfoReferenciasObj { 
+            get { return string.IsNullOrEmpty(InfoReferencias) ? new List<Referencia>() : InfoReferencias.ToType<IEnumerable<Referencia>>(); }
+        } 
 
+        private List<Referencia> _infoReferencias = new List<Referencia>();
+        /// <summary>
+        /// para asignar valor de todas las referencias, no olvide enviarlas
+        /// todas incluyendo las que ya se hayan registrado
+        /// </summary>
+        /// <param name="referencias"></param>
+        public void SetReferencias(IEnumerable<Referencia> referencias)
+        {
+            this._infoReferencias = InfoReferenciasObj.ToList();
+            this.InfoReferencias  = JsonConvert.SerializeObject(_infoReferencias);
+        }
         /// <summary>
         /// guarda el nombre de la imagen
         /// </summary>

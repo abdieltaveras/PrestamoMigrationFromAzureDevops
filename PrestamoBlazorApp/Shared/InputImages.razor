@@ -29,8 +29,12 @@
                         var sendIndex = imageIndex;
                         <td width="50%">
                             <img src="@imageDataUrl" />
-                            @*<button @onclick:preventDefault @onclick="@(() => OnQuitarImagen(sendIndex))">Quitar</button>*@
-                            <ConfirmationDialog ButtonText="Quitar" objRef="sendIndex" OnOk="QuitarImagenByIndex2" Title="Confirmar Quitar Foto" ConfirmationMessage="Realmente desea quitar la foto" />
+                            <ConfirmationDialog ButtonText="Quitar" 
+                                                objRef="sendIndex" 
+                                                OnOk="QuitarImagen" 
+                                                Title="Confirmar Quitar Foto" 
+                                                ConfirmationMessage="Realmente desea quitar la foto" />
+
                         </td>
                         imageIndex++;
                     }
@@ -86,42 +90,14 @@
         await OnImageSet.InvokeAsync(imageDataUrls);
     }
 
-    ConfirmBase DeleteConfirmation { get; set; }
-    int SelectedImageToDelete = -1;
-    async Task OnQuitarImagen(int imageIndex)
-    {
-        SelectedImageToDelete = imageIndex;
-        // activar esta linea
-        //DeleteConfirmation.Show();
-        if (await JsInteropUtils.Confirm(JsRuntime, "Desea Borrar la imagen"))
-        {
-            imageDataUrls.RemoveAt(SelectedImageToDelete);
-        }
-    }
+    
 
-    void QuitarImagenByIndex(int imageIndex)
-    {
-        SelectedImageToDelete = imageIndex;
-
-        imageDataUrls.RemoveAt(imageIndex);
-    }
-    void QuitarImagenByIndex2(object ob)
+    
+    void QuitarImagen(object ob)
     {
         int imageIndex = (int)ob;
         imageDataUrls.RemoveAt(imageIndex);
     }
-    void QuitarImagen(bool deleteConfirmed)
-    {
-        if (deleteConfirmed)
-        {
-            if (SelectedImageToDelete != -1)
-            {
-                imageDataUrls.RemoveAt(SelectedImageToDelete);
-                SelectedImageToDelete = -1;
-            }
-        }
-        SelectedImageToDelete = -1;
-
-    }
+    
 
 }
