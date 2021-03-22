@@ -10,7 +10,7 @@ namespace PrestamoBLL.Entidades
 {
     public class Conyuge
     {
-        [Required(ErrorMessage = "ingrese lo nombres")]
+        [Required(ErrorMessage = "debe ingresar el nombre del conyuge")]
         public string Nombres { get; set; } = string.Empty;
         public string Apodo { get; set; } = string.Empty;
         [Required(ErrorMessage = "ingrese los apellidos")]

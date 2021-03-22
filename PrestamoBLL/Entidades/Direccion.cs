@@ -34,7 +34,7 @@ namespace PrestamoBLL.Entidades
 
         [Range(1,99999999,ErrorMessage ="Es necesario establecer una localidad")]
         public int IdLocalidad { get; set; }
-        [Required(ErrorMessage = "ingrese informacion en de la calle")]
+        [Required(ErrorMessage = "ingrese informacion de la calle")]
         /// <summary>
         /// Nombre de la calle incluyendo el numero de la vivienda
         /// </summary>

@@ -19,8 +19,9 @@ namespace WSPrestamo.Controllers
     {
 
 
-        public IEnumerable<Cliente> Get(int idCliente, string codigo="",string nombres = "", string apellidos = "", int Activo = -1, 
-            int idLocalidad = -1, int idTipoIdentificacion = -1, string noIdentificacion = "", int anulado = -1, DateTime? insertadoDesde = null, DateTime? insertadoHasta=null, int seleccionarCantidadRegistros = -1, int idRegistroInicioSeleccion = -1 
+        public IEnumerable<Cliente> Get(int idCliente, string codigo = "", string nombres = "", string apellidos = "", int Activo = -1,
+            int idLocalidad = -1, int idTipoIdentificacion = -1, string noIdentificacion = "", int anulado = -1, DateTime? insertadoDesde = null, DateTime? insertadoHasta = null, int seleccionarCantidadRegistros = -1, int idRegistroInicioSeleccion = -1,
+            bool convertJsonToObj = false
             )
         {
 
@@ -40,7 +41,8 @@ namespace WSPrestamo.Controllers
                 InsertadoHasta = insertadoHasta,
                 CantidadRegistrosASeleccionar = seleccionarCantidadRegistros,
                 SeleccionarLuegoDelIdCliente = idRegistroInicioSeleccion,
-                Usuario = this.LoginName
+                Usuario = this.LoginName,
+                ConvertJsonToObj = convertJsonToObj
             };
             var data = BLLPrestamo.Instance.GetClientes(getParams);
             return data;
@@ -56,8 +58,11 @@ namespace WSPrestamo.Controllers
         /// </summary>
         /// <param name="cliente"></param>
         [HttpPost]
-        public IHttpActionResult Post(Cliente cliente)
+        public IHttpActionResult Post([FromBody]Cliente cliente)
         {
+            cliente.Usuario = this.LoginName;
+            cliente.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            var state = ModelState.IsValid;
             try
             {
                 var id = BLLPrestamo.Instance.InsUpdCliente(cliente);

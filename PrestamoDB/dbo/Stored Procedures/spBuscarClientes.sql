@@ -17,13 +17,13 @@ select
 	tblClientes.NoIdentificacion,
 	tblClientes.TelefonoMovil,
 	tblClientes.Activo,
-	tblClientes.Sexo
+	tblClientes.IdSexo
 
 from 
 	tblClientes, tblTipoSexos
 where
 	tblClientes.IdNegocio = @IdNegocio AND
-	tblTipoSexos.IdTipoSexo = tblClientes.Sexo AND (
+	tblTipoSexos.IdTipoSexo = tblClientes.IdSexo AND (
 	CONCAT(tblClientes.Nombres, ' ', tblClientes.Apellidos) LIKE '%' + @TextToSearch + '%' 
 	OR tblClientes.NoIdentificacion LIKE '%' + @TextToSearch + '%')
 End

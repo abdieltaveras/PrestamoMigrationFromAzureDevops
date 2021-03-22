@@ -1,0 +1,35 @@
+﻿<h3> Datos empresa o negocio donde labora</h3>
+<div class="col-sm-6">
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label text-right">Nombre</label>
+        <InputText @bind-Value=@infoLaboral.Nombre class="col-sm-8" />
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label text-right">Direccion</label>
+        <InputText @bind-Value=@infoLaboral.Direccion class="col-sm-8" />
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label text-right">Puesto</label>
+        <InputText @bind-Value=@infoLaboral.Puesto class="col-sm-8" />
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label text-right">Telefono 1</label>
+        <InputText @bind-Value="infoLaboral.NoTelefono1" class="col-sm-8" />
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label text-right">Telefono 2</label>
+        <InputText @bind-Value="infoLaboral.NoTelefono2" class="col-sm-8" />
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label text-right">Telefono 2</label>
+        <InputText @bind-Value="infoLaboral.NoTelefono2" class="col-sm-8" />
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label text-right">Otros detalles</label>
+        <InputText @bind-Value="infoLaboral.Notas" class="col-sm-8" />
+    </div>
+</div>
+@code {
+    [Parameter]
+    public InfoLaboral infoLaboral { get; set; }
+}

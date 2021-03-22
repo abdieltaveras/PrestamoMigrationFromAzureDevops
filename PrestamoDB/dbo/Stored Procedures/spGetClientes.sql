@@ -26,7 +26,7 @@ begin
 	end
 
 
-	SELECT TOP (@CantidadRegistrosASeleccionar)    IdCliente,IdStatus, Codigo,Activo, AnuladoPor, Apodo, Apellidos, EstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaAnulado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, Sexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge,infoReferencia
+	SELECT TOP (@CantidadRegistrosASeleccionar)    IdCliente,IdStatus, Codigo,Activo, AnuladoPor, Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaAnulado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, IdSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencias
 	FROM dbo.tblClientes(nolock) 
 	where 
 		((@idCliente=-1) or (IdCliente = @IdCliente))
@@ -36,6 +36,6 @@ begin
 		and ((@NoIdentificacion='') or (NoIdentificacion =@NoIdentificacion)) 
 		and ((@Nombres='') or (Nombres like '%'+@Nombres+'%')) 
 		and ((@Apellidos='') or (Apellidos like '%'+@Apellidos+'%')) 
-		and (@IdLocalidadNegocio =1 or idLocalidadNegocio=@idLocalidadNegocio)
+		and (@IdLocalidadNegocio =-1 or idLocalidadNegocio=@idLocalidadNegocio)
 		and (@SeleccionarLuegoDelIdCliente =-1 or idCliente > @SeleccionarLuegoDelIdCliente)
 End

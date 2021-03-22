@@ -15,11 +15,19 @@ namespace PrestamoBLL
         {
             GetValidation(searchParam as BaseGetParams);
             var result= BllAcciones.GetData<Cliente, ClienteGetParams>(searchParam, "spGetClientes", GetValidation);
+            if (searchParam.ConvertJsonToObj)
+            {
+                result.ToList().ForEach(cl => cl.ConvertJsonToObj());
+            }
             return result;
         }
         public int InsUpdCliente(Cliente insUpdParam)
         {
-            var result = BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdUsuario");
+            
+            insUpdParam.ConvertObjToJson();
+            
+            var sqlParams = SearchRec.ToSqlParams(insUpdParam);
+            var result = BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdCliente");
             return result;
         }
 

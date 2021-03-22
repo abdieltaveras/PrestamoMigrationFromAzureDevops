@@ -25,7 +25,7 @@ join
 join 
 	tblClasificaciones on tblPrestamos.idClasificacion = tblClasificaciones.IdClasificacion
 join 
-	tblTipoSexos on tblClientes.Sexo = tblTipoSexos.IdTipoSexo
+	tblTipoSexos on tblClientes.IdSexo = tblTipoSexos.IdTipoSexo
 where 
 	tblPrestamos.prestamoNumero LIKE '%' + @TextToSearch + '%';
 

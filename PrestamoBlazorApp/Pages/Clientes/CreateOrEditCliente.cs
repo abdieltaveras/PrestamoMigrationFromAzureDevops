@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Services;
@@ -9,6 +10,7 @@ using Radzen;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +19,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
 {
     public partial class CreateOrEditCliente
     {
+        private EditContext EC { get; set; } 
+
         [Inject]
         OcupacionesService ocupacionesService { get; set; }
 
@@ -25,6 +29,12 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Parameter]
         public int idCliente { get; set; }
         public Cliente cliente { get; set; }
+        Conyuge conyuge { get; set; } = new Conyuge();
+
+        Direccion direccion { get; set; }  = new Direccion();
+
+        InfoLaboral infoLaboral { get; set; } = new InfoLaboral();
+
         EventConsole console;
         string TextoForActivo { get; set; } = "Si";
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
@@ -50,24 +60,50 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         protected override async Task OnInitializedAsync()
         {
-            this.cliente = new Cliente();
-            this.cliente.Codigo = "Nuevo";
+
+            
+            prepTestData();
             Ocupaciones = await GetOcupaciones();
-            referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal };
-            referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial };
-            referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar };
+            await base.OnInitializedAsync();
+        }
+
+        private void prepTestData()
+        {
+            this.cliente = new Cliente
+            {
+                Codigo = "Nuevo",
+                Nombres = "a1",
+                Apellidos = "a2",
+                Apodo="a3",
+                IdTipoIdentificacion = 1,
+                NoIdentificacion = "000-0000000-1",
+                InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2" ,DireccionLugarTrabajo="b3" },
+                InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
+                InfoDireccionObj = new Direccion { Calle = "c3", Latitud = 1, Longitud = 2 }
+            };
+            this.conyuge = cliente.InfoConyugeObj;
+            this.infoLaboral = cliente.InfoLaboralObj;
+            this.direccion = cliente.InfoDireccionObj;
+            referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal , NombreCompleto="r1"};
+            referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto ="r2" };
+            referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto ="r3" };
             referencias.Add(referencia1);
             referencias.Add(referencia2);
             referencias.Add(referencia3);
-            await base.OnInitializedAsync();
+
+
         }
-        
+
         private bool loading { get; set; }
         //async Task SaveCliente()
         async Task SaveCliente()
         {
+            //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
             loading = true;
-            this.cliente.SetReferencias(referencias);
+            this.cliente.InfoConyugeObj = conyuge;
+            this.cliente.InfoReferenciasObj = referencias;
+            this.cliente.InfoDireccionObj = direccion;
+            this.cliente.InfoLaboralObj = infoLaboral;
             await clientesService.SaveCliente(this.cliente);
             loading = false;
         }
@@ -89,21 +125,22 @@ namespace PrestamoBlazorApp.Pages.Clientes
         {
             this.cliente.ImagesForCliente = images;
         }
+
+        protected void Handle_ConyugeChange(Conyuge conyuge)
+        {
+            this.cliente.InfoConyugeObj = conyuge;
+        }
+
+        SearchDireccion searchDireccion { get; set; } = new SearchDireccion();
         
-        int zoom = 10;
-        bool showMadridMarker;
+    }
+    public class SearchDireccion
+    {
+        public string SearchSector { get; set; } = string.Empty;
 
-        void OnMapClick(GoogleMapClickEventArgs args)
-        {
-            console.Log($"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
-        }
-
-        void OnMarkerClick(RadzenGoogleMapMarker marker)
-        {
-            console.Log($"Map {marker.Title} marker clicked. Marker position -> Lat: {marker.Position.Lat}, Lng: {marker.Position.Lng}");
-        }
-
+        public string SelectedLocalidad { get; set; } = string.Empty;
     }
 
+    
 }
 

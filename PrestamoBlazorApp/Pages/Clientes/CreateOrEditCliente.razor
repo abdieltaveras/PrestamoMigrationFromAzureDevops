@@ -8,6 +8,7 @@
         <EditForm Model="@cliente" OnValidSubmit="@SaveCliente">
             <DataAnnotationsValidator />
             <ValidationSummary />
+
             <div class="bg-secondary">
                 <h3 class="text-left">Crear o Editar clientes</h3>
                 <div class="text-right">
@@ -15,110 +16,123 @@
                 </div>
             </div>
 
-
             <RadzenTabs style="height: 880px">
                 <Tabs>
                     <RadzenTabsItem Text="Generales">
-                        
-                            @*<div class="col-xl-6">
-                                    <EventConsole @ref=@console />
-                                </div>*@
-                            
-                    </RadzenTabsItem>
-                    <RadzenTabsItem Text="Conyuge">
-                        <ConyugeUI cliente="@cliente"/>
-                    </RadzenTabsItem>
-                    <RadzenTabsItem Text="Direccion">
-
-
                         <div class="row">
                             <div class="col-sm-6">
-                                <h2> donde vive la persona ?</h2>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label text-right">buscar Sector</label>
-                                    <InputText @bind-Value=@searchSector class="col-sm-8" />
+                                    <label for="codigo" class="col-sm-2 col-form-label text-right">Codigo</label>
+                                    @if (disableCodigo)
+                                    {
+                                        <label class="col-sm-3 mt-2">@cliente.Codigo </label>
+                                    }
+                                    else
+                                    {
+                                        <InputText @bind-Value="cliente.Codigo" class="col-sm-3" />
+                                    }
+                                    <label class="col-sm-2 col-form-label text-right">Activo</label>
+                                    <label class="col-sm-1 col-form-label text-left">@TextoForActivo</label>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="tiposIdentificacionPersonas" class="col-sm-3 col-form-label text-right"> Tipo Identif</label>
+                                    <InputSelect id="tiposIdentificacion" @bind-Value="cliente.IdTipoIdentificacion" class="form-control col-sm-4">
+                                        @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
+                                        {
+                                            <option value=@item.Value>@item.Text</option>
+                                        }
+                                    </InputSelect>
+                                    <label for="noIdentificacion" class="col-sm-2 col-form-label text-right">Numeracion </label>
+                                    <RadzenMask Mask="***-*******-*" Pattern="[^0-9]" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion " class="col-sm-3" />
+                                </div>
+                                <div class="form-group row">
+                                    <label for="nombres" class="col-sm-2 col-form-label text-right">Nombres</label>
+                                    <InputText @bind-Value="cliente.Nombres" class="col-sm-10" />
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="apellidos" class="col-sm-2 col-form-label text-right">Apellidos</label>
+                                    <InputText @bind-Value="cliente.Apellidos" class="col-sm-10" />
+                                </div>
+                                <div class="form-group row">
+                                    <label for="apodo" class="col-sm-2 col-form-label text-right">Apodo</label>
+                                    <InputText @bind-Value="cliente.Apodo" class="col-sm-10" />
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label text-right">Localidad Seleccionada</label>
-                                    <InputText @bind-Value=@selectedLocalidad class="col-sm-8" />
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label text-right">Calle</label>
-                                    <InputText @bind-Value=@cliente.InfoDireccionObj.Calle class="col-sm-8" />
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label text-right">Latitud</label>
-                                    <input type="number" value="@cliente.InfoDireccionObj.Latitud" class="col-sm-8" />
+                                    <label for="tiposEstadosCiviles" class="col-sm-2 col-form-label text-right">Estado Civil</label>
+                                    <InputSelect id="tiposEstadosCiviles" @bind-Value="cliente.IdEstadoCivil" class="form-control col-sm-4">
+                                        @foreach (var item in EnumToList.GetEnumEstadosCiviles())
+                                        {
+                                            <option value=@item.Value>@item.Text</option>
+                                        }
+                                    </InputSelect>
 
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label text-right">Longitud</label>
-                                    <input type="number" value="@cliente.InfoDireccionObj.Longitud" class="col-sm-8" />
-                                </div>
 
+                                    <InputCheckbox id="tieneConyuge" @bind-Value=cliente.TieneConyuge TValue="bool" class="offset-2 mt-1" />
+                                    <label for="tieneConyuge" class="ml-2" style="margin-left: 5px">Tiene Conyuge o Pareja</label>
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label text-right">Detalles</label>
-                                    <InputText @bind-Value=@cliente.InfoDireccionObj.Detalles class="col-sm-8" />
+                                    <label for="sexos" class="col-sm-2 col-form-label text-right">Sexo</label>
+                                    <InputSelect id="sexos" @bind-Value="cliente.idSexo" class="form-control col-sm-4">
+                                        <option value="1">Masculino</option>
+                                        <option value="2">Femenino</option>
+                                    </InputSelect>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fechaDeNacimiento" class="col-sm-2 col-form-label text-right">Apodo</label>
+                                    <InputDate @bind-Value="cliente.FechaNacimiento" class="col-sm-10" />
                                 </div>
                             </div>
+
                             <div class="col-sm-6">
-                                <h2>Mapa</h2>
-                                <div>
-                                    <RadzenGoogleMap style="height: 400px" Zoom=@zoom Center=@(new GoogleMapPosition() { Lat = 18.43190, Lng = -69.98503 }) MapClick=@OnMapClick MarkerClick=@OnMarkerClick>
-                                        <Markers>
-                                            <RadzenGoogleMapMarker Title="Clinica Coral" Label="CLinca Coral" Position=@(new GoogleMapPosition() { Lat = 18.43190, Lng = -68.98503 }) />
-                                        </Markers>
-                                    </RadzenGoogleMap>
+                                <div class="form-group row mt-5">
+                                    <label class="col-sm-3 col-form-label text-right">Telefono Casa</label>
+                                    <RadzenMask Mask="(***)-***-****" Pattern="[^0-9]" placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoCasa " class="col-sm-3" />
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label text-right">Telefono movil</label>
+                                    <RadzenMask Mask="(***)-***-****" Pattern="[^0-9]" placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoMovil " class="col-sm-3" />
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label text-right">Profesion</label>
+                                    <InputSelect id="Ocupaciones" @bind-Value="cliente.IdTipoProfesionUOcupacion" class="form-control col-sm-4">
+                                        @foreach (var item in Ocupaciones)
+                                        {
+                                            <option value=@item.IdOcupacion>@item.Nombre</option>
+                                        }
+                                    </InputSelect>
+                                </div>
+
+                                <div class="ml-5">
+                                    <InputImages OnImageSet="SetImages" ImageQty="2" Text="Seleccione las imagenes para el cliente"></InputImages>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                        @*<div class="col-xl-6">
+                                <EventConsole @ref=@console />
+                            </div>*@
+
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="conyuge">
+                        <ConyugeUI conyuge=@conyuge></ConyugeUI>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Direccion">
+                        <DireccionUI direccion=@direccion searchDireccion=@searchDireccion cliente=@cliente />
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Laborales">
-                        <h3> Datos empresa o negocio donde labora</h3>
-                        <div class="col-sm-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label text-right">Nombre</label>
-                                <InputText @bind-Value=@cliente.InfoLaboralObj.Nombre class="col-sm-8" />
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label text-right">Direccion</label>
-                                <InputText @bind-Value=@cliente.InfoLaboralObj.Direccion class="col-sm-8" />
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label text-right">Puesto</label>
-                                <InputText @bind-Value=@cliente.InfoLaboralObj.Puesto class="col-sm-8" />
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label text-right">Telefono 1</label>
-                                <InputText @bind-Value="cliente.InfoLaboralObj.NoTelefono1" class="col-sm-8" />
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label text-right">Telefono 2</label>
-                                <InputText @bind-Value="cliente.InfoLaboralObj.NoTelefono2" class="col-sm-8" />
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label text-right">Telefono 2</label>
-                                <InputText @bind-Value="cliente.InfoLaboralObj.NoTelefono2" class="col-sm-8" />
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label text-right">Otros detalles</label>
-                                <InputText @bind-Value="cliente.InfoLaboralObj.Notas" class="col-sm-8" />
-                            </div>
-                        </div>
+                        <LaboralUI infoLaboral=@infoLaboral />
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Referencias">
-
                         @for (int i = 0; i < referencias.Count; i++)
                         {
-                            <InputReferencia referencia="@referencias[i]" Index="@i" />
+                            <InputReferencia referencia=@referencias[i] Index=@i />
                         }
-
                     </RadzenTabsItem>
 
                 </Tabs>
