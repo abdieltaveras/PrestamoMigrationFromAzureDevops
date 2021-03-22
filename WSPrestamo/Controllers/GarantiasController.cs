@@ -12,8 +12,30 @@ namespace WSPrestamo.Controllers
     public class GarantiasController : BaseApiController
     {
         int BUSCAR_A_PARTIR_DE = 2;
-        [HttpGet]
-        public IEnumerable<GarantiaConMarcaYModelo> Get()
+        public IEnumerable<Garantia> GetWithPrestamo(string search)
+        {
+            search = "26";
+            //string search = "26";
+            IEnumerable<Garantia> garantias = null;
+            if (search.Length >= BUSCAR_A_PARTIR_DE)
+            {
+                garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = search, IdNegocio = 1 });
+            }
+            return garantias;
+        }
+
+        public Garantia Get(int idGarantia)
+        {
+            var searchGarantia = new GarantiaGetParams { IdGarantia = idGarantia };
+            //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
+            var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
+            var result = new SeachResult<Garantia>(garantias);
+            return result.DataList.FirstOrDefault();
+            //var datos = GetGarantiaByIdGarantia(idGarantia).DataList.FirstOrDefault();
+            //return datos;
+
+        }
+        public IEnumerable<GarantiaConMarcaYModelo> GetWithMarca()
         {
             var getGarantiasParams = new GarantiaGetParams();
 
@@ -26,36 +48,17 @@ namespace WSPrestamo.Controllers
             //var garantias = Get();
             //return garantias;
         }
-        
-        public Garantia Get(int idGarantia)
-        {
-            var searchGarantia = new GarantiaGetParams { IdGarantia = idGarantia };
-            //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
-            var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
-            var result = new SeachResult<Garantia>(garantias);
-            return result.DataList.FirstOrDefault();
-            //var datos = GetGarantiaByIdGarantia(idGarantia).DataList.FirstOrDefault();
-            //return datos;
-            
-        }
-        
-        public IEnumerable<Garantia> Get(string searchToText)
-        {
-            IEnumerable<Garantia> garantias = null;
-            if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
-            {
-                garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = searchToText, IdNegocio = 1 });
-            }
-            return garantias;
-        }
 
-        
-        public string Get(int IdLocalidad, int IdNegocio)
-        {
-            List<string> localidad = null;
-            localidad = BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio }).ToList();
-            return localidad[0];
-        }
+
+
+
+
+        //public string Get(int IdLocalidad, int IdNegocio)
+        //{
+        //    List<string> localidad = null;
+        //    localidad = BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio }).ToList();
+        //    return localidad[0];
+        //}
 
         //[HttpGet("{searchToText}")]
         //public IEnumerable<Garantia> Get(string searchToText)

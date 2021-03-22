@@ -5,7 +5,7 @@
     [IdNegocio] INT NOT NULL, 
     [IdTipoLocalidad] INT NOT NULL, 
     [Nombre] VARCHAR(50) NOT NULL,
-	[Codigo] VARCHAR(10) NOT NULL default '',
+	[Codigo] VARCHAR(10) NULL,
     [Activo] BIT NOT NULL DEFAULT 1,
 	[InsertadoPor] varchar(100) not null,
 	[FechaInsertado] DateTime not null default getdate(), 

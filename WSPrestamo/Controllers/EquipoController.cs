@@ -13,12 +13,12 @@ namespace WSPrestamo.Controllers
     {
         public IEnumerable<Equipo> GetAll()
         {
-            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam {  });
+            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { });
         }
-        public IEnumerable<Equipo> Get(int idEquipo, string codigo, int idLocalidad)
-        {
-            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { IdEquipo = idEquipo, Codigo = codigo, IdLocalidadNegocio = idLocalidad });
-        }
+        //public IEnumerable<Equipo> Get(int idEquipo, string codigo, int idLocalidad)
+        //{
+        //    return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { IdEquipo = idEquipo, Codigo = codigo, IdLocalidadNegocio = idLocalidad });
+        //}
         /// <summary>
         /// Para registrar el equipo pero no actualiza el campo confirmado ni en la insersion
         /// ni en la actualicion esas son 2 operaciones apartes

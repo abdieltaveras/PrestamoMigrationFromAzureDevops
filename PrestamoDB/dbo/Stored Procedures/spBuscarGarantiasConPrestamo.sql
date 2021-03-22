@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spBuscarGarantiasConPrestamos]
 	@search varchar(50),
 	@IdNegocio int=0,
+	@IdLocalidadNegocio int = -1,
 	@Usuario varchar(100) = '',
 	@Anulado int=0
 as

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblOcupaciones]
 (
 	[IdOcupacion] INT NOT NULL PRIMARY KEY identity(1,1),
-	[Codigo] VARCHAR(20) NOT NULL default '',
+	[Codigo] VARCHAR(20) NULL,
 	[Nombre] NVARCHAR(50) NOT NULL,
 	[IdNegocio] INT NOT NULL,
     [Activo] BIT NOT NULL DEFAULT 1,

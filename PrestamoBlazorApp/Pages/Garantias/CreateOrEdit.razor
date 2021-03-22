@@ -1,0 +1,62 @@
+﻿@page "/garantias/CreateOrEdit"
+
+<h1>Garantias CreateOrEdit <button type="submit" class="btn btn-primary" @onclick="()=>SaveGarantia()">Guardar</button></h1>
+
+
+<!--<button class="btn btn-primary" @onclick="GetGarantias">Get By Param</button>-->
+@*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
+<!--<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>-->
+
+<div class="row">
+    <div class="col-md-12">
+        <EditForm autocomplete="off" Model="@Garantia" OnValidSubmit="SaveGarantia" OnInvalidSubmit="RaiseInvalidSubmit">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h6>Clasificacion de garantia</h6>
+                    <div class="">
+                        <div class="form-group">
+                            @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="inmobiliario_option" class="form-control">
+
+                        </InputRadio>*@
+                            @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="inmobiliario_option2">
+
+                        </InputRadio>*@
+                            <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="1" />
+                            <label for="inmobiliario_option">Inmobiliario</label>
+                            @*<i class="fa fa-home"></i>*@ Inmobiliriario
+                            <br />
+                            <input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="2" />
+                            <label for="mobiliario_option">Mobiliario</label>
+                            @*<i class="fa fa-car"></i>*@ Mobiliriario
+                        </div>
+
+                    </div>
+                    <hr />
+                    <!--<div class="form-group">
+            <label for="codigo">Codigo</label>-->
+                    @*<InputText id="codigo" class="form-control col-md-4" @bind-Value="Convert.ToString(Garantia.IdMarca)"></InputText>*@
+                    <!--<InputNumber id="idmarca" class="form-control col-md-4" @bind-Value="Garantia.IdMarca"></InputNumber>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <InputNumber id="idmodelo" class="form-control col-md-6" @bind-Value="Garantia.IdModelo"></InputNumber>-->
+                    @*<InputText id="nombre" class="form-control col-md-6" @bind-Value="Convert.ToString(Garantia.IdModelo)"></InputText>*@
+                    <!--</div>-->
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <InputImages @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Otra cosa</h3>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>
