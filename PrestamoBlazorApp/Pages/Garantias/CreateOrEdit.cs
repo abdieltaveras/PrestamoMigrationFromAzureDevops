@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 
 namespace PrestamoBlazorApp.Pages.Garantias
 {
-    public partial class Garantias
+    public partial class CreateOrEdit
     {
         [Inject]
         IJSRuntime jsRuntime { get; set; }
@@ -46,22 +46,26 @@ namespace PrestamoBlazorApp.Pages.Garantias
         //    loading = false;
         //}
 
-        //async Task SaveGarantia()
-        //{
-        //    await GarantiasService.SaveGarantia(this.Garantia);
-        //}
-        //void CreateOrEdit(int idGarantia = -1)
-        //{
-        //    if (idGarantia > 0)
-        //    {
-        //        this.Garantia = garantias.Where(m => m.IdGarantia == idGarantia).FirstOrDefault();
-        //    }
-        //    else
-        //    {
-        //        this.Garantia = new Garantia();
-        //    }
-        //    JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
-        //}
+        async Task SaveGarantia()
+        {
+            await GarantiasService.SaveGarantia(this.Garantia);
+        }
+        void CreateOrEdi(int idGarantia = -1)
+        {
+            if (idGarantia > 0)
+            {
+                this.Garantia = garantias.Where(m => m.IdGarantia == idGarantia).FirstOrDefault();
+            }
+            else
+            {
+                this.Garantia = new Garantia();
+            }
+            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+        }
+        private void SetImages(IList<string> images)
+        {
+            this.Garantia.ImagesForGaratia = images;
+        }
         void RaiseInvalidSubmit()
         {
             
