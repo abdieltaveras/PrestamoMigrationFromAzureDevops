@@ -49,10 +49,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SharedDLL\EMTSoft\emtSoft.DAL.dll</HintPath>
     </Reference>
+    <Reference Include="HESRAM.Utils">
+      <HintPath>..\SharedDLL\HESRAM\HESRAM.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.5.0.2\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -240,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ImagesFor\Garantias\" />
     <Folder Include="Views\Equipo\" />
     <Folder Include="Views\Localidades\" />
   </ItemGroup>
