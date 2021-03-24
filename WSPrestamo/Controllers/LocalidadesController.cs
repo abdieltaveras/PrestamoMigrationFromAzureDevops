@@ -10,6 +10,7 @@ namespace WSPrestamo.Controllers
 {
     public class LocalidadesController : BaseApiController
     {
+        const int BUSCAR_A_PARTIR_DE = 2;
         // GET: Localidades
         public IEnumerable<Localidad> GetAll()
         {
@@ -17,6 +18,16 @@ namespace WSPrestamo.Controllers
             var a= BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams());
             //var a = BLLPrestamo.BllAcciones.GetData<Localidad, LocalidadGetParams>(new LocalidadGetParams(), "spGetLocalidades", BLLPrestamo.GetValidation);
             return a;
+        }
+
+        public IEnumerable<Localidad>  BuscarLocalidad(string textToSearch)
+        {
+            IEnumerable<Localidad> localidades = null;
+            if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
+            {
+                localidades = BLLPrestamo.Instance.SearchLocalidad(new BuscarLocalidadParams { Search = textToSearch });
+            }
+            return localidades;
         }
 
         /// <summary>
@@ -45,7 +56,7 @@ namespace WSPrestamo.Controllers
         
         public IEnumerable<BuscarLocalidad> Get(string Search)
         {
-            return BLLPrestamo.Instance.SearchLocalida(new BuscarLocalidadParams { Search = Search });
+            return BLLPrestamo.Instance.SearchLocalidad(new BuscarLocalidadParams { Search = Search });
  
         }
         public IEnumerable<string> Get(int idLocalidad, int idNegocio)

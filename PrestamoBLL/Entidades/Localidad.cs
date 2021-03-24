@@ -44,9 +44,11 @@ namespace PrestamoBLL.Entidades
         public bool PermiteCalle { get; set; }
 
     }
-    public class BuscarLocalidadParams : BaseGetParams
+    public class BuscarLocalidadParams 
     {
         public string Search { get; set; } = string.Empty;
+
+        public int IdLocalidadNegocio { get; set; } = -1;
     }
 
     public class BuscarNombreLocalidadParams : BaseGetParams

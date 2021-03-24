@@ -34,7 +34,7 @@ namespace PrestamoBLL
         {
             BllAcciones.InsUpdData<Localidad>(insUpdParam, "spInsUpdLocalidad");
         }
-        public IEnumerable<BuscarLocalidad> SearchLocalida(BuscarLocalidadParams searchParam)
+        public IEnumerable<BuscarLocalidad> SearchLocalidad(BuscarLocalidadParams searchParam)
         {
             return BllAcciones.GetData<BuscarLocalidad, BuscarLocalidadParams>(searchParam, "spBuscarLocalidad", GetValidation);
         }

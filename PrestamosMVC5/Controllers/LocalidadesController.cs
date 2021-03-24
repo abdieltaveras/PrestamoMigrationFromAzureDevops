@@ -69,7 +69,7 @@ namespace PrestamosMVC5.Controllers
         public string BuscarLocalidad(string textToSearch)
         {
             IEnumerable<Localidad> localidades = null;
-            localidades = BLLPrestamo.Instance.SearchLocalida(new BuscarLocalidadParams { Search = textToSearch, IdNegocio = pcpUserIdNegocio });
+            localidades = BLLPrestamo.Instance.SearchLocalidad(new BuscarLocalidadParams { Search = textToSearch  });
             //if (textToSearch.Length >= BUSCAR_A_PARTIR_DE)
             //{
             //}

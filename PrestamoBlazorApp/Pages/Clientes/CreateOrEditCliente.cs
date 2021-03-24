@@ -20,7 +20,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
 {
     public partial class CreateOrEditCliente
     {
-        private EditContext EC { get; set; } 
 
         [Inject]
         OcupacionesService ocupacionesService { get; set; }
@@ -28,7 +27,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         string searchSector = string.Empty;
         string selectedLocalidad = "Ninguna";
         [Parameter]
-        public int idCliente { get; set; }
+        public string idCliente { get; set; }
         public Cliente cliente { get; set; } = new Cliente();
         Conyuge conyuge { get; set; } = new Conyuge();
 
@@ -61,16 +60,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         protected override async Task OnInitializedAsync()
         {
-            var query = new Uri(NavigationManager.Uri).Query;
-
-            if (QueryHelpers.ParseQuery(query).TryGetValue("idCliente", out var value))
-            {
-                this.idCliente = Convert.ToInt32(value);
-            }
+            var _idCliente = Convert.ToInt32(idCliente);
             Ocupaciones = await GetOcupaciones();
-            if ( idCliente != 0)
+            if ( _idCliente != 0)
             {
-                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente,ConvertJsonToObj=true });
+                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = _idCliente,ConvertJsonToObj=true });
                 this.cliente = clientes.FirstOrDefault();
             }
             prepTestData();
