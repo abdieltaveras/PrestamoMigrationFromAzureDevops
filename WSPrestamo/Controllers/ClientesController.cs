@@ -58,7 +58,7 @@ namespace WSPrestamo.Controllers
         /// </summary>
         /// <param name="cliente"></param>
         [HttpPost]
-        public IHttpActionResult Post([FromBody]Cliente cliente)
+        public IHttpActionResult Post([FromBody] Cliente cliente)
         {
             cliente.Usuario = this.LoginName;
             cliente.IdLocalidadNegocio = this.IdLocalidadNegocio;

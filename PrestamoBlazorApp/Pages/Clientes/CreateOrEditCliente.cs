@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Services;
@@ -28,7 +29,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         string selectedLocalidad = "Ninguna";
         [Parameter]
         public int idCliente { get; set; }
-        public Cliente cliente { get; set; }
+        public Cliente cliente { get; set; } = new Cliente();
         Conyuge conyuge { get; set; } = new Conyuge();
 
         Direccion direccion { get; set; }  = new Direccion();
@@ -60,27 +61,39 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         protected override async Task OnInitializedAsync()
         {
+            var query = new Uri(NavigationManager.Uri).Query;
 
-            
-            prepTestData();
+            if (QueryHelpers.ParseQuery(query).TryGetValue("idCliente", out var value))
+            {
+                this.idCliente = Convert.ToInt32(value);
+            }
             Ocupaciones = await GetOcupaciones();
+            if ( idCliente != 0)
+            {
+                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente,ConvertJsonToObj=true });
+                this.cliente = clientes.FirstOrDefault();
+            }
+            prepTestData();
             await base.OnInitializedAsync();
         }
 
         private void prepTestData()
         {
-            this.cliente = new Cliente
+            if (this.cliente.IdCliente == 0)
             {
-                Codigo = "Nuevo",
+                this.cliente = new Cliente
+                {
+                    Codigo = "Nuevo",
                 Nombres = "a1",
                 Apellidos = "a2",
-                Apodo="a3",
+                Apodo = "a3",
                 IdTipoIdentificacion = 1,
                 NoIdentificacion = "000-0000000-1",
-                InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2" ,DireccionLugarTrabajo="b3" },
+                InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
                 InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
                 InfoDireccionObj = new Direccion { Calle = "c3", Latitud = 1, Longitud = 2 }
-            };
+                };
+            }
             this.conyuge = cliente.InfoConyugeObj;
             this.infoLaboral = cliente.InfoLaboralObj;
             this.direccion = cliente.InfoDireccionObj;
