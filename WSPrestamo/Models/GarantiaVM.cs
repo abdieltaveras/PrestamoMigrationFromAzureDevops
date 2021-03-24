@@ -11,7 +11,8 @@ namespace WSPrestamo.Models
     {
         public Garantia Garantia { get; set; }
         //public SelectList ListaTipos { get; set; }
-
+        public string ImageBase1 { get; set; }
+        public string ImageBase2 { get; set; } 
         public IEnumerable<TipoGarantia> ListaTiposReal { get; set; }
         //public SelectList ListaMarcas { get; set; }
         //Luis public IEnumerable<Marca> ListaMarcas { get; set; }
@@ -25,7 +26,7 @@ namespace WSPrestamo.Models
         {
             Garantia = new Garantia();
         }
-
+        
         //public HttpPostedFileBase ImagenGarantia1 { get; set; }
         //public HttpPostedFileBase ImagenGarantia2 { get; set; }
         //public HttpPostedFileBase ImagenGarantia3 { get; set; }

@@ -29,7 +29,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         }
         protected override async Task OnInitializedAsync()
         {
-            garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "-1"});
+            garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = ""});
         }
         async Task GetGarantias()
         {

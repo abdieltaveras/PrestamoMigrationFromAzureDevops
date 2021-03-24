@@ -50,6 +50,18 @@
                 <div class="col-md-12">
                     <InputImages @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
                 </div>
+                @if (garantias.Count() > 0)
+                {
+                    @if (garantias.FirstOrDefault().ImagesForGaratia != null)
+                    {
+                        @foreach (var item in garantias.FirstOrDefault().ImagesForGaratia)
+                        {
+                            <img src="@item" />
+                        }
+                    }
+                }
+
+
             </div>
             <hr />
             <div class="row">
@@ -60,3 +72,7 @@
         </EditForm>
     </div>
 </div>
+@code
+{
+    
+}

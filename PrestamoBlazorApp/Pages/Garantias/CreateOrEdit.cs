@@ -38,7 +38,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
             garantias = await GarantiasService.Get(param);
             loading = false;
         }
-
+        
         //async Task GetAll()
         //{
         //    loading = true;
