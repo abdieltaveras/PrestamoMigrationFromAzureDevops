@@ -116,3 +116,10 @@ a, .btn-link {
         height: 5em;
     }
 }
+
+.track-order-map {
+    width: 350px;
+    height: 500px;
+    flex-shrink: 0;
+}
+

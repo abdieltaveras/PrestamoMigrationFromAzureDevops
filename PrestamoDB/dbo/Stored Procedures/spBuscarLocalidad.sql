@@ -1,11 +1,12 @@
 ﻿CREATE PROCEDURE [dbo].spBuscarLocalidad
+
 (
-	@search varchar(50) ='',
-	@idLocalidad INT =-1
+	@search varchar(50) =''
+	--@idLocalidadNegocio INT =-1
 )
 as
 BEGIN
-	SELECT IdLocalidad, loc.IdLocalidadPadre, loc.IdTipoLocalidad, loc.Nombre, tipo.Nombre as Descripcion, tipo.PermiteCalle,	
+	SELECT IdLocalidad, loc.IdLocalidadPadre, loc.IdNegocio, loc.IdTipoLocalidad, loc.Nombre, tipo.Nombre as Descripcion, tipo.PermiteCalle,	
 	(SELECT Nombre FROM tblLocalidades where IdLocalidad = loc.IdLocalidadPadre) as NombrePadre,
 	(SELECT Nombre FROM tblTipoLocalidades where IdTipoLocalidad = tipo.IdLocalidadPadre) as TipoNombrePadre
 	from
@@ -13,6 +14,7 @@ BEGIN
 	where 
 	(loc.IdTipoLocalidad = tipo.IdTipoLocalidad) 
 	AND (@search='' OR loc.Nombre LIKE '%' + @search + '%')	
-	AND (@idLocalidad=-1 OR loc.IdLocalidad = @idLocalidad)
+	--AND (@idLocalidadNegocio =-1 OR loc.IdLocalidadN  = @idLocalidad)
 	AND  loc.AnuladoPor IS null
 End
+

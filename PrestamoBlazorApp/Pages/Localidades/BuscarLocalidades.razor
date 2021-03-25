@@ -1,0 +1,87 @@
+﻿@page "/localidades/buscar"
+<h3>BuscarLocalidades</h3>
+<div class="grid-container">
+    <div class="bg-secondary">
+        <h3 class="text-left">Listado de clientes </h3>
+    </div>
+    <div class="search">
+        <EditForm Model="@buscarLocalidad" OnValidSubmit="@GetLocalidades">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <InputText id="texto" @bind-Value="buscarLocalidad.Search" placeholder="digite valor" />
+
+            <button type="submit" class="fa fa-search">Buscar</button>
+            @if (totalRegistros > 0)
+            {
+                <label class="text-right col-sm-2">registros encontrados @totalRegistros</label>
+            }
+        </EditForm>
+
+    </div>
+</div>
+<div class="grid">
+    @if (loading)
+    {
+        <div class="loader">Cargando...</div>
+    }
+    else
+    {
+        if (Localidades == null)
+        {
+            <p><em>datos no encontrados</em></p>
+        }
+        else
+        {
+
+            if (totalRegistros > 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Localidades</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var localidad in Localidades)
+                        {
+                            <tr>
+                                <td>@($"{localidad.Descripcion} {localidad.Nombre} {localidad.TipoNombrePadre} {localidad.NombrePadre}")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p><em>No datos encontrados</em></p>
+            }
+        }
+    }
+
+</div>
+
+@code {
+    [Inject]
+    LocalidadesService localidadService { get; set; }
+
+    IEnumerable<BuscarLocalidad> Localidades { get; set; }
+
+    BuscarLocalidadParams buscarLocalidad { get; set; }
+    int totalRegistros { get; set; }
+    bool loading { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        this.buscarLocalidad = new BuscarLocalidadParams();
+        await GetLocalidades();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task GetLocalidades()
+    {
+        loading = true;
+        this.Localidades = await localidadService.BuscarLocalidad(buscarLocalidad);
+        totalRegistros = this.Localidades == null ? 0 : this.Localidades.Count();
+        loading = false;
+    }
+
+}
