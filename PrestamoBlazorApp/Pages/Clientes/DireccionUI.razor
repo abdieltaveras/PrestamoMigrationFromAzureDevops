@@ -5,14 +5,13 @@
     <div class="col-sm-6">
         <h2> donde vive la persona ?</h2>
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-right">buscar Sector</label>
-            <InputText @bind-Value=@searchDireccion.SearchSector class="col-sm-8" />
+            <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label text-right">Localidad Seleccionada</label>
-            <InputText @bind-Value=@searchDireccion.SelectedLocalidad class="col-sm-8" />
-        </div>
+            <label class ="col-sm-8"> @selectedLocalidad </label>
+    </div>
 
 
         <div class="form-group row">
@@ -50,11 +49,7 @@
     public Direccion direccion { get; set; }
     [Parameter]
     public Cliente cliente { get; set; }
-
-    [Parameter]
-    public SearchDireccion searchDireccion { get; set; }
-    private string searchSector { get; set; }
-
+    
     private string selectedLocalidad { get; set; }
 
     public List<Marker> MapMarkers { get; set; } = new List<Marker>();
@@ -68,13 +63,9 @@
         console.Log($"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
     }
 
-
-
-
     protected override async Task OnInitializedAsync()
     {
 
-        this.searchSector = string.Empty;
         this.selectedLocalidad = string.Empty;
         setCoordinatesForClinicaCoralToTest();
         UpdateMapMarkers();
@@ -90,7 +81,7 @@
     {
 
         MapMarkers = new List<Marker>
-{
+        {
             new Marker {Description = "Cliente NombreCompleto",  ShowPopup = false, X = direccion.Longitud, Y=direccion.Latitud }
         };
     }
@@ -101,6 +92,12 @@
         this.direccion.Latitud = 18.43190;
 
         // clinica coral Lat = 18.43190, Lng = -68.98503
+    }
+
+    private void Handle_LocalidadSelected(BuscarLocalidad localidad)
+    {
+        var localidadSeleccionada = localidad;
+        selectedLocalidad = localidad.ToString();
     }
 }
 

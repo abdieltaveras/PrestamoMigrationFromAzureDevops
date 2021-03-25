@@ -1,0 +1,57 @@
+﻿@*@page "/localidades/buscar"*@
+<div class="col-sm-12">
+    <h3>Busqueda de localidades que acepten calles</h3>
+</div>
+
+<div class="col-sm-12 search">
+    <EditForm Model="@buscarLocalidad">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+            @*<InputText id="texto" @bind-Value="buscarLocalidad.Search" placeholder="digite valor" @attributes />*@
+            <input class="col-sm-8" id="texto" @bind-value=@buscarLocalidad.Search placeholder="localidad a buscar" minlength="2" />
+            <button type="button" class="col-sm-2 fa fa-search" @onclick=@filtrar>Buscar</button>
+    </EditForm>
+</div>
+@*<div>
+        <label >Localidad Elegida: @LocalidadElegida</label>
+    </div>*@
+
+<div class="col-sm-12">
+    @if (loading)
+    {
+        <div class="loader">Cargando...</div>
+    }
+    else
+    {
+        if (LocalidadesFiltradas == null)
+        {
+            <p><em>datos no encontrados</em></p>
+        }
+        else
+        {
+
+            if (totalRegistros > 0 && selectLocalidad)
+            {
+
+                <label class="col-sm-12">registros encontrados @totalRegistros</label>
+                <EditForm Model="LocalidadesFiltradas">
+                    <InputSelect id="Localidades" @bind-Value=@SelectedLocalidad class="form-control col-sm-8">
+
+                        @foreach (var localidad in LocalidadesFiltradas)
+                                    {
+                            //var value = $"[{localidad.Nombre}-{localidad.Descripcion}] {localidad.TipoNombrePadre} {localidad.NombrePadre}";
+                            <option value=@localidad.IdLocalidad>@localidad.ToString()</option>
+                                    }
+                    </InputSelect>
+                    <button type="button" class="" @onclick=@seleccionar>Seleccionar</button>
+                </EditForm>
+            }
+            else
+            {
+                <p><em>datos no encontrados</em></p>
+            }
+        }
+    }
+
+</div>
+

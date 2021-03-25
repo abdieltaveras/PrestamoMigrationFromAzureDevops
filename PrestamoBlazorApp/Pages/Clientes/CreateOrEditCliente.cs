@@ -138,15 +138,10 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.cliente.InfoConyugeObj = conyuge;
         }
 
-        SearchDireccion searchDireccion { get; set; } = new SearchDireccion();
+
         
     }
-    public class SearchDireccion
-    {
-        public string SearchSector { get; set; } = string.Empty;
-
-        public string SelectedLocalidad { get; set; } = string.Empty;
-    }
+    
 
     
 }
