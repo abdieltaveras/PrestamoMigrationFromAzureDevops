@@ -10,9 +10,23 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
+        /// <summary>
+        /// obtiene las localidades indicando sus localidades Padres
+        /// </summary>
+        /// <param name="searchParam"></param>
+        /// <returns></returns>
         public IEnumerable<Localidad> GetLocalidades(LocalidadGetParams searchParam)
         {
             return BllAcciones.GetData<Localidad, LocalidadGetParams>(searchParam, "spGetLocalidades", GetValidation);
+        }
+        /// <summary>
+        /// obtiene las localidades indicando sus localidades Padres
+        /// </summary>
+        /// <param name="searchParam"></param>
+        /// <returns></returns>
+        public IEnumerable<Localidad> GetLocalidadesConSusPadres(LocalidadGetParams searchParam)
+        {
+            return BllAcciones.GetData<Localidad, LocalidadGetParams>(searchParam, "spGetLocalidadesConSusPadres", GetValidation);
         }
 
         /// <summary>
@@ -24,7 +38,7 @@ namespace PrestamoBLL
         /// <returns></returns>
         public string GetFullNameLocalidad(int idLocalidad)
         {
-            var result = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad});
+            var result = BLLPrestamo.Instance.GetLocalidadesConSusPadres(new LocalidadGetParams { IdLocalidad = idLocalidad});
             var localidades = from localidad in result select new { localidad.Nombre };
             string localidadFullName= string.Empty;
             result.ToList().ForEach(loc => localidadFullName += loc.Nombre + " ");
@@ -64,7 +78,5 @@ namespace PrestamoBLL
         {
             return BllAcciones.GetData<LocalidadesHijas, LocalidadGetParams>(searchParam, "LocalidadLocalidadesHijasDeLocalidadSpGet", GetValidation);
         }
-
-        
     }
 }

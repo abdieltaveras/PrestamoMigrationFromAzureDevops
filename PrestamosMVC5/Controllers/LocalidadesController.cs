@@ -42,7 +42,7 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Localidad> localidades = new List<Localidad>();
             if (IDLocalidad != "")
             {
-                localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
+                localidades = BLLPrestamo.Instance.GetLocalidadesConSusPadres(new LocalidadGetParams { IdLocalidad = int.Parse(IDLocalidad) });
             }
             
             return JsonConvert.SerializeObject(localidades);

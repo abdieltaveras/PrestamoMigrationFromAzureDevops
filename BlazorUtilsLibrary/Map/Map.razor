@@ -6,17 +6,26 @@
 
 @inject IJSRuntime JSRuntime
 
+@if (@Markers.Count() == 1)
+{
+    var mark = Markers[0];
+    <div>
+        <label>Actualmente Lat: @mark.Y Long: @mark.X  </label>
+    </div>
+}
+
 <div id="@elementId" style="height: 100%; width: 100%;"></div>
+
 
 @code {
 
     string elementId = $"map-{Guid.NewGuid().ToString("D")}";
-    
-    [Parameter] 
+
+    [Parameter]
     public double Zoom { get; set; }
 
-    [Parameter] 
-    public List<Marker> Markers { get; set; }
+    [Parameter]
+    public List<Marker> Markers { get; set; } 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

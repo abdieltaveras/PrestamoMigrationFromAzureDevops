@@ -12,9 +12,9 @@ namespace PrestamoBlazorApp.Services
     {
         readonly string apiUrl = "api/localidades";
 
-        public async Task<IEnumerable<Localidad>> GetLocalidadsAsync(LocalidadGetParams search)
+        public async Task<IEnumerable<Localidad>> GetLocalidadesAsync(LocalidadGetParams search)
         {
-            var result = await GetAsync<Localidad>(apiUrl, search);
+            var result = await GetAsync<Localidad>(apiUrl+"/get", search);
             return result;
         }
 

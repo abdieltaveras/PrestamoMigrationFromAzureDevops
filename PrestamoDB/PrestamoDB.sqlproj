@@ -95,7 +95,7 @@
     <Build Include="dbo\Tables\tblTipoLocalidades.sql" />
     <Build Include="dbo\Tables\tblLocalidades.sql" />
     <Build Include="dbo\Tables\tblDirecciones.sql" />
-    <Build Include="dbo\Stored Procedures\spGetLocalidades.sql" />
+    <Build Include="dbo\Stored Procedures\spGetLocalidadesConSusPadres.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarLocalidad.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdLocalidad.sql" />
     <Build Include="dbo\Stored Procedures\spGetTerritorios.sql" />
@@ -213,6 +213,10 @@
     <Build Include="dbo\Stored Procedures\spInsUpdStatus.sql" />
     <Build Include="dbo\Stored Procedures\spGetStatus.sql" />
     <Build Include="dbo\Stored Procedures\spGetOcupaciones.sql" />
+    <Build Include="dbo\Stored Procedures\spGetLocalidades.sql" />
+    <Build Include="dbo\Stored Procedures\spGetClasificaciones.sql" />
+    <Build Include="dbo\Stored Procedures\spComponentesDeDivisionTerritorial.sql" />
+    <Build Include="dbo\Stored Procedures\SpCuotaTest.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

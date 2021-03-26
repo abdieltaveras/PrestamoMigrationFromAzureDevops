@@ -7,6 +7,7 @@ using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Models;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using Radzen;
 using Radzen.Blazor;
@@ -21,14 +22,22 @@ namespace PrestamoBlazorApp.Pages.Clientes
 {
     public partial class CreateOrEditCliente
     {
+        // servicios
 
         [Inject]
         OcupacionesService ocupacionesService { get; set; }
+        [Inject]
+        LocalidadesService localidadService { get; set; }
+        [Inject]
+        ClientesService clientesService { get; set; }
 
-        string searchSector = string.Empty;
-        string selectedLocalidad = "Ninguna";
+        // parametros
         [Parameter]
         public string idCliente { get; set; }
+
+        // miembros
+        string searchSector = string.Empty;
+        
         public Cliente cliente { get; set; } = new Cliente();
         Conyuge conyuge { get; set; } = new Conyuge();
 
@@ -40,11 +49,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
         string TextoForActivo { get; set; } = "Si";
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
 
-        [Inject]
-        ClientesService clientesService { get; set; }
-
-        
-        
         private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
 
         private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
@@ -54,9 +58,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         }
         List<Referencia> referencias = new List<Referencia>();
 
-        Referencia referencia1 = new Referencia();
-        Referencia referencia2 = new Referencia();
-        Referencia referencia3 = new Referencia();
+        
         bool disableCodigo { get; set; } = true;
 
         protected override async Task OnInitializedAsync()
@@ -72,7 +74,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             await base.OnInitializedAsync();
         }
 
-        private void prepTestData()
+        private async void prepTestData()
         {
             if (this.cliente.IdCliente == 0)
             {
@@ -86,15 +88,17 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 NoIdentificacion = "000-0000000-1",
                 InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
                 InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
-                InfoDireccionObj = new Direccion { Calle = "c3", Latitud = 1, Longitud = 2 }
+                InfoDireccionObj = new Direccion { IdLocalidad = 5, Calle = "cerapia no 3", Latitud = 1, Longitud = 2 }
                 };
             }
             this.conyuge = cliente.InfoConyugeObj;
             this.infoLaboral = cliente.InfoLaboralObj;
             this.direccion = Utils.ToDerived<Direccion, DireccionModel>(cliente.InfoDireccionObj);
-            referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal , NombreCompleto="r1"};
-            referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto ="r2" };
-            referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto ="r3" };
+            var localidad = await localidadService.GetLocalidadesAsync(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
+            this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
+            var referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal , NombreCompleto="r1"};
+            var referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto ="r2" };
+            var referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto ="r3" };
             referencias.Add(referencia1);
             referencias.Add(referencia2);
             referencias.Add(referencia3);

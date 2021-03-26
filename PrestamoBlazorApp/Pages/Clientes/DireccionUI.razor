@@ -9,8 +9,8 @@
         </div>
 
         <div class="form-group row alert-info">
-            <label class="col-sm-3 col-form-label text-right">Localidad Seleccionada</label>
-            <label class ="col-sm-8 mt-2"> @direccion.selectedLocalidad  @direccion.IdLocalidad</label>
+            <label class="col-sm-3 col-form-label text-right">Localidad </label>
+            <label class ="col-sm-8 mt-2"> @direccion.selectedLocalidad  </label>
     </div>
 
 
@@ -21,13 +21,13 @@
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label text-right">Latitud</label>
-            <input type="number" value="@direccion.Latitud" class="col-sm-8" />
+            <InputNumber @bind-Value="@direccion.Latitud" class="col-sm-8" />
 
         </div>
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label text-right">Longitud</label>
-            <input type="number" value="@direccion.Longitud" class="col-sm-8" />
+            <InputNumber  @bind-Value="@direccion.Longitud" class="col-sm-8" />
         </div>
 
         <div class="form-group row">
@@ -36,10 +36,12 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <h2>Mapa</h2>
+        <h2>Mapa <button @onclick="UpdateMapMarkers">Actualizar</button></h2>
+        
         <div class="track-order-map">
             <Map Zoom="10" Markers="MapMarkers"></Map>
         </div>
+        
     </div>
 </div>
 
@@ -84,12 +86,15 @@
         {
             new Marker {Description = "Cliente NombreCompleto",  ShowPopup = false, X = direccion.Longitud, Y=direccion.Latitud }
         };
+        StateHasChanged();
     }
 
     private void setCoordinatesForClinicaCoralToTest()
     {
-        this.direccion.Longitud = -68.98503;
-        this.direccion.Latitud = 18.43190;
+        this.direccion.Calle = "Calle emilio prud home #5";
+        this.direccion.Latitud = 18.43056;
+        this.direccion.Longitud = -68.98449;
+
 
         // clinica coral Lat = 18.43190, Lng = -68.98503
     }
@@ -100,6 +105,7 @@
         direccion.selectedLocalidad = localidad.ToString();
         this.direccion.IdLocalidad = localidad.IdLocalidad;
     }
+
 
 
 }
