@@ -5,6 +5,10 @@
 @using Microsoft.JSInterop
 
 @inject IJSRuntime JSRuntime
+    <div>
+        <label> informaciones sobre coordenadas</label>
+        <div id="@elementId" style="height: 100%; width: 100%;"></div>
+
 
 @if (@Markers.Count() == 1)
 {
@@ -27,11 +31,11 @@
     [Parameter]
     public List<Marker> Markers { get; set; } 
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await JSRuntime.InvokeVoidAsync(
-            "deliveryMap.showOrUpdate",
-            elementId,
-            Markers);
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync(
+                "deliveryMap.showOrUpdate",
+                elementId,
+                Markers);
+        }
     }
-}
