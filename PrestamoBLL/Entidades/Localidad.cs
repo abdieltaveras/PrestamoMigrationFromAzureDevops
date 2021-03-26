@@ -43,6 +43,7 @@ namespace PrestamoBLL.Entidades
         public string TipoNombrePadre { get; set; } = string.Empty;
         public bool PermiteCalle { get; set; }
 
+        public string LocalidadSeleccionada { get; set; } = string.Empty;
         public override string ToString()
         {
             return $"{Nombre} [{Descripcion}] ({TipoNombrePadre} {NombrePadre})";

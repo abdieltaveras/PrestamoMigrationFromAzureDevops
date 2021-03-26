@@ -1,5 +1,5 @@
 ﻿@using BlazorUtilsLibrary.Map
-
+@using PrestamoBlazorApp.Models
 <div class="row">
 
     <div class="col-sm-6">
@@ -8,9 +8,9 @@
             <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row alert-info">
             <label class="col-sm-3 col-form-label text-right">Localidad Seleccionada</label>
-            <label class ="col-sm-8"> @selectedLocalidad </label>
+            <label class ="col-sm-8 mt-2"> @direccion.selectedLocalidad  @direccion.IdLocalidad</label>
     </div>
 
 
@@ -46,11 +46,12 @@
 @code {
 
     [Parameter]
-    public Direccion direccion { get; set; }
+    public DireccionModel direccion { get; set; }
     [Parameter]
     public Cliente cliente { get; set; }
-    
-    private string selectedLocalidad { get; set; }
+
+    BuscarLocalidad buscarLocalidad { get; set; } = new BuscarLocalidad();
+
 
     public List<Marker> MapMarkers { get; set; } = new List<Marker>();
 
@@ -66,7 +67,6 @@
     protected override async Task OnInitializedAsync()
     {
 
-        this.selectedLocalidad = string.Empty;
         setCoordinatesForClinicaCoralToTest();
         UpdateMapMarkers();
 
@@ -97,7 +97,11 @@
     private void Handle_LocalidadSelected(BuscarLocalidad localidad)
     {
         var localidadSeleccionada = localidad;
-        selectedLocalidad = localidad.ToString();
+        direccion.selectedLocalidad = localidad.ToString();
+        this.direccion.IdLocalidad = localidad.IdLocalidad;
     }
+
+
 }
+
 

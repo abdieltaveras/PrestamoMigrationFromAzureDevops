@@ -11,6 +11,21 @@ using System.Xml.Serialization;
 
 namespace PrestamoBLL.Entidades
 {
+    public static class Utils
+    {
+        public static TDerived ToDerived<TBase, TDerived>(TBase tBase)
+        where TDerived : TBase, new()
+        {
+            TDerived tDerived = new TDerived();
+            foreach (PropertyInfo propBase in typeof(TBase).GetProperties())
+            {
+                PropertyInfo propDerived = typeof(TDerived).GetProperty(propBase.Name);
+                propDerived.SetValue(tDerived, propBase.GetValue(tBase, null), null);
+            }
+            return tDerived;
+        }
+
+    }
     /// <summary>
     /// Extension methods to convert string to json or xml and viseversa
     /// </summary>

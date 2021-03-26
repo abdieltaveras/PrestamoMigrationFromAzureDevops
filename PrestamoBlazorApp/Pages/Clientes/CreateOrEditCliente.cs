@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Data;
+using PrestamoBlazorApp.Models;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoBLL.Entidades;
@@ -31,7 +32,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         public Cliente cliente { get; set; } = new Cliente();
         Conyuge conyuge { get; set; } = new Conyuge();
 
-        Direccion direccion { get; set; }  = new Direccion();
+        DireccionModel direccion { get; set; }  = new DireccionModel();
 
         InfoLaboral infoLaboral { get; set; } = new InfoLaboral();
 
@@ -90,7 +91,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             }
             this.conyuge = cliente.InfoConyugeObj;
             this.infoLaboral = cliente.InfoLaboralObj;
-            this.direccion = cliente.InfoDireccionObj;
+            this.direccion = Utils.ToDerived<Direccion, DireccionModel>(cliente.InfoDireccionObj);
             referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal , NombreCompleto="r1"};
             referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto ="r2" };
             referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto ="r3" };

@@ -57,6 +57,8 @@ namespace PrestamoBLL.Entidades
         /// Doblando por la banca GranPremio detras de la escuela Los Genios
         /// </summary>
         public string Detalles { get; set; } = string.Empty;
+
+        
         
     }
 }
