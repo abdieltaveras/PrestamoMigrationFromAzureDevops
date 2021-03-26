@@ -5,24 +5,29 @@
 @using Microsoft.JSInterop
 
 @inject IJSRuntime JSRuntime
+    <div>
+        <label> informaciones sobre coordenadas</label>
+        <div id="@elementId" style="height: 100%; width: 100%;"></div>
 
-<div id="@elementId" style="height: 100%; width: 100%;"></div>
 
-@code {
+    </div>
 
-    string elementId = $"map-{Guid.NewGuid().ToString("D")}";
-    
-    [Parameter] 
-    public double Zoom { get; set; }
 
-    [Parameter] 
-    public List<Marker> Markers { get; set; }
+    @code {
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await JSRuntime.InvokeVoidAsync(
-            "deliveryMap.showOrUpdate",
-            elementId,
-            Markers);
+        string elementId = $"map-{Guid.NewGuid().ToString("D")}";
+
+        [Parameter]
+        public double Zoom { get; set; }
+
+        [Parameter]
+        public List<Marker> Markers { get; set; }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync(
+                "deliveryMap.showOrUpdate",
+                elementId,
+                Markers);
+        }
     }
-}

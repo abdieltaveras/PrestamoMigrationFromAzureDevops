@@ -7,6 +7,7 @@ using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Models;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using Radzen;
 using Radzen.Blazor;
