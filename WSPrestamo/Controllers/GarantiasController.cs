@@ -103,15 +103,18 @@ namespace WSPrestamo.Controllers
         {
             if (garantia.ImagesForGaratia != null)
             {
-                foreach (var item in garantia.ImagesForGaratia)
+                for (int i = 1; i < garantia.ImagesForGaratia.Count(); i++)
                 {
-                    string resultBase = Regex.Replace(item, @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
+                    string resultBase = Regex.Replace(garantia.ImagesForGaratia.ElementAt(i), @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
                     string path = HttpContext.Current.Server.MapPath("~/Content/ImagesFor/Garantias/");
                     // He utilizado la libreria HESRAM.Utils para guardar y copiar la imagen
-                    HConvert.SaveBase64AsImage(resultBase, path, "imagenprueba");
-                    
+                    if (garantia.IdClasificacion == 2)
+                    {
+                        HConvert.SaveBase64AsImage(resultBase, path, garantia.DetallesJSON.Placa+"-"+i.ToString());
+                    }
                 }
             }
+            BLLPrestamo.Instance.InsUpdGarantia(garantia);
 
             return Ok();
         }

@@ -17,6 +17,10 @@ namespace PrestamoBlazorApp.Pages.Garantias
         [Inject]
         GarantiasService GarantiasService { get; set; }
         IEnumerable<Garantia> garantias { get; set; } = new List<Garantia>();
+        IEnumerable<Marca> marcas { get; set; } = new List<Marca>();
+        IEnumerable<Modelo> modelos { get; set; } = new List<Modelo>();
+        IEnumerable<Color> colores { get; set; } = new List<Color>();
+        DetalleGarantia detalleGarantia = new DetalleGarantia();
         [Parameter]
         public Garantia Garantia { get; set; } 
         bool loading = false;
@@ -30,7 +34,16 @@ namespace PrestamoBlazorApp.Pages.Garantias
         protected override async Task OnInitializedAsync()
         {
             garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "-1"});
+            modelos = await GarantiasService.GetModelosForGarantias(new ModeloGetParams());
+            modelos = modelos.Where(m => m.IdMarca == Garantia.IdMarca);
+            marcas = await GarantiasService.GetMarcasForGarantia();
+            colores = await GarantiasService.GetColoresForGarantia();
         }
+        //public async void FillModelosCBB(int id)
+        //{
+
+        //}
+
         async Task GetGarantias()
         {
             loading = true;
@@ -48,10 +61,13 @@ namespace PrestamoBlazorApp.Pages.Garantias
 
         async Task SaveGarantia()
         {
+            this.Garantia.DetallesJSON = this.detalleGarantia;
             await GarantiasService.SaveGarantia(this.Garantia);
         }
         void CreateOrEdi(int idGarantia = -1)
         {
+            
+            
             if (idGarantia > 0)
             {
                 this.Garantia = garantias.Where(m => m.IdGarantia == idGarantia).FirstOrDefault();

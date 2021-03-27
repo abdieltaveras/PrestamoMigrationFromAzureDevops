@@ -23,6 +23,20 @@ namespace PrestamoBlazorApp.Services
             var result =  await GetAsync<GarantiaConMarcaYModeloYPrestamos>(apiUrl, getParams);
             return result;
         }
+        public async Task<IEnumerable<Marca>> GetMarcasForGarantia()
+        {
+            var result = await GetAsync<Marca>("api/marcas", null);
+            return result;
+        }
+        public async Task<IEnumerable<Modelo>> GetModelosForGarantias(ModeloGetParams modeloGetParams)
+        {
+            var result = await GetAsync<Modelo>("api/modelos", modeloGetParams);
+            return result;
+        }
+        public async Task<IEnumerable<Color>> GetColoresForGarantia()
+        {
+            return await GetAsync<Color>("api/color", null);
+        }
         public GarantiasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 

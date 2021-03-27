@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[SpGetNegocios]
 	@IdNegocio int,
+	@IdLocalidadNegocio int,
 	@IdNegocioPadre int=-1,
 	@Codigo varchar(20)='',
 	@NombreComercial varchar(100)='',
