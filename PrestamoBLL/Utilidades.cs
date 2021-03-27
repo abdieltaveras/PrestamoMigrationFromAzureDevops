@@ -144,6 +144,18 @@ namespace PrestamoBLL
             /// </summary>
             public static string NoImagen => "no imagen";
         }
+
+        public static TDerived ToDerived<TBase, TDerived>(TBase tBase) where TDerived : TBase, new()
+        {
+            TDerived tDerived = new TDerived();
+            foreach (PropertyInfo propBase in typeof(TBase).GetProperties())
+            {
+                PropertyInfo propDerived = typeof(TDerived).GetProperty(propBase.Name);
+                propDerived.SetValue(tDerived, propBase.GetValue(tBase, null), null);
+            }
+            return tDerived;
+        }
+
     }
     public static class ExtMethJsonAndXml
     {
@@ -391,5 +403,7 @@ namespace PrestamoBLL
             return (int)value <= minValue;
         }
     }
+
+
 
 }

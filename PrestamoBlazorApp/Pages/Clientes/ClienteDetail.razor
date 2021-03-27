@@ -1,0 +1,22 @@
+﻿
+@page "/clientes/detallescliente/{idCliente}"
+@using PrestamoBLL.Entidades;
+@using PrestamoBlazorApp.Shared;
+@using PrestamoBlazorApp.Pages.Clientes;
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager NavigationManager
+
+<div class="grid-container">
+    <h2>Ver detalles de clientes @idCliente</h2>
+    <h3>Aun no implementado</h3>
+</div>
+
+@code
+{
+    [Parameter]
+    public string idCliente { get; set; }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+}

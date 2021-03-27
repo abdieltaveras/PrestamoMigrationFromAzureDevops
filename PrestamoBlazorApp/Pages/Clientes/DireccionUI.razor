@@ -1,15 +1,17 @@
-﻿<div class="row">
+﻿@using BlazorUtilsLibrary.Map
+@using PrestamoBlazorApp.Models
+<div class="row">
+
     <div class="col-sm-6">
         <h2> donde vive la persona ?</h2>
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-right">buscar Sector</label>
-            <InputText  @bind-Value=@searchDireccion.SearchSector class="col-sm-8" />
+            <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
         </div>
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-right">Localidad Seleccionada</label>
-            <InputText  @bind-Value=@searchDireccion.SelectedLocalidad class="col-sm-8" />
-        </div>
+        <div class="form-group row alert-info">
+            <label class="col-sm-3 col-form-label text-right">Localidad </label>
+            <label class ="col-sm-8 mt-2"> @direccion.selectedLocalidad  </label>
+    </div>
 
 
         <div class="form-group row">
@@ -19,13 +21,13 @@
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label text-right">Latitud</label>
-            <input type="number" value="@direccion.Latitud" class="col-sm-8" />
+            <InputNumber @bind-Value="@direccion.Latitud" class="col-sm-8" />
 
         </div>
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label text-right">Longitud</label>
-            <input type="number" value="@direccion.Longitud" class="col-sm-8" />
+            <InputNumber  @bind-Value="@direccion.Longitud" class="col-sm-8" />
         </div>
 
         <div class="form-group row">
@@ -34,29 +36,26 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <h2>Mapa</h2>
-        <div>
-            <RadzenGoogleMap style="height: 400px" Zoom=@zoom Center=@(new GoogleMapPosition() { Lat = 18.43190, Lng = -69.98503 }) MapClick=@OnMapClick MarkerClick=@OnMarkerClick>
-                <Markers>
-                    <RadzenGoogleMapMarker Title="Clinica Coral" Label="CLinca Coral" Position=@(new GoogleMapPosition() { Lat = 18.43190, Lng = -68.98503 }) />
-                </Markers>
-            </RadzenGoogleMap>
+        <h2>Mapa <button @onclick="UpdateMapMarkers">Actualizar</button></h2>
+        
+        <div class="track-order-map">
+            <Map Zoom="10" Markers="MapMarkers"></Map>
         </div>
+        
     </div>
 </div>
 
 @code {
 
     [Parameter]
-    public Direccion direccion { get; set; }
+    public DireccionModel direccion { get; set; }
     [Parameter]
     public Cliente cliente { get; set; }
 
-    [Parameter]
-    public SearchDireccion searchDireccion { get; set; }
-    private string searchSector { get; set; }
+    BuscarLocalidad buscarLocalidad { get; set; } = new BuscarLocalidad();
 
-    private string selectedLocalidad { get; set; }
+
+    public List<Marker> MapMarkers { get; set; } = new List<Marker>();
 
     int zoom = 10;
     bool showMadridMarker;
@@ -67,14 +66,48 @@
         console.Log($"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
     }
 
-    void OnMarkerClick(RadzenGoogleMapMarker marker)
-    {
-        console.Log($"Map {marker.Title} marker clicked. Marker position -> Lat: {marker.Position.Lat}, Lng: {marker.Position.Lng}");
-    }
-
     protected override async Task OnInitializedAsync()
     {
-        this.searchSector = string.Empty;
-        this.selectedLocalidad = string.Empty;
+
+        setCoordinatesForClinicaCoralToTest();
+        UpdateMapMarkers();
+
     }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+
+        base.OnAfterRender(firstRender);
+    }
+    private void UpdateMapMarkers()
+    {
+
+        MapMarkers = new List<Marker>
+        {
+            new Marker {Description = "Cliente NombreCompleto",  ShowPopup = false, X = direccion.Longitud, Y=direccion.Latitud }
+        };
+        StateHasChanged();
+    }
+
+    private void setCoordinatesForClinicaCoralToTest()
+    {
+        this.direccion.Calle = "Calle emilio prud home #5";
+        this.direccion.Latitud = 18.43056;
+        this.direccion.Longitud = -68.98449;
+
+
+        // clinica coral Lat = 18.43190, Lng = -68.98503
+    }
+
+    private void Handle_LocalidadSelected(BuscarLocalidad localidad)
+    {
+        var localidadSeleccionada = localidad;
+        direccion.selectedLocalidad = localidad.ToString();
+        this.direccion.IdLocalidad = localidad.IdLocalidad;
+    }
+
+
+
 }
+
+

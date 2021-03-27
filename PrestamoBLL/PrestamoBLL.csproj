@@ -128,7 +128,6 @@
     <Compile Include="Entidades\TipoSexo.cs" />
     <Compile Include="Entidades\TipoTelefono.cs" />
     <Compile Include="Entidades\Usuario.cs" />
-    <Compile Include="Entidades\Utils.cs" />
     <Compile Include="Entidades\VerificadorDireccion.cs" />
     <Compile Include="Equipo.cs" />
     <Compile Include="Errors.cs" />

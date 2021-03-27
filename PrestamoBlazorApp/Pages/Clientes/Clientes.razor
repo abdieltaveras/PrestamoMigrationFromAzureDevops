@@ -3,24 +3,23 @@
 
 <div class="grid-container">
     <div class="bg-secondary">
-        <h3 class="text-left">Listado de clientes</h3>
+        <h3 class="text-left">Listado de clientes </h3>
     </div>
     <div class="search">
         <EditForm Model="@searchClientes" OnValidSubmit="@GetClientes">
             <DataAnnotationsValidator />
             <ValidationSummary />
-            LLene el valor indicado y pulse buscar
             <InputText id="Codigo" @bind-Value="searchClientes.Codigo" placeholder="Código" />
             <InputText id="nombres" @bind-Value="searchClientes.Nombres" placeholder="Nombres" />
             <InputText id="Apellidos" @bind-Value="searchClientes.Apellidos" placeholder="Primer Apellido" />
 
-            <button type="submit">Buscar</button>
+            <button type="submit" class="fa fa-search">Buscar</button>
             @if (totalClientes > 0)
             {
-                <label>Total de clientes encontrados para su peticion @totalClientes</label>
+                <label class="text-right col-sm-2">registros encontrados @totalClientes</label>
             }
-
         </EditForm>
+        
     </div>
 </div>
 
@@ -48,6 +47,7 @@
                             <th>Telefono</th>
                             <th>Tipo Identificacion</th>
                             <th>Identificacion</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,6 +62,14 @@
                                 <td> @tident</td>
                             }
                             <td>@cliente.NoIdentificacion</td>
+                            <td>
+                                <a href="@($"clientes/detallesCliente/{cliente.IdCliente}")" title="ver detalles" class="btn btn-primary table-btn">
+                                    <i class="oi oi-document"></i>
+                                </a>
+                                <a href="@($"clientes/createoredit/{cliente.IdCliente}")" title="editar" class="btn btn-primary table-btn">
+                                    <i class="oi oi-pencil"></i>
+                                </a>
+                            </td>
                         </tr>
                         }
                     </tbody>

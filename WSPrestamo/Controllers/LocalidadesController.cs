@@ -11,12 +11,30 @@ namespace WSPrestamo.Controllers
     public class LocalidadesController : BaseApiController
     {
         // GET: Localidades
-        public IEnumerable<Localidad> GetAll()
+        public IEnumerable<Localidad> Get(int idLocalidad=1, int IdLocalidadNegocio=-1, int idNegocio=-1)
         {
-            BLLPrestamo bl = new BLLPrestamo();
-            var a= BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams());
+            var searchParam = new LocalidadGetParams { IdLocalidad = idLocalidad, Usuario = this.LoginName, IdNegocio = idNegocio, IdLocalidadNegocio = IdLocalidadNegocio  };
+            var a = BLLPrestamo.Instance.GetLocalidades(searchParam);
             //var a = BLLPrestamo.BllAcciones.GetData<Localidad, LocalidadGetParams>(new LocalidadGetParams(), "spGetLocalidades", BLLPrestamo.GetValidation);
             return a;
+        }
+        public IEnumerable<Localidad> GetLocalidadConSusPadres(int idLocalidad = 1, int IdLocalidadNegocio = -1, int idNegocio = -1)
+        {
+            var searchParam = new LocalidadGetParams { IdLocalidad = idLocalidad, Usuario = this.LoginName, IdNegocio = idNegocio, IdLocalidadNegocio = IdLocalidadNegocio };
+
+            var a = BLLPrestamo.Instance.GetLocalidadesConSusPadres(searchParam);
+            //var a = BLLPrestamo.BllAcciones.GetData<Localidad, LocalidadGetParams>(new LocalidadGetParams(), "spGetLocalidades", BLLPrestamo.GetValidation);
+            return a;
+        }
+        [HttpGet]
+        public IEnumerable<BuscarLocalidad>  BuscarLocalidad(string search="", bool soloLosQuePermitenCalle=false, int  minLength=BuscarLocalidadParams.minLengthDefault)
+        {
+            IEnumerable<BuscarLocalidad> localidades = new List<BuscarLocalidad>();
+            if (minLength==0 || (search!=null && search.Length >= BuscarLocalidadParams.minLengthDefault))
+            {
+                localidades = BLLPrestamo.Instance.SearchLocalidad(new BuscarLocalidadParams { Search = search, SoloLosQuePermitenCalle= soloLosQuePermitenCalle});
+            }
+            return localidades;
         }
 
         /// <summary>
@@ -26,15 +44,35 @@ namespace WSPrestamo.Controllers
         /// </summary>
         /// <param name="idLocalidad"></param>
         /// <returns></returns>
-        public string Get(int idLocalidad)
+        public string GetFullNameLocalidad(int idLocalidad)
         {
-            var result = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad });
+            var result = BLLPrestamo.Instance.GetLocalidadesConSusPadres(new LocalidadGetParams { IdLocalidad = idLocalidad });
             var localidades = from localidad in result select new { localidad.Nombre };
             string localidadFullName = string.Empty;
             result.ToList().ForEach(loc => localidadFullName += loc.Nombre + " ");
             return localidadFullName;
         }
+        public IEnumerable<BuscarLocalidad> Get(string Search)
+        {
+            return BLLPrestamo.Instance.SearchLocalidad(new BuscarLocalidadParams { Search = Search });
 
+        }
+        public IEnumerable<string> GetSearchLocalidadByName(int idLocalidad, int idNegocio)
+        {
+            return BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = idLocalidad, IdNegocio = idNegocio });
+
+        }
+
+        public IEnumerable<Localidad> GetPaises()
+        {
+            return BLLPrestamo.Instance.GetPaises(new LocalidadPaisesGetParams { });
+        }
+
+        public IEnumerable<LocalidadesHijas> GetHijasLocalidades(int idLocalidad = -1)
+        {
+            var paramlocalidad = new LocalidadGetParams { IdLocalidad = idLocalidad };
+            return BLLPrestamo.Instance.GetHijasLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad });
+        }
         [HttpPost]
         public IHttpActionResult Post(Localidad localidad)
         {
@@ -43,27 +81,7 @@ namespace WSPrestamo.Controllers
             return Ok();
         }
         
-        public IEnumerable<BuscarLocalidad> Get(string Search)
-        {
-            return BLLPrestamo.Instance.SearchLocalida(new BuscarLocalidadParams { Search = Search });
- 
-        }
-        public IEnumerable<string> Get(int idLocalidad, int idNegocio)
-        {
-            return BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = idLocalidad, IdNegocio = idNegocio });
-    
-        }
-
-        public IEnumerable<Localidad> Get2()
-        {
-            return BLLPrestamo.Instance.GetPaises(new LocalidadPaisesGetParams { });
-        }
-
-        public IEnumerable<LocalidadesHijas> Get3(int idLocalidad = -1)
-        {
-            var paramlocalidad = new LocalidadGetParams { IdLocalidad = idLocalidad };
-            return BLLPrestamo.Instance.GetHijasLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad });
-        }
+        
         [HttpDelete]
         public IHttpActionResult Anular(int idRegistro)
         {

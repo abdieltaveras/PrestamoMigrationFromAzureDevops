@@ -19,7 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlazorUtilsLibrary\BlazorUtilsLibrary.csproj" />
     <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Pages\LocalidadesNegocios\" />
+    <Folder Include="Pages\Localidades\" />
+    <Folder Include="Pages\NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -43,10 +43,25 @@ namespace PrestamoBLL.Entidades
         public string TipoNombrePadre { get; set; } = string.Empty;
         public bool PermiteCalle { get; set; }
 
+        public string LocalidadSeleccionada { get; set; } = string.Empty;
+        public override string ToString()
+        {
+            return $"{Nombre} [{Descripcion}] ({TipoNombrePadre} {NombrePadre})";
+        }
+
     }
-    public class BuscarLocalidadParams : BaseGetParams
+    public class BuscarLocalidadParams 
     {
         public string Search { get; set; } = string.Empty;
+
+        //public int IdLocalidadNegocio { get; set; } = -1;
+
+        public bool SoloLosQuePermitenCalle { get; set; } = false;
+
+        [IgnorarEnParam]
+        public int MinLength { get; set; } = minLengthDefault;
+        
+        public const int minLengthDefault = 2;
     }
 
     public class BuscarNombreLocalidadParams : BaseGetParams

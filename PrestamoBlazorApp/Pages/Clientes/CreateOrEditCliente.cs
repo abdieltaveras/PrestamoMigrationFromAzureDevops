@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Data;
+using PrestamoBlazorApp.Models;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using Radzen;
 using Radzen.Blazor;
@@ -19,19 +22,26 @@ namespace PrestamoBlazorApp.Pages.Clientes
 {
     public partial class CreateOrEditCliente
     {
-        private EditContext EC { get; set; } 
+        // servicios
 
         [Inject]
         OcupacionesService ocupacionesService { get; set; }
+        [Inject]
+        LocalidadesService localidadService { get; set; }
+        [Inject]
+        ClientesService clientesService { get; set; }
 
-        string searchSector = string.Empty;
-        string selectedLocalidad = "Ninguna";
+        // parametros
         [Parameter]
-        public int idCliente { get; set; }
-        public Cliente cliente { get; set; }
+        public string idCliente { get; set; }
+
+        // miembros
+        string searchSector = string.Empty;
+        
+        public Cliente cliente { get; set; } = new Cliente();
         Conyuge conyuge { get; set; } = new Conyuge();
 
-        Direccion direccion { get; set; }  = new Direccion();
+        DireccionModel direccion { get; set; }  = new DireccionModel();
 
         InfoLaboral infoLaboral { get; set; } = new InfoLaboral();
 
@@ -39,11 +49,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
         string TextoForActivo { get; set; } = "Si";
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
 
-        [Inject]
-        ClientesService clientesService { get; set; }
-
-        
-        
         private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
 
         private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
@@ -53,40 +58,47 @@ namespace PrestamoBlazorApp.Pages.Clientes
         }
         List<Referencia> referencias = new List<Referencia>();
 
-        Referencia referencia1 = new Referencia();
-        Referencia referencia2 = new Referencia();
-        Referencia referencia3 = new Referencia();
+        
         bool disableCodigo { get; set; } = true;
 
         protected override async Task OnInitializedAsync()
         {
-
-            
-            prepTestData();
+            var _idCliente = Convert.ToInt32(idCliente);
             Ocupaciones = await GetOcupaciones();
+            if ( _idCliente != 0)
+            {
+                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = _idCliente,ConvertJsonToObj=true });
+                this.cliente = clientes.FirstOrDefault();
+            }
+            prepTestData();
             await base.OnInitializedAsync();
         }
 
-        private void prepTestData()
+        private async void prepTestData()
         {
-            this.cliente = new Cliente
+            if (this.cliente.IdCliente == 0)
             {
-                Codigo = "Nuevo",
+                this.cliente = new Cliente
+                {
+                    Codigo = "Nuevo",
                 Nombres = "a1",
                 Apellidos = "a2",
-                Apodo="a3",
+                Apodo = "a3",
                 IdTipoIdentificacion = 1,
                 NoIdentificacion = "000-0000000-1",
-                InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2" ,DireccionLugarTrabajo="b3" },
+                InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
                 InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
-                InfoDireccionObj = new Direccion { Calle = "c3", Latitud = 1, Longitud = 2 }
-            };
+                InfoDireccionObj = new Direccion { IdLocalidad = 5, Calle = "cerapia no 3", Latitud = 1, Longitud = 2 }
+                };
+            }
             this.conyuge = cliente.InfoConyugeObj;
             this.infoLaboral = cliente.InfoLaboralObj;
-            this.direccion = cliente.InfoDireccionObj;
-            referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal , NombreCompleto="r1"};
-            referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto ="r2" };
-            referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto ="r3" };
+            this.direccion = Utils.ToDerived<Direccion, DireccionModel>(cliente.InfoDireccionObj);
+            var localidad = await localidadService.GetLocalidadesAsync(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
+            this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
+            var referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal , NombreCompleto="r1"};
+            var referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto ="r2" };
+            var referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto ="r3" };
             referencias.Add(referencia1);
             referencias.Add(referencia2);
             referencias.Add(referencia3);
@@ -131,15 +143,10 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.cliente.InfoConyugeObj = conyuge;
         }
 
-        SearchDireccion searchDireccion { get; set; } = new SearchDireccion();
+
         
     }
-    public class SearchDireccion
-    {
-        public string SearchSector { get; set; } = string.Empty;
-
-        public string SelectedLocalidad { get; set; } = string.Empty;
-    }
+    
 
     
 }

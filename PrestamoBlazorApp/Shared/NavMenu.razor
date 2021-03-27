@@ -6,83 +6,144 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <p>@NavMenuCssClass</p>    
     <ul class="nav flex-column">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
+
+        @*<li class="nav-item px-3">
+                <NavLink class="nav-link" href="counter">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="fetchdata">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                </NavLink>
+            </li>*@
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="" @onclick="() => expandCatalogosSubMenu = !expandCatalogosSubMenu">
+                <span class="oi oi-list" aria-hidden="true"></span> Catalogos
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="ingresos">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Ingreso
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="colores">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Colores
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="marcas">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Marcas
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="modelos">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Modelos
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="clasificaciones">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Clasificaciones
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="equipos">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Equipos
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="garantias">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Garantias
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="garantias/createoredit">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Garantias CreateOrEdit
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-             <NavLink class="nav-link" href="clientes">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Clientes
-            </NavLink>
+            @if (expandCatalogosSubMenu)
+            {
+                <ul class="nav flex-column">
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="colores">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Colores
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="marcas">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Marcas
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="modelos">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Modelos
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="clasificaciones">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Clasificaciones
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="equipos">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Equipos
+                        </NavLink>
+                    </li>
+                </ul>}
+
         </li>
 
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="clientes/CreateOrEdit">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Crear o Editar Clientes
+            <NavLink class="nav-link" href="" @onclick="()=>  expandOperacionesSubMenu = !expandOperacionesSubMenu ">
+                <span class="oi oi-list" aria-hidden="true"></span> Operaciones
             </NavLink>
+            @if (expandOperacionesSubMenu)
+            {
+                <ul class="nav flex-column">
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="ingresos">
+                            <span class="oi oi-dollar" aria-hidden="true">ingresos </span>
+                        </NavLink>
+                    </li>
+
+
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="" @onclick="()=> expandGarantiasSubMenu = !expandGarantiasSubMenu ">
+                            <span class="oi oi-list" aria-hidden="true"></span> Garantias
+                        </NavLink>
+
+                        @if (expandGarantiasSubMenu)
+                        {
+                            <ul class="nav flex-column">
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="garantias">
+                                        <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                                    </NavLink>
+                                </li>
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="garantias/createoredit">
+                                        <span class="oi oi-list-rich" aria-hidden="true">Crear </span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        }
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="" @onclick="()=>  expandClientesSubMenu = !expandClientesSubMenu ">
+                            <span class="oi oi-list" aria-hidden="true"></span> Clientes
+                        </NavLink>
+
+                        @if (expandClientesSubMenu)
+                        {
+                            <ul class="nav flex-column">
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="clientes">
+                                        <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                                    </NavLink>
+                                </li>
+
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="clientes/CreateOrEdit">
+                                        <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+
+                        }
+                    </li>
+                </ul>
+            }
         </li>
     </ul>
 </div>
 
-@code {
+
+@code { 
     private bool collapseNavMenu = true;
 
+
+    JsInteropUtils jsInterop { get; set; } = new JsInteropUtils();
+    [Inject]
+    IJSRuntime jsRuntime { get; set; }
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    private bool expandCatalogosSubMenu { get; set; } = false;
+    private bool expandOperacionesSubMenu { get; set; } = false;
+    private bool expandGarantiasSubMenu { get; set; } = false;
+    private bool expandClientesSubMenu { get; set; } = false;
     private void ToggleNavMenu()
     {
+        //jsInterop.Alert(jsRuntime,"click en toggleNavMenu");
         collapseNavMenu = !collapseNavMenu;
     }
+
+
+
 }

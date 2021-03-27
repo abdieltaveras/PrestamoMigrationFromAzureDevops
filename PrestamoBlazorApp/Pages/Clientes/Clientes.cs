@@ -17,6 +17,12 @@ namespace PrestamoBlazorApp.Pages.Clientes
         IEnumerable<Cliente> clientes;
         bool loading = false;
 
+        protected override async Task OnInitializedAsync()
+        {
+            this.searchClientes = new ClienteGetParams { CantidadRegistrosASeleccionar = 50 };
+            await GetClientes();
+            await base.OnInitializedAsync();
+        }
         async Task GetClientes()
         {
             loading = true;
