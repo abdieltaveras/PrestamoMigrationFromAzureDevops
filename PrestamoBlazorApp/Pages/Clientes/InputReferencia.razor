@@ -21,7 +21,7 @@
 
     <input id="NombreCompleto-referencia" @bind-value=@referencia.NombreCompleto class="col-sm-5" />
     @*@onchange="@(e=> cliente.InfoReferenciasObj[referencia.Index].NombreCompleto=e.Value.ToString())"*@
-    <input value=@referencia.Telefono class="col-sm-5" />
+    <input @bind-value=@referencia.Telefono class="col-sm-5" />
 </div>
 
 <div class="form-group row bg-info">
@@ -30,9 +30,9 @@
     <label class="col-sm-5 text-center text-white">Detalles </label>
 </div>
 <div class="form-group row">
-    <input value=@referencia.Vinculo class="col-sm-2" />
-    <textarea value=@referencia.Direccion class="col-sm-5" />
-    <textarea value=@referencia.Detalles class="col-sm-5" />
+    <input @bind-value=@referencia.Vinculo class="col-sm-2" />
+    <InputTextArea @bind-Value=@referencia.Direccion class="col-sm-5" />
+    <InputTextArea @bind-Value=@referencia.Detalles  class="col-sm-5" />
 </div>
 
 

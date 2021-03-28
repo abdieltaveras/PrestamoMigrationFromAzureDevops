@@ -17,10 +17,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace PrestamoBlazorApp.Pages.Clientes
 {
-    public partial class CreateOrEditCliente
+    public partial class CreateOrEditCliente : ComponentBasePcp
     {
         // servicios
 
@@ -33,15 +32,15 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         // parametros
         [Parameter]
-        public string idCliente { get; set; }
+        public int idCliente { get; set; }
 
         // miembros
         string searchSector = string.Empty;
-        
+
         public Cliente cliente { get; set; } = new Cliente();
         Conyuge conyuge { get; set; } = new Conyuge();
 
-        DireccionModel direccion { get; set; }  = new DireccionModel();
+        DireccionModel direccion { get; set; } = new DireccionModel();
 
         InfoLaboral infoLaboral { get; set; } = new InfoLaboral();
 
@@ -58,96 +57,113 @@ namespace PrestamoBlazorApp.Pages.Clientes
         }
         List<Referencia> referencias = new List<Referencia>();
 
-        
+
         bool disableCodigo { get; set; } = true;
 
         protected override async Task OnInitializedAsync()
         {
-            var _idCliente = Convert.ToInt32(idCliente);
             Ocupaciones = await GetOcupaciones();
-            if ( _idCliente != 0)
-            {
-                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = _idCliente,ConvertJsonToObj=true });
-                this.cliente = clientes.FirstOrDefault();
-            }
-            prepTestData();
+            prepareModel();
             await base.OnInitializedAsync();
         }
 
-        private async void prepTestData()
+        private async void prepareModel()
         {
-            if (this.cliente.IdCliente == 0)
+
+
+            if (idCliente != 0)
+            {
+                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente, ConvertJsonToObj = true });
+                this.cliente = clientes.FirstOrDefault();
+            }
+
+            if (this.cliente == null || idCliente == 0)
             {
                 this.cliente = new Cliente
                 {
                     Codigo = "Nuevo",
-                Nombres = "a1",
-                Apellidos = "a2",
-                Apodo = "a3",
-                IdTipoIdentificacion = 1,
-                NoIdentificacion = "000-0000000-1",
-                InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
-                InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
-                InfoDireccionObj = new Direccion { IdLocalidad = 5, Calle = "cerapia no 3", Latitud = 1, Longitud = 2 }
+                    Nombres = "a1",
+                    Apellidos = "a2",
+                    Apodo = "a3",
+                    IdTipoIdentificacion = 1,
+                    NoIdentificacion = "000-0000000-1",
+                    InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
+                    InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
+                    InfoDireccionObj = new Direccion
+                    {
+                        IdLocalidad = 5,
+                        Calle = "Calle emilio prud home #5",
+                        Latitud = 18.43056,
+                        Longitud = -68.98449
+                    }
                 };
+                var referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal, NombreCompleto = "r1" };
+                var referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto = "r2" };
+                var referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto = "r3" };
+                referencias.Add(referencia1);
+                referencias.Add(referencia2);
+                referencias.Add(referencia3);
+                //clinica coral Lat = 18.43190, Lng = -68.98503;
             }
-            this.conyuge = cliente.InfoConyugeObj;
-            this.infoLaboral = cliente.InfoLaboralObj;
-            this.direccion = Utils.ToDerived<Direccion, DireccionModel>(cliente.InfoDireccionObj);
-            var localidad = await localidadService.GetLocalidadesAsync(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
-            this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
-            var referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal , NombreCompleto="r1"};
-            var referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto ="r2" };
-            var referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto ="r3" };
-            referencias.Add(referencia1);
-            referencias.Add(referencia2);
-            referencias.Add(referencia3);
-
-
+            else
+            {
+                this.conyuge = cliente.InfoConyugeObj;
+                this.infoLaboral = cliente.InfoLaboralObj;
+                this.direccion = Utils.ToDerived<Direccion, DireccionModel>(cliente.InfoDireccionObj);
+                var localidad = await localidadService.GetLocalidadesAsync(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
+                this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
+                foreach (var item in cliente.InfoReferenciasObj)
+                {
+                    referencias.Add(item);
+                }
+                StateHasChanged();
+            }
         }
 
-        private bool loading { get; set; }
+        private bool loading { get; set; } = false;
+        private bool hideSaveButton = false;
+        
         //async Task SaveCliente()
         async Task SaveCliente()
         {
-            //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-            loading = true;
-            this.cliente.InfoConyugeObj = conyuge;
-            this.cliente.InfoReferenciasObj = referencias;
-            this.cliente.InfoDireccionObj = direccion;
-            this.cliente.InfoLaboralObj = infoLaboral;
-            await clientesService.SaveCliente(this.cliente);
-            loading = false;
+                hideSaveButton = true;
+                //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
+                this.cliente.InfoConyugeObj = conyuge;
+                this.cliente.InfoReferenciasObj = referencias;
+                this.cliente.InfoDireccionObj = direccion;
+                this.cliente.InfoLaboralObj = infoLaboral;
+                await clientesService.SaveCliente(this.cliente);
+                OnGuardarNotification();
+                NavManager.NavigateTo("/Clientes");
         }
 
 
-        void OnChange(object value, string name)
-        {
-            var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-            var selectedValue = Convert.ToInt32(str);
-            //console.Log($"{name} value changed to {str}");
-        }
+        //void OnChange(object value, string name)
+        //{
+        //    var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        //    var selectedValue = Convert.ToInt32(str);
+        //    //console.Log($"{name} value changed to {str}");
+        //}
 
-        void OnInputFileChange(InputFileChangeEventArgs e)
-        {
-            var imageFiles = e.GetMultipleFiles();
-        }
-        
+        //void OnInputFileChange(InputFileChangeEventArgs e)
+        //{
+        //    var imageFiles = e.GetMultipleFiles();
+        //}
+
         private void SetImages(IList<string> images)
         {
             this.cliente.ImagesForCliente = images;
         }
 
-        protected void Handle_ConyugeChange(Conyuge conyuge)
-        {
-            this.cliente.InfoConyugeObj = conyuge;
-        }
+        //protected void Handle_ConyugeChange(Conyuge conyuge)
+        //{
+        //    this.cliente.InfoConyugeObj = conyuge;
+        //}
 
 
-        
     }
-    
 
-    
+
+
 }
 

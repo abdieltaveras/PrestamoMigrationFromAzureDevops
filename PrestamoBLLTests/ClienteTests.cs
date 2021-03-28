@@ -89,6 +89,7 @@ namespace PrestamoBLL.Tests
             var searhData = ClienteData.SearchCliente();
             searhData.IdNegocio = -1;
             var mensajeError = string.Empty;
+
             
             try
             {

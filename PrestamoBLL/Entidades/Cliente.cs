@@ -110,28 +110,24 @@ namespace PrestamoBLL.Entidades
         public string InfoDireccion { get; internal set; } = string.Empty;
         [IgnorarEnParam]
         public Direccion InfoDireccionObj { get; set; }
+
         //{ get { return string.IsNullOrEmpty(InfoDireccion) ? new Direccion() : InfoDireccion.ToType<Direccion>(); } set { InfoDireccion = value.ToJson(); } }
         /// <summary>
         /// la informacion laboral en formato json
         /// </summary>
+        
         public string InfoLaboral { get; internal set; } = string.Empty;
         [IgnorarEnParam]
         public InfoLaboral InfoLaboralObj { get; set; }
             //get { return string.IsNullOrEmpty(InfoLaboral) ? new InfoLaboral() : InfoLaboral.ToType<InfoLaboral>(); } set { InfoLaboral = value.ToJson(); } }
         /// <summary>
-        /// la informacion de referencias en formato json
+        /// la informacion de referencias en formato json, use el objeto para trabajar
         /// </summary>
-        public string InfoReferencias { get; internal set; } = string.Empty;
+        public string InfoReferencias { get;  internal set; } = string.Empty;
         [IgnorarEnParam]
         public List<Referencia> InfoReferenciasObj { get; set; }
 
         private List<Referencia> _infoReferencias = new List<Referencia>();
-
-        public void SetReferencias(Referencia referencia)
-        {
-            this._infoReferencias.Add(referencia);
-            this.InfoReferencias = JsonConvert.SerializeObject(_infoReferencias);
-        }
         /// <summary>
         /// Convierte los objetos a representacion interna en Json
         /// </summary>
@@ -152,19 +148,13 @@ namespace PrestamoBLL.Entidades
             this.InfoDireccionObj = InfoDireccion.ToType<Direccion>();
             this.InfoConyugeObj = InfoConyuge.ToType<Conyuge>();
             this.InfoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
+            if (this.InfoReferenciasObj == null)
+            {
+                this.InfoReferenciasObj = new List<Referencia>();
+            }
         }
 
-        /// <summary>
-        /// para asignar valor de todas las referencias, no olvide enviarlas
-        /// todas incluyendo las que ya se hayan registrado
-        /// </summary>
-        /// <param name="referencias"></param>
-
-        public void SetReferencias(IEnumerable<Referencia> referencias)
-        {
-            this._infoReferencias = InfoReferenciasObj.ToList();
-            this.InfoReferencias  = JsonConvert.SerializeObject(_infoReferencias);
-        }
+        
         /// <summary>
         /// guarda el nombre de la imagen
         /// </summary>
@@ -216,7 +206,7 @@ namespace PrestamoBLL.Entidades
 
         public DateTime? InsertadoHasta { get; set; } = null;
         [IgnorarEnParam]
-        public bool ConvertJsonToObj { get; set; } = false;
+        public bool ConvertJsonToObj { get; set; } = true;
 
         /// <summary>
         /// cantidad de registros a seleccionar enviar null
