@@ -95,7 +95,12 @@
                     {
                         <tr>
                             <td>@item.NoIdentificacion</td>
-                            <td> <button @onclick="()=>CreateOrEdit(item.IdGarantia)" class="btn btn-info"> Editar </button></td>
+                            <td>
+                                <a href="@($"garantias/createoredit/{item.IdGarantia}")" title="editar" class="btn btn-primary table-btn">
+                                    <i class="oi oi-pencil"></i>
+                                </a>
+                            </td>
+                            @*<td> <button @onclick="()=>CreateOrEdit(item.IdGarantia)" class="btn btn-info"> Editar </button></td>*@
                         </tr>
 
                     }

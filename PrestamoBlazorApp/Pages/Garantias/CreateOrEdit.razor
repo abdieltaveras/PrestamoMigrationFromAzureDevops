@@ -1,4 +1,5 @@
-﻿@page "/garantias/CreateOrEdit"
+﻿@page "/garantias/CreateOrEdit/"
+@page "/garantias/CreateOrEdit/{idgarantia:int}"
 
 <h1>Garantias CreateOrEdit <button type="submit" class="btn btn-primary" @onclick="()=>SaveGarantia()">Guardar</button></h1>
 
@@ -37,7 +38,7 @@
                         <label for="codigo">Codigo</label>
                         @*<InputText id="codigo" class="form-control col-md-4" @bind-Value="Convert.ToString(Garantia.IdMarca)"></InputText>*@
                         @*<InputNumber type="hidden" id="idmarca" class="form-control col-md-4" @bind-Value="Garantia.IdMarca"></InputNumber>*@
- 
+
 
                     </div>
                     <div class="form-group">
@@ -264,7 +265,7 @@
             IsShowInmobiliario = true;
             IsShowMobiliario = false;
         }
-        Garantia.IdClasificacion = Convert.ToInt32(args.Value.ToString());
+        Garantia.IdTipoGarantia = Convert.ToInt32(args.Value.ToString());
     }
 
 }
