@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
-    public partial class CreateOrEditCliente : ComponentBasePcp
+    public partial class CreateOrEditCliente : BaseForCreateOrEdit
     {
         // servicios
 
@@ -133,9 +133,10 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 this.cliente.InfoDireccionObj = direccion;
                 this.cliente.InfoLaboralObj = infoLaboral;
                 await clientesService.SaveCliente(this.cliente);
-                OnGuardarNotification();
+                await OnGuardarNotification();
                 NavManager.NavigateTo("/Clientes");
         }
+
 
 
         //void OnChange(object value, string name)

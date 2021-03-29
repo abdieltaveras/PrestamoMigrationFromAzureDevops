@@ -8,7 +8,8 @@
 }
 
 window.Notification=function(message, delay) {
-    $.notify(message, {autoHideDelay:5000});
+    $.notify(message, { autoHideDelay: delay });
+    return true;
 }
 window.Confirm = function (message) {
     let result = false; 

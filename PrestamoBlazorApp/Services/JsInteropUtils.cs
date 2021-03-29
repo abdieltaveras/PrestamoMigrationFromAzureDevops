@@ -16,6 +16,6 @@ namespace PrestamoBlazorApp.Services
         
         public Task<bool> Confirm(IJSRuntime JsRuntime, string message) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("Confirm", message));
 
-        public Task Notification(IJSRuntime jsRuntime, string message, int delayInMilliSeconds=5000) => Task.Run(async () => await jsRuntime.InvokeVoidAsync("Notification", message, delayInMilliSeconds));
+        public Task<bool> Notification(IJSRuntime jsRuntime, string message, int delayInMilliSeconds=5000) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("Notification", message, delayInMilliSeconds));
     }
 }
