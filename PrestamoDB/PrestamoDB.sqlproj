@@ -181,7 +181,7 @@
     <Build Include="dbo\Tables\tblSecuencias.sql" />
     <Build Include="dbo\Stored Procedures\spGenerarSecuencia.sql" />
     <Build Include="dbo\Stored Procedures\spGenerarSecuenciaString.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdTblTest1GenerandoSecuencia" />
+    <Build Include="dbo\Stored Procedures\spInsUpdTblTest1GenerandoSecuencia.sql" />
     <Build Include="dbo\Tables\tblPeriodos.sql" />
     <Build Include="dbo\Stored Procedures\spGetPeriodos.sql" />
     <Build Include="dbo\Tables\tblPrestamo.sql" />
