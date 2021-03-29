@@ -1,4 +1,5 @@
-﻿@page "/garantias/CreateOrEdit"
+﻿@page "/garantias/CreateOrEdit/"
+@page "/garantias/CreateOrEdit/{idgarantia:int}"
 
 <h1>Garantias CreateOrEdit <button type="submit" class="btn btn-primary" @onclick="()=>SaveGarantia()">Guardar</button></h1>
 
@@ -18,31 +19,33 @@
                         <div class="form-group">
                             @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="inmobiliario_option" class="form-control">
 
-                        </InputRadio>*@
+                                </InputRadio>*@
                             @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="inmobiliario_option2">
 
-                        </InputRadio>*@
-                            <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="1" />
+                                </InputRadio>*@
+                            <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="1" @onchange="selectedRadioClasificacion" checked />
                             <label for="inmobiliario_option">Inmobiliario</label>
                             @*<i class="fa fa-home"></i>*@ Inmobiliriario
                             <br />
-                            <input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="2" />
+                            <input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="2" @onchange="selectedRadioClasificacion" />
                             <label for="mobiliario_option">Mobiliario</label>
                             @*<i class="fa fa-car"></i>*@ Mobiliriario
                         </div>
 
                     </div>
                     <hr />
-                    <!--<div class="form-group">
-            <label for="codigo">Codigo</label>-->
-                    @*<InputText id="codigo" class="form-control col-md-4" @bind-Value="Convert.ToString(Garantia.IdMarca)"></InputText>*@
-                    <!--<InputNumber id="idmarca" class="form-control col-md-4" @bind-Value="Garantia.IdMarca"></InputNumber>
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <InputNumber id="idmodelo" class="form-control col-md-6" @bind-Value="Garantia.IdModelo"></InputNumber>-->
-                    @*<InputText id="nombre" class="form-control col-md-6" @bind-Value="Convert.ToString(Garantia.IdModelo)"></InputText>*@
-                    <!--</div>-->
+                    <div class="form-group">
+                        <label for="codigo">Codigo</label>
+                        @*<InputText id="codigo" class="form-control col-md-4" @bind-Value="Convert.ToString(Garantia.IdMarca)"></InputText>*@
+                        @*<InputNumber type="hidden" id="idmarca" class="form-control col-md-4" @bind-Value="Garantia.IdMarca"></InputNumber>*@
+
+
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        @*<InputNumber type="hidden" id="idmodelo" class="form-control col-md-6" @bind-Value="Garantia.IdModelo"></InputNumber>*@
+                        @*<InputText id="idmodelo" class="form-control col-md-6" @bind-Value="Convert.ToString(Garantia.IdModelo)"></InputText>*@
+                    </div>
 
                 </div>
             </div>
@@ -50,23 +53,191 @@
                 <div class="col-md-12">
                     <InputImages @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
                 </div>
-                @if (garantias.Count() > 0)
-                {
-                    @if (garantias.FirstOrDefault().ImagesForGaratia != null)
+                @*@if (garantias.Count() > 0)
                     {
-                        @foreach (var item in garantias.FirstOrDefault().ImagesForGaratia)
+                        @if (garantias.FirstOrDefault().ImagesForGaratia != null)
                         {
-                            <img src="@item" />
+                            @foreach (var item in garantias.FirstOrDefault().ImagesForGaratia)
+                            {
+                                <img src="@item" />
+                            }
                         }
-                    }
-                }
+                    }*@
 
 
             </div>
             <hr />
             <div class="row">
                 <div class="col-md-12">
-                    <h3>Otra cosa</h3>
+                    @* Formulario de inmobiliario *@
+
+                    <div class="row" id="inmobiliario_form_container" hidden="@IsShowInmobiliario">
+                        <div class="col-md-6">
+                            <div class="form-group row" style="padding: 0%">
+                                <label class="col-sm-4 col-form-label" for="Direccion_Calle">Localidad</label>
+                                <div class="col-sm-8" style="margin: auto;">
+                                    <input class="target form-control" type="text" id="searchLocalidad" name="searchLocalidad" placeholder="Busca una direccion" autocomplete="off" />
+                                    <span id="rutadelocalidad"></span>
+                                    <div id="list-address-container" style=" padding: 0%;">
+                                        <div class="list-group col-md-12 col-sm-12 col-xs-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding-right: 20px; padding-left: 0px; vertical-align: middle;">
+                                        </div>
+                                    </div>
+
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Direccion.Calle" data-valmsg-replace="true"></span>
+                                    <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+                            </div>
+
+                            <input type="hidden" class="target form-control" name="Garantia.DetallesJSON.IdLocalidad" id="Direccion_IdLocalidad" />
+                            @*<InputNumber type="hidden" Value="detalleGarantia.IdLocalidad"></InputNumber>*@
+                            @*@Html.HiddenFor(model => model.Garantia.DetallesJSON.IdLocalidad)*@
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="interes">
+                                    Detalles de direccion <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="detallesdireccion" class="form-control col-md-6" @bind-Value="detalleGarantia.DetallesDireccion"></InputText>
+                                    @*@Html.EditorFor(model => model.Garantia.DetallesJSON.DetallesDireccion, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls, @id = "InputRutaLocalidad" }, @required = true })*@
+
+                                    @*<textarea class="form-control rounded-0" name="Garantia.DetallesJSON.DetallesDireccion" id="InputRutaLocalidad" rows="3"></textarea>*@
+
+                                    @*<textarea name="Garantia.DetallesJSON.DetallesDireccion" class="form-control" id="InputRutaLocalidad" value="" />*@
+
+                                </div>
+                            </div>
+
+
+                            @*<input type="text" class="target form-control" id="InputRutaLocalidad" placeholder="Aqui cargara la ruta" />*@
+
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="localidad">
+                                    Medida <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="medida" class="form-control col-md-6" @bind-Value="detalleGarantia.Medida"></InputText>
+                                    @*@Html.EditorFor(model => model.Garantia.DetallesJSON.Medida, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @* Fin formulario de Inmobiliario *@
+
+                    @* Formulario de mobiliario *@
+
+                    <div class="row" id="mobiliario_form_container" hidden="@IsShowMobiliario">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="marca">
+                                    Marca <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        @*<label for="ListadoMarcas" class="col-sm-2 col-form-label text-right">Marcas</label>*@
+                                        <InputSelect id="ListadoMarcas" @bind-Value="@Garantia.IdMarca" class="form-control col-md-6">
+                                            <option value="-1">Seleccione Una Marca</option>
+                                            @foreach (var item in marcas)
+                                            {
+                                                <option value="@item.IdMarca">@item.Nombre</option>
+                                            }
+                                        </InputSelect>
+                                        <input type="hidden" @bind-value="Garantia.IdMarca" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="modelo">
+                                    Modelo <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <InputSelect id="ListadoModelos" @bind-Value="@Garantia.IdModelo" class="form-control col-md-6">
+                                            <option value="-1">Seleccione Un Modelo</option>
+                                            @foreach (var item in modelos)
+                                            {
+                                                <option value="@item.IdModelo">@item.Nombre</option>
+                                            }
+                                        </InputSelect>
+                                        <input type="hidden" @bind-value="Garantia.IdModelo" />
+                                    </div>
+                                    @*@Html.DropDownListFor(model => model.Garantia.IdModelo, Model.ListaModelos, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="modelo">
+                                    Colores <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    @*<label for="ListadoColores" class="col-sm-2 col-form-label text-right">Colores</label>*@
+                                    <InputSelect id="ListadoColores" @bind-Value="@detalleGarantia.Color" class="form-control col-md-6">
+                                        <option value="-1">Seleccione Un Color</option>
+                                        @foreach (var item in colores)
+                                        {
+                                            <option value="@item.Nombre">@item.Nombre</option>
+                                        }
+                                    </InputSelect>
+                                    <input type="hidden" @bind-value="detalleGarantia.Color" />
+                                    @*@Html.DropDownListFor(model => model.Garantia.DetallesJSON.Color, Model.ListaColores, htmlAttributes: new { @class = @HtmlClass.InputTextCls })*@
+
+                                    @* @Html.EditorFor(model => model.Garantia.IdModelo, new { htmlAttributes = new { @class = @HtmlClass.FormControlCls } })*@
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="NoMaquina">
+                                    No. Maquina <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="nomaquina" class="form-control col-md-6" @bind-Value="detalleGarantia.NoMaquina"></InputText>
+                                    @*@Html.EditorFor(model => model.Garantia.DetallesJSON.NoMaquina, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="año">
+                                    Año <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="ano" class="form-control col-md-6" @bind-Value="detalleGarantia.Ano"></InputText>
+                                    @*@Html.EditorFor(model => model.Garantia.DetallesJSON.Ano, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="placa">
+                                    Placa <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="placa" class="form-control col-md-6" @bind-Value="detalleGarantia.Placa"></InputText>
+                                    @*@Html.EditorFor(model => model.Garantia.DetallesJSON.Placa, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="matricula">
+                                    Matricula <span class="required">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <InputText id="matricula" class="form-control col-md-6" @bind-Value="detalleGarantia.Matricula"></InputText>
+                                    @*@Html.EditorFor(model => model.Garantia.DetallesJSON.Matricula, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @* Fin formulario de mobiliario *@
                 </div>
             </div>
         </EditForm>
@@ -74,5 +245,27 @@
 </div>
 @code
 {
-    
+    string clasificacionSelected = string.Empty;
+    private bool IsShowInmobiliario { get; set; } = true;
+    private bool IsShowMobiliario { get; set; } = false;
+
+    private void selectedRadioClasificacion(ChangeEventArgs args)
+    {
+        clasificacionSelected = args.Value.ToString();
+        if (clasificacionSelected == "1")
+        {
+            this.Garantia = new Garantia();
+
+            IsShowInmobiliario = false;
+            IsShowMobiliario = true;
+        }
+        else if (clasificacionSelected == "2")
+        {
+            this.Garantia = new Garantia();
+            IsShowInmobiliario = true;
+            IsShowMobiliario = false;
+        }
+        Garantia.IdTipoGarantia = Convert.ToInt32(args.Value.ToString());
+    }
+
 }

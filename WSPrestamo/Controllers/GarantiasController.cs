@@ -11,7 +11,7 @@ using HESRAM.Utils;
 using System.Web.Hosting;
 using System.Web;
 using System.Text.RegularExpressions;
-
+using Newtonsoft.Json;
 namespace WSPrestamo.Controllers
 {
     public class GarantiasController : BaseApiController
@@ -23,7 +23,7 @@ namespace WSPrestamo.Controllers
         //    _hostingEnvironment = hostingEnvironment;
         //}
         int BUSCAR_A_PARTIR_DE = 2;
-        public IEnumerable<Garantia> GetWithPrestamo(string search)
+        public IEnumerable<Garantia> GetWithPrestamo(string search="")
         {
             #region Imagen
             //Obtenemos la ruta de la imagen
@@ -37,29 +37,30 @@ namespace WSPrestamo.Controllers
             //******************************************************//
             #endregion
 
-            search = "26";
+            //search = "26";
             //string search = "26";
             IEnumerable<Garantia> garantias = null;
-            if (search.Length >= BUSCAR_A_PARTIR_DE)
-            {
+            //if (search.Length >= BUSCAR_A_PARTIR_DE)
+            //{
                 garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = search, IdNegocio = 1 });
-            }
+            //}
             //********** enviamos la base64 de la imagen
             garantias.FirstOrDefault().ImagesForGaratia = sendList;
             return garantias;
         }
 
-        //public Garantia Get(int idGarantia)
-        //{
-        //    var searchGarantia = new GarantiaGetParams { IdGarantia = idGarantia };
-        //    //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
-        //    var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
-        //    var result = new SeachResult<Garantia>(garantias);
-        //    return result.DataList.FirstOrDefault();
-        //    //var datos = GetGarantiaByIdGarantia(idGarantia).DataList.FirstOrDefault();
-        //    //return datos;
+        public IEnumerable<Garantia> Get(int IdGarantia)
+        {
+            var searchGarantia = new GarantiaGetParams { IdGarantia = IdGarantia };
+            //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
+            var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
+            var result = new SeachResult<Garantia>(garantias).DataList.ToList<Garantia>();
+            result.FirstOrDefault().DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(result.FirstOrDefault().Detalles);
+            return result;
+            //var datos = GetGarantiaByIdGarantia(idGarantia).DataList.FirstOrDefault();
+            //return datos;
 
-        //}
+        }
         //public IEnumerable<GarantiaConMarcaYModelo> GetWithMarca()
         //{
         //    var getGarantiasParams = new GarantiaGetParams();
@@ -103,15 +104,23 @@ namespace WSPrestamo.Controllers
         {
             if (garantia.ImagesForGaratia != null)
             {
-                foreach (var item in garantia.ImagesForGaratia)
+                for (int i = 1; i < garantia.ImagesForGaratia.Count(); i++)
                 {
-                    string resultBase = Regex.Replace(item, @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
+                    string imagename = garantia.DetallesJSON.Placa + "-" + i.ToString();
+                    string resultBase = Regex.Replace(garantia.ImagesForGaratia.ElementAt(i), @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
                     string path = HttpContext.Current.Server.MapPath("~/Content/ImagesFor/Garantias/");
                     // He utilizado la libreria HESRAM.Utils para guardar y copiar la imagen
-                    HConvert.SaveBase64AsImage(resultBase, path, "imagenprueba");
-                    
+                    if (garantia.IdClasificacion == 2)
+                    {
+                        HConvert.SaveBase64AsImage(resultBase, path, imagename);
+                    }
+                    garantia.Imagen1FileName = imagename;
                 }
             }
+            garantia.Usuario = this.LoginName;
+            garantia.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            garantia.Detalles = JsonConvert.SerializeObject(garantia.DetallesJSON);
+            BLLPrestamo.Instance.InsUpdGarantia(garantia);
 
             return Ok();
         }

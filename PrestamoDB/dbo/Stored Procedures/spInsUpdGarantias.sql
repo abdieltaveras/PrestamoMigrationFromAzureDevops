@@ -8,10 +8,10 @@
 	@IdMarca int,
 	@NoIdentificacion varchar(100),
 	@Detalles varchar(4000),
-	@Imagen1FileName varchar(50),
-	@Imagen2Filename varchar(50),
-	@Imagen3FileName varchar(50),
-	@Imagen4Filename varchar(50),
+	@Imagen1FileName varchar(50) = '',
+	@Imagen2Filename varchar(50)='',
+	@Imagen3FileName varchar(50)='',
+	@Imagen4Filename varchar(50)='',
 	@Usuario varchar(100)
 AS
 Begin

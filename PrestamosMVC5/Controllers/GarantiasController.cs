@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
-    [AuthorizeUser]
+    //[AuthorizeUser]
     public class GarantiasController : ControllerBasePcp
     {
         int BUSCAR_A_PARTIR_DE = 2;

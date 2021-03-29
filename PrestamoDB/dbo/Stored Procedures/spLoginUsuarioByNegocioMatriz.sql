@@ -1,7 +1,8 @@
 ﻿create procedure spLoginUsuarioByNegocioMatriz
 (
 
-	@IdNegocioMatriz int,
+	@IdLocalidadNegocio int = -1,
+	@IdNegocioMatriz int=-1,
 	@LoginName varchar(100),
 	@contraseña varchar(100)
 )
