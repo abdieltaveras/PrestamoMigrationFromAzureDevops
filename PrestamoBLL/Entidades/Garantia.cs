@@ -51,6 +51,8 @@ namespace PrestamoBLL.Entidades
         public string Imagen4FileName { get; set; }
         [IgnorarEnParam]
         public IEnumerable<string> ImagesForGaratia { get; set; }
+        //[IgnorarEnParam]
+        //public IEnumerable<string> ImagesForGaratiaEntrantes { get; set; }
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
         //[StringLength(3)]

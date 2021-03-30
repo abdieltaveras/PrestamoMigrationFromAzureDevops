@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using PrestamoBlazorApp.Shared;
 namespace PrestamoBlazorApp.Services
 {
     public class GarantiasService : ServiceBase
     {
-
+        BaseForCreateOrEdit BaseForCreateOrEdit;
         string apiUrl = "api/garantias";
         public async Task<IEnumerable<Garantia>> GetWithPrestamo(BuscarGarantiaParams buscarGarantiaParams)
         {
@@ -48,6 +48,7 @@ namespace PrestamoBlazorApp.Services
             try
             {
                 await PostAsync<Garantia>(apiUrl, Garantia);
+
             }
             catch (Exception ex)
             {
