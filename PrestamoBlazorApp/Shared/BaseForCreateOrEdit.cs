@@ -25,7 +25,7 @@ namespace PrestamoBlazorApp.Shared
         /// <returns></returns>
         public virtual async Task  OnGuardarNotification(string message= ConstForCreateOrEdit.RegistroGuardado, int mesasageDelayInMilliseconds = 5000,  int watingTimeBeforeContinueExecution=2000)
         {
-            var result = await JsInteropUtils.Notification(jsRuntime, "Registro Guardado, gracias, regresare al listado",mesasageDelayInMilliseconds);
+            var result = await JsInteropUtils.Notification(jsRuntime, message,mesasageDelayInMilliseconds);
             await Task.Delay(watingTimeBeforeContinueExecution);
         }
 
@@ -38,7 +38,6 @@ namespace PrestamoBlazorApp.Shared
 
     public static class ConstForCreateOrEdit
     { 
-    
         public const string RegistroGuardado = "Registro Guardado, gracias, regresare al listado";
     }
 }

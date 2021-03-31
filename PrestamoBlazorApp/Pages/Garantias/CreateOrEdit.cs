@@ -10,12 +10,9 @@ using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Garantias
 {
-    public partial class CreateOrEdit 
+    public partial class CreateOrEdit  : BaseForCreateOrEdit
     {
         // Servicios
-        [Inject]
-        IJSRuntime jsRuntime { get; set; }
-        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         GarantiasService GarantiasService { get; set; }
         //Listados
@@ -59,7 +56,6 @@ namespace PrestamoBlazorApp.Pages.Garantias
             {
                 garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
             }
-
         }
 
         async Task SaveGarantia()
@@ -67,6 +63,9 @@ namespace PrestamoBlazorApp.Pages.Garantias
             this.Garantia.IdTipoGarantia = 2;
             this.Garantia.DetallesJSON = this.detalleGarantia;
             await GarantiasService.SaveGarantia(this.Garantia);
+            await OnGuardarNotification();
+            NavManager.NavigateTo("/Garantias");
+            
         }
         void CreateOrEdi(int idGarantia = -1)
         {

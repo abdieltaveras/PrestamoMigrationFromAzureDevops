@@ -1,5 +1,6 @@
 ﻿@page "/garantias/CreateOrEdit/"
 @page "/garantias/CreateOrEdit/{idgarantia:int}"
+@inherits BaseForCreateOrEdit
 
 <h1>Garantias CreateOrEdit <button type="submit" class="btn btn-primary" @onclick="()=>SaveGarantia()">Guardar</button></h1>
 
@@ -58,17 +59,17 @@
                             <InputImages @key="1" OnImageSet="SetImages" ListaImagenesURL="this.Garantia.ImagesForGaratia" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
                         </div>
                         @*<div class="col-md-12">
-                            <LoadImages @key="1" ListaImagenesURL="this.Garantia.ImagesForGaratiaEntrantes" ImageQty="4" Text="Seleccione las imagenes para el cliente"></LoadImages>
-                        </div>
-                        @foreach (var item in this.Garantia.ImagesForGaratiaEntrantes)
-                        {
-                            <img src="@item" />
-                        }*@
+                                <LoadImages @key="1" ListaImagenesURL="this.Garantia.ImagesForGaratiaEntrantes" ImageQty="4" Text="Seleccione las imagenes para el cliente"></LoadImages>
+                            </div>
+                            @foreach (var item in this.Garantia.ImagesForGaratiaEntrantes)
+                            {
+                                <img src="@item" />
+                            }*@
                     }
                     else
                     {
                         <div class="col-md-12">
-                            <InputImages @key="1" OnImageSet="SetImages"  ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
+                            <InputImages @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
                         </div>
                     }
                 }
