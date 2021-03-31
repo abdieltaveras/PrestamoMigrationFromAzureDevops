@@ -6,25 +6,32 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Garantias
 {
-    public partial class CreateOrEdit
+    public partial class CreateOrEdit 
     {
-        [Parameter]
-        public int idgarantia { get; set; }
+        // Servicios
         [Inject]
         IJSRuntime jsRuntime { get; set; }
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         GarantiasService GarantiasService { get; set; }
+        //Listados
+
         IEnumerable<Garantia> garantias { get; set; } = new List<Garantia>();
         IEnumerable<Marca> marcas { get; set; } = new List<Marca>();
         IEnumerable<Modelo> modelos { get; set; } = new List<Modelo>();
         IEnumerable<Color> colores { get; set; } = new List<Color>();
+
         DetalleGarantia detalleGarantia = new DetalleGarantia();
+
+        //Parametros
         [Parameter]
-        public Garantia Garantia { get; set; } 
+        public Garantia Garantia { get; set; }
+        [Parameter]
+        public int idgarantia { get; set; }
         bool loading = false;
         GarantiaGetParams SearchGarantia { get; set; } = new GarantiaGetParams();
         void Clear() => garantias = null;
@@ -37,7 +44,6 @@ namespace PrestamoBlazorApp.Pages.Garantias
         protected override async Task OnInitializedAsync()
         {
             this.Garantia = new Garantia();
-            garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "-1"});
             modelos = await GarantiasService.GetModelosForGarantias(new ModeloGetParams());
             modelos = modelos.Where(m => m.IdMarca == Garantia.IdMarca);
             marcas = await GarantiasService.GetMarcasForGarantia();
@@ -49,27 +55,12 @@ namespace PrestamoBlazorApp.Pages.Garantias
                 this.Garantia = garantia;
                 this.detalleGarantia = garantia.DetallesJSON;
             }
+            else
+            {
+                garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
+            }
 
         }
-        //public async void FillModelosCBB(int id)
-        //{
-
-        //}
-
-        //async Task GetGarantias()
-        //{
-        //    loading = true;
-        //    var param = new GarantiaGetParams { IdNegocio = 1,IdGarantia = 1 };
-        //    garantias = await GarantiasService.Get(param);
-        //    loading = false;
-        //}
-        
-        //async Task GetAll()
-        //{
-        //    loading = true;
-        //    Garantias = await GarantiasService.GetAll();
-        //    loading = false;
-        //}
 
         async Task SaveGarantia()
         {
@@ -93,6 +84,14 @@ namespace PrestamoBlazorApp.Pages.Garantias
         {
             this.Garantia.ImagesForGaratia = images;
         }
+        //private void QuitImage(IList<string> images)
+        //{
+        //    this.Garantia.ImagesForGaratia = images;
+        //}
+        //private void LoadImages(IList<string> images)
+        //{
+        //    this.Garantia.ImagesForGaratiaEntrantes = images;
+        //}
         void RaiseInvalidSubmit()
         {
             

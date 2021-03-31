@@ -25,40 +25,49 @@ namespace WSPrestamo.Controllers
         int BUSCAR_A_PARTIR_DE = 2;
         public IEnumerable<Garantia> GetWithPrestamo(string search="")
         {
-            #region Imagen
-            //Obtenemos la ruta de la imagen
-            string path = HttpContext.Current.Server.MapPath("~/Content/ImagesFor/Garantias/" + "imagenprueba" + ".jpg");
-            // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
-            var imagepath = HConvert.GetImageBase64FromPath(path);
-            // creamos una lista para agregar nuestras bases
-            List<string> list = new List<string>();
-            list.Add("data:image/jpg;base64," + imagepath);
-            IEnumerable<string> sendList = list;
-            //******************************************************//
-            #endregion
+    
 
             //search = "26";
             //string search = "26";
-            IEnumerable<Garantia> garantias = null;
+            IEnumerable<Garantia> garantias;
             //if (search.Length >= BUSCAR_A_PARTIR_DE)
             //{
                 garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = search, IdNegocio = 1 });
             //}
             //********** enviamos la base64 de la imagen
-            garantias.FirstOrDefault().ImagesForGaratia = sendList;
+            
+     
             return garantias;
         }
 
         public IEnumerable<Garantia> Get(int IdGarantia)
         {
+
             var searchGarantia = new GarantiaGetParams { IdGarantia = IdGarantia };
             //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
             var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
             var result = new SeachResult<Garantia>(garantias).DataList.ToList<Garantia>();
             result.FirstOrDefault().DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(result.FirstOrDefault().Detalles);
+            #region Imagen
+            List<string> list = new List<string>();
+            var listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
+            foreach (var item in listResult)
+            {
+                string imagen = Convert.ToString(item.Value);
+                //Obtenemos la ruta de la imagen
+                string path = HttpContext.Current.Server.MapPath("~/Content/ImagesFor/Garantias/" + item.Value + ".jpg");
+                // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
+                var imagepath = HConvert.GetImageBase64FromPath(path);
+                // creamos una lista para agregar nuestras bases
+                list.Add("data:image/jpg;base64," + imagepath);
+            }
+            IEnumerable<string> sendList = list;
+            //******************************************************//
+            #endregion
+            //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
+            garantias.FirstOrDefault().ImagesForGaratia = sendList;
+
             return result;
-            //var datos = GetGarantiaByIdGarantia(idGarantia).DataList.FirstOrDefault();
-            //return datos;
 
         }
         //public IEnumerable<GarantiaConMarcaYModelo> GetWithMarca()
@@ -102,26 +111,26 @@ namespace WSPrestamo.Controllers
         [HttpPost]
         public IHttpActionResult Post( Garantia garantia)
         {
+            #region Imagen
+            List<string> ListaImagenes = new List<string>();
             if (garantia.ImagesForGaratia != null)
             {
-                for (int i = 1; i < garantia.ImagesForGaratia.Count(); i++)
+                for (int i = 0; i < garantia.ImagesForGaratia.Count(); i++)
                 {
                     string imagename = garantia.DetallesJSON.Placa + "-" + i.ToString();
                     string resultBase = Regex.Replace(garantia.ImagesForGaratia.ElementAt(i), @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
                     string path = HttpContext.Current.Server.MapPath("~/Content/ImagesFor/Garantias/");
                     // He utilizado la libreria HESRAM.Utils para guardar y copiar la imagen
-                    if (garantia.IdClasificacion == 2)
-                    {
-                        HConvert.SaveBase64AsImage(resultBase, path, imagename);
-                    }
-                    garantia.Imagen1FileName = imagename;
+                     HConvert.SaveBase64AsImage(resultBase, path, imagename);
+                    ListaImagenes.Add(imagename);
                 }
             }
+            #endregion
             garantia.Usuario = this.LoginName;
             garantia.IdLocalidadNegocio = this.IdLocalidadNegocio;
             garantia.Detalles = JsonConvert.SerializeObject(garantia.DetallesJSON);
+            garantia.Imagen1FileName = JsonConvert.SerializeObject(ListaImagenes);
             BLLPrestamo.Instance.InsUpdGarantia(garantia);
-
             return Ok();
         }
         //[HttpGet("{MarcaModelo}")]
