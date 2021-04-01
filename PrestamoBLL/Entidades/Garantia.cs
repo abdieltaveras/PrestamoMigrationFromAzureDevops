@@ -86,6 +86,7 @@ namespace PrestamoBLL.Entidades
     {
         // Mobiliarios
         public string Color { get; set; } = string.Empty;
+        public string Chasis { get; set; } = string.Empty;
         public string NoMaquina { get; set; } = string.Empty;
         public string Ano { get; set; } = string.Empty;
         public string Placa { get; set; } = string.Empty;

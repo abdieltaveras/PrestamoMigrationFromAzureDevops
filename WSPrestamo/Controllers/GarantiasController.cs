@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Web.Http;
 using WSPrestamo.Models;
+//hesram
 using HESRAM.Utils;
 using System.Web.Hosting;
 using System.Web;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+
 namespace WSPrestamo.Controllers
 {
     public class GarantiasController : BaseApiController
@@ -121,7 +123,7 @@ namespace WSPrestamo.Controllers
                     string resultBase = Regex.Replace(garantia.ImagesForGaratia.ElementAt(i), @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
                     string path = HttpContext.Current.Server.MapPath("~/Content/ImagesFor/Garantias/");
                     // He utilizado la libreria HESRAM.Utils para guardar y copiar la imagen
-                     HConvert.SaveBase64AsImage(resultBase, path, imagename);
+                    HConvert.SaveBase64AsImage(resultBase, path, imagename);
                     ListaImagenes.Add(imagename);
                 }
             }
