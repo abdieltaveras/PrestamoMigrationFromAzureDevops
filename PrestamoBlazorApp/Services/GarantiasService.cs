@@ -24,6 +24,11 @@ namespace PrestamoBlazorApp.Services
             var result =  await GetAsync<Garantia>(apiUrl, getParams);
             return result;
         }
+        public async Task<IEnumerable<TipoGarantia>> GetTipoGarantia()
+        {
+            var result = await GetAsync<TipoGarantia>("api/tipogarantia",null);
+            return result;
+        }
         public async Task<IEnumerable<Marca>> GetMarcasForGarantia()
         {
             var result = await GetAsync<Marca>("api/marcas", null);

@@ -27,8 +27,6 @@ namespace WSPrestamo.Controllers
         int BUSCAR_A_PARTIR_DE = 2;
         public IEnumerable<Garantia> GetWithPrestamo(string search="")
         {
-    
-
             //search = "26";
             //string search = "26";
             IEnumerable<Garantia> garantias;
@@ -37,14 +35,12 @@ namespace WSPrestamo.Controllers
                 garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = search, IdNegocio = 1 });
             //}
             //********** enviamos la base64 de la imagen
-            
-     
             return garantias;
         }
 
         public IEnumerable<Garantia> Get(int IdGarantia)
         {
-
+            dynamic listResult = null;
             var searchGarantia = new GarantiaGetParams { IdGarantia = IdGarantia };
             //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
             var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
@@ -52,7 +48,10 @@ namespace WSPrestamo.Controllers
             result.FirstOrDefault().DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(result.FirstOrDefault().Detalles);
             #region Imagen
             List<string> list = new List<string>();
-            var listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
+            if (result.FirstOrDefault().Imagen1FileName != null)
+            {
+                 listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
+            }
             foreach (var item in listResult)
             {
                 string imagen = Convert.ToString(item.Value);
