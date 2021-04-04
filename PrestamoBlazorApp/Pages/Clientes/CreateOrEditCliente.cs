@@ -76,8 +76,9 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente, ConvertJsonToObj = true });
                 this.cliente = clientes.FirstOrDefault();
             }
+            
 
-            if (this.cliente == null || idCliente == 0)
+            if (this.cliente == null || idCliente <= 0)
             {
                 this.cliente = new Cliente
                 {
@@ -97,12 +98,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
                         Longitud = -68.98449
                     }
                 };
-                var referencia1 = new Referencia { Tipo = (int)EnumTiposReferencia.Personal, NombreCompleto = "r1" };
-                var referencia2 = new Referencia { Tipo = (int)EnumTiposReferencia.Comercial, NombreCompleto = "r2" };
-                var referencia3 = new Referencia { Tipo = (int)EnumTiposReferencia.Familiar, NombreCompleto = "r3" };
-                referencias.Add(referencia1);
-                referencias.Add(referencia2);
-                referencias.Add(referencia3);
+                
+                
                 //clinica coral Lat = 18.43190, Lng = -68.98503;
             }
             else
@@ -112,11 +109,22 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 this.direccion = Utils.ToDerived<Direccion, DireccionModel>(cliente.InfoDireccionObj);
                 var localidad = await localidadService.GetLocalidadesAsync(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
                 this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
-                foreach (var item in cliente.InfoReferenciasObj)
+            }
+            SetReferencias(cliente.InfoReferenciasObj);
+            StateHasChanged();
+        }
+
+        private void SetReferencias(List<Referencia> infoReferenciasObj)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                var referencia = new Referencia { Tipo = (int)EnumTiposReferencia.Personal };
+
+                if ((i+1) <= infoReferenciasObj.Count())
                 {
-                    referencias.Add(item);
+                    referencia = infoReferenciasObj[i];
                 }
-                StateHasChanged();
+                referencias.Add(referencia);
             }
         }
 

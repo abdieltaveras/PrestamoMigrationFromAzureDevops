@@ -125,7 +125,7 @@ namespace PrestamoBLL.Entidades
         /// </summary>
         public string InfoReferencias { get;  internal set; } = string.Empty;
         [IgnorarEnParam]
-        public List<Referencia> InfoReferenciasObj { get; set; }
+        public List<Referencia> InfoReferenciasObj { get; set; } = new List<Referencia>();
 
         private List<Referencia> _infoReferencias = new List<Referencia>();
         /// <summary>

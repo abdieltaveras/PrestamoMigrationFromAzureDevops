@@ -32,12 +32,11 @@
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label text-right">Detalles</label>
-            <InputText @bind-Value=@direccion.Detalles class="col-sm-8" />
+            <InputTextArea @bind-Value=@direccion.Detalles class="col-sm-8" />
         </div>
     </div>
     <div class="col-sm-6">
         <h2>Mapa <button @onclick="UpdateMapMarkers">Actualizar</button></h2>
-
         <div class="track-order-map">
             <Map Zoom="10" Markers="MapMarkers"></Map>
         </div>
