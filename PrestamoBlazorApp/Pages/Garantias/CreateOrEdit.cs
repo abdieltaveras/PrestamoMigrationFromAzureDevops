@@ -18,6 +18,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         //Listados
 
         IEnumerable<Garantia> garantias { get; set; } = new List<Garantia>();
+        IEnumerable<TipoGarantia> tipogarantia { get; set; } = new List<TipoGarantia>();
         IEnumerable<Marca> marcas { get; set; } = new List<Marca>();
         IEnumerable<Modelo> modelos { get; set; } = new List<Modelo>();
         IEnumerable<Color> colores { get; set; } = new List<Color>();
@@ -41,6 +42,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         protected override async Task OnInitializedAsync()
         {
             this.Garantia = new Garantia();
+            tipogarantia = await GarantiasService.GetTipoGarantia();
             modelos = await GarantiasService.GetModelosForGarantias(new ModeloGetParams());
             modelos = modelos.Where(m => m.IdMarca == Garantia.IdMarca);
             marcas = await GarantiasService.GetMarcasForGarantia();
