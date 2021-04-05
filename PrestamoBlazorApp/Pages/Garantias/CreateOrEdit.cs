@@ -57,6 +57,8 @@ namespace PrestamoBlazorApp.Pages.Garantias
             else
             {
                 garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
+                this.Garantia = new Garantia {IdClasificacion=2 };
+                
             }
         }
 
