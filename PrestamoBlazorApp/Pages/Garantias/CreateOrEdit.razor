@@ -18,6 +18,7 @@
                     <h6>Clasificacion de garantia</h6>
                     <div class="">
                         <div class="form-group">
+                            
                             @*<InputRadio @bind-Value=" Garantia.IdClasificacion" id="inmobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
                             <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="1" @onchange="selectedRadioClasificacion" checked />
                             <label for="inmobiliario_option">Inmobiliario</label>
@@ -293,19 +294,20 @@
         clasificacionSelected = args.Value.ToString();
         if (clasificacionSelected == "1")
         {
-            this.detalleGarantia = new DetalleGarantia();
+
+            @*this.detalleGarantia = new DetalleGarantia();*@
             IsShowInmobiliario = false;
             IsShowMobiliario = true;
         }
         else if (clasificacionSelected == "2")
         {
-            this.detalleGarantia = new DetalleGarantia();
+            @*this.detalleGarantia = new DetalleGarantia();*@
             IsShowInmobiliario = true;
             IsShowMobiliario = false;
         }
-
-    Garantia.IdTipoGarantia = Convert.ToInt32(args.Value.ToString());
-    tipogarantia = tipogarantia.Where(m => m.IdClasificacion == Garantia.IdTipoGarantia);
+        this.detalleGarantia = new DetalleGarantia();
+        Garantia.IdTipoGarantia = Convert.ToInt32(args.Value.ToString());
+        tipogarantia = tipogarantia.Where(m => m.IdClasificacion == Garantia.IdTipoGarantia);
     }
 
 }

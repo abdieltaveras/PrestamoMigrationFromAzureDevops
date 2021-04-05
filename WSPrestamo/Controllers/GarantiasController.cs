@@ -51,22 +51,24 @@ namespace WSPrestamo.Controllers
             if (result.FirstOrDefault().Imagen1FileName != null)
             {
                  listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
+                foreach (var item in listResult)
+                {
+                    string imagen = Convert.ToString(item.Value);
+                    //Obtenemos la ruta de la imagen
+                    string path = HttpContext.Current.Server.MapPath("~/Content/ImagesFor/Garantias/" + item.Value + ".jpg");
+                    // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
+                    var imagepath = HConvert.GetImageBase64FromPath(path);
+                    // creamos una lista para agregar nuestras bases
+                    list.Add("data:image/jpg;base64," + imagepath);
+                }
+                IEnumerable<string> sendList = list;
+                //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
+                garantias.FirstOrDefault().ImagesForGaratia = sendList;
             }
-            foreach (var item in listResult)
-            {
-                string imagen = Convert.ToString(item.Value);
-                //Obtenemos la ruta de la imagen
-                string path = HttpContext.Current.Server.MapPath("~/Content/ImagesFor/Garantias/" + item.Value + ".jpg");
-                // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
-                var imagepath = HConvert.GetImageBase64FromPath(path);
-                // creamos una lista para agregar nuestras bases
-                list.Add("data:image/jpg;base64," + imagepath);
-            }
-            IEnumerable<string> sendList = list;
+            
             //******************************************************//
             #endregion
-            //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
-            garantias.FirstOrDefault().ImagesForGaratia = sendList;
+            
 
             return result;
 
