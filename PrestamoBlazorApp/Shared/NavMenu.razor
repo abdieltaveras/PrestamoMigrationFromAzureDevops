@@ -104,13 +104,13 @@
                         {
                             <ul class="nav flex-column">
                                 <li class="nav-item px-3">
-                                    <NavLink class="nav-link" href="clientes">
+                                    <NavLink class="nav-link"  href="clientes">
                                         <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
                                     </NavLink>
                                 </li>
 
                                 <li class="nav-item px-3">
-                                    <NavLink class="nav-link" href="clientes/CreateOrEdit">
+                                    <NavLink class="nav-link" @onclick='()=>navigateTo("clientes/createoredit")' href="#">
                                         <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
                                     </NavLink>
                                 </li>
@@ -130,6 +130,9 @@
 
 
     JsInteropUtils jsInterop { get; set; } = new JsInteropUtils();
+
+    [Inject]
+    NavigationManager navManager { get; set; }
     [Inject]
     IJSRuntime jsRuntime { get; set; }
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -144,6 +147,10 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
+    private void navigateTo(string linkUrl)
+    {
+        navManager.NavigateTo(linkUrl, true);
+    }
 
 
 }
