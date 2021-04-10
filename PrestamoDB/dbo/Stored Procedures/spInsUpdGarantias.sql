@@ -28,9 +28,9 @@ Else
 	Begin
 		update tblGarantias 
 			set
-				IdClasificacion = @IdClasificacion,
+				--IdClasificacion = @IdClasificacion,
 				IdNegocio = @IdNegocio,
-				IdTipoGarantia = @IdTipoGarantia,
+				--IdTipoGarantia = @IdTipoGarantia,
 				IdMarca = @IdMarca,
 				IdModelo = @IdModelo,
 				NoIdentificacion = @NoIdentificacion,

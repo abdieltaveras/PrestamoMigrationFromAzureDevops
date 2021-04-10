@@ -56,6 +56,7 @@ namespace PrestamoBLL.Entidades
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
         //[StringLength(3)]
+        [Required]
         public string NoIdentificacion { get; set; } = string.Empty;
         [IgnorarEnParam]
         public DetalleGarantia DetallesJSON { get; set; }
