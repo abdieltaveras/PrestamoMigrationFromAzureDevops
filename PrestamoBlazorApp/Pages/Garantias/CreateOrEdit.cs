@@ -7,6 +7,7 @@ using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoBlazorApp.Pages.Garantias
 {
@@ -33,6 +34,8 @@ namespace PrestamoBlazorApp.Pages.Garantias
         bool loading = false;
         GarantiaGetParams SearchGarantia { get; set; } = new GarantiaGetParams();
         void Clear() => garantias = null;
+        //ViewDatas
+        
         //protected override void OnInitialized()
         //{
         //    base.OnInitialized();
@@ -53,6 +56,9 @@ namespace PrestamoBlazorApp.Pages.Garantias
                 var garantia = result.FirstOrDefault();
                 this.Garantia = garantia;
                 this.detalleGarantia = garantia.DetallesJSON;
+                var changeEvent = new ChangeEventArgs();
+                changeEvent.Value = garantia.IdClasificacion;
+                selectedRadioClasificacion(changeEvent);
             }
             else
             {
@@ -60,16 +66,17 @@ namespace PrestamoBlazorApp.Pages.Garantias
                 this.Garantia = new Garantia {IdClasificacion=2 };
                 
             }
+            
         }
 
         async Task SaveGarantia()
         {
-            this.Garantia.IdTipoGarantia = 2;
+            
             this.Garantia.DetallesJSON = this.detalleGarantia;
             await GarantiasService.SaveGarantia(this.Garantia);
             await OnGuardarNotification();
             NavManager.NavigateTo("/Garantias");
-            
+
         }
         void CreateOrEdi(int idGarantia = -1)
         {
