@@ -30,3 +30,7 @@ window.scrollToBottom= function (ref) {
     ref.scrollTop = ref.scrollHeight;
 }
 
+window.FocusElementById(elemId)
+{
+    document.getElementById(elemId).focus();
+}
