@@ -64,9 +64,11 @@ namespace PrestamoBlazorApp.Pages.Garantias
             {
                 garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
                 this.Garantia = new Garantia {IdClasificacion=2 };
-                
+                var changeEvent = new ChangeEventArgs();
+                changeEvent.Value = Garantia.IdClasificacion;
+                selectedRadioClasificacion(changeEvent);
             }
-            
+            StateHasChanged();
         }
 
         async Task SaveGarantia()

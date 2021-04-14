@@ -316,45 +316,50 @@
 
                                 </div>
                             </div>
-                            <hr />
-                            @* Formulario de datos en comun *@
-                            <div class="row" id="common_form_container">
-                                <div class="col-md-12">
+                          
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="valor">
-                                            Valor <span class="required"></span>
-                                        </label>
-                                        @*<div class="col-sm-8">*@
-                                        <InputNumber id="valor" class="form-control col-md-6" @bind-Value="detalleGarantia.Valor"></InputNumber>
-                                        @*</div>*@
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="interes">
-                                            Descripcion <span class="required"></span>
-                                        </label>
-                                        @*<div class="col-sm-8">*@
-                                        <InputText id="descripcion" class="form-control col-md-6" @bind-Value="detalleGarantia.Descripcion"></InputText>
-                                        @*</div>*@
-                                    </div>
-
-                                    <div class="form-group row">
-
-                                        <div class="col-sm-8">
-                                            <InputCheckbox id="chkExclusivo" @bind-Value="detalleGarantia.UsoExclusivo"></InputCheckbox>
-                                            <label class="form-check-label" for="chkExclusivo">¿Puedo usar esta garantia en mas de 1 transaccion? <span class="required"></span></label>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            @* Fin formulario de datos en comun *@
 
                         </div>  <!-- /Modulo Datos Generales -->
                         <div class="col-md-6">
+                            <div class="row" id="common_form_container">
+                                <div class="col-md-12">
+                                    @* Formulario de datos en comun *@
+                                    @*<div class="row" id="common_form_container">*@
+                                        <div class="col-md-12">
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="valor">
+                                                    Valor <span class="required"></span>
+                                                </label>
+                                                @*<div class="col-sm-8">*@
+                                                <InputNumber id="valor" class="form-control col-md-6" @bind-Value="detalleGarantia.Valor"></InputNumber>
+                                                @*</div>*@
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="interes">
+                                                    Descripcion <span class="required"></span>
+                                                </label>
+                                                @*<div class="col-sm-8">*@
+                                                <InputText id="descripcion" class="form-control col-md-6" @bind-Value="detalleGarantia.Descripcion"></InputText>
+                                                @*</div>*@
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                <div class="col-sm-8">
+                                                    <InputCheckbox id="chkExclusivo" @bind-Value="detalleGarantia.UsoExclusivo"></InputCheckbox>
+                                                    <label class="form-check-label" for="chkExclusivo">¿Puedo usar esta garantia en mas de 1 transaccion? <span class="required"></span></label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    @*</div>*@
+
+
+                                    @* Fin formulario de datos en comun *@
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-12">
 

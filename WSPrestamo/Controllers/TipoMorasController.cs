@@ -10,9 +10,9 @@ namespace WSPrestamo.Controllers
 {
     public class TipoMorasController : BaseApiController
     {
-        public IEnumerable<TipoMora> Get(TipoMoraGetParams searchParam)
+        public IEnumerable<TipoMora> Get(int IdTipoMora = -1)
         {
-            return BLLPrestamo.Instance.TiposMorasGet(searchParam);
+            return BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdTipoMora = IdTipoMora });
         }
         [HttpPost]
         public IHttpActionResult Post(TipoMora insUpdParam)
