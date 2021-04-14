@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace PrestamosMVC5.Controllers
 {
-    [AuthorizeUser]
+    //[AuthorizeUser]
     public class TipoMorasController : ControllerBasePcp
     {
         public TipoMorasController()
