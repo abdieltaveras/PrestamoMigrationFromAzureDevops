@@ -23,15 +23,8 @@ namespace PrestamoBLL
         }
         public int InsUpdCliente(Cliente insUpdParam)
         {
-
-            insUpdParam.TelefonoCasa.RemoveAllButNumber();
-            insUpdParam.TelefonoMovil.RemoveAllButNumber();
-            insUpdParam.InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
-            insUpdParam.InfoConyugeObj.NoTelefono1.RemoveAllButNumber();
-            insUpdParam.InfoReferenciasObj.ForEach(refe => refe.Telefono.RemoveAllButNumber());
+            insUpdParam.RemoveAllButNumber();
             insUpdParam.ConvertObjToJson();
-            
-
             var sqlParams = SearchRec.ToSqlParams(insUpdParam);
             var result = BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdCliente");
             return result;

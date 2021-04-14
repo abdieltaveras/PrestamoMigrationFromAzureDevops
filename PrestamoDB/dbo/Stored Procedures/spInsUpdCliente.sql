@@ -10,9 +10,9 @@
 	@idLocalidadNegocio int, 
 	@idtipoidentificacion int, 
 	@IdTipoProfesionUOcupacion int, 
-	@infoconyuge varchar(400), 
-	@infolaboral varchar(400), 
-	@infodireccion varchar(400),  
+	@infoconyuge varchar(max), 
+	@infolaboral varchar(max), 
+	@infodireccion varchar(max),  
 	@noidentificacion varchar(20), 
 	@imagen1FileName varchar(50), 
 	@imagen2FileName varchar(50), 
@@ -22,7 +22,7 @@
 	@telefonocasa varchar(20), 
 	@telefonomovil varchar(20),
 	@correoElectronico varchar(30),
-	@inforeferencias varchar(4000),
+	@inforeferencias varchar(max),
     @Usuario varchar(100))
 AS
 Begin

@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <h2>Mapa <button @onclick="UpdateMapMarkers">Actualizar</button></h2>
+        <h2>Mapa <button type="button" @onclick="UpdateMapMarkers">Actualizar</button></h2>
         <div class="track-order-map">
             <Map Zoom="10" Markers="MapMarkers"></Map>
         </div>
@@ -68,14 +68,9 @@
     protected override async Task OnInitializedAsync()
     {
         UpdateMapMarkers();
-
     }
 
-    protected override void OnAfterRender(bool firstRender)
-    {
-
-        base.OnAfterRender(firstRender);
-    }
+    
     private void UpdateMapMarkers()
     {
 

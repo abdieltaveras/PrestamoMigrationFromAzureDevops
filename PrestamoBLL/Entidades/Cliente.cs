@@ -115,7 +115,15 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         /// la informacion laboral en formato json
         /// </summary>
-        
+
+        public void RemoveAllButNumber() {
+            TelefonoCasa = TelefonoCasa.RemoveAllButNumber();
+            TelefonoMovil = TelefonoMovil.RemoveAllButNumber();
+            NoIdentificacion =NoIdentificacion.RemoveAllButNumber();
+            InfoConyugeObj.TelefonoTrabajo = InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
+            InfoConyugeObj.NoTelefono1 = InfoConyugeObj.NoTelefono1.RemoveAllButNumber();
+            InfoReferenciasObj.ForEach(refe => refe.Telefono.RemoveAllButNumber());
+        }
         public string InfoLaboral { get; internal set; } = string.Empty;
         [IgnorarEnParam]
         public InfoLaboral InfoLaboralObj { get; set; }

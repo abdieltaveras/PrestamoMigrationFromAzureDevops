@@ -30,7 +30,20 @@ window.scrollToBottom= function (ref) {
     ref.scrollTop = ref.scrollHeight;
 }
 
-window.FocusElementById(elemId)
+window.FocusElementById= function (elemId)
 {
     document.getElementById(elemId).focus();
+}
+
+window.SetInputMaskByElem = function (elemId, inputmask) {
+    var selector = document.getElementById(elemId);
+    var im = new Inputmask(inputmask);
+    im.mask(selector);
+    $(document).ready(function () {
+        
+        Inputmask().mask(document.querySelectorAll(".masked"));
+    });
+}
+window.SetInputMask = function () {
+        Inputmask().mask(document.querySelectorAll(".masked"));
 }

@@ -14,22 +14,27 @@
     </div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-right">Telefono 1</label>
-        <InputText @bind-Value="infoLaboral.NoTelefono1" class="col-sm-8" />
+        <InputText @bind-Value="infoLaboral.NoTelefono1" class="col-sm-8 masked" data-inputmask="'mask': '(999)-999-9999'" />
     </div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-right">Telefono 2</label>
-        <InputText @bind-Value="infoLaboral.NoTelefono2" class="col-sm-8" />
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-form-label text-right">Telefono 2</label>
-        <InputText @bind-Value="infoLaboral.NoTelefono2" class="col-sm-8" />
+        <InputText @bind-Value="infoLaboral.NoTelefono2" class="col-sm-8 masked"  data-inputmask="'mask': '(999)-999-9999'"/>
     </div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-right">Otros detalles</label>
-        <InputText @bind-Value="infoLaboral.Notas" class="col-sm-8" />
+        <InputTextArea @bind-Value="infoLaboral.Notas" class="col-sm-8" />
     </div>
 </div>
 @code {
     [Parameter]
     public InfoLaboral infoLaboral { get; set; }
+
+
+    [Inject]
+    IJSRuntime jsRuntime { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsInteropUtils.SetInputMask(jsRuntime);
+    }
 }

@@ -67,17 +67,23 @@ namespace PrestamoBlazorApp.Pages.Clientes
             await base.OnInitializedAsync();
         }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await SetMask();
+        }
+
+        private async Task SetMask()
+        {
+            await JsInteropUtils.SetInputMask(jsRuntime);
+        }
+
         private async void prepareModel()
         {
-
-
             if (idCliente != 0)
             {
                 var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente, ConvertJsonToObj = true });
                 this.cliente = clientes.FirstOrDefault();
             }
-            
-
             if (this.cliente == null || idCliente <= 0)
             {
                 this.cliente = new Cliente
@@ -144,6 +150,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 await OnGuardarNotification();
                 NavManager.NavigateTo("/Clientes");
         }
+
 
 
 

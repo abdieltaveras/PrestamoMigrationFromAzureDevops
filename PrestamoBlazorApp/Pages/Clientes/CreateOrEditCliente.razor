@@ -1,9 +1,9 @@
 ﻿@page "/clientes/CreateOrEdit"
 @page "/clientes/CreateOrEdit/{idCliente:int}"
 @*@using PrestamoBLL.Entidades;
-@using PrestamoBlazorApp.Shared;*@
+    @using PrestamoBlazorApp.Shared;*@
 @*@using PrestamoBlazorApp.Pages.Clientes;
-@using Microsoft.AspNetCore.WebUtilities*@
+    @using Microsoft.AspNetCore.WebUtilities*@
 @*@inject NavigationManager NavigationManager*@
 
 
@@ -26,11 +26,9 @@
         {
             <div class="loader">Cargando...</div>
         }
-
-
         <RadzenTabs style="height: 880px">
             <Tabs>
-                <RadzenTabsItem Text="Generales">
+                <RadzenTabsItem Text="Generales" @onclick="SetMask">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group row">
@@ -55,7 +53,14 @@
                                     }
                                 </InputSelect>
                                 <label for="noIdentificacion" class="col-sm-2 col-form-label text-right">Numeracion </label>
-                                <RadzenMask Mask="***-*******-*" Pattern="[^0-9]" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion " class="col-sm-3" />
+                                @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
+                                {
+                                    <InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />
+                                }
+                                else
+                                {
+                                    <InputText id="noIdentificacion"  @bind-Value="cliente.NoIdentificacion"  class="col-sm-3" />
+                                }
                             </div>
                             <div class="form-group row">
                                 <label for="nombres" class="col-sm-2 col-form-label text-right">Nombres</label>
@@ -79,7 +84,6 @@
                                         <option value=@item.Value>@item.Text</option>
                                     }
                                 </InputSelect>
-
                             </div>
 
                             <div class="form-group row">
@@ -103,12 +107,12 @@
                         <div class="col-sm-6">
                             <div class="form-group row mt-5">
                                 <label class="col-sm-3 col-form-label text-right">Telefono Casa</label>
-                                <RadzenMask Mask="(***)-***-****" Pattern="[^0-9]" placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoCasa " class="col-sm-3" />
+                                <InputText placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoCasa " data-inputmask="'mask': '(999)-999-9999'" class="col-sm-3 masked" />
 
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label text-right">Telefono movil</label>
-                                <RadzenMask Mask="(***)-***-****" Pattern="[^0-9]" placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoMovil " class="col-sm-3" />
+                                <InputText placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoMovil " data-inputmask="'mask': '(999)-999-9999'" class="col-sm-3 masked" />
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label text-right">Profesion</label>
