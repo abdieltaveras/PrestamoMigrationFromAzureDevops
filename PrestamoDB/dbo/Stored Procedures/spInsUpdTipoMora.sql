@@ -2,6 +2,7 @@
 (
 	@idTipoMora int,
 	@idNegocio int,
+	@IdLocalidadNegocio int = -1,
 	@Codigo varchar(10),
 	@Nombre varchar(100),
 	@Activo bit = 1,

@@ -14,13 +14,11 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 @if (idgarantia <= 0)
                 {
-
                     <h3 class="">Crear Garantia</h3>
                     <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;" @onclick="() => SaveGarantia()">Guardar</button>
                 }
                 else
                 {
-
                     <h3 class="">Editando Garantia</h3>
                     <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;" @onclick="() => SaveGarantia()">Guardar</button>
                     @*<h3 class="card-title">Editar Garantia  <button type="submit" class="btn btn-primary" @onclick="() => SaveGarantia()">Guardar</button></h3>*@
@@ -47,12 +45,12 @@
                                                 @*<InputRadio @bind-Value=" Garantia.IdClasificacion" id="inmobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
                                                 <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="2" checked="@(Garantia.IdClasificacion==2)" @onchange="selectedRadioClasificacion" />
                                                 <label for="inmobiliario_option">Inmobiliario</label>
-                                                @*<i class="fa fa-home"></i>*@ Inmobiliriario
+                                                @*<i class="fa fa-home"></i>*@ @*Inmobiliriario*@
                                                 <br />
                                                 @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="mobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
                                                 <input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="1" checked="@(Garantia.IdClasificacion==1)" @onchange="selectedRadioClasificacion" />
                                                 <label for="mobiliario_option">Mobiliario</label>
-                                                @*<i class="fa fa-car"></i>*@ Mobiliriario
+                                                @*<i class="fa fa-car"></i>*@ @*Mobiliriario*@
                                             </div>
                                         }
                                         else

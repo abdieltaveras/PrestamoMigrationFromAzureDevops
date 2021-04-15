@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.TiposMora
 {
-    public partial class TiposMora
+    public partial class TiposMora : BaseForCreateOrEdit
     {
-        [Inject]
-        IJSRuntime jsRuntime { get; set; }
-        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
+    
         [Inject]
         TiposMoraService TiposMoraService { get; set; }
         IEnumerable<TipoMora> tiposmora { get; set; } = new List<TipoMora>();
@@ -29,6 +28,7 @@ namespace PrestamoBlazorApp.Pages.TiposMora
         }
         protected override async Task OnInitializedAsync()
         {
+            
             tiposmora = await TiposMoraService.Get(new TipoMoraGetParams());
         }
         async Task GetTiposMora()
@@ -48,6 +48,8 @@ namespace PrestamoBlazorApp.Pages.TiposMora
         async Task SaveTipoMora()
         {
             await TiposMoraService.SaveTipoMora(this.TipoMora);
+            await OnGuardarNotification();
+            NavManager.NavigateTo("/TiposMora");
         }
         void CreateOrEdit(int idTipoMora = -1)
         {

@@ -15,9 +15,12 @@ namespace WSPrestamo.Controllers
             return BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdTipoMora = IdTipoMora });
         }
         [HttpPost]
-        public IHttpActionResult Post(TipoMora insUpdParam)
+        public IHttpActionResult Post(TipoMora tipoMora)
         {
-           var id =   BLLPrestamo.Instance.TipoMoraInsUpd(insUpdParam);
+            tipoMora.Usuario = this.LoginName;
+            tipoMora.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            tipoMora.IdNegocio = 1;
+            var id =   BLLPrestamo.Instance.TipoMoraInsUpd(tipoMora);
             return Ok(id);
         }
         [HttpDelete]
