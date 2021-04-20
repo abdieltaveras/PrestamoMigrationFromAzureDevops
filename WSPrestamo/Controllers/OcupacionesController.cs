@@ -10,18 +10,27 @@ namespace WSPrestamo.Controllers
 {
     public class OcupacionesController : BaseApiController
     {
-        public IEnumerable<Ocupacion> Get(int idOcupacion = -1, int idLocalidadNegocio = -1)
+        public IEnumerable<Ocupacion> Get()
         {
             var search = new OcupacionGetParams();
             search.Usuario = this.LoginName;
-            search.IdOcupacion = idOcupacion;
-            search.IdLocalidadNegocio = idLocalidadNegocio;
+            search.IdOcupacion = -1;
+            search.IdLocalidadNegocio = -1;
             return BLLPrestamo.Instance.GetOcupaciones(search);
         }
-
+        //public IEnumerable<Ocupacion> GetById(int idOcupacion = -1)
+        //{
+        //    var search = new OcupacionGetParams();
+        //    search.Usuario = this.LoginName;
+        //    search.IdOcupacion = idOcupacion;
+        //    search.IdLocalidadNegocio = this.IdLocalidadNegocio;
+        //    return BLLPrestamo.Instance.GetOcupaciones(search);
+        //}
         [HttpPost]
         public IHttpActionResult InsUpdOcupacion(Ocupacion insUpdParam)
         {
+            insUpdParam.Usuario = this.LoginName;
+            insUpdParam.IdLocalidadNegocio = this.IdLocalidadNegocio;
             BLLPrestamo.Instance.InsUpdOcupacion(insUpdParam);
             return Ok();
         }

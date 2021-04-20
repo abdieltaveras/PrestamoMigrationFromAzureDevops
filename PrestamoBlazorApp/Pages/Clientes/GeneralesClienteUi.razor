@@ -108,7 +108,7 @@
 
     private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
     {
-        var result = await ocupacionesService.GetOcupacionesAsync();
+        var result = await ocupacionesService.Get();
         return result;
     }
 
