@@ -5,11 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Ocupaciones
 {
-    public partial class Ocupaciones
+    public partial class Ocupaciones : BaseForCreateOrEdit
     {
+        [Inject]
+        IJSRuntime jsRuntime { get; set; }
         [Inject]
         OcupacionesService OcupacionesService { get; set; }
         IEnumerable<Ocupacion> ocupaciones { get; set; } = new List<Ocupacion>();
@@ -22,12 +26,14 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
             base.OnInitialized();
             this.Ocupacion = new Ocupacion();
         }
-
-        async Task GetOcupacionesByParam()
+        protected override async Task OnInitializedAsync()
+        {
+            ocupaciones = await OcupacionesService.Get();
+        }
+        async Task GetOcupaciones()
         {
             loading = true;
-            var getAzul = new OcupacionGetParams { IdOcupacion = 4 };
-            ocupaciones = await OcupacionesService.GetOcupacionesAsync(getAzul);
+            ocupaciones = await OcupacionesService.Get();
             loading = false;
         }
 
@@ -41,7 +47,21 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
         async Task SaveOcupacion()
         {
             await OcupacionesService.SaveOcupacion(this.Ocupacion);
+            await OnGuardarNotification();
         }
+        void CreateOrEdit(int idOcupacion = -1)
+        {
+            if (idOcupacion > 0)
+            {
+                this.Ocupacion = ocupaciones.Where(m => m.IdOcupacion == idOcupacion).FirstOrDefault();
+            }
+            else
+            {
+                this.Ocupacion = new Ocupacion();
+            }
+            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+        }
+
 
         void RaiseInvalidSubmit()
         {

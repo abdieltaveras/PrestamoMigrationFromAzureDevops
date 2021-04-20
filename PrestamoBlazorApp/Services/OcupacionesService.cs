@@ -11,14 +11,9 @@ namespace PrestamoBlazorApp.Services
     public class OcupacionesService : ServiceBase
     {
         string apiUrl = "api/Ocupaciones";
-        public async Task<IEnumerable<Ocupacion>> GetOcupacionesAsync(OcupacionGetParams search = null)
+        public async Task<IEnumerable<Ocupacion>> Get()
         {
-            
-            if (search == null)
-            {
-                search = new OcupacionGetParams();
-            }
-            var result = await GetAsync<Ocupacion>(apiUrl, search);
+            var result = await GetAsync<Ocupacion>(apiUrl,null);
             return result;
         }
 

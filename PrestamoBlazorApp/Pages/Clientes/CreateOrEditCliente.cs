@@ -52,7 +52,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
         {
-            var result = await ocupacionesService.GetOcupacionesAsync();
+            var result = await ocupacionesService.Get();
             return result;
         }
         List<Referencia> referencias = new List<Referencia>();
