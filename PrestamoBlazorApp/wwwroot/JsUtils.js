@@ -8,7 +8,8 @@ window.Alert = function (message) {
     }
 }
 
-window.Notification=function(message, delay) {
+window.Notification = function (message, delay) {
+
     $.notify(message, { autoHideDelay: delay });
     return true;
 }
@@ -43,4 +44,7 @@ window.SetInputMaskByElem = function (elemId, inputmask) {
 }
 window.SetInputMask = function () {
         Inputmask().mask(document.querySelectorAll(".masked"));
+}
+window.DivisionTerritorial = (Id)=> {
+    console.log(searchTerritorio(Id));
 }

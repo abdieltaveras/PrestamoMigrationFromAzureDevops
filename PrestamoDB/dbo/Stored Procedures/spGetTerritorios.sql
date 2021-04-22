@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spGetTerritorios]
 (
 	@IdTipoLocalidad int=-1,
+		@IdLocalidadNegocio int= -1,
 	@IdNegocio int=-1,
 	@IdLocalidadPadre  int=-1,
 	@Nombre varchar(50)='',
