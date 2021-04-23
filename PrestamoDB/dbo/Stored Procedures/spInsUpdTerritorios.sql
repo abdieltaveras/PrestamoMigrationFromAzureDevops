@@ -3,6 +3,7 @@
 	@IdLocalidadPadre int,
 	@IdDivisionTerritorial int,
 	@IdNegocio int,
+	@IdLocalidadNegocio int=-1,
 	@Nombre varchar(100),
 	@PermiteCalle bit,
 	@Activo bit = 1,
