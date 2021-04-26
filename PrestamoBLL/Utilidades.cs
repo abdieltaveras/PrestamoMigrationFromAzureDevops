@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Xml.Serialization;
 using System.ComponentModel.DataAnnotations;
-
+using System.Text.RegularExpressions;
 
 namespace PrestamoBLL
 {
@@ -100,21 +100,30 @@ namespace PrestamoBLL
         /// el metodo lo quita para crear la imagen de base64 string
         /// </summary>
         /// <param name="basestring"></param>
-        /// <returns></returns>
-        public static Image convertBase64ToImage(string basestring, string fullPath)
+        /// <returns> devuelve un tuple donde item1 es el nombre del archivo y item2 es un objeto Image </returns>
+        public static Tuple<string, Image> ConvertBase64ToImage(string basestring, string directorio, string nombreArchivoSinExtension)
         {
-            int lengthtoremove = "data:Image/jpeg;base64,".Length;
-            string imgbasestring = basestring.Remove(0, lengthtoremove);
+            string imageBase64 = Regex.Replace(basestring, @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
+            string extension = basestring.Substring(11, basestring.IndexOf(";")-11);
             //data:image/gif;base64,
             //this image is a single pixel (black)
-            byte[] bytes = Convert.FromBase64String(imgbasestring);
+            byte[] bytes = Convert.FromBase64String(imageBase64);
             Image image;
+            var fullFileName = directorio+nombreArchivoSinExtension + "." + extension;
             using (MemoryStream ms = new MemoryStream(bytes))
             {
                 image = Image.FromStream(ms);
-                image.Save(fullPath);
+                image.Save(fullFileName);
             }
-            return image;
+            var result = new Tuple<string,Image>( nombreArchivoSinExtension + "." + extension, image);
+            return result;
+        }
+
+        public static string ConvertFileToBase64(string fullFileName)
+        {
+            Byte[] bytes = File.ReadAllBytes(fullFileName);
+            String file = Convert.ToBase64String(bytes);
+            return "data:Image/jpeg;base64,"+file;
         }
 
         public static string SaveFile(string path, string base64Image)
@@ -220,7 +229,7 @@ namespace PrestamoBLL
 
     }
     /// <summary>
-    /// extgension methods for strings
+    /// extension methods for strings
     /// </summary>
     public static class StringMeth
     {

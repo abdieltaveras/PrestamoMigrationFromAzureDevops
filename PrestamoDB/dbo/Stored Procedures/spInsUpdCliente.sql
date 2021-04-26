@@ -23,6 +23,7 @@
 	@telefonomovil varchar(20),
 	@correoElectronico varchar(30),
 	@inforeferencias varchar(max),
+	@Imagenes varchar(max),
     @Usuario varchar(100))
 AS
 Begin
@@ -36,9 +37,9 @@ Begin
 				begin
 					exec dbo.spGenerarSecuenciaString 'Codigo de Clientes',10,1, @codigo output
 				end
-				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, idSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencias, codigo, IdLocalidadNegocio)
+				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, idSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencias, codigo, IdLocalidadNegocio, Imagenes)
 
-				VALUES (@activo, @apodo, @apellidos, @IdEstadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @idSexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName, @imagen2FileName, @tieneConyuge, @infoReferencias, @codigo, @idLocalidadNegocio)
+				VALUES (@activo, @apodo, @apellidos, @IdEstadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @idSexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName, @imagen2FileName, @tieneConyuge, @infoReferencias, @codigo, @idLocalidadNegocio, @Imagenes)
 				SELECT SCOPE_IDENTITY(); 
 				commit
 			end try
@@ -64,6 +65,7 @@ Begin
 				InfoDireccion = @infodireccion,
 				[ModificadoPor] = @usuario,
 				NoIdentificacion = @noidentificacion,
+				Imagenes = @Imagenes,
 				--Codigo = @codigo, este codigo una vez es creado jamas debe ser actualizado
 				-- de hacerse estos tipos de operacion requeriran un procedimiento especial
 				-- que deje un informe de estos tipos de cambios

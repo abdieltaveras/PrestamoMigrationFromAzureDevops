@@ -145,17 +145,34 @@ namespace PrestamoBLL.Entidades
             this.InfoDireccion = InfoDireccionObj.ToJson();
             this.InfoConyuge = InfoConyugeObj.ToJson();
             this.InfoReferencias = InfoReferenciasObj.ToJson();
+            for (int i = 0; i < ImagenesObj.Count; i++)
+            {
+                if (ImagenesObj.Count > 1 && i > 0)
+                {
+                    this.Imagenes += ",";
+                }
+                this.Imagenes = ImagenesObj[i].ConvertToJson();
+                
+            }
+
+            this.Imagenes = "[" + this.Imagenes + "]";
         }
 
         /// <summary>
         /// extrae de la representacion interna del json al objeto en si.
         /// </summary>
-        public void ConvertJsonToObj()
+        public void ConvertJsonToObj(string directorioDeImagenes)
         {
             this.InfoLaboralObj = InfoLaboral.ToType<InfoLaboral>();
             this.InfoDireccionObj = InfoDireccion.ToType<Direccion>();
             this.InfoConyugeObj = InfoConyuge.ToType<Conyuge>();
             this.InfoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
+            this.ImagenesObj = Imagenes.ToType<List<Imagen>>();
+            foreach (var item in ImagenesObj)
+            {
+
+                item.ConvertNombreArchivoToBase64String(directorioDeImagenes);
+            }
             if (this.InfoReferenciasObj == null)
             {
                 this.InfoReferenciasObj = new List<Referencia>();
@@ -176,8 +193,11 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public string NombreCompleto => $"{Nombres} {Apellidos}";
 
+        public string Imagenes { get; internal set; }
+
         [IgnorarEnParam]
-        public IEnumerable<string> ImagesForCliente { get; set; }
+        public List<Imagen> ImagenesObj { get; set; } = new List<Imagen>();
+
 
         public override string ToString()
         {

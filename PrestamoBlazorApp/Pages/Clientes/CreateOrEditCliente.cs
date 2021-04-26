@@ -34,6 +34,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Parameter]
         public int idCliente { get; set; }
 
+        List<string> FotosCliente { get; set; } = new List<string>();
         // miembros
         string searchSector = string.Empty;
 
@@ -49,6 +50,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
 
         private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
+
+        
 
         private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
         {
@@ -117,6 +120,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
             SetReferencias(cliente.InfoReferenciasObj);
+            cliente.ImagenesObj.ForEach(item => FotosCliente.Add(item.Base64string));
             StateHasChanged();
         }
 
@@ -151,16 +155,12 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 NavManager.NavigateTo("/Clientes");
         }
 
-
-
-
         //void OnChange(object value, string name)
         //{
         //    var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         //    var selectedValue = Convert.ToInt32(str);
         //    //console.Log($"{name} value changed to {str}");
         //}
-
         //void OnInputFileChange(InputFileChangeEventArgs e)
         //{
         //    var imageFiles = e.GetMultipleFiles();
@@ -168,7 +168,20 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private void SetImages(IList<string> images)
         {
-            this.cliente.ImagesForCliente = images;
+            if (images.Count>0)
+            {
+                this.cliente.Imagen1FileName = images[0];
+                foreach (var item in images)
+                {
+                    this.cliente.ImagenesObj.Add(new Imagen(true) { Grupo = "FotoCliente", Base64string = images[0] }); ;
+                }
+            }
+            
+        }
+
+        private void RemoveImages(int index)
+        {
+            this.cliente.ImagenesObj[index].Quitar = true;
         }
 
         //protected void Handle_ConyugeChange(Conyuge conyuge)

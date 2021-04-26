@@ -11,19 +11,21 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        public IEnumerable<Cliente> GetClientes(ClienteGetParams  searchParam)
+        public IEnumerable<Cliente> GetClientes(ClienteGetParams  searchParam, string directorioDeImagen = "")
         {
             GetValidation(searchParam as BaseGetParams);
             var result= BllAcciones.GetData<Cliente, ClienteGetParams>(searchParam, "spGetClientes", GetValidation);
             if (searchParam.ConvertJsonToObj)
             {
-                result.ToList().ForEach(cl => cl.ConvertJsonToObj());
+                result.ToList().ForEach(cl => cl.ConvertJsonToObj(directorioDeImagen));
             }
             return result;
         }
         public int InsUpdCliente(Cliente insUpdParam)
         {
             insUpdParam.RemoveAllButNumber();
+            var imagesToRemove = insUpdParam.ImagenesObj.Where(item => item.Quitar).ToList();
+            imagesToRemove.ForEach(item => insUpdParam.ImagenesObj.Remove(item));
             insUpdParam.ConvertObjToJson();
             var sqlParams = SearchRec.ToSqlParams(insUpdParam);
             var result = BllAcciones.InsUpdData<Cliente>(insUpdParam, "spInsUpdCliente");

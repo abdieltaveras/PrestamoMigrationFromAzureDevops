@@ -19,7 +19,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         protected override async Task OnInitializedAsync()
         {
-            this.searchClientes = new ClienteGetParams { CantidadRegistrosASeleccionar = 50 };
+            this.searchClientes = new ClienteGetParams { CantidadRegistrosASeleccionar = 50, ConvertJsonToObj = false };
             await GetClientes();
             await base.OnInitializedAsync();
         }

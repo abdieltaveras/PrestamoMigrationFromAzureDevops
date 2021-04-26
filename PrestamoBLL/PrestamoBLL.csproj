@@ -85,6 +85,7 @@
     <Compile Include="BLLPrestamo.cs" />
     <Compile Include="Clasificacion.cs" />
     <Compile Include="Entidades\Clasificacion.cs" />
+    <Compile Include="Entidades\Imagen.cs" />
     <Compile Include="Entidades\Ingreso.cs" />
     <Compile Include="Entidades\IPrestamoConDetallesParaCreditosyDebitos.cs" />
     <Compile Include="Entidades\Status.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="InitValues.cs" />
     <Compile Include="Localidades.cs" />
     <Compile Include="Login.cs" />
+    <Compile Include="ManejoImagenes.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />

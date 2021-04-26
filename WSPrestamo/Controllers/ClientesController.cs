@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Web.Http;
 using WSPrestamo.Models;
+using WSPrestamo.Utilidades;
 
 namespace WSPrestamo.Controllers
 {
@@ -44,9 +45,11 @@ namespace WSPrestamo.Controllers
                 Usuario = this.LoginName,
                 ConvertJsonToObj = convertJsonToObj
             };
-            var data = BLLPrestamo.Instance.GetClientes(getParams);
+            var data = BLLPrestamo.Instance.GetClientes(getParams, DirectorioDeImagenes.ParaClientes);
             return data;
         }
+
+
 
         public IEnumerable<Cliente> Get(string textoABuscar, bool CargarImagenesClientes)
         {
@@ -60,11 +63,13 @@ namespace WSPrestamo.Controllers
         [HttpPost]
         public IHttpActionResult Post([FromBody] Cliente cliente)
         {
+            var img = cliente.ImagenesObj;
             cliente.Usuario = this.LoginName;
             cliente.IdLocalidadNegocio = this.IdLocalidadNegocio;
             var state = ModelState.IsValid;
             try
             {
+                ManejoImagenes.ProcesarImagenes(cliente.ImagenesObj, DirectorioDeImagenes.ParaClientes, string.Empty);
                 var id = BLLPrestamo.Instance.InsUpdCliente(cliente);
                 return Ok(id);
             }
