@@ -18,9 +18,9 @@ namespace PrestamoBlazorApp.Services
         //    return result;
         //}
 
-        public async Task<IEnumerable<Territorio>> Get()
+        public async Task<IEnumerable<Territorio>> GetDivisionesTerritoriales()
         {
-            return await GetAsync<Territorio>(apiUrl, null);
+            return await GetAsync<Territorio>(apiUrl+ "/GetDivisionesTerritoriales", null);
         }
         public async Task<IEnumerable<Territorio>> GetComponenteDeDivision()
         {

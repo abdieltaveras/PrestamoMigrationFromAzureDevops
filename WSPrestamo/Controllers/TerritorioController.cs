@@ -15,13 +15,21 @@ namespace WSPrestamo.Controllers
  
     public class TerritorioController : BaseApiController
     {
-
+        [HttpGet]
         public IEnumerable<Territorio> Get()
         {
             var result = BLLPrestamo.Instance.TerritoriosGet(new TerritorioGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
             return result;
             //return View("CreateOrEdit", datos);
         }
+        [HttpGet]
+        public IEnumerable<Territorio> GetDivisionesTerritoriales()
+        {
+            var result = BLLPrestamo.Instance.TerritorioDivisionesTerritorialesGet(new TerritorioGetParams() { IdNegocio = 1 });
+            return result;
+            //return View("CreateOrEdit", datos);
+        }
+       
         [HttpGet]
         public IEnumerable<Territorio> BuscarComponenteDeDivision()
         {
