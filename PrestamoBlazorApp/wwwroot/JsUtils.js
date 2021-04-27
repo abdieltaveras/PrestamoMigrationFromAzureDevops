@@ -1,4 +1,5 @@
-﻿window.Alert = function (message) {
+﻿
+window.Alert = function (message) {
     if ((typeof message) === "string") {
         alert(message);
     }
@@ -40,10 +41,6 @@ window.SetInputMaskByElem = function (elemId, inputmask) {
     var selector = document.getElementById(elemId);
     var im = new Inputmask(inputmask);
     im.mask(selector);
-    $(document).ready(function () {
-        
-        Inputmask().mask(document.querySelectorAll(".masked"));
-    });
 }
 window.SetInputMask = function () {
         Inputmask().mask(document.querySelectorAll(".masked"));

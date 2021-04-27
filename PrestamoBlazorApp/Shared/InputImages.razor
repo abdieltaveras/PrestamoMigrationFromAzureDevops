@@ -19,7 +19,7 @@
                 <label class="custom-file-label" for="inputGroupFile01">Seleccionar Imagenes</label>
             </div>
         </div>
-        
+
     }
 
     @*<InputFile @onclick="Validate" OnChange="OnInputFileChange" accept="image/*" capture multiple />*@
@@ -39,10 +39,10 @@
                         var sendIndex = imageIndex;
                         <td width="50%">
                             <img src="@imageDataUrl" />
-                            <ConfirmationDialog ButtonText="Quitar" 
-                                                objRef="sendIndex" 
-                                                OnOk="QuitarImagen" 
-                                                Title="Confirmar Quitar Foto" 
+                            <ConfirmationDialog ButtonText="Quitar"
+                                                objRef="sendIndex"
+                                                OnOk="QuitarImagen"
+                                                Title="Confirmar Quitar Foto"
                                                 ConfirmationMessage="Realmente desea quitar la foto" />
 
                         </td>
@@ -63,14 +63,22 @@
     JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
 
     IList<string> imageDataUrls = new List<string>();
+
     [Parameter]
     public IEnumerable<string> ListaImagenesURL { get; set; } = new List<string>();
+
     [Parameter]
     public string MensajeLimiteImagenes { get; set; } = string.Empty;
+
     [Parameter]
     public string Text { get; set; } = string.Empty;
+
     [Parameter]
     public EventCallback<IList<string>> OnImageSet { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnImagenRemove { get; set; }
+
     [Parameter]
     public int ImageQty { get; set; }
 
@@ -78,53 +86,52 @@
     {
         await base.OnInitializedAsync();
         this.imageDataUrls = new List<string>();
-        if (ListaImagenesURL.Count()>0)
+        if (ListaImagenesURL.Count() > 0)
         {
-            IList<string> listaEnviar =new List<string>();
+            IList<string> listaEnviar = new List<string>();
             foreach (var item in ListaImagenesURL)
             {
                 @*listaEnviar.Add(item);*@
-            imageDataUrls.Add(item);
+                imageDataUrls.Add(item);
+            }
+            //imageDataUrls = listaEnviar;
         }
-        //imageDataUrls = listaEnviar;
     }
-}
-async Task OnInputFileChange(InputFileChangeEventArgs e)
-{
-    var imageFiles = e.GetMultipleFiles();
-    if (imageFiles.Count >= ImageQty)
+
+    async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
-        if (string.IsNullOrEmpty(MensajeLimiteImagenes))
+        var imageFiles = e.GetMultipleFiles();
+        if (imageFiles.Count >= ImageQty)
         {
-            MensajeLimiteImagenes = $"eligio {imageFiles.Count} imagenes, y solo se permiten {this.ImageQty}";
+            if (string.IsNullOrEmpty(MensajeLimiteImagenes))
+            {
+                MensajeLimiteImagenes = $"eligio {imageFiles.Count} imagenes, y solo se permiten {this.ImageQty}";
+            }
+            return;
         }
-        return;
+        var format = "image/png";
+        foreach (var imageFile in imageFiles)
+        {
+            var resizedImageFile = await imageFile.RequestImageFileAsync(format, 100, 100);
+            var buffer = new byte[resizedImageFile.Size];
+            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+            var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+            imageDataUrls.Add(imageDataUrl);
+        }
+        await OnImageSet.InvokeAsync(imageDataUrls);
     }
-    var format = "image/png";
-    foreach (var imageFile in imageFiles)
+
+    void QuitarImagen(object ob)
     {
-        var resizedImageFile = await imageFile.RequestImageFileAsync(format, 100, 100);
-        var buffer = new byte[resizedImageFile.Size];
-        await resizedImageFile.OpenReadStream().ReadAsync(buffer);
-        var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
-        imageDataUrls.Add(imageDataUrl);
+        int imageIndex = (int)ob;
+        imageDataUrls.RemoveAt(imageIndex);
+
+        if (ListaImagenesURL.Count() > 0)
+        {
+            OnImageSet.InvokeAsync(imageDataUrls);
+        }
+
+        OnImagenRemove.InvokeAsync(imageIndex);
     }
-    await OnImageSet.InvokeAsync(imageDataUrls);
-}
-
-
-
-
-void QuitarImagen(object ob)
-{
-    int imageIndex = (int)ob;
-    imageDataUrls.RemoveAt(imageIndex);
-
-    if (ListaImagenesURL.Count() > 0)
-    {
-         OnImageSet.InvokeAsync(imageDataUrls);
-    }
-}
-
 
 }

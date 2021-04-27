@@ -200,6 +200,7 @@
     <Compile Include="Models\ModeloVM.cs" />
     <Compile Include="Models\ResponseMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilidades\DirectorioDeImagenes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
