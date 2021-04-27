@@ -1,4 +1,5 @@
-﻿using System;
+﻿using emtSoft.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,16 @@ namespace PrestamoBLL.Entidades
     {
         public string Grupo { get; set; }
 
+
         public string NombreArchivo { get; set; }
 
+        [IgnorarEnParam]
         public string Base64string { get; set; }
 
+        [IgnorarEnParam]
         public bool NewImagen { get; set; } = false;
 
+        [IgnorarEnParam]
         public bool Quitar { get; set; } = false;
 
         public void ConvertNombreArchivoToBase64String(string directorio)

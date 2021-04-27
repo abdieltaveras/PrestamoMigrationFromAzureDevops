@@ -1,0 +1,130 @@
+﻿
+<div>
+    <label class="ml-2">@Text</label>
+</div>
+<div class="form-group row">
+    @if (imagenes.Count() >= ImageQty)
+    {
+        <label class="ml-4">Si desea agregar imagenes debe quitar de las que ya estan</label>
+    }
+    else
+    {
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Imagenes</span>
+            </div>
+            <div class="custom-file">
+                <InputFile OnChange="OnInputFileChange" accept="image/*" capture class=" custom-file-input " />
+                <label class="custom-file-label" for="inputGroupFile01"></label>
+
+            </div>
+        </div>
+    }
+
+    @*<InputFile @onclick="Validate" OnChange="OnInputFileChange" accept="image/*" capture multiple />*@
+    @*@onclick:preventDefault="preventDefault"*@
+</div>
+<br />
+
+<div class="image-list col-md-5">
+    <table class="table">
+        <tbody>
+            <tr>
+                @{
+
+                    int imageIndex = 0;
+                    @foreach (var imagen in imagenes)
+                    {
+                        
+                        <td width="50%">
+                            <img src="@imagen.Base64string" />
+                            <ConfirmationDialog ButtonText="Quitar"
+                                                objRef="imagen"
+                                                OnOk="QuitarImagen"
+                                                Title="Confirmar Quitar Foto"
+                                                ConfirmationMessage="Realmente desea quitar la foto" />
+
+                        </td>
+                        imageIndex++;
+                    }
+                }
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+@code {
+    [Inject]
+    IJSRuntime JsRuntime { get; set; }
+
+    int imagelist = 0;
+    JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
+
+    List<Imagen> imagenes = new List<Imagen>();
+
+    [Parameter]
+    public string GrupoImagen { get; set; }
+
+    [Parameter]
+    public IEnumerable<Imagen> ListaImagenes { get; set; } = new List<Imagen>();
+
+    [Parameter]
+    public string MensajeLimiteImagenes { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Text { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<Imagen> OnImageSet { get; set; }
+
+    [Parameter]
+    public EventCallback<Imagen> OnImagenRemove { get; set; }
+
+    [Parameter]
+    public int ImageQty { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (ListaImagenes.Count() > 0)
+        {
+            imagenes.AddRange(ListaImagenes);
+        }
+    }
+
+    async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        var imageFiles = e.GetMultipleFiles();
+        if (imageFiles.Count > ImageQty)
+        {
+            if (string.IsNullOrEmpty(MensajeLimiteImagenes))
+            {
+                MensajeLimiteImagenes = $"eligio {imageFiles.Count} imagenes, y solo se permiten {this.ImageQty}";
+                await JsInteropUtils.Notification(JsRuntime, MensajeLimiteImagenes);
+            }
+            return;
+        }
+        var format = "image/png";
+        Imagen imagen = null;
+        foreach (var imageFile in imageFiles)
+        {
+            var resizedImageFile = await imageFile.RequestImageFileAsync(format, 100, 100);
+            var buffer = new byte[resizedImageFile.Size];
+            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+            var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+            imagen =  new Imagen(true) { Base64string= imageDataUrl, Grupo = this.GrupoImagen, NombreArchivo=Guid.NewGuid().ToString() };
+        }
+        imagenes.Add(imagen);
+        await OnImageSet.InvokeAsync(imagen);
+        
+    }
+
+    void QuitarImagen(object _imagen)
+    {
+        var imagen = _imagen as Imagen;
+        imagenes.Remove(imagen);
+        OnImagenRemove.InvokeAsync(imagen);
+    }
+
+}

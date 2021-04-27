@@ -9,6 +9,8 @@ using System.Linq;
 namespace PrestamoBLL.Entidades
 {
 
+    public enum TiposFotosCliente {RostroCliente, DocIdentificacion }
+
     public class InfoCodeudorDrCr
     {
         public int IdCodeudor { get; internal set; }
@@ -151,7 +153,7 @@ namespace PrestamoBLL.Entidades
                 {
                     this.Imagenes += ",";
                 }
-                this.Imagenes = ImagenesObj[i].ConvertToJson();
+                this.Imagenes += ImagenesObj[i].ConvertToJson();
                 
             }
 
@@ -170,7 +172,6 @@ namespace PrestamoBLL.Entidades
             this.ImagenesObj = Imagenes.ToType<List<Imagen>>();
             foreach (var item in ImagenesObj)
             {
-
                 item.ConvertNombreArchivoToBase64String(directorioDeImagenes);
             }
             if (this.InfoReferenciasObj == null)

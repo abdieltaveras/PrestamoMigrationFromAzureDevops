@@ -255,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ImagesFor\Clientes\" />
     <Folder Include="Content\ImagesFor\Garantias\" />
     <Folder Include="Views\Equipo\" />
     <Folder Include="Views\Localidades\" />

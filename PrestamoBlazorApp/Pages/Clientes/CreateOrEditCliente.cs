@@ -34,7 +34,9 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Parameter]
         public int idCliente { get; set; }
 
-        List<string> FotosCliente { get; set; } = new List<string>();
+        List<Imagen> FotosRostroCliente { get; set; } = new List<Imagen>();
+
+        List<Imagen> FotosDocIdentificacion { get; set; } = new List<Imagen>();
         // miembros
         string searchSector = string.Empty;
 
@@ -51,7 +53,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
 
-        
+        bool LoadedFotos = false;
 
         private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
         {
@@ -67,6 +69,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         {
             Ocupaciones = await GetOcupaciones();
             prepareModel();
+            LoadedFotos = false;
             await base.OnInitializedAsync();
         }
 
@@ -107,8 +110,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
                         Longitud = -68.98449
                     }
                 };
-                
-                
+
+
                 //clinica coral Lat = 18.43190, Lng = -68.98503;
             }
             else
@@ -120,8 +123,23 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
             SetReferencias(cliente.InfoReferenciasObj);
-            cliente.ImagenesObj.ForEach(item => FotosCliente.Add(item.Base64string));
+            FilterImagesByGroup();
             StateHasChanged();
+        }
+
+        private void FilterImagesByGroup()
+        {
+            FotosRostroCliente.Clear();
+            FotosDocIdentificacion.Clear();
+            cliente.ImagenesObj.ForEach(item =>
+            {
+                if (!item.Quitar)
+                {
+                    if (item.Grupo == TiposFotosCliente.RostroCliente.ToString()) FotosRostroCliente.Add(item);
+                    if (item.Grupo == TiposFotosCliente.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
+                }
+            });
+            
         }
 
         private void SetReferencias(List<Referencia> infoReferenciasObj)
@@ -130,7 +148,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             {
                 var referencia = new Referencia { Tipo = (int)EnumTiposReferencia.Personal };
 
-                if ((i+1) <= infoReferenciasObj.Count())
+                if ((i + 1) <= infoReferenciasObj.Count())
                 {
                     referencia = infoReferenciasObj[i];
                 }
@@ -140,19 +158,19 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private bool loading { get; set; } = false;
         private bool hideSaveButton = false;
-        
+
         //async Task SaveCliente()
         async Task SaveCliente()
         {
-                hideSaveButton = true;
-                //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-                this.cliente.InfoConyugeObj = conyuge;
-                this.cliente.InfoReferenciasObj = referencias;
-                this.cliente.InfoDireccionObj = direccion;
-                this.cliente.InfoLaboralObj = infoLaboral;
-                await clientesService.SaveCliente(this.cliente);
-                await OnGuardarNotification();
-                NavManager.NavigateTo("/Clientes");
+            hideSaveButton = true;
+            //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
+            this.cliente.InfoConyugeObj = conyuge;
+            this.cliente.InfoReferenciasObj = referencias;
+            this.cliente.InfoDireccionObj = direccion;
+            this.cliente.InfoLaboralObj = infoLaboral;
+            await clientesService.SaveCliente(this.cliente);
+            await OnGuardarNotification();
+            NavManager.NavigateTo("/Clientes");
         }
 
         //void OnChange(object value, string name)
@@ -166,33 +184,20 @@ namespace PrestamoBlazorApp.Pages.Clientes
         //    var imageFiles = e.GetMultipleFiles();
         //}
 
-        private void SetImages(IList<string> images)
+        private void SetImages(Imagen imagen)
         {
-            if (images.Count>0)
-            {
-                this.cliente.Imagen1FileName = images[0];
-                foreach (var item in images)
-                {
-                    this.cliente.ImagenesObj.Add(new Imagen(true) { Grupo = "FotoCliente", Base64string = images[0] }); ;
-                }
-            }
-            
+            cliente.ImagenesObj.Add(imagen);
+            FilterImagesByGroup();
         }
 
-        private void RemoveImages(int index)
+
+
+        private void RemoveImages(Imagen imagen)
         {
+            var index = this.cliente.ImagenesObj.IndexOf(imagen);
             this.cliente.ImagenesObj[index].Quitar = true;
+            this.cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
         }
-
-        //protected void Handle_ConyugeChange(Conyuge conyuge)
-        //{
-        //    this.cliente.InfoConyugeObj = conyuge;
-        //}
-
-
     }
-
-
-
 }
 
