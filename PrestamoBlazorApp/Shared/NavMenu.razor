@@ -66,9 +66,32 @@
                     <span class="oi oi-list-rich" aria-hidden="true"></span> Tipos De Mora
                 </NavLink>
             </li>
-        </ul>}
+                @*<ul class="nav flex-column">*@
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" @onclick="()=>  expandTerritoriosSubMenu = !expandTerritoriosSubMenu ">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Territorios
+                </NavLink>
+                @if (expandTerritoriosSubMenu)
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="territorios">
+                                <span class="oi oi-list-rich" aria-hidden="true">Territorios</span>
+                            </NavLink>
+                        </li>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="" @onclick='()=>navigateTo("territorios/CreateDivisionTerritorial")'>
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear Division Territorial</span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                }
+            </li>
+                 @*</ul>*@
+            </ul>
+            }
 
-        </li>
+</li>
 
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" @onclick="()=>  expandOperacionesSubMenu = !expandOperacionesSubMenu ">
@@ -151,6 +174,7 @@
     private bool expandCatalogosSubMenu { get; set; } = false;
     private bool expandOperacionesSubMenu { get; set; } = false;
     private bool expandGarantiasSubMenu { get; set; } = false;
+    private bool expandTerritoriosSubMenu { get; set; } = false;
     private bool expandClientesSubMenu { get; set; } = false;
     private void ToggleNavMenu()
     {

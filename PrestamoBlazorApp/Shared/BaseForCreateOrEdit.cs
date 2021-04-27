@@ -28,7 +28,15 @@ namespace PrestamoBlazorApp.Shared
             var result = await JsInteropUtils.Notification(jsRuntime, message,mesasageDelayInMilliseconds);
             await Task.Delay(watingTimeBeforeContinueExecution);
         }
-
+        public virtual async Task SweetAlertSuccess(string message = ConstForCreateOrEdit.RegistroGuardado, string redirectTo = "")
+        {
+            if (message == null || message == string.Empty)
+            {
+                message = ConstForCreateOrEdit.RegistroGuardado;
+            }
+           await JsInteropUtils.SweetAlertSuccess(jsRuntime, message,redirectTo);
+            //await Task.Delay(watingTimeBeforeContinueExecution);
+        }
         public virtual async Task OnDeleteConfirm()
         {
             throw new NotImplementedException ();

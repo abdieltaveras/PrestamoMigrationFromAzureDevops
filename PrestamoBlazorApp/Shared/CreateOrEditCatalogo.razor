@@ -1,8 +1,41 @@
-﻿@typeparam TModel
+﻿
+@*<EditForm Model="Value" OnValidSubmit="SaveCatalogo" >
+    <DataAnnotationsValidator />
+    @{
+        var properties = Value.;
+        @foreach (var p in properties)
+        {
+            var att = p.GetCustomAttributes(false);
+            if (!att.Any(c => c is HiddenAttribute))
+            {
+                var nameAttribute = (DisplayAttribute)att.FirstOrDefault(c => c is DisplayAttribute);
+                var value = p.GetValue(Value);
 
+                <div class="form-group">
+                    @if (nameAttribute != null)
+                    {
+                        <label for="@p.Name">
+                            @nameAttribute.Name
+                            @if (att.Any(c => c is RequiredAttribute))
+                            {
+                                <font color="red">(*)</font>
+                            }
+                        </label>
+                    }
+                    <InputText class="form-control" Value="@value?.ToString()" ValueExpression="@(() => p.Name)" ValueChanged="(e => p.SetValue(Value, e))" />
 
+                    <ValidationMessage For="@(() => p)"></ValidationMessage>
+                </div>
+            }
+        }
+    }
+    <button type="submit" class="btn btn-primary">Click me</button>
+</EditForm>
 @code{
-
-    TModel model;
-
- }
+    CatalogosService catalogosService { get; set; }
+    Catalogo Value = new Catalogo();
+    async Task SaveCatalogo()
+    {
+        await catalogosService.SaveColor
+    }
+}*@

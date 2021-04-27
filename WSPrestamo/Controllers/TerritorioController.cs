@@ -66,9 +66,21 @@ namespace WSPrestamo.Controllers
         {
             territorio.Usuario = this.LoginName;
             territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            territorio.IdNegocio = 1;
             BLLPrestamo.Instance.TerritorioInsUpd(territorio);
             return Ok();
             //return RedirectToAction("CreateOrEdit");
+        }
+        [HttpPost]
+        public IHttpActionResult SaveDivisionTerritorial(Territorio territorio)
+        {
+            territorio.Usuario = this.LoginName;
+            territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            territorio.IdNegocio = 1;
+            territorio.IdLocalidadPadre = 1;
+            territorio.PermiteCalle = false;
+            BLLPrestamo.Instance.TerritorioInsUpd(territorio);
+            return Ok();
         }
     }
 }
