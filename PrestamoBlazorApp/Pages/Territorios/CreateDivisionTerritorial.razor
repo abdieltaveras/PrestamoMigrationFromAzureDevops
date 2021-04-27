@@ -1,0 +1,80 @@
+﻿@page "/territorios/CreateDivisionTerritorial"
+@inherits BaseForCreateOrEdit
+<h2>Listado de divisiones territoriales <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h2>
+<div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Territorio.IdTipoLocalidad > 0)
+                {
+                    <h5 class="modal-title" id="edtMarcaTitel">Editar Color</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title" id="edtMarcaTitel">Crear Color</h5>
+                }
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md-12">
+                <EditForm Model="@Territorio" OnValidSubmit="SaveDivisionTerritorial" OnInvalidSubmit="RaiseInvalidSubmit">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <InputText id="nombre" class="form-control col-md-6" @bind-Value="Territorio.Nombre"></InputText>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" >Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table id="datatable" class="table table-bordered row-border">
+            <thead>
+                <tr>
+                    <th class="checkColumn"></th>
+                    <th>Division territorial</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in listadeterritorios)
+                {
+                    <tr class="@(!item.Activo ? "table-active" : "" )">
+                        <td>
+                        </td>
+                        <td>
+                            <strong>
+                                @item.Nombre
+                            </strong>
+                        </td>
+
+                        <td>
+                            <button class="btn btn-outline-danger">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <button class="btn btn-outline-warning" @onclick="()=>CreateOrEdit(item.IdTipoLocalidad)">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code{
+
+}

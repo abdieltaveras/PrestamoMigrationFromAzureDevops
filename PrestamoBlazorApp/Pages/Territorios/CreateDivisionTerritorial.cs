@@ -10,20 +10,15 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Territorios
 {
-    public partial class Territorios : BaseForCreateOrEdit
+    public partial class CreateDivisionTerritorial : BaseForCreateOrEdit
     {
         [Inject]
-        IJSRuntime jsRuntime { get; set; }
-
-        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
-        [Inject]
         TerritoriosService territoriosService { get; set; }
-        IEnumerable<Territorio> territorios { get; set; } = new List<Territorio>();
         IEnumerable<Territorio> listadeterritorios { get; set; } = new List<Territorio>();
         [Parameter]
         public Territorio Territorio { get; set; }
         bool loading = false;
-        void Clear() => territorios = null;
+        void Clear() => listadeterritorios = null;
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -39,21 +34,34 @@ namespace PrestamoBlazorApp.Pages.Territorios
         {
             await JsInteropUtils.Territorio(jsRuntime,id);
         }
-        async Task SaveTerritorio()
+        async Task SaveDivisionTerritorial()
         {
-            if(this.Territorio.IdDivisionTerritorial <= 0 || this.Territorio.IdLocalidadPadre <= 0)
+            if(this.Territorio.Nombre == string.Empty)
             {
                 await OnGuardarNotification("Error Al Guardar, llene todos los campos");
             }
             else
             {
-                await territoriosService.SaveTerritorio(this.Territorio);
-                await SweetAlertSuccess(null,"/Territorios");
+                await territoriosService.SaveDivisionTerritorial(this.Territorio);
+                await SweetAlertSuccess(null, "/Territorios/CreateDivisionTerritorial");
                 //await OnGuardarNotification();
                 //NavManager.NavigateTo("/Territorios");
             }
 
 
+        }
+      
+        void CreateOrEdit(int idDivision = -1)
+        {
+            if (idDivision > 0)
+            {
+                this.Territorio = listadeterritorios.Where(m => m.IdTipoLocalidad == idDivision).FirstOrDefault();
+            }
+            else
+            {
+                this.Territorio = new Territorio();
+            }
+            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
         void RaiseInvalidSubmit()
         {

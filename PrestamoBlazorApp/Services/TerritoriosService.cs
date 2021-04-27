@@ -43,5 +43,17 @@ namespace PrestamoBlazorApp.Services
             }
 
         }
+        public async Task SaveDivisionTerritorial(Territorio territorio)
+        {
+            try
+            {
+                await PostAsync<Territorio>(apiUrl+ "/SaveDivisionTerritorial", territorio);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al guardar", ex);
+            }
+
+        }
     }
 }

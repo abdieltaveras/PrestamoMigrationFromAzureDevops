@@ -19,7 +19,7 @@
                     <div class="form-group row">
                         <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <select class="form-control" id="idTipoDivision" @onchange="selectedTerritorio">
+                            <select class="form-control" id="idTipoDivision" @onchange="selectedTerritorio" required>
                                 <option value="0">Seleccione una opcion</option>
                                 @foreach (var item in listadeterritorios)
                                 {
@@ -49,7 +49,7 @@
                     <div class="form-group row">
                         <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <select name="IdLocalidadPadre" class="form-control" id="tipolocalidadeshijas" @onchange="selectedLocalidadPadre">
+                            <select name="IdLocalidadPadre" class="form-control" id="tipolocalidadeshijas" @onchange="selectedLocalidadPadre" required>
                                 <option value="0">Elije una opcion</option>
                             </select>
                         </div>
@@ -72,7 +72,7 @@
                             Nombre <span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required />
+                            <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required  />
                             @*<input type="text" id="nombre" name="Nombre" value="" class="form-control" required />*@
                         </div>
                     </div>
@@ -138,6 +138,10 @@
             await VerTerritorios(territorioSelected.ToString());
             this.Territorio.IdDivisionTerritorial = territorioSelected;
         }
+        else
+        {
+            this.Territorio.IdDivisionTerritorial = -1;
+        }
     }
     private  void selectedLocalidadPadre(ChangeEventArgs args)
     {
@@ -146,6 +150,10 @@
         if (localidadPadreSelected > 0)
         {
             this.Territorio.IdLocalidadPadre = localidadPadreSelected;
+        }
+        else
+        {
+            this.Territorio.IdLocalidadPadre = -1;
         }
     }
     private void checkPermiteCalle(ChangeEventArgs args)

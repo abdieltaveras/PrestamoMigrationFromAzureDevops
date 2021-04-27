@@ -51,3 +51,22 @@ window.SetInputMask = function () {
 window.DivisionTerritorial = (Id)=> {
     console.log(searchTerritorio(Id));
 }
+window.sweetAlertSuccess = function(message,redirectTo = "") {
+    Swal.fire({
+        icon: 'success',
+        title: message,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        timer: 1500
+        //text: 'Something went wrong!',
+        //footer: '<a href>Why do I have this issue?</a>'
+    }).then(function () {
+        if (redirectTo != "") {
+            window.location = redirectTo;
+        } else {
+            location.reload();
+        }
+       
+    });
+    return true;
+}
