@@ -20,6 +20,9 @@ namespace PrestamoBlazorApp.Shared
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
 
         List<Imagen> imagenes = new List<Imagen>();
+        [Parameter]
+        public string HeightInPx { get; set; } = "200px";
+
 
         [Parameter]
         public string GrupoImagen { get; set; }

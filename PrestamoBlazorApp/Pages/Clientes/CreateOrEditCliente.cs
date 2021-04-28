@@ -168,13 +168,14 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.cliente.InfoLaboralObj = infoLaboral;
             try
             {
+                
                 await clientesService.SaveCliente(this.cliente);
                 await OnGuardarNotification(redirectTo: "/Clientes");
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                await JsInteropUtils.Notification(jsRuntime, "Lo siento error al guardar los datos");
+                await JsInteropUtils.Notification(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
             }
             
         }
