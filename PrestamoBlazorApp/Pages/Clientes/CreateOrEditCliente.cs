@@ -110,8 +110,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
                         Longitud = -68.98449
                     }
                 };
-
-
                 //clinica coral Lat = 18.43190, Lng = -68.98503;
             }
             else
@@ -168,9 +166,17 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.cliente.InfoReferenciasObj = referencias;
             this.cliente.InfoDireccionObj = direccion;
             this.cliente.InfoLaboralObj = infoLaboral;
-            await clientesService.SaveCliente(this.cliente);
-            await OnGuardarNotification();
-            NavManager.NavigateTo("/Clientes");
+            try
+            {
+                await clientesService.SaveCliente(this.cliente);
+                await OnGuardarNotification(redirectTo: "/Clientes");
+            }
+            catch (Exception)
+            {
+
+                await JsInteropUtils.Notification(jsRuntime, "Lo siento error al guardar los datos");
+            }
+            
         }
 
         //void OnChange(object value, string name)
