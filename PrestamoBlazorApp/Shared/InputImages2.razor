@@ -1,0 +1,60 @@
+﻿
+<div>
+    <label class="ml-2">@Text </label>
+</div>
+<div class="form-group row">
+    @if (imagenes.Count() >= ImageQty)
+    {
+    <label class="ml-4">
+        imagenes permitidas @ImageQty
+        @*Si desea agregar imagenes debe quitar de las que ya estan*@
+    </label>
+    
+    
+    }
+    else
+    {
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Imagenes</span>
+            </div>
+            <div class="custom-file">
+                <InputFile OnChange="OnInputFileChange" accept="image/*" capture class=" custom-file-input " />
+                <label class="custom-file-label" for="inputGroupFile01"></label>
+
+            </div>
+        </div>
+    }
+
+    @*<InputFile @onclick="Validate" OnChange="OnInputFileChange" accept="image/*" capture multiple />*@
+    @*@onclick:preventDefault="preventDefault"*@
+</div>
+<br />
+
+<div class="img-fluid col-md-5">
+    <table class="table">
+        <tbody>
+            <tr>
+                @{
+
+                    int imageIndex = 0;
+                    @foreach (var imagen in imagenes)
+                    {
+                        
+                        <td>
+                            <img src="@imagen.Base64string" style="height:@HeightInPx" />
+                            <ConfirmationDialog ButtonText="Quitar"
+                                                objRef="@imagen"
+                                                OnOk="QuitarImagen"
+                                                Title="Confirmar Quitar Foto"
+                                                ConfirmationMessage="Realmente desea quitar la foto" />
+                        </td>
+                        imageIndex++;
+                    }
+                }
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+

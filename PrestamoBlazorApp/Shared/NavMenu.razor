@@ -25,11 +25,12 @@
                 </NavLink>
             </li>*@
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" @onclick="() => expandCatalogosSubMenu = !expandCatalogosSubMenu">
-                <span class="oi oi-list" aria-hidden="true"></span> Catalogos
+            <NavLink class="nav-link" href="" @onclick='() => SetActiveMenu(MenuText.Catalogo_I)'>
+                <span class="oi oi-list" aria-hidden="true"></span> Catalogos Tipo I
             </NavLink>
-            @if (expandCatalogosSubMenu)
+            @if (ExpandMenu(MenuText.Catalogo_I))
             {
+                
         <ul class="nav flex-column">
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="colores">
@@ -68,10 +69,10 @@
             </li>
                 @*<ul class="nav flex-column">*@
             <li class="nav-item px-3">
-                <NavLink class="nav-link" href="" @onclick="()=>  expandTerritoriosSubMenu = !expandTerritoriosSubMenu ">
+                <NavLink class="nav-link" href="" @onclick="()=>  SetActiveMenu(MenuText.Territorios) ">
                     <span class="oi oi-list-rich" aria-hidden="true"></span> Territorios
                 </NavLink>
-                @if (expandTerritoriosSubMenu)
+                @if (ExpandMenu(MenuText.Territorios))
                 {
                     <ul class="nav flex-column">
                         <li class="nav-item px-3">
@@ -92,27 +93,18 @@
             }
 
 </li>
-
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" @onclick="()=>  expandOperacionesSubMenu = !expandOperacionesSubMenu ">
-                <span class="oi oi-list" aria-hidden="true"></span> Operaciones
+            <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Catalogo_II) ">
+                <span class="oi oi-list" aria-hidden="true"></span> Catalogos Tipo II
             </NavLink>
-            @if (expandOperacionesSubMenu)
+            @if (ExpandMenu(MenuText.Catalogo_II))
             {
                 <ul class="nav flex-column">
                     <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="ingresos">
-                            <span class="oi oi-dollar" aria-hidden="true">ingresos </span>
-                        </NavLink>
-                    </li>
-
-
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="" @onclick="()=> expandGarantiasSubMenu = !expandGarantiasSubMenu ">
+                        <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Garantias) ">
                             <span class="oi oi-list" aria-hidden="true"></span> Garantias
                         </NavLink>
-
-                        @if (expandGarantiasSubMenu)
+                        @if (ExpandMenu(MenuText.Garantias))
                         {
                             <ul class="nav flex-column">
                                 <li class="nav-item px-3">
@@ -130,11 +122,11 @@
                         }
                     </li>
                     <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="" @onclick="()=>  expandClientesSubMenu = !expandClientesSubMenu ">
+                        <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Clientes) ">
                             <span class="oi oi-list" aria-hidden="true"></span> Clientes
                         </NavLink>
 
-                        @if (expandClientesSubMenu)
+                        @if (ExpandMenu(MenuText.Clientes))
                         {
                             <ul class="nav flex-column">
                                 <li class="nav-item px-3">
@@ -171,21 +163,86 @@
     IJSRuntime jsRuntime { get; set; }
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private bool expandCatalogosSubMenu { get; set; } = false;
-    private bool expandOperacionesSubMenu { get; set; } = false;
-    private bool expandGarantiasSubMenu { get; set; } = false;
-    private bool expandTerritoriosSubMenu { get; set; } = false;
-    private bool expandClientesSubMenu { get; set; } = false;
+    private Dictionary<MenuItem, bool> SubMenus { get; set; } = new Dictionary<MenuItem, bool>();
+
+    //private bool expandCatalogosSubMenu { get; set; } = false;
+    //private bool expandOperacionesSubMenu { get; set; } = false;
+    //private bool expandGarantiasSubMenu { get; set; } = false;
+    //private bool expandTerritoriosSubMenu { get; set; } = false;
+    //private bool expandClientesSubMenu { get; set; } = false;
+
+    protected override void OnInitialized()
+    {
+        CreateCatalogosSubMenu();
+    }
     private void ToggleNavMenu()
     {
         //jsInterop.Alert(jsRuntime,"click en toggleNavMenu");
         collapseNavMenu = !collapseNavMenu;
     }
 
+    private void CreateCatalogosSubMenu()
+    {
+        SubMenus.Add(new MenuItem { CurrentText = MenuText.Catalogo_I, MenuPadreText = null }, false);
+        SubMenus.Add(new MenuItem { CurrentText = MenuText.Territorios, MenuPadreText = MenuText.Catalogo_I }, false);
+        SubMenus.Add(new MenuItem { CurrentText = MenuText.Catalogo_II, MenuPadreText = null }, false);
+        SubMenus.Add(new MenuItem { CurrentText = MenuText.Garantias, MenuPadreText = MenuText.Catalogo_II }, false);
+        SubMenus.Add(new MenuItem { CurrentText = MenuText.Clientes, MenuPadreText = MenuText.Catalogo_II }, false);
+    }
     private void navigateTo(string linkUrl)
     {
         navManager.NavigateTo(linkUrl, true);
     }
 
+    string lastActiveMenu { get; set; }
+    private void SetActiveMenu(string menuText)
+    {
+        if (!string.IsNullOrEmpty(lastActiveMenu))
+        {
+            var LastMenuItemSelected = SubMenus.Where(item => item.Key.CurrentText == lastActiveMenu).FirstOrDefault();
+            ManageMenuItem(LastMenuItemSelected, false);
+        }
 
+        // para el item seleccionado
+        var MenuItemSelected = SubMenus.Where(item => item.Key.CurrentText == menuText).FirstOrDefault();
+        ManageMenuItem(MenuItemSelected, true);
+        lastActiveMenu = MenuItemSelected.Key.CurrentText;
+    }
+
+    private void ManageMenuItem(KeyValuePair<MenuItem,bool> MenuItemSelected, bool value)
+    {
+        SubMenus[MenuItemSelected.Key] = value;
+        var textMenuPadre = MenuItemSelected.Key.MenuPadreText;
+        if (!string.IsNullOrEmpty(textMenuPadre))
+        {
+            var MenuPadreItem = SubMenus.Where(item => item.Key.CurrentText == textMenuPadre).FirstOrDefault();
+            SubMenus[MenuPadreItem.Key] = value;
+        }
+
+    }
+
+    private bool ExpandMenu(string menuText)
+    {
+        var menuItem = SubMenus.Where(item => item.Key.CurrentText == menuText).FirstOrDefault();
+        var result= SubMenus[menuItem.Key];
+        return result;
+    }
+
+
+    public static class MenuText
+    {
+        public static string Catalogo_I => "Catalogo I";
+        public static string Catalogo_II => "Catalogo II";
+        public static string Garantias => "Garantias";
+        public static string Territorios => "Territorios";
+        public static string Clientes => "Clientes";
+    }
+
+    public class MenuItem
+    {
+        public string MenuPadreText { get; set; }
+
+        public string CurrentText { get; set; }
+
+    }
 }

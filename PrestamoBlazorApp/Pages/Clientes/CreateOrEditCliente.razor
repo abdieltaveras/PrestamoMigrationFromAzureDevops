@@ -1,7 +1,7 @@
 ﻿@page "/clientes/CreateOrEdit"
 @page "/clientes/CreateOrEdit/{idCliente:int}"
-@*@using PrestamoBLL.Entidades;
-    @using PrestamoBlazorApp.Shared;*@
+@*@using PrestamoBLL.Entidades;*@
+    @*@using PrestamoBlazorApp.Shared;*@
 @*@using PrestamoBlazorApp.Pages.Clientes;
     @using Microsoft.AspNetCore.WebUtilities*@
 @*@inject NavigationManager NavigationManager*@
@@ -126,7 +126,14 @@
 
                             <div class="ml-5">
                                 @*<InputImages OnImageSet="SetImages" ImageQty="2" Text="Seleccione las imagenes para el cliente"></InputImages>*@
-                                <InputImages @key="1" OnImageSet="SetImages" OnImagenRemove="RemoveImages" ListaImagenesURL="this.FotosCliente" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
+                                @{ var tGrupo = TiposFotosCliente.RostroCliente.ToString(); }
+                                <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
+                            </div>
+
+                            <div class="ml-5">
+                                @*<InputImages OnImageSet="SetImages" ImageQty="2" Text="Seleccione las imagenes para el cliente"></InputImages>*@
+                                @{ var tGrp = TiposFotosCliente.DocIdentificacion.ToString(); }
+                                <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
                             </div>
                         </div>
 

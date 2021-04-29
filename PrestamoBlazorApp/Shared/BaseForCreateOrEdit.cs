@@ -23,12 +23,11 @@ namespace PrestamoBlazorApp.Shared
         /// <param name="mesasageDelayInMilliseconds"> the time message will last showing</param>
         /// <param name="watingTimeBeforeContinueExecution">as an async method yue set here if you want some time to be awaited before leveing this method and continue execution</param>
         /// <returns></returns>
-        public virtual async Task  OnGuardarNotification(string message= ConstForCreateOrEdit.RegistroGuardado, int mesasageDelayInMilliseconds = 5000,  int watingTimeBeforeContinueExecution=2000)
+        public virtual async Task  OnGuardarNotification(string message = ConstForCreateOrEdit.RegistroGuardado, string redirectTo = "")
         {
-            var result = await JsInteropUtils.Notification(jsRuntime, message,mesasageDelayInMilliseconds);
-            await Task.Delay(watingTimeBeforeContinueExecution);
+            await SweetAlertSuccess(message, redirectTo);
         }
-        public virtual async Task SweetAlertSuccess(string message = ConstForCreateOrEdit.RegistroGuardado, string redirectTo = "")
+        public virtual async Task SweetAlertSuccess(string message, string redirectTo = "")
         {
             if (message == null || message == string.Empty)
             {

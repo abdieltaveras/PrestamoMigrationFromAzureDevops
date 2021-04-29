@@ -19,6 +19,7 @@ namespace WSPrestamo.Controllers
     public class ClientesController : BaseApiController
     {
 
+        
 
         public IEnumerable<Cliente> Get(int idCliente, string codigo = "", string nombres = "", string apellidos = "", int Activo = -1,
             int idLocalidad = -1, int idTipoIdentificacion = -1, string noIdentificacion = "", int anulado = -1, DateTime? insertadoDesde = null, DateTime? insertadoHasta = null, int seleccionarCantidadRegistros = -1, int idRegistroInicioSeleccion = -1,

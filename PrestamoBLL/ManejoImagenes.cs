@@ -27,7 +27,7 @@ namespace PrestamoBLL
             var instancia = new ManejoImagenes(imagenes, directorioDeImagenes, inicioNombreImagen);
             foreach (var item in instancia.Imagenes)
             {
-                if (item.NewImagen)
+                if (item.Agregar)
                 {
                     var nombreArchivo = instancia.InicioNombreImagen + Guid.NewGuid().ToString();
                     try
