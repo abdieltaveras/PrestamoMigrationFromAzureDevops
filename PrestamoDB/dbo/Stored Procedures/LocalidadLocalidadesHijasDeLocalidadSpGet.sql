@@ -10,12 +10,12 @@ begin
 	
 	SELECT 
 		tblLocalidades.IdLocalidad as IdLocalidad,
-		tblTipoLocalidades.Nombre as TipoLocalidad,
+		tblDivisionTerritorial.Nombre as DivisionTerritorial,
 		tblLocalidades.Nombre as Nombre 
 	FROM 
 		tblLocalidades 
 	JOIN 
-		tblTipoLocalidades ON tblLocalidades.IdTipoLocalidad = tblTipoLocalidades.IdTipoLocalidad 
+		tblDivisionTerritorial ON tblLocalidades.IdTipoLocalidad = tblDivisionTerritorial.IdDivisionTerritorial 
 	WHERE 
 		tblLocalidades.IdLocalidadPadre = @IdLocalidad
 		AND tblLocalidades.IdNegocio IN (SELECT idNegocio FROM dbo.fnGetNegocioAndPadres(@IdNegocio))

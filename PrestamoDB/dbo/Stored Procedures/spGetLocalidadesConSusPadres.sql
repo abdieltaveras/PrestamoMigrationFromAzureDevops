@@ -22,9 +22,9 @@ AS
         loc.IdLocalidadPadre,
 		tipo.Nombre as Descripcion
     FROM
-        tblLocalidades loc, tblTipoLocalidades tipo
+        tblLocalidades loc, tblDivisionTerritorial tipo
     WHERE (@idlocalidad<=0 or   loc.IdLocalidad = @idlocalidad)
-	AND tipo.IdTipoLocalidad = loc.IdTipoLocalidad
+	AND tipo.IdDivisionTerritorial = loc.IdTipoLocalidad
     UNION ALL
     -- Recursive member that references recursion_location.
 
@@ -38,8 +38,8 @@ AS
         tblLocalidades e
         INNER JOIN recursion_location o
             ON o.IdLocalidadPadre = e.IdLocalidad
-		JOIN tblTipoLocalidades t
-			ON e.IdTipoLocalidad = t.IdTipoLocalidad
+		JOIN tblDivisionTerritorial t
+			ON e.IdTipoLocalidad = t.IdDivisionTerritorial
 )
 -- references recursion_location
 SELECT *

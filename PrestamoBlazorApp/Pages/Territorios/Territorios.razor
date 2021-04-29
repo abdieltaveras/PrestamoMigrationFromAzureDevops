@@ -20,10 +20,10 @@
                         <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
                         <div class="col-md-9 col-sm-9 ">
                             <select class="form-control" id="idTipoDivision" @onchange="selectedTerritorio" required>
-                                <option value="0">Seleccione una opcion</option>
+                                <option value="-1">Seleccione una opcion</option>
                                 @foreach (var item in listadeterritorios)
                                 {
-                                    <option value="@item.IdTipoLocalidad">
+                                    <option value="@item.IdDivisionTerritorial">
                                         @item.Nombre
                                         @if (@item.NombreTipoHijoDe != null)
                                         {
@@ -33,7 +33,7 @@
                                 }
                                 @*@foreach (var item in Model.ListaTerritorios)
                     {
-                        <option value="@item.IdTipoLocalidad" @(Model.territorioSeleccionado= =item.IdTipoLocalidad ? "selected" : "" )>
+                        <option value="@item.IdDivisionTerritorial" @(Model.territorioSeleccionado= =item.IdDivisionTerritorial ? "selected" : "" )>
                             @item.Nombre
                             @if (@item.NombreTipoHijoDe != null)
                             {
@@ -49,30 +49,21 @@
                     <div class="form-group row">
                         <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <select name="IdLocalidadPadre" class="form-control" id="tipolocalidadeshijas" @onchange="selectedLocalidadPadre" required>
-                                <option value="0">Elije una opcion</option>
+                            <select name="IdLocalidadPadre" class="form-control" id="divisionesterritorialeshijas" @onchange="selectedLocalidadPadre" required>
+                                <option value="-1">Elije una opcion</option>
                             </select>
                         </div>
                     </div>
 
-                    @*<input type="hidden" id="inputIdDivisionTerritorial" name="IdDivisionTerritorial" value="" required />*@
-                    <input type="hidden" id="inputIdDivisionTerritorial" @bind-value="this.Territorio.IdDivisionTerritorial" required />
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="codigo">
-                            Codigo <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" @bind-value="this.Territorio.Codigo" required />
-                            @*<input type="text" id="nombre" name="Nombre" value="" class="form-control" required />*@
-                        </div>
-                    </div>
-                    
+                    @*<input type="hidden" id="inputIdDivisionTerritorialPadre" name="IdDivisionTerritorialPadre" value="" required />*@
+                    <input type="hidden" id="inputIdDivisionTerritorialPadre" @bind-value="this.Territorio.IdDivisionTerritorialPadre" required />
+                 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="nombre">
                             Nombre <span class="required">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required  />
+                            <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required />
                             @*<input type="text" id="nombre" name="Nombre" value="" class="form-control" required />*@
                         </div>
                     </div>
@@ -87,7 +78,7 @@
                                    id="PermiteCalle"
                                    name="PermiteCalle"
                                    type="checkbox"
-                                   value="true" @onchange="checkPermiteCalle"/>
+                                   value="true" @onchange="checkPermiteCalle" />
                             @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
                             <label for="PermiteCalle" class="switch" id="switch"></label>
 
@@ -133,28 +124,29 @@
     {
         territorioSelected = Convert.ToInt32(args.Value.ToString());
 
-        if (territorioSelected > 0)
-        {
-            await VerTerritorios(territorioSelected.ToString());
-            this.Territorio.IdDivisionTerritorial = territorioSelected;
-        }
-        else
-        {
-            this.Territorio.IdDivisionTerritorial = -1;
-        }
+        //if (territorioSelected > 0)
+        //{
+        await VerTerritorios(territorioSelected.ToString());
+        this.Territorio.IdDivisionTerritorialPadre = territorioSelected;
+      
+        //}
+        //else
+        //{
+        //    this.Territorio.IdDivisionTerritorialPadre = -1;
+        //}
     }
     private  void selectedLocalidadPadre(ChangeEventArgs args)
     {
         localidadPadreSelected = Convert.ToInt32(args.Value.ToString());
 
-        if (localidadPadreSelected > 0)
-        {
-            this.Territorio.IdLocalidadPadre = localidadPadreSelected;
-        }
-        else
-        {
-            this.Territorio.IdLocalidadPadre = -1;
-        }
+        //if (localidadPadreSelected > 0)
+        //{
+        this.Territorio.IdLocalidadPadre = localidadPadreSelected;
+        //    }
+        //else
+        //{
+        //    this.Territorio.IdLocalidadPadre = -1;
+        //}
     }
     private void checkPermiteCalle(ChangeEventArgs args)
     {

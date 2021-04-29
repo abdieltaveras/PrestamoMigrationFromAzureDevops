@@ -16,7 +16,7 @@ begin
 		tipo.Nombre as Descripcion
     FROM
         tblLocalidades loc 
-	JOIN tblTipoLocalidades tipo ON loc.IdTipoLocalidad = tipo.IdTipoLocalidad
+	JOIN tblDivisionTerritorial tipo ON loc.IdTipoLocalidad = tipo.IdDivisionTerritorial
     WHERE (@idlocalidad<=0 or   loc.IdLocalidad = @idlocalidad)
 	
 end

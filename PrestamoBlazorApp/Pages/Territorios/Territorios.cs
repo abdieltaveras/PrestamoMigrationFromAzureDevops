@@ -41,17 +41,26 @@ namespace PrestamoBlazorApp.Pages.Territorios
         }
         async Task SaveTerritorio()
         {
-            if(this.Territorio.IdDivisionTerritorial <= 0 || this.Territorio.IdLocalidadPadre <= 0)
+            try
             {
-                await OnGuardarNotification("Error Al Guardar, llene todos los campos");
+                if (this.Territorio.IdDivisionTerritorialPadre <= 0 || this.Territorio.IdLocalidadPadre <= 0)
+                {
+                    await OnGuardarNotification("Error Al Guardar, llene todos los campos");
+                }
+                else
+                {
+                    await territoriosService.SaveTerritorio(this.Territorio);
+                    await SweetMessageBox("Datos Guardados", "success", "/Territorios");
+                    //await OnGuardarNotification();
+                    //NavManager.NavigateTo("/Territorios");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await territoriosService.SaveTerritorio(this.Territorio);
-                await SweetAlertSuccess(null,"/Territorios");
-                //await OnGuardarNotification();
-                //NavManager.NavigateTo("/Territorios");
+
+                throw;
             }
+          
 
 
         }

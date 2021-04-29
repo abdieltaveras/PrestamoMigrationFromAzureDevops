@@ -246,7 +246,7 @@ VALUES (1, NULL, 'ernesto', 'Tejeda', @codigo, 2, '1969-07-31', '2020-02-13 05:1
 -- Date:   13-Feb-20 5:53 AM
 -- Table:  tblTipoLocalidades
 
-INSERT INTO tblTipoLocalidades (IdLocalidadPadre, IdDivisionTerritorial, IdNegocio, Nombre, Activo, PermiteCalle, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+INSERT INTO tblDivisionTerritorial(IdLocalidadPadre, IdDivisionTerritorialPadre, IdNegocio, Nombre, Activo, PermiteCalle, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
 VALUES (NULL, NULL, 1, 'Division Territorial Raiz (Nunca Borrar)',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
 		(1, 0, 1, 'Division Territorial tipo Republica Dominicana',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
 		(2, 2, 1, 'Pais',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),

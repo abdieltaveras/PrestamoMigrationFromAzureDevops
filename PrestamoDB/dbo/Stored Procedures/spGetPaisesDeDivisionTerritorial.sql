@@ -11,17 +11,17 @@ begin
 		t1.*,
 		t2.Nombre as DescripcionPadre
 	FROM 
-		tblTipoLocalidades t1,
-		tblTipoLocalidades t2
+		tblDivisionTerritorial t1,
+		tblDivisionTerritorial t2
 	WHERE
 		t1.IdLocalidadPadre in (	SELECT
-							t1.IdTipoLocalidad
+							t1.IdDivisionTerritorial
 						FROM
-							tblTipoLocalidades t1,
-							tblTipoLocalidades t2
+							tblDivisionTerritorial t1,
+							tblDivisionTerritorial t2
 						WHERE
 							--t1.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)) and
-							t1.IdLocalidadPadre = t2.IdTipoLocalidad
+							t1.IdLocalidadPadre = t2.IdDivisionTerritorial
 							AND t2.IdLocalidadPadre IS NULL)
-		AND t1.IdLocalidadPadre = t2.IdTipoLocalidad
+		AND t1.IdLocalidadPadre = t2.IdDivisionTerritorial
 End

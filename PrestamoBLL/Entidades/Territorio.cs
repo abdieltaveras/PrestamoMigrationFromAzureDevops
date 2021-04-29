@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL.Entidades
 {
-    public class Territorio : BaseCatalogo
+    public class Territorio : BaseInsUpd
     {
-        public int IdTipoLocalidad { get; set; }
+        public int IdDivisionTerritorial { get; set; }
         [Required]
         public int IdLocalidadPadre { get; set; }
         [Required]
-        public int IdDivisionTerritorial { get; set; }
+        public int IdDivisionTerritorialPadre { get; set; }
         //public int IdNegocio { get; set; }
-        //public string Nombre { get; set; }
+        [Required]
+        public string Nombre { get; set; }
+        [Required]
+        [Display(Name = "Estatus")]
+        public bool Activo { get; set; } = true;
         [Required]
         public bool PermiteCalle { get; set; } = false;
 
@@ -26,15 +30,15 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public string DescripcionPadre { get; set; }
 
-        public override int GetId()
-        {
-            throw new NotImplementedException();
-        }
+        //public override int GetId()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 
     public class DivisionSearchParams : BaseGetParams
     {
-        public int IdDivisionTerritorial { get; set; }
+        public int IdDivisionTerritorialPadre { get; set; }
     }
 
     public class TerritorioSearchParams : BaseGetParams

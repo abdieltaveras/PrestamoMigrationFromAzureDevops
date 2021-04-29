@@ -45,7 +45,8 @@ window.SetInputMaskByElem = function (elemId, inputmask) {
 window.SetInputMask = function () {
         Inputmask().mask(document.querySelectorAll(".masked"));
 }
-window.DivisionTerritorial = (Id)=> {
+window.DivisionTerritorial = (Id) => {
+    $("#codigo").val("0");
     console.log(searchTerritorio(Id));
 }
 window.sweetAlertSuccess = function(message,redirectTo = "") {
@@ -64,6 +65,25 @@ window.sweetAlertSuccess = function(message,redirectTo = "") {
             location.reload();
         }
        
+    });
+    return true;
+}
+window.SweetMessageBox = function (message,icon, redirectTo = "") {
+    Swal.fire({
+        icon: icon,
+        title: message,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        timer: 1500
+        //text: 'Something went wrong!',
+        //footer: '<a href>Why do I have this issue?</a>'
+    }).then(function () {
+        if (redirectTo != "") {
+            window.location = redirectTo;
+        } else {
+            location.reload();
+        }
+
     });
     return true;
 }
