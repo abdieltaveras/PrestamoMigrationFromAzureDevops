@@ -93,7 +93,6 @@
             }
 
 </li>
-
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Catalogo_II) ">
                 <span class="oi oi-list" aria-hidden="true"></span> Catalogos Tipo II
@@ -166,11 +165,11 @@
 
     private Dictionary<MenuItem, bool> SubMenus { get; set; } = new Dictionary<MenuItem, bool>();
 
-    private bool expandCatalogosSubMenu { get; set; } = false;
-    private bool expandOperacionesSubMenu { get; set; } = false;
-    private bool expandGarantiasSubMenu { get; set; } = false;
-    private bool expandTerritoriosSubMenu { get; set; } = false;
-    private bool expandClientesSubMenu { get; set; } = false;
+    //private bool expandCatalogosSubMenu { get; set; } = false;
+    //private bool expandOperacionesSubMenu { get; set; } = false;
+    //private bool expandGarantiasSubMenu { get; set; } = false;
+    //private bool expandTerritoriosSubMenu { get; set; } = false;
+    //private bool expandClientesSubMenu { get; set; } = false;
 
     protected override void OnInitialized()
     {
@@ -232,14 +231,11 @@
 
     public static class MenuText
     {
-
         public static string Catalogo_I => "Catalogo I";
         public static string Catalogo_II => "Catalogo II";
         public static string Garantias => "Garantias";
         public static string Territorios => "Territorios";
         public static string Clientes => "Clientes";
-
-
     }
 
     public class MenuItem
@@ -247,5 +243,6 @@
         public string MenuPadreText { get; set; }
 
         public string CurrentText { get; set; }
+
     }
 }
