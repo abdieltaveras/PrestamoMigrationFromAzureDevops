@@ -49,7 +49,9 @@ namespace PrestamoBlazorApp.Pages.Territorios
                 }
                 else
                 {
+                    await BlockPage();
                     await territoriosService.SaveTerritorio(this.Territorio);
+                    await UnBlockPage();
                     await SweetMessageBox("Datos Guardados", "success", "/Territorios");
                     //await OnGuardarNotification();
                     //NavManager.NavigateTo("/Territorios");

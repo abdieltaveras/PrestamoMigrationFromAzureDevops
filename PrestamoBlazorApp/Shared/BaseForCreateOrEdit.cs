@@ -41,6 +41,16 @@ namespace PrestamoBlazorApp.Shared
             await JsInteropUtils.SweetMessageBox(jsRuntime, message,icon, redirectTo);
             //await Task.Delay(watingTimeBeforeContinueExecution);
         }
+        public virtual async Task BlockPage()
+        {
+            await JsInteropUtils.BlockPage(jsRuntime);
+            //await Task.Delay(watingTimeBeforeContinueExecution);
+        }
+        public virtual async Task UnBlockPage()
+        {
+            await JsInteropUtils.UnBlockPage(jsRuntime);
+            //await Task.Delay(watingTimeBeforeContinueExecution);
+        }
         public virtual async Task OnDeleteConfirm()
         {
             throw new NotImplementedException ();

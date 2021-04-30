@@ -19,7 +19,8 @@ namespace PrestamoBlazorApp.Services
         public static Task<bool> Notification(IJSRuntime jsRuntime, string message, int delayInMilliSeconds=5000) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("Notification", message, delayInMilliSeconds));
         public static Task<bool> SweetAlertSuccess(IJSRuntime jsRuntime, string message,string redirectTo = "") => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("sweetAlertSuccess", message,redirectTo));
         public static Task<bool> SweetMessageBox(IJSRuntime jsRuntime, string message,string icon, string redirectTo = "") => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("SweetMessageBox", message,icon, redirectTo));
-
+        public static Task<bool> BlockPage(IJSRuntime jsRuntime) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("BlockPage"));
+        public static Task<bool> UnBlockPage(IJSRuntime jsRuntime) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("UnBlockPage"));
         public static Task SetInputMaskByElemId(IJSRuntime JsRuntime, string elemId, string mask) => Task.Run(async () => await JsRuntime.InvokeVoidAsync("SetInputMaskByElem",elemId, mask));
 
         public static Task SetInputMask(IJSRuntime JsRuntime) => Task.Run(async () => await JsRuntime.InvokeVoidAsync("SetInputMask"));
