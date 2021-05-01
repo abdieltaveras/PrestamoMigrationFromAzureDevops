@@ -14,13 +14,13 @@
             console.log(id);
             if (id !== 0 && id !== null) {
         searchTerritorio(id);
-                $('#inputIdDivisionTerritorial').val(id);
+                $('#inputIdDivisionTerritorialPadre').val(id);
             }
         });
 
         $("#idTipoDivision").change(function () {
             var divisionSeleccionada = $(this).children("option:selected").val();
-            $('#inputIdDivisionTerritorial').val(divisionSeleccionada);
+            $('#inputIdDivisionTerritorialPadre').val(divisionSeleccionada);
             margenCount = 0;
 
             if (divisionSeleccionada !== '0') {
@@ -34,7 +34,7 @@
             try {
                 const res = await BuscarComponentesDeDivisionTerritorial(division);
                 console.log(JSON.parse(res));
-                showListTipoLocalidadesHijas(JSON.parse(res), division);
+                showListDivisionesTerritorialesHijas(JSON.parse(res), division);
                 showListComponentes(division, JSON.parse(res));
             } catch (err) {
 
@@ -61,18 +61,20 @@ function BuscarComponentesDeDivisionTerritorial(divisionTerritorial) {
             });
         }
 
-        function showListTipoLocalidadesHijas(lista, idDivision) {
+        function showListDivisionesTerritorialesHijas(lista, idDivision) {
         $('.divisionoption').remove();
 
             // Si la division territorial seleccionada no tiene ningun componente (Division terriritorial por debajo de ella) le asignara
-            // como HijoDe el IdTipoLocalidad de la division al que se cree (EJM: Division -> pais)
+            // como HijoDe el IdDivisionTerritorial de la division al que se cree (EJM: Division -> pais)
 
             if (lista.length > 0) {
         $.each(lista, function (index, value) {
-            $('#tipolocalidadeshijas').append(`<option class="divisionoption" value="${value.IdTipoLocalidad}">${value.Nombre}</option>`);
+            $('#divisionesterritorialeshijas').append(`<option class="divisionoption" value="${value.IdDivisionTerritorial}">${value.Nombre}</option>`);
         });
             } else {
-        $('#tipolocalidadeshijas').append(`<option selected class="divisionoption" value="${idDivision}">Primer componente</option>`);
+                if (idDivision > 0) {
+                    $('#divisionesterritorialeshijas').append(`<option selected class="divisionoption" value="${idDivision}">Primer componente</option>`);
+                }
             }
         }
 
@@ -102,7 +104,7 @@ function BuscarComponentesDeDivisionTerritorial(divisionTerritorial) {
                     }
 
                     // Buscar si tiene un margen padre, para asi aplicar el mismo mas la diferencia al hijo
-                    let kiss = listaCompleta.filter(item => item.IdTipoLocalidad == listaParcial[i].IdLocalidadPadre);
+                    let kiss = listaCompleta.filter(item => item.IdDivisionTerritorial == listaParcial[i].IdLocalidadPadre);
                     if (kiss[0] !== undefined) {
                         if (margen[kiss[0].IdLocalidadPadre] !== undefined) {
         parentMargin = margen[kiss[0].IdLocalidadPadre];
@@ -130,7 +132,7 @@ function BuscarComponentesDeDivisionTerritorial(divisionTerritorial) {
                 $('#component-list').append('<p style="margin-bottom: 4px; margin-left:' + margenAAplicar + 'px" > <i class="fa fa-chevron-right"></i> <span style="color: white; padding: 5px;" class="badge badge-pill badge-primary"> ' + listaParcial[i].Nombre + '</span> </p>');
 
                 // Llamar la funcion nuevamente, con el filtro de la lista hija (recursividad)
-                scan(listaCompleta.filter(item => item.IdLocalidadPadre == listaParcial[i].IdTipoLocalidad), listaCompleta)
+                scan(listaCompleta.filter(item => item.IdLocalidadPadre == listaParcial[i].IdDivisionTerritorial), listaCompleta)
             }
         }
 
@@ -141,7 +143,7 @@ function BuscarComponentesDeDivisionTerritorial(divisionTerritorial) {
                 return;
             }
 
-            if ($('#tipolocalidadeshijas').val() == 0) {
+            if ($('#divisionesterritorialeshijas').val() == 0) {
         showMessage('error', 'Debe seleccionar un tipo de componente');
                 event.preventDefault();
                 return;

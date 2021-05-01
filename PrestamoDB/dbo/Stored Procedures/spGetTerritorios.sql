@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spGetTerritorios]
 (
-	@IdTipoLocalidad int=-1,
-		@IdLocalidadNegocio int= -1,
+	@IdDivisionTerritorial int=-1,
+	@IdLocalidadNegocio int= -1,
 	@IdNegocio int=-1,
 	@IdLocalidadPadre  int=-1,
 	@Nombre varchar(50)='',
@@ -14,10 +14,10 @@ begin
 select 
 	t.*, m.Nombre as NombreTipoHijoDe
 	from 
-	tblTipoLocalidades t
-	left JOIN tblTipoLocalidades m ON m.IdTipoLocalidad = t.IdLocalidadPadre
+	tblDivisionTerritorial t
+	left JOIN tblDivisionTerritorial m ON m.IdDivisionTerritorial = t.IdLocalidadPadre
 	where 
-		((@IdTipoLocalidad=-1) or (t.IdTipoLocalidad = @IdTipoLocalidad))
+		((@IdDivisionTerritorial=-1) or (t.IdDivisionTerritorial = @IdDivisionTerritorial))
 		and ((@IdNegocio=-1) or (t.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio))))
 		and ((@IdLocalidadPadre=-1) or (t.IdLocalidadPadre = @IdLocalidadPadre))
 		and ((@Nombre='') or (t.Nombre=@Nombre))	

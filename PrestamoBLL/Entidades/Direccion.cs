@@ -4,13 +4,13 @@ namespace PrestamoBLL.Entidades
 {
     //public class TipoLocalidad : BaseCatalogo
     //{
-    //    public int IdTipoLocalidad { get; set; } = 0;
+    //    public int IdDivisionTerritorialPadre { get; set; } = 0;
     //    /// <summary>
     //    /// Indica el tipo de localidad que esta puede ser padre
     //    /// Ejemlo la localidad Tipo Provincia es padre de municipios
     //    /// </summary>
     //    public int LocalidadPadre { get; set; }
-    //    public override int GetId() => this.IdTipoLocalidad;
+    //    public override int GetId() => this.IdDivisionTerritorialPadre;
     //}
 
     //public class Localidad : BaseInsUpd
@@ -21,7 +21,7 @@ namespace PrestamoBLL.Entidades
     //    [Required(ErrorMessage = "el campo {0} es requerido")]
     //    public string Codigo { get; set; } = string.Empty;
     //    public int IdLocalidad { get; set; } = 0;
-    //    public int IdTipoLocalidad { get; set; } = 0;
+    //    public int IdDivisionTerritorialPadre { get; set; } = 0;
     //    public int IdLocalidadPadre { get; set; } = 0;
     //    public string Nombre { get; set; } = string.Empty;
     //    public override int GetId() => this.IdLocalidad;

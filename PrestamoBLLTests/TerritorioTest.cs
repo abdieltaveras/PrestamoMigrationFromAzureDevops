@@ -15,7 +15,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void TerritorioBuscarComponentesDivisionesTerritorialesTest()
         {
-            var search = new DivisionSearchParams {IdDivisionTerritorial=2, IdNegocio=1  };
+            var search = new DivisionSearchParams {IdDivisionTerritorialPadre=2, IdNegocio=1  };
             var result = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(search);
             Assert.IsTrue(result.Count()>0,"no se econtro dato para la division territorial");
         }

@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                @if (Territorio.IdTipoLocalidad > 0)
+                @if (Territorio.IdDivisionTerritorial > 0)
                 {
                     <h5 class="modal-title" id="edtMarcaTitel">Editar Color</h5>
                 }
@@ -64,7 +64,7 @@
                             <button class="btn btn-outline-danger">
                                 <i class="fa fa-trash"></i>
                             </button>
-                            <button class="btn btn-outline-warning" @onclick="()=>CreateOrEdit(item.IdTipoLocalidad)">
+                            <button class="btn btn-outline-warning" @onclick="()=>CreateOrEdit(item.IdDivisionTerritorial)">
                                 <i class="fa fa-edit"></i>
                             </button>
                         </td>

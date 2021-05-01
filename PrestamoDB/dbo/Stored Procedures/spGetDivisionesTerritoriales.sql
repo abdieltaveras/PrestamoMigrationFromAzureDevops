@@ -12,10 +12,10 @@ begin
 select 
 	t1.* 
 from 
-	tblTipoLocalidades t1, 
-	tblTipoLocalidades t2 
+	tblDivisionTerritorial t1, 
+	tblDivisionTerritorial t2 
 where 
 	--t1.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)) and
-	t1.IdLocalidadPadre = t2.IdTipoLocalidad 
+	t1.IdLocalidadPadre = t2.IdDivisionTerritorial 
 	and t2.IdLocalidadPadre is null
 End

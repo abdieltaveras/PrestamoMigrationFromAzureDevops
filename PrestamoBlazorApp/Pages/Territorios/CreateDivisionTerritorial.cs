@@ -43,7 +43,8 @@ namespace PrestamoBlazorApp.Pages.Territorios
             else
             {
                 await territoriosService.SaveDivisionTerritorial(this.Territorio);
-                await SweetAlertSuccess(null, "/Territorios/CreateDivisionTerritorial");
+                await SweetMessageBox("Datos Guardados", "success", "/Territorios/CreateDivisionTerritorial");
+                //await SweetAlertSuccess(null, "/Territorios/CreateDivisionTerritorial");
                 //await OnGuardarNotification();
                 //NavManager.NavigateTo("/Territorios");
             }
@@ -55,7 +56,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         {
             if (idDivision > 0)
             {
-                this.Territorio = listadeterritorios.Where(m => m.IdTipoLocalidad == idDivision).FirstOrDefault();
+                this.Territorio = listadeterritorios.Where(m => m.IdDivisionTerritorial == idDivision).FirstOrDefault();
             }
             else
             {

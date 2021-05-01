@@ -36,7 +36,7 @@ namespace WSPrestamo.Controllers
             string IdDivision = "";
             IdDivision = "2";
             IEnumerable<Territorio> territorios = null;
-            territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorial = int.Parse(IdDivision) });
+            territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorialPadre = int.Parse(IdDivision) });
 
             return territorios;
             //return JsonConvert.SerializeObject(territorios);
@@ -48,7 +48,7 @@ namespace WSPrestamo.Controllers
             
             //IdDivision = "2";
             IEnumerable<Territorio> territorios = null;
-            territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorial = int.Parse(IdDivision) });
+            territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorialPadre = int.Parse(IdDivision) });
 
             //return territorios;
             return JsonConvert.SerializeObject(territorios);
@@ -67,6 +67,7 @@ namespace WSPrestamo.Controllers
             territorio.Usuario = this.LoginName;
             territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;
             territorio.IdNegocio = 1;
+            //territorio.Codigo = "";
             BLLPrestamo.Instance.TerritorioInsUpd(territorio);
             return Ok();
             //return RedirectToAction("CreateOrEdit");
@@ -79,6 +80,7 @@ namespace WSPrestamo.Controllers
             territorio.IdNegocio = 1;
             territorio.IdLocalidadPadre = 1;
             territorio.PermiteCalle = false;
+            //territorio.Codigo = "";
             BLLPrestamo.Instance.TerritorioInsUpd(territorio);
             return Ok();
         }

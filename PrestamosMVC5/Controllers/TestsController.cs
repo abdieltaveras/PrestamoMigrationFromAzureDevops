@@ -86,7 +86,7 @@ namespace PrestamosMVC5.Controllers
 
         public ActionResult TreeViewExample3()
         {
-            var search = new DivisionSearchParams { IdDivisionTerritorial = 2, IdNegocio = 1 };
+            var search = new DivisionSearchParams { IdDivisionTerritorialPadre = 2, IdNegocio = 1 };
             var result = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(search);
             var divTerritorialTree = new DivisionTerritorialTree(result);
             return View("treeViewExample2", divTerritorialTree.ElementsForTree);

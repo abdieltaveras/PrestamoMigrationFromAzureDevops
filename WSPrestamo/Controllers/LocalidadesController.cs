@@ -76,7 +76,7 @@ namespace WSPrestamo.Controllers
         [HttpPost]
         public IHttpActionResult Post(Localidad localidad)
         {
-            //var localidadparams = new Localidad { IdLocalidad = IdLocalidad, IdLocalidadPadre = IdLocalidadPadre, IdTipoLocalidad = IdTipoLocalidad,  };
+            //var localidadparams = new Localidad { IdLocalidad = IdLocalidad, IdLocalidadPadre = IdLocalidadPadre, IdDivisionTerritorialPadre = IdDivisionTerritorialPadre,  };
             BLLPrestamo.Instance.InsUpdLocalidad(localidad);
             return Ok();
         }

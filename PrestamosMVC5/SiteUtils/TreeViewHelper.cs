@@ -43,14 +43,14 @@ namespace PrestamosMVC5.SiteUtils
             var root = new Territorio();
             foreach (var current in this.Territorios)
             {
-                var tienePadre = this.Territorios.Where(div => div.IdLocalidadPadre == current.IdTipoLocalidad)==null;
+                var tienePadre = this.Territorios.Where(div => div.IdLocalidadPadre == current.IdDivisionTerritorial)==null;
                 if (!tienePadre)
                 {
                     root = current;
                     break;
                 }
             }
-            Element rootElem = new Element { Nombre = root.Nombre, Id = root.IdTipoLocalidad };
+            Element rootElem = new Element { Nombre = root.Nombre, Id = root.IdDivisionTerritorial };
             ElementsForTree.Add(rootElem);
             return rootElem;
         }
@@ -59,7 +59,7 @@ namespace PrestamosMVC5.SiteUtils
             var hijos = this.Territorios.Where(terr => terr.IdLocalidadPadre == padre.Id);
             foreach (var item in hijos)
             {
-                Element elem = new Element { Nombre = item.Nombre, Id = item.IdTipoLocalidad, Padre = padre };
+                Element elem = new Element { Nombre = item.Nombre, Id = item.IdDivisionTerritorial, Padre = padre };
                 ElementsForTree.Add(elem);
                 GetHijos(elem);
             }
