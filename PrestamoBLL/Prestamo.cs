@@ -51,7 +51,8 @@ namespace PrestamoBLL
         public IEnumerable<Prestamo> GetPrestamos(PrestamosGetParams searchParam)
         {
             //GetValidation(searchParam as BaseGetParams);
-            
+            searchParam.fechaEmisionRealDesde = searchParam.fechaEmisionRealDesde == null ? InitValues._19000101 : searchParam.fechaEmisionRealDesde;
+            searchParam.fechaEmisionRealHasta = searchParam.fechaEmisionRealHasta == null ? InitValues._19000101 : searchParam.fechaEmisionRealDesde;
             var data = BllAcciones.GetData<Prestamo, PrestamosGetParams>(searchParam, "spGetPrestamos", GetValidation);
             return data;
         }
@@ -151,6 +152,10 @@ namespace PrestamoBLL
             PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
             PrestamoConDetalle.InfoDeuda = new InfoDeudaPrestamoDrCr(cuotas, fecha);
             return PrestamoConDetalle;
+        }
+        public void AnularPrestamo(int idPrestamo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

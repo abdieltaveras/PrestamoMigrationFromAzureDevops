@@ -1,4 +1,4 @@
-﻿create procedure spgetNegocioAndPadres
+﻿create procedure dbo.spgetNegocioAndPadres
 (
 	@idNegocio int
 )

@@ -6,6 +6,7 @@
 	@FechaEmisionRealHasta dateTime='19000101',
 	@IdCliente int =-1,
 	@IdGarantia int =-1,
+	@idLocalidadNegocio int =-1,
 	@Anulado int =-1
 )
 as
@@ -14,5 +15,7 @@ begin
 	FROM	dbo.tblPrestamos as pres
 	-- condiciones organizar esta parte solo esta con el idPrestamo
 	where (@IdPrestamo=-1 or idPrestamo = @IdPrestamo) 
+
+		
 
 End

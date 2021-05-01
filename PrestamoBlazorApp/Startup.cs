@@ -53,6 +53,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
+            services.AddSingleton<WeatherForecastService>();
 
             services.AddSingleton<IngresosService>();
             services.AddSingleton<ColoresService>();
@@ -67,7 +68,8 @@ namespace PrestamoBlazorApp
             services.AddSingleton<TipoGarantiaService>();
             services.AddSingleton<TiposMoraService>();
             services.AddSingleton<TerritoriosService>();
-            services.AddSingleton<WeatherForecastService>();
+            
+            services.AddSingleton<PrestamosService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,30 +1,43 @@
 ﻿<div class="jumbotron">
     <h1>Pcp prestamo Api</h1>
     <p class="lead">recuerda que esto es una API las peticiones son {Dominio}/Api/{Controller}/{Action} </p>
-    <pre  class="text-info">
-        <h2>Ejemplos concretos</h2>
-        <h3 class="mt-0">
-            www.PcpPrestamoService.pcpapps.com/api/color/get
-            localhost:44350/Api/Color/Get
-        </h3>
+</div>
+<div>
+    @{
+        string Baseurl = RequestInfo.GetBaseUrl();
+        string getRequest = "get    :" + Baseurl + "api/color/get?idColor=-1";
+        string postRequest = "post   :" + Baseurl + "api/color/post";
+        string deleteRequest = "delete :" + Baseurl + "api/color/delete?idColor=3";
+
+        string testUrl = "test request " + Baseurl + "api/values/get";
+    }
+
+    <pre class="text-info">
+    <h2>modelos de request</h2>
+    <h4 class="mt-0">
+        @getRequest
+        @postRequest
+        @deleteRequest
+        @testUrl
+    </h4>
     </pre>
 </div>
 @*<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>*@
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
+            a broad range of clients, including browsers and mobile devices. ASP.NET Web API
+            is an ideal platform for building RESTful applications on the .NET Framework.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+        </div>
+    </div>*@

@@ -1,4 +1,4 @@
-﻿create procedure spLoginUsuarioByNegocioMatriz
+﻿create procedure dbo.spLoginUsuarioByNegocioMatriz
 (
 
 	@IdLocalidadNegocio int = -1,

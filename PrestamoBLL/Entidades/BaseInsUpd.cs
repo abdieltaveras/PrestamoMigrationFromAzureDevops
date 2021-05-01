@@ -43,6 +43,8 @@ namespace PrestamoBLL.Entidades
         [Required]
         
         public int IdNegocio { get; set; } = -1;
+
+        //todo add IdLocalidadNegocio to this base class to check with luis
     }
 
     

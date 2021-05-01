@@ -73,7 +73,7 @@ namespace PrestamoBLL
 
             return operaciones;
         }
-        
 
+        
     }
 }

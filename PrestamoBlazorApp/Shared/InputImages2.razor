@@ -9,8 +9,6 @@
         imagenes permitidas @ImageQty
         @*Si desea agregar imagenes debe quitar de las que ya estan*@
     </label>
-    
-    
     }
     else
     {
@@ -21,7 +19,6 @@
             <div class="custom-file">
                 <InputFile OnChange="OnInputFileChange" accept="image/*" capture class=" custom-file-input " />
                 <label class="custom-file-label" for="inputGroupFile01"></label>
-
             </div>
         </div>
     }
@@ -40,7 +37,6 @@
                     int imageIndex = 0;
                     @foreach (var imagen in imagenes)
                     {
-                        
                         <td>
                             <img src="@imagen.Base64string" style="height:@HeightInPx" />
                             <ConfirmationDialog ButtonText="Quitar"

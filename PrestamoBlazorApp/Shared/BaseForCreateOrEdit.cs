@@ -11,11 +11,16 @@ namespace PrestamoBlazorApp.Shared
 {
     public class BaseForCreateOrEdit : ComponentBase
     {
+
+        protected bool loading { get; set; } = false;
+        protected bool disableCodigo { get; set; } = true;
+        protected string TextoForActivo { get; set; } = "Si";
+        
+        protected bool blockSaveButton = false;
         [Inject]
         protected  NavigationManager NavManager { get; set; }
         [Inject]
         protected IJSRuntime jsRuntime { get; set; }
-
         protected JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         /// <summary>
         /// To show notifications

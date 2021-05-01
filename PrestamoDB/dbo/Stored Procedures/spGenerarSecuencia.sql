@@ -1,4 +1,4 @@
-﻿CREATE procedure spGenerarSecuencia (@nombre varchar(100), @idNegocio int)
+﻿CREATE procedure dbo.spGenerarSecuencia (@nombre varchar(100), @idNegocio int)
 as
 Begin
 	if not exists(select 1 from tblSecuencias where nombre = @nombre )

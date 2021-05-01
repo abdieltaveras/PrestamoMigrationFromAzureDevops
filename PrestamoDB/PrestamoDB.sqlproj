@@ -230,5 +230,6 @@
     <None Include="Prestamo_api.publish.publish.xml" />
     <None Include="PrestamoDB_1.publish.xml" />
     <None Include="PrestamoDB_2.publish.xml" />
+    <None Include="Bisend_PrestamoApi.publish.xml" />
   </ItemGroup>
 </Project>

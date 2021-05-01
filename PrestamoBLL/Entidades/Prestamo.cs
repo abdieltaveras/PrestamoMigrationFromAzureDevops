@@ -156,10 +156,12 @@ namespace PrestamoBLL.Entidades
     {
         public int IdPrestamo { get; set; }
         public int IdStatus { get; set; } = -1;
-        
+
+        public int LocalidadNegocio { get; set; } = -1;
+
         [IgnorarEnParam]
         [Display(Name ="Prestamo Numero")]
-        public string PrestamoNumero { get; internal set; } = string.Empty;
+        public string PrestamoNumero { get; set; } = string.Empty;
         /// <summary>
         /// el valor menos 1 indica que no se establecio ningun prestamo a renovar
         /// </summary>
@@ -355,6 +357,8 @@ namespace PrestamoBLL.Entidades
     public class PrestamosGetParams : BaseIdNegocio 
     {
         public int idPrestamo { get; set; } = -1;
+
+        public int idLocalidadNegocio { get; set; } = -1;
         public int idCliente { get; set; } = -1;
         public int idGarantia { get; set; } = -1;
         public DateTime fechaEmisionRealDesde { get; set; } = InitValues._19000101;

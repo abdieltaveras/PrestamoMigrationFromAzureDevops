@@ -48,7 +48,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         InfoLaboral infoLaboral { get; set; } = new InfoLaboral();
 
         EventConsole console;
-        string TextoForActivo { get; set; } = "Si";
+        
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
 
         private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
@@ -63,7 +63,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         List<Referencia> referencias = new List<Referencia>();
 
 
-        bool disableCodigo { get; set; } = true;
+        
 
         protected override async Task OnInitializedAsync()
         {
@@ -154,13 +154,10 @@ namespace PrestamoBlazorApp.Pages.Clientes
             }
         }
 
-        private bool loading { get; set; } = false;
-        private bool hideSaveButton = false;
-
         //async Task SaveCliente()
         async Task SaveCliente()
         {
-            hideSaveButton = true;
+            blockSaveButton = true;
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
             this.cliente.InfoConyugeObj = conyuge;
             this.cliente.InfoReferenciasObj = referencias;
