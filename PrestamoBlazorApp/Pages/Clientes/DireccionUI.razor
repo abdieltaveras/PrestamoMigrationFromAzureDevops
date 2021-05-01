@@ -9,29 +9,29 @@
         </div>
 
         <div class="form-group row alert-info">
-            <label class="col-sm-3 col-form-label text-right">Localidad </label>
+            <label class="col-sm-3 col-form-label text-label-align">Localidad </label>
             <label class="col-sm-8 mt-2"> @direccion.selectedLocalidad  </label>
         </div>
 
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-right">Calle</label>
+            <label class="col-sm-3 col-form-label text-label-align">Calle</label>
             <InputText @bind-Value=@direccion.Calle class="col-sm-8" />
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-right">Latitud</label>
+            <label class="col-sm-3 col-form-label text-label-align">Latitud</label>
             <InputNumber @bind-Value="@direccion.Latitud" class="col-sm-8" />
 
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-right">Longitud</label>
+            <label class="col-sm-3 col-form-label text-label-align">Longitud</label>
             <InputNumber @bind-Value="@direccion.Longitud" class="col-sm-8" />
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-right">Detalles</label>
+            <label class="col-sm-3 col-form-label text-label-align">Detalles</label>
             <InputTextArea @bind-Value=@direccion.Detalles class="col-sm-8" />
         </div>
     </div>
@@ -48,8 +48,6 @@
 
     [Parameter]
     public DireccionModel direccion { get; set; }
-    [Parameter]
-    public Cliente cliente { get; set; }
 
     BuscarLocalidad buscarLocalidad { get; set; } = new BuscarLocalidad();
 

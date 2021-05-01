@@ -123,3 +123,15 @@ a, .btn-link {
     flex-shrink: 0;
 }
 
+
+@media (min-width: 768px) {
+    .text-label-align {
+        text-align: right !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .text-label-align {
+        text-align: left !important;
+    }
+}

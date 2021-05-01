@@ -16,7 +16,6 @@ namespace PrestamoBlazorApp.Shared
         [Inject]
         IJSRuntime JsRuntime { get; set; }
 
-        int imagelist = 0;
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
 
         List<Imagen> imagenes = new List<Imagen>();
@@ -70,16 +69,33 @@ namespace PrestamoBlazorApp.Shared
             Imagen imagen = null;
             foreach (var imageFile in imageFiles)
             {
-                //var resizedImageFile = await imageFile.RequestImageFileAsync(format,100, 100);
-                var resizedImageFile = imageFile;
+                
+                
+
+                var resizedImageFile = imageFile.Size > 20000 ? 
+                    await imageFile.RequestImageFileAsync(format,100, 100)
+                    :
+                    imageFile;
+
                 var buffer = new byte[resizedImageFile.Size];
-                await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+                try
+                {
+                    await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+                }
+                catch (Exception ex)
+                {
+                    await JsInteropUtils.SweetMessageBox(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra","warning");
+                }
                 var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
                 imagen = new Imagen { Base64string = imageDataUrl, Grupo = this.GrupoImagen, NombreArchivo = Guid.NewGuid().ToString(), Agregar=true };
+                if (imageFile.Size > 20000)
+                {
+                    //await JsInteropUtils.SweetMessageBox(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra", "warning");
+                    await JsInteropUtils.Notification(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra",6000);
+                }
             }
             imagenes.Add(imagen);
             await OnImageSet.InvokeAsync(imagen);
-
         }
 
         void QuitarImagen(object _imagen)
