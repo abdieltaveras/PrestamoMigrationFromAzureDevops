@@ -16,48 +16,142 @@
         </div>
         @if (loading)
         {
-        <div class="loader">Cargando...</div>
+            <div class="loader">Cargando...</div>
         }
         else
         {
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group row">
-                    <label for="codigo" class="col-sm-2 col-form-label text-right">Codigo</label>
-                    @if (disableCodigo)
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group row">
+                        <label for="codigo" class="col-sm-4 col-form-label text-right">Prestamo Numero</label>
+                        @if (disableCodigo)
                         {
-                    <label class="col-sm-3 mt-2">@prestamo.PrestamoNumero </label>
+                            <label class="col-sm-3 mt-2">@prestamo.PrestamoNumero </label>
                         }
                         else
                         {
-                    <InputText @bind-Value="prestamo.PrestamoNumero" class="col-sm-3" />
+                            <InputText @bind-Value="prestamo.PrestamoNumero" class="col-sm-3" />
                         }
-                    <label class="col-sm-2 col-form-label text-right">Activo</label>
-                    <label class="col-sm-1 col-form-label text-left">@TextoForActivo</label>
-                </div>
-                <div class="form-group row">
-                    <label for="fechaPrestamo" class="col-sm-2 col-form-label text-right">Fecha</label>
-                    <InputDate @bind-Value="prestamo.FechaEmisionReal" class="col-sm-10" />
-                </div>
-                <div class="form-group row">
-                    <label for="montoCliente" class="col-sm-2 col-form-label text-right">Monto Cliente</label>
-                    <InputNumber @bind-Value:format="$#,##0.00" @bind-Value="prestamo.MontoPrestado" class="col-sm-10" />
-                    <InputText @bind-Value:format="$#,##0.00" @bind-Value="@monto" class="col-sm-10" />
-                </div>
-                <div class="form-group row">
-                    <p>
-                        <label>
-                            Decimal value (&plusmn;0.000 format):
-                            <input @bind="DecimalValue" />
-                        </label>
-                    </p>
+                    </div>
 
-                    <p>
-                        <code>decimalValue</code>: @decimalValue
-                    </p>
+                    <div class="form-group row">
+                        <label for="clasificacion" class="col-sm-4 col-form-label text-right">Clasificacion</label>
+                        <InputSelect id="clasificacion" @bind-Value="prestamo.IdClasificacion" class="form-control col-sm-4">
+                            @foreach (var item in Clasificaciones)
+                                {
+                                <option value=@item.IdClasificacion>@item.Nombre</option>
+                                }
+                        </InputSelect>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="amortizacion" class="col-sm-4 col-form-label text-right">Amortizacion</label>
+                        <InputSelect id="amortizacion" @bind-Value="prestamo.IdTipoAmortizacion" class="form-control col-sm-4">
+                            @foreach (var item in EnumToList.TiposAmortizacion())
+                                {
+                                <option value=@item.Value>@item.Text</option>
+                                }
+                        </InputSelect>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="fechaPrestamo" class="col-sm-2 col-form-label text-right">Fecha</label>
+                        <InputDate @bind-Value="prestamo.FechaEmisionReal" class="col-sm-10" />
+                    </div>
+                    <div class="form-group row">
+                        <label for="codigocliente" class="col-sm-4 col-form-label text-right">Codigo Cliente</label>
+                        <InputText @bind-Value="CodigoCliente" class="col-sm-3" />
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="codigocodeudor" class="col-sm-4 col-form-label text-right">Codigo Codeudor</label>
+                        <InputText @bind-Value="CodigoCodeudor" class="col-sm-3" />
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="Garantias" class="col-sm-4 col-form-label text-right">Codigo Garantia</label>
+                        <InputText @bind-Value="CodigoGarantia" class="col-sm-3" />
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="montoCliente" class="col-sm-4 col-form-label text-right">Monto Cliente</label>
+                        <InputNumber @bind-Value:format="$#,##0.00" @bind-Value="prestamo.MontoPrestado" class="col-sm-8" />
+                    </div>
+
+                    <div class="form-group row">
+                        @*<label for="llevagastodecierre" class="col-sm-4 col-form-label text-right">Lleva Gasto de Cierre</label>*@
+                        <InputCheckbox @bind-Value="LlevaGastoDeCierre" TValue="bool" class="offset-2 mt-1" />
+                        <label for="llevagastodecierre" class="ml-2" style="margin-left: 5px">lleva Gasto de Cierre</label>
+                    </div>
+
+                    @{ if (LlevaGastoDeCierre)
+                        {
+                            <div class="form-group row">
+                                <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-right">% Gasto de cierre</label>
+                                <InputNumber @bind-Value="prestamo.InteresGastoDeCierre" class="col-sm-8" />
+                                <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-right">Monto del GC @prestamo.MontoGastoDeCierre</label>
+                            </div>
+                            <div class="form-group row">
+                                <InputCheckbox @bind-Value="prestamo.GastoDeCierreEsDeducible" class="offset-2 mt-1" />
+                                <label for="esDeducible" class="ml-2" style="margin-left: 5px">Es Decucible</label>
+                                @if (prestamo.GastoDeCierreEsDeducible)
+                                {
+                                    <label class="ml-2" style="margin-left: 5px">Se Rebajara del Monto a entregar al cliente</label>
+                                }
+                            </div>
+                            if (!prestamo.GastoDeCierreEsDeducible)
+                            {
+                                <div class="form-group row">
+                                    <InputCheckbox @bind-Value="prestamo.FinanciarGastoDeCierre" class="offset-2 mt-1" />
+                                    <label class="ml-2" style="margin-left: 5px">Financiar el GC</label>
+
+                                    @if (prestamo.FinanciarGastoDeCierre)
+                                    {
+                                        <label class="ml-2" style="margin-left: 5px">Se distribuira en las cuotas</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="ml-2" style="margin-left: 5px">Debe pagar el gasto de cierre en caja</label>
+                                    }
+
+                                </div>
+
+
+                            }
+                        }
+                    }
+
+                </div>
+                <div class="col-sm-6">
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-right">Codigo de Interes</label>
+                        <InputText @bind-Value="CodigoInteres" class="col-sm-3" />
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-right">Periodo</label>
+                        <InputText @bind-Value="CodigoPeriodo" class="col-sm-3" />
+                    </div>
+
+                    <div class="form-group row">
+                        <InputCheckbox @bind-Value="SinVencimiento" class="col-sm-3" />
+                        <label class="col-sm-4 col-form-label text-right">Sin Vencimiento</label>
+                    </div>
+
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-right">Cantidad de Cuotas</label>
+                        <InputNumber @bind-Value="prestamo.CantidadDePeriodos" step="1" class="col-sm-3" />
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-right">Codigo de Mora</label>
+                        <InputText @bind-Value="CodigoMora" class="col-sm-3" />
+                    </div>
                 </div>
             </div>
-        </div>
         }
 
     </EditForm>

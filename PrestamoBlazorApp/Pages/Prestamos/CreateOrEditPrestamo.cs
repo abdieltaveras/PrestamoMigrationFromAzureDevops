@@ -4,6 +4,7 @@ using PrestamoBlazorApp.Shared;
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         [Inject]
         PrestamosService prestamoService { get; set; }
 
-        //        el de
+        //el de
         //Moras
         //Clientes
         //Codeudores
@@ -36,9 +37,21 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         [Parameter]
         public int idPrestamo { get; set; } = -1;
 
-        private string monto { get; set; } = "0.00";
+        public IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
+        
+        private string CodigoCliente { get; set; } = string.Empty;
+        private string CodigoCodeudor { get; set; } = string.Empty;
+        private string CodigoGarantia { get; set; } = string.Empty;
+        private string CodigoPeriodo { get; set; } = string.Empty;
+        private string CodigoInteres { get; set; } = string.Empty;
+        private string CodigoMora { get; set; } = string.Empty;
+
+        private bool LlevaGastoDeCierre { get; set; } = true;
+        private bool SinVencimiento { get; set; } = true;
+
         protected override Task OnInitializedAsync()
         {
+            prestamo.PrestamoNumero = "Nuevo";
             return base.OnInitializedAsync();
         }
         async Task SavePrestamo()

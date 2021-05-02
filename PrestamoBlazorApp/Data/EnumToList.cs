@@ -33,6 +33,13 @@ namespace PrestamoBlazorApp.Data
             var result = ((EstadosCiviles[])Enum.GetValues(typeof(EstadosCiviles))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();
             return result;
         }
+
+        public static List<EnumModel> TiposAmortizacion()
+        {
+            var result = ((TiposAmortizacion[])Enum.GetValues(typeof(TiposAmortizacion))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();
+            return result;
+        }
+
     }
 
 }
