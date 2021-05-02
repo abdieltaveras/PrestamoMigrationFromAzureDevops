@@ -15,6 +15,24 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         [Inject]
         PrestamosService prestamoService { get; set; }
 
+        //        el de
+        //Moras
+        //Clientes
+        //Codeudores
+        //Clasificacion
+        //Intereses
+        //Garantias
+        //TipoAmortizaciones
+
+        //        en la clasificacion que indique
+        //si lleva o no garantia
+        //si lleva o no Codeudor
+
+//        igual tendremos tipos de vista de clientes
+//Full view
+//Basic View
+
+
         [Parameter]
         public int idPrestamo { get; set; } = -1;
 
