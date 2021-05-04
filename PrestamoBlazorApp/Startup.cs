@@ -35,6 +35,7 @@ namespace PrestamoBlazorApp
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -68,8 +69,10 @@ namespace PrestamoBlazorApp
             services.AddSingleton<TipoGarantiaService>();
             services.AddSingleton<TiposMoraService>();
             services.AddSingleton<TerritoriosService>();
-            
+            services.AddSingleton<TasasInteresService>();
+            services.AddSingleton<PeriodosService>();
             services.AddSingleton<PrestamosService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +90,7 @@ namespace PrestamoBlazorApp
                 app.UseHsts();
             }
 
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

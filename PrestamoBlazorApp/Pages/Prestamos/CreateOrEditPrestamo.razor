@@ -75,8 +75,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="montoCliente" class="col-sm-4 col-form-label text-right">Monto Cliente</label>
-                        <InputNumber @bind-Value:format="$#,##0.00" @bind-Value="prestamo.MontoPrestado" class="col-sm-8" />
+                        <label for="montoCliente" class="col-sm-4 col-form-label text-right ">Monto Cliente</label>
+                        <InputNumber @bind-Value:format="$#,##0.00" @bind-Value="prestamo.MontoPrestado" class="col-sm-4" />
+                        <InputText @bind-Value="MontoText" class="col-sm-4 currency" />
                     </div>
 
                     <div class="form-group row">
@@ -88,9 +89,11 @@
                     @{ if (LlevaGastoDeCierre)
                         {
                             <div class="form-group row">
+
                                 <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-right">% Gasto de cierre</label>
                                 <InputNumber @bind-Value="prestamo.InteresGastoDeCierre" class="col-sm-8" />
                                 <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-right">Monto del GC @prestamo.MontoGastoDeCierre</label>
+
                             </div>
                             <div class="form-group row">
                                 <InputCheckbox @bind-Value="prestamo.GastoDeCierreEsDeducible" class="offset-2 mt-1" />
@@ -127,18 +130,27 @@
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label text-right">Codigo de Interes</label>
-                        <InputText @bind-Value="CodigoInteres" class="col-sm-3" />
+                        <InputText @bind-Value="CodigoInteres" class="col-sm-2" />
+                        <InputSelect @bind-Value="prestamo.IdTasaInteres" class="form-control col-sm-4">
+                            @foreach (var item in TasasDeInteres)
+                                {
+                                <option value=@item.idTasaInteres>@($"{item.Codigo} Tasa {item.InteresMensual.ToString("#.0000")}")</option>
+                                }
+                        </InputSelect>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label text-right">Periodo</label>
-                        <InputText @bind-Value="CodigoPeriodo" class="col-sm-3" />
+                        <InputText @bind-Value="CodigoPeriodo" class="col-sm-2" />
+                        <InputSelect @bind-Value="prestamo.IdPeriodo" class="form-control col-sm-4">
+                            @foreach (var item in Periodos)
+                                {
+                                <option value=@item.idPeriodo>@($"{item.Codigo}  {item.Nombre}")</option>
+                                }
+                        </InputSelect>
                     </div>
 
-                    <div class="form-group row">
-                        <InputCheckbox @bind-Value="SinVencimiento" class="col-sm-3" />
-                        <label class="col-sm-4 col-form-label text-right">Sin Vencimiento</label>
-                    </div>
+                    
 
                     
                     <div class="form-group row">
@@ -149,6 +161,12 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label text-right">Codigo de Mora</label>
                         <InputText @bind-Value="CodigoMora" class="col-sm-3" />
+                        <InputSelect @bind-Value="prestamo.IdTipoMora" class="form-control col-sm-4">
+                            @foreach (var item in TiposMora)
+                                {
+                                <option value=@item.IdTipoMora>@($"{item.Codigo}  {item.Nombre}")</option>
+                                }
+                        </InputSelect>
                     </div>
                 </div>
             </div>

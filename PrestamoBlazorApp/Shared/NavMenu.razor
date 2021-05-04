@@ -99,52 +99,75 @@
             </NavLink>
             @if (ExpandMenu(MenuText.Catalogo_II))
             {
-                <ul class="nav flex-column">
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Garantias) ">
-                            <span class="oi oi-list" aria-hidden="true"></span> Garantias
-                        </NavLink>
-                        @if (ExpandMenu(MenuText.Garantias))
-                        {
-                            <ul class="nav flex-column">
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" href="garantias">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
-                                    </NavLink>
-                                </li>
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" @onclick='()=>navigateTo("garantias/createoredit")' href="#">
-                                        @*<NavLink class="nav-link" href="garantias/createoredit">*@
-                                            <span class="oi oi-list-rich" aria-hidden="true">Crear </span>
-                                        </NavLink>
-                                </li>
-                            </ul>
-                        }
-                    </li>
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Clientes) ">
-                            <span class="oi oi-list" aria-hidden="true"></span> Clientes
-                        </NavLink>
+        <ul class="nav flex-column">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Garantias) ">
+                    <span class="oi oi-list" aria-hidden="true"></span> Garantias
+                </NavLink>
+                @if (ExpandMenu(MenuText.Garantias))
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="garantias">
+                                <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                            </NavLink>
+                        </li>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" @onclick='()=>navigateTo("garantias/createoredit")' href="#">
+                                @*<NavLink class="nav-link" href="garantias/createoredit">*@
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear </span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                }
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Clientes) ">
+                    <span class="oi oi-list" aria-hidden="true"></span> Clientes
+                </NavLink>
 
-                        @if (ExpandMenu(MenuText.Clientes))
-                        {
-                            <ul class="nav flex-column">
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link"  href="clientes">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
-                                    </NavLink>
-                                </li>
+                @if (ExpandMenu(MenuText.Clientes))
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="clientes">
+                                <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                            </NavLink>
+                        </li>
 
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" @onclick='()=>navigateTo("clientes/createoredit")' href="#">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
-                                    </NavLink>
-                                </li>
-                            </ul>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" @onclick='()=>navigateTo("clientes/createoredit")' href="#">
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                }
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Prestamo) ">
+                    <span class="oi oi-list" aria-hidden="true"></span> Prestamo
+                </NavLink>
 
-                        }
-                    </li>
-                </ul>
+                @if (ExpandMenu(MenuText.Prestamo))
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="#" onclick="alert('no implementado aun')">
+                                <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                            </NavLink>
+                        </li>
+
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" @onclick='()=>navigateTo("prestamo/createoredit")' href="#">
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
+                            </NavLink>
+                        </li>
+                    </ul>
+
+                }
+            </li>
+
+        </ul>
             }
         </li>
     </ul>
@@ -163,7 +186,7 @@
     IJSRuntime jsRuntime { get; set; }
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private Dictionary<MenuItem, bool> SubMenus { get; set; } = new Dictionary<MenuItem, bool>();
+    private Dictionary<MenuItem, bool> MenuItems { get; set; } = new Dictionary<MenuItem, bool>();
 
     //private bool expandCatalogosSubMenu { get; set; } = false;
     //private bool expandOperacionesSubMenu { get; set; } = false;
@@ -183,11 +206,12 @@
 
     private void CreateCatalogosSubMenu()
     {
-        SubMenus.Add(new MenuItem { CurrentText = MenuText.Catalogo_I, MenuPadreText = null }, false);
-        SubMenus.Add(new MenuItem { CurrentText = MenuText.Territorios, MenuPadreText = MenuText.Catalogo_I }, false);
-        SubMenus.Add(new MenuItem { CurrentText = MenuText.Catalogo_II, MenuPadreText = null }, false);
-        SubMenus.Add(new MenuItem { CurrentText = MenuText.Garantias, MenuPadreText = MenuText.Catalogo_II }, false);
-        SubMenus.Add(new MenuItem { CurrentText = MenuText.Clientes, MenuPadreText = MenuText.Catalogo_II }, false);
+        MenuItems.Add(new MenuItem { CurrentText = MenuText.Catalogo_I, MenuPadreText = null }, false);
+        MenuItems.Add(new MenuItem { CurrentText = MenuText.Territorios, MenuPadreText = MenuText.Catalogo_I }, false);
+        MenuItems.Add(new MenuItem { CurrentText = MenuText.Catalogo_II, MenuPadreText = null }, false);
+        MenuItems.Add(new MenuItem { CurrentText = MenuText.Garantias, MenuPadreText = MenuText.Catalogo_II }, false);
+        MenuItems.Add(new MenuItem { CurrentText = MenuText.Clientes, MenuPadreText = MenuText.Catalogo_II }, false);
+        MenuItems.Add(new MenuItem { CurrentText = MenuText.Prestamo, MenuPadreText = MenuText.Catalogo_II }, false);
     }
     private void navigateTo(string linkUrl)
     {
@@ -199,32 +223,32 @@
     {
         if (!string.IsNullOrEmpty(lastActiveMenu))
         {
-            var LastMenuItemSelected = SubMenus.Where(item => item.Key.CurrentText == lastActiveMenu).FirstOrDefault();
+            var LastMenuItemSelected = MenuItems.Where(item => item.Key.CurrentText == lastActiveMenu).FirstOrDefault();
             ManageMenuItem(LastMenuItemSelected, false);
         }
 
         // para el item seleccionado
-        var MenuItemSelected = SubMenus.Where(item => item.Key.CurrentText == menuText).FirstOrDefault();
+        var MenuItemSelected = MenuItems.Where(item => item.Key.CurrentText == menuText).FirstOrDefault();
         ManageMenuItem(MenuItemSelected, true);
         lastActiveMenu = MenuItemSelected.Key.CurrentText;
     }
 
     private void ManageMenuItem(KeyValuePair<MenuItem,bool> MenuItemSelected, bool value)
     {
-        SubMenus[MenuItemSelected.Key] = value;
+        MenuItems[MenuItemSelected.Key] = value;
         var textMenuPadre = MenuItemSelected.Key.MenuPadreText;
         if (!string.IsNullOrEmpty(textMenuPadre))
         {
-            var MenuPadreItem = SubMenus.Where(item => item.Key.CurrentText == textMenuPadre).FirstOrDefault();
-            SubMenus[MenuPadreItem.Key] = value;
+            var MenuPadreItem = MenuItems.Where(item => item.Key.CurrentText == textMenuPadre).FirstOrDefault();
+            MenuItems[MenuPadreItem.Key] = value;
         }
 
     }
 
     private bool ExpandMenu(string menuText)
     {
-        var menuItem = SubMenus.Where(item => item.Key.CurrentText == menuText).FirstOrDefault();
-        var result= SubMenus[menuItem.Key];
+        var menuItem = MenuItems.Where(item => item.Key.CurrentText == menuText).FirstOrDefault();
+        var result= MenuItems[menuItem.Key];
         return result;
     }
 
@@ -236,6 +260,7 @@
         public static string Garantias => "Garantias";
         public static string Territorios => "Territorios";
         public static string Clientes => "Clientes";
+        public static string Prestamo => "Prestamo";
     }
 
     public class MenuItem

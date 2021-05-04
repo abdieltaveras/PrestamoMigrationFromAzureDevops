@@ -2,6 +2,7 @@
 (
 	[idTasaInteres] INT NOT NULL PRIMARY KEY identity(1,1), 
 	[idNegocio] INT NOT NULL, 
+    IdLocalidadNegocio int not null,
     [Codigo] VARCHAR(10) NOT NULL unique, 
 	[Nombre] VARCHAR(100) NOT NULL,
     [InteresMensual] DECIMAL(12, 9) NOT NULL, 

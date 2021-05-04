@@ -37,8 +37,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         [Parameter]
         public int idPrestamo { get; set; } = -1;
 
-        public IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
-        
         private string CodigoCliente { get; set; } = string.Empty;
         private string CodigoCodeudor { get; set; } = string.Empty;
         private string CodigoGarantia { get; set; } = string.Empty;
@@ -49,10 +47,38 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private bool LlevaGastoDeCierre { get; set; } = true;
         private bool SinVencimiento { get; set; } = true;
 
-        protected override Task OnInitializedAsync()
+        string  MontoText { get; set; }
+        [Inject]
+        ClasificacionesService clasificacionesService { get; set; }
+
+        [Inject]
+        TiposMoraService tiposMorasService { get; set; }
+
+        [Inject]
+        TasasInteresService tasasInteresService { get; set; }
+        [Inject]
+        PeriodosService periodosService { get; set; }
+
+        IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
+        IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
+
+        IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
+        IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
+
+
+        protected override async Task OnInitializedAsync()
         {
+            Clasificaciones = await clasificacionesService.GetClasificacionesAsync(new ClasificacionesGetParams());
+            TiposMora = await tiposMorasService.Get(new TipoMoraGetParams());
+            TasasDeInteres = await tasasInteresService.Get(new TasaInteresGetParams());
+            Periodos = await periodosService.Get(new PeriodoGetParams());
             prestamo.PrestamoNumero = "Nuevo";
-            return base.OnInitializedAsync();
+            MontoText = "1250000.00";
+            
+        }
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await JsInteropUtils.SetInputMask(jsRuntime);
         }
         async Task SavePrestamo()
         {

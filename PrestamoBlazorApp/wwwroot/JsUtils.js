@@ -1,4 +1,19 @@
-﻿
+﻿////$(document).ready(function () {
+    
+////    alert("ready");
+////    $(".currency").inputmask('decimal', {
+////        'alias': 'numeric',
+////        'groupSeparator': ',',
+////        'autoGroup': true,
+////        'digits': 2,
+////        'radixPoint': ".",
+////        'digitsOptional': false,
+////        'allowMinus': false,
+////        'prefix': 'R$ ',
+////        'placeholder': ''
+////    });
+////});
+
 window.Alert = function (message) {
     if ((typeof message) === "string") {
         alert(message);
@@ -43,7 +58,8 @@ window.SetInputMaskByElem = function (elemId, inputmask) {
     im.mask(selector);
 }
 window.SetInputMask = function () {
-        Inputmask().mask(document.querySelectorAll(".masked"));
+    Inputmask().mask(document.querySelectorAll(".masked"));
+    var result = $(".currency").inputmask('currency', { rightAlign: true });
 }
 window.DivisionTerritorial = (Id) => {
     $("#codigo").val("0");

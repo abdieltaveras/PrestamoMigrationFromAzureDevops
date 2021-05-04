@@ -2,6 +2,7 @@
 (
 	@idTasaInteres int=-1,
 	@idNegocio int=-1,
+	@idLocalidadNegocio int=-1,
 	@Codigo varchar(10)='',
 	@InteresMensual decimal (9,6)=-1,
 	@Activo int=-1,
@@ -19,5 +20,6 @@ begin
 		and ((@Codigo='') or (Codigo = @Codigo))
 		and ((@InteresMensual =-1) or (InteresMensual=@InteresMensual))
 		and ((@Activo=-1) or (Activo=@Activo))
+		--and ((@idLocalidadNegocio=-1) or (idLocalidadNegocio=@idLocalidadNegocio))
 		and ((@RequiereAutorizacion=-1) or (RequiereAutorizacion = @RequiereAutorizacion))
 End

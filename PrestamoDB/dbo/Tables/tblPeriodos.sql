@@ -1,6 +1,7 @@
 ﻿create table tblPeriodos
 ( idPeriodo int primary key identity(1,1),
   Idnegocio int foreign key references tblNegocios(idNegocio),
+  IdLocalidadNegocio int foreign key references tblLocalidadesNegocio(idLocalidadNegocio),
   IdPeriodoBase int not null,
   -- valores 1 para dia, 2 para semana, 3 para quincena, 4 para mes, 5 para año
   Codigo varchar(10) not null,

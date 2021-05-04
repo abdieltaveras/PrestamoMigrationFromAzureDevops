@@ -44,33 +44,34 @@ Post-Deployment Script Template
 
 	--Script para datos de Interes
 
-	INSERT INTO [dbo].[tblTasasInteres] ([idNegocio],[Codigo],[Nombre],[InteresMensual],[InsertadoPor],[FechaInsertado])
+	INSERT INTO [dbo].[tblTasasInteres] ([idNegocio], idLocalidadNegocio, [Codigo],[Nombre],[InteresMensual],[InsertadoPor],[FechaInsertado])
      VALUES
-		   (@idNegocio,'A00', '1% de interes' ,1.0,@usuario,getdate()),
-		   (@idNegocio,'B00', '2% de interes' ,2.0,@usuario,getdate()),
-		   (@idNegocio,'C00', '3% de interes' ,3.0,@usuario,getdate()),
-		   (@idNegocio,'D00', '4% de interes' ,4.0,@usuario,getdate()),
-		   (@idNegocio,'E00', '5% de interes' ,5.0,@usuario,getdate()),
-		   (@idNegocio,'F00', '6% de interes' ,6.0,@usuario,getdate()),
-		   (@idNegocio,'G00', '7% de interes' ,7.0,@usuario,getdate()),
-		   (@idNegocio,'H00', '8% de interes' ,8.0,@usuario,getdate()),
-		   (@idNegocio,'I00', '9% de interes' ,9.0,@usuario,getdate()),
-		   (@idNegocio,'J00', '10% de interes' ,10.0,@usuario,getdate()),
-		   (@idNegocio,'K00', '11% de interes' ,11.0,@usuario,getdate()),
-		   (@idNegocio,'L00', '12% de interes' ,12.0,@usuario,getdate()),
-		   (@idNegocio,'M00', '13% de interes' ,13.0,@usuario,getdate()),
-		   (@idNegocio,'N00', '143% de interes' ,14.0,@usuario,getdate()),
-		   (@idNegocio,'O00', '15% de interes' ,15.0,@usuario,getdate()),
-		   (@idNegocio,'P00', '16% de interes' ,16.0,@usuario,getdate()),
-		   (@idNegocio,'Q00', '17% de interes' ,17.0,@usuario,getdate()),
-		   (@idNegocio,'R00', '18% de interes' ,18.0,@usuario,getdate()),
-		   (@idNegocio,'S00', '19% de interes' ,19.0,@usuario,getdate()),
-		   (@idNegocio,'T00', '20% de interes' ,20.0,@usuario,getdate())
+		   (@idNegocio,1,'A00', '1% de interes' ,1.0,@usuario,getdate()),
+		   (@idNegocio,1,'B00', '2% de interes' ,2.0,@usuario,getdate()),
+		   (@idNegocio,1,'C00', '3% de interes' ,3.0,@usuario,getdate()),
+		   (@idNegocio,1,'D00', '4% de interes' ,4.0,@usuario,getdate()),
+		   (@idNegocio,1,'E00', '5% de interes' ,5.0,@usuario,getdate()),
+		   (@idNegocio,1,'F00', '6% de interes' ,6.0,@usuario,getdate()),
+		   (@idNegocio,1,'G00', '7% de interes' ,7.0,@usuario,getdate()),
+		   (@idNegocio,1,'H00', '8% de interes' ,8.0,@usuario,getdate()),
+		   (@idNegocio,1,'I00', '9% de interes' ,9.0,@usuario,getdate()),
+		   (@idNegocio,1,'J00', '10% de interes' ,10.0,@usuario,getdate()),
+		   (@idNegocio,1,'K00', '11% de interes' ,11.0,@usuario,getdate()),
+		   (@idNegocio,1,'L00', '12% de interes' ,12.0,@usuario,getdate()),
+		   (@idNegocio,1,'M00', '13% de interes' ,13.0,@usuario,getdate()),
+		   (@idNegocio,1,'N00', '143% de interes' ,14.0,@usuario,getdate()),
+		   (@idNegocio,1,'O00', '15% de interes' ,15.0,@usuario,getdate()),
+		   (@idNegocio,1,'P00', '16% de interes' ,16.0,@usuario,getdate()),
+		   (@idNegocio,1,'Q00', '17% de interes' ,17.0,@usuario,getdate()),
+		   (@idNegocio,1,'R00', '18% de interes' ,18.0,@usuario,getdate()),
+		   (@idNegocio,1,'S00', '19% de interes' ,19.0,@usuario,getdate()),
+		   (@idNegocio,1,'T00', '20% de interes' ,20.0,@usuario,getdate())
 		   
 	-- tblClasificaciones
 		   INSERT INTO [dbo].[tblClasificaciones]
            ([Nombre]
            ,[IdNegocio]
+		   ,IdLocalidadNegocio
            ,[IdClasificacionFinanciera]
 		   ,RequiereAutorizacion
 		   ,RequiereGarantia
@@ -79,23 +80,23 @@ Post-Deployment Script Template
            ,[FechaInsertado]
 		   )
 		VALUES
-           ('Con Vehiculos' ,@idNegocio ,1 ,0,1,'Vehic' ,@usuario,getDate()),
-		   ('Con Motocicletas' ,@idNegocio ,1,0,1,'Mot' ,@usuario,getDate()),
-		   ('Con Casa' ,@idNegocio ,2,0,1 ,'Casa',@usuario,getDate()),
-		   ('Personal' ,@idNegocio ,2 ,1,0,'Personal' ,@usuario,getDate())
+           ('Con Vehiculos' ,@idNegocio,1 ,1 ,0,1,'Vehic' ,@usuario,getDate()),
+		   ('Con Motocicletas' ,@idNegocio,1 ,1,0,1,'Mot' ,@usuario,getDate()),
+		   ('Con Casa' ,@idNegocio,1 ,2,0,1 ,'Casa',@usuario,getDate()),
+		   ('Personal' ,@idNegocio,1 ,2 ,1,0,'Personal' ,@usuario,getDate())
     --Script para periodos
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'DIA',1,'Cuotas Diarias','seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,2,'SEM',1,'Cuotas Semanales', 'seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,3,'QUI',1,'Cuotas Quincenales','seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'MES',1,'Cuotas Mensuales','seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,1,'INTD',2,'Cuotas Inter Diario','seed', getdate()) 
-	insert into tblPeriodos (IdNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values (1,4,'BIMES',2,'Cuotas BiMensuales','seed', getdate()) 
+	insert into tblPeriodos (IdNegocio, IdLocalidadNegocio, IdPeriodoBase,Codigo, MultiploPeriodoBase,Nombre, insertadoPor, fechaInsertado) values
+		(1,1,1,'DIA',1,'Cuotas Diarias','seed', getdate()), 
+		(1,1,2,'SEM',1,'Cuotas Semanales', 'seed', getdate()),
+		(1,1,3,'QUI',1,'Cuotas Quincenales','seed', getdate()), 
+		(1,1,4,'MES',1,'Cuotas Mensuales','seed', getdate()), 
+		(1,1,1,'INTD',2,'Cuotas Inter Diario','seed', getdate()), 
+		(1,1,4,'BIMES',2,'Cuotas BiMensuales','seed', getdate()) 
 	--Script para datos de Moras
 	insert into tblTiposMora
 			(Nombre,
 			idNegocio,Codigo,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,InsertadoPor, FechaInsertado)
 		VALUES
-
 			('Porcentual 10% al interes y capital atrasado por cada dia por cada cuota',
 			@idNegocio,'P10IC',3,1,1,1,10.00,@usuario,getdate()),
 			('Porcentual 5% al interes y capital atrasado por cada dia por cada cuota',
@@ -114,49 +115,36 @@ Post-Deployment Script Template
 -- Date:   13-Feb-20 5:46 AM
 
 INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
-VALUES (@idNegocio,'Admin','Usuario Administrador','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null)
+VALUES 
+	(@idNegocio,'Admin','Usuario Administrador','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null),
 
-INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
-VALUES (@idNegocio,'Usuario','Usuario por defecto','slT@idNegociocIeEDhgXsnLcD0w/ng==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null)
+	(@idNegocio,'Usuario','Usuario por defecto','slT@idNegociocIeEDhgXsnLcD0w/ng==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null),
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrcc', 'Cambiar Contraseña', 'cu0+Y/VLEdwHc/4vxsazEQ==', 1, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
+	(@idNegocio, 'usrcc', 'Cambiar Contraseña', 'cu0+Y/VLEdwHc/4vxsazEQ==', 1, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL),
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrina', 'Usuario Inactivo', 'cu0+Y/VLEdwHc/4vxsazEQ==', 1, getdate(), '(809) 813-1719', '', 0, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
+	(@idNegocio, 'usrina', 'Usuario Inactivo', 'cu0+Y/VLEdwHc/4vxsazEQ==', 1, getdate(), '(809) 813-1719', '', 0, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL),
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrbl', 'usuario bloqueado', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 813-1719', '', 1, 1, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
+	(@idNegocio, 'usrbl', 'usuario bloqueado', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 813-1719', '', 1, 1, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL),
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrconex', 'usuario contrasena expira', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 550-2897', '', 1, 0, 'abdieltaveras@gmail.com', 0, '', '2020-03-28', '1900-01-01', 1, -1, 0, 'admin', getdate(), 'usrconex', '2020-03-30 08:35:59.4', NULL, NULL)
+	(@idNegocio, 'usrconex', 'usuario contrasena expira', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 550-2897', '', 1, 0, 'abdieltaveras@gmail.com', 0, '', '2020-03-28', '1900-01-01', 1, -1, 0, 'admin', getdate(), 'usrconex', '2020-03-30 08:35:59.4', NULL, NULL),
+	 (@idNegocio, 'usrlivi', 'usuario limitar vigencia', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '2020-03-29', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL),
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'usrlivi', 'usuario limitar vigencia', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '2020-03-29', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL)
-
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (@idNegocio, 'success', 'Succes User', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '829-961-9141', '', 1, 0, 'abdieltaveras@hotmail.com', 0, '', '1900-01-01', '1900-01-01', 1, -1, 0, 'UsuarioTest', '2020-03-28 10:17:44.833', 'testUser29-Mar-20', '2020-03-29 22:15:53.987', NULL, NULL)
+	(@idNegocio, 'success', 'Succes User', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '829-961-9141', '', 1, 0, 'abdieltaveras@hotmail.com', 0, '', '1900-01-01', '1900-01-01', 1, -1, 0, 'UsuarioTest', '2020-03-28 10:17:44.833', 'testUser29-Mar-20', '2020-03-29 22:15:53.987', NULL, NULL)
 
 INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
 InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
 values	(@idNegocio,'bryan','Bryan Pouerie','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png'),
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
-InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
-values	(@idNegocio,'usrpapito','usr Papito-inv. Bancola','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+(@idNegocio,'usrpapito','usr Papito-inv. Bancola','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png'),
 
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
-InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
-values	(@idNegocio,'usrfyg','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
+	(@idNegocio,'usrfyg','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+			@usuario,getdate(),null,null,null,null, 'Bryan01.png'),
 
 
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
-InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath) 
-values	(@idNegocio,'usran','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
+	(@idNegocio,'usran','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
 			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
 
 
@@ -257,21 +245,17 @@ VALUES (NULL, NULL, 1, 'Division Territorial Raiz (Nunca Borrar)',  1, 0, @usuar
 		(7, 2, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
 
 --Localidades
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (0, 1, 3, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.643', NULL, NULL, NULL, NULL)
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, 4, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:14.683', NULL, NULL, NULL, NULL)
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, 4, 'San Pedro', '', 1, 'bryan', '2020-04-05 14:02:32.96', NULL, NULL, NULL, NULL)
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (2, 1, 5, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:46.863', NULL, NULL, NULL, NULL)
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (4, 1, 6, 'Las Orquideas', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL)
-
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (4, 1, 6, 'Quisquella', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL)
-
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (4, 1, 6, 'Villa Pereira', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL)
-
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (4, 1, 6, 'Villa España', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL)
-
-
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (2, 1, 5, 'Villa Hermosa', '', 1, 'bryan', '2020-04-05 14:40:42.557', 'bryan', '2020-04-05 14:42:18.387', NULL, NULL)
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (6, 1, 6, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+VALUES (0, 1, 3, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.643', NULL, NULL, NULL, NULL),
+	   (1, 1, 4, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:14.683', NULL, NULL, NULL, NULL),
+	   (1, 1, 4, 'San Pedro', '', 1, 'bryan', '2020-04-05 14:02:32.96', NULL, NULL, NULL, NULL),
+	   (2, 1, 5, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:46.863', NULL, NULL, NULL, NULL),
+	   (4, 1, 6, 'Las Orquideas', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 6, 'Quisquella', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 6, 'Villa Pereira', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 6, 'Villa España', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (2, 1, 5, 'Villa Hermosa', '', 1, 'bryan', '2020-04-05 14:40:42.557',null,null,null,null),
+	   (6, 1, 6, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
 
 --Nuevos catalogos
 	declare @codigo1 varchar(50)= 'cod1'
@@ -340,107 +324,88 @@ INSERT INTO tblUsersRoles(IdUser, IdRole, InsertadoPor)
 
 INSERT INTO tblRolesOperaciones(IdOperacion, IdRole, InsertadoPor)
 	VALUES	(1, 1, @usuario)
-declare @prestamoNumero varchar(20)
-exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
+declare @prestamoNumero1 varchar(20), @prestamoNumero2 varchar(20), @prestamoNumero3 varchar(20),
+	@prestamoNumero4 varchar(20), @prestamoNumero5 varchar(20), @prestamoNumero6 varchar(20),
+	@prestamoNumero7 varchar(20), @prestamoNumero8 varchar(20)
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero1 output
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero2 output
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero3 output
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero4 output
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero5 output
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero6 output
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero7 output
+exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero8 output
 
 -- tblPrestamos
 INSERT INTO tblPrestamos (idNegocio,idlocalidadNegocio,  idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-	VALUES (1,1, 1, @prestamoNumero, NULL, 0, 1, 1, '2020-05-17', '2020-05-17', '2020-10-17', 3, 3, 4, 5, 10000, 1, 0, 0, 0, 0, 0, 0, '1900-01-01', '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
+	VALUES (1,1, 1, @prestamoNumero1, NULL, 0, 1, 1, '2020-05-17', '2020-05-17', '2020-10-17', 3, 3, 4, 5, 10000, 1, 0, 0, 0, 0, 0, 0, '1900-01-01', '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL),
 
 
 -- seccion de prestamos-cuotas-garantias
 -- insertando prestamos
-exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
-  INSERT INTO tblPrestamos (idNegocio, idlocalidadNegocio,idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-  VALUES (1, 1,1, @prestamoNumero, NULL, 0, 1, 1, '2020-05-24', '2020-05-24', '2020-10-24', 1, 1, 3, 5, 10000, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-24 09:36:23.717', NULL, NULL, NULL, NULL)
 
-exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
-INSERT INTO tblPrestamos (idNegocio, idlocalidadNegocio,idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (1,1, 2, @prestamoNumero, NULL, 0, 1, 1, '2020-05-24', '2020-05-24', '2020-06-24', 1, 1, 4, 1, 10000, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-24 09:42:44.657', NULL, NULL, NULL, NULL)
+   (1, 1,1, @prestamoNumero2, NULL, 0, 1, 1, '2020-05-24', '2020-05-24', '2020-10-24', 1, 1, 3, 5, 10000, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-24 09:36:23.717', NULL, NULL, NULL, NULL),
 
-exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
-INSERT INTO tblPrestamos (idNegocio, idlocalidadNegocio,idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, 
-IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, 
-idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, 
-FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, 
-ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (1,1, 3, @prestamoNumero, NULL, 0, 1, 1, '2020-05-24', '2020-05-24', '2020-08-24', 3, 1, 3, 3, 3000,  1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-24 09:47:49.927', NULL, NULL, NULL, NULL)
 
-exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
-INSERT INTO tblPrestamos (idNegocio, idlocalidadNegocio,idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (1,1, 1, @prestamoNumero, NULL, 0, 1, 1, '2020-05-25', '2020-05-25', '2020-09-25', 3, 1, 4, 4, 10000, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-25 06:30:30.257', NULL, NULL, NULL, NULL)
+	 (1,1, 2, @prestamoNumero3, NULL, 0, 1, 1, '2020-05-24', '2020-05-24', '2020-06-24', 1, 1, 4, 1, 10000, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-24 09:42:44.657', NULL, NULL, NULL, NULL),
 
-exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
-INSERT INTO tblPrestamos (idNegocio, idlocalidadNegocio,idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (1, 1,2, @prestamoNumero, NULL, 0, 3, 1, '2020-05-25', '2020-05-25', '2020-06-25', 1, 1, 1, 1, 500, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-25 06:36:24.1', NULL, NULL, NULL, NULL)
+	 (1,1, 3, @prestamoNumero4, NULL, 0, 1, 1, '2020-05-24', '2020-05-24', '2020-08-24', 3, 1, 3, 3, 3000,  1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-24 09:47:49.927', NULL, NULL, NULL, NULL),
 
-exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
-INSERT INTO tblPrestamos (idNegocio, idlocalidadNegocio,idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (1, 1,3, @prestamoNumero, NULL, 0,3, 1, '2020-05-25', '2020-05-25', '2020-06-25', 1, 1, 1, 1, 500, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-25 06:37:54.643', NULL, NULL, NULL, NULL)
+	(1,1, 1, @prestamoNumero5, NULL, 0, 1, 1, '2020-05-25', '2020-05-25', '2020-09-25', 3, 1, 4, 4, 10000, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-25 06:30:30.257', NULL, NULL, NULL, NULL),
 
-exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
-INSERT INTO tblPrestamos (idNegocio, idlocalidadNegocio,idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, idDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
-VALUES (1, 1,1, @prestamoNumero, NULL, 0, 1, 1, '2020-05-25', '2020-05-25', '2020-06-25', 1, 1, 1, 1,100, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-25 06:39:30.46', NULL, NULL, NULL, NULL)
+	(1, 1,2, @prestamoNumero6, NULL, 0, 3, 1, '2020-05-25', '2020-05-25', '2020-06-25', 1, 1, 1, 1, 500, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-25 06:36:24.1', NULL, NULL, NULL, NULL),
+
+	 (1, 1,3, @prestamoNumero7, NULL, 0,3, 1, '2020-05-25', '2020-05-25', '2020-06-25', 1, 1, 1, 1, 500, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-25 06:37:54.643', NULL, NULL, NULL, NULL),
+
+
+	(1, 1,1, @prestamoNumero8, NULL, 0, 1, 1, '2020-05-25', '2020-05-25', '2020-06-25', 1, 1, 1, 1,100, 1, 0, 0, 0, 1, 1, 0, '1900-01-01', '', '2020-05-25 06:39:30.46', NULL, NULL, NULL, NULL)
 
 --insertando garantias a los prestamos
 --INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) VALUES (1, 1, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
 INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
 VALUES (1, 1, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL),
-	   (1, 7, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
+	   (1, 7, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL),
 
+		(2, 2, '', '2020-05-24 09:47:49.927', NULL, NULL, NULL, NULL),
 
-INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (2, 2, '', '2020-05-24 09:47:49.927', NULL, NULL, NULL, NULL)
+		(3, 3, '', '2020-05-25 06:30:30.26', NULL, NULL, NULL, NULL),
 
-INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado)
-VALUES (3, 3, '', '2020-05-25 06:30:30.26', NULL, NULL, NULL, NULL)
+	   (4, 4, '', '2020-05-25 06:36:24.11', NULL, NULL, NULL, NULL),
+	   (4, 8, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL),
 
-INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (4, 4, '', '2020-05-25 06:36:24.11', NULL, NULL, NULL, NULL),
-	   (4, 8, '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL)
+		(5, 5, '', '2020-05-25 06:39:30.46', NULL, NULL, NULL, NULL),
 
-INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (5, 5, '', '2020-05-25 06:39:30.46', NULL, NULL, NULL, NULL)
-
-
-INSERT INTO tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES (6, 6, '', '2020-05-25 06:39:30.46', NULL, NULL, NULL, NULL)
+	(6, 6, '', '2020-05-25 06:39:30.46', NULL, NULL, NULL, NULL)
 
 
 --insertando cuotas a los prestamos
 
 --tblCuotas
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 1, '2020-06-17', 2000, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 2, '2020-07-17', 2000, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 3, '2020-08-17', 2000, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 4, '2020-09-17', 2000, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (1, 5, '2020-10-17', 2000, 300)
+INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES 
+(1, 1, '2020-06-17', 2000, 300),
+(1, 2, '2020-07-17', 2000, 300),
+(1, 3, '2020-08-17', 2000, 300),
+(1, 4, '2020-09-17', 2000, 300),
+(1, 5, '2020-10-17', 2000, 300),
 
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (2, 1, '2020-06-17', 2000, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (2, 2, '2020-07-17', 2000, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (2, 3, '2020-08-17', 2000, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (2, 4, '2020-09-17', 2000, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (2, 5, '2020-10-17', 2000, 300)
+(2, 1, '2020-06-17', 2000, 300),
+(2, 2, '2020-07-17', 2000, 300),
+(2, 3, '2020-08-17', 2000, 300),
+(2, 4, '2020-09-17', 2000, 300),
+(2, 5, '2020-10-17', 2000, 300),
 
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (3, 1, '2020-06-24', 10000, 100)
+(3, 1, '2020-06-24', 10000, 100),
 
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (4, 1, '2020-06-24', 1000, 90)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (4, 2, '2020-07-24', 1000, 90)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (4, 3, '2020-08-24', 1000, 90)
+(4, 1, '2020-06-24', 1000, 90),
+(4, 2, '2020-07-24', 1000, 90),
+(4, 3, '2020-08-24', 1000, 90),
 
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (5, 1, '2020-06-25', 2500, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (5, 2, '2020-07-25', 2500, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (5, 3, '2020-08-25', 2500, 300)
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (5, 4, '2020-09-25', 2500, 300)
+(5, 1, '2020-06-25', 2500, 300),
+(5, 2, '2020-07-25', 2500, 300),
+(5, 3, '2020-08-25', 2500, 300),
+(5, 4, '2020-09-25', 2500, 300),
 
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (6, 1, '2020-06-25', 500, 5)
+(6, 1, '2020-06-25', 500, 5),
 
-INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES (7, 1, '2020-06-25', 500, 5)
-
-
-
-
-
-
-
+(7, 1, '2020-06-25', 500, 5)
 

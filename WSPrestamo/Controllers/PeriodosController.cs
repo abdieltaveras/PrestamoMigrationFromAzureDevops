@@ -8,20 +8,19 @@ using System.Web.Http;
 using PrestamoBLL;
 namespace WSPrestamo.Controllers
 {
-    public class TasaInteresController : BaseApiController
+    public class PeriodosController : BaseApiController
     {
-        public IEnumerable<TasaInteres> Get(int idTasaInteres, int idLocalidadNegocio, int activo, string codigo)
+        public IEnumerable<Periodo> Get(int idPeriodo=-1, int idLocalidadNegocio=-1, int activo=-1, string codigo="")
         {
-            var searchParam = new TasaInteresGetParams { Activo = activo, idTasaInteres = idTasaInteres, Codigo = codigo, IdLocalidadNegocio = idLocalidadNegocio };
-            var result = BLLPrestamo.Instance.TasasInteresGet(searchParam);
+            var searchParam = new PeriodoGetParams { Activo = activo, idPeriodo = idPeriodo, Codigo = codigo, IdLocalidadNegocio = idLocalidadNegocio };
+            var result = BLLPrestamo.Instance.GetPeriodos(searchParam);
             return result;
         }
-
         [HttpPost]
-        public IHttpActionResult TasaInteresInsUpd(TasaInteres insUpdParam)
+        public IHttpActionResult PeriodoInsUpd(Periodo insUpdParam)
         {
-            var id = BLLPrestamo.Instance.TasaInteresInsUpd(insUpdParam);
-            return Ok(id);
+            BLLPrestamo.Instance.InsUpdPeriodo(insUpdParam);
+            return Ok();
         }
         [HttpDelete]
         public IHttpActionResult Anular(int idRegistro)
@@ -29,7 +28,7 @@ namespace WSPrestamo.Controllers
             // llenar el parametro de borrado si lo requier el metodo
             var elimParam = new AnularCatalogo
             {
-                NombreTabla = "tblTasaInteres",
+                NombreTabla = "tblPeriodo",
                 IdRegistro = idRegistro.ToString()
             };
             try
@@ -44,9 +43,9 @@ namespace WSPrestamo.Controllers
 
             //return RedirectToAction("CreateOrEdit");
         }
-        //public void TasaInteresDelete(TasaInteresDelParams delParam)
+        //public void PeriodoDelete(PeriodoDelParams delParam)
         //{
-        //    DBPrestamo.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
+        //    DBPrestamo.ExecSelSP("spDelPeriodo", SearchRec.ToSqlParams(delParam));
         //}
     }
 }
