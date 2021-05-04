@@ -84,7 +84,7 @@ window.sweetAlertSuccess = function(message,redirectTo = "") {
     });
     return true;
 }
-window.SweetMessageBox = function (message,icon, redirectTo = "") {
+window.SweetMessageBox = function (message, icon, redirectTo = "", delayMilliSeconds) {
     Swal.fire({
         icon: icon,
         title: message,

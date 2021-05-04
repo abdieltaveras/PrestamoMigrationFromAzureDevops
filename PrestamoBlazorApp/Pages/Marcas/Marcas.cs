@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PrestamoBlazorApp.Shared;
 //using PrestamoBlazorApp.Pages.Base;
 //using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Marcas
 {
     
-    public partial class Marcas 
+    public partial class Marcas : BaseForCreateOrEdit
 
     {
         MarcaGetParams SearchMarca { get; set; } = new MarcaGetParams();
@@ -34,7 +35,7 @@ namespace PrestamoBlazorApp.Pages.Marcas
         }
         protected override async Task OnInitializedAsync()
         {
-            marcas = await marcasService.Get();
+            marcas = await marcasService.Get(new MarcaGetParams());
         }
         //async Task GetMarcasByParam()
         //{
@@ -46,21 +47,26 @@ namespace PrestamoBlazorApp.Pages.Marcas
 
         public async Task GetMarcas()
         {
-            loading = true;
-            marcas = await marcasService.Get();
-            loading = false;
+            //loading = true;
+            await BlockPage();
+            marcas = await marcasService.Get(new MarcaGetParams());
+            await UnBlockPage();
+            //loading = false;
         }
 
         async Task SaveMarca()
         {
+            await BlockPage();
             await marcasService.SaveMarca(this.Marca);
-            await JsInteropUtils.Reload(jsRuntime, true);
+            await UnBlockPage();
+            await SweetMessageBox("Guardado Correctamente", "success", "");
+            //await JsInteropUtils.Reload(jsRuntime, true);
         }
         void CreateOrEdit(int idMarca = -1)
         {
             if (idMarca>0)
             {
-                this.Marca = marcas.Where(m => m.IdMarca == idMarca).FirstOrDefault();
+                this.Marca =  marcasService.Get(new MarcaGetParams { IdMarca = idMarca }).Result.FirstOrDefault();
             }
             else
             {

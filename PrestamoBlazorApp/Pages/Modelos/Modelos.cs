@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
 using PrestamoBlazorApp.Pages.Clientes;
+using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Modelos
 {
-    public partial class Modelos
+    public partial class Modelos : BaseForCreateOrEdit
     {
         [Inject]
         DialogService dialogService { get; set; }
@@ -36,8 +37,12 @@ namespace PrestamoBlazorApp.Pages.Modelos
         }
         protected override async Task OnInitializedAsync()
         {
+            await BlockPage();
+
             marcas = await modelosService.GetMarcasForModelo();
             modelos = await modelosService.Get(new ModeloGetParams());
+            await UnBlockPage();
+
         }
         //async Task GetModelosByParam()
         //{
@@ -49,22 +54,32 @@ namespace PrestamoBlazorApp.Pages.Modelos
 
         async Task GetModelos()
         {
-            loading = true;
+            //loading = true;
+            await BlockPage();
             var result = new ModeloGetParams { Nombre = SearchModelo.Nombre };
             modelos = await modelosService.Get(result);
-            loading = false;
+            await UnBlockPage();
+            //loading = false;
         }
         async Task GetMarcas()
         {
-            loading = true;
+            //loading = true;
+            await BlockPage();
             marcas = await modelosService.GetMarcasForModelo();
-            loading = false;
+            //loading = false;
+            await UnBlockPage();
+
         }
         async Task SaveModelo()
         {
+            await BlockPage();
             await modelosService.SaveModelo(this.Modelo);
+            await UnBlockPage();
+            await SweetMessageBox("Guardado Correctamente", "success", "");
+
+
         }
-         void CreateOrEdit(int IdModelo = -1)
+        void CreateOrEdit(int IdModelo = -1)
         {
          
             if (IdModelo > 0)

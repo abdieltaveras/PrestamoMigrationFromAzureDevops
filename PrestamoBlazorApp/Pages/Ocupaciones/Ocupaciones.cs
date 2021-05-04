@@ -28,7 +28,9 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
         }
         protected override async Task OnInitializedAsync()
         {
+            await BlockPage();
             ocupaciones = await OcupacionesService.Get();
+            await UnBlockPage();
         }
         async Task GetOcupaciones()
         {
@@ -46,8 +48,11 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
 
         async Task SaveOcupacion()
         {
+            await BlockPage();
             await OcupacionesService.SaveOcupacion(this.Ocupacion);
-            await OnGuardarNotification();
+            await UnBlockPage();
+            await SweetMessageBox("Guardado Correctamente", "success", "");
+            //await OnGuardarNotification();
         }
         void CreateOrEdit(int idOcupacion = -1)
         {

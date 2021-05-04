@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Garantias
 {
-    public partial class Garantias
+    public partial class Garantias : BaseForCreateOrEdit
     {
         [Inject]
         IJSRuntime jsRuntime { get; set; }
@@ -33,10 +34,12 @@ namespace PrestamoBlazorApp.Pages.Garantias
         }
         async Task GetGarantias()
         {
-            loading = true;
+            //loading = true;
+            await BlockPage();
             var param = new GarantiaGetParams { IdNegocio = 1,IdGarantia = 1 };
             garantias = await GarantiasService.Get(param);
-            loading = false;
+            await UnBlockPage();
+            //loading = false;
         }
 
         //async Task GetAll()

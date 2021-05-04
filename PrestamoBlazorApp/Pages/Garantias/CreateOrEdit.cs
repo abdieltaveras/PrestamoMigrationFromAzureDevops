@@ -44,6 +44,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         //}
         protected override async Task OnInitializedAsync()
         {
+            await BlockPage();
             this.Garantia = new Garantia();
             tipogarantia = await GarantiasService.GetTipoGarantia();
             modelos = await GarantiasService.GetModelosForGarantias(new ModeloGetParams());
@@ -69,15 +70,18 @@ namespace PrestamoBlazorApp.Pages.Garantias
                 selectedRadioClasificacion(changeEvent);
             }
             StateHasChanged();
+            await UnBlockPage();
         }
 
         async Task SaveGarantia()
         {
-            
+            await BlockPage();
             this.Garantia.DetallesJSON = this.detalleGarantia;
             await GarantiasService.SaveGarantia(this.Garantia);
-            await OnGuardarNotification();
-            NavManager.NavigateTo("/Garantias");
+            await UnBlockPage();
+            await SweetMessageBox("Guardado Correctamente", "success", "");
+            //await OnGuardarNotification();
+            //NavManager.NavigateTo("/Garantias");
 
         }
         void CreateOrEdi(int idGarantia = -1)

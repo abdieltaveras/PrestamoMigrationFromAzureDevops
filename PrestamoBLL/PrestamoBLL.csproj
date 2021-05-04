@@ -88,6 +88,7 @@
     <Compile Include="Entidades\Imagen.cs" />
     <Compile Include="Entidades\Ingreso.cs" />
     <Compile Include="Entidades\IPrestamoConDetallesParaCreditosyDebitos.cs" />
+    <Compile Include="Entidades\JsonGlobalParam.cs" />
     <Compile Include="Entidades\Status.cs" />
     <Compile Include="GeneradorDeCuotas.cs" />
     <Compile Include="Catalogo.cs" />

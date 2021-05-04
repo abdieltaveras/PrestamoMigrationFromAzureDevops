@@ -1,5 +1,6 @@
 
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,17 @@ namespace PrestamoBlazorApp.Services
     public class MarcasService : ServiceBase
     {
         string apiUrl = "api/marcas";
+        JsonGlobalParam JsonGlobalParam = new JsonGlobalParam();
         //public async Task<IEnumerable<Marca>> GetMarcasAsync(MarcaGetParams search)
         //{
         //    var result = await GetAsync<Marca>(apiUrl, search);
         //    return result;
         //}
 
-        public async Task<IEnumerable<Marca>> Get()
+        public async Task<IEnumerable<Marca>> Get(MarcaGetParams marcaGetParams)
         {
-            var result =  await GetAsync<Marca>(apiUrl, null);
+            JsonGlobalParam.JsonGet = JsonConvert.SerializeObject(marcaGetParams);
+            var result =  await GetAsync<Marca>(apiUrl, JsonGlobalParam.JsonGet);
             return result;
         }
         public MarcasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Equipos
 {
-    public partial class Equipos
+    public partial class Equipos : BaseForCreateOrEdit
     {
         ColorGetParams SearchMarca { get; set; } = new ColorGetParams();
         [Inject]
@@ -49,7 +50,10 @@ namespace PrestamoBlazorApp.Pages.Equipos
 
         async Task SaveEquipo()
         {
+            await BlockPage();
             await EquiposService.SaveEquipo(this.Equipo);
+            await UnBlockPage();
+            await SweetMessageBox("Guardado Correctamente", "success", "");
         }
         void CreateOrEdit(int IdEquipo = -1)
         {
