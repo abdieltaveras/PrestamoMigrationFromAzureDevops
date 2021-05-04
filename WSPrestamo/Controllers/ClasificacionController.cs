@@ -12,6 +12,7 @@ namespace WSPrestamo.Controllers
 {
     public class ClasificacionController : BaseApiController
     {
+        [HttpGet]
         public IEnumerable<Clasificacion> Get(int idNegocio)
         {
             var result = PrestamoBLL.BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(idNegocio);

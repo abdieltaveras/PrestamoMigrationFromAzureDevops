@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-
+using PrestamoBlazorApp.Shared;
 namespace PrestamoBlazorApp.Pages.Colores
 {
-    public partial class Colores
+    public partial class Colores : BaseForCreateOrEdit
     {
+        BaseForCreateOrEdit BaseForCreateOrEdit = new BaseForCreateOrEdit();
         ColorGetParams SearchMarca { get; set; } = new ColorGetParams();
         [Inject]
         IJSRuntime jsRuntime { get; set; }
@@ -30,38 +31,47 @@ namespace PrestamoBlazorApp.Pages.Colores
         }
         protected override async Task OnInitializedAsync()
         {
-            colores = await coloresService.Get();
+            await BlockPage();
+            colores = await coloresService.Get(new ColorGetParams());
+            await UnBlockPage();
         }
-        async Task GetColoresByParam()
-        {
-            loading = true;
-            var getAzul = new ColorGetParams { IdColor = 4 };
-            colores = await coloresService.GetColoresAsync(getAzul);
-            loading = false;
-        }
+        //async Task GetColoresByParam()
+        //{
+        //    loading = true;
+        //    var getAzul = new ColorGetParams { IdColor = 4 };
+        //    colores = await coloresService.GetColoresAsync(getAzul);
+        //    loading = false;
+        //}
 
-        async Task Get()
-        {
-            loading = true;
-            colores = await coloresService.Get();
-            loading = false;
-        }
+        //async List<Color> Get(ColorGetParams colorGetParams)
+        //{
+        //    //loading = true;
+        //    return await coloresService.Get(colorGetParams);
+        //    //loading = false;
+        //}
 
         async Task SaveColor()
         {
+            await BlockPage();
             await coloresService.SaveColor(this.Color);
+            await UnBlockPage();
+            await SweetMessageBox("Guardado Correctamente", "success", "");
         }
-        void CreateOrEdit(int idColor = -1)
+        async void CreateOrEdit(int idColor = -1)
         {
+            await BlockPage();
+            //var color = new IEnumerable<Color>();
             if (idColor > 0)
             {
-                this.Color = colores.Where(m => m.IdColor == idColor).FirstOrDefault();
+                var color = await coloresService.Get(new ColorGetParams { IdColor = idColor });
+                this.Color = color.FirstOrDefault();
             }
             else
             {
                 this.Color = new Color();
             }
-            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            await UnBlockPage();
+            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
 
         void RaiseInvalidSubmit()

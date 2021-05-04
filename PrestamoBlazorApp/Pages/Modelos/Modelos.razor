@@ -1,13 +1,13 @@
 ﻿@page "/modelos"
-
+@inherits BaseForCreateOrEdit
 
 <h1>Modelos  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
 
 @*Aqui funciona para que funcione en un modal hay que entrarlo dentro de un dialogo
-vamos a experimentar con esto luego*@
+    vamos a experimentar con esto luego*@
 @*<RadzenDropDown @bind-value="Modelo.IdMarca" class="col-sm-4" AllowClear="true" TValue="int"
-                Data=@marcas
-                TextProperty="Nombre" ValueProperty="IdMarca" />*@
+    Data=@marcas
+    TextProperty="Nombre" ValueProperty="IdMarca" />*@
 
 @*<button class="btn btn-primary" @onclick="GetModelosByParam">Get By Param</button>*@
 @*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
@@ -69,11 +69,11 @@ vamos a experimentar con esto luego*@
         <DataAnnotationsValidator />
         <ValidationSummary />
         LLene el valor indicado y pulse buscar-->
-        @*<InputText id="Codigo" @bind-Value="SearchModelo.Codigo" placeholder="Código" />*@
-        <!--<InputText id="nombres" @bind-Value="SearchModelo.Nombre" placeholder="Nombre" />-->
-        @*<InputText id="Apellidos" @bind-Value="SearchModelo.Apellidos" placeholder="Primer Apellido" />*@
+@*<InputText id="Codigo" @bind-Value="SearchModelo.Codigo" placeholder="Código" />*@
+<!--<InputText id="nombres" @bind-Value="SearchModelo.Nombre" placeholder="Nombre" />-->
+@*<InputText id="Apellidos" @bind-Value="SearchModelo.Apellidos" placeholder="Primer Apellido" />*@
 
-        <!--<button type="submit">Buscar</button>
+<!--<button type="submit">Buscar</button>
         @if (@modelos.Count() > 0)
         {
             <label>Total de Datos encontrados para su peticion @modelos.Count().ToString()</label>

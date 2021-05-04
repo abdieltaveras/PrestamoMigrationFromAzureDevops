@@ -28,14 +28,19 @@ namespace PrestamoBlazorApp.Pages.TiposMora
         }
         protected override async Task OnInitializedAsync()
         {
-            
+            await BlockPage();
             tiposmora = await TiposMoraService.Get(new TipoMoraGetParams());
+            await UnBlockPage();
         }
         async Task GetTiposMora()
         {
-            loading = true;
+            //loading = true;
+            await BlockPage();
+
             tiposmora = await TiposMoraService.Get(new TipoMoraGetParams());
-            loading = false;
+            await UnBlockPage();
+
+            //loading = false;
         }
 
         //async Task GetAll()
@@ -47,9 +52,12 @@ namespace PrestamoBlazorApp.Pages.TiposMora
 
         async Task SaveTipoMora()
         {
+            await BlockPage();
             await TiposMoraService.SaveTipoMora(this.TipoMora);
-            await OnGuardarNotification();
-            NavManager.NavigateTo("/TiposMora");
+            await UnBlockPage();
+            await SweetMessageBox("Guardado Correctamente", "success", "");
+            //await OnGuardarNotification();
+            //NavManager.NavigateTo("/TiposMora");
         }
         void CreateOrEdit(int idTipoMora = -1)
         {

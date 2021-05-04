@@ -7,27 +7,29 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Web.Http;
 using WSPrestamo.Models;
-
+using Newtonsoft.Json;
 namespace WSPrestamo.Controllers
 {
  
     public class ColorController : BaseApiController
     {
-
-        public IEnumerable<Color> Get()
+        //[HttpGet]
+        //public IEnumerable<Color> GetByParam(int idColor, int idLocalidadNegocio)
+        //{
+        //    var search = new ColorGetParams { IdColor = idColor, IdLocalidadNegocio = idLocalidadNegocio };
+        //    var result = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
+        //    return result;
+        //    //return View("CreateOrEdit", datos);
+        //}
+        [HttpGet]
+        public IEnumerable<Color> Get(string JsonGet="")
         {
-            var result = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
+            var color = JsonConvert.DeserializeObject<ColorGetParams>(JsonGet);
+            var result = BLLPrestamo.Instance.GetColores(color);
             return result;
             //return View("CreateOrEdit", datos);
         }
-
-        public IEnumerable<Color> GetByParam(int idColor, int idLocalidadNegocio)
-        {
-            var search = new ColorGetParams { IdColor = idColor, IdLocalidadNegocio = idLocalidadNegocio };
-            var result = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
-            return result;
-            //return View("CreateOrEdit", datos);
-        }
+      
 
         [HttpPost]
         public IHttpActionResult Post(Color color)
