@@ -1,7 +1,11 @@
-﻿namespace PrestamoBLL.Entidades
+﻿using emtSoft.DAL;
+
+namespace PrestamoBLL.Entidades
 {
     public abstract class BaseGetParams : BaseUsuarioEIdNegocio
     {
+        [IgnorarEnParam]
+        public string JsonGet { get; set; }
         /// <summary>
         /// para indicar si desea o no registros anulado
         /// -1 todos, 0 los normales que no estan marcados como anulado y 1 los marcados como anulados

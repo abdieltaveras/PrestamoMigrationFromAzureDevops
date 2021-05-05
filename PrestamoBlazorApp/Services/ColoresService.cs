@@ -13,7 +13,7 @@ namespace PrestamoBlazorApp.Services
     public class ColoresService : ServiceBase
     {
         string apiUrl = "api/color";
-        JsonGlobalParam JsonGlobalParam = new JsonGlobalParam();
+        //JsonGlobalParam JsonGlobalParam = new JsonGlobalParam();
         //public async Task<IEnumerable<Color>> GetColoresAsync(ColorGetParams search)
         //{
         //    var result = await GetAsync<Color>(apiUrl, search);
@@ -22,8 +22,8 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Color>> Get(ColorGetParams colorGetParams)
         {
-            JsonGlobalParam.JsonGet = JsonConvert.SerializeObject(colorGetParams);
-            return await GetAsync<Color>(apiUrl, JsonGlobalParam);
+            colorGetParams.JsonGet = JsonConvert.SerializeObject(colorGetParams);
+            return await GetAsync<Color>(apiUrl, colorGetParams);
         }
         public ColoresService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {

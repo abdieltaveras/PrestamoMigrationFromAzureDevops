@@ -30,7 +30,8 @@ namespace PrestamoBlazorApp.Pages.Garantias
         }
         protected override async Task OnInitializedAsync()
         {
-            garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = ""});
+            await GetGarantiasWithPrestamos();
+            //garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = ""});
         }
         async Task GetGarantias()
         {
@@ -38,6 +39,14 @@ namespace PrestamoBlazorApp.Pages.Garantias
             await BlockPage();
             var param = new GarantiaGetParams { IdNegocio = 1,IdGarantia = 1 };
             garantias = await GarantiasService.Get(param);
+            await UnBlockPage();
+            //loading = false;
+        }
+        async Task GetGarantiasWithPrestamos()
+        {
+            //loading = true;
+            await BlockPage();
+            garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
             await UnBlockPage();
             //loading = false;
         }

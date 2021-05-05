@@ -11,18 +11,12 @@ namespace PrestamoBlazorApp.Pages.Colores
 {
     public partial class Colores : BaseForCreateOrEdit
     {
-        BaseForCreateOrEdit BaseForCreateOrEdit = new BaseForCreateOrEdit();
         ColorGetParams SearchMarca { get; set; } = new ColorGetParams();
-        [Inject]
-        IJSRuntime jsRuntime { get; set; }
-
-        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         ColoresService coloresService { get; set; }
         IEnumerable<Color> colores { get; set; } = new List<Color>();
         [Parameter]
         public Color Color { get; set; } 
-        bool loading = false;
         void Clear() => colores = null;
         protected override void OnInitialized()
         {
@@ -31,9 +25,9 @@ namespace PrestamoBlazorApp.Pages.Colores
         }
         protected override async Task OnInitializedAsync()
         {
-            await BlockPage();
+            //await BlockPage();
             colores = await coloresService.Get(new ColorGetParams());
-            await UnBlockPage();
+            //await UnBlockPage();
         }
         //async Task GetColoresByParam()
         //{
@@ -43,7 +37,7 @@ namespace PrestamoBlazorApp.Pages.Colores
         //    loading = false;
         //}
 
-        //async List<Color> Get(ColorGetParams colorGetParams)
+        //async Task<IEnumerable<Color>> Get(ColorGetParams colorGetParams)
         //{
         //    //loading = true;
         //    return await coloresService.Get(colorGetParams);
@@ -57,21 +51,20 @@ namespace PrestamoBlazorApp.Pages.Colores
             await UnBlockPage();
             await SweetMessageBox("Guardado Correctamente", "success", "");
         }
-        async void CreateOrEdit(int idColor = -1)
+        async Task CreateOrEdit(int idColor = -1)
         {
-            await BlockPage();
-            //var color = new IEnumerable<Color>();
             if (idColor > 0)
             {
+                await BlockPage();
                 var color = await coloresService.Get(new ColorGetParams { IdColor = idColor });
-                this.Color = color.FirstOrDefault();
+                Color = color.FirstOrDefault();
+                await UnBlockPage();
             }
             else
             {
                 this.Color = new Color();
             }
-            await UnBlockPage();
-            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+             await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
 
         void RaiseInvalidSubmit()

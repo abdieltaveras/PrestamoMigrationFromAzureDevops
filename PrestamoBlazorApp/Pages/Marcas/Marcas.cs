@@ -62,17 +62,20 @@ namespace PrestamoBlazorApp.Pages.Marcas
             await SweetMessageBox("Guardado Correctamente", "success", "");
             //await JsInteropUtils.Reload(jsRuntime, true);
         }
-        void CreateOrEdit(int idMarca = -1)
+        async Task CreateOrEdit(int idMarca = -1)
         {
+            await BlockPage();
             if (idMarca>0)
-            {
-                this.Marca =  marcasService.Get(new MarcaGetParams { IdMarca = idMarca }).Result.FirstOrDefault();
+            { 
+                var marca = await marcasService.Get(new MarcaGetParams { IdMarca = idMarca });
+                this.Marca = marca.FirstOrDefault();
             }
             else
             {
                 this.Marca = new Marca();
             }
-            JsInteropUtils.ShowModal(jsRuntime, "#edtMarca");
+            await UnBlockPage();
+            await JsInteropUtils.ShowModal(jsRuntime, "#edtMarca");
         }
         void RaiseInvalidSubmit()
         {

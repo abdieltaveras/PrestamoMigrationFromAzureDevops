@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Web.Http;
 using WSPrestamo.Models;
+using Newtonsoft.Json;
 
 namespace WSPrestamo.Controllers
 {
     public class ModelosController : BaseApiController
     {
         //[HttpGet]
-        public IEnumerable<ModeloWithMarca> Get(string Nombre ="")
+        public IEnumerable<ModeloWithMarca> Get(string JsonGet = "")
         {
-            ModeloVM datos = new ModeloVM();
-
-            datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1, Nombre = Nombre });
-            return datos.ListaModelos;
+            var jsonResult = JsonConvert.DeserializeObject<ModeloGetParams>(JsonGet);
+            return BLLPrestamo.Instance.GetModelos(jsonResult);
+           
         }
         
         //public IEnumerable<Modelo> Get(int idMarca)
