@@ -59,17 +59,18 @@ namespace PrestamoBlazorApp.Pages.TiposMora
             //await OnGuardarNotification();
             //NavManager.NavigateTo("/TiposMora");
         }
-        void CreateOrEdit(int idTipoMora = -1)
+        async Task CreateOrEdit(int idTipoMora = -1)
         {
             if (idTipoMora > 0)
             {
-                this.TipoMora = tiposmora.Where(m => m.IdTipoMora == idTipoMora).FirstOrDefault();
+                var param = await TiposMoraService.Get(new TipoMoraGetParams { IdTipoMora = idTipoMora });
+                this.TipoMora = param.FirstOrDefault();
             }
             else
             {
                 this.TipoMora = new TipoMora();
             }
-            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
         void RaiseInvalidSubmit()
         {

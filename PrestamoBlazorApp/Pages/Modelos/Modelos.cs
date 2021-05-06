@@ -32,10 +32,10 @@ namespace PrestamoBlazorApp.Pages.Modelos
         }
         protected override async Task OnInitializedAsync()
         {
-            await BlockPage();
+            //await BlockPage();
             marcas = await modelosService.GetMarcasForModelo();
             modelos = await modelosService.Get(new ModeloGetParams());
-            await UnBlockPage();
+            //await UnBlockPage();
 
         }
         //async Task GetModelosByParam()

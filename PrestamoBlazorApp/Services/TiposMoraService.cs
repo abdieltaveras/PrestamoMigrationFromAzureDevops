@@ -1,5 +1,6 @@
 
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using PrestamoBlazorApp.Shared;
 using PrestamoBLL.Entidades;
 using System;
@@ -11,10 +12,11 @@ namespace PrestamoBlazorApp.Services
 {
     public class TiposMoraService : ServiceBase
     {
-        BaseForCreateOrEdit BaseForCreateOrEdit;
+     
         string apiUrl = "api/tipomoras";
         public async Task<IEnumerable<TipoMora>> Get(TipoMoraGetParams search)
         {
+            search.JsonGet = JsonConvert.SerializeObject(search);
             var result = await GetAsync<TipoMora>(apiUrl, search);
             return result;
         }
