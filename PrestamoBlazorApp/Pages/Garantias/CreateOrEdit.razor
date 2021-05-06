@@ -15,12 +15,12 @@
                 @if (idgarantia <= 0)
                 {
                     <h3 class="">Crear Garantia</h3>
-                    <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;" >Guardar</button>
+                    <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;">Guardar</button>
                 }
                 else
                 {
                     <h3 class="">Editando Garantia</h3>
-                    <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;" >Guardar</button>
+                    <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;">Guardar</button>
                     @*<h3 class="card-title">Editar Garantia  <button type="submit" class="btn btn-primary" @onclick="() => SaveGarantia()">Guardar</button></h3>*@
                 }
 
@@ -43,12 +43,12 @@
                                             <div class="form-group">
 
                                                 @*<InputRadio @bind-Value=" Garantia.IdClasificacion" id="inmobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
-                                                <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="2" checked="@(Garantia.IdClasificacion==2)" @onchange="selectedRadioClasificacion" />
+                                                <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="1" checked="@(Garantia.IdClasificacion==1)" @onchange="selectedRadioClasificacion" />
                                                 <label for="inmobiliario_option">Inmobiliario</label>
                                                 @*<i class="fa fa-home"></i>*@ @*Inmobiliriario*@
                                                 <br />
                                                 @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="mobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
-                                                <input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="1" checked="@(Garantia.IdClasificacion==1)" @onchange="selectedRadioClasificacion" />
+                                                <input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="2" checked="@(Garantia.IdClasificacion==2)" @onchange="selectedRadioClasificacion" />
                                                 <label for="mobiliario_option">Mobiliario</label>
                                                 @*<i class="fa fa-car"></i>*@ @*Mobiliriario*@
                                             </div>
@@ -57,11 +57,11 @@
                                         {
                                             if (Garantia.IdClasificacion == 1)
                                             {
-                                                <h3> Tipo: Mobiliario</h3>
+                                                <h3> Tipo: Inmobiliario</h3>
                                             }
                                             else
                                             {
-                                                <h3> Tipo: Inmobiliario</h3>
+                                                <h3> Tipo: Mobiliario</h3>
                                             }
                                         }
 
@@ -97,15 +97,13 @@
                                             </InputSelect>
                                         </div>
                                     }
-
                                 </div>
                             </div>
                             <hr />
                             <div class="row">
                                 <div class="col-md-12">
                                     @* Formulario de inmobiliario *@
-
-                                    <div class="row" id="inmobiliario_form_container" hidden="@IsShowInmobiliario">
+                                    <div class="row" id="inmobiliario_form_container" hidden="@(!IsShowInmobiliario)">
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -118,7 +116,6 @@
                                                                 <div class="list-group col-md-12 col-sm-12 col-xs-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding-right: 20px; padding-left: 0px; vertical-align: middle;">
                                                                 </div>
                                                             </div>
-
                                                             <span class="field-validation-valid text-danger" data-valmsg-for="Direccion.Calle" data-valmsg-replace="true"></span>
                                                             <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
                                                         </div>
@@ -153,7 +150,7 @@
 
                                     @* Formulario de mobiliario *@
 
-                                    <div class="row" id="mobiliario_form_container" hidden="@IsShowMobiliario">
+                                    <div class="row" id="mobiliario_form_container" hidden="@(!IsShowMobiliario)">
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -198,40 +195,40 @@
                                                         <input type="hidden" @bind-value="detalleGarantia.Color" />
                                                     </div>
                                                     @*<div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="modelo">
-                                                Modelo <span class="required">*</span>
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <div class="form-group">
-                                                    <InputSelect id="ListadoModelos" @bind-Value="@Garantia.IdModelo" class="form-control col-md-6">
-                                                        <option value="-1">Seleccione Un Modelo</option>
-                                                        @foreach (var item in modelos)
-                                                        {
-                                                            <option value="@item.IdModelo">@item.Nombre</option>
-                                                        }
-                                                    </InputSelect>
-                                                    <input type="hidden" @bind-value="Garantia.IdModelo" />
-                                                </div>
-                                            </div>
-                                        </div>
+                                                            <label class="col-sm-4 col-form-label" for="modelo">
+                                                                Modelo <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <InputSelect id="ListadoModelos" @bind-Value="@Garantia.IdModelo" class="form-control col-md-6">
+                                                                        <option value="-1">Seleccione Un Modelo</option>
+                                                                        @foreach (var item in modelos)
+                                                                        {
+                                                                            <option value="@item.IdModelo">@item.Nombre</option>
+                                                                        }
+                                                                    </InputSelect>
+                                                                    <input type="hidden" @bind-value="Garantia.IdModelo" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="modelo">
-                                                Colores <span class="required">*</span>
-                                            </label>
-                                            <div class="col-sm-8">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label" for="modelo">
+                                                                Colores <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-sm-8">
 
-                                                <InputSelect id="ListadoColores" @bind-Value="@detalleGarantia.Color" class="form-control col-md-6">
-                                                    <option value="-1">Seleccione Un Color</option>
-                                                    @foreach (var item in colores)
-                                                    {
-                                                        <option value="@item.Nombre">@item.Nombre</option>
-                                                    }
-                                                </InputSelect>
-                                                <input type="hidden" @bind-value="detalleGarantia.Color" />
+                                                                <InputSelect id="ListadoColores" @bind-Value="@detalleGarantia.Color" class="form-control col-md-6">
+                                                                    <option value="-1">Seleccione Un Color</option>
+                                                                    @foreach (var item in colores)
+                                                                    {
+                                                                        <option value="@item.Nombre">@item.Nombre</option>
+                                                                    }
+                                                                </InputSelect>
+                                                                <input type="hidden" @bind-value="detalleGarantia.Color" />
 
-                                            </div>
-                                        </div>*@
+                                                            </div>
+                                                        </div>*@
                                                 </div>
 
                                                 <div class="col-md-6">
@@ -270,42 +267,42 @@
 
 
                                                     @*<div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="NoMaquina">
-                                                No. Maquina <span class="required">*</span>
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <InputText id="nomaquina" class="form-control col-md-6" @bind-Value="detalleGarantia.NoMaquina"></InputText>
+                                                            <label class="col-sm-4 col-form-label" for="NoMaquina">
+                                                                No. Maquina <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-sm-8">
+                                                                <InputText id="nomaquina" class="form-control col-md-6" @bind-Value="detalleGarantia.NoMaquina"></InputText>
 
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="año">
-                                                Año <span class="required">*</span>
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <InputText id="ano" class="form-control col-md-6" @bind-Value="detalleGarantia.Ano"></InputText>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label" for="año">
+                                                                Año <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-sm-8">
+                                                                <InputText id="ano" class="form-control col-md-6" @bind-Value="detalleGarantia.Ano"></InputText>
 
-                                            </div>
-                                        </div>
+                                                            </div>
+                                                        </div>
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="placa">
-                                                Placa <span class="required">*</span>
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <InputText id="placa" class="form-control col-md-6" @bind-Value="detalleGarantia.Placa"></InputText>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label" for="placa">
+                                                                Placa <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-sm-8">
+                                                                <InputText id="placa" class="form-control col-md-6" @bind-Value="detalleGarantia.Placa"></InputText>
 
-                                            </div>
-                                        </div>
+                                                            </div>
+                                                        </div>
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="matricula">
-                                                Matricula <span class="required">*</span>
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <InputText id="matricula" class="form-control col-md-6" @bind-Value="detalleGarantia.Matricula"></InputText>
-                                            </div>
-                                        </div>*@
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 col-form-label" for="matricula">
+                                                                Matricula <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-sm-8">
+                                                                <InputText id="matricula" class="form-control col-md-6" @bind-Value="detalleGarantia.Matricula"></InputText>
+                                                            </div>
+                                                        </div>*@
 
                                                 </div>
                                             </div>
@@ -314,7 +311,7 @@
 
                                 </div>
                             </div>
-                          
+
 
 
                         </div>  <!-- /Modulo Datos Generales -->
@@ -323,35 +320,35 @@
                                 <div class="col-md-12">
                                     @* Formulario de datos en comun *@
                                     @*<div class="row" id="common_form_container">*@
-                                        <div class="col-md-12">
+                                    <div class="col-md-12">
 
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label" for="valor">
-                                                    Valor <span class="required"></span>
-                                                </label>
-                                                @*<div class="col-sm-8">*@
-                                                <InputNumber id="valor" class="form-control col-md-6" @bind-Value="detalleGarantia.Valor"></InputNumber>
-                                                @*</div>*@
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label" for="interes">
-                                                    Descripcion <span class="required"></span>
-                                                </label>
-                                                @*<div class="col-sm-8">*@
-                                                <InputText id="descripcion" class="form-control col-md-6" @bind-Value="detalleGarantia.Descripcion"></InputText>
-                                                @*</div>*@
-                                            </div>
-
-                                            <div class="form-group row">
-
-                                                <div class="col-sm-8">
-                                                    <InputCheckbox id="chkExclusivo" @bind-Value="detalleGarantia.UsoExclusivo"></InputCheckbox>
-                                                    <label class="form-check-label" for="chkExclusivo">¿Puedo usar esta garantia en mas de 1 transaccion? <span class="required"></span></label>
-                                                </div>
-                                            </div>
-
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="valor">
+                                                Valor <span class="required"></span>
+                                            </label>
+                                            @*<div class="col-sm-8">*@
+                                            <InputNumber id="valor" class="form-control col-md-6" @bind-Value="detalleGarantia.Valor"></InputNumber>
+                                            @*</div>*@
                                         </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="interes">
+                                                Descripcion <span class="required"></span>
+                                            </label>
+                                            @*<div class="col-sm-8">*@
+                                            <InputText id="descripcion" class="form-control col-md-6" @bind-Value="detalleGarantia.Descripcion"></InputText>
+                                            @*</div>*@
+                                        </div>
+
+                                        <div class="form-group row">
+
+                                            <div class="col-sm-8">
+                                                <InputCheckbox id="chkExclusivo" @bind-Value="detalleGarantia.UsoExclusivo"></InputCheckbox>
+                                                <label class="form-check-label" for="chkExclusivo">¿Puedo usar esta garantia en mas de 1 transaccion? <span class="required"></span></label>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                     @*</div>*@
 
 
@@ -422,46 +419,24 @@
     private void selectedRadioClasificacion(ChangeEventArgs args)
     {
         clasificacionSelected = args.Value.ToString();
-        if (idgarantia <= 0)
+
+        if (clasificacionSelected == "1")
         {
+            @*this.detalleGarantia = new DetalleGarantia();*@
 
-            if (clasificacionSelected == "1")
-            {
-                @*this.detalleGarantia = new DetalleGarantia();*@
-
-                IsShowInmobiliario = true;
-                IsShowMobiliario = false;
-            }
-            else if (clasificacionSelected == "2")
-            {
-                @*this.detalleGarantia = new DetalleGarantia();*@
-                IsShowInmobiliario = false;
-                IsShowMobiliario = true;
-            }
-    //this.detalleGarantia = new DetalleGarantia();
-    Garantia.IdClasificacion = Convert.ToInt32(args.Value.ToString());
-    tipogarantia = tipogarantia.Where(m => m.IdClasificacion == Garantia.IdClasificacion);
-    }
-    else
-    {
-            //clasificacionSelected = args.Value.ToString();
-            if (clasificacionSelected == "1")
-            {
-
-                IsShowInmobiliario = true;
-                IsShowMobiliario = false;
-            }
-            else if (clasificacionSelected == "2")
-            {
-            
+            IsShowInmobiliario = true;
+            IsShowMobiliario = false;
+        }
+        else if (clasificacionSelected == "2")
+        {
+            @*this.detalleGarantia = new DetalleGarantia();*@
             IsShowInmobiliario = false;
             IsShowMobiliario = true;
-          }
+        }
         //this.detalleGarantia = new DetalleGarantia();
-        //Garantia.IdClasificacion = Convert.ToInt32(args.Value.ToString());
-        //tipogarantia = tipogarantia.Where(m => m.IdClasificacion == Garantia.IdClasificacion);
-    }
+        Garantia.IdClasificacion = Convert.ToInt32(args.Value.ToString());
+        tipogarantia = tipogarantia.Where(m => m.IdClasificacion == Garantia.IdClasificacion);
 
-}
+    }
 
 }
