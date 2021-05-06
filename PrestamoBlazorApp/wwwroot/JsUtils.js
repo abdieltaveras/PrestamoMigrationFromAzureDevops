@@ -90,7 +90,7 @@ window.SweetMessageBox = function (message, icon, redirectTo = "", delayMilliSec
         title: message,
         allowOutsideClick: false,
         showConfirmButton: false,
-        timer: 1500
+        timer: delayMilliSeconds
         //text: 'Something went wrong!',
         //footer: '<a href>Why do I have this issue?</a>'
     }).then(function () {

@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
+using PrestamoBlazorApp.Shared;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
-    public partial class Clientes
+    public partial class Clientes : BaseForList
     {
         [Inject]
         ClientesService clientesService { get; set; }
@@ -19,16 +20,18 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         protected override async Task OnInitializedAsync()
         {
-            this.searchClientes = new ClienteGetParams { CantidadRegistrosASeleccionar = 50, ConvertJsonToObj = false };
-            await GetClientes();
+            Handle_GetData(GetClientes);
+            //await GetClientes();
             await base.OnInitializedAsync();
         }
-        async Task GetClientes()
+        private async Task GetClientes()
         {
-            loading = true;
+            clientes = new List<Cliente>();
+            this.searchClientes.CantidadRegistrosASeleccionar = 50;
+            this.searchClientes.ConvertJsonToObj = false ;
             clientes = await clientesService.GetClientesAsync(this.searchClientes);
             totalClientes = clientes.Count();
-            loading = false;
         }
+
     }
 }

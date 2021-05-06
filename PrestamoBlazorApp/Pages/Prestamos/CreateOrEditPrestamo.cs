@@ -82,7 +82,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         }
         async Task SavePrestamo()
         {
-            blockSaveButton = true;
+            
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
             
             try

@@ -157,23 +157,18 @@ namespace PrestamoBlazorApp.Pages.Clientes
         //async Task SaveCliente()
         async Task SaveCliente()
         {
-            blockSaveButton = true;
+            Handle_SaveData(SaveData);
+        }
+
+        private async Task SaveData()
+        {
+            
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
             this.cliente.InfoConyugeObj = conyuge;
             this.cliente.InfoReferenciasObj = referencias;
             this.cliente.InfoDireccionObj = direccion;
             this.cliente.InfoLaboralObj = infoLaboral;
-            try
-            {
-                
-                await clientesService.SaveCliente(this.cliente);
-                await OnGuardarNotification(redirectTo: "/Clientes");
-            }
-            catch (Exception e)
-            {
-
-                await JsInteropUtils.Notification(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
-            }
+            await clientesService.SaveCliente(this.cliente);
             
         }
 

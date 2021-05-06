@@ -16,10 +16,8 @@ namespace WSPrestamo.Controllers
         [HttpGet]
         public IEnumerable<Clasificacion> Get(string JsonGet = "")
         {
-            //var result = PrestamoBLL.BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(idNegocio);
-            //var result2 = result.Where(clas => clas.RequiereGarantia);
-            var JsonResult = JsonConvert.DeserializeObject<ClasificacionesGetParams>(JsonGet);
-            var result = BLLPrestamo.Instance.GetClasificaciones(JsonResult);
+            var searchParam = JsonConvert.DeserializeObject<ClasificacionesGetParams>(JsonGet);
+            var result = BLLPrestamo.Instance.GetClasificaciones(searchParam);
             return result;
         }
         [HttpPost]

@@ -19,6 +19,8 @@ namespace PrestamoBLL
         }
         public IEnumerable<Clasificacion> GetClasificaciones(ClasificacionesGetParams searchParam)
         {
+
+            searchParam = (searchParam.IsNull()) ? new ClasificacionesGetParams() : searchParam;
             return BllAcciones.GetData<Clasificacion, ClasificacionesGetParams>(searchParam, "spGetClasificaciones", GetValidation);
         }
         public void InsUpdClasificacion(Clasificacion insUpdParam)

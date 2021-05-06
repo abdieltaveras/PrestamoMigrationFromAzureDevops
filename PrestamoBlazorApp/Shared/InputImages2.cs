@@ -69,9 +69,8 @@ namespace PrestamoBlazorApp.Shared
             Imagen imagen = null;
             foreach (var imageFile in imageFiles)
             {
-                
-                
 
+                
                 var resizedImageFile = imageFile.Size > 20000 ? 
                     await imageFile.RequestImageFileAsync(format,100, 100)
                     :
