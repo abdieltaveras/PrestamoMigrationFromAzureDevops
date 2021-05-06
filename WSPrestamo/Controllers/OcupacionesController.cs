@@ -6,15 +6,16 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PrestamoBLL;
+using Newtonsoft.Json;
 namespace WSPrestamo.Controllers
 {
     public class OcupacionesController : BaseApiController
     {
-        public IEnumerable<Ocupacion> Get()
+        public IEnumerable<Ocupacion> Get(string JsonGet = "")
         {
-            var search = new OcupacionGetParams();
+            var search = JsonConvert.DeserializeObject<OcupacionGetParams>(JsonGet);
             search.Usuario = this.LoginName;
-            search.IdOcupacion = -1;
+            //search.IdOcupacion = -1;
             search.IdLocalidadNegocio = -1;
             return BLLPrestamo.Instance.GetOcupaciones(search);
         }

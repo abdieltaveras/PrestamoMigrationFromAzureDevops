@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Web.Http;
 using WSPrestamo.Models;
+using Newtonsoft.Json;
 
 namespace WSPrestamo.Controllers
 {
     public class MarcasController : BaseApiController
     {
-        public IEnumerable<Marca> Get()
+        public IEnumerable<Marca> Get(string JsonGet = "")
         {
             //Hay que agregar el controller
-            var result = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
+            var JsonResult = JsonConvert.DeserializeObject<MarcaGetParams>(JsonGet);
+            var result = BLLPrestamo.Instance.GetMarcas(JsonResult);
             return result;
             //return View("CreateOrEdit", datos);
         }

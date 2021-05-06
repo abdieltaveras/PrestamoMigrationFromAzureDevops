@@ -1,5 +1,5 @@
 ﻿@page "/clasificaciones"
-
+@inherits BaseForCreateOrEdit
 <h1>Clasificaciones  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
 
 
@@ -37,7 +37,7 @@
                                 <InputText id="nombre" class="form-control col-md-6" @bind-Value="Clasificacion.Nombre"></InputText>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" @onclick="()=>SaveClasificacion()">Guardar</button>
+                                <button type="submit" class="btn btn-primary" >Guardar</button>
                             </div>
                         </div>
                     </div>

@@ -6,14 +6,15 @@ using System.Web;
 using PrestamoBLL;
 using WSPrestamo.Models;
 using System.Web.Http;
-
+using Newtonsoft.Json;
 namespace WSPrestamo.Controllers
 {
     public class EquipoController : BaseApiController
     {
-        public IEnumerable<Equipo> GetAll()
+        public IEnumerable<Equipo> GetAll(string JsonGet = "")
         {
-            return BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { });
+            var param = JsonConvert.DeserializeObject<EquiposGetParam>(JsonGet);
+            return BLLPrestamo.Instance.GetEquipos(param);
         }
         //public IEnumerable<Equipo> Get(int idEquipo, string codigo, int idLocalidad)
         //{

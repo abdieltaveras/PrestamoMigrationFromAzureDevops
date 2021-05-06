@@ -26,23 +26,26 @@ namespace WSPrestamo.Controllers
         //    _hostingEnvironment = hostingEnvironment;
         //}
         int BUSCAR_A_PARTIR_DE = 2;
-        public IEnumerable<Garantia> GetWithPrestamo(string search="")
+        [HttpGet]
+        public IEnumerable<Garantia> GetWithPrestamo(string JsonGet="")
         {
             //search = "26";
             //string search = "26";
             IEnumerable<Garantia> garantias;
             //if (search.Length >= BUSCAR_A_PARTIR_DE)
             //{
-                garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = search, IdNegocio = 1 });
+            var paramss = JsonConvert.DeserializeObject<BuscarGarantiaParams>(JsonGet);
+            paramss.IdNegocio = 1;
+            garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(paramss);
             //}
             //********** enviamos la base64 de la imagen
             return garantias;
         }
 
-        public IEnumerable<Garantia> Get(int IdGarantia)
+        public IEnumerable<Garantia> Get(string JsonGet = "")
         {
             dynamic listResult = null;
-            var searchGarantia = new GarantiaGetParams { IdGarantia = IdGarantia };
+            var searchGarantia = JsonConvert.DeserializeObject<GarantiaGetParams>(JsonGet);
             //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
             var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
             var result = new SeachResult<Garantia>(garantias).DataList.ToList<Garantia>();

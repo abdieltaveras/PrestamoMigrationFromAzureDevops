@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Web.Http;
 using WSPrestamo.Models;
+using Newtonsoft.Json;
 
 namespace WSPrestamo.Controllers
 {
     public class ClasificacionController : BaseApiController
     {
         [HttpGet]
-        public IEnumerable<Clasificacion> Get(int idNegocio)
+        public IEnumerable<Clasificacion> Get(string JsonGet = "")
         {
-            var result = PrestamoBLL.BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(idNegocio);
-            var result2 = result.Where(clas => clas.RequiereGarantia);
-            return result2;
+            //var result = PrestamoBLL.BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(idNegocio);
+            //var result2 = result.Where(clas => clas.RequiereGarantia);
+            var JsonResult = JsonConvert.DeserializeObject<ClasificacionesGetParams>(JsonGet);
+            var result = BLLPrestamo.Instance.GetClasificaciones(JsonResult);
+            return result;
         }
         [HttpPost]
         public IHttpActionResult Post(Clasificacion clasificacion)

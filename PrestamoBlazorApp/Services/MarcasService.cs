@@ -12,7 +12,7 @@ namespace PrestamoBlazorApp.Services
     public class MarcasService : ServiceBase
     {
         string apiUrl = "api/marcas";
-        JsonGlobalParam JsonGlobalParam = new JsonGlobalParam();
+        //JsonGlobalParam JsonGlobalParam = new JsonGlobalParam();
         //public async Task<IEnumerable<Marca>> GetMarcasAsync(MarcaGetParams search)
         //{
         //    var result = await GetAsync<Marca>(apiUrl, search);
@@ -21,8 +21,8 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Marca>> Get(MarcaGetParams marcaGetParams)
         {
-            JsonGlobalParam.JsonGet = JsonConvert.SerializeObject(marcaGetParams);
-            var result =  await GetAsync<Marca>(apiUrl, JsonGlobalParam.JsonGet);
+            marcaGetParams.JsonGet = JsonConvert.SerializeObject(marcaGetParams);
+            var result =  await GetAsync<Marca>(apiUrl, marcaGetParams);
             return result;
         }
         public MarcasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)

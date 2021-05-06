@@ -28,23 +28,23 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
         }
         protected override async Task OnInitializedAsync()
         {
-            await BlockPage();
-            ocupaciones = await OcupacionesService.Get();
-            await UnBlockPage();
+            //await BlockPage();
+            ocupaciones = await OcupacionesService.Get(new OcupacionGetParams());
+            //await UnBlockPage();
         }
-        async Task GetOcupaciones()
-        {
-            loading = true;
-            ocupaciones = await OcupacionesService.Get();
-            loading = false;
-        }
+        //async Task GetOcupaciones()
+        //{
+        //    loading = true;
+        //    ocupaciones = await OcupacionesService.Get(new OcupacionGetParams());
+        //    loading = false;
+        //}
 
-        async Task GetAll()
-        {
-            loading = true;
-            ocupaciones = await OcupacionesService.GetAll();
-            loading = false;
-        }
+        //async Task GetAll()
+        //{
+        //    loading = true;
+        //    ocupaciones = await OcupacionesService.GetAll();
+        //    loading = false;
+        //}
 
         async Task SaveOcupacion()
         {
@@ -54,17 +54,21 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
             await SweetMessageBox("Guardado Correctamente", "success", "");
             //await OnGuardarNotification();
         }
-        void CreateOrEdit(int idOcupacion = -1)
+        async Task CreateOrEdit(int idOcupacion = -1)
         {
             if (idOcupacion > 0)
             {
-                this.Ocupacion = ocupaciones.Where(m => m.IdOcupacion == idOcupacion).FirstOrDefault();
+                await BlockPage();
+                var ocupacion = await OcupacionesService.Get(new OcupacionGetParams { IdOcupacion = idOcupacion});
+                this.Ocupacion = ocupacion.FirstOrDefault();
+              
             }
             else
             {
                 this.Ocupacion = new Ocupacion();
             }
-            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            await UnBlockPage();
         }
 
 

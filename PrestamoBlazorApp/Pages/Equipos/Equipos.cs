@@ -55,17 +55,18 @@ namespace PrestamoBlazorApp.Pages.Equipos
             await UnBlockPage();
             await SweetMessageBox("Guardado Correctamente", "success", "");
         }
-        void CreateOrEdit(int IdEquipo = -1)
+        async Task CreateOrEdit(int IdEquipo = -1)
         {
             if (IdEquipo > 0)
             {
-                this.Equipo = equipos.Where(m => m.IdEquipo == IdEquipo).FirstOrDefault();
+                var datos = await EquiposService.Get(new EquiposGetParam { IdEquipo = IdEquipo });
+                this.Equipo = datos.FirstOrDefault();
             }
             else
             {
                 this.Equipo = new Equipo();
             }
-            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+           await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
         void RaiseInvalidSubmit()
         {
