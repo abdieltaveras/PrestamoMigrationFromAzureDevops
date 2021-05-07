@@ -36,18 +36,18 @@ namespace PrestamoBlazorApp.Pages.Garantias
         async Task GetGarantias()
         {
             //loading = true;
-            await BlockPage();
+            //await BlockPage();
             var param = new GarantiaGetParams { IdNegocio = 1,IdGarantia = 1 };
             garantias = await GarantiasService.Get(param);
-            await UnBlockPage();
+            //await UnBlockPage();
             //loading = false;
         }
         async Task GetGarantiasWithPrestamos()
         {
             //loading = true;
-            await BlockPage();
+            //await BlockPage();
             garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
-            await UnBlockPage();
+            //await UnBlockPage();
             //loading = false;
         }
 
