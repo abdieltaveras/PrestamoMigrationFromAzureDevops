@@ -16,7 +16,7 @@ namespace PrestamoBlazorApp.Services
         
         public static Task<bool> Confirm(IJSRuntime JsRuntime, string message) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("Confirm", message));
 
-        public static Task<bool> Notification(IJSRuntime jsRuntime, string message, int delayInMilliSeconds=5000) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("Notification", message, delayInMilliSeconds));
+        public static Task<bool> NotifyMessageBox(IJSRuntime jsRuntime, string message, int delayInMilliSeconds=5000) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("Notification", message, delayInMilliSeconds));
         public static Task<bool> SweetAlertSuccess(IJSRuntime jsRuntime, string message,string redirectTo = "") => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("sweetAlertSuccess", message,redirectTo));
         public static Task<bool> SweetMessageBox(IJSRuntime jsRuntime, string message,string icon, string redirectTo = "", int delayMilliSeconds = 1500) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("SweetMessageBox", message,icon, redirectTo, delayMilliSeconds));
         public static Task<bool> BlockPage(IJSRuntime jsRuntime) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("BlockPage"));

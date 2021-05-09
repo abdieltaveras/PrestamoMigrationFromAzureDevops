@@ -67,9 +67,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         protected override async Task OnInitializedAsync()
         {
-            Ocupaciones = await GetOcupaciones();
-            prepareModel();
-            LoadedFotos = false;
+            Handle_GetData(prepareModel);
+            
             await base.OnInitializedAsync();
         }
 
@@ -83,8 +82,12 @@ namespace PrestamoBlazorApp.Pages.Clientes
             await JsInteropUtils.SetInputMask(jsRuntime);
         }
 
-        private async void prepareModel()
+        
+        private async Task prepareModel()
         {
+            await CountAndShowExecutionTime("prepareModel");
+            Ocupaciones = await GetOcupaciones();
+            LoadedFotos = false;
             if (idCliente != 0)
             {
                 var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente, ConvertJsonToObj = true });
@@ -122,7 +125,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             }
             SetReferencias(cliente.InfoReferenciasObj);
             FilterImagesByGroup();
-            StateHasChanged();
+            LoadedFotos = true;
         }
 
         private void FilterImagesByGroup()
@@ -157,7 +160,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         //async Task SaveCliente()
         async Task SaveCliente()
         {
-            Handle_SaveData(SaveData);
+            await Handle_SaveData(SaveData);
         }
 
         private async Task SaveData()

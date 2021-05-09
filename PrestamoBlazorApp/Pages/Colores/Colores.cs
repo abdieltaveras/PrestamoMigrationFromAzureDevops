@@ -16,33 +16,26 @@ namespace PrestamoBlazorApp.Pages.Colores
         ColoresService coloresService { get; set; }
         IEnumerable<Color> colores { get; set; } = new List<Color>();
         [Parameter]
-        public Color Color { get; set; } 
+        public Color Color { get; set; } = new Color();
         void Clear() => colores = null;
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            this.Color = new Color();
-        }
+        
         protected override async Task OnInitializedAsync()
         {
-            //await BlockPage();
-            colores = await coloresService.Get(new ColorGetParams());
-            //await UnBlockPage();
+                     
         }
-        //async Task GetColoresByParam()
-        //{
-        //    loading = true;
-        //    var getAzul = new ColorGetParams { IdColor = 4 };
-        //    colores = await coloresService.GetColoresAsync(getAzul);
-        //    loading = false;
-        //}
 
-        //async Task<IEnumerable<Color>> Get(ColorGetParams colorGetParams)
-        //{
-        //    //loading = true;
-        //    return await coloresService.Get(colorGetParams);
-        //    //loading = false;
-        //}
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await BlockPage();
+                colores = await coloresService.Get(new ColorGetParams());
+                await UnBlockPage();
+                StateHasChanged();
+            }
+            
+        }
 
         async Task SaveColor()
         {

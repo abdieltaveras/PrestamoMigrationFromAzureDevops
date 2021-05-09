@@ -10,7 +10,7 @@ namespace PrestamoBlazorApp.Services
 {
     public class LocalidadesService : ServiceBase
     {
-        readonly string apiUrl = "api/localidades";
+        readonly string apiUrl = "api/localidades"; 
 
         public async Task<IEnumerable<Localidad>> GetLocalidadesAsync(LocalidadGetParams search)
         {
@@ -24,7 +24,6 @@ namespace PrestamoBlazorApp.Services
             var result = await GetAsync<BuscarLocalidad>(apiUrl+"/buscarLocalidad", searchParam );
             return result;
         }
-
 
         public LocalidadesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
@@ -41,7 +40,6 @@ namespace PrestamoBlazorApp.Services
             {
                 throw new Exception("Error al guardar", ex);
             }
-
         }
     }
 }

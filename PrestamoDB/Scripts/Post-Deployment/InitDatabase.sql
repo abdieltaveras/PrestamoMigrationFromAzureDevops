@@ -232,7 +232,7 @@ INSERT INTO tblClientes (Activo, AnuladoPor, Apodo, Apellidos, Codigo, IdEstadoC
 VALUES (1, NULL, 'ernesto', 'Tejeda', @codigo, 2, '1969-07-31', '2020-02-13 05:13:26.13', '2020-02-13 05:11:00.03', NULL, 1, 1, 2, '{"Nombres":"Maria","Apodo":"Maria","Apellidos":"Guerrero","NoTelefono1":"8299619142","LugarTrabajo":"Intagsa ","TelefonoTrabajo":"8098131719","DireccionLugarTrabajo":"SERAPIA NO 3","IdTipoIdentificacion":1,"NoIdentificacion":"02600667548","Notas":null}', '{"Nombre":"Pc Prog","Puesto":"Ingeniero de Sistemas","FechaInicio":"2020-02-13T00:00:00","NoTelefono1":"8095508455","NoTelefono2":"8098131251","Direccion":"General Grerio Luperon no 12","Notas":null}', '{"IdDireccion":0,"IdLocalidad":5,"Calle":"serapia no 3 las Orquideas","CodigoPostal":"22000","CoordenadasGPS":null,"Detalles":null,"InsertadoPor":"","FechaInsertado":"1900-01-01T00:00:00","ModificadoPor":"","FechaModificado":"1900-01-01T00:00:00","AnuladoPor":"","FechaAnulado":"1900-01-01T00:00:00","IdNegocio":-1,"Usuario":""}', @usuario, @usuario, '0260067914', 'Ernesto', 1, '8098131438', '8299619141','', '[{"Tipo":1, "Vinculo":3, "NombreCompleto":"Hola", "Telefono":"fg", "Direccion":"dfg", "Detalles":"Hola"}]','imagen1.jpeg','imagen2.jpeg',1)
 -- Server: ABDIELALIENWARE\SQLEXPRESS2016
 -- Date:   13-Feb-20 5:53 AM
--- Table:  tblTipoLocalidades
+-- Table:  tblDivisionTerritorial
 
 INSERT INTO tblDivisionTerritorial(IdLocalidadPadre, IdDivisionTerritorialPadre, IdNegocio, Nombre, Activo, PermiteCalle, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
 VALUES (NULL, NULL, 1, 'Division Territorial Raiz (Nunca Borrar)',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),

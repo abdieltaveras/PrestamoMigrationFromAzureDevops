@@ -42,12 +42,13 @@
                                         {
                                             <div class="form-group">
                                                 @*<InputRadio @bind-Value=" Garantia.IdClasificacion" id="inmobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
-                                                <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="1" checked="@(Garantia.IdClasificacion==1)" @onchange="selectedRadioClasificacion" />
+                                                
+                                                <input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="@((int)TiposClasificacionGarantia.Inmobiliaria)" checked="@(Garantia.IdClasificacion == (int)TiposClasificacionGarantia.Inmobiliaria)" @onchange="selectedRadioClasificacion" />
                                                 <label for="inmobiliario_option">Inmobiliario</label>
                                                 @*<i class="fa fa-home"></i>*@ @*Inmobiliriario*@
                                                 <br />
                                                 @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="mobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
-                                                <input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="2" checked="@(Garantia.IdClasificacion==2)" @onchange="selectedRadioClasificacion" />
+                                                <input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="@((int)TiposClasificacionGarantia.Mobiliaria)" checked="@(Garantia.IdClasificacion==(int)TiposClasificacionGarantia.Mobiliaria)" @onchange="selectedRadioClasificacion" />
                                                 <label for="mobiliario_option">Mobiliario</label>
                                                 @*<i class="fa fa-car"></i>*@ @*Mobiliriario*@
                                             </div>

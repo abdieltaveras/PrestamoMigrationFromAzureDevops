@@ -7,15 +7,15 @@
 )
 as
 BEGIN
-	SELECT IdLocalidad, loc.IdLocalidadPadre, loc.IdNegocio, loc.IdTipoLocalidad, loc.Nombre, tipo.Nombre as Descripcion, tipo.PermiteCalle,	
+	SELECT IdLocalidad, loc.IdLocalidadPadre, loc.IdNegocio, loc.IdTipoLocalidad, loc.Nombre, divTerr.Nombre as Descripcion, divTerr.PermiteCalle,	
 	(SELECT Nombre FROM tblLocalidades where IdLocalidad = loc.IdLocalidadPadre) as NombrePadre,
-	(SELECT Nombre FROM tblTipoLocalidades where IdTipoLocalidad = tipo.IdLocalidadPadre) as TipoNombrePadre
+	(SELECT Nombre FROM tblDivisionTerritorial where IdTipoLocalidad = divTerr.IdDivisionTerritorialPadre) as TipoNombrePadre
 	from
-	tblLocalidades loc, tblTipoLocalidades tipo
+	tblLocalidades loc, tblDivisionTerritorial divTerr
 	where 
-	(loc.IdTipoLocalidad = tipo.IdTipoLocalidad) 
+	(loc.IdTipoLocalidad = divTerr.IdDivisionTerritorial)
 	AND (@search='' OR loc.Nombre LIKE '%' + @search + '%')	
-	and (@SoloLosQuePermitenCalle=0 or tipo.PermiteCalle=1)
+	and (@SoloLosQuePermitenCalle=0 or divTerr.PermiteCalle=1)
 	--AND (@idLocalidadNegocio =-1 OR loc.IdLocalidadN  = @idLocalidad)
 	AND  loc.AnuladoPor IS null
 End

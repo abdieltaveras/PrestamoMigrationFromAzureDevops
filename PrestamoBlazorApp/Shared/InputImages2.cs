@@ -61,7 +61,7 @@ namespace PrestamoBlazorApp.Shared
                 if (string.IsNullOrEmpty(MensajeLimiteImagenes))
                 {
                     MensajeLimiteImagenes = $"eligio {imageFiles.Count} imagenes, y solo se permiten {this.ImageQty}";
-                    await JsInteropUtils.Notification(JsRuntime, MensajeLimiteImagenes);
+                    await JsInteropUtils.NotifyMessageBox(JsRuntime, MensajeLimiteImagenes);
                 }
                 return;
             }
@@ -90,7 +90,7 @@ namespace PrestamoBlazorApp.Shared
                 if (imageFile.Size > 20000)
                 {
                     //await JsInteropUtils.SweetMessageBox(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra", "warning");
-                    await JsInteropUtils.Notification(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra",6000);
+                    await JsInteropUtils.NotifyMessageBox(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra",6000);
                 }
             }
             imagenes.Add(imagen);

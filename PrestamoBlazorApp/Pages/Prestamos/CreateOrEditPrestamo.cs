@@ -92,7 +92,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             }
             catch (Exception e)
             {
-                await JsInteropUtils.Notification(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
+                await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
             }
 
         }

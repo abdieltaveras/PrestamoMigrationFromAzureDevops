@@ -16,12 +16,9 @@ namespace PrestamoBlazorApp.Pages.Clientes
         ClienteGetParams searchClientes { get; set; } = new ClienteGetParams();
         int totalClientes { get; set; }
         IEnumerable<Cliente> clientes;
-        bool loading = false;
-
         protected override async Task OnInitializedAsync()
         {
-            Handle_GetData(GetClientes);
-            //await GetClientes();
+            await Handle_GetDataForList(GetClientes);
             await base.OnInitializedAsync();
         }
         private async Task GetClientes()
