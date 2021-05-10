@@ -1,116 +1,120 @@
 ﻿@page "/territorios"
 @inherits BaseForCreateOrEdit
-<div class="x_title">
+
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
                     <h2>Agregar componentes a division territorial</h2>
 
                     <div class="clearfix"></div>
                 </div>
+                <hr />
                 <div class="x_content">
-                    <br />
+                 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <EditForm autocomplete="off" Model="@Territorio" OnValidSubmit="SaveTerritorio" OnInvalidSubmit="RaiseInvalidSubmit">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <select class="form-control" id="idTipoDivision" @onchange="selectedTerritorio" required>
+                                            <option value="-1">Seleccione una opcion</option>
+                                            @foreach (var item in listadeterritorios)
+                                            {
+                                                <option value="@item.IdDivisionTerritorial">
+                                                    @item.Nombre
+                                                    @if (@item.NombreTipoHijoDe != null)
+                                                    {
+                                                        @item.NombreTipoHijoDe
+                                                    }
+                                                </option>
+                                            }
+                                            @*@foreach (var item in Model.ListaTerritorios)
+                        {
+                            <option value="@item.IdDivisionTerritorial" @(Model.territorioSeleccionado= =item.IdDivisionTerritorial ? "selected" : "" )>
+                                @item.Nombre
+                                @if (@item.NombreTipoHijoDe != null)
+                                {
+                                    @item.NombreTipoHijoDe
+                                }
+                            </option>
+                        }*@
+                                        </select>
+                                        @*<button >Precioname </button>*@
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
+                                    <div class="col-md-9 col-sm-9 ">
+                                        <select name="IdLocalidadPadre" class="form-control" id="divisionesterritorialeshijas" @onchange="selectedLocalidadPadre" required>
+                                            <option value="-1">Elije una opcion</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                @*<input type="hidden" id="inputIdDivisionTerritorialPadre" name="IdDivisionTerritorialPadre" value="" required />*@
+                                <input type="hidden" id="inputIdDivisionTerritorialPadre" @bind-value="this.Territorio.IdDivisionTerritorialPadre" required />
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="nombre">
+                                        Nombre <span class="required">*</span>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required />
+                                        @*<input type="text" id="nombre" name="Nombre" value="" class="form-control" required />*@
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-3">¿Permite calle?</div>
+                                    <div class="col-sm-9">
+
+                                        <input data-val="true"
+                                               class="checkbox"
+                                               data-val-required="The isNewlyEnrolled field is required."
+                                               id="PermiteCalle"
+                                               name="PermiteCalle"
+                                               type="checkbox"
+                                               value="true" @onchange="checkPermiteCalle" />
+                                        @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
+                                        <label for="PermiteCalle" class="switch" id="switch"></label>
+
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="item form-group" style="float: right;">
+                                    <div class="col-md-6 col-sm-6 offset-md-3">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                                @*</form>*@
+                                @*}*@
+                            </EditForm>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="x_panel col-md-6">
+                                <div id="info-component-container">
+                                    <strong>La cantidad de componentes es:</strong>
+                                    <p id="component-count"></p>
+                                    <p id="component-list"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @*@using (Html.BeginForm("GuardarTerritorio", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
         {*@
-                <EditForm autocomplete="off" Model="@Territorio" OnValidSubmit="SaveTerritorio" OnInvalidSubmit="RaiseInvalidSubmit">
-                    <DataAnnotationsValidator />
-                    <ValidationSummary />
-                    <div class="form-group row">
-                        <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
-                        <div class="col-md-9 col-sm-9 ">
-                            <select class="form-control" id="idTipoDivision" @onchange="selectedTerritorio" required>
-                                <option value="-1">Seleccione una opcion</option>
-                                @foreach (var item in listadeterritorios)
-                                {
-                                    <option value="@item.IdDivisionTerritorial">
-                                        @item.Nombre
-                                        @if (@item.NombreTipoHijoDe != null)
-                                        {
-                                            @item.NombreTipoHijoDe
-                                        }
-                                    </option>
-                                }
-                                @*@foreach (var item in Model.ListaTerritorios)
-                    {
-                        <option value="@item.IdDivisionTerritorial" @(Model.territorioSeleccionado= =item.IdDivisionTerritorial ? "selected" : "" )>
-                            @item.Nombre
-                            @if (@item.NombreTipoHijoDe != null)
-                            {
-                                @item.NombreTipoHijoDe
-                            }
-                        </option>
-                    }*@
-                            </select>
-                            @*<button >Precioname </button>*@
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
-                        <div class="col-md-9 col-sm-9 ">
-                            <select name="IdLocalidadPadre" class="form-control" id="divisionesterritorialeshijas" @onchange="selectedLocalidadPadre" required>
-                                <option value="-1">Elije una opcion</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    @*<input type="hidden" id="inputIdDivisionTerritorialPadre" name="IdDivisionTerritorialPadre" value="" required />*@
-                    <input type="hidden" id="inputIdDivisionTerritorialPadre" @bind-value="this.Territorio.IdDivisionTerritorialPadre" required />
-                 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="nombre">
-                            Nombre <span class="required">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required />
-                            @*<input type="text" id="nombre" name="Nombre" value="" class="form-control" required />*@
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-sm-3">¿Permite calle?</div>
-                        <div class="col-sm-9">
-
-                            <input data-val="true"
-                                   class="checkbox"
-                                   data-val-required="The isNewlyEnrolled field is required."
-                                   id="PermiteCalle"
-                                   name="PermiteCalle"
-                                   type="checkbox"
-                                   value="true" @onchange="checkPermiteCalle" />
-                            @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
-                            <label for="PermiteCalle" class="switch" id="switch"></label>
-
-                        </div>
-                    </div>
-
-                    <div class="ln_solid"></div>
-                    <div class="item form-group" style="float: right;">
-                        <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </div>
-                    @*</form>*@
-                    @*}*@
-                </EditForm>
+             
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="x_panel col-md-6">
-                <div id="info-component-container">
-                    <strong>La cantidad de componentes es:</strong>
-                    <p id="component-count"></p>
-                    <p id="component-list"></p>
-                </div>
-            </div>
-            @*<div class="col-md-6">
-                    <button @onclick="Ver">Precioname </button>
-                </div>*@
-        </div>
+      
     </div>
-</div>
+
 
 @code{
     //async Task Ver()

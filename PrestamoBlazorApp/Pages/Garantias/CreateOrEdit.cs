@@ -43,7 +43,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         }
         protected override async Task OnInitializedAsync()
         {
-            //await BlockPage();
+         
 
             tipogarantia = await GarantiasService.GetTipoGarantia(new TipoGetParams());
             modelos = await GarantiasService.GetModelosForGarantias(new ModeloGetParams { IdMarca = Garantia.IdMarca });
@@ -69,7 +69,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
                 selectedRadioClasificacion(changeEvent);
             }
             StateHasChanged();
-            //await UnBlockPage();
+          
         }
        
         async Task SaveGarantia()
@@ -77,8 +77,8 @@ namespace PrestamoBlazorApp.Pages.Garantias
             await BlockPage();
             this.Garantia.DetallesJSON = this.detalleGarantia;
             await GarantiasService.SaveGarantia(this.Garantia);
+            await SweetMessageBox("Guardado Correctamente", "success", "/Garantias",1500);
             await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "");
             //await OnGuardarNotification();
             //NavManager.NavigateTo("/Garantias");
 
