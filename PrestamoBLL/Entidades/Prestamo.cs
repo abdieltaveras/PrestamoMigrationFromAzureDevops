@@ -171,7 +171,7 @@ namespace PrestamoBLL.Entidades
         public string NumeroPrestamoARenovar { get; internal set; } = string.Empty;
 
         [Display(Name = "Indique la clasificacion")]
-        public int IdClasificacion { get; set; } = 4;
+        public int IdClasificacion { get; set; } = -1;
         [Display(Name = "Indique el tipo de amortizacion")]
 
         public int IdTipoAmortizacion { get; set; } = 1;
@@ -212,22 +212,23 @@ namespace PrestamoBLL.Entidades
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaVencimiento { get; internal set; }
         [Display(Name = "Indique el codigo de la tasa de interes")]
-        public int IdTasaInteres { get; set; } = 1;
+        public int IdTasaInteres { get; set; } = -1;
         [Display(Name = "La tasa de interes por periodo")]
         [IgnorarEnParam]
         [ReadOnly(true)]
         public decimal TasaDeInteresPorPeriodo { get; set; }
         [Display(Name = "Indique la mora")]
-        public int IdTipoMora { get; set; } = 1;
+        public int IdTipoMora { get; set; } = -1;
         [Display(Name = "Indique la forma (periodo) de las pago?")]
 
         
         [IgnorarEnParam]
         public bool Saldado { get; internal set; } = false;
         [Display(Name = "Seleccione el Periodo")]
-        public int IdPeriodo { get; set; } = 4;
+        public int IdPeriodo { get; set; } = -1;
         [IgnorarEnParam]
         public Periodo Periodo { get; internal set; }
+
         [Display(Name = "Cantidad de Cuotas")]
         //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
         //[RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
@@ -270,9 +271,8 @@ namespace PrestamoBLL.Entidades
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
         [Range(0.0, 30.00, ErrorMessage = "rango permitido entre 1 y 30%")]
         [Display(Name = "Interes al G/C/?")]
-        public decimal InteresGastoDeCierre { get; set; } = 10.00m;
-        [ReadOnly(true)]
-        public decimal MontoGastoDeCierre { get; internal set; }
+        public decimal InteresGastoDeCierre { get; set; } = 0.00m;
+        public decimal MontoGastoDeCierre { get;  set; }
         [Display(Name = "Es deducible el G/C?")]
         public bool GastoDeCierreEsDeducible { get; set; } = false;
         [Display(Name = "Financiar el G/C?")]
@@ -313,6 +313,7 @@ namespace PrestamoBLL.Entidades
         [Range(0.00,999999999999.99, ErrorMessage = "no se aceptan valores negativos")]
         [Display(Name ="Otros Cargos Sin Interes")]
         public decimal OtrosCargosSinInteres { get;  set; }
+        
     }
 
     public class PrestamoInsUpdParam : Prestamo

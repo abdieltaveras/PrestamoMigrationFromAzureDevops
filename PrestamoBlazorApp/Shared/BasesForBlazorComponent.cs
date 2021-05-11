@@ -32,9 +32,9 @@ namespace PrestamoBlazorApp.Shared
         {
             await JsInteropUtils.SweetMessageBox(jsRuntime, message, icon, redirectTo, delayMilliSeconds);
         }
-        protected virtual async Task NotifyMessageBox(string message)
+        protected virtual async Task NotifyMessageBox(string message, int delay=5000)
         {
-             await JsInteropUtils.NotifyMessageBox(jsRuntime, message);
+             await JsInteropUtils.NotifyMessageBox(jsRuntime, message,delay);
         }
 
         /// <summary>
@@ -118,7 +118,8 @@ namespace PrestamoBlazorApp.Shared
 
       public abstract class BaseForCreateOrEdit : CommonBase
     {
-
+        [Inject]
+        protected SetParametrosService setParametros { get; set; }
         protected bool saving { get; set; }
         protected bool disableCodigo { get; set; } = true;
         protected string TextoForActivo { get; set; } = "Si";
@@ -134,16 +135,11 @@ namespace PrestamoBlazorApp.Shared
             await SweetAlertSuccess(message, redirectTo);
         }
 
-        protected async void Handle_GetData(Func<Task> _action)
+        protected async Task Handle_GetData(Func<Task> _action)
         {
             try
             {
-                //loading = true;
-                //await BlockPage();
                 await _action();
-                StateHasChanged();
-                //await UnBlockPage();
-                //loading = false;
             }
             catch (Exception e)
             {

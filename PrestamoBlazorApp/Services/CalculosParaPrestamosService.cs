@@ -1,0 +1,26 @@
+﻿using PrestamoBLL;
+using PrestamoBLL.Entidades;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PrestamoBlazorApp.Services
+{
+
+    public class CalculosParaPrestamosService
+    {
+        public IEnumerable<Cuota>  GenerarCuotas(IInfoGeneradorCuotas info)
+        {
+            var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
+            var cuotas = generadorCuotas.GenerarCuotas();
+            return cuotas;
+        }
+
+        public void CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
+        {
+            var data = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(tasaInteresMensual, periodo);
+        }
+
+    }
+}

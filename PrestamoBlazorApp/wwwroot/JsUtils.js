@@ -77,9 +77,12 @@ window.sweetAlertSuccess = function(message,redirectTo = "") {
     }).then(function () {
         if (redirectTo != "") {
             window.location = redirectTo;
-        } else {
-            location.reload();
         }
+        //Nota: luis lo obvie porque esto hace que se reinicie todo y se pierdan valores ya guardados
+        //que esto lo decida el cliente, porque se puede usar en diferentes contextos
+        /*else {*/
+        //    location.reload();
+        //}
        
     });
     return true;
@@ -96,9 +99,12 @@ window.SweetMessageBox = function (message, icon, redirectTo = "", delayMilliSec
     }).then(function () {
         if (redirectTo != "") {
             window.location = redirectTo;
-        } else {
-            location.reload();
         }
+        //Nota: luis lo obvie porque esto hace que se reinicie todo y se pierdan valores ya guardados
+        //que esto lo decida el cliente porque s epuee usar en diferentes contexto
+        /*else {*/
+        //    location.reload();
+        //}
 
     });
     return true;

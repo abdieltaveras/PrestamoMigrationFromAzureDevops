@@ -20,6 +20,7 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Clasificacion>> Get(ClasificacionesGetParams clasificacionesGetParams)
         {
+            
             clasificacionesGetParams.JsonGet = JsonConvert.SerializeObject(clasificacionesGetParams);
             var result =  await GetAsync<Clasificacion>(apiUrl, clasificacionesGetParams);
             return result;
