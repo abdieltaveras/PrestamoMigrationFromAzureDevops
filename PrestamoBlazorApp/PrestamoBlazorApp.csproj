@@ -34,7 +34,6 @@
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="Pages\LocalidadesNegocios\" />
-    <Folder Include="Pages\Localidades\" />
     <Folder Include="Pages\NewFolder\" />
   </ItemGroup>
 

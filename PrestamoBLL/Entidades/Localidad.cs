@@ -35,6 +35,7 @@ namespace PrestamoBLL.Entidades
     public class LocalidadGetParams : BaseGetParams
     {
         public int IdLocalidad { get; set; } = 0;
+        public int IdLocalidadPadre { get; set; }
     }
 
     public class BuscarLocalidad : Localidad
@@ -73,7 +74,7 @@ namespace PrestamoBLL.Entidades
     {
         public int IdLocalidad { get; set; }
         public string TipoLocalidad { get; set; }
-
+        public string DivisionTerritorial { get; set; }
         public override int GetId()
         {
             throw new NotImplementedException();
