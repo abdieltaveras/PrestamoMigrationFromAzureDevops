@@ -135,3 +135,16 @@ a, .btn-link {
         text-align: left !important;
     }
 }
+.padZero {
+    margin: 0.5px;
+}
+
+img.perc30 {
+    height: 30%;
+    width: 30%;
+}
+
+img.perc50 {
+    height: 50%;
+    width: 50%;
+}

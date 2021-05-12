@@ -67,16 +67,27 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         protected override async Task OnInitializedAsync()
         {
-            Handle_GetData(prepareModel);
-            
+
+            await Handle_GetData(prepareModel);
+            //await prepareModel();
             await base.OnInitializedAsync();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await SetMask();
+                //await SetMask();
         }
 
+        private void UpdateTieneConyuge(bool value)
+        {
+            cliente.TieneConyuge = value;
+        }
+
+        private void UpdateEstadoCivil(int value)
+        {
+            NotifyMessageBox("estado civil actualizado");
+            cliente.IdEstadoCivil = value;
+        }
         private async Task SetMask()
         {
             await JsInteropUtils.SetInputMask(jsRuntime);
@@ -85,7 +96,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         
         private async Task prepareModel()
         {
-            await CountAndShowExecutionTime("prepareModel");
+            
             Ocupaciones = await GetOcupaciones();
             LoadedFotos = false;
             if (idCliente != 0)
@@ -126,6 +137,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             SetReferencias(cliente.InfoReferenciasObj);
             FilterImagesByGroup();
             LoadedFotos = true;
+            //StateHasChanged();
         }
 
         private void FilterImagesByGroup()
@@ -160,18 +172,18 @@ namespace PrestamoBlazorApp.Pages.Clientes
         //async Task SaveCliente()
         async Task SaveCliente()
         {
-            await Handle_SaveData(SaveData);
+            await Handle_SaveData(SaveData, () => OnGuardarNotification(redirectTo: @"\Clientes"), null, false);
         }
 
-        private async Task SaveData()
+        private async Task<bool> SaveData()
         {
-            
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
             this.cliente.InfoConyugeObj = conyuge;
             this.cliente.InfoReferenciasObj = referencias;
             this.cliente.InfoDireccionObj = direccion;
             this.cliente.InfoLaboralObj = infoLaboral;
             await clientesService.SaveCliente(this.cliente);
+            return true;
             
         }
 
@@ -200,6 +212,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.cliente.ImagenesObj[index].Quitar = true;
             this.cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
         }
+
     }
 }
 

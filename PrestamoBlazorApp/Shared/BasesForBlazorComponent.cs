@@ -147,15 +147,19 @@ namespace PrestamoBlazorApp.Shared
             }
         }
 
-        protected async  Task Handle_SaveData(Func<Task> _action)
+        protected async Task Handle_SaveData(Func<Task<bool>> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage=false)
         {
             try
             {
                 saving = true;
-                await BlockPage();
-                await _action();
-                await UnBlockPage();
+                if (blockPage) { await BlockPage(); }
+                var saved = await _action();
+                if (blockPage) { await UnBlockPage(); }
                 saving = false;
+                if (saved)
+                {
+                    await _OnSuccess();
+                }
             }
             catch (Exception e)
             {
@@ -163,6 +167,7 @@ namespace PrestamoBlazorApp.Shared
                 
             }
         }
+
 
     }
 
