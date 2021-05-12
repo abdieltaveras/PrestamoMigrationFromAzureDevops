@@ -6,6 +6,8 @@ using System.Web;
 using PrestamoBLL;
 using WSPrestamo.Models;
 using System.Web.Http;
+using System.Web.Http.Cors;
+
 namespace WSPrestamo.Controllers
 {
     public class LocalidadesController : BaseApiController
@@ -27,8 +29,9 @@ namespace WSPrestamo.Controllers
             return a;
         }
         [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<BuscarLocalidad>  BuscarLocalidad(string search="", bool soloLosQuePermitenCalle=false, int  minLength=BuscarLocalidadParams.minLengthDefault)
-        {
+       {
             IEnumerable<BuscarLocalidad> localidades = new List<BuscarLocalidad>();
             if (minLength==0 || (search!=null && search.Length >= BuscarLocalidadParams.minLengthDefault))
             {
@@ -67,11 +70,13 @@ namespace WSPrestamo.Controllers
         {
             return BLLPrestamo.Instance.GetPaises(new LocalidadPaisesGetParams { });
         }
-
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<LocalidadesHijas> GetHijasLocalidades(int idLocalidad = -1)
         {
             var paramlocalidad = new LocalidadGetParams { IdLocalidad = idLocalidad };
-            return BLLPrestamo.Instance.GetHijasLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad });
+            var datos = BLLPrestamo.Instance.GetHijasLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad,IdNegocio= 1 });
+            return datos;
         }
         [HttpPost]
         public IHttpActionResult Post(Localidad localidad)

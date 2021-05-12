@@ -60,7 +60,14 @@ namespace WSPrestamo.Controllers
         //    return result;
         //    //return View("CreateOrEdit", datos);
         //}
-
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public string BuscarTerritorios(string localidadPadre)
+        {
+            IEnumerable<Territorio> territorios = null;
+            territorios = BLLPrestamo.Instance.TerritorioBuscarTerritoriosHijos(new TerritorioSearchParams() { IdNegocio = 1, IdLocalidadPadre = int.Parse(localidadPadre) });
+            return JsonConvert.SerializeObject(territorios);
+        }
         [HttpPost]
         public IHttpActionResult Post(Territorio territorio)
         {

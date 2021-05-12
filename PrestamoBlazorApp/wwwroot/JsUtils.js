@@ -65,6 +65,12 @@ window.DivisionTerritorial = (Id) => {
     $("#codigo").val("0");
     console.log(searchTerritorio(Id));
 }
+window.searchLocalidad = function () {
+    //$(".target").keyup(function () {
+        searchText($('#searchinput').val());
+     
+    //});
+}
 window.sweetAlertSuccess = function(message,redirectTo = "") {
     Swal.fire({
         icon: 'success',
