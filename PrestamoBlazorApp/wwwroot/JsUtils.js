@@ -23,6 +23,16 @@ window.Alert = function (message) {
     }
 }
 
+window.ConsoleLog = function (_object) {
+    if ((typeof message) === "string") {
+        console.log(_object);
+    }
+    else {
+        console.log(JSON.stringify(_object));
+    }
+}
+
+
 window.Notification = function (message, delay) {
 
     $.notify(message, { autoHideDelay: delay });

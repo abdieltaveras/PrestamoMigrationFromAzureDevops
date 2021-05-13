@@ -350,6 +350,7 @@ namespace PrestamoBLL
                 case TiposAmortizacion.Amortizable_por_dia_abierto:
                     break;
                 case TiposAmortizacion.Amortizable_por_periodo_abierto:
+
                     break;
                 case TiposAmortizacion.Amortizable_cuotas_fijas:
                     break;
@@ -359,6 +360,10 @@ namespace PrestamoBLL
                     break;
             }
 
+            if (generadorCuotas == null)
+            {
+                throw new NotImplementedException("no se ha implementado la generacion de cuotas aun para " + tipoAmortizacion.ToString());
+            }
             return generadorCuotas;
         }
         #endregion operaciones

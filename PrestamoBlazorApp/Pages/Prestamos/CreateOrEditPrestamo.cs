@@ -15,7 +15,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 {
     public partial class CreateOrEditPrestamo : BaseForCreateOrEdit
     {
-        Prestamo prestamo { get; set; } = new Prestamo();
+        internal PrestamoConCalculos prestamo { get; set; } = new PrestamoConCalculos();
 
         [Inject]
         PrestamosService prestamoService { get; set; }
@@ -39,7 +39,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private string CodigoMora { get; set; } = string.Empty;
 
         private bool SinVencimiento { get; set; } = true;
-        PrestamoCalculo prestamoCalculo { get; set; } = new PrestamoCalculo();
         //private decimal _montoPrestado;
         //decimal MontoPrestado { get { return _montoPrestado; } set { this._montoPrestado = value; OnChangeMontoText(value); } }
         //string FormattedMontoPrestadoText { get; set; }
@@ -58,10 +57,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
 
-        List<Cuota> Cuotas { get; set; } = new List<Cuota>();
-
-        IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
-        IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
+        internal IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
+        internal IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
 
 
         protected override async Task OnInitializedAsync()
@@ -71,30 +68,45 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         private async Task InitPrestamo()
         {
-            prestamo = new Prestamo();
-            await setParametros.ForPrestamo(prestamo);
+            this.loading = true;
             Clasificaciones = await clasificacionesService.Get(new ClasificacionesGetParams());
             TiposMora = await tiposMorasService.Get(new TipoMoraGetParams());
             TasasDeInteres = await tasasInteresService.Get(new TasaInteresGetParams());
             TasasDeInteres = TasasDeInteres.ToList().OrderBy(ti => ti.InteresMensual);
             Periodos = await periodosService.Get(new PeriodoGetParams());
-            prestamo.PrestamoNumero = "Nuevo";
-            prestamoCalculo = new PrestamoCalculo(prestamo, jsRuntime,Periodos, TasasDeInteres, Cuotas);
+            this.prestamo = new PrestamoConCalculos(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
+            this.prestamo.PrestamoNumero = "Nuevo";
+            this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
+            this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
+            this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
+            this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
+            this.prestamo.IdTasaInteres = TasasDeInteres.FirstOrDefault().idTasaInteres;
+            await setParametros.ForPrestamo(this.prestamo);
+
+            //await prestamoCalculo.UpdatePrestamoCalculo();
+            this.loading = false;
+        }
+
+        private void NotificadorDeMensaje(object sender, string e)
+        {
+            NotifyMessageBox(e);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                await JsInteropUtils.SetInputMask(jsRuntime);
-                
+                await this.prestamo.Update();
+                //await JsInteropUtils.SetInputMask(jsRuntime);
             }
         }
+
+
         async Task SavePrestamo()
         {
-            
+
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-            
+
             try
             {
                 //await prestamoService.SavePrestamo(this.prestamo);
@@ -111,108 +123,166 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         {
             prestamo.MontoGastoDeCierre = prestamo.LlevaGastoDeCierre ? prestamo.MontoPrestado * (prestamo.InteresGastoDeCierre / 100) : 0;
         }
+        private async Task Test(MouseEventArgs mouseEventArgs)
+        {
+            await NotifyMessageBox("ejecutando Test");
+            //JsInteropUtils.NotifyMessageBox
+            await JsInteropUtils.ConsoleLog(jsRuntime, prestamo);
+            var pr = this.prestamo;
+            Console.WriteLine(prestamo);
+        }
 
-        //private void OnGastoDeCierreChange()
-        //{
-        //    NotifyMessageBox("GC changed");
-        //    CalcularGastoDeCierre();
-        //}
+        private async Task Update()
+        {
+            await NotifyMessageBox("updating");
+        }
 
-        //private void OnChangeMontoText(decimal value)
-        //{
-        //    FormattedMontoPrestadoText = string.Format("{0:c}", value);
-        //    this.prestamo.MontoPrestado = value;
-        //    CalcularGastoDeCierre();
-        //}
-
-        
     }
 
-    public class PrestamoCalculo
+    /// <summary>
+    /// esta clase es especializada para hacer calculo en la medida que las propiedades
+    /// son afectadas.
+    /// </summary>
+    public class PrestamoConCalculos : Prestamo
     {
-        Prestamo Prestamo { get; set; } = new Prestamo();
-
-        
-        [Inject]
-        JsInteropUtils JsInteropUtils { get; set; }
-        
-        private IJSRuntime jsRuntime { get; set; }
-        
-        private IEnumerable<Periodo> Periodos { get; set; }
-
-        private List<Cuota> Cuotas { get; set; }
-        private IEnumerable<TasaInteres> TasasDeInteres { get; set; }
-
-        public PrestamoCalculo() { }
-
-        public PrestamoCalculo(Prestamo prestamo, IJSRuntime jsRuntime, IEnumerable<Periodo> periodos, IEnumerable<TasaInteres> tasasDeInteres, List<Cuota> cuotas)
+        public PrestamoConCalculos()
         {
-            this.Prestamo = prestamo;
-            MontoPrestado = prestamo.MontoPrestado;
-            LlevaGastoDeCierre = prestamo.LlevaGastoDeCierre;
-            InteresGastoDeCierre = prestamo.InteresGastoDeCierre;
-            TasasDeInteres = tasasDeInteres;
-            CantidadDeCuotas = prestamo.CantidadDePeriodos;
-            Periodos = periodos;
-            this.Cuotas = cuotas;
-            this.jsRuntime = jsRuntime;
+
+        }
+        public PrestamoConCalculos(EventHandler<string> notificarMensaje,
+            IEnumerable<Clasificacion> clasificaciones,
+            IEnumerable<TipoMora> tiposMora,
+            IEnumerable<TasaInteres> tasasDeInteres,
+            IEnumerable<Periodo> periodos
+            )
+        {
+            this.OnNotificarMensaje = notificarMensaje;
+            this.Clasificaciones = clasificaciones;
+            this.TiposMora = tiposMora;
+            this.TasasDeInteres = tasasDeInteres;
+            this.Periodos = periodos;
+
         }
 
-        
-        private Decimal _montoPrestado;
-        public decimal MontoPrestado { get { return _montoPrestado; } 
-            set {
-                if (value < 0) { JsInteropUtils.SweetMessageBox(jsRuntime, "No se aceptan valores negativos","warning");
-                    value = 0;
-                }
-                this._montoPrestado = value; this.Prestamo.MontoPrestado = value;  UpdatePrestamoCalculo(); 
-            } }
+        EventHandler<string> OnNotificarMensaje;
+        IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
+        IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
 
-        private decimal _interesGastoDeCierre { get; set; }
-        public decimal InteresGastoDeCierre { get { return _interesGastoDeCierre; } set { _interesGastoDeCierre = value; this.Prestamo.InteresGastoDeCierre = value; CalcularGastoDeCierre(); } } 
-        
-        bool _llevaGastoDeCierre { get; set; }
-        public bool LlevaGastoDeCierre { get { return _llevaGastoDeCierre; } set { _llevaGastoDeCierre = value; CalcularGastoDeCierre(); } } 
+        public List<Cuota> Cuotas { get; set; } = new List<Cuota>();
+
+        IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
+        IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
+
+        public override decimal MontoPrestado
+        {
+            get => base.MontoPrestado;
+            set
+            {
+                if (value < 0)
+                {
+                    this.OnNotificarMensaje.Invoke(this, "el valor del monto prestamo no puede ser menor o igual a 0");
+                    return;
+                }
+                base.MontoPrestado = value;
+                Update();
+            }
+        }
+
+
+
+        public override decimal InteresGastoDeCierre
+        {
+            get => base.InteresGastoDeCierre;
+            set
+            {
+                RejectNegativeValue(value);
+                base.InteresGastoDeCierre = value;
+                Update();
+            }
+        }
+
+
+        public override int IdTasaInteres
+        {
+            get => base.IdTasaInteres;
+            set
+            {
+                base.IdTasaInteres = value;
+                Update();
+            }
+        }
+
+        public override int IdPeriodo
+        {
+            get => base.IdPeriodo;
+            set
+            {
+                base.IdPeriodo = value;
+                Update();
+            }
+        }
+        private void RejectNegativeValue(decimal value)
+        {
+            if (value < 0)
+            {
+                this.OnNotificarMensaje.Invoke(this, "el valor del monto prestamo no puede ser menor o igual a 0");
+                return;
+            }
+        }
+
+        public override int CantidadDePeriodos
+        {
+            get => base.CantidadDePeriodos;
+            set
+            {
+                RejectNegativeValue(value);
+                base.CantidadDePeriodos = value;
+                Update();
+            }
+        }
+
+        public override DateTime FechaEmisionReal
+        {
+            get => base.FechaEmisionReal;
+            set
+            {
+                base.FechaEmisionReal = value;
+                Update();
+            }
+        }
         private async Task CalcularGastoDeCierre()
         {
-            Prestamo.MontoGastoDeCierre = Prestamo.LlevaGastoDeCierre ? Prestamo.MontoPrestado * (Prestamo.InteresGastoDeCierre / 100) : 0;
+            MontoGastoDeCierre = LlevaGastoDeCierre ? MontoPrestado * (InteresGastoDeCierre / 100) : 0;
         }
 
-        
-        private async Task UpdatePrestamoCalculo()
+        public async Task Update()
         {
-            
             await CalcularGastoDeCierre();
             await CalcularCuotas();
-            
         }
-
-        int _cantidadDeCuota { get; set; }
-        public int CantidadDeCuotas { get { return _cantidadDeCuota; } 
-            set { _cantidadDeCuota = value; Prestamo.CantidadDePeriodos = value; CalcularCuotas(); } }
 
         private async Task CalcularCuotas()
         {
+            if (IdPeriodo < 0 || IdTasaInteres <= 0) return;
             var calP = new CalculosParaPrestamosService();
-            var periodo = Periodos.Where(per => per.idPeriodo == Prestamo.IdPeriodo).FirstOrDefault();
-            var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == Prestamo.IdTasaInteres).FirstOrDefault();
-            var infoCuotas = new infoGeneradorDeCuotas {
+            var periodo = Periodos.Where(per => per.idPeriodo == IdPeriodo).FirstOrDefault();
+            var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
+            var infoCuotas = new infoGeneradorDeCuotas
+            {
                 AcomodarFechaALasCuotas = false,
-                CantidadDePeriodos = Prestamo.CantidadDePeriodos,
+                CantidadDePeriodos = CantidadDePeriodos,
 
-                MontoCapital = Prestamo.MontoCapital,
-                FechaEmisionReal = Prestamo.FechaEmisionReal,
-                FechaInicioPrimeraCuota = Prestamo.FechaInicioPrimeraCuota,
-                CargarInteresAlGastoDeCierre = Prestamo.CargarInteresAlGastoDeCierre,
-                FinanciarGastoDeCierre = Prestamo.FinanciarGastoDeCierre,
-                MontoGastoDeCierre = Prestamo.MontoGastoDeCierre,
-                OtrosCargosSinInteres = Prestamo.OtrosCargosSinInteres,
-                TipoAmortizacion = Prestamo.TipoAmortizacion,
+                MontoCapital = MontoCapital,
+                FechaEmisionReal = FechaEmisionReal,
+                FechaInicioPrimeraCuota = FechaInicioPrimeraCuota,
+                CargarInteresAlGastoDeCierre = CargarInteresAlGastoDeCierre,
+                FinanciarGastoDeCierre = FinanciarGastoDeCierre,
+                MontoGastoDeCierre = MontoGastoDeCierre,
+                OtrosCargosSinInteres = OtrosCargosSinInteres,
+                TipoAmortizacion = TipoAmortizacion,
                 TasaDeInteresPorPeriodo = tasaDeInteres.InteresMensual,
                 Periodo = periodo
             };
-
-
             // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar
             // cuotas y no que se le envie esa informacion
             var cuotas = calP.GenerarCuotas(infoCuotas);
@@ -220,6 +290,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             this.Cuotas.AddRange(cuotas);
             //await JsInteropUtils.NotifyMessageBox(jsRuntime,"calculando cuotas"+cuotas.Count().ToString());
         }
-
     }
+
 }

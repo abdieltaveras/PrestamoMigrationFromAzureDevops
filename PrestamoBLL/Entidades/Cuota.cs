@@ -34,7 +34,7 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public decimal TotalOrig {
             get 
-            {  var valor = Capital ?? 0 + Interes ?? 0 + +GastoDeCierre ?? 0 + InteresDelGastoDeCierre ?? 0 + OtrosCargos ?? 0 + InteresOtrosCargos ?? 0;
+            {  var valor = (Capital ?? 0) + (Interes ?? 0) + (GastoDeCierre ?? 0) + (InteresDelGastoDeCierre ?? 0) + (OtrosCargos ?? 0) + (InteresOtrosCargos ?? 0);
                var valor2 = Capital + Interes  + +GastoDeCierre  + InteresDelGastoDeCierre + OtrosCargos  + InteresOtrosCargos ;
                 return valor;
             }

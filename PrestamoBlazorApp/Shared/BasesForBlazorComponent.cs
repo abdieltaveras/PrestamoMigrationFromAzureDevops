@@ -15,8 +15,7 @@ namespace PrestamoBlazorApp.Shared
         [Inject]
         protected NavigationManager NavManager { get; set; }
         [Inject]
-        protected IJSRuntime jsRuntime { get; set; }
-        protected JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
+        internal IJSRuntime jsRuntime { get; private set; }
 
         private int executionCounter { get; set; }
         protected virtual async Task SweetAlertSuccess(string message, string redirectTo = "")
