@@ -85,7 +85,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private void UpdateEstadoCivil(int value)
         {
-            NotifyMessageBox("estado civil actualizado");
+            //NotifyMessageBox("estado civil actualizado");
             cliente.IdEstadoCivil = value;
         }
         private async Task SetMask()

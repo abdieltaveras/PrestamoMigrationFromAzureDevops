@@ -55,13 +55,10 @@ namespace PrestamoBLL.Entidades
     {
         public string Search { get; set; } = string.Empty;
 
-        //public int IdLocalidadNegocio { get; set; } = -1;
-
         public bool SoloLosQuePermitenCalle { get; set; } = false;
-
         [IgnorarEnParam]
         public int MinLength { get; set; } = minLengthDefault;
-        
+
         public const int minLengthDefault = 2;
     }
 

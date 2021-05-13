@@ -21,10 +21,10 @@ namespace WSPrestamo.Controllers
         //    return result;
         //    //return View("CreateOrEdit", datos);
         //}
+
         [HttpGet]
         public IEnumerable<Color> Get(string JsonGet = "")
         {
-            
             var JsonResult = JsonConvert.DeserializeObject<ColorGetParams>(JsonGet);
             var result = BLLPrestamo.Instance.GetColores(JsonResult);
             return result;

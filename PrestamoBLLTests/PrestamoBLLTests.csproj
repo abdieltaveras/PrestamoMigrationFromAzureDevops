@@ -89,6 +89,7 @@
     <Compile Include="GarantiaTest.cs" />
     <Compile Include="GeneradorCuotasTest.cs" />
     <Compile Include="IngresoTests.cs" />
+    <Compile Include="LocalidadesTest.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="NegocioTests.cs" />
     <Compile Include="PeriodosTests.cs" />
