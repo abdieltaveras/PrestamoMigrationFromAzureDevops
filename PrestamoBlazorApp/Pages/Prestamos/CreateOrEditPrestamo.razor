@@ -2,6 +2,10 @@
 @page "/prestamos/createoreditprestamo"
 @page "/prestamo/CreateOrEdit/{idPrestamo:int}"
 @inherits BaseForCreateOrEdit
+
+@{
+    var textLabelJustify = "text-left";
+}
 <div class="grid-container">
 
     <EditForm Model="@prestamo" OnValidSubmit="@SavePrestamo">
@@ -9,7 +13,7 @@
         <ValidationSummary />
         <div class="bg-secondary">
             <h3 class="text-left">Crear o Editar Prestamo</h3>
-            <div class="text-right">
+            <div class="@textLabelJustify">
                 <button id="btnGuardar" type="button">Guardar</button>
                 @*<button id="btnsh" type="button" onclick="() =>$('#btnsh').prop('disabled',true)>show hide</button>*@
             </div>
@@ -22,9 +26,9 @@
         {
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <div class="form-group row">
-                        <label for="codigo" class="col-sm-4 col-form-label text-right">Prestamo Numero</label>
+                        <label for="codigo" class="col-sm-4 col-form-label @textLabelJustify">Prestamo Numero</label>
                         @if (disableCodigo)
                         {
                             <label class="col-sm-3 mt-2">@prestamo.PrestamoNumero </label>
@@ -36,7 +40,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="clasificacion" class="col-sm-4 col-form-label text-right">Clasificacion</label>
+                        <label for="clasificacion" class="col-sm-4 col-form-label @textLabelJustify">Clasificacion</label>
                         <InputSelect id="clasificacion" @bind-Value="prestamo.IdClasificacion" class="form-control col-sm-4">
                             <option value=-1>Seleccione la clasificacion</option>
                             @foreach (var item in Clasificaciones)
@@ -47,7 +51,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="amortizacion" class="col-sm-4 col-form-label text-right">Amortizacion</label>
+                        <label for="amortizacion" class="col-sm-4 col-form-label @textLabelJustify">Amortizacion</label>
                         <InputSelect id="amortizacion" @bind-Value="prestamo.IdTipoAmortizacion" class="form-control col-sm-4">
                             <option value=-1>Seleccione la amortizacion</option>
                             @foreach (var item in EnumToList.TiposAmortizacion())
@@ -59,27 +63,27 @@
 
 
                     <div class="form-group row">
-                        <label for="fechaPrestamo" class="col-sm-4 col-form-label text-right">Fecha</label>
+                        <label for="fechaPrestamo" class="col-sm-4 col-form-label @textLabelJustify">Fecha</label>
                         <InputDate @bind-Value="prestamo.FechaEmisionReal" class="col-sm-4" />
                     </div>
 
                     <div class="form-group row">
-                        <label for="codigocliente" class="col-sm-4 col-form-label text-right">Codigo Cliente</label>
+                        <label for="codigocliente" class="col-sm-4 col-form-label @textLabelJustify">Codigo Cliente</label>
                         <InputText @bind-Value="CodigoCliente" class="col-sm-3" />
                     </div>
 
                     <div class="form-group row">
-                        <label for="codigocodeudor" class="col-sm-4 col-form-label text-right">Codigo Codeudor</label>
+                        <label for="codigocodeudor" class="col-sm-4 col-form-label @textLabelJustify">Codigo Codeudor</label>
                         <InputText @bind-Value="CodigoCodeudor" class="col-sm-3" />
                     </div>
 
                     <div class="form-group row">
-                        <label for="Garantias" class="col-sm-4 col-form-label text-right">Codigo Garantia</label>
+                        <label for="Garantias" class="col-sm-4 col-form-label @textLabelJustify">Codigo Garantia</label>
                         <InputText @bind-Value="CodigoGarantia" class="col-sm-3" />
                     </div>
 
                     <div class="form-group row">
-                        <label for="montoCliente" class="col-sm-4 col-form-label text-right ">Monto Prestado</label>
+                        <label for="montoCliente" class="col-sm-4 col-form-label @textLabelJustify ">Monto Prestado</label>
                         <InputNumber @bind-Value="prestamo.MontoPrestado" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />
                         @*<input type="number" value="prestamo.MontoPrestado" @onchange="Update" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />*@
                         <label class="col-sm-4 col-form-label text-left">= @(string.Format("{0:c}", prestamo.MontoPrestado))</label>
@@ -87,16 +91,16 @@
                     </div>
 
                     <div class="form-group row">
-                        @*<label for="llevagastodecierre" class="col-sm-4 col-form-label text-right">Lleva Gasto de Cierre</label>*@
+                        @*<label for="llevagastodecierre" class="col-sm-4 col-form-label @textLabelJustify">Lleva Gasto de Cierre</label>*@
                         @*<InputCheckbox @bind-Value="prestamo.LlevaGastoDeCierre"  class="offset-2 mt-1" />*@
-                        <input type="checkbox"  value="prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre"  checked="@prestamo.LlevaGastoDeCierre" class="offset-2 mt-1" />
-                        <label for="llevagastodecierre" class="ml-2" style="margin-left: 5px">lleva Gasto de Cierre</label>
+                        <input type="checkbox"  value="prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre"  checked="@prestamo.LlevaGastoDeCierre" class="offset-4 mt-1" />
+                        <label for="llevagastodecierre" class="ml-2 @textLabelJustify" style="margin-left: 5px" >lleva Gasto de Cierre</label>
                     </div>
 
                     @{ if (prestamo.LlevaGastoDeCierre)
                         {
                             <div class="form-group row">
-                                <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-right">% Gasto de cierre</label>
+                                <label for="porcientoGastodecierre" class="col-sm-4 col-form-label @textLabelJustify">% Gasto de cierre</label>
                                 <InputNumber @bind-Value="prestamo.InteresGastoDeCierre" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="999" />
                                 <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-left">
                                     = @(string.Format("{0:c}",prestamo.MontoGastoDeCierre))
@@ -133,12 +137,12 @@
                     }
 
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-7">
 
                     <div class="form-group row">
-                        @*<label class="col-sm-4 col-form-label text-right">Codigo de Interes</label>
+                        @*<label class="col-sm-4 col-form-label @textLabelJustify">Codigo de Interes</label>
                             <InputText @bind-Value="CodigoInteres" class="col-sm-2" />*@
-                        <label class="col-sm-4 col-form-label text-right">Interes</label>
+                        <label class="col-sm-4 col-form-label @textLabelJustify">Interes</label>
                         <InputSelect @bind-Value="prestamo.IdTasaInteres" class="form-control col-sm-4">
                             <option value=-1>Seleccione un Interes</option>
                             @foreach (var item in TasasDeInteres)
@@ -151,9 +155,9 @@
 
 
                     <div class="form-group row">
-                        @*<label class="col-sm-4 col-form-label text-right">Periodo</label>
+                        @*<label class="col-sm-4 col-form-label @textLabelJustify">Periodo</label>
                             <InputText @bind-Value="CodigoPeriodo" class="col-sm-2" />*@
-                        <label class="col-sm-4 col-form-label text-right">Periodo</label>
+                        <label class="col-sm-4 col-form-label @textLabelJustify">Periodo</label>
                         <InputSelect @bind-Value="prestamo.IdPeriodo" class="form-control col-sm-4">
                             <option value=-1>Seleccione un Periodo</option>
                             @foreach (var item in Periodos)
@@ -167,14 +171,14 @@
 
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label text-right">Cantidad de Cuotas</label>
+                        <label class="col-sm-4 col-form-label @textLabelJustify">Cantidad de Cuotas</label>
                         <InputNumber @bind-Value="prestamo.CantidadDePeriodos" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="99999" />
                     </div>
 
                     <div class="form-group row">
-                        @*<label class="col-sm-4 col-form-label text-right">Codigo de Mora</label>
+                        @*<label class="col-sm-4 col-form-label @textLabelJustify">Codigo de Mora</label>
                             <InputText @bind-Value="CodigoMora" class="col-sm-3" />*@
-                        <label class="col-sm-4 col-form-label text-right">Mora</label>
+                        <label class="col-sm-4 col-form-label @textLabelJustify">Mora</label>
                         <InputSelect @bind-Value="prestamo.IdTipoMora" class="form-control col-sm-4">
                             <option value=-1>Seleccione La Mora</option>
                             @foreach (var item in TiposMora)
