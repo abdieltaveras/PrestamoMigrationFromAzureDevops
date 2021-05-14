@@ -52,7 +52,7 @@
                     <tbody>
                         @foreach (var cliente in clientes)
                         {
-                        <tr>
+                        <tr @key="@cliente.IdCliente">
                             <td>@cliente.Codigo</td>
                             <td>@cliente.NombreCompleto</td>
                             <td>@cliente.TelefonoMovil</td>
