@@ -1,0 +1,38 @@
+﻿    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col"class="w-25" >Fecha</th>
+                <th scope="col">Total</th>
+                <th scope="col">Capital</th>
+                <th scope="col">Interes</th>
+                <th scope="col">Gasto Cierre</th>
+                <th scope="col">Int G/C</th>
+                <th scope="col">Otros Cargos</th>
+                <th scope="col">Int O/C</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cuota in Cuotas)
+            {
+                <tr>
+                    <th scope="row">@cuota.Numero</th>
+                    <th scope="row">@cuota.Fecha.ToString("dd/MM/yyyy")</th>
+                    <th scope="row">@cuota.TotalOrig</th>
+                    <th scope="row">@cuota.Capital</th>
+                    <th scope="row">@cuota.Interes</th>
+                    <th scope="row">@cuota.GastoDeCierre</th>
+                    <th scope="row">@cuota.InteresDelGastoDeCierre</th>
+                    <th scope="row">@cuota.OtrosCargos</th>
+                    <th scope="row">@cuota.InteresOtrosCargos</th>
+                    @*{cuota.Capital} {cuota.Interes} {cuota.GastoDeCierre} {cuota.InteresDelGastoDeCierre} {cuota.OtrosCargos} {cuota.InteresOtrosCargos}")</thli>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+@code {
+    [Parameter]
+    public IEnumerable<Cuota> Cuotas { get; set; }
+}

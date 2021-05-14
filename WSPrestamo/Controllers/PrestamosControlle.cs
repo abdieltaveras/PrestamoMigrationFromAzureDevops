@@ -8,6 +8,8 @@ using System.Configuration;
 using System.Web.Http;
 using WSPrestamo.Models;
 using WSPrestamo.Utilidades;
+using System.Web.Http.Results;
+using static PrestamoBLL.BLLPrestamo;
 
 namespace WSPrestamo.Controllers
 {
@@ -76,5 +78,48 @@ namespace WSPrestamo.Controllers
             }
         }
 
+        
+
+        
+        
+        
+
+        
+        public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, int idPeriodo)
+        {
+            var searchPeriodo = new PeriodoGetParams { idPeriodo = idPeriodo };
+            var periodo = BLLPrestamo.Instance.GetPeriodos(searchPeriodo).FirstOrDefault();
+            if (periodo == null)
+            {
+                var mensaje = "no se encontraron periodos para los parametros especificados";
+                throw new Exception("datos no encontrados");
+            };
+            var data = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(tasaInteresMensual, periodo);
+
+            return data;
+        }
+
+        public IEnumerable<int> GetClasificacionesQueLlevanGarantia()
+        {
+            var data = BLLPrestamo.Instance.ClasificacionQueRequierenGarantias(-1).Select(item => item.IdClasificacion);
+            return data;
+        }
+
+        [HttpGet]
+        public IEnumerable<Cuota> GenerarCuotas(infoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
+        //infoGeneradorDeCuotas info)
+        {
+            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
+            info.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
+            info.Periodo = periodo;
+            var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
+            var cuotas = generadorCuotas.GenerarCuotas();
+            //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
+            return cuotas;
+        }
+        
+        
     }
+
+
 }

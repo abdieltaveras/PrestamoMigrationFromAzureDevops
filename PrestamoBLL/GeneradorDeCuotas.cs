@@ -19,17 +19,17 @@ namespace PrestamoBLL
             { throw new InvalidOperationException("para generar este tipo de cuotas, solo se admite el tipo de amortizacion No Amortizable Cuota Fija"); }
             fuente = info;
             periodo = info.Periodo;
+            
         }
 
         public List<Cuota> GenerarCuotas()
         {
-
+            this.cuotas.Clear();
             GastoDeCierreSinFinanciamiento();
             decimal capitalPorCuota = getCapitalPorCuota();
             decimal interesPorCuota = getInteresPorCuota();
             decimal otrosCargosSinInteres = getOtrosCargosSinInteresPorCuota();
             this.fechaCuotaAnterior = fuente.FechaEmisionReal;
-
             // Como se manejara el gasto de cierre aqui
             // que seran las cuotas realmente en este sistema
             // sera algo mas abierto como cuentas por cobrar de monica que manejara lo que es un doc_cc
@@ -61,16 +61,20 @@ namespace PrestamoBLL
 
             foreach (var cuota in cuotas)
             {
-                totalCapitalCuotas += cuota.Capital??0;
-                totalOtrosCargosSinInteresCuotas += (decimal)cuota.OtrosCargos; 
-                totalGastoDeCierreCuotas += (decimal)cuota.GastoDeCierre; 
+                totalCapitalCuotas += cuota.Capital ?? 0;
+                totalOtrosCargosSinInteresCuotas += (decimal)cuota.OtrosCargos;
+                totalGastoDeCierreCuotas += (decimal)cuota.GastoDeCierre;
             }
 
-            
+
             decimal ajusteCapital = fuente.MontoCapital - totalCapitalCuotas;
             decimal ajusteOtrosCargosSinInteres = fuente.OtrosCargosSinInteres - totalOtrosCargosSinInteresCuotas;
-            decimal ajusteGastoDeCierre = fuente.MontoGastoDeCierre - totalGastoDeCierreCuotas;
-            var ultimaCuotaAjustada = cuotas[cuotas.Count()-1];
+            decimal ajusteGastoDeCierre = 0;
+            if (!fuente.GastoDeCierreEsDeducible)
+            {
+                ajusteGastoDeCierre = fuente.MontoGastoDeCierre - totalGastoDeCierreCuotas;
+            }
+            var ultimaCuotaAjustada = cuotas[cuotas.Count() - 1];
 
             if (ajusteCapital != 0)
             {
@@ -87,12 +91,12 @@ namespace PrestamoBLL
                 ultimaCuotaAjustada.GastoDeCierre += ajusteGastoDeCierre;
             }
 
-            cuotas[cuotas.Count()-1] = ultimaCuotaAjustada;
+            cuotas[cuotas.Count() - 1] = ultimaCuotaAjustada;
         }
 
         private void GastoDeCierreSinFinanciamiento()
         {
-            if ((this.fuente.MontoGastoDeCierre > 0) && (!this.fuente.FinanciarGastoDeCierre))
+            if ((this.fuente.MontoGastoDeCierre > 0) && (!this.fuente.FinanciarGastoDeCierre) && (!fuente.GastoDeCierreEsDeducible)) 
             {
                 var cuota = new Cuota { GastoDeCierre = this.fuente.MontoGastoDeCierre, Fecha = this.fuente.FechaEmisionReal, Numero = 0 };
                 this.cuotas.Add(cuota);
@@ -148,10 +152,13 @@ namespace PrestamoBLL
             return fecha;
         }
 
-        
-
         private void setGastoDeCierreFinaciadoEnCuotas(int index, Cuota cuota)
         {
+            if (this.fuente.GastoDeCierreEsDeducible)
+            {
+                return;
+            }
+
             if ((this.fuente.MontoGastoDeCierre > 0) &&
                (this.fuente.FinanciarGastoDeCierre))
             {
@@ -159,7 +166,7 @@ namespace PrestamoBLL
                 // ahora calculamos el interes del gasto de cierre si debe cargarlo
                 if (this.fuente.CargarInteresAlGastoDeCierre)
                 {
-                    cuota.InteresDelGastoDeCierre = Math.Round(this.fuente.MontoGastoDeCierre *(this.fuente.TasaDeInteresPorPeriodo/100),2);
+                    cuota.InteresDelGastoDeCierre = Math.Round(this.fuente.MontoGastoDeCierre * (this.fuente.TasaDeInteresPorPeriodo / 100), 2);
                 }
             }
         }
@@ -169,7 +176,7 @@ namespace PrestamoBLL
             var tasaInteresPorPeriodo = fuente.TasaDeInteresPorPeriodo;
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
-            decimal interesPorCuota = Math.Round(fuente.MontoCapital * (tasaInteresPorPeriodo / 100),2);
+            decimal interesPorCuota = Math.Round(fuente.MontoCapital * (tasaInteresPorPeriodo / 100), 2);
             return interesPorCuota;
         }
         private decimal getOtrosCargosSinInteresPorCuota()
@@ -177,12 +184,12 @@ namespace PrestamoBLL
             var tasaInteresPorPeriodo = fuente.TasaDeInteresPorPeriodo;
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
-            decimal otrosCargosSininteresPorCuota = Math.Round(fuente.OtrosCargosSinInteres / fuente.CantidadDePeriodos,2);
+            decimal otrosCargosSininteresPorCuota = Math.Round(fuente.OtrosCargosSinInteres / fuente.CantidadDePeriodos, 2);
             return otrosCargosSininteresPorCuota;
         }
         private decimal getCapitalPorCuota()
         {
-            var capitalPorCuota = Math.Round(fuente.MontoCapital / fuente.CantidadDePeriodos,2);
+            var capitalPorCuota = Math.Round(fuente.MontoCapital / fuente.CantidadDePeriodos, 2);
             return capitalPorCuota;
         }
 
@@ -213,6 +220,7 @@ namespace PrestamoBLL
 
         public bool FinanciarGastoDeCierre { get; set; }
         public decimal OtrosCargosSinInteres { get; set; }
+        public bool GastoDeCierreEsDeducible { get; set; }
 
         public infoGeneradorDeCuotas(TiposAmortizacion tipoAMortizacion)
         {
@@ -229,6 +237,8 @@ namespace PrestamoBLL
         decimal MontoGastoDeCierre { get; }
         decimal OtrosCargosSinInteres { get; }
         bool CargarInteresAlGastoDeCierre { get; }
+
+        bool GastoDeCierreEsDeducible { get; }
 
         bool FinanciarGastoDeCierre { get; }
         int CantidadDePeriodos { get; }

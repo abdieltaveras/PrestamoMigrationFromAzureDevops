@@ -88,7 +88,8 @@
 
                     <div class="form-group row">
                         @*<label for="llevagastodecierre" class="col-sm-4 col-form-label text-right">Lleva Gasto de Cierre</label>*@
-                        <InputCheckbox @bind-Value="prestamo.LlevaGastoDeCierre" TValue="bool" class="offset-2 mt-1" />
+                        @*<InputCheckbox @bind-Value="prestamo.LlevaGastoDeCierre"  class="offset-2 mt-1" />*@
+                        <input type="checkbox"  value="prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre"  checked="@prestamo.LlevaGastoDeCierre" class="offset-2 mt-1" />
                         <label for="llevagastodecierre" class="ml-2" style="margin-left: 5px">lleva Gasto de Cierre</label>
                     </div>
 
@@ -187,40 +188,7 @@
                     {
                         <h3>Proyeccion de cuotas</h3>
                         <div class="form-group row">
-
-                            <table class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Numero</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Capital</th>
-                                        <th scope="col">Interes</th>
-                                        <th scope="col">Gasto Cierre</th>
-                                        <th scope="col">Int G/C</th>
-                                        <th scope="col">Otros Cargos</th>
-                                        <th scope="col">Int O/C</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var cuota in prestamo.Cuotas)
-                                    {
-                                    <tr>
-                                        <th scope="row">@cuota.Numero</th>
-                                        <th scope="row">@cuota.Fecha.ToString("dd/MM/yyyy")</th>
-                                        <th scope="row">@cuota.TotalOrig</th>
-                                        <th scope="row">@cuota.Capital</th>
-                                        <th scope="row">@cuota.Interes</th>
-                                        <th scope="row">@cuota.GastoDeCierre</th>
-                                        <th scope="row">@cuota.InteresDelGastoDeCierre</th>
-                                        <th scope="row">@cuota.OtrosCargos</th>
-                                        <th scope="row">@cuota.InteresOtrosCargos</th>
-                                        @*{cuota.Capital} {cuota.Interes} {cuota.GastoDeCierre} {cuota.InteresDelGastoDeCierre} {cuota.OtrosCargos} {cuota.InteresOtrosCargos}")</thli>*@
-                                    </tr>
-                                    }
-                                </tbody>
-                            </table>
-
+                            <ProyeccionCuotasValoresIniciales Cuotas="prestamo.Cuotas"/>
                         </div>
                     }
                     else
@@ -231,7 +199,7 @@
                     }
                 </div>
             </div>
-            @*@CalcularPrestamo()*@
+            
         }
     </EditForm>
 </div>

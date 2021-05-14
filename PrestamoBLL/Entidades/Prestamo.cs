@@ -270,19 +270,20 @@ namespace PrestamoBLL.Entidades
         /// </summary>
         [IgnorarEnParam]
         [NotMapped]
-        public bool LlevaGastoDeCierre { get; set; }
+        public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
+        //{ get=> ; internal set; }
         [Range(0.0, 30.00, ErrorMessage = "rango permitido entre 1 y 30%")]
         [Display(Name = "Interes al G/C/?")]
         public virtual decimal InteresGastoDeCierre { get; set; } = 0.00m;
         public decimal MontoGastoDeCierre { get; set; }
         [Display(Name = "Es deducible el G/C?")]
-        public bool GastoDeCierreEsDeducible { get; set; } = false;
+        public virtual bool GastoDeCierreEsDeducible { get; set; } = false;
         [Display(Name = "Financiar el G/C?")]
-        public bool FinanciarGastoDeCierre { get; set; } = true;
+        public virtual bool FinanciarGastoDeCierre { get; set; } = true;
         [Display(Name = "Cargo interes al G/C ?")]
-        public bool CargarInteresAlGastoDeCierre { get; set; } = true;
+        public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
         [Display(Name = "Desea acomodar las fechas de las cuotas?")]
-        public bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
+        public virtual bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
