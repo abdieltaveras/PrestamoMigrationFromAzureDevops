@@ -1,6 +1,7 @@
 
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace PrestamoBlazorApp.Services
         string apiUrl = "api/Ocupaciones";
         public async Task<IEnumerable<Ocupacion>> Get(OcupacionGetParams ocupacionGetParams)
         {
-            ocupacionGetParams.JsonGet = JsonConvert.SerializeObject(ocupacionGetParams);
-            var result = await GetAsync<Ocupacion>(apiUrl, ocupacionGetParams);
+
+            var result = await GetAsync<Ocupacion>(apiUrl, new { JsonGet = ocupacionGetParams.ToJson() });
             return result;
         }
 

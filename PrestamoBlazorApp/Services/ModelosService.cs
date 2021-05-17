@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Web;
+using PrestamoBLL;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -17,8 +18,7 @@ namespace PrestamoBlazorApp.Services
         public async Task<IEnumerable<Marca>> GetMarcasForModelo()
         {
            var marcasParams = new MarcaGetParams();
-            marcasParams.JsonGet = JsonConvert.SerializeObject(new MarcaGetParams());
-            var result = await GetAsync<Marca>("api/marcas" , marcasParams);
+            var result = await GetAsync<Marca>("api/marcas" , new { JsonGet = marcasParams.ToJson() });
             return result;
         }
         //public async Task<IEnumerable<Modelo>> GetModelosAsync(ModeloGetParams search)
@@ -29,8 +29,8 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Modelo>> Get(ModeloGetParams modeloGetParams)
         {
-            modeloGetParams.JsonGet = JsonConvert.SerializeObject(modeloGetParams);
-            var result =  await GetAsync<Modelo>(apiUrl, modeloGetParams);
+            
+            var result =  await GetAsync<Modelo>(apiUrl, new { JsonGet = modeloGetParams.ToJson() });
             return result;
         }
         public ModelosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)

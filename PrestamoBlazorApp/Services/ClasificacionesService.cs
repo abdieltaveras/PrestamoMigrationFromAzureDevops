@@ -1,6 +1,7 @@
 
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,7 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Clasificacion>> Get(ClasificacionesGetParams clasificacionesGetParams)
         {
-            
-            clasificacionesGetParams.JsonGet = JsonConvert.SerializeObject(clasificacionesGetParams);
-            var result =  await GetAsync<Clasificacion>(apiUrl, clasificacionesGetParams);
+            var result =  await GetAsync<Clasificacion>(apiUrl, new { JsonGet = clasificacionesGetParams.ToJson() });
             return result;
         }
         public ClasificacionesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)

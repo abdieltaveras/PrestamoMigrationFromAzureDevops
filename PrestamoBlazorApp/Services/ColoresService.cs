@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using PrestamoBLL;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -22,8 +23,7 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Color>> Get(ColorGetParams colorGetParams)
         {
-            colorGetParams.JsonGet = JsonConvert.SerializeObject(colorGetParams);
-            return await GetAsync<Color>(apiUrl, colorGetParams);
+            return await GetAsync<Color>(apiUrl, new { JsonGet =  colorGetParams.ToJson()});
         }
         public ColoresService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {

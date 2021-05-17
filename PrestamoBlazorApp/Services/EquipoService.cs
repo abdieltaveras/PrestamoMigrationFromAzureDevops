@@ -1,6 +1,7 @@
 
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,7 @@ namespace PrestamoBlazorApp.Services
         string apiUrl = "api/Equipo";
         public async Task<IEnumerable<Equipo>> Get(EquiposGetParam search)
         {
-            search.JsonGet = JsonConvert.SerializeObject(search);
-            var result = await GetAsync<Equipo>(apiUrl, search);
+            var result = await GetAsync<Equipo>(apiUrl, new { JsonGet = search.ToJson()});
             return result;
         }
 
