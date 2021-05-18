@@ -28,16 +28,17 @@
             </div>
             <div class="col-md-12">
                 <EditForm Model="@Color" OnValidSubmit="SaveColor" OnInvalidSubmit="RaiseInvalidSubmit">
+                    <DataAnnotationsValidator/>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="codigo">Codigo</label>
                                 <InputText id="codigo" class="form-control col-md-4" @bind-Value="Color.Codigo"></InputText>
                             </div>
-
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <InputText id="nombre" class="form-control col-md-6" @bind-Value="Color.Nombre"></InputText>
+                                <ValidationMessage For="() => Color.Nombre" />
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary" >Guardar</button>

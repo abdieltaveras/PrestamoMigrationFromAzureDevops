@@ -27,10 +27,16 @@ namespace PrestamoBlazorApp.Services
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
             var client = _clientFactory.CreateClient();
-            var response =  await client.PostAsJsonAsync<@Type>($"{baseUrl}/{endpoint}?{query}", body);
+            HttpResponseMessage response=null;
+            string errorMessage = string.Empty;
+            
+            response = await client.PostAsJsonAsync<@Type>($"{baseUrl}/{endpoint}?{query}", body);
+            errorMessage = await response.Content.ReadAsStringAsync();
+            
+            
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
+                throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {errorMessage}'");
             }
         }
         public async Task<IEnumerable<@Type>> GetAsync<@Type>(string endpoint, object search)
