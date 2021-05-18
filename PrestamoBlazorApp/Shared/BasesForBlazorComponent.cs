@@ -146,7 +146,7 @@ namespace PrestamoBlazorApp.Shared
             }
         }
 
-        protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage=false)
+        protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage=false, string redirectoTo="")
         {
             if (blockPage) { await BlockPage(); }
             try
@@ -169,7 +169,7 @@ namespace PrestamoBlazorApp.Shared
                 if (blockPage) { await UnBlockPage(); }
                 if (_OnFail == null)
                 {
-                    await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException} regresale al listado", "info", @"/Clientes", 5000);
+                    await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException.Message} regresale al listado", "info", redirectoTo, 10000);
                 }
                 else
                 {
@@ -178,7 +178,6 @@ namespace PrestamoBlazorApp.Shared
             }
             
         }
-
     }
 
     public static class ConstForCreateOrEdit
