@@ -29,9 +29,9 @@ namespace PrestamoBlazorApp.Pages.Colores
         {
             if (firstRender)
             {
-                await BlockPage();
+                //await BlockPage();
                 colores = await coloresService.Get(new ColorGetParams());
-                await UnBlockPage();
+                //await UnBlockPage();
                 StateHasChanged();
             }
             
@@ -39,11 +39,15 @@ namespace PrestamoBlazorApp.Pages.Colores
 
         async Task SaveColor()
         {
-            await BlockPage();
-            await coloresService.SaveColor(this.Color);
-            await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            //await BlockPage();
+            await Handle_SaveData(async()=> await coloresService.SaveColor(this.Color),null,null);
+            await CreateOrEdit(-1);
+            //await UnBlockPage();
+
         }
+
+        
+
         async Task CreateOrEdit(int idColor = -1)
         {
             if (idColor > 0)

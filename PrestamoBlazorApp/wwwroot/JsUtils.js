@@ -87,6 +87,7 @@ window.sweetAlertSuccess = function(message,redirectTo = "") {
         title: message,
         allowOutsideClick: false,
         showConfirmButton: false,
+        showCloseButton:true,
         timer: 1500
         //text: 'Something went wrong!',
         //footer: '<a href>Why do I have this issue?</a>'
@@ -109,6 +110,7 @@ window.SweetMessageBox = function (message, icon, redirectTo = "", delayMilliSec
         title: message,
         allowOutsideClick: false,
         showConfirmButton: false,
+        showCloseButton: true,
         timer: delayMilliSeconds
         //text: 'Something went wrong!',
         //footer: '<a href>Why do I have this issue?</a>'

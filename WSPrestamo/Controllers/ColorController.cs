@@ -37,8 +37,16 @@ namespace WSPrestamo.Controllers
         {
             color.Usuario = this.LoginName;
             color.IdLocalidadNegocio = this.IdLocalidadNegocio;
-            BLLPrestamo.Instance.InsUpdColor(color);
-            return Ok();
+            try
+            {
+                BLLPrestamo.Instance.InsUpdColor(color);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+            
             //return RedirectToAction("CreateOrEdit");
         }
     }
