@@ -51,6 +51,9 @@ async function searchText(location) {
             $("#searchinput").val($(evt.target.querySelector('strong')).text().trim());
             $('#inputLocalidadPadre').val(evt.target.getAttribute('data-idlocalidad'));
             $('#list-address-container').hide();
+            var event = new Event('change');
+            $('#inputLocalidadPadre').dispatchEvent(event);
+            alert('seleccionado');
         });
                 });
             }

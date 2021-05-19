@@ -58,12 +58,10 @@ namespace WSPrestamo.Controllers
         public IEnumerable<BuscarLocalidad> Get(string Search)
         {
             return BLLPrestamo.Instance.SearchLocalidad(new BuscarLocalidadParams { Search = Search });
-
         }
         public IEnumerable<string> GetSearchLocalidadByName(int idLocalidad, int idNegocio)
         {
             return BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = idLocalidad, IdNegocio = idNegocio });
-
         }
 
         public IEnumerable<Localidad> GetPaises()
@@ -81,6 +79,8 @@ namespace WSPrestamo.Controllers
         [HttpPost]
         public IHttpActionResult Post(Localidad localidad)
         {
+            localidad.Usuario = this.LoginName;
+            localidad.IdLocalidadNegocio = this.IdLocalidadNegocio;
             //var localidadparams = new Localidad { IdLocalidad = IdLocalidad, IdLocalidadPadre = IdLocalidadPadre, IdDivisionTerritorialPadre = IdDivisionTerritorialPadre,  };
             BLLPrestamo.Instance.InsUpdLocalidad(localidad);
             return Ok();
