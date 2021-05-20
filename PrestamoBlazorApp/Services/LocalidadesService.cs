@@ -20,11 +20,15 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<BuscarLocalidad>> BuscarLocalidad(BuscarLocalidadParams searchParam)
         {
-            
             var result = await GetAsync<BuscarLocalidad>(apiUrl+"/buscarLocalidad", searchParam );
             return result;
         }
-
+        public async Task<IEnumerable<LocalidadesHijas>> GetHijasLocalidades(int idlocalidad)
+        {
+            var result = await GetAsync<LocalidadesHijas>(apiUrl + "/GetHijasLocalidades", new { idLocalidad = idlocalidad });
+            return result;
+        }
+        
         public LocalidadesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 

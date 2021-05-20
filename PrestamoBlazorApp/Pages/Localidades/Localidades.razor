@@ -1,11 +1,13 @@
 ﻿@page "/localidades"
 @inherits BaseForCreateOrEdit
-
+@using PrestamoBlazorApp.Shared.Components.Localidades
 <div class="row">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-12">
-                <form autocomplete="off" action="/" method="post" style="padding: 0%">
+            <div class="col-md-6">
+                @*<BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>*@
+                <GetLocalidades OnLocalidadSelected="HandleLocalidadSelected"></GetLocalidades>
+                @*<form autocomplete="off" action="/" method="post" style="padding: 0%">
                     <div class="col-7" style="margin: auto; padding: 0%; ">
                         <h4 style="text-align: center;">¿Que lugar buscas?</h4>
                         <input @onkeyup="VerLocalidades" class="target form-control" type="text" id="searchinput" placeholder="Busca una direccion" name="name" value="" style="height: 60px" />
@@ -15,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form>*@
             </div>
         </div>
 
@@ -30,8 +32,10 @@
                     <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
                         <div class="card-body">
                             <br />
-                            <div style="display: none;">
-                                <input type="text" name="inputLocalidadPadre" id="inputLocalidadPadre" value="" />
+                            <div style="display: block;">
+                                @*<InputNumber id="inputLocalidadPadre" Value="" @onchange="OnSelectLocalidad" ></InputNumber>*@
+                                @*<input type="text" id="inputLocalidadPadre" @onchange="OnSelectLocalidad" />*@
+                                @*<input type="text" id="inputLocalidadPadre"  @bind-value="CurrentValue" @bind-value:event="oninput" />*@
                             </div>
 
 
@@ -75,8 +79,22 @@
                         <h2 id="titulodelocalidad" class="card-title">Lista de localidades</h2>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="card-body" id="localidadesHijas">
-                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @foreach (var item in LocalidadesHijas)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p> Tipo: @(item.DivisionTerritorial) - <span class="badge badge-primary">@(item.Nombre)</span> </p>
+                                        </div>
+                                    </div>
+                                    
+                                }
+                            </div>
+                         
+                        </div>
+                        </div>
                 </div>
             </div>
 
@@ -89,5 +107,20 @@
 </div>
 @*<button @onclick="VerLocalidades"> Presiona </button>*@
 @code {
+    private string CurrentValue { get; set; }
+    private void OnSelectLocalidad(ChangeEventArgs args)
+    {
 
+        int valor = Convert.ToInt32(args.Value.ToString());
+        if (valor> 0)
+        {
+            this.Localidad.IdLocalidadPadre = valor;
+        }
+    }
+    private void Handle_LocalidadSelected(BuscarLocalidad localidad)
+    {
+        var localidadSeleccionada = localidad;
+        this.Localidad.IdLocalidadPadre = localidad.IdLocalidadPadre;
+        
+    }
 }

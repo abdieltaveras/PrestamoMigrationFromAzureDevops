@@ -14,10 +14,11 @@ namespace PrestamoBlazorApp.Pages.Localidades
         LocalidadGetParams localidadGetParams { get; set; } = new LocalidadGetParams();
         [Inject]
         LocalidadesService localidadesService { get; set; }
-        IEnumerable<Localidad> localidades { get; set; } = new List<Localidad>();
+
+        IEnumerable<LocalidadesHijas> LocalidadesHijas { get; set; } = new List<LocalidadesHijas>();
         [Parameter]
         public Localidad Localidad { get; set; } = new Localidad();
-        void Clear() => localidades = null;
+        //void Clear() => localidades = null;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -25,7 +26,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             {
                 //await VerLocalidades();
                 await BlockPage();
-                localidades = await localidadesService.GetLocalidadesAsync(new LocalidadGetParams());
+                //localidades = await localidadesService.GetLocalidadesAsync(new LocalidadGetParams());
                 await UnBlockPage();
                 StateHasChanged();
             }
@@ -34,6 +35,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
         async Task SaveLocalidad()
         {
             await BlockPage();
+            StateHasChanged();
             await localidadesService.SaveLocalidad(this.Localidad);
             await UnBlockPage();
             await SweetMessageBox("Guardado Correctamente", "success", "");
@@ -42,6 +44,17 @@ namespace PrestamoBlazorApp.Pages.Localidades
         {
             await JsInteropUtils.SearchLocalidad(jsRuntime);
         }
+        public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)
+        {
+            this.LocalidadesHijas = new List<LocalidadesHijas>();
+            this.Localidad.IdLocalidadPadre = buscarLocalidad.IdLocalidad;
+            this.LocalidadesHijas = await localidadesService.GetHijasLocalidades(buscarLocalidad.IdLocalidad);
+        }
+        //public async Task GetLocalidadesHijas(int selected)
+        //{
+        //   //var result = await localidadesService.GetHijasLocalidades(selected);
+        //   //this.LocalidadesHijas = result;
+        //}
         void RaiseInvalidSubmit()
         {
 

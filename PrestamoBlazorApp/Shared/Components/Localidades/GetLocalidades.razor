@@ -1,0 +1,35 @@
+﻿@inherits BaseForSearch;
+<div class="row">
+    <div class="col-sm-12">
+        <EditForm Model="@Localidades">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input class="form-control" @bind-value=@buscarLocalidad.Search placeholder="Localidad A Buscar" minlength="2" />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" @onclick=@GetLocalidadesAll><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="form-group">
+                @if (Localidades.Count() > 0)
+                {
+                    <select @bind="SelectedLocalidad" class="form-control">
+                        @foreach (var item in Localidades)
+                        {
+                            <option value=@item.IdLocalidad>@(item.Nombre)</option>
+                        }
+                    </select>
+                }
+            </div>
+
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+
+}
