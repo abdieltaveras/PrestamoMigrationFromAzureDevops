@@ -1,9 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[LocalidadLocalidadesHijasDeLocalidadSpGet]
 (
-	@IdNegocio int,
-	@IdLocalidadNegocio int =-1,
+	@idlocalidad int,
+	@IdNegocio int=-1,
+	@IdLocalidadPadre int = -1,
+    @IdLocalidadNegocio int = -1,
 	@Anulado int=0,
-	@IdLocalidad int = 0,
 	@Usuario varchar(100)=''
 )
 as
