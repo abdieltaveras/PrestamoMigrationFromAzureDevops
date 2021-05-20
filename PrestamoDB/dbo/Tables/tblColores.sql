@@ -12,6 +12,7 @@
     [FechaModificado] DATETIME NULL, 
     [AnuladoPor] VARCHAR(100) NULL, 
     [FechaAnulado] DATETIME NULL,
-	constraint NoEmptyNombre CHECK (Nombre <> ''),
-	constraint UniqueNombre Unique(Nombre),
+	constraint NotEmptyNombreColor CHECK (Nombre <> ''),
+	constraint UniqueNombreColor Unique(Nombre),
+	--constraint UniqueCodigoColor Unique(Codigo),
 )

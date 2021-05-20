@@ -22,8 +22,19 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Garantia>> Get(GarantiaGetParams getParams)
         {
-            
             var result =  await GetAsync<Garantia>(apiUrl+"/get", new { JsonGet = getParams.ToJson() });
+            return result;
+        }
+
+        public async Task<IEnumerable<GarantiaConMarcaYModelo>> SearchGarantias(string search)
+        {
+            var result = await GetAsync<GarantiaConMarcaYModelo>(apiUrl + "/searchGarantias", new { searchText = search });
+            return result;
+        }
+
+        public async Task<IEnumerable<GarantiaConMarcaYModelo>> GetGarantias(GarantiaGetParams getParam)
+        {
+            var result = await GetAsync<GarantiaConMarcaYModelo>(apiUrl + "/getGarantias", new { searchObject = getParam.ToJson() });
             return result;
         }
         public async Task<IEnumerable<TipoGarantia>> GetTipoGarantia(TipoGetParams tipoGetParams)
@@ -46,6 +57,7 @@ namespace PrestamoBlazorApp.Services
         {
             return await GetAsync<Color>("api/color", new { JsonGet = colorGetParams.ToJson() });
         }
+
         public GarantiasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 

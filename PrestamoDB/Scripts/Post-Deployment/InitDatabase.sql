@@ -177,14 +177,14 @@ VALUES	(1, 'Camry', 1, '', 1, @usuario, '2020-02-13 05:16:43.067', NULL, NULL, N
 -- Date:   13-Feb-20 5:55 AM
 
 INSERT INTO tblColores (Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-VALUES	('Blanco', 1, '', 1, @usuario, '2020-02-13 05:17:52.627', NULL, NULL, NULL, NULL),
-		('Negro', 1, '', 1, @usuario, '2020-02-13 05:17:59.683', NULL, NULL, NULL, NULL),
-		('Gris', 1, '', 1, @usuario, '2020-02-13 05:18:09.43', NULL, NULL, NULL, NULL),
-		('Azul', 1, '', 1, @usuario, '2020-02-13 05:18:14.913', NULL, NULL, NULL, NULL),
-		('Rojo', 1, '', 1, @usuario, '2020-02-13 05:18:20.473', NULL, NULL, NULL, NULL),
-		('Amarillo/Rojo', 1, '', 1, @usuario, '2020-02-13 05:18:32.4', NULL, NULL, NULL, NULL),
-		('Verde', 1, '', 1, @usuario, '2020-02-13 05:18:37.657', NULL, NULL, NULL, NULL),
-		('Verde/Blanco', 1, '', 1, @usuario, '2020-02-13 05:18:44.857', NULL, NULL, NULL, NULL)
+VALUES	('Blanco', 1, null, 1, @usuario, '2020-02-13 05:17:52.627', NULL, NULL, NULL, NULL),
+		('Negro', 1, null, 1, @usuario, '2020-02-13 05:17:59.683', NULL, NULL, NULL, NULL),
+		('Gris', 1, null, 1, @usuario, '2020-02-13 05:18:09.43', NULL, NULL, NULL, NULL),
+		('Azul', 1, null, 1, @usuario, '2020-02-13 05:18:14.913', NULL, NULL, NULL, NULL),
+		('Rojo', 1, null, 1, @usuario, '2020-02-13 05:18:20.473', NULL, NULL, NULL, NULL),
+		('Amarillo/Rojo', 1, null, 1, @usuario, '2020-02-13 05:18:32.4', NULL, NULL, NULL, NULL),
+		('Verde', 1, null, 1, @usuario, '2020-02-13 05:18:37.657', NULL, NULL, NULL, NULL),
+		('Verde/Blanco', 1, null, 1, @usuario, '2020-02-13 05:18:44.857', NULL, NULL, NULL, NULL)
 
 
 		-- Table: Garantias
@@ -409,3 +409,11 @@ INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes) VALUES
 
 (7, 1, '2020-06-25', 500, 5)
 
+
+CREATE UNIQUE NONCLUSTERED INDEX [UniqueCodigoOcupacionExceptNulls]
+ON [TblOcupaciones] (Codigo)
+WHERE [Codigo] IS NOT NULL
+
+CREATE UNIQUE NONCLUSTERED INDEX [UniqueCodigoColorExceptNulls]
+ON [TblColores] (Codigo)
+WHERE [Codigo] IS NOT NULL

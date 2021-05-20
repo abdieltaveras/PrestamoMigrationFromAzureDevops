@@ -10,5 +10,8 @@
     [ModificadoPor] VARCHAR(100) NULL,
     [FechaModificado] DATETIME NULL, 
     [AnuladoPor] VARCHAR(100) NULL, 
-    [FechaAnulado] DATETIME NULL
+    [FechaAnulado] DATETIME NULL,
+	constraint NotEmptyNombreOcupacion CHECK (Nombre <> ''),
+	constraint UniqueNombreOcupacion Unique(Nombre),
+	--constraint UniqueCodigoOcupacion Unique(Codigo),
 )

@@ -1,0 +1,133 @@
+﻿@*@page "/Garantias/SearchGarantias"*@
+@inherits BaseForSearch
+@*<input type="checkbox" @onchange="onShowUiChange" checked="@showUI"/>
+<label>Mostrar ui</label>*@
+
+@if (showUI)
+{
+<div class="modal fade show" id="myModal" style="display:block" aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3 class="text-center text-info">Busqueda de Garantias</h3>
+                <div class="form-group">
+                    <select @onchange="OnSelectedOptionChange">
+                        @foreach (var opcionBusqueda in Enum.GetValues(typeof(OpcionesSearchGarantia)))
+                        {
+                            <option value="@((int)opcionBusqueda)">@opcionBusqueda</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group ml-1 row ">
+                    <input @onchange="OnTextSearchChange" class="col-md-8" placeholder="escriba lo que desea buscar" />
+                    <button @onclick="SearchGarantia" title="ejecutar busqueda"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
+                </div>
+                <div style="width: 100%; height: 200px; overflow-y: scroll;">
+                    @if (Garantias == null)
+                    {
+                        <p> cargando datos</p>
+                    }
+                    else
+                    {
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Numeracion
+                                    </th>
+                                    <th>
+                                        Detalles
+                                    </th>
+                                    <th>
+                                        Seleccionar
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in @Garantias)
+                                {
+                                    <tr>
+                                        <td>@item.NoIdentificacion</td>
+                                        <td>@($"{item.NombreMarca} {item.NombreModelo} {item.DetallesJSON.Ano} {item.NombreColor}  placa {@item.DetallesJSON.Placa} matricula {@item.DetallesJSON.Matricula}") </td>
+                                        <td><input type="checkbox" @onclick="() => SelectGarantia(item.IdGarantia)" /> </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@code {
+
+    [Inject]
+    GarantiasService GarantiasService { get; set; }
+    [Parameter]
+    public bool showUI { get; set; } = false;
+    [Parameter]
+    public EventCallback<int> OnGarantiaSelected { get; set; }
+
+    IEnumerable<GarantiaConMarcaYModelo> Garantias { get; set; } = new List<GarantiaConMarcaYModelo>();
+
+    int SelectedSearchOption { get; set; } = 1;
+
+    string TextToSearch { get; set; } = string.Empty;
+    private async Task OnTextSearchChange(ChangeEventArgs args)
+    {
+        TextToSearch = args.Value.ToString();
+    }
+    private async Task SearchGarantia()
+    {
+
+        if (TextToSearch.Length <= 2)
+        {
+            await NotifyMessageBox("Debe digitar minimo 2 digitos (letras y/o numeros) para realizar la busqueda");
+            return;
+        }
+
+        OpcionesSearchGarantia opcion = (OpcionesSearchGarantia)SelectedSearchOption;
+        Garantias = new List<GarantiaConMarcaYModelo>();
+        switch (opcion)
+        {
+            case OpcionesSearchGarantia.TextoLibre:
+                Garantias = await GarantiasService.SearchGarantias(TextToSearch);
+                break;
+            case OpcionesSearchGarantia.NoIdentificacion:
+                Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { NoIdentificacion = TextToSearch });
+                break;
+            case OpcionesSearchGarantia.Placa:
+                Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { Placa = TextToSearch });
+                break;
+            case OpcionesSearchGarantia.Matricula:
+                Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { Matricula = TextToSearch });
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void OnSelectedOptionChange(ChangeEventArgs args)
+    {
+        SelectedSearchOption = Convert.ToInt32(args.Value);
+    }
+
+    private async Task SelectGarantia(int idGarantia)
+    {
+        await OnGarantiaSelected.InvokeAsync(idGarantia);
+    }
+
+    private void onShowUiChange()
+    {
+        showUI = !showUI;
+    }
+
+    enum OpcionesSearchGarantia { TextoLibre = 1, NoIdentificacion, Placa, Matricula }
+}
+
+

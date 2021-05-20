@@ -39,6 +39,12 @@ namespace PrestamoBlazorApp.Pages.Colores
 
         async Task SaveColor()
         {
+            var colorExiste = colores.ToList().Find(color => color.Nombre.ToLower() == Color.Nombre.ToLower()) == null ? false : true; ;
+            if (colorExiste) {
+                await SweetMessageBox("el color que digitaste ya existe, no puedo aceptarlo", "warning","",5000);
+                return;
+            }
+
             //await BlockPage();
             await Handle_SaveData(async()=> await coloresService.SaveColor(this.Color),null,null);
             await CreateOrEdit(-1);

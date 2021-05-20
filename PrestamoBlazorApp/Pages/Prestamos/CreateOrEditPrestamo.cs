@@ -16,8 +16,9 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 {
     public partial class CreateOrEditPrestamo : BaseForCreateOrEdit
     {
-        internal PrestamoConCalculos prestamo { get; set; } = new PrestamoConCalculos();
+        private PrestamoConCalculos prestamo { get; set; } = new PrestamoConCalculos();
 
+        private bool ShowSearchGarantia { get; set; } = false;
         [Inject]
         PrestamosService prestamoService { get; set; }
         //        en la clasificacion que indique
@@ -54,6 +55,9 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         TasasInteresService tasasInteresService { get; set; }
         [Inject]
         PeriodosService periodosService { get; set; }
+
+        [Inject]
+        GarantiasService GarantiasService { get; set; }
 
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
@@ -142,6 +146,24 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             await prestamo.Update();
         }
 
+        private async Task ActivateSearchGarantia()
+        {
+            InfoGarantia = string.Empty;
+            ShowSearchGarantia = true;
+        }
+
+        int IdGarantiaSelected { get; set; }
+        string InfoGarantia { get; set; }
+        private async Task UpdateGarantiaSelected(int idGarantia)
+        {
+            this.ShowSearchGarantia = false;
+            this.IdGarantiaSelected = idGarantia;
+            //await NotifyMessageBox("garantia seleccionada " + idGarantia);
+            var Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = idGarantia });
+            var garantia = Garantias.FirstOrDefault();
+            CodigoGarantia = garantia.NoIdentificacion;
+            InfoGarantia = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.DetallesJSON.Ano} {garantia.NombreColor}  placa {@garantia.DetallesJSON.Placa} matricula {@garantia.DetallesJSON.Matricula}";
+        }
     }
 
 

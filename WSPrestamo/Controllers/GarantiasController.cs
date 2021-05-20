@@ -27,7 +27,7 @@ namespace WSPrestamo.Controllers
         //}
         int BUSCAR_A_PARTIR_DE = 2;
         [HttpGet]
-        public IEnumerable<Garantia> GetWithPrestamo(string JsonGet="")
+        public IEnumerable<Garantia> GetWithPrestamo(string JsonGet = "")
         {
             //search = "26";
             //string search = "26";
@@ -42,6 +42,28 @@ namespace WSPrestamo.Controllers
             return garantias;
         }
 
+        [HttpGet]
+        public IEnumerable<GarantiaConMarcaYModelo> SearchGarantias(string searchText)
+        {
+            IEnumerable<GarantiaConMarcaYModelo> garantias = null;
+
+            if (searchText.Length >= BUSCAR_A_PARTIR_DE)
+            {
+                garantias = BLLPrestamo.Instance.SearchGarantias(new BuscarGarantiaParams { Search = searchText, IdNegocio = 1 });
+                garantias.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
+            }
+            return garantias;
+        }
+
+        public IEnumerable<GarantiaConMarcaYModelo> GetGarantias(string searchObject)
+        {
+            var search = searchObject.ToType<GarantiaGetParams>();
+            search.Usuario = LoginName;
+            var result = BLLPrestamo.Instance.GetGarantias(search);
+            result.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
+            return result;
+        }
+
         public IEnumerable<Garantia> Get(string JsonGet = "")
         {
             dynamic listResult = null;
@@ -54,7 +76,7 @@ namespace WSPrestamo.Controllers
             List<string> list = new List<string>();
             if (result.FirstOrDefault().Imagen1FileName != null)
             {
-                 listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
+                listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
                 foreach (var item in listResult)
                 {
                     string imagen = Convert.ToString(item.Value);
@@ -75,14 +97,15 @@ namespace WSPrestamo.Controllers
                 //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
                 garantias.FirstOrDefault().ImagesForGaratia = sendList;
             }
-            
+
             //******************************************************//
             #endregion
-            
+
 
             return result;
 
         }
+
         //public IEnumerable<GarantiaConMarcaYModelo> GetWithMarca()
         //{
         //    var getGarantiasParams = new GarantiaGetParams();
@@ -122,7 +145,7 @@ namespace WSPrestamo.Controllers
         //    return Ok();
         //}
         [HttpPost]
-        public IHttpActionResult Post( Garantia garantia)
+        public IHttpActionResult Post(Garantia garantia)
         {
             #region Imagen
             List<string> ListaImagenes = new List<string>();
@@ -159,8 +182,6 @@ namespace WSPrestamo.Controllers
         //    return garantias;
         //}
 
-
-
         public class SeachResult<T>
         {
             public bool DatosEncontrados { get; private set; } = false;
@@ -169,7 +190,6 @@ namespace WSPrestamo.Controllers
                 get;
                 private set;
             }
-
             public SeachResult(IEnumerable<T> data)
             {
                 this.DatosEncontrados = (data != null & data.Count() > 0);

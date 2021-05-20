@@ -1,6 +1,7 @@
 ﻿@page "/prestamo/createoredit"
 @page "/prestamos/createoreditprestamo"
 @page "/prestamo/CreateOrEdit/{idPrestamo:int}"
+@using PrestamoBlazorApp.Pages.Garantias
 @inherits BaseForCreateOrEdit
 
 @{
@@ -61,7 +62,6 @@
                         </InputSelect>
                     </div>
 
-
                     <div class="form-group row">
                         <label for="fechaPrestamo" class="col-sm-4 col-form-label @textLabelJustify">Fecha</label>
                         <InputDate @bind-Value="prestamo.FechaEmisionReal" class="col-sm-4" />
@@ -80,6 +80,12 @@
                     <div class="form-group row">
                         <label for="Garantias" class="col-sm-4 col-form-label @textLabelJustify">Codigo Garantia</label>
                         <InputText @bind-Value="CodigoGarantia" class="col-sm-3" />
+                        <button @onclick="ActivateSearchGarantia" title="buscar garantias"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
+                        <div class="row text-center text-secondary">
+                            @InfoGarantia
+                        </div>
+                        <SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" />
+
                     </div>
 
                     <div class="form-group row">
@@ -93,8 +99,8 @@
                     <div class="form-group row">
                         @*<label for="llevagastodecierre" class="col-sm-4 col-form-label @textLabelJustify">Lleva Gasto de Cierre</label>*@
                         @*<InputCheckbox @bind-Value="prestamo.LlevaGastoDeCierre"  class="offset-2 mt-1" />*@
-                        <input type="checkbox"  value="prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre"  checked="@prestamo.LlevaGastoDeCierre" class="offset-4 mt-1" />
-                        <label for="llevagastodecierre" class="ml-2 @textLabelJustify" style="margin-left: 5px" >lleva Gasto de Cierre</label>
+                        <input type="checkbox" value="prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre" checked="@prestamo.LlevaGastoDeCierre" class="offset-4 mt-1" />
+                        <label for="llevagastodecierre" class="ml-2 @textLabelJustify" style="margin-left: 5px">lleva Gasto de Cierre</label>
                     </div>
 
                     @{ if (prestamo.LlevaGastoDeCierre)
@@ -192,7 +198,7 @@
                     {
                         <h3>Proyeccion de cuotas</h3>
                         <div class="form-group row">
-                            <ProyeccionCuotasValoresIniciales Cuotas="prestamo.Cuotas"/>
+                            <ProyeccionCuotasValoresIniciales Cuotas="prestamo.Cuotas" />
                         </div>
                     }
                     else
@@ -203,7 +209,7 @@
                     }
                 </div>
             </div>
-            
+
         }
     </EditForm>
 </div>
