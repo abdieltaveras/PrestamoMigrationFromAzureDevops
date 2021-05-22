@@ -26,7 +26,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 id="titulodelocalidad" class="card-title">Agregar localidad</h2>
+                        <h2 id="titulodelocalidad" class="card-title"> @(Territorios.Count() == 1? "Agregar " + Territorios.First().Nombre : "Agregar: ")</h2>
                         @*<div class="clearfix"></div>*@
                     </div>
                     <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
@@ -39,7 +39,7 @@
                             </div>
 
 
-                            <div id="selecttipolocalidad" style="display: none;">
+                            @*<div id="selecttipolocalidad" style="display: none;">
                                 <div class="form-group row">
                                     <div class="col-md-5 col-sm-12 ">
                                         <label class=" ">Tipo de direccion</label>
@@ -48,11 +48,24 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
+                            <div class="form-group row">
+                                @if (Territorios.Count() > 1)
+                                {
+                                    <div class="col-md-8">
+                                        <select @bind="SelectedTipoLocalidad" class="form-control">
 
+                                            @foreach (var item in Territorios)
+                                            {
+                                                <option value=@item.IdDivisionTerritorial>@(item.Nombre)  </option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                            </div>
                             <div class="form-group row">
 
-                                <div class="col-md-5">
+                                <div class="col-md-8">
                                     <label class="" for="codigo">
                                         Nombre <span class="required">*</span>
                                     </label>

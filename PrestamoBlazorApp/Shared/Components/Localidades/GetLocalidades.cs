@@ -21,7 +21,7 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
        
         IEnumerable<BuscarLocalidad> Localidades { get; set; } = new List<BuscarLocalidad>();
         private int? _SelectedLocalidad = null;
-        [Parameter]
+       
         public int? SelectedLocalidad { get { return _SelectedLocalidad; } set { _SelectedLocalidad = value; Seleccionar(); } } 
         private void Seleccionar()
         {
@@ -39,6 +39,16 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
             var result = await localidadService.BuscarLocalidad(buscarLocalidad);
             this.Localidades = result;
            
+        }
+        private async void GetLocalidadesAll2(int i = -1)
+        {
+            //await CountAndShowExecutionTime("Localidades AferRender");
+            //this.buscarLocalidad = new BuscarLocalidadParams();
+            this.buscarLocalidad.SoloLosQuePermitenCalle = LocalidadSoloConCalle;
+            this.buscarLocalidad.MinLength = 0;
+            var result = await localidadService.BuscarLocalidad(buscarLocalidad);
+            this.Localidades = result;
+
         }
     }
 }

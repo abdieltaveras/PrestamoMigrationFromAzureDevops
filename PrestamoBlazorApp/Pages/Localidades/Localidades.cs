@@ -11,11 +11,15 @@ namespace PrestamoBlazorApp.Pages.Localidades
 {
     public partial class Localidades : BaseForCreateOrEdit
     {
+        
         LocalidadGetParams localidadGetParams { get; set; } = new LocalidadGetParams();
         [Inject]
         LocalidadesService localidadesService { get; set; }
+        private int? _SelectedTipoLocalidad = null;
 
+        public int? SelectedTipoLocalidad { get { return _SelectedTipoLocalidad; } set { _SelectedTipoLocalidad = value; } }
         IEnumerable<LocalidadesHijas> LocalidadesHijas { get; set; } = new List<LocalidadesHijas>();
+        IEnumerable<Territorio> Territorios { get; set; } = new List<Territorio>();
         [Parameter]
         public Localidad Localidad { get; set; } = new Localidad();
         //void Clear() => localidades = null;
@@ -36,6 +40,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
         {
             await BlockPage();
             StateHasChanged();
+            this.Localidad.IdTipoLocalidad = Convert.ToInt32( SelectedTipoLocalidad);
             await localidadesService.SaveLocalidad(this.Localidad);
             await UnBlockPage();
             await SweetMessageBox("Guardado Correctamente", "success", "");
@@ -46,9 +51,17 @@ namespace PrestamoBlazorApp.Pages.Localidades
         }
         public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)
         {
+            
             this.LocalidadesHijas = new List<LocalidadesHijas>();
+            this.Territorios = new List<Territorio>();
             this.Localidad.IdLocalidadPadre = buscarLocalidad.IdLocalidad;
             this.LocalidadesHijas = await localidadesService.GetHijasLocalidades(buscarLocalidad.IdLocalidad);
+            var ter = await localidadesService.GetComponentesTerritorio();
+            this.Territorios = ter.Where(m => m.IdLocalidadPadre == buscarLocalidad.IdTipoLocalidad);
+            if (this.Territorios.Count() == 1)
+            {
+                SelectedTipoLocalidad = this.Territorios.FirstOrDefault().IdDivisionTerritorial;
+            }
         }
         //public async Task GetLocalidadesHijas(int selected)
         //{

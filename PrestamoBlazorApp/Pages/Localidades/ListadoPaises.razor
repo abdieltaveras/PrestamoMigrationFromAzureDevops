@@ -1,0 +1,111 @@
+﻿@page "/localidades/listadopaises"
+@inherits BaseForCreateOrEdit
+@using PrestamoBlazorApp.Shared.Components.Localidades
+<h1>Listado De Paises  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
+
+<table class="table table-responsive-md table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Operacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (localidades.Count() > 0)
+        {
+            @foreach (var item in localidades)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td> <button @onclick="()=>CreateOrEdit(item.IdLocalidad)" class="btn btn-info"> Editar </button></td>
+                </tr>
+
+            }
+        }
+        else
+        {
+            <tr>
+                <td>Cargando datos ejecute una busqueda</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+<div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Localidad.IdLocalidad > 0)
+                {
+                    <h5 class="modal-title" id="edtMarcaTitel">Editar Localidad</h5>
+                }
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md-12">
+                <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
+                    <DataAnnotationsValidator />
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <InputText id="nombre" class="form-control col-md-6" @bind-Value="Localidad.Nombre"></InputText>
+                                <ValidationMessage For="() => Localidad.Nombre" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--<EditForm Model="@Localidad">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 id="titulodelocalidad" class="card-title"> Editando a : </h2>-->
+@*<div class="clearfix"></div>*@
+<!--</div>
+
+<div class="card-body">
+    <br />
+    <div class="row">
+        <div class="col-md-6">-->
+@*<BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>*@
+<!--<GetLocalidades OnLocalidadSelected="HandleLocalidadSelected"></GetLocalidades>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+
+                        <div class="col-md-8">
+                            <label class="" for="codigo">
+                                Nombre <span class="required">*</span>
+                            </label>
+                            <InputText @bind-Value="Localidad.Nombre"></InputText>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div class="card-footer">
+                    <div class="col-md-12" style="display:flex; justify-content:flex-end;">
+                        <button type="submit" id="btnguardar" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</EditForm>-->
+
+@code {
+
+}
