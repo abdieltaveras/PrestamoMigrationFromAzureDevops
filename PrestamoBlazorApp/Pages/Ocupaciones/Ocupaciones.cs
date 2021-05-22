@@ -48,10 +48,8 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
 
         async Task SaveOcupacion()
         {
-            await BlockPage();
-            await OcupacionesService.SaveOcupacion(this.Ocupacion);
-            await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            await Handle_SaveData(async() =>
+            await OcupacionesService.SaveOcupacion(this.Ocupacion), null, null, blockPage:true);
             //await OnGuardarNotification();
         }
         async Task CreateOrEdit(int idOcupacion = -1)

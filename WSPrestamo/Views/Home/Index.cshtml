@@ -6,15 +6,17 @@
     @{
         string Baseurl = RequestInfo.GetBaseUrl();
         string getRequest = "get    :" + Baseurl + "api/color/get?idColor=-1";
+        var quote = "\"";
+        string getRequest2 = "get    :" + Baseurl + "api/color/get?JsonGet={" + quote + "idcolor" + quote + ":"+quote+"1"+quote+"}";
         string postRequest = "post   :" + Baseurl + "api/color/post";
         string deleteRequest = "delete :" + Baseurl + "api/color/delete?idColor=3";
-
         string testUrl = "test request " + Baseurl + "api/values/get";
     }
 
     <pre class="text-info">
     <h2>modelos de request</h2>
     <h4 class="mt-0">
+        @getRequest2
         @getRequest
         @postRequest
         @deleteRequest

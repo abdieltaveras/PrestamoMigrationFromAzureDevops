@@ -141,7 +141,7 @@ namespace PrestamoBlazorApp.Shared
             }
             catch (Exception e)
             {
-                await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "info", @"\", 5000);
+                await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "error", @"\", 5000);
             }
         }
 
@@ -168,7 +168,9 @@ namespace PrestamoBlazorApp.Shared
                 if (blockPage) { await UnBlockPage(); }
                 if (_OnFail == null)
                 {
-                    await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException.Message} regresale al listado", "info", redirectoTo, 10000);
+                    var mens1 = redirectoTo != "" ? "regresale al listado" : "";
+                    await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message} {mens1}", "error", redirectoTo, 10000);
+                    // await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException.Message} regresale al listado", "error", redirectoTo, 10000);
                 }
                 else
                 {

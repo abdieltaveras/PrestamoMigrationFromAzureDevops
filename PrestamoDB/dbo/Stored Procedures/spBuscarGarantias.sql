@@ -1,13 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[spBuscarGarantias]
-	@search varchar(50),
-	@IdNegocio int=0,
-	@Usuario varchar(100) = '',
-	@Anulado int=0
+	@search varchar(50)
 as
 BEGIN
 
 SELECT
-	garantias.*, marcas.nombre as NombreMarca, modelos.nombre as NombreModelo  
+	garantias.*, marcas.nombre as NombreMarca, modelos.nombre as NombreModelo , colores.Nombre as NombreColor
 from
 	tblGarantias garantias
 INNER JOIN 
@@ -16,7 +13,7 @@ left JOIN
 	tblModelos modelos ON garantias.IdModelo = modelos.IdModelo
 left JOIN 
 	tblLocalidades localidades ON JSON_VALUE(Detalles, '$.IdLocalidad') = localidades.IdLocalidad
-
+left Join tblColores colores on colores.IdColor = JSON_VALUE(Detalles, '$.Color')
 
 where 
 	marcas.Nombre LIKE '%' + @search + '%'

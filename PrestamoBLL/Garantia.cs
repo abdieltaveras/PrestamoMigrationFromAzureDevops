@@ -13,7 +13,11 @@ namespace PrestamoBLL
     {
         public IEnumerable<GarantiaConMarcaYModelo> SearchGarantias(BuscarGarantiaParams searchParam)
         {
-            return BllAcciones.GetData<GarantiaConMarcaYModelo, BuscarGarantiaParams>(searchParam, "spBuscarGarantias", GetValidation);
+            var searchParams = new SearchRec();
+            searchParams.AddParam("search", searchParam.Search);
+            //searchParams.AddParam("usuario", searchParam.Usuario);
+            var result = DBPrestamo.ExecReaderSelSP<GarantiaConMarcaYModelo>("spBuscarGarantias", searchParams.ToSqlParams());
+            return result;
         }
         public IEnumerable<GarantiaConMarcaYModelo> GetGarantias(GarantiaGetParams searchParam)
         {

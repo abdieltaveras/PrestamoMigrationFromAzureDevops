@@ -59,14 +59,16 @@ namespace PrestamoBLL.Entidades
         [Required]
         public string NoIdentificacion { get; set; } = string.Empty;
         [IgnorarEnParam]
-        public DetalleGarantia DetallesJSON { get; set; }
+        public DetalleGarantia DetallesJSON { get; set; } 
         public string Detalles { get; set; } = string.Empty;
         
     }
     public class GarantiaConMarcaYModelo : Garantia
     {
-        public string NombreMarca { get; internal set; }
-        public string NombreModelo { get; internal set; }
+        public string NombreMarca { get;  set; }
+        public string NombreModelo { get;  set; }
+
+        public string NombreColor { get; set; }
     }
 
     public class GarantiaConMarcaYModeloYPrestamos : Garantia
@@ -137,11 +139,12 @@ namespace PrestamoBLL.Entidades
     //: BaseGetParams
     {
         public int IdGarantia { get; set; } = -1;
-        //public int IdClasificacion { get; set; } = -1;
-        //public int IdTipoGarantia { get; set; } = -1;
-        //public int IdModelo { get; set; } = -1;
+        public string NoIdentificacion { get; set; } = string.Empty;
+        public string Placa { get; set; } = string.Empty;
+        public string Matricula { get; set; } = string.Empty;
     }
 
+    
 
 
 }
