@@ -231,6 +231,8 @@ namespace PrestamoBLL.Entidades
 
         public string Apellidos { get; set; } = string.Empty;
 
+        public string Apodo { get; set; } = string.Empty;
+
         public DateTime? InsertadoDesde { get; set; } = null;
 
         public DateTime? InsertadoHasta { get; set; } = null;

@@ -35,7 +35,7 @@ namespace PrestamoBLL.Tests
             IEnumerable<GarantiaConMarcaYModelo> result = null;
             try
             {
-                result = BLLPrestamo.Instance.SearchGarantias(new BuscarGarantiaParams { Search = "27" });
+                result = BLLPrestamo.Instance.SearchGarantias("27");
             }
             catch (Exception e)
             {

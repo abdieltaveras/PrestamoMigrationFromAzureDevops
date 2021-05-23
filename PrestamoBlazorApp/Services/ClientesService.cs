@@ -10,7 +10,11 @@ namespace PrestamoBlazorApp.Services
     public class ClientesService : ServiceBase
     {
         readonly string apiUrl = "api/clientes";
-
+        public async Task<IEnumerable<Cliente>> SearchClientes(string search, bool cargarImagenes)
+        {
+            var result = await GetAsync<Cliente>(apiUrl + "/searchClientes", new { textoABuscar = search, cargarImagenes = cargarImagenes });
+            return result;
+        }
         public async Task<IEnumerable<Cliente>> GetClientesAsync(ClienteGetParams search)
         {
             var result = await GetAsync<Cliente>(apiUrl, search);

@@ -52,7 +52,7 @@ namespace WSPrestamo.Controllers
 
 
 
-        public IEnumerable<Cliente> Get(string textoABuscar, bool CargarImagenesClientes)
+        public IEnumerable<Cliente> SearchClientes(string textoABuscar, bool CargarImagenesClientes)
         {
             var clientes = searchCliente(textoABuscar, CargarImagenesClientes);
             return clientes;

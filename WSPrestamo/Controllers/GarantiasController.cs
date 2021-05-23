@@ -46,10 +46,9 @@ namespace WSPrestamo.Controllers
         public IEnumerable<GarantiaConMarcaYModelo> SearchGarantias(string searchText)
         {
             IEnumerable<GarantiaConMarcaYModelo> garantias = null;
-
             if (searchText.Length >= BUSCAR_A_PARTIR_DE)
             {
-                garantias = BLLPrestamo.Instance.SearchGarantias(new BuscarGarantiaParams { Search = searchText, IdNegocio = 1 });
+                garantias = BLLPrestamo.Instance.SearchGarantias(searchText);
                 garantias.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
             }
             return garantias;

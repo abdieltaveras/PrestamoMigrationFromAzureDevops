@@ -121,7 +121,7 @@ namespace PrestamosMVC5.Controllers
             IEnumerable<Garantia> garantias = null;
             if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
             {
-                garantias = BLLPrestamo.Instance.SearchGarantias(new BuscarGarantiaParams { Search = searchToText, IdNegocio = pcpUserIdNegocio });
+                garantias = BLLPrestamo.Instance.SearchGarantias(searchToText);
             }
             return JsonConvert.SerializeObject(garantias);
         }

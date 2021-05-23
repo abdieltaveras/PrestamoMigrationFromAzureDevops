@@ -1,14 +1,15 @@
 ﻿@page "/prestamo/createoredit"
 @page "/prestamos/createoreditprestamo"
 @page "/prestamo/CreateOrEdit/{idPrestamo:int}"
-@using PrestamoBlazorApp.Pages.Garantias
+@*@using PrestamoBlazorApp.Pages.Garantias*@
+@using PrestamoBlazorApp.Shared.Components.Clientes; 
+
 @inherits BaseForCreateOrEdit
 
 @{
     var textLabelJustify = "text-left";
 }
 <div class="grid-container">
-
     <EditForm Model="@prestamo" OnValidSubmit="@SavePrestamo">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -25,7 +26,6 @@
         }
         else
         {
-
             <div class="row">
                 <div class="col-sm-5">
                     <div class="form-group row">
@@ -70,6 +70,11 @@
                     <div class="form-group row">
                         <label for="codigocliente" class="col-sm-4 col-form-label @textLabelJustify">Codigo Cliente</label>
                         <InputText @bind-Value="CodigoCliente" class="col-sm-3" />
+                        <button @onclick="ActivateSearchCliente" title="buscar clientes"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
+                        <div class="row text-center text-secondary">
+                            @InfoCliente
+                        </div>
+                        <SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" />
                     </div>
 
                     <div class="form-group row">

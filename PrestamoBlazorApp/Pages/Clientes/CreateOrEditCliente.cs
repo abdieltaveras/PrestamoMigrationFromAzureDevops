@@ -68,7 +68,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         protected override async Task OnInitializedAsync()
         {
 
-            await Handle_GetData(prepareModel);
+            await Handle_GetData(prepareModel,@"/Clientes");
             //await prepareModel();
             await base.OnInitializedAsync();
         }

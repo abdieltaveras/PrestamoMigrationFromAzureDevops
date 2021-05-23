@@ -146,14 +146,18 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             await prestamo.Update();
         }
 
+        
+
+
+        int IdGarantiaSelected { get; set; }
+        string InfoGarantia { get; set; }
+
         private async Task ActivateSearchGarantia()
         {
             InfoGarantia = string.Empty;
             ShowSearchGarantia = true;
         }
 
-        int IdGarantiaSelected { get; set; }
-        string InfoGarantia { get; set; }
         private async Task UpdateGarantiaSelected(int idGarantia)
         {
             this.ShowSearchGarantia = false;
@@ -163,6 +167,27 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             var garantia = Garantias.FirstOrDefault();
             CodigoGarantia = garantia.NoIdentificacion;
             InfoGarantia = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.DetallesJSON.Ano} {garantia.NombreColor}  placa {@garantia.DetallesJSON.Placa} matricula {@garantia.DetallesJSON.Matricula}";
+        }
+
+        int IdClienteSelected { get; set; }
+        bool ShowSearchCliente { get; set; }
+        string InfoCliente { get; set; }
+        ClientesService clientesService { get; set; }
+
+        private async Task ActivateSearchCliente()
+        {
+            InfoCliente = string.Empty;
+            ShowSearchCliente = true;
+        }
+        private async Task UpdateClienteSelected(int idCliente)
+        {
+            this.ShowSearchCliente = false;
+            this.IdGarantiaSelected = idCliente;
+            //await NotifyMessageBox("garantia seleccionada " + idGarantia);
+            var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente });
+            var cliente = clientes.FirstOrDefault();
+            CodigoCliente = cliente.Codigo;
+            InfoGarantia = $"{cliente.NoIdentificacion} {cliente.NombreCompleto } ";
         }
     }
 

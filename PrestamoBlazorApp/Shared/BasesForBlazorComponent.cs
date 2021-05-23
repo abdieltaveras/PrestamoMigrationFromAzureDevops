@@ -95,7 +95,7 @@ namespace PrestamoBlazorApp.Shared
 
         // agregar logica para los listados como es OnAgregar, OnDelete, etc
 
-        protected async Task Handle_GetDataForList(Func<Task> _action)
+        protected async Task Handle_GetDataForList(Func<Task> _action, string redirectTo="")
         {
             try
             {
@@ -108,7 +108,8 @@ namespace PrestamoBlazorApp.Shared
             }
             catch (Exception e)
             {
-                await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "info", @"\",5000);
+                var redirect = redirectTo == "" ? @"\" : redirectTo;
+                await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "info", redirect,5000);
             }
         }
         
@@ -133,15 +134,16 @@ namespace PrestamoBlazorApp.Shared
             await SweetAlertSuccess(message, redirectTo);
         }
 
-        protected async Task Handle_GetData(Func<Task> _action)
+        protected async Task Handle_GetData(Func<Task> _action, string redirectTo=@"/")
         {
+            
             try
             {
                 await _action();
             }
             catch (Exception e)
             {
-                await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "error", @"\", 5000);
+                await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "error", redirectTo , 5000);
             }
         }
 
