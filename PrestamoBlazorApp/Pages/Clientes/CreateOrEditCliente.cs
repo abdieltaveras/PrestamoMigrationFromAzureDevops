@@ -131,7 +131,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 this.conyuge = cliente.InfoConyugeObj;
                 this.infoLaboral = cliente.InfoLaboralObj;
                 this.direccion = Utils.ToDerived<Direccion, DireccionModel>(cliente.InfoDireccionObj);
-                var localidad = await localidadService.GetLocalidadesAsync(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
+                var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
                 this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
             SetReferencias(cliente.InfoReferenciasObj);
