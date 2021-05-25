@@ -95,7 +95,7 @@ namespace WSPrestamo.Controllers
                 var mensaje = "no se encontraron periodos para los parametros especificados";
                 throw new Exception("datos no encontrados");
             };
-            var data = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(tasaInteresMensual, periodo);
+            var data = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
 
             return data;
         }

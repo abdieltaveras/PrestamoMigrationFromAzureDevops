@@ -86,8 +86,13 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
             this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
             this.prestamo.IdTasaInteres = TasasDeInteres.FirstOrDefault().idTasaInteres;
+            var resultCliente = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = 1 });
+            var cliente = resultCliente.FirstOrDefault();
+            updateInfoCliente(cliente);
+            var resultGarantia = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = 1 });
+            var garantia = resultGarantia.FirstOrDefault();
+            updateInfoGarantia(garantia);
             await setParametros.ForPrestamo(this.prestamo);
-
             //await prestamoCalculo.UpdatePrestamoCalculo();
             this.loading = false;
         }
@@ -182,8 +187,13 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             //await NotifyMessageBox("garantia seleccionada " + idGarantia);
             var Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = idGarantia });
             var garantia = Garantias.FirstOrDefault();
+            updateInfoGarantia(garantia);
+        }
+
+        private void updateInfoGarantia(GarantiaConMarcaYModelo garantia)
+        {
             CodigoGarantia = garantia.NoIdentificacion;
-            this.prestamo.IdGarantias.Add(idGarantia);
+            this.prestamo.IdGarantias.Add(garantia.IdGarantia);
             InfoGarantia = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.DetallesJSON.Ano} {garantia.NombreColor}  placa {@garantia.DetallesJSON.Placa} matricula {@garantia.DetallesJSON.Matricula}";
         }
 
@@ -205,6 +215,11 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             //await NotifyMessageBox("garantia seleccionada " + idGarantia);
             var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente });
             var cliente = clientes.FirstOrDefault();
+            updateInfoCliente(cliente);
+        }
+
+        private void updateInfoCliente(Cliente cliente)
+        {
             CodigoCliente = cliente.Codigo;
             this.prestamo.IdCliente = cliente.IdCliente;
             InfoCliente = $"{cliente.NoIdentificacion} {cliente.NombreCompleto } ";

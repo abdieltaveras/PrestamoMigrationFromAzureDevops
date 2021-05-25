@@ -100,7 +100,7 @@ namespace PrestamoBLL.Tests
 
             foreach (var item in periodos)
             {
-                var result = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(10, item);
+                var result = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(10, item);
                 var NombrePeriodo = item.Nombre;
                 var tasaInteresPeriodo = result.InteresDelPeriodo;
             }

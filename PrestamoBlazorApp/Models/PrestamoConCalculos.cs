@@ -159,6 +159,7 @@ namespace PrestamoBlazorApp.Models
             await CalcularCuotas();
         }
 
+
         public IEnumerable<Cuota> GenerarCuotas(IInfoGeneradorCuotas info)
         {
             var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
@@ -168,33 +169,19 @@ namespace PrestamoBlazorApp.Models
 
         public  TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
         {
-            var result =  BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(tasaInteresMensual, periodo);
+            var result =  BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
             return result;
         }
 
         private async Task CalcularCuotas()
         {
             if (IdPeriodo < 0 || IdTasaInteres <= 0) return;
-            var periodo = Periodos.Where(per => per.idPeriodo == IdPeriodo).FirstOrDefault();
+            this.Periodo= Periodos.Where(per => per.idPeriodo == IdPeriodo).FirstOrDefault();
             var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
-            var tasaDeInteresPorPeriodo = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, periodo);
-            var infoCuotas = new infoGeneradorDeCuotas
-            {
-
-                AcomodarFechaALasCuotas = false,
-                CantidadDePeriodos = CantidadDePeriodos,
-                MontoCapital = MontoCapital,
-                FechaEmisionReal = FechaEmisionReal,
-                FechaInicioPrimeraCuota = FechaInicioPrimeraCuota,
-                CargarInteresAlGastoDeCierre = CargarInteresAlGastoDeCierre,
-                FinanciarGastoDeCierre = FinanciarGastoDeCierre,
-                MontoGastoDeCierre = MontoGastoDeCierre,
-                OtrosCargosSinInteres = OtrosCargosSinInteres,
-                GastoDeCierreEsDeducible = GastoDeCierreEsDeducible,
-                TipoAmortizacion = TipoAmortizacion,
-                TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodo.InteresDelPeriodo,
-                Periodo = periodo
-            };
+            var tasaDeInteresPorPeriodos = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, Periodo);
+            this.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
+            var infoCuotas = new infoGeneradorDeCuotas(this);
+            
             // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar
             // cuotas y no que se le envie esa informacion
             var cuotas = GenerarCuotas(infoCuotas);

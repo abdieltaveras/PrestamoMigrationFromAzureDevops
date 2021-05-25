@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -194,13 +195,13 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Indique el cliente")]
         public int IdCliente { get; set; } = 0;
 
-        [IgnorarEnParam]
-        public List<Garantia> _Garantias { get; set; } = new List<Garantia>();
+        //[IgnorarEnParam]
+        //public List<Garantia> _Garantias { get; set; } = new List<Garantia>();
         [IgnorarEnParam]
         public List<int> IdGarantias { get; set; } = new List<int>();
 
-        [IgnorarEnParam]
-        public List<Codeudor> _Codeudores { get; set; }
+        //[IgnorarEnParam]
+        //public List<Codeudor> _Codeudores { get; set; }
 
         [IgnorarEnParam]
         public List<int> IdCodeudores { get; set; }
@@ -229,7 +230,7 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Seleccione el Periodo")]
         public virtual int IdPeriodo { get; set; } = -1;
         [IgnorarEnParam]
-        public Periodo Periodo { get; internal set; }
+        public Periodo Periodo { get; set; }
 
         [Display(Name = "Cantidad de Cuotas")]
         //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
@@ -324,25 +325,52 @@ namespace PrestamoBLL.Entidades
 
     }
 
+    public static class ExtMeth
+    {
+        public static DataTable ToDataTablePcp<T>(this IEnumerable<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                //Defining type of data column gives proper data table 
+                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name, type);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
+        }
+    }
+
     public class PrestamoInsUpdParam : Prestamo
     {
         private IEnumerable<CuotaForSqlType> _CuotasList = new List<CuotaForSqlType>();
-        private IEnumerable<Codeudor> __Codeudores = new List<Codeudor>();
-        private IEnumerable<Garantia> __Garantias = new List<Garantia>();
 
-        public PrestamoInsUpdParam(Prestamo prestamo, IEnumerable<CuotaForSqlType> cuotas, IEnumerable<Codeudor> codeudores, IEnumerable<Garantia> garantias)
+
+
+
+        public PrestamoInsUpdParam(IEnumerable<CuotaForSqlType> cuotas)
         {
             this._CuotasList = cuotas;
-
-            //var data = codeudores.Select(cod => new { idCodeudor = cod.IdCodeudor });
-            //this.__Codeudores = codeudores != null ? codeudores : new List<Codeudor>(); ;
-            //this.__Garantias = garantias != null ? garantias : new List<Garantia>(); ;
         }
         public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
         //this._Garantias.ToDataTable();
         public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
-        public DataTable Cuotas => this._CuotasList.ToDataTable();
-
+        public DataTable Cuotas => this._CuotasList.ToDataTablePcp();
     }
 
     internal class PrestamoGarantias

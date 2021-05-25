@@ -22,10 +22,10 @@ namespace PrestamoBLL.Entidades
         public decimal? GastoDeCierre { get; internal set; } = 0;
         public decimal? InteresDelGastoDeCierre { get; internal set; } = 0;
 
-        public int? idTipoCargo { get; internal set; } 
+        public int? idTipoCargo { get; internal set; } = -1;
         public decimal? OtrosCargos { get; internal set; } = 0;
 
-        public decimal? InteresOtrosCargos { get; set; }
+        public decimal? InteresOtrosCargos { get; set; } = 0;
     }
     public class Cuota : CuotaForSqlType
     {
@@ -45,9 +45,9 @@ namespace PrestamoBLL.Entidades
         public decimal? BceGastoDeCierre { get; internal set; } = 0;
         public decimal? BceInteresDelGastoDeCierre { get; internal set; } = 0;
         public decimal? BceOtrosCargos { get; internal set; } = 0;
-        public decimal? BceInteresOtrosCargos { get; set; }
-        public DateTime? UltActFechaMora { get; set; } = null;
-        public DateTime? UltActFechaInteres { get; set; } = null;
+        public decimal? BceInteresOtrosCargos { get; set; } = 0;
+        public DateTime? UltActFechaMora { get; set; } = InitValues._19000101;
+        public DateTime? UltActFechaInteres { get; set; } = InitValues._19000101;
 
         public bool Atrasada(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
         public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
