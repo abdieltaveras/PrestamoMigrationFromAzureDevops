@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\**" />
+    <Content Remove="Components\**" />
+    <EmbeddedResource Remove="Components\**" />
+    <None Remove="Components\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Pages\Clientes\CreateOrEditCliente - Copy.razor2" />
   </ItemGroup>
 
@@ -32,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
     <Folder Include="Pages\LocalidadesNegocios\" />
     <Folder Include="Pages\NewFolder\" />
   </ItemGroup>

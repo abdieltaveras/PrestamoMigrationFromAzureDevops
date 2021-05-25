@@ -11,6 +11,7 @@
 	@idTipoIdentificacion int= -1,
 	@Nombres varchar(100)='',
 	@Apellidos varchar(100)='',
+	@Apodo varchar(100)='',
 	@InsertadoDesde DateTime=null,
 	@InsertadoHasta DateTime=null,
     @CantidadRegistrosASeleccionar int = 100,
@@ -36,6 +37,7 @@ begin
 		and ((@NoIdentificacion='') or (NoIdentificacion =@NoIdentificacion)) 
 		and ((@Nombres='') or (Nombres like '%'+@Nombres+'%')) 
 		and ((@Apellidos='') or (Apellidos like '%'+@Apellidos+'%')) 
+		and ((@Apodo='') or (Apodo like '%'+@Apodo+'%')) 
 		and (@IdLocalidadNegocio =-1 or idLocalidadNegocio=@idLocalidadNegocio)
 		and (@SeleccionarLuegoDelIdCliente =-1 or idCliente > @SeleccionarLuegoDelIdCliente)
 End

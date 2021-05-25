@@ -149,6 +149,7 @@
     <Compile Include="Role.cs" />
     <Compile Include="Periodo.cs" />
     <Compile Include="Status.cs" />
+    <Compile Include="Validations.cs" />
     <Compile Include="VerificarDireccion.cs" />
     <Compile Include="Ocupacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -48,6 +48,7 @@ namespace WSPrestamo.Controllers
         public IHttpActionResult Post([FromBody] Prestamo Prestamo)
         {
             Prestamo.Usuario = this.LoginName;
+            Prestamo.IdNegocio = this.IdNegocio;
             Prestamo.IdLocalidadNegocio = this.IdLocalidadNegocio;
             var validstate = ModelState.IsValid;
             try

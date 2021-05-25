@@ -2,7 +2,7 @@
 @page "/prestamos/createoreditprestamo"
 @page "/prestamo/CreateOrEdit/{idPrestamo:int}"
 @*@using PrestamoBlazorApp.Pages.Garantias*@
-@using PrestamoBlazorApp.Shared.Components.Clientes; 
+@using PrestamoBlazorApp.Shared.Components.Clientes;
 
 @inherits BaseForCreateOrEdit
 
@@ -10,13 +10,13 @@
     var textLabelJustify = "text-left";
 }
 <div class="grid-container">
-    <EditForm Model="@prestamo" OnValidSubmit="@SavePrestamo">
+    <EditForm Model="@prestamo">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="bg-secondary">
             <h3 class="text-left">Crear o Editar Prestamo</h3>
             <div class="@textLabelJustify">
-                <button id="btnGuardar" type="button">Guardar</button>
+                <button id="btnGuardar" type="button" @onclick="@SavePrestamo">Guardar</button>
                 @*<button id="btnsh" type="button" onclick="() =>$('#btnsh').prop('disabled',true)>show hide</button>*@
             </div>
         </div>
@@ -36,7 +36,7 @@
                         }
                         else
                         {
-                            <InputText @bind-Value="prestamo.PrestamoNumero" class="col-sm-3" />
+                            <InputText Value="prestamo.PrestamoNumero" readonly class="col-sm-3" />
                         }
                     </div>
 
@@ -69,30 +69,29 @@
 
                     <div class="form-group row">
                         <label for="codigocliente" class="col-sm-4 col-form-label @textLabelJustify">Codigo Cliente</label>
-                        <InputText @bind-Value="CodigoCliente" class="col-sm-3" />
+                        <input value="@CodigoCliente" readonly placeholder="buscar cliente" class="col-sm-3" />
                         <button @onclick="ActivateSearchCliente" title="buscar clientes"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
-                        <div class="row text-center text-secondary">
+                        <br />
+                        <div class="row col-sm-12  offset-sm-1 text-center text-secondary">
                             @InfoCliente
                         </div>
-                        <SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" />
+                        <SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" OnModalClose="OnCloseSearchCliente" />
                     </div>
 
                     <div class="form-group row">
                         <label for="codigocodeudor" class="col-sm-4 col-form-label @textLabelJustify">Codigo Codeudor</label>
-                        <InputText @bind-Value="CodigoCodeudor" class="col-sm-3" />
+                        <input value="@CodigoCodeudor" readonly placeholder="No Habilitado aun" class="col-sm-3" />
                     </div>
 
                     <div class="form-group row">
                         <label for="Garantias" class="col-sm-4 col-form-label @textLabelJustify">Codigo Garantia</label>
-                        <InputText @bind-Value="CodigoGarantia" class="col-sm-3" />
+                        <input value="@CodigoGarantia" readonly placeholder="buscar garantia" class="col-sm-3" />
                         <button @onclick="ActivateSearchGarantia" title="buscar garantias"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
-                        <div class="row text-center text-secondary">
+                        <div class="row col-sm-12  offset-sm-1 text-center text-secondary">
                             @InfoGarantia
                         </div>
-                        <SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" />
-
+                        <SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" OnModalClose="OnCloseSearchGarantia" />
                     </div>
-
                     <div class="form-group row">
                         <label for="montoCliente" class="col-sm-4 col-form-label @textLabelJustify ">Monto Prestado</label>
                         <InputNumber @bind-Value="prestamo.MontoPrestado" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />
@@ -183,7 +182,7 @@
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label @textLabelJustify">Cantidad de Cuotas</label>
-                        <InputNumber @bind-Value="prestamo.CantidadDePeriodos" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="99999" />
+                        <InputNumber @bind-Value="prestamo.CantidadDePeriodos" class="col-sm-2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="99999" />
                     </div>
 
                     <div class="form-group row">

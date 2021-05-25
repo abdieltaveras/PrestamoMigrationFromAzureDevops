@@ -15,8 +15,11 @@ namespace WSPrestamo.Controllers
 
         protected int IdLocalidadNegocio { get; } = 1;
 
-        
+        protected int IdNegocio { get; } = 1;
+
         protected string LoginName { get { return this.GetLoginName(); }  }
+
+        
 
         private string GetLoginName()
         {

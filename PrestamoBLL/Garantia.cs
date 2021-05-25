@@ -15,7 +15,6 @@ namespace PrestamoBLL
         {
             var searchParams = new SearchRec();
             searchParams.AddParam("search", search);
-            searchParams.AddParam("Nombre", 1);
             //searchParams.AddParam("usuario", searchParam.Usuario);
             var result = DBPrestamo.ExecReaderSelSP<GarantiaConMarcaYModelo>("spBuscarGarantias", searchParams.ToSqlParams());
             return result;

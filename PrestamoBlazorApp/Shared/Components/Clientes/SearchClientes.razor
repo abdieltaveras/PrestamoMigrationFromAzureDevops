@@ -2,11 +2,15 @@
 
 @if (showUI)
 {
-    <div class="modal fade show" id="myModal" style="display:block" aria-modal="true" role="dialog">
+    <div class="modal fade show" id="searchclientemodal" style="display:block" aria-modal="true" role="dialog" >
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Busqueda de Clientes</h4>
+                    <button type="button" class="close" data-dismiss="modal" @onclick="onShowUiChange">&times;</button>
+                </div>
                 <div class="modal-body">
-                    <h3 class="text-center text-info">Busqueda de Clientes</h3>
+
                     <div class="form-group">
                         <select @onchange="OnSelectedOptionChange">
                             @foreach (var opcionBusqueda in Enum.GetValues(typeof(OpcionesSearchCliente)))
@@ -27,6 +31,8 @@
                         }
                         else
                         {
+
+                            <p>@(Clientes.Count()>0 ? "registros encontrados "+Clientes.Count() : "Datos no encontrados para su busqueda")</p>
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>

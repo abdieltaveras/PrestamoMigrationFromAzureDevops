@@ -16,6 +16,8 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
         public bool showUI { get; set; } = false;
         [Parameter]
         public EventCallback<int> OnClienteSelected { get; set; }
+        [Parameter]
+        public EventCallback<int> OnModalClose { get; set; }
 
         IEnumerable<Cliente> Clientes { get; set; } = new List<Cliente>();
 
@@ -75,7 +77,10 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
         private void onShowUiChange()
         {
             showUI = !showUI;
+            OnModalClose.InvokeAsync();
         }
+
+           
 
         enum OpcionesSearchCliente { TextoLibre = 1, NoIdentificacion, Nombre, Apellidos, Apodo }
     }

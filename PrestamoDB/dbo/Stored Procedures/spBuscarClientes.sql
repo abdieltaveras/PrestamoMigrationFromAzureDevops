@@ -1,15 +1,16 @@
-﻿CREATE PROCEDURE [dbo].[spBuscarClientes]
+﻿create PROCEDURE [dbo].[spBuscarClientes]
 (
 	@TextToSearch varchar(50),
-	@IdNegocio int,
+	@IdNegocio int=-1,
+	@idLocalidadNegocio int=-1,
 	@Usuario varchar(100) = '',
-	@Anulado int=0
+	@Anulado int=0,
+	@cantidadRegistro int = 30
 )
 as
 begin
-
 select 
-	top 10
+	top (@cantidadRegistro)
 	tblClientes.IdCliente,
 	tblClientes.Nombres,
 	tblClientes.Apellidos,
@@ -18,12 +19,9 @@ select
 	tblClientes.TelefonoMovil,
 	tblClientes.Activo,
 	tblClientes.IdSexo
-
 from 
-	tblClientes, tblTipoSexos
+	tblClientes
 where
-	tblClientes.IdNegocio = @IdNegocio AND
-	tblTipoSexos.IdTipoSexo = tblClientes.IdSexo AND (
 	CONCAT(tblClientes.Nombres, ' ', tblClientes.Apellidos) LIKE '%' + @TextToSearch + '%' 
-	OR tblClientes.NoIdentificacion LIKE '%' + @TextToSearch + '%')
+	OR tblClientes.NoIdentificacion LIKE '%' + @TextToSearch + '%'
 End
