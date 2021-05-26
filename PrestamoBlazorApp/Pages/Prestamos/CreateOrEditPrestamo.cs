@@ -137,7 +137,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             
             try
             {
-                await Handle_SaveData(async()=> await prestamoService.SavePrestamo(this.prestamo));
+                Prestamo pr = this.prestamo;
+                await Handle_SaveData(async()=> await prestamoService.SavePrestamo(pr));
             }
             catch (ValidationObjectException e)
             {

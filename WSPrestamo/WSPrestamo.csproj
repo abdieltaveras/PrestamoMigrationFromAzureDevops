@@ -173,7 +173,7 @@
     <Compile Include="Controllers\ClasificacionController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\PrestamosControlle.cs" />
+    <Compile Include="Controllers\PrestamosController.cs" />
     <Compile Include="Controllers\PeriodosController.cs" />
     <Compile Include="Controllers\TerritorioController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />

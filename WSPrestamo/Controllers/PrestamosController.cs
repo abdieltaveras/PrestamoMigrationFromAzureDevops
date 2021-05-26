@@ -79,13 +79,6 @@ namespace WSPrestamo.Controllers
             }
         }
 
-        
-
-        
-        
-        
-
-        
         public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, int idPeriodo)
         {
             var searchPeriodo = new PeriodoGetParams { idPeriodo = idPeriodo };
@@ -99,6 +92,7 @@ namespace WSPrestamo.Controllers
 
             return data;
         }
+
 
         public IEnumerable<int> GetClasificacionesQueLlevanGarantia()
         {
@@ -118,9 +112,6 @@ namespace WSPrestamo.Controllers
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return cuotas;
         }
-        
-        
+             
     }
-
-
 }

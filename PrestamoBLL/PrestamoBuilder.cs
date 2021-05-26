@@ -33,6 +33,7 @@ namespace PrestamoBLL
             //_type.CopyPropertiesTo(prestamo, prestamoInProgress);
             validarIdNoMenorNiIgualACero(prestamo.IdNegocio,"IdNegocio");
             prestamoInProgress.IdNegocio = prestamo.IdNegocio;
+            prestamoInProgress.IdLocalidadNegocio = prestamo.IdLocalidadNegocio; 
             prestamoInProgress.OtrosCargosSinInteres = prestamo.OtrosCargosSinInteres;
             SetFechaDeEmision(prestamo.FechaEmisionReal);
             SetClasificacion(prestamo.IdClasificacion);
@@ -44,9 +45,10 @@ namespace PrestamoBLL
             SetCodeuDores(prestamo.IdCodeudores);
             SetMontoAPrestar(prestamo.MontoPrestado, prestamo.IdDivisa);
             SetGastDeCierre(prestamo);
+            SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDePeriodos); ;
             SetTasaInteres(prestamo.IdTasaInteres);
             SetAcomodarFecha(prestamo.FechaInicioPrimeraCuota);
-            SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDePeriodos); ;
+            
             SetMoras(prestamo.IdTipoMora);
         }
         public void AddCodeudor(Prestamo prestamo, int idCodeudor)
@@ -213,7 +215,7 @@ namespace PrestamoBLL
             validarIdNoMenorNiIgualACero(idTasaDeInteres, "IdTasaDeInteres");
             var tasaDeInteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             this.prestamoInProgress.IdTasaInteres = idTasaDeInteres;
-            var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, periodo);
+            var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
             this.prestamoInProgress.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodo.InteresDelPeriodo;
 
         }
