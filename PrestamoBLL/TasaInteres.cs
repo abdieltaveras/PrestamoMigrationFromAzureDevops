@@ -11,16 +11,16 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<TasaInteres> TasasInteresGet(TasaInteresGetParams searchParam)
+        public IEnumerable<TasaInteres> GetTasasDeInteres(TasaInteresGetParams searchParam)
         {
             return BllAcciones.GetData<TasaInteres, TasaInteresGetParams>(searchParam, "spGetTasasInteres", GetValidation);
         }
-        public int TasaInteresInsUpd(TasaInteres insUpdParam)
+        public int InsUpdTasaInteres(TasaInteres insUpdParam)
         {
            return BllAcciones.InsUpdData<TasaInteres>(insUpdParam, "spInsUpdTasaInteres");
         }
         
-        public void TasaInteresDelete(TasaInteresDelParams delParam)
+        public void DeleteTasaInteres(TasaInteresDelParams delParam)
         {
             DBPrestamo.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
         }

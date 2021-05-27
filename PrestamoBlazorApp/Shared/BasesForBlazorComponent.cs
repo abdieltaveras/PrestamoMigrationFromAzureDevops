@@ -181,6 +181,8 @@ namespace PrestamoBlazorApp.Shared
             }
             
         }
+
+        
     }
 
     public static class ConstForCreateOrEdit

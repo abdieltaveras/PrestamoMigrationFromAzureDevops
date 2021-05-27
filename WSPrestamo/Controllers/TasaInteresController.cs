@@ -13,14 +13,14 @@ namespace WSPrestamo.Controllers
         public IEnumerable<TasaInteres> Get(int idTasaInteres, int idLocalidadNegocio, int activo, string codigo)
         {
             var searchParam = new TasaInteresGetParams { Activo = activo, idTasaInteres = idTasaInteres, Codigo = codigo, IdLocalidadNegocio = idLocalidadNegocio };
-            var result = BLLPrestamo.Instance.TasasInteresGet(searchParam);
+            var result = BLLPrestamo.Instance.GetTasasDeInteres(searchParam);
             return result;
         }
 
         [HttpPost]
         public IHttpActionResult TasaInteresInsUpd(TasaInteres insUpdParam)
         {
-            var id = BLLPrestamo.Instance.TasaInteresInsUpd(insUpdParam);
+            var id = BLLPrestamo.Instance.InsUpdTasaInteres(insUpdParam);
             return Ok(id);
         }
         [HttpDelete]

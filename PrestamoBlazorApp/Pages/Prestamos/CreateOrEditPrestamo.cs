@@ -114,14 +114,14 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         async Task SavePrestamo()
         {
-
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-
+            
             var prestamoValidator =
                 Validator<Prestamo>.Empty
                 .IsNotValidWhen(p => p == null,"El prestamo no puede estar nulo", ValidationOptions.StopOnFailure)
                 .IsValidWhen(p => p.IdClasificacion > 0, "Debe elegir una clasificacion valida")
                 .IsValidWhen(p => p.IdGarantias.Count > 0,"Debe establecer una garantia")
+                .IsValidWhen(p => p.IdGarantias.Count <=1, "No Acepto mas de una garantia")
                 .IsValidWhen(p => p.MontoPrestado >= 0,"El monto a prestar no puede ser menor a 0 (cero)")
                 .IsValidWhen(p => p.IdCliente>0, "Debe establecer un cliente");
 

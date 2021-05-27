@@ -12,7 +12,7 @@ namespace WSPrestamo.Controllers
     {
         public IEnumerable<TipoMora> Get(int IdTipoMora = -1)
         {
-            return BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdTipoMora = IdTipoMora });
+            return BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdTipoMora = IdTipoMora });
         }
         [HttpPost]
         public IHttpActionResult Post(TipoMora tipoMora)
@@ -20,7 +20,7 @@ namespace WSPrestamo.Controllers
             tipoMora.Usuario = this.LoginName;
             tipoMora.IdLocalidadNegocio = this.IdLocalidadNegocio;
             tipoMora.IdNegocio = 1;
-            var id =   BLLPrestamo.Instance.TipoMoraInsUpd(tipoMora);
+            var id =   BLLPrestamo.Instance.InsUpdTipoMora(tipoMora);
             return Ok(id);
         }
         [HttpDelete]

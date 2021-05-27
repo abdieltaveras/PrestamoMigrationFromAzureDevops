@@ -1,4 +1,5 @@
-﻿using PrestamoBLL.Entidades;
+﻿using Newtonsoft.Json;
+using PrestamoBLL.Entidades;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace PrestamoBLL
         {
             SetPrestamo(prestamo);
         }
+
         #region operaciones
         /// <summary>
         /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
@@ -136,7 +138,7 @@ namespace PrestamoBLL
         private void SetMoras(int idTipoMora)
         {
             validarIdNoMenorNiIgualACero(idTipoMora, "IdTipoMora");
-            var mora = BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdNegocio = prestamoInProgress.IdNegocio, IdTipoMora = idTipoMora }).FirstOrDefault();
+            var mora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamoInProgress.IdNegocio, IdTipoMora = idTipoMora }).FirstOrDefault();
             prestamoInProgress.IdTipoMora = mora.IdTipoMora;
 
         }
@@ -213,7 +215,7 @@ namespace PrestamoBLL
         private void SetTasaInteres(int idTasaDeInteres)
         {
             validarIdNoMenorNiIgualACero(idTasaDeInteres, "IdTasaDeInteres");
-            var tasaDeInteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
+            var tasaDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             this.prestamoInProgress.IdTasaInteres = idTasaDeInteres;
             var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
             this.prestamoInProgress.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodo.InteresDelPeriodo;
@@ -377,4 +379,120 @@ namespace PrestamoBLL
             return prestamoConDependencias;
         }
     }
+
+    public class PrestamoBuilder2
+    {
+        #region property members
+        List<Cliente> clientes = new List<Cliente>();
+        List<Codeudor> codeudores = new List<Codeudor>();
+        List<Garantia> garantias = new List<Garantia>();
+        List<Cuota> cuotas = new List<Cuota>();
+        PrestamoConCalculos prestamoInProgress = new PrestamoConCalculos();
+        Periodo periodo = new Periodo();
+        public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
+        #endregion property members
+
+        public PrestamoBuilder2(Prestamo prestamo)
+        {
+            SetPrestamo(prestamo);
+        }
+
+        
+        
+        private void NotificadorDeMensaje(object sender, string e)
+        {
+
+        }
+        
+
+        //public static string ConvertToJson<T>(this T obj)
+        //{
+        //    return JsonConvert.SerializeObject(obj);
+        //}
+        //public static T ConvertToObject<T>(this string json)
+        //{
+        //    if (string.IsNullOrEmpty(json))
+        //    {
+        //        return Activator.CreateInstance<T>();
+        //    }
+        //    return JsonConvert.DeserializeObject<T>(json);
+        //}
+        public T ConvertToObject<T>(string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return Activator.CreateInstance<T>();
+            }
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+        /// <summary>
+        /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
+        /// a la base de datos.
+        /// </summary>
+        /// <param name="prestamo"></param>
+        private void SetPrestamo(Prestamo prestamo)
+        {
+            var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = 1 });
+            var tiposMora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
+            var tasasDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
+            var periodos = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 1 });
+            prestamoInProgress = new PrestamoConCalculos(NotificadorDeMensaje, clasificaciones, tiposMora, tasasDeInteres, periodos);
+            prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
+            //var jsonprestamoInProgress = prestamo.ToJson();
+            //prestamoInProgress = ConvertToObject(jsonprestamoInProgress);
+
+            _type.CopyPropertiesTo(prestamo, prestamoInProgress );
+            prestamoInProgress .IdTipoAmortizacion = prestamo.IdTipoAmortizacion;
+            prestamoInProgress.MontoPrestado = prestamo.MontoPrestado;
+            prestamoInProgress.MontoGastoDeCierre = prestamo.MontoGastoDeCierre;
+            prestamoInProgress.IdPeriodo = prestamo.IdPeriodo;
+            prestamoInProgress.CantidadDePeriodos = prestamo.CantidadDePeriodos;
+            prestamoInProgress.IdTasaInteres = prestamo.IdTasaInteres;
+        }
+
+        private IGeneradorCuotas GetGeneradorCuotas()
+        {
+            //var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
+            return GetGeneradorDeCuotas(prestamoInProgress);
+        }
+
+        public static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)
+        {
+            IGeneradorCuotas generadorCuotas = null;
+            var tipoAmortizacion = info.TipoAmortizacion;
+            switch (tipoAmortizacion)
+            {
+                case TiposAmortizacion.No_Amortizable_cuotas_fijas:
+                    generadorCuotas = new GeneradorCuotasFijasNoAmortizable(info);
+                    break;
+                case TiposAmortizacion.Amortizable_por_dia_abierto:
+                    break;
+                case TiposAmortizacion.Amortizable_por_periodo_abierto:
+
+                    break;
+                case TiposAmortizacion.Amortizable_cuotas_fijas:
+                    break;
+                case TiposAmortizacion.No_Amortizable_abierto:
+                    break;
+                default:
+                    break;
+            }
+
+            if (generadorCuotas == null)
+            {
+                throw new NotImplementedException("no se ha implementado la generacion de cuotas aun para " + tipoAmortizacion.ToString());
+            }
+            return generadorCuotas;
+        }
+        public PrestamoInsUpdParam Build()
+        {
+            IGeneradorCuotas genCuotas = GetGeneradorCuotas();
+            var cuotas = genCuotas.GenerarCuotas();
+            // var cuotasVacias = new List<Cuota>();
+            var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
+            _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
+            return prestamoConDependencias;
+        }
+    }
+
 }

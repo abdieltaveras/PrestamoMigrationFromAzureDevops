@@ -16,13 +16,12 @@ namespace PrestamoBLL
     {
         public int InsUpdPrestamo(Prestamo prestamo)
         {
-            PrestamoBuilder prToBuild = new PrestamoBuilder(prestamo);
+            var prToBuild = new PrestamoBuilder(prestamo);
             var result = prToBuild.Build();
+            //var prToBuild2 = new PrestamoBuilder2(prestamo);
+            //var result2 = prToBuild2.Build();
             var prestamoParam2 = SearchRec.ToSqlParams(result);
-            //var resultId = PrestamosDB.ExecSelSP("spInsUpdPrestamo",prestamoParam);
             var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
-            //var result = PrestamosDB.ExecSelSP("spInsUpdNegocio", _insUpdParam);
-            //idResult = Utils.GetIdFromDataTable(result);
             var  id= Utils.GetIdFromDataTable(resultId);
             return id;
         }

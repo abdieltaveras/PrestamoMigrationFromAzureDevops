@@ -5,7 +5,13 @@
         </Found>
         <NotFound>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
+                <div class="text-center">
+                    <h1 class="text-danger">Error</h1>
+                    <h2>Lo siento no encuentro nada para la solicitud realizada.</h2>
+                    <PcpPrestamoLogo>
+                        <h2 class="text-danger">Elija una opcion en el menu o contactenos para darle asistencia</h2>
+                    </PcpPrestamoLogo>
+                </div>
             </LayoutView>
         </NotFound>
     </Router>
