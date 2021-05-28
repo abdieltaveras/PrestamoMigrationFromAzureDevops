@@ -64,5 +64,31 @@ namespace PrestamoBlazorApp.Services
             }
             return result;
         }
+        public async Task<IEnumerable<string>> GetJsAsync(string endpoint, object search)
+        {
+           
+            var baseUrl = Configuration["BaseServerUrl"];
+            var query = search.UrlEncode();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
+            request.Headers.Add("Accept", "application/json");
+
+            IEnumerable<string> result;
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                result = await JsonSerializer.DeserializeAsync<IEnumerable<string>>(responseStream);
+            }
+            else
+            {
+                
+                throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
+            }
+            return result;
+        }
     }
 }

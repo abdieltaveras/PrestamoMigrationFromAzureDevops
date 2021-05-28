@@ -39,7 +39,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
         async Task SaveLocalidad()
         {
             //await BlockPage();
-            await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null);
+            await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null,null,false,"/localidades/listado");
             await Edit(this.Localidad.IdLocalidad);
             //await UnBlockPage();
 

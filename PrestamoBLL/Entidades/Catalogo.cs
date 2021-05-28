@@ -8,7 +8,7 @@ namespace PrestamoBLL.Entidades
 {
     public class Catalogo : BaseCatalogo
     {
-        public int Id { get; set; } = 0;
+        public int Id { get; set; }
         public string IdTabla { get; set; } = string.Empty;
         public string NombreTabla { get; set; }
 
@@ -46,5 +46,9 @@ namespace PrestamoBLL.Entidades
         public string TextToSearch { get; set; } = "";
         public string TableName { get; set; } = string.Empty;
         public int IdNegocio { get; set; } = -1;
+    }
+    public class CatalogoGetParams : BaseCatalogoGetParams
+    {
+        public int Id { get; set; } = -1;
     }
 }

@@ -65,5 +65,19 @@ namespace PrestamoBLL
             }
             return catalogo;
         }
+        public List<T> GetCatalogosNew<T>(CatalogoGetParams searchParams) where T : class
+        {
+            var searchSqlParams = SearchRec.ToSqlParams(searchParams);
+            List<T> catalogo = new List<T>();
+            try
+            {
+                catalogo = DBPrestamo.ExecReaderSelSP<T>("spGetCatalogos", searchSqlParams);
+            }
+            catch (Exception e)
+            {
+                DatabaseError(e);
+            }
+            return catalogo;
+        }
     }
 }

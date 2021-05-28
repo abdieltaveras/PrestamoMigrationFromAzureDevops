@@ -1,41 +1,74 @@
-﻿
-@*<EditForm Model="Value" OnValidSubmit="SaveCatalogo" >
-    <DataAnnotationsValidator />
-    @{
-        var properties = Value.;
-        @foreach (var p in properties)
+﻿@inherits BaseForCreateOrEdit
+
+<h1>Listado De @(Catalogo.NombreTabla != null ? Catalogo.NombreTabla.Replace("tbl", "") : "")  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
+<div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Catalogo.IdTabla == "" && Catalogo.Id > 0)
+                {
+                    <h5 class="modal-title" id="edtMarcaTitel">Editar Color</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title" id="edtMarcaTitel">Crear Color</h5>
+                }
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md-12">
+                <EditForm Model="Catalogo" OnValidSubmit="SaveCatalogo" OnInvalidSubmit="RaiseInvalidSubmit">
+                    <DataAnnotationsValidator />
+                    @*<ValidationSummary/>*@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="codigo">Codigo</label>
+                                <InputText id="codigo" class="form-control col-md-4" @bind-Value="Catalogo.Codigo"></InputText>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <InputText id="nombre" class="form-control col-md-6" @bind-Value="Catalogo.Nombre"></InputText>
+                                <ValidationMessage For="() => Catalogo.Nombre" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+
+        </div>
+    </div>
+</div>
+<table class="table table-responsive-md table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Operacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (catalogos.Count() > 0)
         {
-            var att = p.GetCustomAttributes(false);
-            if (!att.Any(c => c is HiddenAttribute))
+            @foreach (var item in catalogos)
             {
-                var nameAttribute = (DisplayAttribute)att.FirstOrDefault(c => c is DisplayAttribute);
-                var value = p.GetValue(Value);
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td> <button @onclick="()=>CreateOrEdit(item.Id)" class="btn btn-info"> Editar </button></td>
+                </tr>
 
-                <div class="form-group">
-                    @if (nameAttribute != null)
-                    {
-                        <label for="@p.Name">
-                            @nameAttribute.Name
-                            @if (att.Any(c => c is RequiredAttribute))
-                            {
-                                <font color="red">(*)</font>
-                            }
-                        </label>
-                    }
-                    <InputText class="form-control" Value="@value?.ToString()" ValueExpression="@(() => p.Name)" ValueChanged="(e => p.SetValue(Value, e))" />
-
-                    <ValidationMessage For="@(() => p)"></ValidationMessage>
-                </div>
             }
         }
-    }
-    <button type="submit" class="btn btn-primary">Click me</button>
-</EditForm>
-@code{
-    CatalogosService catalogosService { get; set; }
-    Catalogo Value = new Catalogo();
-    async Task SaveCatalogo()
-    {
-        await catalogosService.SaveColor
-    }
-}*@
+        else
+        {
+            <tr>
+                <td>Cargando datos ejecute una busqueda</td>
+            </tr>
+
+        }
+    </tbody>
+</table>

@@ -56,6 +56,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<ContextMenuService>();
             services.AddSingleton<WeatherForecastService>();
 
+            services.AddSingleton<CatalogosService>();
             services.AddSingleton<IngresosService>();
             services.AddSingleton<ColoresService>();
             services.AddSingleton<MarcasService>();

@@ -32,7 +32,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             this.Localidad.IdLocalidadPadre = 0;
             this.Localidad.IdTipoLocalidad = 3;
             this.Localidad.IdNegocio = 1;
-            await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null);
+            await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null,false, "/localidades/listadopaises");
             await CreateOrEdit(this.Localidad.IdLocalidad);
             //await UnBlockPage();
 
@@ -41,6 +41,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
         {
             if (idLocalidad > 0)
             {
+                
                 await BlockPage();
                 var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = idLocalidad });
                 Localidad = localidad.FirstOrDefault();
