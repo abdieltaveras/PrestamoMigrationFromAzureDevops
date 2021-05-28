@@ -16,6 +16,10 @@ namespace PrestamoBlazorApp.Shared.Components.Garantias
         public bool showUI { get; set; } = false;
         [Parameter]
         public EventCallback<int> OnGarantiaSelected { get; set; }
+
+        [Parameter]
+        public EventCallback<int> OnModalClose { get; set; }
+
         IEnumerable<GarantiaConMarcaYModelo> Garantias { get; set; } = new List<GarantiaConMarcaYModelo>();
         int SelectedSearchOption { get; set; } = 1;
         string TextToSearch { get; set; } = string.Empty;
@@ -65,6 +69,8 @@ namespace PrestamoBlazorApp.Shared.Components.Garantias
         private void onShowUiChange()
         {
             showUI = !showUI;
+            OnModalClose.InvokeAsync();
+
         }
 
         enum OpcionesSearchGarantia { TextoLibre = 1, NoIdentificacion, Placa, Matricula }

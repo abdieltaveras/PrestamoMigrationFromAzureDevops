@@ -48,6 +48,7 @@ namespace WSPrestamo.Controllers
         public IHttpActionResult Post([FromBody] Prestamo Prestamo)
         {
             Prestamo.Usuario = this.LoginName;
+            Prestamo.IdNegocio = this.IdNegocio;
             Prestamo.IdLocalidadNegocio = this.IdLocalidadNegocio;
             var validstate = ModelState.IsValid;
             try
@@ -78,13 +79,6 @@ namespace WSPrestamo.Controllers
             }
         }
 
-        
-
-        
-        
-        
-
-        
         public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, int idPeriodo)
         {
             var searchPeriodo = new PeriodoGetParams { idPeriodo = idPeriodo };
@@ -94,10 +88,11 @@ namespace WSPrestamo.Controllers
                 var mensaje = "no se encontraron periodos para los parametros especificados";
                 throw new Exception("datos no encontrados");
             };
-            var data = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(tasaInteresMensual, periodo);
+            var data = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
 
             return data;
         }
+
 
         public IEnumerable<int> GetClasificacionesQueLlevanGarantia()
         {
@@ -117,9 +112,6 @@ namespace WSPrestamo.Controllers
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return cuotas;
         }
-        
-        
+             
     }
-
-
 }

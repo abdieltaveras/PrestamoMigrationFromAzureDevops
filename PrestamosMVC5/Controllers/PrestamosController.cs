@@ -133,7 +133,7 @@ namespace PrestamosMVC5.Controllers
                 var mensaje = "no se encontraron periodos para los parametros especificados";
                 return Json(mensaje, JsonRequestBehavior.AllowGet);
             };
-            var data = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(tasaInteresMensual, periodo);
+            var data = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }

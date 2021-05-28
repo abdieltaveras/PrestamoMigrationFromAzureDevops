@@ -21,11 +21,7 @@ namespace PrestamoBLL.Entidades
         public decimal? Interes { get; internal set; } = 0;
         public decimal? GastoDeCierre { get; internal set; } = 0;
         public decimal? InteresDelGastoDeCierre { get; internal set; } = 0;
-
-        public int? idTipoCargo { get; internal set; } 
-        public decimal? OtrosCargos { get; internal set; } = 0;
-
-        public decimal? InteresOtrosCargos { get; set; }
+        public int? idTipoCargo { get; internal set; } = -1;
     }
     public class Cuota : CuotaForSqlType
     {
@@ -45,12 +41,22 @@ namespace PrestamoBLL.Entidades
         public decimal? BceGastoDeCierre { get; internal set; } = 0;
         public decimal? BceInteresDelGastoDeCierre { get; internal set; } = 0;
         public decimal? BceOtrosCargos { get; internal set; } = 0;
-        public decimal? BceInteresOtrosCargos { get; set; }
-        public DateTime? UltActFechaMora { get; set; } = null;
-        public DateTime? UltActFechaInteres { get; set; } = null;
+        public decimal? BceInteresOtrosCargos { get; set; } = 0;
+        [IgnorarEnParam]
+        public DateTime? UltActFechaMora { get; set; } = InitValues._19000101;
+        [IgnorarEnParam]
+        public DateTime? UltActFechaInteres { get; set; } = InitValues._19000101;
 
         public bool Atrasada(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
         public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
+
+        //todo: analizar si estos campos se dejaran asi en la cuota
+        // estas propiedades solo se usan para fines de calculo verlo en la proyeccion
+        // pero no para guardarlo en la cuota propiamente, esto 
+        [IgnorarEnParam]
+        public decimal? OtrosCargos { get; internal set; } = 0;
+        [IgnorarEnParam]
+        public decimal? InteresOtrosCargos { get; set; } = 0;
 
     }
 

@@ -24,10 +24,10 @@ namespace PrestamoBLL.Tests
             var mensual = periodos.Where(per => per.Codigo == "MES").FirstOrDefault();
 
             
-            var resultDiario = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(10, diario);
-            var resultQuincenal = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(10, quincenal);
-            var resultSemanal = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(10, semanal);
-            var resultMensual = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(10, mensual);
+            var resultDiario = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(10, diario);
+            var resultQuincenal = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(10, quincenal);
+            var resultSemanal = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(10, semanal);
+            var resultMensual = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(10, mensual);
             Assert.Fail();
         }
     }

@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
@@ -17,10 +19,9 @@ namespace PrestamoBlazorApp.Services
         }
         public async Task<IEnumerable<Cliente>> GetClientesAsync(ClienteGetParams search)
         {
-            var result = await GetAsync<Cliente>(apiUrl, search);
+            var result = await GetAsync<Cliente>(apiUrl, new { jsonGet = search.ToJson() } );
             return result;
         }
-
         
         public ClientesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {

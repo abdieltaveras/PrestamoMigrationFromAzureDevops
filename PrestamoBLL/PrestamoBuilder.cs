@@ -1,4 +1,5 @@
-﻿using PrestamoBLL.Entidades;
+﻿using Newtonsoft.Json;
+using PrestamoBLL.Entidades;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace PrestamoBLL
         {
             SetPrestamo(prestamo);
         }
+
         #region operaciones
         /// <summary>
         /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
@@ -33,6 +35,7 @@ namespace PrestamoBLL
             //_type.CopyPropertiesTo(prestamo, prestamoInProgress);
             validarIdNoMenorNiIgualACero(prestamo.IdNegocio,"IdNegocio");
             prestamoInProgress.IdNegocio = prestamo.IdNegocio;
+            prestamoInProgress.IdLocalidadNegocio = prestamo.IdLocalidadNegocio; 
             prestamoInProgress.OtrosCargosSinInteres = prestamo.OtrosCargosSinInteres;
             SetFechaDeEmision(prestamo.FechaEmisionReal);
             SetClasificacion(prestamo.IdClasificacion);
@@ -41,41 +44,36 @@ namespace PrestamoBLL
             SetRenovacion(prestamo.NumeroPrestamoARenovar, prestamo.IdPrestamoARenovar);
             SetClientes(prestamo.IdCliente);
             SetGarantias(prestamo.IdGarantias);
-            SetCodeuDores(prestamo._Codeudores);
+            SetCodeuDores(prestamo.IdCodeudores);
             SetMontoAPrestar(prestamo.MontoPrestado, prestamo.IdDivisa);
-            SetGastDeCierre(prestamo.InteresGastoDeCierre, prestamo.GastoDeCierreEsDeducible, prestamo.FinanciarGastoDeCierre, prestamo.CargarInteresAlGastoDeCierre);
+            SetGastDeCierre(prestamo);
+            SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDePeriodos); ;
             SetTasaInteres(prestamo.IdTasaInteres);
             SetAcomodarFecha(prestamo.FechaInicioPrimeraCuota);
-            SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDePeriodos); ;
+            
             SetMoras(prestamo.IdTipoMora);
         }
-        public void AddCodeudor(Prestamo prestamo, Codeudor codeudor)
+        public void AddCodeudor(Prestamo prestamo, int idCodeudor)
         {
-            validarIdNoMenorNiIgualACero(codeudor.IdCodeudor, "IdCodeudor");
-            if (codeudor.IdCodeudor > 0)
-            {
-                prestamo._Codeudores.Add(codeudor);
-            }
-            else
-            {
-                throw new NullReferenceException("el id del cliente a agregar no es valido debe ser mayor que cero");
-            }
+            validarIdNoMenorNiIgualACero(idCodeudor, "IdCodeudor");
+            prestamo.IdCodeudores.Add(idCodeudor);
+            
         }
-        private void AddGarantia(Prestamo prestamo, Garantia garantia)
-        {
-            if (garantia.IdGarantia > 0)
-            {
-                prestamo._Garantias.Add(garantia);
-            }
-            else
-            {
-                throw new NullReferenceException("la garantia a agregar no es valida");
-            }
-            // verificar que la garantia no este en otro prestamo, siempre y cuando no tenga la opcion
-            // indicada de que puede ser una garantia para varios prestamos.
-            // pero debe es bueno que lo indique
-            garantias.Add(garantia);
-        }
+        //private void AddGarantia(Prestamo prestamo, Garantia garantia)
+        //{
+        //    if (garantia.IdGarantia > 0)
+        //    {
+        //        prestamo._Garantias.Add(garantia);
+        //    }
+        //    else
+        //    {
+        //        throw new NullReferenceException("la garantia a agregar no es valida");
+        //    }
+        //    // verificar que la garantia no este en otro prestamo, siempre y cuando no tenga la opcion
+        //    // indicada de que puede ser una garantia para varios prestamos.
+        //    // pero debe es bueno que lo indique
+        //    garantias.Add(garantia);
+        //}
         public void SetMontoAPrestar(decimal monto, int idDivisa)
         {
             validateRange(monto, getValorMinimo(), getValorMaximo(), "dinero prestado");
@@ -140,7 +138,7 @@ namespace PrestamoBLL
         private void SetMoras(int idTipoMora)
         {
             validarIdNoMenorNiIgualACero(idTipoMora, "IdTipoMora");
-            var mora = BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdNegocio = prestamoInProgress.IdNegocio, IdTipoMora = idTipoMora }).FirstOrDefault();
+            var mora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamoInProgress.IdNegocio, IdTipoMora = idTipoMora }).FirstOrDefault();
             prestamoInProgress.IdTipoMora = mora.IdTipoMora;
 
         }
@@ -217,48 +215,51 @@ namespace PrestamoBLL
         private void SetTasaInteres(int idTasaDeInteres)
         {
             validarIdNoMenorNiIgualACero(idTasaDeInteres, "IdTasaDeInteres");
-            var tasaDeInteres = BLLPrestamo.Instance.TasasInteresGet(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
-
+            var tasaDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             this.prestamoInProgress.IdTasaInteres = idTasaDeInteres;
-            this.prestamoInProgress.TasaDeInteresPorPeriodo = tasaDeInteres.InteresMensual;
+            var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
+            this.prestamoInProgress.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodo.InteresDelPeriodo;
 
         }
 
-        private void SetGastDeCierre(decimal tasaGastoDeCierre, bool EsDeducible, bool sumargastoDeCierreALasCuotas, bool cargarInteresAlGastoDeCierre)
+        //private void SetGastDeCierre(decimal tasaGastoDeCierre, bool EsDeducible, bool sumargastoDeCierreALasCuotas, bool cargarInteresAlGastoDeCierre)
+        private void SetGastDeCierre(Prestamo prestamo)
         {
-            this.prestamoInProgress.InteresGastoDeCierre = tasaGastoDeCierre;
-            prestamoInProgress.GastoDeCierreEsDeducible = EsDeducible;
-            prestamoInProgress.CargarInteresAlGastoDeCierre = cargarInteresAlGastoDeCierre;
-            prestamoInProgress.FinanciarGastoDeCierre = sumargastoDeCierreALasCuotas;
+            prestamoInProgress.InteresGastoDeCierre = prestamo.InteresGastoDeCierre;
+            prestamoInProgress.GastoDeCierreEsDeducible = prestamo.GastoDeCierreEsDeducible;
+            prestamoInProgress.CargarInteresAlGastoDeCierre = prestamo.CargarInteresAlGastoDeCierre;
+            prestamoInProgress.FinanciarGastoDeCierre = prestamo.FinanciarGastoDeCierre;
+            prestamoInProgress.MontoGastoDeCierre = prestamo.MontoGastoDeCierre;
         }
 
-        private void SetCodeuDores(List<Codeudor> codeudores)
+        private void SetCodeuDores(List<int> idCodeudores)
         {
             prestamoInProgress.IdCodeudores = new List<int>();
-            if (codeudores != null)
+            if (idCodeudores != null)
             {
-                foreach (var item in codeudores)
+                foreach (var item in idCodeudores)
                 {
                     AddCodeudor(prestamoInProgress, item);
-                    validarIdNoMenorNiIgualACero(item.IdCodeudor, "IdCodeudor");
-                    prestamoInProgress.IdCodeudores.Add(item.IdCodeudor);
+                    validarIdNoMenorNiIgualACero(item, "IdCodeudor");
+                    prestamoInProgress.IdCodeudores.Add(item);
                 }
             }
         }
 
-        private void SetGarantias(List<Garantia> garantias)
-        {
-            prestamoInProgress.IdGarantias = new List<int>();
-            if (garantias != null)
-            {
-                foreach (var item in garantias)
-                {
-                    AddGarantia(prestamoInProgress, item);
-                    validarIdNoMenorNiIgualACero(item.IdGarantia, "IdGarantia");
-                    prestamoInProgress.IdGarantias.Add(item.IdGarantia);
-                }
-            }
-        }
+        // se dicidio unicamente usar el metodo por idGarantias el que sigue
+        //private void SetGarantias(List<Garantia> garantias)
+        //{
+        //    prestamoInProgress.IdGarantias = new List<int>();
+        //    if (garantias != null)
+        //    {
+        //        foreach (var item in garantias)
+        //        {
+        //            AddGarantia(prestamoInProgress, item);
+        //            validarIdNoMenorNiIgualACero(item.IdGarantia, "IdGarantia");
+        //            prestamoInProgress.IdGarantias.Add(item.IdGarantia);
+        //        }
+        //    }
+        //}
         private void SetGarantias(IEnumerable<int> idGarantias)
         {
             // que las garantias en cuestion no tengan otros prestamos vigente
@@ -274,14 +275,14 @@ namespace PrestamoBLL
                 }
             }
         }
-        private void SetCodeudores(List<Codeudor> codeudores)
-        {
-            foreach (var item in codeudores)
-            {
-                AddCodeudor(prestamoInProgress, item);
-                prestamoInProgress.IdCodeudores.Add(item.IdCodeudor);
-            }
-        }
+        //private void SetCodeudores(List<Codeudor> codeudores)
+        //{
+        //    foreach (var item in codeudores)
+        //    {
+        //        AddCodeudor(prestamoInProgress, item);
+        //        prestamoInProgress.IdCodeudores.Add(item.IdCodeudor);
+        //    }
+        //}
         private void SetClientes(int idCliente)
         {
             validarIdNoMenorNiIgualACero(idCliente, "IdCliente");
@@ -367,22 +368,131 @@ namespace PrestamoBLL
             return generadorCuotas;
         }
         #endregion operaciones
-        private Prestamo Build2()
+        
+        public PrestamoInsUpdParam Build()
         {
             IGeneradorCuotas genCuotas = GetGeneradorCuotas();
-            // prestamoInProgress._Cuotas = genCuotas.GenerarCuotas();
-            return prestamoInProgress;
-            //var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,cuotas: cuotas, prestamoInProgress.Codeudores, prestamoInProgress.Garantias);
-            //return prestamoConDependencias;
+            var cuotas = genCuotas.GenerarCuotas();
+            // var cuotasVacias = new List<Cuota>();
+            var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
+            _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
+            return prestamoConDependencias;
+        }
+    }
+
+    public class PrestamoBuilder2
+    {
+        #region property members
+        List<Cliente> clientes = new List<Cliente>();
+        List<Codeudor> codeudores = new List<Codeudor>();
+        List<Garantia> garantias = new List<Garantia>();
+        List<Cuota> cuotas = new List<Cuota>();
+        PrestamoConCalculos prestamoInProgress = new PrestamoConCalculos();
+        Periodo periodo = new Periodo();
+        public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
+        #endregion property members
+
+        public PrestamoBuilder2(Prestamo prestamo)
+        {
+            SetPrestamo(prestamo);
+        }
+
+        
+        
+        private void NotificadorDeMensaje(object sender, string e)
+        {
+
+        }
+        
+
+        //public static string ConvertToJson<T>(this T obj)
+        //{
+        //    return JsonConvert.SerializeObject(obj);
+        //}
+        //public static T ConvertToObject<T>(this string json)
+        //{
+        //    if (string.IsNullOrEmpty(json))
+        //    {
+        //        return Activator.CreateInstance<T>();
+        //    }
+        //    return JsonConvert.DeserializeObject<T>(json);
+        //}
+        public T ConvertToObject<T>(string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return Activator.CreateInstance<T>();
+            }
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+        /// <summary>
+        /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
+        /// a la base de datos.
+        /// </summary>
+        /// <param name="prestamo"></param>
+        private void SetPrestamo(Prestamo prestamo)
+        {
+            var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = 1 });
+            var tiposMora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
+            var tasasDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
+            var periodos = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 1 });
+            prestamoInProgress = new PrestamoConCalculos(NotificadorDeMensaje, clasificaciones, tiposMora, tasasDeInteres, periodos);
+            prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
+            //var jsonprestamoInProgress = prestamo.ToJson();
+            //prestamoInProgress = ConvertToObject(jsonprestamoInProgress);
+
+            _type.CopyPropertiesTo(prestamo, prestamoInProgress );
+            prestamoInProgress .IdTipoAmortizacion = prestamo.IdTipoAmortizacion;
+            prestamoInProgress.MontoPrestado = prestamo.MontoPrestado;
+            prestamoInProgress.MontoGastoDeCierre = prestamo.MontoGastoDeCierre;
+            prestamoInProgress.IdPeriodo = prestamo.IdPeriodo;
+            prestamoInProgress.CantidadDePeriodos = prestamo.CantidadDePeriodos;
+            prestamoInProgress.IdTasaInteres = prestamo.IdTasaInteres;
+        }
+
+        private IGeneradorCuotas GetGeneradorCuotas()
+        {
+            //var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
+            return GetGeneradorDeCuotas(prestamoInProgress);
+        }
+
+        public static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)
+        {
+            IGeneradorCuotas generadorCuotas = null;
+            var tipoAmortizacion = info.TipoAmortizacion;
+            switch (tipoAmortizacion)
+            {
+                case TiposAmortizacion.No_Amortizable_cuotas_fijas:
+                    generadorCuotas = new GeneradorCuotasFijasNoAmortizable(info);
+                    break;
+                case TiposAmortizacion.Amortizable_por_dia_abierto:
+                    break;
+                case TiposAmortizacion.Amortizable_por_periodo_abierto:
+
+                    break;
+                case TiposAmortizacion.Amortizable_cuotas_fijas:
+                    break;
+                case TiposAmortizacion.No_Amortizable_abierto:
+                    break;
+                default:
+                    break;
+            }
+
+            if (generadorCuotas == null)
+            {
+                throw new NotImplementedException("no se ha implementado la generacion de cuotas aun para " + tipoAmortizacion.ToString());
+            }
+            return generadorCuotas;
         }
         public PrestamoInsUpdParam Build()
         {
             IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             var cuotas = genCuotas.GenerarCuotas();
             // var cuotasVacias = new List<Cuota>();
-            var prestamoConDependencias = new PrestamoInsUpdParam(prestamoInProgress,  cuotas,  prestamoInProgress._Codeudores, prestamoInProgress._Garantias);
+            var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
             _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
             return prestamoConDependencias;
         }
     }
+
 }

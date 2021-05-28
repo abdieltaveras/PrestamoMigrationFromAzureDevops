@@ -16,7 +16,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetTiposMorasTest()
         {
-            var result = BLLPrestamo.Instance.TiposMorasGet(new TipoMoraGetParams { IdNegocio = 1 });
+            var result = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
             var resultAsList = result.ToList();
             Assert.IsTrue(result.Count() > 0);
         }
@@ -38,14 +38,14 @@ namespace PrestamoBLL.Tests
                 DiasDeGracia = 4
             };
             var searchData = new TipoMoraGetParams { Codigo = "P05", IdNegocio = -1 };
-            var result = BLLPrestamo.Instance.TiposMorasGet(searchData);
+            var result = BLLPrestamo.Instance.GetTiposMoras(searchData);
             if (result.Count() != 0)
             {
                 tipoMora.IdTipoMora = result.First().IdTipoMora;
             }
             try
             {
-                BLLPrestamo.Instance.TipoMoraInsUpd(tipoMora);
+                BLLPrestamo.Instance.InsUpdTipoMora(tipoMora);
             }
             catch (Exception e)
             {

@@ -51,10 +51,17 @@ namespace WSPrestamo.Controllers
         }
 
 
-
-        public IEnumerable<Cliente> SearchClientes(string textoABuscar, bool CargarImagenesClientes)
+        public IEnumerable<Cliente> Get(string jsonGet)
         {
-            var clientes = searchCliente(textoABuscar, CargarImagenesClientes);
+            var getParams = jsonGet.ToType<ClienteGetParams>();
+            var data = BLLPrestamo.Instance.GetClientes(getParams, DirectorioDeImagenes.ParaClientes);
+            return data;
+        }
+
+        [HttpGet]
+        public IEnumerable<Cliente> SearchClientes(string textoABuscar, bool cargarImagenesClientes=false)
+        {
+            var clientes = searchCliente(textoABuscar, cargarImagenesClientes);
             return clientes;
         }
         /// <summary>

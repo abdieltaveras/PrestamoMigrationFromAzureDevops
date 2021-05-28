@@ -6,9 +6,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using static PrestamoBLL.BLLPrestamo;
 
 namespace PrestamoBLL.Entidades
 {
@@ -155,9 +157,7 @@ namespace PrestamoBLL.Entidades
     public class Prestamo : BaseInsUpd, IInfoGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
-        public int IdStatus { get; set; } = -1;
-
-        public int LocalidadNegocio { get; set; } = -1;
+        
 
         [IgnorarEnParam]
         [Display(Name = "Prestamo Numero")]
@@ -194,13 +194,13 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Indique el cliente")]
         public int IdCliente { get; set; } = 0;
 
-        [IgnorarEnParam]
-        public List<Garantia> _Garantias { get; set; } = new List<Garantia>();
+        //[IgnorarEnParam]
+        //public List<Garantia> _Garantias { get; set; } = new List<Garantia>();
         [IgnorarEnParam]
         public List<int> IdGarantias { get; set; } = new List<int>();
 
-        [IgnorarEnParam]
-        public List<Codeudor> _Codeudores { get; set; }
+        //[IgnorarEnParam]
+        //public List<Codeudor> _Codeudores { get; set; }
 
         [IgnorarEnParam]
         public List<int> IdCodeudores { get; set; }
@@ -229,7 +229,7 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Seleccione el Periodo")]
         public virtual int IdPeriodo { get; set; } = -1;
         [IgnorarEnParam]
-        public Periodo Periodo { get; internal set; }
+        public Periodo Periodo { get; set; }
 
         [Display(Name = "Cantidad de Cuotas")]
         //[Range(1, 1000000, ErrorMessage = "Debe indicar un periodo mayor  a cero")]
@@ -324,25 +324,52 @@ namespace PrestamoBLL.Entidades
 
     }
 
+    public static class ExtMeth
+    {
+        public static DataTable ToDataTablePcp<T>(this IEnumerable<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                //Defining type of data column gives proper data table 
+                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name, type);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
+        }
+    }
+
     public class PrestamoInsUpdParam : Prestamo
     {
         private IEnumerable<CuotaForSqlType> _CuotasList = new List<CuotaForSqlType>();
-        private IEnumerable<Codeudor> __Codeudores = new List<Codeudor>();
-        private IEnumerable<Garantia> __Garantias = new List<Garantia>();
 
-        public PrestamoInsUpdParam(Prestamo prestamo, IEnumerable<CuotaForSqlType> cuotas, IEnumerable<Codeudor> codeudores, IEnumerable<Garantia> garantias)
+
+
+
+        public PrestamoInsUpdParam(IEnumerable<CuotaForSqlType> cuotas)
         {
             this._CuotasList = cuotas;
-
-            //var data = codeudores.Select(cod => new { idCodeudor = cod.IdCodeudor });
-            //this.__Codeudores = codeudores != null ? codeudores : new List<Codeudor>(); ;
-            //this.__Garantias = garantias != null ? garantias : new List<Garantia>(); ;
         }
         public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
         //this._Garantias.ToDataTable();
         public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
-        public DataTable Cuotas => this._CuotasList.ToDataTable();
-
+        public DataTable Cuotas => this._CuotasList.ToDataTablePcp();
     }
 
     internal class PrestamoGarantias
@@ -373,6 +400,185 @@ namespace PrestamoBLL.Entidades
         public DateTime fechaEmisionRealDesde { get; set; } = InitValues._19000101;
         public DateTime fechaEmisionRealHasta { get; set; } = InitValues._19000101;
     }
+
+    public class PrestamoConCalculos : Prestamo
+    {
+        public PrestamoConCalculos()
+        {
+            
+        }
+        public PrestamoConCalculos(EventHandler<string> notificarMensaje,
+            IEnumerable<Clasificacion> clasificaciones,
+            IEnumerable<TipoMora> tiposMora,
+            IEnumerable<TasaInteres> tasasDeInteres,
+            IEnumerable<Periodo> periodos
+            )
+        {
+            this.OnNotificarMensaje = notificarMensaje;
+            this.Clasificaciones = clasificaciones;
+            this.TiposMora = tiposMora;
+            this.TasasDeInteres = tasasDeInteres;
+            this.Periodos = periodos;
+
+        }
+
+        EventHandler<string> OnNotificarMensaje;
+        IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
+        IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
+
+        public List<Cuota> Cuotas { get; set; } = new List<Cuota>();
+
+        IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
+        IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
+
+        public override decimal MontoPrestado
+        {
+            get => base.MontoPrestado;
+            set
+            {
+                RejectNegativeValue(value);
+                base.MontoPrestado = value;
+                Update();
+            }
+        }
+
+
+
+        public override decimal InteresGastoDeCierre
+        {
+            get => base.InteresGastoDeCierre;
+            set
+            {
+                RejectNegativeValue(value);
+                base.InteresGastoDeCierre = value;
+                Update();
+            }
+        }
+
+
+        public override int IdTasaInteres
+        {
+            get => base.IdTasaInteres;
+            set
+            {
+                base.IdTasaInteres = value;
+                Update();
+            }
+        }
+
+        public override int IdPeriodo
+        {
+            get => base.IdPeriodo;
+            set
+            {
+                base.IdPeriodo = value;
+                Update();
+            }
+        }
+
+
+        public override int CantidadDePeriodos
+        {
+            get => base.CantidadDePeriodos;
+            set
+            {
+                RejectNegativeValue(value);
+                base.CantidadDePeriodos = value;
+                Update();
+            }
+        }
+
+        public override bool GastoDeCierreEsDeducible
+        {
+            get => base.GastoDeCierreEsDeducible;
+            set
+            {
+                base.GastoDeCierreEsDeducible = value;
+                Update();
+            }
+        }
+
+        public override bool FinanciarGastoDeCierre
+        {
+            get => base.FinanciarGastoDeCierre;
+            set
+            {
+                base.FinanciarGastoDeCierre = value;
+                Update();
+            }
+        }
+
+        public override bool CargarInteresAlGastoDeCierre
+        {
+            get => base.CargarInteresAlGastoDeCierre;
+            set
+            {
+                base.CargarInteresAlGastoDeCierre = value;
+                Update();
+            }
+        }
+
+        public override DateTime FechaEmisionReal
+        {
+            get => base.FechaEmisionReal;
+            set
+            {
+                base.FechaEmisionReal = value;
+                Update();
+            }
+        }
+
+        private void RejectNegativeValue(decimal value)
+        {
+            if (value < 0)
+            {
+                this.OnNotificarMensaje.Invoke(this, "el valor del monto prestamo no puede ser menor o igual a 0");
+                return;
+            }
+        }
+        private async Task CalcularGastoDeCierre()
+        {
+            MontoGastoDeCierre = LlevaGastoDeCierre ? MontoPrestado * (InteresGastoDeCierre / 100) : 0;
+        }
+
+        public async Task Update()
+        {
+            await CalcularGastoDeCierre();
+            await CalcularCuotas();
+        }
+
+
+        public IEnumerable<Cuota> GenerarCuotas(IInfoGeneradorCuotas info)
+        {
+            var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
+            var cuotas = generadorCuotas.GenerarCuotas();
+            return cuotas;
+        }
+
+        public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
+        {
+            var result = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
+            return result;
+        }
+
+        private async Task CalcularCuotas()
+        {
+            if (IdPeriodo < 0 || IdTasaInteres <= 0) return;
+            this.Periodo = Periodos.Where(per => per.idPeriodo == IdPeriodo).FirstOrDefault();
+            var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
+            var tasaDeInteresPorPeriodos = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, Periodo);
+            this.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
+            var infoCuotas = new infoGeneradorDeCuotas(this);
+
+            // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar
+            // cuotas y no que se le envie esa informacion
+            var cuotas = GenerarCuotas(infoCuotas);
+            this.Cuotas.Clear();
+            this.Cuotas.AddRange(cuotas);
+            //await JsInteropUtils.NotifyMessageBox(jsRuntime,"calculando cuotas"+cuotas.Count().ToString());
+        }
+    }
+
 }
 
 

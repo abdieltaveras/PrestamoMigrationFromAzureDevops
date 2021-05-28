@@ -86,8 +86,13 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
             this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
             this.prestamo.IdTasaInteres = TasasDeInteres.FirstOrDefault().idTasaInteres;
+            var resultCliente = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = 1 });
+            var cliente = resultCliente.FirstOrDefault();
+            updateInfoCliente(cliente);
+            var resultGarantia = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = 1 });
+            var garantia = resultGarantia.FirstOrDefault();
+            updateInfoGarantia(garantia);
             await setParametros.ForPrestamo(this.prestamo);
-
             //await prestamoCalculo.UpdatePrestamoCalculo();
             this.loading = false;
         }
@@ -109,15 +114,33 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         async Task SavePrestamo()
         {
-
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
+            
+            var prestamoValidator =
+                Validator<Prestamo>.Empty
+                .IsNotValidWhen(p => p == null,"El prestamo no puede estar nulo", ValidationOptions.StopOnFailure)
+                .IsValidWhen(p => p.IdClasificacion > 0, "Debe elegir una clasificacion valida")
+                .IsValidWhen(p => p.IdGarantias.Count > 0,"Debe establecer una garantia")
+                .IsValidWhen(p => p.IdGarantias.Count <=1, "No Acepto mas de una garantia")
+                .IsValidWhen(p => p.MontoPrestado >= 0,"El monto a prestar no puede ser menor a 0 (cero)")
+                .IsValidWhen(p => p.IdCliente>0, "Debe establecer un cliente");
 
+            var result = prestamoValidator.Validate(prestamo);
+            var validacionesFallidas = result.Where(item => item.Success == false);
+            var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select(item => item.Message));
+            //var resultToJson  = result.Dump();
+            if (validacionesFallidas.Count() > 0)
+            {
+                await SweetMessageBox("Se han encontrado errores " + MensajesValidacionesFallida, "error","",5000);
+                return;
+            }
+            
             try
             {
-                //await prestamoService.SavePrestamo(this.prestamo);
-                //await OnGuardarNotification(redirectTo: "/Prestamos");
+                Prestamo pr = this.prestamo;
+                await Handle_SaveData(async()=> await prestamoService.SavePrestamo(pr));
             }
-            catch (Exception e)
+            catch (ValidationObjectException e)
             {
                 await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
             }
@@ -165,13 +188,20 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             //await NotifyMessageBox("garantia seleccionada " + idGarantia);
             var Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = idGarantia });
             var garantia = Garantias.FirstOrDefault();
+            updateInfoGarantia(garantia);
+        }
+
+        private void updateInfoGarantia(GarantiaConMarcaYModelo garantia)
+        {
             CodigoGarantia = garantia.NoIdentificacion;
+            this.prestamo.IdGarantias.Add(garantia.IdGarantia);
             InfoGarantia = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.DetallesJSON.Ano} {garantia.NombreColor}  placa {@garantia.DetallesJSON.Placa} matricula {@garantia.DetallesJSON.Matricula}";
         }
 
         int IdClienteSelected { get; set; }
         bool ShowSearchCliente { get; set; }
         string InfoCliente { get; set; }
+        [Inject]
         ClientesService clientesService { get; set; }
 
         private async Task ActivateSearchCliente()
@@ -186,10 +216,25 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             //await NotifyMessageBox("garantia seleccionada " + idGarantia);
             var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente });
             var cliente = clientes.FirstOrDefault();
-            CodigoCliente = cliente.Codigo;
-            InfoGarantia = $"{cliente.NoIdentificacion} {cliente.NombreCompleto } ";
+            updateInfoCliente(cliente);
         }
+
+        private void updateInfoCliente(Cliente cliente)
+        {
+            CodigoCliente = cliente.Codigo;
+            this.prestamo.IdCliente = cliente.IdCliente;
+            InfoCliente = $"{cliente.NoIdentificacion} {cliente.NombreCompleto } ";
+        }
+
+        private async Task OnCloseSearchCliente() => ShowSearchCliente = false;
+        private async Task OnCloseSearchGarantia() => ShowSearchGarantia = false;
     }
 
-
+    public class PrestamoValidator
+    {
+        public void Buil()
+        {
+            
+        }
+    }
 }

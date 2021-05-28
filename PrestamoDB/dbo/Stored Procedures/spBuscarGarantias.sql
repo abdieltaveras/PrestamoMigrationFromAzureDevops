@@ -1,9 +1,12 @@
 ﻿CREATE PROCEDURE [dbo].[spBuscarGarantias]
-	@search varchar(50)
+	@search varchar(50),
+	@cantidadRegistro int =30
+
 as
 BEGIN
 
-SELECT
+
+SELECT top (@cantidadRegistro)
 	garantias.*, marcas.nombre as NombreMarca, modelos.nombre as NombreModelo , colores.Nombre as NombreColor
 from
 	tblGarantias garantias
@@ -21,9 +24,8 @@ where
 	OR localidades.Nombre LIKE '%' + @search + '%'
 	OR NoIdentificacion LIKE '%' + @search + '%'
 	OR JSON_VALUE(Detalles, '$.NoMaquina') LIKE '%' + @search + '%'
+	OR JSON_VALUE(Detalles, '$.Matricula') LIKE '%' + @search + '%'
 	OR JSON_VALUE(Detalles, '$.Placa') LIKE '%' + @search + '%'
 	OR JSON_VALUE(Detalles, '$.Ano') LIKE '%' + @search + '%'
 	OR JSON_VALUE(Detalles, '$.Valor') LIKE '%' + @search + '%'
-
-
 END

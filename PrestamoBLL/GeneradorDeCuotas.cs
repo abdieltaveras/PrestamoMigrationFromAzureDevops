@@ -226,7 +226,25 @@ namespace PrestamoBLL
         {
             this.TipoAmortizacion = TipoAmortizacion;
         }
-        public infoGeneradorDeCuotas() { }
+        public infoGeneradorDeCuotas(Prestamo prestamo) {
+
+            {
+
+                AcomodarFechaALasCuotas = prestamo.AcomodarFechaALasCuotas;
+                CantidadDePeriodos = prestamo.CantidadDePeriodos;
+                MontoCapital = prestamo.MontoCapital;
+                FechaEmisionReal = prestamo.FechaEmisionReal;
+                FechaInicioPrimeraCuota = prestamo.FechaInicioPrimeraCuota;
+                CargarInteresAlGastoDeCierre = prestamo.CargarInteresAlGastoDeCierre;
+                FinanciarGastoDeCierre = prestamo.FinanciarGastoDeCierre;
+                MontoGastoDeCierre = prestamo.MontoGastoDeCierre;
+                OtrosCargosSinInteres = prestamo.OtrosCargosSinInteres;
+                GastoDeCierreEsDeducible = prestamo.GastoDeCierreEsDeducible;
+                TipoAmortizacion = prestamo.TipoAmortizacion;
+                TasaDeInteresPorPeriodo = prestamo.TasaDeInteresPorPeriodo;
+                Periodo = prestamo.Periodo;
+            };
+        }
     }
     public interface IInfoGeneradorCuotas
     {

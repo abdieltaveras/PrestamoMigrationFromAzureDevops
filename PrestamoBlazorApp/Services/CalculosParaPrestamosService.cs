@@ -19,7 +19,7 @@ namespace PrestamoBlazorApp.Services
 
         public void CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
         {
-            var data = BLLPrestamo.Instance.CalcularTasaInterePorPeriodo(tasaInteresMensual, periodo);
+            var data = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
         }
 
     }

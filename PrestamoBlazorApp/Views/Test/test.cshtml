@@ -1,9 +1,56 @@
 ﻿@using PrestamoBlazorApp.Pages.Colores
-<h1>Your are viewing Test Page from a controller not from razor component</h1>
-<component type="typeof(Colores)" render-mode="serverPreredered" />
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PrestamoBlazorApp</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="PrestamoBlazorApp.styles.css" rel="stylesheet" />
+    <link href="~/_content/BlazorUtilsLibrary/leaflet/leaflet.css" rel="stylesheet" />
+    <link href="~/_content/Radzen/default.css" rel="stylesheet" />
+    <link href="~/_content/fontawesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/sweetalert2/sweetalert2.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="row">
+        <h1>Your are viewing Test Page from a controller not from razor component</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Probando solo con una division de 2 columnas
+<pre>
+Inventando luis para poder usar algo asi.
 
-@{
-}
+En caso de presentarse algun escenario que sea necesario
+
+Esto es una simple muestra sin complicaciones
+        ^__^
+        (oo)\_______
+        (__)\       )\/\
+            ||----w |
+            ||     ||
+</pre>
+        </div>
+        <div class="col-md-7">
+            <component type="typeof(Colores)" render-mode="serverPreredered" />
+            @(await Html.RenderComponentAsync<Colores>(RenderMode.ServerPrerendered))
+        </div>
+    </div>
+    <script src="~/jquery.js"></script>
+    <script src="~/bootstrap.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+    <script src="~/_content/Radzen/Radzen.Blazor.js"></script>
+    <script src="~/_content/BlazorUtilsLibrary/leaflet/leaflet.js"></script>
+    <script src="~/_content/BlazorUtilsLibrary/deliveryMap.js"></script>
+    <script src="~/inputmask.js"></script>
+    @*< script src="https://unpkg.com/imask">< /script >*@
+    <script src="~/notify.js"></script>
+    <script src="~/css/sweetalert2/sweetalert2.js"></script>
+    <script src="~/Territorio.js"></script>
+    <script src="~/Localidades.js"></script>
+    <script src="~/css/blockui/jquery.blockUI.js"></script>
+    <script src="~/JsUtils.js"></script>
+</body>
+</html>
