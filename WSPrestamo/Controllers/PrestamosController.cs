@@ -58,7 +58,7 @@ namespace WSPrestamo.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception("El Prestamo no pudo ser creado");
+                return BadRequest(e.Message);
             }
         }
         /// <summary>

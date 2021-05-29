@@ -120,7 +120,7 @@ namespace PrestamoBlazorApp.Shared
         [Inject]
         protected SetParametrosService setParametros { get; set; }
         protected bool saving { get; set; }
-        protected bool disableCodigo { get; set; } = true;
+        protected bool EnableReadCodigo { get; set; } = true;
         protected string TextoForActivo { get; set; } = "Si";
 
         /// <summary>

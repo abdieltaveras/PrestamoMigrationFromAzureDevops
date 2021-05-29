@@ -75,7 +75,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-                //await SetMask();
+                
         }
 
         private void UpdateTieneConyuge(bool value)
@@ -88,11 +88,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
             //NotifyMessageBox("estado civil actualizado");
             cliente.IdEstadoCivil = value;
         }
-        private async Task SetMask()
-        {
-            await JsInteropUtils.SetInputMask(jsRuntime);
-        }
-
         
         private async Task prepareModel()
         {

@@ -1,0 +1,67 @@
+﻿@page "/UsingKey"
+<h3>usingkey render count @renderCount </h3>
+    
+    <button @onclick="Add">Add</button>
+    <button @onclick="Update">Update @(Personas.Count -1) </button>
+
+    <button @onclick="ActivateRender">Activate Should Render </button>
+    @if (Personas!= null && Personas.Count > 0 )
+    {
+    <ol>
+        @foreach (var persona in @Personas)
+        {
+            <li @key="@persona.id">@($"{persona.id}  {persona.Nombres} {persona.Apellidos}")</li>
+        }
+    </ol>
+    }
+    else
+    { 
+        <p>No existen datos </p>
+    }
+
+@code {
+    private List<Persona> Personas { get; set; } = new List<Persona>();
+    private int renderCount { get; set; }
+
+    private bool render;
+    private void Add()
+    {
+        var nextId = Personas.Count+1;
+        var persona = new Persona { id = nextId, Nombres = nextId + "-nombres", Apellidos = nextId + "-apellidos" };
+        Personas.Add(persona);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        renderCount++;
+        base.OnAfterRender(firstRender);
+    }
+    private void Update()
+    {
+        var beforeLast = Personas.Count -1;
+        var PersonaUpdated = Personas[beforeLast];
+        PersonaUpdated.Nombres = PersonaUpdated.Nombres + " Updated";
+        Personas[beforeLast] = PersonaUpdated;
+    }
+
+    private void ActivateRender()
+    {
+        render = true;
+    }
+    class Persona
+    {
+
+        public int id { get; set; }
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
+
+    }
+
+    protected override bool ShouldRender()
+    {
+        return render;
+        //return base.ShouldRender();
+    }
+}
+
+

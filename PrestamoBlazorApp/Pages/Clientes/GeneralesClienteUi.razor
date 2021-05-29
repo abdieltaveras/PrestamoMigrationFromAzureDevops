@@ -1,5 +1,5 @@
 ﻿@inherits CommonBase
-<div class="col-sm-6">
+<div class="col-md-6">
     <div class="form-group row">
         <label for="codigo" class="col-sm-2 col-form-label text-label-align">Codigo</label>
         @if (AllowInputCodigo)
@@ -14,8 +14,8 @@
         <label class="col-sm-1 col-form-label text-right text-info">@(@cliente.Activo ? "Activo" : "Inactivo")</label>
     </div>
     <div class="form-group row">
-        <label for="tiposIdentificacionPersonas" class="col-sm-3 col-form-label text-label-align"> Tipo Identificacion</label>
-        <InputSelect id="tiposIdentificacion" @bind-Value="cliente.IdTipoIdentificacion" class="form-control col-sm-4">
+        <label for="tiposIdentificacionPersonas" class="col-sm-3 col-form-label text-left"> Tipo Identificacion</label>
+        <InputSelect id="tiposIdentificacion" @bind-Value="cliente.IdTipoIdentificacion" class="form-control col-sm-3">
             @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
             {
                 <option value=@item.Value>@item.Text</option>
@@ -24,7 +24,7 @@
         <label for="noIdentificacion" class="col-sm-2 col-form-label text-label-align">Numeracion </label>
         @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
         {
-            <InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />
+            <InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />
             @*<InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />*@
         }
         else
@@ -74,7 +74,7 @@
     </div>
 </div>
 
-<div class="col-sm-6">
+<div class="col-md-6 col-sm-12">
     
     <div class="form-group row mt-5">
         <label class="col-sm-3 col-form-label text-label-align">Telefono Casa</label>

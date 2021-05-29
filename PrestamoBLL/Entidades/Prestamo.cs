@@ -203,7 +203,7 @@ namespace PrestamoBLL.Entidades
         //public List<Codeudor> _Codeudores { get; set; }
 
         [IgnorarEnParam]
-        public List<int> IdCodeudores { get; set; }
+        public List<int> IdCodeudores { get; set; } = new List<int>();
         [Display(Name = "Fecha de emision")]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public virtual DateTime FechaEmisionReal { get; set; } = DateTime.Now;
@@ -359,9 +359,6 @@ namespace PrestamoBLL.Entidades
     {
         private IEnumerable<CuotaForSqlType> _CuotasList = new List<CuotaForSqlType>();
 
-
-
-
         public PrestamoInsUpdParam(IEnumerable<CuotaForSqlType> cuotas)
         {
             this._CuotasList = cuotas;
@@ -403,17 +400,26 @@ namespace PrestamoBLL.Entidades
 
     public class PrestamoConCalculos : Prestamo
     {
+        private Func<Task> execCalcs { get; set; } 
         public PrestamoConCalculos()
         {
-            
+            execCalcs = NoCalcular;
         }
-        public PrestamoConCalculos(EventHandler<string> notificarMensaje,
+
+        private async Task NoCalcular() => await Task.Run(() => { });
+
+        public async Task ExecCalcs() => await execCalcs();
+
+
+        public void ActivateCalculos() => execCalcs = Calcular;
+        public void SetServices(EventHandler<string> notificarMensaje,
             IEnumerable<Clasificacion> clasificaciones,
             IEnumerable<TipoMora> tiposMora,
             IEnumerable<TasaInteres> tasasDeInteres,
             IEnumerable<Periodo> periodos
             )
         {
+            execCalcs = Calcular;
             this.OnNotificarMensaje = notificarMensaje;
             this.Clasificaciones = clasificaciones;
             this.TiposMora = tiposMora;
@@ -438,11 +444,56 @@ namespace PrestamoBLL.Entidades
             {
                 RejectNegativeValue(value);
                 base.MontoPrestado = value;
-                Update();
+                execCalcs();
             }
         }
 
 
+        public DateTime CalcularFechaVencimiento()
+        {
+            // primero buscar el periodo
+            // luego tomar la fecha inicial de partida y hacer los calculos
+            var duracion = this.CantidadDePeriodos * this.Periodo.MultiploPeriodoBase;
+            var fechaVencimiento = new DateTime();
+            if (this.AcomodarFechaALasCuotas)
+            {
+                throw new Exception("aun no estamos trabajando con acomodar cuotas");
+            }
+            var fechaInicial = this.FechaEmisionReal;
+            switch (this.Periodo.PeriodoBase)
+            {
+                case PeriodoBase.Dia:
+                    fechaVencimiento = fechaInicial.AddDays(duracion);
+                    break;
+                case PeriodoBase.Semana:
+                    fechaVencimiento = fechaInicial.AddDays(duracion * 7);
+                    break;
+                case PeriodoBase.Quincena:
+                    var meses = (duracion / 2);
+                    var quincenasImpares = (duracion % 2) == 1;
+                    fechaVencimiento = fechaInicial;
+                    if (meses >= 1)
+                    {
+                        fechaVencimiento = fechaInicial.AddMonths(meses);
+                    }
+                    if (quincenasImpares)
+                    {
+                        fechaVencimiento = fechaVencimiento.AddDays(15);
+                    }
+                    break;
+                case PeriodoBase.Mes:
+                    fechaVencimiento = fechaInicial.AddMonths(duracion);
+                    break;
+                case PeriodoBase.Ano:
+                    fechaVencimiento = fechaInicial.AddYears(duracion);
+                    break;
+                default:
+                    break;
+            }
+            this.FechaVencimiento = fechaVencimiento;
+            
+            return this.FechaVencimiento;
+        }
 
         public override decimal InteresGastoDeCierre
         {
@@ -451,7 +502,7 @@ namespace PrestamoBLL.Entidades
             {
                 RejectNegativeValue(value);
                 base.InteresGastoDeCierre = value;
-                Update();
+                execCalcs();
             }
         }
 
@@ -462,7 +513,7 @@ namespace PrestamoBLL.Entidades
             set
             {
                 base.IdTasaInteres = value;
-                Update();
+                execCalcs();
             }
         }
 
@@ -472,7 +523,7 @@ namespace PrestamoBLL.Entidades
             set
             {
                 base.IdPeriodo = value;
-                Update();
+                execCalcs();
             }
         }
 
@@ -484,7 +535,7 @@ namespace PrestamoBLL.Entidades
             {
                 RejectNegativeValue(value);
                 base.CantidadDePeriodos = value;
-                Update();
+                execCalcs();
             }
         }
 
@@ -494,7 +545,7 @@ namespace PrestamoBLL.Entidades
             set
             {
                 base.GastoDeCierreEsDeducible = value;
-                Update();
+                execCalcs();
             }
         }
 
@@ -504,7 +555,7 @@ namespace PrestamoBLL.Entidades
             set
             {
                 base.FinanciarGastoDeCierre = value;
-                Update();
+                execCalcs();
             }
         }
 
@@ -514,7 +565,7 @@ namespace PrestamoBLL.Entidades
             set
             {
                 base.CargarInteresAlGastoDeCierre = value;
-                Update();
+                execCalcs();
             }
         }
 
@@ -524,7 +575,7 @@ namespace PrestamoBLL.Entidades
             set
             {
                 base.FechaEmisionReal = value;
-                Update();
+                execCalcs();
             }
         }
 
@@ -541,10 +592,12 @@ namespace PrestamoBLL.Entidades
             MontoGastoDeCierre = LlevaGastoDeCierre ? MontoPrestado * (InteresGastoDeCierre / 100) : 0;
         }
 
-        public async Task Update()
+        public async Task Calcular()
         {
+            
             await CalcularGastoDeCierre();
             await CalcularCuotas();
+            this.FechaVencimiento = this.Cuotas.Last().Fecha;
         }
 
 
