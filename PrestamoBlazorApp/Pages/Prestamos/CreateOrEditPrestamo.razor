@@ -30,13 +30,13 @@
                 <div class="col-sm-5">
                     <div class="form-group row">
                         <label for="codigo" class="col-sm-4 col-form-label @textLabelJustify">Prestamo Numero</label>
-                        @if (disableCodigo)
+                        @if (EnableReadCodigo)
                         {
-                            <label class="col-sm-3 mt-2">@prestamo.PrestamoNumero </label>
+                            <InputText Value="prestamo.PrestamoNumero" readonly class="col-sm-3" />
                         }
                         else
                         {
-                            <InputText Value="prestamo.PrestamoNumero" readonly class="col-sm-3" />
+                            <label class="col-sm-3 mt-2">@prestamo.PrestamoNumero </label>
                         }
                     </div>
 

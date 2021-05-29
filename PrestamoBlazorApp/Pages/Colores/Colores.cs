@@ -27,8 +27,6 @@ namespace PrestamoBlazorApp.Pages.Colores
             Catalogo = new Catalogo { NombreTabla = "tblColores", IdTabla = "idcolor" };
             
         }
-    
-
         void RaiseInvalidSubmit()
         {
             

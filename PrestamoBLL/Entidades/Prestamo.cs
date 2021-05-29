@@ -469,7 +469,7 @@ namespace PrestamoBLL.Entidades
                     fechaVencimiento = fechaInicial.AddDays(duracion * 7);
                     break;
                 case PeriodoBase.Quincena:
-                    var meses = duracion / 2;
+                    var meses = (duracion / 2);
                     var quincenasImpares = (duracion % 2) == 1;
                     fechaVencimiento = fechaInicial;
                     if (meses >= 1)
