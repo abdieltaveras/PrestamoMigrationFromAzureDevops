@@ -4,6 +4,7 @@
 	[Codigo] VARCHAR(20) NULL,
 	[Nombre] NVARCHAR(50) NOT NULL,
 	[IdNegocio] INT NOT NULL,
+	[IdLocalidadNegocio] INT NOT NULL,
     [Activo] BIT NOT NULL DEFAULT 1,
 	[InsertadoPor] varchar(100) not null,
 	[FechaInsertado] DateTime not null default getdate(), 
