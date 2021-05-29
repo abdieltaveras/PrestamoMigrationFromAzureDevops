@@ -79,7 +79,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             TasasDeInteres = await tasasInteresService.Get(new TasaInteresGetParams());
             TasasDeInteres = TasasDeInteres.ToList().OrderBy(ti => ti.InteresMensual);
             Periodos = await periodosService.Get(new PeriodoGetParams());
-            this.prestamo = new PrestamoConCalculos(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
+            prestamo.SetServices(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
             this.prestamo.PrestamoNumero = "Nuevo";
             this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
             this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
@@ -106,7 +106,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         {
             if (firstRender)
             {
-                await this.prestamo.Update();
+                await this.prestamo.ExecCalcs();
                 //await JsInteropUtils.SetInputMask(jsRuntime);
             }
         }
@@ -166,7 +166,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         {
 
             prestamo.InteresGastoDeCierre = prestamo.LlevaGastoDeCierre ? 0 : 10;
-            await prestamo.Update();
+            await prestamo.ExecCalcs();
         }
 
         

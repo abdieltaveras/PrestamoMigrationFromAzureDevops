@@ -4,6 +4,7 @@ using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
@@ -383,10 +384,7 @@ namespace PrestamoBLL
     public class PrestamoBuilder2
     {
         #region property members
-        List<Cliente> clientes = new List<Cliente>();
-        List<Codeudor> codeudores = new List<Codeudor>();
-        List<Garantia> garantias = new List<Garantia>();
-        List<Cuota> cuotas = new List<Cuota>();
+        
         PrestamoConCalculos prestamoInProgress = new PrestamoConCalculos();
         Periodo periodo = new Periodo();
         public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
@@ -403,51 +401,24 @@ namespace PrestamoBLL
         {
 
         }
+
         
 
-        //public static string ConvertToJson<T>(this T obj)
-        //{
-        //    return JsonConvert.SerializeObject(obj);
-        //}
-        //public static T ConvertToObject<T>(this string json)
-        //{
-        //    if (string.IsNullOrEmpty(json))
-        //    {
-        //        return Activator.CreateInstance<T>();
-        //    }
-        //    return JsonConvert.DeserializeObject<T>(json);
-        //}
-        public T ConvertToObject<T>(string json)
-        {
-            if (string.IsNullOrEmpty(json))
-            {
-                return Activator.CreateInstance<T>();
-            }
-            return JsonConvert.DeserializeObject<T>(json);
-        }
         /// <summary>
         /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
         /// a la base de datos.
         /// </summary>
         /// <param name="prestamo"></param>
-        private void SetPrestamo(Prestamo prestamo)
+        private async Task SetPrestamo(Prestamo prestamo)
         {
             var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = 1 });
             var tiposMora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
             var tasasDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
             var periodos = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 1 });
-            prestamoInProgress = new PrestamoConCalculos(NotificadorDeMensaje, clasificaciones, tiposMora, tasasDeInteres, periodos);
+            prestamoInProgress = new PrestamoConCalculos();
             prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
-            //var jsonprestamoInProgress = prestamo.ToJson();
-            //prestamoInProgress = ConvertToObject(jsonprestamoInProgress);
-
-            _type.CopyPropertiesTo(prestamo, prestamoInProgress );
-            prestamoInProgress .IdTipoAmortizacion = prestamo.IdTipoAmortizacion;
-            prestamoInProgress.MontoPrestado = prestamo.MontoPrestado;
-            prestamoInProgress.MontoGastoDeCierre = prestamo.MontoGastoDeCierre;
-            prestamoInProgress.IdPeriodo = prestamo.IdPeriodo;
-            prestamoInProgress.CantidadDePeriodos = prestamo.CantidadDePeriodos;
-            prestamoInProgress.IdTasaInteres = prestamo.IdTasaInteres;
+            prestamoInProgress.SetServices(this.NotificadorDeMensaje, clasificaciones, tiposMora, tasasDeInteres, periodos);
+            await prestamoInProgress.ExecCalcs();
         }
 
         private IGeneradorCuotas GetGeneradorCuotas()
