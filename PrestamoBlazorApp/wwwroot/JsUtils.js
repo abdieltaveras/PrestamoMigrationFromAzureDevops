@@ -93,8 +93,13 @@ window.sweetAlertSuccess = function(message,redirectTo = "") {
         //footer: '<a href>Why do I have this issue?</a>'
     }).then(function () {
         if (redirectTo != "") {
-            window.location = redirectTo;
-        }
+            if (redirectTo === "Reload" || redirectTo === "reload") {
+                location.reload();
+            } else {
+                window.location = redirectTo;
+            }
+         
+        } 
         //Nota: luis lo obvie porque esto hace que se reinicie todo y se pierdan valores ya guardados
         //que esto lo decida el cliente, porque se puede usar en diferentes contextos
         /*else {*/
@@ -116,8 +121,13 @@ window.SweetMessageBox = function (message, icon, redirectTo = "", delayMilliSec
         //footer: '<a href>Why do I have this issue?</a>'
     }).then(function () {
         if (redirectTo != "") {
-            window.location = redirectTo;
-        }
+            if (redirectTo == "Reload" || redirectTo == "reload") {
+                location.reload();
+            } else {
+                window.location = redirectTo;
+            }
+
+        } 
         //Nota: luis lo obvie porque esto hace que se reinicie todo y se pierdan valores ya guardados
         //que esto lo decida el cliente porque s epuee usar en diferentes contexto
         /*else {*/

@@ -43,7 +43,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             this.Localidad.IdTipoLocalidad = Convert.ToInt32( SelectedTipoLocalidad);
             await localidadesService.SaveLocalidad(this.Localidad);
             await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            await SweetMessageBox("Guardado Correctamente", "success", "/localidades");
         }
         public async Task VerLocalidades()
         {

@@ -30,6 +30,10 @@ namespace PrestamoBLL.Entidades
         [IgnorarEnParam]
         public string DescripcionPadre { get; set; }
 
+        public override string ToString()
+        {
+            return  $"DivisionTerritorial {IdDivisionTerritorial} Padre {IdLocalidadPadre} Nombre{Nombre} PermiteCalle{PermiteCalle} ";
+        }
         //public override int GetId()
         //{
         //    throw new NotImplementedException();

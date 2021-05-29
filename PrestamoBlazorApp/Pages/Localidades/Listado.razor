@@ -17,8 +17,11 @@
             @foreach (var item in localidades)
             {
                 <tr>
+                    @{ 
+                        var datos = territorios.Where(m => m.IdDivisionTerritorial == item.IdTipoLocalidad).FirstOrDefault();
+                    }
                     <td>@item.Nombre</td>
-                    <td>@(territorios.Where(m=>m.IdDivisionTerritorial == item.IdTipoLocalidad).FirstOrDefault().Nombre)</td>
+                    <td>@(datos == null ? "": datos.Nombre)</td>
                     <td> <button @onclick="()=>Edit(item.IdLocalidad)" class="btn btn-info"> Editar </button></td>
                 </tr>
 
@@ -67,46 +70,7 @@
         </div>
     </div>
 </div>
-<!--<EditForm Model="@Localidad">
-    <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h2 id="titulodelocalidad" class="card-title"> Editando a : </h2>-->
-@*<div class="clearfix"></div>*@
-<!--</div>
 
-<div class="card-body">
-    <br />
-    <div class="row">
-        <div class="col-md-6">-->
-@*<BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>*@
-<!--<GetLocalidades OnLocalidadSelected="HandleLocalidadSelected"></GetLocalidades>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="form-group row">
-
-                        <div class="col-md-8">
-                            <label class="" for="codigo">
-                                Nombre <span class="required">*</span>
-                            </label>
-                            <InputText @bind-Value="Localidad.Nombre"></InputText>
-                        </div>
-                    </div>
-                    <hr />
-                </div>
-                <div class="card-footer">
-                    <div class="col-md-12" style="display:flex; justify-content:flex-end;">
-                        <button type="submit" id="btnguardar" class="btn btn-primary">Guardar</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</EditForm>-->
 
 @code {
 

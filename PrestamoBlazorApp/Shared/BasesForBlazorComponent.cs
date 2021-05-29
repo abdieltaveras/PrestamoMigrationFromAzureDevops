@@ -147,7 +147,7 @@ namespace PrestamoBlazorApp.Shared
             }
         }
 
-        protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage=false, string redirectoTo="")
+        protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage=false, string redirectTo = "")
         {
             if (blockPage) { await BlockPage(); }
             try
@@ -158,7 +158,7 @@ namespace PrestamoBlazorApp.Shared
                 if (blockPage) { await UnBlockPage(); }
                 if (_OnSuccess == null)
                 {
-                    await SweetMessageBox("Datos Guardados Correctamente", "success", "");
+                    await SweetMessageBox("Datos Guardados Correctamente", "success", redirectTo);
                 }
                 else
                 {
@@ -170,8 +170,8 @@ namespace PrestamoBlazorApp.Shared
                 if (blockPage) { await UnBlockPage(); }
                 if (_OnFail == null)
                 {
-                    var mens1 = redirectoTo != "" ? "regresale al listado" : "";
-                    await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message} {mens1}", "error", redirectoTo, 10000);
+                    var mens1 = redirectTo != "" ? "regresale al listado" : "";
+                    await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message} {mens1}", "error", redirectTo, 10000);
                     // await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException.Message} regresale al listado", "error", redirectoTo, 10000);
                 }
                 else

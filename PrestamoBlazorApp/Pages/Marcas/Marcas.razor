@@ -1,8 +1,12 @@
 ﻿@page "/marcas"
 @inherits BaseForCreateOrEdit
 
+<CreateOrEditCatalogo Catalogo="Catalogo" CatalogoGetParams="CatalogoGetParams"></CreateOrEditCatalogo>
 
-<h1>Marcas  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
+@*<h1>Marcas  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>*@
+
+
+
 @*<button class="btn btn-info" @onclick="GetMarcas">Buscar</button>*@
 
 @*<button class="btn btn-primary" @onclick="GetMarcasByParam">Get By Param</button>
@@ -10,7 +14,7 @@
     <button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>*@
 
 
-<div class="modal fade" id="edtMarca" tabindex="-1" role="dialog" aria-hidden="true">
+@*<div class="modal fade" id="edtMarca" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -50,35 +54,32 @@
 
         </div>
     </div>
-</div>
+</div>*@
 
 
 
 
-@if (loading)
-{
-    <div class="loader">Cargando datos, espere...</div>
-}
-<div class="row">
+
+<!--<div class="row">
     <div class="col-md-12">
         <div class="search float-right">
             <EditForm autocomplete="off" Model="@SearchMarca" OnValidSubmit="@GetMarcas">
                 <DataAnnotationsValidator />
-                <ValidationSummary />
+                <ValidationSummary />-->
                 <!--<div class="input-group">-->
-                @*<InputText id="nombres" @bind-Value="SearchMarca.IdMarca" placeholder="Nombre" class="form-control" />*@
-                <!--<span>
+                <!--<InputText id="nombres" @bind-Value="SearchMarca.IdMarca" placeholder="Nombre" class="form-control" />
+                <span>
                         <button type="submit" class="btn btn-info">Buscar</button>
                     </span>
-                </div>-->
+                </div>
 
             </EditForm>
         </div>
     </div>
-</div>
+</div>-->
 
 
-<table class="table table-responsive-md table-hover">
+@*<table class="table table-responsive-md table-hover">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -103,4 +104,4 @@
 
         }
     </tbody>
-</table>
+</table>*@

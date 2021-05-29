@@ -1,5 +1,7 @@
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
@@ -10,17 +12,8 @@ namespace PrestamoBlazorApp.Services
 {
     public class CatalogosService : ServiceBase
     {
-        string apiUrl = "api/color";
-        public async Task<IEnumerable<Color>> GetColoresAsync(ColorGetParams search)
-        {
-            var result = await GetAsync<Color>(apiUrl, search);
-            return result;
-        }
-
-        public async Task<IEnumerable<Color>> Get()
-        {
-            return await GetAsync<Color>(apiUrl, null);
-        }
+        string apiUrl = "api/catalogo";
+       
         public CatalogosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 
@@ -37,6 +30,16 @@ namespace PrestamoBlazorApp.Services
                 throw new Exception("Error al guardar", ex);
             }
 
+        }
+        //public async Task<IEnumerable<T>> Get<T>(CatalogoGetParams search) where T : class
+        //{
+        //    var d =  await GetAsync<T>(apiUrl, new { JsonGet = search.ToJson() });
+        //    return d;
+        //}
+        public async Task<IEnumerable<string>> Get(CatalogoGetParams search) 
+        {
+            var d = await GetAsync<string>(apiUrl, new { JsonGet = search.ToJson() });
+            return d;
         }
     }
 }

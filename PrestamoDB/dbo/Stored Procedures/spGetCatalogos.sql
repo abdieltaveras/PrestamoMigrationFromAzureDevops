@@ -18,7 +18,7 @@ begin
 	--end 
 	-- original instruction by bryan EXEC('SELECT '+ @IdTabla +', idNegocio, Activo, Codigo, Nombre, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado from ' + @NombreTabla + '  where (('+@Id+'=-1) or ('+ @IdTabla +' = '+@Id+'))')
 
-		exec ('SELECT  * from ' + @NombreTabla + '  where (('+@Id+'=-1) 
+			exec ('SELECT  * from ' + @NombreTabla + '  where (('+@id+'=-1) 
 		or ('+ @IdTabla +' = '+@Id+'))') 
 
 		--exec ('SELECT '+ @IdTabla +', idNegocio, Activo, Codigo, Nombre, AnuladoPor  from ' + @NombreTabla + '  where (('+@Id+'=-1) or ('+ @IdTabla +' = '+@Id+')) and IdNegocio in (select idNegocio from fnGetNegocioAndPadres('+@IdNegocio+'))')
