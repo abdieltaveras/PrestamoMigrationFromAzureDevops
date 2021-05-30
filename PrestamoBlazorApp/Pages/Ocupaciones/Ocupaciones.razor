@@ -1,5 +1,6 @@
 ﻿@page "/ocupaciones"
 @inherits BaseForCreateOrEdit
+<CreateOrEditCatalogo Catalogo="Catalogo" CatalogoGetParams="CatalogoGetParams"></CreateOrEditCatalogo>
 @*<h2>Probando operacion de Colores</h2>
     <p>al pusar sobre uno de los botones ejecutara el proceso de hacer el request al api</p>
     <p>es solo para probar de manera basica e inicial la comunicacion entre blazor  y el api</p>*@
@@ -7,7 +8,7 @@
 @*<button class="btn btn-primary" @onclick="GetColoresByParam">Get By Param</button>
     <button class="btn btn-primary" @onclick="GetAll">Get All</button>
     <button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>*@
-<h1>Ocupacion  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
+@*<h1>Ocupacion  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
 <div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -46,11 +47,11 @@
 
         </div>
     </div>
-</div>
+</div>*@
 
 
 
-<table class="table table-responsive-md table-hover">
+@*<table class="table table-responsive-md table-hover">
     <thead>
         <tr>
             <th>IdOcuapcion</th>
@@ -78,4 +79,4 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@

@@ -22,6 +22,7 @@ namespace WSPrestamo.Controllers
             try
             {
                 catalogo.Usuario = this.LoginName;
+                catalogo.IdNegocio = 1;
                 BLLPrestamo.Instance.InsUpdCatalogo(catalogo);
                 return Ok();
             }
