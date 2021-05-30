@@ -2,8 +2,6 @@
 (@IdGarantias tpGarantias readonly)
 AS
 BEGIN
-	
-	
 	SELECT idGarantia, prestamos.IdPrestamo, prestamoNumero FROM tblPrestamoGarantias AS presgar 
 			JOIN 
 			tblPrestamos  AS prestamos ON prestamos.idPrestamo = presgar.IdPrestamo

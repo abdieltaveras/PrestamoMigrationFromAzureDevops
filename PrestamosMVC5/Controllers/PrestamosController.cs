@@ -151,7 +151,7 @@ namespace PrestamosMVC5.Controllers
             var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
             info.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
             info.Periodo = periodo;
-            var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
+            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
             var cuotas = generadorCuotas.GenerarCuotas();
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return Json(cuotas, JsonRequestBehavior.AllowGet);

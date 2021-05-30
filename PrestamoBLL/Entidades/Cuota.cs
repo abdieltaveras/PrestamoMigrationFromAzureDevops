@@ -80,5 +80,37 @@ namespace PrestamoBLL.Entidades
         // que indican que son cargos tentativos mientras se hace ese calculo al momento del pago
     }
 
-    
+
+    public class CuotasConCalculo
+    {
+        public static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)
+        {
+            IGeneradorCuotas generadorCuotas = null;
+            var tipoAmortizacion = info.TipoAmortizacion;
+            switch (tipoAmortizacion)
+            {
+                case TiposAmortizacion.No_Amortizable_cuotas_fijas:
+                    generadorCuotas = new GeneradorCuotasFijasNoAmortizable(info);
+                    break;
+                case TiposAmortizacion.Amortizable_por_dia_abierto:
+                    break;
+                case TiposAmortizacion.Amortizable_por_periodo_abierto:
+
+                    break;
+                case TiposAmortizacion.Amortizable_cuotas_fijas:
+                    break;
+                case TiposAmortizacion.No_Amortizable_abierto:
+                    break;
+                default:
+                    break;
+            }
+
+            if (generadorCuotas == null)
+            {
+                throw new NotImplementedException("no se ha implementado la generacion de cuotas aun para " + tipoAmortizacion.ToString());
+            }
+            return generadorCuotas;
+        }
+    }
+
 }

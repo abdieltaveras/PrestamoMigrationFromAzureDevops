@@ -92,6 +92,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             var resultGarantia = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = 1 });
             var garantia = resultGarantia.FirstOrDefault();
             updateInfoGarantia(garantia);
+            this.prestamo.ProyectarPrimeraYUltima = true;
             await setParametros.ForPrestamo(this.prestamo);
             //await prestamoCalculo.UpdatePrestamoCalculo();
             this.loading = false;
