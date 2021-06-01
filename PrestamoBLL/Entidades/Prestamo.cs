@@ -283,13 +283,13 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Cargo interes al G/C ?")]
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
         [Display(Name = "Desea acomodar las fechas de las cuotas?")]
-        public virtual bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
+        public virtual bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != null; } }
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
         [ReadOnly(true)]
         [HiddenInput]
-        public DateTime FechaInicioPrimeraCuota { get; internal set; } = InitValues._19000101;
+        public DateTime? FechaInicioPrimeraCuota { get; set; } 
 
         /// <summary>
         /// este campo es el que tendra la fecha real de donde partira a generar las cuotas y sus fechas de vencimientos, es necesario para cuando al prestamo se le acomode las cuotas
@@ -316,6 +316,15 @@ namespace PrestamoBLL.Entidades
         [Range(0.00, 999999999999.99, ErrorMessage = "no se aceptan valores negativos")]
         [Display(Name = "Otros Cargos Sin Interes")]
         public decimal OtrosCargosSinInteres { get; set; }
+
+        /// <summary>
+        /// true si es para estimarla generando solamente las primera y ultima cuota o false
+        /// si es para generarlas todas se usa normalmente para insertar o actualizar un prestamo
+        /// que no tiene operacionescc
+        /// </summary>
+        [IgnorarEnParam]
+        public bool ProyectarPrimeraYUltima { get; set; } = true;
+
 
         public override string ToString()
         {
@@ -366,6 +375,8 @@ namespace PrestamoBLL.Entidades
         public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
         //this._Garantias.ToDataTable();
         public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
+
+        //public DataTable Cuotas => this._CuotasList.ToDataTable();
         public DataTable Cuotas => this._CuotasList.ToDataTablePcp();
     }
 
@@ -449,7 +460,18 @@ namespace PrestamoBLL.Entidades
         }
 
 
-        public DateTime CalcularFechaVencimiento()
+        public static DateTime CalcularFechaVencimiento(DateTime fechaPrestamo, Periodo periodo, int cantidadDePeriodos, 
+            DateTime? FechaInicioPrimeraCuota)
+        { 
+            var prestamo = new PrestamoConCalculos();
+            prestamo.FechaEmisionReal = fechaPrestamo;
+            prestamo.Periodo = periodo;
+            prestamo.CantidadDePeriodos = cantidadDePeriodos;
+            prestamo.FechaInicioPrimeraCuota = FechaInicioPrimeraCuota ;
+            var fechaVencimiento = prestamo.CalcularFechaVencimiento();
+            return fechaVencimiento;
+        }
+        private DateTime CalcularFechaVencimiento()
         {
             // primero buscar el periodo
             // luego tomar la fecha inicial de partida y hacer los calculos
@@ -603,7 +625,7 @@ namespace PrestamoBLL.Entidades
 
         public IEnumerable<Cuota> GenerarCuotas(IInfoGeneradorCuotas info)
         {
-            var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
+            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
             var cuotas = generadorCuotas.GenerarCuotas();
             return cuotas;
         }
@@ -621,7 +643,7 @@ namespace PrestamoBLL.Entidades
             var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
             var tasaDeInteresPorPeriodos = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, Periodo);
             this.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
-            var infoCuotas = new infoGeneradorDeCuotas(this);
+            var infoCuotas = new InfoGeneradorDeCuotas(this);
 
             // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar
             // cuotas y no que se le envie esa informacion

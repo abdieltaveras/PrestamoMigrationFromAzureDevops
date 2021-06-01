@@ -101,13 +101,13 @@ namespace WSPrestamo.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Cuota> GenerarCuotas(infoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
+        public IEnumerable<Cuota> GenerarCuotas(InfoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
         {
             var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
             info.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
             info.Periodo = periodo;
-            var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
+            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
             var cuotas = generadorCuotas.GenerarCuotas();
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return cuotas;

@@ -41,8 +41,6 @@ namespace PrestamoBlazorApp.Shared
         {
             await Handle_SaveData(async () => await CatalogosService.SaveCatalogo(this.Catalogo), null, null,false,"Reload");
             this.Catalogo = new Catalogo();
-
-
         }
         async Task CreateOrEdit(int Id = -1)
         {

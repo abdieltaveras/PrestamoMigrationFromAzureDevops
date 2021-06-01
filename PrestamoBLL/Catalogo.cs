@@ -65,7 +65,7 @@ namespace PrestamoBLL
             }
             return catalogo;
         }
-        public List<T> GetCatalogosNew<T>(CatalogoGetParams searchParams) where T : class
+        public IEnumerable<T> GetCatalogosNew<T>(CatalogoGetParams searchParams) where T : class
         {
             var searchSqlParams = SearchRec.ToSqlParams(searchParams);
             List<T> catalogo = new List<T>();

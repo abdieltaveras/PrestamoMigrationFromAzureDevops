@@ -32,7 +32,7 @@
                         <label for="codigo" class="col-sm-4 col-form-label @textLabelJustify">Prestamo Numero</label>
                         @if (EnableReadCodigo)
                         {
-                            <InputText Value="prestamo.PrestamoNumero" readonly class="col-sm-3" />
+                            <InputText @bind-Value="@prestamo.PrestamoNumero" class="col-sm-3" />
                         }
                         else
                         {
@@ -103,7 +103,7 @@
                     <div class="form-group row">
                         @*<label for="llevagastodecierre" class="col-sm-4 col-form-label @textLabelJustify">Lleva Gasto de Cierre</label>*@
                         @*<InputCheckbox @bind-Value="prestamo.LlevaGastoDeCierre"  class="offset-2 mt-1" />*@
-                        <input type="checkbox" value="prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre" checked="@prestamo.LlevaGastoDeCierre" class="offset-4 mt-1" />
+                        <input type="checkbox" value="@prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre" checked="@prestamo.LlevaGastoDeCierre" class="offset-4 mt-1" />
                         <label for="llevagastodecierre" class="ml-2 @textLabelJustify" style="margin-left: 5px">lleva Gasto de Cierre</label>
                     </div>
 
@@ -111,15 +111,15 @@
                         {
                             <div class="form-group row">
                                 <label for="porcientoGastodecierre" class="col-sm-4 col-form-label @textLabelJustify">% Gasto de cierre</label>
-                                <InputNumber @bind-Value="prestamo.InteresGastoDeCierre" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="999" />
+                                <InputNumber @bind-Value="@prestamo.InteresGastoDeCierre" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="999" />
                                 <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-left">
                                     = @(string.Format("{0:c}",prestamo.MontoGastoDeCierre))
                                 </label>
                             </div>
                             <div class="form-group row">
-                                <InputCheckbox @bind-Value="prestamo.GastoDeCierreEsDeducible" class="offset-2 mt-1" />
+                                <InputCheckbox @bind-Value="@prestamo.GastoDeCierreEsDeducible" class="offset-2 mt-1" />
                                 <label for="esDeducible" class="ml-2" style="margin-left: 5px">Es Decucible</label>
-                                @if (prestamo.GastoDeCierreEsDeducible)
+                                @if (@prestamo.GastoDeCierreEsDeducible)
                                 {
                                     <label class="ml-2" style="margin-left: 5px">Se Rebajara del Monto a entregar al cliente</label>
                                 }
@@ -127,7 +127,7 @@
                             if (!prestamo.GastoDeCierreEsDeducible)
                             {
                                 <div class="form-group row">
-                                    <InputCheckbox @bind-Value="prestamo.FinanciarGastoDeCierre" class="offset-2 mt-1" />
+                                    <InputCheckbox @bind-Value="@prestamo.FinanciarGastoDeCierre" class="offset-2 mt-1" />
                                     <label class="ml-2" style="margin-left: 5px">Financiar el GC</label>
 
                                     @if (prestamo.FinanciarGastoDeCierre)
@@ -200,7 +200,7 @@
 
                     @if (prestamo.Cuotas.Count() > 0)
                     {
-                        <h3>Proyeccion de cuotas</h3>
+                        <h3>Proyeccion Cuotas: @InfoCuotas()</h3>
                         <div class="form-group row">
                             <ProyeccionCuotasValoresIniciales Cuotas="prestamo.Cuotas" />
                         </div>

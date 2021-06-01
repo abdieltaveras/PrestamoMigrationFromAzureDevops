@@ -112,6 +112,11 @@ namespace PrestamoBlazorApp.Shared
                 await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "info", redirect,5000);
             }
         }
+
+        public virtual void  OnEditClick(string url)
+        {
+            NavManager.NavigateTo(url);
+        }
         
     }
 

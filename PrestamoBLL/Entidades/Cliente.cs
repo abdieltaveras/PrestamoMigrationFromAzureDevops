@@ -74,9 +74,6 @@ namespace PrestamoBLL.Entidades
         [Required]
         public string Codigo { get; set; } = string.Empty;
         
-        [IgnorarEnParam]
-        //todo porue luis puso esta variale aqui para hacer que
-        public int IdStatus { get; set; } = -1;
         public bool GenerarSecuencia { get; set; } = true;
 
         [Display(Name = "Tipo Identificacion")]

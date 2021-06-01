@@ -18,7 +18,7 @@ namespace PrestamoBLL.Tests
 
             // necesito aqui un objeto que sea capaz de indicarme la tasa de interes para el periodo quincenal
 
-            var infCuota = new infoGeneradorDeCuotas(Entidades.TiposAmortizacion.Amortizable_cuotas_fijas)
+            var infCuota = new InfoGeneradorDeCuotas(Entidades.TiposAmortizacion.Amortizable_cuotas_fijas)
             {
                 AcomodarFechaALasCuotas = false,
                 CantidadDePeriodos = 7,

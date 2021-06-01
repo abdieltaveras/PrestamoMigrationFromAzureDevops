@@ -33,8 +33,7 @@ namespace PrestamoBlazorApp.Services
             
             response = await client.PostAsJsonAsync<@Type>($"{baseUrl}/{endpoint}?{query}", body);
             errorMessage = await response.Content.ReadAsStringAsync();
-            
-            
+
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {errorMessage}'");

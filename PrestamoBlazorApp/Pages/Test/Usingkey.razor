@@ -1,10 +1,12 @@
-﻿@page "/UsingKey"
+﻿@page "/test/usingkey"
 <h3>usingkey render count @renderCount </h3>
     
     <button @onclick="Add">Add</button>
     <button @onclick="Update">Update @(Personas.Count -1) </button>
 
-    <button @onclick="ActivateRender">Activate Should Render </button>
+    <button @onclick="ActivateRender">Activatr Desactivar ShouldRender </button>
+
+    
     @if (Personas!= null && Personas.Count > 0 )
     {
     <ol>
@@ -46,7 +48,7 @@
 
     private void ActivateRender()
     {
-        render = true;
+        render = !render;
     }
     class Persona
     {

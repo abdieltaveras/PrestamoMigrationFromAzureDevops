@@ -12,7 +12,7 @@ namespace PrestamoBlazorApp.Services
     {
         public IEnumerable<Cuota>  GenerarCuotas(IInfoGeneradorCuotas info)
         {
-            var generadorCuotas = PrestamoBuilder.GetGeneradorDeCuotas(info);
+            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
             var cuotas = generadorCuotas.GenerarCuotas();
             return cuotas;
         }

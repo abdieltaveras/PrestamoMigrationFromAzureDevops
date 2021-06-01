@@ -7,8 +7,6 @@
     </div>
     <div class="search">
         <EditForm Model="@searchClientes" OnValidSubmit="@GetClientes">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
             <InputText id="Codigo" @bind-Value="searchClientes.Codigo" placeholder="Código" />
             <InputText id="nombres" @bind-Value="searchClientes.Nombres" placeholder="Nombres" />
             <InputText id="Apellidos" @bind-Value="searchClientes.Apellidos" placeholder="Primer Apellido" />
@@ -19,7 +17,7 @@
                 <label class="text-right col-sm-2">registros encontrados @totalClientes</label>
             }
         </EditForm>
-        
+
     </div>
 </div>
 
@@ -52,24 +50,44 @@
                     <tbody>
                         @foreach (var cliente in clientes)
                         {
-                        <tr @key="@cliente.IdCliente">
-                            <td>@cliente.Codigo</td>
-                            <td>@cliente.NombreCompleto</td>
-                            <td>@cliente.TelefonoMovil</td>
-                            @{
-                                var tident = (TiposIdentificacionPersona)cliente.IdTipoIdentificacion;
-                                <td> @tident</td>
-                            }
-                            <td>@cliente.NoIdentificacion</td>
-                            <td>
-                                <a href="@($"clientes/detallesCliente/{cliente.IdCliente}")" title="ver detalles" class="btn btn-outline-warning">
-                                    <i class="oi oi-document"></i>
-                                </a>
-                                <a href="@($"clientes/createoredit/{cliente.IdCliente}")" title="editar" class="btn btn-outline-primary">
-                                    <i class="oi oi-pencil"></i>
-                                </a>
-                            </td>
-                        </tr>
+                            <tr @key="@cliente.IdCliente">
+                                <td>@cliente.Codigo</td>
+                                <td>@cliente.NombreCompleto</td>
+                                <td>@cliente.TelefonoMovil</td>
+                                @{
+                                    var tident = (TiposIdentificacionPersona)cliente.IdTipoIdentificacion;
+                                    <td> @tident</td>
+                                }
+                                <td>@cliente.NoIdentificacion</td>
+
+                                <td>
+
+                                    <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
+                                        <i class="fa fa-info-circle"></i>
+                                    </button>
+                                    
+                                    <button @onclick='()=>OnEditClick("clientes/createoredit/" + cliente.IdCliente)' class="btn btn-outline-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+
+                                    @*<a href="@($"clientes/detallesCliente/{cliente.IdCliente}")" title="ver detalles" class="btn btn-outline-warning">*@
+                                    <button onclick="Default()
+        alert('opcion no implementada aun'); ;
+    }" title="ver detalles" class="btn btn-outline-primary">
+                                        <i class="fa fa-info-circle"></i>
+                                    </button>
+                                    <a href="@($"clientes/createoredit/{cliente.IdCliente}")" title="editar" class="btn btn-outline-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="" onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
                         }
                     </tbody>
                 </table>

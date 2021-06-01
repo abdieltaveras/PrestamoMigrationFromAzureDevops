@@ -262,10 +262,10 @@ VALUES (0, 1, 3, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.64
 	declare @codigo2 varchar(50)= 'cod2'
 	declare @codigo3 varchar(50)= 'cod3'
 
-INSERT INTO tblOcupaciones(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
-	VALUES	('Mecanico', 1, @codigo1, 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
-	   		('Programador', 1, @codigo2, 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
-			('Agricultor', 1, @codigo3, 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+INSERT INTO tblOcupaciones(Nombre, IdNegocio,IdLocalidadNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
+	VALUES	('Mecanico', 1,1, @codigo1, 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
+	   		('Programador', 1,1, @codigo2, 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
+			('Agricultor', 1,1, @codigo3, 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
 
 --VERIFICADORES DE DIRECCIONES
 INSERT INTO tblVerificadorDirecciones(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado) 
@@ -412,10 +412,10 @@ INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, BceCapital, Interes, 
 (7, 1, '2020-06-25', 500,500, 5, 5)
 
 
-CREATE UNIQUE NONCLUSTERED INDEX [UniqueCodigoOcupacionExceptNulls]
-ON [TblOcupaciones] (Codigo)
-WHERE [Codigo] IS NOT NULL
+--CREATE UNIQUE NONCLUSTERED INDEX [UniqueCodigoOcupacionExceptNulls]
+--ON [TblOcupaciones] (Codigo)
+--WHERE [Codigo] IS NOT NULL
 
-CREATE UNIQUE NONCLUSTERED INDEX [UniqueCodigoColorExceptNulls]
-ON [TblColores] (Codigo)
-WHERE [Codigo] IS NOT NULL
+--CREATE UNIQUE NONCLUSTERED INDEX [UniqueCodigoColorExceptNulls]
+--ON [TblColores] (Codigo)
+--WHERE [Codigo] IS NOT NULL
