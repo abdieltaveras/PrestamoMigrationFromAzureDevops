@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using PrestamoWS.Models;
@@ -7,30 +8,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace PrestamoWS.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class ColorController : Controller
+    public class ColorController : BaseApiController
     {
+
         [HttpGet]
-        public IEnumerable<Color> Get()
+        public IEnumerable<Color> Get(string JsonGet = "")
         {
-            ColorVM datos = new ColorVM();
-            datos.ListaColores = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
-            return datos.ListaColores;
+            var JsonResult = JsonGet.ToType<ColorGetParams>();
+            var result = BLLPrestamo.Instance.GetColores(JsonResult);
+            return result;
             //return View("CreateOrEdit", datos);
         }
 
+
         [HttpPost]
-        public IActionResult Post(Color color)
+        public ActionResult Post(Color color)
         {
-            //color.IdNegocio = 1;
-            //marca.InsertadoPor = "Bryan";
-            //this.pcpSetUsuarioAndIdNegocioTo(color);
-            BLLPrestamo.Instance.InsUpdColor(color);
-            return Ok();
+            color.Usuario = this.LoginName;
+            color.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            try
+            {
+                BLLPrestamo.Instance.InsUpdColor(color);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
             //return RedirectToAction("CreateOrEdit");
         }
     }
+    
 }

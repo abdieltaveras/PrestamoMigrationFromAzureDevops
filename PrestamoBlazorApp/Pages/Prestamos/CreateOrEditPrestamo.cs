@@ -79,13 +79,33 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             TasasDeInteres = await tasasInteresService.Get(new TasaInteresGetParams());
             TasasDeInteres = TasasDeInteres.ToList().OrderBy(ti => ti.InteresMensual);
             Periodos = await periodosService.Get(new PeriodoGetParams());
-            prestamo.SetServices(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
-            this.prestamo.PrestamoNumero = "Nuevo";
-            this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
-            this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
-            this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
-            this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
-            this.prestamo.IdTasaInteres = TasasDeInteres.FirstOrDefault().idTasaInteres;
+
+            if (idPrestamo > 0)
+            {
+
+                var getResult = (await prestamoService.GetPrestamosAsync(new PrestamosGetParams { idPrestamo = idPrestamo })).ToList().FirstOrDefault(); ;
+                if (getResult == null)
+                {
+                    await SweetMessageBox("Lo siento no encontramos prestamo para su peticion", redirectTo: "/prestamos");
+                };
+
+                prestamo = getResult.ToJson().ToType<PrestamoConCalculos>();
+                prestamo.SetServices(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
+                await prestamo.ExecCalcs();
+            }
+            else
+            {
+                prestamo.SetServices(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
+
+                this.prestamo.PrestamoNumero = "Nuevo";
+                this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
+                this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
+                this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
+                this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
+                this.prestamo.IdTasaInteres = TasasDeInteres.FirstOrDefault().idTasaInteres;
+                await setParametros.ForPrestamo(this.prestamo);
+                //await prestamoCalculo.UpdatePrestamoCalculo();
+            }
             var resultCliente = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = 1 });
             var cliente = resultCliente.FirstOrDefault();
             updateInfoCliente(cliente);
@@ -93,16 +113,24 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             var garantia = resultGarantia.FirstOrDefault();
             updateInfoGarantia(garantia);
             this.prestamo.ProyectarPrimeraYUltima = true;
-            await setParametros.ForPrestamo(this.prestamo);
-            //await prestamoCalculo.UpdatePrestamoCalculo();
+            
             this.loading = false;
         }
-
         private void NotificadorDeMensaje(object sender, string e)
         {
             NotifyMessageBox(e);
         }
 
+        private string InfoCuotas()
+        {
+            decimal montoCuota = 0;
+            if (prestamo.TipoAmortizacion == TiposAmortizacion.No_Amortizable_cuotas_fijas)
+            {
+                montoCuota = prestamo.Cuotas != null ? prestamo.Cuotas[0].TotalOrig : 0;
+            }
+            var result = $"{prestamo.CantidadDePeriodos} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("C")}";
+            return result;
+        }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -116,15 +144,15 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         async Task SavePrestamo()
         {
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-            
+
             var prestamoValidator =
                 Validator<Prestamo>.Empty
-                .IsNotValidWhen(p => p == null,"El prestamo no puede estar nulo", ValidationOptions.StopOnFailure)
+                .IsNotValidWhen(p => p == null, "El prestamo no puede estar nulo", ValidationOptions.StopOnFailure)
                 .IsValidWhen(p => p.IdClasificacion > 0, "Debe elegir una clasificacion valida")
-                .IsValidWhen(p => p.IdGarantias.Count > 0,"Debe establecer una garantia")
-                .IsValidWhen(p => p.IdGarantias.Count <=1, "No Acepto mas de una garantia")
-                .IsValidWhen(p => p.MontoPrestado >= 0,"El monto a prestar no puede ser menor a 0 (cero)")
-                .IsValidWhen(p => p.IdCliente>0, "Debe establecer un cliente");
+                .IsValidWhen(p => p.IdGarantias.Count > 0, "Debe establecer una garantia")
+                .IsValidWhen(p => p.IdGarantias.Count <= 1, "No Acepto mas de una garantia")
+                .IsValidWhen(p => p.MontoPrestado >= 0, "El monto a prestar no puede ser menor a 0 (cero)")
+                .IsValidWhen(p => p.IdCliente > 0, "Debe establecer un cliente");
 
             var result = prestamoValidator.Validate(prestamo);
             var validacionesFallidas = result.Where(item => item.Success == false);
@@ -132,14 +160,14 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             //var resultToJson  = result.Dump();
             if (validacionesFallidas.Count() > 0)
             {
-                await SweetMessageBox("Se han encontrado errores " + MensajesValidacionesFallida, "error","",5000);
+                await SweetMessageBox("Se han encontrado errores " + MensajesValidacionesFallida, "error", "", 5000);
                 return;
             }
-            
+
             try
             {
                 Prestamo pr = this.prestamo;
-                await Handle_SaveData(async()=> await prestamoService.SavePrestamo(pr));
+                await Handle_SaveData(async () => await prestamoService.SavePrestamo(pr));
             }
             catch (ValidationObjectException e)
             {
@@ -170,7 +198,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             await prestamo.ExecCalcs();
         }
 
-        
+
 
 
         int IdGarantiaSelected { get; set; }
@@ -235,7 +263,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
     {
         public void Buil()
         {
-            
+
         }
     }
 }

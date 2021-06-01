@@ -283,7 +283,7 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Cargo interes al G/C ?")]
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
         [Display(Name = "Desea acomodar las fechas de las cuotas?")]
-        public virtual bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != InitValues._19000101; } }
+        public virtual bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != null; } }
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
@@ -643,7 +643,7 @@ namespace PrestamoBLL.Entidades
             var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
             var tasaDeInteresPorPeriodos = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, Periodo);
             this.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
-            var infoCuotas = new infoGeneradorDeCuotas(this);
+            var infoCuotas = new InfoGeneradorDeCuotas(this);
 
             // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar
             // cuotas y no que se le envie esa informacion

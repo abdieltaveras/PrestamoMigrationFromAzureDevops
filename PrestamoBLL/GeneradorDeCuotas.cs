@@ -41,29 +41,33 @@ namespace PrestamoBLL
                 for (int i = 1; i <= infoGenerarCuotas.CantidadDePeriodos; i++)
                 {
                     var cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = i, OtrosCargos = otrosCargosSinInteres };
-                    setGastoDeCierreFinaciadoEnCuotas(i, cuota);
+                    setGastoDeCierreFinaciadoEnCuotas(cuota);
                     cuota.Fecha = getFecha(i);
                     this.fechaCuotaAnterior = cuota.Fecha;
                     cuotas.Add(cuota);
                 }
                 ajustarValores();
-                return cuotas;
             }
             else
             {
-                
-                    var cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = 1, OtrosCargos = otrosCargosSinInteres };
-                    setGastoDeCierreFinaciadoEnCuotas(1, cuota);
-                    cuota.Fecha = getFecha(1);
-                    this.fechaCuotaAnterior = cuota.Fecha;
-                    cuotas.Add(cuota);
-                    cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = infoGenerarCuotas.CantidadDePeriodos, OtrosCargos = otrosCargosSinInteres };
-                    cuota.Fecha = PrestamoConCalculos.CalcularFechaVencimiento(this.infoGenerarCuotas.FechaEmisionReal, infoGenerarCuotas.Periodo, infoGenerarCuotas.CantidadDePeriodos, infoGenerarCuotas.FechaInicioPrimeraCuota);
-                    cuotas.Add(cuota);
-                    //ajustarValores();
-                    return cuotas;
 
+                var cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = 1, OtrosCargos = otrosCargosSinInteres };
+                setGastoDeCierreFinaciadoEnCuotas(cuota);
+                cuota.Fecha = getFecha(1);
+                this.fechaCuotaAnterior = cuota.Fecha;
+                cuota.Comentario = "Primera cuota";
+                cuotas.Add(cuota);
+                if (infoGenerarCuotas.CantidadDePeriodos > 1)
+                {
+                    cuota = new Cuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = infoGenerarCuotas.CantidadDePeriodos, OtrosCargos = otrosCargosSinInteres };
+                    setGastoDeCierreFinaciadoEnCuotas(cuota);
+                    cuota.Fecha = PrestamoConCalculos.CalcularFechaVencimiento(this.infoGenerarCuotas.FechaEmisionReal, infoGenerarCuotas.Periodo, infoGenerarCuotas.CantidadDePeriodos, infoGenerarCuotas.FechaInicioPrimeraCuota);
+                    cuota.Comentario = "Ultima Cuota";
+                    cuotas.Add(cuota);
+                }
+                //ajustarValores();
             }
+            return cuotas;
         }
 
         /// <summary>
@@ -117,6 +121,7 @@ namespace PrestamoBLL
             if ((this.infoGenerarCuotas.MontoGastoDeCierre > 0) && (!this.infoGenerarCuotas.FinanciarGastoDeCierre) && (!infoGenerarCuotas.GastoDeCierreEsDeducible))
             {
                 var cuota = new Cuota { GastoDeCierre = this.infoGenerarCuotas.MontoGastoDeCierre, Fecha = this.infoGenerarCuotas.FechaEmisionReal, Numero = 0 };
+                cuota.Comentario = "Gasto De Cierre a pagar";
                 this.cuotas.Add(cuota);
             }
         }
@@ -170,7 +175,7 @@ namespace PrestamoBLL
             return fecha;
         }
 
-        private void setGastoDeCierreFinaciadoEnCuotas(int index, Cuota cuota)
+        private void setGastoDeCierreFinaciadoEnCuotas(Cuota cuota)
         {
             if (this.infoGenerarCuotas.GastoDeCierreEsDeducible)
             {
@@ -213,7 +218,7 @@ namespace PrestamoBLL
 
     }
 
-    public class infoGeneradorDeCuotas : IInfoGeneradorCuotas
+    public class InfoGeneradorDeCuotas : IInfoGeneradorCuotas
     {
         public TiposAmortizacion TipoAmortizacion { get; set; }
 
@@ -242,11 +247,11 @@ namespace PrestamoBLL
 
         public bool ProyectarPrimeraYUltima { get; set; } = true;
 
-        public infoGeneradorDeCuotas(TiposAmortizacion tipoAMortizacion)
+        public InfoGeneradorDeCuotas(TiposAmortizacion tipoAMortizacion)
         {
             this.TipoAmortizacion = TipoAmortizacion;
         }
-        public infoGeneradorDeCuotas(Prestamo prestamo)
+        public InfoGeneradorDeCuotas(Prestamo prestamo)
         {
 
             {

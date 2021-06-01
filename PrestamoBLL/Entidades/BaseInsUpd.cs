@@ -106,7 +106,8 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Estatus")]
         public bool Activo { get; set; } = true;
         [MaxLength(10)]
-        public string Codigo { get; set; } = string.Empty;
+        public string Codigo { get; set; } 
+
         [Required(ErrorMessage = "ingrese el nombre")]
         public string Nombre { get; set; } = string.Empty;
         public abstract int GetId();

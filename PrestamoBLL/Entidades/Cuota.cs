@@ -31,7 +31,7 @@ namespace PrestamoBLL.Entidades
         public decimal TotalOrig {
             get 
             {  var valor = (Capital ?? 0) + (Interes ?? 0) + (GastoDeCierre ?? 0) + (InteresDelGastoDeCierre ?? 0) + (OtrosCargos ?? 0) + (InteresOtrosCargos ?? 0);
-               var valor2 = Capital + Interes  + +GastoDeCierre  + InteresDelGastoDeCierre + OtrosCargos  + InteresOtrosCargos ;
+               //var valor2 = Capital + Interes  + +GastoDeCierre  + InteresDelGastoDeCierre + OtrosCargos  + InteresOtrosCargos ;
                 return valor;
             }
         }
@@ -52,11 +52,14 @@ namespace PrestamoBLL.Entidades
 
         //todo: analizar si estos campos se dejaran asi en la cuota
         // estas propiedades solo se usan para fines de calculo verlo en la proyeccion
-        // pero no para guardarlo en la cuota propiamente, esto 
+        // pero no para guardarlo en la cuota propiamente
         [IgnorarEnParam]
         public decimal? OtrosCargos { get; internal set; } = 0;
         [IgnorarEnParam]
         public decimal? InteresOtrosCargos { get; set; } = 0;
+
+        [IgnorarEnParam]
+        public string Comentario { get; set; }
 
     }
 

@@ -1,0 +1,78 @@
+﻿@page "/prestamos"
+@inherits BaseForList
+
+<div class="grid-container">
+    <div class="bg-secondary">
+        <h3 class="text-left">Listado de clientes </h3>
+    </div>
+    <div class="search">
+        <EditForm Model="@searchPrestamos" OnValidSubmit="@GetPrestamos">
+            
+
+            <button type="submit" class="fa fa-search">Buscar</button>
+            @if (totalPrestamos > 0)
+            {
+                <label class="text-right col-sm-2">registros encontrados @totalPrestamos</label>
+            }
+        </EditForm>
+        
+    </div>
+</div>
+
+<div class="grid">
+    @if (loading)
+    {
+        <div class="loader">Cargando...</div>
+    }
+    else
+    {
+        if (prestamos == null)
+        {
+            <p><em>datos no encontrados</em></p>
+        }
+        else
+        {
+            if (totalPrestamos > 0)
+            {
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>No Prestamo</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Monto</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var prestamo in prestamos)
+                        {
+                        <tr>
+                            <td>@prestamo.PrestamoNumero</td>
+                            <td>@prestamo.FechaEmisionReal.ToString("dd/MM/yyyy")</td>
+                            <td>@prestamo.IdCliente</td>
+                            <td>@prestamo.MontoPrestado</td>
+                            <td>
+                                <a href="@($"prestamo/detallesPrestamo/{prestamo.IdPrestamo}")" title="ver detalles" class="btn btn-primary table-btn">
+                                    <i class="oi oi-document"></i>
+                                </a>
+                                <a href="@($"prestamo/createoredit/{prestamo.IdPrestamo}")" title="editar" class="btn btn-primary table-btn">
+                                    <i class="oi oi-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p><em>No datos encontrados</em></p>
+            }
+        }
+    }
+
+</div>
+
+
+

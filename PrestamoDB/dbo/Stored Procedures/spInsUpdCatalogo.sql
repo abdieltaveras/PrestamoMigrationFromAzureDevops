@@ -6,10 +6,13 @@
 	@IdNegocio int,
 	@IdLocalidadNegocio int,
 	@Usuario varchar(50),
-	@Codigo varchar(10),
+	@Codigo varchar(10)=null,
 	@Activo bit = 1
 AS
 Begin
+
+
+
 if (@Id = 0)
 	begin
 		EXEC

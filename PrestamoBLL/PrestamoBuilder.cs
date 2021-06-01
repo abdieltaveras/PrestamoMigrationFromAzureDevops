@@ -29,7 +29,7 @@ namespace PrestamoBLL
 
         }
 
-        
+        //Todo: debo arreglar esto con luis
 
         /// <summary>
         /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
@@ -44,6 +44,7 @@ namespace PrestamoBLL
             var periodos = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 1 });
             prestamoInProgress = new PrestamoConCalculos();
             prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
+
             prestamoInProgress.SetServices(this.NotificadorDeMensaje, clasificaciones, tiposMora, tasasDeInteres, periodos);
             await prestamoInProgress.ExecCalcs();
         }

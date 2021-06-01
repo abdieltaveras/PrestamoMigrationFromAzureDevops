@@ -7,8 +7,6 @@
     </div>
     <div class="search">
         <EditForm Model="@searchClientes" OnValidSubmit="@GetClientes">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
             <InputText id="Codigo" @bind-Value="searchClientes.Codigo" placeholder="Código" />
             <InputText id="nombres" @bind-Value="searchClientes.Nombres" placeholder="Nombres" />
             <InputText id="Apellidos" @bind-Value="searchClientes.Apellidos" placeholder="Primer Apellido" />

@@ -101,7 +101,7 @@ namespace WSPrestamo.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Cuota> GenerarCuotas(infoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
+        public IEnumerable<Cuota> GenerarCuotas(InfoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
         {
             var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();

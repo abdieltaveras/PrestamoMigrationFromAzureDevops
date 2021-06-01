@@ -145,7 +145,7 @@ namespace PrestamosMVC5.Controllers
         }
 
         [HttpGet]
-        public JsonResult GenerarCuotas(infoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
+        public JsonResult GenerarCuotas(InfoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
         {
             var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
