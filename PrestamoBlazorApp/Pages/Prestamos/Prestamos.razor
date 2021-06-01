@@ -7,7 +7,7 @@
     </div>
     <div class="search">
         <EditForm Model="@searchPrestamos" OnValidSubmit="@GetPrestamos">
-            
+
 
             <button type="submit" class="fa fa-search">Buscar</button>
             @if (totalPrestamos > 0)
@@ -15,7 +15,7 @@
                 <label class="text-right col-sm-2">registros encontrados @totalPrestamos</label>
             }
         </EditForm>
-        
+
     </div>
 </div>
 
@@ -34,7 +34,8 @@
         {
             if (totalPrestamos > 0)
             {
-                <table class="table table-hover table-sm">
+
+                <table class="table table-responsive-md table-hover table-sm">
                     <thead>
                         <tr>
                             <th>No Prestamo</th>
@@ -47,20 +48,25 @@
                     <tbody>
                         @foreach (var prestamo in prestamos)
                         {
-                        <tr>
-                            <td>@prestamo.PrestamoNumero</td>
-                            <td>@prestamo.FechaEmisionReal.ToString("dd/MM/yyyy")</td>
-                            <td>@prestamo.IdCliente</td>
-                            <td>@prestamo.MontoPrestado</td>
-                            <td>
-                                <a href="@($"prestamo/detallesPrestamo/{prestamo.IdPrestamo}")" title="ver detalles" class="btn btn-primary table-btn">
-                                    <i class="oi oi-document"></i>
-                                </a>
-                                <a href="@($"prestamo/createoredit/{prestamo.IdPrestamo}")" title="editar" class="btn btn-primary table-btn">
-                                    <i class="oi oi-pencil"></i>
-                                </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>@prestamo.PrestamoNumero</td>
+                                <td>@prestamo.FechaEmisionReal.ToString("dd/MM/yyyy")</td>
+                                <td>@prestamo.IdCliente</td>
+                                <td>@prestamo.MontoPrestado</td>
+                                <td>
+                                    <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
+                                        <i class="fa fa-info-circle"></i>
+                                    </button>
+
+                                    <button @onclick='()=>OnEditClick("prestamo/createoredit/"+prestamo.IdPrestamo)' class="btn btn-outline-primary">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+
+                                    <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

@@ -44,7 +44,7 @@
         </div>
     </div>
 </div>
-<table class="table table-responsive-md table-hover">
+<table class="table table-responsive-md table-hover table-sm">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -60,13 +60,16 @@
                     <td>@item.Nombre</td>
                     <td>
                         @*<button class="btn btn-outline-warning">
-                            <i class="oi oi-document"></i>
-                        </button>*@
-                        <button @onclick="()=>CreateOrEdit(item.Id)" class="btn btn-outline-primary">
+            <i class="oi oi-document"></i>
+        </button>*@
 
+                        <button  onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
+                            <i class="fa fa-info-circle"></i>
+                        </button>
+                        <button @onclick="()=>CreateOrEdit(item.Id)" class="btn btn-outline-primary">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <button class="btn btn-outline-danger">
+                        <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
                             <i class="fa fa-trash"></i>
                         </button>
                     </td>
