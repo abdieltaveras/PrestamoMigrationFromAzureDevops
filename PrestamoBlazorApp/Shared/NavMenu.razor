@@ -33,65 +33,90 @@
             @if (ExpandMenu(MenuText.Catalogo_I))
             {
 
+        <ul class="nav flex-column">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="colores">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Colores
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="marcas">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Marcas
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="modelos">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Modelos
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="clasificaciones">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Clasificaciones
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="ocupaciones">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Ocupaciones
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="equipos">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Equipos
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="tiposmora">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Tipos De Mora
+                </NavLink>
+            </li>
+            @*<ul class="nav flex-column">*@
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" @onclick="()=>  SetActiveMenu(MenuText.Territorios) ">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Territorios
+                </NavLink>
+                @if (ExpandMenu(MenuText.Territorios))
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="territorios">
+                                <span class="oi oi-list-rich" aria-hidden="true">Territorios</span>
+                            </NavLink>
+                        </li>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="" @onclick='()=>navigateTo("territorios/CreateDivisionTerritorial")'>
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear Division Territorial</span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                }
+            </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="" @onclick="()=>  SetActiveMenu(MenuText.Localidades) ">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Localidades
+                    </NavLink>
+                    @if (ExpandMenu(MenuText.Localidades))
+                    {
                 <ul class="nav flex-column">
                     <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="colores">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Colores
+                        <NavLink class="nav-link" href="localidades">
+                            <span class="oi oi-list-rich" aria-hidden="true">Localidades</span>
                         </NavLink>
                     </li>
                     <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="marcas">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Marcas
+                        <NavLink class="nav-link" href="" @onclick='()=>navigateTo("/localidades/listadopaises")'>
+                            <span class="oi oi-list-rich" aria-hidden="true">ListadoPaises</span>
                         </NavLink>
                     </li>
                     <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="modelos">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Modelos
+                        <NavLink class="nav-link" href="" @onclick='()=>navigateTo("/localidades/listado")'>
+                            <span class="oi oi-list-rich" aria-hidden="true"> Listado Localidades </span>
                         </NavLink>
                     </li>
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="clasificaciones">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Clasificaciones
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="ocupaciones">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Ocupaciones
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="equipos">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Equipos
-                        </NavLink>
-                    </li>
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="tiposmora">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Tipos De Mora
-                        </NavLink>
-                    </li>
-                    @*<ul class="nav flex-column">*@
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="" @onclick="()=>  SetActiveMenu(MenuText.Territorios) ">
-                            <span class="oi oi-list-rich" aria-hidden="true"></span> Territorios
-                        </NavLink>
-                        @if (ExpandMenu(MenuText.Territorios))
-                        {
-                            <ul class="nav flex-column">
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" href="territorios">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Territorios</span>
-                                    </NavLink>
-                                </li>
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" href="" @onclick='()=>navigateTo("territorios/CreateDivisionTerritorial")'>
-                                        <span class="oi oi-list-rich" aria-hidden="true">Crear Division Territorial</span>
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        }
-                    </li>
-                    @*</ul>*@
                 </ul>
+                    }
+                </li>
+            @*</ul>*@
+        </ul>
             }
 
         </li>
@@ -209,6 +234,7 @@
     private void CreateCatalogosSubMenu()
     {
         MenuItems.Add(new MenuItem { CurrentText = MenuText.Catalogo_I, MenuPadreText = null }, false);
+        MenuItems.Add(new MenuItem { CurrentText = MenuText.Localidades, MenuPadreText = MenuText.Catalogo_I }, false);
         MenuItems.Add(new MenuItem { CurrentText = MenuText.Territorios, MenuPadreText = MenuText.Catalogo_I }, false);
         MenuItems.Add(new MenuItem { CurrentText = MenuText.Catalogo_II, MenuPadreText = null }, false);
         MenuItems.Add(new MenuItem { CurrentText = MenuText.Garantias, MenuPadreText = MenuText.Catalogo_II }, false);
@@ -262,6 +288,7 @@
         public static string Catalogo_II => "Catalogo II";
         public static string Garantias => "Garantias";
         public static string Territorios => "Territorios";
+        public static string Localidades => "Localidades";
         public static string Clientes => "Clientes";
         public static string Prestamo => "Prestamo";
     }

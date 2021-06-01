@@ -58,7 +58,18 @@
             {
                 <tr>
                     <td>@item.Nombre</td>
-                    <td> <button @onclick="()=>CreateOrEdit(item.Id)" class="btn btn-info"> Editar </button></td>
+                    <td>
+                        @*<button class="btn btn-outline-warning">
+                            <i class="oi oi-document"></i>
+                        </button>*@
+                        <button @onclick="()=>CreateOrEdit(item.Id)" class="btn btn-outline-primary">
+
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
                 </tr>
 
             }
