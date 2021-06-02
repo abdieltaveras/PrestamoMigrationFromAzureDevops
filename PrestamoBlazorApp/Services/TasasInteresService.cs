@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PrestamoBlazorApp.Shared;
+using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,13 @@ namespace PrestamoBlazorApp.Services
 {
     public class TasasInteresService : ServiceBase
     {
-        BaseForCreateOrEdit BaseForCreateOrEdit;
+      
         string apiUrl = "api/TasaInteres";
         
         public async Task<IEnumerable<TasaInteres>> Get(TasaInteresGetParams search)
         {
-            var result = await GetAsync<TasaInteres>(apiUrl, search);
+            //var result = await GetAsync<Marca>(apiUrl, new { JsonGet = marcaGetParams.ToJson() });
+            var result = await GetAsync<TasaInteres>(apiUrl, new { JsonGet = search.ToJson() });
             return result;
         }
 

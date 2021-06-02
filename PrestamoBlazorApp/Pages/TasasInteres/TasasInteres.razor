@@ -1,0 +1,199 @@
+﻿@page "/tasasinteres"
+@inherits BaseForCreateOrEdit
+<h3>TasaInteres <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h3>
+<div class="modal fade modal-tasa-interes" tabindex="-1" role="dialog" aria-hidden="true" id="MyModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="myModalLabel2">Agrega un interes a la lista</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">                    
+                <br />
+                <EditForm Model="TasaInteres" OnValidSubmit="SaveTasaInteres">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="codigo">
+                            Codigo <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <InputText class="form-control" @bind-Value="TasaInteres.Codigo"></InputText>
+                            @*@Html.TextBoxFor(Model => Model.TasaInteres.Codigo, new { @class = "form-control", @required = "required" })*@
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="interes">
+                            % de Interes <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <InputNumber class="form-control" @bind-Value="TasaInteres.InteresMensual"></InputNumber>
+                            @*@Html.TextBoxFor(Model => Model.TasaInteres.InteresMensual, new { @class = "form-control", @required = "required" })*@
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="descripcion">
+                            Descripcion <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <InputText class="form-control" @bind-Value="TasaInteres.Nombre"></InputText>
+                            @*@Html.TextBoxFor(Model => Model.TasaInteres.Nombre, new { @class = "form-control", @required = "required" })*@
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-4">Autorizacion</div>
+                        <div class="col-sm-8">
+                            <span class="slider"></span>
+
+                            @* @Html.CheckBoxFor(Model => Model.TasaInteres.RequiereAutorizacion)*@
+
+                            <input data-val="true"
+                                    class="checkbox"
+                                    data-val-required="The isNewlyEnrolled field is required."
+                                    id="TasaInteres_RequiereAutorizacion"
+                                    name="TasaInteres.RequiereAutorizacion"
+                                    type="checkbox"
+                                    value="true" />
+                            @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
+                            <label for="TasaInteres_RequiereAutorizacion" class="switch" id="switch"></label>
+                            @* @Html.Raw(item.Activo ? "checked" : "")*@
+
+
+                        </div>
+                    </div>
+
+                        
+                    <div class="item form-group" style="float: right;">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </EditForm>
+                        @*</form>*@
+                <hr />
+                @*  *@
+                @*  *@
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>% por periodos</h5>
+                        <ul id="period" class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                DIARIO
+                                <span id="porcentaje-diario" class="badge badge-primary badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                SEMANAL
+                                <span id="porcentaje-semanal" class="badge badge-primary badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                QUINCENAL
+                                <span id="porcentaje-quincenal" class="badge badge-primary badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                ANUAL
+                                <span id="porcentaje-anual" class="badge badge-primary badge-pill"></span>
+                            </li>
+                        </ul>
+                    </div>
+                   
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+
+    <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
+
+        @*<button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres"  style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
+
+        <h4>Tabla de intereses</h4>
+      
+        <table id="datatable" class="table table-bordered row-border">
+            <thead>
+                <tr>
+                    <th class="checkColumn"></th>
+                    <th>Codigo</th>
+                    <th>% de interes</th>
+                    <th>Descripcion</th>
+                    <th>Estado</th>
+                    <th>¿Autorizacion?</th>
+                    @*<th>Acciones</th>*@
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in tasasinteres)
+                {
+                    <tr class="@(!item.Activo ? "table-active" : "" )"
+                        data-id="@item.idTasaInteres">
+                        <td>
+                            <input type="checkbox" class="checkbox" />
+                        </td>
+                        <td>
+                            <strong>
+                                @item.Codigo
+                            </strong>
+                        </td>
+                        <td>
+                            <span>@item.InteresMensual%</span>
+                        </td>
+                        <td>
+                            <span>@item.Nombre</span>
+                        </td>
+                        <td>
+                            @if (item.Activo)
+                            {
+                                <span class="badge badge-success">Activo</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Desactivado</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RequiereAutorizacion)
+                            {
+                                <span class="badge badge-primary">Si</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">No</span>
+                            }
+                        </td>
+
+                        @*<td>
+
+                                <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </a>
+
+                                <a href="#">
+                                    <button type="button" class="btn btn-outline-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </a>
+
+                            </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+
+    </div>
+</div>
+@code {
+
+}
