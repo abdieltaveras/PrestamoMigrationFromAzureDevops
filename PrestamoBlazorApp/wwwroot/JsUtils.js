@@ -49,6 +49,10 @@ window.ShowModal = function (selector) {
     let options = { backdrop: 'static' };
     $(selector).modal(options);
 }
+window.CloseModal = function (selector) {
+    //let options = { backdrop: 'static' };
+    $(selector).modal("hide");
+}
 window.Reload = function (force) {
     window.location.reload(force);
 }

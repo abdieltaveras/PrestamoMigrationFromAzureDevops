@@ -14,8 +14,8 @@ namespace PrestamoBLL.Entidades
             get { return (PeriodoBase)IdPeriodoBase; }
             set { IdPeriodoBase = (int)value; }
         }
-
-        public int IdPeriodoBase { get; internal set; } = 1;
+        public int IdPeriodoBase { get;  set; } = 1;
+        // public int IdPeriodoBase { get; internal set; } = 1;
         public int MultiploPeriodoBase { get; set; } = 1;
 
 

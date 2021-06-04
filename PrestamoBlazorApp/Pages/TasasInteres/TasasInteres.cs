@@ -12,6 +12,8 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
     public partial class TasasInteres : BaseForCreateOrEdit
     {
         [Inject]
+        NavigationManager NavigationManager { get; set; }
+        [Inject]
         TasasInteresService TasasInteresService { get; set; }
         IEnumerable<TasaInteres> tasasinteres { get; set; } = new List<TasaInteres>();
         [Parameter]
@@ -20,19 +22,20 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         protected override void OnInitialized()
         {
             base.OnInitialized();
+          
             this.TasaInteres = new TasaInteres();
         }
         protected override async Task OnInitializedAsync()
         {
-            tasasinteres = await TasasInteresService.Get(new TasaInteresGetParams());
+            await GetData();
         }
         async Task CreateOrEdit(int idTasaInteres = -1)
         {
             await BlockPage();
             if (idTasaInteres > 0)
             {
-                //var marca = await marcasService.Get(new MarcaGetParams { IdMarca = idMarca });
-                //this.Marca = marca.FirstOrDefault();
+                var tasainteres = await TasasInteresService.Get(new TasaInteresGetParams { idTasaInteres = idTasaInteres });
+                this.TasaInteres = tasainteres.FirstOrDefault();
             }
             else
             {
@@ -45,9 +48,16 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         {
             await BlockPage();
             await TasasInteresService.SaveTasaInteres(this.TasaInteres);
-            await UnBlockPage();
             await SweetMessageBox("Guardado Correctamente", "success", "");
-            //await JsInteropUtils.Reload(jsRuntime, true);
+            await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");
+            await GetData();
+            await UnBlockPage();
+        }
+
+
+        async Task GetData()
+        {
+            tasasinteres = await TasasInteresService.Get(new TasaInteresGetParams());
         }
     }
 }

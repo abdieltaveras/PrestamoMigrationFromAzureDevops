@@ -31,6 +31,7 @@ namespace PrestamoBlazorApp.Services
             try
             {
                 await PostAsync<TasaInteres>(apiUrl, TasaInteres);
+                
             }
             catch (Exception ex)
             {

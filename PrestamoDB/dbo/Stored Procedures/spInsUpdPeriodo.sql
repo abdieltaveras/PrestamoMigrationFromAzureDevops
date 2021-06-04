@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spInsUpdPeriodo]
 	@idnegocio int, 
+	@IdLocalidadNegocio int ,
 	@idPeriodo int,
 	@idPeriodobase int,
 	@codigo varchar(10), 
