@@ -17,7 +17,11 @@
             {
                 <tr>
                     <td>@item.Nombre</td>
-                    <td> <button @onclick="()=>CreateOrEdit(item.IdLocalidad)" class="btn btn-info"> Editar </button></td>
+                    <td> 
+                        <button @onclick="()=>CreateOrEdit(item.IdLocalidad)" class="btn btn-outline-primary">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </td>
                 </tr>
 
             }

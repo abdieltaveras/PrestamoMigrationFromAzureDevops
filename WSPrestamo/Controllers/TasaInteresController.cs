@@ -6,20 +6,26 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PrestamoBLL;
+using Newtonsoft.Json;
 namespace WSPrestamo.Controllers
 {
     public class TasaInteresController : BaseApiController
     {
-        public IEnumerable<TasaInteres> Get(int idTasaInteres, int idLocalidadNegocio, int activo, string codigo)
+        public IEnumerable<TasaInteres> Get(string JsonGet)
         {
-            var searchParam = new TasaInteresGetParams { Activo = activo, idTasaInteres = idTasaInteres, Codigo = codigo, IdLocalidadNegocio = idLocalidadNegocio };
-            var result = BLLPrestamo.Instance.GetTasasDeInteres(searchParam);
+            //,int idTasaInteres = -1, int idLocalidadNegocio = -1, int activo = -1, string codigo = ""
+            var search = JsonConvert.DeserializeObject<TasaInteresGetParams>(JsonGet);
+           // var searchParam = new TasaInteresGetParams { Activo = activo, idTasaInteres = idTasaInteres, Codigo = codigo, IdLocalidadNegocio = idLocalidadNegocio };
+            var result = BLLPrestamo.Instance.GetTasasDeInteres(search);
             return result;
         }
 
         [HttpPost]
         public IHttpActionResult TasaInteresInsUpd(TasaInteres insUpdParam)
         {
+            insUpdParam.IdLocalidadNegocio = 1;
+            insUpdParam.Usuario = "luis";
+            insUpdParam.IdNegocio = 1;
             var id = BLLPrestamo.Instance.InsUpdTasaInteres(insUpdParam);
             return Ok(id);
         }

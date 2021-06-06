@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spInsUpdTasaInteres]
 	@idTasaInteres int,
 	@idNegocio int,
+	@IdLocalidadNegocio int = -1 ,
 	@Codigo varchar(10),
 	@Activo bit = 1,
 	@Nombre varchar(100),

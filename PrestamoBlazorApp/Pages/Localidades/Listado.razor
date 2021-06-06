@@ -22,7 +22,10 @@
                     }
                     <td>@item.Nombre</td>
                     <td>@(datos == null ? "": datos.Nombre)</td>
-                    <td> <button @onclick="()=>Edit(item.IdLocalidad)" class="btn btn-info"> Editar </button></td>
+                    <td> <button @onclick="()=>Edit(item.IdLocalidad)" class="btn btn-outline-primary">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </td>
                 </tr>
 
             }

@@ -184,7 +184,7 @@
         <table class="table table-responsive-md table-hover table-sm">
             <thead>
                 <tr>
-                    <th class="checkColumn"></th>
+                    @*<th class="checkColumn"></th>*@
                     <th>Codigo</th>
                     <th>Tipo del Cargo</th>
                     <th>Periodo</th>
@@ -193,6 +193,7 @@
                     <th>Rango</th>
                     <th>Descripcion</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -201,7 +202,7 @@
                     @foreach (var item in tiposmora)
                     {
                         <tr>
-                            <td> <input type="checkbox" name="chkIdTipoMora" id="chkIdTipoMora" value="" /></td>
+                            @*<td> <input type="checkbox" name="chkIdTipoMora" id="chkIdTipoMora" value="" /></td>*@
                             <td>
                                 <strong>
                                     @item.Codigo
@@ -245,6 +246,17 @@
                                 {
                                     <span class="badge badge-danger">Inactivo</span>
                                 }
+                            </td>
+                            <td>
+                                <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
+                                    <i class="fa fa-info-circle"></i>
+                                </button>
+                                <button @onclick="()=>CreateOrEdit(item.IdTipoMora)" class="btn btn-outline-primary">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
                             </td>
                             @*<td>
                                     <a href="@($"garantias/createoredit/{item.IdTipoMora}")" title="editar" class="btn btn-primary table-btn">

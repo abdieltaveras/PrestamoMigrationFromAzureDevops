@@ -29,6 +29,7 @@
                         @*<div class="clearfix"></div>*@
                     </div>
                     <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
+                        <DataAnnotationsValidator />
                         <div class="card-body">
                             <br />
                             <div style="display: block;">
@@ -39,15 +40,15 @@
 
 
                             @*<div id="selecttipolocalidad" style="display: none;">
-                                <div class="form-group row">
-                                    <div class="col-md-5 col-sm-12 ">
-                                        <label class=" ">Tipo de direccion</label>
-                                        <select name="IdTipoLocalidad" class="form-control" id="tipolocalidadeshijas">
-                                            <option>Elije una opcion</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>*@
+                <div class="form-group row">
+                    <div class="col-md-5 col-sm-12 ">
+                        <label class=" ">Tipo de direccion</label>
+                        <select name="IdTipoLocalidad" class="form-control" id="tipolocalidadeshijas">
+                            <option>Elije una opcion</option>
+                        </select>
+                    </div>
+                </div>
+            </div>*@
                             <div class="form-group row">
                                 @if (Territorios.Count() > 1)
                                 {
@@ -68,7 +69,8 @@
                                     <label class="" for="codigo">
                                         Nombre <span class="required">*</span>
                                     </label>
-                                    <InputText @bind-Value="Localidad.Nombre"></InputText>
+                                    <InputText @bind-Value="Localidad.Nombre" required></InputText>
+                                    <ValidationMessage For="() => Localidad.Nombre" />
                                 </div>
                             </div>
 
@@ -76,7 +78,7 @@
 
 
                         </div>
-                        <div class="card-footer" >
+                        <div class="card-footer">
                             <div class="col-md-12" style="display:flex; justify-content:flex-end;">
                                 <button type="submit" id="btnguardar" class="btn btn-primary">Guardar</button>
                             </div>
