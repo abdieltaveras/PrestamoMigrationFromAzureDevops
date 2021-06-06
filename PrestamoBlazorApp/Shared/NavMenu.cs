@@ -29,10 +29,11 @@ namespace PrestamoBlazorApp.Shared
         //private bool expandTerritoriosSubMenu { get; set; } = false;
         //private bool expandClientesSubMenu { get; set; } = false;
 
-        protected override void OnInitialized()
+        public NavMenu()
         {
             CreateCatalogosSubMenu();
         }
+        //protected override void OnInitialized()  {}
         private void ToggleNavMenu()
         {
             //jsInterop.Alert(jsRuntime,"click en toggleNavMenu");

@@ -59,7 +59,7 @@ namespace PrestamoBLL.Entidades
         public decimal? InteresOtrosCargos { get; set; } = 0;
 
         [IgnorarEnParam]
-        public string Comentario { get; set; }
+        public string Comentario { get; set; } = String.Empty;
 
     }
 

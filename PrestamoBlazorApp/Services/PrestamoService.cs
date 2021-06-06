@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -12,13 +13,24 @@ namespace PrestamoBlazorApp.Services
     {
         readonly string apiUrl = "api/prestamos";
 
-        public async Task<IEnumerable<Prestamo>> GetPrestamosAsync(PrestamosGetParams search)
+        public async Task<IEnumerable<Prestamo>> GetAsync(PrestamosGetParams search)
         {
             var result = await GetAsync<Prestamo>(apiUrl, search);
             return result;
         }
 
-        
+        public async Task<Prestamo> GetByIdAsync(int idPrestamo)
+        {
+            var result = await GetAsyncOne<Prestamo>(apiUrl+"/GetById", new{ idPrestamo = idPrestamo });
+            return result;
+        }
+
+        public async Task<PrestamoConDetallesParaUIPrestamo> GetConDetallesForUiAsync(int idPrestamo)
+        {
+            var result = await GetAsyncOne<PrestamoConDetallesParaUIPrestamo>(apiUrl+ "/GetConDetallesForUi", new { idPrestamo = idPrestamo});
+            return result;
+        }
+
         public PrestamosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 

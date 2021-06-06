@@ -45,10 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="emtSoft.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f856e364de3223b5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SharedDLL\EMTSoft\emtSoft.DAL.dll</HintPath>
-    </Reference>
     <Reference Include="HESRAM.Utils">
       <HintPath>..\SharedDLL\HESRAM\HESRAM.Utils.dll</HintPath>
     </Reference>

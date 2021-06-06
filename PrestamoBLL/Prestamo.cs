@@ -14,12 +14,16 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
+
+        
         public int InsUpdPrestamo(Prestamo prestamo)
         {
+            
             var prToBuild = new PrestamoBuilder(prestamo);
             var result = prToBuild.Build();
             var prToBuild2 = new PrestamoBuilder(prestamo);
             var result2 = prToBuild2.Build();
+            var cuotas = result2._CuotasList;
             var prestamoParam2 = SearchRec.ToSqlParams(result2);
             var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
             var  id= Utils.GetIdFromDataTable(resultId);
@@ -55,7 +59,13 @@ namespace PrestamoBLL
             return data;
         }
 
-        public PrestamoConDetallesParaUIPrestamo GetPrestamoConDetalleForUIPrestamo(int idPrestamo)
+
+        /// <summary>
+        /// para buscar los prestamos incluyendo informaciones de garantias, clientes, codeudores, etc.
+        /// </summary>
+        /// <param name="idPrestamo"></param>
+        /// <returns></returns>
+        public PrestamoConDetallesParaUIPrestamo GetPrestamoConDetalleForUIPrestamo(int idPrestamo, bool ConvertDetallesGarantiaToJson = false)
         {
             if (idPrestamo <= 0)
             {
@@ -67,6 +77,7 @@ namespace PrestamoBLL
             var dr = DBPrestamo.ExecReaderSelSP("spGetPrestamo", searchRec);
             Prestamo infoPrestamo = new Prestamo();
             InfoClienteDrCr infoCliente = new InfoClienteDrCr();
+            var infoCodeudores = new List<InfoCodeudorDrCr>();
             while (dr.Read())
             {
                 dr.DataReaderToType(out infoPrestamo);
@@ -87,8 +98,11 @@ namespace PrestamoBLL
             // los codeudores
             var PrestamoConDetalle = new PrestamoConDetallesParaUIPrestamo();
             PrestamoConDetalle.infoPrestamo = infoPrestamo;
+
             PrestamoConDetalle.infoCliente = infoCliente;
             PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
+            PrestamoConDetalle.infoCodeudores = infoCodeudores; 
+            infoGarantiasDrCr.ForEach(gar => infoPrestamo.IdGarantias.Add(gar.IdGarantia));
             return PrestamoConDetalle;
         }
 
@@ -136,7 +150,7 @@ namespace PrestamoBLL
                     dr.DataReaderToType(out infoGarantiaDrCr );
                     if (ConvertDetallesGarantiaToJson)
                     {
-                        infoGarantiaDrCr.DetallesForJsonConvert();
+                        infoGarantiaDrCr.GetDetallesGarantia();
                     }
                     infoGarantiasDrCr.Add(infoGarantiaDrCr);
                 }

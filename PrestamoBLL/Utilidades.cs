@@ -177,10 +177,10 @@ namespace PrestamoBLL
         /// <param name="convType"> option to convert to json o xml vy defaul is json</param>/// 
         /// <returns></returns>
 
-        public static T ToType<T>(this string value, ConversionType convType = ConversionType.ToJsonFormat) where T: new()
+        public static T ToType<T>(this string value, ConversionType convType = ConversionType.ToJsonFormat) where T : new()
         {
             var objConversion = new T();
-            if (value == null) return objConversion;
+            if (value == null || value.ToString()==string.Empty) return objConversion;
             if (convType == ConversionType.ToJsonFormat)
             {
                 objConversion = JsonConvert.DeserializeObject<T>(value);

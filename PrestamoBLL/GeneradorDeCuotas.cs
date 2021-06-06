@@ -235,7 +235,7 @@ namespace PrestamoBLL
 
         public bool AcomodarFechaALasCuotas { get; set; } = false;
 
-        public DateTime? FechaInicioPrimeraCuota { get; set; }
+        public DateTime FechaInicioPrimeraCuota { get; set; }
 
         public decimal TasaDeInteresPorPeriodo { get; set; } = 0;
 
@@ -287,11 +287,10 @@ namespace PrestamoBLL
         bool FinanciarGastoDeCierre { get; }
         int CantidadDePeriodos { get; }
         bool AcomodarFechaALasCuotas { get; }
-        DateTime? FechaInicioPrimeraCuota { get; }
+        DateTime FechaInicioPrimeraCuota { get; }
         decimal TasaDeInteresPorPeriodo { get; }
         Periodo Periodo { get; }
         bool ProyectarPrimeraYUltima { get; }
-
     }
 }
 

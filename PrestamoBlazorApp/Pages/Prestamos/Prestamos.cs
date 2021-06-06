@@ -24,7 +24,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task GetPrestamos()
         {
             prestamos = new List<Prestamo>();
-            prestamos = await prestamoService.GetPrestamosAsync(this.searchPrestamos);
+            prestamos = await prestamoService.GetAsync(this.searchPrestamos);
             totalPrestamos = prestamos.Count();
         }
 

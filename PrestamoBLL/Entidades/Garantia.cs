@@ -13,28 +13,28 @@ namespace PrestamoBLL.Entidades
     public class InfoGarantiaDrCr
         //: IInfoGarantiaDrCr
     {
-        public int IdGarantia { get; internal set; }
-        public int IdClasificacion { get; internal set; }
+        public int IdGarantia { get;  set; }
+        public int IdClasificacion { get;  set; }
 
         public string Clasificacion => Enum.GetName(typeof(TiposClasificacionGarantia), (TiposClasificacionGarantia)IdClasificacion);
-        public string NumeracionGarantia { get; internal set; } = string.Empty;
-        public string NombreMarca { get; internal set; } = string.Empty;
-        public string NombreModelo { get; internal set; } = string.Empty;
-        public string NombreTipoGarantia { get; internal set; } = string.Empty;
-        public string OtrosDetalles { get; internal set; } = string.Empty;
-        public string Detalles { get; internal set; } = string.Empty;
-        public string Imagen1FileName { get; internal set; }
+        public string NumeracionGarantia { get;  set; } = string.Empty;
+        public string NombreMarca { get;  set; } = string.Empty;
+        public string NombreModelo { get;  set; } = string.Empty;
+        public string NombreTipoGarantia { get;  set; } = string.Empty;
+        public string OtrosDetalles { get;  set; } = string.Empty;
+        public string Detalles { get;  set; } = string.Empty;
+        public string Imagen1FileName { get;  set; }
 
-        public string Imagen2FileName { get; internal set; }
-        public string Imagen3FileName { get; internal set; }
+        public string Imagen2FileName { get;  set; }
+        public string Imagen3FileName { get;  set; }
 
-        public string Imagen4FileName { get; internal set; }
-        public DetalleGarantia DetallesForJson { get; internal set; }
+        public string Imagen4FileName { get; set; }
+        //public DetalleGarantia DetallesForJson { get;  set; }
         
 
-        public void DetallesForJsonConvert()   { this.DetallesForJson = this.Detalles.ToType<DetalleGarantia>(); }
+        public DetalleGarantia GetDetallesGarantia()=> this.Detalles.ToType<DetalleGarantia>();
 
-        public string InfoVehiculo =>
+        public override string ToString() =>
             $"{this.NombreTipoGarantia} {this.NombreMarca} {this.NombreModelo} ";
         
     }
@@ -73,14 +73,14 @@ namespace PrestamoBLL.Entidades
 
     public class GarantiaConMarcaYModeloYPrestamos : Garantia
     {
-        public string NombreMarca { get; internal set; }
-        public string NombreModelo { get; internal set; }
+        public string NombreMarca { get;  set; }
+        public string NombreModelo { get;  set; }
 
         public bool TienePrestamosVigentes => IdPrestamos.Count() > 0;
 
-        public List<int> IdPrestamos { get; internal set; } = new List<int>();
+        public List<int> IdPrestamos { get;  set; } = new List<int>();
 
-        public List<string> PrestamosNumero { get; internal set; } = new List<string>();
+        public List<string> PrestamosNumero { get;  set; } = new List<string>();
 
         public string ListaPrestamosVigentes => string.Join(", ", PrestamosNumero);
     }

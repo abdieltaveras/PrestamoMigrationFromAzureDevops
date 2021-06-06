@@ -13,11 +13,11 @@ namespace PrestamoBLL.Entidades
 
     public class InfoCodeudorDrCr
     {
-        public int IdCodeudor { get; internal set; }
+        public int IdCodeudor { get;  set; }
 
-        public string Nombres { get; internal set; } = string.Empty;
+        public string Nombres { get; set; } = string.Empty;
 
-        public string Apellidos { get; internal set; } = string.Empty;
+        public string Apellidos { get;  set; } = string.Empty;
 
     }
 
@@ -27,35 +27,37 @@ namespace PrestamoBLL.Entidades
         
         public string NombreDocumentoIdentidad => Enum.GetName(typeof(TiposIdentificacionCliente ), IdTipoIdentificacion);
         
-        public string NumeracionDocumentoIdentidad { get; internal set; } = string.Empty;
+        public string NumeracionDocumentoIdentidad { get;  set; } = string.Empty;
 
-        public string InfoLaboral {  get; internal set; } = string.Empty;
+        public string InfoLaboral {  get;  set; } = string.Empty;
 
         public string TelefonoTrabajo1 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono1;
 
         public string TelefonoTrabajo2 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono2;
 
-        public string OtrosDetalles { get; internal set; } = string.Empty;
+        public string OtrosDetalles { get;  set; } = string.Empty;
 
-        public string CodigoCliente { get; internal set; } = string.Empty;
+        public string CodigoCliente { get;  set; } = string.Empty;
 
-        public int IdCliente { get; internal set; } 
+        public int IdCliente { get;  set; } 
 
-        public string Nombres { get; internal set; } = string.Empty;
+        public string Nombres { get;  set; } = string.Empty;
 
-        public string Apellidos  { get; internal set; } = string.Empty;
+        public string Apellidos  { get; set; } = string.Empty;
 
-        public string TelefonoMovil  { get; internal set; } = string.Empty;
+        public string NombreCompleto => $"{Nombres} {Apellidos}";
 
-        public string TelefonoCasa  { get; internal set; } = string.Empty;
+        public string TelefonoMovil  { get;  set; } = string.Empty;
 
-        public string Imagen1FileName { get; internal set; } = string.Empty;
+        public string TelefonoCasa  { get;  set; } = string.Empty;
 
-        public string Imagen2FileName { get; internal set; } = string.Empty;
+        public string Imagen1FileName { get;  set; } = string.Empty;
 
-        public bool Activo { get; internal set; } = false;
-        public int IdTipoIdentificacion { get; internal set; }
-        public string InfoDelCliente => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";
+        public string Imagen2FileName { get;  set; } = string.Empty;
+
+        public bool Activo { get;  set; } = false;
+        public int IdTipoIdentificacion { get; set; }
+        public override string ToString() => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";
     }
 
     public class Cliente : BasePersonaInsUpd

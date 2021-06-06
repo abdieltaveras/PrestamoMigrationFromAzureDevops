@@ -115,13 +115,13 @@ namespace PrestamoBLL.Entidades
     }
     public class PrestamoConDetallesParaUIPrestamo
     {
-        public Prestamo infoPrestamo { get; internal set; } = new Prestamo();
+        public Prestamo infoPrestamo { get;  set; } = new Prestamo();
 
-        public InfoClienteDrCr infoCliente { get; internal set; } = new InfoClienteDrCr();
+        public InfoClienteDrCr infoCliente { get;  set; } = new InfoClienteDrCr();
 
-        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; } = new List<InfoGarantiaDrCr>();
+        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; set; } = new List<InfoGarantiaDrCr>();
 
-        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; internal set; } = new List<InfoCodeudorDrCr>();
+        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; } = new List<InfoCodeudorDrCr>();
 
     }
 
@@ -283,13 +283,13 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Cargo interes al G/C ?")]
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
         [Display(Name = "Desea acomodar las fechas de las cuotas?")]
-        public virtual bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != null; } }
+        public virtual bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != null && FechaInicioPrimeraCuota!= InitValues._19000101; } }
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
         [ReadOnly(true)]
         [HiddenInput]
-        public DateTime? FechaInicioPrimeraCuota { get; set; } 
+        public DateTime FechaInicioPrimeraCuota { get; set; } 
 
         /// <summary>
         /// este campo es el que tendra la fecha real de donde partira a generar las cuotas y sus fechas de vencimientos, es necesario para cuando al prestamo se le acomode las cuotas
@@ -366,7 +366,7 @@ namespace PrestamoBLL.Entidades
 
     public class PrestamoInsUpdParam : Prestamo
     {
-        private IEnumerable<CuotaForSqlType> _CuotasList = new List<CuotaForSqlType>();
+        public readonly IEnumerable<CuotaForSqlType> _CuotasList = new List<CuotaForSqlType>();
 
         public PrestamoInsUpdParam(IEnumerable<CuotaForSqlType> cuotas)
         {
@@ -417,6 +417,8 @@ namespace PrestamoBLL.Entidades
             execCalcs = NoCalcular;
         }
 
+        public bool LlevaGarantia() =>  Clasificaciones.Where(cl => cl.IdClasificacion == base.IdClasificacion).FirstOrDefault().RequiereGarantia;
+
         private async Task NoCalcular() => await Task.Run(() => { });
 
         public async Task ExecCalcs() => await execCalcs();
@@ -461,28 +463,28 @@ namespace PrestamoBLL.Entidades
 
 
         public static DateTime CalcularFechaVencimiento(DateTime fechaPrestamo, Periodo periodo, int cantidadDePeriodos, 
-            DateTime? FechaInicioPrimeraCuota)
+            DateTime FechaInicioPrimeraCuota)
         { 
-            var prestamo = new PrestamoConCalculos();
+            var prestamo = new Prestamo();
             prestamo.FechaEmisionReal = fechaPrestamo;
             prestamo.Periodo = periodo;
             prestamo.CantidadDePeriodos = cantidadDePeriodos;
             prestamo.FechaInicioPrimeraCuota = FechaInicioPrimeraCuota ;
-            var fechaVencimiento = prestamo.CalcularFechaVencimiento();
+            var fechaVencimiento = PrestamoConCalculos.CalcularFechaVencimiento(prestamo);
             return fechaVencimiento;
         }
-        private DateTime CalcularFechaVencimiento()
+        private static DateTime CalcularFechaVencimiento(Prestamo prestamo)
         {
             // primero buscar el periodo
             // luego tomar la fecha inicial de partida y hacer los calculos
-            var duracion = this.CantidadDePeriodos * this.Periodo.MultiploPeriodoBase;
+            var duracion = prestamo.CantidadDePeriodos * prestamo.Periodo.MultiploPeriodoBase;
             var fechaVencimiento = new DateTime();
-            if (this.AcomodarFechaALasCuotas)
+            if (prestamo.AcomodarFechaALasCuotas)
             {
                 throw new Exception("aun no estamos trabajando con acomodar cuotas");
             }
-            var fechaInicial = this.FechaEmisionReal;
-            switch (this.Periodo.PeriodoBase)
+            var fechaInicial = prestamo.FechaEmisionReal;
+            switch (prestamo.Periodo.PeriodoBase)
             {
                 case PeriodoBase.Dia:
                     fechaVencimiento = fechaInicial.AddDays(duracion);
@@ -512,9 +514,9 @@ namespace PrestamoBLL.Entidades
                 default:
                     break;
             }
-            this.FechaVencimiento = fechaVencimiento;
+            prestamo.FechaVencimiento = fechaVencimiento;
             
-            return this.FechaVencimiento;
+            return prestamo.FechaVencimiento;
         }
 
         public override decimal InteresGastoDeCierre
@@ -639,17 +641,17 @@ namespace PrestamoBLL.Entidades
         private async Task CalcularCuotas()
         {
             if (IdPeriodo < 0 || IdTasaInteres <= 0) return;
-            this.Periodo = Periodos.Where(per => per.idPeriodo == IdPeriodo).FirstOrDefault();
+            base.Periodo = Periodos.Where(per => per.idPeriodo == IdPeriodo).FirstOrDefault();
             var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
             var tasaDeInteresPorPeriodos = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, Periodo);
-            this.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
+            base.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
             var infoCuotas = new InfoGeneradorDeCuotas(this);
 
             // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar
             // cuotas y no que se le envie esa informacion
             var cuotas = GenerarCuotas(infoCuotas);
-            this.Cuotas.Clear();
-            this.Cuotas.AddRange(cuotas);
+            //this.Cuotas.Clear();
+            this.Cuotas = cuotas.ToList();
             //await JsInteropUtils.NotifyMessageBox(jsRuntime,"calculando cuotas"+cuotas.Count().ToString());
         }
     }

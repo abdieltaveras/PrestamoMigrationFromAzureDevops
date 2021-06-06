@@ -58,6 +58,12 @@ namespace PrestamoBlazorApp.Services
             return await GetAsync<Color>("api/color", new { JsonGet = colorGetParams.ToJson() });
         }
 
+        public async Task<IEnumerable<Garantia>> GetGarantiasByPrestamo(int idPrestamo)
+        {
+            return await GetAsync<Garantia>("api/Garantias/GetGarantiasByPrestamo", new { idPrestamo = idPrestamo});
+
+        }
+
         public GarantiasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 

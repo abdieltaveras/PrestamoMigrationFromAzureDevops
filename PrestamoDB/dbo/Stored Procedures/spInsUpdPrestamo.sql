@@ -1,5 +1,5 @@
-﻿create PROCEDURE [dbo].[spInsUpdPrestamo]
-(@idPrestamo int, @idLocalidadNegocio int, @idnegocio int, @idprestamoarenovar int=null, @idCliente int,
+﻿CREATE PROCEDURE [dbo].[spInsUpdPrestamo]
+(@idPrestamo int, @idLocalidadNegocio int, @idnegocio int, @idPrestamoArenovar int=null, @idCliente int,
  @deudarenovacion decimal(14,2),  @idclasificacion int,	@IdTipoamortizacion int, @fechaemisionReal date, 
  @fechaemisionParaCalculos dateTime,  @fechavencimiento datetime, @idtasainteres int, @idtipomora int, @idperiodo int, 
  @cantidaddeperiodos int, @montoprestado decimal(14,2), @iddivisa int,  @interesgastodecierre decimal(6,2),  @montogastodecierre decimal(14,2), 
@@ -19,11 +19,11 @@ begin
 			declare @prestamoNumero varchar(20) 
 			exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero output
 			INSERT INTO dbo.tblPrestamos (idNegocio, idlocalidadNegocio, PrestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, idCliente, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa,  InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre,FinanciarGastoDeCierre,  AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, OtrosCargosSinInteres)
-			VALUES (@idnegocio, @idlocalidadNegocio, @prestamoNumero, @idprestamoarenovar, @deudarenovacion, @idclasificacion, @idCliente, @Idtipoamortizacion, @fechaemisionReal, @fechaemisionParaCalculos, @fechavencimiento, @idtasainteres, @idtipomora, @idperiodo, @cantidaddeperiodos, @montoprestado, @iddivisa, @interesgastodecierre, @montogastodecierre, @gastodecierreesdeducible, @cargarinteresalgastodecierre, @financiarGastoDeCierre, @acomodarfechaalascuotas, @fechainicioprimeracuota, @usuario, getdate(), @otrosCargosSinInteres)
+			VALUES (@idnegocio, @idlocalidadNegocio, @prestamoNumero, @idPrestamoArenovar, @deudarenovacion, @idclasificacion, @idCliente, @Idtipoamortizacion, @fechaemisionReal, @fechaemisionParaCalculos, @fechavencimiento, @idtasainteres, @idtipomora, @idperiodo, @cantidaddeperiodos, @montoprestado, @iddivisa, @interesgastodecierre, @montogastodecierre, @gastodecierreesdeducible, @cargarinteresalgastodecierre, @financiarGastoDeCierre, @acomodarfechaalascuotas, @fechainicioprimeracuota, @usuario, getdate(), @otrosCargosSinInteres)
 			  set @idPrestamo = (SELECT SCOPE_IDENTITY());
 			  if ((select count(*) from @cuotas) > 0)
 			  begin
-				insert into tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes,			GastoDeCierre, InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
+				insert into tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
 				select @IdPrestamo, Numero, Fecha, Capital, Interes, 
 					GastoDeCierre, InteresDelGastoDeCierre, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre from @cuotas
 			  end
@@ -46,10 +46,36 @@ begin
 			declare @errorMessage varchar(max) =  (select ERROR_MESSAGE()) 
 			RAISERROR(@errorMessage,17,1); 
 		end catch
-		SELECT @IdPrestamo
 	End
 	else
 	begin
-		RAISERROR('Error: no se ha implementado la actualizacion aun URGENTE DEBE HACERLO',17,1); 
+		update tblPrestamos
+		set  IdPrestamoARenovar=@idPrestamoArenovar, DeudaRenovacion =@deudarenovacion, idClasificacion =@idclasificacion,
+		idCliente = @idCliente, IdTipoAmortizacion=@IdTipoamortizacion, FechaEmisionReal=@fechaemisionReal, FechaEmisionParaCalculo =@fechaemisionParaCalculos,
+		FechaVencimiento =@fechavencimiento, IdTasaInteres =@idtasainteres, idTipoMora=@idtipomora, idPeriodo=@idperiodo,
+		CantidadDePeriodos=@cantidaddeperiodos, MontoPrestado=@montoprestado, IdDivisa=@iddivisa,  
+		InteresGastoDeCierre=@interesgastodecierre, MontoGastoDeCierre=@montogastodecierre, GastoDeCierreEsDeducible=@gastodecierreesdeducible, 
+		CargarInteresAlGastoDeCierre =@cargarinteresalgastodecierre,FinanciarGastoDeCierre=@financiarGastoDeCierre,  AcomodarFechaALasCuotas=@acomodarfechaalascuotas, 
+		FechaInicioPrimeraCuota=@fechainicioprimeracuota,  OtrosCargosSinInteres=@otrosCargosSinInteres, ModificadoPor = @Usuario, FechaModificado=getdate()
+		where idPrestamo = @idPrestamo and AnuladoPor is null
+		--RAISERROR('Error: no se ha implementado la actualizacion aun URGENTE DEBE HACERLO',17,1); 
+		
+		merge tblCuotas as target
+		using @Cuotas as source
+		on (target.Numero = source.numero and target.IdPrestamo = @idPrestamo)
+		when matched then update set 
+			target.Numero = source.Numero, target.Fecha = source.Fecha, target.Capital = source.capital,
+			target.Interes = source.interes, target.GastoDeCierre=source.GastodeCierre, 
+			target.InteresDelGastoDeCierre = source.InteresDelGastoDeCierre, target.BceCapital = source.Capital, 
+			target.BceInteres = source.Interes, target.BceGastoDeCierre = source.GastoDeCierre, target.BceInteresDelGastoDeCierre = source.InteresDelGastoDeCierre 
+	    when not matched then insert		
+			(IdPrestamo,Numero, Fecha, Capital, Interes, GastoDeCierre,
+			InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
+			values
+			 (@IdPrestamo, source.Numero, source.Fecha, source.Capital, source.Interes, source.GastoDeCierre, 
+			 source.InteresDelGastoDeCierre, source.Capital, source.Interes, source.GastoDeCierre, source.InteresDelGastoDeCierre)		
+	   when not matched by source
+	   then delete;
 	end
+	SELECT @IdPrestamo
 end

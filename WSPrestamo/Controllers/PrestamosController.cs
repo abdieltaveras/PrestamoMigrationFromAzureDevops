@@ -10,6 +10,7 @@ using WSPrestamo.Models;
 using WSPrestamo.Utilidades;
 using System.Web.Http.Results;
 using static PrestamoBLL.BLLPrestamo;
+using Newtonsoft.Json;
 
 namespace WSPrestamo.Controllers
 {
@@ -18,15 +19,27 @@ namespace WSPrestamo.Controllers
     /// </summary>
     public class PrestamosController : BaseApiController
     {
-        public IEnumerable<Prestamo> Get(int idPrestamo=-1)
+        public Prestamo GetById(int idPrestamo=-1)
         {
             var getParams = new PrestamosGetParams
             {
                 idPrestamo = idPrestamo,
             };
             var data = BLLPrestamo.Instance.GetPrestamos(getParams);
-            return data;
+            return data.FirstOrDefault();
         }
+        public PrestamoConDetallesParaUIPrestamo GetConDetallesForUi(int idPrestamo = -1)
+        //public PrestamoConDetallesParaUIPrestamo GetConDetallesForUi(int idPrestamo = -1)
+        {
+            var prestamo = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo,true);
+            //var prestamos = new List<PrestamoConDetallesParaUIPrestamo>();
+            //prestamos.Add(prestamo);
+            //var data = prestamo.ToJson<PrestamoConDetallesParaUIPrestamo>();
+            //var data2 = data.ToType<PrestamoConDetallesParaUIPrestamo>();
+            return prestamo;
+        }
+
+        
         public IEnumerable<Prestamo> Get(DateTime fechaEmisionRealDesde,
             DateTime fechaEmisionRealHasta, int idPrestamo = -1, int idCliente = -1, int idGarantia = -1, int idLocalidadNegocio = -1, int idNegocio = -1)
         {

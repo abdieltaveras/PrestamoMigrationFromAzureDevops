@@ -165,8 +165,8 @@ namespace PrestamosMVC5.Controllers
                 model = new PrestamoVm();
                 model.ListaStatus = new SelectList(BLLPrestamo.Instance.GetStatus(new StatusGetParams { IdNegocio = pcpUserIdNegocio }), "IdStatus", "Concepto");
                 model.Prestamo = searchResult.infoPrestamo;
-                model.infoCliente = searchResult.infoCliente.InfoDelCliente;
-                model.infoGarantia = searchResult.infoGarantias.FirstOrDefault().InfoVehiculo;
+                model.infoCliente = searchResult.ToString();
+                model.infoGarantia = searchResult.infoGarantias.FirstOrDefault().ToString();
                 model.LlevaGastoDeCierre = (model.Prestamo.InteresGastoDeCierre > 0);
             }
             return model;

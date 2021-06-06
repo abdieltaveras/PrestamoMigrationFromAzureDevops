@@ -42,6 +42,12 @@ namespace WSPrestamo.Controllers
             return garantias;
         }
 
+        public IEnumerable<Garantia> GetGarantiasByPrestamo(int idPrestamo)
+        {
+            var result = BLLPrestamo.Instance.GetGarantiasByPrestamo(idPrestamo);
+            return result;
+        }
+
         [HttpGet]
         public IEnumerable<GarantiaConMarcaYModelo> SearchGarantias(string searchText)
         {
@@ -105,44 +111,8 @@ namespace WSPrestamo.Controllers
 
         }
 
-        //public IEnumerable<GarantiaConMarcaYModelo> GetWithMarca()
-        //{
-        //    var getGarantiasParams = new GarantiaGetParams();
-
-        //    var garantias = BLLPrestamo.Instance.GetGarantias(getGarantiasParams);
-        //    foreach (var item in garantias)
-        //    {
-        //        item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>();
-        //    }
-        //    return garantias;
-        //    //var garantias = Get();
-        //    //return garantias;
-        //}
-
-        //public string Get(int IdLocalidad, int IdNegocio)
-        //{
-        //    List<string> localidad = null;
-        //    localidad = BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = IdLocalidad, IdNegocio = IdNegocio }).ToList();
-        //    return localidad[0];
-        //}
-
-        //[HttpGet("{searchToText}")]
-        //public IEnumerable<Garantia> Get(string searchToText)
-        //{
-        //    IEnumerable<Garantia> garantias = null;
-        //    if (searchToText.Length >= BUSCAR_A_PARTIR_DE)
-        //    {
-        //        garantias = BLLPrestamo.Instance.SearchGarantias(new BuscarGarantiaParams { Search = searchToText, IdNegocio = 1 });
-        //    }
-        //    return garantias;
-        //}
-
-        //[HttpPost]
-        //public IHttpActionResult Post(Garantia garantia)
-        //{
-        //    BLLPrestamo.Instance.InsUpdGarantia(garantia);
-        //    return Ok();
-        //}
+        
+        
         [HttpPost]
         public IHttpActionResult Post(Garantia garantia)
         {
@@ -168,18 +138,7 @@ namespace WSPrestamo.Controllers
             BLLPrestamo.Instance.InsUpdGarantia(garantia);
             return Ok();
         }
-        //[HttpGet("{MarcaModelo}")]
-        //private IEnumerable<GarantiaConMarcaYModelo> Get3(string MarcaModelo)
-        //{
-        //    var getGarantiasParams = new GarantiaGetParams();
-
-        //    var garantias = BLLPrestamo.Instance.GetGarantias(getGarantiasParams);
-        //    foreach (var item in garantias)
-        //    {
-        //        item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>();
-        //    }
-        //    return garantias;
-        //}
+        
 
         public class SeachResult<T>
         {

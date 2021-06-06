@@ -190,7 +190,7 @@ namespace PrestamoBLL
             prestamoInProgress.GastoDeCierreEsDeducible = esDeducible;
         }
 
-        private void SetAcomodarFecha(DateTime? fechaInicioPrimeraCuota)
+        private void SetAcomodarFecha(DateTime fechaInicioPrimeraCuota)
         {
             // aqui debe tomar la fecha y debe actualizar entonces la propiedad  [FechaInicioCalculoPrestamo]
             prestamoInProgress.FechaInicioPrimeraCuota = fechaInicioPrimeraCuota;
