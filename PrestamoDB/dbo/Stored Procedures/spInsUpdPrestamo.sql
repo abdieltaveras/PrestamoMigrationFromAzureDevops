@@ -22,15 +22,15 @@ begin
 			VALUES (@idnegocio, @idlocalidadNegocio, @prestamoNumero, @idPrestamoArenovar, @deudarenovacion, @idclasificacion, @idCliente, @Idtipoamortizacion, @fechaemisionReal, @fechaemisionParaCalculos, @fechavencimiento, @idtasainteres, @idtipomora, @idperiodo, @cantidaddeperiodos, @montoprestado, @iddivisa, @interesgastodecierre, @montogastodecierre, @gastodecierreesdeducible, @cargarinteresalgastodecierre, @financiarGastoDeCierre, @acomodarfechaalascuotas, @fechainicioprimeracuota, @usuario, getdate(), @otrosCargosSinInteres)
 			  set @idPrestamo = (SELECT SCOPE_IDENTITY());
 			  if ((select count(*) from @cuotas) > 0)
-			  begin
-				insert into tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
-				select @IdPrestamo, Numero, Fecha, Capital, Interes, 
-					GastoDeCierre, InteresDelGastoDeCierre, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre from @cuotas
-			  end
+				  begin
+					insert into tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
+					select @IdPrestamo, Numero, Fecha, Capital, Interes, 
+						GastoDeCierre, InteresDelGastoDeCierre, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre from @cuotas
+				  end
 			  else
-			  begin
-			    RAISERROR('Error: no envio ninguna cuota a ser generada',17,1); 
-			  end
+				  begin
+					RAISERROR('Error: no envio ninguna cuota a ser generada',17,1); 
+				  end
 			  if (exists (select 1 from @garantias))
 			  begin
 				insert into tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor) select @IdPrestamo, IdGarantia, @usuario from @garantias

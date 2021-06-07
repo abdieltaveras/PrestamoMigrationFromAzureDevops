@@ -31,7 +31,8 @@ namespace PrestamoBlazorApp.Shared
                 await BlockPage();
                 var lista = await CatalogosService.Get(CatalogoGetParams);
           
-                catalogos = JsonConvert.DeserializeObject<IEnumerable< Catalogo>>(lista.FirstOrDefault().ToString() );
+                catalogos = await CatalogosService.Get(CatalogoGetParams);
+                //JsonConvert.DeserializeObject<IEnumerable< Catalogo>>(lista.FirstOrDefault().ToString() );
                 await UnBlockPage();
                 StateHasChanged();
             }
@@ -49,7 +50,8 @@ namespace PrestamoBlazorApp.Shared
                 await BlockPage();
                 CatalogoGetParams.Id = Id;
                 var lista = await CatalogosService.Get(CatalogoGetParams);
-                var catalogo =  JsonConvert.DeserializeObject<IEnumerable<Catalogo>>(lista.FirstOrDefault().ToString()).FirstOrDefault();
+                var catalogo = lista.ToList().FirstOrDefault();
+                //JsonConvert.DeserializeObject<IEnumerable<Catalogo>>(lista.FirstOrDefault().ToString()).FirstOrDefault();
                 Catalogo.Nombre = catalogo.Nombre;
                 Catalogo.Codigo = catalogo.Codigo;
                 Catalogo.Id = catalogo.Id;

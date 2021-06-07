@@ -42,14 +42,15 @@ namespace WSPrestamo.Controllers
         //    //return View("CreateOrEdit", datos);
         //}
         [HttpGet]
-        public IEnumerable< string> Get(string JsonGet = "")
+        public IEnumerable<Catalogo> Get(string JsonGet = "")
         {
             List<string> ls = new List<string>();
             var JsonResult = JsonConvert.DeserializeObject<CatalogoGetParams>(JsonGet);
             var result = BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(JsonResult);
             var d =  JsonConvert.SerializeObject( result);
             ls.Add(d);
-            return ls;
+            //return ls;
+            return result;
             //return View("CreateOrEdit", datos);
         }
     }
