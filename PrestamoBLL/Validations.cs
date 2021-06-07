@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PrestamoBLL.Entidades;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -299,6 +300,23 @@ namespace PrestamoBLL
 
     }
 
+    public static class Validaciones
+    {
+
+        public static Validator<PrestamoConCalculos> ForPrestamo001()
+        {
+            
+            var prestamoValidator =
+                    Validator<PrestamoConCalculos>.Empty
+                    .IsNotValidWhen(p => p == null, "El prestamo no puede estar nulo", ValidationOptions.StopOnFailure)
+                    .IsValidWhen(p => p.IdClasificacion > 0, "Debe elegir una clasificacion valida")
+                    .IsNotValidWhen(p => p.LlevaGarantia() && p.IdGarantias.Count() <= 0, "Debe establecer una garantia")
+                    .IsValidWhen(p => p.MontoPrestado >= 0, "El monto a prestar no puede ser menor a 0 (cero)")
+                    .IsValidWhen(p => p.IdCliente > 0, "Debe establecer un cliente");
+
+            return prestamoValidator;
+        }
+    }
 
 
     [Flags]

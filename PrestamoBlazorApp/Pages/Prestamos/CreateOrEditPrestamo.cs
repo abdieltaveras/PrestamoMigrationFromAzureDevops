@@ -152,23 +152,11 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         async Task SavePrestamo()
         {
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-
             var resultbool1 = prestamo.LlevaGarantia();
             var resultbool2 = prestamo.IdGarantias.Count() > 0;
-
-
-            var prestamoValidator =
-                Validator<PrestamoConCalculos>.Empty
-                .IsNotValidWhen(p => p == null, "El prestamo no puede estar nulo", ValidationOptions.StopOnFailure)
-                .IsValidWhen(p => p.IdClasificacion > 0, "Debe elegir una clasificacion valida")
-                .IsNotValidWhen(p => p.LlevaGarantia() && p.IdGarantias.Count() <=0 , "Debe establecer una garantia")
-                .IsValidWhen(p => p.MontoPrestado >= 0, "El monto a prestar no puede ser menor a 0 (cero)")
-                .IsValidWhen(p => p.IdCliente > 0, "Debe establecer un cliente");
-
-            var result = prestamoValidator.Validate(prestamo);
+            var result = Validaciones.ForPrestamo001().Validate(prestamo);
             var validacionesFallidas = result.Where(item => item.Success == false);
             var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select(item => item.Message));
-            //var resultToJson  = result.Dump();
             if (validacionesFallidas.Count() > 0)
             {
                 await SweetMessageBox("Se han encontrado errores " + MensajesValidacionesFallida, "error", "", 5000);
@@ -186,7 +174,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             }
 
         }
-
         private void CalcularGastoDeCierre()
         {
             prestamo.MontoGastoDeCierre = prestamo.LlevaGastoDeCierre ? prestamo.MontoPrestado * (prestamo.InteresGastoDeCierre / 100) : 0;
