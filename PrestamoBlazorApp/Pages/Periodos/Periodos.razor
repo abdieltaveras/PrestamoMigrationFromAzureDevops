@@ -18,22 +18,16 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="col-md-12">
+            <div class="modal-body">
                 <EditForm Model="Periodo" OnValidSubmit="SavePriodo">
                     <div class="form-group row">
                         <div class="col-sm-4">Estatus</div>
                         <div class="col-sm-8">
-                            <span class="slider"></span>
-
-                            @* @Html.CheckBoxFor(Model => Model.TasaInteres.RequiereAutorizacion)*@
-
-                            <input data-val="true"
-                                   class="checkbox"
-                                   id="Activo"
-                                   name="Activo"
-                                   type="checkbox"
-                                   value="true" />
-                            <label for="Activo" class="switch" id="switch"></label>
+                            <label class="switch">
+                                <input type="checkbox" @bind="ChkEstatus">
+                                <span class="slider round"></span>
+                            </label>
+                         
 
                         </div>
                     </div>
@@ -53,79 +47,40 @@
                         <label for="nombre">Nombre</label>
                         <InputText class="form-control col-md-6" @bind-Value="Periodo.Nombre"></InputText>
                     </div>
-                    <InputSelect @bind-Value="Periodo.IdPeriodoBase">
-                        @foreach (var item in Periodoss)
-                        {
-                            <option  value="@item.IdPeriodoBase">@item.Nombre</option>
-                        }
-                    </InputSelect>
-                    @*<select class="form-control" @bind="SelectedPeriodo">
-                        <option value="value">Seleccione Un Periodo</option>
-                        @foreach (var item in Periodoss)
-                        {
-                            <option @key="item.idPeriodo" value="@item.idPeriodo">@item.Nombre</option>
-                        }
-                    </select>*@
+                    <div class="form-group">
+                        <InputSelect @bind-Value="Periodo.IdPeriodoBase" class="form-control col-md-6">
+                            @foreach (var item in Periodoss)
+                            {
+                                <option value="@item.IdPeriodoBase">@item.Nombre</option>
+                            }
+                        </InputSelect>
+                    </div>
+                  
                     <div class="form-group">
                         <label for="nombre">MultiploPeriodoBase</label>
                         <InputNumber class="form-control col-md-6" @bind-Value="Periodo.MultiploPeriodoBase"></InputNumber>
                     </div>
-                    @*<div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                            </div>
-                        </div>*@
-
-                    @*<div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.idPeriodo, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.DropDownListFor(model => model.idPeriodo, SelectItems.Periodos(1), htmlAttributes: new { @class = @HtmlClass.InputTextCls })
-                                @Html.ValidationMessageFor(model => model.idPeriodo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>*@
-
-                    @*<div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.MultiploPeriodoBase, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                @Html.EditorFor(model => model.MultiploPeriodoBase, new { htmlAttributes = new { @class = @HtmlClass.InputTextCls } })
-                                @Html.ValidationMessageFor(model => model.MultiploPeriodoBase, "", new { @class = "text-danger" })
-                            </div>
-                        </div>*@
-
-                    @*<div class="@HtmlClass.FormGroupCls">
-                            @Html.LabelFor(model => model.RequiereAutorizacion, htmlAttributes: new { @class = @HtmlClass.LabelCls })
-                            <div class="@HtmlClass.DivInputCls">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.RequiereAutorizacion)
-                                    @Html.ValidationMessageFor(model => model.RequiereAutorizacion, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>*@
+                  
 
                     <div class="form-group row">
                         <div class="col-sm-4">Requiere autorizacion</div>
-                        <div class="col-sm-8">
-                            <span class="slider"></span>
-
-                            @* @Html.CheckBoxFor(Model => Model.TasaInteres.RequiereAutorizacion)*@
-
-                            <input data-val="true"
-                                   class="checkbox"
-                                   id="RequiereAutorizacion"
-                                   name="RequiereAutorizacion"
-                                   type="checkbox"
-                                   value="true" />
-                            <label for="RequiereAutorizacion" class="switch" id="switch"></label>
+                        <div class="col-md-8" >
+                            <label class="switch">
+                                <input type="checkbox" @bind="ChkRequiereAutorizacion">
+                                <span class="slider round"></span>
+                            </label>
+                          
                         </div>
                     </div>
-                    <div class="ln_solid"></div>
-                    <div class="item form-group" style="float: right;">
-                        <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                    @*<div class="ln_solid"></div>*@
+                    <div class="modal-footer">
+                        <div class="item form-group" style="float: right;">
+                            <div class="col-md-6 col-sm-6 offset-md-3">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
                         </div>
                     </div>
+                   
                 </EditForm>
             </div>
         </div>
@@ -141,6 +96,7 @@
                     <th>Codigo</th>
                     <th>Nombre</th>
                     <th>Activo</th>
+                    <th>Requiere Autorizacion</th>
                     <th>Acciones</th>
 
                 </tr>
@@ -149,15 +105,15 @@
 
                 @foreach (var item in Periodoss)
                 {
-                <tr >
+                <tr>
                     <td>
                         <strong>
                             @item.Codigo
                         </strong>
-                      
+
                     </td>
                     <td>
-                            @item.Nombre
+                        @item.Nombre
                     </td>
                     <td>
                         @if (item.Activo)
@@ -167,6 +123,16 @@
                         else
                         {
                             <span class="badge badge-danger">Desactivado</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RequiereAutorizacion)
+                        {
+                            <span class="badge badge-primary">Si</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger">No</span>
                         }
                     </td>
                     <td>

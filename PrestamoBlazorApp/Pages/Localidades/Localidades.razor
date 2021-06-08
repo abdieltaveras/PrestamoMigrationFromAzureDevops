@@ -54,7 +54,7 @@
                                 {
                                     <div class="col-md-8">
                                         <select @bind="SelectedTipoLocalidad" class="form-control">
-
+                                            <option value="">Seleccione Un Tipo  </option>
                                             @foreach (var item in Territorios)
                                             {
                                                 <option value=@item.IdDivisionTerritorial>@(item.Nombre)  </option>

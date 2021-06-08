@@ -37,6 +37,7 @@
                 {
                     
                  <select @bind="SelectedLocalidad" class="form-control">
+                     <option value="">Seleccione una Localidad</option>
                     @foreach (var item in Localidades)
                     {
                         <option value=@item.IdLocalidad>@(item.Nombre) ||Tipo:  @(item.Descripcion) </option>

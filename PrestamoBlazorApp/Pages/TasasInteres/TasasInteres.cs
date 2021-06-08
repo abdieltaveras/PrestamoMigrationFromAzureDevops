@@ -18,7 +18,8 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         IEnumerable<TasaInteres> tasasinteres { get; set; } = new List<TasaInteres>();
         [Parameter]
         public TasaInteres TasaInteres { get; set; } = new TasaInteres();
-
+        public bool ChkRequiereAutorizacion { get; set; }
+        public bool ChkEstatus { get; set; }
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -35,7 +36,11 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
             if (idTasaInteres > 0)
             {
                 var tasainteres = await TasasInteresService.Get(new TasaInteresGetParams { idTasaInteres = idTasaInteres });
+              
                 this.TasaInteres = tasainteres.FirstOrDefault();
+                this.ChkRequiereAutorizacion = this.TasaInteres.RequiereAutorizacion;
+                this.ChkEstatus = this.TasaInteres.Activo;
+                //StateHasChanged();
             }
             else
             {
@@ -47,6 +52,8 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         async Task SaveTasaInteres()
         {
             await BlockPage();
+            this.TasaInteres.Activo = ChkEstatus;
+            this.TasaInteres.RequiereAutorizacion = ChkRequiereAutorizacion;
             await TasasInteresService.SaveTasaInteres(this.TasaInteres);
             await SweetMessageBox("Guardado Correctamente", "success", "");
             await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");

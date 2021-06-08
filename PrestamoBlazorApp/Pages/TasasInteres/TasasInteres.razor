@@ -18,6 +18,18 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group row">
+                                <div class="col-sm-4">Estatus</div>
+                                <div class="col-sm-8">
+                                    <label class="switch">
+                                        <input type="checkbox" @bind="ChkEstatus">
+                                        <span class="slider round"></span>
+                                    </label>
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="codigo">
                                     Codigo <span class="required">*</span>
                                 </label>
@@ -50,19 +62,22 @@
                             <div class="form-group row">
                                 <div class="col-sm-4">Autorizacion</div>
                                 <div class="col-sm-8">
-                                    <span class="slider"></span>
-
+                                    <label class="switch">
+                                        <input type="checkbox" @bind="ChkRequiereAutorizacion">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <!--<span class="slider"></span>-->
                                     @* @Html.CheckBoxFor(Model => Model.TasaInteres.RequiereAutorizacion)*@
 
-                                    <input data-val="true"
-                                           class="checkbox"
-                                           data-val-required="The isNewlyEnrolled field is required."
-                                           id="TasaInteres_RequiereAutorizacion"
-                                           name="TasaInteres.RequiereAutorizacion"
-                                           type="checkbox"
-                                           value="true" />
+                                    <!--<input data-val="true"
+            class="checkbox"
+            data-val-required="The isNewlyEnrolled field is required."
+            id="TasaInteres_RequiereAutorizacion"
+            name="TasaInteres.RequiereAutorizacion"
+            type="checkbox"
+            value="true" />-->
                                     @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
-                                    <label for="TasaInteres_RequiereAutorizacion" class="switch" id="switch"></label>
+                                    <!--<label for="TasaInteres_RequiereAutorizacion" class="switch" id="switch"></label>-->
                                     @* @Html.Raw(item.Activo ? "checked" : "")*@
 
 
@@ -70,7 +85,7 @@
                             </div>
                         </div>
                     </div>
-                
+                    
                     <div class="row">
                         <div class="col-md-12" style="display:inline-grid; justify-content:right;">
                             <button type="submit" class="btn btn-primary">Guardar</button>
