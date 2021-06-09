@@ -20,6 +20,8 @@ namespace PrestamoBlazorApp.Pages.Periodos
         private int? _SelectedPeriodo = null;
 
         public int? SelectedPeriodo { get { return _SelectedPeriodo; } set { _SelectedPeriodo = value; Seleccionar(); } }
+        public bool ChkEstatus { get; set; }
+        public bool ChkRequiereAutorizacion { get; set; }
         private void Seleccionar()
         {
             //SelectedLocalidad = Convert.ToInt32(args.);
@@ -48,6 +50,8 @@ namespace PrestamoBlazorApp.Pages.Periodos
                 var periodo = await PeriodosService.Get(new PeriodoGetParams { idPeriodo = idPeriodo });
                 this.Periodo = periodo.FirstOrDefault();
                 this.SelectedPeriodo = Periodo.IdPeriodoBase;
+                this.ChkEstatus = this.Periodo.Activo;
+                this.ChkRequiereAutorizacion = this.Periodo.RequiereAutorizacion;
             }
             else
             {
@@ -61,6 +65,8 @@ namespace PrestamoBlazorApp.Pages.Periodos
             Periodo.IdNegocio = 1;
             Periodo.IdLocalidadNegocio = 1;
             Periodo.Usuario = "Luis";
+            this.Periodo.RequiereAutorizacion = ChkRequiereAutorizacion;
+            this.Periodo.Activo = ChkEstatus;
             await BlockPage();
             await Handle_SaveData(async () => await PeriodosService.SavePeriodo(this.Periodo));
            // await PeriodosService.SavePeriodo(this.Periodo);

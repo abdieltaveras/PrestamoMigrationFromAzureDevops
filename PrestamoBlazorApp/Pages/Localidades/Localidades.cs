@@ -40,10 +40,22 @@ namespace PrestamoBlazorApp.Pages.Localidades
         {
             await BlockPage();
             StateHasChanged();
+            //if (this.Localidad.)
+            //{
+
+            //}
             this.Localidad.IdTipoLocalidad = Convert.ToInt32( SelectedTipoLocalidad);
-            await localidadesService.SaveLocalidad(this.Localidad);
-            await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "/localidades");
+            if (this.Localidad.IdLocalidadPadre <= 0)
+            {
+                await SweetMessageBox("Debe seleccionar un una localidad", "error", "/localidades");
+            }
+            else
+            {
+                await localidadesService.SaveLocalidad(this.Localidad);
+                await UnBlockPage();
+                await SweetMessageBox("Guardado Correctamente", "success", "/localidades");
+            }
+        
         }
         public async Task VerLocalidades()
         {

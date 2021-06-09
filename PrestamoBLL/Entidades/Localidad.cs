@@ -11,7 +11,7 @@ namespace PrestamoBLL.Entidades
     {
         public int IdLocalidad { get; set; }
         public int IdLocalidadPadre { get; set; }
-        public int IdTipoLocalidad { get; set; }
+        public int IdTipoLocalidad { get; set; } = -1;
         //public int IdNegocio { get; set; }
         //public string Nombre { get; set; } = string.Empty;
         [IgnorarEnParam]
