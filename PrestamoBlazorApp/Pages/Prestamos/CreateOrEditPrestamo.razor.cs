@@ -17,34 +17,28 @@ namespace PrestamoBlazorApp.Pages.Prestamos
     public partial class CreateOrEditPrestamo : BaseForCreateOrEdit
     {
         private PrestamoConCalculos prestamo { get; set; } = new PrestamoConCalculos();
-
         private bool ShowSearchGarantia { get; set; } = false;
         [Inject]
         PrestamosService prestamoService { get; set; }
-        //        en la clasificacion que indique
-        //si lleva o no garantia
-        //si lleva o no Codeudor
+        // en la clasificacion que indique
+        // si lleva o no garantia
+        // si lleva o no Codeudor
 
-        //        igual tendremos tipos de vista de clientes
-        //Full view
-        //Basic View
-
-
+        // igual tendremos tipos de vista de clientes
+        // Full view
+        // Basic View
         [Parameter]
         public int idPrestamo { get; set; } = -1;
-
         private string CodigoCliente { get; set; } = string.Empty;
         private string CodigoCodeudor { get; set; } = string.Empty;
         private string CodigoGarantia { get; set; } = string.Empty;
         private string CodigoPeriodo { get; set; } = string.Empty;
         private string CodigoInteres { get; set; } = string.Empty;
         private string CodigoMora { get; set; } = string.Empty;
-
         private bool SinVencimiento { get; set; } = true;
         //private decimal _montoPrestado;
         //decimal MontoPrestado { get { return _montoPrestado; } set { this._montoPrestado = value; OnChangeMontoText(value); } }
         //string FormattedMontoPrestadoText { get; set; }
-
         [Inject]
         ClasificacionesService clasificacionesService { get; set; }
 
