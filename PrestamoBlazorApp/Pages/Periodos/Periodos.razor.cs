@@ -20,8 +20,9 @@ namespace PrestamoBlazorApp.Pages.Periodos
         private int? _SelectedPeriodo = null;
 
         public int? SelectedPeriodo { get { return _SelectedPeriodo; } set { _SelectedPeriodo = value; Seleccionar(); } }
-        public bool ChkEstatus { get; set; }
+        public bool ChkEstatus { get; set; } = true;
         public bool ChkRequiereAutorizacion { get; set; }
+        public PeriodoBase PeriodoBase { get; set; }
         private void Seleccionar()
         {
             //SelectedLocalidad = Convert.ToInt32(args.);
