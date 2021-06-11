@@ -36,9 +36,9 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private string CodigoInteres { get; set; } = string.Empty;
         private string CodigoMora { get; set; } = string.Empty;
         private bool SinVencimiento { get; set; } = true;
-        //private decimal _montoPrestado;
-        //decimal MontoPrestado { get { return _montoPrestado; } set { this._montoPrestado = value; OnChangeMontoText(value); } }
-        //string FormattedMontoPrestadoText { get; set; }
+        // private decimal _montoPrestado;
+        // decimal MontoPrestado { get { return _montoPrestado; } set { this._montoPrestado = value; OnChangeMontoText(value); } }
+        // string FormattedMontoPrestadoText { get; set; }
         [Inject]
         ClasificacionesService clasificacionesService { get; set; }
 
@@ -69,6 +69,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task InitPrestamo()
         {
             this.loading = true;
+            //PeriodoBase.Dia
             Clasificaciones = await clasificacionesService.Get(new ClasificacionesGetParams());
             TiposMora = await tiposMorasService.Get(new TipoMoraGetParams());
             TasasDeInteres = await tasasInteresService.Get(new TasaInteresGetParams());
@@ -97,12 +98,10 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 //var garantia = resultGarantia.FirstOrDefault();
                 //var garantiaConMarcaYModelo = new GarantiaConMarcaYModelo();
                 updateInfoGarantia(getResult.infoGarantias);
-                
             }
             else
             {
                 prestamo.SetServices(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
-
                 this.prestamo.PrestamoNumero = "Nuevo";
                 this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
                 this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
@@ -110,14 +109,17 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
                 this.prestamo.IdTasaInteres = TasasDeInteres.FirstOrDefault().idTasaInteres;
                 await setParametros.ForPrestamo(this.prestamo);
+
                 //await prestamoCalculo.UpdatePrestamoCalculo();
             }
-            
+
             this.prestamo.ProyectarPrimeraYUltima = true;
             prestamo.ActivateCalculos();
             await prestamo.ExecCalcs();
             this.loading = false;
         }
+
+        
         private void NotificadorDeMensaje(object sender, string e)
         {
             NotifyMessageBox(e);
@@ -128,7 +130,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             decimal montoCuota = 0;
             if (prestamo.TipoAmortizacion == TiposAmortizacion.No_Amortizable_cuotas_fijas)
             {
-                montoCuota = prestamo.Cuotas != null ? prestamo.Cuotas[0].TotalOrig : 0;
+                var valorCta = prestamo.Cuotas.Where(cta => cta.Numero == 1).FirstOrDefault().TotalOrig;
+                montoCuota = prestamo.Cuotas != null ? valorCta : 0;
             }
             var result = $"{prestamo.CantidadDePeriodos} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("C")}";
             return result;
@@ -139,6 +142,10 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             {
                 await this.prestamo.ExecCalcs();
                 //await JsInteropUtils.SetInputMask(jsRuntime);
+            }
+            if (prestamo.AcomodarFechaALasCuotas)
+            {
+                await SweetMessageBox("Aun no permito trabajar con prestamos acomodando cuotas", redirectTo: "/prestamos");
             }
         }
 

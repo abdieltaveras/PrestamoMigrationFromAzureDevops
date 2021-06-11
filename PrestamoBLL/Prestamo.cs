@@ -19,12 +19,16 @@ namespace PrestamoBLL
         public int InsUpdPrestamo(Prestamo prestamo)
         {
             
+            
             //var prToBuild = new PrestamoBuilder(prestamo);
             //var result = prToBuild.Build();
             var prToBuild2 = new PrestamoBuilder(prestamo);
             var result2 = prToBuild2.Build();
             //var cuotas = result2._CuotasList;
             var prestamoParam2 = SearchRec.ToSqlParams(result2);
+
+            prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
+            
             var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
             var  id= Utils.GetIdFromDataTable(resultId);
             return id;

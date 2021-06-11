@@ -283,13 +283,14 @@ namespace PrestamoBLL.Entidades
         [Display(Name = "Cargo interes al G/C ?")]
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
         [Display(Name = "Desea acomodar las fechas de las cuotas?")]
-        public virtual bool AcomodarFechaALasCuotas { get { return FechaInicioPrimeraCuota != null && FechaInicioPrimeraCuota!= InitValues._19000101; } }
+        public virtual bool AcomodarFechaALasCuotas => FechaInicioPrimeraCuota != null && FechaInicioPrimeraCuota!= InitValues._19000101;
+                
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
         [ReadOnly(true)]
         [HiddenInput]
-        public DateTime FechaInicioPrimeraCuota { get; set; } 
+        public DateTime FechaInicioPrimeraCuota { get; set; }  = InitValues._19000101;
 
         /// <summary>
         /// este campo es el que tendra la fecha real de donde partira a generar las cuotas y sus fechas de vencimientos, es necesario para cuando al prestamo se le acomode las cuotas
@@ -424,6 +425,7 @@ namespace PrestamoBLL.Entidades
         public async Task ExecCalcs() => await execCalcs();
 
 
+
         public void ActivateCalculos() => execCalcs = Calcular;
         public void SetServices(EventHandler<string> notificarMensaje,
             IEnumerable<Clasificacion> clasificaciones,
@@ -432,13 +434,11 @@ namespace PrestamoBLL.Entidades
             IEnumerable<Periodo> periodos
             )
         {
-            execCalcs = Calcular;
             this.OnNotificarMensaje = notificarMensaje;
             this.Clasificaciones = clasificaciones;
             this.TiposMora = tiposMora;
             this.TasasDeInteres = tasasDeInteres;
             this.Periodos = periodos;
-
         }
 
         EventHandler<string> OnNotificarMensaje;

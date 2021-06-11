@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\PrestamoBLL\Entidades\Cliente.cs" Link="Entidades\Cliente.cs" />
-    <Compile Include="..\PrestamoBLL\Entidades\Codeudor.cs" Link="Entidades\Codeudor.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Pages\Clientes\CreateOrEditCliente - Copy.razor2" />
   </ItemGroup>
 

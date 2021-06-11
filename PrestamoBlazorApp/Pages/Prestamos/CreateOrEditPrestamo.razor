@@ -101,12 +101,12 @@
                     </div>
 
                     <div class="form-group row">
-                        @*<label for="llevagastodecierre" class="col-sm-4 col-form-label @textLabelJustify">Lleva Gasto de Cierre</label>*@
-                        @*<InputCheckbox @bind-Value="prestamo.LlevaGastoDeCierre"  class="offset-2 mt-1" />*@
-                        <input type="checkbox" value="@prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre" checked="@prestamo.LlevaGastoDeCierre" class="offset-4 mt-1" />
-                        <label for="llevagastodecierre" class="ml-2 @textLabelJustify" style="margin-left: 5px">lleva Gasto de Cierre</label>
+                        <label for="llevagastodecierre" class="col-sm-4  @textLabelJustify">lleva Gasto de Cierre</label>
+                        <label class="switch sm-8">
+                            <input type="checkbox" value="@prestamo.LlevaGastoDeCierre" @onchange="UpdateLlevaGastoDeCierre" checked="@prestamo.LlevaGastoDeCierre" class="mt-1" />
+                            <span class="slider round"></span>
+                        </label>
                     </div>
-
                     @{ if (prestamo.LlevaGastoDeCierre)
                         {
                             <div class="form-group row">
@@ -117,8 +117,13 @@
                                 </label>
                             </div>
                             <div class="form-group row">
-                                <InputCheckbox @bind-Value="@prestamo.GastoDeCierreEsDeducible" class="offset-2 mt-1" />
-                                <label for="esDeducible" class="ml-2" style="margin-left: 5px">Es Decucible</label>
+                                @*<InputCheckbox @bind-Value="@prestamo.GastoDeCierreEsDeducible" class="offset-2 mt-1" />*@
+                                <label class="col-sm-4  @textLabelJustify">Es Deducible</label>
+                                <label class="switch sm-8">
+                                    <input type="checkbox" @bind-value="@prestamo.GastoDeCierreEsDeducible" checked="@prestamo.GastoDeCierreEsDeducible" class="mt-1" />
+                                    <span class="slider round"></span>
+                                </label>
+                                @*<label for="esDeducible" class="ml-2" style="margin-left: 5px">Es Decucible</label>*@
                                 @if (@prestamo.GastoDeCierreEsDeducible)
                                 {
                                     <label class="ml-2" style="margin-left: 5px">Se Rebajara del Monto a entregar al cliente</label>
@@ -127,8 +132,13 @@
                             if (!prestamo.GastoDeCierreEsDeducible)
                             {
                                 <div class="form-group row">
-                                    <InputCheckbox @bind-Value="@prestamo.FinanciarGastoDeCierre" class="offset-2 mt-1" />
-                                    <label class="ml-2" style="margin-left: 5px">Financiar el GC</label>
+                                    <label class="col-sm-4  @textLabelJustify">Financiar El G/Cierre</label>
+                                    <label class="switch sm-8">
+                                        <input type="checkbox" @bind-value="@prestamo.FinanciarGastoDeCierre" checked="@prestamo.FinanciarGastoDeCierre" class="mt-1" />
+                                        <span class="slider round"></span>
+                                    </label>
+                                    @*<InputCheckbox @bind-Value="@prestamo.FinanciarGastoDeCierre" class="offset-2 mt-1" />*@
+                                    @*<label class="ml-2" style="margin-left: 5px">Financiar el GC</label>*@
 
                                     @if (prestamo.FinanciarGastoDeCierre)
                                     {
