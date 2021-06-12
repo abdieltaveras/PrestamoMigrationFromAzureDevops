@@ -95,7 +95,7 @@
                             <button @onclick="ActivateSearchGarantia" title="buscar garantias"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
 
                             <div class="row col-sm-12  text-left">
-                                <ul>
+                                <ol>
                                     @foreach (var item in InfoGarantias)
                                     {
 
@@ -103,7 +103,7 @@
                                             <button @onclick="() => RemoveGarantia(item.IdGarantia)" class="fa fa-remove" title="quitar"></button>@item
                                         </li>
                                     }
-                                </ul>
+                                </ol>
                             </div>
                             <SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" OnModalClose="OnCloseSearchGarantia" />
                         }

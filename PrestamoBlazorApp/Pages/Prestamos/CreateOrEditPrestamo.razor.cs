@@ -248,6 +248,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private void updateInfoGarantia(GarantiaConMarcaYModelo garantia)
         {
             CodigoGarantia = garantia.NoIdentificacion;
+
             this.prestamo.IdGarantias.Add(garantia.IdGarantia);
             var infoG = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.DetallesJSON.Ano} {garantia.NombreColor}  placa {@garantia.DetallesJSON.Placa} matricula {@garantia.DetallesJSON.Matricula}";
             var infoGarantia = new infoGarantia { IdGarantia = garantia.IdGarantia, Text = infoG };
@@ -256,6 +257,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         private void updateInfoGarantia(IEnumerable<InfoGarantiaDrCr> garantias)
         {
+            prestamo.IdGarantias.Clear();
             foreach (var garantia in garantias)
             {
                 CodigoGarantia = garantia.NumeracionGarantia;
