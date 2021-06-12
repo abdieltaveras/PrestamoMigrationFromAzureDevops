@@ -41,7 +41,6 @@ namespace PrestamoBlazorApp.Shared
         }
         private async Task GetTodasLasLocalidadesQueAceptenCalles()
         {
-            await CountAndShowExecutionTime("Localidades AferRender");
             this.buscarLocalidad = new BuscarLocalidadParams();
             this.buscarLocalidad.SoloLosQuePermitenCalle = true;
             this.buscarLocalidad.MinLength = 0;

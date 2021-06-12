@@ -8,6 +8,7 @@ using PrestamoBLL;
 using PrestamoBLL.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,20 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private bool ShowSearchGarantia { get; set; } = false;
         [Inject]
         PrestamosService prestamoService { get; set; }
+        [Inject]
+        ClasificacionesService clasificacionesService { get; set; }
+
+        [Inject]
+        TiposMoraService tiposMorasService { get; set; }
+
+        [Inject]
+        TasasInteresService tasasInteresService { get; set; }
+        [Inject]
+        PeriodosService periodosService { get; set; }
+
+
+        [Inject]
+        GarantiasService GarantiasService { get; set; }
         // en la clasificacion que indique
         // si lleva o no garantia
         // si lleva o no Codeudor
@@ -39,26 +54,13 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         // private decimal _montoPrestado;
         // decimal MontoPrestado { get { return _montoPrestado; } set { this._montoPrestado = value; OnChangeMontoText(value); } }
         // string FormattedMontoPrestadoText { get; set; }
-        [Inject]
-        ClasificacionesService clasificacionesService { get; set; }
-
-        [Inject]
-        TiposMoraService tiposMorasService { get; set; }
-
-        [Inject]
-        TasasInteresService tasasInteresService { get; set; }
-        [Inject]
-        PeriodosService periodosService { get; set; }
-
-
-        [Inject]
-        GarantiasService GarantiasService { get; set; }
+        
 
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
 
-        internal IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
-        internal IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
+        IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
+        IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
 
 
         protected override async Task OnInitializedAsync()
@@ -75,6 +77,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             TasasDeInteres = await tasasInteresService.Get(new TasaInteresGetParams());
             TasasDeInteres = TasasDeInteres.ToList().OrderBy(ti => ti.InteresMensual);
             Periodos = await periodosService.Get(new PeriodoGetParams());
+            
 
             if (idPrestamo > 0)
             {
@@ -86,9 +89,9 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 };
 
                 prestamo = getResult.infoPrestamo.ToJson().ToType<PrestamoConCalculos>();
-                
+
                 prestamo.SetServices(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
-                
+
                 //var resultCliente = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = prestamo.IdCliente });
                 //var cliente = resultCliente.FirstOrDefault();
                 updateInfoCliente(getResult.infoCliente);
@@ -119,7 +122,21 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             this.loading = false;
         }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await this.prestamo.ExecCalcs();
+                //await JsInteropUtils.SetInputMask(jsRuntime);
+            }
+            if (prestamo.AcomodarFechaALasCuotas)
+            {
+                await SweetMessageBox("Aun no permito trabajar con prestamos acomodando cuotas", redirectTo: "/prestamos");
+            }
+            
+        }
         
+
         private void NotificadorDeMensaje(object sender, string e)
         {
             NotifyMessageBox(e);
@@ -136,18 +153,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             var result = $"{prestamo.CantidadDePeriodos} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("C")}";
             return result;
         }
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                await this.prestamo.ExecCalcs();
-                //await JsInteropUtils.SetInputMask(jsRuntime);
-            }
-            if (prestamo.AcomodarFechaALasCuotas)
-            {
-                await SweetMessageBox("Aun no permito trabajar con prestamos acomodando cuotas", redirectTo: "/prestamos");
-            }
-        }
+        
 
 
         async Task SavePrestamo()

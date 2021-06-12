@@ -16,7 +16,7 @@ namespace PrestamoBlazorApp.Shared
         [Inject]
         internal IJSRuntime jsRuntime { get; private set; }
 
-        private int executionCounter { get; set; }
+        
         protected virtual async Task SweetAlertSuccess(string message, string redirectTo = "")
         {
             if (message == null || message == string.Empty)
@@ -62,11 +62,7 @@ namespace PrestamoBlazorApp.Shared
             throw new NotImplementedException();
         }
 
-        protected async Task CountAndShowExecutionTime(string proceso)
-        {
-            executionCounter++;
-            await NotifyMessageBox(proceso + "veces ejecutado " + executionCounter);
-        }
+        
     }
 
     public abstract class BaseForSearch : CommonBase
