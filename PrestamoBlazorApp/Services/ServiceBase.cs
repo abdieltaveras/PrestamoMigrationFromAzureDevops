@@ -41,6 +41,7 @@ namespace PrestamoBlazorApp.Services
         }
         public async Task<IEnumerable<@Type>> GetAsync<@Type>(string endpoint, object search)
         {
+
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
             var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
@@ -48,8 +49,13 @@ namespace PrestamoBlazorApp.Services
 
             IEnumerable<@Type> result;
 
-            var client = _clientFactory.CreateClient();
+            
 
+            
+            
+            var client = _clientFactory.CreateClient();
+            
+            
             var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
@@ -73,7 +79,7 @@ namespace PrestamoBlazorApp.Services
         /// <param name="endpoint"></param>
         /// <param name="search"></param>
         /// <returns></returns>
-        public async Task<@Type> GetAsyncOne<@Type>(string endpoint, object search)
+        public async Task<@Type> GetSingleAsync<@Type>(string endpoint, object search)
         {
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();

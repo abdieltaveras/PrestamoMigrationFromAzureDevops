@@ -58,23 +58,23 @@ namespace PrestamoBLL.Entidades
 
         [IgnorarEnParam()]
         
-        public string InsertadoPor { get; internal set; } = string.Empty;
+        public string InsertadoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
         
-        public DateTime FechaInsertado { get; internal set; } = InitValues._19000101;
+        public DateTime FechaInsertado { get;  set; } = InitValues._19000101;
         [IgnorarEnParam()]
         
-        public string ModificadoPor { get; internal set; } = string.Empty;
+        public string ModificadoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
         
-        public DateTime FechaModificado { get; internal set; } = InitValues._19000101;
+        public DateTime FechaModificado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
         
 
-        public string AnuladoPor { get; internal set; } = string.Empty;
+        public string AnuladoPor { get;  set; } = string.Empty;
         [IgnorarEnParam()]
         
-        public DateTime FechaAnulado { get; internal set; } = InitValues._19000101;
+        public DateTime FechaAnulado { get;  set; } = InitValues._19000101;
         public bool Anulado() => !string.IsNullOrEmpty(AnuladoPor);  
         public virtual bool Modificable() => false;
         public virtual bool Anulable()=> false;

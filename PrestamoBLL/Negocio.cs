@@ -29,8 +29,8 @@ namespace PrestamoBLL
         }
         public class negociosPadres
         {
-            public int idNegocio { get; internal set; } = 0;
-            public int idNegocioPadre { get; internal set; } = 0;
+            public int idNegocio { get; set; } = 0;
+            public int idNegocioPadre { get; set; } = 0;
         }
 
         public IEnumerable<Negocio> GetNegocioySusPadres(int idNegocio)

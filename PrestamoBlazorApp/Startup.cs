@@ -16,6 +16,7 @@ using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp
@@ -42,8 +43,8 @@ namespace PrestamoBlazorApp
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
             services.AddHttpClient();
+            
             services.AddRazorPages();
             services.AddServerSideBlazor();
 

@@ -52,7 +52,7 @@ namespace PrestamoBLL.Tests
             //tpIdGarantias.Add(new tpIdGarantia { IdGarantia = 3 });
             var IdGarantias = new List<int> { 4, 3 };
             var result =BLLPrestamo.Instance.GarantiasTienenPrestamosVigentes(IdGarantias);
-            var result2 = BLLPrestamo.Instance.IdGarantiasConPrestamos(IdGarantias);
+            var result2 = BLLPrestamo.Instance.GarantiasConPrestamos(IdGarantias);
             Assert.Fail();
         }
     }

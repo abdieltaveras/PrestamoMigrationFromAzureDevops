@@ -60,6 +60,7 @@ namespace WSPrestamo.Controllers
             return garantias;
         }
 
+        [HttpGet]
         public IEnumerable<GarantiaConMarcaYModelo> GetGarantias(string searchObject)
         {
             var search = searchObject.ToType<GarantiaGetParams>();
@@ -68,8 +69,23 @@ namespace WSPrestamo.Controllers
             result.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
             return result;
         }
+        [HttpGet]
+        public bool TienePrestamoVigentes(int idGarantia)
+        {
+            var result = BLLPrestamo.Instance.GarantiasTienenPrestamosVigentes(new int[] { idGarantia });
+            return result;
+        }
 
+        [HttpGet]
+        public IEnumerable<GarantiasConPrestamo> GetPrestamosVigentes(int idGarantia)
+        {
+            var result = BLLPrestamo.Instance.GarantiasConPrestamos(new int[] { idGarantia });
+            return result;
+        }
+
+        [HttpGet]
         public IEnumerable<Garantia> Get(string JsonGet = "")
+            
         {
             dynamic listResult = null;
             var searchGarantia = JsonConvert.DeserializeObject<GarantiaGetParams>(JsonGet);

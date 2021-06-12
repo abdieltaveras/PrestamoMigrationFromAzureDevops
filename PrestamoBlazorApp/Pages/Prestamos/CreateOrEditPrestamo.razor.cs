@@ -153,17 +153,14 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         async Task SavePrestamo()
         {
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-            var resultbool1 = prestamo.LlevaGarantia();
-            var resultbool2 = prestamo.IdGarantias.Count() > 0;
             var result = Validaciones.ForPrestamo001().Validate(prestamo);
             var validacionesFallidas = result.Where(item => item.Success == false);
-            var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select(item => item.Message));
+            var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) =>  (i+1)+"-"+item.Message+Environment.NewLine));
             if (validacionesFallidas.Count() > 0)
             {
-                await SweetMessageBox("Se han encontrado errores " + MensajesValidacionesFallida, "error", "", 5000);
+                await SweetMessageBox("Se han encontrado errores"+Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
                 return;
             }
-
             try
             {
                 Prestamo pr = this.prestamo;
@@ -201,18 +198,41 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
 
         int IdGarantiaSelected { get; set; }
-        string InfoGarantia { get; set; }
+        List<infoGarantia> InfoGarantias { get; set; } = new List<infoGarantia>();
 
+        
         private async Task ActivateSearchGarantia()
         {
-            InfoGarantia = string.Empty;
             ShowSearchGarantia = true;
         }
 
         private async Task UpdateGarantiaSelected(int idGarantia)
         {
             this.ShowSearchGarantia = false;
+            if (prestamo.IdGarantias.Exists(val => val == idGarantia))
+            {
+                await SweetMessageBox("Esta garantia ya fue añadida");
+                return;
+            }
+            //todo que la garantia valide si permite usarse en mas de 1 prestamo
+            // pero pense cambiar la forma, que dicho permiso se otorgue especificante par auna determinada peticion
+            // lo que deseo hacer en el sistema es que se genere un one time petition y diga peticion
+            // se le autorice al usuario para el proceso que desea y que se venza en cierto tiempo
+            // esto es una posiblidad luego de consumida ya expira
+            // dicha solicitud puede tener un boton que diga revisar estatus solicitud
+            // en espera, aceptada, rechazada, expirada
+
+            var prestamosVinculados = await GarantiasService.GetPrestamosVigentesForGarantia(idGarantia);
+            if (prestamosVinculados.Count()>0)
+            {
+                
+                var prestamosForGarantia = string.Join(",", prestamosVinculados.Select(elem => elem.prestamoNumero));
+                await SweetMessageBox("garantia no aceptadad porque esta vinculada con otro(s) prestamo "+prestamosForGarantia,delayMilliSeconds:5000);
+                return;
+            }
+            
             this.IdGarantiaSelected = idGarantia;
+            
             //await NotifyMessageBox("garantia seleccionada " + idGarantia);
             var Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = idGarantia });
             var garantia = Garantias.FirstOrDefault();
@@ -223,7 +243,9 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         {
             CodigoGarantia = garantia.NoIdentificacion;
             this.prestamo.IdGarantias.Add(garantia.IdGarantia);
-            InfoGarantia = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.DetallesJSON.Ano} {garantia.NombreColor}  placa {@garantia.DetallesJSON.Placa} matricula {@garantia.DetallesJSON.Matricula}";
+            var infoG = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.DetallesJSON.Ano} {garantia.NombreColor}  placa {@garantia.DetallesJSON.Placa} matricula {@garantia.DetallesJSON.Matricula}";
+            var infoGarantia = new infoGarantia { IdGarantia = garantia.IdGarantia, Text = infoG };
+            InfoGarantias.Add(infoGarantia);
         }
 
         private void updateInfoGarantia(IEnumerable<InfoGarantiaDrCr> garantias)
@@ -232,7 +254,19 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             {
                 CodigoGarantia = garantia.NumeracionGarantia;
                 this.prestamo.IdGarantias.Add(garantia.IdGarantia);
-                InfoGarantia = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.GetDetallesGarantia().Color}  placa {garantia.GetDetallesGarantia().Placa} matricula {@garantia.GetDetallesGarantia().Matricula}";
+                var infoG = $"{garantia.NombreMarca} {garantia.NombreModelo} {garantia.GetDetallesGarantia().Ano} {garantia.GetDetallesGarantia().Color}  placa {@garantia.GetDetallesGarantia().Placa} matricula {@garantia.GetDetallesGarantia().Matricula}";
+                var infoGarantia = new infoGarantia { IdGarantia = garantia.IdGarantia, Text = infoG };
+                InfoGarantias.Add(infoGarantia);
+            }
+        }
+
+        private async Task RemoveGarantia(int idGarantia)
+        {
+            var result = await JsInteropUtils.Confirm(jsRuntime, "Desea realmente quitar esta garantia");
+            if (result)
+            {
+                prestamo.IdGarantias.RemoveAll(value => value == idGarantia);
+                InfoGarantias.RemoveAll(gar => gar.IdGarantia == idGarantia);
             }
         }
 
@@ -250,7 +284,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task UpdateClienteSelected(int idCliente)
         {
             this.ShowSearchCliente = false;
-            this.IdGarantiaSelected = idCliente;
+            this.IdClienteSelected = idCliente;
             //await NotifyMessageBox("garantia seleccionada " + idGarantia);
             var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente });
             var cliente = clientes.FirstOrDefault();
@@ -274,12 +308,13 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task OnCloseSearchCliente() => ShowSearchCliente = false;
         private async Task OnCloseSearchGarantia() => ShowSearchGarantia = false;
     }
-
-    public class PrestamoValidator
+    class infoGarantia
     {
-        public void Buil()
-        {
+        public int IdGarantia { get; set; }
+        public string Text { get; set; }
 
-        }
+        public override string ToString() => Text;
+        
     }
+
 }

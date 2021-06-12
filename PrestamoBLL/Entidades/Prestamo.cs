@@ -519,6 +519,7 @@ namespace PrestamoBLL.Entidades
             return prestamo.FechaVencimiento;
         }
 
+        
         public override decimal InteresGastoDeCierre
         {
             get => base.InteresGastoDeCierre;

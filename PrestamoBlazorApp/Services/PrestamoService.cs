@@ -21,13 +21,13 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<Prestamo> GetByIdAsync(int idPrestamo)
         {
-            var result = await GetAsyncOne<Prestamo>(apiUrl+"/GetById", new{ idPrestamo = idPrestamo });
+            var result = await GetSingleAsync<Prestamo>(apiUrl+"/GetById", new{ idPrestamo = idPrestamo });
             return result;
         }
 
         public async Task<PrestamoConDetallesParaUIPrestamo> GetConDetallesForUiAsync(int idPrestamo)
         {
-            var result = await GetAsyncOne<PrestamoConDetallesParaUIPrestamo>(apiUrl+ "/GetConDetallesForUi", new { idPrestamo = idPrestamo});
+            var result = await GetSingleAsync<PrestamoConDetallesParaUIPrestamo>(apiUrl+ "/GetConDetallesForUi", new { idPrestamo = idPrestamo});
             return result;
         }
 

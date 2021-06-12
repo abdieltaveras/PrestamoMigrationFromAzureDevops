@@ -34,7 +34,7 @@ namespace PrestamoBLL.Entidades
         /// <summary>
         /// El nombre del campo o columna que hara la comparacion
         /// </summary>
-        public string NombreColumna { get; internal set; } 
+        public string NombreColumna { get;  set; } 
         /// <summary>
         /// el nombre de la tabla que se ejecutara la anulacion
         /// </summary>

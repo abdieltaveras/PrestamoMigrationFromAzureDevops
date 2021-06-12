@@ -69,7 +69,7 @@ namespace PrestamoBLL
         public bool GarantiasTienenPrestamosVigentes(IEnumerable<int> idGarantias)
         {
             
-            var result = IdGarantiasConPrestamos(idGarantias);
+            var result = GarantiasConPrestamos(idGarantias);
             return (result!=null);
         }
 
@@ -79,7 +79,7 @@ namespace PrestamoBLL
             var result = DBPrestamo.ExecReaderSelSP<Garantia>("spGetGarantiasByprestamo", searchParam);
             return result;
         }
-        public IEnumerable<GarantiasConPrestamo> IdGarantiasConPrestamos(IEnumerable<int> idGarantias)
+        public IEnumerable<GarantiasConPrestamo> GarantiasConPrestamos(IEnumerable<int> idGarantias)
         {
             var tpIdGarantias = new List<tpIdGarantia>();
             var result = idGarantias.Select(data => new tpIdGarantia() { IdGarantia = data });
@@ -98,9 +98,9 @@ namespace PrestamoBLL
 
     public class GarantiasConPrestamo
     { 
-        public int idGarantia { get; internal set; }
-        public int idPrestamo { get; internal set; }
+        public int idGarantia { get;  set; }
+        public int idPrestamo { get; set; }
         
-        public int prestamoNumero { get; internal set; }
+        public string prestamoNumero { get; set; }
     }
 }

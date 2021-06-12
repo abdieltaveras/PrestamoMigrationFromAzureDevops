@@ -29,8 +29,6 @@ namespace PrestamoBlazorApp.Shared
             if (firstRender)
             {
                 await BlockPage();
-                var lista = await CatalogosService.Get(CatalogoGetParams);
-          
                 catalogos = await CatalogosService.Get(CatalogoGetParams);
                 //JsonConvert.DeserializeObject<IEnumerable< Catalogo>>(lista.FirstOrDefault().ToString() );
                 await UnBlockPage();
