@@ -20,7 +20,9 @@ namespace PrestamoBlazorApp.Shared
         public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams();
         BaseForList BaseForList { get; set; }
         IEnumerable<Catalogo> catalogos { get; set; } = new List<Catalogo>();
-     
+        [Inject]
+        internal IJSRuntime jsRuntime { get; private set; }
+
         [Inject]
         CatalogosService CatalogosService { get; set; }
 
@@ -60,6 +62,34 @@ namespace PrestamoBlazorApp.Shared
                 this.Catalogo = new Catalogo { IdTabla = Catalogo.IdTabla, NombreTabla = Catalogo.NombreTabla };
             }
             await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+        }
+        async Task Eliminar ()
+        {
+            //*********Sweet confirm retorna int, esto es debido a que utilizamos 3 botones si enviamos el parametro DenyButtonText************//
+            //desde aqui SweetConfirm
+            //var a = await JsInteropUtils.SweetConfirm(jsRuntime,"Deseas Eliminar?","No quiero no");
+            //if (a == 1)
+            //{
+            //    await SweetMessageBox("Eliminado");
+            //}
+            //else
+            //{
+            //    if(a == 2)
+            //    {
+            //        await SweetMessageBox("No quiere eliminar");
+            //    }
+            //}
+            //hasta aqui esta el SweetConfirm 
+
+            //*********************************************************//
+
+            //var  a = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, "Desea Eliminar?", ""); //Funciona
+            var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
+            if (a == true)
+            {
+                await SweetMessageBox("Eliminado");
+            }
+
         }
         void RaiseInvalidSubmit()
         {

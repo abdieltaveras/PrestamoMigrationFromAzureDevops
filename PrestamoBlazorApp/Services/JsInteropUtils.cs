@@ -22,6 +22,8 @@ namespace PrestamoBlazorApp.Services
         public static Task ConsoleLog(IJSRuntime jsRuntime, object _object) => Task.Run(async () => await jsRuntime.InvokeAsync<object>("ConsoleLog", new object[] { _object}));
         public static Task<bool> SweetAlertSuccess(IJSRuntime jsRuntime, string message,string redirectTo = "") => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("sweetAlertSuccess", message,redirectTo));
         public static Task<bool> SweetMessageBox(IJSRuntime jsRuntime, string message,string icon, string redirectTo = "", int delayMilliSeconds = 1500) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("SweetMessageBox", message,icon, redirectTo, delayMilliSeconds));
+        public static Task<int> SweetConfirm(IJSRuntime jsRuntime,string title,string DenyButtonText="") => Task.Run(async () => await jsRuntime.InvokeAsync<int>("SweetConfirm",title,DenyButtonText));
+        public static Task<bool> SweetConfirmWithIcon(IJSRuntime jsRuntime, string title, string text,string ConfirmButtonText = "Ok") => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("SweetConfirmWithIcon", title,text, ConfirmButtonText));
         public static Task<bool> BlockPage(IJSRuntime jsRuntime) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("BlockPage"));
         public static Task<bool> UnBlockPage(IJSRuntime jsRuntime) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("UnBlockPage"));
         public static Task SetInputMaskByElemId(IJSRuntime JsRuntime, string elemId, string mask) => Task.Run(async () => await JsRuntime.InvokeVoidAsync("SetInputMaskByElem",elemId, mask));

@@ -57,9 +57,21 @@ namespace PrestamoBlazorApp.Shared
             await JsInteropUtils.UnBlockPage(jsRuntime);
             //await Task.Delay(watingTimeBeforeContinueExecution);
         }
-        protected virtual async Task OnDeleteConfirm()
+        protected virtual async Task<int> SweetConfirm(string title, string DenyBtnText = "")
         {
-            throw new NotImplementedException();
+            return await JsInteropUtils.SweetConfirm(jsRuntime, title, DenyBtnText);
+            //throw new NotImplementedException();
+        }
+        protected virtual async Task<bool> SweetConfirmWithIcon(string title,string text ="", string ConfirmedButtonText = "Ok")
+        {
+          var a = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, title,text, ConfirmedButtonText);
+            return a;
+            //throw new NotImplementedException();
+        }
+        protected virtual async Task<bool> OnDeleteConfirm(string title,string text = "")
+        {
+           return await SweetConfirmWithIcon(title,text);
+            //throw new NotImplementedException();
         }
 
         

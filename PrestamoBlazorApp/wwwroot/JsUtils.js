@@ -141,6 +141,66 @@ window.SweetMessageBox = function (message, icon, redirectTo = "", delayMilliSec
     });
     return true;
 }
+window.SweetConfirm = function (title, DenyButtonText = "") {
+    return new Promise(resolve => {
+        if (DenyButtonText == "") {
+            //
+            Swal.fire({
+                title: title,
+                showCancelButton: true,
+                confirmButtonText: `Ok`,
+            }).then((result) => {
+                resolve(1);
+            });
+          
+        } else {
+            Swal.fire({
+                title: title,
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: `Ok`,
+                denyButtonText: DenyButtonText,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    resolve(1);
+                    //Swal.fire(title, '', 'success')
+
+                } else if (result.isDenied) {
+                    resolve(2);
+                    
+                    //resolve('isDenied'); // ajustar para devolver string o int
+                    //alert(result.isDenied);
+                    //Swal.fire(title, '', 'info')
+                }
+            });
+        }
+     
+    });
+}
+window.SweetConfirmWithIcon = function (title, text, ConfirmButtonText = "Ok") {
+    return new Promise(resolve => {
+        Swal.fire({
+            title: title,
+            text: text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: ConfirmButtonText
+        }).then((result) => {
+            resolve(result.isConfirmed);
+            //if (result.isConfirmed) {
+            //    confirm = true;
+            //    //Swal.fire(
+            //    //    ConfirmedMessage,
+            //    //    '',
+            //    //    'success'
+            //    //)
+            //}
+        });
+    });
+}
 window.BlockPage = function()
 {
     $.blockUI({
