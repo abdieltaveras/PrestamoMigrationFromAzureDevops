@@ -26,9 +26,9 @@ namespace PrestamoBlazorApp.Pages.Test
             var elapseTime = new Stopwatch();
             elapseTime.Start();
             await SweetMessageBox($"Realizando las tareas");
-            var tarea1 = getTest01();
-            var tarea2 = getTest02();
-            var tarea3 = getTest03();
+            var tarea1 = testService.GetTest01(10);
+            var tarea2 = testService.GetTest02(5);
+            var tarea3 = testService.GetTest03(15);
             var tareas = new List<Task> { tarea1, tarea2, tarea3 };
             
             while (tareas.Count > 0)
@@ -36,15 +36,18 @@ namespace PrestamoBlazorApp.Pages.Test
                 Task finishedTask = await Task.WhenAny(tareas);
                 if (finishedTask == tarea1)
                 {
-                    await NotifyMessageBox($"termine la tarea 1");
+                    var result = tarea1.Result;
+                    await NotifyMessageBox($"termine la tarea 1 me devolvio el valor {result}");
                 }
                 else if (finishedTask == tarea2)
                 {
-                    await NotifyMessageBox($"termine la tarea 2");
+                    var result = tarea2.Result;
+                    await NotifyMessageBox($"termine la tarea 2 me devolvio el valor {result}");
                 }
                 else if (finishedTask == tarea3)
                 {
-                    await NotifyMessageBox($"termine la tarea 3");
+                    var result = tarea3.Result;
+                    await NotifyMessageBox($"termine la tarea 3 me devolvio el valor {result}");
                 }
                 tareas.Remove(finishedTask);
             }
