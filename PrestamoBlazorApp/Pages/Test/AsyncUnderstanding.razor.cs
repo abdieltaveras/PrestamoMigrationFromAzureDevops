@@ -13,26 +13,7 @@ namespace PrestamoBlazorApp.Pages.Test
     public partial class AsyncUnderstanding : BaseForCreateOrEdit
     {
         [Inject]
-        ClasificacionesService clasificacionesService { get; set; }
-
-        [Inject]
-        TiposMoraService tiposMorasService { get; set; }
-
-        [Inject]
-        TasasInteresService tasasInteresService { get; set; }
-        [Inject]
-        PeriodosService periodosService { get; set; }
-
-
-        [Inject]
-        GarantiasService GarantiasService { get; set; }
-
-        IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
-        IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
-
-        IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
-        IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
-
+        TestService testService { get; set; }
         protected override Task OnAfterRenderAsync(bool firstRender)
         {
             return base.OnAfterRenderAsync(firstRender);
@@ -40,28 +21,65 @@ namespace PrestamoBlazorApp.Pages.Test
 
 
 
-        private async Task TestAsync()
+        private async Task TestAsyncOk()
         {
             var elapseTime = new Stopwatch();
             elapseTime.Start();
-            Clasificaciones = await clasificacionesService.Get(new ClasificacionesGetParams());
-            TiposMora = await tiposMorasService.Get(new TipoMoraGetParams());
-            TasasDeInteres = await tasasInteresService.Get(new TasaInteresGetParams());
-            TasasDeInteres = TasasDeInteres.ToList().OrderBy(ti => ti.InteresMensual);
-            Periodos = await periodosService.Get(new PeriodoGetParams());
-            elapseTime.Stop();
+            await SweetMessageBox($"Realizando las tareas");
+            var tarea1 = getTest01();
+            var tarea2 = getTest02();
+            var tarea3 = getTest03();
+            var tareas = new List<Task> { tarea1, tarea2, tarea3 };
             
-            await SweetMessageBox($"async se tardo {elapseTime.ElapsedMilliseconds / 1000}");
-
-            elapseTime.Start();
-            clasificacionesService.Get(new ClasificacionesGetParams());
-            tiposMorasService.Get(new TipoMoraGetParams());
-            tasasInteresService.Get(new TasaInteresGetParams());
-            TasasDeInteres.ToList().OrderBy(ti => ti.InteresMensual);
-            periodosService.Get(new PeriodoGetParams());
+            while (tareas.Count > 0)
+            {
+                Task finishedTask = await Task.WhenAny(tareas);
+                if (finishedTask == tarea1)
+                {
+                    await NotifyMessageBox($"termine la tarea 1");
+                }
+                else if (finishedTask == tarea2)
+                {
+                    await NotifyMessageBox($"termine la tarea 2");
+                }
+                else if (finishedTask == tarea3)
+                {
+                    await NotifyMessageBox($"termine la tarea 3");
+                }
+                tareas.Remove(finishedTask);
+            }
             elapseTime.Stop();
-            await SweetMessageBox($"sync se tardo {elapseTime.ElapsedMilliseconds / 1000}");
+            await SweetMessageBox($"async se tardo {elapseTime.ElapsedMilliseconds / 1000}");
         }
 
+        private async Task TestAsyncBad()
+        {
+            var elapseTime = new Stopwatch();
+            elapseTime.Start();
+            await SweetMessageBox($"Realizando las tareas");
+            await getTest01();
+            await NotifyMessageBox($"termine la tarea 1");
+            await getTest02();
+            await NotifyMessageBox($"termine la tarea 2");
+            await getTest03();
+            await NotifyMessageBox($"termine la tarea 3");
+            elapseTime.Stop();
+            await SweetMessageBox($"async se tardo {elapseTime.ElapsedMilliseconds / 1000}");
+        }
+
+        private async Task getTest03()
+        {
+            await testService.GetTest02(5);
+        }
+
+        private async Task getTest02()
+        {
+            await testService.GetTest02(15);
+        }
+
+        private async Task getTest01()
+        {
+            await testService.GetTest01(10);
+        }
     }
 }

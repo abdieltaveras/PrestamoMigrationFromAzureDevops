@@ -74,7 +74,9 @@ namespace PrestamoBlazorApp
             services.AddSingleton<TasasInteresService>();
             services.AddSingleton<PeriodosService>();
             services.AddSingleton<PrestamosService>();
+            services.AddSingleton<PrestamosService>();
             services.AddSingleton<SetParametrosService>();
+            services.AddSingleton<TestService>();
 
         }
 

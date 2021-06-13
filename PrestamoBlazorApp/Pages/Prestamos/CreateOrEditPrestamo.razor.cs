@@ -271,6 +271,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task RemoveGarantia(int idGarantia)
         {
             //var result = await JsInteropUtils.Confirm(jsRuntime, "Desea realmente quitar esta garantia");
+            //var result2 = await JsInteropUtils.SweetConfirm(jsRuntime, "Quitar Garantia", "Desea realmente quitar esta garantia");
+            //await NotifyMessageBox(result2.ToString());
             var result = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, "Quitar Garantia","Desea realmente quitar esta garantia");
             if (result)
             {
