@@ -29,7 +29,11 @@ namespace PrestamoBlazorApp.Pages.Test
             var tarea1 = testService.GetTest01(10);
             var tarea2 = testService.GetTest02(5);
             var tarea3 = testService.GetTest03(15);
-            var tareas = new List<Task> { tarea1, tarea2, tarea3 };
+
+            var tarea4 = testService.GetTest01(10);
+            var tarea5 = testService.GetTest02(5);
+            var tarea6 = testService.GetTest03(15);
+            var tareas = new List<Task> { tarea1, tarea2, tarea3, tarea4, tarea5, tarea6  };
             
             while (tareas.Count > 0)
             {
@@ -49,6 +53,21 @@ namespace PrestamoBlazorApp.Pages.Test
                     var result = tarea3.Result;
                     await NotifyMessageBox($"termine la tarea 3 me devolvio el valor {result}");
                 }
+                else if (finishedTask == tarea4)
+                {
+                    var result = tarea4.Result;
+                    await NotifyMessageBox($"termine la tarea 4 me devolvio el valor {result}");
+                }
+                else if (finishedTask == tarea5)
+                {
+                    var result = tarea5.Result;
+                    await NotifyMessageBox($"termine la tarea 5 me devolvio el valor {result}");
+                }
+                else if (finishedTask == tarea6)
+                {
+                    var result = tarea6.Result;
+                    await NotifyMessageBox($"termine la tarea 6 me devolvio el valor {result}");
+                }
                 tareas.Remove(finishedTask);
             }
             elapseTime.Stop();
@@ -60,6 +79,12 @@ namespace PrestamoBlazorApp.Pages.Test
             var elapseTime = new Stopwatch();
             elapseTime.Start();
             await SweetMessageBox($"Realizando las tareas");
+            await getTest01();
+            await NotifyMessageBox($"termine la tarea 1");
+            await getTest02();
+            await NotifyMessageBox($"termine la tarea 2");
+            await getTest03();
+            await NotifyMessageBox($"termine la tarea 3");
             await getTest01();
             await NotifyMessageBox($"termine la tarea 1");
             await getTest02();

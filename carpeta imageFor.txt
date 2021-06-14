@@ -1,0 +1,3 @@
+esta carpeta y asumo que otras que se trabajen al hospedarla hay que darle permiso al usuario de ese hosting para que puede realizar en ella y en las que son sus hijas los derechos apropiados para que la aplicacion pueda guardar las imagenes y leerlas.
+
+de lo contrario DA ERROR AL TRATAR DE GUARDAR CLIENTES / GARANTIAS CON IMAGENES PORQUE NO TIENE ACCESO, pero ese error debe ser atrapado e informado al departamento tecnico.

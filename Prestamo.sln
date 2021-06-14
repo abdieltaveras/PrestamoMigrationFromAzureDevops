@@ -66,6 +66,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSPrestamo", "WSPrestamo\WS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorUtilsLibrary", "BlazorUtilsLibrary\BlazorUtilsLibrary.csproj", "{0028AFDA-CAB8-4D1F-BBDA-E0C6A233619F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Situaciones del Hosting y IIS", "Situaciones del Hosting y IIS", "{2E30095D-EB98-49EE-8E4E-AD9378B99018}"
+	ProjectSection(SolutionItems) = preProject
+		carpeta imageFor.txt = carpeta imageFor.txt
+		Propuestas al sistema\Errores especiales.rtf = Propuestas al sistema\Errores especiales.rtf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU
