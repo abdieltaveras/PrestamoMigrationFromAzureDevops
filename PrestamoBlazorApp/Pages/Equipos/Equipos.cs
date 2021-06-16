@@ -12,9 +12,7 @@ namespace PrestamoBlazorApp.Pages.Equipos
 {
     public partial class Equipos : BaseForCreateOrEdit
     {
-        ColorGetParams SearchMarca { get; set; } = new ColorGetParams();
-        [Inject]
-        IJSRuntime jsRuntime { get; set; }
+      
 
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
@@ -22,7 +20,7 @@ namespace PrestamoBlazorApp.Pages.Equipos
         IEnumerable<Equipo> equipos { get; set; } = new List<Equipo>();
         [Parameter]
         public Equipo Equipo { get; set; } 
-        bool loading = false;
+   
         void Clear() => equipos = null;
         protected override void OnInitialized()
         {
@@ -53,7 +51,7 @@ namespace PrestamoBlazorApp.Pages.Equipos
             await BlockPage();
             await EquiposService.SaveEquipo(this.Equipo);
             await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            await SweetMessageBox("Guardado Correctamente", "success", "/equipos");
         }
         async Task CreateOrEdit(int IdEquipo = -1)
         {
