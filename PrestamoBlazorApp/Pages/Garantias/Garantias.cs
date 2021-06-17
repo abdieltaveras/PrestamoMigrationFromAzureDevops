@@ -7,6 +7,7 @@ using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
+using Newtonsoft.Json;
 
 namespace PrestamoBlazorApp.Pages.Garantias
 {
@@ -30,7 +31,8 @@ namespace PrestamoBlazorApp.Pages.Garantias
         }
         protected override async Task OnInitializedAsync()
         {
-            await GetGarantiasWithPrestamos();
+           await GetGarantiasWithPrestamos();
+            
             //garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = ""});
         }
         async Task GetGarantias()
@@ -47,6 +49,10 @@ namespace PrestamoBlazorApp.Pages.Garantias
             //loading = true;
             //await BlockPage();
             garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
+            foreach (var item in garantias)
+            {
+                item.DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(item.Detalles);
+            }
             //await UnBlockPage();
             //loading = false;
         }

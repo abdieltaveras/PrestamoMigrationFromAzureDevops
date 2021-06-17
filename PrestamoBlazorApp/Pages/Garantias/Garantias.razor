@@ -84,6 +84,8 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Descripcion</th>
                     <th>Operacion</th>
                 </tr>
             </thead>
@@ -92,15 +94,30 @@
                 {
                     @foreach (var item in garantias)
                     {
-                        <tr>
-                            <td>@item.NoIdentificacion</td>
-                            <td>
-                                <a href="@($"garantias/createoredit/{item.IdGarantia}")" title="editar" class="btn btn-primary table-btn">
-                                    <i class="oi oi-pencil"></i>
-                                </a>
-                            </td>
-                            @*<td> <button @onclick="()=>CreateOrEdit(item.IdGarantia)" class="btn btn-info"> Editar </button></td>*@
-                        </tr>
+                <tr>
+                    <td>@item.NoIdentificacion</td>
+                    @if (item.DetallesJSON != null)
+                    {
+                        @if (item.IdTipoGarantia == 1)
+                        {
+                            <td>@TiposClasificacionGarantia.Inmobiliaria</td>
+                        }
+                        @if(item.IdTipoGarantia == 2)
+                        {
+                            <td>@TiposClasificacionGarantia.Mobiliaria</td>
+                        }
+
+                        <td>@item.DetallesJSON.Descripcion</td>
+
+                    }
+
+                    <td>
+                        <a href="@($"garantias/createoredit/{item.IdGarantia}")" title="editar" class="btn btn-outline-primary">
+                            <i class="oi oi-pencil"></i>
+                        </a>
+                    </td>
+                    @*<td> <button @onclick="()=>CreateOrEdit(item.IdGarantia)" class="btn btn-info"> Editar </button></td>*@
+                </tr>
 
                     }
                 }
