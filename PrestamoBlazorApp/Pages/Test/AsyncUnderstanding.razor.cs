@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

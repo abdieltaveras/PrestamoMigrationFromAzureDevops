@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using emtSoft.DAL;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System.Linq;
 
 namespace PrestamoBLLTests

@@ -77,7 +77,6 @@ namespace PrestamoBlazorApp
             services.AddSingleton<PrestamosService>();
             services.AddSingleton<SetParametrosService>();
             services.AddSingleton<TestService>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

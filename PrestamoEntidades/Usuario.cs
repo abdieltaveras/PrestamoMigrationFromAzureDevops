@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Web.Mvc;
+
 
 namespace PrestamoEntidades
 {
@@ -10,6 +10,7 @@ namespace PrestamoEntidades
     {
         [Required]
         public int IdUsuario { get; set; } = 0;
+        
         public bool Activo { get; set; } = true;
         [Required(ErrorMessage = "el campo {0} es requerido")]
         [Display(Name ="Nombre Real")]
@@ -38,17 +39,15 @@ namespace PrestamoEntidades
         [Required]
         [Display(Name = "Cambiar Contraseña al iniciar sesion")]
         public bool DebeCambiarContraseñaAlIniciarSesion { get; set; } = true;
-        [Display(Name = "Cuenta vigente Desde")]
-        
 
+        [Display(Name = "Cuenta vigente Desde")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime VigenteDesde { get; set; } = InitValues._19000101;
         /// <summary>
         /// establece si hay una fecha limite de vigencia de la cuenta
         /// </summary>
         [Display(Name = "Cuenta vigente hasta")]
-
-        
-
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime VigenteHasta { get; set; } = InitValues._19000101;
         /// <summary>
         /// Indica la fecha cuando inicia la vigencia de la contrasena
@@ -104,7 +103,7 @@ namespace PrestamoEntidades
         [GuardarEncriptado]
         public string Contraseña { get; set; } = string.Empty;
     }
-    public class UsuarioAnularParam : BaseAnularParams
+    public class UsuarioDeleteParam : BaseAnularOrDeleteParams
     { }
 
     //public class UserRoleInsUpdParams
@@ -118,22 +117,22 @@ namespace PrestamoEntidades
         public int IdRole { get; set; }
 
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public string InsertadoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaInsertado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public string ModificadoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaModificado { get; set; } = InitValues._19000101;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public string AnuladoPor { get; set; } = string.Empty;
         [IgnorarEnParam()]
-        [HiddenInput(DisplayValue = false)]
+        
         public DateTime FechaAnulado { get; set; } = InitValues._19000101;
         public bool Anulado() => string.IsNullOrEmpty(AnuladoPor);
     }

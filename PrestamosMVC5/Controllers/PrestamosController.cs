@@ -1,7 +1,7 @@
 ﻿using emtSoft.DAL;
 using Microsoft.Ajax.Utilities;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System;

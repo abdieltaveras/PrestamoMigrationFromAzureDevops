@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrestamoBLL.Entidades
+namespace Entidades
 {
-    public class JsonGlobalParam
+    public class Class1
     {
-        public string JsonGet { get; set; }   
     }
 }

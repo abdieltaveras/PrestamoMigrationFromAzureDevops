@@ -11,7 +11,7 @@ namespace PrestamoEntidades
     {
         public int IdLocalidad { get; set; }
         public int IdLocalidadPadre { get; set; }
-        public int IdTipoLocalidad { get; set; }
+        public int IdTipoLocalidad { get; set; } = -1;
         //public int IdNegocio { get; set; }
         //public string Nombre { get; set; } = string.Empty;
         [IgnorarEnParam]
@@ -35,6 +35,7 @@ namespace PrestamoEntidades
     public class LocalidadGetParams : BaseGetParams
     {
         public int IdLocalidad { get; set; } = 0;
+        public int IdLocalidadPadre { get; set; }
     }
 
     public class BuscarLocalidad : Localidad
@@ -43,10 +44,22 @@ namespace PrestamoEntidades
         public string TipoNombrePadre { get; set; } = string.Empty;
         public bool PermiteCalle { get; set; }
 
+        public string LocalidadSeleccionada { get; set; } = string.Empty;
+        public override string ToString()
+        {
+            return $"{Nombre} [{Descripcion}] ({TipoNombrePadre} {NombrePadre})";
+        }
+
     }
-    public class BuscarLocalidadParams : BaseGetParams
+    public class BuscarLocalidadParams 
     {
         public string Search { get; set; } = string.Empty;
+
+        public bool SoloLosQuePermitenCalle { get; set; } = false;
+        [IgnorarEnParam]
+        public int MinLength { get; set; } = minLengthDefault;
+
+        public const int minLengthDefault = 2;
     }
 
     public class BuscarNombreLocalidadParams : BaseGetParams
@@ -58,7 +71,7 @@ namespace PrestamoEntidades
     {
         public int IdLocalidad { get; set; }
         public string TipoLocalidad { get; set; }
-
+        public string DivisionTerritorial { get; set; }
         public override int GetId()
         {
             throw new NotImplementedException();

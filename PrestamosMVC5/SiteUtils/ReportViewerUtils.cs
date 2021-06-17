@@ -8,7 +8,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Mvc;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.Views.Reportes;
 using System.Data;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using emtSoft.DAL;
 namespace PrestamoBLL
 {

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PrestamoBlazorApp.Shared;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

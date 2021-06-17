@@ -1,11 +1,42 @@
 ﻿using emtSoft.DAL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PrestamoBLL
 {
+    public class CuotasConCalculo
+    {
+        public static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)
+        {
+            IGeneradorCuotas generadorCuotas = null;
+            var tipoAmortizacion = info.TipoAmortizacion;
+            switch (tipoAmortizacion)
+            {
+                case TiposAmortizacion.No_Amortizable_cuotas_fijas:
+                    generadorCuotas = new GeneradorCuotasFijasNoAmortizable(info);
+                    break;
+                case TiposAmortizacion.Amortizable_por_dia_abierto:
+                    break;
+                case TiposAmortizacion.Amortizable_por_periodo_abierto:
+
+                    break;
+                case TiposAmortizacion.Amortizable_cuotas_fijas:
+                    break;
+                case TiposAmortizacion.No_Amortizable_abierto:
+                    break;
+                default:
+                    break;
+            }
+
+            if (generadorCuotas == null)
+            {
+                throw new NotImplementedException("no se ha implementado la generacion de cuotas aun para " + tipoAmortizacion.ToString());
+            }
+            return generadorCuotas;
+        }
+    }
     public partial class BLLPrestamo
     {
         internal void InsUpdCuotas(IEnumerable<Cuota> cuotas)

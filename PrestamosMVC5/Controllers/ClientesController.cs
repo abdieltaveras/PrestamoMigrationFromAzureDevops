@@ -1,5 +1,5 @@
 ﻿using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System;
@@ -20,6 +20,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Reflection;
+using PcpUtilidades;
 
 namespace PrestamosMVC5.Controllers
 {

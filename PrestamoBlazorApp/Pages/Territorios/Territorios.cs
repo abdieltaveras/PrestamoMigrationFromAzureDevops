@@ -2,7 +2,7 @@
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
 {
     public partial class Territorios : BaseForCreateOrEdit
     {
-        [Inject]
-        IJSRuntime jsRuntime { get; set; }
-
+        
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         TerritoriosService territoriosService { get; set; }
@@ -22,7 +20,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         IEnumerable<Territorio> listadeterritorios { get; set; } = new List<Territorio>();
         [Parameter]
         public Territorio Territorio { get; set; }
-        bool loading = false;
+        
         void Clear() => territorios = null;
         protected override void OnInitialized()
         {

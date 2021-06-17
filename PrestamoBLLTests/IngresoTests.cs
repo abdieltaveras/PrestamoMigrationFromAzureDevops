@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System.Data;
 
 namespace PrestamoBLLTests

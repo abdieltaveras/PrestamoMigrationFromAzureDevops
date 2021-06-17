@@ -1,6 +1,7 @@
 ﻿using Microsoft.Ajax.Utilities;
+using PcpUtilidades;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System;

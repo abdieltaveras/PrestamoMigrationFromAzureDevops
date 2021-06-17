@@ -20,6 +20,7 @@ namespace PrestamoEntidades
     {
         public int IdModelo { get; set; } = -1;
         public int IdMarca { get; set; } = -1;
+        public string Nombre { get; set; } = string.Empty;
     }
 
     // TODO: Resolver con el modelo

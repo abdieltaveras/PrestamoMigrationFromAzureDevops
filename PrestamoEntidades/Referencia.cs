@@ -10,7 +10,7 @@ namespace PrestamoEntidades
     public class Referencia
     {
         public int Tipo { get; set; } = 0;
-        public int Vinculo { get; set; } = 0;
+        public string Vinculo { get; set; } = string.Empty;
         public string NombreCompleto { get; set; } = string.Empty;
         public string Telefono { get; set; } = string.Empty;
         public string Direccion { get; set; } = string.Empty;

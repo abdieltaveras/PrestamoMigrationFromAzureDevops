@@ -1,6 +1,6 @@
 
 using Microsoft.Extensions.Configuration;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
 using PrestamoBLL;
+using PcpUtilidades;
 
 namespace PrestamoBlazorApp.Services
 {

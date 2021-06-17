@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.Extensions.Configuration;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

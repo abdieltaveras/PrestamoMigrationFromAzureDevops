@@ -1,4 +1,4 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +20,7 @@ namespace PrestamoBlazorApp.Shared
         public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams();
         BaseForList BaseForList { get; set; }
         IEnumerable<Catalogo> catalogos { get; set; } = new List<Catalogo>();
-        [Inject]
-        internal IJSRuntime jsRuntime { get; private set; }
+        
 
         [Inject]
         CatalogosService CatalogosService { get; set; }

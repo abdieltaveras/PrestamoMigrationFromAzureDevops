@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrestamoBLL.Entidades
+namespace PrestamoEntidades
 {
     enum TiposClasificacionesFinanciera { Consumo=1, Hipotecario, Personal, Estudio }
     public class Clasificacion : BaseCatalogo

@@ -1,6 +1,6 @@
 ﻿using PrestamoBlazorApp.Services;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -8,12 +8,13 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System.Web.Helpers;
 using static PrestamoBLL.BLLPrestamo;
 using CaptchaMvc.HtmlHelpers;
+using PcpUtilidades;
 // Todo: Poner en las opciones que permita ver el listado o directamente ir a crear sin necesidad de ver el listado   en guardarpermitir  en las pantallas guardar sin salir desde donde fue llamado, podemos hacerlo interceptando el metodo onsubmit del    post, y retornando de nuevo al formulario con valores iniciales correctos
 namespace PrestamosMVC5.Controllers
 {

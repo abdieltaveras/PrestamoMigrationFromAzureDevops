@@ -1,4 +1,4 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +22,7 @@ namespace PrestamoBlazorApp.Pages.Modelos
         IEnumerable<Marca> marcas { get; set; } = new List<Marca>();
         [Parameter]
         public Modelo Modelo { get; set; } 
-        bool loading = false;
+        
         void Clear() => modelos = new List<Modelo>();
         protected override void OnInitialized()
         {

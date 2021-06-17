@@ -2,7 +2,7 @@
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         IEnumerable<Territorio> listadeterritorios { get; set; } = new List<Territorio>();
         [Parameter]
         public Territorio Territorio { get; set; }
-        bool loading = false;
+        
         void Clear() => listadeterritorios = null;
         protected override void OnInitialized()
         {

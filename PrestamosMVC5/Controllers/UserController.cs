@@ -1,5 +1,6 @@
-﻿using PrestamoBLL;
-using PrestamoBLL.Entidades;
+﻿using PcpUtilidades;
+using PrestamoBLL;
+using PrestamoEntidades;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;
 using System;

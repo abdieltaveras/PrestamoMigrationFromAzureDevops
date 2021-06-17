@@ -1,5 +1,6 @@
 ﻿using emtSoft.DAL;
-using PrestamoBLL.Entidades;
+using PcpUtilidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace PrestamoBLL
         
         public IEnumerable<Cliente> GetClientes(ClienteGetParams  searchParam, string directorioDeImagen = "")
         {
+            
             GetValidation(searchParam as BaseGetParams);
             var result= BllAcciones.GetData<Cliente, ClienteGetParams>(searchParam, "spGetClientes", GetValidation);
             if (searchParam.ConvertJsonToObj)

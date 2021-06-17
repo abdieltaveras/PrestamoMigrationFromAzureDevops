@@ -1,13 +1,15 @@
 ﻿using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Web.Http;
 using WSPrestamo.Models;
 using WSPrestamo.Utilidades;
+using PcpUtilidades;
 
 namespace WSPrestamo.Controllers
 {
@@ -18,9 +20,6 @@ namespace WSPrestamo.Controllers
 
     public class ClientesController : BaseApiController
     {
-
-        
-
         public IEnumerable<Cliente> Get(int idCliente, string codigo = "", string nombres = "", string apellidos = "", int Activo = -1,
             int idLocalidad = -1, int idTipoIdentificacion = -1, string noIdentificacion = "", int anulado = -1, DateTime? insertadoDesde = null, DateTime? insertadoHasta = null, int seleccionarCantidadRegistros = -1, int idRegistroInicioSeleccion = -1,
             bool convertJsonToObj = false

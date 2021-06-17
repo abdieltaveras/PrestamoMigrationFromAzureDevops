@@ -1,4 +1,4 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,6 @@ namespace PrestamoBlazorApp.Pages.Equipos
     {
         ColorGetParams SearchMarca { get; set; } = new ColorGetParams();
         [Inject]
-        IJSRuntime jsRuntime { get; set; }
 
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
@@ -22,7 +21,7 @@ namespace PrestamoBlazorApp.Pages.Equipos
         IEnumerable<Equipo> equipos { get; set; } = new List<Equipo>();
         [Parameter]
         public Equipo Equipo { get; set; } 
-        bool loading = false;
+
         void Clear() => equipos = null;
         protected override void OnInitialized()
         {

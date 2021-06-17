@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using PrestamoWS.Models;
+using PcpUtilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,4 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +12,8 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
 {
     public partial class Ocupaciones : BaseForCreateOrEdit
     {
-        [Inject]
-        IJSRuntime jsRuntime { get; set; }
+        
+        
         [Inject]
         OcupacionesService OcupacionesService { get; set; }
         IEnumerable<Ocupacion> ocupaciones { get; set; } = new List<Ocupacion>();

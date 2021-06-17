@@ -84,53 +84,11 @@
   <ItemGroup>
     <Compile Include="BLLPrestamo.cs" />
     <Compile Include="Clasificacion.cs" />
-    <Compile Include="Entidades\Clasificacion.cs" />
-    <Compile Include="Entidades\Imagen.cs" />
-    <Compile Include="Entidades\Ingreso.cs" />
-    <Compile Include="Entidades\IPrestamoConDetallesParaCreditosyDebitos.cs" />
-    <Compile Include="Entidades\JsonGlobalParam.cs" />
-    <Compile Include="Entidades\Status.cs" />
     <Compile Include="GeneradorDeCuotas.cs" />
     <Compile Include="Catalogo.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="ConexionDB.cs" />
     <Compile Include="Cuotas.cs" />
-    <Compile Include="Entidades\AnulacionDeRegistro.cs" />
-    <Compile Include="Entidades\BaseAnularOrDeleteParams.cs" />
-    <Compile Include="Entidades\BaseGetParams.cs" />
-    <Compile Include="Entidades\BaseInsUpd.cs" />
-    <Compile Include="Entidades\Catalogo.cs" />
-    <Compile Include="Entidades\Cliente.cs" />
-    <Compile Include="Entidades\Codeudor.cs" />
-    <Compile Include="Entidades\Color.cs" />
-    <Compile Include="Entidades\Conyuge.cs" />
-    <Compile Include="Entidades\Cuota.cs" />
-    <Compile Include="Entidades\Direccion.cs" />
-    <Compile Include="Entidades\Enums.cs" />
-    <Compile Include="Entidades\Equipo.cs" />
-    <Compile Include="Entidades\EstadoCivil.cs" />
-    <Compile Include="Entidades\Garantia.cs" />
-    <Compile Include="Entidades\InfoAccion.cs" />
-    <Compile Include="Entidades\InfoLaboral.cs" />
-    <Compile Include="Entidades\Localidad.cs" />
-    <Compile Include="Entidades\Localizador.cs" />
-    <Compile Include="Entidades\Marca.cs" />
-    <Compile Include="Entidades\Modelo.cs" />
-    <Compile Include="Entidades\Negocio.cs" />
-    <Compile Include="Entidades\Ocupacion.cs" />
-    <Compile Include="Entidades\Operacion.cs" />
-    <Compile Include="Entidades\Prestamo.cs" />
-    <Compile Include="Entidades\Referencia.cs" />
-    <Compile Include="Entidades\Role.cs" />
-    <Compile Include="Entidades\Periodo.cs" />
-    <Compile Include="Entidades\TasaInteres.cs" />
-    <Compile Include="Entidades\Territorio.cs" />
-    <Compile Include="Entidades\TipoGarantia.cs" />
-    <Compile Include="Entidades\TipoMora.cs" />
-    <Compile Include="Entidades\TipoSexo.cs" />
-    <Compile Include="Entidades\TipoTelefono.cs" />
-    <Compile Include="Entidades\Usuario.cs" />
-    <Compile Include="Entidades\VerificadorDireccion.cs" />
     <Compile Include="Equipo.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="Garantia.cs" />
@@ -149,6 +107,7 @@
     <Compile Include="Role.cs" />
     <Compile Include="Periodo.cs" />
     <Compile Include="Status.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="Validations.cs" />
     <Compile Include="VerificarDireccion.cs" />
     <Compile Include="Ocupacion.cs" />
@@ -162,8 +121,17 @@
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Entidades\Direccion.cd" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PcpUtilidades\PcpUtilidades.csproj">
+      <Project>{c7394d72-a7b4-495b-b1bd-8d46e8435a12}</Project>
+      <Name>PcpUtilidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
+      <Project>{f4a2334d-23a4-4700-b058-d8206a54e547}</Project>
+      <Name>PrestamoEntidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

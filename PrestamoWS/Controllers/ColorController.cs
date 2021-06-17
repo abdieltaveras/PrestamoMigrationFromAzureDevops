@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
+using PcpUtilidades;
 using PrestamoWS.Models;
 using System;
 using System.Collections.Generic;

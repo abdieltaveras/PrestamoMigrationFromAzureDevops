@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using PcpUtilidades;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using PrestamosMVC5.Exceptions;
 using PrestamosMVC5.Models;
 using PrestamosMVC5.SiteUtils;

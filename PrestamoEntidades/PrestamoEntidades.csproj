@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64D406D9-E5D3-4AC3-9C71-57D792569980}</ProjectGuid>
+    <ProjectGuid>{F4A2334D-23A4-4700-B058-D8206A54E547}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PrestamoEntidades</RootNamespace>
@@ -22,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,52 +30,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Abdiel|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Abdiel\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="emtSoft.DAL">
       <HintPath>..\SharedDLL\EMTSoft\emtSoft.DAL.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PcProg.Dal">
-      <HintPath>..\SharedDLL\PcProg\PcProg.Dal.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -86,12 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnulacionDeRegistro.cs" />
-    <Compile Include="BaseAnularParams.cs" />
+    <Compile Include="BaseAnularOrDeleteParams.cs" />
     <Compile Include="BaseGetParams.cs" />
     <Compile Include="BaseInsUpd.cs" />
     <Compile Include="Catalogo.cs" />
-    <Compile Include="Codeudor.cs" />
+    <Compile Include="Clasificacion.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="Codeudor.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Conyuge.cs" />
     <Compile Include="Cuota.cs" />
@@ -100,34 +63,45 @@
     <Compile Include="Equipo.cs" />
     <Compile Include="EstadoCivil.cs" />
     <Compile Include="Garantia.cs" />
+    <Compile Include="GeneracionDeCuotas.cs" />
+    <Compile Include="Imagen.cs" />
     <Compile Include="InfoAccion.cs" />
-    <Compile Include="Localidad.cs" />
     <Compile Include="InfoLaboral.cs" />
+    <Compile Include="Ingreso.cs" />
+    <Compile Include="InitValues.cs" />
+    <Compile Include="IPrestamoConDetallesParaCreditosyDebitos.cs" />
+    <Compile Include="JsonGlobalParam.cs" />
+    <Compile Include="Localidad.cs" />
     <Compile Include="Localizador.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Modelo.cs" />
     <Compile Include="Negocio.cs" />
+    <Compile Include="Ocupacion.cs" />
     <Compile Include="Operacion.cs" />
+    <Compile Include="Periodo.cs" />
     <Compile Include="Prestamo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Referencia.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="TipoSexo.cs" />
-    <Compile Include="TipoTelefono.cs" />
-    <Compile Include="VerificadorDireccion.cs" />
-    <Compile Include="Ocupacion.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="TasaInteres.cs" />
+    <Compile Include="TasaInteresPorPeriodos.cs" />
     <Compile Include="Territorio.cs" />
     <Compile Include="TipoGarantia.cs" />
     <Compile Include="TipoMora.cs" />
+    <Compile Include="TipoSexo.cs" />
+    <Compile Include="TipoTelefono.cs" />
     <Compile Include="Usuario.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="VerificadorDireccion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="TipoMora.cd" />
     <None Include="Direccion.cd" />
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PcpUtilidades\PcpUtilidades.csproj">
+      <Project>{c7394d72-a7b4-495b-b1bd-8d46e8435a12}</Project>
+      <Name>PcpUtilidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

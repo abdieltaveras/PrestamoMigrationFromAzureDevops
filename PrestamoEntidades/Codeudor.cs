@@ -1,12 +1,12 @@
 ﻿using emtSoft.DAL;
-using PcProg.DAL;
+
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrestamoEntidades
 {
-    [Table("tblCodeudors", Schema = "sis")]
+    
     public class Codeudor : BasePersonaInsUpd
     {
         [KeyAttribute]
@@ -22,7 +22,7 @@ namespace PrestamoEntidades
         public int IdTipoIdentificacion { get; set; } = 0;
         [Display(Name = "Profesion u Ocupacion")]
         public int IdTipoProfesionUOcupacion { get; set; } = 0;
-        [Required]
+        [Required(ErrorMessage = "ingrese el no de identificacion ")]
         [Display(Name = "No Identificacion")]
         public string NoIdentificacion { get; set; } = string.Empty;
         [Display(Name = "Fecha Nacimiento")]
@@ -83,9 +83,8 @@ namespace PrestamoEntidades
         //public int EstadoCivil { get; set; } = -1;
     }
 
-    [SpDelProcedure("spDelCodeudor")]
-    [Schema("sis")]
-    public class CodeudorDelParams : BaseAnularParams
+    
+    public class CodeudorDelParams : BaseAnularOrDeleteParams
     {
 
     }

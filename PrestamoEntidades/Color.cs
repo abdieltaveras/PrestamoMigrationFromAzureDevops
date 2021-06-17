@@ -15,8 +15,9 @@ namespace PrestamoEntidades
             throw new NotImplementedException();
         }
     }
-    public class ColorGetParams : BaseGetParams
+    public class ColorGetParams : BaseGetParams 
     {
         public int IdColor { get; set; } = -1;
+
     }
 }

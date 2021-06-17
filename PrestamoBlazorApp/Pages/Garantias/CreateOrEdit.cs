@@ -1,4 +1,4 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         public Garantia Garantia { get; set; }
         [Parameter]
         public int idgarantia { get; set; }
-        bool loading = false;
+        
         GarantiaGetParams SearchGarantia { get; set; } = new GarantiaGetParams();
         void Clear() => garantias = null;
         //ViewDatas

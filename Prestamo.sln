@@ -72,6 +72,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Situaciones del Hosting y I
 		Propuestas al sistema\Errores especiales.rtf = Propuestas al sistema\Errores especiales.rtf
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcpUtilidades", "PcpUtilidades\PcpUtilidades.csproj", "{C7394D72-A7B4-495B-B1BD-8D46E8435A12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoEntidades", "PrestamoEntidades\PrestamoEntidades.csproj", "{F4A2334D-23A4-4700-B058-D8206A54E547}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU
@@ -130,6 +134,18 @@ Global
 		{0028AFDA-CAB8-4D1F-BBDA-E0C6A233619F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0028AFDA-CAB8-4D1F-BBDA-E0C6A233619F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0028AFDA-CAB8-4D1F-BBDA-E0C6A233619F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7394D72-A7B4-495B-B1BD-8D46E8435A12}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7394D72-A7B4-495B-B1BD-8D46E8435A12}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{C7394D72-A7B4-495B-B1BD-8D46E8435A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7394D72-A7B4-495B-B1BD-8D46E8435A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7394D72-A7B4-495B-B1BD-8D46E8435A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7394D72-A7B4-495B-B1BD-8D46E8435A12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4A2334D-23A4-4700-B058-D8206A54E547}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4A2334D-23A4-4700-B058-D8206A54E547}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{F4A2334D-23A4-4700-B058-D8206A54E547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4A2334D-23A4-4700-B058-D8206A54E547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4A2334D-23A4-4700-B058-D8206A54E547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4A2334D-23A4-4700-B058-D8206A54E547}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

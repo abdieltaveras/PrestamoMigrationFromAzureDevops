@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
-using PrestamoBLL.Entidades;
+using PcpUtilidades;
+using PrestamoEntidades;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -438,6 +439,253 @@ namespace PrestamoBLL
             var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
             _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
             return prestamoConDependencias;
+        }
+    }
+
+    public class PrestamoConCalculos : Prestamo
+    {
+        private Func<Task> execCalcs { get; set; }
+        public PrestamoConCalculos()
+        {
+            execCalcs = NoCalcular;
+        }
+
+        public bool LlevaGarantia() => Clasificaciones.Where(cl => cl.IdClasificacion == base.IdClasificacion).FirstOrDefault().RequiereGarantia;
+
+        private async Task NoCalcular() => await Task.Run(() => { });
+
+        public async Task ExecCalcs() => await execCalcs();
+
+
+
+        public void ActivateCalculos() => execCalcs = Calcular;
+        public void SetServices(EventHandler<string> notificarMensaje,
+            IEnumerable<Clasificacion> clasificaciones,
+            IEnumerable<TipoMora> tiposMora,
+            IEnumerable<TasaInteres> tasasDeInteres,
+            IEnumerable<Periodo> periodos
+            )
+        {
+            this.OnNotificarMensaje = notificarMensaje;
+            this.Clasificaciones = clasificaciones;
+            this.TiposMora = tiposMora;
+            this.TasasDeInteres = tasasDeInteres;
+            this.Periodos = periodos;
+        }
+
+        EventHandler<string> OnNotificarMensaje;
+        IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
+        IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
+
+        public List<Cuota> Cuotas { get; set; } = new List<Cuota>();
+
+        IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
+        IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
+
+        public override decimal MontoPrestado
+        {
+            get => base.MontoPrestado;
+            set
+            {
+                RejectNegativeValue(value);
+                base.MontoPrestado = value;
+                execCalcs();
+            }
+        }
+
+
+        public static DateTime CalcularFechaVencimiento(DateTime fechaPrestamo, Periodo periodo, int cantidadDePeriodos,
+            DateTime FechaInicioPrimeraCuota)
+        {
+            var prestamo = new Prestamo();
+            prestamo.FechaEmisionReal = fechaPrestamo;
+            prestamo.Periodo = periodo;
+            prestamo.CantidadDePeriodos = cantidadDePeriodos;
+            prestamo.FechaInicioPrimeraCuota = FechaInicioPrimeraCuota;
+            var fechaVencimiento = PrestamoConCalculos.CalcularFechaVencimiento(prestamo);
+            return fechaVencimiento;
+        }
+        private static DateTime CalcularFechaVencimiento(Prestamo prestamo)
+        {
+            // primero buscar el periodo
+            // luego tomar la fecha inicial de partida y hacer los calculos
+            var duracion = prestamo.CantidadDePeriodos * prestamo.Periodo.MultiploPeriodoBase;
+            var fechaVencimiento = new DateTime();
+            if (prestamo.AcomodarFechaALasCuotas)
+            {
+                throw new Exception("aun no estamos trabajando con acomodar cuotas");
+            }
+            var fechaInicial = prestamo.FechaEmisionReal;
+            switch (prestamo.Periodo.PeriodoBase)
+            {
+                case PeriodoBase.Dia:
+                    fechaVencimiento = fechaInicial.AddDays(duracion);
+                    break;
+                case PeriodoBase.Semana:
+                    fechaVencimiento = fechaInicial.AddDays(duracion * 7);
+                    break;
+                case PeriodoBase.Quincena:
+                    var meses = (duracion / 2);
+                    var quincenasImpares = (duracion % 2) == 1;
+                    fechaVencimiento = fechaInicial;
+                    if (meses >= 1)
+                    {
+                        fechaVencimiento = fechaInicial.AddMonths(meses);
+                    }
+                    if (quincenasImpares)
+                    {
+                        fechaVencimiento = fechaVencimiento.AddDays(15);
+                    }
+                    break;
+                case PeriodoBase.Mes:
+                    fechaVencimiento = fechaInicial.AddMonths(duracion);
+                    break;
+                case PeriodoBase.Ano:
+                    fechaVencimiento = fechaInicial.AddYears(duracion);
+                    break;
+                default:
+                    break;
+            }
+            prestamo.FechaVencimiento = fechaVencimiento;
+
+            return prestamo.FechaVencimiento;
+        }
+
+
+        public override decimal InteresGastoDeCierre
+        {
+            get => base.InteresGastoDeCierre;
+            set
+            {
+                RejectNegativeValue(value);
+                base.InteresGastoDeCierre = value;
+                execCalcs();
+            }
+        }
+
+
+        public override int IdTasaInteres
+        {
+            get => base.IdTasaInteres;
+            set
+            {
+                base.IdTasaInteres = value;
+                execCalcs();
+            }
+        }
+
+        public override int IdPeriodo
+        {
+            get => base.IdPeriodo;
+            set
+            {
+                base.IdPeriodo = value;
+                execCalcs();
+            }
+        }
+
+
+        public override int CantidadDePeriodos
+        {
+            get => base.CantidadDePeriodos;
+            set
+            {
+                RejectNegativeValue(value);
+                base.CantidadDePeriodos = value;
+                execCalcs();
+            }
+        }
+
+        public override bool GastoDeCierreEsDeducible
+        {
+            get => base.GastoDeCierreEsDeducible;
+            set
+            {
+                base.GastoDeCierreEsDeducible = value;
+                execCalcs();
+            }
+        }
+
+        public override bool FinanciarGastoDeCierre
+        {
+            get => base.FinanciarGastoDeCierre;
+            set
+            {
+                base.FinanciarGastoDeCierre = value;
+                execCalcs();
+            }
+        }
+
+        public override bool CargarInteresAlGastoDeCierre
+        {
+            get => base.CargarInteresAlGastoDeCierre;
+            set
+            {
+                base.CargarInteresAlGastoDeCierre = value;
+                execCalcs();
+            }
+        }
+
+        public override DateTime FechaEmisionReal
+        {
+            get => base.FechaEmisionReal;
+            set
+            {
+                base.FechaEmisionReal = value;
+                execCalcs();
+            }
+        }
+
+        private void RejectNegativeValue(decimal value)
+        {
+            if (value < 0)
+            {
+                this.OnNotificarMensaje.Invoke(this, "el valor del monto prestamo no puede ser menor o igual a 0");
+                return;
+            }
+        }
+        private async Task CalcularGastoDeCierre()
+        {
+            MontoGastoDeCierre = LlevaGastoDeCierre ? MontoPrestado * (InteresGastoDeCierre / 100) : 0;
+        }
+
+        public async Task Calcular()
+        {
+
+            await CalcularGastoDeCierre();
+            await CalcularCuotas();
+            this.FechaVencimiento = this.Cuotas.Last().Fecha;
+        }
+
+
+        public IEnumerable<Cuota> GenerarCuotas(IInfoGeneradorCuotas info)
+        {
+            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
+            var cuotas = generadorCuotas.GenerarCuotas();
+            return cuotas;
+        }
+
+        public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
+        {
+            var result = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
+            return result;
+        }
+
+        private async Task CalcularCuotas()
+        {
+            if (IdPeriodo < 0 || IdTasaInteres <= 0) return;
+            base.Periodo = Periodos.Where(per => per.idPeriodo == IdPeriodo).FirstOrDefault();
+            var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
+            var tasaDeInteresPorPeriodos = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, Periodo);
+            base.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
+            var infoCuotas = new InfoGeneradorDeCuotas(this);
+
+            // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar
+            // cuotas y no que se le envie esa informacion
+            var cuotas = GenerarCuotas(infoCuotas);
+            //this.Cuotas.Clear();
+            this.Cuotas = cuotas.ToList();
+            //await JsInteropUtils.NotifyMessageBox(jsRuntime,"calculando cuotas"+cuotas.Count().ToString());
         }
     }
 

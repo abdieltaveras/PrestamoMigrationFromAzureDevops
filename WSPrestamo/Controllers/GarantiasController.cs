@@ -1,5 +1,5 @@
 ﻿using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,7 @@ using System.Web;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using System.IO;
+using PcpUtilidades;
 
 namespace WSPrestamo.Controllers
 {

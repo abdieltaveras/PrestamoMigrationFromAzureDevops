@@ -1,11 +1,12 @@
 ﻿using emtSoft.DAL;
+using PcpUtilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrestamoBLL.Entidades
+namespace PrestamoEntidades
 {
     // clase para manejar imagenes
     public class Imagen

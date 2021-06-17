@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace PrestamoEntidades
+namespace PcpUtilidades
 {
-    /// <summary>
-    /// Extension methods to convert string to json or xml and viseversa
-    /// </summary>
-    public static class ExtMethJsonAndXml
+    public static class ExtMethJ
     {
         public enum ConversionType { ToJsonFormat, ToXmlFormat };
         /// <summary>
@@ -19,9 +19,10 @@ namespace PrestamoEntidades
         /// <param name="convType"> option to convert to json o xml vy defaul is json</param>/// 
         /// <returns></returns>
 
-        public static T ToType<T>(this string value, ConversionType convType = ConversionType.ToJsonFormat)
+        public static T ToType<T>(this string value, ConversionType convType = ConversionType.ToJsonFormat) where T : new()
         {
-            var objConversion = default(T);
+            var objConversion = new T();
+            if (value == null || value.ToString() == string.Empty) return objConversion;
             if (convType == ConversionType.ToJsonFormat)
             {
                 objConversion = JsonConvert.DeserializeObject<T>(value);
@@ -67,24 +68,6 @@ namespace PrestamoEntidades
             {
                 throw new FormatException("el objeto string no corresponde al formato xml adecuado favor revisar");
             }
-        }
-
-    }
-    public static class StringMeth
-    {
-        public static string ConvertNullStringToEmpty(this string value)
-        {
-            value = string.IsNullOrEmpty(value) ? string.Empty : value;
-            return value;
-        }
-        public static string RemoveAllButNumber(this string texto)
-        {
-            var onlyNumbers = string.Empty;
-            if (!string.IsNullOrEmpty(texto))
-            {
-                onlyNumbers = new string(texto.Where(c => char.IsNumber(c)).ToArray());
-            }
-            return onlyNumbers;
         }
 
     }

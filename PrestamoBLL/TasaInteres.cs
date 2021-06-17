@@ -1,5 +1,5 @@
 ﻿using emtSoft.DAL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,16 +25,7 @@ namespace PrestamoBLL
             DBPrestamo.ExecSelSP("spDelTasaInteres", SearchRec.ToSqlParams(delParam));
         }
 
-        public class TasaInteresPorPeriodos {
-            public string PeriodoCodigo { get; internal set; }
-            public string PeriodoNombre { get; internal set; }
-            public decimal InteresDiario { get; internal set; }
-            public decimal InteresSemanal { get; internal set; }
-            public decimal InteresQuincenal { get; internal set; }
-            public decimal InteresMensual { get; internal set; }
-            public decimal InteresAnual { get; set; }
-            public decimal InteresDelPeriodo { get;  internal set; }
-        }
+        
         public TasaInteresPorPeriodos CalcularTasaInteresPorPeriodos(decimal tasaInteresMensual, Periodo periodo)
         {
             

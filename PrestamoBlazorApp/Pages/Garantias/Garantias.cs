@@ -1,4 +1,4 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +13,14 @@ namespace PrestamoBlazorApp.Pages.Garantias
     public partial class Garantias : BaseForCreateOrEdit
     {
         [Inject]
-        IJSRuntime jsRuntime { get; set; }
+        
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         GarantiasService GarantiasService { get; set; }
         IEnumerable<Garantia> garantias { get; set; } = new List<Garantia>();
         [Parameter]
         public Garantia Garantia { get; set; } 
-        bool loading = false;
+        
         GarantiaGetParams SearchGarantia { get; set; } = new GarantiaGetParams();
         void Clear() => garantias = null;
         protected override void OnInitialized()

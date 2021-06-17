@@ -1,5 +1,6 @@
-﻿using PrestamoBLL;
-using PrestamoBLL.Entidades;
+﻿using PcpUtilidades;
+using PrestamoBLL;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace PrestamosMVC5.SiteUtils
         /// <summary>
         /// El valor para cuando se quiera establecer que no hay imagen 
         /// </summary>
-        public static string NoImagen => PrestamoBLL.Utils.Constant.NoImagen;
+        public static string NoImagen => Utils.Constant.NoImagen;
         public static string Nuevo => "Nuevo";
         
         public static string prestamoDefaultInJson => getDefaultPrestamo().ToJson();

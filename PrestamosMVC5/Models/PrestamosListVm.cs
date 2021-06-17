@@ -1,4 +1,4 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoEntidades;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 

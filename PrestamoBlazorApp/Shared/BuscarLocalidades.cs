@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PrestamoBlazorApp.Services;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace PrestamoBlazorApp.Shared
 
         private string LocalidadElegida { get; set; } = "Ninguna";
         private int totalRegistros { get; set; }
-        private bool loading { get; set; }
+        
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();

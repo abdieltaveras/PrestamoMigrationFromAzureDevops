@@ -10,16 +10,18 @@ namespace PrestamoEntidades
 {
     public class Conyuge
     {
-        [Required(ErrorMessage = "campo {0} requerido, no puede estar vacio")]
+        [Required(ErrorMessage = "debe ingresar el nombre del conyuge")]
         public string Nombres { get; set; } = string.Empty;
         public string Apodo { get; set; } = string.Empty;
-        [Required(ErrorMessage = "campo {0} requerido, no puede estar vacio")]
+        [Required(ErrorMessage = "ingrese los apellidos")]
         public string Apellidos { get; set; } = string.Empty;
         [Display(Name = "Telefono")]
         public string NoTelefono1 { get; set; } = string.Empty;
         [Display(Name = "Donde Labora")]
         public string LugarTrabajo { get; set; } = string.Empty;
+        
         [Display(Name = "Telefono del Trabajajo")]
+
         public string TelefonoTrabajo { get; set; } = string.Empty;
         [Display(Name = "Direccion donde trabaja")]
         public string DireccionLugarTrabajo { get; set; } = string.Empty;

@@ -10,9 +10,9 @@ namespace PrestamoEntidades
         //ATTENTION NO PONER CAMPOS NULLABLE, lo que hace el database es que si esta nulo no pone ningun valor lo deja en su valor por defecto que crea el constructor
         [NotMapped]
         public int IdNegocioPadre { get; set; } = -1;
-        [Required] [MaxLength(100)] [Display(Name ="Nombre Juridico/Legal")]    
+        [Required(ErrorMessage ="ingrese el nombre Juridico del negocio")] [MaxLength(100)] [Display(Name ="Nombre Juridico/Legal")]    
         public string NombreJuridico { get; set; } = string.Empty;
-        [Required][MaxLength(100)][Display(Name = "Nombre Comercial")]
+        [Required(ErrorMessage = "ingrese el nombre comercial ")][MaxLength(100)][Display(Name = "Nombre Comercial")]
         public string NombreComercial { get; set; } = string.Empty;
         public bool Activo { get; set; } = true;
         public bool Bloqueado { get; set; } = false;

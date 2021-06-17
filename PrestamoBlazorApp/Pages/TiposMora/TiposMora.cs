@@ -1,4 +1,4 @@
-﻿using PrestamoBLL.Entidades;
+﻿using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace PrestamoBlazorApp.Pages.TiposMora
         IEnumerable<TipoMora> tiposmora { get; set; } = new List<TipoMora>();
         [Parameter]
         public TipoMora TipoMora { get; set; } 
-        bool loading = false;
+        
         TipoMoraGetParams SearchGarantia { get; set; } = new TipoMoraGetParams();
         void Clear() => tiposmora = null;
         protected override void OnInitialized()

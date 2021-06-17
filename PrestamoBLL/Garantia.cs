@@ -1,5 +1,6 @@
 ﻿using emtSoft.DAL;
-using PrestamoBLL.Entidades;
+using PcpUtilidades;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;

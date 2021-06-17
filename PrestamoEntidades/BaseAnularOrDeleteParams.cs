@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PrestamoBLL.Entidades
+namespace PrestamoEntidades
 {
     public class BaseAnularOrDeleteParams : BaseUsuario
     {

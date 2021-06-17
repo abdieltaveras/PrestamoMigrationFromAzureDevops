@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PrestamoWS.Models;
 using PrestamoBLL;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PrestamoWS.Controllers

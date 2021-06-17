@@ -2,9 +2,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PcProg.DAL;
-using System.Web.Mvc;
-using System.Collections.Generic;
 
 namespace PrestamoEntidades
 {
@@ -78,19 +75,17 @@ namespace PrestamoEntidades
         public decimal MontoCuotaDesde { get; set; }
         [Display(Name = "Hasta el monto de cuota")]
         public decimal MontoCuotaHasta { get; set; }
-
-        public override int GetId()
-        {
-            throw new NotImplementedException();
-        }
+        [IgnorarEnParam]
+        public string CodigoNombre => this.Codigo + "-" + this.Nombre;
+        public override int GetId()=>   this.IdTipoMora;
+        
 
         public override string ToString()
         {
             return Codigo + " " + Nombre;
         }
     }
-    [SpGetProcedure("SpGetTiposMora")]
-    [Schema("pre")]
+    
     public class TipoMoraGetParams : BaseGetParams
     {
         [KeyAttribute]
@@ -98,9 +93,8 @@ namespace PrestamoEntidades
         [MaxLength(10)]
         public virtual string Codigo { get; set; } = string.Empty;
     }
-    [SpDelProcedure("spDelTipoMora")]
-    [Schema("pre")]
-    public class TipoMoraDelParams : BaseAnularParams
+    
+    public class TipoMoraDelParams : BaseAnularOrDeleteParams
     {
         [Required]
         public override int Id

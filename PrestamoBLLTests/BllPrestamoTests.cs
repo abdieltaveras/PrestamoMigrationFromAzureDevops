@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PrestamoBLL.Entidades;
+using PrestamoEntidades;
 
 
 namespace PrestamoBLL.Tests
@@ -51,7 +51,7 @@ namespace PrestamoBLL.Tests
 
         public void GetOperacionesWithUserId_2()
         {
-            var response = BLLPrestamo.Instance.GetOperaciones(new PrestamoBLL.Entidades.UsuarioOperacionesGetParams() { IdUsuario = 2 });
+            var response = BLLPrestamo.Instance.GetOperaciones(new UsuarioOperacionesGetParams() { IdUsuario = 2 });
             Assert.IsTrue(response.Count() > 0, "No retorno registros");
 
         }

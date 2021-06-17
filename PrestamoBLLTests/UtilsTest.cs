@@ -14,7 +14,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetSvrDateTest()
         {
-            var result = Utils.GetDateFromSqlServer();
+            var result = UtilsBLL.GetDateFromSqlServer();
             Assert.IsNotNull(result, "no pudo obtener la fecha");
         }
     }

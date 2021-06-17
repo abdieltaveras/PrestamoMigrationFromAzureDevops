@@ -1,7 +1,7 @@
 ﻿using emtSoft.DAL;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrestamoBLL.Entidades
+namespace PrestamoEntidades
 {
     public enum PeriodoBase { Dia = 1, Semana, Quincena, Mes, Ano }
     public class Periodo : BaseCatalogo
