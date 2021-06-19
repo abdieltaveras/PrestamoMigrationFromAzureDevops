@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Web.Http;
 using PrestamoBLL;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
+
 namespace WSPrestamo.Controllers
 {
     public class TasaInteresController : BaseApiController
@@ -18,6 +20,14 @@ namespace WSPrestamo.Controllers
            // var searchParam = new TasaInteresGetParams { Activo = activo, idTasaInteres = idTasaInteres, Codigo = codigo, IdLocalidadNegocio = idLocalidadNegocio };
             var result = BLLPrestamo.Instance.GetTasasDeInteres(search);
             return result;
+        }
+        [HttpGet]
+        public async Task<TasaInteresPorPeriodos> GetTasaInteresPorPeriodo(int idTasaDeInteres, int idPeriodo)
+        {
+            var tasaDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
+            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
+            var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, periodo);
+            return tasaDeInteresPorPeriodo;
         }
 
         [HttpPost]

@@ -280,7 +280,7 @@ namespace PrestamoBLL
             var tasaDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             this.prestamoInProgress.IdTasaInteres = idTasaDeInteres;
             var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
-            this.prestamoInProgress.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodo.InteresDelPeriodo;
+            this.prestamoInProgress.TasaDeInteresDelPeriodo = tasaDeInteresPorPeriodo.InteresDelPeriodo;
 
         }
 
@@ -651,12 +651,19 @@ namespace PrestamoBLL
 
         public async Task Calcular()
         {
-
             await CalcularGastoDeCierre();
             await CalcularCuotas();
             this.FechaVencimiento = this.Cuotas.Last().Fecha;
         }
 
+
+        public async Task<PrestamoConCalculos> CalcularPrestamo()
+        {
+            await CalcularGastoDeCierre();
+            await CalcularCuotas();
+            this.FechaVencimiento = this.Cuotas.Last().Fecha;
+            return this;
+        }
 
         public IEnumerable<Cuota> GenerarCuotas(IInfoGeneradorCuotas info)
         {
@@ -677,7 +684,7 @@ namespace PrestamoBLL
             base.Periodo = Periodos.Where(per => per.idPeriodo == IdPeriodo).FirstOrDefault();
             var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
             var tasaDeInteresPorPeriodos = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, Periodo);
-            base.TasaDeInteresPorPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
+            base.TasaDeInteresDelPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
             var infoCuotas = new InfoGeneradorDeCuotas(this);
 
             // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar

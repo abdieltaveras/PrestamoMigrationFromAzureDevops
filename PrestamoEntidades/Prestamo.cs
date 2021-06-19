@@ -219,7 +219,7 @@ namespace PrestamoEntidades
         [Display(Name = "La tasa de interes por periodo")]
         [IgnorarEnParam]
         [ReadOnly(true)]
-        public decimal TasaDeInteresPorPeriodo { get; set; }
+        public decimal TasaDeInteresDelPeriodo { get; set; }
         [Display(Name = "Indique la mora")]
         public int IdTipoMora { get; set; } = -1;
         [Display(Name = "Indique la forma (periodo) de las pago?")]
@@ -329,9 +329,10 @@ namespace PrestamoEntidades
 
         public override string ToString()
         {
-            return $"Monto Prestado {MontoPrestado} a una tasa de {TasaDeInteresPorPeriodo}  por periodo";
+            return $"Monto Prestado {MontoPrestado} a una tasa de {TasaDeInteresDelPeriodo}  por periodo";
         }
-
+        [IgnorarEnParam]
+        public bool LlevaGarantia { get; set; }
     }
 
     public static class ExtMeth

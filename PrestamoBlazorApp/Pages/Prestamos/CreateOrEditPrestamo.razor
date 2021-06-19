@@ -85,7 +85,7 @@
                     <div class="form-group row">
 
 
-                        @if (!prestamo.LlevaGarantia() && prestamo.IdGarantias.Count == 0)
+                        @if (!LlevaGarantia() && prestamo.IdGarantias.Count == 0)
                         {
                             <label for="Garantias" class="card-title col-sm-4 col-form-label @textLabelJustify">No Requiere Garantia </label>
                         }
@@ -187,9 +187,6 @@
                                 }
                         </InputSelect>
                     </div>
-
-
-
                     <div class="form-group row">
                         @*<label class="col-sm-4 col-form-label @textLabelJustify">Periodo</label>
                             <InputText @bind-Value="CodigoPeriodo" class="col-sm-2" />*@
@@ -224,17 +221,17 @@
                         </InputSelect>
                     </div>
 
-                    @if (prestamo.Cuotas.Count() > 0)
+                    @if (Cuotas.Count() > 0)
                     {
                         <h3>Proyeccion Cuotas: @InfoCuotas()</h3>
                         <div class="form-group row">
-                            <ProyeccionCuotasValoresIniciales Cuotas="prestamo.Cuotas" />
+                            <ProyeccionCuotasValoresIniciales Cuotas="Cuotas" />
                         </div>
                     }
                     else
                     {
                         <div class="form-group row">
-                            Cuota no generada @prestamo.Cuotas.Count()
+                            Cuota no generada @Cuotas.Count()
                         </div>
                     }
                 </div>

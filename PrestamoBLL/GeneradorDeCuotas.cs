@@ -189,14 +189,14 @@ namespace PrestamoBLL
                 // ahora calculamos el interes del gasto de cierre si debe cargarlo
                 if (this.infoGenerarCuotas.CargarInteresAlGastoDeCierre)
                 {
-                    cuota.InteresDelGastoDeCierre = Math.Round(this.infoGenerarCuotas.MontoGastoDeCierre * (this.infoGenerarCuotas.TasaDeInteresPorPeriodo / 100), 2);
+                    cuota.InteresDelGastoDeCierre = Math.Round(this.infoGenerarCuotas.MontoGastoDeCierre * (this.infoGenerarCuotas.TasaDeInteresDelPeriodo / 100), 2);
                 }
             }
         }
 
         private decimal getInteresPorCuota()
         {
-            var tasaInteresPorPeriodo = infoGenerarCuotas.TasaDeInteresPorPeriodo;
+            var tasaInteresPorPeriodo = infoGenerarCuotas.TasaDeInteresDelPeriodo;
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
             decimal interesPorCuota = Math.Round(infoGenerarCuotas.MontoCapital * (tasaInteresPorPeriodo / 100), 2);
@@ -204,7 +204,7 @@ namespace PrestamoBLL
         }
         private decimal getOtrosCargosSinInteresPorCuota()
         {
-            var tasaInteresPorPeriodo = infoGenerarCuotas.TasaDeInteresPorPeriodo;
+            var tasaInteresPorPeriodo = infoGenerarCuotas.TasaDeInteresDelPeriodo;
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
             decimal otrosCargosSininteresPorCuota = Math.Round(infoGenerarCuotas.OtrosCargosSinInteres / infoGenerarCuotas.CantidadDePeriodos, 2);
@@ -218,60 +218,6 @@ namespace PrestamoBLL
 
     }
 
-    public class InfoGeneradorDeCuotas : IInfoGeneradorCuotas
-    {
-        public TiposAmortizacion TipoAmortizacion { get; set; }
-
-        public DateTime FechaEmisionReal { get; set; } = InitValues._19000101;
-
-
-        public decimal MontoCapital { get; set; } = 0;
-
-        public decimal MontoGastoDeCierre { get; set; } = 0;
-
-        public bool CargarInteresAlGastoDeCierre { get; set; } = false;
-
-        public int CantidadDePeriodos { get; set; } = 0;
-
-        public bool AcomodarFechaALasCuotas { get; set; } = false;
-
-        public DateTime FechaInicioPrimeraCuota { get; set; }
-
-        public decimal TasaDeInteresPorPeriodo { get; set; } = 0;
-
-        public Periodo Periodo { get; set; }
-
-        public bool FinanciarGastoDeCierre { get; set; }
-        public decimal OtrosCargosSinInteres { get; set; }
-        public bool GastoDeCierreEsDeducible { get; set; }
-
-        public bool ProyectarPrimeraYUltima { get; set; } = true;
-
-        public InfoGeneradorDeCuotas(TiposAmortizacion tipoAMortizacion)
-        {
-            this.TipoAmortizacion = TipoAmortizacion;
-        }
-        public InfoGeneradorDeCuotas(Prestamo prestamo)
-        {
-
-            {
-
-                AcomodarFechaALasCuotas = prestamo.AcomodarFechaALasCuotas;
-                CantidadDePeriodos = prestamo.CantidadDePeriodos;
-                MontoCapital = prestamo.MontoCapital;
-                FechaEmisionReal = prestamo.FechaEmisionReal;
-                FechaInicioPrimeraCuota = prestamo.FechaInicioPrimeraCuota;
-                CargarInteresAlGastoDeCierre = prestamo.CargarInteresAlGastoDeCierre;
-                FinanciarGastoDeCierre = prestamo.FinanciarGastoDeCierre;
-                MontoGastoDeCierre = prestamo.MontoGastoDeCierre;
-                OtrosCargosSinInteres = prestamo.OtrosCargosSinInteres;
-                GastoDeCierreEsDeducible = prestamo.GastoDeCierreEsDeducible;
-                TipoAmortizacion = prestamo.TipoAmortizacion;
-                TasaDeInteresPorPeriodo = prestamo.TasaDeInteresPorPeriodo;
-                Periodo = prestamo.Periodo;
-            };
-        }
-    }
     
 }
 

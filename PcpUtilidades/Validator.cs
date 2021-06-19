@@ -1,15 +1,12 @@
 ﻿using Newtonsoft.Json;
-using PrestamoEntidades;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace PrestamoBLL
+namespace PcpUtilidades
 {
     public enum ValidationsResult { Success = 1, Fail }
 
@@ -26,7 +23,7 @@ namespace PrestamoBLL
 
         public static Validator<T> Empty => new Validator<T>(Enumerable.Empty<ValidationRule<T>>());
 
-        public Validator<T> Add( ValidationRule<T> rule)
+        public Validator<T> Add(ValidationRule<T> rule)
         {
             if (rule == null) throw new ArgumentNullException(nameof(rule));
 
@@ -186,7 +183,7 @@ namespace PrestamoBLL
             return base.VisitUnary(node);
         }
 
-        public static Expression Replace(Expression target,ParameterExpression from,ParameterExpression to)
+        public static Expression Replace(Expression target, ParameterExpression from, ParameterExpression to)
         {
             if (target == null) throw new ArgumentNullException(nameof(target));
             if (from == null) throw new ArgumentNullException(nameof(from));
@@ -214,19 +211,19 @@ namespace PrestamoBLL
 
     public static class ValidatorExtensions
     {
-        public static IEnumerable<IValidation<T>> ValidateWith<T>( this T obj,  Validator<T> validator)
+        public static IEnumerable<IValidation<T>> ValidateWith<T>(this T obj, Validator<T> validator)
         {
             return validator.Validate(obj);
         }
 
-        public static bool AllSuccess<T>( this IEnumerable<IValidation<T>> validations)
+        public static bool AllSuccess<T>(this IEnumerable<IValidation<T>> validations)
         {
             if (validations == null) throw new ArgumentNullException(nameof(validations));
 
             return validations.All(v => v.Success);
         }
 
-        public static void ThrowIfInvalid<T>( this IEnumerable<IValidation<T>> validations)
+        public static void ThrowIfInvalid<T>(this IEnumerable<IValidation<T>> validations)
         {
             if (validations.AllSuccess())
             {
@@ -275,26 +272,6 @@ namespace PrestamoBLL
 
     }
 
-    public static class Validaciones
-    {
-
-        public static Validator<PrestamoConCalculos> ForPrestamo001()
-        {
-
-            var prestamoValidator =
-                    Validator<PrestamoConCalculos>.Empty
-                    .IsNotValidWhen(p=> p.AcomodarFechaALasCuotas,"Por ahora no aceptamos acomodar la fecha",ValidationOptions.StopOnFailure)
-                    .IsNotValidWhen(p=> p.IdTipoAmortizacion != (int)TiposAmortizacion.No_Amortizable_cuotas_fijas,"Por ahora solo trabajamos con la amortizacion No Amortizable Cuotas Fijas")
-                    .IsNotValidWhen(p => p == null, "El prestamo no puede estar nulo", ValidationOptions.StopOnFailure)
-                    .IsValidWhen(p => p.MontoPrestado >= 0, "El monto a prestar no puede ser menor a 0 (cero)")
-                    .IsValidWhen(p => p.IdCliente > 0, "Debe establecer un cliente")
-                    .IsValidWhen(p => p.IdClasificacion > 0, "Debe elegir una clasificacion valida", ValidationOptions.StopOnFailure)
-                    .IsNotValidWhen(p => !p.LlevaGarantia() && p.IdGarantias.Count() >0, "la clasificacion elegida no lleva garantias y se le establecio una debe cambiar la clasificacion")
-                    .IsNotValidWhen(p => p.LlevaGarantia() && p.IdGarantias.Count() <= 0, "Debe establecer garantia");
-            return prestamoValidator;
-        }
-    }
-
 
     [Flags]
     public enum ValidationOptions
@@ -302,4 +279,6 @@ namespace PrestamoBLL
         None = 0,
         StopOnFailure = 1 << 0,
     }
+    
+
 }

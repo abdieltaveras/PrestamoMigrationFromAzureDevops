@@ -1,5 +1,7 @@
 
 using Microsoft.Extensions.Configuration;
+using PcpUtilidades;
+using PrestamoBlazorApp.Models;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -48,5 +50,21 @@ namespace PrestamoBlazorApp.Services
             }
 
         }
+
+        public async Task<IEnumerable<Cuota>>  GenerarCuotas(Prestamo prestamo)
+        {
+            var infoForGeneradorDeCuotas = new InfoGeneradorDeCuotas(prestamo);
+            
+            var result = await GetAsync<Cuota>(apiUrl+"/GenerarCuotas", new { jsonInfoGenCuotas = infoForGeneradorDeCuotas.ToJson() ,idPeriodo= prestamo.IdPeriodo, idTipoAmortizacion = prestamo.IdTipoAmortizacion});
+            return result;
+        }
+
+
+        //public async Task<IEnumerable<Cuota>>  Calcular(Prestamo prestamo)
+        //{
+        //    var result = await GetSingleAsync<Pres IEnumerable<Cuota>>(apiUrl + "/Calcular", prestamo);
+        //    return result;
+
+        //}
     }
 }

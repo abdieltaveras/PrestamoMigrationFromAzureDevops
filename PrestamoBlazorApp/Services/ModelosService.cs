@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Web;
-using PrestamoBLL;
+
 using PcpUtilidades;
 
 namespace PrestamoBlazorApp.Services

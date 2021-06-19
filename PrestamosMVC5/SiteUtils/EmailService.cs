@@ -32,7 +32,6 @@ namespace PrestamosMVC5.SiteUtils
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential(WebConfigurationManager.AppSettings["Username"], WebConfigurationManager.AppSettings["Password"]);
                 smtp.Send(mail);
-                Thread.Sleep(3000);
                 return true;
 
             } catch(Exception e)

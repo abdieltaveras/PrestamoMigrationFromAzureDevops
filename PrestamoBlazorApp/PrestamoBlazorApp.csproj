@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="Components\**" />
+    <Compile Remove="Entidades\**" />
     <Content Remove="Components\**" />
+    <Content Remove="Entidades\**" />
     <EmbeddedResource Remove="Components\**" />
+    <EmbeddedResource Remove="Entidades\**" />
     <None Remove="Components\**" />
+    <None Remove="Entidades\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,11 +39,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorUtilsLibrary\BlazorUtilsLibrary.csproj" />
-    <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
+    <ProjectReference Include="..\PcpUtilidades\PcpUtilidades.csproj" />
+    <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj" />
+    <ProjectReference Include="..\Validaciones\Validaciones.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entidades\" />
+    <Folder Include="EntidadesLinks\" />
     <Folder Include="Pages\LocalidadesNegocios\" />
     <Folder Include="Pages\NewFolder\" />
   </ItemGroup>

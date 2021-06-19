@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using PcpUtilidades;
-using PrestamoBLL;
+
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;

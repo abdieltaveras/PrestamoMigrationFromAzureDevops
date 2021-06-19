@@ -14,6 +14,7 @@ namespace PrestamoBlazorApp.Services
             // buscar en un servicio los parametros
             prestamo.InteresGastoDeCierre = 10;
             prestamo.MontoPrestado = 10000;
+            
         }
     }
     

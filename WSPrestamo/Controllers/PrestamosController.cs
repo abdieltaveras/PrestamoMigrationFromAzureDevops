@@ -11,6 +11,7 @@ using WSPrestamo.Utilidades;
 using System.Web.Http.Results;
 using static PrestamoBLL.BLLPrestamo;
 using Newtonsoft.Json;
+using PcpUtilidades;
 
 namespace WSPrestamo.Controllers
 {
@@ -113,18 +114,69 @@ namespace WSPrestamo.Controllers
             return data;
         }
 
+
+
         [HttpGet]
-        public IEnumerable<Cuota> GenerarCuotas(InfoGeneradorDeCuotas info, int idPeriodo, int idTipoAmortizacion)
+        public IEnumerable<Cuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
+        //infoGeneradorDeCuotas info)
+
+        {
+            var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
+            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
+            infoGenCuotas.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
+            infoGenCuotas.Periodo = periodo;
+            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(infoGenCuotas);
+            var cuotas = generadorCuotas.GenerarCuotas();
+            //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
+            return cuotas;
+        }
+
+        
+
+
+        [HttpGet]
+        public IEnumerable<Cuota> GenerarCuotas3(string jsonPrestamo)
         //infoGeneradorDeCuotas info)
         {
-            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
-            info.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
+            var prestamo = jsonPrestamo.ToType<Prestamo>();
+            var info = new InfoGeneradorDeCuotas(prestamo);
+            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = prestamo.IdPeriodo }).FirstOrDefault();
+            info.TipoAmortizacion = (TiposAmortizacion)prestamo.IdTipoAmortizacion;
             info.Periodo = periodo;
             var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
             var cuotas = generadorCuotas.GenerarCuotas();
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return cuotas;
         }
-             
+
+
+        [HttpGet]
+        public async Task<PrestamoConCalculos> Calcular(Prestamo prestamo)
+        //infoGeneradorDeCuotas info)
+        {
+            PrestamoConCalculos prconcalc = new PrestamoConCalculos();
+            var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = IdNegocio });
+            var tiposMora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams
+            {
+                IdNegocio = IdNegocio
+            });
+
+            var tasasDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams
+            {
+                IdNegocio = IdNegocio
+            });
+
+            var periodos = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams
+            {
+                IdNegocio = IdNegocio
+            });
+            prconcalc.SetServices(null, clasificaciones, tiposMora, tasasDeInteres, periodos);
+
+            prconcalc.ActivateCalculos();
+            var result = await prconcalc.CalcularPrestamo();
+            return result;
+        }
+
+        
     }
 }

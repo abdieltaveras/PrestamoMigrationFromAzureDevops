@@ -97,11 +97,5 @@ namespace PrestamoBLL
         public int IdGarantia { get; set; }
     }
 
-    public class GarantiasConPrestamo
-    { 
-        public int idGarantia { get;  set; }
-        public int idPrestamo { get; set; }
-        
-        public string prestamoNumero { get; set; }
-    }
+    
 }

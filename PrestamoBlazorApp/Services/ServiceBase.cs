@@ -49,12 +49,7 @@ namespace PrestamoBlazorApp.Services
 
             IEnumerable<@Type> result;
 
-            
-
-            
-            
             var client = _clientFactory.CreateClient();
-            
             
             var response = await client.SendAsync(request);
 

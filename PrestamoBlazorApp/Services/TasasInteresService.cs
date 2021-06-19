@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PcpUtilidades;
 using PrestamoBlazorApp.Shared;
-using PrestamoBLL;
+
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,12 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
-        
+        public async Task<TasaInteresPorPeriodos> GetTasaInteresPorPeriodo(int idPeriodo, int idTasaDeInteres)
+        {
+            var result = await GetSingleAsync<TasaInteresPorPeriodos>(apiUrl + "/GetTasaInteresPorPeriodo", new { idTasaDeInteres = idTasaDeInteres, idPeriodo = idPeriodo });
+
+            return result;
+        }
         public TasasInteresService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration) { }
 
         public async Task SaveTasaInteres(TasaInteres TasaInteres)

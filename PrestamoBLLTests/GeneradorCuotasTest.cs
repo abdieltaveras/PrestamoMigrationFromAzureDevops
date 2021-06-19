@@ -23,7 +23,7 @@ namespace PrestamoBLL.Tests
             {
                 AcomodarFechaALasCuotas = false,
                 CantidadDePeriodos = 7,
-                TasaDeInteresPorPeriodo = 5,
+                TasaDeInteresDelPeriodo = 5,
                 Periodo = periodo,
                 MontoCapital = 10000,
                 TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,

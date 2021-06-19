@@ -145,7 +145,13 @@ namespace PrestamoEntidades
         public string Matricula { get; set; } = string.Empty;
     }
 
-    
+    public class GarantiasConPrestamo
+    {
+        public int idGarantia { get; set; }
+        public int idPrestamo { get; set; }
+
+        public string prestamoNumero { get; set; }
+    }
 
 
 }
