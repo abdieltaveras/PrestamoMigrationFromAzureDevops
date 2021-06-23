@@ -20,16 +20,16 @@ namespace WSPrestamo.Controllers
     /// </summary>
     public class PrestamosController : BaseApiController
     {
-        public Prestamo GetById(int idPrestamo=-1)
+        public IEnumerable<Prestamo> GetById(int idPrestamo=-1)
         {
             var getParams = new PrestamosGetParams
             {
-                idPrestamo = idPrestamo,
+                idPrestamo = idPrestamo
             };
             var data = BLLPrestamo.Instance.GetPrestamos(getParams);
-            return data.FirstOrDefault();
+            return data;
         }
-        public PrestamoConDetallesParaUIPrestamo GetConDetallesForUi(int idPrestamo = -1)
+        public IEnumerable<PrestamoConDetallesParaUIPrestamo> GetConDetallesForUi(int idPrestamo = -1)
         //public PrestamoConDetallesParaUIPrestamo GetConDetallesForUi(int idPrestamo = -1)
         {
             var prestamo = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo,true);
@@ -37,7 +37,8 @@ namespace WSPrestamo.Controllers
             //prestamos.Add(prestamo);
             //var data = prestamo.ToJson<PrestamoConDetallesParaUIPrestamo>();
             //var data2 = data.ToType<PrestamoConDetallesParaUIPrestamo>();
-            return prestamo;
+            var result = new List<PrestamoConDetallesParaUIPrestamo> { prestamo };
+            return result;
         }
 
         
@@ -131,23 +132,19 @@ namespace WSPrestamo.Controllers
             return cuotas;
         }
 
-        
-
 
         [HttpGet]
-        public IEnumerable<Cuota> GenerarCuotas3(string jsonPrestamo)
+        public IEnumerable<Cuota> GenerarCuotas2(Prestamo prestamo)
         //infoGeneradorDeCuotas info)
+
         {
-            var prestamo = jsonPrestamo.ToType<Prestamo>();
-            var info = new InfoGeneradorDeCuotas(prestamo);
-            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = prestamo.IdPeriodo }).FirstOrDefault();
-            info.TipoAmortizacion = (TiposAmortizacion)prestamo.IdTipoAmortizacion;
-            info.Periodo = periodo;
-            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
-            var cuotas = generadorCuotas.GenerarCuotas();
-            //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
-            return cuotas;
+
+            return null;
         }
+
+
+
+
 
 
         [HttpGet]

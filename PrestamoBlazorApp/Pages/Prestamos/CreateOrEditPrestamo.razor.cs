@@ -16,9 +16,9 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 {
     public partial class CreateOrEditPrestamo : BaseForCreateOrEdit
     {
-        //private PrestamoConCalculosVM prestamo { get; set; } 
+        private Prestamo prestamo { get; set; } 
 
-        private PrestamoConCalculosVM prestamo { get; set; }
+        //private Prestamo prestamo { get; set; }
         private bool ShowSearchGarantia { get; set; } = false;
         [Inject]
         PrestamosService prestamoService { get; set; }
@@ -55,43 +55,37 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         // private decimal _montoPrestado;
         // decimal MontoPrestado { get { return _montoPrestado; } set { this._montoPrestado = value; OnChangeMontoText(value); } }
         // string FormattedMontoPrestadoText { get; set; }
-        
-
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
 
         IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
-        List<Periodo> Periodos { get; set; } = new List<Periodo>();
-
+        IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
 
         protected override async Task OnInitializedAsync()
         {
             var result = execTimes;
+            //this.prestamo = new Prestamo();
+            //await PrepareData();
             await Handle_GetData(InitPrestamo);
-            //await base.OnInitializedAsync();
         }
 
+        
         private int execTimes = 0;
         private async Task InitPrestamo()
         {
             execTimes++;
-            this.prestamo = new PrestamoConCalculosVM(prestamoService);
-            this.loading = true;
-            //PeriodoBase.Dia
-            
-
-            //this.prestamo.SetServices(this.NotificadorDeMensaje, Clasificaciones, TiposMora, TasasDeInteres, Periodos);
-
+            this.prestamo = new Prestamo();
+            await PrepareData();
             if (idPrestamo > 0)
             {
-                await PrepareData();
                 var getResult = await prestamoService.GetConDetallesForUiAsync(idPrestamo);
                 //var getResult2 = await prestamoService.GetByIdAsync(idPrestamo);
                 if (getResult == null)
                 {
                     await SweetMessageBox("Lo siento no encontramos prestamo para su peticion", redirectTo: "/prestamos");
                 };
-                prestamo = getResult.infoPrestamo.ToJson().ToType<PrestamoConCalculosVM>();
+                prestamo = getResult.infoPrestamo;
+
                 updateInfoCliente(getResult.infoCliente);
                 updateInfoGarantia(getResult.infoGarantias);
             }
@@ -102,13 +96,36 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
                 //await prestamoCalculo.UpdatePrestamoCalculo();
             }
-
-
+            this.prestamo.ProyectarPrimeraYUltima = true;
+            SetPeriodo();
+            await SetTasaDeInteresDelPeriodo();
+            await Calcular();
             // var result = prestamoService.CalcularCuotas(prestamo);
 
-            this.loading = false;
         }
 
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (prestamo.AcomodarFechaALasCuotas)
+            {
+                await SweetMessageBox("Aun no permito trabajar con prestamos acomodando cuotas", redirectTo: "/prestamos");
+            }
+            if (firstRender)
+            {
+                
+                if (idPrestamo <= 0)
+                {
+                    //await CreateNewPrestamo();
+                }
+                //await JsInteropUtils.SetInputMask(jsRuntime);
+            }
+        }
+
+        /// <summary>
+        /// To get data from services for Clasificaciones, tiposMora, tasasDeInteres, etc.
+        /// </summary>
+        /// <returns></returns>
         private async Task PrepareData()
         {
             Clasificaciones = await clasificacionesService.Get(new ClasificacionesGetParams());
@@ -120,28 +137,29 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         private async Task  CreateNewPrestamo()
         {
-            this.prestamo = new PrestamoConCalculosVM(prestamoService);
-            await PrepareData();
             this.prestamo.PrestamoNumero = "Nuevo";
+            
             this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
             this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
             this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
-            this.prestamo.Periodo = Periodos.FirstOrDefault();
+            
             this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
             this.prestamo.IdTasaInteres = TasasDeInteres.FirstOrDefault().idTasaInteres;
-            var tasaInteresPorPeriodo = await tasasInteresService.GetTasaInteresPorPeriodo(prestamo.IdPeriodo, prestamo.IdTasaInteres); 
-            prestamo.TasaDeInteresDelPeriodo = tasaInteresPorPeriodo.InteresDelPeriodo;
+            SetPeriodo();
+            await SetTasaDeInteresDelPeriodo();
             await setParametros.ForPrestamo(this.prestamo);
-            //prestamo.ActivateCalculos();
-            //await prestamo.Calcular();
-            await Calcular();
-            //if (prestamo.Cuotas.Count > 0)
-            //{
-            //    this.Cuotas.Clear();
-            //    this.Cuotas.AddRange(prestamo.Cuotas);
-            //}
         }
 
+        private async Task SetTasaDeInteresDelPeriodo()
+        {
+            var tasaInteresPorPeriodo = await tasasInteresService.GetTasaInteresPorPeriodo(prestamo.IdPeriodo, prestamo.IdTasaInteres);
+            prestamo.TasaDeInteresDelPeriodo = tasaInteresPorPeriodo.InteresDelPeriodo;
+        }
+
+        public void SetPeriodo()
+        {
+            this.prestamo.Periodo = Periodos.Where(pr=> pr.idPeriodo == prestamo.IdPeriodo).FirstOrDefault();
+        }
 
         public async Task Calcular()
         {
@@ -159,42 +177,19 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             IEnumerable<Cuota> cuotas = new List<Cuota>();
             try
             {
-                var prestamo = this.prestamo.ToJson().ToType<Prestamo>();
-                cuotas = await prestamoService.GenerarCuotas(prestamo);
+                cuotas = await prestamoService.GenerarCuotas(this.prestamo);
             }
             catch (Exception e)
             {
                 await SweetMessageBox(e.Message, delayMilliSeconds: 5000);
             }
-            
             this.Cuotas.Clear();
             this.Cuotas = cuotas.ToList();
             //await JsInteropUtils.NotifyMessageBox(jsRuntime,"calculando cuotas"+cuotas.Count().ToString());
 
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (prestamo.AcomodarFechaALasCuotas)
-            {
-                await SweetMessageBox("Aun no permito trabajar con prestamos acomodando cuotas", redirectTo: "/prestamos");
-            }
-            if (firstRender)
-            {
-                render = true;
-                //this.prestamo.ActivateCalculos();
-                if (idPrestamo <= 0)
-                {
-                    await CreateNewPrestamo();
-                }
-                //await prestamo.Calcular();
-                this.prestamo.ProyectarPrimeraYUltima = true;
-                //await JsInteropUtils.SetInputMask(jsRuntime);
-            }
-
-
-        }
-
+        
 
         private void NotificadorDeMensaje(object sender, string e)
         {
@@ -264,17 +259,14 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         int IdGarantiaSelected { get; set; }
         List<infoGarantia> InfoGarantias { get; set; } = new List<infoGarantia>();
 
+
         
+
         private async Task ActivateSearchGarantia()
         {
             ShowSearchGarantia = true;
         }
 
-        bool render = false;
-        protected override bool ShouldRender()
-        {
-            return render;
-        }
 
         private async Task UpdateGarantiaSelected(int idGarantia)
         {
@@ -351,6 +343,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         [Inject]
         ClientesService clientesService { get; set; }
 
+
         private async Task ActivateSearchCliente()
         {
             InfoCliente = string.Empty;
@@ -384,12 +377,65 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task OnCloseSearchGarantia() => ShowSearchGarantia = false;
 
         private bool LlevaGarantia() => false;
+
+        protected async Task OnMontoPrestadoChange(ChangeEventArgs args )
+        {
+            var value = Convert.ToDecimal(args.Value);
+            this.prestamo.MontoPrestado = value;
+            await Calcular();
+        }
+
+        protected async Task OnLlevaGastoDeCierreChange(ChangeEventArgs args)
+        {
+            var value = Convert.ToBoolean(args.Value);
+            prestamo.InteresGastoDeCierre = value ? 10:0;
+            await Calcular();
+        }
+
+        protected async Task OnFinanciarGastoDeCierreChange(ChangeEventArgs args)
+        {
+            var value = Convert.ToBoolean(args.Value);
+            prestamo.FinanciarGastoDeCierre = value;
+            await Calcular();
+
+        }
+
+        protected async Task OnInteresGastoDeCierreChange(ChangeEventArgs args)
+        {
+            var value = Convert.ToDecimal(args.Value);
+            prestamo.InteresGastoDeCierre = value;
+            await Calcular();
+        }
+
+        protected async Task OnCantidadPeriodoChange(ChangeEventArgs args)
+        {
+            var value = Convert.ToInt32(args.Value);
+            prestamo.CantidadDePeriodos = value;
+            await Calcular();
+        }
+
+        protected async Task OnPeriodoChange(ChangeEventArgs args)
+        {
+            var value = Convert.ToInt32(args.Value);
+            prestamo.IdPeriodo = value;
+            SetPeriodo();
+            await SetTasaDeInteresDelPeriodo();
+            await Calcular();
+        }
+        protected async Task OnTasaInteresChange(ChangeEventArgs args)
+        {
+            var value = Convert.ToInt32(args.Value);
+            prestamo.IdTasaInteres = value;
+            await SetTasaDeInteresDelPeriodo();
+            await Calcular();
+        }
+
+
     }
     class infoGarantia
     {
         public int IdGarantia { get; set; }
         public string Text { get; set; }
-
         public override string ToString() => Text;
         
     }

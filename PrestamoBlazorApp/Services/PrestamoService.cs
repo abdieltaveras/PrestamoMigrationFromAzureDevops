@@ -23,14 +23,14 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<Prestamo> GetByIdAsync(int idPrestamo)
         {
-            var result = await GetSingleAsync<Prestamo>(apiUrl+"/GetById", new{ idPrestamo = idPrestamo });
-            return result;
+            var result = await GetAsync<Prestamo>(apiUrl+"/GetById", new{ idPrestamo = idPrestamo });
+            return result.FirstOrDefault();
         }
 
         public async Task<PrestamoConDetallesParaUIPrestamo> GetConDetallesForUiAsync(int idPrestamo)
         {
-            var result = await GetSingleAsync<PrestamoConDetallesParaUIPrestamo>(apiUrl+ "/GetConDetallesForUi", new { idPrestamo = idPrestamo});
-            return result;
+            var result = await GetAsync<PrestamoConDetallesParaUIPrestamo>(apiUrl+ "/GetConDetallesForUi", new { idPrestamo = idPrestamo});
+            return result.FirstOrDefault();
         }
 
         public PrestamosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
@@ -59,6 +59,12 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
+
+        public async Task<IEnumerable<Cuota>> GenerarCuotas2(Prestamo prestamo)
+        {
+            var result = await GetAsync<Cuota>(apiUrl + "/GenerarCuotas2", new { Prestamo = prestamo.ToJson()});
+            return result;
+        }
 
         //public async Task<IEnumerable<Cuota>>  Calcular(Prestamo prestamo)
         //{

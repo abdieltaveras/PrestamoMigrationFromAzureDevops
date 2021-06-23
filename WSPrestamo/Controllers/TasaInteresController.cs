@@ -22,12 +22,13 @@ namespace WSPrestamo.Controllers
             return result;
         }
         [HttpGet]
-        public async Task<TasaInteresPorPeriodos> GetTasaInteresPorPeriodo(int idTasaDeInteres, int idPeriodo)
+        public async Task<IEnumerable<TasaInteresPorPeriodos>> GetTasaInteresPorPeriodo(int idTasaDeInteres, int idPeriodo)
         {
             var tasaDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
             var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, periodo);
-            return tasaDeInteresPorPeriodo;
+            var result = new List<TasaInteresPorPeriodos> { tasaDeInteresPorPeriodo };
+            return result;
         }
 
         [HttpPost]

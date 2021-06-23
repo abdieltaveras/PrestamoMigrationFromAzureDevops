@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using PrestamoEntidades;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
 
 using PcpUtilidades;
+using Microsoft.AspNetCore.Hosting;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -61,7 +63,8 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<bool> TienePrestamoVigente(int idGarantia)
         {
-            return await GetSingleAsync<bool>("api/Garantias/TienePrestamoVigentes", new { idGarantia = idGarantia});
+            var result = await GetAsync<bool>("api/Garantias/TienePrestamoVigentes", new { idGarantia = idGarantia});
+            return result.FirstOrDefault();
         }
 
         public async Task<IEnumerable<GarantiasConPrestamo>> GetPrestamosVigentesForGarantia(int idGarantia)
@@ -71,7 +74,7 @@ namespace PrestamoBlazorApp.Services
 
         public GarantiasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
-
+            
         }
 
         public async Task SaveGarantia(Garantia Garantia)

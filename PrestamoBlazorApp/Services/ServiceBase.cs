@@ -55,9 +55,10 @@ namespace PrestamoBlazorApp.Services
 
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
+                //using var responseStream = await response.Content.ReadAsStreamAsync();
                 //var result2 = JsonConvert.DeserializeObject<IEnumerable<@Type>>(responseStream.ToString());
-                result = await JsonSerializer.DeserializeAsync<IEnumerable<@Type>>(responseStream);
+                //result = await JsonSerializer.DeserializeAsync<IEnumerable<@Type>>(responseStream);
+                result = await response.Content.ReadFromJsonAsync<IEnumerable<@Type>>();
             }
             else
             {
@@ -67,38 +68,7 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
-        /// <summary>
-        /// to make a get request when the return type is one instance not a collection
-        /// </summary>
-        /// <typeparam name="Type"></typeparam>
-        /// <param name="endpoint"></param>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        public async Task<@Type> GetSingleAsync<@Type>(string endpoint, object search)
-        {
-            var baseUrl = Configuration["BaseServerUrl"];
-            var query = search.UrlEncode();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
-            request.Headers.Add("Accept", "application/json");
-
-            @Type result;
-
-            var client = _clientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
-
-            if (response.IsSuccessStatusCode)
-            {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
-                //var result2 = JsonConvert.DeserializeObject<IEnumerable<@Type>>(responseStream.ToString());
-                result = await JsonSerializer.DeserializeAsync<@Type>(responseStream);
-            }
-            else
-            {
-                throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
-            }
-            return result;
-        }
+        
         public async Task<IEnumerable<string>> GetJsAsync(string endpoint, object search)
         {
            
