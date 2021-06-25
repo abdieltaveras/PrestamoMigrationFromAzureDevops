@@ -13,7 +13,6 @@ namespace PrestamoValidaciones
 
         public static Validator<Prestamo> ForPrestamo001()
         {
-
             var prestamoValidator =
                     Validator<Prestamo>.Empty
                     .IsNotValidWhen(p => p.AcomodarFechaALasCuotas, "Por ahora no aceptamos acomodar la fecha", ValidationOptions.StopOnFailure)

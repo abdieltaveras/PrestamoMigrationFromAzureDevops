@@ -1,5 +1,4 @@
 ﻿////$(document).ready(function () {
-    
 ////    alert("ready");
 ////    $(".currency").inputmask('decimal', {
 ////        'alias': 'numeric',
@@ -73,7 +72,8 @@ window.SetInputMaskByElem = function (elemId, inputmask) {
 }
 window.SetInputMask = function () {
     Inputmask().mask(document.querySelectorAll(".masked"));
-    var result = $(".currency").inputmask('currency', { rightAlign: true });
+    var found = $(".currency")
+    found.inputmask('currency', { rightAlign: true });
 }
 window.DivisionTerritorial = (Id) => {
     $("#codigo").val("0");

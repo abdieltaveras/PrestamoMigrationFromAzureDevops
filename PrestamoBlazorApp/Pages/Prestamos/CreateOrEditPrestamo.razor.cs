@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
+
 using PcpUtilidades;
 using PrestamoBlazorApp.Models;
 using PrestamoBlazorApp.Services;
@@ -16,7 +16,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 {
     public partial class CreateOrEditPrestamo : BaseForCreateOrEdit
     {
-        private Prestamo prestamo { get; set; } 
+        private Prestamo prestamo { get; set; }
 
         //private Prestamo prestamo { get; set; }
         private bool ShowSearchGarantia { get; set; } = false;
@@ -24,7 +24,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         PrestamosService prestamoService { get; set; }
         [Inject]
         ClasificacionesService clasificacionesService { get; set; }
-
         [Inject]
         TiposMoraService tiposMorasService { get; set; }
 
@@ -52,6 +51,17 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private string CodigoInteres { get; set; } = string.Empty;
         private string CodigoMora { get; set; } = string.Empty;
         private bool SinVencimiento { get; set; } = true;
+
+        Clasificacion ClasificacionSelected { get; set; } = new Clasificacion();
+        private string FechaEmisionReal { get; set; }
+
+        //private string MontoPrestado { get; set; }
+
+
+        private async Task callCalcular()
+        {
+            await Calcular();
+        }
         // private decimal _montoPrestado;
         // decimal MontoPrestado { get { return _montoPrestado; } set { this._montoPrestado = value; OnChangeMontoText(value); } }
         // string FormattedMontoPrestadoText { get; set; }
@@ -69,7 +79,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             await Handle_GetData(InitPrestamo);
         }
 
-        
+
         private int execTimes = 0;
         private async Task InitPrestamo()
         {
@@ -85,6 +95,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                     await SweetMessageBox("Lo siento no encontramos prestamo para su peticion", redirectTo: "/prestamos");
                 };
                 prestamo = getResult.infoPrestamo;
+                await OnClasificacionChange(new ChangeEventArgs { Value= prestamo.IdClasificacion });
 
                 updateInfoCliente(getResult.infoCliente);
                 updateInfoGarantia(getResult.infoGarantias);
@@ -99,11 +110,16 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             this.prestamo.ProyectarPrimeraYUltima = true;
             SetPeriodo();
             await SetTasaDeInteresDelPeriodo();
+            SetFechaEmisionReal();
             await Calcular();
             // var result = prestamoService.CalcularCuotas(prestamo);
 
         }
 
+        private void SetFechaEmisionReal()
+        {
+            this.FechaEmisionReal = prestamo.FechaEmisionReal.ToString("yyyy-MM-dd");
+        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -113,13 +129,13 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             }
             if (firstRender)
             {
-                
+
                 if (idPrestamo <= 0)
                 {
                     //await CreateNewPrestamo();
                 }
-                //await JsInteropUtils.SetInputMask(jsRuntime);
             }
+            //await JsInteropUtils.SetInputMaskByElemId(jsRuntime,"MontoPrestado","");
         }
 
         /// <summary>
@@ -135,20 +151,22 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             Periodos = (await periodosService.Get(new PeriodoGetParams())).ToList();
         }
 
-        private async Task  CreateNewPrestamo()
+        private async Task CreateNewPrestamo()
         {
             this.prestamo.PrestamoNumero = "Nuevo";
-            
+
             this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
+            ClasificacionSelected = Clasificaciones.FirstOrDefault();
             this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
             this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
-            
+
             this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
             this.prestamo.IdTasaInteres = TasasDeInteres.FirstOrDefault().idTasaInteres;
             SetPeriodo();
             await SetTasaDeInteresDelPeriodo();
             await setParametros.ForPrestamo(this.prestamo);
         }
+
 
         private async Task SetTasaDeInteresDelPeriodo()
         {
@@ -158,7 +176,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         public void SetPeriodo()
         {
-            this.prestamo.Periodo = Periodos.Where(pr=> pr.idPeriodo == prestamo.IdPeriodo).FirstOrDefault();
+            this.prestamo.Periodo = Periodos.Where(pr => pr.idPeriodo == prestamo.IdPeriodo).FirstOrDefault();
         }
 
         public async Task Calcular()
@@ -189,7 +207,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         }
 
-        
+
 
         private void NotificadorDeMensaje(object sender, string e)
         {
@@ -209,7 +227,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             var result = $"{prestamo.CantidadDePeriodos} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("C")}";
             return result;
         }
-        
+
 
 
         async Task SavePrestamo()
@@ -217,10 +235,10 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
             var result = Validaciones.ForPrestamo001().Validate(prestamo);
             var validacionesFallidas = result.Where(item => item.Success == false);
-            var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) =>  (i+1)+"-"+item.Message+Environment.NewLine));
+            var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
             if (validacionesFallidas.Count() > 0)
             {
-                await SweetMessageBox("Se han encontrado errores"+Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
+                await SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
                 return;
             }
             try
@@ -234,7 +252,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             }
 
         }
-        
+
         private async Task Test(MouseEventArgs mouseEventArgs)
         {
             await NotifyMessageBox("ejecutando Test");
@@ -260,7 +278,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         List<infoGarantia> InfoGarantias { get; set; } = new List<infoGarantia>();
 
 
-        
+
 
         private async Task ActivateSearchGarantia()
         {
@@ -285,16 +303,16 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             // en espera, aceptada, rechazada, expirada
 
             var prestamosVinculados = await GarantiasService.GetPrestamosVigentesForGarantia(idGarantia);
-            if (prestamosVinculados.Count()>0)
+            if (prestamosVinculados.Count() > 0)
             {
-                
+
                 var prestamosForGarantia = string.Join(",", prestamosVinculados.Select(elem => elem.prestamoNumero));
-                await SweetMessageBox("garantia no aceptadad porque esta vinculada con otro(s) prestamo "+prestamosForGarantia,delayMilliSeconds:5000);
+                await SweetMessageBox("garantia no aceptadad porque esta vinculada con otro(s) prestamo " + prestamosForGarantia, delayMilliSeconds: 5000);
                 return;
             }
-            
+
             this.IdGarantiaSelected = idGarantia;
-            
+
             //await NotifyMessageBox("garantia seleccionada " + idGarantia);
             var Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = idGarantia });
             var garantia = Garantias.FirstOrDefault();
@@ -329,7 +347,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             //var result = await JsInteropUtils.Confirm(jsRuntime, "Desea realmente quitar esta garantia");
             //var result2 = await JsInteropUtils.SweetConfirm(jsRuntime, "Quitar Garantia", "Desea realmente quitar esta garantia");
             //await NotifyMessageBox(result2.ToString());
-            var result = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, "Quitar Garantia","Desea realmente quitar esta garantia");
+            var result = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, "Quitar Garantia", "Desea realmente quitar esta garantia");
             if (result)
             {
                 prestamo.IdGarantias.RemoveAll(value => value == idGarantia);
@@ -373,14 +391,16 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             InfoCliente = $"{cliente.NumeracionDocumentoIdentidad} {cliente.NombreCompleto} ";
         }
 
-        private async Task OnCloseSearchCliente() => ShowSearchCliente = false;
-        private async Task OnCloseSearchGarantia() => ShowSearchGarantia = false;
+        private void OnCloseSearchCliente() => ShowSearchCliente = false;
+        private void OnCloseSearchGarantia() => ShowSearchGarantia = false;
 
-        private bool LlevaGarantia() => false;
+        private bool LlevaGarantia() => ClasificacionSelected.RequiereGarantia; 
 
-        protected async Task OnMontoPrestadoChange(ChangeEventArgs args )
+        protected async Task OnMontoPrestadoChange(ChangeEventArgs args)
         {
-            var value = Convert.ToDecimal(args.Value);
+            
+            var value = Convert.ToDecimal(args.Value.ToString().RemoveAllButNumber());
+            await NotifyMessageBox(value.ToString());
             this.prestamo.MontoPrestado = value;
             await Calcular();
         }
@@ -388,8 +408,46 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         protected async Task OnLlevaGastoDeCierreChange(ChangeEventArgs args)
         {
             var value = Convert.ToBoolean(args.Value);
-            prestamo.InteresGastoDeCierre = value ? 10:0;
+            prestamo.InteresGastoDeCierre = value ? 10 : 0;
             await Calcular();
+        }
+
+        protected async Task OnGastoDeCierreEsDeducibleChange(ChangeEventArgs args)
+        {
+            var value = Convert.ToBoolean(args.Value);
+            prestamo.GastoDeCierreEsDeducible = value;
+            await Calcular();
+        }
+
+        protected async Task SetFecha(DateTime fecha) { await NotifyMessageBox("ejec setfecha");  }
+        protected async Task OnFechaEmisionRealChange(ChangeEventArgs args)
+        {
+            var value = DateTime.Now;
+            var convertionSucceed = DateTime.TryParse(args.Value.ToString(), out value);
+            if (value > DateTime.Now )
+            {
+                SetFechaEmisionReal();
+                await SweetMessageBox("fecha digitada no puede ser mayor a la fecha de hoy");
+            }
+            if (convertionSucceed)
+            {
+                prestamo.FechaEmisionReal = value;
+                await Calcular();
+            }
+            else
+            {
+                SetFechaEmisionReal();
+                await SweetMessageBox("la fecha digitada es invalida");
+            }
+
+        }
+
+        protected async Task OnClasificacionChange(ChangeEventArgs args)
+        {
+            var value = Convert.ToInt32(args.Value);
+            prestamo.IdClasificacion = value;
+            ClasificacionSelected = Clasificaciones.First(cl => cl.IdClasificacion == value);
+            prestamo.LlevaGarantia = ClasificacionSelected.RequiereGarantia;
         }
 
         protected async Task OnFinanciarGastoDeCierreChange(ChangeEventArgs args)
@@ -437,7 +495,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         public int IdGarantia { get; set; }
         public string Text { get; set; }
         public override string ToString() => Text;
-        
+
     }
 
 }

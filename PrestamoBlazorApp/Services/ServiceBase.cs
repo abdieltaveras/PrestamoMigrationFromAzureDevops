@@ -56,9 +56,9 @@ namespace PrestamoBlazorApp.Services
             if (response.IsSuccessStatusCode)
             {
                 //using var responseStream = await response.Content.ReadAsStreamAsync();
-                //var result2 = JsonConvert.DeserializeObject<IEnumerable<@Type>>(responseStream.ToString());
                 //result = await JsonSerializer.DeserializeAsync<IEnumerable<@Type>>(responseStream);
-                result = await response.Content.ReadFromJsonAsync<IEnumerable<@Type>>();
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                result = await response.Content.ReadFromJsonAsync<IEnumerable<@Type>>(options);
             }
             else
             {
@@ -85,8 +85,9 @@ namespace PrestamoBlazorApp.Services
 
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
-                result = await System.Text.Json.JsonSerializer.DeserializeAsync<IEnumerable<string>>(responseStream);
+                //using var responseStream = await response.Content.ReadAsStreamAsync();
+                //result = await System.Text.Json.JsonSerializer.DeserializeAsync<IEnumerable<string>>(responseStream);
+                result = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
             }
             else
             {
