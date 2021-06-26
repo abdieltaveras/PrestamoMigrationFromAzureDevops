@@ -1,30 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PrestamoEntidades;
+﻿using PrestamoEntidades;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using PrestamoWS.Services;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace PrestamoWS.Controllers
-
 {
-
-    public abstract class BaseApiController : Controller
+    
+    public abstract class ControllerBasePrestamoWS : ControllerBase
     {
+        [Inject]
+        protected IPathProvider pathProvider { get; set; } = new PathProvider();
 
         protected int IdLocalidadNegocio { get; } = 1;
 
         protected int IdNegocio { get; } = 1;
 
-        protected string LoginName { get { return this.GetLoginName(); } }
+        protected string LoginName { get { return this.GetLoginName(); }  }
 
-
-
+        
         private string GetLoginName()
         {
-            return "development" + DateTime.Now;
+            return "development"+DateTime.Now;
         }
 
+        protected string ImagePathForClientes => pathProvider.MapPath(@"\images\clientes");
+        protected string ImagePathForGarantia => pathProvider.MapPath(@"\images\garantias");
         protected bool IsUserAuthenticaded => UserIsAuthenticated();
         protected InfoAccion InfoAccion { get { return this.InfoAccionFromSesion(); } }
 
@@ -45,6 +49,16 @@ namespace PrestamoWS.Controllers
             };
         }
 
+        #region errors
+        protected IActionResult  InternalServerError(string message)
+        {
+            var ServerError = StatusCode(StatusCodes.Status500InternalServerError, message);
+            return ServerError;
+        }
+        #endregion
+
     }
-    
+
+
+
 }

@@ -20,7 +20,7 @@ namespace PrestamoBlazorApp.Services
         }
         public async Task<IEnumerable<Cliente>> GetClientesAsync(ClienteGetParams search)
         {
-            var result = await GetAsync<Cliente>(apiUrl, new { jsonGet = search.ToJson() } );
+            var result = await GetAsync<Cliente>(apiUrl+"/get", new { jsonGet = search.ToJson() } );
             return result;
         }
         
@@ -33,7 +33,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Cliente>(apiUrl, cliente);
+                await PostAsync<Cliente>(apiUrl+"/post", cliente);
             }
             catch (Exception ex)
             {

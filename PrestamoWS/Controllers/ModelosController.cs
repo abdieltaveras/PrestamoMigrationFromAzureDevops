@@ -1,52 +1,63 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using PrestamoBLL;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
+
 using PrestamoWS.Models;
-using PrestamoBLL;
-using PrestamoEntidades;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]/[action]")]
-    public class ModelosController : Controller
+    public class ModelosController : ControllerBasePrestamoWS
     {
-        [HttpGet]
-        public IEnumerable<Modelo> Get()
+        //[HttpGet]
+        public IEnumerable<ModeloWithMarca> Get(string JsonGet = "")
         {
-            ModeloVM datos = new ModeloVM();
-
-            datos.ListaModelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdNegocio = 1 });
-            return datos.ListaModelos;
-            //datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
-
-            //datos.ListaSeleccionMarcas = new SelectList(datos.ListaMarcas, "IdMarca", "Nombre");
-           // return View("CreateOrEdit", datos);
+            var jsonResult = JsonConvert.DeserializeObject<ModeloGetParams>(JsonGet);
+            return BLLPrestamo.Instance.GetModelos(jsonResult);
+           
         }
-        [HttpGet("{idMarca:int}")]
-        public IEnumerable<Modelo> Get(int idMarca)
-        {
-            IEnumerable<Modelo> modelos = null;
-
-            modelos = BLLPrestamo.Instance.GetModelosByMarca(new ModeloGetParams { IdMarca = idMarca, IdNegocio = 1 });
-            return modelos;
-            //return JsonConvert.SerializeObject(modelos);
-        }
+        
+        //public IEnumerable<Modelo> Get(int idMarca)
+        //{
+        //    IEnumerable<Modelo> modelos = null;
+        //    modelos = BLLPrestamo.Instance.GetModelosByMarca(new ModeloGetParams { IdMarca = idMarca, IdNegocio = 1 });
+        //    return modelos;
+        //}
 
         [HttpPost]
         public IActionResult Post(Modelo modelo)
         {
-            //modelo.IdNegocio = 1;
-            //modelo.InsertadoPor = "Bryan";
-            //this.pcpSetUsuarioAndIdNegocioTo(modelo);
+            modelo.Usuario = this.LoginName;
+            modelo.IdLocalidadNegocio = this.IdLocalidadNegocio;
             BLLPrestamo.Instance.InsUpdModelo(modelo);
             return Ok();
-            //return RedirectToAction("CreateOrEdit");
         }
 
+        [HttpDelete]
+        public IActionResult Anular(int idRegistro)
+        {
+            // llenar el parametro de borrado si lo requier el metodo
+            var elimParam = new AnularCatalogo
+            {
+                NombreTabla = "tblModelos",
+                IdRegistro = idRegistro.ToString()
+            };
+            try
+            {
+                BLLPrestamo.Instance.AnularCatalogo(elimParam);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Registro no pudo ser anulado");
+            }
 
+            //return RedirectToAction("CreateOrEdit");
+        }
     }
 }

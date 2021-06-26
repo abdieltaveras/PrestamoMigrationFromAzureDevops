@@ -1,39 +1,68 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PrestamoBLL;
+﻿using PrestamoBLL;
 using PrestamoEntidades;
-using PrestamoWS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
+
+using PrestamoWS.Models;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+
 namespace PrestamoWS.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class MarcasController : Controller
+
+    public class MarcasController : ControllerBasePrestamoWS
     {
-        //[HttpGet]
-        //public Marca Get()
-        //{
-        //    return new Marca();
-        //}
         [HttpGet]
-        public IEnumerable<Marca> Get()
+        public IEnumerable<Marca> Get(string JsonGet = "")
         {
-            MarcaVM datos = new MarcaVM();
             //Hay que agregar el controller
-            datos.ListaMarcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdNegocio = 1 });
-            return datos.ListaMarcas;
+            var JsonResult = JsonConvert.DeserializeObject<MarcaGetParams>(JsonGet);
+            var result = BLLPrestamo.Instance.GetMarcas(JsonResult);
+            return result;
             //return View("CreateOrEdit", datos);
         }
         [HttpPost]
         public IActionResult Post(Marca marca)
         {
-            //marca.IdNegocio = 1;
-            //marca.InsertadoPor = "Bryan";
-            //this.pcpSetUsuarioAndIdNegocioTo(marca);
-            BLLPrestamo.Instance.InsUpdMarca(marca);
-            return Ok();
+            try
+            {
+                marca.Usuario = this.LoginName;
+                marca.IdLocalidadNegocio = this.IdLocalidadNegocio;
+                BLLPrestamo.Instance.InsUpdMarca(marca);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            //return RedirectToAction("CreateOrEdit");
+        }
+        [HttpDelete]
+        public IActionResult Anular(int idRegistro)
+        {
+            // llenar el parametro de borrado si lo requier el metodo
+            var elimParam = new AnularCatalogo
+            {
+                NombreTabla = "tblMarcas",
+                IdRegistro = idRegistro.ToString()
+            };
+            try
+            {
+                BLLPrestamo.Instance.AnularCatalogo(elimParam);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Registro no pudo ser anulado");
+            }
+
             //return RedirectToAction("CreateOrEdit");
         }
     }

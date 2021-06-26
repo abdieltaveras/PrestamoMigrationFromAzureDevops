@@ -450,7 +450,7 @@ namespace PrestamoBLL
             execCalcs = NoCalcular;
         }
 
-        public bool LlevaGarantia() => Clasificaciones.Where(cl => cl.IdClasificacion == base.IdClasificacion).FirstOrDefault().RequiereGarantia;
+        public new bool LlevaGarantia() => Clasificaciones.Where(cl => cl.IdClasificacion == base.IdClasificacion).FirstOrDefault().RequiereGarantia;
 
         private async Task NoCalcular() => await Task.Run(() => { });
 

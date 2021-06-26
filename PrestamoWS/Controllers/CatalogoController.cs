@@ -1,22 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using PrestamoBLL;
+﻿using PrestamoBLL;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
+using PrestamoWS.Models;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class CatalogoController : BaseApiController
+    public class CatalogoController : ControllerBasePrestamoWS
     {
         [HttpPost]
-        public  ActionResult Post([FromBody] Catalogo catalogo)
+        public IActionResult Post([FromBody] Catalogo catalogo)
         {
-
+           
             try
             {
                 catalogo.Usuario = this.LoginName;
@@ -33,24 +35,12 @@ namespace PrestamoWS.Controllers
 
         
         [HttpGet]
-        public IEnumerable<string> Get(string JsonGet = "")
-        {
-
-            List<string> ls = new List<string>();
-            var JsonResult = JsonConvert.DeserializeObject<CatalogoGetParams>(JsonGet);
-            var result = BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(JsonResult);
-            var d = JsonConvert.SerializeObject(result);
-            ls.Add(d);
-            return ls;
-            //return View("CreateOrEdit", datos);
-        }
-        [HttpGet]
-        public IEnumerable<Catalogo> Get2(string JsonGet = "")
+        public IEnumerable<Catalogo> Get(string JsonGet = "")
         {
             var JsonResult = JsonConvert.DeserializeObject<CatalogoGetParams>(JsonGet);
             var result = BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(JsonResult);
             return result;
+
         }
     }
-    
 }

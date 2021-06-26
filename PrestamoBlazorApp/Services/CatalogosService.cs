@@ -24,7 +24,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Catalogo>(apiUrl, catalogo);
+                await PostAsync<Catalogo>(apiUrl+"/Post", catalogo);
             }
             catch (Exception ex)
             {

@@ -9,7 +9,7 @@ namespace PrestamoWS.Controllers
     [ApiController]
     [Route("api/[controller]/[action]")]
     
-    public class Test2Controller : Controller
+    public class RouteExampleController : Controller
     {
         [HttpGet("{idCliente}")]
         public IActionResult Get(int idCliente)
@@ -20,7 +20,7 @@ namespace PrestamoWS.Controllers
         [HttpGet("{nombre}/{apellido}")]
         public IActionResult Get(string nombre, string apellido)
         {
-            return Content($"Mostrando El Nombre {nombre}");
+            return Content($"Mostrando El Nombre {nombre} apellido {apellido}");
         }
     }
     

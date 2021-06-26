@@ -1,72 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using PrestamoBLL;
+﻿using PrestamoBLL;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+
+
 using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
+
+using PrestamoWS.Models;
+
+using PcpUtilidades;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Hosting;
+using PrestamoWS.Services;
+
 namespace PrestamoWS.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public abstract class BaseController : Controller
+
+    /// <summary>
+    /// Para registrar los pagos realizados por los clientes a los prestamos
+    /// </summary>
+
+    public class ClientesController : ControllerBasePrestamoWS
     {
+        
 
-        protected InfoAccion InfoAutenticacionDeLaSesion()
+        public ClientesController(IPathProvider _pathProvider )
         {
-            // esto lo obtendra mas real por ahora es para desarrollo
-            return new InfoAccion
-            {
-                IdAplicacion = 1,
-                IdDispositivo = 1,
-                IdLocalidadNegocio = 1,
-                IdUsuario = 1,
-                Usuario = "UsrDevelopement"
-            };
+            this.pathProvider = _pathProvider;
         }
-
-    }
-
-
-    public class ClientesController : BaseController
-    {
-        [HttpGet]
-        public IEnumerable<Cliente> GetAll()
-        {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams());
-            return data;
-        }
-
-
-        [HttpGet("{idCliente:int}")]
-        public IEnumerable<Cliente> Get([FromQuery]int idCliente)
-        {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idCliente });
-            return data;
-        }
-        [HttpGet("{nombre} {apellidos} {activo:int} {idCliente:int} {idLocalidad:int} {idTipoIdentificacion:int} {noIdentificacion} {anulado:int}")]
-        public IEnumerable<Cliente> Get(string nombre = "", string apellidos = "", int Activo = -1, int idCliente = -1, 
-            int idLocalidad = -1, int idTipoIdentificacion = -1, string noIdentificacion = "", int anulado = -1)
-        {
-            var getP = new ClienteGetParams { Nombres = nombre, Apellidos = apellidos, IdCliente = idCliente, IdLocalidadNegocio = idLocalidad, IdNegocio = -1, Activo = Activo, Anulado = anulado, IdTipoIdentificacion = idTipoIdentificacion, NoIdentificacion = noIdentificacion };
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { NoIdentificacion = noIdentificacion });
-            return data;
-        }
-
 
         [HttpGet]
-        public IEnumerable<Cliente> GetByParams(ClienteGetParams param)
+        public IEnumerable<Cliente> Get(string jsonGet)
         {
-            var data = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { });
+            var path = ImagePathForClientes;
+            var getParams = jsonGet.ToType<ClienteGetParams>();
+            var data = BLLPrestamo.Instance.GetClientes(getParams, ImagePathForClientes );
             return data;
         }
 
-        [HttpGet("{textoABuscar}/{CargarImagenesClientes:bool}")]
-        public IEnumerable<Cliente> Get(string textoABuscar, bool CargarImagenesClientes)
+        [HttpGet]
+        public IEnumerable<Cliente> SearchClientes(string textoABuscar, bool cargarImagenesClientes=false)
         {
-            var clientes = searchCliente(textoABuscar, CargarImagenesClientes);
+            var clientes = searchCliente(textoABuscar, cargarImagenesClientes);
             return clientes;
         }
         /// <summary>
@@ -74,26 +55,30 @@ namespace PrestamoWS.Controllers
         /// </summary>
         /// <param name="cliente"></param>
         [HttpPost]
-        public ActionResult Post(Cliente cliente)
+        public IActionResult Post([FromBody] Cliente cliente)
         {
+            var img = cliente.ImagenesObj;
+            cliente.Usuario = this.LoginName;
+            cliente.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            var state = ModelState.IsValid;
             try
             {
+                ManejoImagenes.ProcesarImagenes(cliente.ImagenesObj, ImagePathForClientes , string.Empty);
                 var id = BLLPrestamo.Instance.InsUpdCliente(cliente);
                 return Ok(id);
             }
-
             catch (Exception e)
             {
                 throw new Exception("El cliente no pudo ser creado");
-                
+
             }
         }
         /// <summary>
         /// Esto es para Borrar, anular un cliente
         /// </summary>
         /// <param name="id"></param>
-        [HttpDelete("{idCliente:int}")]
-        public ActionResult Delete(int idCliente)
+        [HttpDelete]
+        public IActionResult Delete(int idCliente)
         {
             try
             {

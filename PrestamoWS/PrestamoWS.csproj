@@ -15,4 +15,14 @@
     <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="HESRAM.Utils">
+      <HintPath>..\SharedDLL\HESRAM\HESRAM.Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

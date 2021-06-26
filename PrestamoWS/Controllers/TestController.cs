@@ -1,44 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using PrestamoEntidades;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace PrestamoWS.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]/[action]")]
-    
-    public class TestController : Controller
+
+    public class TestController : ControllerBasePrestamoWS
     {
-        [HttpGet("Idcliente")]
-        public IActionResult Get(int idCliente)
+        [HttpGet("{nombre}")]
+        public IActionResult Get(string nombre)
         {
-            return Content($"Buscando cliente id {idCliente}");
+            return Ok($"Mostrando El Nombre y apellido {nombre}");
         }
-        [HttpGet]
-        [HttpGet("nombre,apellido")]
-        public IActionResult GetByParams1(string nombre,  string apellido)
-        {
-            return Content($"Mostrando El Nombre y apellido {nombre} {apellido}");
-        }
-        [HttpGet]
-        public IActionResult GetByName(string nombre)
-        {
-            return Content($"Mostrando El Nombre y apellido {nombre}");
-        }
-        [HttpGet]
+        [HttpGet("{nombre}/{calle}/{sector}")]
         public IActionResult GetByParams2(string nombre, string calle, string sector)
         {
-            return Content($"Mostrando El Nombre {nombre} calle {calle}  sector {sector}");
+            return Ok($"Mostrando El Nombre {nombre} calle {calle}  sector {sector}");
+        }
+
+        [HttpGet("{ClienteGetParams}")]
+        public IActionResult GetByParams(ClienteGetParams clienteParams)
+        {
+            return Ok($"Mostrando El Nombre {clienteParams.Nombres} apellido {clienteParams.Apellidos}  idCliente {clienteParams.IdCliente}");
         }
 
         [HttpGet]
-        public IActionResult GetByParams([FromQuery] ClienteGetParams clienteParams)
+        public IEnumerable<int> Test01(int seconds)
         {
-            return Content($"Mostrando El Nombre {clienteParams.Nombres} apellido {clienteParams.Apellidos}  idCliente {clienteParams.IdCliente}");
+            Thread.Sleep(seconds * 1000);
+            var list = new int[] {1,2 };
+            return list;
         }
+
     }
 }

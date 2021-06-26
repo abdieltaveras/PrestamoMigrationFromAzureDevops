@@ -119,8 +119,8 @@ namespace PrestamoBLL
         //Luis estaba private
         public static void GetValidation(BaseGetParams getParam)
         {
-            var idNegocio = getParam.IdNegocio;
-            ThrowErrorIfNegocioIsZero(getParam.IdNegocio);
+            //var idNegocio = getParam.IdNegocio;
+            //ThrowErrorIfNegocioIsZero(getParam.IdNegocio);
         }
 
         /// <summary>
