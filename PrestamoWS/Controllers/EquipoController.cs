@@ -16,7 +16,7 @@ namespace PrestamoWS.Controllers
     public class EquipoController : ControllerBasePrestamoWS
     {
 	[HttpGet]
-        public IEnumerable<Equipo> GetAll(string JsonGet = "")
+        public IEnumerable<Equipo> Get(string JsonGet = "")
         {
             var param = JsonConvert.DeserializeObject<EquiposGetParam>(JsonGet);
             return BLLPrestamo.Instance.GetEquipos(param);

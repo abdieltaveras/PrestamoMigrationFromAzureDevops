@@ -1,4 +1,5 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.Classes.Utils;
+using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
 using PrestamoEntidades;
 using System;
@@ -30,7 +31,7 @@ namespace PrestamoBLL
 
             prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
             
-            var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
+            var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", ref prestamoParam2);
             var  id= Utils.GetIdFromDataTable(resultId);
             return id;
         }

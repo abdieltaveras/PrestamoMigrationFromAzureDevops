@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
 using PrestamoEntidades;
 using System;
@@ -12,12 +12,12 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        public IEnumerable<Cliente> GetClientes(ClienteGetParams  searchParam, string directorioDeImagen = "")
+        public IEnumerable<Cliente> GetClientes(ClienteGetParams  searchParam, bool convertToObj, string directorioDeImagen = "")
         {
             
             GetValidation(searchParam as BaseGetParams);
             var result= BllAcciones.GetData<Cliente, ClienteGetParams>(searchParam, "spGetClientes", GetValidation);
-            if (searchParam.ConvertJsonToObj)
+            if (convertToObj)
             {
                 result.ToList().ForEach(cl => cl.ConvertJsonToObj(directorioDeImagen));
             }
@@ -41,7 +41,7 @@ namespace PrestamoBLL
             try
             {
                 var _insUpdParam = SearchRec.ToSqlParams(cliente);
-                DBPrestamo.ExecSelSP("spInsUpdCliente", _insUpdParam);
+                DBPrestamo.ExecSelSP("spInsUpdCliente", ref _insUpdParam);
             }
             catch (Exception e)
             {

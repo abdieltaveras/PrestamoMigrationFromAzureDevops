@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace PrestamoBLL
         public void ChangePassword(ChangePassword param)
         {
             var _updParam = SearchRec.ToSqlParams(param);
-            DBPrestamo.ExecSelSP("spUpdContraseñaUsuario", _updParam);
+            DBPrestamo.ExecSelSP("spUpdContraseñaUsuario", ref _updParam);
         }
         public LoginResponse Login(Usuario usr)
         {

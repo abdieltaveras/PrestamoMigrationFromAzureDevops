@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -143,7 +143,7 @@ namespace PrestamoBLL
                 //query = string.Format("SELECT count(*) FROM " + table);
             }
             //var result2 = Database.DataServer.ExecNonQuery(query);
-            var result3 = DBPrestamo.ExecEscalar(query); 
+            var result3 = DBPrestamo.ExecNonQuerySP(query); 
             var valor = System.Convert.ToInt32(result3);
             return valor > 0;
         }
@@ -204,7 +204,7 @@ namespace PrestamoBLL
                 try
                 {
                     var _cancelParam = SearchRec.ToSqlParams(CancelParam);
-                    DBPrestamo.ExecSelSP(storedProcedure, _cancelParam);
+                    DBPrestamo.ExecSelSP(storedProcedure, ref _cancelParam);
                 }
                 catch (Exception e)
                 {

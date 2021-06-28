@@ -16,7 +16,7 @@ namespace PrestamoBlazorApp.Services
         string apiUrl = "api/Equipo";
         public async Task<IEnumerable<Equipo>> Get(EquiposGetParam search)
         {
-            var result = await GetAsync<Equipo>(apiUrl, new { JsonGet = search.ToJson()});
+            var result = await GetAsync<Equipo>(apiUrl+"/get", new { JsonGet = search.ToJson()});
             return result;
         }
 
@@ -34,7 +34,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Equipo>(apiUrl, Equipo);
+                await PostAsync<Equipo>(apiUrl+"/post", Equipo);
             }
             catch (Exception ex)
             {

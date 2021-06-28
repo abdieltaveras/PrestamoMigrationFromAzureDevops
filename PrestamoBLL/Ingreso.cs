@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PrestamoEntidades;
-using emtSoft.DAL;
+using DevBox.Core.DAL.SQLServer;
 namespace PrestamoBLL
 {
     public partial class BLLPrestamo

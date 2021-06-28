@@ -43,22 +43,22 @@ namespace PrestamoBlazorApp.Services
         public async Task<IEnumerable<TipoGarantia>> GetTipoGarantia(TipoGetParams tipoGetParams)
         {
             
-            var result = await GetAsync<TipoGarantia>("api/tipogarantia", new { JsonGet = tipoGetParams.ToJson() });
+            var result = await GetAsync<TipoGarantia>("api/tipogarantia/get", new { JsonGet = tipoGetParams.ToJson() });
             return result;
         }
         public async Task<IEnumerable<Marca>> GetMarcasForGarantia(MarcaGetParams marcaGetParams)
         {
-            var result = await GetAsync<Marca>("api/marcas", new { JsonGet = marcaGetParams.ToJson() });
+            var result = await GetAsync<Marca>("api/marcas/get", new { JsonGet = marcaGetParams.ToJson() });
             return result;
         }
         public async Task<IEnumerable<Modelo>> GetModelosForGarantias(ModeloGetParams modeloGetParams)
         {
-            var result = await GetAsync<Modelo>("api/modelos", new { JsonGet = modeloGetParams.ToJson() });
+            var result = await GetAsync<Modelo>("api/modelos/get", new { JsonGet = modeloGetParams.ToJson() });
             return result;
         }
         public async Task<IEnumerable<Color>> GetColoresForGarantia(ColorGetParams colorGetParams)
         {
-            return await GetAsync<Color>("api/color", new { JsonGet = colorGetParams.ToJson() });
+            return await GetAsync<Color>("api/color/get", new { JsonGet = colorGetParams.ToJson() });
         }
 
         public async Task<bool> TienePrestamoVigente(int idGarantia)
@@ -81,14 +81,13 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Garantia>(apiUrl, Garantia);
+                await PostAsync<Garantia>(apiUrl+"/post", Garantia);
 
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al guardar", ex);
             }
-
         }
     }
 }

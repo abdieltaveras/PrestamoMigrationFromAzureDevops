@@ -2,19 +2,10 @@
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
-
-
-using System.Linq;
-using System.Threading.Tasks;
-using System.Configuration;
-
-using PrestamoWS.Models;
-
 using PcpUtilidades;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Microsoft.AspNetCore.Hosting;
-using PrestamoWS.Services;
+
 
 namespace PrestamoWS.Controllers
 {
@@ -29,19 +20,22 @@ namespace PrestamoWS.Controllers
     public class ClientesController : ControllerBasePrestamoWS
     {
         
-
-        public ClientesController(IPathProvider _pathProvider )
-        {
-            this.pathProvider = _pathProvider;
-        }
-
         [HttpGet]
-        public IEnumerable<Cliente> Get(string jsonGet)
+        public IEnumerable<Cliente> Get(string jsonGet, bool convertToObj)
         {
             var path = ImagePathForClientes;
             var getParams = jsonGet.ToType<ClienteGetParams>();
-            var data = BLLPrestamo.Instance.GetClientes(getParams, ImagePathForClientes );
+            var imgPath = ImagePathForClientes;    
+            var data = BLLPrestamo.Instance.GetClientes(getParams, convertToObj,  ImagePathForClientes);
             return data;
+        }
+
+        [HttpGet]
+        public IEnumerable<Cliente> GetByParam([FromQuery] ClienteGetParams getParams)
+        {
+            throw new NotImplementedException("Para revisar con Luis, si lo usaremos asi, que aqui si funciona bien");
+            //var data = BLLPrestamo.Instance.GetClientes(getParams, currentDir + @"\imagesFor\Clientes");
+            //return data;
         }
 
         [HttpGet]

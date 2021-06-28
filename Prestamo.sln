@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamosMVC5", "PrestamosMVC5\PrestamosMVC5.csproj", "{B76A0B71-46B7-4F1E-B0F2-A88E00BFED02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoBLL", "PrestamoBLL\PrestamoBLL.csproj", "{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoBLLTests", "PrestamoBLLTests\PrestamoBLLTests.csproj", "{073D3734-E0E0-41F8-B490-8B893FD8DBAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedDLL", "SharedDLL", "{D34D4469-0B89-48EB-83C9-822EC00CE86B}"
@@ -62,8 +60,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoWS", "PrestamoWS\Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoBlazorApp", "PrestamoBlazorApp\PrestamoBlazorApp.csproj", "{E020BFC4-E55C-4FB7-8B18-FB807FF8A132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSPrestamo", "WSPrestamo\WSPrestamo.csproj", "{979E83A2-C736-4F96-95E7-02BF3AFFD77D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorUtilsLibrary", "BlazorUtilsLibrary\BlazorUtilsLibrary.csproj", "{0028AFDA-CAB8-4D1F-BBDA-E0C6A233619F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Situaciones del Hosting y IIS", "Situaciones del Hosting y IIS", "{2E30095D-EB98-49EE-8E4E-AD9378B99018}"
@@ -78,6 +74,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoEntidades", "Presta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validaciones", "Validaciones\Validaciones.csproj", "{5186F57D-659E-426E-A604-1FF62D5B49E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoBLL", "PrestamoBLL\PrestamoBLL.csproj", "{B83FBD79-81B2-40AB-B676-075104880E39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU
@@ -91,12 +89,6 @@ Global
 		{B76A0B71-46B7-4F1E-B0F2-A88E00BFED02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B76A0B71-46B7-4F1E-B0F2-A88E00BFED02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B76A0B71-46B7-4F1E-B0F2-A88E00BFED02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}.Abdiel|Any CPU.ActiveCfg = Abdiel|Any CPU
-		{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}.Abdiel|Any CPU.Build.0 = Abdiel|Any CPU
-		{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}.Release|Any CPU.Build.0 = Release|Any CPU
 		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Abdiel|Any CPU.ActiveCfg = Abdiel|Any CPU
 		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Abdiel|Any CPU.Build.0 = Abdiel|Any CPU
 		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -124,12 +116,6 @@ Global
 		{E020BFC4-E55C-4FB7-8B18-FB807FF8A132}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E020BFC4-E55C-4FB7-8B18-FB807FF8A132}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E020BFC4-E55C-4FB7-8B18-FB807FF8A132}.Release|Any CPU.Build.0 = Release|Any CPU
-		{979E83A2-C736-4F96-95E7-02BF3AFFD77D}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
-		{979E83A2-C736-4F96-95E7-02BF3AFFD77D}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
-		{979E83A2-C736-4F96-95E7-02BF3AFFD77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{979E83A2-C736-4F96-95E7-02BF3AFFD77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{979E83A2-C736-4F96-95E7-02BF3AFFD77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{979E83A2-C736-4F96-95E7-02BF3AFFD77D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0028AFDA-CAB8-4D1F-BBDA-E0C6A233619F}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
 		{0028AFDA-CAB8-4D1F-BBDA-E0C6A233619F}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
 		{0028AFDA-CAB8-4D1F-BBDA-E0C6A233619F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -154,6 +140,12 @@ Global
 		{5186F57D-659E-426E-A604-1FF62D5B49E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5186F57D-659E-426E-A604-1FF62D5B49E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5186F57D-659E-426E-A604-1FF62D5B49E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B83FBD79-81B2-40AB-B676-075104880E39}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{B83FBD79-81B2-40AB-B676-075104880E39}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{B83FBD79-81B2-40AB-B676-075104880E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B83FBD79-81B2-40AB-B676-075104880E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B83FBD79-81B2-40AB-B676-075104880E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B83FBD79-81B2-40AB-B676-075104880E39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

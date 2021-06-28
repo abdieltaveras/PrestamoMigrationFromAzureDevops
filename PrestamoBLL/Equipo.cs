@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace PrestamoBLL
         public void ConfirRegistroEquipo(EquiposGetParam2 searchParam)
         {
             var _searchParam = SearchRec.ToSqlParams(searchParam);
-            DBPrestamo.ExecSelSP("SpConfirmarRegistro", _searchParam);
+            DBPrestamo.ExecSelSP("SpConfirmarRegistro", ref _searchParam);
         }
         /// <summary>
         /// Para registrar un log de registro a este dispositivo  
@@ -50,7 +50,7 @@ namespace PrestamoBLL
         public void BloquearAccesoAEquipo(EquiposGetParam2 getParam)
         {
             var _searchParam = SearchRec.ToSqlParams(getParam);
-            DBPrestamo.ExecSelSP("SpBloquearEquipo", _searchParam);
+            DBPrestamo.ExecSelSP("SpBloquearEquipo", ref _searchParam);
         }
         
         // Registrar acceso al equipo (el log)
@@ -65,7 +65,7 @@ namespace PrestamoBLL
                 Usuario = getParam.Usuario
             };
             var _updateData = SearchRec.ToSqlParams(anularRegistro);
-            DBPrestamo.ExecSelSP("SpAnularRegistro", _updateData);
+            DBPrestamo.ExecSelSP("SpAnularRegistro", ref _updateData);
         }
 
 

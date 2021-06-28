@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.JSInterop;
 using PcpUtilidades;
 using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Models;
@@ -92,12 +88,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
         
         private async Task prepareModel()
         {
-            
             Ocupaciones = await GetOcupaciones();
             LoadedFotos = false;
             if (idCliente != 0)
             {
-                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente, ConvertJsonToObj = true });
+                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente}, true);
                 this.cliente = clientes.FirstOrDefault();
             }
             if (this.cliente == null || idCliente <= 0)
@@ -126,7 +121,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             {
                 this.conyuge = cliente.InfoConyugeObj;
                 this.infoLaboral = cliente.InfoLaboralObj;
-                this.direccion = Utils.ToDerived<Direccion, DireccionModel>(cliente.InfoDireccionObj);
+                this.direccion = cliente.InfoDireccionObj.ToJson().ToType<DireccionModel>(); ;
                 var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
                 this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }

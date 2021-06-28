@@ -17,7 +17,7 @@ namespace PrestamoBlazorApp.Services
         
         public async Task<IEnumerable<Periodo>> Get(PeriodoGetParams search)
         {
-            var result = await GetAsync<Periodo>(apiUrl, search);
+            var result = await GetAsync<Periodo>(apiUrl+"/get", search);
             return result;
         }
 

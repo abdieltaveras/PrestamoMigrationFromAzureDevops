@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoBlazorApp.Pages.Garantias
 {
-    public partial class CreateOrEdit  : BaseForCreateOrEdit
+    public partial class CreateOrEdit : BaseForCreateOrEdit
     {
         // Servicios
         [Inject]
@@ -26,12 +26,15 @@ namespace PrestamoBlazorApp.Pages.Garantias
 
         DetalleGarantia detalleGarantia = new DetalleGarantia();
 
+        string clasificacionSelected = string.Empty;
+        private bool IsShowInmobiliario { get; set; } //= false;
+        private bool IsShowMobiliario { get; set; } //= false;
         //Parametros
-        [Parameter]
+        //[Parameter]
         public Garantia Garantia { get; set; }
         [Parameter]
         public int idgarantia { get; set; }
-        
+
         GarantiaGetParams SearchGarantia { get; set; } = new GarantiaGetParams();
         void Clear() => garantias = null;
         //ViewDatas
@@ -43,7 +46,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         }
         protected override async Task OnInitializedAsync()
         {
-         
+
 
             tipogarantia = await GarantiasService.GetTipoGarantia(new TipoGetParams());
             modelos = await GarantiasService.GetModelosForGarantias(new ModeloGetParams { IdMarca = Garantia.IdMarca });
@@ -69,19 +72,55 @@ namespace PrestamoBlazorApp.Pages.Garantias
                 selectedRadioClasificacion(changeEvent);
             }
             StateHasChanged();
-          
+
         }
-       
+
         async Task SaveGarantia()
         {
             await BlockPage();
             this.Garantia.DetallesJSON = this.detalleGarantia;
             await GarantiasService.SaveGarantia(this.Garantia);
-            await SweetMessageBox("Guardado Correctamente", "success", "/Garantias",1500);
+            await SweetMessageBox("Guardado Correctamente", "success", "/Garantias", 1500);
             await UnBlockPage();
             //await OnGuardarNotification();
             //NavManager.NavigateTo("/Garantias");
 
+        }
+
+        private void selectedRadioClasificacion(ChangeEventArgs args)
+        {
+            clasificacionSelected = args.Value.ToString();
+
+            if (clasificacionSelected == "1")
+            {
+
+
+                IsShowInmobiliario = true;
+                IsShowMobiliario = false;
+            }
+            else if (clasificacionSelected == "2")
+            {
+
+                IsShowInmobiliario = false;
+                IsShowMobiliario = true;
+            }
+            //this.detalleGarantia = new DetalleGarantia();
+            Garantia.IdClasificacion = Convert.ToInt32(args.Value.ToString());
+            tipogarantia = tipogarantia.Where(m => m.IdClasificacion == Garantia.IdClasificacion);
+
+        }
+
+        private string setSelectedClasificacion(int id)
+        {
+            //var changeEvent = new ChangeEventArgs();
+            //changeEvent.Value = id;
+            //selectedRadioClasificacion(changeEvent);
+            if (Garantia.IdClasificacion == id)
+            {
+                return "checked";
+            }
+
+            return "";
         }
         //void CreateOrEdi(int idGarantia = -1)
         //{
@@ -109,7 +148,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         //}
         void RaiseInvalidSubmit()
         {
-            
+
         }
     }
 }

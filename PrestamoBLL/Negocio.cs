@@ -1,4 +1,5 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.Classes.Utils;
+using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
 using PrestamoEntidades;
 using System;
@@ -98,7 +99,7 @@ namespace PrestamoBLL
             try
             {
                 var searchSqlParams = SearchRec.ToSqlParams(idNegocio);
-                var response = DBPrestamo.ExecEscalar($"select dbo.fnGetIdNegocioMatriz({idNegocio})");
+                var response = DBPrestamo.ExecNonQuerySP($"select dbo.fnGetIdNegocioMatriz({idNegocio})");
                 if (!response.IsNull())
                 {
                     idNegocioResponse = Convert.ToInt32(response);
@@ -121,16 +122,7 @@ namespace PrestamoBLL
             {
                 var searchSqlParams = SearchRec.ToSqlParams(0);
                 //$"select * from fnGetNegociosPadre({idNegocio})"
-                using (var response = DBPrestamo.ExecQuery("select IdNegocio, NombreComercial  from tblNegocios where IdNegocioPadre is NULL", searchSqlParams))
-                {
-                    while (response.Read())
-                    {
-                        var negocio = new Negocio();
-                        negocio.IdNegocio = response.GetInt32(0);
-                        negocio.NombreComercial = response.GetString(1);
-                        result.Add(negocio);
-                    }
-                }
+                result = DBPrestamo.ExecQuery<Negocio>("select IdNegocio, NombreComercial  from tblNegocios where IdNegocioPadre is NULL", searchSqlParams);
             }
             catch (Exception e)
             {
@@ -149,7 +141,7 @@ namespace PrestamoBLL
             var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
             try
             {
-                var result = DBPrestamo.ExecSelSP("spInsUpdNegocio", _insUpdParam);
+                var result = DBPrestamo.ExecSelSP("spInsUpdNegocio", ref _insUpdParam);
                 idResult = Utils.GetIdFromDataTable(result);
             }
             catch (Exception e)

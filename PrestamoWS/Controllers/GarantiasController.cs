@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
-    
+
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class GarantiasController : ControllerBasePrestamoWS
@@ -43,9 +43,10 @@ namespace PrestamoWS.Controllers
             garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(paramss);
             //}
             //********** enviamos la base64 de la imagen
-            return (Task<ActionResult<IEnumerable<Garantia>>>)garantias;
+            var result =(Task<ActionResult<IEnumerable<Garantia>>>)garantias;
+            return result;
         }
-	[HttpGet]
+        [HttpGet]
         public IEnumerable<Garantia> GetGarantiasByPrestamo(int idPrestamo)
         {
             var result = BLLPrestamo.Instance.GetGarantiasByPrestamo(idPrestamo);
@@ -89,7 +90,7 @@ namespace PrestamoWS.Controllers
 
         [HttpGet]
         public IEnumerable<Garantia> Get(string JsonGet = "")
-            
+
         {
             dynamic listResult = null;
             var searchGarantia = JsonConvert.DeserializeObject<GarantiaGetParams>(JsonGet);
@@ -131,8 +132,8 @@ namespace PrestamoWS.Controllers
 
         }
 
-        
-        
+
+
         [HttpPost]
         public async Task<IActionResult> Post(Garantia garantia)
         {
@@ -165,7 +166,7 @@ namespace PrestamoWS.Controllers
                 return Forbid();
             }
         }
-        
+
 
         public class SeachResult<T>
         {

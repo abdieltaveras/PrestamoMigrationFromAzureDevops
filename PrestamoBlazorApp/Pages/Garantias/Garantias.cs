@@ -14,14 +14,10 @@ namespace PrestamoBlazorApp.Pages.Garantias
     public partial class Garantias : BaseForCreateOrEdit
     {
         [Inject]
-        
-        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
-        [Inject]
         GarantiasService GarantiasService { get; set; }
         IEnumerable<Garantia> garantias { get; set; } = new List<Garantia>();
-        [Parameter]
+        //[Parameter]
         public Garantia Garantia { get; set; } 
-        
         GarantiaGetParams SearchGarantia { get; set; } = new GarantiaGetParams();
         void Clear() => garantias = null;
         protected override void OnInitialized()
@@ -31,7 +27,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         }
         protected override async Task OnInitializedAsync()
         {
-           await GetGarantiasWithPrestamos();
+           await GetGarantias();
             
             //garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = ""});
         }

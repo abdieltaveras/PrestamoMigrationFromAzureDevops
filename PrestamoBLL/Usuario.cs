@@ -1,4 +1,5 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.Classes.Utils;
+using DevBox.Core.DAL.SQLServer;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -84,7 +85,7 @@ namespace PrestamoBLL
                     UsuarioRoleAnular = DataTableAnular,
                     Usuario = usuario
                 });
-                var response = DBPrestamo.ExecSelSP("spInsUpdUserRoles", _insUpdParam);
+                var response = DBPrestamo.ExecSelSP("spInsUpdUserRoles", ref _insUpdParam);
             }
             catch (Exception e)
             {

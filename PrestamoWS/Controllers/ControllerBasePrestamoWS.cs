@@ -2,7 +2,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
-using PrestamoWS.Services;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using System.IO;
@@ -12,8 +12,8 @@ namespace PrestamoWS.Controllers
     
     public abstract class ControllerBasePrestamoWS : ControllerBase
     {
-        [Inject]
-        protected IPathProvider pathProvider { get; set; } = new PathProvider();
+        
+        protected IWebHostEnvironment WebHostingEnvironment { get; set; }
 
         protected int IdLocalidadNegocio { get; } = 1;
 
@@ -27,8 +27,9 @@ namespace PrestamoWS.Controllers
             return "development"+DateTime.Now;
         }
 
-        protected string ImagePathForClientes => pathProvider.MapPath(@"\images\clientes");
-        protected string ImagePathForGarantia => pathProvider.MapPath(@"\images\garantias");
+        protected string currentDir => Directory.GetCurrentDirectory();
+        protected string ImagePathForClientes => currentDir + @"\imagesFor\Clientes\";
+        protected string ImagePathForGarantia => currentDir+ @"\imagesFor\Garantias\";
         protected bool IsUserAuthenticaded => UserIsAuthenticated();
         protected InfoAccion InfoAccion { get { return this.InfoAccionFromSesion(); } }
 

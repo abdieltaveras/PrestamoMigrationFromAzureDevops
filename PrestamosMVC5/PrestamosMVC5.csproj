@@ -5316,10 +5316,6 @@
       <Project>{C7394D72-A7B4-495B-B1BD-8D46E8435A12}</Project>
       <Name>PcpUtilidades</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj">
-      <Project>{C58AEAE1-26EA-4087-8BD6-C8DEAE7B3E77}</Project>
-      <Name>PrestamoBLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj">
       <Project>{F4A2334D-23A4-4700-B058-D8206A54E547}</Project>
       <Name>PrestamoEntidades</Name>

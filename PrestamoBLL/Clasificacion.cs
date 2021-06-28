@@ -1,4 +1,5 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
+using DevBox.Core.Classes.Utils;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;

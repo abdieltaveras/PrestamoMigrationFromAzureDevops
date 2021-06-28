@@ -8,11 +8,12 @@ namespace PrestamoBLL
 {
     public static class UtilsBLL
     {
-        public static DateTime GetDateFromSqlServer()
-        {
-            var result = BLLPrestamo.DBPrestamo.ExecQuery("select GetDate() as DT", "SysDate");
-            var r = Convert.ToDateTime(result.Rows[0][0]);
-            return r;
-        }
+        //public static DateTime GetDateFromSqlServer()
+        //{
+        //    // todo investigar con ernesto como hacerlo ahora con la nueva version
+        //    var result = BLLPrestamo.DBPrestamo.ExecReaderSelSP("select GetDate() as DT", "SysDate");
+        //    var r = Convert.ToDateTime(result.Rows[0][0]);
+        //    return r;
+        //}
     }
 }

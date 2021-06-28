@@ -104,12 +104,12 @@ namespace PrestamoEntidades
     {
         [Required]
         [Display(Name = "Estatus")]
-        public bool Activo { get; set; } = true;
+        public virtual bool Activo { get; set; } = true;
         [MaxLength(10)]
-        public string Codigo { get; set; } 
+        public virtual string Codigo { get; set; } 
 
         [Required(ErrorMessage = "ingrese el nombre")]
-        public string Nombre { get; set; } = string.Empty;
+        public virtual string Nombre { get; set; } = string.Empty;
         public abstract int GetId();
         //public string Descripcion { get; set; } = string.Empty;
     }

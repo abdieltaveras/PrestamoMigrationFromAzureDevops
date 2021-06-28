@@ -17,7 +17,7 @@ namespace PrestamoBlazorApp.Services
         public async Task<IEnumerable<Ocupacion>> Get(OcupacionGetParams ocupacionGetParams)
         {
 
-            var result = await GetAsync<Ocupacion>(apiUrl, new { JsonGet = ocupacionGetParams.ToJson() });
+            var result = await GetAsync<Ocupacion>(apiUrl+"/get", new { JsonGet = ocupacionGetParams.ToJson() });
             return result;
         }
 
@@ -34,7 +34,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Ocupacion>(apiUrl, Ocupacion);
+                await PostAsync<Ocupacion>(apiUrl+"/post", Ocupacion);
             }
             catch (Exception ex)
             {

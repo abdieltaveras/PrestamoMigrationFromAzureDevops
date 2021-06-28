@@ -12,9 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+
     public class ModelosController : ControllerBasePrestamoWS
     {
-        //[HttpGet]
+        [HttpGet]
         public IEnumerable<ModeloWithMarca> Get(string JsonGet = "")
         {
             var jsonResult = JsonConvert.DeserializeObject<ModeloGetParams>(JsonGet);
@@ -22,12 +25,7 @@ namespace PrestamoWS.Controllers
            
         }
         
-        //public IEnumerable<Modelo> Get(int idMarca)
-        //{
-        //    IEnumerable<Modelo> modelos = null;
-        //    modelos = BLLPrestamo.Instance.GetModelosByMarca(new ModeloGetParams { IdMarca = idMarca, IdNegocio = 1 });
-        //    return modelos;
-        //}
+        
 
         [HttpPost]
         public IActionResult Post(Modelo modelo)

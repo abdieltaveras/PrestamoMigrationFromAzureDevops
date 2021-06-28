@@ -25,8 +25,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         {
             clientes = new List<Cliente>();
             this.searchClientes.CantidadRegistrosASeleccionar = 50;
-            this.searchClientes.ConvertJsonToObj = false ;
-            clientes = await clientesService.GetClientesAsync(this.searchClientes);
+            clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
             totalClientes = clientes.Count();
         }
 

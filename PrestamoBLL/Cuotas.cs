@@ -1,4 +1,5 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.Classes.Utils;
+using DevBox.Core.DAL.SQLServer;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace PrestamoBLL
                 /// debe crear un parametro anonimo que coincida el nombre del parametro
                 /// y asignarle un objeto datatable
                 var _insUpdParam = SearchRec.ToSqlParams(new { cuotas = cuotasDataTable });
-                DBPrestamo.ExecSelSP("spInsUpdCuotas", _insUpdParam);
+                DBPrestamo.ExecSelSP("spInsUpdCuotas", ref _insUpdParam);
             }
             catch (Exception e)
             {

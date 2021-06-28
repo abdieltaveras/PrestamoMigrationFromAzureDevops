@@ -234,9 +234,7 @@ namespace PrestamoEntidades
         public DateTime? InsertadoDesde { get; set; } = null;
 
         public DateTime? InsertadoHasta { get; set; } = null;
-        [IgnorarEnParam]
-        public bool ConvertJsonToObj { get; set; } = true;
-
+        
         /// <summary>
         /// cantidad de registros a seleccionar enviar null
         /// hara que por defecto el procedimiento seleccione 100

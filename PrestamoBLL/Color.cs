@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace PrestamoBLL
 
 
             // segundo si no ha sido usado proceder a anularlo
-            BLLPrestamo.DBPrestamo.ExecNonQuery($"delete from tblColores where idColor={idColor}");
+            BLLPrestamo.DBPrestamo.ExecNonQuerySP($"delete from tblColores where idColor={idColor}");
         }
     }
 }
