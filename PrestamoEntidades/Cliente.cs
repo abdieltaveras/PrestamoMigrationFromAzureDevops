@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
 using System;
 using System.Collections.Generic;
@@ -70,7 +70,7 @@ namespace PrestamoEntidades
         //}
         [KeyAttribute]
         public int IdCliente { get; set; } = 0;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         [StringLength(40)]
         [Required]
         public string Codigo { get; set; } = string.Empty;
@@ -101,14 +101,14 @@ namespace PrestamoEntidades
         //son los datos en formato string que son traidos de las tablas
         //</summary>
         public string InfoConyuge { get; set; } = string.Empty;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public Conyuge InfoConyugeObj { get; set; } 
             //{return string.IsNullOrEmpty(InfoConyuge) ? new Conyuge() : InfoConyuge.ToType<Conyuge>(); } set { InfoConyuge = value.ToJson(); } }
         //<summary>
         //la direccion en formato json
         //</summary>
         public string InfoDireccion { get; set; } = string.Empty;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public Direccion InfoDireccionObj { get; set; }
 
         //{ get { return string.IsNullOrEmpty(InfoDireccion) ? new Direccion() : InfoDireccion.ToType<Direccion>(); } set { InfoDireccion = value.ToJson(); } }
@@ -125,14 +125,14 @@ namespace PrestamoEntidades
             InfoReferenciasObj.ForEach(refe => refe.Telefono.RemoveAllButNumber());
         }
         public string InfoLaboral { get; set; } = string.Empty;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public InfoLaboral InfoLaboralObj { get; set; }
             //get { return string.IsNullOrEmpty(InfoLaboral) ? new InfoLaboral() : InfoLaboral.ToType<InfoLaboral>(); } set { InfoLaboral = value.ToJson(); } }
         /// <summary>
         /// la informacion de referencias en formato json, use el objeto para trabajar
         /// </summary>
         public string InfoReferencias { get;  set; } = string.Empty;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public List<Referencia> InfoReferenciasObj { get; set; } = new List<Referencia>();
 
         private List<Referencia> _infoReferencias = new List<Referencia>();
@@ -189,12 +189,12 @@ namespace PrestamoEntidades
         [Display(Name = "Tiene Pareja o Conyuge")]
         public bool TieneConyuge { get; set; } = false;
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string NombreCompleto => $"{Nombres} {Apellidos}";
 
         public string Imagenes { get; internal set; }
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public List<Imagen> ImagenesObj { get; set; } = new List<Imagen>();
 
 

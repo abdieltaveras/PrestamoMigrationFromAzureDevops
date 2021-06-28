@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace PrestamoEntidades
         public int IdTipoLocalidad { get; set; } = -1;
         //public int IdNegocio { get; set; }
         //public string Nombre { get; set; } = string.Empty;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string Descripcion { get; set; } = string.Empty;
 
         public override int GetId()
@@ -56,7 +56,7 @@ namespace PrestamoEntidades
         public string Search { get; set; } = string.Empty;
 
         public bool SoloLosQuePermitenCalle { get; set; } = false;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public int MinLength { get; set; } = minLengthDefault;
 
         public const int minLengthDefault = 2;

@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +11,13 @@ namespace PrestamoEntidades
     {
         public int IdEquipo { get; set; }
         public int IdNegocio { get; set; }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string Codigo { get; set; } = string.Empty;
         public string Nombre { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
         public DateTime UltimoAcceso { get; set; } = InitValues._19000101;
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
 
         /// <summary>
         /// hasta que un equipo no sea confirmado no podra ser utilizado
@@ -25,19 +25,19 @@ namespace PrestamoEntidades
 
         public DateTime FechaBloqueado { get; set; } = InitValues._19000101;
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool BloqueadoPor { get; set; }
 
         public string AccesadoPor { get; set; }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         /// <summary>
         /// hasta que un equipo no sea confirmado no podra ser utilizado
         /// </summary>
 
         public DateTime FechaConfirmado { get; set; } = InitValues._19000101;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool ConfirmadoPor { get; set; }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool EstaConfirmado
         {
             get
@@ -45,7 +45,7 @@ namespace PrestamoEntidades
                 return (FechaConfirmado.CompareTo(InitValues._19000101) > 0);
             }
         }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool EstaBloqueado
         {
             get
@@ -53,7 +53,7 @@ namespace PrestamoEntidades
                 return ( FechaBloqueado.CompareTo(InitValues._19000101) > 0);
             }
         }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool EstaDesvinculado
         {
             get

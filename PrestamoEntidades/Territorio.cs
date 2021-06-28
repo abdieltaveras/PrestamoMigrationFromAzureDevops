@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,10 +24,10 @@ namespace PrestamoEntidades
         [Required]
         public bool PermiteCalle { get; set; } = false;
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string NombreTipoHijoDe { get; set; }
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string DescripcionPadre { get; set; }
 
         public override string ToString()

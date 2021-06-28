@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,9 +25,9 @@ namespace PrestamoEntidades
     }
     public class Cuota : CuotaForSqlType
     {
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string FechaSt => Fecha.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public decimal TotalOrig {
             get 
             {  var valor = (Capital ?? 0) + (Interes ?? 0) + (GastoDeCierre ?? 0) + (InteresDelGastoDeCierre ?? 0) + (OtrosCargos ?? 0) + (InteresOtrosCargos ?? 0);
@@ -42,9 +42,9 @@ namespace PrestamoEntidades
         public decimal? BceInteresDelGastoDeCierre { get; internal set; } = 0;
         public decimal? BceOtrosCargos { get; internal set; } = 0;
         public decimal? BceInteresOtrosCargos { get; set; } = 0;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public DateTime? UltActFechaMora { get; set; } = InitValues._19000101;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public DateTime? UltActFechaInteres { get; set; } = InitValues._19000101;
 
         public bool Atrasada(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
@@ -53,12 +53,12 @@ namespace PrestamoEntidades
         //todo: analizar si estos campos se dejaran asi en la cuota
         // estas propiedades solo se usan para fines de calculo verlo en la proyeccion
         // pero no para guardarlo en la cuota propiamente
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public decimal? OtrosCargos { get;  set; } = 0;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public decimal? InteresOtrosCargos { get; set; } = 0;
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string Comentario { get; set; } = String.Empty;
 
     }

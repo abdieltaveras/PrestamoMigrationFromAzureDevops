@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoEntidades
@@ -8,7 +8,7 @@ namespace PrestamoEntidades
     {
         public int idPeriodo { get; set; } = 0;
         // el valor numerico del interes 10%, 4%, etc
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public PeriodoBase PeriodoBase
         {
             get { return (PeriodoBase)IdPeriodoBase; }
@@ -24,7 +24,7 @@ namespace PrestamoEntidades
 
         public override int GetId() => this.idPeriodo;
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public int DiasDelPeriodo
         {
             get

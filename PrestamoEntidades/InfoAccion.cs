@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace PrestamoEntidades
         /// <summary>
         /// La Fecha en que se realiza la accion
         /// </summary>
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public DateTime Fecha { get; set; }
         /// <summary>
         /// Nombre del usuario

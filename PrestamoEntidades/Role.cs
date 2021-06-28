@@ -1,4 +1,5 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
+using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,22 +44,22 @@ namespace PrestamoEntidades
     {
         public int IdRole { get; set; }
         public int IdOperacion { get; set; }
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public string InsertadoPor { get; set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaInsertado { get; set; } = InitValues._19000101;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public string ModificadoPor { get; set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaModificado { get; set; } = InitValues._19000101;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public string AnuladoPor { get; set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaAnulado { get; set; } = InitValues._19000101;
         public bool Anulado() => string.IsNullOrEmpty(AnuladoPor);

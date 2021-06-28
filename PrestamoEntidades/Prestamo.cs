@@ -1,4 +1,5 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.Classes.Utils;
+using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
 using System;
 using System.Collections.Generic;
@@ -160,14 +161,14 @@ namespace PrestamoEntidades
         public int IdPrestamo { get; set; }
         
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         [Display(Name = "Prestamo Numero")]
         public string PrestamoNumero { get; set; } = string.Empty;
         /// <summary>
         /// el valor menos 1 indica que no se establecio ningun prestamo a renovar
         /// </summary>
         public int IdPrestamoARenovar { get; set; } = -1;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         /// attention analizar poner un objeto InfoPrestamoForView que permita poner todos los campos que uno pudiera necesitar como este NumeroPrestamoARenovar, etc
         public string NumeroPrestamoARenovar { get;  set; } = string.Empty;
 
@@ -177,7 +178,7 @@ namespace PrestamoEntidades
 
         public virtual int IdTipoAmortizacion { get; set; } = 1;
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public TiposAmortizacion TipoAmortizacion
         {
             get { return (TiposAmortizacion)IdTipoAmortizacion; }
@@ -187,7 +188,7 @@ namespace PrestamoEntidades
         /// <summary>
         /// retorna true o false al contar si hay o no garantias para este prestamo
         /// </summary>
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool TieneGarantias { get { return IdGarantias == null ? false : IdGarantias.Count() > 0; } }
         /// <summary>
         /// Los id de los clientes asignado a este prestamo
@@ -195,15 +196,15 @@ namespace PrestamoEntidades
         [Display(Name = "Indique el cliente")]
         public int IdCliente { get; set; } = 0;
 
-        //[IgnorarEnParam]
+        //[IgnoreOnParams]
         //public List<Garantia> _Garantias { get; set; } = new List<Garantia>();
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public List<int> IdGarantias { get; set; } = new List<int>();
 
-        //[IgnorarEnParam]
+        //[IgnoreOnParams]
         //public List<Codeudor> _Codeudores { get; set; }
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public List<int> IdCodeudores { get; set; } = new List<int>();
         [Display(Name = "Fecha de emision")]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
@@ -217,7 +218,7 @@ namespace PrestamoEntidades
         [Display(Name = "Indique el codigo de la tasa de interes")]
         public virtual int IdTasaInteres { get; set; } = -1;
         [Display(Name = "La tasa de interes por periodo")]
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         [ReadOnly(true)]
         public decimal TasaDeInteresDelPeriodo { get; set; }
         [Display(Name = "Indique la mora")]
@@ -225,11 +226,11 @@ namespace PrestamoEntidades
         [Display(Name = "Indique la forma (periodo) de las pago?")]
 
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool Saldado { get; internal set; } = false;
         [Display(Name = "Seleccione el Periodo")]
         public virtual int IdPeriodo { get; set; } = -1;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public Periodo Periodo { get; set; }
 
         [Display(Name = "Cantidad de Cuotas")]
@@ -252,14 +253,14 @@ namespace PrestamoEntidades
         /// es poder indicar si el prestamo que se esta trabajando llevara o no renovacion
         /// para que las vistas habiliten entonces la interaccion con el usuario
         /// </summary>
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         [NotMapped]
         [Display(Name = "Habilitar Renovacion")]
         public bool HabilitarRenovacion { get; set; } = false;
         /// <summary>
         /// tiene sumado el dinero emitido al cliente (monto prestado) + le deuda de la r
         /// </summary>
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public decimal MontoCapital => MontoPrestado + DeudaRenovacion;
         // { get { return MontoPrestado + DeudaRenovacion } internal set { var valor = value;} }
         [Display(Name = "Indique  la Divisa")]
@@ -269,7 +270,7 @@ namespace PrestamoEntidades
         /// es poder indicar si el prestamo que se esta trabajando llevara o no gasto de cierre
         /// inducido si el campo interes gasto de cierre es mayor a cero
         /// </summary>
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         [NotMapped]
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
         //{ get=> ; internal set; }
@@ -323,7 +324,7 @@ namespace PrestamoEntidades
         /// si es para generarlas todas se usa normalmente para insertar o actualizar un prestamo
         /// que no tiene operacionescc
         /// </summary>
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool ProyectarPrimeraYUltima { get; set; } = true;
 
 
@@ -331,7 +332,7 @@ namespace PrestamoEntidades
         {
             return $"Monto Prestado {MontoPrestado} a una tasa de {TasaDeInteresDelPeriodo}  por periodo";
         }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public bool LlevaGarantia { get; set; }
     }
 
@@ -395,7 +396,7 @@ namespace PrestamoEntidades
     public class PrestamosSearchParams : BaseGetParams
     {
         public string TextToSearch { set; get; } = string.Empty;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public int SearchType { set; get; } = 0;
         //public int SearchType { set; get; } = 0; // valor 0 para prestamos y 1 para clientes / garantias
     }

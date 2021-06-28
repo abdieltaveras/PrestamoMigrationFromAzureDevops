@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -52,18 +52,18 @@ namespace PrestamoEntidades
         /// <summary>
         /// solo para usarse y obtener el enum del campo TipoCargo
         /// </summary>
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         [NotMapped]
         public TiposCargosMora TipoCargoEnum { get { return (TiposCargosMora)TipoCargo; } }
         
         [Display(Name = "Forma de hacer el calculo")]
         public virtual int CalcularCargoPor { get; set; } = (int)CalcularMoraPor.cada_30_dias_transcurrido_por_cada_cuota_vencida;
         //.cada_dia_transcurrido_por_cada_cuota_vencida;
-        [IgnorarEnParam][NotMapped]
+        [IgnoreOnParams][NotMapped]
         public CalcularMoraPor CalcularCargoPorEnum { get { return (CalcularMoraPor)CalcularCargoPor; } }
         [Display(Name = "para aplicarlo a")]
         public virtual int AplicarA { get; set; } = (int)AplicarMoraAl.Capital_intereses_y_moras; 
-        [IgnorarEnParam][NotMapped]
+        [IgnoreOnParams][NotMapped]
         public AplicarMoraAl AplicarAEnum { get { return (AplicarMoraAl)AplicarA; } }
         [Display(Name = "aplicar cargo luego de x dias")]
         public virtual int DiasDeGracia { get; set; } = 0;
@@ -75,7 +75,7 @@ namespace PrestamoEntidades
         public decimal MontoCuotaDesde { get; set; }
         [Display(Name = "Hasta el monto de cuota")]
         public decimal MontoCuotaHasta { get; set; }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string CodigoNombre => this.Codigo + "-" + this.Nombre;
         public override int GetId()=>   this.IdTipoMora;
         

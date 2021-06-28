@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -72,13 +72,13 @@ namespace PrestamoEntidades
         public bool LaContrasenaExpira() => this.ContraseñaExpiraCadaXMes > 0;
         public bool LimitarVigenciaDeLaCuenta() => (this.VigenteHasta != InitValues._19000101);
         public int RazonBloqueo { get; set; } =-1;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         /// <summary>
         ///  es el id del negocio raiz que define todas las ramificaciones
         /// </summary>
         public int IdNegocioMatriz { get; set; }
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         /// <summary>
         ///  esta propiedad unicamente se usa para el stored procedure retornar la validez de la contraseña
         /// </summary>
@@ -116,22 +116,22 @@ namespace PrestamoEntidades
         public int IdUser { get; set; }
         public int IdRole { get; set; }
 
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public string InsertadoPor { get; set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaInsertado { get; set; } = InitValues._19000101;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public string ModificadoPor { get; set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaModificado { get; set; } = InitValues._19000101;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public string AnuladoPor { get; set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaAnulado { get; set; } = InitValues._19000101;
         public bool Anulado() => string.IsNullOrEmpty(AnuladoPor);

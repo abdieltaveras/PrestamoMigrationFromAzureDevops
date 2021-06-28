@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoEntidades
@@ -10,11 +10,11 @@ namespace PrestamoEntidades
         // el valor numerico del interes 10%, 4%, etc
         public decimal InteresMensual { get; set; } = 0;
         
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public decimal InteresAnual { get { return InteresMensual * 12; } }
 
         public bool RequiereAutorizacion { get; set; } = false;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public string CodigoTasa => $"{Codigo} - {InteresMensual} - {InteresAnual} ";
         public override int GetId()
         {

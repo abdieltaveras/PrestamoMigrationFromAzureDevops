@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace PrestamoEntidades
         // public ListaTipo ListaTipo { get; set; }
         //public SelectList ListaTipo { get; set; }
         //public string Tipo { get; set; }
-       // [IgnorarEnParam]
+       // [IgnoreOnParams]
 
 
     }

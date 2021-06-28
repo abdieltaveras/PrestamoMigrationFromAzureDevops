@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
 using System;
 using System.Collections.Generic;
@@ -50,16 +50,16 @@ namespace PrestamoEntidades
         public string Imagen2FileName { get; set; } 
         public string Imagen3FileName { get; set; }
         public string Imagen4FileName { get; set; }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public IEnumerable<string> ImagesForGaratia { get; set; }
-        //[IgnorarEnParam]
+        //[IgnoreOnParams]
         //public IEnumerable<string> ImagesForGaratiaEntrantes { get; set; }
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]
         //[StringLength(2, ErrorMessage = "El numero de identidad debe ser menor a {1} caracteres")]
         //[StringLength(3)]
         [Required]
         public string NoIdentificacion { get; set; } = string.Empty;
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public DetalleGarantia DetallesJSON { get; set; } 
         public string Detalles { get; set; } = string.Empty;
         

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using emtSoft.DAL;
+using DevBox.Core.DAL.SQLServer;
 namespace PrestamoEntidades
 {
     public class Negocio : BaseInsUpd 
@@ -30,7 +30,7 @@ namespace PrestamoEntidades
         [MaxLength(100)]
         public string Logo { get; set; }
         public bool PermitirOperaciones { get; set; }
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public int IdNegocioMatriz { get; set; } = 0 ;
     }
 
@@ -48,7 +48,7 @@ namespace PrestamoEntidades
 
         public int PermitirOperaciones { get; set; } = -1;
 
-        [IgnorarEnParam]
+        [IgnoreOnParams]
         public int IdNegocioMatriz { get; internal set; } = 0;
     }
 

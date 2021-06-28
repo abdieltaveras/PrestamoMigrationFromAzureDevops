@@ -1,4 +1,5 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
+using DevBox.Core.DAL.SQLServer;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -56,23 +57,23 @@ namespace PrestamoEntidades
     public abstract class BaseInsUpd : BaseUsuarioEIdNegocio
     {
 
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public string InsertadoPor { get; set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaInsertado { get;  set; } = InitValues._19000101;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public string ModificadoPor { get; set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaModificado { get; set; } = InitValues._19000101;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
 
         public string AnuladoPor { get;  set; } = string.Empty;
-        [IgnorarEnParam()]
+        [IgnoreOnParams()]
         
         public DateTime FechaAnulado { get;  set; } = InitValues._19000101;
         public bool Anulado() => !string.IsNullOrEmpty(AnuladoPor);  

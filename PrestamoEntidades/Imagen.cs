@@ -1,4 +1,4 @@
-﻿using emtSoft.DAL;
+﻿using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
 using System;
 using System.Collections.Generic;
@@ -21,19 +21,19 @@ namespace PrestamoEntidades
         /// El archivo base64
         /// </summary>
 
-        //[IgnorarEnParam]
+        //[IgnoreOnParams]
         public string Base64string { get; set; }
 
         /// <summary>
         /// para indicar que la imagen es nueva  y se debe agregar
         /// </summary>
-        //[IgnorarEnParam]
+        //[IgnoreOnParams]
         public bool Agregar { get; set; } = false;
 
         /// <summary>
         /// para indicar si la imagen debe o no ser quitada
         /// </summary>
-        //[IgnorarEnParam]
+        //[IgnoreOnParams]
         public bool Quitar { get; set; } = false;
 
         public void ConvertNombreArchivoToBase64String(string directorio)
