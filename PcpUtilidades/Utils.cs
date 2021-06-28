@@ -1,4 +1,8 @@
-﻿using emtSoft.DAL;
+﻿
+using DevBox.Core.Classes.Utils;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +15,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
+
 
 namespace PcpUtilidades
 {
@@ -23,73 +27,8 @@ namespace PcpUtilidades
         {
             return Convert.ToInt32(objectContainingId.Rows[0][0]);
         }
-        public static string SaveFiles(string path, HttpPostedFileBase file, string fileName = "")
-        {
-            var files = new List<HttpPostedFileBase>();
-            files.Add(file);
-            var result = Utils.SaveFiles(path, files, fileName);
-            return result.FirstOrDefault();
-
-        }
-        /// <summary>
-        /// gets date from the sql server instance running
-        /// </summary>
-        /// <returns></returns>
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="files"></param>
-        /// <returns></returns>
-        public static IEnumerable<string> SaveFiles(string path, IEnumerable<HttpPostedFileBase> files, string fileName = "")
-        {
-            List<string> fileNames = new List<string>();
-            var index = 0;
-            files.ToList().ForEach(
-                    f =>
-                    {
-                        try
-                        {
-                            var filename = SaveFile(path, f, fileName);
-                            fileNames.Add(filename);
-                        }
-                        catch (Exception e)
-                        {
-                            fileNames.Add($"Error {e.Message}");
-                        }
-                        index++;
-                    }
-                );
-            return fileNames;
-        }
-
-
-        public static string SaveFile(string path, HttpPostedFileBase file, string fileName = "")
-        {
-            string _fileName = string.Empty;
-            if (file == null) return _fileName;
-            var extension = Path.GetExtension(file.FileName);
-            if (string.IsNullOrEmpty(fileName))
-            {
-                _fileName = Guid.NewGuid().ToString() + extension;
-            }
-            else
-            {
-                _fileName = fileName + extension;
-            }
-            var fullpath = Path.Combine(path, _fileName);
-            try
-            {
-                file.SaveAs(fullpath);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            return _fileName;
-        }
-
+        
         /// <summary>
         /// Recibe un string64base y lo convierte en una imagen el string contiene el texto inicial "data:Image/jpeg;base64,"
         /// el metodo lo quita para crear la imagen de base64 string
@@ -294,57 +233,57 @@ namespace PcpUtilidades
         //public static SelectList ForEnumAddingStartingValue<T>() => new SelectList(GetEnumSelectListAddingFirstValue<T>("Elija"), "Value", "Text");
     }
 
-    public class MaxAttribute : ValidationAttribute, IClientValidatable
-    {
-        private readonly int maxValue;
+    //public class MaxAttribute : ValidationAttribute, IClientValidatable
+    //{
+    //    private readonly int maxValue;
 
-        public MaxAttribute(int maxValue)
-        {
-            this.maxValue = maxValue;
-        }
+    //    public MaxAttribute(int maxValue)
+    //    {
+    //        this.maxValue = maxValue;
+    //    }
 
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
-        {
-            var rule = new ModelClientValidationRule();
+    //    public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+    //    {
+    //        var rule = new ModelClientValidationRule();
 
-            rule.ErrorMessage = ErrorMessageString;
-            //, maxValue;
+    //        rule.ErrorMessage = ErrorMessageString;
+    //        //, maxValue;
 
-            rule.ValidationType = "max";
-            rule.ValidationParameters.Add("max", maxValue);
-            yield return rule;
-        }
+    //        rule.ValidationType = "max";
+    //        rule.ValidationParameters.Add("max", maxValue);
+    //        yield return rule;
+    //    }
 
-        public override bool IsValid(object value)
-        {
-            return (int)value <= maxValue;
-        }
-    }
-    public class MinAttribute : ValidationAttribute, IClientValidatable
-    {
-        private readonly int minValue;
+    //    public override bool IsValid(object value)
+    //    {
+    //        return (int)value <= maxValue;
+    //    }
+    //}
+    //public class MinAttribute : ValidationAttribute, IClientValidatable
+    //{
+    //    private readonly int minValue;
 
-        public MinAttribute(int minValue)
-        {
-            this.minValue = minValue;
-        }
+    //    public MinAttribute(int minValue)
+    //    {
+    //        this.minValue = minValue;
+    //    }
 
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
-        {
-            var rule = new ModelClientValidationRule();
+    //    public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+    //    {
+    //        var rule = new ModelClientValidationRule();
 
-            rule.ErrorMessage = ErrorMessageString;
-            //, maxValue;
+    //        rule.ErrorMessage = ErrorMessageString;
+    //        //, maxValue;
 
-            rule.ValidationType = "min";
-            rule.ValidationParameters.Add("min", minValue);
-            yield return rule;
-        }
+    //        rule.ValidationType = "min";
+    //        rule.ValidationParameters.Add("min", minValue);
+    //        yield return rule;
+    //    }
 
-        public override bool IsValid(object value)
-        {
-            return (int)value <= minValue;
-        }
-    }
+    //    public override bool IsValid(object value)
+    //    {
+    //        return (int)value <= minValue;
+    //    }
+    //}
     
 }

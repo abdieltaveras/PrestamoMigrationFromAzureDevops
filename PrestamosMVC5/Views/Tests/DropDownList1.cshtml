@@ -1,8 +1,0 @@
-﻿@model  Item
-<h2>Para ver como se comporta el dropdaownlist asignadole un selected value</h2>
-@Html.DropDownListFor(model => model.Nombre , new List<SelectListItem>
-        { new SelectListItem{Text="Deactive", Value="False"},
-            new SelectListItem{Text="Active", Value="True",  Selected = true},
-        }
-)
-
