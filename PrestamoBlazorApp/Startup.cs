@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PrestamoBlazorApp.Areas.Identity;
-using PrestamoBlazorApp.Data;
 using PrestamoBlazorApp.Services;
 using Radzen;
 using System;
@@ -37,11 +36,7 @@ namespace PrestamoBlazorApp
         {
 
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            
 
             services.AddHttpClient();
             
@@ -55,7 +50,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
-            services.AddSingleton<WeatherForecastService>();
+            
 
             services.AddSingleton<CatalogosService>();
             services.AddSingleton<IngresosService>();

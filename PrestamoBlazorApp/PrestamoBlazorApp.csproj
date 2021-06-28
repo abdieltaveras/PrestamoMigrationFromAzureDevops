@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EntidadesLinks\" />
     <Folder Include="Pages\LocalidadesNegocios\" />
     <Folder Include="Pages\NewFolder\" />
   </ItemGroup>
