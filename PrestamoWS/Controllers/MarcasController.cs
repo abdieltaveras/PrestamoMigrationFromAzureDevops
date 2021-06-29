@@ -18,16 +18,16 @@ namespace PrestamoWS.Controllers
     public class MarcasController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Marca> Get(string JsonGet = "")
+        public IEnumerable<Marca> Get([FromQuery] MarcaGetParams getParams)
         {
-            //Hay que agregar el controller
-            var JsonResult = JsonConvert.DeserializeObject<MarcaGetParams>(JsonGet);
-            var result = BLLPrestamo.Instance.GetMarcas(JsonResult);
+
+            
+            var result = BLLPrestamo.Instance.GetMarcas(getParams);
             return result;
             //return View("CreateOrEdit", datos);
         }
         [HttpPost]
-        public IActionResult Post(Marca marca)
+        public IActionResult Post([FromBody] Marca marca)
         {
             try
             {

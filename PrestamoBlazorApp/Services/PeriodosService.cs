@@ -20,15 +20,13 @@ namespace PrestamoBlazorApp.Services
             var result = await GetAsync<Periodo>(apiUrl+"/get", search);
             return result;
         }
-
-        
         public PeriodosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration) { }
 
         public async Task SavePeriodo(Periodo Periodo)
         {
             try
             {
-                await PostAsync<Periodo>(apiUrl, Periodo);
+                await PostAsync<Periodo>(apiUrl+"/post", Periodo);
             }
             catch (Exception ex)
             {

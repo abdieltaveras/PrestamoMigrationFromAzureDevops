@@ -15,11 +15,11 @@ namespace PrestamoWS.Controllers
     [Route("api/[controller]/[action]")]
     public class EquipoController : ControllerBasePrestamoWS
     {
-	[HttpGet]
-        public IEnumerable<Equipo> Get(string JsonGet = "")
+	    [HttpGet]
+        public IEnumerable<Equipo> Get([FromQuery] EquiposGetParam getParams)
         {
-            var param = JsonConvert.DeserializeObject<EquiposGetParam>(JsonGet);
-            return BLLPrestamo.Instance.GetEquipos(param);
+            
+            return BLLPrestamo.Instance.GetEquipos(getParams);
         }
         //public IEnumerable<Equipo> Get(int idEquipo, string codigo, int idLocalidad)
         //{
@@ -34,7 +34,7 @@ namespace PrestamoWS.Controllers
         // Registrar Equipo
 
         [HttpPost]
-        public IActionResult Post(Equipo equipo)
+        public IActionResult Post([FromBody] Equipo equipo)
         {
             equipo.Usuario = this.LoginName;
             equipo.IdNegocio = 1;

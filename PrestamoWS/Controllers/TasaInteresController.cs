@@ -18,12 +18,12 @@ namespace PrestamoWS.Controllers
     public class TasaInteresController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<TasaInteres> Get(string JsonGet)
+        public IEnumerable<TasaInteres> Get([FromQuery] TasaInteresGetParams getParams)
         {
             //,int idTasaInteres = -1, int idLocalidadNegocio = -1, int activo = -1, string codigo = ""
-            var search = JsonConvert.DeserializeObject<TasaInteresGetParams>(JsonGet);
+            
            // var searchParam = new TasaInteresGetParams { Activo = activo, idTasaInteres = idTasaInteres, Codigo = codigo, IdLocalidadNegocio = idLocalidadNegocio };
-            var result = BLLPrestamo.Instance.GetTasasDeInteres(search);
+            var result = BLLPrestamo.Instance.GetTasasDeInteres(getParams);
             return result;
         }
         [HttpGet]
@@ -37,7 +37,7 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpPost]
-        public IActionResult TasaInteresInsUpd(TasaInteres insUpdParam)
+        public IActionResult Post([FromBody] TasaInteres insUpdParam)
         {
             insUpdParam.IdLocalidadNegocio = 1;
             insUpdParam.Usuario = "luis";

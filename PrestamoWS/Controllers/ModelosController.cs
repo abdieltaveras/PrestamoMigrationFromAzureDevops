@@ -18,17 +18,17 @@ namespace PrestamoWS.Controllers
     public class ModelosController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<ModeloWithMarca> Get(string JsonGet = "")
+        public IEnumerable<ModeloWithMarca> Get([FromQuery] ModeloGetParams getParams)
         {
-            var jsonResult = JsonConvert.DeserializeObject<ModeloGetParams>(JsonGet);
-            return BLLPrestamo.Instance.GetModelos(jsonResult);
+            
+            return BLLPrestamo.Instance.GetModelos(getParams);
            
         }
         
         
 
         [HttpPost]
-        public IActionResult Post(Modelo modelo)
+        public IActionResult Post([FromBody] Modelo modelo)
         {
             modelo.Usuario = this.LoginName;
             modelo.IdLocalidadNegocio = this.IdLocalidadNegocio;

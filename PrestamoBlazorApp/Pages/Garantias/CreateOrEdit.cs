@@ -48,7 +48,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         {
 
 
-            tipogarantia = await GarantiasService.GetTipoGarantia(new TipoGetParams());
+            tipogarantia = await GarantiasService.GetTipoGarantia(new TipoGarantiaGetParams());
             modelos = await GarantiasService.GetModelosForGarantias(new ModeloGetParams { IdMarca = Garantia.IdMarca });
             //modelos = modelos.Where(m => m.IdMarca == Garantia.IdMarca);
             marcas = await GarantiasService.GetMarcasForGarantia(new MarcaGetParams());
@@ -65,8 +65,8 @@ namespace PrestamoBlazorApp.Pages.Garantias
             }
             else
             {
-                garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
-                this.Garantia = new Garantia { IdClasificacion = 2 };
+                //garantias = await GarantiasService.GetWithPrestamo(new BuscarGarantiaParams { IdNegocio = 1, Search = "" });
+                this.Garantia = new Garantia { IdClasificacion = (int)TiposClasificacionGarantia.Mobiliaria };
                 var changeEvent = new ChangeEventArgs();
                 changeEvent.Value = Garantia.IdClasificacion;
                 selectedRadioClasificacion(changeEvent);
@@ -93,8 +93,6 @@ namespace PrestamoBlazorApp.Pages.Garantias
 
             if (clasificacionSelected == "1")
             {
-
-
                 IsShowInmobiliario = true;
                 IsShowMobiliario = false;
             }

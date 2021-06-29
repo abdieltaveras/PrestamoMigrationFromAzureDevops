@@ -17,7 +17,7 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Prestamo>> GetAsync(PrestamosGetParams search)
         {
-            var result = await GetAsync<Prestamo>(apiUrl, search);
+            var result = await GetAsync<Prestamo>(apiUrl+"/get", search);
             return result;
         }
 
@@ -42,7 +42,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Prestamo>(apiUrl, Prestamo);
+                await PostAsync<Prestamo>(apiUrl+"/post", Prestamo);
             }
             catch (Exception ex)
             {
@@ -60,13 +60,7 @@ namespace PrestamoBlazorApp.Services
         }
 
 
-        public async Task<IEnumerable<Cuota>> GenerarCuotas2(Prestamo prestamo)
-        {
-            var result = await GetAsync<Cuota>(apiUrl + "/GenerarCuotas2", new { Prestamo = prestamo.ToJson()});
-            return result;
-        }
-
-        //public async Task<IEnumerable<Cuota>>  Calcular(Prestamo prestamo)
+                //public async Task<IEnumerable<Cuota>>  Calcular(Prestamo prestamo)
         //{
         //    var result = await GetSingleAsync<Pres IEnumerable<Cuota>>(apiUrl + "/Calcular", prestamo);
         //    return result;

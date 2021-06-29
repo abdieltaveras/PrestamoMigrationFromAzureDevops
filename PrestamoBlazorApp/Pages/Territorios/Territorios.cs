@@ -43,7 +43,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
             {
                 if (this.Territorio.IdDivisionTerritorialPadre <= 0 || this.Territorio.IdLocalidadPadre <= 0)
                 {
-                    await OnGuardarNotification("Error Al Guardar, llene todos los campos");
+                    await OnSaveNotification("Error Al Guardar, llene todos los campos");
                 }
                 else
                 {

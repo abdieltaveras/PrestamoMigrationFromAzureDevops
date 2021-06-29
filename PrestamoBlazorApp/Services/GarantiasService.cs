@@ -40,7 +40,7 @@ namespace PrestamoBlazorApp.Services
             var result = await GetAsync<GarantiaConMarcaYModelo>(apiUrl + "/getGarantias", new { searchObject = getParam.ToJson() });
             return result;
         }
-        public async Task<IEnumerable<TipoGarantia>> GetTipoGarantia(TipoGetParams tipoGetParams)
+        public async Task<IEnumerable<TipoGarantia>> GetTipoGarantia(TipoGarantiaGetParams tipoGetParams)
         {
             
             var result = await GetAsync<TipoGarantia>("api/tipogarantia/get", new { JsonGet = tipoGetParams.ToJson() });

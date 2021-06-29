@@ -7,6 +7,7 @@ using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 
 using PrestamoEntidades;
+using PrestamoValidaciones;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -164,19 +165,36 @@ namespace PrestamoBlazorApp.Pages.Clientes
         //async Task SaveCliente()
         async Task SaveCliente()
         {
-            await Handle_SaveData(SaveData, () => OnGuardarNotification(redirectTo: @"\Clientes"), null, false);
+            await Handle_SaveData(SaveData, () => OnSaveNotification(redirectTo: @"\Clientes"), null, false);
         }
 
         private async Task<bool> SaveData()
         {
-            //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
             this.cliente.InfoConyugeObj = conyuge;
             this.cliente.InfoReferenciasObj = referencias;
             this.cliente.InfoDireccionObj = direccion;
             this.cliente.InfoLaboralObj = infoLaboral;
-            await clientesService.SaveCliente(this.cliente);
+
+            var result = Validaciones.ForCliente001().Validate(cliente);
+            var validacionesFallidas = result.Where(item => item.Success == false);
+            var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
+            if (validacionesFallidas.Count() > 0)
+            {
+                SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
+                return false;
+            }
+            try
+            {
+                //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
+
+                await clientesService.SaveCliente(this.cliente);
+         
+            }
+            catch (ValidationObjectException e)
+            {
+                await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
+            }
             return true;
-            
         }
 
         //void OnChange(object value, string name)

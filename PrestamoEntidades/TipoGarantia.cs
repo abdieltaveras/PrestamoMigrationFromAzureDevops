@@ -17,7 +17,7 @@ namespace PrestamoEntidades
         }
         //public string Nombre { get; set; } = string.Empty;
     }
-    public class TipoGetParams : BaseGetParams
+    public class TipoGarantiaGetParams : BaseGetParams
     {
         public int IdTipoGarantia { get; set; } = -1;
         public int IdClasificacion { get; set; } = -1;

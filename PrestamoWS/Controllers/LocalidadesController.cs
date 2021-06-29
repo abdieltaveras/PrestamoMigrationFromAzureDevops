@@ -18,19 +18,18 @@ namespace PrestamoWS.Controllers
     {
         [HttpGet]
         // GET: Localidades
-        public IEnumerable<Localidad> Get(int idLocalidad=1, int IdLocalidadNegocio=-1, int idNegocio=-1)
+        public IEnumerable<Localidad> Get([FromQuery] LocalidadGetParams getParams)
         {
-            var searchParam = new LocalidadGetParams { IdLocalidad = idLocalidad, Usuario = this.LoginName, IdNegocio = idNegocio, IdLocalidadNegocio = IdLocalidadNegocio  };
-            var a = BLLPrestamo.Instance.GetLocalidades(searchParam);
-            //var a = BLLPrestamo.BllAcciones.GetData<Localidad, LocalidadGetParams>(new LocalidadGetParams(), "spGetLocalidades", BLLPrestamo.GetValidation);
-            return a;
+            
+            var result = BLLPrestamo.Instance.GetLocalidades(getParams);
+            
+            return result;
         }
         [HttpGet]
-        public IEnumerable<Localidad> GetLocalidadConSusPadres(int idLocalidad = 1, int IdLocalidadNegocio = -1, int idNegocio = -1)
+        public IEnumerable<Localidad> GetLocalidadConSusPadres([FromQuery] LocalidadGetParams getParams)
         {
-            var searchParam = new LocalidadGetParams { IdLocalidad = idLocalidad, Usuario = this.LoginName, IdNegocio = idNegocio, IdLocalidadNegocio = IdLocalidadNegocio };
-
-            var a = BLLPrestamo.Instance.GetLocalidadesConSusPadres(searchParam);
+            
+            var a = BLLPrestamo.Instance.GetLocalidadesConSusPadres(getParams);
             //var a = BLLPrestamo.BllAcciones.GetData<Localidad, LocalidadGetParams>(new LocalidadGetParams(), "spGetLocalidades", BLLPrestamo.GetValidation);
             return a;
         }
@@ -85,7 +84,7 @@ namespace PrestamoWS.Controllers
             return datos;
         }
         [HttpPost]
-        public IActionResult Post(Localidad localidad)
+        public IActionResult Post([FromBody] Localidad localidad)
         {
             localidad.Usuario = this.LoginName;
             localidad.IdLocalidadNegocio = this.IdLocalidadNegocio;

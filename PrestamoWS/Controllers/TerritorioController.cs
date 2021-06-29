@@ -46,15 +46,15 @@ namespace PrestamoWS.Controllers
         }
         [HttpGet]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public string BuscarComponenteDeDivision2(string IdDivision)
+        public IEnumerable<Territorio> BuscarComponenteDeDivision2(int IdDivision)
         {
             
             //IdDivision = "2";
             IEnumerable<Territorio> territorios = null;
-            territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorialPadre = int.Parse(IdDivision) });
+            territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorialPadre = IdDivision });
 
             //return territorios;
-            return JsonConvert.SerializeObject(territorios);
+            return territorios;
         }
         //public IEnumerable<Territorio> GetByParam(int idColor, int idLocalidadNegocio)
         //{
@@ -65,14 +65,14 @@ namespace PrestamoWS.Controllers
         //}
         [HttpGet]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public string BuscarTerritorios(string localidadPadre)
+        public IEnumerable<Territorio> BuscarTerritorios(string localidadPadre)
         {
             IEnumerable<Territorio> territorios = null;
             territorios = BLLPrestamo.Instance.TerritorioBuscarTerritoriosHijos(new TerritorioSearchParams() { IdNegocio = 1, IdLocalidadPadre = int.Parse(localidadPadre) });
-            return JsonConvert.SerializeObject(territorios);
+            return territorios;
         }
         [HttpPost]
-        public IActionResult Post(Territorio territorio)
+        public IActionResult Post([FromBody] Territorio territorio)
         {
             territorio.Usuario = this.LoginName;
             territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;
@@ -83,7 +83,7 @@ namespace PrestamoWS.Controllers
             //return RedirectToAction("CreateOrEdit");
         }
         [HttpPost]
-        public IActionResult SaveDivisionTerritorial(Territorio territorio)
+        public IActionResult SaveDivisionTerritorial([FromBody] Territorio territorio)
         {
             territorio.Usuario = this.LoginName;
             territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;

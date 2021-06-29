@@ -12,27 +12,26 @@ namespace PrestamoWS.Controllers
 {
     public class UsuariosController : ControllerBasePrestamoWS
     {
-        public IEnumerable<Usuario> Get(UsuarioGetParams searchParam)
+        public IEnumerable<Usuario> Get([FromQuery] UsuarioGetParams getParams)
         {
             //GetValidation(searchParam);
-            return BLLPrestamo.Instance.GetUsuarios(searchParam);
+            return BLLPrestamo.Instance.GetUsuarios(getParams);
         }
 
-        public IEnumerable<UsuarioRole> GetRoles(BuscarUserRolesParams searchParam)
+        public IEnumerable<UsuarioRole> GetRoles([FromQuery] BuscarUserRolesParams getParams)
         {
-            return BLLPrestamo.Instance.UserRolesSearch(searchParam);
+            return BLLPrestamo.Instance.UserRolesSearch(getParams);
             //return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarUsuarioRoles", GetValidation);
         }
 
-        public IEnumerable<UsuarioRole> GetRolesAll(BuscarUserRolesParams searchParam)
+        public IEnumerable<UsuarioRole> GetRolesAll([FromQuery] BuscarUserRolesParams getParams)
         {
-            //return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarTodosUsuarioRoles", GetValidation);
-            return BLLPrestamo.Instance.UserRolesSearchAll(searchParam);
+            return BLLPrestamo.Instance.UserRolesSearchAll(getParams );
         }
         [HttpPost]
-        public int UsuarioInsUpd(Usuario insUpdParam, string from = "")
+        public int UsuarioInsUpd([FromBody] Usuario usuario, string from = "")
         {
-            return BLLPrestamo.Instance.InsUpdUsuario(insUpdParam, from);
+            return BLLPrestamo.Instance.InsUpdUsuario(usuario, from);
             //if ((insUpdParam.LoginName.ToLower() == "admin") && (from != bllUser))
             //{
             //    throw new Exception("No puede crear el usuario administrador desde la pantalla de creacion de usuario");
@@ -59,9 +58,9 @@ namespace PrestamoWS.Controllers
             return Ok();
         }
 
-        public List<string> GetOperaciones(UsuarioOperacionesGetParams data)
+        public List<string> GetOperaciones([FromQuery] UsuarioOperacionesGetParams getParams)
         {
-            return BLLPrestamo.Instance.GetOperaciones(data);
+            return BLLPrestamo.Instance.GetOperaciones(getParams);
             //var searchSqlParams = SearchRec.ToSqlParams(data);
             //List<string> operaciones = new List<string>();
             //var operaciones2 = new List<CodigoOperacion>();

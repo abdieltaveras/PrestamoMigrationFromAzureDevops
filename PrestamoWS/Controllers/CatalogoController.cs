@@ -35,10 +35,10 @@ namespace PrestamoWS.Controllers
 
         
         [HttpGet]
-        public IEnumerable<Catalogo> Get(string JsonGet = "")
+        public IEnumerable<Catalogo> Get([FromQuery] CatalogoGetParams getParams)
         {
-            var JsonResult = JsonConvert.DeserializeObject<CatalogoGetParams>(JsonGet);
-            var result = BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(JsonResult);
+        
+            var result = BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(getParams);
             return result;
 
         }

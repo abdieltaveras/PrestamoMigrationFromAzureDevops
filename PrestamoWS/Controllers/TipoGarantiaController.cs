@@ -15,15 +15,15 @@ namespace PrestamoWS.Controllers
     public class TipoGarantiaController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<TipoGarantia> Get(string JsonGet = "")
+        public IEnumerable<TipoGarantia> Get([FromQuery] TipoGarantiaGetParams getParams)
         {
-            var paramss = JsonConvert.DeserializeObject<TipoGetParams>(JsonGet);
-            return BLLPrestamo.Instance.TiposGarantiaGet(paramss);
+            
+            return BLLPrestamo.Instance.TiposGarantiaGet(getParams);
             //return BllAcciones.GetData<TipoGarantia, TipoGetParams>(searchParam, "spGetTiposGarantia", GetValidation);
         }
         [HttpPost]
 
-        public void Post(TipoGarantia insUpdParam)
+        public void Post([FromBody] TipoGarantia tipoGarantia)
         {
             //BllAcciones.InsUpdData<TipoGarantia>(insUpdParam, "spInsUpdTipoGarantia");
         }

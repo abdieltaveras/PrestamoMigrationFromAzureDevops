@@ -38,7 +38,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         {
             if(this.Territorio.Nombre == string.Empty)
             {
-                await OnGuardarNotification("Error Al Guardar, llene todos los campos");
+                await OnSaveNotification("Error Al Guardar, llene todos los campos");
             }
             else
             {

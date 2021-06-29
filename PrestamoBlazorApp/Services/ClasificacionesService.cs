@@ -22,7 +22,7 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Clasificacion>> Get(ClasificacionesGetParams clasificacionesGetParams)
         {
-            var result =  await GetAsync<Clasificacion>(apiUrl, new { JsonGet = clasificacionesGetParams.ToJson() });
+            var result =  await GetAsync<Clasificacion>(apiUrl+"/get", new { JsonGet = clasificacionesGetParams.ToJson() });
             return result;
         }
         public ClasificacionesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)

@@ -18,10 +18,9 @@ namespace PrestamoWS.Controllers
     public class ClasificacionController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Clasificacion> Get(string JsonGet = "")
+        public IEnumerable<Clasificacion> Get([FromQuery] ClasificacionesGetParams getParams)
         {
-            var searchParam = JsonConvert.DeserializeObject<ClasificacionesGetParams>(JsonGet);
-            var result = BLLPrestamo.Instance.GetClasificaciones(searchParam);
+            var result = BLLPrestamo.Instance.GetClasificaciones(getParams);
             return result;
         }
 

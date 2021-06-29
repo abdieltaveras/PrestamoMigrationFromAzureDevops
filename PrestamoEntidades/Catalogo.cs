@@ -49,6 +49,9 @@ namespace PrestamoEntidades
     }
     public class CatalogoGetParams : BaseCatalogoGetParams
     {
+        /// <summary>
+        /// The id value to search
+        /// </summary>
         public int Id { get; set; } = -1;
     }
 }

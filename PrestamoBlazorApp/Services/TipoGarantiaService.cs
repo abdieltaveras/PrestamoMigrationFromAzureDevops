@@ -11,7 +11,7 @@ namespace PrestamoBlazorApp.Services
     public class TipoGarantiaService : ServiceBase
     {
         string apiUrl = "api/tipogarantia";
-        public async Task<IEnumerable<TipoGarantia>> Get(TipoGetParams search)
+        public async Task<IEnumerable<TipoGarantia>> Get(TipoGarantiaGetParams search)
         {
             var result = await GetAsync<TipoGarantia>(apiUrl, search);
             return result;

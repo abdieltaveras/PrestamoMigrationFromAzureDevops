@@ -14,7 +14,6 @@ namespace PrestamoWS.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-
     /// <summary>
     /// Para registrar los pagos realizados por los Prestamos a los prestamos
     /// </summary>
@@ -44,20 +43,8 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpGet]
-
-        public IEnumerable<Prestamo> Get(DateTime fechaEmisionRealDesde,
-            DateTime fechaEmisionRealHasta, int idPrestamo = -1, int idCliente = -1, int idGarantia = -1, int idLocalidadNegocio = -1, int idNegocio = -1)
+        public IEnumerable<Prestamo> Get([FromQuery] PrestamosGetParams getParams)
         {
-            var getParams = new PrestamosGetParams
-            {
-                fechaEmisionRealDesde = fechaEmisionRealDesde,
-                fechaEmisionRealHasta = fechaEmisionRealHasta,
-                idCliente = idCliente,
-                idPrestamo = idPrestamo,
-                idGarantia = idGarantia,
-                idLocalidadNegocio = idLocalidadNegocio,
-                IdNegocio = idNegocio
-            };
             var data = BLLPrestamo.Instance.GetPrestamos(getParams);
             return data;
         }

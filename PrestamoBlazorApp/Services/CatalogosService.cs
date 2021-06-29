@@ -39,7 +39,7 @@ namespace PrestamoBlazorApp.Services
         //}
         public async Task<IEnumerable<Catalogo>> Get(CatalogoGetParams search) 
         {
-            var d = await GetAsync<Catalogo>(apiUrl+"/get", new { JsonGet = search.ToJson() });
+            var d = await GetAsync<Catalogo>(apiUrl+"/get", search);
             return d;
         }
     }

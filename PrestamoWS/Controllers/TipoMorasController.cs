@@ -21,7 +21,7 @@ namespace PrestamoWS.Controllers
             return BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdTipoMora = IdTipoMora });
         }
         [HttpPost]
-        public IActionResult Post(TipoMora tipoMora)
+        public IActionResult Post([FromBody] TipoMora tipoMora)
         {
             tipoMora.Usuario = this.LoginName;
             tipoMora.IdLocalidadNegocio = this.IdLocalidadNegocio;

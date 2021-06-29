@@ -4,7 +4,6 @@ namespace PrestamoEntidades
 {
     public abstract class BaseGetParams : BaseUsuarioEIdNegocio
     {
-        
         /// <summary>
         /// para indicar si desea o no registros anulado
         /// -1 todos, 0 los normales que no estan marcados como anulado y 1 los marcados como anulados
@@ -14,7 +13,13 @@ namespace PrestamoEntidades
 
     public class BaseCatalogoGetParams : BaseGetParams
     {
+        /// <summary>
+        /// Then name of the column id example IdColor, IdClasificacion
+        /// </summary>
         public string IdTabla { get; set; } = string.Empty;
+        /// <summary>
+        /// the Name of the table
+        /// </summary>
         public string NombreTabla { get; set; } = string.Empty;
 
     }

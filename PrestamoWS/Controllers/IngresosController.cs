@@ -20,12 +20,11 @@ namespace PrestamoWS.Controllers
     public class IngresosController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Ingreso> Get(string jsonGet)
+        public IEnumerable<Ingreso> Get([FromQuery] IngresoGetParams getParams)
         {
             //
             //var getParam = new IngresoGetParams { IdIngreso= idIngreso,FechaDesde= FechaDesde, FechaHasta= fechaHasta,
             //                IdLocalidadNegocio= idLocalidadNegocio, NumeroTransaccion= numeroTransaccion, Usuario = this.LoginName} ;
-            var getParams = jsonGet.ToType<IngresoGetParams>();
             var data = BLLPrestamo.Instance.GetIngresos(getParams);
 
             return data;

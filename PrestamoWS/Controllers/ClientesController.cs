@@ -21,22 +21,13 @@ namespace PrestamoWS.Controllers
     {
         
         [HttpGet]
-        public IEnumerable<Cliente> Get(string jsonGet, bool convertToObj)
+        public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams getParams, bool convertToObj)
         {
-            var path = ImagePathForClientes;
-            var getParams = jsonGet.ToType<ClienteGetParams>();
             var imgPath = ImagePathForClientes;    
             var data = BLLPrestamo.Instance.GetClientes(getParams, convertToObj,  ImagePathForClientes);
             return data;
         }
 
-        [HttpGet]
-        public IEnumerable<Cliente> GetByParam([FromQuery] ClienteGetParams getParams)
-        {
-            throw new NotImplementedException("Para revisar con Luis, si lo usaremos asi, que aqui si funciona bien");
-            //var data = BLLPrestamo.Instance.GetClientes(getParams, currentDir + @"\imagesFor\Clientes");
-            //return data;
-        }
 
         [HttpGet]
         public IEnumerable<Cliente> SearchClientes(string textoABuscar, bool cargarImagenesClientes=false)

@@ -15,11 +15,9 @@ namespace PrestamoBlazorApp.Pages.Colores
         [Inject]
         ColoresService coloresService { get; set; }
         IEnumerable<Color> colores { get; set; } = new List<Color>();
-        [Parameter]
-        public Color Color { get; set; } = new Color();
-        [Parameter]
+        //public Color Color { get; set; } = new Color();
         public Catalogo Catalogo { get; set; } = new Catalogo { NombreTabla = "tblColores", IdTabla = "idcolor" };
-        [Parameter]
+        
         public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams { NombreTabla = "tblColores", IdTabla = "idcolor" };
         void Clear() => colores = null;
         void ClearCatalogo() 

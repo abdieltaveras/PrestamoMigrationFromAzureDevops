@@ -25,6 +25,14 @@ namespace PrestamoValidaciones
                     .IsNotValidWhen(p => p.LlevaGarantia && p.IdGarantias.Count() <= 0, "Debe establecer garantia");
             return prestamoValidator;
         }
+
+        public static Validator<Cliente> ForCliente001()
+        {
+            var validator =
+                    Validator<Cliente>.Empty
+                    .IsNotValidWhen(cl => string.IsNullOrEmpty(cl.InfoDireccionObj.Detalles),"Es obligatorio escribir detalles a la direccion");
+            return validator;
+        }
     }
 
 

@@ -19,18 +19,14 @@ namespace PrestamoWS.Controllers
     public class OcupacionesController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Ocupacion> Get(string JsonGet = "")
+        public IEnumerable<Ocupacion> Get([FromQuery] OcupacionGetParams getParams)
         {
-            var search = JsonConvert.DeserializeObject<OcupacionGetParams>(JsonGet);
-            search.Usuario = this.LoginName;
-            //search.IdOcupacion = -1;
-            search.IdLocalidadNegocio = -1;
-            return BLLPrestamo.Instance.GetOcupaciones(search);
+          return BLLPrestamo.Instance.GetOcupaciones(getParams);
         }
         
 
         [HttpPost]
-        public IActionResult PostOcupacion(Ocupacion insUpdParam)
+        public IActionResult PostOcupacion([FromBody]Ocupacion insUpdParam)
         {
             insUpdParam.Usuario = this.LoginName;
             insUpdParam.IdLocalidadNegocio = this.IdLocalidadNegocio;

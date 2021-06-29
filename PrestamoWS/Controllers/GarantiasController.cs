@@ -31,16 +31,15 @@ namespace PrestamoWS.Controllers
         //}
         int BUSCAR_A_PARTIR_DE = 2;
         [HttpGet]
-        public Task<ActionResult<IEnumerable<Garantia>>> GetWithPrestamo(string JsonGet = "")
+        public Task<ActionResult<IEnumerable<Garantia>>> GetWithPrestamo([FromQuery] BuscarGarantiaParams getParams)
         {
             //search = "26";
             //string search = "26";
             IEnumerable<Garantia> garantias;
             //if (search.Length >= BUSCAR_A_PARTIR_DE)
             //{
-            var paramss = JsonConvert.DeserializeObject<BuscarGarantiaParams>(JsonGet);
-            paramss.IdNegocio = 1;
-            garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(paramss);
+            getParams.IdNegocio = this.IdNegocio;
+            garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(getParams);
             //}
             //********** enviamos la base64 de la imagen
             var result =(Task<ActionResult<IEnumerable<Garantia>>>)garantias;
@@ -66,11 +65,9 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<GarantiaConMarcaYModelo> GetGarantias(string searchObject)
+        public IEnumerable<GarantiaConMarcaYModelo> GetGarantias([FromQuery] GarantiaGetParams getParams)
         {
-            var search = searchObject.ToType<GarantiaGetParams>();
-            search.Usuario = LoginName;
-            var result = BLLPrestamo.Instance.GetGarantias(search);
+            var result = BLLPrestamo.Instance.GetGarantias(getParams);
             result.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
             return result;
         }
@@ -89,20 +86,19 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Garantia> Get(string JsonGet = "")
+        public IEnumerable<Garantia> Get([FromQuery] GarantiaGetParams getParams)
 
         {
-            dynamic listResult = null;
-            var searchGarantia = JsonConvert.DeserializeObject<GarantiaGetParams>(JsonGet);
             //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
-            var garantias = BLLPrestamo.Instance.GetGarantias(searchGarantia);
+            var garantias = BLLPrestamo.Instance.GetGarantias(getParams);
             var result = new SeachResult<Garantia>(garantias).DataList.ToList<Garantia>();
-            result.FirstOrDefault().DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(result.FirstOrDefault().Detalles);
+            result.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
+            //result.FirstOrDefault().DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(result.FirstOrDefault().Detalles);
             #region Imagen
             List<string> list = new List<string>();
             if (result.FirstOrDefault().Imagen1FileName != null)
             {
-                listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
+                var listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
                 foreach (var item in listResult)
                 {
                     string imagen = Convert.ToString(item.Value);
