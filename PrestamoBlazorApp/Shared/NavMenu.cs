@@ -42,13 +42,26 @@ namespace PrestamoBlazorApp.Shared
 
         private void CreateCatalogosSubMenu()
         {
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Catalogo_I, MenuPadreText = null }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Localidades, MenuPadreText = MenuText.Catalogo_I }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Territorios, MenuPadreText = MenuText.Catalogo_I }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Catalogo_II, MenuPadreText = null }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Garantias, MenuPadreText = MenuText.Catalogo_II }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Clientes, MenuPadreText = MenuText.Catalogo_II }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Prestamo, MenuPadreText = MenuText.Catalogo_II }, false);
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.CatalogoPrestamos, MenuPadreText = null }, false);
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.CatalogoGarantias, MenuPadreText = null }, false);
+
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.CatalogoClientes, MenuPadreText = null }, false);
+
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.Operaciones, MenuPadreText = null }, false);
+
+            // sub menus CatalogoClientes
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.Localidades, MenuPadreText = MenuText.CatalogoClientes }, false);
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.Territorios, MenuPadreText = MenuText.CatalogoClientes }, false);
+
+            // sub menus CatalogoPrestamo
+
+            // sub menus CatalogoGarantias
+
+            // sub menus Operaciones
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.Garantias, MenuPadreText = MenuText.Operaciones }, false);
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.Clientes, MenuPadreText = MenuText.Operaciones }, false);
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.Prestamo, MenuPadreText = MenuText.Operaciones }, false);
+            
         }
         private void navigateTo(string linkUrl)
         {
@@ -99,8 +112,10 @@ namespace PrestamoBlazorApp.Shared
 
         public static class MenuText
         {
-            public static string Catalogo_I => "Catalogo I";
-            public static string Catalogo_II => "Catalogo II";
+            public static string CatalogoPrestamos => "Catalogo Prestamos";
+            public static string CatalogoClientes => "Catalogo Clientes";
+            public static string CatalogoGarantias => "Catalogo Garantias";
+            public static string Operaciones => "Operaciones";
             public static string Garantias => "Garantias";
             public static string Territorios => "Territorios";
             public static string Localidades => "Localidades";

@@ -66,9 +66,9 @@ namespace PrestamoBLL
         private bool ExistUsers => ExistDataForTable("tblUsuarios");
 
         public void InsUpdRoleUsuario(
-            List<UsuarioRoleIns> dataAInsertar,
-            List<UsuarioRoleIns> dataAAnular,
-            List<UsuarioRoleIns> dataAModificar,
+            IEnumerable<UsuarioRoleIns> dataAInsertar,
+            IEnumerable<UsuarioRoleIns> dataAAnular,
+            IEnumerable<UsuarioRoleIns> dataAModificar,
             string usuario)
         {
 

@@ -10,54 +10,51 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]/[action]")]
     public class UsuariosController : ControllerBasePrestamoWS
     {
+        [HttpGet]
         public IEnumerable<Usuario> Get([FromQuery] UsuarioGetParams getParams)
         {
             //GetValidation(searchParam);
             return BLLPrestamo.Instance.GetUsuarios(getParams);
         }
-
+        [HttpGet]
         public IEnumerable<UsuarioRole> GetRoles([FromQuery] BuscarUserRolesParams getParams)
         {
             return BLLPrestamo.Instance.UserRolesSearch(getParams);
             //return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarUsuarioRoles", GetValidation);
         }
-
+        [HttpGet]
         public IEnumerable<UsuarioRole> GetRolesAll([FromQuery] BuscarUserRolesParams getParams)
         {
-            return BLLPrestamo.Instance.UserRolesSearchAll(getParams );
+            return BLLPrestamo.Instance.UserRolesSearchAll(getParams);
         }
         [HttpPost]
-        public int UsuarioInsUpd([FromBody] Usuario usuario, string from = "")
+        public IActionResult Post([FromBody] Usuario usuario, string from = "")
         {
-            return BLLPrestamo.Instance.InsUpdUsuario(usuario, from);
-            //if ((insUpdParam.LoginName.ToLower() == "admin") && (from != bllUser))
-            //{
-            //    throw new Exception("No puede crear el usuario administrador desde la pantalla de creacion de usuario");
-            //}
-            //var vigenteHasta = insUpdParam.VigenteHasta;
-            //if (vigenteHasta != InitValues._19000101 ? vigenteHasta.CompareTo(DateTime.Now) <= 0 : false)
-            //{
-            //    throw new Exception("La fecha de vigencia de la cuenta no es valida debe ser mayor a la de hoy");
-            //}
-            //insUpdParam.LoginName = insUpdParam.LoginName.ToLower();
-            //return BllAcciones.InsUpdData<Usuario>(insUpdParam, "spInsUpdUsuario");
+            try
+            {
+                BLLPrestamo.Instance.InsUpdUsuario(usuario, from);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Problem("Error al guardar " + e.Message);
+            }
 
         }
 
 
         [HttpPost]
-        public IActionResult InsUpdRoleUsuario(
-            List<UsuarioRoleIns> dataAInsertar,
-            List<UsuarioRoleIns> dataAAnular,
-            List<UsuarioRoleIns> dataAModificar,
-            string usuario)
+        public IActionResult PostRoles([FromBody] UpdateRoles roles)
+            
         {
-             BLLPrestamo.Instance.InsUpdRoleUsuario(dataAInsertar,dataAAnular,dataAModificar,usuario);
+            BLLPrestamo.Instance.InsUpdRoleUsuario(roles.dataAInsertar, roles.dataAAnular, roles.dataAModificar, roles.usuario);
             return Ok();
         }
-
+        [HttpGet]
         public List<string> GetOperaciones([FromQuery] UsuarioOperacionesGetParams getParams)
         {
             return BLLPrestamo.Instance.GetOperaciones(getParams);
@@ -80,6 +77,18 @@ namespace PrestamoWS.Controllers
         private class CodigoOperacion
         {
             public string Codigo { get; set; }
+        }
+    }
+
+    public class UpdateRoles
+    {
+        public IEnumerable<UsuarioRoleIns> dataAInsertar { get; set; }
+        public IEnumerable<UsuarioRoleIns> dataAAnular { get; set; }
+        public IEnumerable<UsuarioRoleIns> dataAModificar { get; set; }
+        public string usuario
+        {
+            get; set;
+
         }
     }
 }
