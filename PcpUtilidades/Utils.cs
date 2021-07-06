@@ -27,8 +27,6 @@ namespace PcpUtilidades
         {
             return Convert.ToInt32(objectContainingId.Rows[0][0]);
         }
-        
-        
         /// <summary>
         /// Recibe un string64base y lo convierte en una imagen el string contiene el texto inicial "data:Image/jpeg;base64,"
         /// el metodo lo quita para crear la imagen de base64 string

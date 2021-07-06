@@ -23,42 +23,34 @@
             </NavLink>
             @if (ExpandMenu(MenuText.CatalogoPrestamos))
             {
+                <ul class="nav flex-column">
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="clasificaciones">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Clasificaciones
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="equipos">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Equipos
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="tiposmora">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Tipos De Mora
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="periodos">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Periodos
+                        </NavLink>
+                    </li>
 
-        <ul class="nav flex-column">
-
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="clasificaciones">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Clasificaciones
-                </NavLink>
-            </li>
-
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="equipos">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Equipos
-                </NavLink>
-            </li>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="tiposmora">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Tipos De Mora
-                </NavLink>
-            </li>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="periodos">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Periodos
-                </NavLink>
-            </li>
-
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="tasasInteres">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Tasas De Interes
-                </NavLink>
-            </li>
-
-            @*<ul class="nav flex-column">*@
-
-
-            @*</ul>*@
-        </ul>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="tasasInteres">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Tasas De Interes
+                        </NavLink>
+                    </li>
+                </ul>
             }
 
         </li>
@@ -70,59 +62,59 @@
 
             @if (ExpandMenu(MenuText.CatalogoClientes))
             {
-        <ul class="nav flex-column">
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="ocupaciones">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Ocupaciones
-                </NavLink>
-            </li>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="" @onclick="()=>  SetActiveMenu(MenuText.Territorios) ">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Territorios
-                </NavLink>
+                <ul class="nav flex-column">
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="ocupaciones">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Ocupaciones
+                        </NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="" @onclick="()=>  SetActiveMenu(MenuText.Territorios) ">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Territorios
+                        </NavLink>
 
-                @if (ExpandMenu(MenuText.Territorios))
-                {
-                    <ul class="nav flex-column">
-                        <li class="nav-item px-3">
-                            <NavLink class="nav-link" href="territorios">
-                                <span class="oi oi-list-rich" aria-hidden="true">Territorios</span>
-                            </NavLink>
-                        </li>
-                        <li class="nav-item px-3">
-                            <NavLink class="nav-link" href="" @onclick='()=>navigateTo("territorios/CreateDivisionTerritorial")'>
-                                <span class="oi oi-list-rich" aria-hidden="true">Crear Division Territorial</span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                }
-            </li>
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="" @onclick="()=>  SetActiveMenu(MenuText.Localidades) ">
-                    <span class="oi oi-list-rich" aria-hidden="true"></span> Localidades
-                </NavLink>
-                @if (ExpandMenu(MenuText.Localidades))
-                {
-                    <ul class="nav flex-column">
-                        <li class="nav-item px-3">
-                            <NavLink class="nav-link" href="localidades">
-                                <span class="oi oi-list-rich" aria-hidden="true">Localidades</span>
-                            </NavLink>
-                        </li>
-                        <li class="nav-item px-3">
-                            <NavLink class="nav-link" href="" @onclick='()=>navigateTo("/localidades/listadopaises")'>
-                                <span class="oi oi-list-rich" aria-hidden="true">ListadoPaises</span>
-                            </NavLink>
-                        </li>
-                        <li class="nav-item px-3">
-                            <NavLink class="nav-link" href="" @onclick='()=>navigateTo("/localidades/listado")'>
-                                <span class="oi oi-list-rich" aria-hidden="true"> Listado Localidades </span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                }
-            </li>
-        </ul>
+                        @if (ExpandMenu(MenuText.Territorios))
+                        {
+                            <ul class="nav flex-column">
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="territorios">
+                                        <span class="oi oi-list-rich" aria-hidden="true">Territorios</span>
+                                    </NavLink>
+                                </li>
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="" @onclick='()=>navigateTo("territorios/CreateDivisionTerritorial")'>
+                                        <span class="oi oi-list-rich" aria-hidden="true">Crear Division Territorial</span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        }
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="" @onclick="()=>  SetActiveMenu(MenuText.Localidades) ">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> Localidades
+                        </NavLink>
+                        @if (ExpandMenu(MenuText.Localidades))
+                        {
+                            <ul class="nav flex-column">
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="localidades">
+                                        <span class="oi oi-list-rich" aria-hidden="true">Localidades</span>
+                                    </NavLink>
+                                </li>
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="" @onclick='()=>navigateTo("/localidades/listadopaises")'>
+                                        <span class="oi oi-list-rich" aria-hidden="true">ListadoPaises</span>
+                                    </NavLink>
+                                </li>
+                                <li class="nav-item px-3">
+                                    <NavLink class="nav-link" href="" @onclick='()=>navigateTo("/localidades/listado")'>
+                                        <span class="oi oi-list-rich" aria-hidden="true"> Listado Localidades </span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        }
+                    </li>
+                </ul>
             }
 
         </li>
