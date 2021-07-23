@@ -13,7 +13,7 @@
       <HintPath>..\SharedDLL\EMTSoft\BaseClasses\DevBox.Core.Classes.dll</HintPath>
     </Reference>
     <Reference Include="DevBox.Core.Dal">
-      <HintPath>..\..\EMTSoft\DalCore\DevBox.Core.Dal.dll</HintPath>
+      <HintPath>..\SharedDLL\EMTSoft\DalCore\DevBox.Core.Dal.dll</HintPath>
     </Reference>
   </ItemGroup>
 

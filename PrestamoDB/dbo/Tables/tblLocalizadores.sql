@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblLocalizadores]
 (
 	[IdLocalizador] INT NOT NULL PRIMARY KEY identity(1,1),
+		[IdLocalidadNegocio] INT NULL, 
 	[Codigo] VARCHAR(20) NOT NULL default '',
 	[Nombre] NVARCHAR(50) NOT NULL,
 	[IdNegocio] INT NOT NULL,

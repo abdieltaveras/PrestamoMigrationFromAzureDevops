@@ -3,6 +3,7 @@
 	[IdLocalidad] INT NOT NULL PRIMARY KEY identity(1,1), 
     [IdLocalidadPadre] INT NULL, 
     [IdNegocio] INT NOT NULL, 
+    	[IdLocalidadNegocio] INT NULL, 
     [IdTipoLocalidad] INT NOT NULL, 
     [Nombre] VARCHAR(50) NOT NULL,
 	[Codigo] VARCHAR(10) NULL,

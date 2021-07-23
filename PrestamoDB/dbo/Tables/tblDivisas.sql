@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblDivisas]
 (
 	[idDivisa] INT NOT NULL PRIMARY KEY identity(1,1), 
+    [IdLocalidadNegocio] INT NULL, 
     idNegocio int not null,
     [Codigo] VARCHAR(10) NOT NULL unique, 
 	[Nombre] VARCHAR(100) NOT NULL,
