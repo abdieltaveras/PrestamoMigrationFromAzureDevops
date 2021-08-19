@@ -66,13 +66,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Situaciones del Hosting y I
 		Propuestas al sistema\Errores especiales.rtf = Propuestas al sistema\Errores especiales.rtf
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcpUtilidades", "PcpUtilidades\PcpUtilidades.csproj", "{C7394D72-A7B4-495B-B1BD-8D46E8435A12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PcpUtilidades", "PcpUtilidades\PcpUtilidades.csproj", "{C7394D72-A7B4-495B-B1BD-8D46E8435A12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoEntidades", "PrestamoEntidades\PrestamoEntidades.csproj", "{F4A2334D-23A4-4700-B058-D8206A54E547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoEntidades", "PrestamoEntidades\PrestamoEntidades.csproj", "{F4A2334D-23A4-4700-B058-D8206A54E547}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validaciones", "Validaciones\Validaciones.csproj", "{5186F57D-659E-426E-A604-1FF62D5B49E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validaciones", "Validaciones\Validaciones.csproj", "{5186F57D-659E-426E-A604-1FF62D5B49E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoBLL", "PrestamoBLL\PrestamoBLL.csproj", "{B83FBD79-81B2-40AB-B676-075104880E39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoBLL", "PrestamoBLL\PrestamoBLL.csproj", "{B83FBD79-81B2-40AB-B676-075104880E39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppForRDLCDesing", "AppForRDLCDesing\AppForRDLCDesing.csproj", "{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -138,6 +140,12 @@ Global
 		{B83FBD79-81B2-40AB-B676-075104880E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B83FBD79-81B2-40AB-B676-075104880E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B83FBD79-81B2-40AB-B676-075104880E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,6 +16,7 @@ namespace PrestamoBlazorApp.Services
         public  static Task Reload(IJSRuntime JsRuntime, bool force) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("Reload", force));
         
         public static Task<bool> Confirm(IJSRuntime JsRuntime, string message) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("Confirm", message));
+        public static Task<bool> GoToUrl (IJSRuntime JsRuntime, string url) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("GoToUrl", url));
 
         public static Task<bool> NotifyMessageBox(IJSRuntime jsRuntime, string message, int delayInMilliSeconds=5000) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("Notification", message, delayInMilliSeconds));
 
