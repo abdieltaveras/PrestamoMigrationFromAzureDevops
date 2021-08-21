@@ -75,7 +75,7 @@ namespace PrestamoBLL
         List<Cliente> clientes = new List<Cliente>();
         List<Codeudor> codeudores = new List<Codeudor>();
         List<Garantia> garantias = new List<Garantia>();
-        List<Cuota> cuotas = new List<Cuota>();
+        List<CxCCuota> cuotas = new List<CxCCuota>();
         Prestamo prestamoInProgress = new Prestamo();
         Periodo periodo = new Periodo();
         public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
@@ -477,7 +477,7 @@ namespace PrestamoBLL
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
 
-        public List<Cuota> Cuotas { get; set; } = new List<Cuota>();
+        public List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
 
         IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
         IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
@@ -665,7 +665,7 @@ namespace PrestamoBLL
             return this;
         }
 
-        public IEnumerable<Cuota> GenerarCuotas(IInfoGeneradorCuotas info)
+        public IEnumerable<CxCCuota> GenerarCuotas(IInfoGeneradorCuotas info)
         {
             var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
             var cuotas = generadorCuotas.GenerarCuotas();

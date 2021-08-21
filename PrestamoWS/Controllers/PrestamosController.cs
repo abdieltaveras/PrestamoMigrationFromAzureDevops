@@ -104,7 +104,7 @@ namespace PrestamoWS.Controllers
 
 
         [HttpGet]
-        public IEnumerable<Cuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
+        public IEnumerable<CxCCuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
 
         {

@@ -93,7 +93,7 @@ namespace PrestamoBLL.Tests
             
             try
             {
-                var result = BLLPrestamo.Instance.GetClientes(searhData);
+                var result = BLLPrestamo.Instance.GetClientes(searhData,false);
             }
             catch (Exception e)
             {
@@ -126,7 +126,7 @@ namespace PrestamoBLL.Tests
             var error = string.Empty;
             try
             {
-                BLLPrestamo.Instance.GetClientes(gParam);
+                BLLPrestamo.Instance.GetClientes(gParam,false);
             }
             catch (Exception e)
             {

@@ -137,12 +137,12 @@ namespace PrestamoBLL
                 }
                 dr.DataReaderToType(out infoCliente);
             }
-            var cuotas = new List<Cuota>();
+            var cuotas = new List<CxCCuota>();
             if (dr.NextResult())
             {
                 while (dr.Read())
                 {
-                    var cuota = new Cuota();
+                    var cuota = new CxCCuota();
                     dr.DataReaderToType(out cuota);
                     cuotas.Add(cuota);
                 }

@@ -50,14 +50,14 @@ namespace PrestamoEntidades
 
         //readonly IEnumerable<CuotaAmpliada> cuotas;
         readonly DateTime Fecha;
-        public InfoDeudaPrestamoDrCr(IEnumerable<Cuota> cuotas, DateTime fecha)
+        public InfoDeudaPrestamoDrCr(IEnumerable<CxCCuota> cuotas, DateTime fecha)
         {
             this.cuotas = cuotas;
             this.Fecha = fecha;
             this.CalcularDeuda();
         }
 
-        public IEnumerable<Cuota> cuotas { get; set; }
+        public IEnumerable<CxCCuota> cuotas { get; set; }
         private void CalcularDeuda()
         {
             foreach (var cuota in cuotas)
@@ -138,7 +138,7 @@ namespace PrestamoEntidades
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get;  set; }
 
-        public IEnumerable<Cuota> Cuotas { get;  set; }
+        public IEnumerable<CxCCuota> Cuotas { get;  set; }
 
         public InfoDeudaPrestamoDrCr InfoDeuda { get;  set; }
     }
@@ -369,9 +369,9 @@ namespace PrestamoEntidades
 
     public class PrestamoInsUpdParam : Prestamo
     {
-        public readonly IEnumerable<CuotaForSqlType> _CuotasList = new List<CuotaForSqlType>();
+        public readonly IEnumerable<CxCCuotaForSqlType> _CuotasList = new List<CxCCuotaForSqlType>();
 
-        public PrestamoInsUpdParam(IEnumerable<CuotaForSqlType> cuotas)
+        public PrestamoInsUpdParam(IEnumerable<CxCCuotaForSqlType> cuotas)
         {
             this._CuotasList = cuotas;
         }

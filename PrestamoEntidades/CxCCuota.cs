@@ -11,7 +11,7 @@ namespace PrestamoEntidades
     /// <summary>
     /// la representacion de la cuota como va en la tabla
     /// </summary>
-    public class CuotaForSqlType
+    public class CxCCuotaForSqlType
     {
         public int idCuota { get;  set; } = 0;
         public int IdPrestamo { get; set; } = 0;
@@ -23,7 +23,7 @@ namespace PrestamoEntidades
         public decimal? InteresDelGastoDeCierre { get; set; } = 0;
         public int? idTipoCargo { get; internal set; } = -1;
     }
-    public class Cuota : CuotaForSqlType
+    public class CxCCuota : CxCCuotaForSqlType
     {
         [IgnoreOnParams]
         public string FechaSt => Fecha.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);

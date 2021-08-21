@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 namespace PrestamoBLL.Tests
 {
     [TestClass()]
-    public class UtilsTest
+    public class IngresosTest
     {
         [TestMethod()]
-        public void GetSvrDateTest()
+        public void InsUpdIngresoTest()
         {
-            //var result = UtilsBLL.GetDateFromSqlServer();
-            //Assert.IsNotNull(result, "no pudo obtener la fecha");
+            Assert.Fail();
         }
     }
 }
