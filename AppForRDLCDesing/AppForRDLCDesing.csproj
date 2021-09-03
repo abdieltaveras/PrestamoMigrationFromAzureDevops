@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dsReports.cs">
+      <DependentUpon>dsReports.xsd</DependentUpon>
+    </Compile>
     <Compile Include="dsReports.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -69,6 +72,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Reports\Catalogo\Listado.rdlc" />
+    <EmbeddedResource Include="Reports\Clientes\Listado.rdlc" />
     <None Include="dsReports.xsc">
       <DependentUpon>dsReports.xsd</DependentUpon>
     </None>

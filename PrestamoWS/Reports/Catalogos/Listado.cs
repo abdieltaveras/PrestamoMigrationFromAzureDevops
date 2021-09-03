@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PrestamoBlazorApp.Reports.Entities.Bases;
-namespace PrestamoBlazorApp.Reports.Entities.Catalogos
+using PrestamoWS.Reports.Bases;
+namespace PrestamoWS.Reports.Catalogos
 {
-    public class Listado : BaseReporteMulti
+    public class Listado 
     {
         public int Id { get; set; }
         public string Catalogo { get; set; }

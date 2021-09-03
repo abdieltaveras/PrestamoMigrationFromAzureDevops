@@ -39,5 +39,14 @@ namespace PrestamoEntidades
         public string Nombres { get; set; } = string.Empty;
         public string Apellidos { get; set; } = string.Empty;
     }
+
+    public class BaseReporteParams
+    {
+        public string OrdenarPor { get; set; } = "Nombres";
+        public string Rango { get; set; } = "Nombres";
+        public string Desde { get; set; } = "A";
+        public string Hasta { get; set; } = "Z";
+        public int reportType { get; set; } = 1;
+    }
 }
 
