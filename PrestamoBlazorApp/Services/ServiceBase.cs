@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
-
+using Microsoft.JSInterop;
 
 namespace PrestamoBlazorApp.Services
 {
     
     public abstract class ServiceBase
     {
+       
+        [Inject]
+        protected NavigationManager NavManager { get; set; }
         [Inject] IConfiguration Configuration { get; set; }
 
+        JsInteropUtils JsInteropUtils { get; set; }
         protected readonly IHttpClientFactory _clientFactory;
         protected ServiceBase(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
@@ -68,30 +72,56 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
-        
-        public async Task<IEnumerable<string>> GetJsAsync(string endpoint, object search)
+
+        //public async Task<IEnumerable<string>> GetJsAsync(string endpoint, object search)
+        //{
+
+        //    var baseUrl = Configuration["BaseServerUrl"];
+        //    var query = search.UrlEncode();
+        //    var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
+        //    request.Headers.Add("Accept", "application/json");
+
+        //    IEnumerable<string> result;
+
+        //    var client = _clientFactory.CreateClient();
+
+        //    var response = await client.SendAsync(request);
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        //using var responseStream = await response.Content.ReadAsStreamAsync();
+        //        //result = await System.Text.Json.JsonSerializer.DeserializeAsync<IEnumerable<string>>(responseStream);
+        //        result = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
+        //    }
+        //    else
+        //    {
+
+        //        throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
+        //    }
+        //    return result;
+        //}
+        public async Task<HttpResponseMessage> ReportGenerate(IJSRuntime jSRuntime,string endpoint, object search)
         {
-           
+
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
+            
             var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
             request.Headers.Add("Accept", "application/json");
 
-            IEnumerable<string> result;
+            HttpResponseMessage result;
 
             var client = _clientFactory.CreateClient();
 
             var response = await client.SendAsync(request);
-
+            await JsInteropUtils.GoToUrl(jSRuntime,$"{baseUrl}/{endpoint}?{query}");
             if (response.IsSuccessStatusCode)
             {
-                //using var responseStream = await response.Content.ReadAsStreamAsync();
-                //result = await System.Text.Json.JsonSerializer.DeserializeAsync<IEnumerable<string>>(responseStream);
-                result = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
+                result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             }
             else
             {
-                
+                result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
                 throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
             }
             return result;

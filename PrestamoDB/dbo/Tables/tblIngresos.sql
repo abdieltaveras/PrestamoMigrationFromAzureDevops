@@ -3,6 +3,7 @@
 	[IdIngreso] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
     [IdPrestamo] INT NOT NULL, 
     [IdCuota] INT NOT NULL, 
+	[IdLocalidadNegocio] INT NULL, 
     [Num_Cuota] NUMERIC(7, 3) NOT NULL,
 	[Monto_Original_Cuota] NUMERIC(18,2) NOT NULL,
 	[Monto_Abonado] NUMERIC(18,2) NOT NULL,

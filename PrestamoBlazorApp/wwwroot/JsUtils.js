@@ -222,3 +222,8 @@ window.UnBlockPage = function () {
     $.unblockUI({ fadeOut: 200 });
     return true;
 }
+
+window.GoToUrl = function (url) {
+    window.open(`${url}`, '_blank');
+    return true;
+}

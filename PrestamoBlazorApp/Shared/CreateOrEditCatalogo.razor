@@ -1,6 +1,27 @@
 ﻿@inherits BaseForCreateOrEdit
 
-<h1>Listado De @(Catalogo.NombreTabla != null ? Catalogo.NombreTabla.Replace("tbl", "") : "")  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
+<h1>
+    Listado De @(Catalogo.NombreTabla != null ? Catalogo.NombreTabla.Replace("tbl", "") : "")
+    <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button>
+    <div class="dropdown show">
+        <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-th"></i>
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <button class="dropdown-item" @onclick="()=>PrintListado(1)">
+                <i class="fa fa-file-pdf-o"></i> PDF
+            </button>
+            <button class="dropdown-item" @onclick="()=>PrintListado(2)">
+                <i class="fa fa-file-excel-o"></i> EXCEL
+            </button>
+
+        </div>
+    </div>
+</h1>
+<div class="row" style="display:flex;justify-content:flex-end;">
+  
+</div>
 <div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

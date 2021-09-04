@@ -94,6 +94,13 @@ namespace PrestamoBlazorApp.Shared
         {
 
         }
+        async void PrintListado(int reportType)
+        {
+            await BlockPage();
+            CatalogoGetParams.reportType = reportType;
+            var result = await CatalogosService.ReportListado(jsRuntime, CatalogoGetParams);
+            await UnBlockPage();
+        }
     }
 
 }

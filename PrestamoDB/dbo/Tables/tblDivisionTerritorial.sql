@@ -4,6 +4,7 @@
     [IdLocalidadPadre] INT NULL,
     [IdDivisionTerritorialPadre] INT NULL,
     [IdNegocio] INT NOT NULL,
+    	[IdLocalidadNegocio] INT NULL, 
 	[Nombre] VARCHAR(100) NOT NULL,
 	[Codigo] VARCHAR(10) NOT NULL default '',
     [Activo] BIT NOT NULL DEFAULT 1,

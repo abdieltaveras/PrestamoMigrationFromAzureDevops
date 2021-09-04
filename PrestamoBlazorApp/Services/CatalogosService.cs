@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.JSInterop;
 using PcpUtilidades;
 
 using PrestamoEntidades;
@@ -14,7 +15,7 @@ namespace PrestamoBlazorApp.Services
     public class CatalogosService : ServiceBase
     {
         string apiUrl = "api/catalogo";
-       
+        string apiReportUrl = "api/reports";
         public CatalogosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 
@@ -41,6 +42,11 @@ namespace PrestamoBlazorApp.Services
         {
             var d = await GetAsync<Catalogo>(apiUrl+"/get", search);
             return d;
+        }
+        public async Task<string> ReportListado(IJSRuntime jSRuntime,CatalogoGetParams search)
+        {
+            var d = await ReportGenerate(jSRuntime,apiReportUrl + "/CatalogoReportList", search);
+            return d.StatusCode.ToString();
         }
     }
 }

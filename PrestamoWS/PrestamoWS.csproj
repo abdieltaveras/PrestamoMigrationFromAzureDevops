@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Reports\Catalogo\Listado.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ImagesFor\Clientes\27ebfafc-3d96-464b-a146-f5eb8799a8d7.png" />
     <None Remove="ImagesFor\Clientes\2eb1e360-dee8-4064-b880-1eba4c39deb2.png" />
     <None Remove="ImagesFor\Clientes\2ff232be-85df-4495-84ba-d3b265d0fbf3.png" />
@@ -176,6 +180,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="wwwroot\Reports\Catalogo\Listado.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WebForms" Version="150.1449.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
@@ -194,7 +204,6 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

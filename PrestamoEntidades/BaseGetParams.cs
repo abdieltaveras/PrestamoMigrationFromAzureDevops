@@ -13,6 +13,8 @@ namespace PrestamoEntidades
 
     public class BaseCatalogoGetParams : BaseGetParams
     {
+        [IgnoreOnParams]
+        public int reportType { get; set; } = -1;
         /// <summary>
         /// Then name of the column id example IdColor, IdClasificacion
         /// </summary>

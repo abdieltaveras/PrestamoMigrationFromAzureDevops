@@ -7,6 +7,7 @@
 	IdMarca INT NULL,
     [NoIdentificacion] NVARCHAR(50) NOT NULL, 
     [IdNegocio] INT NOT NULL,
+    	[IdLocalidadNegocio] INT NULL, 
     [Detalles] VARCHAR(4000) NULL,
 	[Imagen1FileName] varchar(50),
 	[Imagen2FileName] varchar(50),
