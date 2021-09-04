@@ -10,30 +10,50 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using PrestamoWS.Reports;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PrestamoWS.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ReportsController : ControllerBase
+    public class ReportesController : ControllerBase
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private Utils _utils { get; set; } = new Utils();
-        public ReportsController(IWebHostEnvironment webHostEnvironment)
+        public ReportesController(IWebHostEnvironment webHostEnvironment)
         {
             _webHostEnvironment = webHostEnvironment;
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
+
+
         [HttpGet]
         public IActionResult CatalogoReportList([FromQuery] CatalogoGetParams getParams,int reportType = 1)
-        {
+        { 
+
+            List<Reports.Bases.BaseReporteMulti> baseReporte = new List<Reports.Bases.BaseReporteMulti>();
+            Reports.Bases.BaseReporteMulti BasePrueba = new Reports.Bases.BaseReporteMulti { NombreEmpresa = "PC Prog",
+                DireccionEmpresa="Calle Principal, Algun barrio de la romana, La Romana, Rep Dom",
+                TituloReporte = "Catalogo",
+                ImpresoPor="lheskey",
+                RangoFiltro ="A-Z",
+                OrdenadoPor="Nombre",
+                OtrosDetalles="-"
+            
+            };
+            baseReporte.Add(BasePrueba);
+
+            //******************************************************//
             _utils = new Utils();
+           
             reportType = getParams.reportType;
-            var datos = BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(getParams);
+            var datos = BLLPrestamo.Instance.GetCatalogosNew<Reports.Catalogos.Listado>(getParams);
             string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Catalogo\\Listado.rdlc";
-            return _utils.CatalogoReportList<Catalogo>(datos, path, reportType);
+            
+            
+            return _utils.CatalogoReportList(datos, path, reportType,baseReporte);
+            #region ComoUsar
             //DataTable dt = new DataTable();
             //string mimeType = "";
             //int extension = 1;
@@ -55,38 +75,33 @@ namespace PrestamoWS.Controllers
             //    //return File(result.MainStream, contentType: "application/msexcel");
             //}
             //return null;
+            #endregion
         }
-
-        // GET: api/<ReportsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult ClienteReportList([FromQuery] BaseReporteParams getParams)
         {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET api/<ReportsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+            List<Reports.Bases.BaseReporteMulti> baseReporte = new List<Reports.Bases.BaseReporteMulti>();
+            Reports.Bases.BaseReporteMulti BasePrueba = new Reports.Bases.BaseReporteMulti
+            {
+                NombreEmpresa = "PC Prog",
+                DireccionEmpresa = "Calle Principal, Algun barrio de la romana, La Romana, Rep Dom",
+                TituloReporte = "Listado De Clientes",
+                ImpresoPor = "lheskey",
+                RangoFiltro = getParams.Desde +"-"+ getParams.Hasta,
+                OrdenadoPor = getParams.OrdenarPor,
+                OtrosDetalles = "-"
 
-        // POST api/<ReportsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+            };
+            baseReporte.Add(BasePrueba);
 
-        // PUT api/<ReportsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+            //******************************************************//
+            _utils = new Utils();
+            var datos = BLLPrestamo.Instance.ReporteClientes(getParams);
+            string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Clientes\\Listado.rdlc";
+            var resultado = _utils.ReportGenerator(datos, path, getParams.reportType, baseReporte);
+            return resultado;
         }
-
-        // DELETE api/<ReportsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+      
     }
 }

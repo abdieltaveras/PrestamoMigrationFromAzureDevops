@@ -15,7 +15,7 @@ namespace PrestamoBlazorApp.Services
     public class CatalogosService : ServiceBase
     {
         string apiUrl = "api/catalogo";
-        string apiReportUrl = "api/reports";
+        string apiReportUrl = "api/reportes";
         public CatalogosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 

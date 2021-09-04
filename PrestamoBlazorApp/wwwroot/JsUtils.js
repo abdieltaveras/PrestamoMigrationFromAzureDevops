@@ -213,7 +213,9 @@ window.BlockPage = function()
             '-webkit-border-radius': '10px',
             '-moz-border-radius': '10px',
             opacity: .5,
-            color: '#fff'
+            color: '#fff',
+            theme: true,
+            baseZ: 2000
         }
     });
     return true;

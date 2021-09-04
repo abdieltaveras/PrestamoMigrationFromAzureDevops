@@ -80,5 +80,12 @@ namespace PrestamoBLL
         {
             return BllAcciones.GetData<Cliente, BuscarClienteParams>(searchParam, "spBuscarClientes", GetValidation);
         }
+        public IEnumerable<Cliente> ReporteClientes(BaseReporteParams searchParam)
+        {
+            var param = SearchRec.ToSqlParams(searchParam);
+            var resultSet = DBPrestamo.ExecReaderSelSP<Cliente>("spRptClientes", param);
+            return resultSet;
+            //return BllAcciones.GetData<Cliente, BaseReporteParams>(searchParam, "spRptClientes",);
+        }
     }
 }

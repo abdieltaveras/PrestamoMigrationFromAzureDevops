@@ -36,7 +36,7 @@ namespace PrestamoWS
         //    }
         //    return null;
         //}
-        public IActionResult CatalogoReportList<@Type>(IEnumerable<Type> Datos, string ReportUrl, int reportType = 1)
+        public IActionResult CatalogoReportList<@Type,@Base>(IEnumerable<Type> Datos, string ReportUrl, int reportType = 1, IEnumerable<Base> DatosBase = null) 
         {
 
             string mimeType = "";
@@ -46,6 +46,11 @@ namespace PrestamoWS
             //parameter.Add("param","RDLC REPORT");
             LocalReport localReport = new LocalReport(path);
             localReport.AddDataSource(dataSetName: "DataSet1", dataSource: Datos);
+            if (DatosBase!= null)
+            {
+                localReport.AddDataSource(dataSetName: "Base", dataSource: DatosBase);
+            }
+          
             if (reportType == 1)
             {
                 var result = localReport.Execute(RenderType.Pdf, extension, parameter, mimeType);
@@ -60,6 +65,34 @@ namespace PrestamoWS
             }
             return null;
         }
-       
+        public IActionResult ReportGenerator<@Type, @Base>(IEnumerable<Type> Datos, string ReportUrl, int reportType = 1, IEnumerable<Base> DatosBase = null)
+        {
+
+            string mimeType = "";
+            int extension = 1;
+            string path = ReportUrl;
+            Dictionary<string, string> parameter = new Dictionary<string, string>();
+            //parameter.Add("param","RDLC REPORT");
+            LocalReport localReport = new LocalReport(path);
+            localReport.AddDataSource(dataSetName: "DataSet1", dataSource: Datos);
+            if (DatosBase != null)
+            {
+                localReport.AddDataSource(dataSetName: "Base", dataSource: DatosBase);
+            }
+
+            if (reportType == 1)
+            {
+                var result = localReport.Execute(RenderType.Pdf, extension, parameter, mimeType);
+                return File(result.MainStream, contentType: "application/pdf");
+            }
+            else if (reportType == 2)
+            {
+                var result = localReport.Execute(RenderType.Excel, extension, parameter, mimeType);
+                //vnd.ms-excel
+                return File(result.MainStream, contentType: "application/vnd.ms-excel");
+                //return File(result.MainStream, contentType: "application/msexcel");
+            }
+            return null;
+        }
     }
 }

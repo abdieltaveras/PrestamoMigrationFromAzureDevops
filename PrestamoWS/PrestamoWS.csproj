@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\Reports\Catalogo\Listado.rdlc" />
+    <Content Remove="wwwroot\Reports\Clientes\Listado.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -181,6 +182,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\Reports\Catalogo\Listado.rdlc" />
+    <EmbeddedResource Include="wwwroot\Reports\Clientes\Listado.rdlc" />
   </ItemGroup>
 
   <ItemGroup>

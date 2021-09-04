@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
+using Microsoft.JSInterop;
 using PcpUtilidades;
 
 using PrestamoEntidades;
@@ -13,6 +14,7 @@ namespace PrestamoBlazorApp.Services
     public class ClientesService : ServiceBase
     {
         readonly string apiUrl = "api/clientes";
+        string apiReportUrl = "api/reports";
         public async Task<IEnumerable<Cliente>> SearchClientes(string search, bool cargarImagenes)
         {
             var result = await GetAsync<Cliente>(apiUrl + "/searchClientes", new { textoABuscar = search, cargarImagenes = cargarImagenes });
@@ -41,6 +43,11 @@ namespace PrestamoBlazorApp.Services
                 throw new Exception("Error al guardar", ex);
             }
 
+        }
+        public async Task<string> ReportListado(IJSRuntime jSRuntime, BaseReporteParams search)
+        {
+            var d = await ReportGenerate(jSRuntime, apiReportUrl + "/ClienteReportList", search);
+            return d.StatusCode.ToString();
         }
     }
 }
