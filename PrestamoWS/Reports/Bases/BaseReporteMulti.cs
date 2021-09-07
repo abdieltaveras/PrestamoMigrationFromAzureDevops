@@ -9,6 +9,8 @@ namespace PrestamoWS.Reports.Bases
     {
         public string NombreEmpresa { get; set; }
         public string DireccionEmpresa { get; set; }
+        public string RNCEmpresa { get; set; }
+        public string TelefonoEmpresa { get; set; }
         public string TituloReporte { get; set; }
         public string OrdenadoPor { get; set; }
         public string RangoFiltro { get; set; }

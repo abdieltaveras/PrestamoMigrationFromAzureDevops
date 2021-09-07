@@ -30,6 +30,8 @@ namespace AppForRDLCDesing {
         
         private tblClientesDataTable tabletblClientes;
         
+        private tblColoresDataTable tabletblColores;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -66,6 +68,9 @@ namespace AppForRDLCDesing {
                 }
                 if ((ds.Tables["tblClientes"] != null)) {
                     base.Tables.Add(new tblClientesDataTable(ds.Tables["tblClientes"]));
+                }
+                if ((ds.Tables["tblColores"] != null)) {
+                    base.Tables.Add(new tblColoresDataTable(ds.Tables["tblColores"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -112,6 +117,16 @@ namespace AppForRDLCDesing {
         public tblClientesDataTable tblClientes {
             get {
                 return this.tabletblClientes;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public tblColoresDataTable tblColores {
+            get {
+                return this.tabletblColores;
             }
         }
         
@@ -191,6 +206,9 @@ namespace AppForRDLCDesing {
                 if ((ds.Tables["tblClientes"] != null)) {
                     base.Tables.Add(new tblClientesDataTable(ds.Tables["tblClientes"]));
                 }
+                if ((ds.Tables["tblColores"] != null)) {
+                    base.Tables.Add(new tblColoresDataTable(ds.Tables["tblColores"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -242,6 +260,12 @@ namespace AppForRDLCDesing {
                     this.tabletblClientes.InitVars();
                 }
             }
+            this.tabletblColores = ((tblColoresDataTable)(base.Tables["tblColores"]));
+            if ((initTable == true)) {
+                if ((this.tabletblColores != null)) {
+                    this.tabletblColores.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -258,6 +282,8 @@ namespace AppForRDLCDesing {
             base.Tables.Add(this.tableBaseRptMulti);
             this.tabletblClientes = new tblClientesDataTable();
             base.Tables.Add(this.tabletblClientes);
+            this.tabletblColores = new tblColoresDataTable();
+            base.Tables.Add(this.tabletblColores);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -275,6 +301,12 @@ namespace AppForRDLCDesing {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializetblClientes() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializetblColores() {
             return false;
         }
         
@@ -341,6 +373,9 @@ namespace AppForRDLCDesing {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void tblClientesRowChangeEventHandler(object sender, tblClientesRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void tblColoresRowChangeEventHandler(object sender, tblColoresRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -654,6 +689,10 @@ namespace AppForRDLCDesing {
             
             private global::System.Data.DataColumn columnDireccionEmpresa;
             
+            private global::System.Data.DataColumn columnTelefonoEmpresa;
+            
+            private global::System.Data.DataColumn columnRNCEmpresa;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public BaseRptMultiDataTable() {
@@ -753,6 +792,22 @@ namespace AppForRDLCDesing {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TelefonoEmpresaColumn {
+                get {
+                    return this.columnTelefonoEmpresa;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RNCEmpresaColumn {
+                get {
+                    return this.columnRNCEmpresa;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -788,7 +843,7 @@ namespace AppForRDLCDesing {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BaseRptMultiRow AddBaseRptMultiRow(string TituloReporte, string OrdenadoPor, string RangoFiltro, string OtrosDetalles, string FechaImpresion, string ImpresoPor, string NombreEmpresa, string DireccionEmpresa) {
+            public BaseRptMultiRow AddBaseRptMultiRow(string TituloReporte, string OrdenadoPor, string RangoFiltro, string OtrosDetalles, string FechaImpresion, string ImpresoPor, string NombreEmpresa, string DireccionEmpresa, string TelefonoEmpresa, string RNCEmpresa) {
                 BaseRptMultiRow rowBaseRptMultiRow = ((BaseRptMultiRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         TituloReporte,
@@ -798,7 +853,9 @@ namespace AppForRDLCDesing {
                         FechaImpresion,
                         ImpresoPor,
                         NombreEmpresa,
-                        DireccionEmpresa};
+                        DireccionEmpresa,
+                        TelefonoEmpresa,
+                        RNCEmpresa};
                 rowBaseRptMultiRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBaseRptMultiRow);
                 return rowBaseRptMultiRow;
@@ -829,6 +886,8 @@ namespace AppForRDLCDesing {
                 this.columnImpresoPor = base.Columns["ImpresoPor"];
                 this.columnNombreEmpresa = base.Columns["NombreEmpresa"];
                 this.columnDireccionEmpresa = base.Columns["DireccionEmpresa"];
+                this.columnTelefonoEmpresa = base.Columns["TelefonoEmpresa"];
+                this.columnRNCEmpresa = base.Columns["RNCEmpresa"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -850,6 +909,10 @@ namespace AppForRDLCDesing {
                 base.Columns.Add(this.columnNombreEmpresa);
                 this.columnDireccionEmpresa = new global::System.Data.DataColumn("DireccionEmpresa", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDireccionEmpresa);
+                this.columnTelefonoEmpresa = new global::System.Data.DataColumn("TelefonoEmpresa", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTelefonoEmpresa);
+                this.columnRNCEmpresa = new global::System.Data.DataColumn("RNCEmpresa", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRNCEmpresa);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1737,6 +1800,432 @@ namespace AppForRDLCDesing {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class tblColoresDataTable : global::System.Data.TypedTableBase<tblColoresRow> {
+            
+            private global::System.Data.DataColumn columnIdColor;
+            
+            private global::System.Data.DataColumn columnNombre;
+            
+            private global::System.Data.DataColumn columnIdNegocio;
+            
+            private global::System.Data.DataColumn columnIdLocalidadNegocio;
+            
+            private global::System.Data.DataColumn columnCodigo;
+            
+            private global::System.Data.DataColumn columnActivo;
+            
+            private global::System.Data.DataColumn columnInsertadoPor;
+            
+            private global::System.Data.DataColumn columnFechaInsertado;
+            
+            private global::System.Data.DataColumn columnModificadoPor;
+            
+            private global::System.Data.DataColumn columnFechaModificado;
+            
+            private global::System.Data.DataColumn columnAnuladoPor;
+            
+            private global::System.Data.DataColumn columnFechaAnulado;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public tblColoresDataTable() {
+                this.TableName = "tblColores";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal tblColoresDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected tblColoresDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdColorColumn {
+                get {
+                    return this.columnIdColor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn NombreColumn {
+                get {
+                    return this.columnNombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdNegocioColumn {
+                get {
+                    return this.columnIdNegocio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdLocalidadNegocioColumn {
+                get {
+                    return this.columnIdLocalidadNegocio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CodigoColumn {
+                get {
+                    return this.columnCodigo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ActivoColumn {
+                get {
+                    return this.columnActivo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn InsertadoPorColumn {
+                get {
+                    return this.columnInsertadoPor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FechaInsertadoColumn {
+                get {
+                    return this.columnFechaInsertado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ModificadoPorColumn {
+                get {
+                    return this.columnModificadoPor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FechaModificadoColumn {
+                get {
+                    return this.columnFechaModificado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AnuladoPorColumn {
+                get {
+                    return this.columnAnuladoPor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FechaAnuladoColumn {
+                get {
+                    return this.columnFechaAnulado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public tblColoresRow this[int index] {
+                get {
+                    return ((tblColoresRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event tblColoresRowChangeEventHandler tblColoresRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event tblColoresRowChangeEventHandler tblColoresRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event tblColoresRowChangeEventHandler tblColoresRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event tblColoresRowChangeEventHandler tblColoresRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddtblColoresRow(tblColoresRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public tblColoresRow AddtblColoresRow(string Nombre, int IdNegocio, int IdLocalidadNegocio, string Codigo, bool Activo, string InsertadoPor, System.DateTime FechaInsertado, string ModificadoPor, System.DateTime FechaModificado, string AnuladoPor, System.DateTime FechaAnulado) {
+                tblColoresRow rowtblColoresRow = ((tblColoresRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        Nombre,
+                        IdNegocio,
+                        IdLocalidadNegocio,
+                        Codigo,
+                        Activo,
+                        InsertadoPor,
+                        FechaInsertado,
+                        ModificadoPor,
+                        FechaModificado,
+                        AnuladoPor,
+                        FechaAnulado};
+                rowtblColoresRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowtblColoresRow);
+                return rowtblColoresRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public tblColoresRow FindByIdColor(int IdColor) {
+                return ((tblColoresRow)(this.Rows.Find(new object[] {
+                            IdColor})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                tblColoresDataTable cln = ((tblColoresDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new tblColoresDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnIdColor = base.Columns["IdColor"];
+                this.columnNombre = base.Columns["Nombre"];
+                this.columnIdNegocio = base.Columns["IdNegocio"];
+                this.columnIdLocalidadNegocio = base.Columns["IdLocalidadNegocio"];
+                this.columnCodigo = base.Columns["Codigo"];
+                this.columnActivo = base.Columns["Activo"];
+                this.columnInsertadoPor = base.Columns["InsertadoPor"];
+                this.columnFechaInsertado = base.Columns["FechaInsertado"];
+                this.columnModificadoPor = base.Columns["ModificadoPor"];
+                this.columnFechaModificado = base.Columns["FechaModificado"];
+                this.columnAnuladoPor = base.Columns["AnuladoPor"];
+                this.columnFechaAnulado = base.Columns["FechaAnulado"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnIdColor = new global::System.Data.DataColumn("IdColor", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdColor);
+                this.columnNombre = new global::System.Data.DataColumn("Nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNombre);
+                this.columnIdNegocio = new global::System.Data.DataColumn("IdNegocio", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdNegocio);
+                this.columnIdLocalidadNegocio = new global::System.Data.DataColumn("IdLocalidadNegocio", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdLocalidadNegocio);
+                this.columnCodigo = new global::System.Data.DataColumn("Codigo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCodigo);
+                this.columnActivo = new global::System.Data.DataColumn("Activo", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnActivo);
+                this.columnInsertadoPor = new global::System.Data.DataColumn("InsertadoPor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInsertadoPor);
+                this.columnFechaInsertado = new global::System.Data.DataColumn("FechaInsertado", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFechaInsertado);
+                this.columnModificadoPor = new global::System.Data.DataColumn("ModificadoPor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnModificadoPor);
+                this.columnFechaModificado = new global::System.Data.DataColumn("FechaModificado", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFechaModificado);
+                this.columnAnuladoPor = new global::System.Data.DataColumn("AnuladoPor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAnuladoPor);
+                this.columnFechaAnulado = new global::System.Data.DataColumn("FechaAnulado", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFechaAnulado);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnIdColor}, true));
+                this.columnIdColor.AutoIncrement = true;
+                this.columnIdColor.AutoIncrementSeed = -1;
+                this.columnIdColor.AutoIncrementStep = -1;
+                this.columnIdColor.AllowDBNull = false;
+                this.columnIdColor.ReadOnly = true;
+                this.columnIdColor.Unique = true;
+                this.columnNombre.AllowDBNull = false;
+                this.columnNombre.MaxLength = 50;
+                this.columnIdNegocio.AllowDBNull = false;
+                this.columnCodigo.MaxLength = 10;
+                this.columnActivo.AllowDBNull = false;
+                this.columnInsertadoPor.AllowDBNull = false;
+                this.columnInsertadoPor.MaxLength = 100;
+                this.columnFechaInsertado.AllowDBNull = false;
+                this.columnModificadoPor.MaxLength = 100;
+                this.columnAnuladoPor.MaxLength = 100;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public tblColoresRow NewtblColoresRow() {
+                return ((tblColoresRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new tblColoresRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(tblColoresRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.tblColoresRowChanged != null)) {
+                    this.tblColoresRowChanged(this, new tblColoresRowChangeEvent(((tblColoresRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.tblColoresRowChanging != null)) {
+                    this.tblColoresRowChanging(this, new tblColoresRowChangeEvent(((tblColoresRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.tblColoresRowDeleted != null)) {
+                    this.tblColoresRowDeleted(this, new tblColoresRowChangeEvent(((tblColoresRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.tblColoresRowDeleting != null)) {
+                    this.tblColoresRowDeleting(this, new tblColoresRowChangeEvent(((tblColoresRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemovetblColoresRow(tblColoresRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                dsReports ds = new dsReports();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "tblColoresDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class CatalogoGetListadoRow : global::System.Data.DataRow {
@@ -2007,6 +2496,38 @@ namespace AppForRDLCDesing {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TelefonoEmpresa {
+                get {
+                    try {
+                        return ((string)(this[this.tableBaseRptMulti.TelefonoEmpresaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TelefonoEmpresa\' in table \'BaseRptMulti\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBaseRptMulti.TelefonoEmpresaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string RNCEmpresa {
+                get {
+                    try {
+                        return ((string)(this[this.tableBaseRptMulti.RNCEmpresaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RNCEmpresa\' in table \'BaseRptMulti\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBaseRptMulti.RNCEmpresaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsTituloReporteNull() {
                 return this.IsNull(this.tableBaseRptMulti.TituloReporteColumn);
             }
@@ -2099,6 +2620,30 @@ namespace AppForRDLCDesing {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetDireccionEmpresaNull() {
                 this[this.tableBaseRptMulti.DireccionEmpresaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTelefonoEmpresaNull() {
+                return this.IsNull(this.tableBaseRptMulti.TelefonoEmpresaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTelefonoEmpresaNull() {
+                this[this.tableBaseRptMulti.TelefonoEmpresaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsRNCEmpresaNull() {
+                return this.IsNull(this.tableBaseRptMulti.RNCEmpresaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetRNCEmpresaNull() {
+                this[this.tableBaseRptMulti.RNCEmpresaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2742,6 +3287,255 @@ namespace AppForRDLCDesing {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class tblColoresRow : global::System.Data.DataRow {
+            
+            private tblColoresDataTable tabletblColores;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal tblColoresRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tabletblColores = ((tblColoresDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int IdColor {
+                get {
+                    return ((int)(this[this.tabletblColores.IdColorColumn]));
+                }
+                set {
+                    this[this.tabletblColores.IdColorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Nombre {
+                get {
+                    return ((string)(this[this.tabletblColores.NombreColumn]));
+                }
+                set {
+                    this[this.tabletblColores.NombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int IdNegocio {
+                get {
+                    return ((int)(this[this.tabletblColores.IdNegocioColumn]));
+                }
+                set {
+                    this[this.tabletblColores.IdNegocioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int IdLocalidadNegocio {
+                get {
+                    try {
+                        return ((int)(this[this.tabletblColores.IdLocalidadNegocioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IdLocalidadNegocio\' in table \'tblColores\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblColores.IdLocalidadNegocioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Codigo {
+                get {
+                    try {
+                        return ((string)(this[this.tabletblColores.CodigoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Codigo\' in table \'tblColores\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblColores.CodigoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Activo {
+                get {
+                    return ((bool)(this[this.tabletblColores.ActivoColumn]));
+                }
+                set {
+                    this[this.tabletblColores.ActivoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string InsertadoPor {
+                get {
+                    return ((string)(this[this.tabletblColores.InsertadoPorColumn]));
+                }
+                set {
+                    this[this.tabletblColores.InsertadoPorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime FechaInsertado {
+                get {
+                    return ((global::System.DateTime)(this[this.tabletblColores.FechaInsertadoColumn]));
+                }
+                set {
+                    this[this.tabletblColores.FechaInsertadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ModificadoPor {
+                get {
+                    try {
+                        return ((string)(this[this.tabletblColores.ModificadoPorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ModificadoPor\' in table \'tblColores\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblColores.ModificadoPorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime FechaModificado {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tabletblColores.FechaModificadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FechaModificado\' in table \'tblColores\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblColores.FechaModificadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string AnuladoPor {
+                get {
+                    try {
+                        return ((string)(this[this.tabletblColores.AnuladoPorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AnuladoPor\' in table \'tblColores\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblColores.AnuladoPorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime FechaAnulado {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tabletblColores.FechaAnuladoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FechaAnulado\' in table \'tblColores\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblColores.FechaAnuladoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsIdLocalidadNegocioNull() {
+                return this.IsNull(this.tabletblColores.IdLocalidadNegocioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetIdLocalidadNegocioNull() {
+                this[this.tabletblColores.IdLocalidadNegocioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCodigoNull() {
+                return this.IsNull(this.tabletblColores.CodigoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCodigoNull() {
+                this[this.tabletblColores.CodigoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsModificadoPorNull() {
+                return this.IsNull(this.tabletblColores.ModificadoPorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetModificadoPorNull() {
+                this[this.tabletblColores.ModificadoPorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFechaModificadoNull() {
+                return this.IsNull(this.tabletblColores.FechaModificadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFechaModificadoNull() {
+                this[this.tabletblColores.FechaModificadoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAnuladoPorNull() {
+                return this.IsNull(this.tabletblColores.AnuladoPorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAnuladoPorNull() {
+                this[this.tabletblColores.AnuladoPorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFechaAnuladoNull() {
+                return this.IsNull(this.tabletblColores.FechaAnuladoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFechaAnuladoNull() {
+                this[this.tabletblColores.FechaAnuladoColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -2829,6 +3623,40 @@ namespace AppForRDLCDesing {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public tblClientesRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class tblColoresRowChangeEvent : global::System.EventArgs {
+            
+            private tblColoresRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public tblColoresRowChangeEvent(tblColoresRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public tblColoresRow Row {
                 get {
                     return this.eventRow;
                 }

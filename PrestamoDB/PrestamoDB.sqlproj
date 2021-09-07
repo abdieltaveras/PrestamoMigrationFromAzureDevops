@@ -220,6 +220,7 @@
     <Build Include="dbo\Stored Procedures\spInsUpdOcupacion.sql" />
     <Build Include="dbo\Tables\tblDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\spGetGarantiasByprestamo.sql" />
+    <Build Include="dbo\Stored Procedures\spRptClientes.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
