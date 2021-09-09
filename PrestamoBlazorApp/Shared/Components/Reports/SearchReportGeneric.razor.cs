@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using PrestamoEntidades;
 using PrestamoBlazorApp.Services;
+using System.Reflection;
+
 namespace PrestamoBlazorApp.Shared.Components.Reports
 {
     public partial class SearchReportGeneric : BaseForList
     {
+       
         [Inject]
         public ReportesService reportesService { get; set; }
         [Parameter]
@@ -17,10 +20,15 @@ namespace PrestamoBlazorApp.Shared.Components.Reports
         public string EndPointReporte { get; set; }
         public DateTime FDesde { get; set; } = DateTime.Now;
         public DateTime FHasta { get; set; } = DateTime.Now;
+        List<PropertyInfo> SearchOptions = new List<PropertyInfo>();
         protected override async Task OnInitializedAsync()
         {
             // await Handle_GetDataForList(GetClientes);
-          
+           
+            foreach (PropertyInfo item in typeof(Cliente).GetProperties())
+            {
+                SearchOptions.Add(item);
+            }
             BaseReporteParams = new BaseReporteParams();
             await base.OnInitializedAsync();
         }
@@ -30,8 +38,8 @@ namespace PrestamoBlazorApp.Shared.Components.Reports
             await BlockPage();
             if(BaseReporteParams.Rango == "FechaIngreso" || BaseReporteParams.Rango == "FechaNacimiento")
             {
-                BaseReporteParams.Desde = FDesde.ToString();
-                BaseReporteParams.Hasta = FHasta.ToString();
+                BaseReporteParams.ODesde = FDesde.ToString();
+                BaseReporteParams.OHasta = FHasta.ToString();
             }
             var a =   await reportesService.ReporteGenerico(jsRuntime, EndPointReporte, BaseReporteParams);
             await UnBlockPage();
@@ -39,7 +47,9 @@ namespace PrestamoBlazorApp.Shared.Components.Reports
 
        private async void VerGenerador() 
        {
+            
             await JsInteropUtils.ShowModal(jsRuntime, "#ModalGenerarReporte");
        }
+
     }
 }

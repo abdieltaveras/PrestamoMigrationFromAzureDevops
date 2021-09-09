@@ -21,19 +21,42 @@
                                 <div class="form-group">
                                     <label for="codigo">Ordenar Por</label>
                                     <InputSelect class="form-control" @bind-Value="BaseReporteParams.OrdenarPor">
+                                        @*@foreach (var item in SearchOptions)
+                                            {
+                                                <option value="@item.Name">@item.Name</option>
+                                            }*@            
                                         <option value="Nombres">Nombres</option>
                                         <option value="Apellidos">Apellidos</option>
+                                        <option value="Codigo">Codigo</option>
                                         <option value="NoIdentificacion"># Identificacion</option>
                                         <option value="FechaIngreso">FechaIngreso</option>
                                         <option value="FechaNacimiento">FechaNacimiento</option>
                                     </InputSelect>
                                 </div>
+                                <div class="form-group">
+                                 
+
+                                        <div class="form-group">
+                                            <label> Desde</label>
+                                            <InputText class="form-control" @bind-Value="BaseReporteParams.ODesde" autocomplete="off"></InputText>
+                                        </div>
+                                        <div class="form-group">
+                                            <label> Hasta</label>
+                                            <InputText class="form-control" @bind-Value="BaseReporteParams.OHasta" autocomplete="off"></InputText>
+                                        </div>
+                                 
+                                </div>
                                 <hr />
                                 <div class="form-group">
                                     <label for="codigo">Rango</label>
                                     <InputSelect class="form-control" @bind-Value="BaseReporteParams.Rango" @onchange="()=>BaseReporteParams = new BaseReporteParams()">
+                                        @*@foreach (var item in SearchOptions)
+                                        {
+                                            <option value="@item.Name">@item.Name</option>
+                                        }*@
                                         <option value="Nombres">Nombres</option>
                                         <option value="Apellidos">Apellidos</option>
+                                        <option value="Codigo">Codigo</option>
                                         <option value="NoIdentificacion"># Identificacion</option>
                                         <option value="FechaIngreso">FechaIngreso</option>
                                         <option value="FechaNacimiento">FechaNacimiento</option>
@@ -53,14 +76,14 @@
                                     }
                                     else
                                     {
-                                       
+
                                         <div class="form-group">
                                             <label> Desde</label>
-                                            <InputText class="form-control" @bind-Value="BaseReporteParams.Desde" autocomplete="off"></InputText>
+                                            <InputText class="form-control" @bind-Value="BaseReporteParams.RDesde" autocomplete="off"></InputText>
                                         </div>
                                         <div class="form-group">
                                             <label> Hasta</label>
-                                            <InputText class="form-control" @bind-Value="BaseReporteParams.Hasta" autocomplete="off"></InputText>
+                                            <InputText class="form-control" @bind-Value="BaseReporteParams.RHasta" autocomplete="off"></InputText>
                                         </div>
                                     }
                                 </div>

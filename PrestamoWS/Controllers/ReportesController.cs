@@ -88,7 +88,7 @@ namespace PrestamoWS.Controllers
                 DireccionEmpresa = "Calle Principal, Algun barrio de la romana, La Romana, Rep Dom",
                 TituloReporte = "Listado De Clientes",
                 ImpresoPor = "lheskey",
-                RangoFiltro = getParams.Desde +"-"+ getParams.Hasta,
+                RangoFiltro = getParams.RDesde +"-"+ getParams.RHasta,
                 OrdenadoPor = getParams.OrdenarPor,
                 OtrosDetalles = "-"
 

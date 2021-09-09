@@ -43,9 +43,11 @@ namespace PrestamoEntidades
     public class BaseReporteParams
     {
         public string OrdenarPor { get; set; } = "Nombres";
+        public string ODesde { get; set; } = "A";
+        public string OHasta { get; set; } = "Z";
         public string Rango { get; set; } = "Nombres";
-        public string Desde { get; set; } = "A";
-        public string Hasta { get; set; } = "Z";
+        public string RDesde { get; set; } = "A";
+        public string RHasta { get; set; } = "Z";
         public int reportType { get; set; } = 1;
     }
 }
