@@ -5,12 +5,10 @@
 	@Anulado int=0
 as
 BEGIN
-
 	SELECT 
 		IdRole, IdOperacion 
 	FROM 
 		tblRolesOperaciones 
 	WHERE 
 		IdRole = @IdRole AND AnuladoPor IS NULL;
-
 End

@@ -17,17 +17,20 @@ namespace PrestamoBlazorApp.Pages.Periodos
         [Parameter]
         public Periodo Periodo { get; set; } = new Periodo();
 
-        private int? _SelectedPeriodo = null;
+        private int? _IdSelectedPeriodo = null;
 
-        public int? SelectedPeriodo { get { return _SelectedPeriodo; } set { _SelectedPeriodo = value; Seleccionar(); } }
+        public int? IdSelectedPeriodo { get { return _IdSelectedPeriodo; } set { _IdSelectedPeriodo = value; Seleccionar(); } }
+
+        public int IdSelectedPeriodoBase { get; set; }
         public bool ChkEstatus { get; set; } = true;
         public bool ChkRequiereAutorizacion { get; set; }
         public PeriodoBase PeriodoBase { get; set; }
         private void Seleccionar()
         {
             //SelectedLocalidad = Convert.ToInt32(args.);
-            var selected = Periodoss.Where(m => m.idPeriodo == SelectedPeriodo).FirstOrDefault();
+            var selected = Periodoss.Where(m => m.idPeriodo == IdSelectedPeriodo).FirstOrDefault();
             Periodo.idPeriodo = selected.idPeriodo;
+            IdSelectedPeriodoBase = (int)selected.PeriodoBase;
            // Periodo.IdPeriodoBase;
             //OnLocalidadSelected.InvokeAsync(selected);
 
@@ -50,7 +53,7 @@ namespace PrestamoBlazorApp.Pages.Periodos
             {
                 var periodo = await PeriodosService.Get(new PeriodoGetParams { idPeriodo = idPeriodo });
                 this.Periodo = periodo.FirstOrDefault();
-                this.SelectedPeriodo = Periodo.IdPeriodoBase;
+                this.IdSelectedPeriodo = Periodo.idPeriodo;
                 this.ChkEstatus = this.Periodo.Activo;
                 this.ChkRequiereAutorizacion = this.Periodo.RequiereAutorizacion;
             }
@@ -61,10 +64,11 @@ namespace PrestamoBlazorApp.Pages.Periodos
             await UnBlockPage();
             await JsInteropUtils.ShowModal(jsRuntime, "#MyModal");
         }
-        async Task SavePriodo()
+        async Task Save()
         {
             Periodo.IdNegocio = 1;
             Periodo.IdLocalidadNegocio = 1;
+            Periodo.PeriodoBase = (PeriodoBase)IdSelectedPeriodoBase;
             Periodo.Usuario = "Luis";
             this.Periodo.RequiereAutorizacion = ChkRequiereAutorizacion;
             this.Periodo.Activo = ChkEstatus;

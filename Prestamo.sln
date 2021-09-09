@@ -76,6 +76,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppForRDLCDesing", "AppForR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoBLLTests", "PrestamoBLLTests\PrestamoBLLTests.csproj", "{2485EA1F-FED0-406E-B0A8-0FD11931AD59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoEntidadesTests1", "PrestamoEntidadesTests1\PrestamoEntidadesTests1.csproj", "{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU
@@ -146,6 +148,12 @@ Global
 		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -98,7 +98,7 @@ namespace PrestamoBLL
             validarIdNoMenorNiIgualACero(prestamo.IdNegocio, "IdNegocio");
             prestamoInProgress.IdNegocio = prestamo.IdNegocio;
             prestamoInProgress.IdLocalidadNegocio = prestamo.IdLocalidadNegocio;
-            prestamoInProgress.OtrosCargosSinInteres = prestamo.OtrosCargosSinInteres;
+            prestamoInProgress.OtrosCargos = prestamo.OtrosCargos;
             SetFechaDeEmision(prestamo.FechaEmisionReal);
             SetClasificacion(prestamo.IdClasificacion);
             //SetAmortizacion(prestamo.TipoAmortizacion);
@@ -216,7 +216,7 @@ namespace PrestamoBLL
         {
             // primero buscar el periodo
             // luego tomar la fecha inicial de partida y hacer los calculos
-            var duracion = this.prestamoInProgress.CantidadDePeriodos * periodo.MultiploPeriodoBase;
+            var duracion = this.prestamoInProgress.CantidadDePeriodos * (int)periodo.MultiploPeriodoBase;
             var fechaVencimiento = new DateTime();
             if (prestamoInProgress.AcomodarFechaALasCuotas)
             {
@@ -400,6 +400,8 @@ namespace PrestamoBLL
             //var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
             return GetGeneradorDeCuotas(prestamoInProgress);
         }
+        
+
 
         public static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)
         {

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
+
+
     public class GeneradorCuotasFijasNoAmortizable : IGeneradorCuotas
     {
         internal readonly IInfoGeneradorCuotas infoGenerarCuotas;
@@ -90,7 +92,7 @@ namespace PrestamoBLL
 
 
             decimal ajusteCapital = infoGenerarCuotas.MontoCapital - totalCapitalCuotas;
-            decimal ajusteOtrosCargosSinInteres = infoGenerarCuotas.OtrosCargosSinInteres - totalOtrosCargosSinInteresCuotas;
+            decimal ajusteOtrosCargosSinInteres = infoGenerarCuotas.OtrosCargos - totalOtrosCargosSinInteresCuotas;
             decimal ajusteGastoDeCierre = 0;
             if (!infoGenerarCuotas.GastoDeCierreEsDeducible)
             {
@@ -143,14 +145,14 @@ namespace PrestamoBLL
             switch (periodo.PeriodoBase)
             {
                 case PeriodoBase.Dia:
-                    fecha = this.fechaCuotaAnterior.AddDays(1 * periodo.MultiploPeriodoBase);
+                    fecha = this.fechaCuotaAnterior.AddDays(1 * (int)periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Semana:
-                    fecha = this.fechaCuotaAnterior.AddDays(7 * periodo.MultiploPeriodoBase);
+                    fecha = this.fechaCuotaAnterior.AddDays(7 * (int)periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Quincena:
                     fecha = this.fechaCuotaAnterior;
-                    for (int periodoCuota = 1; periodoCuota <= periodo.MultiploPeriodoBase; periodoCuota++)
+                    for (int periodoCuota = 1; periodoCuota <= (int)periodo.MultiploPeriodoBase; periodoCuota++)
                     {
                         if (periodoCuota % 2 == 0)
                         {
@@ -163,10 +165,10 @@ namespace PrestamoBLL
                     }
                     break;
                 case PeriodoBase.Mes:
-                    fecha = this.fechaCuotaAnterior.AddMonths(1 * periodo.MultiploPeriodoBase);
+                    fecha = this.fechaCuotaAnterior.AddMonths(1 * (int)periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Ano:
-                    fecha = this.fechaCuotaAnterior.AddYears(1 * periodo.MultiploPeriodoBase);
+                    fecha = this.fechaCuotaAnterior.AddYears(1 * (int)periodo.MultiploPeriodoBase);
                     break;
                 default:
                     break;
@@ -207,7 +209,7 @@ namespace PrestamoBLL
             var tasaInteresPorPeriodo = infoGenerarCuotas.TasaDeInteresDelPeriodo;
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
-            decimal otrosCargosSininteresPorCuota = Math.Round(infoGenerarCuotas.OtrosCargosSinInteres / infoGenerarCuotas.CantidadDePeriodos, 2);
+            decimal otrosCargosSininteresPorCuota = Math.Round(infoGenerarCuotas.OtrosCargos / infoGenerarCuotas.CantidadDePeriodos, 2);
             return otrosCargosSininteresPorCuota;
         }
         private decimal getCapitalPorCuota()

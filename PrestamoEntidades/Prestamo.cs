@@ -284,13 +284,17 @@ namespace PrestamoEntidades
         public virtual bool FinanciarGastoDeCierre { get; set; } = true;
         [Display(Name = "Cargo interes al G/C ?")]
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
-        [Display(Name = "Desea acomodar las fechas de las cuotas?")]
-        public virtual bool AcomodarFechaALasCuotas => FechaInicioPrimeraCuota != null && FechaInicioPrimeraCuota!= InitValues._19000101;
+        
+        /// <summary>
+        /// determina si se acomodaran las cuotas o no, lo hace determinando el valor de FechaInicioPrimeraCuota
+        /// que el mismo le hayan establecido alguno para hacer el calculo
+        /// </summary>
+        public virtual bool AcomodarFechaALasCuotas =>  FechaInicioPrimeraCuota!= InitValues._19000101;
                 
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
-        [ReadOnly(true)]
+        
         
         public DateTime FechaInicioPrimeraCuota { get; set; }  = InitValues._19000101;
 
@@ -316,17 +320,17 @@ namespace PrestamoEntidades
         public InfoClienteDrCr infoCliente { get; internal set; }
         public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; internal set; }
         [Range(0.00, 999999999999.99, ErrorMessage = "no se aceptan valores negativos")]
-        [Display(Name = "Otros Cargos Sin Interes")]
-        public decimal OtrosCargosSinInteres { get; set; }
+        [Display(Name = "Otros Cargos")]
+        public decimal OtrosCargos { get; set; }
 
+        public bool CargarInteresAOtrosGastos { get; set; }
         /// <summary>
         /// true si es para estimarla generando solamente las primera y ultima cuota o false
         /// si es para generarlas todas se usa normalmente para insertar o actualizar un prestamo
         /// que no tiene operacionescc
         /// </summary>
         [IgnoreOnParams]
-        public bool ProyectarPrimeraYUltima { get; set; } = true;
-
+        public bool ProyectarPrimeraYUltima { get; set; } = false;
 
         public override string ToString()
         {
@@ -334,6 +338,8 @@ namespace PrestamoEntidades
         }
         [IgnoreOnParams]
         public bool LlevaGarantia { get; set; }
+
+        
     }
 
     public static class ExtMeth

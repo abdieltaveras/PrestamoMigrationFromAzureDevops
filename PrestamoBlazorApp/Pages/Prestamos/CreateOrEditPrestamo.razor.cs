@@ -157,7 +157,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
             this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
             ClasificacionSelected = Clasificaciones.FirstOrDefault();
-            this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
+            this.prestamo.TipoAmortizacion =TiposAmortizacion.No_Amortizable_cuotas_fijas;
             this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
 
             this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;

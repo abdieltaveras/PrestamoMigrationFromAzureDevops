@@ -13,12 +13,15 @@ namespace PrestamoEntidades
         decimal MontoCapital { get; }
 
         decimal MontoGastoDeCierre { get; }
-        decimal OtrosCargosSinInteres { get; }
+        
         bool CargarInteresAlGastoDeCierre { get; }
 
         bool GastoDeCierreEsDeducible { get; }
 
         bool FinanciarGastoDeCierre { get; }
+
+        decimal OtrosCargos { get; }
+        bool CargarInteresAOtrosGastos { get; }
         int CantidadDePeriodos { get; }
         bool AcomodarFechaALasCuotas { get; }
         DateTime FechaInicioPrimeraCuota { get; }
@@ -29,7 +32,11 @@ namespace PrestamoEntidades
 
     public class InfoGeneradorDeCuotas : IInfoGeneradorCuotas
     {
-        public TiposAmortizacion TipoAmortizacion { get;  set; }
+        public InfoGeneradorDeCuotas()
+        {
+
+        }
+        public TiposAmortizacion TipoAmortizacion { get; set; }
 
         public DateTime FechaEmisionReal { get; set; } = InitValues._19000101;
 
@@ -51,23 +58,17 @@ namespace PrestamoEntidades
         public Periodo Periodo { get; set; }
 
         public bool FinanciarGastoDeCierre { get; set; }
-        public decimal OtrosCargosSinInteres { get; set; }
+
         public bool GastoDeCierreEsDeducible { get; set; }
 
         public bool ProyectarPrimeraYUltima { get; set; } = true;
 
-        public InfoGeneradorDeCuotas(TiposAmortizacion tipoAMortizacion)
-        {
-            this.TipoAmortizacion = TipoAmortizacion;
-        }
+        public decimal OtrosCargos { get; set; }
 
-        public InfoGeneradorDeCuotas()
-        {
+        public bool CargarInteresAOtrosGastos {get;set;}
 
-        }
         public InfoGeneradorDeCuotas(Prestamo prestamo)
         {
-
                 AcomodarFechaALasCuotas = prestamo.AcomodarFechaALasCuotas;
                 CantidadDePeriodos = prestamo.CantidadDePeriodos;
                 MontoCapital = prestamo.MontoCapital;
@@ -76,11 +77,10 @@ namespace PrestamoEntidades
                 CargarInteresAlGastoDeCierre = prestamo.CargarInteresAlGastoDeCierre;
                 FinanciarGastoDeCierre = prestamo.FinanciarGastoDeCierre;
                 MontoGastoDeCierre = prestamo.MontoGastoDeCierre;
-                OtrosCargosSinInteres = prestamo.OtrosCargosSinInteres;
+                OtrosCargos = prestamo.OtrosCargos;
                 GastoDeCierreEsDeducible = prestamo.GastoDeCierreEsDeducible;
                 TasaDeInteresDelPeriodo = prestamo.TasaDeInteresDelPeriodo;
                 Periodo = prestamo.Periodo;
-                //TipoAmortizacion = prestamo.TipoAmortizacion;
                 TipoAmortizacion = (TiposAmortizacion)prestamo.IdTipoAmortizacion;
         }
     }

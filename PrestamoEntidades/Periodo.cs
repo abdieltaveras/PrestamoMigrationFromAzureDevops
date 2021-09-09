@@ -7,6 +7,7 @@ namespace PrestamoEntidades
     public class Periodo : BaseCatalogo
     {
         public int idPeriodo { get; set; } = 0;
+
         // el valor numerico del interes 10%, 4%, etc
         [IgnoreOnParams]
         public PeriodoBase PeriodoBase
@@ -14,8 +15,13 @@ namespace PrestamoEntidades
             get { return (PeriodoBase)IdPeriodoBase; }
             set { IdPeriodoBase = (int)value; }
         }
-        public int IdPeriodoBase { get;  set; } = 1;
-        // public int IdPeriodoBase { get; internal set; } = 1;
+
+        //public int IdPeriodoBase
+        //{
+        //    get { return (int)PeriodoBase; }
+        //    internal set { PeriodoBase = (PeriodoBase)value; }
+        //}
+        public int IdPeriodoBase { get; internal set; } = (int)PeriodoBase.Dia;
         public int MultiploPeriodoBase { get; set; } = 1;
 
 
@@ -33,19 +39,19 @@ namespace PrestamoEntidades
                 switch (PeriodoBase)
                 {
                     case PeriodoBase.Dia:
-                        dias = (1 * MultiploPeriodoBase);
+                        dias = (1 * (int)MultiploPeriodoBase);
                         break;
                     case PeriodoBase.Semana:
-                        dias = (7 * MultiploPeriodoBase);
+                        dias = (7 * (int)MultiploPeriodoBase);
                         break;
                     case PeriodoBase.Quincena:
-                        dias = (15 * MultiploPeriodoBase);
+                        dias = (15 * (int)MultiploPeriodoBase);
                         break;
                     case PeriodoBase.Mes:
-                        dias = (30 * MultiploPeriodoBase);
+                        dias = (30 * (int)MultiploPeriodoBase);
                         break;
                     case PeriodoBase.Ano:
-                        dias = (365 * MultiploPeriodoBase);
+                        dias = (365 * (int)MultiploPeriodoBase);
                         break;
                 };
                 return dias;
