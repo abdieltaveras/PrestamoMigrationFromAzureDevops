@@ -1,7 +1,7 @@
 ﻿@page "/colores"
 @inherits BaseForCreateOrEdit
-
-    <CreateOrEditCatalogo Catalogo="Catalogo" CatalogoGetParams="CatalogoGetParams"></CreateOrEditCatalogo>
-    @*<a href="https://localhost:44369/api/Reports/CatalogoReportList?ReportType=1" class="btn btn-outline-dark" target="_blank">PDF</a>*@
-    @*<button class="btn btn-outline-dark" @onclick="PrintListado"></button>*@
-    @*<a href="https://localhost:44369/api/Reports/CatalogoReportList?ReportType=1" class="btn btn-outline-dark" target="_blank">PDF</a>*@
+@using PrestamoBlazorApp.Shared.Components.Catalogos
+<CreateOrEditCatalogo Catalogo="Catalogo" CatalogoGetParams="CatalogoGetParams"></CreateOrEditCatalogo>
+@*<a href="https://localhost:44369/api/Reports/CatalogoReportList?ReportType=1" class="btn btn-outline-dark" target="_blank">PDF</a>*@
+@*<button class="btn btn-outline-dark" @onclick="PrintListado"></button>*@
+@*<a href="https://localhost:44369/api/Reports/CatalogoReportList?ReportType=1" class="btn btn-outline-dark" target="_blank">PDF</a>*@

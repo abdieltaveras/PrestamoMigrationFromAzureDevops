@@ -34,7 +34,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Clasificacion>(apiUrl, Clasificacion);
+                await PostAsync<Clasificacion>(apiUrl+"/post", Clasificacion);
             }
             catch (Exception ex)
             {

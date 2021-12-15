@@ -9,7 +9,7 @@ using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
 
-namespace PrestamoBlazorApp.Shared
+namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
     public partial class CreateOrEditCatalogo : BaseForCreateOrEdit
     {
