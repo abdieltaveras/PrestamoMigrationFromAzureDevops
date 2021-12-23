@@ -1,6 +1,6 @@
 ﻿@page "/modelos"
 @inherits BaseForCreateOrEdit
-
+@using PrestamoBlazorApp.Shared.Components.Catalogos
 <h1>Modelos  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
 
 @*Aqui funciona para que funcione en un modal hay que entrarlo dentro de un dialogo
@@ -47,7 +47,7 @@
                                 <InputText id="nombre" class="form-control col-md-6" @bind-Value="Modelo.Nombre"></InputText>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" >Guardar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -97,8 +97,8 @@
                     <td>@item.Nombre</td>
                     <td>
                         @*<button class="btn btn-outline-warning">
-            <i class="oi oi-document"></i>
-        </button>*@
+                                <i class="oi oi-document"></i>
+                            </button>*@
                         <button @onclick="()=>CreateOrEdit(item.IdModelo)" class="btn btn-outline-primary">
                             <i class="fa fa-edit"></i>
                         </button>
