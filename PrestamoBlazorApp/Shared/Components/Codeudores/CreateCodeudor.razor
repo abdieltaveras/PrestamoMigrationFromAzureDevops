@@ -1,11 +1,5 @@
-﻿@page "/clientes/CreateOrEdit"
-@page "/clientes/CreateOrEdit/{idCliente:int}"
-@using PrestamoBlazorApp.Shared.Components.Forms
-@*@using PrestamoEntidades;*@
-@*@using PrestamoBlazorApp.Shared;*@
-@*@using PrestamoBlazorApp.Pages.Clientes;
-    @using Microsoft.AspNetCore.WebUtilities*@
-@*@inject NavigationManager NavigationManager*@
+﻿@using PrestamoBlazorApp.Shared.Components.Forms
+
 
 @inherits BaseForCreateOrEdit
 <div class="grid-container">
@@ -26,10 +20,10 @@
         <RadzenTabs style="height: 880px">
             <Tabs>
                 <RadzenTabsItem Text="Generales">
-                        <div class="row">
-                            <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
-                                                FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
-                        </div>
+                    <div class="row">
+                        <GeneralesCodeudorUI Ocupaciones="Ocupaciones" cliente="cliente" AllowInputCodigo=false  OnEstadoCivilChange=@UpdateEstadoCivil
+                                            FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
+                    </div>
                 </RadzenTabsItem>
                 @if (cliente.TieneConyuge || cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
                 {
@@ -54,8 +48,6 @@
     </EditForm>
     @*<EventConsole @ref="@console"> </EventConsole>*@
 </div>
+@code{
 
-
-
-
-
+}
