@@ -3,7 +3,7 @@
 
 @inherits BaseForCreateOrEdit
 <div class="grid-container">
-    <EditForm Model="@cliente">
+    <EditForm Model="@Codeudor">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="bg-secondary">
@@ -21,28 +21,18 @@
             <Tabs>
                 <RadzenTabsItem Text="Generales">
                     <div class="row">
-                        <GeneralesCodeudorUI Ocupaciones="Ocupaciones" cliente="cliente" AllowInputCodigo=false  OnEstadoCivilChange=@UpdateEstadoCivil
+                        <GeneralesCodeudorUI Ocupaciones="Ocupaciones" Codeudor="Codeudor" AllowInputCodigo=false  OnEstadoCivilChange=@UpdateEstadoCivil
                                             FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
                     </div>
                 </RadzenTabsItem>
-                @if (cliente.TieneConyuge || cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
-                {
-                    <RadzenTabsItem Text="conyuge">
-                        <ConyugeUI conyuge=@conyuge></ConyugeUI>
-                    </RadzenTabsItem>
-                }
+          
                 <RadzenTabsItem Text="Direccion">
                     <DireccionUI direccion=@direccion />
                 </RadzenTabsItem>
                 <RadzenTabsItem Text="Laborales">
                     <LaboralUI infoLaboral=@infoLaboral />
                 </RadzenTabsItem>
-                <RadzenTabsItem Text="Referencias">
-                    @for (int i = 0; i < referencias.Count; i++)
-                    {
-                        <InputReferencia referencia=@referencias[i] Index=@i />
-                    }
-                </RadzenTabsItem>
+           
             </Tabs>
         </RadzenTabs>
     </EditForm>

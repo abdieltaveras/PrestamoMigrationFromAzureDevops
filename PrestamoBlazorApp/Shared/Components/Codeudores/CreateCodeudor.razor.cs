@@ -24,11 +24,11 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
         [Inject]
         LocalidadesService localidadService { get; set; }
         [Inject]
-        ClientesService clientesService { get; set; }
+        CodeudoresService CodeudoresService { get; set; }
 
         // parametros
         [Parameter]
-        public int idCliente { get; set; }
+        public int IdCodeudor { get; set; }
 
         List<Imagen> FotosRostroCliente { get; set; } = new List<Imagen>();
 
@@ -36,7 +36,7 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
         // miembros
         string searchSector = string.Empty;
 
-        public Cliente cliente { get; set; } = new Cliente();
+        public Codeudor Codeudor { get; set; } = new Codeudor();
         Conyuge conyuge { get; set; } = new Conyuge();
 
         DireccionModel direccion { get; set; } = new DireccionModel();
@@ -64,7 +64,7 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
         protected override async Task OnInitializedAsync()
         {
 
-            await Handle_GetData(prepareModel, @"/Clientes");
+            await Handle_GetData(prepareModel, @"/Codeudores");
             //await prepareModel();
             await base.OnInitializedAsync();
         }
@@ -74,37 +74,35 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
 
         }
 
-        private void UpdateTieneConyuge(bool value)
-        {
-            cliente.TieneConyuge = value;
-        }
+     
 
         private void UpdateEstadoCivil(int value)
         {
             //NotifyMessageBox("estado civil actualizado");
-            cliente.IdEstadoCivil = value;
+            Codeudor.IdEstadoCivil = value;
         }
 
         private async Task prepareModel()
         {
             Ocupaciones = await GetOcupaciones();
             LoadedFotos = false;
-            if (idCliente != 0)
+            if (IdCodeudor != 0)
             {
-                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente }, true);
-                this.cliente = clientes.FirstOrDefault();
+                var codeudores = await CodeudoresService.GetCodeudoresAsync(new CodeudorGetParams { IdCodeudor = IdCodeudor }, true);
+                this.Codeudor = codeudores.FirstOrDefault();
             }
-            if (this.cliente == null || idCliente <= 0)
+            if (this.Codeudor == null || IdCodeudor <= 0)
             {
-                this.cliente = new Cliente
+                this.Codeudor = new Codeudor
                 {
+                    IdLocalidadNegocio=1,
                     Codigo = "Nuevo",
                     Nombres = "a1",
                     Apellidos = "a2",
                     Apodo = "a3",
                     IdTipoIdentificacion = 1,
                     NoIdentificacion = "000-0000000-1",
-                    InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
+                   
                     InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
                     InfoDireccionObj = new Direccion
                     {
@@ -118,13 +116,12 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
             }
             else
             {
-                this.conyuge = cliente.InfoConyugeObj;
-                this.infoLaboral = cliente.InfoLaboralObj;
-                this.direccion = cliente.InfoDireccionObj.ToJson().ToType<DireccionModel>(); ;
+              
+                this.infoLaboral = Codeudor.InfoLaboralObj;
+                this.direccion = Codeudor.InfoDireccionObj.ToJson().ToType<DireccionModel>(); ;
                 var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
                 this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
-            SetReferencias(cliente.InfoReferenciasObj);
             FilterImagesByGroup();
             LoadedFotos = true;
             //StateHasChanged();
@@ -134,7 +131,7 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
         {
             FotosRostroCliente.Clear();
             FotosDocIdentificacion.Clear();
-            cliente.ImagenesObj.ForEach(item =>
+            Codeudor.ImagenesObj.ForEach(item =>
             {
                 if (!item.Quitar)
                 {
@@ -167,24 +164,24 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
 
         private async Task<bool> SaveData()
         {
-            this.cliente.InfoConyugeObj = conyuge;
-            this.cliente.InfoReferenciasObj = referencias;
-            this.cliente.InfoDireccionObj = direccion;
-            this.cliente.InfoLaboralObj = infoLaboral;
+            direccion.IdLocalidad = 1;
+            direccion.IdLocalidadNegocio = 1;
+            this.Codeudor.InfoDireccionObj = direccion;
+            this.Codeudor.InfoLaboralObj = infoLaboral;
 
-            var result = Validaciones.ForCliente001().Validate(cliente);
-            var validacionesFallidas = result.Where(item => item.Success == false);
-            var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
-            if (validacionesFallidas.Count() > 0)
-            {
-                SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
-                return false;
-            }
+            //var result = Validaciones.ForCliente001().Validate(cliente);
+            //var validacionesFallidas = result.Where(item => item.Success == false);
+            //var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
+            //if (validacionesFallidas.Count() > 0)
+            //{
+            //    SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
+            //    return false;
+            //}
             try
             {
                 //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
 
-                await clientesService.SaveCliente(this.cliente);
+                await CodeudoresService.Post(this.Codeudor);
 
             }
             catch (ValidationObjectException e)
@@ -207,7 +204,7 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
 
         private void SetImages(Imagen imagen)
         {
-            cliente.ImagenesObj.Add(imagen);
+            Codeudor.ImagenesObj.Add(imagen);
             FilterImagesByGroup();
         }
 
@@ -215,9 +212,9 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
 
         private void RemoveImages(Imagen imagen)
         {
-            var index = this.cliente.ImagenesObj.IndexOf(imagen);
-            this.cliente.ImagenesObj[index].Quitar = true;
-            this.cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
+            var index = this.Codeudor.ImagenesObj.IndexOf(imagen);
+            this.Codeudor.ImagenesObj[index].Quitar = true;
+            this.Codeudor.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
         }
 
     }

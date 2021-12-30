@@ -42,9 +42,9 @@ namespace PrestamoEntidades
         //<summary>
         //son los datos en formato string que son traidos de las tablas
         //</summary>
-        public string InfoConyuge { get; set; } = string.Empty;
-        [IgnoreOnParams]
-        public Conyuge InfoConyugeObj { get; set; } 
+        //public string InfoConyuge { get; set; } = string.Empty;
+        //[IgnoreOnParams]
+        //public Conyuge InfoConyugeObj { get; set; } 
             //{return string.IsNullOrEmpty(InfoConyuge) ? new Conyuge() : InfoConyuge.ToType<Conyuge>(); } set { InfoConyuge = value.ToJson(); } }
         //<summary>
         //la direccion en formato json
@@ -62,9 +62,9 @@ namespace PrestamoEntidades
             TelefonoCasa = TelefonoCasa.RemoveAllButNumber();
             TelefonoMovil = TelefonoMovil.RemoveAllButNumber();
             NoIdentificacion =NoIdentificacion.RemoveAllButNumber();
-            InfoConyugeObj.TelefonoTrabajo = InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
-            InfoConyugeObj.NoTelefono1 = InfoConyugeObj.NoTelefono1.RemoveAllButNumber();
-            InfoReferenciasObj.ForEach(refe => refe.Telefono.RemoveAllButNumber());
+            //InfoConyugeObj.TelefonoTrabajo = InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
+            //InfoConyugeObj.NoTelefono1 = InfoConyugeObj.NoTelefono1.RemoveAllButNumber();
+            //InfoReferenciasObj.ForEach(refe => refe.Telefono.RemoveAllButNumber());
         }
         public string InfoLaboral { get; set; } = string.Empty;
         [IgnoreOnParams]
@@ -73,11 +73,11 @@ namespace PrestamoEntidades
         /// <summary>
         /// la informacion de referencias en formato json, use el objeto para trabajar
         /// </summary>
-        public string InfoReferencias { get;  set; } = string.Empty;
-        [IgnoreOnParams]
-        public List<Referencia> InfoReferenciasObj { get; set; } = new List<Referencia>();
+        //public string InfoReferencias { get;  set; } = string.Empty;
+        //[IgnoreOnParams]
+        //public List<Referencia> InfoReferenciasObj { get; set; } = new List<Referencia>();
 
-        private List<Referencia> _infoReferencias = new List<Referencia>();
+        //private List<Referencia> _infoReferencias = new List<Referencia>();
         /// <summary>
         /// Convierte los objetos a representacion interna en Json
         /// </summary>
@@ -85,8 +85,8 @@ namespace PrestamoEntidades
         {
             this.InfoLaboral = InfoLaboralObj.ToJson();
             this.InfoDireccion = InfoDireccionObj.ToJson();
-            this.InfoConyuge = InfoConyugeObj.ToJson();
-            this.InfoReferencias = InfoReferenciasObj.ToJson();
+            //this.InfoConyuge = InfoConyugeObj.ToJson();
+            //this.InfoReferencias = InfoReferenciasObj.ToJson();
             for (int i = 0; i < ImagenesObj.Count; i++)
             {
                 if (ImagenesObj.Count > 1 && i > 0)
@@ -107,17 +107,17 @@ namespace PrestamoEntidades
         {
             this.InfoLaboralObj = InfoLaboral.ToType<InfoLaboral>();
             this.InfoDireccionObj = InfoDireccion.ToType<Direccion>();
-            this.InfoConyugeObj = InfoConyuge.ToType<Conyuge>();
-            this.InfoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
+            //this.InfoConyugeObj = InfoConyuge.ToType<Conyuge>();
+            //this.InfoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
             this.ImagenesObj = Imagenes.ToType<List<Imagen>>();
             foreach (var item in ImagenesObj)
             {
                 item.ConvertNombreArchivoToBase64String(directorioDeImagenes);
             }
-            if (this.InfoReferenciasObj == null)
-            {
-                this.InfoReferenciasObj = new List<Referencia>();
-            }
+            //if (this.InfoReferenciasObj == null)
+            //{
+            //    this.InfoReferenciasObj = new List<Referencia>();
+            //}
         }
 
         

@@ -1,4 +1,4 @@
-﻿
+﻿@page "/codeudores"
 @inherits BaseForList
 @using PrestamoBlazorApp.Shared.Components.Reports
 <div class="grid-container">
@@ -6,10 +6,10 @@
         <h3 class="text-left">Listado de clientes </h3>
     </div>
     <div class="search">
-        <EditForm Model="@searchClientes" OnValidSubmit="@GetClientes">
-            <InputText id="Codigo" @bind-Value="searchClientes.Codigo" placeholder="Código" />
-            <InputText id="nombres" @bind-Value="searchClientes.Nombres" placeholder="Nombres" />
-            <InputText id="Apellidos" @bind-Value="searchClientes.Apellidos" placeholder="Primer Apellido" />
+        <EditForm Model="@codeudorGetParams" OnValidSubmit="@GetCodeudores">
+            <InputText id="Codigo" @bind-Value="codeudorGetParams.Codigo" placeholder="Código" />
+            <InputText id="nombres" @bind-Value="codeudorGetParams.Nombres" placeholder="Nombres" />
+            <InputText id="Apellidos" @bind-Value="codeudorGetParams.Apellidos" placeholder="Primer Apellido" />
 
             <button type="submit" class="fa fa-search">Buscar</button>
             @if (totalClientes > 0)
@@ -23,76 +23,78 @@
         <SearchReportGeneric EndPointReporte="ClienteReportList"></SearchReportGeneric>
     </div>
 </div>
-
-<div class="grid">
-    @if (loading)
-    {
-        <div class="loader">Cargando...</div>
-    }
-    else
-    {
-        if (codeudores == null)
-        {
-            <p><em>datos no encontrados</em></p>
-        }
-        else
-        {
-            if (totalClientes > 0)
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-text">card</h3> <a href="codeudores/createoredit">Agregar</a>
+    </div>
+    <div class="card-body">
+        <div class="grid">
+            @if (loading)
             {
-                <table class="table table-hover table-sm">
-                    <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Nombres</th>
-                            <th>Telefono</th>
-                            <th>Tipo Identificacion</th>
-                            <th>Identificacion</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var cliente in clientes)
-                        {
-                            <tr @key="@cliente.IdCliente">
-                                <td>@cliente.Codigo</td>
-                                <td>@cliente.NombreCompleto</td>
-                                <td>@cliente.TelefonoMovil</td>
-                                @{
-                                    var tident = (TiposIdentificacionPersona)cliente.IdTipoIdentificacion;
-                                    <td> @tident</td>
-                                }
-                                <td>@cliente.NoIdentificacion</td>
-
-                                <td>
-
-                                    <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
-                                        <i class="fa fa-info-circle"></i>
-                                    </button>
-
-                                    <button @onclick='()=>OnEditClick("clientes/createoredit/" + cliente.IdCliente)' class="btn btn-outline-primary">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    @*<a  onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </a>*@
-                                </td>
-
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <div class="loader">Cargando...</div>
             }
             else
             {
-                <p><em>No datos encontrados</em></p>
-            }
-        }
-    }
+                if (codeudores == null)
+                {
+                    <p><em>datos no encontrados</em></p>
+                }
+                else
+                {
 
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombres</th>
+                                <th>Telefono</th>
+                                <th>Tipo Identificacion</th>
+                                <th>Identificacion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cliente in codeudores)
+                            {
+                                <tr @key="@cliente.IdCodeudor">
+                                    <td>@cliente.Codigo</td>
+                                    <td>@cliente.NombreCompleto</td>
+                                    <td>@cliente.TelefonoMovil</td>
+                                    @{
+                                        var tident = (TiposIdentificacionPersona)cliente.IdTipoIdentificacion;
+                                        <td> @tident</td>
+                                    }
+                                    <td>@cliente.NoIdentificacion</td>
+
+                                    <td>
+
+                                        <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
+                                            <i class="fa fa-info-circle"></i>
+                                        </button>
+
+                                        <button @onclick='()=>OnEditClick("clientes/createoredit/" + cliente.IdCodeudor)' class="btn btn-outline-primary">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        @*<a  onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </a>*@
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                }
+            }
+
+        </div>
+    </div>
 </div>
+
 
 
 
