@@ -30,6 +30,8 @@ namespace PrestamoWS.Controllers
         protected string currentDir => Directory.GetCurrentDirectory();
         protected string ImagePathForClientes => currentDir + @"\imagesFor\Clientes\";
         protected string ImagePathForGarantia => currentDir+ @"\imagesFor\Garantias\";
+        protected string ImagePathForCodeudores => currentDir + @"\imagesFor\Codeudores\";
+        protected string ImagePathForInversionistas => currentDir + @"\imagesFor\Inversionistas\";
         protected bool IsUserAuthenticaded => UserIsAuthenticated();
         protected InfoAccion InfoAccion { get { return this.InfoAccionFromSesion(); } }
 

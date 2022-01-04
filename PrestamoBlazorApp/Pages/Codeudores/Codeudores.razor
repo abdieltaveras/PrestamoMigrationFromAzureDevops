@@ -25,7 +25,7 @@
 </div>
 <div class="card">
     <div class="card-header">
-        <h3 class="card-text">card</h3> <a href="codeudores/createoredit">Agregar</a>
+        <h3 class="card-text">Codeudores <a href="codeudores/createoredit">Agregar</a></h3>
     </div>
     <div class="card-body">
         <div class="grid">
@@ -72,15 +72,12 @@
                                             <i class="fa fa-info-circle"></i>
                                         </button>
 
-                                        <button @onclick='()=>OnEditClick("clientes/createoredit/" + cliente.IdCodeudor)' class="btn btn-outline-primary">
+                                        <button @onclick='()=>OnEditClick("codeudores/createoredit/" + cliente.IdCodeudor)' class="btn btn-outline-primary">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
                                             <i class="fa fa-trash"></i>
                                         </button>
-                                        @*<a  onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </a>*@
                                     </td>
 
                                 </tr>

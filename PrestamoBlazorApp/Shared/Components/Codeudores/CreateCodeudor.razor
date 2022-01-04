@@ -7,9 +7,9 @@
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="bg-secondary">
-            <h3 class="text-left">Crear o Editar clientes</h3>
+            <h3 class="text-left">Crear o Editar Codeudores</h3>
             <div class="text-label-align">
-                <button id="btnGuardar" type="button" @onclick="@SaveCliente">Guardar</button>
+                <button id="btnGuardar" type="button" @onclick="@SaveCodeudor">Guardar</button>
                 @*<button id="btnsh" type="button" onclick="() =>$('#btnsh').prop('disabled',true)>show hide</button>*@
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <RadzenTabsItem Text="Generales">
                     <div class="row">
                         <GeneralesCodeudorUI Ocupaciones="Ocupaciones" Codeudor="Codeudor" AllowInputCodigo=false  OnEstadoCivilChange=@UpdateEstadoCivil
-                                            FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
+                                            FotosDocIdentificacion="FotosDocIdentificacion" FotosRostro="FotosRostro" RemoveImages="RemoveImages" SetImages="SetImages" />
                     </div>
                 </RadzenTabsItem>
           

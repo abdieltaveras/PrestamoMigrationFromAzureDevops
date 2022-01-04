@@ -30,7 +30,7 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
         [Parameter]
         public int IdCodeudor { get; set; }
 
-        List<Imagen> FotosRostroCliente { get; set; } = new List<Imagen>();
+        List<Imagen> FotosRostro { get; set; } = new List<Imagen>();
 
         List<Imagen> FotosDocIdentificacion { get; set; } = new List<Imagen>();
         // miembros
@@ -78,7 +78,6 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
 
         private void UpdateEstadoCivil(int value)
         {
-            //NotifyMessageBox("estado civil actualizado");
             Codeudor.IdEstadoCivil = value;
         }
 
@@ -93,25 +92,26 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
             }
             if (this.Codeudor == null || IdCodeudor <= 0)
             {
-                this.Codeudor = new Codeudor
-                {
-                    IdLocalidadNegocio=1,
-                    Codigo = "Nuevo",
-                    Nombres = "a1",
-                    Apellidos = "a2",
-                    Apodo = "a3",
-                    IdTipoIdentificacion = 1,
-                    NoIdentificacion = "000-0000000-1",
+                Codeudor = new Codeudor();
+                //this.Codeudor = new Codeudor
+                //{
+                //    IdLocalidadNegocio=1,
+                //    Codigo = "Nuevo",
+                //    Nombres = "a1",
+                //    Apellidos = "a2",
+                //    Apodo = "a3",
+                //    IdTipoIdentificacion = 1,
+                //    NoIdentificacion = "000-0000000-1",
                    
-                    InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
-                    InfoDireccionObj = new Direccion
-                    {
-                        IdLocalidad = 5,
-                        Calle = "Calle emilio prud home #5",
-                        Latitud = 18.43056,
-                        Longitud = -68.98449
-                    }
-                };
+                //    InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
+                //    InfoDireccionObj = new Direccion
+                //    {
+                //        IdLocalidad = 5,
+                //        Calle = "Calle emilio prud home #5",
+                //        Latitud = 18.43056,
+                //        Longitud = -68.98449
+                //    }
+                //};
                 //clinica coral Lat = 18.43190, Lng = -68.98503;
             }
             else
@@ -129,37 +129,23 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
 
         private void FilterImagesByGroup()
         {
-            FotosRostroCliente.Clear();
+            FotosRostro.Clear();
             FotosDocIdentificacion.Clear();
             Codeudor.ImagenesObj.ForEach(item =>
             {
                 if (!item.Quitar)
                 {
-                    if (item.Grupo == TiposFotosCliente.RostroCliente.ToString()) FotosRostroCliente.Add(item);
-                    if (item.Grupo == TiposFotosCliente.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
+                    if (item.Grupo == TiposFotosPersonas.Rostro.ToString()) FotosRostro.Add(item);
+                    if (item.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
                 }
             });
 
         }
 
-        private void SetReferencias(List<Referencia> infoReferenciasObj)
+       
+        async Task SaveCodeudor()
         {
-            for (int i = 0; i < 5; i++)
-            {
-                var referencia = new Referencia { Tipo = (int)EnumTiposReferencia.Personal };
-
-                if ((i + 1) <= infoReferenciasObj.Count())
-                {
-                    referencia = infoReferenciasObj[i];
-                }
-                referencias.Add(referencia);
-            }
-        }
-
-        //async Task SaveCliente()
-        async Task SaveCliente()
-        {
-            await Handle_SaveData(SaveData, () => OnSaveNotification(redirectTo: @"\Clientes"), null, false);
+            await Handle_SaveData(SaveData, () => OnSaveNotification(redirectTo: @"\Codeudores"), null, false);
         }
 
         private async Task<bool> SaveData()
@@ -168,21 +154,9 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
             direccion.IdLocalidadNegocio = 1;
             this.Codeudor.InfoDireccionObj = direccion;
             this.Codeudor.InfoLaboralObj = infoLaboral;
-
-            //var result = Validaciones.ForCliente001().Validate(cliente);
-            //var validacionesFallidas = result.Where(item => item.Success == false);
-            //var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
-            //if (validacionesFallidas.Count() > 0)
-            //{
-            //    SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
-            //    return false;
-            //}
             try
             {
-                //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-
                 await CodeudoresService.Post(this.Codeudor);
-
             }
             catch (ValidationObjectException e)
             {
@@ -190,17 +164,6 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
             }
             return true;
         }
-
-        //void OnChange(object value, string name)
-        //{
-        //    var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-        //    var selectedValue = Convert.ToInt32(str);
-        //    //console.Log($"{name} value changed to {str}");
-        //}
-        //void OnInputFileChange(InputFileChangeEventArgs e)
-        //{
-        //    var imageFiles = e.GetMultipleFiles();
-        //}
 
         private void SetImages(Imagen imagen)
         {

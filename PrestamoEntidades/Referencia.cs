@@ -15,5 +15,6 @@ namespace PrestamoEntidades
         public string Telefono { get; set; } = string.Empty;
         public string Direccion { get; set; } = string.Empty;
         public string Detalles { get; set; } = string.Empty;
+        public int ClasificacionDataCredito { get; set; } = 0;
     }
 }

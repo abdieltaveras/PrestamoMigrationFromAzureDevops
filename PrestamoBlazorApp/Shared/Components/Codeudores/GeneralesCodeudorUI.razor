@@ -25,7 +25,6 @@
         @if (Codeudor.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
         {
             <InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="Codeudor.NoIdentificacion" />
-            @*<InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />*@
         }
         else
         {
@@ -57,11 +56,6 @@
     </div>
 
     <div class="form-group row">
-
-        <InputCheckbox @bind-Value=TieneConyuge class="offset-2 mt-1" />
-        <label class="ml-2" style="margin-left: 5px">Tiene Conyuge o Pareja</label>
-    </div>
-    <div class="form-group row">
         <label for="sexos" class="col-sm-2 col-form-label text-label-align">Sexo</label>
         <InputSelect id="sexos" @bind-Value="Codeudor.idSexo" class="form-control col-sm-4">
             <option value="1">Masculino</option>
@@ -79,12 +73,10 @@
     <div class="form-group row mt-5">
         <label class="col-sm-3 col-form-label text-label-align">Telefono Casa</label>
         <InputText @bind-Value="Codeudor.TelefonoCasa" class="col-sm-6" />
-        @*<InputText @bind-Value="cliente.TelefonoCasa" data-inputmask="'mask': '(999)-999-9999'" class="col-sm-3 masked"/>*@
     </div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-label-align">Telefono movil</label>
         <InputText @bind-Value="Codeudor.TelefonoMovil" class="col-sm-6" />
-        @*<InputText placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoMovil " data-inputmask="'mask': '(999)-999-9999'" class="col-sm-3 masked" />*@
     </div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-label-align">Profesion</label>
@@ -97,13 +89,13 @@
     </div>
     <div class="ml-5">
 
-        @{ var tGrupo = TiposFotosCliente.RostroCliente.ToString(); }
-        <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
+        @{ var tGrupo = TiposFotosPersonas.Rostro.ToString(); }
+        <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostro" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
     </div>
 
     <div class="ml-5">
 
-        @{ var tGrp = TiposFotosCliente.DocIdentificacion.ToString(); }
+        @{ var tGrp = TiposFotosPersonas.DocIdentificacion.ToString(); }
         <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
     </div>
 </div>
@@ -118,16 +110,6 @@
     [Parameter]
     public bool AllowInputCodigo { get; set; } = false;
 
-    private bool _tieneConyuge;
-    private bool TieneConyuge
-    {
-        get => _tieneConyuge; set
-        {
-            _tieneConyuge = value;
-            OnTieneConyugeChange.InvokeAsync(value);
-        }
-    }
-
     private int _idEstadoCivil;
 
     private int IdEstadoCivil
@@ -141,7 +123,7 @@
     }
 
     [Parameter]
-    public IEnumerable<Imagen> FotosRostroCliente { get; set; }
+    public IEnumerable<Imagen> FotosRostro { get; set; }
     [Parameter]
     public IEnumerable<Imagen> FotosDocIdentificacion { get; set; }
     [Parameter]

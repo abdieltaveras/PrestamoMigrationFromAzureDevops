@@ -97,13 +97,13 @@
     </div>
     <div class="ml-5">
 
-        @{ var tGrupo = TiposFotosCliente.RostroCliente.ToString(); }
+        @{ var tGrupo = TiposFotosPersonas.Rostro.ToString(); }
         <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
     </div>
 
     <div class="ml-5">
 
-        @{ var tGrp = TiposFotosCliente.DocIdentificacion.ToString(); }
+        @{ var tGrp = TiposFotosPersonas.DocIdentificacion.ToString(); }
         <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
     </div>
 </div>

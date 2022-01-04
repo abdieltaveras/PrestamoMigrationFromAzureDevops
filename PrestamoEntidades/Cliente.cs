@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace PrestamoEntidades
 {
 
-    public enum TiposFotosCliente {RostroCliente, DocIdentificacion }
+    public enum TiposFotosPersonas {Rostro, DocIdentificacion }
 
     public class InfoCodeudorDrCr
     {

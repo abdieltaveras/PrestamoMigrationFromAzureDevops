@@ -61,7 +61,8 @@ namespace PrestamoBlazorApp.Shared
             MenuItems.Add(new MenuItem { CurrentText = MenuText.Garantias, MenuPadreText = MenuText.Operaciones }, false);
             MenuItems.Add(new MenuItem { CurrentText = MenuText.Clientes, MenuPadreText = MenuText.Operaciones }, false);
             MenuItems.Add(new MenuItem { CurrentText = MenuText.Prestamo, MenuPadreText = MenuText.Operaciones }, false);
-            
+            MenuItems.Add(new MenuItem { CurrentText = MenuText.Codeudores, MenuPadreText = MenuText.Operaciones }, false);
+
         }
         private void navigateTo(string linkUrl)
         {
@@ -121,6 +122,7 @@ namespace PrestamoBlazorApp.Shared
             public static string Localidades => "Localidades";
             public static string Clientes => "Clientes";
             public static string Prestamo => "Prestamo";
+            public static string Codeudores => "Codeudores";
         }
 
         public class MenuItem

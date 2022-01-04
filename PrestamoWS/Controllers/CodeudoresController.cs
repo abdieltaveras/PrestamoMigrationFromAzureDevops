@@ -23,16 +23,16 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<Codeudor> Get([FromQuery] CodeudorGetParams getParams, bool convertToObj)
         {
-            var imgPath = ImagePathForClientes;    
-            var data = BLLPrestamo.Instance.GetCodeudores(getParams, convertToObj,  ImagePathForClientes);
+            //var imgPath = ImagePathForCodeudores;    
+            var data = BLLPrestamo.Instance.GetCodeudores(getParams, convertToObj, ImagePathForCodeudores);
             return data;
         }
 
 
         [HttpGet]
-        public IEnumerable<Codeudor> SearchCodeudores(string textoABuscar, bool cargarImagenesClientes=false)
+        public IEnumerable<Codeudor> SearchCodeudores(string textoABuscar, bool cargarImagenes=false)
         {
-            var codeudores = searchCodeudor(textoABuscar, cargarImagenesClientes);
+            var codeudores = searchCodeudor(textoABuscar, cargarImagenes);
             return codeudores;
         }
         /// <summary>
@@ -45,10 +45,11 @@ namespace PrestamoWS.Controllers
             var img = param.ImagenesObj;
             param.Usuario = this.LoginName;
             param.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            param.IdNegocio = 1;
             var state = ModelState.IsValid;
             try
             {
-                ManejoImagenes.ProcesarImagenes(param.ImagenesObj, ImagePathForClientes , string.Empty);
+                ManejoImagenes.ProcesarImagenes(param.ImagenesObj, ImagePathForCodeudores , string.Empty);
                 var id = BLLPrestamo.Instance.InsUpdCodeudor(param);
                 return Ok(id);
             }
@@ -76,7 +77,7 @@ namespace PrestamoWS.Controllers
             }
         }
 
-        private IEnumerable<Codeudor> searchCodeudor(string searchText, bool CargarImagenesClientes)
+        private IEnumerable<Codeudor> searchCodeudor(string searchText, bool CargarImagenes)
         {
             IEnumerable<Codeudor> codeudores = null;
             codeudores = BLLPrestamo.Instance.SearchCodeudor(new BuscarCodeudorParams { TextToSearch = searchText, IdNegocio = 1 });
