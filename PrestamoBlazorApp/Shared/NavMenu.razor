@@ -149,77 +149,100 @@
             </NavLink>
             @if (ExpandMenu(MenuText.Operaciones))
             {
-                <ul class="nav flex-column">
+        <ul class="nav flex-column">
 
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Garantias) ">
-                            <span class="oi oi-list" aria-hidden="true"></span> Garantias
-                        </NavLink>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Garantias) ">
+                    <span class="oi oi-list" aria-hidden="true"></span> Garantias
+                </NavLink>
 
-                        @if (ExpandMenu(MenuText.Garantias))
-                        {
-                            <ul class="nav flex-column">
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" href="garantias">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
-                                    </NavLink>
-                                </li>
+                @if (ExpandMenu(MenuText.Garantias))
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="garantias">
+                                <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                            </NavLink>
+                        </li>
 
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" @onclick='()=>navigateTo("garantias/createoredit")' href="#">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        }
-                    </li>
-                    <li class="nav-item px-3">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" @onclick='()=>navigateTo("garantias/createoredit")' href="#">
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                }
+            </li>
+            <li class="nav-item px-3">
 
-                        <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Clientes) ">
-                            <span class="oi oi-list" aria-hidden="true"></span> Clientes
-                        </NavLink>
-                        @if (ExpandMenu(MenuText.Clientes))
-                        {
-                            <ul class="nav flex-column">
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" href="clientes">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
-                                    </NavLink>
-                                </li>
+                <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Clientes) ">
+                    <span class="oi oi-list" aria-hidden="true"></span> Clientes
+                </NavLink>
+                @if (ExpandMenu(MenuText.Clientes))
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="clientes">
+                                <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                            </NavLink>
+                        </li>
 
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" @onclick='()=>navigateTo("clientes/createoredit")' href="#">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        }
-                    </li>
-                    <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Prestamo) ">
-                            <span class="oi oi-list" aria-hidden="true"></span> Prestamo
-                        </NavLink>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" @onclick='()=>navigateTo("clientes/createoredit")' href="#">
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                }
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Codeudores) ">
+                    <span class="oi oi-list" aria-hidden="true"></span> Codeudores
+                </NavLink>
 
-                        @if (ExpandMenu(MenuText.Prestamo))
-                        {
-                            <ul class="nav flex-column">
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" href="prestamos">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
-                                    </NavLink>
-                                </li>
+                @if (ExpandMenu(MenuText.Codeudores))
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="codeudores">
+                                <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                            </NavLink>
+                        </li>
 
-                                <li class="nav-item px-3">
-                                    <NavLink class="nav-link" @onclick='()=>navigateTo("prestamo/createoredit")' href="#">
-                                        <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
-                                    </NavLink>
-                                </li>
-                            </ul>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" @onclick='()=>navigateTo("codeudores/createoredit")' href="#">
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
+                            </NavLink>
+                        </li>
+                    </ul>
 
-                        }
-                    </li>
+                }
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" @onclick="() => SetActiveMenu(MenuText.Prestamo) ">
+                    <span class="oi oi-list" aria-hidden="true"></span> Prestamo
+                </NavLink>
 
-                </ul>
+                @if (ExpandMenu(MenuText.Prestamo))
+                {
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="prestamos">
+                                <span class="oi oi-list-rich" aria-hidden="true">Listado</span>
+                            </NavLink>
+                        </li>
+
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" @onclick='()=>navigateTo("prestamo/createoredit")' href="#">
+                                <span class="oi oi-list-rich" aria-hidden="true">Crear</span>
+                            </NavLink>
+                        </li>
+                    </ul>
+
+                }
+            </li>
+
+        </ul>
             }
         </li>
     </ul>

@@ -4,91 +4,83 @@
         <label for="codigo" class="col-sm-2 col-form-label text-label-align">Codigo</label>
         @if (AllowInputCodigo)
         {
-            <InputText @bind-Value="cliente.Codigo" class="col-sm-3" />
+            <InputText @bind-Value="Codeudor.Codigo" class="col-sm-3" />
         }
         else
         {
-            <label class="col-sm-3 mt-2">@cliente.Codigo </label>
+            <label class="col-sm-3 mt-2">@Codeudor.Codigo </label>
         }
         @*<label class="col-sm-2 col-form-label text-label-align">Activo</label>*@
-        <label class="col-sm-1 col-form-label text-right text-info">@(@cliente.Activo ? "Activo" : "Inactivo")</label>
+        <label class="col-sm-1 col-form-label text-right text-info">@(Codeudor.Activo ? "Activo" : "Inactivo")</label>
     </div>
     <div class="form-group row">
         <label for="tiposIdentificacionPersonas" class="col-sm-3 col-form-label text-left"> Tipo Identificacion</label>
-        <InputSelect id="tiposIdentificacion" @bind-Value="cliente.IdTipoIdentificacion" class="form-control col-sm-3">
+        <InputSelect id="tiposIdentificacion" @bind-Value="Codeudor.IdTipoIdentificacion" class="form-control col-sm-3">
             @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
             {
                 <option value=@item.Value>@item.Text</option>
             }
         </InputSelect>
         <label for="noIdentificacion" class="col-sm-2 col-form-label text-label-align">Numeracion </label>
-        @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
+        @if (Codeudor.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
         {
-            <InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />
-            @*<InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />*@
+            <InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="Codeudor.NoIdentificacion" />
         }
         else
         {
-            <InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />
+            <InputText id="noIdentificacion" @bind-Value="Codeudor.NoIdentificacion" class="col-sm-3" />
         }
     </div>
     <div class="form-group row">
         <label for="nombres" class="col-sm-2 col-form-label text-label-align">Nombres</label>
-        <InputText @bind-Value="cliente.Nombres" class="col-sm-10" />
+        <InputText @bind-Value="Codeudor.Nombres" class="col-sm-10" />
 
     </div>
     <div class="form-group row">
         <label for="apellidos" class="col-sm-2 col-form-label text-label-align">Apellidos</label>
-        <InputText @bind-Value="cliente.Apellidos" class="col-sm-10" />
+        <InputText @bind-Value="Codeudor.Apellidos" class="col-sm-10" />
     </div>
     <div class="form-group row">
         <label for="apodo" class="col-sm-2 col-form-label text-label-align">Apodo</label>
-        <InputText @bind-Value="cliente.Apodo" class="col-sm-10"  />
+        <InputText @bind-Value="Codeudor.Apodo" class="col-sm-10" />
     </div>
 
     <div class="form-group row">
         <label for="tiposEstadosCiviles" class="col-sm-2 col-form-label text-label-align">Estado Civil</label>
-        <InputSelect  id="tiposEstadosCiviles" @bind-Value="IdEstadoCivil" class="form-control col-sm-4" >
+        <InputSelect id="tiposEstadosCiviles" @bind-Value="IdEstadoCivil" class="form-control col-sm-4">
             @foreach (var item in EnumToList.GetEnumEstadosCiviles())
             {
-                <option value=@item.Value >@item.Text</option>
+                <option value=@item.Value>@item.Text</option>
             }
         </InputSelect>
     </div>
 
     <div class="form-group row">
-
-        <InputCheckbox  @bind-Value=TieneConyuge  class="offset-2 mt-1" />
-        <label  class="ml-2" style="margin-left: 5px">Tiene Conyuge o Pareja</label>
-    </div>
-    <div class="form-group row">
         <label for="sexos" class="col-sm-2 col-form-label text-label-align">Sexo</label>
-        <InputSelect id="sexos" @bind-Value="cliente.idSexo" class="form-control col-sm-4">
+        <InputSelect id="sexos" @bind-Value="Codeudor.idSexo" class="form-control col-sm-4">
             <option value="1">Masculino</option>
             <option value="2">Femenino</option>
         </InputSelect>
     </div>
     <div class="form-group row">
         <label for="fechaDeNacimiento" class="col-sm-2 col-form-label text-label-align">Fecha de Nacimiento</label>
-        <InputDate @bind-Value="cliente.FechaNacimiento" class="col-sm-10" />
+        <InputDate @bind-Value="Codeudor.FechaNacimiento" class="col-sm-10" />
     </div>
 </div>
 
 <div class="col-md-6 col-sm-12">
-    
+
     <div class="form-group row mt-5">
         <label class="col-sm-3 col-form-label text-label-align">Telefono Casa</label>
-        <InputText  @bind-Value="cliente.TelefonoCasa" class="col-sm-6" />
-        @*<InputText @bind-Value="cliente.TelefonoCasa" data-inputmask="'mask': '(999)-999-9999'" class="col-sm-3 masked"/>*@
+        <InputText @bind-Value="Codeudor.TelefonoCasa" class="col-sm-6" />
     </div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-label-align">Telefono movil</label>
-        <InputText  @bind-Value="cliente.TelefonoMovil"  class="col-sm-6" />
-        @*<InputText placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoMovil " data-inputmask="'mask': '(999)-999-9999'" class="col-sm-3 masked" />*@
+        <InputText @bind-Value="Codeudor.TelefonoMovil" class="col-sm-6" />
     </div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-label-align">Profesion</label>
-        <InputSelect id="Ocupaciones" @bind-Value="cliente.IdTipoProfesionUOcupacion" class="form-control col-sm-4">
+        <InputSelect id="Ocupaciones" @bind-Value="Codeudor.IdTipoProfesionUOcupacion" class="form-control col-sm-4">
             @foreach (var item in Ocupaciones)
             {
                 <option value=@item.IdOcupacion>@item.Nombre</option>
@@ -98,7 +90,7 @@
     <div class="ml-5">
 
         @{ var tGrupo = TiposFotosPersonas.Rostro.ToString(); }
-        <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
+        <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostro" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
     </div>
 
     <div class="ml-5">
@@ -112,22 +104,17 @@
 @code {
 
     [Parameter]
-    public Cliente cliente { get; set; }
+    public Codeudor Codeudor { get; set; }
     [Parameter]
     public IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
     [Parameter]
     public bool AllowInputCodigo { get; set; } = false;
 
-    private bool _tieneConyuge;
-    private bool TieneConyuge { get => _tieneConyuge; set
-        { _tieneConyuge = value;
-            OnTieneConyugeChange.InvokeAsync(value);
-        }
-    }
-
     private int _idEstadoCivil;
 
-    private int IdEstadoCivil { get => _idEstadoCivil;
+    private int IdEstadoCivil
+    {
+        get => _idEstadoCivil;
         set
         {
             _idEstadoCivil = value;
@@ -136,7 +123,7 @@
     }
 
     [Parameter]
-    public IEnumerable<Imagen> FotosRostroCliente { get; set; }
+    public IEnumerable<Imagen> FotosRostro { get; set; }
     [Parameter]
     public IEnumerable<Imagen> FotosDocIdentificacion { get; set; }
     [Parameter]
@@ -151,8 +138,9 @@
     public EventCallback<Imagen> RemoveImages { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        TieneConyuge = cliente.TieneConyuge;
-        IdEstadoCivil = cliente.IdEstadoCivil;
+        @*TieneConyuge = Codeudor.TieneConyuge;*@
+        IdEstadoCivil = Codeudor.IdEstadoCivil;
     }
-    
+
 }
+

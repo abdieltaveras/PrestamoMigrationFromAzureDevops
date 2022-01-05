@@ -191,7 +191,6 @@
     <Build Include="dbo\User Defined Types\tpCodeudores.sql" />
     <Build Include="dbo\Tables\tblPrestamoGarantias.sql" />
     <Build Include="dbo\Tables\tblPrestamoCodeudores.sql" />
-    <Build Include="dbo\Tables\tblCodeudore.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamoConDetalles.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamos.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarPrestamos.sql" />
@@ -221,6 +220,9 @@
     <Build Include="dbo\Tables\tblDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\spGetGarantiasByprestamo.sql" />
     <Build Include="dbo\Stored Procedures\spRptClientes.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdCodeudor.sql" />
+    <Build Include="dbo\Tables\tblCodeudores.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCodeudores.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />
@@ -230,8 +232,6 @@
     <None Include="Prestamo_ing.publish.publish.xml" />
     <None Include="Prestamo_permisos.publish.publish.xml" />
     <None Include="Prestamo_api.publish.publish.xml" />
-    <None Include="PrestamoDB_1.publish.xml" />
-    <None Include="PrestamoDB_2.publish.xml" />
     <None Include="Bisend_PrestamoApi.publish.xml" />
   </ItemGroup>
 </Project>

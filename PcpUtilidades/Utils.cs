@@ -53,9 +53,13 @@ namespace PcpUtilidades
 
         public static string ConvertFileToBase64(string fullFileName)
         {
-            Byte[] bytes = File.ReadAllBytes(fullFileName);
-            String file = Convert.ToBase64String(bytes);
-            return "data:Image/jpeg;base64," + file;
+            if (File.Exists(fullFileName))
+            {
+                Byte[] bytes = File.ReadAllBytes(fullFileName);
+                String file = Convert.ToBase64String(bytes);
+                return "data:Image/jpeg;base64," + file;
+            }
+            return null;
         }
 
         public static string SaveFile(string path, string base64Image)

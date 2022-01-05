@@ -71,6 +71,7 @@ namespace PrestamoBlazorApp
             services.AddSingleton<PrestamosService>();
             services.AddSingleton<ReportesService>();
             services.AddSingleton<SetParametrosService>();
+            services.AddSingleton<CodeudoresService>();
             services.AddSingleton<TestService>();
         }
 

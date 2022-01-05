@@ -141,8 +141,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
             {
                 if (!item.Quitar)
                 {
-                    if (item.Grupo == TiposFotosCliente.RostroCliente.ToString()) FotosRostroCliente.Add(item);
-                    if (item.Grupo == TiposFotosCliente.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
+                    if (item.Grupo == TiposFotosPersonas.Rostro.ToString()) FotosRostroCliente.Add(item);
+                    if (item.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
                 }
             });
             

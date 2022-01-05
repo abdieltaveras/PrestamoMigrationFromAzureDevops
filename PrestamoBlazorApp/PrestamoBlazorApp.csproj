@@ -8,12 +8,16 @@
   <ItemGroup>
     <Compile Remove="Components\**" />
     <Compile Remove="Entidades\**" />
+    <Compile Remove="Pages\NewFolder\**" />
     <Content Remove="Components\**" />
     <Content Remove="Entidades\**" />
+    <Content Remove="Pages\NewFolder\**" />
     <EmbeddedResource Remove="Components\**" />
     <EmbeddedResource Remove="Entidades\**" />
+    <EmbeddedResource Remove="Pages\NewFolder\**" />
     <None Remove="Components\**" />
     <None Remove="Entidades\**" />
+    <None Remove="Pages\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,7 +51,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\LocalidadesNegocios\" />
-    <Folder Include="Pages\NewFolder\" />
     <Folder Include="Reports\Rdlc\" />
   </ItemGroup>
 

@@ -205,6 +205,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ImagesFor\Codeudores\" />
+    <Folder Include="ImagesFor\Inversionistas\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
