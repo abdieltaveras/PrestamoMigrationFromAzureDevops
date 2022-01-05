@@ -20,7 +20,10 @@ namespace PrestamoBLL.Tests
 
         public void GetConectionsStrings()
         {
+            string path = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
+
             var connectionsSetting = ConfigurationManager.ConnectionStrings;
+            BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams());
 
             Assert.IsTrue(connectionsSetting.Count > 1, "No esta funciondo el poder conseguir las cadenas de coneccion del app.config");
         }

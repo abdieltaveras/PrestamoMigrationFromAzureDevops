@@ -153,13 +153,10 @@ namespace PrestamoEntidades
         public string Sexo { get; set; } = string.Empty;
         public string FotoCliente { get; set; } = string.Empty;
         public string NoIdentificacion { get; set; } = string.Empty;
-
-
     }
     public class Prestamo : BaseInsUpd, IInfoGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
-        
 
         [IgnoreOnParams]
         [Display(Name = "Prestamo Numero")]

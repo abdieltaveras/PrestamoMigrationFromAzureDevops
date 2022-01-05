@@ -14,7 +14,7 @@ namespace PrestamoBLL
 
         public interface IGeneradorCuotasV2
         {
-            List<CuotaPrestamoMaestro> GenerarCuotas();
+            List<CuotaPrestamo> GenerarCuotas();
         }
 
         public class GeneradorCuotasBase : IGeneradorCuotasV2
@@ -22,7 +22,7 @@ namespace PrestamoBLL
             private readonly IInfoGeneradorCuotas InfoGenerarCuotas;
             private readonly Periodo Periodo;
             private readonly int IdPrestamo;
-            List<CuotaPrestamoMaestro> CuotasPrestamo = new List<CuotaPrestamoMaestro>();
+            List<CuotaPrestamo> CuotasPrestamo = new List<CuotaPrestamo>();
             DateTime fechaCuotaAnterior = InitValues._19000101;
             private decimal TasaInteresDelPeriodo => InfoGenerarCuotas.TasaDeInteresDelPeriodo;
             decimal CapitalPorCuota { get; set; }
@@ -40,7 +40,7 @@ namespace PrestamoBLL
                 Periodo = info.Periodo;
                 IdPrestamo = idPrestamo;
             }
-            public List<CuotaPrestamoMaestro> GenerarCuotas()
+            public List<CuotaPrestamo> GenerarCuotas()
             {
                 //var cuotaMaestra = new CuotaPrestamoMaestro(idPrestamo, )
 
@@ -87,15 +87,15 @@ namespace PrestamoBLL
                 return CuotasPrestamo;
             }
 
-            private CuotaPrestamoMaestro SetCargosCuota(int numeroCuota)
+            private CuotaPrestamo SetCargosCuota(int numeroCuota)
             {
-                var cuotaMaestra = new CuotaPrestamoMaestro(numeroCuota, IdPrestamo, getFecha(numeroCuota));
-                cuotaMaestra.SetCapitalMontoOriginal(CapitalPorCuota);
-                cuotaMaestra.SetInteresMontoOriginal(InteresPorCuota);
-                cuotaMaestra.SetGastoDeCierreMontoOriginal(GastoDeCierrePorCuota);
-                cuotaMaestra.SetInteresGastoDeCierreMontoOriginal(InteresGastoDeCierrePorCuota);
-                cuotaMaestra.SetOtrosCargosMontoOriginal(OtrosCargosPorCuota);
-                cuotaMaestra.SetInteresOtrosCargosMontoOriginal(InteresOtrosCargosPorCuota);
+                var cuotaMaestra = new CuotaPrestamo(numeroCuota, IdPrestamo, getFecha(numeroCuota));
+                cuotaMaestra.CapitalMonto = CapitalPorCuota;
+                cuotaMaestra.InteresCapitalMonto = InteresPorCuota;
+                cuotaMaestra.GastoDeCierreMonto =GastoDeCierrePorCuota;
+                cuotaMaestra.InteresGastoDeCierreMonto = InteresGastoDeCierrePorCuota;
+                cuotaMaestra.OtrosCargosMonto =OtrosCargosPorCuota;
+                cuotaMaestra.InteresOtrosCargosMonto= InteresOtrosCargosPorCuota;
                 return cuotaMaestra;
             }
 
@@ -107,19 +107,20 @@ namespace PrestamoBLL
             private void ajustarValores()
             {
                 decimal totalCapital = 0;
+                decimal totalCapital2 = 0;
                 decimal totalOtrosCargos = 0;
                 decimal totalGastoDeCierre = 0;
 
                 foreach (var cuota in CuotasPrestamo)
                 {
-                    var detalleCargos = cuota.GetItems;
-                    totalCapital += cuota.GetCapitalMontoOriginal();
-                    totalOtrosCargos += cuota.GetOtrosCargosMontoOriginal();
-                    totalGastoDeCierre += cuota.GetGastoDeCierreMontoOriginal();
+                    var detalleCargos = cuota.ItemsDrCxC;
+                    totalCapital2 = cuota.CapitalMonto;
+                    totalOtrosCargos += cuota.OtrosCargosMonto;
+                    totalGastoDeCierre += cuota.GastoDeCierreMonto;
 
                 }
-                decimal ajusteCapital, ajusteOtrosCargos, ajusteGastoDeCierre;
 
+                decimal ajusteCapital, ajusteOtrosCargos, ajusteGastoDeCierre;
                 decimal diferenciaCapital = InfoGenerarCuotas.MontoCapital - totalCapital;
                 decimal diferenciaOtrosCargos = InfoGenerarCuotas.OtrosCargos - totalOtrosCargos;
                 decimal diferenciaGastoDeCierre=0;
@@ -130,17 +131,17 @@ namespace PrestamoBLL
 
                 var ultimaCuota = CuotasPrestamo.Last();
                 var monto = ultimaCuota.Monto;
-                ajusteCapital = ultimaCuota.GetCapitalMontoOriginal() + diferenciaCapital;
-                ajusteOtrosCargos = ultimaCuota.GetOtrosCargosMontoOriginal() + diferenciaOtrosCargos;
-                ajusteGastoDeCierre = ultimaCuota.GetGastoDeCierreMontoOriginal() + diferenciaGastoDeCierre;
+                ajusteCapital = ultimaCuota.CapitalMonto + diferenciaCapital;
+                ajusteOtrosCargos = ultimaCuota.OtrosCargosMonto + diferenciaOtrosCargos;
+                ajusteGastoDeCierre = ultimaCuota.GastoDeCierreMonto + diferenciaGastoDeCierre;
 
                 
                 //var ultimaCuotaAjustada = new CuotaPrestamoMaestro(InfoGenerarCuotas.CantidadDePeriodos, IdPrestamo, ultimaCuota.Fecha);
 
                 //CuotasPrestamo.Remove(ultimaCuota);
-                ultimaCuota.SetCapitalMontoOriginal(ajusteCapital);
-                ultimaCuota.SetOtrosCargosMontoOriginal(ajusteOtrosCargos);
-                ultimaCuota.SetGastoDeCierreMontoOriginal(ajusteGastoDeCierre);
+                ultimaCuota.CapitalMonto=ajusteCapital;
+                ultimaCuota.OtrosCargosMonto=ajusteOtrosCargos;
+                ultimaCuota.GastoDeCierreMonto = ajusteGastoDeCierre;
                 //CuotasPrestamo.Add(ultimaCuotaAjustada);
                 //var monto2 = ultimaCuota.Monto;
             }
@@ -149,9 +150,9 @@ namespace PrestamoBLL
             {
                 if ((this.InfoGenerarCuotas.MontoGastoDeCierre > 0) && (!this.InfoGenerarCuotas.FinanciarGastoDeCierre) && (!InfoGenerarCuotas.GastoDeCierreEsDeducible))
                 {
-                    var cuota = new CuotaPrestamoMaestro(0, this.IdPrestamo, InfoGenerarCuotas.FechaEmisionReal);
+                    var cuota = new CuotaPrestamo(0, this.IdPrestamo, InfoGenerarCuotas.FechaEmisionReal);
                     cuota.Detalle = "Gasto De Cierre a pagar";
-                    cuota.SetGastoDeCierreMontoOriginal(this.InfoGenerarCuotas.MontoGastoDeCierre);
+                    cuota.GastoDeCierreMonto =(this.InfoGenerarCuotas.MontoGastoDeCierre);
                     this.CuotasPrestamo.Add(cuota);
                 }
             }
@@ -276,7 +277,7 @@ namespace PrestamoBLL
             }
 
 
-            private void setGastoDeCierreFinaciadoEnCuotas(CuotaPrestamoMaestro cuota)
+            private void setGastoDeCierreFinaciadoEnCuotas(CuotaPrestamo cuota)
             {
                 if (this.InfoGenerarCuotas.GastoDeCierreEsDeducible)
                 {
@@ -287,11 +288,11 @@ namespace PrestamoBLL
                 if ((this.InfoGenerarCuotas.MontoGastoDeCierre > 0) &&
                    (this.InfoGenerarCuotas.FinanciarGastoDeCierre))
                 {
-                    cuota.SetGastoDeCierreMontoOriginal(Math.Round(this.InfoGenerarCuotas.MontoGastoDeCierre / this.InfoGenerarCuotas.CantidadDePeriodos));
+                    cuota.GastoDeCierreMonto = (Math.Round(this.InfoGenerarCuotas.MontoGastoDeCierre / this.InfoGenerarCuotas.CantidadDePeriodos));
                     // ahora calculamos el interes del gasto de cierre si debe cargarlo
                     if (this.InfoGenerarCuotas.CargarInteresAlGastoDeCierre)
                     {
-                        cuota.SetInteresGastoDeCierreMontoOriginal(Math.Round(this.InfoGenerarCuotas.MontoGastoDeCierre * (this.InfoGenerarCuotas.TasaDeInteresDelPeriodo / 100), 2));
+                        cuota.InteresGastoDeCierreMonto =(Math.Round(this.InfoGenerarCuotas.MontoGastoDeCierre * (this.InfoGenerarCuotas.TasaDeInteresDelPeriodo / 100), 2));
                     }
                 }
             }

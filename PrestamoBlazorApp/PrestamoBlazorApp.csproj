@@ -17,6 +17,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AI4E.AspNetCore.Components.Routing" Version="0.4.0" />
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="jQuery" Version="3.5.1" />
