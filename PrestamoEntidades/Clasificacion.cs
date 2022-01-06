@@ -14,6 +14,7 @@ namespace PrestamoEntidades
         public bool RequiereGarantia { get; set; }
         public override int GetId() => this.IdClasificacion;
         public int idClasificacionFinanciera { get; set; } = 1;
+        public bool SaltarDomingo { get; set; }
     }
     public class ClasificacionesGetParams : BaseGetParams
     {
