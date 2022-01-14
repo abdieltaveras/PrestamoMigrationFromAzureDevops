@@ -21,7 +21,7 @@
             <div class="modal-body">
                 <EditForm Model="Periodo" OnValidSubmit="Save">
                     <div class="form-group row">
-                        <div class="col-sm-4">Estatus</div>
+                        <div class="col-sm-4">Activo</div>
                         <div class="col-sm-8">
                             <label class="switch">
                                 <input type="checkbox" @bind="ChkEstatus">
@@ -55,6 +55,7 @@
                                     <option value="@Convert.ToInt32(item)">@item.ToString()</option>
                                 }
                             </InputSelect>*@
+                        <label for="nombre">Periodo Base</label>
                         <InputSelect @bind-Value="IdSelectedPeriodoBase" class="form-control col-md-6">
                             @foreach (var item in PeriodoBase.GetValues(typeof(PeriodoBase)))
                             {
@@ -64,10 +65,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nombre">MultiploPeriodoBase</label>
+                        <label for="nombre">Cantidad de <strong>[@NombrePeriodo]</strong> por ciclo</label>
                         <InputNumber class="form-control col-md-6" @bind-Value="Periodo.MultiploPeriodoBase"></InputNumber>
                     </div>
-
 
                     <div class="form-group row">
                         <div class="col-sm-4">Requiere autorizacion</div>

@@ -233,5 +233,6 @@
     <None Include="Prestamo_permisos.publish.publish.xml" />
     <None Include="Prestamo_api.publish.publish.xml" />
     <None Include="Bisend_PrestamoApi.publish.xml" />
+    <None Include="SqlSchemaComparePrestamoForAbdiel.scmp" />
   </ItemGroup>
 </Project>

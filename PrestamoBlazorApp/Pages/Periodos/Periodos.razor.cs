@@ -13,24 +13,29 @@ namespace PrestamoBlazorApp.Pages.Periodos
     {
         [Inject]
         PeriodosService PeriodosService { get; set; }
+
+        
         IEnumerable<Periodo> Periodoss { get; set; } = new List<Periodo>();
         [Parameter]
         public Periodo Periodo { get; set; } = new Periodo();
 
-        private int? _IdSelectedPeriodo = null;
+        private int? _IdSelectedPeriodo =null;
 
         public int? IdSelectedPeriodo { get { return _IdSelectedPeriodo; } set { _IdSelectedPeriodo = value; Seleccionar(); } }
+        private int _idSelectedPeriodoBase=1;
 
-        public int IdSelectedPeriodoBase { get; set; }
+        public int IdSelectedPeriodoBase { get { return _idSelectedPeriodoBase; } set { _idSelectedPeriodoBase = value; SetNombrePeriodo(); } }
         public bool ChkEstatus { get; set; } = true;
         public bool ChkRequiereAutorizacion { get; set; }
         public PeriodoBase PeriodoBase { get; set; }
-        private void Seleccionar()
+        void Seleccionar()
         {
             //SelectedLocalidad = Convert.ToInt32(args.);
             var selected = Periodoss.Where(m => m.idPeriodo == IdSelectedPeriodo).FirstOrDefault();
             Periodo.idPeriodo = selected.idPeriodo;
             IdSelectedPeriodoBase = (int)selected.PeriodoBase;
+            
+            
            // Periodo.IdPeriodoBase;
             //OnLocalidadSelected.InvokeAsync(selected);
 
@@ -44,6 +49,7 @@ namespace PrestamoBlazorApp.Pages.Periodos
         protected override async Task OnInitializedAsync()
         {
             await GetData();
+            SetNombrePeriodo();
         }
 
         async Task CreateOrEdit(int idPeriodo = -1)
@@ -80,6 +86,22 @@ namespace PrestamoBlazorApp.Pages.Periodos
             await GetData();
             await UnBlockPage();
         }
+
+        async Task OnSelectedPeriodoChange()
+        { 
+
+        }
+
+        string NombrePeriodo { get; set; }
+        void SetNombrePeriodo()
+        {
+            NombrePeriodo = "Ninguno";
+            if (IdSelectedPeriodoBase > 0)
+            {
+                NombrePeriodo = Enum.GetName(typeof(PeriodoBase), IdSelectedPeriodoBase);
+            }
+        }
+
         async Task GetData()
         {
             Periodoss = await PeriodosService.Get(new PeriodoGetParams());

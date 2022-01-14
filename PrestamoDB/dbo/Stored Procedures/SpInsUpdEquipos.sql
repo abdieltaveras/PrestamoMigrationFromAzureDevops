@@ -2,6 +2,7 @@
 	@IdEquipo INT,
 	@IdNegocio INT  ,
 	@IdLocalidadNegocio int = -1,
+	@Codigo VARCHAR(40),
 	@Nombre VARCHAR(50),
 	@Descripcion varchar(50),
 	@UltimoAcceso datetime, 
@@ -9,7 +10,10 @@
 AS
 Begin
 declare @currentId int =@IdEquipo
-declare @codigo varchar(40)= NEWID()
+if (@codigo='')
+	begin
+		set @codigo = NEWID()
+	end
 if (@IdEquipo = 0)
 	begin
 		insert into tblEquipos
@@ -22,6 +26,7 @@ Else
 	Begin
 	update tblEquipos
 		set 
+			Codigo = @Codigo,
 			Nombre = @Nombre,
 			Descripcion = @Descripcion,
 			ModificadoPor = @Usuario,

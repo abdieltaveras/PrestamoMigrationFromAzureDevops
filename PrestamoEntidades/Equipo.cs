@@ -10,8 +10,6 @@ namespace PrestamoEntidades
     public class Equipo : BaseInsUpd
     {
         public int IdEquipo { get; set; }
-        public int IdNegocio { get; set; }
-        [IgnoreOnParams]
         public string Codigo { get; set; } = string.Empty;
         public string Nombre { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
