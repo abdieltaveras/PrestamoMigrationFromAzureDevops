@@ -18,7 +18,7 @@ namespace PrestamoBlazorApp.Services
         string apiUrl = "api/tipomoras";
         public async Task<IEnumerable<TipoMora>> Get(TipoMoraGetParams search)
         {
-            var result = await GetAsync<TipoMora>(apiUrl + "/get", new  { JsonGet = search.ToJson() });
+            var result = await GetAsync<TipoMora>(apiUrl + "/get", search);
             return result;
         }
 

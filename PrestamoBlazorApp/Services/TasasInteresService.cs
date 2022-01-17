@@ -20,7 +20,7 @@ namespace PrestamoBlazorApp.Services
         public async Task<IEnumerable<TasaInteres>> Get(TasaInteresGetParams search)
         {
             //var result = await GetAsync<Marca>(apiUrl, new { JsonGet = marcaGetParams.ToJson() });
-            var result = await GetAsync<TasaInteres>(apiUrl+"/get", new { JsonGet = search.ToJson() });
+            var result = await GetAsync<TasaInteres>(apiUrl+"/get", search);
             return result;
         }
 
