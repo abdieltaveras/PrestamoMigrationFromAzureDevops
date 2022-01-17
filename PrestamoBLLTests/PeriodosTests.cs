@@ -3,6 +3,7 @@ using PrestamoBLL;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,11 @@ namespace PrestamoBLL.Tests
     public class PeriodosTests
     {
         TestInfo tinfo = new TestInfo();
+
+        
         [TestMethod()]
+
+        
         public void InsUpdPeriodoTest()
         {
             var periodo = new Periodo { Codigo = "MesTest", IdNegocio=6, PeriodoBase = PeriodoBase.Mes, Nombre = "Prueba Mes", Usuario = tinfo._Usuario };
@@ -32,7 +37,7 @@ namespace PrestamoBLL.Tests
         }
 
         [TestMethod()]
-        public void GetPeriodoTest()
+        public void GetPeriodoMesTest()
         {
             
             Func<bool> condicion = () => tinfo.MensajeError == string.Empty;
@@ -45,6 +50,27 @@ namespace PrestamoBLL.Tests
                 tinfo.MensajeError = e.Message;
             }
 
+            Assert.IsTrue(condicion(), tinfo.MensajeError);
+        }
+
+        [TestMethod()]
+        public void GetPeriodosTest()
+        {
+
+            Func<bool> condicion = () => tinfo.MensajeError == string.Empty;
+            try
+            {
+
+                var result1 = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var result2 = System.Configuration.ConfigurationManager.ConnectionStrings;
+                var result3 = ConfigurationManager.AppSettings;
+
+                var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = -1 });
+            }
+            catch (Exception e)
+            {
+                tinfo.MensajeError = e.Message;
+            }
             Assert.IsTrue(condicion(), tinfo.MensajeError);
         }
         private int GetPeriodo()

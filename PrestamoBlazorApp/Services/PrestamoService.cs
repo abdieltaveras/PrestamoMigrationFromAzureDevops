@@ -51,11 +51,11 @@ namespace PrestamoBlazorApp.Services
 
         }
 
-        public async Task<IEnumerable<Cuota>>  GenerarCuotas(Prestamo prestamo)
+        public async Task<IEnumerable<CxCCuota>>  GenerarCuotas(Prestamo prestamo)
         {
             var infoForGeneradorDeCuotas = new InfoGeneradorDeCuotas(prestamo);
             
-            var result = await GetAsync<Cuota>(apiUrl+"/GenerarCuotas", new { jsonInfoGenCuotas = infoForGeneradorDeCuotas.ToJson() ,idPeriodo= prestamo.IdPeriodo, idTipoAmortizacion = prestamo.IdTipoAmortizacion});
+            var result = await GetAsync<CxCCuota>(apiUrl+"/GenerarCuotas", new { jsonInfoGenCuotas = infoForGeneradorDeCuotas.ToJson() ,idPeriodo= prestamo.IdPeriodo, idTipoAmortizacion = prestamo.IdTipoAmortizacion});
             return result;
         }
 

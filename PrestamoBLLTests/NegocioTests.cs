@@ -84,7 +84,7 @@ namespace PrestamoBLL.Tests
         public void GetNegociosHijosTest()
         {
             var negocioPadre = GetNegocios(GetParamNegocioIntangsa()).FirstOrDefault();
-            var getParam = new NegociosGetParams { IdNegocioPadre = negocioPadre.IdNegocio, IdNegocio = -1,  };
+            var getParam = new NegociosGetParams { IdNegocio = -1,  };
             mensajeError = string.Empty;
             var negociosYSuHijos = BLLPrestamo.Instance.GetNegocioYSusHijos(negocioPadre.IdNegocio);
             Assert.IsTrue(negociosYSuHijos.Count()>0,$"No se encontraron hijos para el id negocio {negocioPadre.IdNegocio}");
@@ -98,7 +98,7 @@ namespace PrestamoBLL.Tests
             var negocioAActualizar = GetNegocioIntagsa(getParam);
             negocioAActualizar.NombreComercial+= "Modificado";
             negocioAActualizar.Usuario = "NegocioTest";
-            negocioAActualizar.InfoAccion = CreateInfoUAccion().ToJson();
+            
             negocioAActualizar.CorreoElectronico = "intagsa@hotmail.com";
             var nombreEsperado = negocioAActualizar.NombreComercial;
             try
@@ -247,7 +247,7 @@ namespace PrestamoBLL.Tests
             var negocio1 = NewInstanceNegocioIntagsa();
             var result = BLLPrestamo.Instance.GetNegocios(new NegociosGetParams { Codigo = negocio1.Codigo });
             negocio1.Codigo = "Guaricano "+Guid.NewGuid().ToString();
-            negocio1.IdNegocioPadre = negocioPadre.IdNegocio;
+            
             negocio1.NombreComercial = "Intagsa Santo Domingo";
             negocio1.PermitirOperaciones = false;
 
@@ -255,14 +255,13 @@ namespace PrestamoBLL.Tests
 
 
             var negocio2 = NewInstanceNegocioIntagsa();
-            negocio2.IdNegocioPadre = idNegocioSubMatrizPadre;
-            negocio2.NombreComercial = "Guaricano Prestamo";
+                        negocio2.NombreComercial = "Guaricano Prestamo";
             negocio2.PermitirOperaciones = true;
             negocio2.Codigo = "GP "+Guid.NewGuid().ToString();
 
             InsUpdNegocio(negocio2);
             var negocio3 = NewInstanceNegocioIntagsa();
-            negocio3.IdNegocioPadre = idNegocioSubMatrizPadre;
+            
             negocio3.NombreComercial = "Guaricano Ventas";
             negocio3.Codigo = "GV "+Guid.NewGuid().ToString();
             negocio3.PermitirOperaciones = true;
@@ -279,7 +278,7 @@ namespace PrestamoBLL.Tests
         {
             var negocioInfo = new NegocioInfo { Direccion1 = "Prol. Gregorio Luperon no 12, Villa España", Direccion2 = "La Romana Rep. Dom.", Telefono1 = "809-813-1719" };
             InfoAccion infoAccion = CreateInfoUAccion();
-            var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo = "int001", OtrosDetalles = negocioInfo.ToJson(), Usuario = "TestProject", InfoAccion = infoAccion.ToJson(), Logo = "papito.png" };
+            var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo = "int001",  Usuario = "TestProject",  Logo = "papito.png" };
             return negocio;
         }
 

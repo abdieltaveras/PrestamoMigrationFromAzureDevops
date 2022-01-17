@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoBLLTests", "PrestamoBLLTests\PrestamoBLLTests.csproj", "{073D3734-E0E0-41F8-B490-8B893FD8DBAC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedDLL", "SharedDLL", "{D34D4469-0B89-48EB-83C9-822EC00CE86B}"
 	ProjectSection(SolutionItems) = preProject
 		SharedDLL\EMTSoft\emtSoft.DAL.dll = SharedDLL\EMTSoft\emtSoft.DAL.dll
@@ -76,6 +74,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoBLL", "PrestamoBLL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppForRDLCDesing", "AppForRDLCDesing\AppForRDLCDesing.csproj", "{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoBLLTests", "PrestamoBLLTests\PrestamoBLLTests.csproj", "{2485EA1F-FED0-406E-B0A8-0FD11931AD59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoEntidadesTests1", "PrestamoEntidadesTests1\PrestamoEntidadesTests1.csproj", "{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU
@@ -83,12 +85,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Abdiel|Any CPU.ActiveCfg = Abdiel|Any CPU
-		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Abdiel|Any CPU.Build.0 = Abdiel|Any CPU
-		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{073D3734-E0E0-41F8-B490-8B893FD8DBAC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA3FF769-7BAD-40AB-9ABE-96ABE4E0BE13}.Abdiel|Any CPU.ActiveCfg = Abdiel|Any CPU
 		{EA3FF769-7BAD-40AB-9ABE-96ABE4E0BE13}.Abdiel|Any CPU.Build.0 = Abdiel|Any CPU
 		{EA3FF769-7BAD-40AB-9ABE-96ABE4E0BE13}.Abdiel|Any CPU.Deploy.0 = Abdiel|Any CPU
@@ -146,6 +142,18 @@ Global
 		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DA418CE-CDDE-44BF-93E3-E3724F49CD48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2485EA1F-FED0-406E-B0A8-0FD11931AD59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,5 +26,16 @@ namespace PrestamoBLL
         {
             PendienteDeImplementacionException();
         }
+
+        public class AplicarIngreso
+        {
+            public AplicarIngreso(int idPrestamo, DateTime Fecha, Decimal Monto)
+            {
+                // debo primero buscar todos los cargos del prestamo
+                    // necesitamos una aplicacion que me devuelva la cxc del prestamo
+                // recorrer los cargos para ir aplicando el pago
+                // guardar la informaciones del pago realizado con todos sus detalles
+            }
+        }
     }
 }

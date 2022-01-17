@@ -157,7 +157,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
             this.prestamo.IdClasificacion = Clasificaciones.FirstOrDefault().IdClasificacion;
             ClasificacionSelected = Clasificaciones.FirstOrDefault();
-            this.prestamo.IdTipoAmortizacion = (int)TiposAmortizacion.No_Amortizable_cuotas_fijas;
+            this.prestamo.TipoAmortizacion =TiposAmortizacion.No_Amortizable_cuotas_fijas;
             this.prestamo.IdPeriodo = Periodos.FirstOrDefault().idPeriodo;
 
             this.prestamo.IdTipoMora = TiposMora.FirstOrDefault().IdTipoMora;
@@ -192,7 +192,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         }
         private async Task CalcularCuotas()
         {
-            IEnumerable<Cuota> cuotas = new List<Cuota>();
+            IEnumerable<CxCCuota> cuotas = new List<CxCCuota>();
             try
             {
                 cuotas = await prestamoService.GenerarCuotas(this.prestamo);
@@ -214,7 +214,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             NotifyMessageBox(e);
         }
 
-        private List<Cuota> Cuotas { get; set; } = new List<Cuota>();
+        private List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
 
         private string InfoCuotas()
         {

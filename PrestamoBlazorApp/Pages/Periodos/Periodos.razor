@@ -19,15 +19,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <EditForm Model="Periodo" OnValidSubmit="SavePriodo">
+                <EditForm Model="Periodo" OnValidSubmit="Save">
                     <div class="form-group row">
-                        <div class="col-sm-4">Estatus</div>
+                        <div class="col-sm-4">Activo</div>
                         <div class="col-sm-8">
                             <label class="switch">
                                 <input type="checkbox" @bind="ChkEstatus">
                                 <span class="slider round"></span>
                             </label>
-                         
+
 
                         </div>
                     </div>
@@ -48,29 +48,35 @@
                         <InputText class="form-control col-md-6" @bind-Value="Periodo.Nombre"></InputText>
                     </div>
                     <div class="form-group">
-                        
-                        <InputSelect @bind-Value="Periodo.IdPeriodoBase" class="form-control col-md-6">
-                            @foreach (var item in PeriodoBase.GetValues(typeof(PeriodoBase)) )
+
+                        @*<InputSelect @bind-Value="Periodo.IdPeriodoBase" class="form-control col-md-6">
+                                @foreach (var item in PeriodoBase.GetValues(typeof(PeriodoBase)) )
+                                {
+                                    <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                                }
+                            </InputSelect>*@
+                        <label for="nombre">Periodo Base</label>
+                        <InputSelect @bind-Value="IdSelectedPeriodoBase" class="form-control col-md-6">
+                            @foreach (var item in PeriodoBase.GetValues(typeof(PeriodoBase)))
                             {
                                 <option value="@Convert.ToInt32(item)">@item.ToString()</option>
                             }
                         </InputSelect>
                     </div>
-                  
+
                     <div class="form-group">
-                        <label for="nombre">MultiploPeriodoBase</label>
+                        <label for="nombre">Cantidad de <strong>[@NombrePeriodo]</strong> por ciclo</label>
                         <InputNumber class="form-control col-md-6" @bind-Value="Periodo.MultiploPeriodoBase"></InputNumber>
                     </div>
-                  
 
                     <div class="form-group row">
                         <div class="col-sm-4">Requiere autorizacion</div>
-                        <div class="col-md-8" >
+                        <div class="col-md-8">
                             <label class="switch">
                                 <input type="checkbox" @bind="ChkRequiereAutorizacion">
                                 <span class="slider round"></span>
                             </label>
-                          
+
                         </div>
                     </div>
                     @*<div class="ln_solid"></div>*@
@@ -81,7 +87,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </EditForm>
             </div>
         </div>
@@ -106,54 +112,54 @@
 
                 @foreach (var item in Periodoss)
                 {
-                <tr>
-                    <td>
-                        <strong>
-                            @item.Codigo
-                        </strong>
+                    <tr>
+                        <td>
+                            <strong>
+                                @item.Codigo
+                            </strong>
 
-                    </td>
-                    <td>
-                        @item.Nombre
-                    </td>
-                    <td>
-                        @if (item.Activo)
-                        {
-                            <span class="badge badge-success">Activo</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-danger">Desactivado</span>
-                        }
-                    </td>
-                    <td>
-                        @if (item.RequiereAutorizacion)
-                        {
-                            <span class="badge badge-primary">Si</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-danger">No</span>
-                        }
-                    </td>
-                    <td>
-                        <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
-                            <i class="fa fa-info-circle"></i>
-                        </button>
-                        <button @onclick="()=>CreateOrEdit(item.idPeriodo)" class="btn btn-outline-primary">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
+                        </td>
+                        <td>
+                            @item.Nombre
+                        </td>
+                        <td>
+                            @if (item.Activo)
+                            {
+                                <span class="badge badge-success">Activo</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Desactivado</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RequiereAutorizacion)
+                            {
+                                <span class="badge badge-primary">Si</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">No</span>
+                            }
+                        </td>
+                        <td>
+                            <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+                            <button @onclick="()=>CreateOrEdit(item.idPeriodo)" class="btn btn-outline-primary">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
 
-                </tr>
+                    </tr>
                 }
 
             </tbody>
         </table>
-     
+
     </div>
 
     @* Formulario para agregar tasas de interes *@

@@ -13,7 +13,14 @@ namespace PrestamoBLL
     {
         public IEnumerable<Periodo> GetPeriodos(PeriodoGetParams searchParam)
         {
-            return BllAcciones.GetData<Periodo, PeriodoGetParams>(searchParam, "spGetPeriodos", GetValidation);
+            //var mapping = new Dictionary<string, Func<Periodo, object>>();
+            //mapping.Add("PeriodoBase", (per) => { 
+            //    return (PeriodoBase)per.IdPeriodoBase; });
+
+            //var result =  DBPrestamo.ExecReaderSelSP("spGetPeriodos", mapping, SearchRec.ToSqlParams(searchParam));
+
+            var result = BllAcciones.GetData<Periodo, PeriodoGetParams>(searchParam, "spGetPeriodos", GetValidation);
+            return result;
             
         }
         public void InsUpdPeriodo(Periodo insupdparam)

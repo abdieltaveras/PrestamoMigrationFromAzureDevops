@@ -42,37 +42,38 @@
 
                     <div class="form-group row">
                         <label for="clasificacion" class="col-sm-4 col-form-label @textLabelJustify">Clasificacion</label>
-                        
-                        
-                            <select id="clasificacion" value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" class="form-control col-sm-4">
-                                @foreach (var item in Clasificaciones)
-                                        {
-                                    <option value=@item.IdClasificacion>@item.Nombre</option>
-                                        }
-                            </select>
-                        
+
+
+                        <select id="clasificacion" value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" class="form-control col-sm-4">
+                            @foreach (var item in Clasificaciones)
+                            {
+                                <option value=@item.IdClasificacion>@item.Nombre</option>
+                            }
+                        </select>
+
                     </div>
 
 
-                    <div class="form-group row">
+                    @*<div class="form-group row" style="margin-top:1px">*@
+                    <div class="form-group row" style="margin-top:1px">
                         <label for="amortizacion" class="col-sm-4 col-form-label @textLabelJustify">Amortizacion</label>
-                        
-                            <InputSelect id="amortizacion" @bind-Value="@prestamo.IdTipoAmortizacion" class="form-control col-sm-4">
-                                <option value=-1>Seleccione la amortizacion</option>
-                                @foreach (var item in EnumToList.TiposAmortizacion())
-                                        {
-                                    <option value=@item.Value>@item.Text</option>
-                                        }
-                            </InputSelect>
-                        
+
+                        <InputSelect id="amortizacion" @bind-Value="@prestamo.IdTipoAmortizacion" class="form-control col-sm-4">
+                            <option value=-1>Seleccione la amortizacion</option>
+                            @foreach (var item in EnumToList.TiposAmortizacion())
+                                {
+                                <option value=@item.Value>@item.Text</option>
+                                }
+                        </InputSelect>
+
                     </div>
 
                     <div class="form-group row">
                         <label for="fechaPrestamo" class="col-sm-4 col-form-label @textLabelJustify">Fecha</label>
-                        <input type="date" value="@FechaEmisionReal"  format-value="dd/MM/yyyy" @onchange="OnFechaEmisionRealChange" onkeypress="return false" class="input-medium search-query"/>
+                        <input type="date" value="@FechaEmisionReal" format-value="dd/MM/yyyy" @onchange="OnFechaEmisionRealChange" onkeypress="return false" class="input-medium search-query" />
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row" >
                         <label for="codigocliente" class="col-sm-4 col-form-label @textLabelJustify">Codigo Cliente</label>
                         <input value="@CodigoCliente" readonly placeholder="buscar cliente" class="col-sm-3" />
                         <button @onclick="ActivateSearchCliente" title="buscar clientes"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
@@ -117,7 +118,7 @@
                     <div class="form-group row">
                         <label for="montoCliente" class="col-sm-4 col-form-label @textLabelJustify ">Monto Prestado</label>
                         <input type="number" value="@prestamo.MontoPrestado" @onchange="OnMontoPrestadoChange" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />
-                        
+
                         @*<input type="number" value="prestamo.MontoPrestado" @onchange="Update" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />*@
                         <label class="col-sm-4 col-form-label text-left">= @(string.Format("{0:c}", prestamo.MontoPrestado))</label>
                         @*@prestamo.FormattedMontoPrestadoText*@

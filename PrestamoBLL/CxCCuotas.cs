@@ -40,7 +40,7 @@ namespace PrestamoBLL
     }
     public partial class BLLPrestamo
     {
-        internal void InsUpdCuotas(IEnumerable<Cuota> cuotas)
+        internal void InsUpdCuotas(IEnumerable<CxCCuota> cuotas)
         {
             var cuotasDataTable = cuotas.ToDataTable();
             try
@@ -57,7 +57,6 @@ namespace PrestamoBLL
                 DatabaseError(e);
             }
         }
-
         
     }
 }

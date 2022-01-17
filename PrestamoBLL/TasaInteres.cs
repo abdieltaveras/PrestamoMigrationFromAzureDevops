@@ -40,19 +40,19 @@ namespace PrestamoBLL
             switch (periodo.PeriodoBase)        
             {
                 case PeriodoBase.Dia:
-                    tasaInteresPorPeriodos.InteresDelPeriodo = tasaInteresPorPeriodos.InteresDiario * periodo.MultiploPeriodoBase; 
+                    tasaInteresPorPeriodos.InteresDelPeriodo = tasaInteresPorPeriodos.InteresDiario * (int)periodo.MultiploPeriodoBase; 
                     break;
                 case PeriodoBase.Semana:
-                    tasaInteresPorPeriodos.InteresDelPeriodo = tasaInteresPorPeriodos.InteresSemanal * periodo.MultiploPeriodoBase; 
+                    tasaInteresPorPeriodos.InteresDelPeriodo = tasaInteresPorPeriodos.InteresSemanal * (int)periodo.MultiploPeriodoBase; 
                     break;
                 case PeriodoBase.Quincena:
-                    tasaInteresPorPeriodos.InteresDelPeriodo = tasaInteresPorPeriodos.InteresQuincenal * periodo.MultiploPeriodoBase; 
+                    tasaInteresPorPeriodos.InteresDelPeriodo = tasaInteresPorPeriodos.InteresQuincenal * (int)periodo.MultiploPeriodoBase; 
                     break;
                 case PeriodoBase.Mes:
-                    tasaInteresPorPeriodos.InteresDelPeriodo =  tasaInteresPorPeriodos.InteresMensual * periodo.MultiploPeriodoBase; 
+                    tasaInteresPorPeriodos.InteresDelPeriodo =  tasaInteresPorPeriodos.InteresMensual * (int)periodo.MultiploPeriodoBase; 
                     break;
                 case PeriodoBase.Ano:
-                    tasaInteresPorPeriodos.InteresDelPeriodo = tasaInteresPorPeriodos.InteresAnual * periodo.MultiploPeriodoBase; 
+                    tasaInteresPorPeriodos.InteresDelPeriodo = tasaInteresPorPeriodos.InteresAnual * (int)periodo.MultiploPeriodoBase; 
                     break;
                 default:
                     break;

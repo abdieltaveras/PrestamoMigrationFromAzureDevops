@@ -5,6 +5,6 @@ namespace PrestamoBLL
 {
     public interface IGeneradorCuotas
     {
-        List<Cuota> GenerarCuotas();
+        List<CxCCuota> GenerarCuotas();
     }
 }
