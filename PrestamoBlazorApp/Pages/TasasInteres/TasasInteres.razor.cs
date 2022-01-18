@@ -18,14 +18,14 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         IEnumerable<TasaInteres> tasasinteres { get; set; } = new List<TasaInteres>();
         [Parameter]
         public TasaInteres TasaInteres { get; set; } = new TasaInteres();
-        public bool ChkRequiereAutorizacion { get; set; }
-        public bool ChkEstatus { get; set; } = true;
+        private bool ChkRequiereAutorizacion { get; set; }
+        private bool ChkEstatus { get; set; } = true;
+    
         private decimal _Tasa { get; set; }
         public decimal Tasa { get { return _Tasa; } set { this.TasaInteres.Nombre = $"{Convert.ToDecimal(value)}% de interes"; _Tasa = Convert.ToDecimal(value);  } }
         protected override void OnInitialized()
         {
             base.OnInitialized();
-          
             this.TasaInteres = new TasaInteres();
         }
         protected override async Task OnInitializedAsync()

@@ -10,7 +10,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">                    
+            <div class="modal-body">
                 <br />
                 <EditForm @key="TasaInteres.idTasaInteres" Model="TasaInteres" OnValidSubmit="SaveTasaInteres">
                     <div class="row">
@@ -19,12 +19,20 @@
                                 <div class="col-sm-4">Activo</div>
                                 <div class="col-sm-8">
                                     <label class="switch">
-                                        <input type="checkbox" @bind="ChkEstatus">
+                                        @{
+                                            if (TasaInteres.idTasaInteres > 0)
+                                            {
+                                                <input type="checkbox" @bind="ChkEstatus">
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" checked onclick="return false">
+                                            }
+                                        }
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
                             </div>
-
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="codigo">
                                     Codigo <span class="required">*</span>
@@ -63,23 +71,18 @@
                                         <input type="checkbox" @bind="ChkRequiereAutorizacion">
                                         <span class="slider round"></span>
                                     </label>
-                                  
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12" style="display:inline-grid; justify-content:right;">
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
-                      
-                    
                 </EditForm>
-                        @*</form>*@
+                @*</form>*@
                 <hr />
                 @*  *@
                 @*  *@
@@ -105,7 +108,7 @@
                             </li>
                         </ul>
                     </div>
-                   
+
                 </div>
 
 
@@ -122,7 +125,7 @@
         @*<button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres"  style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
 
         <h4>Tabla de intereses</h4>
-      
+
         <table id="datatable" class="table table-bordered row-border">
             <thead>
                 <tr>
@@ -142,8 +145,8 @@
                     <tr class="@(!item.Activo ? "table-active" : "" )"
                         data-id="@item.idTasaInteres">
                         @*<td>
-                            <input type="checkbox" class="checkbox" />
-                        </td>*@
+                                <input type="checkbox" class="checkbox" />
+                            </td>*@
                         <td>
                             <strong>
                                 @item.Codigo
@@ -205,7 +208,7 @@
                 }
             </tbody>
         </table>
-        
+
 
     </div>
 </div>
