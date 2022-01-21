@@ -29,7 +29,8 @@ namespace PrestamoBlazorApp.Pages.Equipos
         }
         protected override async Task OnInitializedAsync()
         {
-            equipos = await EquiposService.Get(new EquiposGetParam());
+            var searchParam = new EquiposGetParam();
+            equipos = await EquiposService.Get(searchParam);
         }
         async Task Get()
         {

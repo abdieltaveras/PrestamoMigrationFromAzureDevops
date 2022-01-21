@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spGetEquipos]
 	@IdEquipo int,
-	@Codigo varchar (40),
+	@Codigo varchar (40)='',
 	@usuario varchar(40) ='',
 	@Anulado bit=0,
 	@Idnegocio int =-1,

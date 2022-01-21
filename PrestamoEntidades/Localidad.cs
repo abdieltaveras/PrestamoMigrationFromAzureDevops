@@ -17,10 +17,8 @@ namespace PrestamoEntidades
         [IgnoreOnParams]
         public string Descripcion { get; set; } = string.Empty;
 
-        public override int GetId()
-        {
-            throw new NotImplementedException();
-        }
+        public override int GetId() => this.IdLocalidad;
+        
     }
 
     public class LocalidadInsUptParams
@@ -72,10 +70,8 @@ namespace PrestamoEntidades
         public int IdLocalidad { get; set; }
         public string TipoLocalidad { get; set; }
         public string DivisionTerritorial { get; set; }
-        public override int GetId()
-        {
-            throw new NotImplementedException();
-        }
+        public override int GetId() => this.IdLocalidadNegocio;
+        
     }
 
     public class LocalidadPaisesGetParams : BaseGetParams{}

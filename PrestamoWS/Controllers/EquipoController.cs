@@ -18,8 +18,8 @@ namespace PrestamoWS.Controllers
 	    [HttpGet]
         public IEnumerable<Equipo> Get([FromQuery] EquiposGetParam getParams)
         {
-            
-            return BLLPrestamo.Instance.GetEquipos(getParams);
+            var result = BLLPrestamo.Instance.GetEquipos(getParams);
+            return result;
         }
         //public IEnumerable<Equipo> Get(int idEquipo, string codigo, int idLocalidad)
         //{

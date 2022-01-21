@@ -141,7 +141,7 @@ namespace PrestamoBLL
             var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
             try
             {
-                var result = DBPrestamo.ExecSelSP("spInsUpdNegocio", ref _insUpdParam);
+                var result = DBPrestamo.ExecSelSP("spInsUpdNegocio",  _insUpdParam);
                 idResult = Utils.GetIdFromDataTable(result);
             }
             catch (Exception e)

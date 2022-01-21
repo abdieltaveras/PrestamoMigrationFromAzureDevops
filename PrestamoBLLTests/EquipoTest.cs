@@ -85,9 +85,9 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(data.EstaBloqueado, $"Se esperaba que devolviera true y se recibio {data.EstaBloqueado}");
         }
         [TestMethod()]
-        public void GetEquiposExecuteCountGreaterThenZero()
+        public void GetEquipos()
         {
-            InsertEquipo("intagsa Romana Prestamo 1", "para operaciones de prestamo");
+            
             var result = BLLPrestamo.Instance.GetEquipos(new EquiposGetParam());
             Assert.IsTrue(result.Count() > 0, $"se esperaba valor mayor que 0 y se recibio {result.Count()}");
         }

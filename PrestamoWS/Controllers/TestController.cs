@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PrestamoBLL;
 using PrestamoEntidades;
 using System.Collections.Generic;
 using System.Threading;
@@ -37,5 +38,11 @@ namespace PrestamoWS.Controllers
             return list;
         }
 
+        [HttpGet]
+        public IEnumerable<LocalidadNegocio> GetLocalidadesNegocioTest()
+        {
+            var result = BLLPrestamo.Instance.GetLocalidadesNegocio(null);
+            return result;
+        }
     }
 }

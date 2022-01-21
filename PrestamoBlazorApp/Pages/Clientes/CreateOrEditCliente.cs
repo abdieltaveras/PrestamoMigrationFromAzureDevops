@@ -180,7 +180,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
             if (validacionesFallidas.Count() > 0)
             {
-                SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
+                await SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
                 return false;
             }
             try

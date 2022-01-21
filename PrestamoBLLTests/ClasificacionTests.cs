@@ -28,5 +28,24 @@ namespace PrestamoBLL.Tests
             
             Assert.IsTrue(succesResult,"el procedimiento no pudo ser ejecutado");
         }
+
+        [TestMethod()]
+        public void GetClasificaciones()
+        {
+            bool succesResult = true;
+            var searchParam = new ClasificacionesGetParams();
+            try
+            {
+                
+                var result = BLLPrestamo.Instance.GetClasificaciones(searchParam);
+            }
+            catch (Exception)
+            {
+                succesResult = false;
+            }
+
+            Assert.IsTrue(succesResult, "No se pudo ejecutar el procedimiento de busqueda");
+        }
+
     }
 }

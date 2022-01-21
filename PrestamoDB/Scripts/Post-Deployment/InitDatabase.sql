@@ -25,8 +25,9 @@ Post-Deployment Script Template
 			VALUES
 			('INT-M','Intagsa SRL','Intagsa',@usuario,getdate(), '1','','Papito.png')
 
-	INSERT INTO dbo.tblLocalidadesNegocio (Codigo, Nombre,Activo, idNegocio, PrefijoPrestamo, InsertadoPor, FechaInsertado, MunicipioOCiudad, Calle, Telefono)
-	VALUES ('IRO', 'Intagsa Romana', 1,1,null, @usuario,getdate(), 'La Romana','Prolongacion Gregorio Luperon no 12','809-813-1719')
+	
+	--INSERT INTO dbo.tblLocalidadesNegocio (Nombre,Activo, idNegocio, InsertadoPor, FechaInsertado, MunicipioOCiudad, Calle, Telefono)
+	--VALUES ('Intagsa Romana', 1,1, @usuario,getdate(), 'La Romana','Prolongacion Gregorio Luperon no 12','809-813-1719')
 
 --tblDivisas
 	INSERT INTO [dbo].[tblDivisas]

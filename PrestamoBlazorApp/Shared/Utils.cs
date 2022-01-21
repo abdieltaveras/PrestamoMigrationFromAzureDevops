@@ -20,10 +20,30 @@ namespace PrestamoBlazorApp.Shared
         {
             if (obj == null) { return ""; }
             var properties = from p in obj.GetType().GetProperties()
-                             where p.GetValue(obj, null) != null
+                             where (p.GetValue(obj, null) != null && p.GetValue(obj,null).ToString() != string.Empty)
                              select p.Name + "=" + HttpUtility.UrlEncode(p.GetValue(obj, null).ToString());
+            var result= String.Join("&", properties.ToArray());
+            //UrlEncode2(obj);
+            return result;
+        }
 
-            return String.Join("&", properties.ToArray());
+        private static string UrlEncode2(this object obj)
+        {
+            if (obj == null) { return ""; }
+            var properties = from p in obj.GetType().GetProperties()
+                             where p.GetValue(obj, null) != null
+                             select p.Name + "="+ GetValue(p.GetValue(obj, null).ToString());
+            //HttpUtility.UrlEncode(p.GetValue(obj, null).ToString());
+            var result = String.Join("&", properties.ToArray(), null);
+            return result;
+        }
+
+        private static string GetValue(string value)
+        {
+            var result = HttpUtility.UrlEncode(value).ToString();
+            if (string.IsNullOrEmpty(result))
+                result = " ";
+            return result;
         }
         public static @type[] Join<@type>(this @type[] array1, @type[] array2)
         {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Test
 {
-    public partial class AsyncUnderstanding : BaseForCreateOrEdit
+    public partial class Tests : BaseForCreateOrEdit
     {
         [Inject]
         TestService testService { get; set; }
@@ -19,6 +19,10 @@ namespace PrestamoBlazorApp.Pages.Test
             return base.OnAfterRenderAsync(firstRender);
         }
 
+        private async Task GetLocalidadesNegocioTest()
+        {
+            var result = await testService.GetLocalidadesNegocioTest();
+        }
 
 
         private async Task TestAsyncOk()
@@ -33,8 +37,8 @@ namespace PrestamoBlazorApp.Pages.Test
             var tarea4 = testService.GetTest01(10);
             var tarea5 = testService.GetTest02(5);
             var tarea6 = testService.GetTest03(15);
-            var tareas = new List<Task> { tarea1, tarea2, tarea3, tarea4, tarea5, tarea6  };
-            
+            var tareas = new List<Task> { tarea1, tarea2, tarea3, tarea4, tarea5, tarea6 };
+
             while (tareas.Count > 0)
             {
                 Task finishedTask = await Task.WhenAny(tareas);
