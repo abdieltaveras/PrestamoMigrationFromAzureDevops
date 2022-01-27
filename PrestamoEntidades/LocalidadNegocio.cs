@@ -51,24 +51,26 @@ namespace PrestamoEntidades
         [IgnoreOnParams]
         public LocalidadNegocioOtrosDetalles OtrosDetallesObj
         {
-            get { return _OtrosDetalles.ToType<LocalidadNegocioOtrosDetalles>(); }
+            get { return _OtrosDetalles; }
+                    //_OtrosDetalles.ToType<LocalidadNegocioOtrosDetalles>(); }
             set
             {
-                _OtrosDetalles = value.ToJson();
+
+                _OtrosDetalles = value;
             }
         }
 
-        private string _OtrosDetalles { get; set; }
+        private LocalidadNegocioOtrosDetalles _OtrosDetalles { get; set; } = new LocalidadNegocioOtrosDetalles();
         
         /// <summary>
         /// esta propiedad es un holder solamente no es para accesarla, es la que se usa en la tabla de la base de datos
         /// </summary>
         public string OtrosDetalles
         {
-            get { return _OtrosDetalles; }
+            get { return _OtrosDetalles.ToJson(); }
             internal set
             {
-                _OtrosDetalles = value;
+                _OtrosDetalles = value.ToType<LocalidadNegocioOtrosDetalles>();
             } 
         }
 
@@ -97,7 +99,6 @@ namespace PrestamoEntidades
     /// </summary>
     public class LocalidadNegocioOtrosDetalles
     {
-
         public string Direccion { get; set; } //= string.Empty;
 
         public string Calle { get; set; } = string.Empty;
@@ -109,6 +110,7 @@ namespace PrestamoEntidades
         public string Telefono2 { get; set; } = string.Empty;
         public string Slogan { get; set; } = string.Empty;
 
+        [DataType(DataType.EmailAddress)]
         public string CorreoElectronico { get; set; } = string.Empty;
 
     }

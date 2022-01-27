@@ -19,6 +19,7 @@ namespace PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
         [Parameter]
         public int IdLocalidadNegocio { get; set; } = -1;
 
+
         public Guid Guid = Guid.NewGuid();
         public string ModalDisplay = "none;";
         public string ModalClass = "";

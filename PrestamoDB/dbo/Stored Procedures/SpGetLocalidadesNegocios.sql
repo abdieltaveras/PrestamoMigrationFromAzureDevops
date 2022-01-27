@@ -1,10 +1,14 @@
 ﻿CREATE PROCEDURE [dbo].[SpGetLocalidadesNegocio]
 @IdLocalidadNegocio int = -1,
+@IdNegocio int = -1,
 @SearchText varchar(50) = '',
-@Opcion int
+@usuario varchar(50) ='',
+@PermitirOperaciones int = -1,
+@Anulado int=-1,
+@Opcion int = -1
 AS
 BEGIN
-	IF(@Opcion = 1)
+	IF(@Opcion = -1)
 	BEGIN
 		SELECT * from tblLocalidadesNegocio with(nolock)
 	END

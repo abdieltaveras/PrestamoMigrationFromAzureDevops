@@ -46,10 +46,10 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetLocalidadesNegociosTest()
         {
-                       var error = string.Empty;
+            var error = string.Empty;
             try
             {
-                var result = BLLPrestamo.Instance.GetLocalidadesNegocio(null);
+                var result = BLLPrestamo.Instance.GetLocalidadesNegocio(new LocalidadNegociosGetParams());
             }
             catch (Exception e)
             {

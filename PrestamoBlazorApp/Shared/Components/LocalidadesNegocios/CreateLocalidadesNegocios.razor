@@ -2,7 +2,9 @@
 
 
 
-<EditForm Model="LocalidadNegocio" OnValidSubmit="SaveLocalidadNegocio">
+<EditForm Model="@LocalidadNegocio" OnValidSubmit="@SaveLocalidadNegocio">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
     <div class="row">
         <div class="col-md-8">
 
@@ -64,6 +66,11 @@
                 <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Slogan" />
             </div>
             <div class="form-group">
+                <label for="nombre">Pais, Ciudad, Municipio</label>
+                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Direccion"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Direccion" />
+            </div>
+            <div class="form-group">
                 <label for="nombre">Calle</label>
                 <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Calle"></InputText>
                 <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Calle" />
@@ -74,18 +81,13 @@
                 <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.CorreoElectronico" />
             </div>
             <div class="form-group">
-                <label for="nombre">Direccion</label>
-                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Direccion"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Direccion" />
-            </div>
-            <div class="form-group">
-                <label for="nombre">Telefono 1</label>
-                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono1"></InputText>
+                <label for="telefono1">Telefono 1</label>
+                <InputText id="telefono1" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono1"></InputText>
                 <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Telefono1" />
             </div>
             <div class="form-group">
-                <label for="nombre">Telefono 2</label>
-                <InputText id="nombre" class="form-control col-md-6" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono2"></InputText>
+                <label for="telefono2">Telefono 2</label>
+                <InputText id="telefono2" class="form-control col-md-6" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono2"></InputText>
                 <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Telefono2" />
             </div>
         </div>
