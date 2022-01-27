@@ -76,7 +76,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppForRDLCDesing", "AppForR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoBLLTests", "PrestamoBLLTests\PrestamoBLLTests.csproj", "{2485EA1F-FED0-406E-B0A8-0FD11931AD59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoEntidadesTests1", "PrestamoEntidadesTests1\PrestamoEntidadesTests1.csproj", "{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoEntidadesTests1", "PrestamoEntidadesTests1\PrestamoEntidadesTests1.csproj", "{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

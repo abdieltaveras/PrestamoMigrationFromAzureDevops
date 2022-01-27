@@ -17,7 +17,7 @@ namespace PrestamoEntidades
         /// <summary>
         /// store Guid number
         /// </summary>
-        public string Codigo { get; internal set; } = string.Empty;
+        public string Codigo { get;  set; } = string.Empty; // si esta propiedad está con intertal, no puede visualizarse el dato al hacer un GET
         /// <summar
         /// <summary>
         /// El nombre registrado legalmente
@@ -80,13 +80,13 @@ namespace PrestamoEntidades
 
     public class LocalidadNegociosGetParams : BaseGetParams
     {
+        public int Opcion { get; set; } = -1;
+        //public string Codigo { get; set; } = string.Empty;
+        //public string NombreJuridico { get; set; } = string.Empty;
 
-        public string Codigo { get; set; } = string.Empty;
-        public string NombreJuridico { get; set; } = string.Empty;
+        //public string NombreComercial { get; set; } = string.Empty;
 
-        public string NombreComercial { get; set; } = string.Empty;
-
-        public string TaxIdNo { get; set; } = string.Empty;
+        //public string TaxIdNo { get; set; } = string.Empty;
 
         public int PermitirOperaciones { get; set; } = -1;
 
@@ -98,7 +98,7 @@ namespace PrestamoEntidades
     public class LocalidadNegocioOtrosDetalles
     {
 
-        public string Direccion { get; set; } = string.Empty;
+        public string Direccion { get; set; } //= string.Empty;
 
         public string Calle { get; set; } = string.Empty;
 

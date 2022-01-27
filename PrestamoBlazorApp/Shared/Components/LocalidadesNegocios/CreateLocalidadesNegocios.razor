@@ -1,0 +1,101 @@
+﻿@inherits BaseForCreateOrEdit
+
+
+
+<EditForm Model="LocalidadNegocio" OnValidSubmit="SaveLocalidadNegocio">
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="form-group">
+                <label for="nombre">Nombre Juridico</label>
+                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.NombreJuridico"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.NombreJuridico" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre Comercial</label>
+                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.NombreComercial"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.NombreComercial" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Prefijo Prestamo</label>
+                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.PrefijoPrestamo"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.PrefijoPrestamo" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Prefijo Transacciones</label>
+                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.PrefijoTransacciones"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.PrefijoTransacciones" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">TaxID Nacional</label>
+                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.TaxIdNacional"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.TaxIdNacional" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">TaxID Localidad</label>
+                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.TaxIdLocalidad"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.TaxIdLocalidad" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="chkActivo">Activo</label>
+                <InputCheckbox id="chkActivo" class="form-control" @bind-Value="LocalidadNegocio.Activo"></InputCheckbox>
+                <ValidationMessage For="() => LocalidadNegocio.Activo" />
+            </div>
+            <div class="form-group">
+                <label for="chkBloqueado">Bloqueado</label>
+                <InputCheckbox id="chkBloqueado" class="form-control col-md-6" @bind-Value="LocalidadNegocio.Bloqueado"></InputCheckbox>
+                <ValidationMessage For="() => LocalidadNegocio.Bloqueado" />
+            </div>
+            <div class="form-group">
+                <label for="chkPermitirOperaciones">Permitir Operaciones</label>
+                <InputCheckbox id="chkPermitirOperaciones" class="form-control col-md-6" @bind-Value="LocalidadNegocio.PermitirOperaciones"></InputCheckbox>
+                <ValidationMessage For="() => LocalidadNegocio.PermitirOperaciones" />
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="nombre">Slogan</label>
+                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.OtrosDetallesObj.Slogan"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Slogan" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Calle</label>
+                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Calle"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Calle" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Correo Electronico</label>
+                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.CorreoElectronico"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.CorreoElectronico" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Direccion</label>
+                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Direccion"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Direccion" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Telefono 1</label>
+                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono1"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Telefono1" />
+            </div>
+            <div class="form-group">
+                <label for="nombre">Telefono 2</label>
+                <InputText id="nombre" class="form-control col-md-6" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono2"></InputText>
+                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Telefono2" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </div>
+</EditForm>
+
+
+
+@code {
+}

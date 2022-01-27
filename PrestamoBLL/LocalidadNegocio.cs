@@ -20,8 +20,8 @@ namespace PrestamoBLL
             IEnumerable<LocalidadNegocio> result = new List<LocalidadNegocio>();
             try
             {
-                //var searchSqlParams = SearchRec.ToSqlParams(searchParam);
-                result = DBPrestamo.ExecReaderSelSP<LocalidadNegocio>("spGetLocalidadesNegocio");
+                var searchSqlParams = SearchRec.ToSqlParams(searchParam);
+                result = DBPrestamo.ExecReaderSelSP<LocalidadNegocio>("spGetLocalidadesNegocio", searchSqlParams);
             }
             catch (Exception e)
             {

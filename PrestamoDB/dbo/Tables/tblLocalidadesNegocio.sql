@@ -5,8 +5,8 @@
     [IdNegocio] INT, 
     [Codigo] VARCHAR(40) NOT NULL,  -- este codigo se usara tambien para ponerlo como prefijo en la codificacion
                                    -- de las transacciones 
-    [NombreJuridico] VARCHAR(100) NOT NULL,
-    [NombreComercial] VARCHAR(100) NOT NULL,
+    [NombreJuridico] VARCHAR(100) NULL,
+    [NombreComercial] VARCHAR(100) NULL,
     [PrefijoPrestamo] VARCHAR(3),
     [PrefijoTransacciones] VARCHAR(3),
     TaxIdNacional VARCHAR(40),

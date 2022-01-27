@@ -1,0 +1,60 @@
+﻿@page "/localidadesnegocios"
+@using PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
+@inherits BaseForCreateOrEdit
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Localidades Negocios<a href="localidadesnegocios/createoredit">Agregar</a> </h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-responsive-md table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>IdNegocio</th>
+                    <th>Codigo</th>
+                    <th>Nombre Comercial</th>
+                    <th>Nombre Juridico</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (localidadesnegocios.Count() > 0)
+                {
+                    @foreach (var item in localidadesnegocios)
+                    {
+                        <tr>
+                            <td>@item.IdNegocio</td>
+                            <td>@item.Codigo</td>
+                            <td>@item.NombreComercial</td>
+                            <td>@item.NombreJuridico</td>
+                            <td>
+                                <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
+                                    <i class="fa fa-info-circle"></i>
+                                </button>
+                                <button @onclick='()=>OnEditClick("localidadesnegocios/createoredit/" + item.IdLocalidadNegocio)' class="btn btn-outline-primary">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button title="Anular o Eliminar" class="btn btn-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>Cargando datos ejecute una busqueda</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@code {
+
+    
+}

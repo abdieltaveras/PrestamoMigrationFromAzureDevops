@@ -1,14 +1,26 @@
 ﻿CREATE PROCEDURE [dbo].[SpGetLocalidadesNegocio]
-	
+@IdLocalidadNegocio int = -1,
+@SearchText varchar(50) = '',
+@Opcion int
 AS
-begin
-	SELECT * from tblLocalidadesNegocio
-	--IdNegocio, Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado,TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, logo,  dbo.fnGetIdNegocioMatriz(@idNegocio) as idNegocioMatriz
-	--FROM dbo.tblNegocios(nolock) 
-	--where
-	--	((@idNegocio=-1) or (IdNegocio = @IdNegocio)) and 
-	--	((@Codigo='') or (Codigo=@Codigo)) and
-	--	((@NombreComercial ='') or (NombreComercial=@NombreComercial)) and
-	--	((@NombreJuridico ='') or (NombreJuridico=@NombreJuridico)) and
-	--	((@TaxIdNo='') or (TaxIdNo =@TaxIdNo))
-end
+BEGIN
+	IF(@Opcion = 1)
+	BEGIN
+		SELECT * from tblLocalidadesNegocio with(nolock)
+	END
+	IF(@Opcion = 2)
+	BEGIN
+		SELECT * from tblLocalidadesNegocio with(nolock)
+		WHERE IdLocalidadNegocio = @IdLocalidadNegocio
+	END
+	if(@Opcion = 3)
+	BEGIN
+		SELECT * FROM tblLocalidadesNegocio with(nolock)
+		WHERE NombreComercial like @SearchText + '%'
+	END
+	if(@Opcion = 4)
+	BEGIN
+		SELECT * FROM tblLocalidadesNegocio with(nolock)
+		WHERE NombreJuridico like @SearchText + '%'
+	END
+END
