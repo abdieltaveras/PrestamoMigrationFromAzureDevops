@@ -49,6 +49,7 @@ namespace PrestamoEntidades
         /// esta propiedad no va en la tabla
         /// </summary>
         [IgnoreOnParams]
+        [ValidateComplexType]
         public LocalidadNegocioOtrosDetalles OtrosDetallesObj
         {
             get { return _OtrosDetalles; }
@@ -59,7 +60,8 @@ namespace PrestamoEntidades
                 _OtrosDetalles = value;
             }
         }
-
+     
+        
         private LocalidadNegocioOtrosDetalles _OtrosDetalles { get; set; } = new LocalidadNegocioOtrosDetalles();
         
         /// <summary>
@@ -82,6 +84,7 @@ namespace PrestamoEntidades
 
     public class LocalidadNegociosGetParams : BaseGetParams
     {
+        
         public int Opcion { get; set; } = -1;
         //public string Codigo { get; set; } = string.Empty;
         //public string NombreJuridico { get; set; } = string.Empty;
@@ -102,16 +105,18 @@ namespace PrestamoEntidades
         public string Direccion { get; set; } //= string.Empty;
 
         public string Calle { get; set; } = string.Empty;
-
+        [Required]
         [Phone]
         public string Telefono1 { get; set; } = string.Empty;
-
+        [Required]
         [Phone]
         public string Telefono2 { get; set; } = string.Empty;
         public string Slogan { get; set; } = string.Empty;
-
+        [Required]
         [DataType(DataType.EmailAddress)]
         public string CorreoElectronico { get; set; } = string.Empty;
+
+
 
     }
 }

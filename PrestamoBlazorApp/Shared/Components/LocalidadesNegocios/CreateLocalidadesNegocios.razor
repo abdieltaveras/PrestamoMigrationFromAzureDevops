@@ -2,9 +2,9 @@
 
 
 
-<EditForm Model="@LocalidadNegocio" OnValidSubmit="@SaveLocalidadNegocio">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+<EditForm Model="@LocalidadNegocio" OnValidSubmit="@SaveLocalidadNegocio" OnInvalidSubmit="HandleInvalidSubmit">
+    <ObjectGraphDataAnnotationsValidator />
+
     <div class="row">
         <div class="col-md-8">
 
@@ -34,8 +34,8 @@
                 <ValidationMessage For="() => LocalidadNegocio.TaxIdNacional" />
             </div>
             <div class="form-group">
-                <label for="nombre">TaxID Localidad</label>
-                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.TaxIdLocalidad"></InputText>
+                <label for="TaxIdLocalidad">TaxID Localidad</label>
+                <InputText id="TaxIdLocalidad" class="form-control" @bind-Value="LocalidadNegocio.TaxIdLocalidad"></InputText>
                 <ValidationMessage For="() => LocalidadNegocio.TaxIdLocalidad" />
             </div>
         </div>
@@ -92,7 +92,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <input type="submit" class="btn btn-primary" value="Guardar" />
         </div>
     </div>
 </EditForm>

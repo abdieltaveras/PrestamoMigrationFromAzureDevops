@@ -1,30 +1,32 @@
 ﻿CREATE PROCEDURE [dbo].[SpGetLocalidadesNegocio]
 @IdLocalidadNegocio int = -1,
 @IdNegocio int = -1,
-@SearchText varchar(50) = '',
-@usuario varchar(50) ='',
 @PermitirOperaciones int = -1,
-@Anulado int=-1,
-@Opcion int = -1
+@SearchText varchar(50) = '',
+@Opcion int =-1,
+@Activo int=-1,
+@IdLocalidad int=-1,
+@Anulado int=0,
+@Usuario varchar(50)
 AS
 BEGIN
-	IF(@Opcion = -1)
+	IF(@Opcion = 1)
 	BEGIN
-		SELECT * from tblLocalidadesNegocio with(nolock)
+		SELECT * FROM tblLocalidadesNegocio WITH(NOLOCK)
 	END
 	IF(@Opcion = 2)
 	BEGIN
-		SELECT * from tblLocalidadesNegocio with(nolock)
+		SELECT * FROM tblLocalidadesNegocio WITH(NOLOCK)
 		WHERE IdLocalidadNegocio = @IdLocalidadNegocio
 	END
-	if(@Opcion = 3)
+	IF(@Opcion = 3)
 	BEGIN
-		SELECT * FROM tblLocalidadesNegocio with(nolock)
+		SELECT * FROM tblLocalidadesNegocio WITH(NOLOCK)
 		WHERE NombreComercial like @SearchText + '%'
 	END
-	if(@Opcion = 4)
+	IF(@Opcion = 4)
 	BEGIN
-		SELECT * FROM tblLocalidadesNegocio with(nolock)
+		SELECT * FROM tblLocalidadesNegocio WITH(NOLOCK)
 		WHERE NombreJuridico like @SearchText + '%'
 	END
 END

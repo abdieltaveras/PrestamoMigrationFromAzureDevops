@@ -37,6 +37,7 @@ Begin
 			Activo = @activo,
 			Bloqueado = @bloqueado,
 			TaxIdNacional = @taxidNacional,
+			TaxIdLocalidad = @TaxIdLocalidad,
 			OtrosDetalles = @otrosdetalles,
 			ModificadoPor = @Usuario,
 			FechaModificado = getdate(),

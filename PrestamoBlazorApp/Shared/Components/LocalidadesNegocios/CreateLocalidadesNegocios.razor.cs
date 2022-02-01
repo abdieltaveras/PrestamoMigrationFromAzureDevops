@@ -51,7 +51,7 @@ namespace PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
             LocalidadNegocio.IdLocalidadNegocio = 1;
             try
             {
-                await LocalidadesNegociosService.Post(this.LocalidadNegocio);
+                await Handle_SaveData(()=> LocalidadesNegociosService.Post(this.LocalidadNegocio),null,()=>HandleInvalidSubmit(),false,"/localidadesnegocios");
             }
             catch (ValidationObjectException e)
             {
@@ -59,6 +59,12 @@ namespace PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
             }
             return true;
         }
+
+        private async Task HandleInvalidSubmit()
+        {
+           await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Error al validar los datos.");
+        }
+
         public async Task ShowModal(int id =-1)
         {
             await CreateOrEdit(id);
