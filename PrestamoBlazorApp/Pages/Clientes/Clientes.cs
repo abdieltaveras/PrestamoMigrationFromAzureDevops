@@ -28,6 +28,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
             clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
             totalClientes = clientes.Count();
         }
-
+        async void PrintFicha(int idcliente)
+        {
+            await BlockPage();
+            var result = await clientesService.ReportFicha(jsRuntime, idcliente);
+            await UnBlockPage();
+        }
     }
 }

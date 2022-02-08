@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\Reports\Catalogo\Listado.rdlc" />
+    <Content Remove="wwwroot\Reports\Clientes\Ficha.rdlc" />
     <Content Remove="wwwroot\Reports\Clientes\Listado.rdlc" />
   </ItemGroup>
 
@@ -182,13 +183,13 @@
 
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\Reports\Catalogo\Listado.rdlc" />
+    <EmbeddedResource Include="wwwroot\Reports\Clientes\Ficha.rdlc" />
     <EmbeddedResource Include="wwwroot\Reports\Clientes\Listado.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WebForms" Version="150.1449.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.15" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />

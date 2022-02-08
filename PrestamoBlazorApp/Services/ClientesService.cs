@@ -49,5 +49,11 @@ namespace PrestamoBlazorApp.Services
             var d = await ReportGenerate(jSRuntime, apiReportUrl + "/ClienteReportList", search);
             return d.StatusCode.ToString();
         }
+
+        public async Task<string> ReportFicha(IJSRuntime jSRuntime, int idcliente)
+        {
+            var d = await ReportGenerate(jSRuntime, apiUrl + "/ClienteReportInfo", new { idcliente= idcliente });
+            return d.StatusCode.ToString();
+        }
     }
 }

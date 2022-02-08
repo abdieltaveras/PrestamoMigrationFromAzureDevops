@@ -72,6 +72,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Reports\Catalogo\Listado.rdlc" />
+    <EmbeddedResource Include="Reports\Clientes\Ficha.rdlc" />
     <EmbeddedResource Include="Reports\Clientes\Listado.rdlc" />
     <None Include="dsReports.xsc">
       <DependentUpon>dsReports.xsd</DependentUpon>

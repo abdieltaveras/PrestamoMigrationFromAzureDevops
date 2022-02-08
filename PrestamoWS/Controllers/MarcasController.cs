@@ -20,8 +20,6 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<Marca> Get([FromQuery] MarcaGetParams getParams)
         {
-
-            
             var result = BLLPrestamo.Instance.GetMarcas(getParams);
             return result;
             //return View("CreateOrEdit", datos);
