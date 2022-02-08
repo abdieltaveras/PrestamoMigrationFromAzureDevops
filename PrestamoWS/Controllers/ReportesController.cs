@@ -99,7 +99,7 @@ namespace PrestamoWS.Controllers
             _utils = new Utils();
             var datos = BLLPrestamo.Instance.ReporteClientes(getParams);
             string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Clientes\\Listado.rdlc";
-            var resultado = _utils.ReportGenerator(datos, path, getParams.reportType, baseReporte);
+            var resultado = _utils.ReportGenerator(null, path, getParams.reportType, baseReporte, DataInList:datos);
             return resultado;
         }
   

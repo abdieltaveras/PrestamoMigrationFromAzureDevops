@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Reporting.NETCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -89,7 +90,7 @@ namespace PrestamoWS
         //    return null;
         //}
 
-        public FileContentResult ReportGenerator<@Type, @Base>(IEnumerable<Type> DataInList, string ReportUrl, int reportType = 1, IEnumerable<Base> DatosBase = null, string DataSetName = "DataSet1", Dictionary<string, string> parameter = null)
+        public FileContentResult ReportGenerator<@Type, @Base>(DataTable dataInTable,string ReportUrl, int reportType = 1, IEnumerable<Base> DatosBase = null, string DataSetName = "DataSet1", Dictionary<string, string> parameter = null, IEnumerable<Type> DataInList = null)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Stream sl = new FileStream(ReportUrl, FileMode.Open, FileAccess.Read);
@@ -110,15 +111,17 @@ namespace PrestamoWS
                 localReport.DataSources.Add(new ReportDataSource("Base", DatosBase));
             }
 
-            if (DataInList == null)
+            if (dataInTable != null)
             {
-                localReport.DataSources.Add(new ReportDataSource(DataSetName, DataInList));
+                localReport.DataSources.Add(new ReportDataSource(DataSetName, dataInTable));
             }
             else
             {
-                localReport.DataSources.Add(new ReportDataSource(DataSetName, DataInList));
+                if (DataInList!=null)
+                {
+                    localReport.DataSources.Add(new ReportDataSource(DataSetName, DataInList));
+                }
             }
-
             if (reportType == 1)
             {
                 int ext = (int)(DateTime.Now.Ticks >> 10);

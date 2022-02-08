@@ -9,6 +9,7 @@ using HESRAM.Utils;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace PrestamoWS.Controllers
 {
@@ -104,9 +105,21 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IActionResult ClienteReportInfo([FromQuery] int idcliente)
         {
+            string[] columnas = {"Sexo", "Direccion", "TipoIdentificacion" };
+            Cliente cliente = new Cliente();
             IEnumerable<Cliente> clientes = new List<Cliente>();
             clientes = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idcliente }, true, ImagePathForClientes);
-            
+            cliente = clientes.FirstOrDefault();
+            DataTable dtClientes = HConvert.ListToDataTable<Cliente>(clientes.ToList());
+
+            foreach (var item in columnas)
+            {
+                dtClientes.Columns.Add(item);
+            }
+            dtClientes.Rows[0]["Direccion"] = cliente.InfoDireccionObj.Calle;
+            dtClientes.Rows[0]["Sexo"] = cliente.idSexo == 1 ? "Hombre" : "Mujer";
+            dtClientes.Rows[0]["TipoIdentificacion"] = Enum.GetName( typeof(TiposIdentificacionPersona), cliente.IdTipoIdentificacion);
+
             List<Reports.Bases.BaseReporteMulti> baseReporte = null;
 
             #region Imagen
@@ -138,7 +151,7 @@ namespace PrestamoWS.Controllers
             _utils = new Utils();
 
             string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Clientes\\Ficha.rdlc";
-            var resultado = _utils.ReportGenerator(clientes, path, 1, baseReporte, parameter: parameters);
+            var resultado = _utils.ReportGenerator(dtClientes, path, 1, baseReporte, parameter: parameters, DataInList:baseReporte);
             return resultado;
         }
     }

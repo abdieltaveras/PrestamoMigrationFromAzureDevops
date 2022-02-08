@@ -1110,6 +1110,12 @@ namespace AppForRDLCDesing {
             
             private global::System.Data.DataColumn columnInfoReferencias;
             
+            private global::System.Data.DataColumn columnTipoIdentificacion;
+            
+            private global::System.Data.DataColumn columnSexo;
+            
+            private global::System.Data.DataColumn columnDireccion;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public tblClientesDataTable() {
@@ -1401,6 +1407,30 @@ namespace AppForRDLCDesing {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TipoIdentificacionColumn {
+                get {
+                    return this.columnTipoIdentificacion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SexoColumn {
+                get {
+                    return this.columnSexo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DireccionColumn {
+                get {
+                    return this.columnDireccion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1467,7 +1497,10 @@ namespace AppForRDLCDesing {
                         string Imagen1FileName, 
                         string Imagen2FileName, 
                         string Imagenes, 
-                        string InfoReferencias) {
+                        string InfoReferencias, 
+                        string TipoIdentificacion, 
+                        string Sexo, 
+                        string Direccion) {
                 tblClientesRow rowtblClientesRow = ((tblClientesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1501,7 +1534,10 @@ namespace AppForRDLCDesing {
                         Imagen1FileName,
                         Imagen2FileName,
                         Imagenes,
-                        InfoReferencias};
+                        InfoReferencias,
+                        TipoIdentificacion,
+                        Sexo,
+                        Direccion};
                 rowtblClientesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtblClientesRow);
                 return rowtblClientesRow;
@@ -1563,6 +1599,9 @@ namespace AppForRDLCDesing {
                 this.columnImagen2FileName = base.Columns["Imagen2FileName"];
                 this.columnImagenes = base.Columns["Imagenes"];
                 this.columnInfoReferencias = base.Columns["InfoReferencias"];
+                this.columnTipoIdentificacion = base.Columns["TipoIdentificacion"];
+                this.columnSexo = base.Columns["Sexo"];
+                this.columnDireccion = base.Columns["Direccion"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1632,6 +1671,12 @@ namespace AppForRDLCDesing {
                 base.Columns.Add(this.columnImagenes);
                 this.columnInfoReferencias = new global::System.Data.DataColumn("InfoReferencias", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnInfoReferencias);
+                this.columnTipoIdentificacion = new global::System.Data.DataColumn("TipoIdentificacion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTipoIdentificacion);
+                this.columnSexo = new global::System.Data.DataColumn("Sexo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSexo);
+                this.columnDireccion = new global::System.Data.DataColumn("Direccion", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDireccion);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIdCliente}, true));
                 this.columnIdCliente.AutoIncrement = true;
@@ -3095,6 +3140,54 @@ namespace AppForRDLCDesing {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TipoIdentificacion {
+                get {
+                    try {
+                        return ((string)(this[this.tabletblClientes.TipoIdentificacionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TipoIdentificacion\' in table \'tblClientes\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblClientes.TipoIdentificacionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Sexo {
+                get {
+                    try {
+                        return ((string)(this[this.tabletblClientes.SexoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Sexo\' in table \'tblClientes\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblClientes.SexoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Direccion {
+                get {
+                    try {
+                        return ((string)(this[this.tabletblClientes.DireccionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Direccion\' in table \'tblClientes\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletblClientes.DireccionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsIdStatusNull() {
                 return this.IsNull(this.tabletblClientes.IdStatusColumn);
             }
@@ -3283,6 +3376,42 @@ namespace AppForRDLCDesing {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetInfoReferenciasNull() {
                 this[this.tabletblClientes.InfoReferenciasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTipoIdentificacionNull() {
+                return this.IsNull(this.tabletblClientes.TipoIdentificacionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTipoIdentificacionNull() {
+                this[this.tabletblClientes.TipoIdentificacionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSexoNull() {
+                return this.IsNull(this.tabletblClientes.SexoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSexoNull() {
+                this[this.tabletblClientes.SexoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDireccionNull() {
+                return this.IsNull(this.tabletblClientes.DireccionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDireccionNull() {
+                this[this.tabletblClientes.DireccionColumn] = global::System.Convert.DBNull;
             }
         }
         

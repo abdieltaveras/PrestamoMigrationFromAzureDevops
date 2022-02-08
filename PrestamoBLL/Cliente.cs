@@ -49,12 +49,13 @@ namespace PrestamoBLL
             }
         }
 
-        private static void convertToJson(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia)
+        private static Cliente convertToJson(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral, Direccion infoDireccion, List<Referencia> infoReferencia)
         {
             cliente.InfoConyuge = infoConyuge.ToJson();
             cliente.InfoLaboral = infoLaboral.ToJson();
             cliente.InfoDireccion = infoDireccion.ToJson();
             cliente.InfoReferencias = infoReferencia.FindAll(x => x.Tipo != 0).ToJson();
+            return cliente;
         }
 
         private static void FixProperties(Cliente cliente, Conyuge infoConyuge, InfoLaboral infoLaboral)
