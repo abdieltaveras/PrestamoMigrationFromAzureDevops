@@ -24,7 +24,7 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Color>> Get(ColorGetParams colorGetParams)
         {
-            return await GetAsync<Color>(apiUrl, new { JsonGet =  colorGetParams.ToJson()});
+            return await GetAsync<Color>(apiUrl+"/get",  colorGetParams);
         }
         public ColoresService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
@@ -35,7 +35,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Color>(apiUrl, color);
+                await PostAsync<Color>(apiUrl+"post", color);
             }
             catch (Exception ex)
             {

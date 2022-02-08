@@ -20,9 +20,7 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<ModeloWithMarca> Get([FromQuery] ModeloGetParams getParams)
         {
-            
-            return BLLPrestamo.Instance.GetModelos(getParams);
-           
+            return BLLPrestamo.Instance.GetModelos(getParams);  
         }
         
         
@@ -54,8 +52,6 @@ namespace PrestamoWS.Controllers
             {
                 throw new Exception("Registro no pudo ser anulado");
             }
-
-            //return RedirectToAction("CreateOrEdit");
         }
     }
 }

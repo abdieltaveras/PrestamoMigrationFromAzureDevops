@@ -1,7 +1,5 @@
-﻿using AspNetCore.Reporting;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-
 using PrestamoBLL;
 using PrestamoEntidades;
 using System;
@@ -11,13 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PrestamoWS.Reports;
+using HESRAM.Utils;
+using Newtonsoft.Json;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PrestamoWS.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ReportesController : ControllerBase
+    public class ReportesController : ControllerBasePrestamoWS
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private Utils _utils { get; set; } = new Utils();
@@ -99,9 +99,9 @@ namespace PrestamoWS.Controllers
             _utils = new Utils();
             var datos = BLLPrestamo.Instance.ReporteClientes(getParams);
             string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Clientes\\Listado.rdlc";
-            var resultado = _utils.ReportGenerator(datos, path, getParams.reportType, baseReporte);
+            var resultado = _utils.ReportGenerator(null, path, getParams.reportType, baseReporte, DataInList:datos);
             return resultado;
         }
-      
+  
     }
 }

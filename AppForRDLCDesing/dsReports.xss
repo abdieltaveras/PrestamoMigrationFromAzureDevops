@@ -8,8 +8,8 @@
   <Shapes>
     <Shape ID="DesignTable:CatalogoGetListado" ZOrder="4" X="25" Y="25" Height="105" Width="180" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="101" />
     <Shape ID="DesignTable:BaseRptMulti" ZOrder="3" X="490" Y="53" Height="182" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="178" />
-    <Shape ID="DesignTable:tblClientes" ZOrder="2" X="222" Y="67" Height="256" Width="194" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="252" />
-    <Shape ID="DesignTable:tblColores" ZOrder="1" X="24" Y="179" Height="257" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
+    <Shape ID="DesignTable:tblClientes" ZOrder="2" X="222" Y="67" Height="257" Width="194" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
+    <Shape ID="DesignTable:tblColores" ZOrder="1" X="24" Y="179" Height="258" Width="170" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

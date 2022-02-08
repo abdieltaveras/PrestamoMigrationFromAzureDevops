@@ -68,16 +68,19 @@
                                     <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
                                         <i class="fa fa-info-circle"></i>
                                     </button>
-                                    
+
                                     <button @onclick='()=>OnEditClick("clientes/createoredit/" + cliente.IdCliente)' class="btn btn-outline-primary">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
                                         <i class="fa fa-trash"></i>
                                     </button>
+                                    <button @onclick="()=>PrintFicha(cliente.IdCliente)" title="Ficha" class="btn btn-outline-danger">
+                                        <i class="fa fa-info"></i>
+                                    </button>
                                     @*<a  onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </a>*@
+            <i class="fa fa-trash"></i>
+        </a>*@
                                 </td>
 
                             </tr>

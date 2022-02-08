@@ -5,7 +5,11 @@ using System.Collections.Generic;
 using PcpUtilidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
-
+using HESRAM.Utils;
+using Newtonsoft.Json;
+using System.Linq;
+using System.Text;
+using System.Data;
 
 namespace PrestamoWS.Controllers
 {
@@ -19,7 +23,15 @@ namespace PrestamoWS.Controllers
 
     public class ClientesController : ControllerBasePrestamoWS
     {
-        
+
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private Utils _utils { get; set; } = new Utils();
+        public ClientesController(IWebHostEnvironment webHostEnvironment)
+        {
+            _webHostEnvironment = webHostEnvironment;
+            System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+
         [HttpGet]
         public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams getParams, bool convertToObj)
         {
@@ -88,6 +100,59 @@ namespace PrestamoWS.Controllers
                 }
             }
             return clientes;
+        }
+
+        [HttpGet]
+        public IActionResult ClienteReportInfo([FromQuery] int idcliente)
+        {
+            string[] columnas = {"Sexo", "Direccion", "TipoIdentificacion" };
+            Cliente cliente = new Cliente();
+            IEnumerable<Cliente> clientes = new List<Cliente>();
+            clientes = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idcliente }, true, ImagePathForClientes);
+            cliente = clientes.FirstOrDefault();
+            DataTable dtClientes = HConvert.ListToDataTable<Cliente>(clientes.ToList());
+
+            foreach (var item in columnas)
+            {
+                dtClientes.Columns.Add(item);
+            }
+            dtClientes.Rows[0]["Direccion"] = cliente.InfoDireccionObj.Calle;
+            dtClientes.Rows[0]["Sexo"] = cliente.idSexo == 1 ? "Hombre" : "Mujer";
+            dtClientes.Rows[0]["TipoIdentificacion"] = Enum.GetName( typeof(TiposIdentificacionPersona), cliente.IdTipoIdentificacion);
+
+            List<Reports.Bases.BaseReporteMulti> baseReporte = null;
+
+            #region Imagen
+            List<string> listimagen = new List<string>();
+            if (clientes.FirstOrDefault().Imagenes != null)
+            {
+                var listResult = JsonConvert.DeserializeObject<dynamic>(clientes.FirstOrDefault().Imagenes);
+                foreach (var item in listResult)
+                {
+                    //Obtenemos la ruta de la imagen
+                    string pathimage = ImagePathForClientes + item.NombreArchivo ;
+                    //Evaluamos si existe la imagen
+                    var ExisteImagen = System.IO.File.Exists(pathimage);
+                    if (ExisteImagen)
+                    {
+                        // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
+                        var imagebase = HConvert.GetImageBase64FromPath(pathimage);
+                        // creamos una lista para agregar nuestras bases
+                        listimagen.Add(imagebase);
+                    }
+                }
+            }
+
+            //******************************************************//
+            #endregion
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("Imagen1", listimagen.FirstOrDefault());
+            //******************************************************//
+            _utils = new Utils();
+
+            string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Clientes\\Ficha.rdlc";
+            var resultado = _utils.ReportGenerator(dtClientes, path, 1, baseReporte, parameter: parameters, DataInList:baseReporte);
+            return resultado;
         }
     }
 }

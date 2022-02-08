@@ -112,7 +112,7 @@ namespace PrestamoBlazorApp.Services
             HttpResponseMessage result;
 
             var client = _clientFactory.CreateClient();
-
+            client.Timeout = TimeSpan.FromMinutes(4);
             var response = await client.SendAsync(request);
             await JsInteropUtils.GoToUrl(jSRuntime,$"{baseUrl}/{endpoint}?{query}");
             if (response.IsSuccessStatusCode)

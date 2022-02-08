@@ -19,7 +19,7 @@ namespace PrestamoBlazorApp.Services
         public async Task<IEnumerable<Marca>> GetMarcasForModelo()
         {
            var marcasParams = new MarcaGetParams();
-            var result = await GetAsync<Marca>("api/marcas" , new { JsonGet = marcasParams.ToJson() });
+            var result = await GetAsync<Marca>("api/marcas/get" , marcasParams);
             return result;
         }
         //public async Task<IEnumerable<Modelo>> GetModelosAsync(ModeloGetParams search)
@@ -31,7 +31,7 @@ namespace PrestamoBlazorApp.Services
         public async Task<IEnumerable<Modelo>> Get(ModeloGetParams modeloGetParams)
         {
             
-            var result =  await GetAsync<Modelo>(apiUrl, new { JsonGet = modeloGetParams.ToJson() });
+            var result =  await GetAsync<Modelo>(apiUrl+"/get", modeloGetParams);
             return result;
         }
         public ModelosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
@@ -43,7 +43,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Modelo>(apiUrl, Modelo);
+                await PostAsync<Modelo>(apiUrl+"/post", Modelo);
             }
             catch (Exception ex)
             {
