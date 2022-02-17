@@ -3,7 +3,7 @@
 @using PrestamoBlazorApp.Shared.Components.Reports
 <div class="grid-container">
     <div class="bg-secondary">
-        <h3 class="text-left">Listado de clientes </h3>
+        <h3 class="text-left">Listado de clientes </h3> 
     </div>
     <div class="search">
         <EditForm Model="@searchClientes" OnValidSubmit="@GetClientes">
@@ -72,12 +72,27 @@
                                     <button @onclick='()=>OnEditClick("clientes/createoredit/" + cliente.IdCliente)' class="btn btn-outline-primary">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
+                                    <button onclick="alert('opcion no implementada aun')" ti tle="Anular o Eliminar" class="btn btn-outline-danger">
                                         <i class="fa fa-trash"></i>
                                     </button>
-                                    <button @onclick="()=>PrintFicha(cliente.IdCliente)" title="Ficha" class="btn btn-outline-danger">
-                                        <i class="fa fa-info"></i>
-                                    </button>
+                                    <div class="dropdown show" style="display:inline-block;">
+                                        <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-th"></i>
+                                        </a>
+
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <button class="dropdown-item" @onclick="()=>PrintFicha(cliente.IdCliente,1)">
+                                                <i class="fa fa-file-pdf-o"></i> PDF
+                                            </button>
+                                            <button class="dropdown-item" @onclick="()=>PrintFicha(cliente.IdCliente,2)">
+                                                <i class="fa fa-file-excel-o"></i> EXCEL
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    @*<button @onclick="()=>PrintFicha(cliente.IdCliente)" title="Ficha" class="btn btn-outline-danger">
+            <i class="fa fa-info"></i>
+        </button>*@
                                     @*<a  onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
             <i class="fa fa-trash"></i>
         </a>*@

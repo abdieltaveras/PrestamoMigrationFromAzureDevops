@@ -103,22 +103,33 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpGet]
-        public IActionResult ClienteReportInfo([FromQuery] int idcliente)
+        public IActionResult ClienteReportInfo([FromQuery] int idcliente, int reportType)
         {
-            string[] columnas = {"Sexo", "Direccion", "TipoIdentificacion" };
+            string[] columnas = {"Sexo", "Direccion", "TipoIdentificacion", "TrabajaEn",
+                "ContactoTrabajo", "DireccionTrabajo","NombreConyugue","ContactoConyugue",
+                "ProfesionCliente","EstadoCivil" };
             Cliente cliente = new Cliente();
             IEnumerable<Cliente> clientes = new List<Cliente>();
+            IEnumerable<Ocupacion> ocupaciones = new List<Ocupacion>();
             clientes = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idcliente }, true, ImagePathForClientes);
             cliente = clientes.FirstOrDefault();
+            ocupaciones = BLLPrestamo.Instance.GetOcupaciones(new OcupacionGetParams { IdOcupacion = cliente.IdTipoProfesionUOcupacion });
             DataTable dtClientes = HConvert.ListToDataTable<Cliente>(clientes.ToList());
 
             foreach (var item in columnas)
             {
                 dtClientes.Columns.Add(item);
             }
-            dtClientes.Rows[0]["Direccion"] = cliente.InfoDireccionObj.Calle;
+            dtClientes.Rows[0]["InfoDireccion"] = $"{cliente.InfoDireccionObj.Calle}  {cliente.InfoDireccionObj.Detalles}";
             dtClientes.Rows[0]["Sexo"] = cliente.idSexo == 1 ? "Hombre" : "Mujer";
             dtClientes.Rows[0]["TipoIdentificacion"] = Enum.GetName( typeof(TiposIdentificacionPersona), cliente.IdTipoIdentificacion);
+            dtClientes.Rows[0]["TrabajaEn"] = $"{cliente.InfoLaboralObj.Nombre} || {cliente.InfoLaboralObj.Puesto}";
+            dtClientes.Rows[0]["ContactoTrabajo"] = $"{cliente.InfoLaboralObj.NoTelefono1} || {cliente.InfoLaboralObj.NoTelefono2}";
+            dtClientes.Rows[0]["DireccionTrabajo"] = $"{cliente.InfoLaboralObj.Direccion}";
+            dtClientes.Rows[0]["NombreConyugue"] = $"{cliente.InfoConyugeObj.Nombres} {cliente.InfoConyugeObj.Apellidos}";
+            dtClientes.Rows[0]["ContactoConyugue"] = $"{cliente.InfoConyugeObj.NoTelefono1} ";
+            dtClientes.Rows[0]["ProfesionCliente"] = $"{ocupaciones.FirstOrDefault().Nombre}";
+            dtClientes.Rows[0]["EstadoCivil"] = $"{Enum.GetName(typeof(EstadosCiviles), cliente.IdEstadoCivil)}";
 
             List<Reports.Bases.BaseReporteMulti> baseReporte = null;
 
@@ -146,12 +157,15 @@ namespace PrestamoWS.Controllers
             //******************************************************//
             #endregion
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("Imagen1", listimagen.FirstOrDefault());
+            for (int i = 0; i < listimagen.Count; i++)
+            {
+                parameters.Add($"Imagen{i+1}", listimagen[i]);
+            }
             //******************************************************//
             _utils = new Utils();
 
             string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Clientes\\Ficha.rdlc";
-            var resultado = _utils.ReportGenerator(dtClientes, path, 1, baseReporte, parameter: parameters, DataInList:baseReporte);
+            var resultado = _utils.ReportGenerator(dtClientes, path, reportType, baseReporte, parameter: parameters, DataInList:baseReporte);
             return resultado;
         }
     }
