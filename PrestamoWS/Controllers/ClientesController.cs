@@ -157,10 +157,18 @@ namespace PrestamoWS.Controllers
             //******************************************************//
             #endregion
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            for (int i = 0; i < listimagen.Count; i++)
+            if (listimagen.Count>0)
             {
-                parameters.Add($"Imagen{i+1}", listimagen[i]);
+                for (int i = 0; i < listimagen.Count; i++)
+                {
+                    parameters.Add($"Imagen{i + 1}", listimagen[i]);
+                }
             }
+            else
+            {
+                parameters.Add("Imagen1", NoImageBase64);
+            }
+          
             //******************************************************//
             _utils = new Utils();
 
