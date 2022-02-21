@@ -36,22 +36,30 @@ namespace PrestamoBlazorApp
         {
 
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
-            
-
             services.AddHttpClient();
-            
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
+            RadZenServices(services);
 
+            ProjectServices(services);
+
+            AddMudBlazorServices(services);
+        }
+
+        private static void RadZenServices(IServiceCollection services)
+        {
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
-            
+        }
 
+        private static void ProjectServices(IServiceCollection services)
+        {
             services.AddSingleton<CatalogosService>();
             services.AddSingleton<IngresosService>();
             services.AddSingleton<ColoresService>();
@@ -76,6 +84,20 @@ namespace PrestamoBlazorApp
             services.AddSingleton<LocalidadesNegociosService>();
         }
 
+        private static void AddMudBlazorServices(IServiceCollection services)
+        {
+            //services.AddMudServices(config =>
+            //{
+            //    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopCenter;
+            //    config.SnackbarConfiguration.PreventDuplicates = true;
+            //    config.SnackbarConfiguration.NewestOnTop = true;
+            //    config.SnackbarConfiguration.ShowCloseIcon = true;
+            //    config.SnackbarConfiguration.VisibleStateDuration = 20000;
+            //    config.SnackbarConfiguration.HideTransitionDuration = 600;
+            //    config.SnackbarConfiguration.ShowTransitionDuration = 600;
+            //    //config.SnackbarConfiguration.SnackbarVariant = Variant.Outlined;
+            //});
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
