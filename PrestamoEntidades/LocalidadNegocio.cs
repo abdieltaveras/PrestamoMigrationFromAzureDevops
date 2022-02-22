@@ -46,14 +46,15 @@ namespace PrestamoEntidades
 
         
         /// <summary>
-        /// esta propiedad no va en la tabla
+        /// esta propiedad es para uso a nivel del lenguaje, en la tabla
+        /// se almacen
         /// </summary>
         [IgnoreOnParams]
         [ValidateComplexType]
         public LocalidadNegocioOtrosDetalles OtrosDetallesObj
         {
             get { return _OtrosDetalles; }
-                    //_OtrosDetalles.ToType<LocalidadNegocioOtrosDetalles>(); }
+                // _OtrosDetalles.ToType<LocalidadNegocioOtrosDetalles>();  }
             set
             {
 
@@ -75,7 +76,6 @@ namespace PrestamoEntidades
                 _OtrosDetalles = value.ToType<LocalidadNegocioOtrosDetalles>();
             } 
         }
-
 
         public string Logo { get; set; } = string.Empty;
     }
