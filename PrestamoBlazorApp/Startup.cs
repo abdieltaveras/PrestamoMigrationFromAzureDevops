@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using MudBlazor;
+using MudBlazor.Services;
 
 namespace PrestamoBlazorApp
 {
@@ -42,7 +42,6 @@ namespace PrestamoBlazorApp
             services.AddServerSideBlazor();
 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddDatabaseDeveloperPageExceptionFilter();
             RadZenServices(services);
 
             ProjectServices(services);
@@ -86,17 +85,17 @@ namespace PrestamoBlazorApp
 
         private static void AddMudBlazorServices(IServiceCollection services)
         {
-            //services.AddMudServices(config =>
-            //{
-            //    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopCenter;
-            //    config.SnackbarConfiguration.PreventDuplicates = true;
-            //    config.SnackbarConfiguration.NewestOnTop = true;
-            //    config.SnackbarConfiguration.ShowCloseIcon = true;
-            //    config.SnackbarConfiguration.VisibleStateDuration = 20000;
-            //    config.SnackbarConfiguration.HideTransitionDuration = 600;
-            //    config.SnackbarConfiguration.ShowTransitionDuration = 600;
-            //    //config.SnackbarConfiguration.SnackbarVariant = Variant.Outlined;
-            //});
+            services.AddMudServices(config =>
+            {
+                config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopCenter;
+                config.SnackbarConfiguration.PreventDuplicates = true;
+                config.SnackbarConfiguration.NewestOnTop = true;
+                config.SnackbarConfiguration.ShowCloseIcon = true;
+                config.SnackbarConfiguration.VisibleStateDuration = 20000;
+                config.SnackbarConfiguration.HideTransitionDuration = 600;
+                config.SnackbarConfiguration.ShowTransitionDuration = 600;
+                //config.SnackbarConfiguration.SnackbarVariant = Variant.Outlined;
+            });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -104,7 +103,6 @@ namespace PrestamoBlazorApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
             }
             else
             {
