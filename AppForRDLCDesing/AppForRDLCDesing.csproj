@@ -75,6 +75,8 @@
     <EmbeddedResource Include="Reports\Clientes\Ficha.rdlc" />
     <EmbeddedResource Include="Reports\Clientes\Listado.rdlc" />
     <EmbeddedResource Include="Reports\Prestamo\FichaTest.rdlc" />
+    <EmbeddedResource Include="Reports\Prestamo\FichaTest.rdlc" />
+    <EmbeddedResource Include="Reports\Garantias\FichaMobiliaria.rdlc" />
     <None Include="dsReports.xsc">
       <DependentUpon>dsReports.xsd</DependentUpon>
     </None>
@@ -99,5 +101,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

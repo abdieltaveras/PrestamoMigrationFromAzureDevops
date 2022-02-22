@@ -9,6 +9,8 @@
     <Content Remove="wwwroot\Reports\Clientes\Ficha.rdlc" />
     <Content Remove="wwwroot\Reports\Clientes\Listado.rdlc" />
     <Content Remove="wwwroot\Reports\Prestamo\FichaTest.rdlc" />
+    <Content Remove="wwwroot\Reports\Prestamo\FichaTest.rdlc" />
+    <Content Remove="wwwroot\Reports\Garantias\FichaMobiliaria.rdlc" />
   </ItemGroup>
 
   <ItemGroup>

@@ -52,7 +52,12 @@ namespace PrestamoBlazorApp.Pages.Garantias
             //await UnBlockPage();
             //loading = false;
         }
-
+        async void PrintFicha(int id, int reportType)
+        {
+            await BlockPage();
+            var result = await GarantiasService.ReportFicha(jsRuntime, id, reportType);
+            await UnBlockPage();
+        }
         //async Task GetAll()
         //{
         //    loading = true;
