@@ -403,6 +403,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+<<<<<<< HEAD
         <xs:element name="FichaGarantia" msprop:Generator_TableClassName="FichaGarantiaDataTable" msprop:Generator_TableVarName="tableFichaGarantia" msprop:Generator_RowChangedName="FichaGarantiaRowChanged" msprop:Generator_TablePropName="FichaGarantia" msprop:Generator_RowDeletingName="FichaGarantiaRowDeleting" msprop:Generator_RowChangingName="FichaGarantiaRowChanging" msprop:Generator_RowEvHandlerName="FichaGarantiaRowChangeEventHandler" msprop:Generator_RowDeletedName="FichaGarantiaRowDeleted" msprop:Generator_RowClassName="FichaGarantiaRow" msprop:Generator_UserTableName="FichaGarantia" msprop:Generator_RowEvArgName="FichaGarantiaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
@@ -503,6 +504,8 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+=======
+>>>>>>> 7d020d6e5bff6d047d09e1e61e0c218db29bcb54
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
