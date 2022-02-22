@@ -15,6 +15,9 @@ using Newtonsoft.Json;
 
 using PcpUtilidades;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using Microsoft.AspNetCore.Hosting;
+using System.Text;
 
 namespace PrestamoWS.Controllers
 {
@@ -29,6 +32,14 @@ namespace PrestamoWS.Controllers
         //{
         //    _hostingEnvironment = hostingEnvironment;
         //}
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private Utils _utils { get; set; } = new Utils();
+        public GarantiasController(IWebHostEnvironment webHostEnvironment)
+        {
+            _webHostEnvironment = webHostEnvironment;
+            System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+
         int BUSCAR_A_PARTIR_DE = 2;
         [HttpGet]
         public Task<ActionResult<IEnumerable<Garantia>>> GetWithPrestamo([FromQuery] BuscarGarantiaParams getParams)
@@ -144,7 +155,7 @@ namespace PrestamoWS.Controllers
                     string path = ImagePathForGarantia;
                     // He utilizado la libreria HESRAM.Utils para guardar y copiar la imagen
                     HConvert.SaveBase64AsImage(resultBase, path, imagename);
-                    ListaImagenes.Add(imagename);
+                    ListaImagenes.Add(imagename+".jpg");
                 }
             }
             #endregion
@@ -180,6 +191,91 @@ namespace PrestamoWS.Controllers
                 else
                     DataList = new List<T>();
             }
+        }
+
+        [HttpGet]
+        public IActionResult GarantiaFichaReport([FromQuery] int idgarantia, int reportType)
+        {
+            string[] columnas = {"NombreMarca", "NombreModelo", "NoMaquina", "Placa",
+                "Ano", "Color","Matricula","Descripcion",
+                "TransPermitidas"};
+            Garantia garantia = new Garantia();
+            IEnumerable<Garantia> garantias = new List<Garantia>();
+            IEnumerable<Modelo> modelos = new List<Modelo>();
+            IEnumerable<Marca> marcas = new List<Marca>();
+            garantias = BLLPrestamo.Instance.GetGarantias(new GarantiaGetParams { IdGarantia = idgarantia });
+            garantia = garantias.FirstOrDefault();
+            garantia.DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(garantia.Detalles);
+            modelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdModelo = garantia.IdModelo });
+            marcas = BLLPrestamo.Instance.GetMarcas(new MarcaGetParams { IdMarca = garantia.IdMarca });
+            DataTable dtDatos = HConvert.ListToDataTable<Garantia>(garantias.ToList());
+
+            foreach (var item in columnas)
+            {
+                dtDatos.Columns.Add(item);
+            }
+            dtDatos.Rows[0]["NombreMarca"] = $"{marcas.FirstOrDefault().Nombre}";
+            dtDatos.Rows[0]["NombreModelo"] = $"{modelos.FirstOrDefault().Nombre}";
+            dtDatos.Rows[0]["NoMaquina"] = $"{garantia.DetallesJSON.NoMaquina}";
+            dtDatos.Rows[0]["Placa"] = $"{garantia.DetallesJSON.Placa}";
+            dtDatos.Rows[0]["Ano"] = $"{garantia.DetallesJSON.Ano}";
+            dtDatos.Rows[0]["Color"] = $"{garantia.DetallesJSON.Color}";
+            dtDatos.Rows[0]["Matricula"] = $"{garantia.DetallesJSON.Matricula}";
+            dtDatos.Rows[0]["Descripcion"] = $"{garantia.DetallesJSON.Descripcion}";
+            dtDatos.Rows[0]["TransPermitidas"] = $"{garantia.DetallesJSON.UsoExclusivo.ToString()}";
+
+
+            List<Reports.Bases.BaseReporteMulti> baseReporte = null;
+
+            #region Imagen
+            List<string> listimagen = new List<string>();
+            if (garantias.FirstOrDefault().Imagen1FileName != null)
+            {
+                var listResult = JsonConvert.DeserializeObject<dynamic>(garantias.FirstOrDefault().Imagen1FileName);
+                foreach (var item in listResult)
+                {
+                    //Obtenemos la ruta de la imagen
+                    string pathimage = ImagePathForGarantia + item;
+                    //Evaluamos si existe la imagen
+                    var ExisteImagen = System.IO.File.Exists(pathimage);
+                    if (ExisteImagen)
+                    {
+                        // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
+                        var imagebase = HConvert.GetImageBase64FromPath(pathimage);
+                        // creamos una lista para agregar nuestras bases
+                        listimagen.Add(imagebase);
+                    }
+                }
+                if (listResult.Count<4)
+                {
+                    for (int i = 0; i < (4 - Convert.ToInt32(listResult.Count)); i++)
+                    {
+                        listimagen.Add(NoImageBase64);
+                    }
+                }
+            }
+
+            //******************************************************//
+            #endregion
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            if (listimagen.Count > 0)
+            {
+                for (int i = 0; i < listimagen.Count; i++)
+                {
+                    parameters.Add($"Imagen{i + 1}", listimagen[i]);
+                }
+            }
+            else
+            {
+                parameters.Add("Imagen1", NoImageBase64);
+            }
+
+            //******************************************************//
+            _utils = new Utils();
+
+            string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Garantias\\FichaMobiliaria.rdlc";
+            var resultado = _utils.ReportGenerator(dtDatos, path, reportType, baseReporte, parameter: parameters, DataInList: baseReporte);
+            return resultado;
         }
     }
 }

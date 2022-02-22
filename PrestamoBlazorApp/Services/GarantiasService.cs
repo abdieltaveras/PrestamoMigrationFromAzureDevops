@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 using PcpUtilidades;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.JSInterop;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -88,6 +89,12 @@ namespace PrestamoBlazorApp.Services
             {
                 throw new Exception("Error al guardar", ex);
             }
+        }
+
+        public async Task<string> ReportFicha(IJSRuntime jSRuntime, int idgarantia, int reportType)
+        {
+            var d = await ReportGenerate(jSRuntime, apiUrl + "/GarantiaFichaReport", new { idgarantia = idgarantia, reportType = reportType });
+            return d.StatusCode.ToString();
         }
     }
 }

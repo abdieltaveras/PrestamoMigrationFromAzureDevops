@@ -111,11 +111,27 @@
 
                     }
 
-                    <td>
-                        <a href="@($"garantias/createoredit/{item.IdGarantia}")" title="editar" class="btn btn-outline-primary">
-                            <i class="oi oi-pencil"></i>
+                <td>
+                    <a href="@($"garantias/createoredit/{item.IdGarantia}")" title="editar" class="btn btn-outline-primary">
+                        <i class="oi oi-pencil"></i>
+                    </a>
+                    <div class="dropdown show" style="display:inline-block;">
+                        <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-th"></i>
                         </a>
-                    </td>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <button class="dropdown-item" @onclick="()=>PrintFicha(item.IdGarantia,1)">
+                                <i class="fa fa-file-pdf-o"></i> PDF
+                            </button>
+                            <button class="dropdown-item" @onclick="()=>PrintFicha(item.IdGarantia,2)">
+                                <i class="fa fa-file-excel-o"></i> EXCEL
+                            </button>
+
+                        </div>
+                    </div>
+                </td>
+
                     @*<td> <button @onclick="()=>CreateOrEdit(item.IdGarantia)" class="btn btn-info"> Editar </button></td>*@
                 </tr>
 
