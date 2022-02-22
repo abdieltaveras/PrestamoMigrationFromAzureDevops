@@ -51,7 +51,7 @@ namespace PrestamoBlazorApp
 
         private static void RadZenServices(IServiceCollection services)
         {
-            services.AddScoped<DialogService>();
+            services.AddScoped<Radzen.DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
