@@ -23,9 +23,9 @@ namespace PrestamoEntidades
         }
         public decimal Monto_Abonado { get; set; }
         public decimal Balance { get; set; }
-
     }
 
+    
 
     public class IngresoGetParams : BaseGetParams
     {

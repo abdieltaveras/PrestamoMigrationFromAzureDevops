@@ -78,6 +78,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoBLLTests", "Prestam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoEntidadesTests1", "PrestamoEntidadesTests1\PrestamoEntidadesTests1.csproj", "{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoInMemoryDb", "PrestamoInMemoryDb\PrestamoInMemoryDb.csproj", "{87595EA5-6A7F-4B24-9880-879B52DD7B7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU
@@ -154,6 +156,12 @@ Global
 		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87595EA5-6A7F-4B24-9880-879B52DD7B7F}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{87595EA5-6A7F-4B24-9880-879B52DD7B7F}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{87595EA5-6A7F-4B24-9880-879B52DD7B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87595EA5-6A7F-4B24-9880-879B52DD7B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87595EA5-6A7F-4B24-9880-879B52DD7B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87595EA5-6A7F-4B24-9880-879B52DD7B7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
