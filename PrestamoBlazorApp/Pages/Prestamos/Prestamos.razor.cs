@@ -52,7 +52,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 NumeracionDocumento = "00007548",
                 NumeracionGarantia = "lc6paga1526edfrt",
                 TotalCuotasPorPagar = 15,
-                NombreCompletoCliente = "Pedro Rodriguez Gutierrez",
+                NombreCompletoCliente = "Pedro Rodriguez Gutierrez Probando",
                 NombreDocumentoCxC = "Prestamo",
                 InteresDespuesDeVencido = 0,
                 NombreUsuario = "Ramon Rutin",
