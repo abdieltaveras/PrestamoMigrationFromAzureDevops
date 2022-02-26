@@ -188,6 +188,7 @@
     <EmbeddedResource Include="wwwroot\Reports\Catalogo\Listado.rdlc" />
     <EmbeddedResource Include="wwwroot\Reports\Clientes\Ficha.rdlc" />
     <EmbeddedResource Include="wwwroot\Reports\Clientes\Listado.rdlc" />
+    <EmbeddedResource Include="wwwroot\Reports\Garantias\FichaMobiliaria.rdlc" />
     <EmbeddedResource Include="wwwroot\Reports\Prestamo\FichaTest.rdlc" />
   </ItemGroup>
 

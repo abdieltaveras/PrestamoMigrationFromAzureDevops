@@ -74,7 +74,8 @@
     <EmbeddedResource Include="Reports\Catalogo\Listado.rdlc" />
     <EmbeddedResource Include="Reports\Clientes\Ficha.rdlc" />
     <EmbeddedResource Include="Reports\Clientes\Listado.rdlc" />
-    <EmbeddedResource Include="Reports\Prestamo\FichaTest.rdlc" />
+    <EmbeddedResource Include="Reports\Garantias\FichaInMobiliaria.rdlc" />
+    <EmbeddedResource Include="Reports\Prestamo\FichaDrCr.rdlc" />
     <EmbeddedResource Include="Reports\Prestamo\FichaTest.rdlc" />
     <EmbeddedResource Include="Reports\Garantias\FichaMobiliaria.rdlc" />
     <None Include="dsReports.xsc">

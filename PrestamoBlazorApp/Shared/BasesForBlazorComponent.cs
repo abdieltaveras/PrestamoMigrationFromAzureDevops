@@ -73,8 +73,12 @@ namespace PrestamoBlazorApp.Shared
            return await SweetConfirmWithIcon(title,text);
             //throw new NotImplementedException();
         }
+        protected virtual async Task<bool> FichaDetalleDrCr(string datosJson)
+        {
+            return await JsInteropUtils.FichaDetalleDrCr(jsRuntime,datosJson);
+            //throw new NotImplementedException();
+        }
 
-        
     }
 
     public abstract class BaseForSearch : CommonBase

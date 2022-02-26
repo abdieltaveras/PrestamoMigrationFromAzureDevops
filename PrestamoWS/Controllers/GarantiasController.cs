@@ -198,7 +198,7 @@ namespace PrestamoWS.Controllers
         {
             string[] columnas = {"NombreMarca", "NombreModelo", "NoMaquina", "Placa",
                 "Ano", "Color","Matricula","Descripcion",
-                "TransPermitidas"};
+                "TransPermitidas", "Valor", "Medida", "Tipo", "DetalleDireccion"};
             Garantia garantia = new Garantia();
             IEnumerable<Garantia> garantias = new List<Garantia>();
             IEnumerable<Modelo> modelos = new List<Modelo>();
@@ -223,6 +223,11 @@ namespace PrestamoWS.Controllers
             dtDatos.Rows[0]["Matricula"] = $"{garantia.DetallesJSON.Matricula}";
             dtDatos.Rows[0]["Descripcion"] = $"{garantia.DetallesJSON.Descripcion}";
             dtDatos.Rows[0]["TransPermitidas"] = $"{garantia.DetallesJSON.UsoExclusivo.ToString()}";
+            dtDatos.Rows[0]["Valor"] = $"{garantia.DetallesJSON.Valor}";
+            dtDatos.Rows[0]["Medida"] = $"{garantia.DetallesJSON.Medida}";
+            dtDatos.Rows[0]["Tipo"] = $"{garantia.IdClasificacion}";
+            dtDatos.Rows[0]["DetalleDireccion"] = $"{garantia.DetallesJSON.DetallesDireccion}";
+
 
 
             List<Reports.Bases.BaseReporteMulti> baseReporte = null;
@@ -272,8 +277,16 @@ namespace PrestamoWS.Controllers
 
             //******************************************************//
             _utils = new Utils();
-
-            string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Garantias\\FichaMobiliaria.rdlc";
+            string path = "";
+            if (garantia.IdTipoGarantia == 1)
+            {
+                 path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Garantias\\FichaInMobiliaria.rdlc";
+            }
+            else
+            {
+                path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Garantias\\FichaMobiliaria.rdlc";
+            }
+            
             var resultado = _utils.ReportGenerator(dtDatos, path, reportType, baseReporte, parameter: parameters, DataInList: baseReporte);
             return resultado;
         }

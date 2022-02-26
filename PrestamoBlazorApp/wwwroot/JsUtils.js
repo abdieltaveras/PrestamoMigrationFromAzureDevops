@@ -229,3 +229,11 @@ window.GoToUrl = function (url) {
     window.open(`${url}`, '_blank');
     return true;
 }
+
+window.FichaDetalleDrCr = function (datos) {
+    if (datos != null) {
+        var dt = JSON.parse(datos)[0];
+        GenerarFichaDrCr(dt)
+    }
+    return true;
+}
