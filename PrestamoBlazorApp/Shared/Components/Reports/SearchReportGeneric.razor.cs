@@ -18,9 +18,12 @@ namespace PrestamoBlazorApp.Shared.Components.Reports
         public BaseReporteParams BaseReporteParams { get; set; } = new BaseReporteParams();
         [Parameter]
         public string EndPointReporte { get; set; }
-        public DateTime FDesde { get; set; } = DateTime.Now;
-        public DateTime FHasta { get; set; } = DateTime.Now;
+        public DateTime? FDesde { get; set; } = DateTime.Now;
+        public DateTime? FHasta { get; set; } = DateTime.Now;
         List<PropertyInfo> SearchOptions = new List<PropertyInfo>();
+        private string _SelectedOptionSearch { get; set; }
+        private string SelectedOptionSearch { get { return _SelectedOptionSearch; } set { _SelectedOptionSearch = value; OnSelectOptionSearch(value).GetAwaiter(); } }
+        private bool ShowDatePicker { get; set; } = false;
         protected override async Task OnInitializedAsync()
         {
             // await Handle_GetDataForList(GetClientes);
@@ -36,14 +39,30 @@ namespace PrestamoBlazorApp.Shared.Components.Reports
        {
             await JsInteropUtils.CloseModal(jsRuntime, "#ModalGenerarReporte");
             await BlockPage();
-            if(BaseReporteParams.Rango == "FechaIngreso" || BaseReporteParams.Rango == "FechaNacimiento")
+            BaseReporteParams.Opcion = 1;
+            if (ShowDatePicker)
             {
-                BaseReporteParams.ODesde = FDesde.ToString();
-                BaseReporteParams.OHasta = FHasta.ToString();
+                BaseReporteParams.FechaDesde = FDesde;
+                BaseReporteParams.FechaHasta = FHasta;
+                BaseReporteParams.Opcion = 2;
             }
+            //if(BaseReporteParams.Rango == "FechaIngreso" || BaseReporteParams.Rango == "FechaNacimiento")
+            //{
+            //    BaseReporteParams.ODesde = FDesde.ToString();
+            //    BaseReporteParams.OHasta = FHasta.ToString();
+            //}
             var a =   await reportesService.ReporteGenerico(jsRuntime, EndPointReporte, BaseReporteParams);
             await UnBlockPage();
        }
+        private async Task OnSelectOptionSearch(string option)
+        {
+            ShowDatePicker = false;
+            BaseReporteParams.OrdenarPor = option;
+            if (option == "FechaIngreso" || option == "FechaNacimiento")
+            {
+                ShowDatePicker = true;
+            }
+        }
 
        private async void VerGenerador() 
        {

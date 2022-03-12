@@ -88,5 +88,6 @@ namespace PrestamoBLL
             return resultSet;
             //return BllAcciones.GetData<Cliente, BaseReporteParams>(searchParam, "spRptClientes",);
         }
+       
     }
 }

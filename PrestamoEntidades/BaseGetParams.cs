@@ -1,4 +1,5 @@
 ﻿using DevBox.Core.DAL.SQLServer;
+using System;
 
 namespace PrestamoEntidades
 {
@@ -42,6 +43,7 @@ namespace PrestamoEntidades
 
     public class BaseReporteParams
     {
+        public int Opcion { get; set; } = 1;
         public string OrdenarPor { get; set; } = "Nombres";
         public string ODesde { get; set; } = "A";
         public string OHasta { get; set; } = "Z";
@@ -49,6 +51,8 @@ namespace PrestamoEntidades
         public string RDesde { get; set; } = "A";
         public string RHasta { get; set; } = "Z";
         public int reportType { get; set; } = 1;
+        public DateTime? FechaDesde { get; set; }
+        public DateTime? FechaHasta { get; set; }
     }
 }
 
