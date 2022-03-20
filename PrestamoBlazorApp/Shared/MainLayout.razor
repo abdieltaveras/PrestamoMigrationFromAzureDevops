@@ -1,19 +1,30 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-    <div class="main">
-        <!--<div class="top-row px-4 auth">-->
-            @*<LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>*@
-        <!--</div>-->
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="MudBlazor.Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        @Texto
+    </MudAppBar>
+    <MudDrawer @bind-Open="@DrawerOpen">
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+@code {
 
-        <div class="content px-4">
-            @Body
-        </div>
-    </div>
-</div>
+
+    bool DrawerOpen = true;
+
+    string Texto => DrawerOpen ?  "Ocultar Menu" : "Mostrar Menu";
+    void DrawerToggle()
+    {
+        DrawerOpen = !DrawerOpen;
+    }
+}
 

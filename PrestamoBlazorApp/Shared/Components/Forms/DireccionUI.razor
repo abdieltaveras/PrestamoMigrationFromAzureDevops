@@ -58,17 +58,17 @@
     bool showMadridMarker;
     EventConsole console;
 
-    void OnMapClick(GoogleMapClickEventArgs args)
-    {
-        console.Log($"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
-    }
+    //void OnMapClick(GoogleMapClickEventArgs args)
+    //{
+    //    console.Log($"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
+    //}
 
     protected override async Task OnInitializedAsync()
     {
         UpdateMapMarkers();
     }
 
-    
+
     private void UpdateMapMarkers()
     {
 
@@ -79,7 +79,7 @@
         StateHasChanged();
     }
 
-    
+
 
     private void Handle_LocalidadSelected(BuscarLocalidad localidad)
     {
