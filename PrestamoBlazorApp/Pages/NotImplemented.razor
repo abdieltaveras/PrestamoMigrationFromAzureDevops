@@ -1,0 +1,17 @@
+﻿@page "/notimplemented/{viewname}"
+
+<MudText>
+    <MudText Typo="Typo.h4" Align="Align.Center"> se ha solicitado mostrar la vista para  </MudText>
+    <MudText Typo="Typo.h4" Align="Align.Center" Color="MudBlazor.Color.Info"> @ViewName </MudText>
+        <MudText Typo="Typo.h2" Align="Align.Center" Color="MudBlazor.Color.Error"> Esta vista aun no ha sido implementada </MudText>
+
+        <MudText Typo="Typo.h3" Align="Align.Center"> Informar al equipo de desarrolo de Pc Prog</MudText>
+        <PcpPrestamoLogo />
+    </MudText>
+
+@*<SurveyPrompt Title="How is Blazor working for you?" />*@
+@code
+{
+    [Parameter]
+    public string ViewName { get; set; }
+}

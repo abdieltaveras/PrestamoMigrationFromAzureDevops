@@ -1,6 +1,8 @@
 ﻿img.perc30 {
-    height: 50%;
-    width: 30%;
+    height: 30%;
+    width: 20%;
+    /*padding-top: 0em;
+    padding-bottom: 0em;*/
 }
 
 img.perc50 {
