@@ -1,60 +1,59 @@
 ﻿
 <MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All">Menu</MudNavLink>
-    <MudNavLink Href="test/test" Match="NavLinkMatch.Prefix">Test</MudNavLink>
+    <MudNavLink Href="test/test" Match="NavLinkMatch.All">Test</MudNavLink>
     <MudNavGroup Title="Catalogos" Expanded="false">
-        <MudNavLink Href="/tasasinteres" Match="NavLinkMatch.Prefix">Tasa de interes</MudNavLink>
-        <MudNavLink Href="/periodos" Match="NavLinkMatch.Prefix">Periodo</MudNavLink>
-        <MudNavLink Href="/tiposmora" Match="NavLinkMatch.Prefix">Moras</MudNavLink>
-
-
-    </MudNavGroup>
-    <MudNavGroup Title="Clientes" Expanded="false">
-        <MudNavLink Href="/ocupaciones" Match="NavLinkMatch.Prefix">Ocupaciones</MudNavLink>
-        <MudNavLink Href="/localidades/listado" Match="NavLinkMatch.Prefix">Localidades</MudNavLink>
-    </MudNavGroup>
-    <MudNavGroup Title="Territorios" Expanded="false">
-        <MudNavLink Href="/territorios/CreateDivisionTerritorial" Match="NavLinkMatch.Prefix">Division Territorial</MudNavLink>
-        <MudNavLink Href="/territorios" Match="NavLinkMatch.Prefix">Territorios/Paises</MudNavLink>
-        <MudNavLink Href="/periodos" Match="NavLinkMatch.Prefix">Localidades</MudNavLink>
-    </MudNavGroup>
-
-    <MudNavGroup Title="Garantia" Expanded="false">
-        <MudNavLink Href="/colores" Match="NavLinkMatch.Prefix">Colores</MudNavLink>
-        <MudNavLink Href="/marcas" Match="NavLinkMatch.Prefix">Marcas</MudNavLink>
-        <MudNavLink Href="/modelos" Match="NavLinkMatch.Prefix">Modelo</MudNavLink>
-        <MudNavLink Href="/garantias" Match="NavLinkMatch.Prefix">Garantias</MudNavLink>
+        <MudNavGroup Title="Prestamos" Expanded="false">
+            <MudNavLink Href="/tasasinteres" Match="NavLinkMatch.All">Tasa de interes</MudNavLink>
+            <MudNavLink Href="/periodos" Match="NavLinkMatch.All">Periodo</MudNavLink>
+            <MudNavLink Href="/tiposmora" Match="NavLinkMatch.All">Moras</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Clientes" Expanded="false">
+            <MudNavLink Href="/ocupaciones" Match="NavLinkMatch.All">Ocupaciones</MudNavLink>
+            <MudNavLink Href="/localidades/listado" Match="NavLinkMatch.All">Localidades</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Territorios" Expanded="false">
+            <MudNavLink Href="/territorios/CreateDivisionTerritorial" Match="NavLinkMatch.All">Division Territorial</MudNavLink>
+            <MudNavLink Href="/territorios" Match="NavLinkMatch.All">Territorios/Paises</MudNavLink>
+            <MudNavLink Href="/localidades" Match="NavLinkMatch.All">Localidades</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Garantia" Expanded="false">
+            <MudNavLink Href="/colores" Match="NavLinkMatch.All">Colores</MudNavLink>
+            <MudNavLink Href="/marcas" Match="NavLinkMatch.All">Marcas</MudNavLink>
+            <MudNavLink Href="/modelos" Match="NavLinkMatch.All">Modelo</MudNavLink>
+            <MudNavLink Href="/garantias" Match="NavLinkMatch.All">Garantias</MudNavLink>
+        </MudNavGroup>
     </MudNavGroup>
     <MudNavGroup Title="Entidades" Expanded="false">
         <MudNavGroup Title="Cliente" Expanded="false">
-            <MudNavLink Href="/clientes" Match="NavLinkMatch.Prefix"> Listado C;ientes</MudNavLink>
-            <MudNavLink Href="/clientes/createoredit" Match="NavLinkMatch.Prefix"> Crear Clientes</MudNavLink>
+            <MudNavLink Href="/clientes" Match="NavLinkMatch.All"> Listado C;ientes</MudNavLink>
+            <MudNavLink Href="/clientes/createoredit" Match="NavLinkMatch.All"> Crear Clientes</MudNavLink>
         </MudNavGroup>
         <MudNavGroup Title="Codeudores" Expanded="false">
-            <MudNavLink Href="/codeudores" Match="NavLinkMatch.Prefix"> Listado Clientes</MudNavLink>
-            <MudNavLink Href="/codeudores/createoredit" Match="NavLinkMatch.Prefix"> crear Codeudores</MudNavLink>
+            <MudNavLink Href="/codeudores" Match="NavLinkMatch.All"> Listado Clientes</MudNavLink>
+            <MudNavLink Href="/codeudores/createoredit" Match="NavLinkMatch.All"> crear Codeudores</MudNavLink>
         </MudNavGroup>
         <MudNavGroup Title="Garantias" Expanded="false">
-            <MudNavLink Href="/garantias" Match="NavLinkMatch.Prefix"> Listado Garantia</MudNavLink>
-            <MudNavLink Href="/garantias/createoredit" Match="NavLinkMatch.Prefix"> Crear Garantia</MudNavLink>
+            <MudNavLink Href="/garantias" Match="NavLinkMatch.All"> Listado Garantia</MudNavLink>
+            <MudNavLink Href="/garantias/createoredit" Match="NavLinkMatch.All"> Crear Garantia</MudNavLink>
         </MudNavGroup>
-        
+
     </MudNavGroup>
-        <MudNavGroup Title="Transacciones" Expanded="false">
-            <MudNavGroup Title="Prestamos" Expanded="false">
-                <MudNavLink Href="/prestamos" Match="NavLinkMatch.Prefix"> Listado de prestamos</MudNavLink>
-                <MudNavLink Href="/prestamos/createoredit" Match="NavLinkMatch.Prefix"> Crear Prestamo</MudNavLink>
-            </MudNavGroup>
-            <MudNavGroup Title="Transacciones CXC" Expanded="false">
-                <MudNavLink Href="/ingresos" Match="NavLinkMatch.Prefix"> Listado de ingresos</MudNavLink>
-                <MudNavLink Href="/ingresos/createoredit" Match="NavLinkMatch.Prefix"> registrar ingresos </MudNavLink>
-                <MudNavLink Href="/notimplemented/listado notas de debitos" Match="NavLinkMatch.Prefix"> Listado notas de debito</MudNavLink>
-                <MudNavLink Href="/notimplemented/registrar notas de debito" Match="NavLinkMatch.Prefix"> registrar notas de debito</MudNavLink>
-                <MudNavLink Href="/notimplemented/listado notas de creditos" Match="NavLinkMatch.Prefix"> Listado notas de credito</MudNavLink>
-                <MudNavLink Href="/notimplemented/registrar notas de credito" Match="NavLinkMatch.Prefix"> registrar notas de credito</MudNavLink>
-            </MudNavGroup>
-            
+    <MudNavGroup Title="Transacciones" Expanded="false">
+        <MudNavGroup Title="Prestamos" Expanded="false">
+            <MudNavLink Href="/prestamos" Match="NavLinkMatch.All"> Listado de prestamos</MudNavLink>
+            <MudNavLink Href="/prestamos/createoredit" Match="NavLinkMatch.All"> Crear Prestamo</MudNavLink>
         </MudNavGroup>
+        <MudNavGroup Title="Transacciones CXC" Expanded="false">
+            <MudNavLink Href="/ingresos" Match="NavLinkMatch.All"> Listado de ingresos</MudNavLink>
+            <MudNavLink Href="/ingresos/createoredit" Match="NavLinkMatch.All"> registrar ingresos </MudNavLink>
+            <MudNavLink Href="/notimplemented/listado notas de debitos" Match="NavLinkMatch.All"> Listado notas de debito</MudNavLink>
+            <MudNavLink Href="/notimplemented/registrar notas de debito" Match="NavLinkMatch.All"> registrar notas de debito</MudNavLink>
+            <MudNavLink Href="/notimplemented/listado notas de creditos" Match="NavLinkMatch.All"> Listado notas de credito</MudNavLink>
+            <MudNavLink Href="/notimplemented/registrar notas de credito" Match="NavLinkMatch.All"> registrar notas de credito</MudNavLink>
+        </MudNavGroup>
+
+    </MudNavGroup>
 
 </MudNavMenu>
 

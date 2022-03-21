@@ -8,29 +8,22 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
-using MudBlazor;
 
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
-    
-    public partial class CreateOrEditCatalogo : BaseForCreateOrEdit
+    public partial class CreateOrEditCatalogoOld : BaseForCreateOrEdit
     {
-        // parameters
+      
         [Parameter]
         public Catalogo Catalogo { get; set; } = new Catalogo();
         [Parameter]
         public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams();
-        
-        // injections
-        [Inject]
-        CatalogosService CatalogosService { get; set; }
-
-        // Members
         BaseForList BaseForList { get; set; }
         IEnumerable<Catalogo> catalogos { get; set; } = new List<Catalogo>();
-        MudForm form;
-        bool success;
-        string[] errors = { };
+        
+
+        [Inject]
+        CatalogosService CatalogosService { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
