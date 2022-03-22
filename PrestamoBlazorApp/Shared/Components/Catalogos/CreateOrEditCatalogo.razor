@@ -1,17 +1,50 @@
 ﻿@inherits BaseForCreateOrEdit
-<!--Seccion encabezado-->
+<!--Header Section-->
 <MudGrid>
-    <MudItem xs="12" sm="7">
-        <MudPaper Class="pa-4">
-            <MudPaper Class="pa-4 mt-4">
-                <MudPaper> Listado De @(Catalogo.NombreTabla != null ? Catalogo.NombreTabla.Replace("tbl", "") : "")</MudPaper>
-
-                <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>form.Validate())">Validate</MudButton>
-                <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" DisableElevation="true" OnClick="@(()=>form.Reset())" Class="mx-2">Reset</MudButton>
-                <MudButton Variant="Variant.Filled" DisableElevation="true" OnClick="@(()=>form.ResetValidation())">Reset Validation</MudButton>
-            </MudPaper>
-            <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
-            </MudForm>
-        </MudPaper>
+    <MudItem xs="12" sm="4">
+        <MudText Typo="Typo.h4" xs="1"> Listado De @(Catalogo.NombreTabla != null ? Catalogo.NombreTabla.Replace("tbl", "") : "")</MudText>
+    </MudItem>
+    <MudItem xs="12" sm="4">
+        <MudButton Class="d-flex align-center" xs="4" Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit())">Agregar</MudButton>
+    </MudItem>
+    <MudItem xs="12" sm="4">
+        <MudMenu Label="Reportes" I>
+            <MudMenuItem> Pdf </MudMenuItem>
+            <MudMenuItem> Excel</MudMenuItem>
+        </MudMenu>
+    </MudItem>
+    <MudItem xs="12" sm="4">
+        <MudForm @ref="Form" @bind-IsValid="@Success" @bind-Errors="@Errors">
+        </MudForm>
     </MudItem>
 </MudGrid>
+
+<!--Table Section-->
+<MudTable Items="@Catalogos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Catalogo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Elementos</MudText>
+        
+        <MudTextField @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Codigo</MudTh>
+        <MudTh>Nombre</MudTh>
+        <MudTh>Acciones</MudTh>
+        
+    </HeaderContent>
+    <RowTemplate  >
+        <MudTd DataLabel="Nr">@context.Codigo</MudTd>
+        <MudTd DataLabel="Sign">@context.Nombre</MudTd>
+        <MudTd DataLabel="Sign">accion1, accion2, accion3</MudTd>
+
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+<div class="d-flex flex-wrap mt-4">
+    <div style="min-width:200px;">
+        <MudText Inline="true" Class="align-self-center">Selected1: @SelectedItem1?.Nombre</MudText>
+    </div>
+</div>

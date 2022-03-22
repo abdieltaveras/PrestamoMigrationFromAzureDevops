@@ -24,20 +24,22 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         // injections
         [Inject]
         CatalogosService CatalogosService { get; set; }
-
         // Members
-        BaseForList BaseForList { get; set; }
-        IEnumerable<Catalogo> catalogos { get; set; } = new List<Catalogo>();
-        MudForm form;
-        bool success;
-        string[] errors = { };
+        private string SearchString1 = "";
+        private Catalogo SelectedItem1 = null;
+        private bool FilterFunc1(Catalogo element) => FilterFunc(element, SearchString1);
+        private BaseForList BaseForList { get; set; }
+        private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
+        private MudForm Form;
+        private bool Success, Dense=true, Hover=true, Bordered, Striped;
+        private string[] Errors = { };
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
                 await BlockPage();
-                catalogos = await CatalogosService.Get(CatalogoGetParams);
+                Catalogos = await CatalogosService.Get(CatalogoGetParams);
                 //JsonConvert.DeserializeObject<IEnumerable< Catalogo>>(lista.FirstOrDefault().ToString() );
                 await UnBlockPage();
                 StateHasChanged();
@@ -107,6 +109,16 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             CatalogoGetParams.reportType = reportType;
             var result = await CatalogosService.ReportListado(jsRuntime, CatalogoGetParams);
             await UnBlockPage();
+        }
+        private bool FilterFunc(Catalogo element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            return false;
         }
     }
 
