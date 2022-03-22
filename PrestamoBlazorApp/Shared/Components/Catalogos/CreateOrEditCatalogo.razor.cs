@@ -15,6 +15,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     
     public partial class CreateOrEditCatalogo : BaseForCreateOrEdit
     {
+        private bool ShowDialogCreate { get; set; } = false;
         // parameters
         [Parameter]
         public Catalogo Catalogo { get; set; } = new Catalogo();
@@ -33,6 +34,8 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private MudForm Form;
         private bool Success, Dense=true, Hover=true, Bordered, Striped;
         private string[] Errors = { };
+
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Large, FullWidth = true };
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -69,7 +72,12 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             {
                 this.Catalogo = new Catalogo { IdTabla = Catalogo.IdTabla, NombreTabla = Catalogo.NombreTabla };
             }
-            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            ShowDialogCreate = true;
+            StateHasChanged();
+        }
+        private async Task ShowCreateModal(bool value)
+        {
+            ShowDialogCreate = value;
         }
         async Task Eliminar ()
         {
@@ -116,10 +124,14 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
                 return true;
             if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 return true;
-            if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
+            if (element.Codigo!=null)
+            {
+                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
             return false;
         }
+
     }
 
 }
