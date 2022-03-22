@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Services;
 using System;
@@ -10,127 +11,24 @@ namespace PrestamoBlazorApp.Shared
 {
     public partial class NavMenu
     {
-        private bool collapseNavMenu = true;
-
-
-        JsInteropUtils jsInterop { get; set; } = new JsInteropUtils();
-
+        [Inject]
+        IWebHostEnvironment env { get; set; }
         [Inject]
         NavigationManager navManager { get; set; }
         [Inject]
-        IJSRuntime jsRuntime { get; set; }
-        private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-        private Dictionary<MenuItem, bool> MenuItems { get; set; } = new Dictionary<MenuItem, bool>();
-
-        //private bool expandCatalogosSubMenu { get; set; } = false;
-        //private bool expandOperacionesSubMenu { get; set; } = false;
-        //private bool expandGarantiasSubMenu { get; set; } = false;
-        //private bool expandTerritoriosSubMenu { get; set; } = false;
-        //private bool expandClientesSubMenu { get; set; } = false;
-
+        private IJSRuntime jsRuntime { get; set; }
+        private JsInteropUtils jsInterop { get; set; } = new JsInteropUtils();
+        private bool IsDevelopment => env.EnvironmentName == "Development";
         public NavMenu()
         {
-            CreateCatalogosSubMenu();
+
         }
         //protected override void OnInitialized()  {}
-        private void ToggleNavMenu()
-        {
-            //jsInterop.Alert(jsRuntime,"click en toggleNavMenu");
-            collapseNavMenu = !collapseNavMenu;
-        }
-
-        private void CreateCatalogosSubMenu()
-        {
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.CatalogoPrestamos, MenuPadreText = null }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.CatalogoGarantias, MenuPadreText = null }, false);
-
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.CatalogoClientes, MenuPadreText = null }, false);
-
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Operaciones, MenuPadreText = null }, false);
-
-            // sub menus CatalogoClientes
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Localidades, MenuPadreText = MenuText.CatalogoClientes }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Territorios, MenuPadreText = MenuText.CatalogoClientes }, false);
-
-            // sub menus CatalogoPrestamo
-
-            // sub menus CatalogoGarantias
-
-            // sub menus Operaciones
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Garantias, MenuPadreText = MenuText.Operaciones }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Clientes, MenuPadreText = MenuText.Operaciones }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Prestamo, MenuPadreText = MenuText.Operaciones }, false);
-            MenuItems.Add(new MenuItem { CurrentText = MenuText.Codeudores, MenuPadreText = MenuText.Operaciones }, false);
-
-        }
         private void navigateTo(string linkUrl)
         {
             navManager.NavigateTo(linkUrl, true);
         }
 
-        string lastActiveMenu { get; set; }
-        private void SetActiveMenu(string menuText)
-        {
-            if (!string.IsNullOrEmpty(lastActiveMenu))
-            {
-                var LastMenuItemSelected = MenuItems.Where(item => item.Key.CurrentText == lastActiveMenu).FirstOrDefault();
-                ManageMenuItem(LastMenuItemSelected, false);
-                var iguales = LastMenuItemSelected.Key.CurrentText == menuText;
-                if (LastMenuItemSelected.Key.CurrentText == menuText)
-                {
-                    lastActiveMenu = string.Empty;
-                    return;
-                }
-            }
-
-            // para el item seleccionado
-            var MenuItemSelected = MenuItems.Where(item => item.Key.CurrentText == menuText).FirstOrDefault();
-            ManageMenuItem(MenuItemSelected, true);
-            lastActiveMenu = MenuItemSelected.Key.CurrentText;
-        }
-
-        private void ManageMenuItem(KeyValuePair<MenuItem, bool> MenuItemSelected, bool value)
-        {
-            MenuItems[MenuItemSelected.Key] = value;
-            var textMenuPadre = MenuItemSelected.Key.MenuPadreText;
-            if (!string.IsNullOrEmpty(textMenuPadre))
-            {
-                var MenuPadreItem = MenuItems.Where(item => item.Key.CurrentText == textMenuPadre).FirstOrDefault();
-                MenuItems[MenuPadreItem.Key] = value;
-            }
-
-        }
-
-        private bool ExpandMenu(string menuText)
-        {
-
-            var menuItem = MenuItems.Where(item => item.Key.CurrentText == menuText).FirstOrDefault();
-            var result = MenuItems[menuItem.Key];
-            return result;
-        }
-
-
-        public static class MenuText
-        {
-            public static string CatalogoPrestamos => "Catalogo Prestamos";
-            public static string CatalogoClientes => "Catalogo Clientes";
-            public static string CatalogoGarantias => "Catalogo Garantias";
-            public static string Operaciones => "Operaciones";
-            public static string Garantias => "Garantias";
-            public static string Territorios => "Territorios";
-            public static string Localidades => "Localidades";
-            public static string Clientes => "Clientes";
-            public static string Prestamo => "Prestamo";
-            public static string Codeudores => "Codeudores";
-        }
-
-        public class MenuItem
-        {
-            public string MenuPadreText { get; set; }
-
-            public string CurrentText { get; set; }
-
-        }
+        
     }
 }

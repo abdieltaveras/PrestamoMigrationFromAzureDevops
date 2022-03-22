@@ -1,7 +1,16 @@
 ﻿
 <MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All">Menu</MudNavLink>
-    <MudNavLink Href="test/test" Match="NavLinkMatch.All">Test</MudNavLink>
+    @{
+        if (IsDevelopment)
+        { 
+        <MudNavGroup Title="Test" Expanded="false">
+            <MudNavLink Href="test/test" Match="NavLinkMatch.All" title="Calling blazor component from controller"> Calling Comp.</MudNavLink>
+            <MudNavLink Href="/Ocupaciones" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> MudForm Test</MudNavLink>
+        </MudNavGroup>
+        }
+
+    }
     <MudNavGroup Title="Catalogos" Expanded="false">
         <MudNavGroup Title="Prestamos" Expanded="false">
             <MudNavLink Href="/tasasinteres" Match="NavLinkMatch.All">Tasa de interes</MudNavLink>

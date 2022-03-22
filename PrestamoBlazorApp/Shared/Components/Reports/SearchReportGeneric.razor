@@ -38,12 +38,12 @@
                                     {
                                     <div class="form-group">
                                         @*<label> Desde</label>*@
-                                        <MudDatePicker Label="Desde"  @bind-Date="FDesde" OpenTo="OpenTo.Month" FixYear="@DateTime.Now.Year.ToString("yyyy")" DateFormat="MM/dd" />
+                                        <MudDatePicker Label="Desde"  @bind-Date="FDesde" OpenTo="OpenTo.Month" FixYear="@DateTime.Now.Year" DateFormat="MM/dd" />
                                         @*<InputDate class="form-control" @bind-Value="FDesde"></InputDate>*@
                                     </div>
                                     <div class="form-group">
                                         @*<label> Hasta</label>*@
-                                        <MudDatePicker Label="Hasta" @bind-Date="FHasta" OpenTo="OpenTo.Month" FixYear="@DateTime.Now.Year.ToString("yyyy")" DateFormat="MM/dd" />
+                                        <MudDatePicker Label="Hasta" @bind-Date="FHasta" OpenTo="OpenTo.Month" FixYear="@DateTime.Now.Year" DateFormat="MM/dd" />
                                         @*<InputDate class="form-control" @bind-Value="FHasta"></InputDate>*@
                                     </div>
                                     }

@@ -15,6 +15,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     
     public partial class CreateOrEditCatalogo : BaseForCreateOrEdit
     {
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         private bool ShowDialogCreate { get; set; } = false;
         // parameters
         [Parameter]
@@ -31,11 +32,12 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private bool FilterFunc1(Catalogo element) => FilterFunc(element, SearchString1);
         private BaseForList BaseForList { get; set; }
         private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
-        private MudForm Form;
-        private bool Success, Dense=true, Hover=true, Bordered, Striped;
-        private string[] Errors = { };
+        
+        private bool Dense=true, Hover=true, Bordered=false, Striped=false;
 
-        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Large, FullWidth = true };
+
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+        //note CloseButton = true was removed cause when clicked the dialog does not close };
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -51,8 +53,10 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         }
         async Task SaveCatalogo()
         {
+            ShowDialog(false);
             await Handle_SaveData(async () => await CatalogosService.SaveCatalogo(this.Catalogo), null, null,false,"Reload");
             this.Catalogo = new Catalogo();
+            
         }
         async Task CreateOrEdit(int Id = -1)
         {
@@ -72,34 +76,15 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             {
                 this.Catalogo = new Catalogo { IdTabla = Catalogo.IdTabla, NombreTabla = Catalogo.NombreTabla };
             }
-            ShowDialogCreate = true;
+            ShowDialog(true);
             StateHasChanged();
         }
-        private async Task ShowCreateModal(bool value)
-        {
-            ShowDialogCreate = value;
-        }
+        //private async Task ShowCreateModal(bool value)
+        //{
+        //    ShowDialogCreate = value;
+        //}
         async Task Eliminar ()
         {
-            //*********Sweet confirm retorna int, esto es debido a que utilizamos 3 botones si enviamos el parametro DenyButtonText************//
-            //desde aqui SweetConfirm
-            //var a = await JsInteropUtils.SweetConfirm(jsRuntime,"Deseas Eliminar?","No quiero no");
-            //if (a == 1)
-            //{
-            //    await SweetMessageBox("Eliminado");
-            //}
-            //else
-            //{
-            //    if(a == 2)
-            //    {
-            //        await SweetMessageBox("No quiere eliminar");
-            //    }
-            //}
-            //hasta aqui esta el SweetConfirm 
-
-            //*********************************************************//
-
-            //var  a = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, "Desea Eliminar?", ""); //Funciona
             var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
             if (a == true)
             {
@@ -132,6 +117,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             return false;
         }
 
+        void ShowDialog(bool value) => ShowDialogCreate = value;
     }
 
 }

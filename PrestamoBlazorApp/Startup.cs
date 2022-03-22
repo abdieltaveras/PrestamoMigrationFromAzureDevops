@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PrestamoBlazorApp.Areas.Identity;
 using PrestamoBlazorApp.Services;
-using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,27 +33,13 @@ namespace PrestamoBlazorApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
             services.AddHttpClient();
-
             services.AddRazorPages();
             services.AddServerSideBlazor();
-
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            RadZenServices(services);
-
             ProjectServices(services);
-
             AddMudBlazorServices(services);
-        }
-
-        private static void RadZenServices(IServiceCollection services)
-        {
-            services.AddScoped<Radzen.DialogService>();
-            services.AddScoped<NotificationService>();
-            services.AddScoped<TooltipService>();
-            services.AddScoped<ContextMenuService>();
         }
 
         private static void ProjectServices(IServiceCollection services)

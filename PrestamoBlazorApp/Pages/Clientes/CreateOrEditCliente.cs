@@ -8,8 +8,6 @@ using PrestamoBlazorApp.Shared;
 
 using PrestamoEntidades;
 using PrestamoValidaciones;
-using Radzen;
-using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

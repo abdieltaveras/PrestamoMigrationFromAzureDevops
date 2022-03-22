@@ -14,10 +14,9 @@
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@Catalogos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Catalogo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+        <MudTable  Items="@Catalogos"  Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Catalogo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Elementos</MudText>
-
                 <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <HeaderContent>
@@ -38,18 +37,11 @@
         </MudTable>
     </MudCardContent>
 </MudCard>
-<MudGrid>
-    <MudItem xs="12" sm="4">
-        <MudForm @ref="Form" @bind-IsValid="@Success" @bind-Errors="@Errors">
-        </MudForm>
-    </MudItem>
-</MudGrid>
+
 
 <!--Table Section-->
 
-
-
-<MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions">
+<MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions" >
     <DialogContent>
         <EditForm Model="Catalogo" OnValidSubmit="SaveCatalogo" OnInvalidSubmit="RaiseInvalidSubmit">
             <DataAnnotationsValidator />
@@ -63,7 +55,8 @@
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>
+        <MudButton Variant="Variant.Filled" OnClick="()=>ShowDialog(false)" Class="px-10">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" OnClick="SaveCatalogo" Class="px-10">Guardar</MudButton>
     </DialogActions>
 </MudDialog>
 <div class="d-flex flex-wrap mt-4">
