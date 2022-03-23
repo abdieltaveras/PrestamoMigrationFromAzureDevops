@@ -6,15 +6,21 @@
             <MudText Typo="Typo.h4" xs="1"> Listado De @(Catalogo.NombreTabla != null ? Catalogo.NombreTabla.Replace("tbl", "") : "")</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
-            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit())">Agregar</MudButton>
-            <MudMenu Label="Reportes">
+
+            @*<MudFab Color="MudBlazor.Color.Primary" StartIcon="@Icons.Material.Filled.Inventory"/>*@
+            @*<MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit())">Agregar</MudButton>*@
+            <MudFab Color="MudBlazor.Color.Primary" StartIcon="@Icons.Material.Filled.Add" DisableElevation="true" OnClick="@(()=>CreateOrEdit())" />
+            <MudMenu Color="MudBlazor.Color.Primary" Icon="@Icons.Material.Rounded.Inventory2" DisableElevation="true" OffsetY="true">
                 <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
                 <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
             </MudMenu>
+
+
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable  Items="@Catalogos"  Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Catalogo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+        <!--Table Section-->
+        <MudTable Items="@Catalogos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Catalogo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Elementos</MudText>
                 <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
@@ -28,7 +34,9 @@
                 <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
                 <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
                 <MudTd>
-                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.Id))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.Id))" Title="Editar" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                    <MudIconButton OnClick="@(()=>NotifyNotImplementedAction())" Title="Desactivar" Icon="@Icons.Outlined.Delete"></MudIconButton>
+                    <MudIconButton OnClick="@(()=>NotifyNotImplementedAction())" Title="Eliminar" Icon="@Icons.Outlined.DeleteForever"></MudIconButton>
                 </MudTd>
             </RowTemplate>
             <PagerContent>
@@ -39,28 +47,32 @@
 </MudCard>
 
 
-<!--Table Section-->
+<!--Dialog Section-->
 
-<MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions" >
+
+<MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions">
     <DialogContent>
         <EditForm Model="Catalogo" OnValidSubmit="SaveCatalogo" OnInvalidSubmit="RaiseInvalidSubmit">
             <DataAnnotationsValidator />
             @*<ValidationSummary/>*@
-        <MudGrid>
-            <MudItem md="12">
-                <MudTextField @bind-Value="Catalogo.Codigo" T="string" Label="Codigo"></MudTextField>
-                <MudTextField @bind-Value="Catalogo.Nombre" T="string" Label="Nombre" For="@(() => Catalogo.Nombre)"></MudTextField>
-            </MudItem>
-        </MudGrid>
+            <MudGrid>
+                <MudItem md="12">
+                    <MudTextField @bind-Value="Catalogo.Codigo" T="string" Label="Codigo"></MudTextField>
+                    <MudTextField @bind-Value="Catalogo.Nombre" T="string" Label="Nombre"></MudTextField>
+                </MudItem>
+            </MudGrid>
         </EditForm>
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" OnClick="()=>ShowDialog(false)" Class="px-10">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" OnClick="() => ShowDialog(false)" Class="px-10">Cancelar</MudButton>
         <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" OnClick="SaveCatalogo" Class="px-10">Guardar</MudButton>
     </DialogActions>
 </MudDialog>
+
 <div class="d-flex flex-wrap mt-4">
     <div style="min-width:200px;">
         <MudText Inline="true" Class="align-self-center">Selected1: @SelectedItem1?.Nombre</MudText>
     </div>
 </div>
+
+

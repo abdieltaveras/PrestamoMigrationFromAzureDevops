@@ -26,6 +26,11 @@ namespace PrestamoBlazorApp.Shared
             await JsInteropUtils.SweetAlertSuccess(jsRuntime, message, redirectTo);
             //await Task.Delay(watingTimeBeforeContinueExecution);
         }
+
+        protected virtual async Task NotifyNotImplementedAction()
+        {
+            await JsInteropUtils.SweetAlertSuccess(jsRuntime, "Accion no implementada aun");
+        }
         protected virtual async Task SweetMessageBox(string message = "", string icon = "info", string redirectTo = "", int delayMilliSeconds = 1500)
         {
             await JsInteropUtils.SweetMessageBox(jsRuntime, message, icon, redirectTo, delayMilliSeconds);
