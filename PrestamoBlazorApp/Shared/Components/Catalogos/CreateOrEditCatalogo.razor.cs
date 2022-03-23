@@ -22,7 +22,6 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         public Catalogo Catalogo { get; set; } = new Catalogo();
         [Parameter]
         public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams();
-        
         // injections
         [Inject]
         CatalogosService CatalogosService { get; set; }

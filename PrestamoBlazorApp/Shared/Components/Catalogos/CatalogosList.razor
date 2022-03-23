@@ -1,0 +1,32 @@
+﻿<h3>CatalogosList</h3>
+@inherits CommonBase
+@page "/CatalogosList"
+
+@{
+    if (ValidCatalogoSpecification)
+    {
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h4">Administración de @CatalogoSpecification.NombreTabla</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <DataGridView  ObjectList="Catalogos" Title="@CatalogoSpecification.NombreTabla" OnSearchValueChanged="HandleSearchValueChanged" ToolbarButtons="buttons" AllowMultiSelection="false" Columns="columns" FilterFunc="FilterFunc" ></DataGridView>
+            </MudCardContent>
+        </MudCard>
+    }
+    else
+    {
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h4">Administración de Catalogo</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText> Lo siento no se enviaron parametros correctos, intentelo de nuevo  </MudText>
+            </MudCardContent>
+        </MudCard>
+    }
+}

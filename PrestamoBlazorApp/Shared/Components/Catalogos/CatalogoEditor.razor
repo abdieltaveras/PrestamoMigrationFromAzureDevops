@@ -1,0 +1,33 @@
+﻿@inherits BaseForCreateOrEdit
+<!--Header Section-->
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.PeopleAlt" Class="mr-3 mb-n1" /> Editar Usuario
+        </MudText>
+        <MudIconButton Color="MudBlazor.Color.Error" OnClick="CloseDlg" Icon="@Icons.Material.Rounded.Close" Variant="Variant.Filled"></MudIconButton>
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="form" @bind-IsValid="@validForm" @bind-Errors="@errors">
+            <MudGrid>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Codigo (s)" Required="true" @bind-Value="Catalogo.Codigo" Variant="Variant.Text"
+                                  RequiredError="El codigo no puede estar en blanco" />
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Nombre" Required="true" @bind-Value="Catalogo.Nombre" Variant="Variant.Text"
+                                  RequiredError="El nombre no puede estar en blanco" />
+                </MudItem>
+                
+                
+                <MudItem xs="12" sm="12" md="12">
+                    <MudCheckBox @bind-Checked="Catalogo.Activo">Activo</MudCheckBox>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Disabled="@(!validForm)" Color="MudBlazor.Color.Warning" OnClick="DelCatalogo">Eliminar</MudButton>
+        <MudButton Disabled="@(!validForm)" Color="MudBlazor.Color.Primary" OnClick="SaveCatalogo">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>

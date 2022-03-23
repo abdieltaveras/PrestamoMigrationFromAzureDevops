@@ -40,7 +40,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Catalogos\" />
     <Folder Include="Reports\Rdlc\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DevBox.Core.Classes">
+      <HintPath>..\..\DevBoxSoft\Core.Classes.V2\bin\Debug\net5.0\DevBox.Core.Classes.dll</HintPath>
+    </Reference>
+    <Reference Include="UIClient">
+      <HintPath>..\..\DevBoxSoft\Tests\UIClient\obj\Debug\net5.0\UIClient.dll</HintPath>
+    </Reference>
+    <Reference Include="UIClient.Views">
+      <HintPath>..\..\DevBoxSoft\Tests\UIClient\obj\Debug\net5.0\UIClient.Views.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
