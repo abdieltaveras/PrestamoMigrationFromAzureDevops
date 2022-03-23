@@ -1,78 +1,99 @@
 ﻿@page "/localidades/listado"
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Localidades
-<h1>Localidades  </h1>
 
-<table class="table table-responsive-md table-hover">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Operacion</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (localidades.Count() > 0)
-        {
-            @foreach (var item in localidades)
+
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4">Localidades</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>Edit(-1))">Agregar</MudButton>
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@localidades" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Localidad,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Codigo</MudTh>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd>
+                    <MudIconButton OnClick="@(()=>Edit(context.IdLocalidad))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
+
+@*<table class="table table-responsive-md table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Operacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (localidades.Count() > 0)
+            {
+                @foreach (var item in localidades)
+                {
+                    <tr>
+                        @{
+                            var datos = territorios.Where(m => m.IdDivisionTerritorial == item.IdTipoLocalidad).FirstOrDefault();
+                        }
+                        <td>@item.Nombre</td>
+                        <td>@(datos == null ? "": datos.Nombre)</td>
+                        <td> <button @onclick="()=>Edit(item.IdLocalidad)" class="btn btn-outline-primary">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                }
+            }
+            else
             {
                 <tr>
-                    @{ 
-                        var datos = territorios.Where(m => m.IdDivisionTerritorial == item.IdTipoLocalidad).FirstOrDefault();
-                    }
-                    <td>@item.Nombre</td>
-                    <td>@(datos == null ? "": datos.Nombre)</td>
-                    <td> <button @onclick="()=>Edit(item.IdLocalidad)" class="btn btn-outline-primary">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                    </td>
+                    <td>Cargando datos ejecute una busqueda</td>
                 </tr>
 
             }
-        }
-        else
-        {
-            <tr>
-                <td>Cargando datos ejecute una busqueda</td>
-            </tr>
+        </tbody>
+    </table>*@
 
-        }
-    </tbody>
-</table>
-<div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                @if (Localidad.IdLocalidad > 0)
-                {
-                    <h5 class="modal-title" id="edtMarcaTitel">Editar Localidad</h5>
-                }
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="col-md-12">
-                <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
-                    <DataAnnotationsValidator />
-                    <div class="row">
-                        <div class="col-md-12">
-                           
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <InputText id="nombre" class="form-control col-md-6" @bind-Value="Localidad.Nombre"></InputText>
-                                <ValidationMessage For="() => Localidad.Nombre" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </EditForm>
-            </div>
+<MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions">
+    <DialogContent>
+        <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
+            <DataAnnotationsValidator />
 
-        </div>
-    </div>
-</div>
+            <MudGrid>
+                <MudItem md="12">
+                    @*<MudTextField @bind-Value="Localidad.Codigo" T="string" Label="Codigo"></MudTextField>*@
+                    <MudTextField @bind-Value="Localidad.Nombre" T="string" Label="Nombre" For="@(() => Localidad.Nombre)"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" OnClick="()=>ShowDialog(false)" Class="px-10">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" OnClick="SaveLocalidad" Class="px-10">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
 
 
 @code {
