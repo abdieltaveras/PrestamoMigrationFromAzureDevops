@@ -44,7 +44,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<Localidad>(apiUrl, Localidad);
+                await PostAsync<Localidad>(apiUrl+"/post", Localidad);
             }
             catch (Exception ex)
             {

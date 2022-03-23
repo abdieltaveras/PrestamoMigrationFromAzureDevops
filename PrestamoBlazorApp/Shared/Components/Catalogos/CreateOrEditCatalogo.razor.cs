@@ -17,6 +17,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         private bool ShowDialogCreate { get; set; } = false;
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         // parameters
         [Parameter]
         public Catalogo Catalogo { get; set; } = new Catalogo();
@@ -36,7 +37,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private bool Dense=true, Hover=true, Bordered=false, Striped=false;
 
 
-        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+       
         //note CloseButton = true was removed cause when clicked the dialog does not close };
 
         protected override async Task OnAfterRenderAsync(bool firstRender)

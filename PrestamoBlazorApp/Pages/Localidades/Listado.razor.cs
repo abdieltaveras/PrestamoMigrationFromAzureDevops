@@ -7,6 +7,7 @@ using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
+using MudBlazor;
 
 namespace PrestamoBlazorApp.Pages.Localidades
 {
@@ -22,6 +23,13 @@ namespace PrestamoBlazorApp.Pages.Localidades
         private int? _SelectedLocalidad = null;
         public int? SelectedLocalidad { get { return _SelectedLocalidad; } set { _SelectedLocalidad = value;  } }
 
+        private string SearchString1 = "";
+        private Localidad SelectedItem1 = null;
+        private bool FilterFunc1(Localidad element) => FilterFunc(element, SearchString1);
+        private bool ShowDialogCreate { get; set; } = false;
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+
+        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
         protected override async Task OnInitializedAsync()
         {
             this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
@@ -40,11 +48,11 @@ namespace PrestamoBlazorApp.Pages.Localidades
         {
             //await BlockPage();
             await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null,null,false,"/localidades/listado");
-            await Edit(this.Localidad.IdLocalidad);
+            //await Edit(this.Localidad.IdLocalidad);
             //await UnBlockPage();
 
         }
-        async Task Edit(int idLocalidad)
+        async Task Edit(int idLocalidad = -1)
         {
             if (idLocalidad > 0)
             {
@@ -57,9 +65,26 @@ namespace PrestamoBlazorApp.Pages.Localidades
             {
                 this.Localidad = new Localidad();
             }
-            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            ShowDialog(true);
+            //await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
-        
+        private bool FilterFunc(Localidad element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo != null)
+            {
+                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+        void ShowDialog(bool value) 
+        {
+            ShowDialogCreate = value;
+        }
         void RaiseInvalidSubmit()
         {
 
