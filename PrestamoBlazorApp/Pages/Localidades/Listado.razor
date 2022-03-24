@@ -2,7 +2,6 @@
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Localidades
 
-
 <MudCard>
     <MudCardHeader>
         <CardHeaderContent>
@@ -37,42 +36,6 @@
     </MudCardContent>
 </MudCard>
 
-@*<table class="table table-responsive-md table-hover">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Operacion</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (localidades.Count() > 0)
-            {
-                @foreach (var item in localidades)
-                {
-                    <tr>
-                        @{
-                            var datos = territorios.Where(m => m.IdDivisionTerritorial == item.IdTipoLocalidad).FirstOrDefault();
-                        }
-                        <td>@item.Nombre</td>
-                        <td>@(datos == null ? "": datos.Nombre)</td>
-                        <td> <button @onclick="()=>Edit(item.IdLocalidad)" class="btn btn-outline-primary">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                        </td>
-                    </tr>
-
-                }
-            }
-            else
-            {
-                <tr>
-                    <td>Cargando datos ejecute una busqueda</td>
-                </tr>
-
-            }
-        </tbody>
-    </table>*@
 
 <MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions">
     <DialogContent>
@@ -96,6 +59,3 @@
 
 
 
-@code {
-
-}

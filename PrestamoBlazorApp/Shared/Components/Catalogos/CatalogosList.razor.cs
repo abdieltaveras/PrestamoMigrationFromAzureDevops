@@ -10,21 +10,21 @@ using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
 using MudBlazor;
 using UIClient.Pages.Components;
-
+using PrestamoBlazorApp.Shared.Components.Catalogos;
 
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
 
     public partial class CatalogosList : CommonBase
     {
-        [Parameter]
-        public CatalogoGetParams CatalogoSpecification { get; set; } = null;
+        [Parameter] public CatalogoGetParams CatalogoSpecification { get; set; } = null;
+        [Parameter] public string CatalogoName { get; set; } = null;
         [Inject] private IDialogService Dialog { get; set; }
         [Inject] private CatalogosService CatalogosService { get; set; }
         [Inject] private NavigationManager NavMa { get; set; } 
         private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
 
-        private bool ValidCatalogoSpecification => (CatalogoSpecification!=null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty());
+        private bool ValidCatalogoSpecification => (CatalogoSpecification!=null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
 
         private List<DataGridViewColumn> columns => new List<DataGridViewColumn>()
         {
@@ -41,8 +41,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Tertiary, Icon=Icons.Filled.VpnKey, Text="Reporte", OnClick=btnReporte, IsEnabled=btnEdtEnabled},
         };
 
-        
-        private async void btnReporte(object obj)
+                private async void btnReporte(object obj)
         {
             await NotifyNotImplementedAction();
         }
@@ -56,10 +55,12 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
                 showEditor(catalogo);
             }
         }
-        private void showEditor(Catalogo user)
+        private void showEditor(Catalogo catalogo)
         {
             var parameters = new DialogParameters();
-            parameters.Add("Catalogo", user);
+            catalogo.IdTabla = CatalogoSpecification.IdTabla;
+            catalogo.NombreTabla = CatalogoSpecification.NombreTabla;
+            parameters.Add("Catalogo", catalogo);
             var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
             Dialog.Show<CatalogoEditor>("Editar", parameters, options);
         }
@@ -89,24 +90,10 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             return false;
         }
 
-        private bool FilterFunc1(Catalogo element) => FilterFunc2(element, this.searchString);
-
         private void HandleSearchValueChanged(string value)
         {
             this.searchString = value;
         }
-        private bool FilterFunc2(Catalogo element, string searchString)
-        {
-            if (string.IsNullOrWhiteSpace(searchString))
-                return true;
-            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            if (element.Codigo != null)
-            {
-                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                    return true;
-            }
-            return false;
-        }
+        
     }
 }

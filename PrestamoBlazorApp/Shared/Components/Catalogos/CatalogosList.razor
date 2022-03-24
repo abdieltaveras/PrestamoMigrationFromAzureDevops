@@ -1,32 +1,28 @@
-﻿<h3>CatalogosList</h3>
-@inherits CommonBase
+﻿@inherits CommonBase
 @page "/CatalogosList"
-
-@{
-    if (ValidCatalogoSpecification)
-    {
-        <MudCard Outlined="true">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h4">Administración de @CatalogoSpecification.NombreTabla</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent>
-                <DataGridView  ObjectList="Catalogos" Title="@CatalogoSpecification.NombreTabla" OnSearchValueChanged="HandleSearchValueChanged" ToolbarButtons="buttons" AllowMultiSelection="false" Columns="columns" FilterFunc="FilterFunc" ></DataGridView>
-            </MudCardContent>
-        </MudCard>
-    }
-    else
-    {
-        <MudCard Outlined="true">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h4">Administración de Catalogo</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent>
-                <MudText> Lo siento no se enviaron parametros correctos, intentelo de nuevo  </MudText>
-            </MudCardContent>
-        </MudCard>
-    }
-}
+<MudCard Outlined="true">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4">Administración de @CatalogoName</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        @{
+            if (ValidCatalogoSpecification)
+            {
+                if (Catalogos != null)
+                {
+                    <DataGridView ObjectList="Catalogos" Title="@CatalogoSpecification.NombreTabla" OnSearchValueChanged="HandleSearchValueChanged" ToolbarButtons="buttons" AllowMultiSelection="false" Columns="columns" FilterFunc="FilterFunc"></DataGridView>
+                }
+                else
+                {
+                    <MudText> Cargando datos por favor espere </MudText>
+                }
+            }
+            else
+            {
+                <MudText> Lo siento no puedo mostrar contenido debido al error numero vmp01, comunicar al departamento tecnico del mismo    </MudText>
+            }
+        }
+    </MudCardContent>
+</MudCard>
