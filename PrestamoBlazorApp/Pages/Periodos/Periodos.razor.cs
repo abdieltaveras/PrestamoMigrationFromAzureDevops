@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
@@ -28,6 +29,14 @@ namespace PrestamoBlazorApp.Pages.Periodos
         public bool ChkEstatus { get; set; } = true;
         public bool ChkRequiereAutorizacion { get; set; }
         public PeriodoBase PeriodoBase { get; set; }
+
+        private string SearchString1 = "";
+        private Periodo SelectedItem1 = null;
+        private bool FilterFunc1(Periodo element) => FilterFunc(element, SearchString1);
+
+        private bool ShowDialogCreate { get; set; } = false;
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
         void Seleccionar()
         {
             //SelectedLocalidad = Convert.ToInt32(args.);
@@ -68,7 +77,8 @@ namespace PrestamoBlazorApp.Pages.Periodos
                 this.Periodo = new Periodo();
             }
             await UnBlockPage();
-            await JsInteropUtils.ShowModal(jsRuntime, "#MyModal");
+            ShowDialog(true);
+            //await JsInteropUtils.ShowModal(jsRuntime, "#MyModal");
         }
         async Task Save()
         {
@@ -82,7 +92,8 @@ namespace PrestamoBlazorApp.Pages.Periodos
             await Handle_SaveData(async () => await PeriodosService.SavePeriodo(this.Periodo));
            // await PeriodosService.SavePeriodo(this.Periodo);
             await SweetMessageBox("Guardado Correctamente", "success", "");
-            await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");
+            //await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");
+            ShowDialog(false);
             await GetData();
             await UnBlockPage();
         }
@@ -106,5 +117,20 @@ namespace PrestamoBlazorApp.Pages.Periodos
         {
             Periodoss = await PeriodosService.Get(new PeriodoGetParams());
         }
+        private bool FilterFunc(Periodo element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo != null)
+            {
+                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+
+        void ShowDialog(bool value) => ShowDialogCreate = value;
     }
 }

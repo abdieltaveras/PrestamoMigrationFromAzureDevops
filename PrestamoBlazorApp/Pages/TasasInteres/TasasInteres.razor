@@ -1,91 +1,84 @@
 ﻿@page "/tasasinteres"
 @inherits BaseForCreateOrEdit
-<h3>TasaInteres <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h3>
-<div class="modal fade modal-tasa-interes" tabindex="-1" role="dialog" aria-hidden="true" id="MyModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel2">Agrega un interes a la lista</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <br />
-                <EditForm @key="TasaInteres.idTasaInteres" Model="TasaInteres" OnValidSubmit="SaveTasaInteres">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-4">Activo</div>
-                                <div class="col-sm-8">
-                                    <label class="switch">
-                                        @{
-                                            if (TasaInteres.idTasaInteres > 0)
-                                            {
-                                                <input type="checkbox" @bind="ChkEstatus">
-                                            }
-                                            else
-                                            {
-                                                <input type="checkbox" checked onclick="return false">
-                                            }
-                                        }
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="codigo">
-                                    Codigo <span class="required">*</span>
-                                </label>
-                                <div class="col-sm-8">
-                                    <InputText class="form-control" @bind-Value="TasaInteres.Codigo"></InputText>
-                                    @*@Html.TextBoxFor(Model => Model.TasaInteres.Codigo, new { @class = "form-control", @required = "required" })*@
-                                </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="interes">
-                                    % de Interes <span class="required">*</span>
-                                </label>
-                                <div class="col-sm-8">
-                                    <InputNumber class="form-control" @bind-Value="Tasa"></InputNumber>
-                                    @*@Html.TextBoxFor(Model => Model.TasaInteres.InteresMensual, new { @class = "form-control", @required = "required" })*@
-                                </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="descripcion">
-                                    Descripcion <span class="required">*</span>
-                                </label>
-                                <div class="col-sm-8">
-                                    <label>@TasaInteres.Nombre</label>
-                                    @*<InputText type class="form-control" @bind-Value="TasaInteres.Nombre"></InputText>*@
-                                    @*@Html.TextBoxFor(Model => Model.TasaInteres.Nombre, new { @class = "form-control", @required = "required" })*@
-                                </div>
-                            </div>
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4" xs="1"> Listado De Tasas de Intereses</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit())">Agregar</MudButton>
+            @*<MudMenu Label="Reportes">
+                <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
+                <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
+            </MudMenu>*@
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@tasasinteres" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<TasaInteres,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Codigo</MudTh>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Interes Mensual</MudTh>
+                <MudTh>Activo</MudTh>
+                <MudTh>Requiere Autorizacion</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd>@context.InteresMensual</MudTd>
+                <MudTd>
+                    @if (context.Activo)
+                    {
+                        <MudChip Color="MudBlazor.Color.Success">Activo</MudChip>
+                    }
+                    else
+                    {
+                        <MudChip Color="MudBlazor.Color.Error">Inactivo</MudChip>
+                    }
+                </MudTd>
+                <MudTd>
+                    @if (context.RequiereAutorizacion)
+                    {
+                        <MudChip Color="MudBlazor.Color.Success">Si</MudChip>
+                    }
+                    else
+                    {
+                        <MudChip Color="MudBlazor.Color.Error">No</MudChip>
+                    }
+                </MudTd>
+                <MudTd>
+                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.idTasaInteres))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
 
-                            <div class="form-group row">
-                                <div class="col-sm-4">¿Lleva Autorizacion?</div>
-                                <div class="col-sm-8">
-                                    <label class="switch">
-                                        <input type="checkbox" @bind="ChkRequiereAutorizacion">
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12" style="display:inline-grid; justify-content:right;">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </div>
-                </EditForm>
-                @*</form>*@
-                <hr />
-                @*  *@
-                @*  *@
+<MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions">
+    <DialogContent>
+        <EditForm @key="TasaInteres.idTasaInteres" Model="TasaInteres" OnValidSubmit="SaveTasaInteres">
+            <MudGrid>
+                <MudItem md="12">
+                    <MudSwitch @bind-Checked="ChkEstatus" Label="Activo" Color="MudBlazor.Color.Primary" ></MudSwitch>
+                    <MudTextField @bind-Value="TasaInteres.Codigo" T="string" Label="Codigo"></MudTextField>
+                    <MudTextField @bind-Value="TasaInteres.Nombre" T="string" Label="Nombre" For="@(() => TasaInteres.Nombre)"></MudTextField>
+                    <MudTextField @bind-Value="Tasa" T="decimal" Label="Tasa"></MudTextField>
+                    <MudSwitch @bind-Checked="ChkRequiereAutorizacion" Label="¿Lleva autorización?" Color="MudBlazor.Color.Primary" ></MudSwitch>
+                    @*<MudTextField @bind-Value="TasaInteres.Nombre" T="string" Label="Nombre" For="@(() => TasaInteres.Nombre)"></MudTextField>*@
+                </MudItem>
+            </MudGrid>
+        <MudGrid>
+            <MudItem>
                 <div class="row">
                     <div class="col-md-12">
                         <h5>% por periodos</h5>
@@ -110,108 +103,16 @@
                     </div>
 
                 </div>
+            </MudItem>
+        </MudGrid>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" OnClick="()=>ShowDialog(false)" Class="px-10">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" OnClick="SaveTasaInteres" Class="px-10">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>
 
-
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div class="row">
-
-    <div id="listContainer" class="col-md-12 col-sm-12 col-xs-12">
-
-        @*<button type="button" data-toggle="modal" data-target=".modal-tasa-interes" class="btn btn-primary" id="btnFormTasaInteres"  style="float:right;">Agregar <i class="fa fa-plus"></i></button>*@
-
-        <h4>Tabla de intereses</h4>
-
-        <table id="datatable" class="table table-bordered row-border">
-            <thead>
-                <tr>
-                    @*<th class="checkColumn"></th>*@
-                    <th>Codigo</th>
-                    <th>% de interes</th>
-                    <th>Descripcion</th>
-                    <th>Estado</th>
-                    <th>¿Lleva Autorizacion?</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var item in tasasinteres)
-                {
-                    <tr class="@(!item.Activo ? "table-active" : "" )"
-                        data-id="@item.idTasaInteres">
-                        @*<td>
-                                <input type="checkbox" class="checkbox" />
-                            </td>*@
-                        <td>
-                            <strong>
-                                @item.Codigo
-                            </strong>
-                        </td>
-                        <td>
-                            <span>@item.InteresMensual%</span>
-                        </td>
-                        <td>
-                            <span>@item.Nombre</span>
-                        </td>
-                        <td>
-                            @if (item.Activo)
-                            {
-                                <span class="badge badge-success">Activo</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-danger">Desactivado</span>
-                            }
-                        </td>
-                        <td>
-                            @if (item.RequiereAutorizacion)
-                            {
-                                <span class="badge badge-primary">Si</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-danger">No</span>
-                            }
-                        </td>
-                        <td>
-                            <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
-                                <i class="fa fa-info-circle"></i>
-                            </button>
-                            <button @onclick="()=>CreateOrEdit(item.idTasaInteres)" class="btn btn-outline-primary">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </td>
-                        @*<td>
-
-                                <a href="@Url.Action("Delete", "TasaInteres", new { Id = item.idTasaInteres, Usuario = "Bryan" })">
-                                    <button type="button" class="btn btn-outline-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </a>
-
-                                <a href="#">
-                                    <button type="button" class="btn btn-outline-warning">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </a>
-
-                            </td>*@
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-
-    </div>
-</div>
 @code {
 
 }

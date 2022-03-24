@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
@@ -23,6 +24,15 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
     
         private decimal _Tasa { get; set; }
         public decimal Tasa { get { return _Tasa; } set { this.TasaInteres.Nombre = $"{Convert.ToDecimal(value)}% de interes"; _Tasa = Convert.ToDecimal(value);  } }
+
+        private string SearchString1 = "";
+        private TasaInteres SelectedItem1 = null;
+        private bool FilterFunc1(TasaInteres element) => FilterFunc(element, SearchString1);
+
+        private bool ShowDialogCreate { get; set; } = false;
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -49,7 +59,8 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
                 this.TasaInteres = new TasaInteres();
             }
             await UnBlockPage();
-            await JsInteropUtils.ShowModal(jsRuntime, "#MyModal");
+            ShowDialog(true);
+            //await JsInteropUtils.ShowModal(jsRuntime, "#MyModal");
         }
         async Task SaveTasaInteres()
         {
@@ -60,7 +71,8 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
             this.TasaInteres.InteresMensual = this.Tasa;
             await TasasInteresService.SaveTasaInteres(this.TasaInteres);
             await SweetMessageBox("Guardado Correctamente", "success", "");
-            await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");
+            //await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");
+            ShowDialog(false);
             await GetData();
             await UnBlockPage();
         }
@@ -70,5 +82,20 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         {
             tasasinteres = await TasasInteresService.Get(new TasaInteresGetParams());
         }
+        private bool FilterFunc(TasaInteres element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo != null)
+            {
+                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+
+        void ShowDialog(bool value) => ShowDialogCreate = value;
     }
 }
