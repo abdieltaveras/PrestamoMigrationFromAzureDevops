@@ -21,18 +21,16 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         [Parameter] public string CatalogoName { get; set; } = null;
         [Inject] private IDialogService Dialog { get; set; }
         [Inject] private CatalogosService CatalogosService { get; set; }
-        [Inject] private NavigationManager NavMa { get; set; } 
+        [Inject] private NavigationManager NavMa { get; set; }
         private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
 
-        private bool ValidCatalogoSpecification => (CatalogoSpecification!=null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
+        private bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
 
         private List<DataGridViewColumn> columns => new List<DataGridViewColumn>()
         {
         new DataGridViewColumn{ Header= "Codigo", ColumnName = "Codigo", ColumnType= DataGridViewColumnTypes.Text, ContentAligment= MudBlazor.Align.Left, HeaderAligment= MudBlazor.Align.Center},
         new DataGridViewColumn{ Header= "Nombre", ColumnName = "Nombre", ColumnType= DataGridViewColumnTypes.Text, ContentAligment= MudBlazor.Align.Left, HeaderAligment= MudBlazor.Align.Center},
         };
-
-        
 
         public List<DataGridViewToolbarButton> buttons => new List<DataGridViewToolbarButton>()
         {
@@ -41,12 +39,12 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Tertiary, Icon=Icons.Filled.VpnKey, Text="Reporte", OnClick=btnReporte, IsEnabled=btnEdtEnabled},
         };
 
-                private async void btnReporte(object obj)
+        private async void btnReporte(object obj)
         {
             await NotifyNotImplementedAction();
         }
 
-        void btnAddClick(object obj) => showEditor(new Catalogo());
+        void btnAddClick(object obj) =>  showEditor(new Catalogo());
         void btnEdtClick(object obj)
         {
             var catalogo = (Catalogo)obj;

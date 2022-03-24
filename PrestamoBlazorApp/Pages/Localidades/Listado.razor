@@ -36,12 +36,10 @@
     </MudCardContent>
 </MudCard>
 
-
 <MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions">
     <DialogContent>
         <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
             <DataAnnotationsValidator />
-
             <MudGrid>
                 <MudItem md="12">
                     @*<MudTextField @bind-Value="Localidad.Codigo" T="string" Label="Codigo"></MudTextField>*@
