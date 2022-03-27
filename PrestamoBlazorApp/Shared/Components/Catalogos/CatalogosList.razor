@@ -13,7 +13,7 @@
             {
                 if (Catalogos != null)
                 {
-                <ListBaseForCrud TItem="Catalogo" ToolbarButtons="@Buttons(this)" SelectedItem="selectedItem" >
+                <ListBaseForCrud TItem="Catalogo" ToolbarButtons="Buttons(this)" SelectedItem="selectedItem" >
                     <MudTable Items="Catalogos" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true"
                                Filter="FilterFunc" @bind-SelectedItems="@selectedItems" @bind-SelectedItem="selectedItem">
                         <ToolBarContent>

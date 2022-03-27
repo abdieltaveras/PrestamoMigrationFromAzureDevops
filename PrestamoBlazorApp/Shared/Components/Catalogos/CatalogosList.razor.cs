@@ -35,7 +35,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private IEnumerable<ToolbarButtonForMud> Buttons(ICrudStandardButtonsAndActions view) => Factory.StandarCrudToolBarButtons(this);
         
 
-        private ToolbarButtonForMud ReportToolBar => new ToolbarButtonForMud() { Color = MudBlazor.Color.Primary, Icon = Icons.Filled.VpnKey, Text = "Reporte", OnClick = BtnReportClick, IsEnabled = BtnReportEnabled, Show = true });
+        private ToolbarButtonForMud ReportToolBar => new ToolbarButtonForMud() { Color = MudBlazor.Color.Primary, Icon = Icons.Filled.VpnKey, Text = "Reporte", OnClick = BtnReportClick, IsEnabled = BtnReportEnabled, Show = true };
             
         public bool BtnAddEnabled(object obj) => true;
         public bool BtnEdtEnabled(object obj) => ObjectToCatalog(obj) != null;
