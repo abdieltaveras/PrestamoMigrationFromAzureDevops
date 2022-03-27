@@ -27,17 +27,6 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         // Members
         private string SearchString1 = "";
         
-        //private Catalogo SelectedItem1 = null;
-        
-        //private BaseForList BaseForList { get; set; }
-        //private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
-        
-        //private bool Dense=true, Hover=true, Bordered=false, Striped=false;
-
-
-        //private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
-        //note CloseButton = true was removed cause when clicked the dialog does not close };
-        
         bool validForm;
         string[] errors = { };
         MudForm form;
@@ -54,15 +43,15 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             
         }
         
-        async Task DelCatalogo ()
-        {
-            var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
-            if (a == true)
-            {
-                await SweetMessageBox("Eliminado");
-            }
+        //async Task DelCatalogo ()
+        //{
+        //    var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
+        //    if (a == true)
+        //    {
+        //        await SweetMessageBox("Eliminado");
+        //    }
 
-        }
+        //}
         
         async void PrintListado(int reportType)
         {

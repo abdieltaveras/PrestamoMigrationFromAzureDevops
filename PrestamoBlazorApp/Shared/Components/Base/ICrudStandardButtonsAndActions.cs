@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared.Components.Base
 {
-    public interface ICrudStandardButtonsAndActions
+    public interface ICrudStandardButtonsAndActions<TType>
     {
-        void BtnAddClick(object obj);
+        void BtnAddClick(TType obj);
 
-        void BtnEdtClick(object obj);
+        void BtnEdtClick(TType obj);
 
-        void BtnDelClick(object obj);
-        bool BtnAddEnabled(object obj);
-        bool BtnEdtEnabled(object obj);
-        bool BtnDelEnabled(object obj);
+        void BtnDelClick(TType obj);
+        bool BtnAddEnabled(TType obj);
+        bool BtnEdtEnabled(TType obj);
+        bool BtnDelEnabled(TType obj);
 
         bool BtnAddShow();
         bool BtnEdtShow();

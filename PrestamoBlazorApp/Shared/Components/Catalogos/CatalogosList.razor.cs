@@ -19,7 +19,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
 
 
 
-    public partial class CatalogosList : CommonBase, ICrudStandardButtonsAndActions
+    public partial class CatalogosList : CommonBase, ICrudStandardButtonsAndActions<Catalogo>
     {
         [Parameter] public CatalogoGetParams CatalogoSpecification { get; set; } = null;
         [Parameter] public string CatalogoName { get; set; } = null;
@@ -32,33 +32,33 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         protected bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
 
         private Catalogo ObjectToCatalog(object obj) => (Catalogo)obj;
-        private IEnumerable<ToolbarButtonForMud> Buttons(ICrudStandardButtonsAndActions view) => Factory.StandarCrudToolBarButtons(this);
+        private IEnumerable<ToolbarButtonForMud<Catalogo>> Buttons(ICrudStandardButtonsAndActions<Catalogo> view) => Factory.StandarCrudToolBarButtons(this);
         
 
-        private ToolbarButtonForMud ReportToolBar => new ToolbarButtonForMud() { Color = MudBlazor.Color.Primary, Icon = Icons.Filled.VpnKey, Text = "Reporte", OnClick = BtnReportClick, IsEnabled = BtnReportEnabled, Show = true };
+        private ToolbarButtonForMud<Catalogo> ReportToolBar => new ToolbarButtonForMud<Catalogo>() { Color = MudBlazor.Color.Primary, Icon = Icons.Filled.VpnKey, Text = "Reporte", OnClick = BtnReportClick, IsEnabled = BtnReportEnabled, Show = true };
             
-        public bool BtnAddEnabled(object obj) => true;
-        public bool BtnEdtEnabled(object obj) => ObjectToCatalog(obj) != null;
-        public bool BtnDelEnabled(object obj) => ObjectToCatalog(obj) != null;
-        public bool BtnReportEnabled(object obj) => ObjectToCatalog(obj) != null;
+        public bool BtnAddEnabled(Catalogo obj) => true;
+        public bool BtnEdtEnabled(Catalogo obj) => ObjectToCatalog(obj) != null;
+        public bool BtnDelEnabled(Catalogo obj) => ObjectToCatalog(obj) != null;
+        public bool BtnReportEnabled(Catalogo obj) => ObjectToCatalog(obj) != null;
 
         public bool BtnAddShow() => true;
         public bool BtnEdtShow() => true;
 
         public bool BtnDelShow() => true;
 
-        protected async void BtnReportClick(object obj)
+        protected async void BtnReportClick(Catalogo obj)
         {
             await NotifyNotImplementedAction();
         }
 
-        public void BtnAddClick(object obj)
+        public void BtnAddClick(Catalogo obj)
         {
             ShowEditor(new Catalogo());
             SelectedItem = null;
         }
 
-        public void BtnEdtClick(object obj)
+        public void BtnEdtClick(Catalogo obj)
         {
 
             if (obj != null)
@@ -67,7 +67,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             }
         }
 
-        public void BtnDelClick(object obj) { }
+        public void BtnDelClick(Catalogo obj) { }
 
 
         //protected void showEditor(Catalogo catalogo)
@@ -116,13 +116,13 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     public static class Factory
     {
 
-        public static IEnumerable<ToolbarButtonForMud> StandarCrudToolBarButtons(ICrudStandardButtonsAndActions view)
+        public static IEnumerable<ToolbarButtonForMud<TType>> StandarCrudToolBarButtons<TType>(ICrudStandardButtonsAndActions<TType> view)
         {
-            var buttons = new List<ToolbarButtonForMud>()
+            var buttons = new List<ToolbarButtonForMud<TType>>()
             {
-            new ToolbarButtonForMud() { Color = MudBlazor.Color.Success, Icon = Icons.Filled.AddCircle, Text = "Nuevo", OnClick = view.BtnAddClick, IsEnabled = view.BtnAddEnabled, Show = view.BtnAddShow() },
-            new ToolbarButtonForMud() { Color = MudBlazor.Color.Secondary, Icon = Icons.Filled.Edit, Text = "Modificar", OnClick = view.BtnEdtClick, IsEnabled = view.BtnEdtEnabled, Show = view.BtnEdtShow() },
-            new ToolbarButtonForMud() { Color = MudBlazor.Color.Error, Icon = Icons.Filled.Delete, Text = "Eliminar", OnClick = view.BtnDelClick, IsEnabled = view.BtnDelEnabled, Show = view.BtnDelShow() }
+            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Success, Icon = Icons.Filled.AddCircle, Text = "Nuevo", OnClick = view.BtnAddClick, IsEnabled = view.BtnAddEnabled, Show = view.BtnAddShow() },
+            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Secondary, Icon = Icons.Filled.Edit, Text = "Modificar", OnClick = view.BtnEdtClick, IsEnabled = view.BtnEdtEnabled, Show = view.BtnEdtShow() },
+            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Error, Icon = Icons.Filled.Delete, Text = "Eliminar", OnClick = view.BtnDelClick, IsEnabled = view.BtnDelEnabled, Show = view.BtnDelShow() }
             };
             return buttons;
         }
