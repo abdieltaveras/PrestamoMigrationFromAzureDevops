@@ -17,9 +17,9 @@ using PrestamoBlazorApp.Shared.Components.Base;
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
 
-    
 
-    public partial class CatalogosListV3 : CommonBase
+
+    public partial class CatalogosListV3 : CommonBase, ICrudStandardButtonsAndActions
     {
         [Parameter] public CatalogoGetParams CatalogoSpecification { get; set; } = null;
         [Parameter] public string CatalogoName { get; set; } = null;
@@ -34,39 +34,45 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private string SearchValue { get; set; }
         protected bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
 
-        public List<DataGridViewToolbarButton> buttons => new List<DataGridViewToolbarButton>()
+        private Catalogo ObjectToCatalog(object obj) => (Catalogo)obj;
+
+        private List<ToolbarButtonForMud> buttons => Buttons(this);
+        private List<ToolbarButtonForMud> Buttons(ICrudStandardButtonsAndActions view)
         {
-        new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Success, Icon=Icons.Filled.AddCircle, Text="Nuevo", OnClick=btnAddClick, IsEnabled=btnAddEnabled},
-        new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Secondary, Icon=Icons.Filled.Edit, Text="Modificar", OnClick=btnEdtClick, IsEnabled=btnEdtEnabled},
-        new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Error, Icon=Icons.Filled.Remove, Text="Eliminar", OnClick=btnDelClick, IsEnabled=btnDelEnabled},
-        new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Primary, Icon=Icons.Filled.VpnKey, Text="Reporte", OnClick=btnReportClick, IsEnabled=btnReportEnabled},
-        };
+            var buttons = new List<ToolbarButtonForMud>();
+            buttons.AddRange(Factory.StandarCrudToolBarButtons(this));
+            buttons.Add(
+            new ToolbarButtonForMud() { Color = MudBlazor.Color.Primary, Icon = Icons.Filled.VpnKey, Text = "Reporte", OnClick = BtnReportClick, IsEnabled = BtnReportEnabled, Show = true });
+            return buttons;
+        }
 
-        bool btnAddEnabled(object obj) => true;
-        bool btnEdtEnabled(object obj) => ObjectToCatalog(obj) != null;
-        bool btnDelEnabled(object obj) => ObjectToCatalog(obj) != null;
-        bool btnReportEnabled(object obj) => ObjectToCatalog(obj) != null;
+        public bool BtnAddEnabled(object obj) => true;
+        public bool BtnEdtEnabled(object obj) => ObjectToCatalog(obj) != null;
+        public bool BtnDelEnabled(object obj) => ObjectToCatalog(obj) != null;
+        public bool BtnReportEnabled(object obj) => ObjectToCatalog(obj) != null;
 
+        public bool BtnAddShow() => true;
+        public bool BtnEdtShow() => true;
 
+        public bool BtnDelShow() => true;
 
-        Catalogo ObjectToCatalog(object obj) => (Catalogo)obj;
-        protected async void btnReportClick(object obj)
+        protected async void BtnReportClick(object obj)
         {
             await NotifyNotImplementedAction();
         }
 
-        void btnAddClick(object obj) => showEditor(new Catalogo());
+        public void BtnAddClick(object obj) => showEditor(new Catalogo());
 
-        void btnEdtClick(object obj)
+        public void BtnEdtClick(object obj)
         {
-            
+
             if (obj != null)
             {
                 showEditor(ObjectToCatalog(obj));
             }
         }
 
-        void btnDelClick(object obj) { }
+        public void BtnDelClick(object obj) { }
 
 
         protected void showEditor(Catalogo catalogo)
@@ -80,7 +86,6 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         }
 
 
-        public string searchString { get; set; }
         protected override async Task OnInitializedAsync()
         {
             if (CatalogoSpecification != null)
@@ -92,24 +97,31 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         protected bool FilterFunc(object obj)
         {
             var element = (Catalogo)obj;
-            if (string.IsNullOrWhiteSpace(searchString))
+            if (string.IsNullOrWhiteSpace(SearchValue))
                 return true;
-            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            if (element.Nombre.Contains(SearchValue, StringComparison.OrdinalIgnoreCase))
                 return true;
             if (element.Codigo != null)
             {
-                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                if (element.Codigo.Contains(SearchValue, StringComparison.OrdinalIgnoreCase))
                     return true;
             }
             return false;
         }
-
-        protected void HandleSearchValueChanged(string value)
-        {
-            this.searchString = value;
-        }
-
     }
 
+    public static class Factory
+    {
 
+        public static IEnumerable<ToolbarButtonForMud> StandarCrudToolBarButtons(ICrudStandardButtonsAndActions view)
+        {
+            var buttons = new List<ToolbarButtonForMud>()
+            {
+            new ToolbarButtonForMud() { Color = MudBlazor.Color.Success, Icon = Icons.Filled.AddCircle, Text = "Nuevo", OnClick = view.BtnAddClick, IsEnabled = view.BtnAddEnabled, Show = view.BtnAddShow() },
+            new ToolbarButtonForMud() { Color = MudBlazor.Color.Secondary, Icon = Icons.Filled.Edit, Text = "Modificar", OnClick = view.BtnEdtClick, IsEnabled = view.BtnEdtEnabled, Show = view.BtnEdtShow() },
+            new ToolbarButtonForMud() { Color = MudBlazor.Color.Error, Icon = Icons.Filled.Delete, Text = "Eliminar", OnClick = view.BtnDelClick, IsEnabled = view.BtnDelEnabled, Show = view.BtnDelShow() }
+            };
+            return buttons;
+        }
+    }
 }

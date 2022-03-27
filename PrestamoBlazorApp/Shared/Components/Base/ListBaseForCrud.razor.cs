@@ -13,7 +13,7 @@ namespace PrestamoBlazorApp.Shared.Components.Base
     public partial class ListBaseForCrud<TItem> : ComponentBase where TItem : class
     {
         [Parameter] public RenderFragment ChildContent { get; set; }
-        [Parameter] public List<DataGridViewToolbarButton> ToolbarButtons { get; set; }
+        [Parameter] public List<ToolbarButtonForMud> ToolbarButtons { get; set; }
         [Parameter] public TItem SelectedItem { get; set; } = null;
 
     }
