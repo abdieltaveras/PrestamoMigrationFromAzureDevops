@@ -1,0 +1,23 @@
+﻿@typeparam TItem
+<MudElement>
+    <MudElement>
+        <MudToolBar>
+            <MudSpacer />
+            @foreach (var btn in ToolbarButtons)
+            {
+                <MudButton Class="mr-3"
+                           OnClick="@(()=>btn.OnClick(SelectedItem))"
+                           Variant="Variant.Filled"
+                           StartIcon="@btn.Icon"
+                           Color="@btn.Color"
+                           Disabled="@(!btn.IsEnabled(SelectedItem))">
+                    @btn.Text
+                </MudButton>
+            }
+        </MudToolBar>
+    </MudElement>
+    <MudText Align="Align.Right">
+        Selección: @SelectedItem?.ToString()
+    </MudText>
+    @ChildContent
+</MudElement>

@@ -36,11 +36,11 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="PrestamoBlazorApp.Shared.Components.Base.ListBaseCatalogo">
+  <Class Name="PrestamoBlazorApp.Shared.Components.Base.ListBaseForCrud&lt;TItem&gt;">
     <Position X="12.25" Y="3.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AQAACIQAQEAlCEAAAAAAAAAIAgAIBAJAAQAQAAIQEAA=</HashCode>
-      <FileName>Shared\Components\Base\ListBaseCatalogo.razor.cs</FileName>
+      <HashCode>AAAAAAAgQAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Shared\Components\Base\ListBaseForCrud.razor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe Ui" Size="9" />

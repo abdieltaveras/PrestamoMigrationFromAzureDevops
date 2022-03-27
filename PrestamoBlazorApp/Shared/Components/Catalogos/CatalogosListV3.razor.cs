@@ -28,6 +28,10 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         [Inject] protected NavigationManager NavMa { get; set; }
         protected IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
 
+        private Catalogo selectedItem { get; set; } = null;
+
+        private HashSet<Catalogo> selectedItems = new HashSet<Catalogo>();
+        private string SearchValue { get; set; }
         protected bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
 
         public List<DataGridViewToolbarButton> buttons => new List<DataGridViewToolbarButton>()
