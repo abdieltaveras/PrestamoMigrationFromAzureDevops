@@ -17,6 +17,8 @@ namespace PrestamoEntidades
         {
             throw new NotImplementedException();
         }
+
+        
     }
 
     public class ToggleStatusCatalogo : BaseAnularOrDeleteParams

@@ -39,6 +39,8 @@
     <ProjectReference Include="..\Validaciones\Validaciones.csproj" />
   </ItemGroup>
 
+  
+  
   <ItemGroup>
     <Folder Include="Reports\Rdlc\" />
   </ItemGroup>

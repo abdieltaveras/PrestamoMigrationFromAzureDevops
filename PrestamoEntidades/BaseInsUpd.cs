@@ -113,6 +113,11 @@ namespace PrestamoEntidades
         public virtual string Nombre { get; set; } = string.Empty;
         public abstract int GetId();
         //public string Descripcion { get; set; } = string.Empty;
+
+        public override string ToString()
+        {
+            return $"{Codigo} {Nombre}";
+        }
     }
     public abstract class BaseDireccion : BaseInsUpd
     {

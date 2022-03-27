@@ -1,0 +1,40 @@
+﻿@inherits CommonBase
+@using UIClient.Pages.Components;
+
+<MudCard Outlined="true">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4">Administración de @CatalogoName</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        @{
+            if (ValidCatalogoSpecification)
+            {
+                if (Catalogos != null)
+                {
+                    <ListBaseCatalogo Items="Catalogos" Title="@CatalogoName" OnSearchValueChanged="HandleSearchValueChanged" ToolbarButtons="buttons" 
+                                      AllowMultiSelection="false" Immediate="true" FilterFunc="FilterFunc">
+                        <TableHeaderFragment>
+                            <MudTh>Codigo</MudTh>
+                            <MudTh>Nombre</MudTh>
+                        </TableHeaderFragment>
+
+                        <RowTemplate Context="Catalogo">
+                            <MudTd>@Catalogo.Codigo</MudTd>
+                            <MudTd>@Catalogo.Nombre</MudTd>
+                        </RowTemplate>
+                    </ListBaseCatalogo>
+                }
+                else
+                {
+                    <MudText> Cargando datos por favor espere </MudText>
+                }
+            }
+            else
+            {
+                <MudText> Lo siento no puedo mostrar contenido debido al error numero vmp01, comunicar al departamento tecnico del mismo    </MudText>
+            }
+        }
+    </MudCardContent>
+</MudCard>
