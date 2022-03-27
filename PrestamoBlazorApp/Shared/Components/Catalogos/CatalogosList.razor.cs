@@ -26,7 +26,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         [Parameter] public Action<Catalogo> ShowEditor { get; set; } 
         [Inject] protected CatalogosService CatalogosService { get; set; }
         protected IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
-        private Catalogo selectedItem { get; set; } = null;
+        private Catalogo SelectedItem { get; set; } = null;
         private HashSet<Catalogo> selectedItems = new HashSet<Catalogo>();
         private string SearchValue { get; set; }
         protected bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
@@ -52,7 +52,11 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             await NotifyNotImplementedAction();
         }
 
-        public void BtnAddClick(object obj) => ShowEditor(new Catalogo());
+        public void BtnAddClick(object obj)
+        {
+            ShowEditor(new Catalogo());
+            SelectedItem = null;
+        }
 
         public void BtnEdtClick(object obj)
         {

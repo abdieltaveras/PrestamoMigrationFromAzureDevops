@@ -18,6 +18,8 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
         [Inject] protected IDialogService Dialog { get; set; }
         private CatalogoGetParams TableAndColumnName { get; set; } = new CatalogoGetParams { NombreTabla = "tblOcupaciones", IdTabla = "idOcupacion", 
          };
+
+
         private string CatalogName { get; set; } = "Ocupaciones";
 
         protected void ShowCatalogoEditor(Catalogo catalogo)

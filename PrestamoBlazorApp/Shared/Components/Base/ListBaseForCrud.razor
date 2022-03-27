@@ -20,7 +20,7 @@
         </MudToolBar>
     </MudElement>
     <MudText Align="Align.Right">
-        Selección: @SelectedItem?.ToString()
+        Selección:@((SelectedItem!=null) ? @SelectedItem.ToString() : "Ninguna")
     </MudText>
     @ChildContent
 </MudElement>

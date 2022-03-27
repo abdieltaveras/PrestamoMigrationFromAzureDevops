@@ -13,9 +13,9 @@
             {
                 if (Catalogos != null)
                 {
-                <ListBaseForCrud TItem="Catalogo" ToolbarButtons="Buttons(this)" SelectedItem="selectedItem" >
+                <ListBaseForCrud TItem="Catalogo" ToolbarButtons="Buttons(this)" SelectedItem="SelectedItem" >
                     <MudTable Items="Catalogos" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true"
-                               Filter="FilterFunc" @bind-SelectedItems="@selectedItems" @bind-SelectedItem="selectedItem">
+                               Filter="FilterFunc" @bind-SelectedItems="@selectedItems" @bind-SelectedItem="SelectedItem">
                         <ToolBarContent>
                             <MudText Typo="Typo.h6">Administracion de Catalogos</MudText>
                             <MudMenu Color="MudBlazor.Color.Primary" Icon="@Icons.Material.Rounded.Inventory2" DisableElevation="true" OffsetY="true">
