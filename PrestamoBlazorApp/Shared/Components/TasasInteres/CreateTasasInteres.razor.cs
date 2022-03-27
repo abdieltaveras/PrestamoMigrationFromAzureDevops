@@ -7,13 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PrestamoBlazorApp.Shared.Components.TasasInteres;
-namespace PrestamoBlazorApp.Pages.TasasInteres
+
+namespace PrestamoBlazorApp.Shared.Components.TasasInteres
 {
-    public partial class TasasInteres : BaseForCreateOrEdit
+    public partial class CreateTasasInteres : BaseForCreateOrEdit
     {
-        [Inject]
-        IDialogService DialogService { get; set; }
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Inject]
         NavigationManager NavigationManager { get; set; }
         [Inject]
@@ -21,35 +20,29 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         IEnumerable<TasaInteres> tasasinteres { get; set; } = new List<TasaInteres>();
         [Parameter]
         public TasaInteres TasaInteres { get; set; } = new TasaInteres();
+        [Parameter]
+        public int IdTasaInteres { get; set; } = -1;
         private bool ChkRequiereAutorizacion { get; set; }
         private bool ChkEstatus { get; set; } = true;
-    
-        private decimal _Tasa { get; set; }
-        public decimal Tasa { get { return _Tasa; } set { this.TasaInteres.Nombre = $"{Convert.ToDecimal(value)}% de interes"; _Tasa = Convert.ToDecimal(value);  } }
 
-        private string SearchString1 = "";
-        private TasaInteres SelectedItem1 = null;
-        private bool FilterFunc1(TasaInteres element) => FilterFunc(element, SearchString1);
+        private decimal _Tasa { get; set; }
+        public decimal Tasa { get { return _Tasa; } set { this.TasaInteres.Nombre = $"{Convert.ToDecimal(value)}% de interes"; _Tasa = Convert.ToDecimal(value); } }
+
 
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
-        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            this.TasaInteres = new TasaInteres();
-        }
         protected override async Task OnInitializedAsync()
         {
             await GetData();
+            await CreateOrEdit();
         }
-        async Task CreateOrEdit(int idTasaInteres = -1)
+        async Task CreateOrEdit()
         {
             await BlockPage();
-            if (idTasaInteres > 0)
+            if (IdTasaInteres > 0)
             {
-                var tasainteres = await TasasInteresService.Get(new TasaInteresGetParams { idTasaInteres = idTasaInteres });
+                var tasainteres = await TasasInteresService.Get(new TasaInteresGetParams { idTasaInteres = IdTasaInteres });
                 this.TasaInteres = tasainteres.FirstOrDefault();
                 this.ChkRequiereAutorizacion = this.TasaInteres.RequiereAutorizacion;
                 this.ChkEstatus = this.TasaInteres.Activo;
@@ -61,7 +54,7 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
                 this.TasaInteres = new TasaInteres();
             }
             await UnBlockPage();
-            ShowDialog(idTasaInteres);
+            //ShowDialog(true);
             //await JsInteropUtils.ShowModal(jsRuntime, "#MyModal");
         }
         async Task SaveTasaInteres()
@@ -73,8 +66,7 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
             this.TasaInteres.InteresMensual = this.Tasa;
             await TasasInteresService.SaveTasaInteres(this.TasaInteres);
             await SweetMessageBox("Guardado Correctamente", "success", "");
-            //await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");
-            ShowDialog();
+            await CloseModal(1);
             await GetData();
             await UnBlockPage();
         }
@@ -84,30 +76,9 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         {
             tasasinteres = await TasasInteresService.Get(new TasaInteresGetParams());
         }
-        private bool FilterFunc(TasaInteres element, string searchString)
+        private async Task CloseModal(int result = -1)
         {
-            if (string.IsNullOrWhiteSpace(searchString))
-                return true;
-            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            if (element.Codigo != null)
-            {
-                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                    return true;
-            }
-            return false;
-        }
-        private async Task ShowDialog(int id = -1)
-        {
-            var parameters = new DialogParameters();
-            parameters.Add("IdTasaInteres", id);
-            var dialog = DialogService.Show<CreateTasasInteres>("", parameters, dialogOptions);
-            var result = await dialog.Result;
-            if (Convert.ToInt32(result.Data.ToString()) == 1)
-            {
-                await GetData();
-                StateHasChanged();
-            }
+            MudDialog.Close(DialogResult.Ok(result));
         }
     }
 }

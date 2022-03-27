@@ -1,0 +1,53 @@
+﻿@inherits BaseForCreateOrEdit
+<MudDialog IsVisible="ShowDialogCreate" Options="@dialogOptions">
+    <DialogContent>
+        <EditForm @key="TasaInteres.idTasaInteres" Model="TasaInteres" OnValidSubmit="SaveTasaInteres">
+            <MudGrid>
+                <MudItem md="12">
+                    <MudSwitch @bind-Checked="ChkEstatus" Label="Activo" Color="MudBlazor.Color.Primary"></MudSwitch>
+                    <MudTextField @bind-Value="TasaInteres.Codigo" T="string" Label="Codigo"></MudTextField>
+                    <MudTextField @bind-Value="TasaInteres.Nombre" T="string" Label="Nombre" For="@(() => TasaInteres.Nombre)"></MudTextField>
+                    <MudTextField @bind-Value="Tasa" T="decimal" Label="Tasa"></MudTextField>
+                    <MudSwitch @bind-Checked="ChkRequiereAutorizacion" Label="¿Lleva autorización?" Color="MudBlazor.Color.Primary"></MudSwitch>
+                    @*<MudTextField @bind-Value="TasaInteres.Nombre" T="string" Label="Nombre" For="@(() => TasaInteres.Nombre)"></MudTextField>*@
+                </MudItem>
+            </MudGrid>
+            <MudGrid>
+                <MudItem>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>% por periodos</h5>
+                            <ul id="period" class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    DIARIO
+                                    <span id="porcentaje-diario" class="badge badge-primary badge-pill"></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    SEMANAL
+                                    <span id="porcentaje-semanal" class="badge badge-primary badge-pill"></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    QUINCENAL
+                                    <span id="porcentaje-quincenal" class="badge badge-primary badge-pill"></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    ANUAL
+                                    <span id="porcentaje-anual" class="badge badge-primary badge-pill"></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" OnClick="()=>CloseModal(-1)" Class="px-10">Cancelar</MudButton>
+        <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" OnClick="SaveTasaInteres" Class="px-10">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+}
