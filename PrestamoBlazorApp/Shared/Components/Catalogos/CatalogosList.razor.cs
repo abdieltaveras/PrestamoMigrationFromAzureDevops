@@ -10,88 +10,117 @@ using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
 using MudBlazor;
 using UIClient.Pages.Components;
-using PrestamoBlazorApp.Shared.Components.Catalogos;
+using PrestamoBlazorApp.Shared.Components.Base;
+
+
 
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
 
-    public partial class CatalogosList : CommonBase
+
+
+    public partial class CatalogosList : CommonBase, ICrudStandardButtonsAndActions
     {
         [Parameter] public CatalogoGetParams CatalogoSpecification { get; set; } = null;
         [Parameter] public string CatalogoName { get; set; } = null;
-        [Inject] private IDialogService Dialog { get; set; }
-        [Inject] private CatalogosService CatalogosService { get; set; }
-        [Inject] private NavigationManager NavMa { get; set; }
-        private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
+        [Parameter] public Action<Catalogo> ShowEditor { get; set; } 
+        [Inject] protected CatalogosService CatalogosService { get; set; }
+        protected IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
+        private Catalogo selectedItem { get; set; } = null;
+        private HashSet<Catalogo> selectedItems = new HashSet<Catalogo>();
+        private string SearchValue { get; set; }
+        protected bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
 
-        private bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
+        private Catalogo ObjectToCatalog(object obj) => (Catalogo)obj;
+        private IEnumerable<ToolbarButtonForMud> Buttons(ICrudStandardButtonsAndActions view) => Factory.StandarCrudToolBarButtons(this);
+        
 
-        private List<DataGridViewColumn> columns => new List<DataGridViewColumn>()
-        {
-        new DataGridViewColumn{ Header= "Codigo", ColumnName = "Codigo", ColumnType= DataGridViewColumnTypes.Text, ContentAligment= MudBlazor.Align.Left, HeaderAligment= MudBlazor.Align.Center},
-        new DataGridViewColumn{ Header= "Nombre", ColumnName = "Nombre", ColumnType= DataGridViewColumnTypes.Text, ContentAligment= MudBlazor.Align.Left, HeaderAligment= MudBlazor.Align.Center},
-        };
+        private ToolbarButtonForMud ReportToolBar => new ToolbarButtonForMud() { Color = MudBlazor.Color.Primary, Icon = Icons.Filled.VpnKey, Text = "Reporte", OnClick = BtnReportClick, IsEnabled = BtnReportEnabled, Show = true });
+            
+        public bool BtnAddEnabled(object obj) => true;
+        public bool BtnEdtEnabled(object obj) => ObjectToCatalog(obj) != null;
+        public bool BtnDelEnabled(object obj) => ObjectToCatalog(obj) != null;
+        public bool BtnReportEnabled(object obj) => ObjectToCatalog(obj) != null;
 
-        public List<DataGridViewToolbarButton> buttons => new List<DataGridViewToolbarButton>()
-        {
-        new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Primary, Icon=Icons.Filled.AddCircle, Text="Nuevo", OnClick=btnAddClick, IsEnabled=btnAddEnabled},
-        new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Secondary, Icon=Icons.Filled.Edit, Text="Modificar", OnClick=btnEdtClick, IsEnabled=btnEdtEnabled},
-        new DataGridViewToolbarButton(){ Color= MudBlazor.Color.Tertiary, Icon=Icons.Filled.VpnKey, Text="Reporte", OnClick=btnReporte, IsEnabled=btnEdtEnabled},
-        };
+        public bool BtnAddShow() => true;
+        public bool BtnEdtShow() => true;
 
-        private async void btnReporte(object obj)
+        public bool BtnDelShow() => true;
+
+        protected async void BtnReportClick(object obj)
         {
             await NotifyNotImplementedAction();
         }
 
-        void btnAddClick(object obj) =>  showEditor(new Catalogo());
-        void btnEdtClick(object obj)
+        public void BtnAddClick(object obj) => ShowEditor(new Catalogo());
+
+        public void BtnEdtClick(object obj)
         {
-            var catalogo = (Catalogo)obj;
-            if (catalogo != null)
+
+            if (obj != null)
             {
-                showEditor(catalogo);
+                ShowEditor(ObjectToCatalog(obj));
             }
         }
-        private void showEditor(Catalogo catalogo)
-        {
-            var parameters = new DialogParameters();
-            catalogo.IdTabla = CatalogoSpecification.IdTabla;
-            catalogo.NombreTabla = CatalogoSpecification.NombreTabla;
-            parameters.Add("Catalogo", catalogo);
-            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
-            Dialog.Show<CatalogoEditor>("Editar", parameters, options);
-        }
-        bool btnAddEnabled(object obj) => true;
-        bool btnEdtEnabled(object obj) => ((Catalogo)obj) != null;
-        public string searchString { get; set; }
+
+        public void BtnDelClick(object obj) { }
+
+
+        //protected void showEditor(Catalogo catalogo)
+        //{
+        //    var parameters = new DialogParameters();
+        //    catalogo.IdTabla = CatalogoSpecification.IdTabla;
+        //    catalogo.NombreTabla = CatalogoSpecification.NombreTabla;
+        //    parameters.Add("Catalogo", catalogo);
+        //    var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+        //    Dialog.Show<CatalogoEditor>("Editar", parameters, options);
+        //}
+
+
         protected override async Task OnInitializedAsync()
         {
             if (CatalogoSpecification != null)
-            { 
+            {
                 await base.OnInitializedAsync();
                 Catalogos = await CatalogosService.Get(CatalogoSpecification);
             }
         }
-        private bool FilterFunc(object obj)
+        protected bool FilterFunc(object obj)
         {
             var element = (Catalogo)obj;
-            if (string.IsNullOrWhiteSpace(searchString))
+            if (string.IsNullOrWhiteSpace(SearchValue))
                 return true;
-            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            if (element.Nombre.Contains(SearchValue, StringComparison.OrdinalIgnoreCase))
                 return true;
             if (element.Codigo != null)
             {
-                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                if (element.Codigo.Contains(SearchValue, StringComparison.OrdinalIgnoreCase))
                     return true;
             }
             return false;
         }
 
-        private void HandleSearchValueChanged(string value)
+        async void PrintListado(int reportType)
         {
-            this.searchString = value;
+            await BlockPage();
+            CatalogoSpecification.reportType = reportType;
+            var result = await CatalogosService.ReportListado(jsRuntime, CatalogoSpecification);
+            await UnBlockPage();
         }
-        
+    }
+
+    public static class Factory
+    {
+
+        public static IEnumerable<ToolbarButtonForMud> StandarCrudToolBarButtons(ICrudStandardButtonsAndActions view)
+        {
+            var buttons = new List<ToolbarButtonForMud>()
+            {
+            new ToolbarButtonForMud() { Color = MudBlazor.Color.Success, Icon = Icons.Filled.AddCircle, Text = "Nuevo", OnClick = view.BtnAddClick, IsEnabled = view.BtnAddEnabled, Show = view.BtnAddShow() },
+            new ToolbarButtonForMud() { Color = MudBlazor.Color.Secondary, Icon = Icons.Filled.Edit, Text = "Modificar", OnClick = view.BtnEdtClick, IsEnabled = view.BtnEdtEnabled, Show = view.BtnEdtShow() },
+            new ToolbarButtonForMud() { Color = MudBlazor.Color.Error, Icon = Icons.Filled.Delete, Text = "Eliminar", OnClick = view.BtnDelClick, IsEnabled = view.BtnDelEnabled, Show = view.BtnDelShow() }
+            };
+            return buttons;
+        }
     }
 }

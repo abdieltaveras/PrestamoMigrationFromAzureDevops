@@ -1,5 +1,6 @@
 ﻿@inherits CommonBase
-@page "/CatalogosList"
+@using UIClient.Pages.Components;
+
 <MudCard Outlined="true">
     <MudCardHeader>
         <CardHeaderContent>
@@ -12,7 +13,31 @@
             {
                 if (Catalogos != null)
                 {
-                    <DataGridView ObjectList="Catalogos" Title="@CatalogoName" OnSearchValueChanged="HandleSearchValueChanged" ToolbarButtons="buttons" AllowMultiSelection="false" Immediate="true" Columns="columns" FilterFunc="FilterFunc"></DataGridView>
+                <ListBaseForCrud TItem="Catalogo" ToolbarButtons="@Buttons(this)" SelectedItem="selectedItem" >
+                    <MudTable Items="Catalogos" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true"
+                               Filter="FilterFunc" @bind-SelectedItems="@selectedItems" @bind-SelectedItem="selectedItem">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6">Administracion de Catalogos</MudText>
+                            <MudMenu Color="MudBlazor.Color.Primary" Icon="@Icons.Material.Rounded.Inventory2" DisableElevation="true" OffsetY="true">
+                                <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
+                                <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
+                            </MudMenu>
+                            <MudSpacer />
+                            <MudTextField @bind-Value="SearchValue" Placeholder="Nombre" Adornment="Adornment.Start" Immediate="true" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Codigo</MudTh>
+                            <MudTh>Nombre</MudTh>
+                        </HeaderContent>
+                        <RowTemplate Context="Catalogo">
+                            <MudTd>@Catalogo.Codigo</MudTd>
+                            <MudTd>@Catalogo.Nombre</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager />
+                        </PagerContent>
+                    </MudTable>
+                </ListBaseForCrud>
                 }
                 else
                 {

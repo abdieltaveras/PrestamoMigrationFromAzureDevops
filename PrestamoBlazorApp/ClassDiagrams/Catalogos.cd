@@ -3,11 +3,11 @@
   <Comment CommentText="Lefft has a composition of right component">
     <Position X="10.425" Y="4.225" Height="0.75" Width="1.7" />
   </Comment>
-  <Class Name="PrestamoBlazorApp.Pages.Ocupaciones.OcupacionesV3">
+  <Class Name="PrestamoBlazorApp.Pages.Ocupaciones.Ocupaciones">
     <Position X="3.5" Y="3.75" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
-      <FileName>Pages\Ocupaciones\OcupacionesV3.razor.cs</FileName>
+      <FileName>Pages\Ocupaciones\Ocupaciones.razor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PrestamoBlazorApp.Shared.BaseForCreateOrEdit">

@@ -15,7 +15,5 @@ namespace PrestamoBlazorApp.Shared.Components.Base
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public List<ToolbarButtonForMud> ToolbarButtons { get; set; }
         [Parameter] public TItem SelectedItem { get; set; } = null;
-
     }
-
 }
