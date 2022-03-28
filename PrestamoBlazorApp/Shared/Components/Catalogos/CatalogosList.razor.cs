@@ -17,13 +17,11 @@ using PrestamoBlazorApp.Shared.Components.Base;
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
 
-
-
-    public partial class CatalogosList : CommonBase, ICrudStandardButtonsAndActions<Catalogo>
+    public partial class CatalogosList : CommonBase
     {
         [Parameter] public CatalogoGetParams CatalogoSpecification { get; set; } = null;
         [Parameter] public string CatalogoName { get; set; } = null;
-        [Parameter] public Action<Catalogo> ShowEditor { get; set; } 
+        [Parameter] public Action<Catalogo> ShowEditor { get; set; }
         [Inject] protected CatalogosService CatalogosService { get; set; }
         protected IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
         private Catalogo SelectedItem { get; set; } = null;
@@ -32,55 +30,17 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         protected bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
 
         private Catalogo ObjectToCatalog(object obj) => (Catalogo)obj;
-        private IEnumerable<ToolbarButtonForMud<Catalogo>> Buttons(ICrudStandardButtonsAndActions<Catalogo> view) => Factory.StandarCrudToolBarButtons(this);
-        
+        private IEnumerable<ToolbarButtonForMud<Catalogo>> Buttons(ICrudStandardButtonsAndActions<Catalogo> view) => Factory.StandarCrudToolBarButtons(CommonActions);
 
-        private ToolbarButtonForMud<Catalogo> ReportToolBar => new ToolbarButtonForMud<Catalogo>() { Color = MudBlazor.Color.Primary, Icon = Icons.Filled.VpnKey, Text = "Reporte", OnClick = BtnReportClick, IsEnabled = BtnReportEnabled, Show = true };
-            
-        public bool BtnAddEnabled(Catalogo obj) => true;
-        public bool BtnEdtEnabled(Catalogo obj) => ObjectToCatalog(obj) != null;
-        public bool BtnDelEnabled(Catalogo obj) => ObjectToCatalog(obj) != null;
-        public bool BtnReportEnabled(Catalogo obj) => ObjectToCatalog(obj) != null;
-
-        public bool BtnAddShow() => true;
-        public bool BtnEdtShow() => true;
-
-        public bool BtnDelShow() => true;
-
-        protected async void BtnReportClick(Catalogo obj)
+        async void PrintListado(int reportType)
         {
-            await NotifyNotImplementedAction();
+            await BlockPage();
+            CatalogoSpecification.reportType = reportType;
+            var result = await CatalogosService.ReportListado(jsRuntime, CatalogoSpecification);
+            await UnBlockPage();
         }
 
-        public void BtnAddClick(Catalogo obj)
-        {
-            ShowEditor(new Catalogo());
-            SelectedItem = null;
-        }
-
-        public void BtnEdtClick(Catalogo obj)
-        {
-
-            if (obj != null)
-            {
-                ShowEditor(ObjectToCatalog(obj));
-            }
-        }
-
-        public void BtnDelClick(Catalogo obj) { }
-
-
-        //protected void showEditor(Catalogo catalogo)
-        //{
-        //    var parameters = new DialogParameters();
-        //    catalogo.IdTabla = CatalogoSpecification.IdTabla;
-        //    catalogo.NombreTabla = CatalogoSpecification.NombreTabla;
-        //    parameters.Add("Catalogo", catalogo);
-        //    var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
-        //    Dialog.Show<CatalogoEditor>("Editar", parameters, options);
-        //}
-
-
+        CommonActionsForCatalogo CommonActions { get; set; } = new CommonActionsForCatalogo();
         protected override async Task OnInitializedAsync()
         {
             if (CatalogoSpecification != null)
@@ -88,7 +48,9 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
                 await base.OnInitializedAsync();
                 Catalogos = await CatalogosService.Get(CatalogoSpecification);
             }
+            CommonActions = new CommonActionsForCatalogo(ShowEditor, jsRuntime);
         }
+
         protected bool FilterFunc(object obj)
         {
             var element = (Catalogo)obj;
@@ -103,28 +65,53 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             }
             return false;
         }
-
-        async void PrintListado(int reportType)
-        {
-            await BlockPage();
-            CatalogoSpecification.reportType = reportType;
-            var result = await CatalogosService.ReportListado(jsRuntime, CatalogoSpecification);
-            await UnBlockPage();
-        }
     }
 
-    public static class Factory
+    public class CommonActionsForCatalogo : ICrudStandardButtonsAndActions<Catalogo>
     {
+        Action<Catalogo> ShowEditor { get; }
+        IJSRuntime JsRuntime { get; }
 
-        public static IEnumerable<ToolbarButtonForMud<TType>> StandarCrudToolBarButtons<TType>(ICrudStandardButtonsAndActions<TType> view)
+        public CommonActionsForCatalogo()
         {
-            var buttons = new List<ToolbarButtonForMud<TType>>()
-            {
-            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Success, Icon = Icons.Filled.AddCircle, Text = "Nuevo", OnClick = view.BtnAddClick, IsEnabled = view.BtnAddEnabled, Show = view.BtnAddShow() },
-            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Secondary, Icon = Icons.Filled.Edit, Text = "Modificar", OnClick = view.BtnEdtClick, IsEnabled = view.BtnEdtEnabled, Show = view.BtnEdtShow() },
-            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Error, Icon = Icons.Filled.Delete, Text = "Eliminar", OnClick = view.BtnDelClick, IsEnabled = view.BtnDelEnabled, Show = view.BtnDelShow() }
-            };
-            return buttons;
+
         }
+        public CommonActionsForCatalogo(Action<Catalogo> showEditor, IJSRuntime jsRuntime)
+        {
+            ShowEditor = showEditor;
+            JsRuntime = jsRuntime;
+        }
+        public bool BtnAddEnabled(Catalogo obj) => true;
+        public bool BtnEdtEnabled(Catalogo obj) => obj != null;
+        public bool BtnDelEnabled(Catalogo obj) => obj != null;
+        public bool BtnReportEnabled(Catalogo obj) => obj != null;
+
+        public bool BtnAddShow() => true;
+        public bool BtnEdtShow() => true;
+
+        public bool BtnDelShow() => true;
+
+
+        public void BtnAddClick(Catalogo obj)
+        {
+            ShowEditor(new Catalogo());
+        }
+
+        public void BtnEdtClick(Catalogo obj)
+        {
+
+            if (obj != null)
+            {
+                ShowEditor(obj);
+            }
+        }
+
+        public void BtnDelClick(Catalogo obj)
+        {
+            Task.Run(async () =>
+                        await JsInteropUtils.SweetMessageBox(JsRuntime, "Accion no implementada aun", "info"));
+        }
+
     }
+
 }
