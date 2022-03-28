@@ -1,5 +1,6 @@
 ﻿using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.Base;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,21 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Error, Icon = Icons.Filled.Delete, Text = "Eliminar", OnClick = view.BtnDelClick, IsEnabled = view.BtnDelEnabled, Show = view.BtnDelShow() }
             };
             return buttons;
+        }
+
+        public static  bool FilterFuncForCatalogo(object obj, string searchValue)
+        {
+            var element = (Catalogo)obj;
+            if (string.IsNullOrWhiteSpace(searchValue))
+                return true;
+            if (element.Nombre.Contains(searchValue, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo != null)
+            {
+                if (element.Codigo.Contains(searchValue, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
         }
     }
 

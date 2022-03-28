@@ -10,9 +10,9 @@ namespace PrestamoBlazorApp.Shared.Components.Base
         void BtnAddClick(TType obj);
         void BtnEdtClick(TType obj);
         void BtnDelClick(TType obj);
-        bool BtnAddEnabled(TType obj);
-        bool BtnEdtEnabled(TType obj);
-        bool BtnDelEnabled(TType obj);
+        bool BtnAddEnabled(object obj);
+        bool BtnEdtEnabled(object obj);
+        bool BtnDelEnabled(object obj);
 
         bool BtnAddShow();
         bool BtnEdtShow();

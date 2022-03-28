@@ -2,23 +2,18 @@
 @using UIClient.Pages.Components;
 
 <MudCard Outlined="true">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Typo="Typo.h4">Administración de @CatalogoName</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
     <MudCardContent>
         @{
             if (ValidCatalogoSpecification)
             {
                 if (Catalogos != null)
                 {
-                <ListBaseForCrud TItem="Catalogo" ToolbarButtons="Buttons(CommonActions)" SelectedItem="SelectedItem" >
+                <ListBaseForCrud TItem="Catalogo" ToolbarButtons="Buttons(GetCommonActions())" SelectedItem="SelectedItem" >
                     <MudTable Items="Catalogos" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true"
                                Filter="FilterFunc" @bind-SelectedItems="@selectedItems" @bind-SelectedItem="SelectedItem">
                         <ToolBarContent>
                             <MudText Typo="Typo.h6">Administracion de Catalogos</MudText>
-                            <MudMenu Color="MudBlazor.Color.Primary" Icon="@Icons.Material.Rounded.Inventory2" DisableElevation="true" OffsetY="true">
+                            <MudMenu Label="Reporte" Color="MudBlazor.Color.Primary" Icon="@Icons.Material.Rounded.Print" DisableElevation="true" OffsetY="true">
                                 <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
                                 <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
                             </MudMenu>
