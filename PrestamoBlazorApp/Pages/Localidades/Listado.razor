@@ -2,6 +2,7 @@
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Localidades
 
+
 <MudCard>
     <MudCardHeader>
         <CardHeaderContent>
@@ -74,27 +75,10 @@
     </table>*@
 
 
-    <DialogContent>
-        <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
-            <DataAnnotationsValidator />
+
+
+
 
 @code {
 
 }
-            <MudGrid>
-                <MudItem md="12">
-                    @*<MudTextField @bind-Value="Localidad.Codigo" T="string" Label="Codigo"></MudTextField>*@
-                    <MudTextField @bind-Value="Localidad.Nombre" T="string" Label="Nombre" For="@(() => Localidad.Nombre)"></MudTextField>
-                </MudItem>
-            </MudGrid>
-        </EditForm>
-    </DialogContent>
-    <DialogActions>
-        <MudButton Variant="Variant.Filled" OnClick="()=>ShowDialog(false)" Class="px-10">Cancelar</MudButton>
-        <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" OnClick="SaveLocalidad" Class="px-10">Guardar</MudButton>
-    </DialogActions>
-</MudDialog>
-
-
-
-
