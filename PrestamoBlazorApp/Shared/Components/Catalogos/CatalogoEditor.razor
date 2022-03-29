@@ -12,21 +12,46 @@
             <MudGrid>
                 <MudItem xs="12" sm="12" md="12">
                     <MudTextField T="string" Label="Codigo (s)" Required="true" @bind-Value="Catalogo.Codigo" Variant="Variant.Text"
-                                  RequiredError="El codigo no puede estar en blanco" />
+                                  RequiredError="El codigo no puede estar en blanco" Disabled="IsDisabledInput" />
                 </MudItem>
                 <MudItem xs="12" sm="12" md="12">
                     <MudTextField T="string" Label="Nombre" Required="true" @bind-Value="Catalogo.Nombre" Variant="Variant.Text"
-                                  RequiredError="El nombre no puede estar en blanco" />
+                                  RequiredError="El nombre no puede estar en blanco" Disabled="IsDisabledInput" />
                 </MudItem>
-                
-                
+
+
                 <MudItem xs="12" sm="12" md="12">
-                    <MudCheckBox @bind-Checked="Catalogo.Activo">Activo</MudCheckBox>
+                    <MudCheckBox @bind-Checked="Catalogo.Activo" Disabled="IsDisabledInput">Activo</MudCheckBox>
                 </MudItem>
             </MudGrid>
+            @{
+                if (UsarFormularioParaEliminar)
+                {
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudText>@NumeroGenerado</MudText> 
+                    </MudItem>
+
+                    <MudItem xs="12" sm="12" md="12">
+
+                        <MudNumericField Label="Confirmar" Required="true" @bind-Value="ConfirmarValor" Variant="Variant.Text"
+                                         RequiredError="el numero no puede estar vacio" Disabled="!UsarFormularioParaEliminar" />
+                    </MudItem>
+                }
+            }
         </MudForm>
     </DialogContent>
+
     <DialogActions>
-        <MudButton Disabled="@(!validForm)" Color="MudBlazor.Color.Primary" OnClick="SaveCatalogo">Guardar</MudButton>
+        @{
+            if (UsarFormularioParaEliminar)
+            {
+                <MudButton Disabled="@(!validForm)" Color="MudBlazor.Color.Primary" OnClick="SaveCatalogo">Eliminar</MudButton>
+            }
+            else
+            {
+                <MudButton Disabled="@(!validForm)" Color="MudBlazor.Color.Primary" OnClick="SaveCatalogo">Guardar</MudButton>
+            }
+        }
     </DialogActions>
+
 </MudDialog>

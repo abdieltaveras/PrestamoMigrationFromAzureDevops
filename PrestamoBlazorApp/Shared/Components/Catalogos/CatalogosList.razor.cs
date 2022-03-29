@@ -21,7 +21,9 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     {
         [Parameter] public CatalogoGetParams CatalogoSpecification { get; set; } = null;
         [Parameter] public string CatalogoName { get; set; } = null;
+
         [Parameter] public Action<Catalogo> ShowEditor { get; set; }
+        [Parameter] public Action<Catalogo> ShowEditorForBorrar { get; set; }
         [Inject] protected CatalogosService CatalogosService { get; set; }
         private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
         private Catalogo SelectedItem { get; set; } = null;
@@ -29,9 +31,9 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private string SearchValue { get; set; }
         protected bool ValidCatalogoSpecification => (CatalogoSpecification != null && !CatalogoSpecification.NombreTabla.IsNullOrEmpty() && !CatalogoSpecification.IdTabla.IsNullOrEmpty() && (!CatalogoName.IsNullOrEmpty()));
 
-        private CommonActionsForCatalogo GetCommonActions() =>  new CommonActionsForCatalogo(ShowEditor, jsRuntime);
+        private CommonActionsForCatalogo GetCommonActions() =>  new CommonActionsForCatalogo(ShowEditor, ShowEditorForBorrar, jsRuntime);
 
-        private IEnumerable<ToolbarButtonForMud<Catalogo>> Buttons(ICrudStandardButtonsAndActions<Catalogo> view) => Factory.StandarCrudToolBarButtons(GetCommonActions());
+        private IEnumerable<ButtonForToolBar<Catalogo>> Buttons() => Factory.StandarCrudToolBarButtons(GetCommonActions());
 
         async Task PrintListado(int reportType)
         {

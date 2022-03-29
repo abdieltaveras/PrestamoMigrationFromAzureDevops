@@ -31,5 +31,16 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
             var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
             Dialog.Show<CatalogoEditor>("Editar", parameters, options);
         }
+
+        protected void ShowCatalogoEditorForBorrar(Catalogo catalogo)
+        {
+            var parameters = new DialogParameters();
+            catalogo.NombreTabla = TableAndColumnName.NombreTabla;
+            catalogo.IdTabla = TableAndColumnName.IdTabla;
+            parameters.Add("Catalogo", catalogo);
+            parameters.Add("UsarFormularioParaEliminar", true);
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+            Dialog.Show<CatalogoEditor>("Editar", parameters, options);
+        }
     }
 }

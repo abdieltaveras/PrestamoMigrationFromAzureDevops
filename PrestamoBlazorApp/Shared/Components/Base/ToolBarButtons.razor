@@ -1,9 +1,8 @@
 ﻿@typeparam TItem
-<MudElement>
-    <MudElement>
-        <MudToolBar>
+    <MudItem>
+        <MudToolBar Class="pt-0">
             <MudSpacer />
-            @foreach (var btn in ToolbarButtons)
+            @foreach (var btn in  ToolbarButtons)
             {
                 if (btn.Show)
                 {
@@ -18,9 +17,9 @@
                 }
             }
         </MudToolBar>
-    </MudElement>
+
     <MudText Align="Align.Right">
-        Selección:@((SelectedItem!=null) ? @SelectedItem.ToString() : "Ninguna")
+        Ocupacion seleccionada: @((SelectedItem!=null) ? @SelectedItem.ToString() : "Ninguna")
     </MudText>
-    @ChildContent
-</MudElement>
+    @*@ChildContent*@
+</MudItem>

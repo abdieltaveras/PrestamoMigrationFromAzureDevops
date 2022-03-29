@@ -12,13 +12,13 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     public static class Factory
     {
 
-        public static IEnumerable<ToolbarButtonForMud<TType>> StandarCrudToolBarButtons<TType>(ICrudStandardButtonsAndActions<TType> view)
+        public static IEnumerable<ButtonForToolBar<TType>> StandarCrudToolBarButtons<TType>(ICrudStandardButtonsAndActions<TType> BtnsWithActions)
         {
-            var buttons = new List<ToolbarButtonForMud<TType>>()
+            var buttons = new List<ButtonForToolBar<TType>>()
             {
-            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Success, Icon = Icons.Filled.AddCircle, Text = "Nuevo", OnClick = view.BtnAddClick, IsEnabled = view.BtnAddEnabled, Show = view.BtnAddShow() },
-            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Secondary, Icon = Icons.Filled.Edit, Text = "Modificar", OnClick = view.BtnEdtClick, IsEnabled = view.BtnEdtEnabled, Show = view.BtnEdtShow() },
-            new ToolbarButtonForMud<TType>() { Color = MudBlazor.Color.Error, Icon = Icons.Filled.Delete, Text = "Eliminar", OnClick = view.BtnDelClick, IsEnabled = view.BtnDelEnabled, Show = view.BtnDelShow() }
+            new ButtonForToolBar<TType>() { Color = MudBlazor.Color.Success, Icon = Icons.Filled.AddCircle, Text = "Nuevo", OnClick = BtnsWithActions.BtnAddClick, IsEnabled = BtnsWithActions.BtnAddEnabled, Show = BtnsWithActions.BtnAddShow() },
+            new ButtonForToolBar<TType>() { Color = MudBlazor.Color.Secondary, Icon = Icons.Filled.Edit, Text = "Modificar", OnClick = BtnsWithActions.BtnEdtClick, IsEnabled = BtnsWithActions.BtnEdtEnabled, Show = BtnsWithActions.BtnEdtShow() },
+            new ButtonForToolBar<TType>() { Color = MudBlazor.Color.Error, Icon = Icons.Filled.Delete, Text = "Eliminar", OnClick = BtnsWithActions.BtnDelClick, IsEnabled = BtnsWithActions.BtnDelEnabled, Show = BtnsWithActions.BtnDelShow() }
             };
             return buttons;
         }

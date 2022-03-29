@@ -13,15 +13,17 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     public class CommonActionsForCatalogo : CommonActions, ICrudStandardButtonsAndActions<Catalogo>
     {
         Action<Catalogo> ShowEditor { get; }
+        Action<Catalogo> ShowEditorForBorrar { get; }
         IJSRuntime JsRuntime { get; }
         public CommonActionsForCatalogo()
         {
 
         }
-        public CommonActionsForCatalogo(Action<Catalogo> showEditor, IJSRuntime jsRuntime)
+        public CommonActionsForCatalogo(Action<Catalogo> showEditor, Action<Catalogo> showEditorForBorrar,IJSRuntime jsRuntime)
         {
             ShowEditor = showEditor;
             JsRuntime = jsRuntime;
+            ShowEditorForBorrar = showEditorForBorrar;
         }
         public void BtnAddClick(Catalogo obj)
         {
@@ -37,8 +39,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         }
         public void BtnDelClick(Catalogo obj)
         {
-            Task.Run(async () =>
-                        await JsInteropUtils.SweetMessageBox(JsRuntime, "Accion no implementada aun", "info"));
+            ShowEditorForBorrar(obj);
         }
     }
     

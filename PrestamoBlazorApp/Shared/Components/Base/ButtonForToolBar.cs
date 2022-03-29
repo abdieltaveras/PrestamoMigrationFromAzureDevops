@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared.Components.Base
 {
-    public class ToolbarButtonForMud<TType>
+    public class ButtonForToolBar<TType>
     {
         public string Text { get; set; }
         public string Icon { get; set; }

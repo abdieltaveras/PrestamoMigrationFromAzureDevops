@@ -10,10 +10,10 @@ using UIClient.Pages.Components;
 
 namespace PrestamoBlazorApp.Shared.Components.Base
 {
-    public partial class ListBaseForCrud<TItem> : ComponentBase where TItem : class
+    public partial class ToolBarButtons<TItem> : ComponentBase where TItem : class
     {
-        [Parameter] public RenderFragment ChildContent { get; set; }
-        [Parameter] public IEnumerable<ToolbarButtonForMud<TItem>> ToolbarButtons { get; set; }
+        //[Parameter] public RenderFragment ChildContent { get; set; }
+        [Parameter] public IEnumerable<ButtonForToolBar<TItem>> ToolbarButtons { get; set; }
         [Parameter] public TItem SelectedItem { get; set; } = null;
     }
 }

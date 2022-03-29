@@ -116,7 +116,7 @@ namespace PrestamoEntidades
 
         public override string ToString()
         {
-            return $"{Codigo} {Nombre}";
+            return $"Ocupacion {Nombre} Codigo {Codigo}";
         }
     }
     public abstract class BaseDireccion : BaseInsUpd
