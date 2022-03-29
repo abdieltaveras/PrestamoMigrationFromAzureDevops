@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using MudBlazor;
-
+using PrestamoBlazorApp.Shared.Components.Localidades;
 namespace PrestamoBlazorApp.Pages.Localidades
 {
     public partial class Listado
     {
+        [Inject]
+        IDialogService DialogService { get; set; }
         [Inject]
         LocalidadesService localidadesService { get; set; }
         [Parameter]
@@ -52,6 +54,10 @@ namespace PrestamoBlazorApp.Pages.Localidades
             //await UnBlockPage();
 
         }
+        async Task GetLocalidades()
+        {
+           
+        }
         async Task Edit(int idLocalidad = -1)
         {
             if (idLocalidad > 0)
@@ -65,7 +71,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             {
                 this.Localidad = new Localidad();
             }
-            ShowDialog(true);
+            await ShowDialog(idLocalidad);
             //await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
         private bool FilterFunc(Localidad element, string searchString)
@@ -81,9 +87,21 @@ namespace PrestamoBlazorApp.Pages.Localidades
             }
             return false;
         }
-        void ShowDialog(bool value) 
+        private async Task ShowDialog(int id = -1)
         {
-            ShowDialogCreate = value;
+            var parameters = new DialogParameters();
+            parameters.Add("IdLocalidad", id);
+            var dialog = DialogService.Show<CreateLocalidades>("", parameters, dialogOptions);
+            var result = await dialog.Result;
+            if (result.Data!= null)
+            {
+                if (result.Data.ToString() == "1")
+                {
+                    this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
+                    StateHasChanged();
+                }
+            }
+           
         }
         void RaiseInvalidSubmit()
         {

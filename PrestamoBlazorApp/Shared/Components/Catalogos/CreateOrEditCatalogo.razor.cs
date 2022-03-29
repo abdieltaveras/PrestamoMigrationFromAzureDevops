@@ -16,8 +16,8 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     public partial class CreateOrEditCatalogo : BaseForCreateOrEdit
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-        private bool ShowDialogCreate { get; set; } = false;
-        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+
+   
         // parameters
         [Parameter]
         public Catalogo Catalogo { get; set; } = new Catalogo();
@@ -30,10 +30,14 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private string SearchString1 = "";
         private Catalogo SelectedItem1 = null;
         private bool FilterFunc1(Catalogo element) => FilterFunc(element, SearchString1);
+       
+        private bool ShowDialogCreate { get; set; } = false;
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
         private BaseForList BaseForList { get; set; }
         private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
         
-        private bool Dense=true, Hover=true, Bordered=false, Striped=false;
+      
 
 
        
