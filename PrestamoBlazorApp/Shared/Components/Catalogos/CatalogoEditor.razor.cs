@@ -27,8 +27,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         // Members
         private string SearchString1 = "";
         
-        bool validForm;
-        string[] errors = { };
+        
         int ConfirmarValor { get; set; }
         private int NumeroGenerado => new Random().Next(1000, 9999);
         MudForm form;
@@ -47,15 +46,14 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             
         }
         
-        //async Task DelCatalogo ()
-        //{
-        //    var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
-        //    if (a == true)
-        //    {
-        //        await SweetMessageBox("Eliminado");
-        //    }
-
-        //}
+        async Task DeleteCatalogo ()
+        {
+            var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
+            if (a == true)
+            {
+                await SweetMessageBox("Metodo ficticio no realiza ninguna operacion");
+            }
+        }
         
         async void PrintListado(int reportType)
         {
