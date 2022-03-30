@@ -9,6 +9,7 @@ using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
@@ -24,14 +25,21 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         // injections
         [Inject] CatalogosService CatalogosService { get; set; }
         // Members
-        private int DeleteConfirmValue { get; set; }
-        private int DeleteValueToConfirm => new Random().Next(1000, 9999);
-        
+        private int DeleteConfirmedValue { get; set; }
+        [Compare("DeleteConfirmedValue")]
+        private int DeleteValueToConfirm { get; } 
+        private string ConfirmationMessage { get; set; } 
         private void CloseDlg()
         {
             MudDialog.Cancel();
         }
 
+        public CatalogoEditor()
+        {
+            DeleteValueToConfirm = new Random().Next(1000, 9999);
+        }
+
+        
         public bool IsDisabledInput => UsarFormularioParaEliminar;
 
         async Task SaveCatalogo()
@@ -44,11 +52,14 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         
         async Task DeleteCatalogo ()
         {
-            var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
-            if (a == true)
+            if (DeleteValueToConfirm != DeleteConfirmedValue)
             {
-                await SweetMessageBox("Metodo ficticio no realiza ninguna operacion");
+                ConfirmationMessage = "Valor de confirmacion incorrecto, digitar de nuevo";
+                return;
             }
+            CloseDlg();
+            await SweetMessageBox("Metodo ficticio no realiza ninguna operacion, implementar proceso");
+ 
         }
         
         async void PrintListado(int reportType)
