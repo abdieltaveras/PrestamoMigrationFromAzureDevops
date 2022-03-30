@@ -27,12 +27,12 @@
                 if (UsarFormularioParaEliminar)
                 {
                     <MudItem xs="12" sm="12" md="12">
-                        <MudText>@NumeroGenerado</MudText>
+                        <MudText>@DeleteValueToConfirm</MudText>
                     </MudItem>
 
                     <MudItem xs="12" sm="12" md="12">
 
-                        <MudNumericField Label="Confirmar" Required="true" @bind-Value="ConfirmarValor" Variant="Variant.Text"
+                        <MudNumericField Label="Confirmar" Required="true" @bind-Value="DeleteConfirmValue" Variant="Variant.Text"
                                          RequiredError="el numero no puede estar vacio" Disabled="!UsarFormularioParaEliminar"  />
                     </MudItem>
                 }
@@ -45,7 +45,7 @@
                 if (UsarFormularioParaEliminar)
                 {
                     <MudButton Color="MudBlazor.Color.Primary" OnClick="CloseDlg" >Cancelar</MudButton>
-                    <MudButton Color="MudBlazor.Color.Primary" Disabled="!(ConfirmarValor==NumeroGenerado)" OnClick="DeleteCatalogo">Eliminar</MudButton>
+                    <MudButton Color="MudBlazor.Color.Primary" Disabled="!(DeleteConfirmValue==DeleteValueToConfirm)" OnClick="DeleteCatalogo">Eliminar</MudButton>
                 }
                 else
                 {

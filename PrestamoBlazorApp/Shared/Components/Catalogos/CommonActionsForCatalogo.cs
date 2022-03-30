@@ -12,34 +12,34 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
 
     public class CommonActionsForCatalogo : CommonActions, ICrudStandardButtonsAndActions<Catalogo>
     {
-        Action<Catalogo> ShowEditor { get; }
-        Action<Catalogo> ShowEditorForBorrar { get; }
-        IJSRuntime JsRuntime { get; }
+        Action<Catalogo> ShowEditorForAdd { get; }
+        Action<Catalogo> ShowEditorForEdit { get; }
+        Action<Catalogo> ShowEditorForDelete { get; }
         public CommonActionsForCatalogo()
         {
 
         }
-        public CommonActionsForCatalogo(Action<Catalogo> showEditor, Action<Catalogo> showEditorForBorrar,IJSRuntime jsRuntime)
+        public CommonActionsForCatalogo(Action<Catalogo> showEditorForAdd, Action<Catalogo> showEditorForEdit, Action<Catalogo> showEditorForDelete)
         {
-            ShowEditor = showEditor;
-            JsRuntime = jsRuntime;
-            ShowEditorForBorrar = showEditorForBorrar;
+            ShowEditorForAdd = showEditorForAdd;
+            ShowEditorForDelete = showEditorForDelete;
+            ShowEditorForEdit = showEditorForEdit;
         }
         public void BtnAddClick(Catalogo obj)
         {
-            ShowEditor(new Catalogo());
+            ShowEditorForAdd(new Catalogo());
         }
         public void BtnEdtClick(Catalogo obj)
         {
 
             if (obj != null)
             {
-                ShowEditor(obj);
+                ShowEditorForEdit(obj);
             }
         }
         public void BtnDelClick(Catalogo obj)
         {
-            ShowEditorForBorrar(obj);
+            ShowEditorForDelete(obj);
         }
     }
     

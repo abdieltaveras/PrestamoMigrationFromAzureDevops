@@ -22,15 +22,11 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         [Parameter] public bool UsarFormularioParaEliminar { get; set; } = false;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         // injections
-        [Inject]
-        CatalogosService CatalogosService { get; set; }
+        [Inject] CatalogosService CatalogosService { get; set; }
         // Members
-        private string SearchString1 = "";
+        private int DeleteConfirmValue { get; set; }
+        private int DeleteValueToConfirm => new Random().Next(1000, 9999);
         
-        
-        int ConfirmarValor { get; set; }
-        private int NumeroGenerado => new Random().Next(1000, 9999);
-        MudForm form;
         private void CloseDlg()
         {
             MudDialog.Cancel();
