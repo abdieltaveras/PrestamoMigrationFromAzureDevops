@@ -16,6 +16,8 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Inject]
         LocalidadesService localidadesService { get; set; }
+        [Inject]
+        TerritoriosService territoriosService { get; set; }
         [Parameter]
         public Localidad Localidad { get; set; } = new Localidad();
         BuscarLocalidadParams buscarLocalidadParams { get; set; } = new BuscarLocalidadParams();
@@ -28,15 +30,15 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
-        IEnumerable<Territorio> Territorios { get; set; } = new List<Territorio>();
-        private int _SelectedTipoLocalidad = -1;
-        public int SelectedTipoLocalidad { get { return _SelectedTipoLocalidad; } set { _SelectedTipoLocalidad = value; } }
-
+        IEnumerable<Localidad> localidadesByTipo { get; set; } = new List<Localidad>();
+        private Territorio _SelectedTipoLocalidad { get; set; }
+        public Territorio SelectedTipoLocalidad { get { return _SelectedTipoLocalidad; } set { _SelectedTipoLocalidad = value; GetLocalidadesByTipo().GetAwaiter(); } }
+        public int IdLocalidadByTipoSelected { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            await CreateOrEdit();
             this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
-            this.territorios = await localidadesService.GetComponentesTerritorio();
+            this.territorios = await localidadesService.GetComponentesTerritorio(); 
+            await CreateOrEdit();
         }
         public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)
         {
@@ -50,6 +52,8 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         async Task SaveLocalidad()
         {
             //await BlockPage();
+            this.Localidad.IdTipoLocalidad = SelectedTipoLocalidad.IdDivisionTerritorial;
+            this.Localidad.IdLocalidadPadre = IdLocalidadByTipoSelected;
             await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null, false, "/localidades/listado");
             await CloseModal("1");
             //await Edit(this.Localidad.IdLocalidad);
@@ -63,12 +67,28 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
                 await BlockPage();
                 var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = IdLocalidad });
                 Localidad = localidad.FirstOrDefault();
+                territorios = await localidadesService.GetComponentesTerritorio();
+                var ter = territorios.Where(m => m.IdDivisionTerritorial == Localidad.IdTipoLocalidad);
+                SelectedTipoLocalidad = ter.FirstOrDefault();
+                IdLocalidadByTipoSelected = Localidad.IdLocalidadPadre;
                 await UnBlockPage();
             }
             else
             {
                 this.Localidad = new Localidad();
             }
+        }
+        private async Task GetLocalidadesByTipo()
+        {
+            localidadesByTipo = new List<Localidad>();
+            var loc  = await localidadesService.Get(new LocalidadGetParams { IdTipoLocalidad = SelectedTipoLocalidad.IdLocalidadPadre });
+            localidadesByTipo = loc;
+            if (loc.Count()>0 && IdLocalidad<=0)
+            {
+                IdLocalidadByTipoSelected = localidadesByTipo.FirstOrDefault().IdLocalidad;
+            }
+            
+            StateHasChanged();
         }
         private async Task CloseModal(string result = "")
         {
