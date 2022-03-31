@@ -1,7 +1,7 @@
 ﻿@page "/ocupaciones"
-@inherits BaseForCreateOrEdit
+@inherits BaseCatalogoComponent
 @using PrestamoBlazorApp.Shared.Components.Catalogos
 
-<CatalogosList  CatalogoSpecification="TableAndColumnName" CatalogoName="Ocupaciones" ShowEditor="ShowCatalogoEditor" ShowEditorForBorrar="ShowCatalogoEditorForBorrar" />
+<CatalogosList  CatalogoSpecification="SetTableAndColumnName()" CatalogoName="CatalogoName()" ShowEditorForAdd="ShowEditEditor"  ShowEditorForDelete="ShowDeleteEditor" ShowEditorForEdit="ShowEditEditor"  />
 
 

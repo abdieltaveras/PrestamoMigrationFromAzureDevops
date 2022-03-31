@@ -33,6 +33,11 @@ namespace PrestamoBlazorApp.Services
             }
 
         }
+
+        public async Task DeleteCatalogo(Catalogo catalogo)
+        {
+
+        }
         //public async Task<IEnumerable<T>> Get<T>(CatalogoGetParams search) where T : class
         //{
         //    var d =  await GetAsync<T>(apiUrl, new { JsonGet = search.ToJson() });

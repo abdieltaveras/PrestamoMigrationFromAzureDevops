@@ -1,14 +1,15 @@
 ﻿@inherits BaseForCreateOrEdit
+@using System.ComponentModel.DataAnnotations
 <!--Header Section-->
-<MudDialog>
+<MudDialog >
     <TitleContent>
         <MudText Typo="Typo.h6">
             <MudIcon Icon="@Icons.Material.Filled.PeopleAlt" Class="mr-3 mb-n1" /> Editar Usuario
         </MudText>
-        <MudIconButton Color="MudBlazor.Color.Error" OnClick="CloseDlg" Icon="@Icons.Material.Rounded.Close" Variant="Variant.Filled"></MudIconButton>
     </TitleContent>
     <DialogContent>
-        <MudForm @ref="form" @bind-IsValid="@validForm" @bind-Errors="@errors">
+        <EditForm Model="Catalogo" OnValidSubmit="SaveCatalogo">
+            <DataAnnotationsValidator/>
             <MudGrid>
                 <MudItem xs="12" sm="12" md="12">
                     <MudTextField T="string" Label="Codigo (s)" Required="true" @bind-Value="Catalogo.Codigo" Variant="Variant.Text"
@@ -18,8 +19,6 @@
                     <MudTextField T="string" Label="Nombre" Required="true" @bind-Value="Catalogo.Nombre" Variant="Variant.Text"
                                   RequiredError="El nombre no puede estar en blanco" Disabled="IsDisabledInput" />
                 </MudItem>
-
-
                 <MudItem xs="12" sm="12" md="12">
                     <MudCheckBox @bind-Checked="Catalogo.Activo" Disabled="IsDisabledInput">Activo</MudCheckBox>
                 </MudItem>
@@ -28,30 +27,34 @@
                 if (UsarFormularioParaEliminar)
                 {
                     <MudItem xs="12" sm="12" md="12">
-                        <MudText>@NumeroGenerado</MudText> 
+                        <MudText >Codigo de aprobacion @DeleteValueToConfirm</MudText>
                     </MudItem>
 
                     <MudItem xs="12" sm="12" md="12">
 
-                        <MudNumericField Label="Confirmar" Required="true" @bind-Value="ConfirmarValor" Variant="Variant.Text"
-                                         RequiredError="el numero no puede estar vacio" Disabled="!UsarFormularioParaEliminar" />
+                        <MudNumericField Label="Digite el codigo de aprobacion" Required="true" @bind-Value="DeleteConfirmedValue" Variant="Variant.Text"
+                                         RequiredError="el numero no puede estar vacio" Disabled="!UsarFormularioParaEliminar"  />
+                        <MudText Color="MudBlazor.Color.Error">@ConfirmationMessage</MudText>
                     </MudItem>
                 }
             }
-        </MudForm>
+
+
+        <MudItem xs="12" sm="12" md="12">
+
+            @{
+                if (UsarFormularioParaEliminar)
+                {
+                    <MudButton Color="MudBlazor.Color.Primary" OnClick="CloseDlg" >Cancelar</MudButton>
+                    <MudButton Color="MudBlazor.Color.Primary" OnClick="DeleteCatalogo">Eliminar</MudButton>
+                }
+                else
+                {
+
+                    <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary">Guardar</MudButton>
+                }
+            }
+        </MudItem>
+        </EditForm>
     </DialogContent>
-
-    <DialogActions>
-        @{
-            if (UsarFormularioParaEliminar)
-            {
-                <MudButton Disabled="@(!validForm)" Color="MudBlazor.Color.Primary" OnClick="SaveCatalogo">Eliminar</MudButton>
-            }
-            else
-            {
-                <MudButton Disabled="@(!validForm)" Color="MudBlazor.Color.Primary" OnClick="SaveCatalogo">Guardar</MudButton>
-            }
-        }
-    </DialogActions>
-
 </MudDialog>

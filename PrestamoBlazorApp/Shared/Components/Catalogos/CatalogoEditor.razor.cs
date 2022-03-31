@@ -9,6 +9,7 @@ using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
@@ -22,21 +23,23 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         [Parameter] public bool UsarFormularioParaEliminar { get; set; } = false;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         // injections
-        [Inject]
-        CatalogosService CatalogosService { get; set; }
+        [Inject] CatalogosService CatalogosService { get; set; }
         // Members
-        private string SearchString1 = "";
-        
-        bool validForm;
-        string[] errors = { };
-        int ConfirmarValor { get; set; }
-        private int NumeroGenerado => new Random().Next(1000, 9999);
-        MudForm form;
+        private int DeleteConfirmedValue { get; set; }
+        [Compare("DeleteConfirmedValue")]
+        private int DeleteValueToConfirm { get; } 
+        private string ConfirmationMessage { get; set; } 
         private void CloseDlg()
         {
             MudDialog.Cancel();
         }
 
+        public CatalogoEditor()
+        {
+            DeleteValueToConfirm = new Random().Next(1000, 9999);
+        }
+
+        
         public bool IsDisabledInput => UsarFormularioParaEliminar;
 
         async Task SaveCatalogo()
@@ -47,15 +50,17 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             
         }
         
-        //async Task DelCatalogo ()
-        //{
-        //    var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
-        //    if (a == true)
-        //    {
-        //        await SweetMessageBox("Eliminado");
-        //    }
-
-        //}
+        async Task DeleteCatalogo ()
+        {
+            if (DeleteValueToConfirm != DeleteConfirmedValue)
+            {
+                ConfirmationMessage = "Valor de confirmacion incorrecto, digitar de nuevo";
+                return;
+            }
+            CloseDlg();
+            await SweetMessageBox("Metodo ficticio no realiza ninguna operacion, implementar proceso");
+ 
+        }
         
         async void PrintListado(int reportType)
         {
