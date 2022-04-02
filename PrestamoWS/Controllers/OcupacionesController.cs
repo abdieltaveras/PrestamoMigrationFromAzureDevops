@@ -11,27 +11,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
+    // nota este controller debe manejarse por el de CatalogosController
 
-    [ApiController]
-    [Route("api/[controller]/[action]")]
+    //[ApiController]
+    //[Route("api/[controller]/[action]")]
 
 
-    public class OcupacionesController : ControllerBasePrestamoWS
-    {
-        [HttpGet]
-        public IEnumerable<Ocupacion> Get([FromQuery] OcupacionGetParams getParams)
-        {
-          return BLLPrestamo.Instance.GetOcupaciones(getParams);
-        }
+    //public class OcupacionesController : ControllerBasePrestamoWS
+    //{
+    //    [HttpGet]
+    //    public IEnumerable<Ocupacion> Get([FromQuery] OcupacionGetParams getParams)
+    //    {
+    //      return BLLPrestamo.Instance.GetOcupaciones(getParams);
+    //    }
         
 
-        [HttpPost]
-        public IActionResult PostOcupacion([FromBody]Ocupacion insUpdParam)
-        {
-            insUpdParam.Usuario = this.LoginName;
-            insUpdParam.IdLocalidadNegocio = this.IdLocalidadNegocio;
-            BLLPrestamo.Instance.InsUpdOcupacion(insUpdParam);
-            return Ok();
-        }
-    }
+    //    [HttpPost]
+    //    public IActionResult PostOcupacion([FromBody]Ocupacion insUpdParam)
+    //    {
+    //        insUpdParam.Usuario = this.LoginName;
+    //        insUpdParam.IdLocalidadNegocio = this.IdLocalidadNegocio;
+    //        BLLPrestamo.Instance.InsUpdOcupacion(insUpdParam);
+    //        return Ok();
+    //    }
+    //}
 }

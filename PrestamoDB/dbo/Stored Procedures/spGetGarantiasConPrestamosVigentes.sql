@@ -5,5 +5,5 @@ BEGIN
 	SELECT idGarantia, prestamos.IdPrestamo, prestamoNumero FROM tblPrestamoGarantias AS presgar 
 			JOIN 
 			tblPrestamos  AS prestamos ON prestamos.idPrestamo = presgar.IdPrestamo
-			WHERE IdGarantia IN (SELECT idGarantia FROM @IdGarantias) and prestamos.Saldado=0 and prestamos.AnuladoPor is null
+			WHERE IdGarantia IN (SELECT idGarantia FROM @IdGarantias) and prestamos.Saldado=0 and prestamos.BorradoPor is null
 end

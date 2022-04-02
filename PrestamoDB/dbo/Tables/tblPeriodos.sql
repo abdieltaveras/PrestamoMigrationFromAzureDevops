@@ -13,8 +13,8 @@
 	[FechaInsertado] DateTime not null default getdate(), 
     [ModificadoPor] VARCHAR(100) NULL, 
     [FechaModificado] DATETIME NULL, 
-    [AnuladoPor] VARCHAR(100) NULL, 
-    [FechaAnulado] DATETIME NULL,
+    [BorradoPor] VARCHAR(100) NULL, 
+    [FechaBorrado] DATETIME NULL,
   CONSTRAINT PeriodoBaseCk CHECK (IdPeriodoBase IN (1, 2, 3, 4,5)),
   constraint UK_Codigo unique(IdNegocio,Codigo) 
 )

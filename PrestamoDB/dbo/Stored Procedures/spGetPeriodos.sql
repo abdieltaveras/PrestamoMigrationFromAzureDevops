@@ -6,12 +6,12 @@
 	@Codigo varchar(10)='',
 	@Activo int=1,
 	@RequiereAutorizacion int=-1,
-	@Anulado int=0,
+	@Borrado int=0,
 	@Usuario varchar(100)=''
 )
 as
 begin
-	SELECT idPeriodo, Codigo, Nombre, Activo, RequiereAutorizacion, IdPeriodoBase, MultiploPeriodoBase,idLocalidadNegocio, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
+	SELECT idPeriodo, Codigo, Nombre, Activo, RequiereAutorizacion, IdPeriodoBase, MultiploPeriodoBase,idLocalidadNegocio, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado
 	FROM dbo.tblPeriodos(nolock) 
 	where 
 		((@idPeriodo=-1) or (idPeriodo = @IdPeriodo))

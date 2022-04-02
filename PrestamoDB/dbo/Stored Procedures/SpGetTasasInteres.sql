@@ -7,12 +7,12 @@
 	@InteresMensual decimal (9,6)=-1,
 	@Activo int=-1,
 	@RequiereAutorizacion int=-1,
-	@Anulado int=0,
+	@Borrado int=0,
 	@Usuario varchar(100)=''
 )
 as
 begin
-	SELECT idTasaInteres, Codigo, Nombre, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
+	SELECT idTasaInteres, Codigo, Nombre, InteresMensual, Activo, RequiereAutorizacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado
 	FROM dbo.tblTasasInteres(nolock) 
 	where 
 		((@idTasaInteres=-1) or (idTasaInteres = @IdTasaInteres))

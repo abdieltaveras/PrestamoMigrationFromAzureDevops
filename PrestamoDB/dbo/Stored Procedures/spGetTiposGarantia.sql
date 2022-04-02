@@ -4,7 +4,7 @@
 	@IdClasificacion int=-1,
 	@IdNegocio int,
 	@IdLocalidadNegocio int= -1,
-	@Anulado int=0,
+	@Borrado int=0,
 	--@Activo int=0,
 	@Usuario varchar(100)=''
 )

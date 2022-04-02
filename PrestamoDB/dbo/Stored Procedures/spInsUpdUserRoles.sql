@@ -36,7 +36,7 @@ Begin
 		update 
 			tblUsersRoles 
 		set
-			ModificadoPor = @Usuario, FechaModificado = getdate(), AnuladoPor = NULL, FechaAnulado = null 
+			ModificadoPor = @Usuario, FechaModificado = getdate(), BorradoPor = NULL, FechaBorrado = null 
 		where 
 			IdRole = @IdRoleM and IdUser = @IdUserM;
 
@@ -55,7 +55,7 @@ Begin
 		update 
 			tblUsersRoles 
 		set
-			AnuladoPor = @Usuario, FechaAnulado = getdate() 
+			BorradoPor = @Usuario, FechaBorrado = getdate() 
 		where 
 			IdRole = @IdRoleA and IdUser = @IdUserA;
 

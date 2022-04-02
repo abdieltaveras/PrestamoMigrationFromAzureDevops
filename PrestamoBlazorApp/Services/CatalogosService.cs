@@ -37,6 +37,7 @@ namespace PrestamoBlazorApp.Services
         public async Task DeleteCatalogo(Catalogo catalogo)
         {
 
+            await PostAsync<Catalogo>(apiUrl + "/Post", catalogo);
         }
         //public async Task<IEnumerable<T>> Get<T>(CatalogoGetParams search) where T : class
         //{

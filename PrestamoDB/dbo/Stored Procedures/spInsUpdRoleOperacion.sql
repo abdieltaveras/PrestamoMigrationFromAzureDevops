@@ -40,7 +40,7 @@ Begin
 		update 
 			tblRolesOperaciones 
 		set
-			ModificadoPor = @Usuario, FechaModificado = getdate(), AnuladoPor = NULL, FechaAnulado = null 
+			ModificadoPor = @Usuario, FechaModificado = getdate(), BorradoPor = NULL, FechaBorrado = null 
 		where 
 			IdRole = @IdRoleM and IdOperacion = @IdOperacionM;
 
@@ -59,7 +59,7 @@ Begin
 		update 
 			tblRolesOperaciones 
 		set
-			AnuladoPor = @Usuario, FechaAnulado = getdate() 
+			BorradoPor = @Usuario, FechaBorrado = getdate() 
 		where 
 			IdRole = @IdRoleA and IdOperacion = @IdOperacionA;
 

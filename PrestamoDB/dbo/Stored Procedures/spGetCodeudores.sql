@@ -6,7 +6,7 @@
 	@Activo int=-1,
 	@IdLocalidadNegocio int=-1,
 	@IdLocalidad int=-1,
-	@Anulado int=0,
+	@Borrado int=0,
 	@NoIdentificacion varchar(20)='',
 	@idTipoIdentificacion int= -1,
 	@Nombres varchar(100)='',
@@ -27,8 +27,8 @@ begin
 	end
 
 
-	SELECT TOP (@CantidadRegistrosASeleccionar)  IdCodeudor,IdStatus, Codigo,Activo, AnuladoPor, Apodo, 
-	Apellidos, IdEstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaAnulado, IdNegocio, 
+	SELECT TOP (@CantidadRegistrosASeleccionar)  IdCodeudor,IdStatus, Codigo,Activo, BorradoPor, Apodo, 
+	Apellidos, IdEstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaBorrado, IdNegocio, 
 	IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor,
 	NoIdentificacion, Nombres, IdSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, Imagenes
 	FROM dbo.tblCodeudores(nolock) 

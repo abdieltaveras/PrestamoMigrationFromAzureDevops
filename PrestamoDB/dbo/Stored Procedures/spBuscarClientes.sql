@@ -4,7 +4,7 @@
 	@IdNegocio int=-1,
 	@idLocalidadNegocio int=-1,
 	@Usuario varchar(100) = '',
-	@Anulado int=0,
+	@Borrado int=0,
 	@cantidadRegistro int = 30
 )
 as

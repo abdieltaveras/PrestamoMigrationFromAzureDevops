@@ -6,7 +6,7 @@
 @Opcion int =-1,
 @Activo int=-1,
 @IdLocalidad int=-1,
-@Anulado int=0,
+@Borrado int=0,
 @Usuario varchar(50)
 AS
 BEGIN

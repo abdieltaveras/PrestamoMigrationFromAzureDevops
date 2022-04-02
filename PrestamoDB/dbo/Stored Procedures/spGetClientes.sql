@@ -6,7 +6,7 @@
 	@Activo int=-1,
 	@IdLocalidadNegocio int=-1,
 	@IdLocalidad int=-1,
-	@Anulado int=0,
+	@Borrado int=0,
 	@NoIdentificacion varchar(20)='',
 	@idTipoIdentificacion int= -1,
 	@Nombres varchar(100)='',
@@ -27,7 +27,7 @@ begin
 	end
 
 
-	SELECT TOP (@CantidadRegistrosASeleccionar)    IdCliente,IdStatus, Codigo,Activo, AnuladoPor, Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaAnulado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, IdSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencias, Imagenes
+	SELECT TOP (@CantidadRegistrosASeleccionar)    IdCliente,IdStatus, Codigo,Activo, BorradoPor, Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaBorrado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, IdSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencias, Imagenes
 	FROM dbo.tblClientes(nolock) 
 	where 
 		((@idCliente=-1) or (IdCliente = @IdCliente))

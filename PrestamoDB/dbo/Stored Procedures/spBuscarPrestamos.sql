@@ -3,7 +3,7 @@
 	@TextToSearch varchar(50),
 	@IdNegocio int=-1,
 	@Usuario varchar(100) = '',
-	@Anulado int=0
+	@Borrado int=0
 )
 as
 begin

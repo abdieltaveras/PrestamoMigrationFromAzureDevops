@@ -6,7 +6,7 @@
 	@Usuario varchar(50),
 	@Codigo varchar(10),
 	@Activo bit = 1,
-	@Anulado int=0
+	@Borrado int=0
 AS
 Begin
 if (@IdRole = 0)

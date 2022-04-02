@@ -23,8 +23,8 @@ namespace PrestamoBLL
         public void CancelTipoMora(TipoMoraDelParams delParam)
         {
 
-            BllAcciones.CancelData<TipoMoraDelParams>(delParam, "spAnularTipoMora");
-            //PrestamosDB.ExecSelSP("spAnularTipoMora", SearchRec.ToSqlParams(delParam));
+            BllAcciones.CancelData<TipoMoraDelParams>(delParam, "SpDeleteTipoMora");
+            //PrestamosDB.ExecSelSP("SpDeleteTipoMora", SearchRec.ToSqlParams(delParam));
         }
 
         public void DeleteTipoMora(TipoMoraDelParams delParam)

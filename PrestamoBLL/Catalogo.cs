@@ -10,6 +10,8 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
+        
+
         public IEnumerable<BaseCatalogo> GetCatalogos(BaseCatalogoGetParams searchParam)
         {
             if (string.IsNullOrEmpty(searchParam.IdTabla))
@@ -38,7 +40,7 @@ namespace PrestamoBLL
                     throw new Exception($"La tabla {searchParam.NombreTabla} , no se encontro en ninguna eleccion para ejecutar una consulta de datos");
             }
         }
-        public void InsUpdCatalogo(Catalogo insUpdParams )
+        public void InsUpdCatalogo(Catalogo insUpdParams)
         {
             BllAcciones.InsUpdData(insUpdParams, "spInsUpdCatalogo");
         }
@@ -78,6 +80,12 @@ namespace PrestamoBLL
                 DatabaseError(e);
             }
             return catalogo;
+        }
+        public void DeleteCatalogo(BaseCatalogoDeleteParams catalogo)
+        {
+            var searchSqlParams = SearchRec.ToSqlParams(catalogo);
+            
+            DBPrestamo.ExecReaderSelSP("spDelCatalogo", searchSqlParams);
         }
     }
 }

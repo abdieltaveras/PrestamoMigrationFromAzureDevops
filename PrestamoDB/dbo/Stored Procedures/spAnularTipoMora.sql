@@ -1,4 +1,4 @@
-﻿--Este procedimiento almacenado se usa para marcar como Anulado 
+﻿--Este procedimiento almacenado se usa para marcar como Borrado 
 --una tasa de interes e indicar por quien y cuando fue realizada 
 --esta accion.
 
@@ -10,8 +10,8 @@ AS
 	update tblTiposMora
 		SET
 			Activo = 0,
-			AnuladoPor = @Usuario,
-			FechaAnulado = getdate()
+			BorradoPor = @Usuario,
+			FechaBorrado = getdate()
 		WHERE 
 			idTipoMora = @id	
 End

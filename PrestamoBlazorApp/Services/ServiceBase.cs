@@ -72,34 +72,26 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
+        public async Task<string> DelAsync(string endpoint, object search, bool requiresAuth = true)
+        {
+            var baseUrl = Configuration["BaseServerUrl"];
+            var query = search.UrlEncode();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
+            request.Headers.Add("Accept", "application/json");
+            var client = _clientFactory.CreateClient();
+            //var client = await genClient(requiresAuth, ActionsValues);
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                return "";
+            }
+            else
+            {
+                return response.ReasonPhrase;
+            }
+        }
 
-        //public async Task<IEnumerable<string>> GetJsAsync(string endpoint, object search)
-        //{
-
-        //    var baseUrl = Configuration["BaseServerUrl"];
-        //    var query = search.UrlEncode();
-        //    var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
-        //    request.Headers.Add("Accept", "application/json");
-
-        //    IEnumerable<string> result;
-
-        //    var client = _clientFactory.CreateClient();
-
-        //    var response = await client.SendAsync(request);
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        //using var responseStream = await response.Content.ReadAsStreamAsync();
-        //        //result = await System.Text.Json.JsonSerializer.DeserializeAsync<IEnumerable<string>>(responseStream);
-        //        result = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
-        //    }
-        //    else
-        //    {
-
-        //        throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
-        //    }
-        //    return result;
-        //}
+        
         public async Task<HttpResponseMessage> ReportGenerate(IJSRuntime jSRuntime,string endpoint, object search)
         {
 

@@ -3,6 +3,22 @@ using System;
 
 namespace PrestamoEntidades
 {
+    public class NombreTablasForCatalogos
+    {
+        public static string Ocupaciones => "tblOcupaciones";
+
+        public static string VerificadorDireccion => "tblVerificadorDirecciones";
+
+        public static string Telefonos => "tblTipoTelefonos";
+
+        public static string TipoSexo => "tblTipoSexos";
+
+        public static string Tasadores => "tblTasadores";
+        public static string Localizadores => "tblLocalizadores";
+
+        public static string EstadosCiviles => "tblEstadosCiviles";
+        public static string Clasificaciones => "tblClasificaciones";
+    }
     public abstract class BaseGetParams : BaseUsuarioEIdNegocio
     {
         /// <summary>

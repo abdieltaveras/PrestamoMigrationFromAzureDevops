@@ -225,6 +225,7 @@
     <Build Include="dbo\Tables\tblLocalidadesNegocio.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdLocalidadNegocio.sql" />
     <Build Include="dbo\Stored Procedures\SpGetLocalidadesNegocios.sql" />
+    <Build Include="dbo\Stored Procedures\SpDeleteRegistro.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PrestamoDB.publish.xml" />

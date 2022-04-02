@@ -17,7 +17,6 @@ namespace PrestamoEntidades
         {
             throw new NotImplementedException();
         }
-
         
     }
 

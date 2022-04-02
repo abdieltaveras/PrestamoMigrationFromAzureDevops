@@ -308,4 +308,102 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdSexo" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a06f4797-ae89-4726-aa02-dfe569d1d29a" ChangeDateTime="04/02/2022 06:57:48">
+    <Property Name="ElementName" Value="[dbo].[tblOcupaciones].[BorradoPor]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblOcupaciones]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BorradoPor" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6f38c700-f1fb-48ec-a89c-7ef6f512f837" ChangeDateTime="04/02/2022 06:57:59">
+    <Property Name="ElementName" Value="[dbo].[tblOcupaciones].[FechaBorrado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblOcupaciones]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FechaBorrado" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3500bb5f-0e3e-4e6f-8c89-61d2265a4556" ChangeDateTime="04/02/2022 06:58:24">
+    <Property Name="ElementName" Value="[dbo].[tblEquipos].[FechaBorrado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblEquipos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FechaBorrado" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dea402d9-4852-44f9-868c-273cb9abe95d" ChangeDateTime="04/02/2022 06:58:34">
+    <Property Name="ElementName" Value="[dbo].[tblEquipos].[BorradoPor]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblEquipos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BorradoPor" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="655fd28c-3c1e-4873-9cf6-5aa540449a99" ChangeDateTime="04/02/2022 06:58:49">
+    <Property Name="ElementName" Value="[dbo].[tblDivisionTerritorial].[BorradoPor]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblDivisionTerritorial]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BorradoPor" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="27f54134-fdc6-43e0-a75a-715ae40e32ce" ChangeDateTime="04/02/2022 06:59:04">
+    <Property Name="ElementName" Value="[dbo].[tblDivisionTerritorial].[FechaBorrado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblDivisionTerritorial]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FechaBorrado" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="22ddd335-09ed-4097-a805-a5a000bc0630" ChangeDateTime="04/02/2022 06:59:32">
+    <Property Name="ElementName" Value="[dbo].[tblEstadosCiviles].[FechaBorrado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblEstadosCiviles]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FechaBorrado" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f2b81a1c-4e6a-46fe-b0b1-bffafde3c420" ChangeDateTime="04/02/2022 06:59:41">
+    <Property Name="ElementName" Value="[dbo].[tblEstadosCiviles].[BorradoPor]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblEstadosCiviles]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BorradoPor" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5e03c091-017d-42a0-9e8b-3a70d1119fbb" ChangeDateTime="04/02/2022 07:00:05">
+    <Property Name="ElementName" Value="[dbo].[tblGarantias].[BorradoPor]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblGarantias]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BorradoPor" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c0ec3524-80cf-465c-b978-dbb9f1f46bbb" ChangeDateTime="04/02/2022 07:00:13">
+    <Property Name="ElementName" Value="[dbo].[tblGarantias].[FechaBorrado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblGarantias]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FechaBorrado" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="820a21e3-632c-4640-9210-20636c7c38e7" ChangeDateTime="04/02/2022 07:00:42">
+    <Property Name="ElementName" Value="[dbo].[tblDivisas].[BorradoPor]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblDivisas]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BorradoPor" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2d3ff900-2ca3-43a3-815b-b0ef9d859bb8" ChangeDateTime="04/02/2022 07:00:51">
+    <Property Name="ElementName" Value="[dbo].[tblDivisas].[FechaBorrado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblDivisas]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FechaBorrado" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ccbefac6-11ad-4754-b1a7-c04331932786" ChangeDateTime="04/02/2022 07:01:13">
+    <Property Name="ElementName" Value="[dbo].[tblClasificaciones].[BorradoPor]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblClasificaciones]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BorradoPor" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="81856dae-ebfa-452b-855a-651f60fa6438" ChangeDateTime="04/02/2022 07:01:18">
+    <Property Name="ElementName" Value="[dbo].[tblClasificaciones].[FechaBorrado]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblClasificaciones]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FechaBorrado" />
+  </Operation>
 </Operations>

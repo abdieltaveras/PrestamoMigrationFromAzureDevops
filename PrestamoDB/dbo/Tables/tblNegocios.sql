@@ -14,8 +14,8 @@
 	FechaInsertado DateTime not null default getdate(), 
     [ModificadoPor] VARCHAR(200) NULL, 
     [FechaModificado] DATETIME NULL, 
-    [AnuladoPor] VARCHAR(200) NULL, 
-    [FechaAnulado] DATETIME NULL, 
+    [BorradoPor] VARCHAR(200) NULL, 
+    [FechaBorrado] DATETIME NULL, 
 	[Logo] VARCHAR(50) NULL, 
     Prefijo varchar(3) 
     CONSTRAINT [FK_tblNegocio_UQ_TaxIdNo] Unique NonClustered(IdNegocio, TaxIdNo),

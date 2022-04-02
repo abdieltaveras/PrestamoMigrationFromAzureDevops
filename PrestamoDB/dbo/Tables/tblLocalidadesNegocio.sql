@@ -18,8 +18,8 @@
 	FechaInsertado DateTime not null default getdate(), 
     [ModificadoPor] VARCHAR(200) NULL, 
     [FechaModificado] DATETIME NULL, 
-    [AnuladoPor] VARCHAR(200) NULL, 
-    [FechaAnulado] DATETIME NULL, 
+    [BorradoPor] VARCHAR(200) NULL, 
+    [FechaBorrado] DATETIME NULL, 
 	[Logo] VARCHAR(max) NULL, 
     [OtrosDetalles] VARCHAR(max) NULL, 
     

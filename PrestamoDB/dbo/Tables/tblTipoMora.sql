@@ -17,8 +17,8 @@
 	FechaInsertado DateTime not null default getdate(), 
     [ModificadoPor] VARCHAR(100) NULL, 
     [FechaModificado] DATETIME NULL, 
-    [AnuladoPor] VARCHAR(100) NULL, 
-    [FechaAnulado] DATETIME NULL, 
+    [BorradoPor] VARCHAR(100) NULL, 
+    [FechaBorrado] DATETIME NULL, 
     CONSTRAINT [CK_tblTipoMora_CodigoUnico] UNIQUE(Codigo), 
     CONSTRAINT [FK_tblTiposMora_ToTblNegocios] FOREIGN KEY (idNegocio) REFERENCES tblNegocios([IdNegocio])
 )

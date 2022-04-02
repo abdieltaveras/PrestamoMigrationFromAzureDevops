@@ -9,14 +9,15 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        public IEnumerable<Ocupacion> GetOcupaciones(OcupacionGetParams searchParam)
-        {
-            return BllAcciones.GetData<Ocupacion, OcupacionGetParams>(searchParam, "spGetOcupaciones", GetValidation);
-        }
+        // debe usar Catalogo y no esta
+        //public IEnumerable<Ocupacion> GetOcupaciones(OcupacionGetParams searchParam)
+        //{
+        //    return BllAcciones.GetData<Ocupacion, OcupacionGetParams>(searchParam, "spGetOcupaciones", GetValidation);
+        //}
 
-        public void InsUpdOcupacion(Ocupacion insUpdParam)
-        {
-            BllAcciones.InsUpdData<Ocupacion>(insUpdParam, "spInsUpdOcupacion");
-        }
+        //public void InsUpdOcupacion(Ocupacion insUpdParam)
+        //{
+        //    BllAcciones.InsUpdData<Ocupacion>(insUpdParam, "spInsUpdOcupacion");
+        //}
     }
 }

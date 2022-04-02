@@ -5,7 +5,7 @@
 as
 begin
 	SELECT 
-		IdRole, IdOperacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado
+		IdRole, IdOperacion, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado
 	FROM 
 		tblRolesOperaciones 
 	WHERE 

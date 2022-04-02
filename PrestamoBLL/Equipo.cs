@@ -65,7 +65,7 @@ namespace PrestamoBLL
                 Usuario = getParam.Usuario
             };
             var _updateData = SearchRec.ToSqlParams(anularRegistro);
-            DBPrestamo.ExecSelSP("SpAnularRegistro", ref _updateData);
+            DBPrestamo.ExecSelSP("SpDeleteRegistro", ref _updateData);
         }
 
 

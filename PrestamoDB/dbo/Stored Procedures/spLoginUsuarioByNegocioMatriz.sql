@@ -9,7 +9,7 @@
 as
 begin
 		SELECT 
-		IdUsuario, IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña , Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath, ContraseñaExpiraCadaXMes, VigenteHasta, VigenteDesde, RazonBloqueo
+		IdUsuario, IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña , Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, ImgFilePath, ContraseñaExpiraCadaXMes, VigenteHasta, VigenteDesde, RazonBloqueo
 		into #tempData
 		FROM dbo.tblUsuarios(nolock) 
 		where 
@@ -22,7 +22,7 @@ begin
 			set @contraseñaValida=1
 		end
 		SELECT @contraseñaValida as ContraseñaValida,
-		IdUsuario, IdNegocio, LoginName, NombreRealCompleto, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña , Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath, ContraseñaExpiraCadaXMes, VigenteHasta, VigenteDesde, RazonBloqueo from #tempdata
+		IdUsuario, IdNegocio, LoginName, NombreRealCompleto, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña , Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, ImgFilePath, ContraseñaExpiraCadaXMes, VigenteHasta, VigenteDesde, RazonBloqueo from #tempdata
 End
 
 

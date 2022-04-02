@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spGetDatosPIngreso]
 	@IdPrestamo int,
-	@Anulado int=0,
+	@Borrado int=0,
 	@IdNegocio int=0,
 	@Usuario varchar(50)=''
 AS

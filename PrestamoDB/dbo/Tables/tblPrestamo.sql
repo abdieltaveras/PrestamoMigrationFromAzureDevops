@@ -32,8 +32,8 @@
 	[FechaInsertado] DateTime not null default getdate(), 
     [ModificadoPor] VARCHAR(100) NULL, 
     [FechaModificado] DATETIME NULL, 
-    [AnuladoPor] VARCHAR(100) NULL, 
-    [FechaAnulado] DATETIME NULL,
+    [BorradoPor] VARCHAR(100) NULL, 
+    [FechaBorrado] DATETIME NULL,
 	[Saldado] bit not null default 0,
 	constraint TotalCapitalMayorQueCero check (TotalPrestado > 0),
 	constraint fk_idPrestamoARenovar foreign KEY (IdPrestamoARenovar) REFERENCES tblPrestamos([IdPrestamo])

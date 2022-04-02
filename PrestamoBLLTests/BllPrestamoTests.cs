@@ -10,16 +10,7 @@ using PrestamoEntidades;
 
 namespace PrestamoBLL.Tests
 {
-    public class TestInfo
-    {
-        /// <summary>
-        ///  Usuario del proyecto 
-        /// </summary>
-        public static string Usuario => "PrestamoBllTestProject";
-        public string _Usuario => Usuario;
-        public string MensajeError { get; set; } = string.Empty;
-    }
-
+    
     [TestClass()]
     public class BllPrestamoTests
     {

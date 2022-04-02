@@ -6,12 +6,12 @@
 	@NombreComercial varchar(100)='',
 	@NombreJuridico varchar(100)='',
 	@TaxIdNo varchar(20)='',
-	@Anulado int=0,
+	@Borrado int=0,
 	@PermitirOperaciones int,
 	@Usuario varchar(100)=''
 AS
 begin
-	SELECT IdNegocio, Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado,TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, logo,  dbo.fnGetIdNegocioMatriz(@idNegocio) as idNegocioMatriz
+	SELECT IdNegocio, Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado,TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, logo,  dbo.fnGetIdNegocioMatriz(@idNegocio) as idNegocioMatriz
 	FROM dbo.tblNegocios(nolock) 
 	where
 		((@idNegocio=-1) or (IdNegocio = @IdNegocio)) and 

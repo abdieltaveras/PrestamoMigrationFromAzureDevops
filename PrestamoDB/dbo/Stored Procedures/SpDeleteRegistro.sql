@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spAnularRegistro]
+﻿CREATE PROCEDURE [dbo].[sDeleteRegistro]
 (
 	@NombreTabla varchar(100),
 	@IdRegistroValor int=-1,

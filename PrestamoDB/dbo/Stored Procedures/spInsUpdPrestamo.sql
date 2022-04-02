@@ -57,7 +57,7 @@ begin
 		InteresGastoDeCierre=@interesgastodecierre, MontoGastoDeCierre=@montogastodecierre, GastoDeCierreEsDeducible=@gastodecierreesdeducible, 
 		CargarInteresAlGastoDeCierre =@cargarinteresalgastodecierre,FinanciarGastoDeCierre=@financiarGastoDeCierre,  AcomodarFechaALasCuotas=@acomodarfechaalascuotas, 
 		FechaInicioPrimeraCuota=@fechainicioprimeracuota,  OtrosCargosSinInteres=@otrosCargosSinInteres, ModificadoPor = @Usuario, FechaModificado=getdate()
-		where idPrestamo = @idPrestamo and AnuladoPor is null
+		where idPrestamo = @idPrestamo and BorradoPor is null
 		--RAISERROR('Error: no se ha implementado la actualizacion aun URGENTE DEBE HACERLO',17,1); 
 		
 		merge tblCuotas as target

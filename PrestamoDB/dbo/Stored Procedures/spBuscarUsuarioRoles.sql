@@ -3,15 +3,15 @@
 	@IdNegocio int,
 		@IdLocalidadNegocio int = -1,
 	@Usuario varchar(100) = '',
-	@Anulado int=0
+	@Borrado int=0
 as
 BEGIN
 
 	SELECT 
-		IdUser, IdRole, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado 
+		IdUser, IdRole, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado 
 	FROM 
 		tblUsersRoles 
 	WHERE 
-		IdUser = @IdUsuario AND AnuladoPor IS NULL;
+		IdUser = @IdUsuario AND BorradoPor IS NULL;
 
 End

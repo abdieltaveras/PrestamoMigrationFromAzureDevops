@@ -16,9 +16,14 @@ namespace PrestamoWS.Controllers
     public class CatalogoController : ControllerBasePrestamoWS
     {
         [HttpPost]
-        public IActionResult Post([FromBody] Catalogo catalogo)
+        public IActionResult Post([FromBody] Catalogo catalogo)=> SaveCatalogo(catalogo);
+        [HttpGet]
+        public IEnumerable<Catalogo> Get([FromQuery] CatalogoGetParams getParams)=> BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(getParams);
+
+        [HttpDelete]
+        public void Delete(BaseCatalogoDeleteParams catalogo) => BLLPrestamo.Instance.DeleteCatalogo(catalogo);
+        private IActionResult SaveCatalogo(Catalogo catalogo)
         {
-           
             try
             {
                 catalogo.Usuario = this.LoginName;
@@ -33,14 +38,5 @@ namespace PrestamoWS.Controllers
             }
         }
 
-        
-        [HttpGet]
-        public IEnumerable<Catalogo> Get([FromQuery] CatalogoGetParams getParams)
-        {
-        
-            var result = BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(getParams);
-            return result;
-
-        }
     }
 }

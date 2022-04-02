@@ -9,12 +9,12 @@
     @Activo int=-1,
     @DebeCambiarContraseñaAlIniciarSesion int= -1,
 	@Usuario varchar(100)='',
-	@Anulado int=-1
+	@Borrado int=-1
 )
 as
 begin
 	SELECT 
-	IdUsuario, IdNegocio, LoginName, NombreRealCompleto, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña , Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, AnuladoPor, FechaAnulado, ImgFilePath, ContraseñaExpiraCadaXMes, VigenteHasta, VigenteDesde, RazonBloqueo
+	IdUsuario, IdNegocio, LoginName, NombreRealCompleto, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña , Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, ImgFilePath, ContraseñaExpiraCadaXMes, VigenteHasta, VigenteDesde, RazonBloqueo
 	FROM dbo.tblUsuarios(nolock) 
 	where 
 		((@idUsuario=-1) or (idUsuario = @IdUsuario))

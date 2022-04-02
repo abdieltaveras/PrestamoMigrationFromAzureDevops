@@ -17,6 +17,6 @@ BEGIN
 	AND (@search='' OR loc.Nombre LIKE '%' + @search + '%')	
 	and (@SoloLosQuePermitenCalle=0 or divTerr.PermiteCalle=1)
 	--AND (@idLocalidadNegocio =-1 OR loc.IdLocalidadN  = @idLocalidad)
-	AND  loc.AnuladoPor IS null
+	AND  loc.BorradoPor IS null
 End
 

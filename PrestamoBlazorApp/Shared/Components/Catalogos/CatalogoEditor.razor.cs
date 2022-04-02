@@ -58,6 +58,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
                 return;
             }
             CloseDlg();
+            await CatalogosService.DeleteCatalogo(this.Catalogo);
             await SweetMessageBox("Metodo ficticio no realiza ninguna operacion, implementar proceso");
  
         }
