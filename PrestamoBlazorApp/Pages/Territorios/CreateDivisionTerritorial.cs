@@ -17,7 +17,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         IEnumerable<Territorio> listadeterritorios { get; set; } = new List<Territorio>();
         [Parameter]
         public Territorio Territorio { get; set; }
-        
+        IEnumerable<Territorio> componenteDivision { get; set; } = new List<Territorio>();
         void Clear() => listadeterritorios = null;
         protected override void OnInitialized()
         {
@@ -28,7 +28,38 @@ namespace PrestamoBlazorApp.Pages.Territorios
         protected override async Task OnInitializedAsync()
         {
              listadeterritorios = await territoriosService.GetDivisionesTerritoriales();
+            componenteDivision = await territoriosService.GetComponenteDeDivision();
+            await LoadTree();
             // await JsInteropUtils.Territorio(jsRuntime);
+        }
+        private async Task LoadTree()
+        {
+            TreeItems = new HashSet<TreeItemData>();
+            
+            foreach (var item in componenteDivision)
+            {
+                if (TreeItems.Where(m=>m.Text == item.Nombre).Count()>0)
+                {
+                    return;
+                }
+                //TreeItemData treeItem = new TreeItemData(item.Nombre);
+              
+                //var hijos = componenteDivision.Where(m => m.IdLocalidadPadre == item.IdDivisionTerritorial);
+                //if (hijos.Count()>0)
+                //{
+                //    TreeItems = new HashSet<TreeItemData>() { new TreeItemData(item.Nombre) };
+                //    treeItem.Parent = new TreeItemData(item.Nombre);
+                //    foreach (var hijo in hijos) 
+                //    {
+                //        treeItem.AddChild(hijo.Nombre);
+                //    }
+                //}
+                TreeItems.Add(new TreeItemData(item.Nombre) { TreeItems = new HashSet<TreeItemData>() { 
+                    new TreeItemData(item.Nombre)
+                
+                } });
+            }
+        
         }
         public async Task VerTerritorios(string id)
         {
