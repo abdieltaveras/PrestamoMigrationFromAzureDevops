@@ -7,12 +7,15 @@ using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
-
+using MudBlazor;
+using PrestamoBlazorApp.Shared.Components.TiposMora;
 namespace PrestamoBlazorApp.Pages.TiposMora
 {
     public partial class TiposMora : BaseForCreateOrEdit
     {
-    
+        [Inject]
+        IDialogService DialogService { get; set; }
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         [Inject]
         TiposMoraService TiposMoraService { get; set; }
         IEnumerable<TipoMora> tiposmora { get; set; } = new List<TipoMora>();
@@ -59,22 +62,44 @@ namespace PrestamoBlazorApp.Pages.TiposMora
             //await OnGuardarNotification();
             //NavManager.NavigateTo("/TiposMora");
         }
-        async Task CreateOrEdit(int idTipoMora = -1)
+        async Task CreateOrEdit(int id = -1)
         {
-            if (idTipoMora > 0)
-            {
-                var param = await TiposMoraService.Get(new TipoMoraGetParams { IdTipoMora = idTipoMora });
-                this.TipoMora = param.FirstOrDefault();
-            }
-            else
-            {
-                this.TipoMora = new TipoMora();
-            }
-            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            var parameters = new DialogParameters();
+            parameters.Add("IdTipoMora", id);
+            var dialog = DialogService.Show<CreateTiposMora>("", parameters, dialogOptions);
+            var result = await dialog.Result;
+            //if (Convert.ToInt32(result.Data.ToString()) == 1)
+            //{
+            //    //await GetData();
+            //    StateHasChanged();
+            //}
+            //if (idTipoMora > 0)
+            //{
+            //    var param = await TiposMoraService.Get(new TipoMoraGetParams { IdTipoMora = idTipoMora });
+            //    this.TipoMora = param.FirstOrDefault();
+            //}
+            //else
+            //{
+            //    this.TipoMora = new TipoMora();
+            //}
+            //await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
         void RaiseInvalidSubmit()
         {
             
         }
+
+        //private async Task ShowDialog(int id = -1)
+        //{
+        //    var parameters = new DialogParameters();
+        //    parameters.Add("IdTipoMora", id);
+        //    var dialog = DialogService.Show<CreateTiposMora>("", parameters, dialogOptions);
+        //    var result = await dialog.Result;
+        //    if (Convert.ToInt32(result.Data.ToString()) == 1)
+        //    {
+        //        //await GetData();
+        //        StateHasChanged();
+        //    }
+        //}
     }
 }
