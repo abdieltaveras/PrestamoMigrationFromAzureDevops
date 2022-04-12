@@ -14,13 +14,13 @@ using System.ComponentModel.DataAnnotations;
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
     
+
     public partial class CatalogoEditor : BaseForCreateOrEdit
     {
         // parameters
-        [Parameter] public Catalogo Catalogo { get; set; } = new Catalogo();
-        [Parameter] public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams();
-
+        [Parameter] public CatalogoInsUpd Catalogo { get; set; } = new CatalogoInsUpd();
         [Parameter] public bool UsarFormularioParaEliminar { get; set; } = false;
+
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         // injections
         [Inject] CatalogosService CatalogosService { get; set; }
@@ -46,7 +46,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         {
             CloseDlg();
             await Handle_SaveData(async () => await CatalogosService.SaveCatalogo(this.Catalogo), null, null,false,"Reload");
-            this.Catalogo = new Catalogo();
+            this.Catalogo = new CatalogoInsUpd();
             
         }
         
@@ -57,17 +57,17 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
                 ConfirmationMessage = "Valor de confirmacion incorrecto, digitar de nuevo";
                 return;
             }
+            var deleteParams = new BaseCatalogoDeleteParams { IdRegistro = this.Catalogo.IdRegistro };
+            await CatalogosService.DeleteCatalogo(deleteParams);
             CloseDlg();
-            await CatalogosService.DeleteCatalogo(this.Catalogo);
-            await SweetMessageBox("Metodo ficticio no realiza ninguna operacion, implementar proceso");
- 
         }
         
         async void PrintListado(int reportType)
         {
             await BlockPage();
-            CatalogoGetParams.reportType = reportType;
-            var result = await CatalogosService.ReportListado(jsRuntime, CatalogoGetParams);
+            var catalogoGetParams = new CatalogoReportGetParams();
+            catalogoGetParams.ReportType = reportType;
+            var result = await CatalogosService.ReportListado(jsRuntime, catalogoGetParams);
             await UnBlockPage();
         }
     }

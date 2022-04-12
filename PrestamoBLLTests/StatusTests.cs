@@ -7,7 +7,7 @@ using PrestamoBLL;
 using PrestamoEntidades;
 using System.Linq;
 
-namespace PrestamoBLLTests
+namespace PrestamoBLL.Tests
 {
     /// <summary>
     /// Summary description for StatusTests

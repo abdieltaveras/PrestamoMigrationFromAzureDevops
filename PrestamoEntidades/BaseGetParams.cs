@@ -28,19 +28,25 @@ namespace PrestamoEntidades
         public int Anulado { get; set; } = -1;
     }
 
-    public class BaseCatalogoGetParams : BaseGetParams
-    {
-        [IgnoreOnParams]
-        public int reportType { get; set; } = -1;
-        /// <summary>
-        /// Then name of the column id example IdColor, IdClasificacion
-        /// </summary>
-        public string IdTabla { get; set; } = string.Empty;
-        /// <summary>
-        /// the Name of the table
-        /// </summary>
-        public string NombreTabla { get; set; } = string.Empty;
+    //public abstract class BaseCatalogoGetParams : BaseGetParams
+    //{
+    //    [IgnoreOnParams]
+    //    public int reportType { get; set; } = -1;
+    //    /// <summary>
+    //    /// Then name of the column id example IdColor, IdClasificacion
+    //    /// </summary>
+    //    public string IdTabla { get; set; } = string.Empty;
+    //    /// <summary>
+    //    /// the Name of the table
+    //    /// </summary>
+    //    public string NombreTabla { get; set; } = string.Empty;
 
+    //}
+
+    public  class BaseCatalogoGetParams : BaseUsuarioEIdNegocio
+    {
+
+        public int IdRegistro { get; set; } = -1;
     }
 
     /// Informaciones basicas de un objeto que tiene datos relaciona a una persona pero sin Codigo

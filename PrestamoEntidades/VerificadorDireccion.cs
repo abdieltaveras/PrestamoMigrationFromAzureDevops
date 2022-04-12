@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class VerificadorDireccion : BaseCatalogo
+    public class VerificadorDireccion : BaseInsUpdCatalogo
     {
         public int IdVerificadorDireccion { get; set; } = 0;
 

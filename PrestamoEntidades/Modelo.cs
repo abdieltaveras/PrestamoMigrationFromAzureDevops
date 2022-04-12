@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Modelo : BaseCatalogo
+    public class Modelo : BaseInsUpdCatalogo
     {
         public int IdModelo { get; set; } = 0;
         public int IdMarca { get; set; } = 0;

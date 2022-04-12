@@ -9,7 +9,9 @@ namespace PrestamoBLL
 {
     public partial class BLLPrestamo
     {
-        // debe usar Catalogo y no esta
+        
+
+        ////debe usar Catalogo y no esta
         //public IEnumerable<Ocupacion> GetOcupaciones(OcupacionGetParams searchParam)
         //{
         //    return BllAcciones.GetData<Ocupacion, OcupacionGetParams>(searchParam, "spGetOcupaciones", GetValidation);

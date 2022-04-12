@@ -20,22 +20,22 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
    
         // parameters
         [Parameter]
-        public Catalogo Catalogo { get; set; } = new Catalogo();
+        public CatalogoInsUpd Catalogo { get; set; } = new CatalogoInsUpd();
         [Parameter]
-        public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams();
+        public BaseCatalogoGetParams CatalogoGetParams { get; set; } = new BaseCatalogoGetParams();
         // injections
         [Inject]
         CatalogosService CatalogosService { get; set; }
         // Members
         private string SearchString1 = "";
-        private Catalogo SelectedItem1 = null;
-        private bool FilterFunc1(Catalogo element) => FilterFunc(element, SearchString1);
+        private CatalogoInsUpd SelectedItem1 = null;
+        private bool FilterFunc1(CatalogoInsUpd element) => FilterFunc(element, SearchString1);
        
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         private bool Dense = true, Hover = true, Bordered = false, Striped = false;
         private BaseForList BaseForList { get; set; }
-        private IEnumerable<Catalogo> Catalogos { get; set; } = new List<Catalogo>();
+        private IEnumerable<CatalogoInsUpd> Catalogos { get; set; } = new List<CatalogoInsUpd>();
         
       
 
@@ -48,7 +48,8 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             if (firstRender)
             {
                 await BlockPage();
-                Catalogos = await CatalogosService.Get(CatalogoGetParams);
+                
+                Catalogos = await CatalogosService.Get(new CatalogoGetParams());
                 //JsonConvert.DeserializeObject<IEnumerable< Catalogo>>(lista.FirstOrDefault().ToString() );
                 await UnBlockPage();
                 StateHasChanged();
@@ -59,7 +60,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         {
             ShowDialog(false);
             await Handle_SaveData(async () => await CatalogosService.SaveCatalogo(this.Catalogo), null, null,false,"Reload");
-            this.Catalogo = new Catalogo();
+            this.Catalogo = new CatalogoInsUpd();
             
         }
         async Task CreateOrEdit(int Id = -1)
@@ -67,18 +68,20 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             if (Id > 0)
             {
                 await BlockPage();
-                CatalogoGetParams.Id = Id;
-                var lista = await CatalogosService.Get(CatalogoGetParams);
+                
+                var catalogoGetParams = new CatalogoGetParams();
+                catalogoGetParams.IdRegistro = Id;
+                var lista = await CatalogosService.Get(catalogoGetParams);
                 var catalogo = lista.ToList().FirstOrDefault();
                 //JsonConvert.DeserializeObject<IEnumerable<Catalogo>>(lista.FirstOrDefault().ToString()).FirstOrDefault();
                 Catalogo.Nombre = catalogo.Nombre;
                 Catalogo.Codigo = catalogo.Codigo;
-                Catalogo.Id = catalogo.Id;
+                Catalogo.IdRegistro = catalogo.IdRegistro;
                 await UnBlockPage();
             }
             else
             {
-                this.Catalogo = new Catalogo { IdTabla = Catalogo.IdTabla, NombreTabla = Catalogo.NombreTabla };
+                this.Catalogo = new CatalogoInsUpd();
             }
             ShowDialog(true);
             StateHasChanged();
@@ -103,11 +106,12 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         async void PrintListado(int reportType)
         {
             await BlockPage();
-            CatalogoGetParams.reportType = reportType;
-            var result = await CatalogosService.ReportListado(jsRuntime, CatalogoGetParams);
+            var catalogoReportParams = new CatalogoReportGetParams();
+            catalogoReportParams.ReportType = reportType;
+            var result = await CatalogosService.ReportListado(jsRuntime, catalogoReportParams);
             await UnBlockPage();
         }
-        private bool FilterFunc(Catalogo element, string searchString)
+        private bool FilterFunc(CatalogoInsUpd element, string searchString)
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;

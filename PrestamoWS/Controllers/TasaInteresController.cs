@@ -48,10 +48,11 @@ namespace PrestamoWS.Controllers
         [HttpDelete]
         public IActionResult Anular(int idRegistro)
         {
+            throw new NotImplementedException();
             // llenar el parametro de borrado si lo requier el metodo
             var elimParam = new AnularCatalogo
             {
-                NombreTabla = "tblTasaInteres",
+                //NombreTabla = "tblTasaInteres",
                 IdRegistro = idRegistro.ToString()
             };
             try

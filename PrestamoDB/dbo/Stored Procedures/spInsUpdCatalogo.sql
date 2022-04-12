@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spInsUpdCatalogo]
-	@Id int,
-	@IdTabla varchar(50),
+	@IdRegistro int,
+	@IdColumnName varchar(50),
 	@Nombre varchar(50),
-	@NombreTabla varchar(50),
+	@TableName varchar(50),
 	@IdNegocio int,
 	@IdLocalidadNegocio int,
 	@Usuario varchar(50),
@@ -13,22 +13,23 @@ Begin
 
 
 
-if (@Id = 0)
+if (@IdRegistro = 0)
 	begin
 		EXEC
 		(
-			'INSERT INTO ' + @NombreTabla +' (Codigo, Nombre, IdNegocio, IdLocalidadNegocio, InsertadoPor, FechaInsertado) VALUES ('''+@Codigo+''','''+@Nombre+''', '''+@IdNegocio+''','''+@IdlocalidadNegocio+''', '''+@Usuario+''', GETDATE() )'
+			'INSERT INTO ' + @TableName +' (Codigo, Nombre, Activo, IdNegocio, IdLocalidadNegocio, InsertadoPor, FechaInsertado) 
+			VALUES ('''+@Codigo+''','''+@Nombre+''','''+@Activo+''', '''+@IdNegocio+''','''+@IdlocalidadNegocio+''', '''+@Usuario+''', GETDATE() )'
 		)
 		EXEC
 		(
-			'SELECT IDENT_CURRENT(''' + @NombreTabla + ''') as last_role'
+			'SELECT IDENT_CURRENT(''' + @TableName + ''') as last_role'
 		)
 	end
 else
 	begin
 		EXEC
 		(
-			'UPDATE '+ @NombreTabla +' SET Codigo = '''+@Codigo+''', Nombre = '''+@Nombre+''', IdNegocio = '''+@IdNegocio+''',IdLocalidadNegocio = '''+@IdLocalidadNegocio+''', ModificadoPor = '''+@Usuario+''', FechaModificado = GETDATE() WHERE '+@IdTabla + ' = '+@Id
+			'UPDATE '+ @TableName +' SET Codigo = '''+@Codigo+''', Nombre = '''+@Nombre+''', IdNegocio = '''+@IdNegocio+''',IdLocalidadNegocio = '''+@IdLocalidadNegocio+''', ModificadoPor = '''+@Usuario+''', FechaModificado = GETDATE() WHERE '+@IdColumnName + ' = '+@IdRegistro
 		)
 	end
 End

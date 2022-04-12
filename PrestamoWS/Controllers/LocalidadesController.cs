@@ -97,15 +97,16 @@ namespace PrestamoWS.Controllers
         [HttpDelete]
         public IActionResult Anular(int idRegistro)
         {
-            // llenar el parametro de borrado si lo requier el metodo
-            var elimParam = new AnularCatalogo
-            {
-                NombreTabla = "tblLocalidades",
-                IdRegistro = idRegistro.ToString()
-            };
+            throw new NotImplementedException();
+            //// llenar el parametro de borrado si lo requier el metodo
+            //var elimParam = new AnularCatalogo
+            //{
+            //    NombreTabla = "tblLocalidades",
+            //    IdRegistro = idRegistro.ToString()
+            //};
             try
             {
-                BLLPrestamo.Instance.AnularCatalogo(elimParam);
+                //BLLPrestamo.Instance.AnularCatalogo(elimParam);
                 return Ok();
             }
             catch (Exception e)

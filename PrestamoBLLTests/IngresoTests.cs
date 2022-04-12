@@ -6,7 +6,7 @@ using PrestamoBLL;
 using PrestamoEntidades;
 using System.Data;
 
-namespace PrestamoBLLTests
+namespace PrestamoBLL.Tests
 {
     /// <summary>
     /// Summary description for IngresoTests

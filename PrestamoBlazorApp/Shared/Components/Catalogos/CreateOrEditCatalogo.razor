@@ -3,7 +3,7 @@
 <MudCard>
     <MudCardHeader>
         <CardHeaderContent>
-            <MudText Typo="Typo.h4" xs="1"> Listado De @(Catalogo.NombreTabla != null ? Catalogo.NombreTabla.Replace("tbl", "") : "")</MudText>
+            <MudText Typo="Typo.h4" xs="1"> Listado De </MudText>
         </CardHeaderContent>
         <CardHeaderActions>
 
@@ -20,7 +20,7 @@
     </MudCardHeader>
     <MudCardContent>
         <!--Table Section-->
-        <MudTable Items="@Catalogos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Catalogo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+        <MudTable Items="@Catalogos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<CatalogoInsUpd,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Elementos</MudText>
                 <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
@@ -34,7 +34,7 @@
                 <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
                 <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
                 <MudTd>
-                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.Id))" Title="Editar" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdRegistro))" Title="Editar" Icon="@Icons.Outlined.Edit"></MudIconButton>
                     <MudIconButton OnClick="@(()=>NotifyNotImplementedAction())" Title="Desactivar" Icon="@Icons.Outlined.Delete"></MudIconButton>
                     <MudIconButton OnClick="@(()=>NotifyNotImplementedAction())" Title="Eliminar" Icon="@Icons.Outlined.DeleteForever"></MudIconButton>
                 </MudTd>

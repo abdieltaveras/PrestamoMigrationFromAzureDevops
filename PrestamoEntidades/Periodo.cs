@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace PrestamoEntidades
 {
     public enum PeriodoBase { Dia = 1, Semana, Quincena, Mes, Ano }
-    public class Periodo : BaseCatalogo
+    public class Periodo : BaseInsUpdCatalogo
     {
         public int idPeriodo { get; set; } = 0;
 

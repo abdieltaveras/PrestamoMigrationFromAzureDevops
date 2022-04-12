@@ -19,20 +19,22 @@ namespace PrestamoBlazorApp.Pages.Colores
         CatalogosService catalogosService { get; set; }
         IEnumerable<Color> colores { get; set; } = new List<Color>();
         //public Color Color { get; set; } = new Color();
-        public Catalogo Catalogo { get; set; } = new Catalogo { NombreTabla = "tblColores", IdTabla = "idcolor" };
-        
-        public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams { NombreTabla = "tblColores", IdTabla = "idcolor" };
+        public CatalogoInsUpd Catalogo { get; set; } = new CatalogoInsUpd();
+
+        public BaseCatalogoGetParams CatalogoGetParams { get; set; } = new BaseCatalogoGetParams();
         void Clear() => colores = null;
         void ClearCatalogo() 
         {
-            Catalogo = new Catalogo { NombreTabla = "tblColores", IdTabla = "idcolor" };
-            
+            //Catalogo = new Catalogo { NombreTabla = "tblColores", IdTabla = "idcolor" };
+            Catalogo = new CatalogoInsUpd(); 
+
         }
         async void PrintListado()
         {
             await BlockPage();
-            CatalogoGetParams.reportType = 2;
-            var result = await catalogosService.ReportListado(jsRuntime,CatalogoGetParams);
+            var catalogoGetParams = new CatalogoReportGetParams();
+            catalogoGetParams.ReportType = 2;
+            var result = await catalogosService.ReportListado(jsRuntime,catalogoGetParams);
             await UnBlockPage();
         }
         void RaiseInvalidSubmit()

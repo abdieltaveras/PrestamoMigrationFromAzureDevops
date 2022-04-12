@@ -10,37 +10,39 @@ using System.Threading.Tasks;
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
 
-    public class CommonActionsForCatalogo : CommonActions, ICrudStandardButtonsAndActions<Catalogo>
+    public class CommonActionsForCatalogo : CommonActions, ICrudStandardButtonsAndActions<CatalogoInsUpd>
     {
-        Action<Catalogo> ShowEditorForAdd { get; }
-        Action<Catalogo> ShowEditorForEdit { get; }
-        Action<Catalogo> ShowEditorForDelete { get; }
-        public CommonActionsForCatalogo()
+        Action<CatalogoInsUpd> ShowEditorForAdd { get; }
+        Action<CatalogoInsUpd> ShowEditorForEdit { get; }
+        Action<CatalogoInsUpd> ShowEditorForDelete { get; }
+
+        
+        private CommonActionsForCatalogo()
         {
 
         }
-        public CommonActionsForCatalogo(Action<Catalogo> showEditorForAdd, Action<Catalogo> showEditorForEdit, Action<Catalogo> showEditorForDelete)
+        public CommonActionsForCatalogo(Action<CatalogoInsUpd> showEditorForAdd, Action<CatalogoInsUpd> showEditorForEdit, Action<CatalogoInsUpd> showEditorForDelete)
         {
             ShowEditorForAdd = showEditorForAdd;
             ShowEditorForDelete = showEditorForDelete;
             ShowEditorForEdit = showEditorForEdit;
+         
         }
-        public void BtnAddClick(Catalogo obj)
+        public void BtnAddClick(CatalogoInsUpd obj)
         {
-            ShowEditorForAdd(new Catalogo());
+            ShowEditorForAdd(new CatalogoInsUpd());
         }
-        public void BtnEdtClick(Catalogo obj)
+        public void BtnEdtClick(CatalogoInsUpd obj)
         {
-
             if (obj != null)
             {
                 ShowEditorForEdit(obj);
             }
         }
-        public void BtnDelClick(Catalogo obj)
+        public void BtnDelClick(CatalogoInsUpd obj)
         {
             ShowEditorForDelete(obj);
+        
         }
     }
-    
 }

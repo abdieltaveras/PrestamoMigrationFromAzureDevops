@@ -25,7 +25,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
 
         public static  bool FilterFuncForCatalogo(object obj, string searchValue)
         {
-            var element = (Catalogo)obj;
+            var element = (CatalogoInsUpd)obj;
             if (string.IsNullOrWhiteSpace(searchValue))
                 return true;
             if (element.Nombre.Contains(searchValue, StringComparison.OrdinalIgnoreCase))

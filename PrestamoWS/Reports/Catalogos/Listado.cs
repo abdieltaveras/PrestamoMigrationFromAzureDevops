@@ -7,7 +7,7 @@ namespace PrestamoWS.Reports.Catalogos
 {
     public class Listado 
     {
-        public int Id { get; set; }
+        public int IdRegistro { get; set; }
         public string Catalogo { get; set; }
         public string Nombre { get; set; }
         public string Codigo { get; set; }

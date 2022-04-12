@@ -3,56 +3,50 @@
 
 <MudGrid>
 
-    @{
-        if (ValidCatalogoSpecification)
-        {
-            if (Catalogos != null)
-            {
-                <!--Encabezado-->
-                <MudItem Class="pb-0">
-                    <MudText Typo="Typo.h4">Catalogo de Ocupaciones</MudText>
-                </MudItem>
-                <!--Acciones personalizadas en la tarea-->
-                <MudItem Class="pb-0">
-                    <MudMenu Label="Reporte" Color="MudBlazor.Color.Primary" Icon="@Icons.Material.Rounded.Print" DisableElevation="true" OffsetY="true">
-                        <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
-                        <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
-                    </MudMenu>
-                </MudItem>
-                <MudItem xs="12">
-                    <!--Acciones Comunes del Crud-->
-                    <ToolBarButtons TItem="Catalogo" ToolbarButtons="Buttons()" SelectedItem="SelectedItem" />
 
-                    <!--Tabla-->
-                    <MudTable Items="Catalogos" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true"
-                              Filter="FilterFunc" @bind-SelectedItems="@selectedItems" @bind-SelectedItem="SelectedItem">
-                        <ToolBarContent>
-                            <MudSpacer />
-                            <MudTextField @bind-Value="SearchValue" Placeholder="escribe aqui para buscar" Adornment="Adornment.Start" Immediate="true" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-                        </ToolBarContent>
-                        <HeaderContent>
-                            <MudTh><MudTableSortLabel SortBy="new Func<Catalogo, object>(x=>x.Codigo)">Codigo</MudTableSortLabel></MudTh>
-                            <MudTh><MudTableSortLabel SortBy="new Func<Catalogo, object>(x=>x.Nombre)">Nombre</MudTableSortLabel></MudTh>
-                        </HeaderContent>
-                        <RowTemplate Context="Catalogo">
-                            <MudTd>@Catalogo.Codigo</MudTd>
-                            <MudTd>@Catalogo.Nombre</MudTd>
-                        </RowTemplate>
-                        <PagerContent>
-                            <MudTablePager />
-                        </PagerContent>
-                    </MudTable>
-                </MudItem>
-            }
-            else
-            {
-                <MudText> Cargando datos por favor espere </MudText>
-            }
+        @if (Catalogos != null)
+        {
+            <!--Encabezado-->
+            <MudItem Class="pb-0">
+                <MudText Typo="Typo.h4">Catalogo de @CatalogoName</MudText>
+            </MudItem>
+            <!--Acciones personalizadas en la tarea-->
+            <MudItem Class="pb-0">
+                <MudMenu Label="Reporte" Color="MudBlazor.Color.Primary" Icon="@Icons.Material.Rounded.Print" DisableElevation="true" OffsetY="true">
+                    <MudMenuItem OnClick="() => PrintListado(1)"> Pdf </MudMenuItem>
+                    <MudMenuItem OnClick="() => PrintListado(2)"> Excel</MudMenuItem>
+                </MudMenu>
+            </MudItem>
+            <MudItem xs="12">
+                <!--Acciones Comunes del Crud-->
+                <ToolBarButtons TItem="CatalogoInsUpd" ToolbarButtons="Buttons()" SelectedItem="SelectedItem" />
+
+                <!--Tabla-->
+                <MudTable Items="Catalogos" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true"
+                          Filter="FilterFunc" @bind-SelectedItems="@selectedItems" @bind-SelectedItem="SelectedItem">
+                    <ToolBarContent>
+                        <MudSpacer />
+                        <MudTextField @bind-Value="SearchValue" Placeholder="escribe aqui para buscar" Adornment="Adornment.Start" Immediate="true" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh><MudTableSortLabel SortBy="new Func<CatalogoInsUpd, object>(x => x.Codigo)">Codigo</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<CatalogoInsUpd, object>(x => x.Nombre)">Nombre</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<CatalogoInsUpd, object>(x => x.Activo)">Activo ?</MudTableSortLabel></MudTh>
+                    </HeaderContent>
+                    <RowTemplate Context="Catalogo">
+                        <MudTd>@Catalogo.Codigo</MudTd>
+                        <MudTd>@Catalogo.Nombre</MudTd>
+                        <MudTd>@(Catalogo.Activo ? "Si" :"No")</MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager />
+                    </PagerContent>
+                </MudTable>
+            </MudItem>
         }
         else
         {
-            <MudText> Lo siento no puedo mostrar contenido debido al error numero vmp01, comunicar al departamento tecnico del mismo    </MudText>
+            <MudText> Cargando datos por favor espere </MudText>
         }
-    }
-
+    
 </MudGrid>

@@ -17,16 +17,16 @@ namespace PrestamoBLL.Tests
         private int idNegocio;
 
         private string NombreTabla = "TblOcupaciones";
-        private string IdNombreColumna= "IdOcupacion";
+        private string IdNombreColumna = "IdOcupacion";
 
         [TestMethod()]
         public void CatalogosGetTest()
         {
             var testinfo = new TestInfo();
-            IEnumerable<BaseCatalogo> result = null;
+            IEnumerable<BaseInsUpdCatalogo> result = null;
             try
             {
-                result = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { NombreTabla = NombreTabla, IdNegocio = -1, IdTabla = IdNombreColumna });
+                //result = BLLPrestamo.Instance.GetCatalogos (new CatalogoGetParams { NombreTabla = NombreTabla, IdNegocio = -1, IdTabla = IdNombreColumna });
             }
             catch (Exception e)
             {
@@ -42,13 +42,26 @@ namespace PrestamoBLL.Tests
         public void DeleteCatalogoTest()
         {
 
-            var catalogos = BLLPrestamo.Instance.GetCatalogos(new BaseCatalogoGetParams { NombreTabla = NombreTabla, IdTabla = IdNombreColumna }); ;
+            //var catalogos = BLLPrestamo.Instance.GetCatalogos(new CatalogoGetParams { NombreTabla = NombreTabla, IdTabla = IdNombreColumna }); ;
 
-            var ocupacionMecanico = catalogos.Where(item => item.Nombre == "Mecanico").FirstOrDefault();
-            
-            var ocupacionABorrar = new BaseCatalogoDeleteParams { IdNombreColumna = "IdOcupacion", NombreTabla = "TblOcupaciones", IdRegistro = ocupacionMecanico.GetId(), Usuario = TestInfo.Usuario };
+            //var ocupacionMecanico = catalogos.Where(item => item.Nombre == "Mecanico").FirstOrDefault();
 
-            BLLPrestamo.Instance.DeleteCatalogo(ocupacionABorrar);
+            //var ocupacionABorrar = new BaseCatalogoDeleteParams { IdNombreColumna = "IdOcupacion", NombreTabla = "TblOcupaciones", IdRegistro = ocupacionMecanico.GetId(), Usuario = TestInfo.Usuario };
+
+            //BLLPrestamo.Instance.DeleteCatalogo(ocupacionABorrar);
+        }
+
+        [TestMethod()]
+        public void GetCatalogosV2Test()
+        {
+            var ocupaciones = BLLPrestamo.Instance.GetCatalogos<Ocupacion>(CatalogoName.Ocupacion, new BaseCatalogoGetParams());
+        }
+
+        [TestMethod()]
+        public void CreateSqlParamsTest()
+        {
+            var cataName = CatalogoName.Ocupacion;
+            var result = BLLPrestamo.Instance.CreateSqlParams(CatalogoName.Ocupacion, new BaseCatalogoGetParams());
         }
     }
 }

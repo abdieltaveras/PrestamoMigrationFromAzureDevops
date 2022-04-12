@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Color : BaseCatalogo
+    public class Color : BaseInsUpdCatalogo
     {
         public virtual int IdColor { get; set; } = 0;
 

@@ -10,8 +10,8 @@ namespace PrestamoBlazorApp.Shared
 
     public abstract class BaseForCreateOrEdit : CommonBase
     {
-        [Inject]
-        protected SetParametrosService setParametros { get; set; }
+        //[Inject]
+        //protected SetParametrosService setParametros { get; set; }
         protected bool saving { get; set; }
         protected bool EnableReadCodigo { get; set; } = true;
         protected string TextoForActivo { get; set; } = "Si";
@@ -80,8 +80,11 @@ namespace PrestamoBlazorApp.Shared
 
     }
 
+
     public static class ConstForCreateOrEdit
     {
         public const string RegistroGuardado = "Registro Guardado, gracias, regresare al listado";
     }
+
+
 }

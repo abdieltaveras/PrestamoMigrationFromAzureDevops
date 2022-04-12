@@ -1,34 +1,38 @@
-﻿using PrestamoBLL;
+﻿using Microsoft.AspNetCore.Mvc;
+using PrestamoBLL;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Configuration;
-using PrestamoWS.Models;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]/[action]")]
-    public class CatalogoController : ControllerBasePrestamoWS
+    public abstract class CatalogoController<@CatalogoType> : ControllerBasePrestamoWS  where CatalogoType: BaseInsUpdGenericCatalogo
     {
-        [HttpPost]
-        public IActionResult Post([FromBody] Catalogo catalogo)=> SaveCatalogo(catalogo);
-        [HttpGet]
-        public IEnumerable<Catalogo> Get([FromQuery] CatalogoGetParams getParams)=> BLLPrestamo.Instance.GetCatalogosNew<Catalogo>(getParams);
 
-        [HttpDelete]
-        public void Delete(BaseCatalogoDeleteParams catalogo) => BLLPrestamo.Instance.DeleteCatalogo(catalogo);
-        private IActionResult SaveCatalogo(Catalogo catalogo)
+        private CatalogoName CatalogoName { get; }
+
+        public CatalogoController(CatalogoName catalogoName)
         {
+            this.CatalogoName = catalogoName;
+        }
+        
+        protected IActionResult PostBase([FromBody] BaseInsUpdGenericCatalogo catalogoInsUPd) => SaveCatalogo(catalogoInsUPd);
+        protected IEnumerable<@CatalogoType> GetBase([FromQuery] BaseCatalogoGetParams getParams) => BLLPrestamo.Instance.GetCatalogos<CatalogoType>(CatalogoName, getParams);
+        protected void DeleteBase(BaseCatalogoDeleteParams catalogoDelParams) => BLLPrestamo.Instance.DeleteCatalogo(CatalogoName, catalogoDelParams);
+        public abstract IActionResult Post([FromBody] @CatalogoType  catalogoInsUpd);
+        public abstract IEnumerable<@CatalogoType> Get([FromQuery] BaseCatalogoGetParams getParams);
+        public abstract void Delete(BaseCatalogoDeleteParams catalogoDelParams);
+
+        private IActionResult SaveCatalogo(BaseInsUpdGenericCatalogo catalogo)
+        {
+            
             try
             {
                 catalogo.Usuario = this.LoginName;
                 catalogo.IdNegocio = 1;
-                BLLPrestamo.Instance.InsUpdCatalogo(catalogo);
+                BLLPrestamo.Instance.InsUpdCatalogo(CatalogoName, catalogo);
                 return Ok();
             }
             catch (Exception e)

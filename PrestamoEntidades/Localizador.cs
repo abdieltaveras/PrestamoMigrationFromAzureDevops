@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Localizador : BaseCatalogo
+    public class Localizador : BaseInsUpdCatalogo
     {
         public int IdLocalizador { get; set; } = 0;
 

@@ -19,7 +19,7 @@
         </MudToolBar>
 
     <MudText Align="Align.Right">
-        Ocupacion seleccionada: @((SelectedItem!=null) ? @SelectedItem.ToString() : "Ninguna")
+        Seleccion:  <MudHighlighter Text="@SelectedItemText" HighlightedText="@SelectedItemText"/>
     </MudText>
     @*@ChildContent*@
 </MudItem>

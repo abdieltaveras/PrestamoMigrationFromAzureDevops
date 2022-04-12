@@ -15,5 +15,7 @@ namespace PrestamoBlazorApp.Shared.Components.Base
         //[Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public IEnumerable<ButtonForToolBar<TItem>> ToolbarButtons { get; set; }
         [Parameter] public TItem SelectedItem { get; set; } = null;
+
+        private string SelectedItemText => (SelectedItem != null) ? @SelectedItem.ToString() : "Ninguna";
     }
 }

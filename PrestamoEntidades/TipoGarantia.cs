@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class TipoGarantia : BaseCatalogo
+    public class TipoGarantia : BaseInsUpdCatalogo
     {
         public int IdTipoGarantia { get; set; } = 0;
         public int IdClasificacion { get; set; } = 1;

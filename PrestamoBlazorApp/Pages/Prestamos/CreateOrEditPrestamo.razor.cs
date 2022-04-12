@@ -16,6 +16,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 {
     public partial class CreateOrEditPrestamo : BaseForCreateOrEdit
     {
+        [Inject]
+        protected SetParametrosService setParametros { get; set; }
         private Prestamo prestamo { get; set; }
 
         //private Prestamo prestamo { get; set; }

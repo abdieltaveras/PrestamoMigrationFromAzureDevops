@@ -3,7 +3,7 @@ create PROCEDURE [dbo].[spGetCatalogos]
 (
 	@Id int=-1,
 	@IdNegocio int,
-		@IdLocalidadNegocio int = -1,
+	@IdLocalidadNegocio int = -1,
 	@Borrado int=0,
 	@Usuario varchar(100)='',
 	@NombreTabla varchar(100),

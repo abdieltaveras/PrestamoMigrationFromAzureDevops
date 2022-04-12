@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PrestamoEntidades
 {
     enum TiposClasificacionesFinanciera { Consumo=1, Hipotecario, Personal, Estudio }
-    public class Clasificacion : BaseCatalogo
+    public class Clasificacion : BaseInsUpdCatalogo
     {
         public int IdClasificacion { get; set; } = 0;
         public bool RequiereAutorizacion { get; set; }

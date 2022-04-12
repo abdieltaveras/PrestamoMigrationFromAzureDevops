@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace PrestamoEntidades
 {
     
-    public class TasaInteres : BaseCatalogo
+    public class TasaInteres : BaseInsUpdCatalogo
     {
         public int idTasaInteres { get; set; } = 0;
         // el valor numerico del interes 10%, 4%, etc

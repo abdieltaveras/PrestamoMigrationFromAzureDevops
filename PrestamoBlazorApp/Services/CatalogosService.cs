@@ -20,36 +20,42 @@ namespace PrestamoBlazorApp.Services
         {
 
         }
-
-        public async Task SaveCatalogo(Catalogo catalogo)
+        public async Task SaveCatalogo(CatalogoInsUpd catalogo)
         {
+            apiUrl = "api/Ocupaciones";
             try
             {
-                await PostAsync<Catalogo>(apiUrl+"/Post", catalogo);
+                await PostAsync<CatalogoInsUpd>(apiUrl+"/Post", catalogo);
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al guardar", ex);
             }
-
         }
-
-        public async Task DeleteCatalogo(Catalogo catalogo)
+        public async Task DeleteCatalogo(BaseCatalogoDeleteParams catalogo)
         {
-
-            await PostAsync<Catalogo>(apiUrl + "/Post", catalogo);
+            apiUrl = "api/Ocupaciones";
+            await  PostAsync(apiUrl + "/Delete", catalogo);
         }
         //public async Task<IEnumerable<T>> Get<T>(CatalogoGetParams search) where T : class
         //{
         //    var d =  await GetAsync<T>(apiUrl, new { JsonGet = search.ToJson() });
         //    return d;
         //}
-        public async Task<IEnumerable<Catalogo>> Get(CatalogoGetParams search) 
+        public async Task<IEnumerable<CatalogoInsUpd>> Get(CatalogoGetParams search) 
         {
-            var d = await GetAsync<Catalogo>(apiUrl+"/get", search);
+            var d = await GetAsync<CatalogoInsUpd>(apiUrl+"/get", search);
             return d;
         }
-        public async Task<string> ReportListado(IJSRuntime jSRuntime,CatalogoGetParams search)
+
+        //}
+        public async Task<IEnumerable<CatalogoInsUpd>> Get2(BaseCatalogoGetParams search)
+        {
+            apiUrl = "api/Ocupaciones";
+            var d = await GetAsync<CatalogoInsUpd>(apiUrl + "/get", search);
+            return d;
+        }
+        public async Task<string> ReportListado(IJSRuntime jSRuntime,CatalogoReportGetParams search)
         {
             var d = await ReportGenerate(jSRuntime,apiReportUrl + "/CatalogoReportList", search);
             return d.StatusCode.ToString();

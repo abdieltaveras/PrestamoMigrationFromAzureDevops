@@ -7,11 +7,8 @@ namespace PrestamoEntidades
     {
         public virtual int Id { get; set; }
     }
-
     public class BaseCatalogoDeleteParams : BaseUsuario
     {
-        public string NombreTabla { get; set; } = string.Empty;
-        public string IdNombreColumna { get; set; } = string.Empty;
         public int IdRegistro { get; set; }
     }
 }

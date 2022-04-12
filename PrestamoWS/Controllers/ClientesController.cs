@@ -113,7 +113,7 @@ namespace PrestamoWS.Controllers
             IEnumerable<Ocupacion> ocupaciones = new List<Ocupacion>();
             clientes = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idcliente }, true, ImagePathForClientes);
             cliente = clientes.FirstOrDefault();
-            ocupaciones = BLLPrestamo.Instance.GetOcupaciones(new OcupacionGetParams { IdOcupacion = cliente.IdTipoProfesionUOcupacion });
+            ocupaciones = BLLPrestamo.Instance.GetCatalogos<Ocupacion>(CatalogoName.Ocupacion,new BaseCatalogoGetParams {IdRegistro= cliente.IdTipoProfesionUOcupacion });
             DataTable dtClientes = HConvert.ListToDataTable<Cliente>(clientes.ToList());
 
             foreach (var item in columnas)

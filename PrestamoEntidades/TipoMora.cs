@@ -40,7 +40,7 @@ namespace PrestamoEntidades
         al_balance_de_la_cuota,
     }
     [Table("tblTiposMora", Schema = "pre")]
-    public class TipoMora : BaseCatalogo
+    public class TipoMora : BaseInsUpdCatalogo
     {
         [KeyAttribute]
         public virtual int IdTipoMora { get; set; } = 0;

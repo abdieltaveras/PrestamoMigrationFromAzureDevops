@@ -29,7 +29,7 @@ namespace PrestamoWS.Controllers
 
 
         [HttpGet]
-        public IActionResult CatalogoReportList([FromQuery] CatalogoGetParams getParams,int reportType = 1)
+        public IActionResult CatalogoReportList([FromQuery] CatalogoReportGetParams getParams,int reportType = 1)
         { 
 
             List<Reports.Bases.BaseReporteMulti> baseReporte = new List<Reports.Bases.BaseReporteMulti>();
@@ -40,18 +40,14 @@ namespace PrestamoWS.Controllers
                 RangoFiltro ="A-Z",
                 OrdenadoPor="Nombre",
                 OtrosDetalles="-"
-            
             };
             baseReporte.Add(BasePrueba);
-
             //******************************************************//
             _utils = new Utils();
-           
-            reportType = getParams.reportType;
-            var datos = BLLPrestamo.Instance.GetCatalogosNew<Reports.Catalogos.Listado>(getParams);
+            reportType = getParams.ReportType;
+            //todo: arreglar este y todos los procedimientos relacionados con catalogos
+            var datos = BLLPrestamo.Instance.GetCatalogos<CatalogoInsUpd>(CatalogoName.Generico,     getParams.CatalogoGParams);
             string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Catalogo\\Listado.rdlc";
-            
-            
             return _utils.CatalogoReportList(datos, path, reportType,baseReporte);
             #region ComoUsar
             //DataTable dt = new DataTable();

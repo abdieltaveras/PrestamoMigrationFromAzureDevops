@@ -11,28 +11,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
-    // nota este controller debe manejarse por el de CatalogosController
+   
 
-    //[ApiController]
-    //[Route("api/[controller]/[action]")]
+   [ApiController]
+   [Route("api/[controller]/[action]")]
+    public class OcupacionesController : CatalogoController<Ocupacion>
+    {
+        public OcupacionesController(): base(CatalogoName.Ocupacion)  { }
 
 
-    //public class OcupacionesController : ControllerBasePrestamoWS
-    //{
-    //    [HttpGet]
-    //    public IEnumerable<Ocupacion> Get([FromQuery] OcupacionGetParams getParams)
-    //    {
-    //      return BLLPrestamo.Instance.GetOcupaciones(getParams);
-    //    }
-        
+        [HttpGet]
+        public override IEnumerable<Ocupacion> Get([FromQuery] BaseCatalogoGetParams getParams) => base.GetBase(getParams);
 
-    //    [HttpPost]
-    //    public IActionResult PostOcupacion([FromBody]Ocupacion insUpdParam)
-    //    {
-    //        insUpdParam.Usuario = this.LoginName;
-    //        insUpdParam.IdLocalidadNegocio = this.IdLocalidadNegocio;
-    //        BLLPrestamo.Instance.InsUpdOcupacion(insUpdParam);
-    //        return Ok();
-    //    }
-    //}
+        [HttpPost]
+        public override IActionResult Post([FromBody] Ocupacion insUpdParam) => base.PostBase(insUpdParam);
+
+        [HttpPost]
+        public override void Delete([FromBody] BaseCatalogoDeleteParams catalogoDelParams) => base.DeleteBase(catalogoDelParams);
+
+    }
 }

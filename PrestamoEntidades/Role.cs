@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Role : BaseCatalogo
+    public class Role : BaseInsUpdCatalogo
     {
         public int IdRole { get; set; } = 0;
         //public string Codigo { get; set; } = string.Empty;

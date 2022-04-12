@@ -12,10 +12,6 @@ namespace PrestamoBlazorApp.Pages.Clasificaciones
 {
     public partial class Clasificaciones : BaseForCreateOrEdit
     {
-        [Parameter]
-        public Catalogo Catalogo { get; set; } = new Catalogo { NombreTabla = "tblclasificaciones", IdTabla = "idclasificacion" };
-        [Parameter]
-        public CatalogoGetParams CatalogoGetParams { get; set; } = new CatalogoGetParams { NombreTabla = "tblclasificaciones", IdTabla = "idclasificacion" };
         [Inject]
         ClasificacionesService ClasificacionesService { get; set; }
         IEnumerable<Clasificacion> clasificaciones { get; set; } = new List<Clasificacion>();

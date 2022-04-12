@@ -49,7 +49,6 @@ namespace PrestamoWS.Controllers
             // llenar el parametro de borrado si lo requier el metodo
             var elimParam = new AnularCatalogo
             {
-                NombreTabla = "tblEquipo",
                 IdRegistro = idRegistro.ToString()
             };
             try

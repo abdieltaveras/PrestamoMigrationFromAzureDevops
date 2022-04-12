@@ -1,7 +1,8 @@
 ﻿@inherits BaseForCreateOrEdit
+@*@inherits CommonBase*@
 @using System.ComponentModel.DataAnnotations
 <!--Header Section-->
-<MudDialog >
+<MudDialog>
     <TitleContent>
         <MudText Typo="Typo.h6">
             <MudIcon Icon="@Icons.Material.Filled.PeopleAlt" Class="mr-3 mb-n1" /> Editar Usuario
@@ -9,7 +10,7 @@
     </TitleContent>
     <DialogContent>
         <EditForm Model="Catalogo" OnValidSubmit="SaveCatalogo">
-            <DataAnnotationsValidator/>
+            <DataAnnotationsValidator />
             <MudGrid>
                 <MudItem xs="12" sm="12" md="12">
                     <MudTextField T="string" Label="Codigo (s)" Required="true" @bind-Value="Catalogo.Codigo" Variant="Variant.Text"
@@ -27,34 +28,34 @@
                 if (UsarFormularioParaEliminar)
                 {
                     <MudItem xs="12" sm="12" md="12">
-                        <MudText >Codigo de aprobacion @DeleteValueToConfirm</MudText>
+                        <MudText>Codigo de aprobacion @DeleteValueToConfirm</MudText>
                     </MudItem>
 
                     <MudItem xs="12" sm="12" md="12">
 
                         <MudNumericField Label="Digite el codigo de aprobacion" Required="true" @bind-Value="DeleteConfirmedValue" Variant="Variant.Text"
-                                         RequiredError="el numero no puede estar vacio" Disabled="!UsarFormularioParaEliminar"  />
+                                         RequiredError="el numero no puede estar vacio" Disabled="!UsarFormularioParaEliminar" />
                         <MudText Color="MudBlazor.Color.Error">@ConfirmationMessage</MudText>
                     </MudItem>
                 }
             }
 
 
-        <MudItem xs="12" sm="12" md="12">
+            <MudItem xs="12" sm="12" md="12">
 
-            @{
-                if (UsarFormularioParaEliminar)
-                {
-                    <MudButton Color="MudBlazor.Color.Primary" OnClick="CloseDlg" >Cancelar</MudButton>
-                    <MudButton Color="MudBlazor.Color.Primary" OnClick="DeleteCatalogo">Eliminar</MudButton>
-                }
-                else
-                {
+                @{
+                    if (UsarFormularioParaEliminar)
+                    {
+                        <MudButton Color="MudBlazor.Color.Primary" OnClick="CloseDlg">Cancelar</MudButton>
+                        <MudButton Color="MudBlazor.Color.Primary" OnClick="DeleteCatalogo">Eliminar</MudButton>
+                    }
+                    else
+                    {
 
-                    <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary">Guardar</MudButton>
+                        <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary">Guardar</MudButton>
+                    }
                 }
-            }
-        </MudItem>
+            </MudItem>
         </EditForm>
     </DialogContent>
 </MudDialog>

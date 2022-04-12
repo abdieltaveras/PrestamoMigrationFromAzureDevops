@@ -6,13 +6,24 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Ocupacion : BaseCatalogo
+    public class Ocupacion : BaseInsUpdGenericCatalogo
     {
-        public int IdOcupacion { get; set; } = 0;
+        public int? IdOcupacion { get; set; } 
+
 
         public override int GetId()
         {
-            return IdOcupacion;
+            return (int)IdOcupacion;
+        }
+
+        protected override void SetId()
+        {
+            this.IdOcupacion = this.IdRegistro;
+        }
+
+        public override void SetPropertiesNullToRemoveFromSqlParam()
+        {
+            this.IdOcupacion = null;
         }
     }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Localidad : BaseCatalogo
+    public class Localidad : BaseInsUpdCatalogo
     {
         public int IdLocalidad { get; set; }
         public int IdLocalidadPadre { get; set; }
@@ -65,7 +65,7 @@ namespace PrestamoEntidades
         public int IdLocalidad { get; set; }
     }
 
-    public class LocalidadesHijas : BaseCatalogo
+    public class LocalidadesHijas : BaseInsUpdCatalogo
     {
         public int IdLocalidad { get; set; }
         public string TipoLocalidad { get; set; }

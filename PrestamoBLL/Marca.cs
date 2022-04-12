@@ -18,6 +18,5 @@ namespace PrestamoBLL
         {
             BllAcciones.InsUpdData<Marca>(insUpdParam, "spInsUpdMarca");
         }
-
     }
 }

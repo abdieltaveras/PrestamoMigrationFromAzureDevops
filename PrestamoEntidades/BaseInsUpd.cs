@@ -59,26 +59,25 @@ namespace PrestamoEntidades
 
         [IgnoreOnParams()]
         
-        public string InsertadoPor { get; set; } = string.Empty;
+        public string InsertadoPor { get; set; } 
         [IgnoreOnParams()]
         
-        public DateTime FechaInsertado { get;  set; } = InitValues._19000101;
+        public DateTime FechaInsertado { get;  set; } 
         [IgnoreOnParams()]
         
-        public string ModificadoPor { get; set; } = string.Empty;
+        public string ModificadoPor { get; set; } 
         [IgnoreOnParams()]
         
-        public DateTime FechaModificado { get; set; } = InitValues._19000101;
+        public DateTime FechaModificado { get; set; } 
         [IgnoreOnParams()]
         
 
-        public string AnuladoPor { get;  set; } = string.Empty;
+        public string AnuladoPor { get;  set; } 
         [IgnoreOnParams()]
         
         public DateTime FechaAnulado { get;  set; } = InitValues._19000101;
         public bool Anulado() => !string.IsNullOrEmpty(AnuladoPor);  
-        public virtual bool Modificable() => false;
-        public virtual bool Anulable()=> false;
+        
         /// <summary>
         /// para obtener el valor del id primario del objeto
         /// </summary>
@@ -101,7 +100,7 @@ namespace PrestamoEntidades
         public int idSexo { get; set; } = (int)Sexo.Masculino;
     }
 
-    public abstract class BaseCatalogo : BaseInsUpd
+    public abstract class BaseInsUpdCatalogo : BaseInsUpd
     {
         [Required]
         [Display(Name = "Estatus")]
@@ -112,14 +111,19 @@ namespace PrestamoEntidades
         public virtual string Codigo { get; set; } 
 
         [Required(ErrorMessage = "ingrese el nombre")]
-        public virtual string Nombre { get; set; } = string.Empty;
+        public virtual string Nombre { get; set; } 
         public abstract int GetId();
-        //public string Descripcion { get; set; } = string.Empty;
+    }
 
-        public override string ToString()
-        {
-            return $"Ocupacion {Nombre} Codigo {Codigo}";
-        }
+    public abstract class BaseInsUpdGenericCatalogo : BaseInsUpdCatalogo
+    {
+        private int _IdRegistro { get; set; }
+        public int IdRegistro { get { return _IdRegistro; } set { _IdRegistro = value; SetId(); } }
+        protected abstract void SetId();
+        /// <summary>
+        /// convertirlo en abstract
+        /// </summary>
+        public abstract void SetPropertiesNullToRemoveFromSqlParam(); 
     }
     public abstract class BaseDireccion : BaseInsUpd
     {
