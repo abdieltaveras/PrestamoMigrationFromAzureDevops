@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Pages.Clientes;
 using PrestamoBlazorApp.Shared;
-
+using MudBlazor;
+using PrestamoBlazorApp.Shared.Components.Modelos;
 namespace PrestamoBlazorApp.Pages.Modelos
 {
     public partial class Modelos : BaseForCreateOrEdit
     {
-      
+        [Inject]
+        IDialogService DialogService { get; set; }
         [Inject]
         ModelosService modelosService { get; set; }
         ModeloGetParams SearchModelo { get; set; } = new ModeloGetParams();
@@ -23,6 +25,12 @@ namespace PrestamoBlazorApp.Pages.Modelos
         public Modelo Modelo { get; set; } 
         
         void Clear() => modelos = new List<Modelo>();
+        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
+        private string SearchString1 = "";
+        private Modelo SelectedItem1 = null;
+        private bool FilterFunc1(Modelo element) => FilterFunc(element, SearchString1);
+        private bool ShowDialogCreate { get; set; } = false;
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -72,20 +80,33 @@ namespace PrestamoBlazorApp.Pages.Modelos
         }
         async Task CreateOrEdit(int IdModelo = -1)
         {
-            await BlockPage();
-            if (IdModelo > 0)
+            var parameters = new DialogParameters();
+            parameters.Add("IDMODELO", IdModelo);
+            var dialog = DialogService.Show<CreateModelos>("", parameters, dialogOptions);
+            var result = await dialog.Result;
+            if (result.Data != null)
             {
-                var mod = await modelosService.Get(new ModeloGetParams { IdModelo = IdModelo });
-                this.Modelo = mod.FirstOrDefault();
+                if (Convert.ToInt32(result.Data.ToString()) == 1)
+                {
+                    await GetModelos();
+                    StateHasChanged();
+                }
             }
-            else
-            {
-                this.Modelo = new Modelo();
-               
-            }
-            await UnBlockPage();
 
-            await JsInteropUtils.ShowModal(jsRuntime, "#edtMarca");
+            //await BlockPage();
+            //if (IdModelo > 0)
+            //{
+            //    var mod = await modelosService.Get(new ModeloGetParams { IdModelo = IdModelo });
+            //    this.Modelo = mod.FirstOrDefault();
+            //}
+            //else
+            //{
+            //    this.Modelo = new Modelo();
+
+            //}
+            //await UnBlockPage();
+
+            //await JsInteropUtils.ShowModal(jsRuntime, "#edtMarca");
         }
 
         void OnChange(object value, string name)
@@ -94,7 +115,31 @@ namespace PrestamoBlazorApp.Pages.Modelos
             var selectedValue = Convert.ToInt32(str);
             Console.WriteLine($"{name} value changed to {str}");
         }
-
+        private bool FilterFunc(Modelo element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo != null)
+            {
+                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+        //private async Task CreateOrEdit(int id = -1)
+        //{
+        //    var parameters = new DialogParameters();
+        //    parameters.Add("IdTasaInteres", id);
+        //    var dialog = DialogService.Show<CreateTasasInteres>("", parameters, dialogOptions);
+        //    var result = await dialog.Result;
+        //    if (Convert.ToInt32(result.Data.ToString()) == 1)
+        //    {
+        //        await GetData();
+        //        StateHasChanged();
+        //    }
+        //}
         void RaiseInvalidSubmit()
         {
             

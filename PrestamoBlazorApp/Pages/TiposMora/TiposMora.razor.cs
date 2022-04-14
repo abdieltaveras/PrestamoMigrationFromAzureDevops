@@ -24,6 +24,10 @@ namespace PrestamoBlazorApp.Pages.TiposMora
         
         TipoMoraGetParams SearchGarantia { get; set; } = new TipoMoraGetParams();
         void Clear() => tiposmora = null;
+        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
+        private string SearchString1 = "";
+        private TipoMora SelectedItem1 = null;
+        private bool FilterFunc1(TipoMora element) => FilterFunc(element, SearchString1);
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -87,6 +91,19 @@ namespace PrestamoBlazorApp.Pages.TiposMora
         void RaiseInvalidSubmit()
         {
             
+        }
+        private bool FilterFunc(TipoMora element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo != null)
+            {
+                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
         }
 
         //private async Task ShowDialog(int id = -1)

@@ -1,0 +1,29 @@
+﻿@inherits BaseForCreateOrEdit
+<EditForm Model="@MODELO" OnValidSubmit="SaveModelo" OnInvalidSubmit="RaiseInvalidSubmit">
+    <ValidationSummary/>
+    <DataAnnotationsValidator/>
+    <MudDialog >
+        <DialogContent>
+
+            <MudSelect T="int" @bind-Value="@MODELO.IdMarca">
+                @foreach (var item in MARCAS)
+                {
+                    <MudSelectItem Value="@item.IdMarca">@item.Nombre</MudSelectItem>
+                }
+            </MudSelect>
+            <MudTextField T="string" @bind-Value="MODELO.Codigo" Label="Codigo"></MudTextField>
+
+            <MudTextField T="string" @bind-Value="MODELO.Nombre" Label="Nombre"></MudTextField>
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="()=>CloseModal(-1)" Class="px-10">Cancelar</MudButton>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" ButtonType="ButtonType.Submit" Class="px-10">Guardar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+
+@code {
+
+}

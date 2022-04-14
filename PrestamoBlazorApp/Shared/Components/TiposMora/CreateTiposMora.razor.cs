@@ -16,7 +16,7 @@ namespace PrestamoBlazorApp.Shared.Components.TiposMora
         TiposMoraService TiposMoraService { get; set; }
         IEnumerable<TipoMora> tiposmora { get; set; } = new List<TipoMora>();
         [Parameter]
-        public TipoMora TipoMora { get; set; }
+        public TipoMora TipoMora { get; set; } = new TipoMora();
         [Parameter]
         public int IdTipoMora { get; set; }
         TipoMoraGetParams SearchGarantia { get; set; } = new TipoMoraGetParams();
@@ -24,12 +24,14 @@ namespace PrestamoBlazorApp.Shared.Components.TiposMora
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            this.TipoMora = new TipoMora();
+           
         }
         protected override async Task OnInitializedAsync()
         {
+            TipoMora = new TipoMora();
             await BlockPage();
             tiposmora = await TiposMoraService.Get(new TipoMoraGetParams());
+            await CreateOrEdit();
             await UnBlockPage();
         }
         async Task GetTiposMora()
