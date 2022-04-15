@@ -8,8 +8,7 @@ namespace PrestamoEntidades
 {
     public class Ocupacion : BaseInsUpdGenericCatalogo
     {
-        public int? IdOcupacion { get; set; } 
-
+        public int? IdOcupacion { get; set; }
 
         public override int GetId()
         {

@@ -21,13 +21,15 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         [Parameter] public CatalogoInsUpd Catalogo { get; set; } = new CatalogoInsUpd();
         [Parameter] public bool UsarFormularioParaEliminar { get; set; } = false;
 
+        
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         // injections
         [Inject] CatalogosService CatalogosService { get; set; }
         // Members
         private int DeleteConfirmedValue { get; set; }
         [Compare("DeleteConfirmedValue")]
-        private int DeleteValueToConfirm { get; } 
+        private int DeleteValueToConfirm { get; }
+        [Parameter] public Func<Task> UpdateList { get; set; }
         private string ConfirmationMessage { get; set; } 
         private void CloseDlg()
         {
@@ -39,15 +41,21 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             DeleteValueToConfirm = new Random().Next(1000, 9999);
         }
 
-        
+        //public CatalogoEditor(Func<Task> updateList)
+        //{
+        //    DeleteValueToConfirm = new Random().Next(1000, 9999);
+        //    this.UpdateList = updateList;
+        //}
+
         public bool IsDisabledInput => UsarFormularioParaEliminar;
 
         async Task SaveCatalogo()
         {
             CloseDlg();
-            await Handle_SaveData(async () => await CatalogosService.SaveCatalogo(this.Catalogo), null, null,false,"Reload");
+            await Handle_SaveData(async () => await CatalogosService.SaveCatalogo(this.Catalogo), null, null,false);
+            await UpdateList();
             this.Catalogo = new CatalogoInsUpd();
-            
+      
         }
         
         async Task DeleteCatalogo ()
@@ -59,6 +67,9 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             }
             var deleteParams = new BaseCatalogoDeleteParams { IdRegistro = this.Catalogo.IdRegistro };
             await CatalogosService.DeleteCatalogo(deleteParams);
+            // NotificarQueSeBorro().
+            await UpdateList();
+            StateHasChanged();
             CloseDlg();
         }
         

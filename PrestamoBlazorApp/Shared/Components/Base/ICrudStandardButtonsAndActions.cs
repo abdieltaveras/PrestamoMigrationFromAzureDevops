@@ -7,9 +7,9 @@ namespace PrestamoBlazorApp.Shared.Components.Base
 {
     public interface ICrudStandardButtonsAndActions<TType>
     {
-        void BtnAddClick(TType obj);
-        void BtnEdtClick(TType obj);
-        void BtnDelClick(TType obj);
+        Task BtnAddClick(TType obj);
+        Task BtnEdtClick(TType obj);
+        Task BtnDelClick(TType obj);
         bool BtnAddEnabled(object obj);
         bool BtnEdtEnabled(object obj);
         bool BtnDelEnabled(object obj);

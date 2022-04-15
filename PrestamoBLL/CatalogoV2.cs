@@ -18,10 +18,8 @@ namespace PrestamoBLL
         {
             ThrowErroWhenNullCatalogName(catalogoName);
             insUpdParams.SetPropertiesNullToRemoveFromSqlParam(); // to remove innecesary param IdOcupacion, Idcolor, etc.
-            var param = insUpdParams;
             var sqlParams = CreateSqlParams(catalogoName, insUpdParams).ToArray();
             DBPrestamo.ExecReaderSelSP("spInsUpdCatalogo", sqlParams);
-            //BllAcciones.InsUpdData(insUpdParams, "spInsUpdCatalogo");
         }
 
         public IEnumerable<CatalogoType> GetCatalogos<CatalogoType>(CatalogoName catalogoName, BaseCatalogoGetParams getParams) where CatalogoType: BaseInsUpdGenericCatalogo

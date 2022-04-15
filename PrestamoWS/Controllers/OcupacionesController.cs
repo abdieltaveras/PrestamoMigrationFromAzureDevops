@@ -11,23 +11,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PrestamoWS.Controllers
 {
-   
-
    [ApiController]
    [Route("api/[controller]/[action]")]
     public class OcupacionesController : CatalogoController<Ocupacion>
     {
         public OcupacionesController(): base(CatalogoName.Ocupacion)  { }
-
-
         [HttpGet]
         public override IEnumerable<Ocupacion> Get([FromQuery] BaseCatalogoGetParams getParams) => base.GetBase(getParams);
-
         [HttpPost]
         public override IActionResult Post([FromBody] Ocupacion insUpdParam) => base.PostBase(insUpdParam);
-
         [HttpPost]
         public override void Delete([FromBody] BaseCatalogoDeleteParams catalogoDelParams) => base.DeleteBase(catalogoDelParams);
-
     }
 }

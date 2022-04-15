@@ -20,7 +20,6 @@
             <MudItem xs="12">
                 <!--Acciones Comunes del Crud-->
                 <ToolBarButtons TItem="CatalogoInsUpd" ToolbarButtons="Buttons()" SelectedItem="SelectedItem" />
-
                 <!--Tabla-->
                 <MudTable Items="Catalogos" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true"
                           Filter="FilterFunc" @bind-SelectedItems="@selectedItems" @bind-SelectedItem="SelectedItem">

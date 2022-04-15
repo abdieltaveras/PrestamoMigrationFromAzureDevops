@@ -12,37 +12,40 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
 
     public class CommonActionsForCatalogo : CommonActions, ICrudStandardButtonsAndActions<CatalogoInsUpd>
     {
-        Action<CatalogoInsUpd> ShowEditorForAdd { get; }
-        Action<CatalogoInsUpd> ShowEditorForEdit { get; }
-        Action<CatalogoInsUpd> ShowEditorForDelete { get; }
-
+        Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForAdd { get; }
+        Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForEdit { get; }
+        Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForDelete { get; }
+        
+        Func<Task> UpdateList { get; }
         
         private CommonActionsForCatalogo()
         {
 
         }
-        public CommonActionsForCatalogo(Action<CatalogoInsUpd> showEditorForAdd, Action<CatalogoInsUpd> showEditorForEdit, Action<CatalogoInsUpd> showEditorForDelete)
+        public CommonActionsForCatalogo(Func<CatalogoInsUpd, Func<Task>, Task> showEditorForAdd, Func<CatalogoInsUpd, Func<Task>, Task> showEditorForEdit, Func<CatalogoInsUpd, Func<Task>, Task> showEditorForDelete, Func<Task> updateList)
         {
             ShowEditorForAdd = showEditorForAdd;
             ShowEditorForDelete = showEditorForDelete;
             ShowEditorForEdit = showEditorForEdit;
+            UpdateList = updateList;
          
         }
-        public void BtnAddClick(CatalogoInsUpd obj)
+        public async Task BtnAddClick(CatalogoInsUpd obj)
         {
-            ShowEditorForAdd(new CatalogoInsUpd());
+            await ShowEditorForAdd(new CatalogoInsUpd(), this.UpdateList);
         }
-        public void BtnEdtClick(CatalogoInsUpd obj)
+        public async Task BtnEdtClick(CatalogoInsUpd obj)
         {
             if (obj != null)
             {
-                ShowEditorForEdit(obj);
+                await ShowEditorForEdit(obj, this.UpdateList);
             }
         }
-        public void BtnDelClick(CatalogoInsUpd obj)
+        public async Task BtnDelClick(CatalogoInsUpd obj)
         {
-            ShowEditorForDelete(obj);
-        
+
+            await ShowEditorForDelete(obj, UpdateList);
+            //await UpdateList();
         }
     }
 }

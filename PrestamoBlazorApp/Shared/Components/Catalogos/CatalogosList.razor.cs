@@ -20,11 +20,9 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
     public partial class CatalogosList : CommonBase
     {
         [Parameter] public string CatalogoName { get; set; } = null;
-
-        [Parameter] public Action<CatalogoInsUpd> ShowEditorForAddHandler { get; set; }
-        [Parameter] public Action<CatalogoInsUpd> ShowEditorForEditHandler { get; set; }
-        [Parameter] public Action<CatalogoInsUpd> ShowEditorForDeleteHandler { get; set; }
-
+        [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForAddHandler { get; set; }
+        [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForEditHandler { get; set; }
+        [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForDeleteHandler { get; set; }
         [Parameter] public  Func<BaseCatalogoGetParams, Task<IEnumerable<CatalogoInsUpd>>> GetCatalogosHandler { get; set; }
 
         [Inject] CatalogosService CatalogosService { get; set; }
@@ -32,8 +30,9 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private CatalogoInsUpd SelectedItem { get; set; } = null;
         private HashSet<CatalogoInsUpd> selectedItems = new HashSet<CatalogoInsUpd>();
         private string SearchValue { get; set; }
+        
 
-        private CommonActionsForCatalogo GetCommonActions() => new CommonActionsForCatalogo(ShowEditorForAddHandler, ShowEditorForEditHandler, ShowEditorForDeleteHandler);
+        private CommonActionsForCatalogo GetCommonActions() => new CommonActionsForCatalogo(ShowEditorForAddHandler, ShowEditorForEditHandler, ShowEditorForDeleteHandler, UpdateList);
 
         private IEnumerable<ButtonForToolBar<CatalogoInsUpd>> Buttons() => Factory.StandarCrudToolBarButtons(GetCommonActions());
 
@@ -48,8 +47,15 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            this.Catalogos = await GetCatalogosHandler.Invoke(new BaseCatalogoGetParams());
+            await UpdateList();
         }
+
+        private async Task UpdateList()
+        {
+            this.Catalogos = await GetCatalogosHandler.Invoke(new BaseCatalogoGetParams());
+            StateHasChanged();
+        }
+
         protected bool FilterFunc(object obj) => Factory.FilterFuncForCatalogo(obj, SearchValue);
     }
 }

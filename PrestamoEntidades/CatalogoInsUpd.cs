@@ -19,7 +19,10 @@ namespace PrestamoEntidades
     //    }
 
     //}
-
+    /// <summary>
+    /// Clase generica de cierta forma para trabajar con los catalogos, no tiene ningun 
+    /// idParticular como las demas
+    /// </summary>
     public class CatalogoInsUpd : BaseInsUpdGenericCatalogo
     {
         

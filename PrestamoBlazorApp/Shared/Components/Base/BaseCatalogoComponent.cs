@@ -1,4 +1,5 @@
 ﻿using PrestamoEntidades;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,10 +10,10 @@ namespace PrestamoBlazorApp.Shared.Components.Base
         protected abstract string CatalogoName();
 
         protected abstract Task<IEnumerable<CatalogoInsUpd>> GetCatalogos(BaseCatalogoGetParams getParam);
-        protected abstract void ShowAddEditor(CatalogoInsUpd catalogo);
+        protected abstract  Task ShowAddEditor(CatalogoInsUpd catalogo, Func<Task> action);
 
-        protected abstract void ShowEditEditor(CatalogoInsUpd catalogo);
+        protected abstract  Task ShowEditEditor(CatalogoInsUpd catalogo, Func<Task> action);
 
-        protected abstract void ShowDeleteEditor(CatalogoInsUpd catalogo);
+        protected abstract  Task ShowDeleteEditor(CatalogoInsUpd catalogo, Func<Task> action);
     }
 }
