@@ -15,7 +15,7 @@ namespace PrestamoEntidades
             return (int)IdOcupacion;
         }
 
-        protected override void SetId()
+        protected override void SetIdForConcreteObject()
         {
             this.IdOcupacion = this.IdRegistro;
         }

@@ -67,7 +67,8 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             }
             var deleteParams = new BaseCatalogoDeleteParams { IdRegistro = this.Catalogo.IdRegistro };
             await CatalogosService.DeleteCatalogo(deleteParams);
-            // NotificarQueSeBorro().
+            //NotificarQueSeBorro().
+            await SweetAlertSuccess("Se elimino los datos indicados");
             await UpdateList();
             StateHasChanged();
             CloseDlg();

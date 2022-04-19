@@ -31,7 +31,7 @@ namespace PrestamoEntidades
             return IdRegistro;
         }
 
-        protected override void SetId() { }
+        protected override void SetIdForConcreteObject() { }
         /// <summary>
         /// the purpuso of this is to use it when needs to remove the concrete Id no the IdRegistsroPeoprety from object
         /// </summary>

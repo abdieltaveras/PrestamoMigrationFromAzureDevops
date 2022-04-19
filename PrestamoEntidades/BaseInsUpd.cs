@@ -118,8 +118,8 @@ namespace PrestamoEntidades
     public abstract class BaseInsUpdGenericCatalogo : BaseInsUpdCatalogo
     {
         private int _IdRegistro { get; set; }
-        public int IdRegistro { get { return _IdRegistro; } set { _IdRegistro = value; SetId(); } }
-        protected abstract void SetId();
+        public int IdRegistro { get { return _IdRegistro; } set { _IdRegistro = value; SetIdForConcreteObject(); } }
+        protected abstract void SetIdForConcreteObject();
         /// <summary>
         /// convertirlo en abstract
         /// </summary>

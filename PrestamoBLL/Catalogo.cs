@@ -11,7 +11,7 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
 
-        
+
         //public IEnumerable<BaseCatalogo> GetCatalogos(BaseCatalogoGetParams searchParam)
         //{
         //    if (string.IsNullOrEmpty(searchParam.IdTabla))

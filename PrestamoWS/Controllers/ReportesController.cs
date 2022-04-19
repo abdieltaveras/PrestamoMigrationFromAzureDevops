@@ -76,7 +76,6 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IActionResult ClienteReportList([FromQuery] BaseReporteParams getParams)
         {
-
             List<Reports.Bases.BaseReporteMulti> baseReporte = new List<Reports.Bases.BaseReporteMulti>();
             Reports.Bases.BaseReporteMulti BasePrueba = new Reports.Bases.BaseReporteMulti
             {
@@ -87,10 +86,8 @@ namespace PrestamoWS.Controllers
                 RangoFiltro = getParams.RDesde +"-"+ getParams.RHasta,
                 OrdenadoPor = getParams.OrdenarPor,
                 OtrosDetalles = "-"
-
             };
             baseReporte.Add(BasePrueba);
-
             //******************************************************//
             _utils = new Utils();
             var datos = BLLPrestamo.Instance.ReporteClientes(getParams);
