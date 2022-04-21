@@ -19,13 +19,13 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
 
     public partial class CatalogosList : CommonBase
     {
-        [Parameter] public string CatalogoName { get; set; } = null;
+        [Parameter] public string CatalogoName { get; set; } 
         [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForAddHandler { get; set; }
         [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForEditHandler { get; set; }
         [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForDeleteHandler { get; set; }
         [Parameter] public  Func<BaseCatalogoGetParams, Task<IEnumerable<CatalogoInsUpd>>> GetCatalogosHandler { get; set; }
 
-        [Inject] CatalogosService CatalogosService { get; set; }
+        
         private IEnumerable<CatalogoInsUpd> Catalogos { get; set; } = new List<CatalogoInsUpd>();
         private CatalogoInsUpd SelectedItem { get; set; } = null;
         private HashSet<CatalogoInsUpd> selectedItems = new HashSet<CatalogoInsUpd>();
@@ -41,7 +41,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             await BlockPage();
             var catalogoReportParam = new CatalogoReportGetParams { ReportType = reportType };
 
-            var result = await CatalogosService.ReportListado(jsRuntime, catalogoReportParam);
+            //var result = await CatalogosService.ReportListado(jsRuntime, catalogoReportParam);
             await UnBlockPage();
         }
         protected override async Task OnInitializedAsync()

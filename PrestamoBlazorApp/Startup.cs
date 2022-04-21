@@ -44,28 +44,34 @@ namespace PrestamoBlazorApp
 
         private static void ProjectServices(IServiceCollection services)
         {
-            services.AddSingleton<CatalogosService>();
-            services.AddSingleton<IngresosService>();
-            services.AddSingleton<ColoresService>();
-            services.AddSingleton<MarcasService>();
-            services.AddSingleton<ModelosService>();
-            services.AddSingleton<ClientesService>();
-            services.AddSingleton<ClasificacionesService>();
-            services.AddSingleton<EquiposService>();
-            services.AddSingleton<OcupacionesService>();
-            services.AddSingleton<GarantiasService>();
-            services.AddSingleton<LocalidadesService>();
-            services.AddSingleton<TipoGarantiaService>();
-            services.AddSingleton<TiposMoraService>();
-            services.AddSingleton<TerritoriosService>();
-            services.AddSingleton<TasasInteresService>();
-            services.AddSingleton<PeriodosService>();
-            services.AddSingleton<PrestamosService>();
-            services.AddSingleton<ReportesService>();
-            services.AddSingleton<SetParametrosService>();
-            services.AddSingleton<CodeudoresService>();
-            services.AddSingleton<TestService>();
-            services.AddSingleton<LocalidadesNegociosService>();
+            //services.AddScoped<CatalogosService>();
+            services.AddScoped<CommonInjectionsService>();
+            services.AddScoped<IngresosService>();
+            services.AddScoped<ColoresService>();
+            services.AddScoped<MarcasService>();
+            services.AddScoped<ModelosService>();
+            services.AddScoped<ClientesService>();
+            services.AddScoped<ClasificacionesService>();
+            services.AddScoped<EquiposService>();
+            services.AddScoped<OcupacionesService>();
+
+            //services.AddScoped<ColoresServiceV2>();
+            //services.AddScoped<OcupacionesServiceV2>();
+            //services.AddScoped<TiposSexoService>();
+
+            services.AddScoped<GarantiasService>();
+            services.AddScoped<LocalidadesService>();
+            services.AddScoped<TipoGarantiaService>();
+            services.AddScoped<TiposMoraService>();
+            services.AddScoped<TerritoriosService>();
+            services.AddScoped<TasasInteresService>();
+            services.AddScoped<PeriodosService>();
+            services.AddScoped<PrestamosService>();
+            services.AddScoped<ReportesService>();
+            services.AddScoped<SetParametrosService>();
+            services.AddScoped<CodeudoresService>();
+            services.AddScoped<TestService>();
+            services.AddScoped<LocalidadesNegociosService>();
         }
 
         private static void AddMudBlazorServices(IServiceCollection services)

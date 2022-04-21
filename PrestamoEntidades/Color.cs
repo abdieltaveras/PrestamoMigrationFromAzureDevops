@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Color : BaseInsUpdCatalogo
+    public class Color : BaseInsUpdGenericCatalogo
     {
-        public virtual int IdColor { get; set; } = 0;
+        public virtual int? IdColor { get; set; } 
 
-        public override int GetId() => this.IdColor;
+        public override int GetId() => (int)this.IdColor;
+
+        protected override void SetIdForConcreteObject()
+        {
+            this.IdColor = this.IdRegistro;
+        }
+
+        public override void SetPropertiesNullToRemoveFromSqlParam()
+        {
+            this.IdColor = null;
+        }
     }
     public class ColorGetParams : BaseGetParams 
     {

@@ -14,7 +14,29 @@ namespace PrestamoEntidades
         {
             return IdTipoTelefono;
         }
+
+        private class TipoTelefonoV2 : BaseInsUpdGenericCatalogo
+        {
+            public int? IdTipoTelefono { get; set; } = 0;
+
+            public override int GetId()
+            {
+                return (int)IdTipoTelefono;
+            }
+
+            protected override void SetIdForConcreteObject()
+            {
+                this.IdTipoTelefono = this.IdRegistro;
+            }
+
+            public override void SetPropertiesNullToRemoveFromSqlParam()
+            {
+                this.IdTipoTelefono = null;
+            }
+        }
     }
+
+    
 
     public class TipoTelefonoGetParams : BaseCatalogoGetParams
     {

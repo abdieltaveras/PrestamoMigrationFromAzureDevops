@@ -54,12 +54,13 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetCatalogosV2Test()
         {
-            var ocupaciones = BLLPrestamo.Instance.GetCatalogos<Ocupacion>(CatalogoName.Ocupacion, new BaseCatalogoGetParams());
+            var ocupaciones = BLLPrestamo.Instance.GetCatalogos<TipoSexo>(CatalogoName.TipoSexo, new BaseCatalogoGetParams());
         }
 
         [TestMethod()]
         public void CreateSqlParamsTest()
         {
+            
             var cataName = CatalogoName.Ocupacion;
             var result = BLLPrestamo.Instance.CreateSqlParams(CatalogoName.Ocupacion, new BaseCatalogoGetParams());
         }

@@ -17,14 +17,25 @@ namespace PrestamoWS.Controllers
         {
             this.CatalogoName = catalogoName;
         }
-        
-        protected IActionResult PostBase([FromBody] BaseInsUpdGenericCatalogo catalogoInsUPd) => SaveCatalogo(catalogoInsUPd);
-        protected IEnumerable<@CatalogoType> GetBase([FromQuery] BaseCatalogoGetParams getParams) => BLLPrestamo.Instance.GetCatalogos<CatalogoType>(CatalogoName, getParams);
-        protected void DeleteBase(BaseCatalogoDeleteParams catalogoDelParams) => BLLPrestamo.Instance.DeleteCatalogo(CatalogoName, catalogoDelParams);
+        protected internal IActionResult PostBase([FromBody] BaseInsUpdGenericCatalogo catalogoInsUPd) => SaveCatalogo(catalogoInsUPd);
+        protected internal IEnumerable<@CatalogoType> GetBase([FromQuery] BaseCatalogoGetParams getParams) => BLLPrestamo.Instance.GetCatalogos<CatalogoType>(CatalogoName, getParams);
+        protected internal IActionResult DeleteBase(BaseCatalogoDeleteParams catalogoDelParams) => DeleteCatalog(catalogoDelParams);
         public abstract IActionResult Post([FromBody] @CatalogoType  catalogoInsUpd);
         public abstract IEnumerable<@CatalogoType> Get([FromQuery] BaseCatalogoGetParams getParams);
-        public abstract void Delete(BaseCatalogoDeleteParams catalogoDelParams);
+        public abstract IActionResult Delete(BaseCatalogoDeleteParams catalogoDelParams);
 
+        private IActionResult DeleteCatalog(BaseCatalogoDeleteParams catalogoDelParams)
+        {
+            try 
+            {
+                BLLPrestamo.Instance.DeleteCatalogo(CatalogoName, catalogoDelParams);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se pudo realizar la peticion de eliminar " + e.Message);
+            }
+        }
         private IActionResult SaveCatalogo(BaseInsUpdGenericCatalogo catalogo)
         {
             
@@ -38,7 +49,6 @@ namespace PrestamoWS.Controllers
             catch (Exception e)
             {
                 throw new Exception("El cliente no pudo ser creado" + e.Message);
-
             }
         }
 

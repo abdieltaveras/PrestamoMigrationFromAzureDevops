@@ -6,13 +6,20 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class TipoSexo : BaseInsUpdCatalogo
+    public class TipoSexo : BaseInsUpdGenericCatalogo
     {
-        public int IdTipoSexo { get; set; } = 0;
+        public virtual int? IdTipoSexo { get; set; }
 
-        public override int GetId()
+        public override int GetId() => (int)this.IdTipoSexo;
+
+        protected override void SetIdForConcreteObject()
         {
-            return IdTipoSexo;
+            this.IdTipoSexo = this.IdRegistro;
+        }
+
+        public override void SetPropertiesNullToRemoveFromSqlParam()
+        {
+            this.IdTipoSexo = null;
         }
     }
 

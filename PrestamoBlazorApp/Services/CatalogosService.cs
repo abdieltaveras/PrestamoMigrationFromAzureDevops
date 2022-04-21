@@ -14,18 +14,19 @@ namespace PrestamoBlazorApp.Services
 {
     public class CatalogosService : ServiceBase
     {
-        string apiUrl = "api/catalogo";
+        private string ApiUrl { get; }
         string apiReportUrl = "api/reportes";
-        public CatalogosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public CatalogosService(IHttpClientFactory clientFactory, IConfiguration configuration, string apiUrl) : base(clientFactory, configuration)
         {
+            this.ApiUrl = apiUrl;
 
         }
         public async Task SaveCatalogo(CatalogoInsUpd catalogo)
         {
-            apiUrl = "api/Ocupaciones";
+            
             try
             {
-                await PostAsync<CatalogoInsUpd>(apiUrl+"/Post", catalogo);
+                await PostAsync<CatalogoInsUpd>(ApiUrl+"/Post", catalogo);
             }
             catch (Exception ex)
             {
@@ -34,25 +35,25 @@ namespace PrestamoBlazorApp.Services
         }
         public async Task DeleteCatalogo(BaseCatalogoDeleteParams catalogo)
         {
-            apiUrl = "api/Ocupaciones";
-            await  PostAsync(apiUrl + "/Delete", catalogo);
+            
+            await  PostAsync(ApiUrl + "/Delete", catalogo);
         }
         //public async Task<IEnumerable<T>> Get<T>(CatalogoGetParams search) where T : class
         //{
         //    var d =  await GetAsync<T>(apiUrl, new { JsonGet = search.ToJson() });
         //    return d;
         //}
-        public async Task<IEnumerable<CatalogoInsUpd>> Get(CatalogoGetParams search) 
+        public async Task<IEnumerable<CatalogoInsUpd>> Get(BaseCatalogoGetParams search) 
         {
-            var d = await GetAsync<CatalogoInsUpd>(apiUrl+"/get", search);
+            var d = await GetAsync<CatalogoInsUpd>(ApiUrl+"/get", search);
             return d;
         }
 
         //}
         public async Task<IEnumerable<CatalogoInsUpd>> Get2(BaseCatalogoGetParams search)
         {
-            apiUrl = "api/Ocupaciones";
-            var d = await GetAsync<CatalogoInsUpd>(apiUrl + "/get", search);
+            
+            var d = await GetAsync<CatalogoInsUpd>(ApiUrl + "/get", search);
             return d;
         }
         public async Task<string> ReportListado(IJSRuntime jSRuntime,CatalogoReportGetParams search)

@@ -10,29 +10,36 @@ using PrestamoBlazorApp.Shared;
 using PrestamoBlazorApp.Shared.Components.Catalogos;
 using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.Base;
-namespace PrestamoBlazorApp.Pages.Ocupaciones
+namespace PrestamoBlazorApp.Pages.Catalogos
 {
-    public partial class Ocupaciones : BaseCatalogoComponent
+    public  abstract  class CatalogosViewBase : BaseCatalogoComponent
     {
         [Inject] protected IDialogService Dialog { get; set; }
-        
-        [Inject] protected CatalogosService CatalogosService { get; set; }
-        
-        
+
+        //[Inject] protected OcupacionesServiceV2 OcupacionesService { get; set; }
+        //protected override string CatalogoName() => "Ocupaciones";
+
+        [Inject] protected CommonInjectionsService CommomInjectionsService { get; set; }
+
         private async Task ShowEditor(CatalogoInsUpd catalogo, bool usarFormularioParaEliminar=false, Func<Task> action=null)
         {
             var parameters = new DialogParameters(); 
             parameters.Add("Catalogo", catalogo);
             parameters.Add("UsarFormularioParaEliminar", usarFormularioParaEliminar);
             parameters.Add("UpdateList", action);
+            parameters.Add("CatalogosService", GetService);
             var options = new DialogOptions() {  CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
             //var dlg = new CatalogoEditor(() => GetCatalogos(new BaseCatalogoGetParams());
             Dialog.Show<CatalogoEditor>("Editar", parameters, options);
             //Task showEditor = Task.Run(() => Dialog.Show<CatalogoEditor>("Editar", parameters, options));
             //await GetCatalogos(new BaseCatalogoGetParams());       
             //await showEditor.ContinueWith(antecedent =>  GetCatalogos(new BaseCatalogoGetParams()));
+            
 
         }
+
+        protected virtual CatalogosService GetService { get; }
+        
         protected override async Task ShowAddEditor(CatalogoInsUpd catalogo, Func<Task> action)
         {
             await ShowEditor(catalogo, false, action);
@@ -52,11 +59,10 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
         protected async Task UpdateList() => await GetCatalogos(new BaseCatalogoGetParams());
         protected override async  Task<IEnumerable<CatalogoInsUpd>> GetCatalogos(BaseCatalogoGetParams getParam)
         {
-            var Catalogos = await CatalogosService.Get2(getParam);
+            var Catalogos = await GetService.Get(getParam);
             return Catalogos;
         }
 
-        
-        
     }
+    
 }
