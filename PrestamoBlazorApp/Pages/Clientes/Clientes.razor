@@ -1,116 +1,49 @@
 ﻿@page "/clientes"
 @inherits BaseForList
 @using PrestamoBlazorApp.Shared.Components.Reports
-<div class="grid-container">
-    <div class="bg-secondary">
-        <h3 class="text-left">Listado de clientes </h3> 
-    </div>
-    <div class="search">
-        <EditForm Model="@searchClientes" OnValidSubmit="@GetClientes">
-            <InputText id="Codigo" @bind-Value="searchClientes.Codigo" placeholder="Código" />
-            <InputText id="nombres" @bind-Value="searchClientes.Nombres" placeholder="Nombres" />
-            <InputText id="Apellidos" @bind-Value="searchClientes.Apellidos" placeholder="Primer Apellido" />
 
-            <button type="submit" class="fa fa-search">Buscar</button>
-            @if (totalClientes > 0)
-            {
-                <label class="text-right col-sm-2">registros encontrados @totalClientes</label>
-            }
-        </EditForm>
-
-    </div>
-    <div style="display:flex; justify-content:flex-end;">
-        <SearchReportGeneric  EndPointReporte="ClienteReportList"></SearchReportGeneric>
-    </div>
-</div>
-
-<div class="grid">
-    @if (loading)
-    {
-        <div class="loader">Cargando...</div>
-    }
-    else
-    {
-        if (clientes == null)
-        {
-            <p><em>datos no encontrados</em></p>
-        }
-        else
-        {
-            if (totalClientes > 0)
-            {
-                <table class="table table-hover table-sm">
-                    <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Nombres</th>
-                            <th>Telefono</th>
-                            <th>Tipo Identificacion</th>
-                            <th>Identificacion</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var cliente in clientes)
-                        {
-                            <tr @key="@cliente.IdCliente">
-                                <td>@cliente.Codigo</td>
-                                <td>@cliente.NombreCompleto</td>
-                                <td>@cliente.TelefonoMovil</td>
-                                @{
-                                    var tident = (TiposIdentificacionPersona)cliente.IdTipoIdentificacion;
-                                    <td> @tident</td>
-                                }
-                                <td>@cliente.NoIdentificacion</td>
-
-                                <td>
-
-                                    <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
-                                        <i class="fa fa-info-circle"></i>
-                                    </button>
-
-                                    <button @onclick='()=>OnEditClick("clientes/createoredit/" + cliente.IdCliente)' class="btn btn-outline-primary">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button onclick="alert('opcion no implementada aun')" ti tle="Anular o Eliminar" class="btn btn-outline-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    <div class="dropdown show" style="display:inline-block;">
-                                        <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-th"></i>
-                                        </a>
-
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <button class="dropdown-item" @onclick="()=>PrintFicha(cliente.IdCliente,1)">
-                                                <i class="fa fa-file-pdf-o"></i> PDF
-                                            </button>
-                                            <button class="dropdown-item" @onclick="()=>PrintFicha(cliente.IdCliente,2)">
-                                                <i class="fa fa-file-excel-o"></i> EXCEL
-                                            </button>
-
-                                        </div>
-                                    </div>
-                                    @*<button @onclick="()=>PrintFicha(cliente.IdCliente)" title="Ficha" class="btn btn-outline-danger">
-            <i class="fa fa-info"></i>
-        </button>*@
-                                    @*<a  onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
-            <i class="fa fa-trash"></i>
-        </a>*@
-                                </td>
-
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <p><em>No datos encontrados</em></p>
-            }
-        }
-    }
-
-</div>
+@using PrestamoBlazorApp.Shared.Components.Forms
 
 
+<GeneralList CardTitle="Lista de Clientes" LinkAddButton="clientes/createoredit/">
+    <ActionsButtons>
+        <MudIconButton Icon="@Icons.Filled.Print" OnClick="()=>ShowReportGenerator()"></MudIconButton>
+    </ActionsButtons>
+    <TableList>
+        <MudTable Items="@clientes" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Cliente,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Codigo</MudTh>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Telefono</MudTh>
+                <MudTh>Tipo Identificacion</MudTh>
+                <MudTh>Identificacion</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
+                <MudTd DataLabel="Nombre">@context.NombreCompleto</MudTd>
+                <MudTd DataLabel="Nombre">@context.TelefonoMovil </MudTd>
+                @{
+                    var tident = (TiposIdentificacionPersona)context.IdTipoIdentificacion;
+                    <MudTh> @tident</MudTh>
+                }
+                <MudTd DataLabel="Nombre">@context.NoIdentificacion</MudTd>
 
+                <MudTd>
+                    <MudIconButton OnClick='()=>OnEditClick("clientes/createoredit/" + context.IdCliente.ToString())' Icon="@Icons.Outlined.Edit"></MudIconButton>
+                    <MudMenu Icon="@Icons.Filled.Print">
+                        <MudMenuItem OnClick="()=>PrintFicha(context.IdCliente,1)">PDF</MudMenuItem>
+                        <MudMenuItem OnClick="()=>PrintFicha(context.IdCliente,1)">EXCEL</MudMenuItem>
+                    </MudMenu>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </TableList>
+</GeneralList>

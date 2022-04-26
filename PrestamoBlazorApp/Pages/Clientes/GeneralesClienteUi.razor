@@ -1,5 +1,73 @@
 ﻿@inherits CommonBase
-<div class="col-md-6">
+<MudGrid>
+    <MudItem md="12" lg="12">
+        @if (AllowInputCodigo)
+        {
+            <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
+        }
+        else
+        {
+            <MudTextField @bind-Value="cliente.Codigo" Label="Codigo" ReadOnly="true"></MudTextField>
+        }
+
+        <MudSelect @bind-Value="cliente.IdTipoIdentificacion" Label="Tipo Identificacion">
+            @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
+            {
+                <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+            }
+        </MudSelect>
+
+        @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
+        {
+            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" ReadOnly="true" Placeholder="000-0000000-0"></MudTextField>
+
+            @*<InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />*@
+            @*<InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />*@
+        }
+        else
+        {
+            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" ReadOnly="true"></MudTextField>
+
+            @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
+        }
+        <MudTextField @bind-Value="cliente.Nombres" Label="Nombres" ReadOnly="true"></MudTextField>
+        <MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos" ReadOnly="true"></MudTextField>
+        <MudTextField @bind-Value="cliente.Apodo" Label="Apodo" ReadOnly="true"></MudTextField>
+        <MudSelect @bind-Value="IdEstadoCivil" Label="Estado Civil">
+            @foreach (var item in EnumToList.GetEnumEstadosCiviles())
+            {
+                <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSwitch @bind-Checked="TieneConyuge" Label="Tiene Conyuge o Pareja"></MudSwitch>
+        <MudSelect @bind-Value="cliente.idSexo" Label="Sexo">
+            <MudSelectItem Value="1">Masculino</MudSelectItem>
+            <MudSelectItem Value="2">Femenino</MudSelectItem>
+        </MudSelect>
+        <MudDatePicker @bind-Date="cliente.FechaNacimiento" ></MudDatePicker>
+        <MudTextField @bind-Value="cliente.TelefonoCasa" Label="Telefono Casa" ReadOnly="true"></MudTextField>
+        <MudTextField @bind-Value="cliente.TelefonoMovil" Label="Telefono Movil" ReadOnly="true"></MudTextField>
+        <MudSelect @bind-Value="cliente.IdTipoProfesionUOcupacion" Label="Profesion">
+            @foreach (var item in Ocupaciones)
+            {
+                <MudSelectItem Value="@item.IdOcupacion">@item.Nombre</MudSelectItem>
+            }
+        </MudSelect>
+
+        <div class="ml-5">
+
+            @{ var tGrupo = TiposFotosPersonas.Rostro.ToString(); }
+            <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
+        </div>
+
+        <div class="ml-5">
+
+            @{ var tGrp = TiposFotosPersonas.DocIdentificacion.ToString(); }
+            <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
+        </div>
+    </MudItem>
+</MudGrid>
+<!--<div class="col-md-6">
     <div class="form-group row">
         <label for="codigo" class="col-sm-2 col-form-label text-label-align">Codigo</label>
         @if (AllowInputCodigo)
@@ -9,9 +77,9 @@
         else
         {
             <label class="col-sm-3 mt-2">@cliente.Codigo </label>
-        }
+        }-->
         @*<label class="col-sm-2 col-form-label text-label-align">Activo</label>*@
-        <label class="col-sm-1 col-form-label text-right text-info">@(@cliente.Activo ? "Activo" : "Inactivo")</label>
+        <!--<label class="col-sm-1 col-form-label text-right text-info">@(@cliente.Activo ? "Activo" : "Inactivo")</label>
     </div>
     <div class="form-group row">
         <label for="tiposIdentificacionPersonas" class="col-sm-3 col-form-label text-left"> Tipo Identificacion</label>
@@ -24,9 +92,9 @@
         <label for="noIdentificacion" class="col-sm-2 col-form-label text-label-align">Numeracion </label>
         @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
         {
-            <InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />
+            <InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />-->
             @*<InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />*@
-        }
+        <!--}
         else
         {
             <InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />
@@ -78,14 +146,14 @@
     
     <div class="form-group row mt-5">
         <label class="col-sm-3 col-form-label text-label-align">Telefono Casa</label>
-        <InputText  @bind-Value="cliente.TelefonoCasa" class="col-sm-6" />
+        <InputText  @bind-Value="cliente.TelefonoCasa" class="col-sm-6" />-->
         @*<InputText @bind-Value="cliente.TelefonoCasa" data-inputmask="'mask': '(999)-999-9999'" class="col-sm-3 masked"/>*@
-    </div>
+    <!--</div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-label-align">Telefono movil</label>
-        <InputText  @bind-Value="cliente.TelefonoMovil"  class="col-sm-6" />
+        <InputText  @bind-Value="cliente.TelefonoMovil"  class="col-sm-6" />-->
         @*<InputText placeholder="(000)-000-0000" @bind-Value="cliente.TelefonoMovil " data-inputmask="'mask': '(999)-999-9999'" class="col-sm-3 masked" />*@
-    </div>
+    <!--</div>
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-label-align">Profesion</label>
         <InputSelect id="Ocupaciones" @bind-Value="cliente.IdTipoProfesionUOcupacion" class="form-control col-sm-4">
@@ -106,7 +174,7 @@
         @{ var tGrp = TiposFotosPersonas.DocIdentificacion.ToString(); }
         <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
     </div>
-</div>
+</div>-->
 
 
 @code {

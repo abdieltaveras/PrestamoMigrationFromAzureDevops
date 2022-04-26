@@ -86,7 +86,7 @@ namespace PrestamoEntidades
         public string NoIdentificacion { get; set; } = string.Empty;
         [Display(Name = "Fecha Nacimiento")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime FechaNacimiento { get; set; } = DateTime.Now;
+        public DateTime? FechaNacimiento { get; set; } = DateTime.Now;
         [Display(Name = "Telefono movil")]
         public string TelefonoMovil { get; set; } = string.Empty;
         [Display(Name = "Telefono Casa")]

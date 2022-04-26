@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Components
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h3">@CardTitle</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton OnClick="OnAddClick" Link="@LinkAddButton">Agregar</MudButton>
+            @ActionsButtons
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        @TableList
+    </MudCardContent>
+</MudCard>
+
+@code {
+    [Parameter]
+    public string CardTitle { get; set; }
+
+    [Parameter]
+    public RenderFragment TableList { get; set; }
+    [Parameter]
+    public RenderFragment ActionsButtons { get; set; }
+    [Parameter]
+    public EventCallback OnAddClick { get; set; }
+    [Parameter]
+    public string LinkAddButton { get; set; }
+}
