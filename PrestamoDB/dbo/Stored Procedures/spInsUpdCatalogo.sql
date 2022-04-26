@@ -29,7 +29,7 @@ else
 	begin
 		EXEC
 		(
-			'UPDATE '+ @TableName +' SET Codigo = '''+@Codigo+''', Nombre = '''+@Nombre+''', IdNegocio = '''+@IdNegocio+''',IdLocalidadNegocio = '''+@IdLocalidadNegocio+''', ModificadoPor = '''+@Usuario+''', FechaModificado = GETDATE() WHERE '+@IdColumnName + ' = '+@IdRegistro
+			'UPDATE '+ @TableName +' SET Codigo = '''+@Codigo+''', Nombre = '''+@Nombre+''', IdNegocio = '''+@IdNegocio+''',IdLocalidadNegocio = '''+@IdLocalidadNegocio+''',Activo = '''+@Activo+''', ModificadoPor = '''+@Usuario+''', FechaModificado = GETDATE() WHERE '+@IdColumnName + ' = '+@IdRegistro
 		)
 	end
 End
