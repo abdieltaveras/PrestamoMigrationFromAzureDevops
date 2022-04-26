@@ -8,28 +8,30 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 
-namespace PrestamoBlazorApp.Pages.TiposMora
+namespace PrestamoBlazorApp.Shared.Components.TiposMora
 {
-    public partial class TiposMora : BaseForCreateOrEdit
+    public partial class CreateTiposMora : BaseForCreateOrEdit
     {
-    
         [Inject]
         TiposMoraService TiposMoraService { get; set; }
         IEnumerable<TipoMora> tiposmora { get; set; } = new List<TipoMora>();
         [Parameter]
-        public TipoMora TipoMora { get; set; } 
-        
+        public TipoMora TipoMora { get; set; } = new TipoMora();
+        [Parameter]
+        public int IdTipoMora { get; set; }
         TipoMoraGetParams SearchGarantia { get; set; } = new TipoMoraGetParams();
         void Clear() => tiposmora = null;
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            this.TipoMora = new TipoMora();
+           
         }
         protected override async Task OnInitializedAsync()
         {
+            TipoMora = new TipoMora();
             await BlockPage();
             tiposmora = await TiposMoraService.Get(new TipoMoraGetParams());
+            await CreateOrEdit();
             await UnBlockPage();
         }
         async Task GetTiposMora()
@@ -59,22 +61,22 @@ namespace PrestamoBlazorApp.Pages.TiposMora
             //await OnGuardarNotification();
             //NavManager.NavigateTo("/TiposMora");
         }
-        async Task CreateOrEdit(int idTipoMora = -1)
+        async Task CreateOrEdit()
         {
-            if (idTipoMora > 0)
+            if (IdTipoMora > 0)
             {
-                var param = await TiposMoraService.Get(new TipoMoraGetParams { IdTipoMora = idTipoMora });
+                var param = await TiposMoraService.Get(new TipoMoraGetParams { IdTipoMora = IdTipoMora });
                 this.TipoMora = param.FirstOrDefault();
             }
             else
             {
                 this.TipoMora = new TipoMora();
             }
-            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            //await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
         void RaiseInvalidSubmit()
         {
-            
+
         }
     }
 }

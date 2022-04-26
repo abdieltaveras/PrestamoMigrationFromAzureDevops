@@ -1,7 +1,39 @@
 ﻿@using PrestamoEntidades;
 
+<MudGrid>
+    <MudItem md="12" lg="12">
+        <MudChip Color="MudBlazor.Color.Info">No @(Index+1)</MudChip>
 
-<div class="form-group row bg-dark">
+        <MudSelect @bind-Value="referencia.Tipo" Label="Tipo Referencia">
+            @{
+                int indexEnum = 0;
+            }
+            @foreach (var tipoReferencia in Enum.GetValues(typeof(EnumTiposReferencia)))
+            {
+                indexEnum++;
+                <MudSelectItem Value="@indexEnum">@tipoReferencia</MudSelectItem>
+            }
+        </MudSelect>
+        <MudTextField @bind-Value="@referencia.NombreCompleto" Label="Nombre Completo"></MudTextField>
+        <MudTextField @bind-Value="@referencia.Telefono" Label="Telefono"></MudTextField>
+        @if (referencia.Tipo == (int)@EnumTiposReferencia.Familiar)
+        {
+            <MudTextField @bind-Value="@referencia.Vinculo"></MudTextField>
+
+            @*<input @bind-value=@referencia.Vinculo class="col-sm-2" />*@
+        }
+        else
+        {
+            <MudChip Color="MudBlazor.Color.Info">No Aplica Vinculo Familiar</MudChip>
+            @*<label class="col-sm-2">No Aplica</label>*@
+        }
+        <MudTextField @bind-Value="@referencia.Direccion" Label="Direccion" Lines="3"></MudTextField>
+        <MudTextField @bind-Value="@referencia.Detalles" Label="Detalles" Lines="3"></MudTextField>
+        <MudDivider />
+    </MudItem>
+</MudGrid>
+
+<!--<div class="form-group row bg-dark">
     <label class="col-sm-1 text-left text-white">No @(Index+1)</label>
     <label class="col-sm-1 text-center text-white"> Tipo </label>
     <label class="col-sm-5 text-center text-white">Nombre Completo </label>
@@ -19,9 +51,9 @@
         }
     </InputSelect>
 
-    <input id="NombreCompleto-referencia" @bind-value=@referencia.NombreCompleto class="col-sm-5" />
+    <input id="NombreCompleto-referencia" @bind-value=@referencia.NombreCompleto class="col-sm-5" />-->
     @*@onchange="@(e=> cliente.InfoReferenciasObj[referencia.Index].NombreCompleto=e.Value.ToString())"*@
-    <input @bind-value=@referencia.Telefono class="col-sm-5" />
+    <!--<input @bind-value=@referencia.Telefono class="col-sm-5" />
 </div>
 
 <div class="form-group row bg-info">
@@ -30,18 +62,18 @@
     <label class="col-sm-5 text-center text-white">Detalles </label>
 </div>
 <div class="form-group row">
-    @if (referencia.Tipo==(int)@EnumTiposReferencia.Familiar)
+    @if (referencia.Tipo == (int)@EnumTiposReferencia.Familiar)
     {
         <input @bind-value=@referencia.Vinculo class="col-sm-2" />
     }
     else
     {
-        <label class="col-sm-2">No Aplica</label> 
+        <label class="col-sm-2">No Aplica</label>
     }
 
     <InputTextArea @bind-Value=@referencia.Direccion class="col-sm-5" />
     <InputTextArea @bind-Value=@referencia.Detalles class="col-sm-5" />
-</div>
+</div>-->
 
 
 @code {

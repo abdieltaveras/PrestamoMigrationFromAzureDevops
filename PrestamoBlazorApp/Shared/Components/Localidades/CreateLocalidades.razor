@@ -5,21 +5,36 @@
             <DataAnnotationsValidator />
 
             <MudGrid>
-                <MudItem md="12">
-                    @if(territorios.Count() > 1)
+                <MudItem md="7">
+                    @if (territorios.Count() > 0)
                     {
-                        <MudSelect T="int"  @bind-Value="SelectedTipoLocalidad">
+                        <MudSelect T="Territorio" @bind-Value="SelectedTipoLocalidad" Label="Tipo Loc. Padre">
+
                             @foreach (var item in territorios)
                             {
-                                <MudSelectItem Value="@item.IdDivisionTerritorial">@(item.Nombre)</MudSelectItem>
+                                <MudSelectItem Value="@item">@(item.Nombre)</MudSelectItem>
                             }
-
                         </MudSelect>
                     }
 
                     @*<MudTextField @bind-Value="Localidad.Codigo" T="string" Label="Codigo"></MudTextField>*@
-                    <MudTextField @bind-Value="Localidad.Nombre" T="string" Label="Nombre" For="@(() => Localidad.Nombre)"></MudTextField>
+                   
                 </MudItem>
+                <MudItem md="5">
+                    @if (localidadesByTipo.Count() > 0)
+                    {
+                        <MudSelect T="int" @bind-Value="IdLocalidadByTipoSelected" Label="Localidad">
+
+                            @foreach (var item in localidadesByTipo)
+                            {
+                                <MudSelectItem Value="@item.IdLocalidad">@(item.Nombre)</MudSelectItem>
+                            }
+                        </MudSelect>
+                    }
+                </MudItem>
+            </MudGrid>
+            <MudGrid>
+                <MudTextField @bind-Value="Localidad.Nombre" T="string" Label="Nombre" For="@(() => Localidad.Nombre)"></MudTextField>
             </MudGrid>
         </EditForm>
     </DialogContent>

@@ -1,120 +1,45 @@
 ﻿@page "/modelos"
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Catalogos
-<h1>Modelos  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
-
-@*Aqui funciona para que funcione en un modal hay que entrarlo dentro de un dialogo
-    vamos a experimentar con esto luego*@
-@*<RadzenDropDown @bind-value="Modelo.IdMarca" class="col-sm-4" AllowClear="true" TValue="int"
-    Data=@marcas
-    TextProperty="Nombre" ValueProperty="IdMarca" />*@
-
-@*<button class="btn btn-primary" @onclick="GetModelosByParam">Get By Param</button>*@
-@*<button class="btn btn-primary" @onclick="GetAll">Get All</button>*@
-@*<button class="btn btn-primary" @onclick="Clear">Limpiar lista</button>*@
-<div class="modal fade" id="edtMarca" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                @if (Modelo.IdModelo > 0)
-                {
-                    <h5 class="modal-title" id="edtMarcaTitel">Editar Modelo</h5>
-                }
-                else
-                {
-                    <h5 class="modal-title" id="edtMarcaTitel">Crear Modelo</h5>
-                }
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="col-md-12">
-                <EditForm Model="@Modelo" OnValidSubmit="SaveModelo" OnInvalidSubmit="RaiseInvalidSubmit">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="ListadoMarcas" class="col-sm-2 col-form-label text-right">Marcas</label>
-                                <InputSelect id="ListadoMarcas" @bind-Value="@Modelo.IdMarca" class="form-control col-md-6">
-                                    @foreach (var item in marcas)
-                                    {
-                                        <option value="@item.IdMarca">@item.Nombre</option>
-                                    }
-                                </InputSelect>
-                            </div>
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <InputText id="nombre" class="form-control col-md-6" @bind-Value="Modelo.Nombre"></InputText>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </EditForm>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 
-@if (loading)
-{
-    <div class="loader">Cargando datos, espere...</div>
-}
-<!--<div class="search">
-    <EditForm Model="@SearchModelo" OnValidSubmit="@GetModelos">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        LLene el valor indicado y pulse buscar-->
-@*<InputText id="Codigo" @bind-Value="SearchModelo.Codigo" placeholder="Código" />*@
-<!--<InputText id="nombres" @bind-Value="SearchModelo.Nombre" placeholder="Nombre" />-->
-@*<InputText id="Apellidos" @bind-Value="SearchModelo.Apellidos" placeholder="Primer Apellido" />*@
 
-<!--<button type="submit">Buscar</button>
-        @if (@modelos.Count() > 0)
-        {
-            <label>Total de Datos encontrados para su peticion @modelos.Count().ToString()</label>
-        }
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4" xs="1"> Listado De Modelos</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit())">Agregar</MudButton>
+            @*<MudMenu Label="Reportes">
+                    <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
+                    <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
+                </MudMenu>*@
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@modelos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Modelo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Codigo</MudTh>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+           
+                <MudTd>
+                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdModelo))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
 
-    </EditForm>
-</div>-->
-
-<table class="table table-responsive-md table-hover">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Operacion</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (modelos.Count() > 0)
-        {
-            @foreach (var item in modelos)
-            {
-                <tr>
-                    <td>@item.Nombre</td>
-                    <td>
-                        @*<button class="btn btn-outline-warning">
-                                <i class="oi oi-document"></i>
-                            </button>*@
-                        <button @onclick="()=>CreateOrEdit(item.IdModelo)" class="btn btn-outline-primary">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button class="btn btn-outline-danger">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            }
-
-        }
-        else
-        {
-            <tr>
-                <td>Cargando datos ejecute una busqueda</td>
-            </tr>
-        }
-    </tbody>
-</table>

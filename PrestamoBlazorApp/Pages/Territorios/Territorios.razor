@@ -1,7 +1,41 @@
 ﻿@page "/territorios"
 @inherits BaseForCreateOrEdit
 
-    <div class="row">
+<MudCard>
+    <MudCardHeader>
+        <MudText Typo="Typo.h4">Agregar componentes a division territorial</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        <EditForm autocomplete="off" Model="@Territorio" OnValidSubmit="SaveTerritorio" OnInvalidSubmit="RaiseInvalidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <MudSelect @bind-Value="territorioSelected" Label="Divisiones territoriales"> 
+                @foreach (var item in listadeterritorios)
+                {
+                    <MudSelectItem Value="@item.IdDivisionTerritorial">
+                        @item.Nombre
+                        @if (@item.NombreTipoHijoDe != null)
+                        {
+                            @item.NombreTipoHijoDe
+                        }
+                    </MudSelectItem>
+                }
+            </MudSelect>
+            @*<MudSelect @bind-Value="selectedLocalidadPadre">
+                @foreach (var item in territorios)
+	            {
+		 
+	            }
+            </MudSelect>*@
+            <MudTextField @bind-Value="this.Territorio.Nombre" Label="Nombre"></MudTextField>
+            <MudCheckBox @bind-Checked="Territorio.PermiteCalle">¿Permite calle?</MudCheckBox>
+             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Primary">Guardar</MudButton>
+
+        </EditForm>
+    </MudCardContent>
+</MudCard>
+    <!--<div class="row">
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
@@ -31,7 +65,7 @@
                                                         @item.NombreTipoHijoDe
                                                     }
                                                 </option>
-                                            }
+                                            }-->
                                             @*@foreach (var item in Model.ListaTerritorios)
                         {
                             <option value="@item.IdDivisionTerritorial" @(Model.territorioSeleccionado= =item.IdDivisionTerritorial ? "selected" : "" )>
@@ -42,9 +76,9 @@
                                 }
                             </option>
                         }*@
-                                        </select>
+                                        <!--</select>-->
                                         @*<button >Precioname </button>*@
-                                    </div>
+                                    <!--</div>
                                 </div>
 
                                 <div class="form-group row">
@@ -54,19 +88,19 @@
                                             <option value="-1">Elije una opcion</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 @*<input type="hidden" id="inputIdDivisionTerritorialPadre" name="IdDivisionTerritorialPadre" value="" required />*@
-                                <input type="hidden" id="inputIdDivisionTerritorialPadre" @bind-value="this.Territorio.IdDivisionTerritorialPadre" required />
+                                <!--<input type="hidden" id="inputIdDivisionTerritorialPadre" @bind-value="this.Territorio.IdDivisionTerritorialPadre" required />
 
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" for="nombre">
                                         Nombre <span class="required">*</span>
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required />
+                                        <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required />-->
                                         @*<input type="text" id="nombre" name="Nombre" value="" class="form-control" required />*@
-                                    </div>
+                                    <!--</div>
                                 </div>
 
                                 <div class="form-group row">
@@ -79,9 +113,9 @@
                                                id="PermiteCalle"
                                                name="PermiteCalle"
                                                type="checkbox"
-                                               value="true" @onchange="checkPermiteCalle" />
+                                               value="true" @onchange="checkPermiteCalle" />-->
                                         @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
-                                        <label for="PermiteCalle" class="switch" id="switch"></label>
+                                        <!--<label for="PermiteCalle" class="switch" id="switch"></label>
 
                                     </div>
                                 </div>
@@ -91,29 +125,29 @@
                                     <div class="col-md-6 col-sm-6 offset-md-3">
                                         <button type="submit" class="btn btn-primary">Guardar</button>
                                     </div>
-                                </div>
+                                </div>-->
                                 @*</form>*@
                                 @*}*@
-                            </EditForm>
+                            <!--</EditForm>
                         </div>
                         <div class="col-md-6">
                             <div class="x_panel col-md-6">
                                 <div id="info-component-container">
-                                    <strong>La cantidad de componentes es: <span id="component-count"></span></strong>
+                                    <strong>La cantidad de componentes es: <span id="component-count"></span></strong>-->
                                     @*<p ></p>*@
-                                    <p id="component-list"></p>
+                                    <!--<p id="component-list"></p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     @*@using (Html.BeginForm("GuardarTerritorio", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
         {*@
              
-                </div>
+                <!--</div>
             </div>
         </div>
       
-    </div>
+    </div>-->
 
 
 @code{

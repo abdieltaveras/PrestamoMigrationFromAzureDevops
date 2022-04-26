@@ -14,6 +14,7 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
     {
         [Inject]
         IDialogService DialogService { get; set; }
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         [Inject]
         NavigationManager NavigationManager { get; set; }
         [Inject]
@@ -32,7 +33,7 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         private bool FilterFunc1(TasaInteres element) => FilterFunc(element, SearchString1);
 
         private bool ShowDialogCreate { get; set; } = false;
-        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+     
         private bool Dense = true, Hover = true, Bordered = false, Striped = false;
 
         protected override void OnInitialized()

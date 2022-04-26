@@ -1,6 +1,61 @@
 ﻿@page "/territorios/CreateDivisionTerritorial"
 @inherits BaseForCreateOrEdit
-<h2>Listado de divisiones territoriales <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h2>
+@*Esto va en un dialogo*@
+<MudCard>
+    <MudCardContent>
+        <EditForm Model="@Territorio" OnValidSubmit="SaveDivisionTerritorial" OnInvalidSubmit="RaiseInvalidSubmit">
+            <MudTextField Label="Nombre" @bind-Value="Territorio.Nombre"></MudTextField>
+            <MudButton ButtonType="ButtonType.Submit"></MudButton>
+        </EditForm>
+        <br />
+        <MudItem Class="pb-0">
+            <MudText Typo="Typo.h4">Listado de Divisiones Territoriales</MudText>
+        </MudItem>
+        <!--Acciones personalizadas en la tarea-->
+        <MudItem Class="pb-0">
+          
+        </MudItem>
+        <MudItem xs="12">
+            <!--Acciones Comunes del Crud-->
+            @*<ToolBarButtons TItem="Catalogo" ToolbarButtons="Buttons()" SelectedItem="SelectedItem" />*@
+
+            <!--Tabla-->
+            <MudTable Items="listadeterritorios" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true">
+              
+                <HeaderContent>
+                    @*<MudTh><MudTableSortLabel SortBy="new Func<Territorio, object>(x=>x.Codigo)">Codigo</MudTableSortLabel></MudTh>*@
+                    <MudTh><MudTableSortLabel SortBy="new Func<Territorio, object>(x=>x.Nombre)">Nombre</MudTableSortLabel></MudTh>
+                    <MudTh>Accion</MudTh>
+                </HeaderContent>
+                <RowTemplate Context="contx">
+                    @*<MudTd>@Catalogo.Codigo</MudTd>*@
+                    <MudTd>@contx.Nombre</MudTd>
+                    <MudTh><MudIconButton OnClick="()=>CreateOrEdit(contx.IdDivisionTerritorial)"></MudIconButton></MudTh>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+            </MudTable>
+        </MudItem>
+        <MudItem md="12">
+            <MudText>Tree</MudText>
+            <MudPaper Width="350px" MaxHeight="500px" Class="overflow-y-auto" Elevation="0">
+                <MudTreeView Items="@TreeItems">
+                    <ItemTemplate>
+                        <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
+                            <Content>
+                                <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
+                                <MudCheckBox T="bool?" Checked="@(context.HasPartialChildSelection() ? null : context.IsChecked)" ></MudCheckBox>
+                                <MudText>@context.Text</MudText>
+                            </Content>
+                        </MudTreeViewItem>
+                    </ItemTemplate>
+                </MudTreeView>
+            </MudPaper>
+        </MudItem>
+    </MudCardContent>
+</MudCard>
+@*<h2>Listado de divisiones territoriales <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h2>
 <div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -19,25 +74,13 @@
                 </button>
             </div>
             <div class="col-md-12">
-                <EditForm Model="@Territorio" OnValidSubmit="SaveDivisionTerritorial" OnInvalidSubmit="RaiseInvalidSubmit">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <InputText id="nombre" class="form-control col-md-6" @bind-Value="Territorio.Nombre"></InputText>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" >Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </EditForm>
+              
             </div>
 
         </div>
     </div>
-</div>
-<div class="row">
+</div>*@
+@*<div class="row">
     <div class="col-md-12">
         <table id="datatable" class="table table-bordered row-border">
             <thead>
@@ -73,8 +116,44 @@
             </tbody>
         </table>
     </div>
-</div>
+</div>*@
 
 @code{
+    private HashSet<TreeItemData> TreeItems { get; set; } = new HashSet<TreeItemData>();
+
+    public class TreeItemData
+    {
+        public TreeItemData Parent { get; set; } = null;
+
+        public string Text { get; set; }
+
+        public bool IsExpanded { get; set; } = false;
+
+        public bool IsChecked { get; set; } = false;
+
+        public bool HasChild => TreeItems != null && TreeItems.Count > 0;
+
+        public HashSet<TreeItemData> TreeItems { get; set; } = new HashSet<TreeItemData>();
+
+        public TreeItemData(string text)
+        {
+            Text = text;
+        }
+
+        public void AddChild(string itemName)
+        {
+            TreeItemData item = new TreeItemData(itemName);
+            item.Parent = this;
+            this.TreeItems.Add(item);
+        }
+
+        public bool HasPartialChildSelection()
+        {
+            int iChildrenCheckedCount = (from c in TreeItems where c.IsChecked select c).Count();
+            return HasChild && iChildrenCheckedCount > 0 && iChildrenCheckedCount < TreeItems.Count();
+        }
+
+    }
+    
 
 }

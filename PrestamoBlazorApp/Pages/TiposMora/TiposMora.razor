@@ -1,279 +1,68 @@
 ﻿@page "/tiposmora"
 @inherits BaseForCreateOrEdit
-<h1>TipoMoraes  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>
-<div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                @if (TipoMora.IdTipoMora > 0)
-                {
-                    <h5 class="modal-title" id="edtMarcaTitel">Editar TipoMora</h5>
-                }
-                else
-                {
-                    <h5 class="modal-title" id="edtMarcaTitel">Crear TipoMora</h5>
-                }
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="col-md-12">
-                <EditForm Model="@TipoMora" OnValidSubmit="SaveTipoMora" OnInvalidSubmit="RaiseInvalidSubmit">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">
-                                    Codigo <span class="required">*</span>
-                                </label>
-                                <div class="col-sm-8">
-                                    <InputText id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.Codigo"></InputText>
-                                    @*@Html.TextBoxFor(Model => Model.TipoMora.Codigo, new { @class = "form-control", @required = "required" })*@
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Tipo de cargo</label>
-                                <div class="col-sm-8">
-                                    <InputSelect @bind-Value="TipoMora.TipoCargo" class="form-control">
-                                        @foreach (var item in Enum.GetValues(typeof(TiposCargosMora)))
-                                        {
-                                            <option value="@Convert.ToInt32(item)">@item.ToString()</option>
-                                        }
-                                    </InputSelect>
-                                    @*@Html.DropDownListFor(Model => Model.TipoMora.TipoCargo, SelectItems.TiposCargoMora, new { @class = "form-control item" })*@
-                                </div>
-                            </div>
+@using PrestamoBlazorApp.Shared.Components.TiposMora
 
 
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4" xs="1"> Listado De Tipos De Mora</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit())">Agregar</MudButton>
+            @*<MudMenu Label="Reportes">
+                    <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
+                    <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
+                </MudMenu>*@
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@tiposmora" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<TipoMora,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Codigo</MudTh>
+                <MudTh>Tipo Cargo</MudTh>
+                <MudTh>Periodo</MudTh>
+                <MudTh>Cargo</MudTh>
+                <MudTh>Dias De Gracia</MudTh>
+                <MudTh>Rango</MudTh>
+                <MudTh>Descripcion</MudTh>
+                <MudTh>Estado</MudTh>
 
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">
-                                    Rango <span class="required">*</span>
-                                </label>
-                                <div class="col-sm-8">
-                                    <div>
-                                        Desde
-                                        <InputNumber id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.MontoCuotaDesde"></InputNumber>
-                                        @*@Html.TextBoxFor(Model => Model.TipoMora.MontoCuotaDesde, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })*@
-                                    </div>
-                                    <span class="col-sm-2" style="text-align:center;">-</span>
-                                    <div>
-                                        Hasta
-                                        <InputNumber id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.MontoCuotaHasta"></InputNumber>
-                                        @*@Html.TextBoxFor(Model => Model.TipoMora.MontoCuotaHasta, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })*@
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Periodo</label>
-                                <div class="col-sm-8">
-                                    <InputSelect @bind-Value="TipoMora.CalcularCargoPor" class="form-control">
-                                        @foreach (var item in Enum.GetValues(typeof(CalcularMoraPor)))
-                                        {
-                                            <option value="@Convert.ToInt32(item)">@item.ToString()</option>
-                                        }
-                                    </InputSelect>
-
-                                    @*@Html.DropDownListFor(Model => Model.TipoMora.CalcularCargoPor, SelectItems.CalcularMoraPor, new { @class = "form-control item" })*@
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Aplicar al</label>
-                                <div class="col-sm-8">
-                                    <InputSelect @bind-Value="TipoMora.AplicarA" class="form-control">
-                                        @foreach (var item in Enum.GetValues(typeof(AplicarMoraAl)))
-                                        {
-                                            <option value="@Convert.ToInt32(item)">@item.ToString()</option>
-                                        }
-                                    </InputSelect>
-                                    @*@Html.DropDownListFor(Model => Model.TipoMora.AplicarA, SelectItems.AplicarMorasAl, new { @class = "form-control item" })*@
-
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="codigo">
-                                    Cargo <span class="required">*</span>
-                                </label>
-                                <div class="col-sm-8">
-                                    <div>
-                                        <InputNumber id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.MontoOPorcientoACargar"></InputNumber>
-                                        @*@Html.TextBoxFor(Model => Model.TipoMora.MontoOPorcientoACargar, new { @class = "form-control", @required = "required", @type = "number" })*@
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="codigo">
-                                    Descripcion* <span class="required">*</span>
-                                </label>
-                                <div class="col-sm-8">
-                                    <div>
-                                        <InputText id="codigo" class="form-control col-md-10" @bind-Value="TipoMora.Nombre"></InputText>
-                                        @*@Html.TextBoxFor(Model => Model.TipoMora.Nombre, new { @class = "form-control", @required = "required" })*@
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="codigo">
-                                    Dias de gracia <span class="required">*</span>
-                                </label>
-                                <div class="col-sm-8">
-                                    <div>
-                                        <InputNumber id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.DiasDeGracia"></InputNumber>
-                                        @*@Html.TextBoxFor(Model => Model.TipoMora.DiasDeGracia, new { @class = "form-control", @required = "required", @type = "number" })*@
-                                    </div>
-                                </div>
-                            </div>
-                            @*<div class="form-group">
-                                    <label for="codigo">Codigo</label>
-                                    <InputText id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.Codigo"></InputText>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <InputText id="nombre" class="form-control col-md-6" @bind-Value="TipoMora.Nombre"></InputText>
-                                </div>*@
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </EditForm>
-            </div>
-
-        </div>
-    </div>
-</div>
-@if (loading)
-{
-    <div class="loader">Cargando datos, espere...</div>
-}
-<div class="row">
-    <div class="col-md-12">
-        <div class="search float-right">
-            <!--<EditForm autocomplete="off" Model="@SearchGarantia" OnValidSubmit="@GetGarantias">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-                    <div class="input-group">
-                        <InputText id="nombres" @bind-Value="SearchGarantia.Nombre" placeholder="Nombre" class="form-control" />
-                        <span>
-                            <button type="submit" class="btn btn-info">Buscar</button>
-                        </span>
-                    </div>-->
-            @*<div></div>
-                @if (Garantias.Count() > 0)
-                {
-                    <label>Total de Datos encontrados para su peticion @Garantias.Count().ToString()</label>
-                }*@
-
-            <!--</EditForm>-->
-        </div>
-    </div>
-</div>
-@if (loading)
-{
-    <div class="loader">Cargando datos, espere...</div>
-}
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-responsive-md table-hover table-sm">
-            <thead>
-                <tr>
-                    @*<th class="checkColumn"></th>*@
-                    <th>Codigo</th>
-                    <th>Tipo del Cargo</th>
-                    <th>Periodo</th>
-                    <th>Cargo</th>
-                    <th>Dias de gracia</th>
-                    <th>Rango</th>
-                    <th>Descripcion</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (tiposmora.Count() > 0)
-                {
-                    @foreach (var item in tiposmora)
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
+                <MudTd DataLabel="Nombre">
+                    @if (context.TipoCargo == 1)
                     {
-                        <tr>
-                            @*<td> <input type="checkbox" name="chkIdTipoMora" id="chkIdTipoMora" value="" /></td>*@
-                            <td>
-                                <strong>
-                                    @item.Codigo
-                                </strong>
-                            </td>
-                            <td>
-                                @if (item.TipoCargo == 1)
-                                {
-                                    <span>Fijo</span>
-                                }
-                                else
-                                {
-                                    <span>Porcentual</span>
-                                }
-                            </td>
-                            <td>
-                                <span>Preguntar</span>
-                            </td>
-                            <td>
-                                @*<span>@item.MontoOPorCientoACargar</span>*@
-                                <span>No se si mostrarla</span>
-                            </td>
-                            <td>
-                                <span>@item.DiasDeGracia</span>
-                            </td>
-
-                            <td>
-                                <span>Desde @item.MontoCuotaDesde hasta @item.MontoCuotaHasta</span>
-                            </td>
-
-                            <td>
-                                <span>@item.Nombre</span>
-                            </td>
-
-                            <td>
-                                @if (item.Activo)
-                                {
-                                    <span class="badge badge-primary">Activo</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-danger">Inactivo</span>
-                                }
-                            </td>
-                            <td>
-                                <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
-                                    <i class="fa fa-info-circle"></i>
-                                </button>
-                                <button @onclick="()=>CreateOrEdit(item.IdTipoMora)" class="btn btn-outline-primary">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button onclick="alert('opcion no implementada aun')" title="Anular o Eliminar" class="btn btn-outline-danger">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </td>
-                            @*<td>
-                                    <a href="@($"garantias/createoredit/{item.IdTipoMora}")" title="editar" class="btn btn-primary table-btn">
-                                        <i class="oi oi-pencil"></i>
-                                    </a>
-                                </td>*@
-                            @*<td> <button @onclick="()=>CreateOrEdit(item.IdGarantia)" class="btn btn-info"> Editar </button></td>*@
-                        </tr>
-
+                        <span>Fijo</span>
                     }
-                }
-                else
-                {
-                    <p> no existen datos</p>
+                    else
+                    {
+                        <span>Porcentual</span>
+                    }
+                </MudTd>
+                <MudTd>
+                    <span>Preguntar</span>
+                </MudTd>
+                <MudTd>No se si mostrarla</MudTd>
+                <MudTd>@context.DiasDeGracia</MudTd>
 
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
+                <MudTd> <span>Desde @context.MontoCuotaDesde hasta @context.MontoCuotaHasta</span></MudTd>
+                <MudTd>@context.Nombre</MudTd>
+                <MudTd>
+                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdTipoMora))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
+
+

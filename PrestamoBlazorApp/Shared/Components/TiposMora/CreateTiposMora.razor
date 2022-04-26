@@ -1,0 +1,166 @@
+﻿@inherits BaseForCreateOrEdit
+<EditForm Model="@TipoMora" OnValidSubmit="SaveTipoMora" OnInvalidSubmit="RaiseInvalidSubmit">
+    <MudDialog>
+        <DialogContent>
+            <MudTextField T="string" @bind-Value="TipoMora.Codigo" Label="Codigo"></MudTextField>
+            <MudSelect T="int" @bind-Value="TipoMora.TipoCargo" Label="Tipo Cargo">
+                @foreach (var item in Enum.GetValues(typeof(TiposCargosMora)))
+                {
+                    <MudSelectItem Value="@Convert.ToInt32(item)">@item.ToString()</MudSelectItem>
+                }
+            </MudSelect>
+            <MudTextField T="string" @bind-Value="TipoMora.Codigo" Label="Codigo"></MudTextField>
+            <MudText Typo="Typo.h4">Rango</MudText>
+            <MudNumericField T="decimal" @bind-Value="TipoMora.MontoCuotaDesde" Label="Desde"></MudNumericField>
+            <MudNumericField T="decimal" @bind-Value="TipoMora.MontoCuotaHasta" Label="Hasta"></MudNumericField>
+            <MudSelect T="int" @bind-Value="TipoMora.CalcularCargoPor" Label="Periodo">
+                @foreach (var item in Enum.GetValues(typeof(CalcularMoraPor)))
+                {
+                    <MudSelectItem Value="@Convert.ToInt32(item)">@item.ToString()</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSelect T="int" @bind-Value="TipoMora.AplicarA" Label="Aplicar a">
+                @foreach (var item in Enum.GetValues(typeof(AplicarMoraAl)))
+                {
+                    <MudSelectItem Value="@Convert.ToInt32(item)">@item.ToString()</MudSelectItem>
+                }
+            </MudSelect>
+            <MudNumericField T="decimal" @bind-Value="TipoMora.MontoOPorcientoACargar" Label="Cargo"></MudNumericField>
+            <MudTextField T="string" @bind-Value="TipoMora.Nombre" Label="Nombre"></MudTextField>
+
+            <MudNumericField T="int" @bind-Value="TipoMora.DiasDeGracia" Label="Dias de gracia"></MudNumericField>
+
+
+            <!--<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">
+                            Codigo <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <InputText id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.Codigo"></InputText>-->
+            @*@Html.TextBoxFor(Model => Model.TipoMora.Codigo, new { @class = "form-control", @required = "required" })*@
+            <!--</div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Tipo de cargo</label>
+                <div class="col-sm-8">
+                    <InputSelect @bind-Value="TipoMora.TipoCargo" class="form-control">
+                        @foreach (var item in Enum.GetValues(typeof(TiposCargosMora)))
+                        {
+                            <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                        }
+                    </InputSelect>-->
+            @*@Html.DropDownListFor(Model => Model.TipoMora.TipoCargo, SelectItems.TiposCargoMora, new { @class = "form-control item" })*@
+            <!--</div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">
+                    Rango <span class="required">*</span>
+                </label>
+                <div class="col-sm-8">
+                    <div>
+                        Desde
+                        <InputNumber id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.MontoCuotaDesde"></InputNumber>-->
+            @*@Html.TextBoxFor(Model => Model.TipoMora.MontoCuotaDesde, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })*@
+            <!--</div>
+            <span class="col-sm-2" style="text-align:center;">-</span>
+            <div>
+                Hasta
+                <InputNumber id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.MontoCuotaHasta"></InputNumber>-->
+            @*@Html.TextBoxFor(Model => Model.TipoMora.MontoCuotaHasta, new { @class = "form-control col-sm-5", @required = "required", @type = "number" })*@
+            <!--</div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Periodo</label>
+                <div class="col-sm-8">
+                    <InputSelect @bind-Value="TipoMora.CalcularCargoPor" class="form-control">
+                        @foreach (var item in Enum.GetValues(typeof(CalcularMoraPor)))
+                        {
+                            <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                        }
+                    </InputSelect>-->
+            @*@Html.DropDownListFor(Model => Model.TipoMora.CalcularCargoPor, SelectItems.CalcularMoraPor, new { @class = "form-control item" })*@
+            <!--</div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Aplicar al</label>
+                <div class="col-sm-8">
+                    <InputSelect @bind-Value="TipoMora.AplicarA" class="form-control">
+                        @foreach (var item in Enum.GetValues(typeof(AplicarMoraAl)))
+                        {
+                            <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                        }
+                    </InputSelect>-->
+            @*@Html.DropDownListFor(Model => Model.TipoMora.AplicarA, SelectItems.AplicarMorasAl, new { @class = "form-control item" })*@
+
+            <!--</div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="codigo">
+                    Cargo <span class="required">*</span>
+                </label>
+                <div class="col-sm-8">
+                    <div>
+                        <InputNumber id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.MontoOPorcientoACargar"></InputNumber>-->
+            @*@Html.TextBoxFor(Model => Model.TipoMora.MontoOPorcientoACargar, new { @class = "form-control", @required = "required", @type = "number" })*@
+            <!--</div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="codigo">
+                    Descripcion* <span class="required">*</span>
+                </label>
+                <div class="col-sm-8">
+                    <div>
+                        <InputText id="codigo" class="form-control col-md-10" @bind-Value="TipoMora.Nombre"></InputText>-->
+            @*@Html.TextBoxFor(Model => Model.TipoMora.Nombre, new { @class = "form-control", @required = "required" })*@
+            <!--</div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="codigo">
+                    Dias de gracia <span class="required">*</span>
+                </label>
+                <div class="col-sm-8">
+                    <div>
+                        <InputNumber id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.DiasDeGracia"></InputNumber>-->
+            @*@Html.TextBoxFor(Model => Model.TipoMora.DiasDeGracia, new { @class = "form-control", @required = "required", @type = "number" })*@
+            <!--</div>
+                </div>
+            </div>-->
+            @*<div class="form-group">
+                    <label for="codigo">Codigo</label>
+                    <InputText id="codigo" class="form-control col-md-4" @bind-Value="TipoMora.Codigo"></InputText>
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <InputText id="nombre" class="form-control col-md-6" @bind-Value="TipoMora.Nombre"></InputText>
+                </div>*@
+            <!--<div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>-->
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+
+}

@@ -6,16 +6,27 @@ using System.Threading.Tasks;
 using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using PrestamoBlazorApp.Shared;
+using MudBlazor;
+using PrestamoBlazorApp.Shared.Components.Reports;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
     public partial class Clientes : BaseForList
     {
         [Inject]
+        IDialogService DialogService { get; set; }
+        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
+        [Inject]
         ClientesService clientesService { get; set; }
         ClienteGetParams searchClientes { get; set; } = new ClienteGetParams();
         int totalClientes { get; set; }
         IEnumerable<Cliente> clientes;
+
+        private string SearchString1 = "";
+        private Cliente SelectedItem1 = null;
+        private bool FilterFunc1(Cliente element) => FilterFunc(element, SearchString1);
+        private bool ShowDialogCreate { get; set; } = false;
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         protected override async Task OnInitializedAsync()
         {
             await Handle_GetDataForList(GetClientes);
@@ -33,6 +44,36 @@ namespace PrestamoBlazorApp.Pages.Clientes
             await BlockPage();
             var result = await clientesService.ReportFicha(jsRuntime, idcliente, reportType);
             await UnBlockPage();
+        }
+
+        private async Task ShowReportGenerator()
+        {
+            var parameters = new DialogParameters();
+            //parameters.Add("IdLocalidad", id);
+            var dialog = DialogService.Show<SearchReportGeneric>("", parameters, dialogOptions);
+            var result = await dialog.Result;
+            if (result.Data != null)
+            {
+                //if (result.Data.ToString() == "1")
+                //{
+                    
+                //    StateHasChanged();
+                //}
+            }
+        }
+
+        private bool FilterFunc(Cliente element, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.NombreCompleto.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo != null)
+            {
+                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
         }
     }
 }

@@ -32,8 +32,9 @@ namespace PrestamoEntidades
 
     public class LocalidadGetParams : BaseGetParams
     {
-        public int IdLocalidad { get; set; } = 0;
-        public int IdLocalidadPadre { get; set; }
+        public int IdLocalidad { get; set; } = -1;
+        public int IdLocalidadPadre { get; set; } = -1;
+        public int IdTipoLocalidad { get; set; } = -1;
     }
 
     public class BuscarLocalidad : Localidad

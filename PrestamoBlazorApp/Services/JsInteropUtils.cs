@@ -29,7 +29,7 @@ namespace PrestamoBlazorApp.Services
         public static Task<bool> UnBlockPage(IJSRuntime jsRuntime) => Task.Run(async () => await jsRuntime.InvokeAsync<bool>("UnBlockPage"));
         public static Task SetInputMaskByElemId(IJSRuntime JsRuntime, string elemId, string mask) => Task.Run(async () => await JsRuntime.InvokeVoidAsync("SetInputMaskByElem",elemId, mask));
 
-        public static Task SetInputMask(IJSRuntime JsRuntime) => Task.Run(async () => await JsRuntime.InvokeVoidAsync("SetInputMask"));
+        //public static Task SetInputMask(IJSRuntime JsRuntime) => Task.Run(async () => await JsRuntime.InvokeVoidAsync("SetInputMask"));
         public static Task Territorio(IJSRuntime JsRuntime, string Id) => Task.Run(async () => await JsRuntime.InvokeAsync<string>("DivisionTerritorial", new string[] { Id }));
         public static Task SearchLocalidad(IJSRuntime JsRuntime) => Task.Run(async () => await JsRuntime.InvokeAsync<string>("searchLocalidad"));
         public static Task<bool> FichaDetalleDrCr(IJSRuntime JsRuntime, string datos) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("FichaDetalleDrCr", new string[] { datos }));

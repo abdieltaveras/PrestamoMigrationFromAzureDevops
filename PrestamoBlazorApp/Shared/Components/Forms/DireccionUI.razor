@@ -1,6 +1,20 @@
 ﻿@using BlazorUtilsLibrary.Map
 @using PrestamoBlazorApp.Models
-<div class="row">
+<MudGrid>
+    <MudItem md="6" lg="6">
+        <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
+        <MudChip Color="MudBlazor.Color.Info"> @direccion.selectedLocalidad</MudChip>
+    </MudItem>
+    <MudItem md="6" lg="6">
+        <MudTextField @bind-Value="direccion.Calle" Validation="@direccion.Calle"></MudTextField>
+        <MudTextField @bind-Value="direccion.Latitud" Validation="@direccion.Latitud"></MudTextField>
+        <MudTextField @bind-Value="direccion.Longitud" Validation="@direccion.Longitud"></MudTextField>
+        <MudTextField @bind-Value="direccion.Detalles" Validation="@direccion.Detalles"></MudTextField>
+        <MudButton OnClick="UpdateMapMarkers" Color="MudBlazor.Color.Info">Actualizar Mapa</MudButton>
+        <Map Zoom="10" Markers="MapMarkers"></Map>
+    </MudItem>
+</MudGrid>
+@*<div class="row">
 
     <div class="col-sm-6">
         <h2> donde vive la persona ?</h2>
@@ -42,7 +56,7 @@
         </div>
 
     </div>
-</div>
+</div>*@
 
 @code {
 
