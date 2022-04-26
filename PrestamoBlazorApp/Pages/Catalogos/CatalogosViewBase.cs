@@ -21,7 +21,7 @@ namespace PrestamoBlazorApp.Pages.Catalogos
 
         [Inject] protected CommonInjectionsService CommomInjectionsService { get; set; }
 
-        private async Task ShowEditor(CatalogoInsUpd catalogo, bool usarFormularioParaEliminar=false, Func<Task> action=null)
+        protected virtual async Task ShowEditor(CatalogoInsUpd catalogo, bool usarFormularioParaEliminar=false, Func<Task> action=null)
         {
             var parameters = new DialogParameters(); 
             parameters.Add("Catalogo", catalogo);
@@ -29,13 +29,7 @@ namespace PrestamoBlazorApp.Pages.Catalogos
             parameters.Add("UpdateList", action);
             parameters.Add("CatalogosService", GetService);
             var options = new DialogOptions() {  CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
-            //var dlg = new CatalogoEditor(() => GetCatalogos(new BaseCatalogoGetParams());
             Dialog.Show<CatalogoEditor>("Editar", parameters, options);
-            //Task showEditor = Task.Run(() => Dialog.Show<CatalogoEditor>("Editar", parameters, options));
-            //await GetCatalogos(new BaseCatalogoGetParams());       
-            //await showEditor.ContinueWith(antecedent =>  GetCatalogos(new BaseCatalogoGetParams()));
-            
-
         }
 
         protected virtual CatalogosService GetService { get; }

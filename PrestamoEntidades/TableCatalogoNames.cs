@@ -20,6 +20,7 @@ namespace PrestamoEntidades
         public static CatalogoName Ocupacion = new(1, nameof(Ocupacion), "tblOcupaciones","IdOcupacion");
         public static CatalogoName Color = new(2, nameof(Color),"tblColores","IdColor");
         public static CatalogoName TipoSexo = new(3, nameof(TipoSexo), "tblTipoSexos", "IdTipoSexo");
+        public static CatalogoName TipoTelefono = new(4, nameof(TipoTelefono), "tblTiposTelefonos", "IdTipoTelefono");
         private CatalogoName(int id, string name, string tableName, string idColumnName) : base(id, name)
         {
             this.IdColumnName = idColumnName;

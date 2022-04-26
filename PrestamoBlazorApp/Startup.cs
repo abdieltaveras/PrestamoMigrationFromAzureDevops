@@ -44,7 +44,7 @@ namespace PrestamoBlazorApp
 
         private static void ProjectServices(IServiceCollection services)
         {
-            //services.AddScoped<CatalogosService>();
+            
             services.AddScoped<CommonInjectionsService>();
             services.AddScoped<IngresosService>();
             services.AddScoped<ColoresService>();

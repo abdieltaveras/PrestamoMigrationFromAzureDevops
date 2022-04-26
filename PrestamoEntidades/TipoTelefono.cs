@@ -6,37 +6,27 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class TipoTelefono : BaseInsUpdCatalogo
+
+    public class TipoTelefono : BaseInsUpdGenericCatalogo
     {
-        public int IdTipoTelefono { get; set; } = 0;
+        public int? IdTipoTelefono { get; set; } = 0;
 
         public override int GetId()
         {
-            return IdTipoTelefono;
+            return (int)IdTipoTelefono;
         }
 
-        private class TipoTelefonoV2 : BaseInsUpdGenericCatalogo
+        protected override void SetIdForConcreteObject()
         {
-            public int? IdTipoTelefono { get; set; } = 0;
+            this.IdTipoTelefono = this.IdRegistro;
+        }
 
-            public override int GetId()
-            {
-                return (int)IdTipoTelefono;
-            }
-
-            protected override void SetIdForConcreteObject()
-            {
-                this.IdTipoTelefono = this.IdRegistro;
-            }
-
-            public override void SetPropertiesNullToRemoveFromSqlParam()
-            {
-                this.IdTipoTelefono = null;
-            }
+        public override void SetPropertiesNullToRemoveFromSqlParam()
+        {
+            this.IdTipoTelefono = null;
         }
     }
 
-    
 
     public class TipoTelefonoGetParams : BaseCatalogoGetParams
     {
