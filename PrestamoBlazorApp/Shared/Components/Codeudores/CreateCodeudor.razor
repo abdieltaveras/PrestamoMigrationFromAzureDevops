@@ -17,24 +17,20 @@
         {
             <div class="loader">Cargando...</div>
         }
-        <RadzenTabs style="height: 880px">
-            <Tabs>
-                <RadzenTabsItem Text="Generales">
-                    <div class="row">
-                        <GeneralesCodeudorUI Ocupaciones="Ocupaciones" Codeudor="Codeudor" AllowInputCodigo=false  OnEstadoCivilChange=@UpdateEstadoCivil
-                                            FotosDocIdentificacion="FotosDocIdentificacion" FotosRostro="FotosRostro" RemoveImages="RemoveImages" SetImages="SetImages" />
-                    </div>
-                </RadzenTabsItem>
-          
-                <RadzenTabsItem Text="Direccion">
-                    <DireccionUI direccion=@direccion />
-                </RadzenTabsItem>
-                <RadzenTabsItem Text="Laborales">
-                    <LaboralUI infoLaboral=@infoLaboral />
-                </RadzenTabsItem>
-           
-            </Tabs>
-        </RadzenTabs>
+        <MudTabs>
+            <MudTabPanel Text="Ocupaciones">
+                <div class="row">
+                    <GeneralesCodeudorUI Ocupaciones="Ocupaciones" Codeudor="Codeudor" AllowInputCodigo=false OnEstadoCivilChange=@UpdateEstadoCivil
+                                         FotosDocIdentificacion="FotosDocIdentificacion" FotosRostro="FotosRostro" RemoveImages="RemoveImages" SetImages="SetImages" />
+                </div>
+            </MudTabPanel>
+            <MudTabPanel Text="Direccion">
+                <DireccionUI direccion=@direccion />
+            </MudTabPanel>
+            <MudTabPanel Text="Laborales">
+                <LaboralUI infoLaboral=@infoLaboral />
+            </MudTabPanel>
+        </MudTabs>
     </EditForm>
     @*<EventConsole @ref="@console"> </EventConsole>*@
 </div>

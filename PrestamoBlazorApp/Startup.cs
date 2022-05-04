@@ -53,7 +53,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<ClientesService>();
             services.AddScoped<ClasificacionesService>();
             services.AddScoped<EquiposService>();
-            services.AddScoped<OcupacionesService>();
+            //services.AddScoped<OcupacionesService>();
             services.AddScoped<CatalogosServicesFactoryManager>();
             //services.AddScoped<ColoresServiceV2>();
             //services.AddScoped<OcupacionesServiceV2>();

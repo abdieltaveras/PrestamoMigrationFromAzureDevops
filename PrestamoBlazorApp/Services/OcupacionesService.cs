@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Services
 {
-    public class OcupacionesService : ServiceBase
+    public class OcupacionesOldService : ServiceBase
     {
         string apiUrl = "api/Ocupaciones";
         public async Task<IEnumerable<Ocupacion>> Get(OcupacionGetParams ocupacionGetParams)
@@ -25,7 +25,7 @@ namespace PrestamoBlazorApp.Services
         {
             return await GetAsync<Ocupacion>(apiUrl+"/get", new OcupacionGetParams());
         }
-        public OcupacionesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public OcupacionesOldService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 
         }

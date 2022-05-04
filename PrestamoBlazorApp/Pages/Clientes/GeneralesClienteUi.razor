@@ -50,7 +50,7 @@
         <MudSelect @bind-Value="cliente.IdTipoProfesionUOcupacion" Label="Profesion">
             @foreach (var item in Ocupaciones)
             {
-                <MudSelectItem Value="@item.IdOcupacion">@item.Nombre</MudSelectItem>
+                <MudSelectItem Value="@item.IdRegistro">@item.Nombre</MudSelectItem>
             }
         </MudSelect>
 
@@ -182,7 +182,7 @@
     [Parameter]
     public Cliente cliente { get; set; }
     [Parameter]
-    public IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
+    public IEnumerable<BaseInsUpdGenericCatalogo> Ocupaciones { get; set; } = new List<Ocupacion>();
     [Parameter]
     public bool AllowInputCodigo { get; set; } = false;
 

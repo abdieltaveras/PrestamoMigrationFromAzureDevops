@@ -20,8 +20,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
     {
         // servicios
 
-        [Inject]
-        OcupacionesService ocupacionesService { get; set; }
+        [Inject] protected CatalogosServicesFactoryManager CatalogosFactory { get; set; }
+        
         [Inject]
         LocalidadesService localidadService { get; set; }
         [Inject]
@@ -37,27 +37,27 @@ namespace PrestamoBlazorApp.Pages.Clientes
         // miembros
         string searchSector = string.Empty;
 
-        public Cliente cliente { get; set; } = new Cliente();
-        Conyuge conyuge { get; set; } = new Conyuge();
+        public Cliente Cliente { get; set; } = new Cliente();
+        Conyuge Conyuge { get; set; } = new Conyuge();
 
-        DireccionModel direccion { get; set; } = new DireccionModel();
+        DireccionModel Direccion { get; set; } = new DireccionModel();
 
-        InfoLaboral infoLaboral { get; set; } = new InfoLaboral();
+        InfoLaboral InfoLaboral { get; set; } = new InfoLaboral();
 
-        EventConsole console;
+        
         
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
 
-        private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
+        private IEnumerable<BaseInsUpdGenericCatalogo> Ocupaciones { get; set; } = new List<Ocupacion>();
 
         bool LoadedFotos = false;
 
-        private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
+        private async Task<IEnumerable<BaseInsUpdGenericCatalogo>> GetOcupaciones()
         {
-            var result = await ocupacionesService.Get(new OcupacionGetParams());
+            var result = await CatalogosFactory.OcupacionesService.Get(new BaseCatalogoGetParams());
             return result;
         }
-        List<Referencia> referencias = new List<Referencia>();
+        List<Referencia> Referencias = new List<Referencia>();
 
 
         
@@ -77,13 +77,13 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private void UpdateTieneConyuge(bool value)
         {
-            cliente.TieneConyuge = value;
+            Cliente.TieneConyuge = value;
         }
 
         private void UpdateEstadoCivil(int value)
         {
             //NotifyMessageBox("estado civil actualizado");
-            cliente.IdEstadoCivil = value;
+            Cliente.IdEstadoCivil = value;
         }
         
         private async Task prepareModel()
@@ -93,11 +93,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
             if (idCliente != 0)
             {
                 var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente}, true);
-                this.cliente = clientes.FirstOrDefault();
+                this.Cliente = clientes.FirstOrDefault();
             }
-            if (this.cliente == null || idCliente <= 0)
+            if (this.Cliente == null || idCliente <= 0)
             {
-                this.cliente = new Cliente
+                this.Cliente = new Cliente
                 {
                     Codigo = "Nuevo",
                     Nombres = "a1",
@@ -119,13 +119,13 @@ namespace PrestamoBlazorApp.Pages.Clientes
             }
             else
             {
-                this.conyuge = cliente.InfoConyugeObj;
-                this.infoLaboral = cliente.InfoLaboralObj;
-                this.direccion = cliente.InfoDireccionObj.ToJson().ToType<DireccionModel>(); ;
-                var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
-                this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
+                this.Conyuge = Cliente.InfoConyugeObj;
+                this.InfoLaboral = Cliente.InfoLaboralObj;
+                this.Direccion = Cliente.InfoDireccionObj.ToJson().ToType<DireccionModel>(); ;
+                var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.Direccion.IdLocalidad });
+                this.Direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
-            SetReferencias(cliente.InfoReferenciasObj);
+            SetReferencias(Cliente.InfoReferenciasObj);
             FilterImagesByGroup();
             LoadedFotos = true;
             //StateHasChanged();
@@ -135,7 +135,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         {
             FotosRostroCliente.Clear();
             FotosDocIdentificacion.Clear();
-            cliente.ImagenesObj.ForEach(item =>
+            Cliente.ImagenesObj.ForEach(item =>
             {
                 if (!item.Quitar)
                 {
@@ -156,7 +156,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 {
                     referencia = infoReferenciasObj[i];
                 }
-                referencias.Add(referencia);
+                Referencias.Add(referencia);
             }
         }
 
@@ -168,12 +168,12 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private async Task<bool> SaveData()
         {
-            this.cliente.InfoConyugeObj = conyuge;
-            this.cliente.InfoReferenciasObj = referencias;
-            this.cliente.InfoDireccionObj = direccion;
-            this.cliente.InfoLaboralObj = infoLaboral;
+            this.Cliente.InfoConyugeObj = Conyuge;
+            this.Cliente.InfoReferenciasObj = Referencias;
+            this.Cliente.InfoDireccionObj = Direccion;
+            this.Cliente.InfoLaboralObj = InfoLaboral;
 
-            var result = Validaciones.ForCliente001().Validate(cliente);
+            var result = Validaciones.ForCliente001().Validate(Cliente);
             var validacionesFallidas = result.Where(item => item.Success == false);
             var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
             if (validacionesFallidas.Count() > 0)
@@ -185,7 +185,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             {
                 //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
 
-                await clientesService.SaveCliente(this.cliente);
+                await clientesService.SaveCliente(this.Cliente);
          
             }
             catch (ValidationObjectException e)
@@ -208,7 +208,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private void SetImages(Imagen imagen)
         {
-            cliente.ImagenesObj.Add(imagen);
+            Cliente.ImagenesObj.Add(imagen);
             FilterImagesByGroup();
         }
 
@@ -216,9 +216,9 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private void RemoveImages(Imagen imagen)
         {
-            var index = this.cliente.ImagenesObj.IndexOf(imagen);
-            this.cliente.ImagenesObj[index].Quitar = true;
-            this.cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
+            var index = this.Cliente.ImagenesObj.IndexOf(imagen);
+            this.Cliente.ImagenesObj[index].Quitar = true;
+            this.Cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
         }
 
     }

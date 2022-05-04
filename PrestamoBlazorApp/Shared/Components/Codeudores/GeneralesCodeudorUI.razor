@@ -83,7 +83,7 @@
         <InputSelect id="Ocupaciones" @bind-Value="Codeudor.IdTipoProfesionUOcupacion" class="form-control col-sm-4">
             @foreach (var item in Ocupaciones)
             {
-                <option value=@item.IdOcupacion>@item.Nombre</option>
+                <option value=@item.IdRegistro>@item.Nombre</option>
             }
         </InputSelect>
     </div>
@@ -106,7 +106,8 @@
     [Parameter]
     public Codeudor Codeudor { get; set; }
     [Parameter]
-    public IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
+    public IEnumerable<BaseInsUpdGenericCatalogo> Ocupaciones { get; set; } = new List<Ocupacion>();
+
     [Parameter]
     public bool AllowInputCodigo { get; set; } = false;
 

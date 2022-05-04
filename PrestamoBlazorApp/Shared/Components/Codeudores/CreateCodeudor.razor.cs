@@ -16,12 +16,9 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
     {
         // servicios
 
-        [Inject]
-        OcupacionesService ocupacionesService { get; set; }
-        [Inject]
-        LocalidadesService localidadService { get; set; }
-        [Inject]
-        CodeudoresService CodeudoresService { get; set; }
+        [Inject] protected CatalogosServicesFactoryManager CatalogosFactory { get; set; }
+        [Inject] LocalidadesService localidadService { get; set; }
+        [Inject] CodeudoresService CodeudoresService { get; set; }
 
         // parametros
         [Parameter]
@@ -44,15 +41,18 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
 
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
 
-        private IEnumerable<Ocupacion> Ocupaciones { get; set; } = new List<Ocupacion>();
+        
+
+        private IEnumerable<BaseInsUpdGenericCatalogo> Ocupaciones { get; set; } = new List<Ocupacion>();
 
         bool LoadedFotos = false;
 
-        private async Task<IEnumerable<Ocupacion>> GetOcupaciones()
+        private async Task<IEnumerable<BaseInsUpdGenericCatalogo>> GetOcupaciones()
         {
-            var result = await ocupacionesService.Get(new OcupacionGetParams());
+            var result = await CatalogosFactory.OcupacionesService.Get(new BaseCatalogoGetParams());
             return result;
         }
+        
         List<Referencia> referencias = new List<Referencia>();
 
 

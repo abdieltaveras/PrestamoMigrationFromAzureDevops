@@ -8,7 +8,7 @@
 @*@inject NavigationManager NavigationManager*@
 
 @inherits BaseForCreateOrEdit
-<EditForm Model="@cliente">
+<EditForm Model="@Cliente">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <MudGrid>
@@ -22,22 +22,22 @@
         <MudItem md="12" lg="12">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
                 <MudTabPanel Text="Generales">
-                    <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
+                    <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="Cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
                                         FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
                 </MudTabPanel>
-                @if (cliente.TieneConyuge || cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
+                @if (Cliente.TieneConyuge || Cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
                 {
                     <MudTabPanel Text="Conyugue">
-                        <ConyugeUI conyuge=@conyuge></ConyugeUI>
+                        <ConyugeUI conyuge=@Conyuge></ConyugeUI>
                     </MudTabPanel>
                 }
                 <MudTabPanel Text="Direccion">
-                    <DireccionUI direccion=@direccion />
+                    <DireccionUI direccion=@Direccion />
                 </MudTabPanel>
                 <MudTabPanel Text="Referencias">
-                    @for (int i = 0; i < referencias.Count; i++)
+                    @for (int i = 0; i < Referencias.Count; i++)
                     {
-                        <InputReferencia referencia=@referencias[i] Index=@i />
+                        <InputReferencia referencia=@Referencias[i] Index=@i />
                     }
                 </MudTabPanel>
             </MudTabs>
