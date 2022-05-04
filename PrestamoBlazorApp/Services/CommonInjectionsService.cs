@@ -5,11 +5,11 @@ namespace PrestamoBlazorApp.Services
     public class CommonInjectionsService
     {
 
-        public IHttpClientFactory ClientFactory { get; }
+        public IHttpClientFactory HttpClientFactory { get; }
         public IConfiguration Configuration { get; }
         public CommonInjectionsService(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
-            this.ClientFactory = clientFactory;
+            this.HttpClientFactory = clientFactory;
             this.Configuration = configuration;
         }
     }

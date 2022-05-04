@@ -49,7 +49,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             {
                 await BlockPage();
                 
-                Catalogos = await CatalogosService.Get(new CatalogoGetParams());
+                Catalogos = await CatalogosService.Get(new BaseCatalogoGetParams());
                 //JsonConvert.DeserializeObject<IEnumerable< Catalogo>>(lista.FirstOrDefault().ToString() );
                 await UnBlockPage();
                 StateHasChanged();
@@ -69,7 +69,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             {
                 await BlockPage();
                 
-                var catalogoGetParams = new CatalogoGetParams();
+                var catalogoGetParams = new BaseCatalogoGetParams();
                 catalogoGetParams.IdRegistro = Id;
                 var lista = await CatalogosService.Get(catalogoGetParams);
                 var catalogo = lista.ToList().FirstOrDefault();

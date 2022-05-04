@@ -14,6 +14,8 @@ namespace PrestamoBlazorApp.Pages.Catalogos
 {
     public  abstract  class CatalogosViewBase : BaseCatalogoComponent
     {
+
+        [Inject] protected CatalogosServicesFactoryManager CatalogosFactory { get; set; }
         [Inject] protected IDialogService Dialog { get; set; }
 
         //[Inject] protected OcupacionesServiceV2 OcupacionesService { get; set; }

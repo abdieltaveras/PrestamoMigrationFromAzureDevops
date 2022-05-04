@@ -5,7 +5,8 @@ namespace PrestamoBlazorApp.Pages.Catalogos
 {
     public partial class TiposSexo : CatalogosViewBase
     {
-        override protected CatalogosService GetService => new CatalogosService(base.CommomInjectionsService.ClientFactory, base.CommomInjectionsService.Configuration, "api/TipoSexo");
+        override protected CatalogosService GetService => CatalogosFactory.TiposSexoService;
+            //new CatalogosService(base.CommomInjectionsService.HttpClientFactory, base.CommomInjectionsService.Configuration, "api/TipoSexo");
             //new TiposCatalogosGenericService(base.CommomInjectionsService.ClientFactory, base.CommomInjectionsService.Configuration, "api/TipoSexo");
 
     }

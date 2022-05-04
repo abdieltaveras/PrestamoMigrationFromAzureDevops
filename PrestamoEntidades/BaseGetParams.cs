@@ -45,7 +45,6 @@ namespace PrestamoEntidades
 
     public  class BaseCatalogoGetParams : BaseUsuarioEIdNegocio
     {
-
         public int IdRegistro { get; set; } = -1;
     }
 

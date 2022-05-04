@@ -2,90 +2,77 @@
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
+
     public partial class BLLPrestamo
     {
 
 
-        //public IEnumerable<BaseCatalogo> GetCatalogos(BaseCatalogoGetParams searchParam)
-        //{
-        //    if (string.IsNullOrEmpty(searchParam.IdTabla))
-        //    {
-        //        throw new NullReferenceException("El valor de la propiedad IdTabla esta vacia, esta propiedad debe asignarle una cadena igual al nombre de la columna principal de esa tabla ejemplo IdColor, IdClasifiacion, idEstadoCivil, etc.");
-        //    }
-        //    switch (searchParam.NombreTabla)
-        //    {
-        //        case "tblOcupaciones":
-        //            return BllAcciones.GetData<Ocupacion, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-        //        case "tblVerificadorDirecciones":
-        //            return BllAcciones.GetData<VerificadorDireccion, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-        //        case "tblTipoTelefonos":
-        //            return BllAcciones.GetData<TipoTelefono, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-        //        case "tblTipoSexos":
-        //            return BllAcciones.GetData<TipoSexo, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-        //        case "tblTasadores":
-        //            return BllAcciones.GetData<TipoTelefono, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-        //        case "tblLocalizadores":
-        //            return BllAcciones.GetData<Localizador, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-        //        case "tblEstadosCiviles":
-        //            return BllAcciones.GetData<EstadoCivil, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-        //        case "tblClasificaciones":
-        //            return BllAcciones.GetData<Clasificacion, BaseCatalogoGetParams>(searchParam, "spGetCatalogos", GetValidation);
-        //        default:
-        //            throw new Exception($"La tabla {searchParam.NombreTabla} , no se encontro en ninguna eleccion para ejecutar una consulta de datos");
-        //    }
-        //}
-        //public void InsUpdCatalogo(Catalogo insUpdParams)
-        //{
-        //    BllAcciones.InsUpdData(insUpdParams, "spInsUpdCatalogo");
-        //}
-        public void CatalogoToggleStatus(ToggleStatusCatalogo toggleStatusParams)
+        public void InsUpdCatalogo(CatalogoName catalogoName,  BaseInsUpdGenericCatalogo insUpdParams)
         {
-            BllAcciones.CancelData(toggleStatusParams, "spToggleStatusCatalogo");
+            ThrowErroWhenNullCatalogName(catalogoName);
+            insUpdParams.SetPropertiesNullToRemoveFromSqlParam(); // to remove innecesary param IdOcupacion, Idcolor, etc.
+            var sqlParams = CreateSqlParams(catalogoName, insUpdParams).ToArray();
+            DBPrestamo.ExecReaderSelSP("spInsUpdCatalogo", sqlParams);
         }
-        
 
-        public List<T> SearchCatalogos<T>(SearchCatalogoParams searchParams) where T : class
+        public IEnumerable<CatalogoType> GetCatalogos<CatalogoType>(CatalogoName catalogoName, BaseCatalogoGetParams getParams) where CatalogoType: BaseInsUpdGenericCatalogo
+        {
+            ThrowErroWhenNullCatalogName(catalogoName);
+            var sqlParams = CreateSqlParams(catalogoName, getParams).ToArray();
+            var result = DBPrestamo.ExecReaderSelSP<CatalogoType>("spGetCatalogosV2", sqlParams);
+            return result;
+        }
+
+        public void AnularCatalogo(AnularCatalogo delParams)
         {
             throw new NotImplementedException();
-            //var searchSqlParams = SearchRec.ToSqlParams(searchParams);
-            //List<T> catalogo = new List<T>();
-            //try
-            //{
-            //    catalogo = DBPrestamo.ExecReaderSelSP<T>("CatalogoSpBuscar", searchSqlParams);
-            //}
-            //catch (Exception e)
-            //{
-            //    DatabaseError(e);
-            //}
-            //return catalogo;
+            //BllAcciones.CancelData(delParams, "spDelCatalogo");
         }
-        //public IEnumerable<T> GetCatalogosNew<T>(CatalogoGetParams searchParams) where T : class
-        //{
-        //    throw new NotImplementedException();
-        //    //var searchSqlParams = SearchRec.ToSqlParams(searchParams);
-        //    //List<T> catalogo = new List<T>();
-        //    //try
-        //    //{
-        //    //    catalogo = DBPrestamo.ExecReaderSelSP<T>("spGetCatalogos", searchSqlParams);
-        //    //}
-        //    //catch (Exception e)
-        //    //{
-        //    //    DatabaseError(e);
-        //    //}
-        //    //return catalogo;
-        //}
-        //public void DeleteCatalogo(BaseCatalogoDeleteParams catalogo)
-        //{
-        //    throw new NotImplementedException();
-        //    //var searchSqlParams = SearchRec.ToSqlParams(catalogo);
-            
-        //    //DBPrestamo.ExecReaderSelSP("spDelCatalogo", searchSqlParams);
-        //}
+
+        public void DeleteCatalogo(CatalogoName catalogoName, BaseCatalogoDeleteParams delParams)
+        {
+            ThrowErroWhenNullCatalogName(catalogoName);
+            var sqlParams = CreateSqlParams(catalogoName, delParams).ToArray();
+            DBPrestamo.ExecReaderSelSP("spDelCatalogo", sqlParams);
+        }
+
+        private static void ThrowErroWhenNullCatalogName(CatalogoName catalogName)
+        {
+            if (catalogName == null)
+            {
+                throw new NullReferenceException("Necesito un objeto que me indique el nombre del catalogo y su columna id");
+            }
+        }
+
+        public IEnumerable<SqlParameter> CreateSqlParams<@Type>(CatalogoName catalogName, @Type getParams) 
+        {
+            var sqlParams1 = SearchRec.ToSqlParams(getParams);
+            var sqlParams2 = AddParamsForCatalogoName(catalogName, sqlParams1);
+            return sqlParams2;
+        }
+
+        private IEnumerable<SqlParameter> AddParamsForCatalogoName(CatalogoName catalogName, IEnumerable<SqlParameter> sqlParams)
+        {
+            var sqlParamsList = sqlParams.ToList();
+            var newParams = new SearchRec();
+            newParams.AddParam("TableName", catalogName.TableName);
+            newParams.AddParam("IdColumnName", catalogName.IdColumnName);
+            sqlParamsList.AddRange(newParams.ToSqlParams());
+            return sqlParamsList;
+        }
+
+        private IEnumerable<SqlParameter> RemoveParam(IEnumerable<SqlParameter> sqlParamsList,string parameterName)
+        {
+            var result = sqlParamsList.ToList();
+            result.RemoveAll(item => item.ParameterName == parameterName);
+            return result;
+        }
     }
 }

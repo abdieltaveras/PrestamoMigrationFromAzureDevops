@@ -55,8 +55,6 @@ namespace PrestamoBlazorApp.Pages.Ocupaciones
             var Catalogos = await CatalogosService.Get2(getParam);
             return Catalogos;
         }
-
-        
         
     }
 }

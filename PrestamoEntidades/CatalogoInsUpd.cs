@@ -71,7 +71,7 @@ namespace PrestamoEntidades
         public string TableName { get; set; } = string.Empty;
         public int IdNegocio { get; set; } = -1;
     }
-    public class CatalogoGetParams : BaseCatalogoGetParams  {  }
+    //public class CatalogoGetParams : BaseCatalogoGetParams  {  }
 
     public class CatalogoReportGetParams : BaseCatalogoGetParams
     {
@@ -79,7 +79,9 @@ namespace PrestamoEntidades
         /// The id value to search
         /// </summary>
         public int ReportType { get; set; } = -1;
-        public CatalogoGetParams CatalogoGParams { get; set; }
+        public BaseCatalogoGetParams CatalogoGParams { get; set; }
+        // antes era
+        // public CatalogoGetParams CatalogoGParams { get; set; }
     }
 
 

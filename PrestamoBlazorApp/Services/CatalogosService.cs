@@ -43,16 +43,14 @@ namespace PrestamoBlazorApp.Services
         //    var d =  await GetAsync<T>(apiUrl, new { JsonGet = search.ToJson() });
         //    return d;
         //}
-        public async Task<IEnumerable<CatalogoInsUpd>> Get(BaseCatalogoGetParams search) 
+        public async Task<IEnumerable<CatalogoInsUpd>> Get(BaseCatalogoGetParams search)
         {
-            var d = await GetAsync<CatalogoInsUpd>(ApiUrl+"/get", search);
+            var d = await GetAsync<CatalogoInsUpd>(ApiUrl + "/get", search);
             return d;
         }
-
-        //}
         public async Task<IEnumerable<CatalogoInsUpd>> Get2(BaseCatalogoGetParams search)
         {
-            
+
             var d = await GetAsync<CatalogoInsUpd>(ApiUrl + "/get", search);
             return d;
         }
