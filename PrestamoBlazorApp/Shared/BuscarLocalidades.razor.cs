@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using PrestamoBlazorApp.Services;
 using PrestamoEntidades;
 using System;
@@ -25,9 +26,12 @@ namespace PrestamoBlazorApp.Shared
 
         private string LocalidadElegida { get; set; } = "Ninguna";
         private int totalRegistros { get; set; }
-        
+
+        private string _ChoiseLocalidad { get; set; } = "";
+        private string ChoiseLocalidad { get { return _ChoiseLocalidad; } set { _ChoiseLocalidad = value; seleccionar(); } }
         protected override async Task OnInitializedAsync()
         {
+            editContext1 = new EditContext(ChoiseLocalidad);
             await base.OnInitializedAsync();
         }
 
@@ -48,11 +52,13 @@ namespace PrestamoBlazorApp.Shared
             this.Localidades = result;
         }
 
-        private void filtrar() 
+        private void filtrar(string valor) 
         {
 
             loading = true;
-            this.LocalidadesFiltradas = Localidades.Where(loc => loc.Nombre.ToLower().Contains(this.buscarLocalidad.Search.ToLower()));
+            //this.LocalidadesFiltradas = Localidades.Where(loc => loc.Nombre.ToLower().Contains(this.buscarLocalidad.Search.ToLower()));
+            this.LocalidadesFiltradas = Localidades.Where(loc => loc.Nombre.ToLower().Contains(valor.ToLower(), StringComparison.InvariantCultureIgnoreCase));
+
             totalRegistros = this.LocalidadesFiltradas == null ? 0 : this.LocalidadesFiltradas.Count();
             if (totalRegistros > 0)
             {

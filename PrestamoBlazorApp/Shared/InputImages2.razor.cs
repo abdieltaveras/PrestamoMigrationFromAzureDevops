@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
+using MudBlazor;
 using PrestamoBlazorApp.Services;
 using PrestamoEntidades;
 using System;
@@ -12,7 +13,7 @@ namespace PrestamoBlazorApp.Shared
 {
     public partial class InputImages2
     {
-
+      
         [Inject]
         IJSRuntime JsRuntime { get; set; }
 

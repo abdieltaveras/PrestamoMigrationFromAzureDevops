@@ -1,87 +1,83 @@
-﻿@if (ShowButton)
+﻿@inject IDialogService DialogService 
+@if (ShowButton)
 {
-    <button class="btn btn-primary" @onclick="@ModalShow" @onclick:preventDefault >@ButtonText</button>
+<MudButton OnClick="ModalShow" Color="MudBlazor.Color.Primary" Variant="Variant.Filled">@ButtonText</MudButton>
+    @*<button class="btn btn-primary" @onclick="@ModalShow" @onclick:preventDefault>@ButtonText</button>*@
 }
 else
 {
     showModal = true;
 }
 
-@if (showModal)
-{
-    <div class="modal fade show" id="myModal" style="display:block" aria-modal="true" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
 
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">@Title</h4>
-                    <button type="button" class="close" @onclick="@OnCloseClick">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <p>@ConfirmationMessage</p>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button"  class="btn btn-info" @onclick="@OnCancelClick">@CancelText</button>
-                    <button type="button"  class="btn btn-danger" @onclick=@OnOkClick>@OkText</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-}
 <hr />
 @code
 {
-    [Parameter]
-    public bool ShowButton { get; set; } = true;
+    @*[Inject]
+    private IDialogService DialogService { get; set; }*@
 
-    [Parameter]
-    public string ButtonText { get; set; }
-    [Parameter]
-    public Object objRef { get; set; }
+[Parameter]
+public bool ShowButton { get; set; } = true;
 
-    [Parameter]
-    public EventCallback<object> OnClose { get; set; }
+[Parameter]
+public string ButtonText { get; set; }
+[Parameter]
+public Object objRef { get; set; }
 
-    [Parameter]
-    public EventCallback<object> OnCancel { get; set; }
+[Parameter]
+public EventCallback<object> OnClose { get; set; }
 
-    [Parameter]
-    public EventCallback<object> OnOk { get; set; }
+[Parameter]
+public EventCallback<object> OnCancel { get; set; }
 
-    [Parameter]
-    public string CancelText { get; set; } = "No";
+[Parameter]
+public EventCallback<object> OnOk { get; set; }
 
-    [Parameter]
-    public string OkText { get; set; } = "Si";
+[Parameter]
+public string CancelText { get; set; } = "No";
 
-    [Parameter]
-    public string Title { get; set; } = "Confirmacion de accion";
+[Parameter]
+public string OkText { get; set; } = "Si";
 
-    [Parameter]
-    public string ConfirmationMessage { get; set; } = "debe indicar valor al parametro ConfirmationMessage";
+[Parameter]
+public string Title { get; set; } = "Confirmacion de accion";
 
-    bool showModal = false;
+[Parameter]
+public string ConfirmationMessage { get; set; } = "debe indicar valor al parametro ConfirmationMessage";
 
-    void ModalShow() => showModal = true;
-    void OnCloseClick()
+bool showModal = false;
+string state = "Message box hasn't been opened yet";
+    @*void ModalShow() => showModal = true;*@
+private async Task ModalShow()
+{
+    bool? result = await DialogService.ShowMessageBox(
+          ConfirmationMessage,
+          "",
+          yesText: OkText, cancelText: CancelText);
+    if (result == null)
     {
-        showModal = false;
-        OnClose.InvokeAsync(objRef);
+        OnCancelClick();
     }
-    void OnCancelClick()
+    else
     {
-        showModal = false;
-        OnCancel.InvokeAsync(objRef);
+        OnOkClick();
     }
-    void OnOkClick()
-    {
-        showModal = false;
-        OnOk.InvokeAsync(objRef);
-    }
+    @*state = result == null ? await OnCancelClick : "Deleted!";*@
+    StateHasChanged();
+}
+void OnCloseClick()
+{
+    showModal = false;
+    OnClose.InvokeAsync(objRef);
+}
+void OnCancelClick()
+{
+    showModal = false;
+    OnCancel.InvokeAsync(objRef);
+}
+void OnOkClick()
+{
+    showModal = false;
+    OnOk.InvokeAsync(objRef);
+}
 }

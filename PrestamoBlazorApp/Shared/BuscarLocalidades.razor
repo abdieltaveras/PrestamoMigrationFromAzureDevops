@@ -5,20 +5,30 @@
     <h3>Busqueda de localidades que acepten calles</h3>
 </div>
 
-<div class="col-sm-12 search">
+<MudGrid>
+    <MudItem>
+        <EditForm EditContext="editContext1">
+            <DataAnnotationsValidator />
+            <MudAutocomplete T="string" Label="Buscar Localidad" @bind-Value="ChoiseLocalidad" SearchFunc="@SearchFunc" Dense="true"
+                             AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="MudBlazor.Color.Primary" MinCharacters="2"
+                             For="@(() => ChoiseLocalidad)" />
+        </EditForm>
+    </MudItem>
+</MudGrid>
+<!--<div class="col-sm-12 search">
     <EditForm Model="@buscarLocalidad">
         <DataAnnotationsValidator />
-        <ValidationSummary />
+        <ValidationSummary />-->
             @*<InputText id="texto" @bind-Value="buscarLocalidad.Search" placeholder="digite valor" @attributes />*@
-            <input class="col-sm-8" id="texto" @bind-value=@buscarLocalidad.Search placeholder="localidad a buscar" minlength="2" />
+            <!--<input class="col-sm-8" id="texto" @bind-value=@buscarLocalidad.Search placeholder="localidad a buscar" minlength="2" />
             <button type="button" class="col-sm-2 fa fa-search" @onclick=@filtrar>Buscar</button>
     </EditForm>
-</div>
+</div>-->
 @*<div>
         <label >Localidad Elegida: @LocalidadElegida</label>
     </div>*@
 
-<div class="col-sm-12">
+@*<div class="col-sm-12">
     @if (loading)
     {
         <div class="loader">Cargando...</div>
@@ -55,5 +65,25 @@
         }
     }
 
-</div>
+</div>*@
 
+@code{
+            private EditContext editContext1;
+            private async Task<IEnumerable<string>> SearchFunc(string value)
+            {
+                List<string> lstLocalidades = new List<string>();
+                filtrar(value);
+                foreach (var item in LocalidadesFiltradas)
+                {
+                    lstLocalidades.Add(item.Nombre);
+                }
+                // In real life use an asynchronous function for fetching data from an api.
+        @*await Task.Delay(5);*@
+
+        // if text is null or empty, don't return values (drop-down will not open)
+        if (string.IsNullOrEmpty(value))
+            return new string[0];
+        @*var a = lstLocalidades.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));*@
+    return lstLocalidades;
+}
+}

@@ -12,7 +12,20 @@
     }
     else
     {
-        <div class="input-group mb-3">
+        <MudGrid>
+            <MudItem>
+                <InputFile id="fileInput" OnChange="OnInputFileChange" accept="image/*" hidden />
+
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="MudBlazor.Color.Primary"
+                           StartIcon="@Icons.Filled.CloudUpload"
+                           for="fileInput">
+                    Subir Imagenes
+                </MudButton>
+            </MudItem>
+        </MudGrid>
+        @*<div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Imagenes</span>
             </div>
@@ -20,7 +33,7 @@
                 <InputFile OnChange="OnInputFileChange" accept="image/*" capture class=" custom-file-input " />
                 <label class="custom-file-label" for="inputGroupFile01"></label>
             </div>
-        </div>
+        </div>*@
     }
 
     @*<InputFile @onclick="Validate" OnChange="OnInputFileChange" accept="image/*" capture multiple />*@
