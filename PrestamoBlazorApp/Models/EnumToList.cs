@@ -16,7 +16,6 @@ namespace PrestamoBlazorApp.Models
 
     public static class EnumToList
     {
-
         public static List<EnumModel> GetEnumTiposIdentificacionPersona()
         {
             var result = ((TiposIdentificacionPersona[])Enum.GetValues(typeof(TiposIdentificacionPersona))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();

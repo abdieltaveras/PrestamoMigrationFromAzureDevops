@@ -81,6 +81,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label text-label-align">Profesion</label>
         <InputSelect id="Ocupaciones" @bind-Value="Codeudor.IdTipoProfesionUOcupacion" class="form-control col-sm-4">
+            <option value=-1 selected disabled> Seleccione una ocupacion </option>
             @foreach (var item in Ocupaciones)
             {
                 <option value=@item.IdRegistro>@item.Nombre</option>
@@ -88,7 +89,6 @@
         </InputSelect>
     </div>
     <div class="ml-5">
-
         @{ var tGrupo = TiposFotosPersonas.Rostro.ToString(); }
         <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostro" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
     </div>
@@ -98,50 +98,11 @@
         @{ var tGrp = TiposFotosPersonas.DocIdentificacion.ToString(); }
         <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
     </div>
+    
+    
 </div>
 
 
-@code {
 
-    [Parameter]
-    public Codeudor Codeudor { get; set; }
-    [Parameter]
-    public IEnumerable<BaseInsUpdGenericCatalogo> Ocupaciones { get; set; } = new List<Ocupacion>();
 
-    [Parameter]
-    public bool AllowInputCodigo { get; set; } = false;
-
-    private int _idEstadoCivil;
-
-    private int IdEstadoCivil
-    {
-        get => _idEstadoCivil;
-        set
-        {
-            _idEstadoCivil = value;
-            OnEstadoCivilChange.InvokeAsync(value);
-        }
-    }
-
-    [Parameter]
-    public IEnumerable<Imagen> FotosRostro { get; set; }
-    [Parameter]
-    public IEnumerable<Imagen> FotosDocIdentificacion { get; set; }
-    [Parameter]
-    public EventCallback<Imagen> SetImages { get; set; }
-
-    [Parameter]
-    public EventCallback<bool> OnTieneConyugeChange { get; set; }
-
-    [Parameter]
-    public EventCallback<int> OnEstadoCivilChange { get; set; }
-    [Parameter]
-    public EventCallback<Imagen> RemoveImages { get; set; }
-    protected override async Task OnInitializedAsync()
-    {
-        @*TieneConyuge = Codeudor.TieneConyuge;*@
-        IdEstadoCivil = Codeudor.IdEstadoCivil;
-    }
-
-}
 

@@ -24,6 +24,8 @@ namespace PrestamoBlazorApp.Services
 
         public CatalogosService TiposSexoService => new CatalogosService(this.HttpClientFactory, this.Configuration, "api/TipoSexo");
 
+        public CatalogosService Marcas => new CatalogosService(this.HttpClientFactory, this.Configuration, "api/Marcas");
+
         public CatalogosService TiposTelefonoService => new CatalogosService(this.HttpClientFactory, this.Configuration, "api/TiposTelefonos");
 
     }

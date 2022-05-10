@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class Marca : BaseInsUpdCatalogo
+    public class Marca : BaseInsUpdGenericCatalogo
     {
-        public int IdMarca { get; set; } = 0;
+        public int? IdMarca { get; set; } = 0;
 
-        public override int GetId()
+        public override int GetId() => (int)this.IdMarca;
+        
+
+        public override void SetPropertiesNullToRemoveFromSqlParam()
         {
-            throw new NotImplementedException();
+            this.IdMarca = null;
+        }
+
+        protected override void SetIdForConcreteObject()
+        {
+            this.IdMarca = IdRegistro;
         }
     }
     public class MarcaGetParams : BaseGetParams

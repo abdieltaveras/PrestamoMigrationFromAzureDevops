@@ -22,7 +22,7 @@ namespace PrestamoEntidades
         [Display(Name = "Tipo Identificacion")]
         public int IdTipoIdentificacion { get; set; } = (int)TiposIdentificacionPersona.Cedula;
         [Display(Name = "Profesion u Ocupacion")]
-        public int IdTipoProfesionUOcupacion { get; set; } = 0;
+        public int IdTipoProfesionUOcupacion { get; set; } = -1;
         [Required(ErrorMessage = "digite el numero de identificacion")]
         [Display(Name = "No Identificacion")]
         public string NoIdentificacion { get; set; } = string.Empty;
