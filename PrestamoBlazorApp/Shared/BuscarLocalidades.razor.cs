@@ -52,9 +52,9 @@ namespace PrestamoBlazorApp.Shared
             this.Localidades = result;
         }
 
-        private void filtrar(string valor) 
+        private void filtrar(string valor = "") 
         {
-
+            valor = ChoiseLocalidad;
             loading = true;
             //this.LocalidadesFiltradas = Localidades.Where(loc => loc.Nombre.ToLower().Contains(this.buscarLocalidad.Search.ToLower()));
             this.LocalidadesFiltradas = Localidades.Where(loc => loc.Nombre.ToLower().Contains(valor.ToLower(), StringComparison.InvariantCultureIgnoreCase));
@@ -70,6 +70,7 @@ namespace PrestamoBlazorApp.Shared
 
         void seleccionar()
         {
+            filtrar();
             var locSelected = Localidades.Where(loc => loc.IdLocalidad == SelectedLocalidad).FirstOrDefault();
             OnLocalidadSelected.InvokeAsync(locSelected);
             selectLocalidad = false;

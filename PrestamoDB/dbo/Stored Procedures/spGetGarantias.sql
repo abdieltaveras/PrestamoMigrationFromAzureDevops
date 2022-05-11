@@ -6,7 +6,8 @@
 	@IdNegocio int=0,
 	@IdLocalidadNegocio int=-1,
 	@Usuario varchar(100) = '',
-	@Borrado int=0
+	@Borrado int=0,
+	@Anulado varchar(100) = ''
 as
 BEGIN
 

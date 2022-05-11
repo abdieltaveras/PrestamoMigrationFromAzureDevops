@@ -5,7 +5,9 @@
     @IdLocalidadNegocio int = -1,
 	@IdLocalidadPadre int = -1,
 	@Borrado int=0,
-	@Usuario varchar(100)=''
+	@Usuario varchar(100)='',
+	@IdTipoLocalidad int = -1,
+	@Anulado varchar(100) = ''
 )
 as
 begin	
