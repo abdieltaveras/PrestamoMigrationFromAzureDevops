@@ -16,7 +16,8 @@
 	@InsertadoHasta DateTime=null,
     @CantidadRegistrosASeleccionar int = 100,
     @SeleccionarLuegoDelIdCliente  int = -1,
-  	@Usuario varchar(100)=''
+  	@Usuario varchar(100)='',
+	@Anulado varchar(100) = ''
 )
 as
 begin

@@ -3,7 +3,7 @@
 <MudGrid>
     <MudItem md="6" lg="6">
         <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
-        <MudChip Color="MudBlazor.Color.Info"> @direccion.selectedLocalidad</MudChip>
+        <MudChip Color="MudBlazor.Color.Info"> @SelectedLocalidad</MudChip>
     </MudItem>
     <MudItem md="6" lg="6">
         <MudTextField @bind-Value="direccion.Calle" Validation="@direccion.Calle"></MudTextField>
@@ -72,6 +72,7 @@
     bool showMadridMarker;
     EventConsole console;
 
+    private string SelectedLocalidad { get; set; }
     //void OnMapClick(GoogleMapClickEventArgs args)
     //{
     //    console.Log($"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
@@ -79,6 +80,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        SelectedLocalidad = direccion.selectedLocalidad;
         UpdateMapMarkers();
     }
 
@@ -95,12 +97,16 @@
 
 
 
-    private void Handle_LocalidadSelected(BuscarLocalidad localidad)
+    private async Task Handle_LocalidadSelected(BuscarLocalidad localidad)
     {
         var localidadSeleccionada = localidad;
-        direccion.selectedLocalidad = localidad.ToString();
-        this.direccion.IdLocalidad = localidad.IdLocalidad;
-    }
+        @*direccion.selectedLocalidad = localidad.ToString();*@
+        @*this.direccion.IdLocalidad = localidad.IdLocalidad;*@
+    SelectedLocalidad = localidad.ToString();
+    direccion.IdLocalidad = localidad.IdLocalidad;
+    direccion.selectedLocalidad = localidad.ToString();
+    StateHasChanged();
+}
 
 
 

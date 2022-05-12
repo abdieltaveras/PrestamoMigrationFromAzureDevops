@@ -36,6 +36,9 @@ namespace PrestamoBlazorApp.Pages.Garantias
         public int idgarantia { get; set; }
 
         GarantiaGetParams SearchGarantia { get; set; } = new GarantiaGetParams();
+        private int _SelectedIdClasificacionGarantia { get; set; }
+
+        private int SelectedIdClasificacionGarantia { get { return _SelectedIdClasificacionGarantia; } set { _SelectedIdClasificacionGarantia = value; selectedRadioClasificacion(new ChangeEventArgs { Value = 1 }); } }
         void Clear() => garantias = null;
         //ViewDatas
 
@@ -89,22 +92,37 @@ namespace PrestamoBlazorApp.Pages.Garantias
 
         private void selectedRadioClasificacion(ChangeEventArgs args)
         {
-            clasificacionSelected = args.Value.ToString();
-
-            if (clasificacionSelected == "1")
+            int selected = SelectedIdClasificacionGarantia; //Garantia.IdClasificacion; //args.Value.ToString();
+            if (selected == 1)
             {
                 IsShowInmobiliario = true;
                 IsShowMobiliario = false;
             }
-            else if (clasificacionSelected == "2")
+            else if (selected == 2)
             {
 
                 IsShowInmobiliario = false;
                 IsShowMobiliario = true;
             }
             //this.detalleGarantia = new DetalleGarantia();
-            Garantia.IdClasificacion = Convert.ToInt32(args.Value.ToString());
+            Garantia.IdClasificacion = selected; //Convert.ToInt32(args.Value.ToString());
             tipogarantia = tipogarantia.Where(m => m.IdClasificacion == Garantia.IdClasificacion);
+            StateHasChanged();
+            //if (clasificacionSelected == "1")
+            //{
+            //    IsShowInmobiliario = true;
+            //    IsShowMobiliario = false;
+            //}
+            //else if (clasificacionSelected == "2")
+            //{
+
+            //    IsShowInmobiliario = false;
+            //    IsShowMobiliario = true;
+            //}
+            ////this.detalleGarantia = new DetalleGarantia();
+            //Garantia.IdClasificacion = Convert.ToInt32(args.Value.ToString());
+            //tipogarantia = tipogarantia.Where(m => m.IdClasificacion == Garantia.IdClasificacion);
+            //StateHasChanged();
 
         }
 

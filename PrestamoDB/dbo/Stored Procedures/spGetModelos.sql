@@ -5,7 +5,8 @@
 	@IdLocalidadNegocio int = -1,
 	@Nombre varchar(50) = '',
 	@Borrado int=0,
-	@Usuario varchar(100)=''
+	@Usuario varchar(100)='',
+		@Anulado varchar(100) = ''
 AS
 	SELECT mo.*, ma.Nombre as NombreMarca
 	FROM dbo.tblModelos mo, dbo.tblMarcas ma
