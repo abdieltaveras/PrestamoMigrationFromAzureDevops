@@ -248,6 +248,10 @@ namespace PrestamoEntidades
         public int SeleccionarLuegoDelIdCliente { get; set; } = -1;
         
         public int IdLocalidad { get; set; } = -1;
+
+        [IgnoreOnParams]
+        // para indicar que desea convertir a objeto los datos guardados en formato Json como conyuge, informacion laboral, etc
+        public bool ConvertToObj { get; set; } = false;
     }
 
     public class ClienteDelParams : BaseAnularOrDeleteParams

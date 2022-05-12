@@ -22,7 +22,7 @@ namespace PrestamoBlazorApp.Services
         }
         public async Task<IEnumerable<Cliente>> GetClientesAsync(ClienteGetParams search, bool convertToObj=false)
         {
-            var result = await GetAsync<Cliente>(apiUrl+"/get", new { jsonGet = search.ToJson(), convertToObj= convertToObj } );
+            var result = await GetAsync<Cliente>(apiUrl+"/get", search );
             //var result = await GetAsync<Cliente>(apiUrl + "/getByParam", search);
             return result;
         }

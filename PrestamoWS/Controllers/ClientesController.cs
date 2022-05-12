@@ -23,7 +23,6 @@ namespace PrestamoWS.Controllers
 
     public class ClientesController : ControllerBasePrestamoWS
     {
-
         private readonly IWebHostEnvironment _webHostEnvironment;
         private Utils _utils { get; set; } = new Utils();
         public ClientesController(IWebHostEnvironment webHostEnvironment)
@@ -31,12 +30,11 @@ namespace PrestamoWS.Controllers
             _webHostEnvironment = webHostEnvironment;
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
-
         [HttpGet]
-        public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams getParams, bool convertToObj)
+        public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams getParams)
         {
             var imgPath = ImagePathForClientes;    
-            var data = BLLPrestamo.Instance.GetClientes(getParams, convertToObj,  ImagePathForClientes);
+            var data = BLLPrestamo.Instance.GetClientes(getParams, getParams.ConvertToObj,  ImagePathForClientes);
             return data;
         }
 

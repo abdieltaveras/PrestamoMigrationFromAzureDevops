@@ -11,11 +11,11 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 {
     public partial class Prestamos : BaseForList
     {
-        [Inject]
-        PrestamosService prestamoService { get; set; }
+        [Inject] PrestamosService prestamoService { get; set; }
+        [Inject] ClientesService ClientesService { get; set; }
         PrestamosGetParams searchPrestamos { get; set; } = new PrestamosGetParams();
         int totalPrestamos { get; set; }
-        IEnumerable<Prestamo> prestamos;
+        IEnumerable<Prestamo> prestamos = new List<Prestamo>();
         protected override async Task OnInitializedAsync()
         {
             await Handle_GetDataForList(GetPrestamos);
@@ -23,14 +23,13 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         }
         private async Task GetPrestamos()
         {
-            prestamos = new List<Prestamo>();
             prestamos = await prestamoService.GetAsync(this.searchPrestamos);
             totalPrestamos = prestamos.Count();
         }
         private async Task DatosFicha()
         {
-           var datos = JsonConvert.SerializeObject(DocumentosIngresoData());
-           var a = await FichaDetalleDrCr(datos);
+            var datos = JsonConvert.SerializeObject(DocumentosIngresoData());
+            var a = await FichaDetalleDrCr(datos);
         }
         public IEnumerable<DetalleDrCrImpresionDocumento> DocumentosIngresoData()
         {
@@ -64,5 +63,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             documentosIngreso.Add(doc1);
             return documentosIngreso;
         }
+        
     }
 }

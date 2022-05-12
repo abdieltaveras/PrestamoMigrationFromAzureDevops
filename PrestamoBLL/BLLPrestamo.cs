@@ -56,7 +56,8 @@ namespace PrestamoBLL
                 mensaje = $"Error valor {valueColumna} duplicado en el campo {nombreColumna}, ya existe para otro registro";
             }
             
-            throw new Exception(mensaje,e);
+            var ex = new Exception(mensaje, e);
+            throw ex;
         }
         /// <summary>
         /// 
