@@ -19,23 +19,23 @@
             {
                 <MudGrid>
                     <MudItem md="6" lg="6">
-                        <MudRadioGroup  @bind-SelectedOption="SelectedIdClasificacionGarantia">
+                        <MudRadioGroup @bind-SelectedOption="SelectedIdClasificacionGarantia">
                             <MudRadio Option="@((int)TiposClasificacionGarantia.Inmobiliaria)" Color="MudBlazor.Color.Primary">Inmobiliario</MudRadio>
                             <MudRadio Option="@((int)TiposClasificacionGarantia.Mobiliaria)" Color="MudBlazor.Color.Secondary">Mobiliaria</MudRadio>
                         </MudRadioGroup>
                     </MudItem>
                 </MudGrid>
                 <!--<div class="form-group">-->
-                    @*<InputRadio @bind-Value=" Garantia.IdClasificacion" id="inmobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
+                @*<InputRadio @bind-Value=" Garantia.IdClasificacion" id="inmobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
 
-                    <!--<input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="@((int)TiposClasificacionGarantia.Inmobiliaria)" checked="@(Garantia.IdClasificacion == (int)TiposClasificacionGarantia.Inmobiliaria)" @onchange="selectedRadioClasificacion" />
-                    <label for="inmobiliario_option">Inmobiliario</label>-->
-                    @*<i class="fa fa-home"></i>*@ @*Inmobiliriario*@
-                    <!--<br />-->
-                    @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="mobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
-                    <!--<input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="@((int)TiposClasificacionGarantia.Mobiliaria)" checked="@(Garantia.IdClasificacion==(int)TiposClasificacionGarantia.Mobiliaria)" @onchange="selectedRadioClasificacion" />
-                    <label for="mobiliario_option">Mobiliario</label>-->
-                    @*<i class="fa fa-car"></i>*@ @*Mobiliriario*@
+                <!--<input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="@((int)TiposClasificacionGarantia.Inmobiliaria)" checked="@(Garantia.IdClasificacion == (int)TiposClasificacionGarantia.Inmobiliaria)" @onchange="selectedRadioClasificacion" />
+        <label for="inmobiliario_option">Inmobiliario</label>-->
+                @*<i class="fa fa-home"></i>*@ @*Inmobiliriario*@
+                <!--<br />-->
+                @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="mobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
+                <!--<input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="@((int)TiposClasificacionGarantia.Mobiliaria)" checked="@(Garantia.IdClasificacion==(int)TiposClasificacionGarantia.Mobiliaria)" @onchange="selectedRadioClasificacion" />
+        <label for="mobiliario_option">Mobiliario</label>-->
+                @*<i class="fa fa-car"></i>*@ @*Mobiliriario*@
                 <!--</div>-->
             }
             else
@@ -49,336 +49,133 @@
                     <h3> Tipo: Mobiliario</h3>
                 }
             }
-        <MudGrid>
-            <MudItem md="6" lg="6">
-                <MudInput @bind-Value="Garantia.NoIdentificacion" Required="true" Label="No. Identificacion"></MudInput>
-            </MudItem>
-            @if (idgarantia <= 0)
-            {
+            <MudGrid>
                 <MudItem md="6" lg="6">
-                    <MudSelect @bind-Value="Garantia.IdTipoGarantia" Label="Tipo De Garantia">
-                        <MudSelectItem Value="-1" Disabled="true">Seleccione Un Tipo De Garantia</MudSelectItem>
-                        @foreach (var item in tipogarantia)
-                            {
-                            <MudSelectItem Value="@item.IdTipoGarantia">@item.Nombre</MudSelectItem>
-                            }
-                    </MudSelect>
+                    <MudTextField @bind-Value="Garantia.NoIdentificacion" Required="true" Label="No. Identificacion"></MudTextField>
                 </MudItem>
-            }
-            else
-            {
-                <MudItem md="6" lg="6">
-                    <MudSelect @bind-Value="Garantia.IdTipoGarantia" Label="Tipo De Garantia"  Disabled="true">
-                        <MudSelectItem Value="-1" Disabled="true">Seleccione Un Tipo De Garantia</MudSelectItem>
-                        @foreach (var item in tipogarantia)
-                        {
-                        <MudSelectItem Value="@item.IdTipoGarantia">@item.Nombre</MudSelectItem>
-                        }
-                    </MudSelect>
-                </MudItem>
-            }
-        </MudGrid>
+                @if (idgarantia <= 0)
+                {
+                    <MudItem md="6" lg="6">
+                        <MudSelect @bind-Value="Garantia.IdTipoGarantia" Label="Tipo De Garantia">
+                            <MudSelectItem Value="-1" Disabled="true">Seleccione Un Tipo De Garantia</MudSelectItem>
+                            @foreach (var item in tipogarantia)
+                                {
+                                <MudSelectItem Value="@item.IdTipoGarantia">@item.Nombre</MudSelectItem>
+                                }
+                        </MudSelect>
+                    </MudItem>
+                }
+                else
+                {
+                    <MudItem md="6" lg="6">
+                        <MudSelect @bind-Value="Garantia.IdTipoGarantia" Label="Tipo De Garantia" Disabled="true">
+                            <MudSelectItem Value="-1" Disabled="true">Seleccione Un Tipo De Garantia</MudSelectItem>
+                            @foreach (var item in tipogarantia)
+                                {
+                                <MudSelectItem Value="@item.IdTipoGarantia">@item.Nombre</MudSelectItem>
+                                }
+                        </MudSelect>
+                    </MudItem>
+                }
+            </MudGrid>
             @{
                 string strIsShow = "";
-                strIsShow = !IsShowInmobiliario == true? "Block":"None";
+                strIsShow = IsShowInmobiliario == true ? "Block" : "None";
             }
-        <MudGrid Style='@($"display:{strIsShow};")'>
-            Hols
-        </MudGrid>
-            <div class="row">
-                <div class="col-md-6">
-                  
-                    <div class="row">
-                        <div class="col-md-12">
-                            @* Formulario de inmobiliario *@
-                            <div class="row" id="inmobiliario_form_container" hidden="@(!IsShowInmobiliario)">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group row" style="padding: 0%">
-                                                <label class="col-sm-4 col-form-label" for="Direccion_Calle">Localidad</label>
-                                                <div class="col-sm-8" style="margin: auto;">
-                                                    <input class="target form-control" type="text" id="searchLocalidad" name="searchLocalidad" placeholder="Busca una direccion" autocomplete="off" />
-                                                    <span id="rutadelocalidad"></span>
-                                                    <div id="list-address-container" style=" padding: 0%;">
-                                                        <div class="list-group col-md-12 col-sm-12 col-xs-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding-right: 20px; padding-left: 0px; vertical-align: middle;">
-                                                        </div>
-                                                    </div>
-                                                    <span class="field-validation-valid text-danger" data-valmsg-for="Direccion.Calle" data-valmsg-replace="true"></span>
-                                                    <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" class="target form-control" name="Garantia.DetallesJSON.IdLocalidad" id="Direccion_IdLocalidad" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="form-label" for="interes">
-                                                    Detalles de direccion
-                                                </label>
-                                                @*<div class="col-sm-10">*@
-                                                <InputTextArea style="height:50px;" id="detallesdireccion" class="form-control col-md-8" @bind-Value="detalleGarantia.DetallesDireccion"></InputTextArea>
+            <MudGrid Style='@($"display:{strIsShow};")'>
+                <MudItem md="6" lg="6">
+                    <MudGrid>
+                        <MudItem md="12" lg="12">
+                            <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
+                            <MudChip Color="MudBlazor.Color.Info"> @SelectedLocalidad</MudChip>
+                        </MudItem>
+                        <MudItem md="12" lg="12">
+                            <MudTextField @bind-Value="@detalleGarantia.DetallesDireccion" Label="Detalle Direccion"></MudTextField>
+                        </MudItem>
+                        <MudItem md="12" lg="12">
+                            <MudTextField @bind-Value="@detalleGarantia.Medida" Label="Medida"></MudTextField>
+                        </MudItem>
+                     
 
-                                                @*</div>*@
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="localidad">
-                                                    Medida
-                                                </label>
-                                                @*<div class="col-sm-8">*@
-                                                <InputText id="medida" class="form-control col-md-8" @bind-Value="detalleGarantia.Medida"></InputText>
-                                                @*</div>*@
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @* Fin formulario de Inmobiliario *@
+                    </MudGrid>
 
-                            @* Formulario de mobiliario *@
+                </MudItem>
+            </MudGrid>
+            @{
+                string strShowMobiliario = "";
+                strShowMobiliario = IsShowMobiliario == true ? "Block" : "None";
+            }
+            <MudGrid Style='@($"display:{strShowMobiliario};")'>
+                <MudItem md="12">
+                    <MudGrid>
+                        <MudItem md="6" lg="6">
+                            <MudItem md="12" lg="12">
+                                <MudSelect @bind-Value="@Garantia.IdMarca" Label="Marca">
+                                    <MudSelectItem Value="-1" Disabled="true">Selecciona una Marca</MudSelectItem>
 
-                            <div class="row" id="mobiliario_form_container" hidden="@(!IsShowMobiliario)">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class=" form-label" for="marca">
-                                                    Marca
-                                                </label>
-                                                <InputSelect id="ListadoMarcas" @bind-Value="@Garantia.IdMarca" class="form-control">
-                                                    <option value="-1">Seleccione Una Marca</option>
-                                                    @foreach (var item in marcas)
-                                                    {
-                                                        <option value="@item.IdMarca">@item.Nombre</option>
-                                                    }
-                                                </InputSelect>
-                                                <input type="hidden" @bind-value="Garantia.IdMarca" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="modelo">
-                                                    Modelo
-                                                </label>
-                                                <InputSelect id="ListadoModelos" @bind-Value="@Garantia.IdModelo" class="form-control ">
-                                                    <option value="-1">Seleccione Un Modelo</option>
-                                                    @foreach (var item in modelos)
-                                                    {
-                                                        <option value="@item.IdModelo">@item.Nombre</option>
-                                                    }
-                                                </InputSelect>
-                                                <input type="hidden" @bind-value="Garantia.IdModelo" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="form-label" for="modelo">
-                                                    Colores
-                                                </label>
-                                                <InputSelect id="ListadoColores" @bind-Value="@detalleGarantia.Color" class="form-control">
-                                                    <option value="-1">Seleccione Un Color</option>
-                                                    @foreach (var item in colores)
-                                                    {
-                                                        <option value="@item.Nombre">@item.Nombre</option>
-                                                    }
-                                                </InputSelect>
-                                                <input type="hidden" @bind-value="detalleGarantia.Color" />
-                                            </div>
-                                            @*<div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="modelo">
-                                                Modelo
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <div class="form-group">
-                                                    <InputSelect id="ListadoModelos" @bind-Value="@Garantia.IdModelo" class="form-control col-md-6">
-                                                        <option value="-1">Seleccione Un Modelo</option>
-                                                        @foreach (var item in modelos)
-                                                        {
-                                                            <option value="@item.IdModelo">@item.Nombre</option>
-                                                        }
-                                                    </InputSelect>
-                                                    <input type="hidden" @bind-value="Garantia.IdModelo" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="modelo">
-                                                Colores
-                                            </label>
-                                            <div class="col-sm-8">
-
-                                                <InputSelect id="ListadoColores" @bind-Value="@detalleGarantia.Color" class="form-control col-md-6">
-                                                    <option value="-1">Seleccione Un Color</option>
-                                                    @foreach (var item in colores)
-                                                    {
-                                                        <option value="@item.Nombre">@item.Nombre</option>
-                                                    }
-                                                </InputSelect>
-                                                <input type="hidden" @bind-value="detalleGarantia.Color" />
-
-                                            </div>
-                                        </div>*@
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group ">
-                                                <label class="form-label" for="NoMaquina">
-                                                    No. Maquina
-                                                </label>
-                                                <InputText id="nomaquina" class="form-control" @bind-Value="detalleGarantia.NoMaquina"></InputText>
-                                            </div>
-                                            <div class="form-group ">
-                                                <label class="form-label" for="matricula">
-                                                    Matricula
-                                                </label>
-                                                <InputText id="matricula" class="form-control" @bind-Value="detalleGarantia.Matricula"></InputText>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group ">
-                                                        <label class="form-label" for="año">
-                                                            Año
-                                                        </label>
-                                                        <InputText id="ano" class="form-control " @bind-Value="detalleGarantia.Ano"></InputText>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group ">
-                                                        <label class="form-label" for="placa">
-                                                            Placa
-                                                        </label>
-                                                        <InputText id="placa" class="form-control" @bind-Value="detalleGarantia.Placa"></InputText>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            @*<div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="NoMaquina">
-                                                No. Maquina
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <InputText id="nomaquina" class="form-control col-md-6" @bind-Value="detalleGarantia.NoMaquina"></InputText>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="año">
-                                                Año
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <InputText id="ano" class="form-control col-md-6" @bind-Value="detalleGarantia.Ano"></InputText>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="placa">
-                                                Placa
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <InputText id="placa" class="form-control col-md-6" @bind-Value="detalleGarantia.Placa"></InputText>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label" for="matricula">
-                                                Matricula
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <InputText id="matricula" class="form-control col-md-6" @bind-Value="detalleGarantia.Matricula"></InputText>
-                                            </div>
-                                        </div>*@
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>  @* Fin formulario de mobiliario *@
-
-                        </div>
-                    </div>
-
-
-
-                </div>  <!-- /Modulo Datos Generales -->
-                <div class="col-md-6">
-                    <div class="row" id="common_form_container">
-                        <div class="col-md-12">
-                            @* Formulario de datos en comun *@
-                            @*<div class="row" id="common_form_container">*@
-                            <div class="col-md-12">
-
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="valor">
-                                        Valor <span class="required"></span>
-                                    </label>
-                                    @*<div class="col-sm-8">*@
-                                    <InputNumber id="valor" class="form-control col-md-6" @bind-Value="detalleGarantia.Valor"></InputNumber>
-                                    @*</div>*@
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="interes">
-                                        Descripcion <span class="required"></span>
-                                    </label>
-                                    @*<div class="col-sm-8">*@
-                                    <InputText id="descripcion" class="form-control col-md-6" @bind-Value="detalleGarantia.Descripcion"></InputText>
-                                    @*</div>*@
-                                </div>
-
-                                <div class="form-group row">
-
-                                    <div class="col-sm-8">
-                                        <InputCheckbox id="chkExclusivo" @bind-Value="detalleGarantia.UsoExclusivo"></InputCheckbox>
-                                        <label class="form-check-label" for="chkExclusivo">¿Puedo usar esta garantia en mas de 1 transaccion? <span class="required"></span></label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            @*</div>*@
-
-
-                            @* Fin formulario de datos en comun *@
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-
-
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Imagenes</h3>
-                                </div>
-                                <div class="card-body">
-
-
-                                    @if (this.Garantia != null)
+                                    @foreach (var item in marcas)
                                     {
-                                        @if (this.Garantia.ImagesForGaratia != null)
-                                        {
-                                            <div class="col-md-12">
-                                                <InputImages @key="1" OnImageSet="SetImages" ListaImagenesURL="this.Garantia.ImagesForGaratia" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-md-12">
-                                                <InputImages @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
-                                            </div>
-                                        }
+                                        <MudSelectItem Value="SelectedIdMarca">@item.Nombre</MudSelectItem>
                                     }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem md="12" lg="12">
+                                <MudSelect @bind-Value="@Garantia.IdModelo" Label="Modelo">
+                                    <MudSelectItem Value="-1" Disabled="true">Selecciona un Modelo</MudSelectItem>
 
-                                    <!--<div class="col-md-12">-->
-                                    @*<ima @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para el cliente"></ima>*@
-                                    <!--</div>-->
-                                </div>
+                                    @foreach (var item in modelos)
+                                    {
+                                        <MudSelectItem Value="@item.IdModelo">@item.Nombre</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem md="12" lg="12">
+                                <MudSelect @bind-Value="@detalleGarantia.Color">
+                                    <MudSelectItem Value="@("")" Disabled="true">Selecciona un Color</MudSelectItem>
+                                    @foreach (var item in colores)
+                                    {
+                                        <MudSelectItem Value="@item.Nombre">@item.Nombre</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem md="12" lg="12">
+                                <MudTextField @bind-Value="detalleGarantia.NoMaquina"></MudTextField>
+                                <MudTextField @bind-Value="detalleGarantia.Matricula"></MudTextField>
+                                <MudTextField @bind-Value="detalleGarantia.Ano"></MudTextField>
+                                <MudTextField @bind-Value="detalleGarantia.Placa"></MudTextField>
+                            </MudItem>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+            </MudGrid>
+    <MudGrid>
+        <MudItem md="6" lg="6">
+            <MudNumericField @bind-Value="detalleGarantia.Valor" Label="Valor"></MudNumericField>
+            <MudTextField @bind-Value="detalleGarantia.Descripcion" Label="Valor"></MudTextField>
+            <MudCheckBox Checked="detalleGarantia.UsoExclusivo" Label="¿Puedo usar esta garantia en mas de 1 transaccion?"></MudCheckBox>
+        </MudItem>
+    </MudGrid>
+
+            <MudGrid>
+                <MudItem md="6" lg="6">
+                    @if (this.Garantia != null)
+                    {
+                        @if (this.Garantia.ImagesForGaratia != null)
+                        {
+                            <div class="col-md-12">
+                                <InputImages2 @key="1" OnImageSet="SetImages" ListaImagenes="this.Garantia.ImagesForGaratia" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages2>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12">
+                                <InputImages2 @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages2>
+                            </div>
+                        }
+                    }
+                </MudItem>
+            </MudGrid>
+                        
 
         </MudCardContent>
     </MudCard>

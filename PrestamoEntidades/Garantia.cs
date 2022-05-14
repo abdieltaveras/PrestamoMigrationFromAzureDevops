@@ -51,7 +51,9 @@ namespace PrestamoEntidades
         public string Imagen3FileName { get; set; }
         public string Imagen4FileName { get; set; }
         [IgnoreOnParams]
-        public IEnumerable<string> ImagesForGaratia { get; set; }
+        public List<Imagen> ImagesForGaratia { get; set; }
+
+        //public IEnumerable<string> ImagesForGaratia { get; set; }
         //[IgnoreOnParams]
         //public IEnumerable<string> ImagesForGaratiaEntrantes { get; set; }
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]

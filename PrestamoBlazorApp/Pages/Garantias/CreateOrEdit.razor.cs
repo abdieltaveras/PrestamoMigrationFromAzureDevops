@@ -36,21 +36,23 @@ namespace PrestamoBlazorApp.Pages.Garantias
         public int idgarantia { get; set; }
 
         GarantiaGetParams SearchGarantia { get; set; } = new GarantiaGetParams();
-        private int _SelectedIdClasificacionGarantia { get; set; }
+        private int _SelectedIdClasificacionGarantia { get; set; } = 1;
 
         private int SelectedIdClasificacionGarantia { get { return _SelectedIdClasificacionGarantia; } set { _SelectedIdClasificacionGarantia = value; selectedRadioClasificacion(new ChangeEventArgs { Value = 1 }); } }
         void Clear() => garantias = null;
         //ViewDatas
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            this.Garantia = new Garantia();
-        }
+        private string SelectedLocalidad { get; set; }
+        private int SelectedIdMarca { get; set; }
+        public IEnumerable<Imagen> FotosGarantias { get; set; }
+        //protected override void OnInitialized()
+        //{
+        //    base.OnInitialized();
+        //    this.Garantia = new Garantia();
+        //}
         protected override async Task OnInitializedAsync()
         {
 
-
+            this.Garantia = new Garantia();
             tipogarantia = await GarantiasService.GetTipoGarantia(new TipoGarantiaGetParams());
             modelos = await GarantiasService.GetModelosForGarantias(new ModeloGetParams { IdMarca = Garantia.IdMarca });
             //modelos = modelos.Where(m => m.IdMarca == Garantia.IdMarca);
@@ -74,7 +76,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
                 changeEvent.Value = Garantia.IdClasificacion;
                 selectedRadioClasificacion(changeEvent);
             }
-            StateHasChanged();
+            //StateHasChanged();
 
         }
 
@@ -82,6 +84,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
         {
             await BlockPage();
             this.Garantia.DetallesJSON = this.detalleGarantia;
+            this.Garantia.IdMarca = SelectedIdMarca;
             await GarantiasService.SaveGarantia(this.Garantia);
             await SweetMessageBox("Guardado Correctamente", "success", "/Garantias", 1500);
             await UnBlockPage();
@@ -150,9 +153,15 @@ namespace PrestamoBlazorApp.Pages.Garantias
         //    }
         //    JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         //}
-        private void SetImages(IList<string> images)
+        //private void SetImages(IList<string> images)
+        //{
+        //    this.Garantia.ImagesForGaratia = images;
+        //}
+
+        private void SetImages(Imagen imagen)
         {
-            this.Garantia.ImagesForGaratia = images;
+            Garantia.ImagesForGaratia.Add(imagen);
+            //FilterImagesByGroup();
         }
         //private void QuitImage(IList<string> images)
         //{
@@ -165,6 +174,16 @@ namespace PrestamoBlazorApp.Pages.Garantias
         void RaiseInvalidSubmit()
         {
 
+        }
+
+        private async Task Handle_LocalidadSelected(BuscarLocalidad localidad)
+        {
+            var localidadSeleccionada = localidad;
+     
+             SelectedLocalidad = localidad.ToString();
+            //direccion.IdLocalidad = localidad.IdLocalidad;
+            //direccion.selectedLocalidad = localidad.ToString();
+            StateHasChanged();
         }
     }
 }
