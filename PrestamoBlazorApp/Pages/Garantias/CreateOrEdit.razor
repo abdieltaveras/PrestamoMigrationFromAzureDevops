@@ -151,7 +151,7 @@
     <MudGrid>
         <MudItem md="6" lg="6">
             <MudNumericField @bind-Value="detalleGarantia.Valor" Label="Valor"></MudNumericField>
-            <MudTextField @bind-Value="detalleGarantia.Descripcion" Label="Valor"></MudTextField>
+            <MudTextField @bind-Value="detalleGarantia.Descripcion" Label="Descripcion"></MudTextField>
             <MudCheckBox Checked="detalleGarantia.UsoExclusivo" Label="¿Puedo usar esta garantia en mas de 1 transaccion?"></MudCheckBox>
         </MudItem>
     </MudGrid>
@@ -169,7 +169,7 @@
                         else
                         {
                             <div class="col-md-12">
-                                <InputImages2 @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages2>
+                                <InputImages2 @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para las Garantias"></InputImages2>
                             </div>
                         }
                     }
@@ -178,9 +178,14 @@
                         
 
         </MudCardContent>
+        <MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="SaveGarantia" Color="MudBlazor.Color.Primary">Guardar</MudButton>
+            </MudCardActions>
+        </MudCardContent>
     </MudCard>
 </EditForm>
-<div class="row">
+<!--<div class="row">
     <div class="col-md-12">
         <div class="card card-link">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -192,9 +197,9 @@
                 else
                 {
                     <h3 class="">Editando Garantia</h3>
-                    <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;" @onclick="SaveGarantia">Guardar</button>
+                    <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;" @onclick="SaveGarantia">Guardar</button>-->
                     @*<h3 class="card-title">Editar Garantia  <button type="submit" class="btn btn-primary" @onclick="() => SaveGarantia()">Guardar</button></h3>*@
-                }
+                <!--}
 
             </div>
             <div class="card-body">
@@ -204,4 +209,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->

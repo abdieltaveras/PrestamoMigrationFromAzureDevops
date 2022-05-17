@@ -13,52 +13,6 @@
     <EditForm Model="@prestamo">
         <DataAnnotationsValidator />
         <ValidationSummary />
-
-        <MudCard>
-            <MudCardHeader>
-                <CardHeaderActions>
-                    <MudButton OnClick="@SavePrestamo">Guardar</MudButton>
-                </CardHeaderActions>
-            </MudCardHeader>
-            <MudCardContent>
-                <MudGrid>
-                    <MudItem>
-                        @if (EnableReadCodigo)
-                        {
-                            <MudTextField @bind-Value="@prestamo.PrestamoNumero" Label="Prestamo Numero"></MudTextField>
-                        }
-                        else
-                        {
-                            <MudChip>@prestamo.PrestamoNumero </MudChip>
-                        }
-                    </MudItem>
-                </MudGrid>
-                <MudGrid>
-                    <MudItem>
-                        <MudSelect @bind-Value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" Label="Clasificacion">
-                            @foreach (var item in Clasificaciones)
-                            {
-                                <MudSelectItem Value=@item.IdClasificacion>@item.Nombre</MudSelectItem>
-                            }
-                        </MudSelect>
-                    </MudItem>
-                </MudGrid>
-                <MudGrid>
-                    <MudItem>
-                        <MudSelect  @bind-Value="@prestamo.IdTipoAmortizacion" Label="Amortizacion">
-                            <MudSelectItem Value=-1>Seleccione la amortizacion</MudSelectItem>
-                            @foreach (var item in EnumToList.TiposAmortizacion())
-                            {
-                                <MudSelectItem Value=@item.Value>@item.Text</MudSelectItem>
-                            }
-                        </MudSelect>
-                    </MudItem>
-                    <MudItem>
-                        <MudDatePicker @onchange="OnFechaEmisionRealChange" @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker>
-                    </MudItem>
-                </MudGrid>
-            </MudCardContent>
-        </MudCard>
         <div class="bg-secondary">
             <h3 class="text-left">Crear o Editar Prestamo</h3>
             <div class="@textLabelJustify">
@@ -74,9 +28,45 @@
         {
             <div class="row">
                 <div class="col-sm-5">
-                 
+                    <div class="form-group row">
+                        <label for="codigo" class="col-sm-4 col-form-label @textLabelJustify">Prestamo Numero</label>
+                        @if (EnableReadCodigo)
+                        {
+                            <InputText @bind-Value="@prestamo.PrestamoNumero" class="col-sm-3" />
+                        }
+                        else
+                        {
+                            <label class="col-sm-3 mt-2">@prestamo.PrestamoNumero </label>
+                        }
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="clasificacion" class="col-sm-4 col-form-label @textLabelJustify">Clasificacion</label>
 
 
+                        <select id="clasificacion" value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" class="form-control col-sm-4">
+                            @foreach (var item in Clasificaciones)
+                            {
+                                <option value=@item.IdClasificacion>@item.Nombre</option>
+                            }
+                        </select>
+
+                    </div>
+
+
+                    @*<div class="form-group row" style="margin-top:1px">*@
+                    <div class="form-group row" style="margin-top:1px">
+                        <label for="amortizacion" class="col-sm-4 col-form-label @textLabelJustify">Amortizacion</label>
+
+                        <InputSelect id="amortizacion" @bind-Value="@prestamo.IdTipoAmortizacion" class="form-control col-sm-4">
+                            <option value=-1>Seleccione la amortizacion</option>
+                            @foreach (var item in EnumToList.TiposAmortizacion())
+                                {
+                                <option value=@item.Value>@item.Text</option>
+                                }
+                        </InputSelect>
+
+                    </div>
 
                     <div class="form-group row">
                         <label for="fechaPrestamo" class="col-sm-4 col-form-label @textLabelJustify">Fecha</label>

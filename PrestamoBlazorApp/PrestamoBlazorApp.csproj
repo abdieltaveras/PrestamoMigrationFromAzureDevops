@@ -17,10 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Prestamos\CreateOrEditPrestamo - Copy.razor.css" />
     <None Remove="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Pages\Prestamos\CreateOrEditPrestamo - Copy.razor.css" />
     <Content Include="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
   </ItemGroup>
 

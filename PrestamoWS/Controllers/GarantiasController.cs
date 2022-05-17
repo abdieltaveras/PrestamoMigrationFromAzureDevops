@@ -170,7 +170,7 @@ namespace PrestamoWS.Controllers
                 BLLPrestamo.Instance.InsUpdGarantia(garantia);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Forbid();
             }
