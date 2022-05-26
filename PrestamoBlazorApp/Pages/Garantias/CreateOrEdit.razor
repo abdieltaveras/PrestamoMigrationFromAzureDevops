@@ -163,13 +163,13 @@
                         @if (this.Garantia.ImagesForGaratia != null)
                         {
                             <div class="col-md-12">
-                                <InputImages2 @key="1" OnImageSet="SetImages" ListaImagenes="this.Garantia.ImagesForGaratia" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages2>
+                                <InputImages @key="1" OnImageSet="SetImages" ListaImagenesURL="this.Garantia.ImagesForGaratia" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
                             </div>
                         }
                         else
                         {
                             <div class="col-md-12">
-                                <InputImages2 @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para las Garantias"></InputImages2>
+                                <InputImages @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para las Garantias"></InputImages>
                             </div>
                         }
                     }

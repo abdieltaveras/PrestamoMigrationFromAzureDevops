@@ -106,30 +106,30 @@ namespace PrestamoWS.Controllers
             result.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
             //result.FirstOrDefault().DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(result.FirstOrDefault().Detalles);
             #region Imagen
-            //List<string> list = new List<string>();
-            //if (result.FirstOrDefault().Imagen1FileName != null)
-            //{
-            //    var listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
-            //    foreach (var item in listResult)
-            //    {
-            //        string imagen = Convert.ToString(item.Value);
-            //        //Obtenemos la ruta de la imagen
-            //        string path = ImagePathForGarantia + item.Value + ".jpg";
-            //        //Evaluamos si existe la imagen
-            //        var ExisteImagen = System.IO.File.Exists(path);
-            //        if (ExisteImagen)
-            //        {
-            //            // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
-            //            var imagepath = HConvert.GetImageBase64FromPath(path);
-            //            // creamos una lista para agregar nuestras bases
-            //            list.Add("data:image/jpg;base64," + imagepath);
-            //        }
+            List<string> list = new List<string>();
+            if (result.FirstOrDefault().Imagen1FileName != null)
+            {
+                var listResult = JsonConvert.DeserializeObject<dynamic>(result.FirstOrDefault().Imagen1FileName);
+                foreach (var item in listResult)
+                {
+                    string imagen = Convert.ToString(item.Value);
+                    //Obtenemos la ruta de la imagen
+                    string path = ImagePathForGarantia + item.Value + ".jpg";
+                    //Evaluamos si existe la imagen
+                    var ExisteImagen = System.IO.File.Exists(path);
+                    if (ExisteImagen)
+                    {
+                        // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
+                        var imagepath = HConvert.GetImageBase64FromPath(path);
+                        // creamos una lista para agregar nuestras bases
+                        list.Add("data:image/jpg;base64," + imagepath);
+                    }
 
-            //    }
-            //    IEnumerable<string> sendList = list;
-            //    //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
-            //    garantias.FirstOrDefault().ImagesForGaratia = sendList;
-            //}
+                }
+                IEnumerable<string> sendList = list;
+                //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
+                garantias.FirstOrDefault().ImagesForGaratia = sendList.ToList();
+            }
 
             //******************************************************//
             #endregion
@@ -145,21 +145,21 @@ namespace PrestamoWS.Controllers
         public async Task<IActionResult> Post(Garantia garantia)
         {
             #region Imagen
-            ManejoImagenes.ProcesarImagenes(garantia.ImagesForGaratia, ImagePathForGarantia, string.Empty);
+            //ManejoImagenes.ProcesarImagenes(garantia.ImagesForGaratia, ImagePathForGarantia, string.Empty);
 
-            //List<string> ListaImagenes = new List<string>();
-            //if (garantia.ImagesForGaratia != null)
-            //{
-            //    for (int i = 0; i < garantia.ImagesForGaratia.Count(); i++)
-            //    {
-            //        string imagename = garantia.DetallesJSON.Placa + "-" + i.ToString();
-            //        string resultBase = Regex.Replace(garantia.ImagesForGaratia.ElementAt(i), @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
-            //        string path = ImagePathForGarantia;
-            //        // He utilizado la libreria HESRAM.Utils para guardar y copiar la imagen
-            //        HConvert.SaveBase64AsImage(resultBase, path, imagename);
-            //        ListaImagenes.Add(imagename+".jpg");
-            //    }
-            //}
+            List<string> ListaImagenes = new List<string>();
+            if (garantia.ImagesForGaratia != null)
+            {
+                for (int i = 0; i < garantia.ImagesForGaratia.Count(); i++)
+                {
+                    string imagename = garantia.DetallesJSON.Placa + "-" + i.ToString();
+                    string resultBase = Regex.Replace(garantia.ImagesForGaratia.ElementAt(i), @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
+                    string path = ImagePathForGarantia;
+                    // He utilizado la libreria HESRAM.Utils para guardar y copiar la imagen
+                    HConvert.SaveBase64AsImage(resultBase, path, imagename);
+                    ListaImagenes.Add(imagename + ".jpg");
+                }
+            }
             #endregion
             garantia.Usuario = this.LoginName;
             garantia.IdLocalidadNegocio = this.IdLocalidadNegocio;

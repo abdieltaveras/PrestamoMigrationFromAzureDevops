@@ -51,7 +51,7 @@ namespace PrestamoEntidades
         public string Imagen3FileName { get; set; }
         public string Imagen4FileName { get; set; }
         [IgnoreOnParams]
-        public List<Imagen> ImagesForGaratia { get; set; } = new List<Imagen>();
+        public IEnumerable<string> ImagesForGaratia { get; set; } = new List<string>();
 
         //public IEnumerable<string> ImagesForGaratia { get; set; }
         //[IgnoreOnParams]

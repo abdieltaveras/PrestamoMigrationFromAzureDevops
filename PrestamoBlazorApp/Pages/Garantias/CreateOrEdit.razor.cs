@@ -158,9 +158,9 @@ namespace PrestamoBlazorApp.Pages.Garantias
         //    this.Garantia.ImagesForGaratia = images;
         //}
 
-        private void SetImages(Imagen imagen)
+        private void SetImages(IList<string> imagen)
         {
-            Garantia.ImagesForGaratia.Add(imagen);
+            Garantia.ImagesForGaratia = imagen;
             //FilterImagesByGroup();
         }
         //private void QuitImage(IList<string> images)

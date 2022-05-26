@@ -22,50 +22,174 @@
             </MudCardHeader>
             <MudCardContent>
                 <MudGrid>
-                    <MudItem>
-                        @if (EnableReadCodigo)
-                        {
-                            <MudTextField @bind-Value="@prestamo.PrestamoNumero" Label="Prestamo Numero"></MudTextField>
-                        }
-                        else
-                        {
-                            <MudChip>@prestamo.PrestamoNumero </MudChip>
-                        }
+                    <MudItem lg="6" md="6">
+                        <MudGrid>
+                            <MudItem md="12" lg="12">
+                                @if (EnableReadCodigo)
+                                {
+                                    <MudTextField @bind-Value="@prestamo.PrestamoNumero" Label="Prestamo Numero"></MudTextField>
+                                }
+                                else
+                                {
+                                    <MudChip>@prestamo.PrestamoNumero </MudChip>
+                                }
+                            </MudItem>
+
+                            <MudItem md="12" lg="12">
+                                <MudSelect @bind-Value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" Label="Clasificacion">
+                                    @foreach (var item in Clasificaciones)
+                                    {
+                                        <MudSelectItem Value=@item.IdClasificacion>@item.Nombre</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem lg="12" md="12">
+                                <MudSelect @bind-Value="@prestamo.IdTipoAmortizacion" Label="Amortizacion">
+                                    <MudSelectItem Value=-1>Seleccione la amortizacion</MudSelectItem>
+                                    @foreach (var item in EnumToList.TiposAmortizacion())
+                                    {
+                                        <MudSelectItem Value=@item.Value>@item.Text</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem lg="12" md="12">
+                                <MudDatePicker @onchange="OnFechaEmisionRealChange" @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker>
+                            </MudItem>
+                            <MudItem md="12" lg="12">
+                                <MudTextField @bind-Value="@CodigoCliente" ReadOnly="true" Label="Codigo Cliente" Adornment="Adornment.End" OnAdornmentClick="ActivateSearchCliente" AdornmentIcon="@Icons.Material.Filled.Search"></MudTextField>
+                                @*<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="ActivateSearchCliente"></MudIconButton>*@
+                                <SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" OnModalClose="OnCloseSearchCliente" />
+                                <MudCard>
+                                    <MudCardContent>
+                                        @InfoCliente
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudItem>
+                            <MudItem lg="12" md="12">
+                                @if (!LlevaGarantia() && @prestamo.IdGarantias.Count == 0)
+                                {
+                                    <MudChip>No Requiere Garantia</MudChip>
+
+                                    @*<label for="Garantias" class="card-title col-sm-4 col-form-label @textLabelJustify">No Requiere Garantia </label>*@
+                                }
+                                else
+                                {
+                                    <MudTextField @bind-Value="@CodigoGarantia" Adornment="Adornment.End" OnAdornmentClick="ActivateSearchCliente" AdornmentIcon="@Icons.Material.Filled.Search" Placeholder="No habilitado aun" Label="Codigo Garantia"></MudTextField>
+
+                                    <MudText>Garantias @prestamo.IdGarantias.Count</MudText>
+                                    @*<MudIconButton OnClick="ActivateSearchGarantia" Icon="@Icons.Material.Filled.Search"></MudIconButton>*@
+                                    <MudList>
+                                        @foreach (var item in @InfoGarantias)
+                                        {
+
+                                            <MudListItem OnClick="() => RemoveGarantia(item.IdGarantia)" Icon="@Icons.Material.Filled.Remove"> </MudListItem>
+                                        }
+                                    </MudList>
+                                    <SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" OnModalClose="OnCloseSearchGarantia" />
+
+                                }
+                            </MudItem>
+                            <MudItem lg="12" md="12">
+                                <MudTextField @bind-Value="@CodigoCodeudor" Placeholder="No habilitado aun" Label="Codigo Codeudor"></MudTextField>
+                            </MudItem>
+                        </MudGrid>
                     </MudItem>
-                </MudGrid>
-                <MudGrid>
-                    <MudItem>
-                        <MudSelect @bind-Value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" Label="Clasificacion">
-                            @foreach (var item in Clasificaciones)
+                    <MudItem lg="6" md="6">
+                        <MudGrid>
+                            <MudItem lg="12" md="12">
+                                <MudNumericField @bind-Value="@prestamo.MontoPrestado" @onchange="OnMontoPrestadoChange" Placeholder="No habilitado aun" Label="Monto Prestado"></MudNumericField>
+                                <MudChip Color="MudBlazor.Color.Primary">@prestamo.MontoPrestado</MudChip>
+                            </MudItem>
+                            <MudItem>
+                                <MudSwitch Color="MudBlazor.Color.Primary" Checked="@prestamo.LlevaGastoDeCierre" Label="Lleva Gasto Cierre"></MudSwitch>
+                            </MudItem>
+                            @if (prestamo.LlevaGastoDeCierre)
                             {
-                                <MudSelectItem Value=@item.IdClasificacion>@item.Nombre</MudSelectItem>
+                                <MudItem md="12" lg="12">
+                                    <MudNumericField @bind-Value="@prestamo.InteresGastoDeCierre" @onchange="OnInteresGastoDeCierreChange" Label="% Gasto Cierre"></MudNumericField>
+                                    <MudChip Color="MudBlazor.Color.Primary">@prestamo.MontoGastoDeCierre</MudChip>
+                                </MudItem>
+                                <MudItem md="12" lg="12">
+                                    <MudSwitch @bind-Checked="@prestamo.GastoDeCierreEsDeducible" Label="Es Deducible?" Color="MudBlazor.Color.Primary"></MudSwitch>
+                                    @if (prestamo.GastoDeCierreEsDeducible)
+                                    {
+                                        <MudChip Color="MudBlazor.Color.Primary">Se Rebajara del Monto a entregar al cliente</MudChip>
+                                    }
+                                </MudItem>
+                                @if (!prestamo.GastoDeCierreEsDeducible)
+                                {
+                                    <MudItem md="12" lg="12">
+                                        <MudSwitch @bind-Checked="@prestamo.FinanciarGastoDeCierre" @onchange="@OnFinanciarGastoDeCierreChange" Label="Financiar El G/Cierre" Color="MudBlazor.Color.Primary"></MudSwitch>
+                                        @if (@prestamo.FinanciarGastoDeCierre)
+                                        {
+                                            <MudChip Color="MudBlazor.Color.Primary">Se distribuira en las cuotas</MudChip>
+                                        }
+                                        else
+                                        {
+                                            <MudChip Color="MudBlazor.Color.Primary">Debe pagar el gasto de cierre en caja</MudChip>
+                                        }
+                                    </MudItem>
+                                }
+
                             }
-                        </MudSelect>
+                            <MudItem md="12" lg="12">
+                                <MudSelect @bind-Value="@prestamo.IdTasaInteres" Label="Interes" @onchange="OnTasaInteresChange">
+                                    <MudSelectItem Value=-1>Seleccione un Interes</MudSelectItem>
+                                    @foreach (var item in TasasDeInteres)
+                                    {
+                                        <MudSelectItem Value=@item.idTasaInteres>@($"{item.Codigo} Tasa Mensual {item.InteresMensual.ToString("#.0000")} Anual {item.InteresAnual.ToString("#.0000")}")</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem md="12" lg="12">
+                                <MudSelect @bind-Value="@prestamo.IdPeriodo" Label="Periodo" @onchange="OnPeriodoChange">
+                                    <MudSelectItem Value=-1>Seleccione Un Periodo</MudSelectItem>
+                                    @foreach (var item in Periodos)
+                                    {
+                                        <MudSelectItem Value=@item.idPeriodo>@($"{item.Codigo}  {item.Nombre}")</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem md="12" lg="12">
+                                <MudNumericField @bind-Value="@prestamo.CantidadDePeriodos" @onchange="OnCantidadPeriodoChange" Label="Cantidad De Cuotas"></MudNumericField>
+                            </MudItem>
+                            <MudItem md="12" lg="12">
+                                <MudSelect @bind-Value="@prestamo.IdTipoMora" Label="Tipo Mora">
+                                    <MudSelectItem Value=-1>Seleccione un Tipo De Mora</MudSelectItem>
+                                    @foreach (var item in TiposMora)
+                                    {
+                                        <MudSelectItem Value=@item.IdTipoMora>@($"{item.Codigo}  {item.Nombre}")</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem md="12" lg="12">
+                                @if (Cuotas.Count() > 0)
+                                {
+                                    <h3>Proyeccion Cuotas: @InfoCuotas()</h3>
+                                    <div class="form-group row">
+                                        <ProyeccionCuotasValoresIniciales Cuotas="@Cuotas" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group row">
+                                        Cuota no generada @Cuotas.Count()
+                                    </div>
+                                }
+                            </MudItem>
+                        </MudGrid>
                     </MudItem>
                 </MudGrid>
-                <MudGrid>
-                    <MudItem>
-                        <MudSelect  @bind-Value="@prestamo.IdTipoAmortizacion" Label="Amortizacion">
-                            <MudSelectItem Value=-1>Seleccione la amortizacion</MudSelectItem>
-                            @foreach (var item in EnumToList.TiposAmortizacion())
-                            {
-                                <MudSelectItem Value=@item.Value>@item.Text</MudSelectItem>
-                            }
-                        </MudSelect>
-                    </MudItem>
-                    <MudItem>
-                        <MudDatePicker @onchange="OnFechaEmisionRealChange" @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker>
-                    </MudItem>
-                </MudGrid>
+           
             </MudCardContent>
         </MudCard>
-        <div class="bg-secondary">
+        <!--<div class="bg-secondary">
             <h3 class="text-left">Crear o Editar Prestamo</h3>
             <div class="@textLabelJustify">
-                <button id="btnGuardar" type="button" @onclick="@SavePrestamo">Guardar</button>
+                <button id="btnGuardar" type="button" @onclick="@SavePrestamo">Guardar</button>-->
                 @*<button id="btnsh" type="button" onclick="() =>$('#btnsh').prop('disabled',true)>show hide</button>*@
-            </div>
-        </div>
+            <!--</div>
+        </div>-->
         @if (loading)
         {
             <div class="loader">Cargando...</div>
@@ -73,130 +197,13 @@
         else
         {
             <div class="row">
-                <div class="col-sm-5">
-                 
-
-
-
-                    <div class="form-group row">
-                        <label for="fechaPrestamo" class="col-sm-4 col-form-label @textLabelJustify">Fecha</label>
-                        <input type="date" value="@FechaEmisionReal" format-value="dd/MM/yyyy" @onchange="OnFechaEmisionRealChange" onkeypress="return false" class="input-medium search-query" />
-                    </div>
-
-                    <div class="form-group row" >
-                        <label for="codigocliente" class="col-sm-4 col-form-label @textLabelJustify">Codigo Cliente</label>
-                        <input value="@CodigoCliente" readonly placeholder="buscar cliente" class="col-sm-3" />
-                        <button @onclick="ActivateSearchCliente" title="buscar clientes"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
-                        <br />
-                        <div class="row col-sm-12  offset-sm-1 text-center text-secondary">
-                            @InfoCliente
-                        </div>
-                        <SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" OnModalClose="OnCloseSearchCliente" />
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="codigocodeudor" class="col-sm-4 col-form-label @textLabelJustify">Codigo Codeudor</label>
-                        <input value="@CodigoCodeudor" readonly placeholder="No Habilitado aun" class="col-sm-3" />
-                    </div>
-
-                    <div class="form-group row">
-
-
-                        @if (!LlevaGarantia() && @prestamo.IdGarantias.Count == 0)
-                        {
-                            <label for="Garantias" class="card-title col-sm-4 col-form-label @textLabelJustify">No Requiere Garantia </label>
-                        }
-                        else
-                        {
-                            <label for="Garantias" class="card-title col-sm-4 col-form-label h2 @textLabelJustify">Garantias @prestamo.IdGarantias.Count </label>
-                            <button @onclick="ActivateSearchGarantia" title="buscar garantias"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
-
-                            <div class="row col-sm-12  text-left">
-                                <ol>
-                                    @foreach (var item in @InfoGarantias)
-                                    {
-
-                                        <li>
-                                            <button @onclick="() => RemoveGarantia(item.IdGarantia)" class="fa fa-remove" title="quitar"></button>@item
-                                        </li>
-                                    }
-                                </ol>
-                            </div>
-                            <SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" OnModalClose="OnCloseSearchGarantia" />
-                        }
-                    </div>
-                    <div class="form-group row">
-                        <label for="montoCliente" class="col-sm-4 col-form-label @textLabelJustify ">Monto Prestado</label>
-                        <input type="number" value="@prestamo.MontoPrestado" @onchange="OnMontoPrestadoChange" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />
-
-                        @*<input type="number" value="prestamo.MontoPrestado" @onchange="Update" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />*@
-                        <label class="col-sm-4 col-form-label text-left">= @(string.Format("{0:c}", prestamo.MontoPrestado))</label>
-                        @*@prestamo.FormattedMontoPrestadoText*@
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="llevagastodecierre" class="col-sm-4  @textLabelJustify">lleva Gasto de Cierre</label>
-                        <label class="switch sm-8">
-                            <input type="checkbox" value="@prestamo.LlevaGastoDeCierre" @onchange="OnLlevaGastoDeCierreChange" checked="@prestamo.LlevaGastoDeCierre" class="mt-1" />
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    @{ if (prestamo.LlevaGastoDeCierre)
-                        {
-                            <div class="form-group row">
-                                <label for="porcientoGastodecierre" class="col-sm-4 col-form-label @textLabelJustify">% Gasto de cierre</label>
-                                <input type="number" value="@prestamo.InteresGastoDeCierre" @onchange="OnInteresGastoDeCierreChange" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="999" />
-                                <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-left">
-                                    = @(string.Format("{0:c}",prestamo.MontoGastoDeCierre))
-                                </label>
-                            </div>
-                            <div class="form-group row">
-                                @*<InputCheckbox @bind-Value="@prestamo.GastoDeCierreEsDeducible" class="offset-2 mt-1" />*@
-                                <label class="col-sm-4  @textLabelJustify">Es Deducible</label>
-                                <label class="switch sm-8">
-                                    <input type="checkbox" value="@prestamo.GastoDeCierreEsDeducible" @onchange="@OnGastoDeCierreEsDeducibleChange" checked="@prestamo.GastoDeCierreEsDeducible" class="mt-1" />
-                                    <span class="slider round"></span>
-                                </label>
-                                @*<label for="esDeducible" class="ml-2" style="margin-left: 5px">Es Decucible</label>*@
-                                @if (@prestamo.GastoDeCierreEsDeducible)
-                                {
-                                    <label class="ml-2" style="margin-left: 5px">Se Rebajara del Monto a entregar al cliente</label>
-                                }
-                            </div>
-                            if (!prestamo.GastoDeCierreEsDeducible)
-                            {
-                                <div class="form-group row">
-                                    <label class="col-sm-4  @textLabelJustify">Financiar El G/Cierre</label>
-                                    <label class="switch sm-8">
-                                        <input type="checkbox" value="@prestamo.FinanciarGastoDeCierre" @onchange="@OnFinanciarGastoDeCierreChange" checked="@prestamo.FinanciarGastoDeCierre" class="mt-1" />
-                                        <span class="slider round"></span>
-                                    </label>
-                                    @*<InputCheckbox @bind-Value="@prestamo.FinanciarGastoDeCierre" class="offset-2 mt-1" />*@
-                                    @*<label class="ml-2" style="margin-left: 5px">Financiar el GC</label>*@
-
-                                    @if (@prestamo.FinanciarGastoDeCierre)
-                                    {
-                                        <label class="ml-2" style="margin-left: 5px">Se distribuira en las cuotas</label>
-                                    }
-                                    else
-                                    {
-                                        <label class="ml-2" style="margin-left: 5px">Debe pagar el gasto de cierre en caja</label>
-                                    }
-
-                                </div>
-
-
-                            }
-                        }
-                    }
-
-                </div>
+       
                 <div class="col-sm-7">
                     
-                        <div class="form-group row">
+                        <!--<div class="form-group row">-->
                             @*<label class="col-sm-4 col-form-label @textLabelJustify">Codigo de Interes</label>
                                 <InputText @bind-Value="CodigoInteres" class="col-sm-2" />*@
-                            <label class="col-sm-4 col-form-label @textLabelJustify">Interes</label>
+                            <!--<label class="col-sm-4 col-form-label @textLabelJustify">Interes</label>
                             <select value="@prestamo.IdTasaInteres"  @onchange="OnTasaInteresChange" class="form-control col-sm-4">
                                 <option value=-1>Seleccione un Interes</option>
                                 @foreach (var item in TasasDeInteres)
@@ -204,13 +211,13 @@
                                     <option value=@item.idTasaInteres>@($"{item.Codigo} Tasa Mensual {item.InteresMensual.ToString("#.0000")} Anual {item.InteresAnual.ToString("#.0000")}")</option>
                                         }
                             </select>
-                        </div>
+                        </div>-->
                     
 
-                        <div class="form-group row">
+                        <!--<div class="form-group row">-->
                             @*<label class="col-sm-4 col-form-label @textLabelJustify">Periodo</label>
                                 <InputText @bind-Value="CodigoPeriodo" class="col-sm-2" />*@
-                            <label class="col-sm-4 col-form-label @textLabelJustify">Periodo</label>
+                            <!--<label class="col-sm-4 col-form-label @textLabelJus.Periodo</label>
                             <select value="@prestamo.IdPeriodo" @onchange="OnPeriodoChange" class="form-control col-sm-4">
                                 <option value=-1>Seleccione un Periodo</option>
                                 @foreach (var item in Periodos)
@@ -218,30 +225,30 @@
                                     <option value=@item.idPeriodo>@($"{item.Codigo}  {item.Nombre}")</option>
                                         }
                             </select>
-                        </div>
+                        </div>-->
                     
 
 
 
-                    <div class="form-group row">
+                    @*<div class="form-group row">
                         <label class="col-sm-4 col-form-label @textLabelJustify">Cantidad de Cuotas</label>
                         <input type="number" value="@prestamo.CantidadDePeriodos" @onchange="OnCantidadPeriodoChange" class="col-sm-2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="99999" />
-                    </div>
+                    </div>*@
                     
-                        <div class="form-group row">
+                        <!--<div class="form-group row">-->
                             @*<label class="col-sm-4 col-form-label @textLabelJustify">Codigo de Mora</label>
                                 <InputText @bind-Value="CodigoMora" class="col-sm-3" />*@
-                            <label class="col-sm-4 col-form-label @textLabelJustify">Mora</label>
-                            <InputSelect @bind-Value="@prestamo.IdTipoMora" class="form-control col-sm-4">
+                            <!--<label class="col-sm-4 col-form-label @textLabelJustify">Mora</label>-->
+                            @*<InputSelect @bind-Value="@prestamo.IdTipoMora" class="form-control col-sm-4">
                                 <option value=-1>Seleccione La Mora</option>
                                 @foreach (var item in TiposMora)
                                         {
                                     <option value=@item.IdTipoMora>@($"{item.Codigo}  {item.Nombre}")</option>
                                         }
-                            </InputSelect>
-                        </div>
+                            </InputSelect>*@
+                        <!--</div>-->
                     
-                        @if (Cuotas.Count() > 0)
+                        @*@if (Cuotas.Count() > 0)
                         {
                             <h3>Proyeccion Cuotas: @InfoCuotas()</h3>
                             <div class="form-group row">
@@ -253,7 +260,7 @@
                             <div class="form-group row">
                                 Cuota no generada @Cuotas.Count()
                             </div>
-                        }
+                        }*@
                     
                 </div>
             </div>
