@@ -25,28 +25,16 @@
                         </MudRadioGroup>
                     </MudItem>
                 </MudGrid>
-                <!--<div class="form-group">-->
-                @*<InputRadio @bind-Value=" Garantia.IdClasificacion" id="inmobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
-
-                <!--<input type="radio" name="Garantia.IdClasificacion" id="inmobiliario_option" value="@((int)TiposClasificacionGarantia.Inmobiliaria)" checked="@(Garantia.IdClasificacion == (int)TiposClasificacionGarantia.Inmobiliaria)" @onchange="selectedRadioClasificacion" />
-        <label for="inmobiliario_option">Inmobiliario</label>-->
-                @*<i class="fa fa-home"></i>*@ @*Inmobiliriario*@
-                <!--<br />-->
-                @*<InputRadio @bind-Value="Garantia.IdClasificacion" id="mobiliario_option"  @onchange="selectedRadioClasificacion"></InputRadio>*@
-                <!--<input type="radio" name="Garantia.IdClasificacion" id="mobiliario_option" value="@((int)TiposClasificacionGarantia.Mobiliaria)" checked="@(Garantia.IdClasificacion==(int)TiposClasificacionGarantia.Mobiliaria)" @onchange="selectedRadioClasificacion" />
-        <label for="mobiliario_option">Mobiliario</label>-->
-                @*<i class="fa fa-car"></i>*@ @*Mobiliriario*@
-                <!--</div>-->
             }
             else
             {
                 if (Garantia.IdClasificacion == 1)
                 {
-                    <h3> Tipo: Inmobiliario</h3>
+                    <h3> Tipo: Mobiliario</h3>
                 }
                 else
                 {
-                    <h3> Tipo: Mobiliario</h3>
+                    <h3> Tipo: InMobiliario</h3>
                 }
             }
             <MudGrid>
@@ -115,7 +103,7 @@
 
                                     @foreach (var item in marcas)
                                     {
-                                        <MudSelectItem Value="SelectedIdMarca">@item.Nombre</MudSelectItem>
+                                        <MudSelectItem Value="@(Convert.ToInt32(item.IdMarca))">@item.Nombre</MudSelectItem>
                                     }
                                 </MudSelect>
                             </MudItem>
@@ -130,7 +118,7 @@
                                 </MudSelect>
                             </MudItem>
                             <MudItem md="12" lg="12">
-                                <MudSelect @bind-Value="@detalleGarantia.Color">
+                                <MudSelect @bind-Value="@detalleGarantia.Color" Label="Color">
                                     <MudSelectItem Value="@("")" Disabled="true">Selecciona un Color</MudSelectItem>
                                     @foreach (var item in colores)
                                     {
@@ -139,10 +127,10 @@
                                 </MudSelect>
                             </MudItem>
                             <MudItem md="12" lg="12">
-                                <MudTextField @bind-Value="detalleGarantia.NoMaquina"></MudTextField>
-                                <MudTextField @bind-Value="detalleGarantia.Matricula"></MudTextField>
-                                <MudTextField @bind-Value="detalleGarantia.Ano"></MudTextField>
-                                <MudTextField @bind-Value="detalleGarantia.Placa"></MudTextField>
+                                <MudTextField @bind-Value="detalleGarantia.NoMaquina" Label="No. Maquina"></MudTextField>
+                                <MudTextField @bind-Value="detalleGarantia.Matricula" Label="Matricula"></MudTextField>
+                                <MudTextField @bind-Value="detalleGarantia.Ano" Label="Año"></MudTextField>
+                                <MudTextField @bind-Value="detalleGarantia.Placa" Label="Placa"></MudTextField>
                             </MudItem>
                         </MudItem>
                     </MudGrid>
@@ -185,28 +173,3 @@
         </MudCardContent>
     </MudCard>
 </EditForm>
-<!--<div class="row">
-    <div class="col-md-12">
-        <div class="card card-link">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                @if (idgarantia <= 0)
-                {
-                    <h3 class="">Crear Garantia</h3>
-                    <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;" @onclick="SaveGarantia">Guardar</button>
-                }
-                else
-                {
-                    <h3 class="">Editando Garantia</h3>
-                    <button type="submit" class="btn btn-primary " style="float:right; display:inline-block;" @onclick="SaveGarantia">Guardar</button>-->
-                    @*<h3 class="card-title">Editar Garantia  <button type="submit" class="btn btn-primary" @onclick="() => SaveGarantia()">Guardar</button></h3>*@
-                <!--}
-
-            </div>
-            <div class="card-body">
-
-
-
-            </div>
-        </div>
-    </div>
-</div>-->

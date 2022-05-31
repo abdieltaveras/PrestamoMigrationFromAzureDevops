@@ -114,7 +114,7 @@ namespace PrestamoWS.Controllers
                 {
                     string imagen = Convert.ToString(item.Value);
                     //Obtenemos la ruta de la imagen
-                    string path = ImagePathForGarantia + item.Value + ".jpg";
+                    string path = ImagePathForGarantia + item.Value;
                     //Evaluamos si existe la imagen
                     var ExisteImagen = System.IO.File.Exists(path);
                     if (ExisteImagen)
@@ -164,7 +164,7 @@ namespace PrestamoWS.Controllers
             garantia.Usuario = this.LoginName;
             garantia.IdLocalidadNegocio = this.IdLocalidadNegocio;
             garantia.Detalles = JsonConvert.SerializeObject(garantia.DetallesJSON);
-            //garantia.Imagen1FileName = JsonConvert.SerializeObject(ListaImagenes);
+            garantia.Imagen1FileName = JsonConvert.SerializeObject(ListaImagenes);
             try
             {
                 BLLPrestamo.Instance.InsUpdGarantia(garantia);

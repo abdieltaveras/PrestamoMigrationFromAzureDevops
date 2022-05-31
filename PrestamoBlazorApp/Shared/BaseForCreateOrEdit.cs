@@ -37,7 +37,7 @@ namespace PrestamoBlazorApp.Shared
             }
             catch (Exception e)
             {
-                await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "error", redirectTo, 5000);
+                //await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "error", redirectTo, 5000);
             }
             loading = false;
         }

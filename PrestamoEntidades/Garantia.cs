@@ -10,7 +10,7 @@ using System.Web;
 
 namespace PrestamoEntidades
 {
-    public enum TiposClasificacionGarantia { Inmobiliaria=1, Mobiliaria}
+    public enum TiposClasificacionGarantia {  Mobiliaria = 1, Inmobiliaria }
     public class InfoGarantiaDrCr
         //: IInfoGarantiaDrCr
     {

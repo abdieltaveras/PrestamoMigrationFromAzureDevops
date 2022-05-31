@@ -26,7 +26,7 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<IEnumerable<Garantia>> Get(GarantiaGetParams getParams)
         {
-            var result =  await GetAsync<Garantia>(apiUrl+"/get", new { JsonGet = getParams.ToJson() });
+            var result =  await GetAsync<Garantia>(apiUrl+"/get", getParams);
             return result;
         }
 

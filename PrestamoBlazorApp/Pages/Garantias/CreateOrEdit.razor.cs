@@ -84,7 +84,6 @@ namespace PrestamoBlazorApp.Pages.Garantias
         {
             await BlockPage();
             this.Garantia.DetallesJSON = this.detalleGarantia;
-            this.Garantia.IdMarca = SelectedIdMarca;
             await GarantiasService.SaveGarantia(this.Garantia);
             await SweetMessageBox("Guardado Correctamente", "success", "/Garantias", 1500);
             await UnBlockPage();
@@ -98,14 +97,14 @@ namespace PrestamoBlazorApp.Pages.Garantias
             int selected = SelectedIdClasificacionGarantia; //Garantia.IdClasificacion; //args.Value.ToString();
             if (selected == 1)
             {
-                IsShowInmobiliario = true;
-                IsShowMobiliario = false;
+                IsShowInmobiliario = false;
+                IsShowMobiliario = true;
             }
             else if (selected == 2)
             {
 
-                IsShowInmobiliario = false;
-                IsShowMobiliario = true;
+                IsShowInmobiliario = true;
+                IsShowMobiliario = false;
             }
             //this.detalleGarantia = new DetalleGarantia();
             Garantia.IdClasificacion = selected; //Convert.ToInt32(args.Value.ToString());
