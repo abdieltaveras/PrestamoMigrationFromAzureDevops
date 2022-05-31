@@ -1,0 +1,254 @@
+﻿@page "/prestamo/createoredit"
+@page "/prestamos/createoreditprestamo"
+@page "/prestamo/CreateOrEdit/{idPrestamo:int}"
+@*@using PrestamoBlazorApp.Pages.Garantias*@
+@using PrestamoBlazorApp.Shared.Components.Clientes;
+
+@inherits BaseForCreateOrEdit
+
+@{
+    var textLabelJustify = "text-left";
+}
+<div class="grid-container">
+    <EditForm Model="@prestamo">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="bg-secondary">
+            <h3 class="text-left">Crear o Editar Prestamo</h3>
+            <div class="@textLabelJustify">
+                <button id="btnGuardar" type="button" @onclick="@SavePrestamo">Guardar</button>
+                @*<button id="btnsh" type="button" onclick="() =>$('#btnsh').prop('disabled',true)>show hide</button>*@
+            </div>
+        </div>
+        @if (loading)
+        {
+            <div class="loader">Cargando...</div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="form-group row">
+                        <label for="codigo" class="col-sm-4 col-form-label @textLabelJustify">Prestamo Numero</label>
+                        @if (EnableReadCodigo)
+                        {
+                            <InputText @bind-Value="@prestamo.PrestamoNumero" class="col-sm-3" />
+                        }
+                        else
+                        {
+                            <label class="col-sm-3 mt-2">@prestamo.PrestamoNumero </label>
+                        }
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="clasificacion" class="col-sm-4 col-form-label @textLabelJustify">Clasificacion</label>
+
+
+                        <select id="clasificacion" value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" class="form-control col-sm-4">
+                            @foreach (var item in Clasificaciones)
+                            {
+                                <option value=@item.IdClasificacion>@item.Nombre</option>
+                            }
+                        </select>
+
+                    </div>
+
+
+                    @*<div class="form-group row" style="margin-top:1px">*@
+                    <div class="form-group row" style="margin-top:1px">
+                        <label for="amortizacion" class="col-sm-4 col-form-label @textLabelJustify">Amortizacion</label>
+
+                        <InputSelect id="amortizacion" @bind-Value="@prestamo.IdTipoAmortizacion" class="form-control col-sm-4">
+                            <option value=-1>Seleccione la amortizacion</option>
+                            @foreach (var item in EnumToList.TiposAmortizacion())
+                                {
+                                <option value=@item.Value>@item.Text</option>
+                                }
+                        </InputSelect>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="fechaPrestamo" class="col-sm-4 col-form-label @textLabelJustify">Fecha</label>
+                        <input type="date" value="@FechaEmisionReal" format-value="dd/MM/yyyy" @onchange="OnFechaEmisionRealChange" onkeypress="return false" class="input-medium search-query" />
+                    </div>
+
+                    <div class="form-group row" >
+                        <label for="codigocliente" class="col-sm-4 col-form-label @textLabelJustify">Codigo Cliente</label>
+                        <input value="@CodigoCliente" readonly placeholder="buscar cliente" class="col-sm-3" />
+                        <button @onclick="ActivateSearchCliente" title="buscar clientes"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
+                        <br />
+                        <div class="row col-sm-12  offset-sm-1 text-center text-secondary">
+                            @InfoCliente
+                        </div>
+                        <SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" OnModalClose="OnCloseSearchCliente" />
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="codigocodeudor" class="col-sm-4 col-form-label @textLabelJustify">Codigo Codeudor</label>
+                        <input value="@CodigoCodeudor" readonly placeholder="No Habilitado aun" class="col-sm-3" />
+                    </div>
+
+                    <div class="form-group row">
+
+
+                        @if (!LlevaGarantia() && @prestamo.IdGarantias.Count == 0)
+                        {
+                            <label for="Garantias" class="card-title col-sm-4 col-form-label @textLabelJustify">No Requiere Garantia </label>
+                        }
+                        else
+                        {
+                            <label for="Garantias" class="card-title col-sm-4 col-form-label h2 @textLabelJustify">Garantias @prestamo.IdGarantias.Count </label>
+                            <button @onclick="ActivateSearchGarantia" title="buscar garantias"><i class="fa fa-search col-md-4" aria-hidden="true"></i></button>
+
+                            <div class="row col-sm-12  text-left">
+                                <ol>
+                                    @foreach (var item in @InfoGarantias)
+                                    {
+
+                                        <li>
+                                            <button @onclick="() => RemoveGarantia(item.IdGarantia)" class="fa fa-remove" title="quitar"></button>@item
+                                        </li>
+                                    }
+                                </ol>
+                            </div>
+                            <SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" OnModalClose="OnCloseSearchGarantia" />
+                        }
+                    </div>
+                    <div class="form-group row">
+                        <label for="montoCliente" class="col-sm-4 col-form-label @textLabelJustify ">Monto Prestado</label>
+                        <input type="number" value="@prestamo.MontoPrestado" @onchange="OnMontoPrestadoChange" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />
+
+                        @*<input type="number" value="prestamo.MontoPrestado" @onchange="Update" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="9999999999" />*@
+                        <label class="col-sm-4 col-form-label text-left">= @(string.Format("{0:c}", prestamo.MontoPrestado))</label>
+                        @*@prestamo.FormattedMontoPrestadoText*@
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="llevagastodecierre" class="col-sm-4  @textLabelJustify">lleva Gasto de Cierre</label>
+                        <label class="switch sm-8">
+                            <input type="checkbox" value="@prestamo.LlevaGastoDeCierre" @onchange="OnLlevaGastoDeCierreChange" checked="@prestamo.LlevaGastoDeCierre" class="mt-1" />
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    @{ if (prestamo.LlevaGastoDeCierre)
+                        {
+                            <div class="form-group row">
+                                <label for="porcientoGastodecierre" class="col-sm-4 col-form-label @textLabelJustify">% Gasto de cierre</label>
+                                <input type="number" value="@prestamo.InteresGastoDeCierre" @onchange="OnInteresGastoDeCierreChange" class="col-sm-3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="999" />
+                                <label for="porcientoGastodecierre" class="col-sm-4 col-form-label text-left">
+                                    = @(string.Format("{0:c}",prestamo.MontoGastoDeCierre))
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                @*<InputCheckbox @bind-Value="@prestamo.GastoDeCierreEsDeducible" class="offset-2 mt-1" />*@
+                                <label class="col-sm-4  @textLabelJustify">Es Deducible</label>
+                                <label class="switch sm-8">
+                                    <input type="checkbox" value="@prestamo.GastoDeCierreEsDeducible" @onchange="@OnGastoDeCierreEsDeducibleChange" checked="@prestamo.GastoDeCierreEsDeducible" class="mt-1" />
+                                    <span class="slider round"></span>
+                                </label>
+                                @*<label for="esDeducible" class="ml-2" style="margin-left: 5px">Es Decucible</label>*@
+                                @if (@prestamo.GastoDeCierreEsDeducible)
+                                {
+                                    <label class="ml-2" style="margin-left: 5px">Se Rebajara del Monto a entregar al cliente</label>
+                                }
+                            </div>
+                            if (!prestamo.GastoDeCierreEsDeducible)
+                            {
+                                <div class="form-group row">
+                                    <label class="col-sm-4  @textLabelJustify">Financiar El G/Cierre</label>
+                                    <label class="switch sm-8">
+                                        <input type="checkbox" value="@prestamo.FinanciarGastoDeCierre" @onchange="@OnFinanciarGastoDeCierreChange" checked="@prestamo.FinanciarGastoDeCierre" class="mt-1" />
+                                        <span class="slider round"></span>
+                                    </label>
+                                    @*<InputCheckbox @bind-Value="@prestamo.FinanciarGastoDeCierre" class="offset-2 mt-1" />*@
+                                    @*<label class="ml-2" style="margin-left: 5px">Financiar el GC</label>*@
+
+                                    @if (@prestamo.FinanciarGastoDeCierre)
+                                    {
+                                        <label class="ml-2" style="margin-left: 5px">Se distribuira en las cuotas</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="ml-2" style="margin-left: 5px">Debe pagar el gasto de cierre en caja</label>
+                                    }
+
+                                </div>
+
+
+                            }
+                        }
+                    }
+
+                </div>
+                <div class="col-sm-7">
+                    
+                        <div class="form-group row">
+                            @*<label class="col-sm-4 col-form-label @textLabelJustify">Codigo de Interes</label>
+                                <InputText @bind-Value="CodigoInteres" class="col-sm-2" />*@
+                            <label class="col-sm-4 col-form-label @textLabelJustify">Interes</label>
+                            <select value="@prestamo.IdTasaInteres"  @onchange="OnTasaInteresChange" class="form-control col-sm-4">
+                                <option value=-1>Seleccione un Interes</option>
+                                @foreach (var item in TasasDeInteres)
+                                        {
+                                    <option value=@item.idTasaInteres>@($"{item.Codigo} Tasa Mensual {item.InteresMensual.ToString("#.0000")} Anual {item.InteresAnual.ToString("#.0000")}")</option>
+                                        }
+                            </select>
+                        </div>
+                    
+
+                        <div class="form-group row">
+                            @*<label class="col-sm-4 col-form-label @textLabelJustify">Periodo</label>
+                                <InputText @bind-Value="CodigoPeriodo" class="col-sm-2" />*@
+                            <label class="col-sm-4 col-form-label @textLabelJustify">Periodo</label>
+                            <select value="@prestamo.IdPeriodo" @onchange="OnPeriodoChange" class="form-control col-sm-4">
+                                <option value=-1>Seleccione un Periodo</option>
+                                @foreach (var item in Periodos)
+                                        {
+                                    <option value=@item.idPeriodo>@($"{item.Codigo}  {item.Nombre}")</option>
+                                        }
+                            </select>
+                        </div>
+                    
+
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label @textLabelJustify">Cantidad de Cuotas</label>
+                        <input type="number" value="@prestamo.CantidadDePeriodos" @onchange="OnCantidadPeriodoChange" class="col-sm-2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="99999" />
+                    </div>
+                    
+                        <div class="form-group row">
+                            @*<label class="col-sm-4 col-form-label @textLabelJustify">Codigo de Mora</label>
+                                <InputText @bind-Value="CodigoMora" class="col-sm-3" />*@
+                            <label class="col-sm-4 col-form-label @textLabelJustify">Mora</label>
+                            <InputSelect @bind-Value="@prestamo.IdTipoMora" class="form-control col-sm-4">
+                                <option value=-1>Seleccione La Mora</option>
+                                @foreach (var item in TiposMora)
+                                        {
+                                    <option value=@item.IdTipoMora>@($"{item.Codigo}  {item.Nombre}")</option>
+                                        }
+                            </InputSelect>
+                        </div>
+                    
+                        @if (Cuotas.Count() > 0)
+                        {
+                            <h3>Proyeccion Cuotas: @InfoCuotas()</h3>
+                            <div class="form-group row">
+                                <ProyeccionCuotasValoresIniciales Cuotas="@Cuotas" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group row">
+                                Cuota no generada @Cuotas.Count()
+                            </div>
+                        }
+                    
+                </div>
+            </div>
+
+        }
+    </EditForm>
+</div>
+

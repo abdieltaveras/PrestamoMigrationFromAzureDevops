@@ -114,7 +114,7 @@ namespace PrestamoWS.Controllers
                 {
                     string imagen = Convert.ToString(item.Value);
                     //Obtenemos la ruta de la imagen
-                    string path = ImagePathForGarantia + item.Value + ".jpg";
+                    string path = ImagePathForGarantia + item.Value;
                     //Evaluamos si existe la imagen
                     var ExisteImagen = System.IO.File.Exists(path);
                     if (ExisteImagen)
@@ -128,7 +128,7 @@ namespace PrestamoWS.Controllers
                 }
                 IEnumerable<string> sendList = list;
                 //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
-                garantias.FirstOrDefault().ImagesForGaratia = sendList;
+                garantias.FirstOrDefault().ImagesForGaratia = sendList.ToList();
             }
 
             //******************************************************//
@@ -145,6 +145,8 @@ namespace PrestamoWS.Controllers
         public async Task<IActionResult> Post(Garantia garantia)
         {
             #region Imagen
+            //ManejoImagenes.ProcesarImagenes(garantia.ImagesForGaratia, ImagePathForGarantia, string.Empty);
+
             List<string> ListaImagenes = new List<string>();
             if (garantia.ImagesForGaratia != null)
             {
@@ -155,7 +157,7 @@ namespace PrestamoWS.Controllers
                     string path = ImagePathForGarantia;
                     // He utilizado la libreria HESRAM.Utils para guardar y copiar la imagen
                     HConvert.SaveBase64AsImage(resultBase, path, imagename);
-                    ListaImagenes.Add(imagename+".jpg");
+                    ListaImagenes.Add(imagename + ".jpg");
                 }
             }
             #endregion
@@ -168,7 +170,7 @@ namespace PrestamoWS.Controllers
                 BLLPrestamo.Instance.InsUpdGarantia(garantia);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Forbid();
             }

@@ -10,7 +10,7 @@ using System.Web;
 
 namespace PrestamoEntidades
 {
-    public enum TiposClasificacionGarantia { Inmobiliaria=1, Mobiliaria}
+    public enum TiposClasificacionGarantia {  Mobiliaria = 1, Inmobiliaria }
     public class InfoGarantiaDrCr
         //: IInfoGarantiaDrCr
     {
@@ -51,7 +51,9 @@ namespace PrestamoEntidades
         public string Imagen3FileName { get; set; }
         public string Imagen4FileName { get; set; }
         [IgnoreOnParams]
-        public IEnumerable<string> ImagesForGaratia { get; set; }
+        public IEnumerable<string> ImagesForGaratia { get; set; } = new List<string>();
+
+        //public IEnumerable<string> ImagesForGaratia { get; set; }
         //[IgnoreOnParams]
         //public IEnumerable<string> ImagesForGaratiaEntrantes { get; set; }
         //[Required(false, "Debe ingresar un numero de identificacion","",Type.Missing)]

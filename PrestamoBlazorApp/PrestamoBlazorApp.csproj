@@ -17,6 +17,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Prestamos\CreateOrEditPrestamo - Copy.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Prestamos\CreateOrEditPrestamo - Copy.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Prestamos\CreateOrEditPrestamo - Copy.razor.css" />
     <None Remove="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
   </ItemGroup>
 

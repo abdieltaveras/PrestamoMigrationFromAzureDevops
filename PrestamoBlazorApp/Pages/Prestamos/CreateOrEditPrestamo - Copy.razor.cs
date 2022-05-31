@@ -14,14 +14,12 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Prestamos
 {
-    public partial class CreateOrEditPrestamo : BaseForCreateOrEdit
+    public partial class CreateOrEditPrestamo_Copy : BaseForCreateOrEdit
     {
         [Inject]
         protected SetParametrosService setParametros { get; set; }
         private Prestamo prestamo { get; set; }
 
-        private bool? _LlevaGastoCierre { get; set; }
-        private bool? LlevaGastoCierre { get { return _LlevaGastoCierre;  } set { _LlevaGastoCierre = value; } }
         //private Prestamo prestamo { get; set; }
         private bool ShowSearchGarantia { get; set; } = false;
         [Inject]
@@ -57,7 +55,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private bool SinVencimiento { get; set; } = true;
 
         Clasificacion ClasificacionSelected { get; set; } = new Clasificacion();
-        private DateTime? FechaEmisionReal { get; set; }
+        private string FechaEmisionReal { get; set; }
 
         //private string MontoPrestado { get; set; }
 
@@ -122,7 +120,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         private void SetFechaEmisionReal()
         {
-            this.FechaEmisionReal = prestamo.FechaEmisionReal; //prestamo.FechaEmisionReal.ToString("yyyy-MM-dd"); comentado por luis
+            this.FechaEmisionReal = prestamo.FechaEmisionReal.ToString("yyyy-MM-dd");
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -148,7 +146,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         /// <returns></returns>
         private async Task PrepareData()
         {
-            
             Clasificaciones = await clasificacionesService.Get(new ClasificacionesGetParams());
             TiposMora = await tiposMorasService.Get(new TipoMoraGetParams());
             TasasDeInteres = await tasasInteresService.Get(new TasaInteresGetParams());
@@ -460,19 +457,14 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             var value = Convert.ToBoolean(args.Value);
             prestamo.FinanciarGastoDeCierre = value;
             await Calcular();
-            StateHasChanged();
+
         }
 
         protected async Task OnInteresGastoDeCierreChange(ChangeEventArgs args)
         {
             var value = Convert.ToDecimal(args.Value);
             prestamo.InteresGastoDeCierre = value;
-            if (value > 0)
-            {
-                LlevaGastoCierre = true;
-            }
             await Calcular();
-            StateHasChanged();
         }
 
         protected async Task OnCantidadPeriodoChange(ChangeEventArgs args)
@@ -500,12 +492,12 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
 
     }
-    class infoGarantia
-    {
-        public int IdGarantia { get; set; }
-        public string Text { get; set; }
-        public override string ToString() => Text;
+    //class infoGarantia
+    //{
+    //    public int IdGarantia { get; set; }
+    //    public string Text { get; set; }
+    //    public override string ToString() => Text;
 
-    }
+    //}
 
 }
