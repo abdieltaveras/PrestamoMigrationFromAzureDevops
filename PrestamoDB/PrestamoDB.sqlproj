@@ -110,8 +110,6 @@
     <Build Include="dbo\User Defined Types\tpCuota.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdCuotas.sql" />
     <Build Include="dbo\Tables\tblCuotas.sql" />
-    <Build Include="dbo\Tables\tblUsuarios.sql" />
-    <Build Include="dbo\Stored Procedures\SpInsUpdUsuario.sql" />
     <Build Include="dbo\Functions\fnUpdFechaColumnInJson.sql" />
     <Build Include="dbo\Tables\tblGarantias.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdGarantias.sql" />
@@ -130,7 +128,6 @@
     <Build Include="dbo\Stored Procedures\spInsUpdColor.sql" />
     <Build Include="dbo\Stored Procedures\spGetLocalidadById.sql" />
     <Build Include="dbo\Stored Procedures\spGetUsuarios.sql" />
-    <Build Include="dbo\Stored Procedures\SpChangePassword.sql" />
     <Build Include="dbo\Stored Procedures\spGetModelosGarantiaByMarca.sql" />
     <Build Include="dbo\Tables\tblOcupaciones.sql" />
     <Build Include="dbo\Tables\tblVerificadorDirecciones.sql" />
@@ -145,15 +142,11 @@
     <Build Include="dbo\Stored Procedures\spDelCatalogo.sql" />
     <Build Include="dbo\Tables\tblRoles.sql" />
     <Build Include="dbo\Tables\tblOperaciones.sql" />
-    <Build Include="dbo\Tables\tblUsersRoles.sql" />
     <Build Include="dbo\Tables\tblRolesOperaciones.sql" />
     <Build Include="dbo\Stored Procedures\spGetRoles.sql" />
     <Build Include="dbo\Stored Procedures\spGetOperaciones.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdRoleOperacion.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdRole.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdUserRoles.sql" />
-    <Build Include="dbo\Stored Procedures\spBuscarUsuarioRoles.sql" />
-    <Build Include="dbo\Stored Procedures\spBuscarRoleOperaciones.sql" />
     <Build Include="dbo\User Defined Types\tpUserRole.sql" />
     <Build Include="dbo\Stored Procedures\UsuarioListaOperacionesSpGet.sql" />
     <Build Include="dbo\Tables\tblEquipos.sql" />
@@ -164,13 +157,10 @@
     <Build Include="dbo\Stored Procedures\spBloquearEquipo.sql" />
     <Build Include="dbo\Stored Procedures\AnularRegistro.sql" />
     <Build Include="dbo\User Defined Types\tpRoleOperacion.sql" />
-    <Build Include="dbo\Stored Procedures\RoleOperacionesSpGet.sql" />
-    <Build Include="dbo\Stored Procedures\spBuscarTodosUsuarioRoles.sql" />
     <Build Include="dbo\Stored Procedures\spGetNegociosRecursive.sql" />
     <Build Include="dbo\Functions\fnGetNegocioAndPadres.sql" />
     <Build Include="dbo\Functions\fnGetNegocioAndHijos.sql" />
     <Build Include="dbo\Functions\fnGetIdNegocioMatriz.sql" />
-    <Build Include="dbo\Stored Procedures\spLoginUsuarioByNegocioMatriz.sql" />
     <Build Include="dbo\Stored Procedures\spGetNegociosAndhijos.sql" />
     <Build Include="dbo\Stored Procedures\spGetNegocioAndPadre.sql" />
     <Build Include="dbo\Stored Procedures\SpUpdContraseñaUsuario.sql" />

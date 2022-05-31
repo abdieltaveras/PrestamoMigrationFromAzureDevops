@@ -7,6 +7,7 @@ using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Services
@@ -20,8 +21,9 @@ namespace PrestamoBlazorApp.Services
 
         public async Task<int> GetTest01(int seconds)
         {
+            Thread.Sleep(seconds);
             //var result = await GetAsync<Marca>(apiUrl, new { JsonGet = marcaGetParams.ToJson() });
-            var result = await GetAsync<int>(apiUrl+"/test01",new { seconds = seconds} );
+            //var result = await GetAsync<int>(apiUrl+"/test01",new { seconds = seconds} );
             return 1;
         }
 
