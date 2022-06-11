@@ -3,6 +3,7 @@ using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,40 @@ namespace PrestamoBLL
         /// la cual es obtenida del la propiedad Server del objeto ConexionDB
         /// </summary>
 
+        public static SqlParameter[] SearchRecForGet(object paramss,ImplicitParams implicitParams, SqlParameter[] othersParams = null)
+        {
+            var sqlParamsList = SearchRec.ToSqlParams(paramss).ToList();
+            if (implicitParams != null)
+            {
+                sqlParamsList.AddRange(SearchRec.ToSqlParams(implicitParams));
+                if (implicitParams.IncluirBorrados == 1)
+                {
+                    var a = sqlParamsList.Where(m => m.ParameterName.ToLower().Contains("borrado"));
+                    if (a.Count() > 0)
+                    {
+                        sqlParamsList.Where(m => m.ParameterName.ToLower().Contains("borrado")).FirstOrDefault().Value = 2;
+                    }
+                }
+                if (implicitParams.IncluirAnulados == 1)
+                {
+                    var a = sqlParamsList.Where(m => m.ParameterName.ToLower().Contains("anulado", StringComparison.OrdinalIgnoreCase));
+                    if (a.Count() > 0)
+                    {
+                        sqlParamsList.Where(m => m.ParameterName.ToLower().Contains("anulado")).FirstOrDefault().Value = 2;
+                    }
+                }
+            }
+            //sqlParamsList.AddRange(SearchRec.ToSqlParams(implicitParams));
+            if (othersParams != null)
+            {
+                foreach (var item in othersParams)
+                {
+                    sqlParamsList.Add(item);
+                }
+            }
+            var arraySql = sqlParamsList.ToArray();
+            return arraySql;
+        }
 
         internal static Database DBPrestamo => Database.AdHoc(ConexionDB.Server);
         #region StaticBLL
@@ -155,14 +190,34 @@ namespace PrestamoBLL
         public  class BllAcciones
         {
 
-            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null) where TInsert2 : class where TGet2 : class
+            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null, ImplicitParams implicitParams = null) where TInsert2 : class where TGet2 : class
             {
                 if (searchParam is BaseGetParams) { getValidations(searchParam as BaseGetParams); }
                 IEnumerable<TInsert2> result = new List<TInsert2>();
                 try
                 {
-                   var searchSqlParams = SearchRec.ToSqlParams(searchParam);                   
-                   result = DBPrestamo.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams);
+                    var searchSqlParams = SearchRec.ToSqlParams(searchParam).ToList();
+                    if (implicitParams != null)
+                    {
+                        searchSqlParams.AddRange(SearchRec.ToSqlParams(implicitParams));
+                        if (implicitParams.IncluirBorrados == 1)
+                        {
+                            var a = searchSqlParams.Where(m => m.ParameterName.ToLower().Contains("borrado"));
+                            if (a.Count()>0)
+                            {
+                                searchSqlParams.Where(m => m.ParameterName.ToLower().Contains("borrado")).FirstOrDefault().Value = 2;
+                            }
+                        }
+                        if (implicitParams.IncluirAnulados == 1)
+                        {
+                            var a = searchSqlParams.Where(m => m.ParameterName.ToLower().Contains("anulado", StringComparison.OrdinalIgnoreCase));
+                            if (a.Count() > 0)
+                            {
+                                searchSqlParams.Where(m => m.ParameterName.ToLower().Contains("anulado")).FirstOrDefault().Value = 2;
+                            }
+                        }
+                    }
+                    result = DBPrestamo.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams.ToArray());
                 }
                 catch (Exception e)
                 {

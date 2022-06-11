@@ -14,7 +14,7 @@ bin/PrestamosMVC5.dll
 obj/Debug/PrestamosMVC5.dll
 
 #ImageFiles
-PrestamoWS/ImagesFor/Garantias/*.*
+PrestamoWS/ImagesFor/Garantias/*
 
 # These are needed, however, they're generated so don't need/want to track
 css/app.css.map

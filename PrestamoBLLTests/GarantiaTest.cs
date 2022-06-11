@@ -6,12 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//using PrestamoBLL;
 namespace PrestamoBLL.Tests
 {
     [TestClass()]
     public class GarantiaTest
     {
+        PrestamoBLL.BLLPrestamo bLLPrestamo = new BLLPrestamo();
+        PrestamoBLL.BLLPrestamo.BllAcciones bllAcciones = new BLLPrestamo.BllAcciones();
+
         [TestMethod()]
         public void GarantiaSearchConPrestamosTest()
         {
@@ -26,6 +29,23 @@ namespace PrestamoBLL.Tests
                 mensaje = e.Message;
             }
             Assert.IsTrue(result.FirstOrDefault().IdPrestamos.Count() > 0, "la consulta no obtuvo prestamo para la garantia");
+        }
+
+        [TestMethod()]
+        public void GarantiaSearchsTest()
+        {
+            GarantiaGetParams searchParam = new GarantiaGetParams();
+            var mensaje = string.Empty;
+            IEnumerable<GarantiaConMarcaYModelo> result = null;
+            try
+            {
+                var datos = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { });
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+            }
+            Assert.IsTrue(result.Count() > 0, "la consulta no obtuvo resultados");
         }
 
         [TestMethod()]
