@@ -29,9 +29,9 @@ namespace PrestamoBLL
 
         public IEnumerable<GarantiaConMarcaYModeloYPrestamos> SearchGarantiaConDetallesDePrestamos(BuscarGarantiaParams searchParam)
         {
-            
-            var search_Param = SearchRec.ToSqlParams(searchParam);
-            var dr = DBPrestamo.ExecReaderSelSP("spBuscarGarantiasConPrestamos", search_Param);
+            //var search_Param = SearchRec.ToSqlParams(searchParam);
+            var search_Param = SearchRecForGet(searchParam, new ImplicitParams { IncluirAnulados = 0, IncluirBorrados = 0 });
+            var dr = DBPrestamo.ExecReaderSelSP("spBuscarGarantiasConPrestamos", search_Param); // aqui explota Luis
             var GarantiaConPrestamo = new GarantiaConMarcaYModeloYPrestamos();
             var GarantiasConPrestamos = new List<GarantiaConMarcaYModeloYPrestamos>();
             while (dr.Read())

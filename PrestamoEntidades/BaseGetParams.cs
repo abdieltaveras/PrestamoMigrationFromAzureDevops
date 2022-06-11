@@ -27,6 +27,11 @@ namespace PrestamoEntidades
         /// </summary>
         public int? Anulado { get; set; } = -1;
     }
+    public class ImplicitParams
+    {
+        public int IncluirBorrados { get; set; } = 0;
+        public int IncluirAnulados { get; set; } = 0;
+    }
 
     //public abstract class BaseCatalogoGetParams : BaseGetParams
     //{
