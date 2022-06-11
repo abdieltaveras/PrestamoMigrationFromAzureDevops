@@ -1,7 +1,7 @@
 ﻿@page "/test"
 @inherits BaseForCreateOrEdit
 <h3>AsyncUnderstanding</h3>
-<button @onclick="TestAsyncOk">Pulse aqui para ejecutar las tareas asincrona correctamente</button>
+<MudButton @onclick="TestAsyncOk"  Variant="Variant.Filled"  title="para ejecutar las tareas asincrona correctamente" Color="MudBlazor.Color.Primary"  > Test Async Ok </MudButton>
 <button @onclick="TestAsyncBad">Pulse aqui para ejecutar las tareas asincrona incorrectamente</button>
 <h3>Otros</h3>
 <button @onclick="GetLocalidadesNegocioTest">Pulse aqui para ejecutar GetLocalidadesNegocioTest</button>

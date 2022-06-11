@@ -15,6 +15,6 @@
     [FechaModificado] DATETIME NULL, 
     [BorradoPor] VARCHAR(100) NULL, 
     [FechaBorrado] DATETIME NULL,
-  CONSTRAINT PeriodoBaseCk CHECK (IdPeriodoBase IN (1, 2, 3, 4,5)),
+  CONSTRAINT [PeriodoBaseCk] CHECK ([IdPeriodoBase]=(5) OR [IdPeriodoBase]=(4) OR [IdPeriodoBase]=(3) OR [IdPeriodoBase]=(2) OR [IdPeriodoBase]=(1)),
   constraint UK_Codigo unique(IdNegocio,Codigo) 
 )
