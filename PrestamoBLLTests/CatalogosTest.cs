@@ -60,9 +60,10 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void CreateSqlParamsTest()
         {
-            
+
             var cataName = CatalogoName.Ocupacion;
             var result = BLLPrestamo.Instance.CreateSqlParams(CatalogoName.Ocupacion, new BaseCatalogoGetParams());
         }
+
     }
 }

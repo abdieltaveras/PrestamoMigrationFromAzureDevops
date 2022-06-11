@@ -3,7 +3,8 @@
 	@IdNegocio int=0,
 	@IdLocalidadNegocio int = -1,
 	@Usuario varchar(100) = '',
-	@Borrado int=0
+	@IncluirBorrados bit=0,
+	@IncluirAnulados bit=0
 as
 
 BEGIN
