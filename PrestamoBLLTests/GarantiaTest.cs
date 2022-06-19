@@ -3,6 +3,7 @@ using PrestamoBLL;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,12 +36,13 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GarantiaSearchsTest()
         {
+            //var cn = ConfigurationManager.ConnectionStrings[""]
             GarantiaGetParams searchParam = new GarantiaGetParams();
             var mensaje = string.Empty;
-            IEnumerable<GarantiaConMarcaYModelo> result = null;
+            IEnumerable<GarantiaConMarcaYModeloYPrestamos> result = null;
             try
             {
-                var datos = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { });
+                 result = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = "2" });
             }
             catch (Exception e)
             {

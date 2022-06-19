@@ -7,7 +7,8 @@
 	@IdLocalidadNegocio int=-1,
 	@Usuario varchar(100) = '',
 	@Borrado int=0,
-	@Anulado varchar(100) = ''
+	@Anulado varchar(100) = '',
+	@condicionBorrado int = 0
 as
 BEGIN
 
@@ -26,5 +27,8 @@ BEGIN
 			(@Matricula ='' or JSON_VALUE(Detalles, '$.Matricula') like '%'+@Matricula+'%') and
 			(@Placa ='' or JSON_VALUE(Detalles, '$.Placa') like '%'+@Placa+'%') and
 			(@NoIdentificacion='' or NoIdentificacion like '%'+@noidentificacion+'%')
+			and ((@condicionBorrado= 0 and garantias.BorradoPor is null) 
+			or (@condicionBorrado=1 and garantias.BorradoPor is not null)
+			or (@condicionBorrado=-1))
 
 END
