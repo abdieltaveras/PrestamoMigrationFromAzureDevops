@@ -1,7 +1,8 @@
 ﻿create PROCEDURE [dbo].[spGetGarantiasByPrestamo]
 	(
 		@IdPrestamo int,
-		@Usuario varchar(100)=''
+		@Usuario varchar(100)='',
+		@condicionBorrado int = 0
 	)
 as
 BEGIN
@@ -21,4 +22,7 @@ BEGIN
 		tblLocalidades localidades ON JSON_VALUE(Detalles, '$.IdLocalidad') = localidades.IdLocalidad
 	where 
 		IdPrestamo = @IdPrestamo
+	and ((@condicionBorrado= 0 and garantias.BorradoPor is null) 
+	or (@condicionBorrado=1 and garantias.BorradoPor is not null)
+	or (@condicionBorrado=-1))
 END

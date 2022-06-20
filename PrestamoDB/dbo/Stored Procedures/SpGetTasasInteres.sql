@@ -8,7 +8,9 @@
 	@Activo int=-1,
 	@RequiereAutorizacion int=-1,
 	@Borrado int=0,
-	@Usuario varchar(100)=''
+	@Usuario varchar(100)='',
+	@condicionBorrado int = 0 
+
 )
 as
 begin
@@ -22,4 +24,7 @@ begin
 		and ((@Activo=-1) or (Activo=@Activo))
 		--and ((@idLocalidadNegocio=-1) or (idLocalidadNegocio=@idLocalidadNegocio))
 		and ((@RequiereAutorizacion=-1) or (RequiereAutorizacion = @RequiereAutorizacion))
+			and ((@condicionBorrado= 0 and BorradoPor is null) 
+		or (@condicionBorrado=1 and BorradoPor is not null)
+		or (@condicionBorrado=-1))
 End

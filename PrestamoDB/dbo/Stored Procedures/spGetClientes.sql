@@ -17,7 +17,8 @@
     @CantidadRegistrosASeleccionar int = 100,
     @SeleccionarLuegoDelIdCliente  int = -1,
   	@Usuario varchar(100)='',
-	@Anulado varchar(100) = ''
+	@Anulado varchar(100) = '',
+	@condicionBorrado int = 0
 )
 as
 begin
@@ -41,4 +42,7 @@ begin
 		and ((@Apodo='') or (Apodo like '%'+@Apodo+'%')) 
 		and (@IdLocalidadNegocio =-1 or idLocalidadNegocio=@idLocalidadNegocio)
 		and (@SeleccionarLuegoDelIdCliente =-1 or idCliente > @SeleccionarLuegoDelIdCliente)
+			and ((@condicionBorrado= 0 and BorradoPor is null) 
+		or (@condicionBorrado=1 and BorradoPor is not null)
+		or (@condicionBorrado=-1))
 End

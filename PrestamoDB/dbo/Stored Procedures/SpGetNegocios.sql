@@ -8,7 +8,8 @@
 	@TaxIdNo varchar(20)='',
 	@Borrado int=0,
 	@PermitirOperaciones int,
-	@Usuario varchar(100)=''
+	@Usuario varchar(100)='',
+		@condicionBorrado int = 0 
 AS
 begin
 	SELECT IdNegocio, Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado,TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, logo,  dbo.fnGetIdNegocioMatriz(@idNegocio) as idNegocioMatriz
@@ -19,4 +20,7 @@ begin
 		((@NombreComercial ='') or (NombreComercial=@NombreComercial)) and
 		((@NombreJuridico ='') or (NombreJuridico=@NombreJuridico)) and
 		((@TaxIdNo='') or (TaxIdNo =@TaxIdNo))
+		and ((@condicionBorrado= 0 and BorradoPor is null) 
+		or (@condicionBorrado=1 and BorradoPor is not null)
+		or (@condicionBorrado=-1))
 end
