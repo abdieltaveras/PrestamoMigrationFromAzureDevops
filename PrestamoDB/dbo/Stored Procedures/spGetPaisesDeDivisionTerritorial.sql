@@ -25,7 +25,7 @@ begin
 		t1.IdLocalidadPadre = t2.IdDivisionTerritorial
 		AND t2.IdLocalidadPadre IS NULL)
 		AND t1.IdLocalidadPadre = t2.IdDivisionTerritorial
-		and ((@condicionBorrado= 0 and BorradoPor is null) 
-		or (@condicionBorrado=1 and BorradoPor is not null)
+		and ((@condicionBorrado= 0 and t1.BorradoPor is null) 
+		or (@condicionBorrado=1 and t1.BorradoPor is not null)
 		or (@condicionBorrado=-1))
 End

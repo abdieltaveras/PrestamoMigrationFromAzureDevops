@@ -22,8 +22,8 @@ select
 		and ((@IdNegocio=-1) or (t.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio))))
 		and ((@IdLocalidadPadre=-1) or (t.IdLocalidadPadre = @IdLocalidadPadre))
 		and ((@Nombre='') or (t.Nombre=@Nombre))
-		and ((@condicionBorrado= 0 and BorradoPor is null) 
-		or (@condicionBorrado=1 and BorradoPor is not null)
+		and ((@condicionBorrado= 0 and t.BorradoPor is null) 
+		or (@condicionBorrado=1 and t.BorradoPor is not null)
 		or (@condicionBorrado=-1))
 
 	order by t.IdLocalidadPadre asc
