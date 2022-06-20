@@ -40,7 +40,7 @@ namespace PrestamoEntidades
         //}
     }
 
-    public class DivisionSearchParams : BaseGetParams
+    public class DivisionSearchParams : BaseUsuarioEIdNegocio
     {
         public int IdDivisionTerritorialPadre { get; set; }
     }
@@ -50,7 +50,7 @@ namespace PrestamoEntidades
         public int IdLocalidadPadre { get; set; }
     }    
 
-    public class TerritorioGetParams : BaseGetParams
+    public class TerritorioGetParams : BaseUsuarioEIdNegocio
     {
     }
 }

@@ -23,7 +23,6 @@ namespace PrestamoBLL.Tests
             try
             {
                 result = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = "2" });
-            
             }
             catch (Exception e)
             {

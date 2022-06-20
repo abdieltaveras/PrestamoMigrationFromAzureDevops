@@ -34,7 +34,9 @@ namespace PrestamoBlazorApp.Pages.Localidades
         private bool Dense = true, Hover = true, Bordered = false, Striped = false;
         protected override async Task OnInitializedAsync()
         {
-            this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
+            //this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
+            this.localidades = await localidadesService.Get(new LocalidadGetParams());
+
             this.territorios = await localidadesService.GetComponentesTerritorio();
         }
         public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)

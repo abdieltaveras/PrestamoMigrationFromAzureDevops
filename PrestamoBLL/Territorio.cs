@@ -12,6 +12,7 @@ namespace PrestamoBLL
 
         public IEnumerable<Territorio> TerritorioDivisionesTerritorialesGet(TerritorioGetParams searchParam)
         {
+            
             return BllAcciones.GetData<Territorio, TerritorioGetParams>(searchParam, "spGetDivisionesTerritoriales", GetValidation);
         }
 

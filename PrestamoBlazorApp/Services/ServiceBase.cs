@@ -72,6 +72,8 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
+        
+
         public async Task<string> DelAsync(string endpoint, object search, bool requiresAuth = true)
         {
             var baseUrl = Configuration["BaseServerUrl"];

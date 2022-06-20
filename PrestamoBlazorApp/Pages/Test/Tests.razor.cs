@@ -19,7 +19,7 @@ namespace PrestamoBlazorApp.Pages.Test
             return base.OnAfterRenderAsync(firstRender);
         }
 
-        private async Task GetLocalidadesNegocioTest()
+        private async Task GetLocalidadesNegocio()
         {
             var result = await testService.GetLocalidadesNegocioTest();
         }
@@ -112,6 +112,11 @@ namespace PrestamoBlazorApp.Pages.Test
         private async Task getTest01()
         {
             await testService.GetTest01(10);
+        }
+
+        private async Task VerifyEncodeNullParams()
+        {
+            await testService.EncodeNullParams();
         }
     }
 }

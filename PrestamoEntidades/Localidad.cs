@@ -18,7 +18,12 @@ namespace PrestamoEntidades
         public string Descripcion { get; set; } = string.Empty;
 
         public override int GetId() => this.IdLocalidad;
-        
+
+        public override string ToString()
+        {
+            return $"{IdLocalidad} {Nombre} {Descripcion}";
+        }
+
     }
 
     public class LocalidadInsUptParams

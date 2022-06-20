@@ -19,6 +19,14 @@ namespace PrestamoBlazorApp.Services
 
         public TestService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration) { }
 
+        
+        public async Task EncodeNullParams()
+        {
+            var param = new EncodeObjectTest();
+            param.Edad = 20;
+            await PostAsync<EncodeObjectTest>(apiUrl + "/EncodeNullParams", param);
+        }
+
         public async Task<int> GetTest01(int seconds)
         {
             Thread.Sleep(seconds);
@@ -45,7 +53,7 @@ namespace PrestamoBlazorApp.Services
         public async Task<IEnumerable<LocalidadNegocio>> GetLocalidadesNegocioTest()
         {
             //var result = await GetAsync<Marca>(apiUrl, new { JsonGet = marcaGetParams.ToJson() });
-            var result = await GetAsync<LocalidadNegocio>(apiUrl + "/GetLocalidadesNegocioTest", 
+            var result = await GetAsync<LocalidadNegocio>(apiUrl + "/GetLocalidadesNegocio", 
                 null);
             return result;
         }

@@ -18,6 +18,12 @@ namespace PrestamoWS.Controllers
         {
             return Ok($"Mostrando El Nombre y apellido {nombre}");
         }
+
+        [HttpPost]
+        public IActionResult EncodeNullparams([FromBody] EncodeObjectTest param)
+        {
+            return Ok(1);
+        }
         [HttpGet("{nombre}/{calle}/{sector}")]
         public IActionResult GetByParams2(string nombre, string calle, string sector)
         {

@@ -2,6 +2,8 @@
 @inherits BaseForCreateOrEdit
 <h3>AsyncUnderstanding</h3>
 <MudButton @onclick="TestAsyncOk"  Variant="Variant.Filled"  title="para ejecutar las tareas asincrona correctamente" Color="MudBlazor.Color.Primary"  > Test Async Ok </MudButton>
-<button @onclick="TestAsyncBad">Pulse aqui para ejecutar las tareas asincrona incorrectamente</button>
+<MudButton @onclick="TestAsyncBad" Variant="Variant.Filled" title="para ejecutar las tareas asincrona incorrectamente" Color="MudBlazor.Color.Primary"> Test Async bad </MudButton>
 <h3>Otros</h3>
-<button @onclick="GetLocalidadesNegocioTest">Pulse aqui para ejecutar GetLocalidadesNegocioTest</button>
+<MudButton @onclick="GetLocalidadesNegocio" Variant="Variant.Filled" title="Listado de las localidades del negocio" Color="MudBlazor.Color.Primary"> Localidades del negocio</MudButton>
+<MudButton @onclick="VerifyEncodeNullParams" Variant="Variant.Filled" title="verificar construccion de parametros nulos con la funcion Encode" Color="MudBlazor.Color.Primary"> Enconde null params</MudButton>
+<button @onclick="GetLocalidadesNegocio">Pulse aqui para ejecutar GetLocalidadesNegocioTest</button>
