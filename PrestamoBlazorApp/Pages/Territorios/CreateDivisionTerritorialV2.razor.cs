@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PcpSoft.System;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
+using PrestamoModelsForFrontEnd;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Territorios
 {
-    public partial class CreateDivisionTerritorial : BaseForCreateOrEdit
+    public partial class CreateDivisionTerritorialV2 : BaseForCreateOrEdit
     {
         [Inject]
         TerritoriosService territoriosService { get; set; }
@@ -18,6 +20,11 @@ namespace PrestamoBlazorApp.Pages.Territorios
         [Parameter]
         public Territorio Territorio { get; set; }
         IEnumerable<Territorio> componenteDivision { get; set; } = new List<Territorio>();
+        private HashSet<TreeItemData> TreeItems { get; set; } = new HashSet<TreeItemData>();
+        private TreeItemData ActivatedValue { get; set; }
+
+        private HashSet<TreeItemData> SelectedValues { get; set; }
+
         void Clear() => listadeterritorios = null;
         protected override void OnInitialized()
         {
@@ -27,47 +34,38 @@ namespace PrestamoBlazorApp.Pages.Territorios
         }
         protected override async Task OnInitializedAsync()
         {
-             listadeterritorios = await territoriosService.GetDivisionesTerritoriales();
+
+            listadeterritorios = await territoriosService.GetDivisionesTerritoriales();
             componenteDivision = await territoriosService.GetComponenteDeDivision();
-            await LoadTree();
+            await LoadTreeV2();
+            var tree = new TreeItemData();
+            await tree.BuilBlazorTree(this.TreeNodes, null);
+            this.TreeItems = tree.TreeItems;
+
             // await JsInteropUtils.Territorio(jsRuntime);
         }
-        private async Task LoadTree()
+        IEnumerable<ITreeNode> TreeNodes = null;
+        private async Task LoadTreeV2()
         {
-            TreeItems = new HashSet<TreeItemData>();
-            
+            TreeBuilder divisionTerritorialTree = null;
+
+            var treeItems = new List<ITreeItem>();
+
+            componenteDivision.First().IdLocalidadPadre = 0; // esto es para hacerlo el nodo raiz
             foreach (var item in componenteDivision)
             {
-                if (TreeItems.Where(m=>m.Text == item.Nombre).Count()>0)
-                {
-                    return;
-                }
-                //TreeItemData treeItem = new TreeItemData(item.Nombre);
-              
-                //var hijos = componenteDivision.Where(m => m.IdLocalidadPadre == item.IdDivisionTerritorial);
-                //if (hijos.Count()>0)
-                //{
-                //    TreeItems = new HashSet<TreeItemData>() { new TreeItemData(item.Nombre) };
-                //    treeItem.Parent = new TreeItemData(item.Nombre);
-                //    foreach (var hijo in hijos) 
-                //    {
-                //        treeItem.AddChild(hijo.Nombre);
-                //    }
-                //}
-                TreeItems.Add(new TreeItemData(item.Nombre) { TreeItems = new HashSet<TreeItemData>() { 
-                    new TreeItemData(item.Nombre)
-                
-                } });
+                var treeItem = new DivisionTerritorialTreeItem(item);
+                treeItems.Add(treeItem);
             }
-        
+            divisionTerritorialTree = new TreeBuilder(treeItems);
+            TreeNodes = divisionTerritorialTree.GetTreeNodes();
+
         }
-        public async Task VerTerritorios(string id)
-        {
-            await JsInteropUtils.Territorio(jsRuntime,id);
-        }
+
+
         async Task SaveDivisionTerritorial()
         {
-            if(this.Territorio.Nombre == string.Empty)
+            if (this.Territorio.Nombre == string.Empty)
             {
                 await OnSaveNotification("Error Al Guardar, llene todos los campos");
             }
@@ -82,7 +80,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
 
 
         }
-      
+
         void CreateOrEdit(int idDivision = -1)
         {
             if (idDivision > 0)
@@ -99,5 +97,34 @@ namespace PrestamoBlazorApp.Pages.Territorios
         {
 
         }
+
+        //public static void DisplayTo(this IEnumerable<ITreeNode> nodes, TreeItemData mbTreeItem =null)
+        //{
+        //    foreach (var node in nodes)
+        //    {
+
+        //        //Trace.WriteLine($"{indent} {node.NodeId} {node.NodeText}");
+        //        //DisplayTo(node.ChildNodes, displayAction, indent + " ");
+        //    }
+        //}
+
+        protected void CheckedChanged(TreeItemData item)
+        {
+            item.IsChecked = !item.IsChecked;
+            // checked status on any child items should mirrror this parent item
+            if (item.HasChild)
+            {
+                foreach (TreeItemData child in item.TreeItems)
+                {
+                    child.IsChecked = item.IsChecked;
+                }
+            }
+            // if there's a parent and all children are checked/unchecked, parent should match
+            if (item.Parent != null)
+            {
+                item.Parent.IsChecked = !item.Parent.TreeItems.Any(i => !i.IsChecked);
+            }
+        }
     }
 }
+

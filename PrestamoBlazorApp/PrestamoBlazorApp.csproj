@@ -45,6 +45,7 @@
     <ProjectReference Include="..\BlazorUtilsLibrary\BlazorUtilsLibrary.csproj" />
     <ProjectReference Include="..\PcpUtilidades\PcpUtilidades.csproj" />
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj" />
+    <ProjectReference Include="..\PrestamoModelsForFrontEnd\PrestamoModelsForFrontEnd.csproj" />
     <ProjectReference Include="..\Validaciones\Validaciones.csproj" />
   </ItemGroup>
 
@@ -59,6 +60,9 @@
   <ItemGroup>
     <Reference Include="DevBox.Core.Classes">
       <HintPath>..\SharedDLL\PcProg\DevBox.Core.Classes.dll</HintPath>
+    </Reference>
+    <Reference Include="PcpSoft.System">
+      <HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
     </Reference>
     <Reference Include="UIClient">
       <HintPath>..\SharedDLL\PcProg\UIClient.dll</HintPath>

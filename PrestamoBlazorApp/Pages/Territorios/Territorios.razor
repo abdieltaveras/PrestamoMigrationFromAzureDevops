@@ -4,14 +4,14 @@
 <MudCard>
     <MudCardHeader>
         <MudText Typo="Typo.h4">Agregar componentes a division territorial</MudText>
-    </MudCardHeader>
+    </MudCardHeader>fdf
     <MudCardContent>
         <EditForm autocomplete="off" Model="@Territorio" OnValidSubmit="SaveTerritorio" OnInvalidSubmit="RaiseInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
             <MudSelect @bind-Value="territorioSelected" Label="Divisiones territoriales"> 
-                @foreach (var item in listadeterritorios)
+                @foreach (var item in Listadeterritorios)
                 {
                     <MudSelectItem Value="@item.IdDivisionTerritorial">
                         @item.Nombre

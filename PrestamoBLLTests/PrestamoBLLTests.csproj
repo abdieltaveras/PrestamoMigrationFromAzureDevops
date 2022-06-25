@@ -20,6 +20,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
+    <ProjectReference Include="..\PrestamoModelsForFrontEnd\PrestamoModelsForFrontEnd.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PcpSoft.System">
+      <HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

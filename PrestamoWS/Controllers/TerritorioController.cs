@@ -82,17 +82,18 @@ namespace PrestamoWS.Controllers
             return Ok();
             //return RedirectToAction("CreateOrEdit");
         }
-        [HttpPost]
-        public IActionResult SaveDivisionTerritorial([FromBody] Territorio territorio)
-        {
-            territorio.Usuario = this.LoginName;
-            territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;
-            territorio.IdNegocio = 1;
-            territorio.IdLocalidadPadre = 1;
-            territorio.PermiteCalle = false;
-            //territorio.Codigo = "";
-            BLLPrestamo.Instance.TerritorioInsUpd(territorio);
-            return Ok();
-        }
+
+        //[HttpPost]
+        //public IActionResult SaveDivisionTerritorial([FromBody] Territorio territorio)
+        //{
+        //    territorio.Usuario = this.LoginName;
+        //    territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;
+        //    territorio.IdNegocio = 1;
+        //    //territorio.IdLocalidadPadre = 1;
+        //    territorio.PermiteCalle = false;
+        //    //territorio.Codigo = "";
+        //    BLLPrestamo.Instance.TerritorioInsUpd(territorio);
+        //    return Ok();
+        //}
     }
 }
