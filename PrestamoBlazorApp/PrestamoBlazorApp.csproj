@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\PcpSoftMudBlazorHelpers.csproj" />
     <ProjectReference Include="..\BlazorUtilsLibrary\BlazorUtilsLibrary.csproj" />
     <ProjectReference Include="..\PcpUtilidades\PcpUtilidades.csproj" />
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj" />

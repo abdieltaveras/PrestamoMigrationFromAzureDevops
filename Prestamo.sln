@@ -82,7 +82,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoInMemoryDb", "Prest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestamoModelsForFrontEnd", "PrestamoModelsForFrontEnd\PrestamoModelsForFrontEnd.csproj", "{48DD11AE-92E1-42FB-B5A1-3B85183B4E69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MudBlazorHelpers", "..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\MudBlazorHelpers.csproj", "{9C461594-7EDD-4617-91D8-1C463788C9F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcpSoftMudBlazorHelpers", "..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\PcpSoftMudBlazorHelpers.csproj", "{9C461594-7EDD-4617-91D8-1C463788C9F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
