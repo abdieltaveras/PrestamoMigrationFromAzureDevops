@@ -1,0 +1,27 @@
+﻿<div class="mud-overlay" style='@($"z-index:9999;display:{Display}")' id="HOverlay">
+    <div class="mud-overlay-scrim mud-overlay-dark"></div>
+    <div class="mud-overlay-content">
+        <!--!-->
+        @*<div class="mud-progress-circular mud-primary-text mud-progress-medium mud-progress-indeterminate" role="progressbar" style="transform:rotate(-90deg);" aria-valuenow="0">*@
+
+        <div class="mud-progress-circular mud-primary-text mud-progress-medium " style="transform:rotate(-90deg);" role="progressbar" aria-valuenow="0">
+
+            <img src="/Images/pcpLogo.jpg" height="100" width="100" />
+            @*<svg class="mud-progress-circular-svg" viewBox="22 22 44 44">
+                    <circle class="mud-progress-circular-circle mud-progress-indeterminate" cx="44" cy="44" r="20" fill="none" stroke-width="3"></circle>
+                </svg>*@
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool SetOverLoad { get; set; }
+    [Parameter]
+    public string Display { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Display = SetOverLoad == true ? "flex" : "none";
+        StateHasChanged();
+    }
+}

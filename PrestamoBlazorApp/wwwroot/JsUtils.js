@@ -237,3 +237,12 @@ window.FichaDetalleDrCr = function (datos) {
     }
     return true;
 }
+
+window.HSetOverlay = function (value) {
+    if (value === true) {
+        document.getElementById("HOverlay").style.display = "flex";
+    } else {
+        document.getElementById("HOverlay").style.display = "none";
+    }
+    return true;
+}
