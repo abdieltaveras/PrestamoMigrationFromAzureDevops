@@ -38,11 +38,11 @@ namespace PrestamoBlazorApp.Pages.Territorios
 
             listadeterritorios = await territoriosService.GetDivisionesTerritoriales();
             ComponenteDivision = await territoriosService.GetComponenteDeDivision();
-            var divisionesTreeNodes = await CreateDivisionesTerritorialesTree();  // crear los ITreeItems especificos
+            var divisionesTreeNodes = await CreateDivisionesTerritorialesNodes();  // crear los ITreeItems especificos
             this.TreeItems = await new MudBlazorTreeBuilder(divisionesTreeNodes).GetTreeItems(); // pasar los ITreeNodes para que genere El tree para mudBlazor
         }
         
-        private async Task<IEnumerable<ITreeNode>> CreateDivisionesTerritorialesTree()
+        private async Task<IEnumerable<ITreeNode>> CreateDivisionesTerritorialesNodes()
         {
             TreeBuilder divisionTerritorialTree = null;
             var treeItems = new List<ITreeItem>();

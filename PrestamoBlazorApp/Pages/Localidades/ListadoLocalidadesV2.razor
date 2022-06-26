@@ -8,7 +8,6 @@
 }
 else
 {
-    
     <MudPaper Width="350px" MaxHeight="500px" Class="overflow-y-auto" Elevation="0">
         <MudTreeView Items="TreeItems">
             <ItemTemplate>
@@ -16,7 +15,8 @@ else
                     <Content>
                         <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
                         @*<MudCheckBox T="bool?" Checked="@(context.HasPartialChildSelection() ? null : context.IsChecked)" CheckedChanged="@((e) => CheckedChanged(context))"></MudCheckBox>*@
-                        <MudText>@context.Text</MudText>
+                        @*<MudIcon Icon="@context.Icon" Class="ml-0 mr-2" />*@
+                        <MudText>@context.Text </MudText>
                     </Content>
                 </MudTreeViewItem>
             </ItemTemplate>

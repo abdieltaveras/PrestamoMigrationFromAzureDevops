@@ -34,29 +34,20 @@ namespace PrestamoBlazorApp.Pages.Localidades
         private bool FilterFunc1(Localidad element) => FilterFunc(element, SearchString1);
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
-
         private bool Dense = true, Hover = true, Bordered = false, Striped = false;
-
         private HashSet<ITreeItemData> TreeItems { get; set; } = new HashSet<ITreeItemData>();
         protected override async Task OnInitializedAsync()
         {
             //this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
             this.Localidades = await localidadesService.Get(new LocalidadGetParams());
             this.territorios = await localidadesService.GetComponentesTerritorio();
-            var localidadesTreeNodes = await CreateLocalidadesTree();  // crear los ITreeItems especificos
-            this.TreeItems = await new MudBlazorTreeBuilder(localidadesTreeNodes).GetTreeItems(); // pasar los ITreeNodes para que genere El tree para mudBlazor
-        }
-        public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)
-        {
-            var lst = await localidadesService.GetComponentesTerritorio();
-            territorios = lst.ToList();
-            var result = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = buscarLocalidad.IdLocalidad });
-            var locate = result.Where(m => m.IdLocalidad == buscarLocalidad.IdLocalidad).FirstOrDefault();
-            this.Localidad = locate;
-        
-        }
 
-        private async Task<IEnumerable<ITreeNode>> CreateLocalidadesTree()
+            var localidadesTreeNodes = await CreateLocalidadesNodes();  // crear los ITreeItems especificos
+            this.TreeItems = await new MudBlazorTreeBuilder(localidadesTreeNodes).GetTreeItems(); // pasar los ITreeNodes para que genere El tree
+                                                                                                  // para mudBlazor
+            
+        }
+        private async Task<IEnumerable<ITreeNode>> CreateLocalidadesNodes()
         {
             TreeBuilder divisionTerritorialTree = null;
             var treeItems = new List<ITreeItem>();
@@ -70,6 +61,18 @@ namespace PrestamoBlazorApp.Pages.Localidades
             var items = divisionTerritorialTree.GetTreeNodes();
             return items;
         }
+        public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)
+        {
+            var lst = await localidadesService.GetComponentesTerritorio();
+            territorios = lst.ToList();
+            var result = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = buscarLocalidad.IdLocalidad });
+            var locate = result.Where(m => m.IdLocalidad == buscarLocalidad.IdLocalidad).FirstOrDefault();
+            this.Localidad = locate;
+        
+        }
+
+        
+
         async Task SaveLocalidad()
         {
             //await BlockPage();
