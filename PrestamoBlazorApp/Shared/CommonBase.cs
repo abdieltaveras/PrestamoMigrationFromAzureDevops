@@ -84,14 +84,29 @@ namespace PrestamoBlazorApp.Shared
             return await JsInteropUtils.FichaDetalleDrCr(jsRuntime,datosJson);
             //throw new NotImplementedException();
         }
+        protected virtual async Task<bool> SetOverlay(bool value)
+        {
+            return await JsInteropUtils.HSetOverlay(jsRuntime, value);
+            //throw new NotImplementedException();
+        }
 
+        public async Task Handle_Funct(Func<Task> _action)
+        {
+            //await HSetOverlay(true);
+            try
+            {
 
+                await _action();
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.ToUpper().Contains("JAVASCRIPT INTEROP", StringComparison.InvariantCultureIgnoreCase) == false && ex.Message.ToLower().Contains("cannot read properties of null", StringComparison.InvariantCultureIgnoreCase) == false)
+                {
+                    //await SweetMessageBox("Error al ejecutar listado: " + ex.Message, Severity.Error);
+                }
+            }
+            //await HSetOverlay(false);
+        }
     }
-
-    
-
-
-    
-
-    
 }

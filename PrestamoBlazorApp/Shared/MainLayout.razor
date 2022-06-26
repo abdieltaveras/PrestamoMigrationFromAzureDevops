@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
-
+@using PrestamoBlazorApp.Shared.Components.Forms
+<GeneralOverload SetOverLoad="SetOverLoad"></GeneralOverload>
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -10,17 +11,17 @@
         @Texto
     </MudAppBar>
     <MudDrawer @bind-Open="@DrawerOpen">
-        <NavMenu/>
+        <NavMenu />
     </MudDrawer>
     <MudMainContent>
         @Body
     </MudMainContent>
 </MudLayout>
 @code {
-
+    public static bool SetOverLoad { get; set; } = false;
     bool DrawerOpen = true;
 
-    string Texto => DrawerOpen ?  "Ocultar Menu" : "Mostrar Menu";
+    string Texto => DrawerOpen ? "Ocultar Menu" : "Mostrar Menu";
     void DrawerToggle()
     {
         DrawerOpen = !DrawerOpen;

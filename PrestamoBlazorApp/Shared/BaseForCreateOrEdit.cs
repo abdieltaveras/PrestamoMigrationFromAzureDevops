@@ -45,6 +45,7 @@ namespace PrestamoBlazorApp.Shared
         protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage = false, string redirectTo = "")
         {
             if (blockPage) { await BlockPage(); }
+            await Handle_Funct(()=> SetOverlay(true));
             try
             {
                 saving = true;
@@ -62,18 +63,25 @@ namespace PrestamoBlazorApp.Shared
             }
             catch (Exception e)
             {
-                if (blockPage) { await UnBlockPage(); }
-                if (_OnFail == null)
+                if (e.Message.ToUpper().Contains("JAVASCRIPT INTEROP", StringComparison.InvariantCultureIgnoreCase) == false && e.Message.ToLower().Contains("cannot read properties of null", StringComparison.InvariantCultureIgnoreCase) == false)
                 {
-                    var mens1 = redirectTo != "" ? "regresale al listado" : "";
-                    await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message} {mens1}", "error", redirectTo, 10000);
-                    // await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException.Message} regresale al listado", "error", redirectoTo, 10000);
-                }
-                else
-                {
-                    await _OnFail();
+                    //await SweetMessageBox("Error al ejecutar listado: " + ex.Message, Severity.Error);
+                
+                    if (blockPage) { await UnBlockPage(); }
+                    if (_OnFail == null)
+                    {
+                        var mens1 = redirectTo != "" ? "regresale al listado" : "";
+                        await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message} {mens1}", "error", redirectTo, 10000);
+                        // await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException.Message} regresale al listado", "error", redirectoTo, 10000);
+                    }
+                    else
+                    {
+                        await _OnFail();
+                    }
                 }
             }
+            await Handle_Funct(() => SetOverlay(false));
+
 
         }
 

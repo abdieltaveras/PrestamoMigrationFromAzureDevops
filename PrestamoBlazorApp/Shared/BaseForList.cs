@@ -12,6 +12,8 @@ namespace PrestamoBlazorApp.Shared
 
         protected async Task Handle_GetDataForList(Func<Task> _action, string redirectTo = "")
         {
+            await Handle_Funct( ()=> SetOverlay(true));
+
             try
             {
                 //loading = true;
@@ -23,9 +25,14 @@ namespace PrestamoBlazorApp.Shared
             }
             catch (Exception e)
             {
-                var redirect = redirectTo == "" ? @"\" : redirectTo;
-                await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "info", redirect, 5000);
+                if (e.Message.ToUpper().Contains("JAVASCRIPT INTEROP", StringComparison.InvariantCultureIgnoreCase) == false && e.Message.ToLower().Contains("cannot read properties of null", StringComparison.InvariantCultureIgnoreCase) == false)
+                {
+                    var redirect = redirectTo == "" ? @"\" : redirectTo;
+                    await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "info", redirect, 5000);
+                }
             }
+            await Handle_Funct(() => SetOverlay(false));
+
         }
 
         public virtual void OnEditClick(string url)
