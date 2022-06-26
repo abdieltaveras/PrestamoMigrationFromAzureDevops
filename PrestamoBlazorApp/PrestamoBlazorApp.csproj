@@ -30,12 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\IMudBlazorTreeBuilder.cs" Link="IMudBlazorTreeBuilder.cs" />
-    <Compile Include="..\..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\ITreeItemData.cs" Link="ITreeItemData.cs" />
-    <Compile Include="..\..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\TreeItemData.cs" Link="TreeItemData.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
   </ItemGroup>
 
@@ -66,6 +60,9 @@
   <ItemGroup>
     <Reference Include="DevBox.Core.Classes">
       <HintPath>..\SharedDLL\PcProg\DevBox.Core.Classes.dll</HintPath>
+    </Reference>
+    <Reference Include="PcpSoft.PcpSoft.MudBlazorHelpers">
+      <HintPath>..\SharedDLL\PcpSoft\PcpSoft.PcpSoft.MudBlazorHelpers.dll</HintPath>
     </Reference>
     <Reference Include="PcpSoft.System">
       <HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
