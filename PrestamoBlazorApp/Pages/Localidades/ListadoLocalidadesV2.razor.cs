@@ -11,7 +11,7 @@ using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.Localidades;
 using PcpSoft.MudBlazorHelpers;
 using PcpSoft.System;
-using PrestamoModelsForFrontEnd;
+
 
 namespace PrestamoBlazorApp.Pages.Localidades
 {
@@ -35,32 +35,24 @@ namespace PrestamoBlazorApp.Pages.Localidades
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         private bool Dense = true, Hover = true, Bordered = false, Striped = false;
-        private HashSet<ITreeItemData> TreeItems { get; set; } = new HashSet<ITreeItemData>();
+        private HashSet<ITreeItemData> TreeItemsData { get; set; } = new HashSet<ITreeItemData>();
         protected override async Task OnInitializedAsync()
         {
             //this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
             this.Localidades = await localidadesService.Get(new LocalidadGetParams());
             this.territorios = await localidadesService.GetComponentesTerritorio();
-
             var localidadesTreeNodes = await CreateLocalidadesNodes();  // crear los ITreeItems especificos
-            this.TreeItems = await new MudBlazorTreeBuilder(localidadesTreeNodes).GetTreeItems(); // pasar los ITreeNodes para que genere El tree
+            this.TreeItemsData = await new MudBlazorTreeBuilder(localidadesTreeNodes).GetTreeItems(); // pasar los ITreeNodes para que genere El tree
                                                                                                   // para mudBlazor
-            
         }
         private async Task<IEnumerable<ITreeNode>> CreateLocalidadesNodes()
         {
-            TreeBuilder divisionTerritorialTree = null;
-            var treeItems = new List<ITreeItem>();
             Localidades.First().IdLocalidadPadre = 0; // esto es para hacerlo el nodo raiz
-            foreach (var item in Localidades)
-            {
-                var treeItem = new LocalidadTreeItem(item);
-                treeItems.Add(treeItem);
-            }
-            divisionTerritorialTree = new TreeBuilder(treeItems);
-            var items = divisionTerritorialTree.GetTreeNodes();
-            return items;
+            var treeItems = Localidades.Select(item => new TreeItem(item.IdLocalidad, item.IdLocalidadPadre, item.Nombre));
+            return  new TreeBuilder(treeItems).GetTreeNodes();
         }
+
+        
         public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)
         {
             var lst = await localidadesService.GetComponentesTerritorio();

@@ -9,7 +9,7 @@
 else
 {
     <MudPaper Width="350px" MaxHeight="500px" Class="overflow-y-auto" Elevation="0">
-        <MudTreeView Items="TreeItems">
+        <MudTreeView Items="TreeItemsData">
             <ItemTemplate>
                 <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
                     <Content>

@@ -4,7 +4,6 @@ using PcpSoft.System;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
-using PrestamoModelsForFrontEnd;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,27 +31,10 @@ namespace PrestamoBlazorApp.Pages.Territorios
 
             listadeterritorios = await territoriosService.GetDivisionesTerritoriales();
             componenteDivision = await territoriosService.GetComponenteDeDivision();
-            await LoadTreeV2();
             await LoadTree();
-            
             // await JsInteropUtils.Territorio(jsRuntime);
         }
-        private async Task LoadTreeV2()
-        {
-            TreeBuilder divisionTerritorialTree = null;
-            IEnumerable<ITreeNode> treeNodes = null;
-            var treeItems = new List<ITreeItem>();
-
-            componenteDivision.First().IdLocalidadPadre = 0; // esto es para hacerlo el nodo raiz
-            foreach (var item in componenteDivision)
-            {
-                var treeItem = new DivisionTerritorialTreeItem(item);
-                treeItems.Add(treeItem);
-            }
-            divisionTerritorialTree = new TreeBuilder(treeItems);
-            treeNodes = divisionTerritorialTree.GetTreeNodes();
-
-        }
+        
         private async Task LoadTree()
         {
             TreeItems = new HashSet<TreeItemData>();

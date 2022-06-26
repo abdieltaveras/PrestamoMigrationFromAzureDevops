@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PcpSoft.System;
 using System.Diagnostics;
-using PrestamoModelsForFrontEnd;
+
 
 namespace PrestamoBLL.Tests
 {
@@ -31,17 +31,12 @@ namespace PrestamoBLL.Tests
             var div2 = BLLPrestamo.Instance.TerritorioDivisionesTerritorialesGet(new TerritorioGetParams());
             TreeBuilder divisionTerritorialTree = null;
             IEnumerable<ITreeNode> treeNodes = null;
-
-            var treeItems = new List<ITreeItem>();
             string errorMessage = string.Empty;
             try
             {
                 DivisionTerritoriales.First().IdLocalidadPadre=0; // esto es para hacerlo el nodo raiz
-                foreach (var item in DivisionTerritoriales)
-                {
-                    var treeItem = new DivisionTerritorialTreeItem(item);
-                    treeItems.Add(treeItem);
-                }
+                var treeItems = DivisionTerritoriales.Select(item =>
+                                new TreeItem(item.IdDivisionTerritorial, item.IdLocalidadPadre, item.Nombre));
                 divisionTerritorialTree = new TreeBuilder(treeItems);
                 treeNodes = divisionTerritorialTree.GetTreeNodes();
                 treeNodes.DisplayTo((e) => Trace.WriteLine(e));

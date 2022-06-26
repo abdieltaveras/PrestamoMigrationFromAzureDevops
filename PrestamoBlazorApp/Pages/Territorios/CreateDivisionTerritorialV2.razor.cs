@@ -5,7 +5,7 @@ using PcpSoft.System;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
-using PrestamoModelsForFrontEnd;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,17 +44,22 @@ namespace PrestamoBlazorApp.Pages.Territorios
         
         private async Task<IEnumerable<ITreeNode>> CreateDivisionesTerritorialesNodes()
         {
-            TreeBuilder divisionTerritorialTree = null;
-            var treeItems = new List<ITreeItem>();
             ComponenteDivision.First().IdLocalidadPadre = 0; // esto es para hacerlo el nodo raiz
-            foreach (var item in ComponenteDivision)
-            {
-                var treeItem = new DivisionTerritorialTreeItem(item);
-                treeItems.Add(treeItem);
-            }
-            divisionTerritorialTree = new TreeBuilder(treeItems);
-            var items =  divisionTerritorialTree.GetTreeNodes();
-            return items;
+            var treeItems = ComponenteDivision.Select(item => 
+            new TreeItem(item.IdDivisionTerritorial, item.IdLocalidadPadre, item.Nombre));
+            return new TreeBuilder(treeItems).GetTreeNodes();
+            
+            //TreeBuilder divisionTerritorialTree = null;
+            //var treeItems = new List<ITreeItem>();
+            //ComponenteDivision.First().IdLocalidadPadre = 0; // esto es para hacerlo el nodo raiz
+            //foreach (var item in ComponenteDivision)
+            //{
+            //    var treeItem = new DivisionTerritorialTreeItem(item);
+            //    treeItems.Add(treeItem);
+            //}
+            //divisionTerritorialTree = new TreeBuilder(treeItems);
+            //var items =  divisionTerritorialTree.GetTreeNodes();
+            //return items;
         }
 
 
