@@ -30,6 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\IMudBlazorTreeBuilder.cs" Link="IMudBlazorTreeBuilder.cs" />
+    <Compile Include="..\..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\ITreeItemData.cs" Link="ITreeItemData.cs" />
+    <Compile Include="..\..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\TreeItemData.cs" Link="TreeItemData.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
   </ItemGroup>
 
@@ -42,7 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PCProg\PcpSoft\MudBlazorHelper\MudBlazorHelpers\PcpSoftMudBlazorHelpers.csproj" />
     <ProjectReference Include="..\BlazorUtilsLibrary\BlazorUtilsLibrary.csproj" />
     <ProjectReference Include="..\PcpUtilidades\PcpUtilidades.csproj" />
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj" />
