@@ -17,7 +17,6 @@ namespace PrestamoBLL.Tests
     public class CofigurationManagetTest
     {
         [TestMethod()]
-
         public void GetConectionsStrings()
         {
             string path = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;

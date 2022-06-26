@@ -1,0 +1,25 @@
+﻿@page "/territorios/CreateDivisionTerritorialv2"
+@inherits BaseForCreateOrEdit
+@*Esto va en un dialogo*@
+<h1>Organizacion de territorios </h1>
+@if (!listadeterritorios.Any())
+{
+    <h3>Cargando datos</h3>
+}
+else
+{ 
+<h2>@listadeterritorios.ToList().First().Nombre</h2>
+<MudPaper Width="350px" MaxHeight="500px" Class="overflow-y-auto" Elevation="0">
+    <MudTreeView Items="TreeItems">
+        <ItemTemplate>
+            <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
+                <Content>
+                    <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
+                    @*<MudCheckBox T="bool?" Checked="@(context.HasPartialChildSelection() ? null : context.IsChecked)" CheckedChanged="@((e) => CheckedChanged(context))"></MudCheckBox>*@
+                    <MudText>@context.Text</MudText>
+                </Content>
+            </MudTreeViewItem>
+        </ItemTemplate>
+    </MudTreeView>
+</MudPaper>
+}

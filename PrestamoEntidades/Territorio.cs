@@ -32,7 +32,7 @@ namespace PrestamoEntidades
 
         public override string ToString()
         {
-            return  $"DivisionTerritorial {IdDivisionTerritorial} Padre {IdLocalidadPadre} Nombre{Nombre} PermiteCalle{PermiteCalle} ";
+            return  $"DivisionTerritorial {IdDivisionTerritorial} IdPadre {IdDivisionTerritorialPadre} Nombre{Nombre} PermiteCalle{PermiteCalle} ";
         }
         //public override int GetId()
         //{

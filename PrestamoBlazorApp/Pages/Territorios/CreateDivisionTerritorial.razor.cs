@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using PcpSoft.System;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
+using PrestamoModelsForFrontEnd;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +29,29 @@ namespace PrestamoBlazorApp.Pages.Territorios
         }
         protected override async Task OnInitializedAsync()
         {
-             listadeterritorios = await territoriosService.GetDivisionesTerritoriales();
+
+            listadeterritorios = await territoriosService.GetDivisionesTerritoriales();
             componenteDivision = await territoriosService.GetComponenteDeDivision();
+            await LoadTreeV2();
             await LoadTree();
+            
             // await JsInteropUtils.Territorio(jsRuntime);
+        }
+        private async Task LoadTreeV2()
+        {
+            TreeBuilder divisionTerritorialTree = null;
+            IEnumerable<ITreeNode> treeNodes = null;
+            var treeItems = new List<ITreeItem>();
+
+            componenteDivision.First().IdLocalidadPadre = 0; // esto es para hacerlo el nodo raiz
+            foreach (var item in componenteDivision)
+            {
+                var treeItem = new DivisionTerritorialTreeItem(item);
+                treeItems.Add(treeItem);
+            }
+            divisionTerritorialTree = new TreeBuilder(treeItems);
+            treeNodes = divisionTerritorialTree.GetTreeNodes();
+
         }
         private async Task LoadTree()
         {
@@ -42,18 +63,6 @@ namespace PrestamoBlazorApp.Pages.Territorios
                 {
                     return;
                 }
-                //TreeItemData treeItem = new TreeItemData(item.Nombre);
-              
-                //var hijos = componenteDivision.Where(m => m.IdLocalidadPadre == item.IdDivisionTerritorial);
-                //if (hijos.Count()>0)
-                //{
-                //    TreeItems = new HashSet<TreeItemData>() { new TreeItemData(item.Nombre) };
-                //    treeItem.Parent = new TreeItemData(item.Nombre);
-                //    foreach (var hijo in hijos) 
-                //    {
-                //        treeItem.AddChild(hijo.Nombre);
-                //    }
-                //}
                 TreeItems.Add(new TreeItemData(item.Nombre) { TreeItems = new HashSet<TreeItemData>() { 
                     new TreeItemData(item.Nombre)
                 
