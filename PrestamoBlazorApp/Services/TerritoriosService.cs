@@ -18,24 +18,24 @@ namespace PrestamoBlazorApp.Services
         //    return result;
         //}
 
-        public async Task<IEnumerable<Territorio>> GetDivisionesTerritoriales()
+        public async Task<IEnumerable<DivisionTerritorial>> GetDivisionesTerritoriales()
         {
-            return await GetAsync<Territorio>(apiUrl+ "/GetDivisionesTerritoriales", null);
+            return await GetAsync<DivisionTerritorial>(apiUrl+ "/GetDivisionesTerritoriales", null);
         }
-        public async Task<IEnumerable<Territorio>> GetComponenteDeDivision()
+        public async Task<IEnumerable<DivisionTerritorial>> GetComponenteDeDivision()
         {
-            return await GetAsync<Territorio>(apiUrl + "/BuscarComponenteDeDivision", null);
+            return await GetAsync<DivisionTerritorial>(apiUrl + "/BuscarComponenteDeDivision", null);
         }
         public TerritoriosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 
         }
 
-        public async Task SaveTerritorio(Territorio territorio)
+        public async Task SaveTerritorio(DivisionTerritorial territorio)
         {
             try
             {
-                await PostAsync<Territorio>(apiUrl+"/Post", territorio);
+                await PostAsync<DivisionTerritorial>(apiUrl+"/Post", territorio);
             }
             catch (Exception ex)
             {
@@ -43,11 +43,11 @@ namespace PrestamoBlazorApp.Services
             }
 
         }
-        public async Task SaveDivisionTerritorial(Territorio territorio)
+        public async Task SaveDivisionTerritorial(DivisionTerritorial territorio)
         {
             try
             {
-                await PostAsync<Territorio>(apiUrl+ "/SaveDivisionTerritorial", territorio);
+                await PostAsync<DivisionTerritorial>(apiUrl+ "/SaveDivisionTerritorial", territorio);
             }
             catch (Exception ex)
             {

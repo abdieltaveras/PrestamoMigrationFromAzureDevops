@@ -6,6 +6,7 @@
 	[Codigo] VARCHAR(10) NOT NULL default '',
     [Activo] BIT NOT NULL DEFAULT 1,
 	[IdNegocio] INT NOT NULL,
+	[IdLocalidadNegocio] INT NOT NULL,
 	[InsertadoPor] varchar(100) not null,
 	[FechaInsertado] DateTime not null default getdate(), 
     [ModificadoPor] VARCHAR(100) NULL, 

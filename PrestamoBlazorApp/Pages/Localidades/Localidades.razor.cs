@@ -19,7 +19,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
 
         public int? SelectedTipoLocalidad { get { return _SelectedTipoLocalidad; } set { _SelectedTipoLocalidad = value; } }
         IEnumerable<LocalidadesHijas> LocalidadesHijas { get; set; } = new List<LocalidadesHijas>();
-        IEnumerable<Territorio> Territorios { get; set; } = new List<Territorio>();
+        IEnumerable<DivisionTerritorial> Territorios { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
         public Localidad Localidad { get; set; } = new Localidad();
         //void Clear() => localidades = null;
@@ -65,11 +65,11 @@ namespace PrestamoBlazorApp.Pages.Localidades
         {
             
             this.LocalidadesHijas = new List<LocalidadesHijas>();
-            this.Territorios = new List<Territorio>();
+            this.Territorios = new List<DivisionTerritorial>();
             this.Localidad.IdLocalidadPadre = buscarLocalidad.IdLocalidad;
             this.LocalidadesHijas = await localidadesService.GetHijasLocalidades(buscarLocalidad.IdLocalidad);
             var ter = await localidadesService.GetComponentesTerritorio();
-            this.Territorios = ter.Where(m => m.IdLocalidadPadre == buscarLocalidad.IdTipoLocalidad);
+            this.Territorios = ter.Where(m => m.IdDivisionTerritorialPadre == buscarLocalidad.IdTipoLocalidad);
             if (this.Territorios.Count() == 1)
             {
                 SelectedTipoLocalidad = this.Territorios.FirstOrDefault().IdDivisionTerritorial;

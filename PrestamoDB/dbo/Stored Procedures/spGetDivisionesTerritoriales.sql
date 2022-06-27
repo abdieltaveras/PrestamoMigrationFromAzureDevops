@@ -16,6 +16,6 @@ from
 	tblDivisionTerritorial t2 
 where 
 	--t1.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)) and
-	t1.IdLocalidadPadre = t2.IdDivisionTerritorial 
-	and t2.IdLocalidadPadre is null
+	t1.IdDivisionTerritorialPadre = t2.IdDivisionTerritorial 
+	and t2.IdDivisionTerritorialPadre is null
 End

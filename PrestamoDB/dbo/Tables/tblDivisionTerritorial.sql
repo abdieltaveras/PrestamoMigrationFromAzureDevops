@@ -1,7 +1,6 @@
 ﻿CREATE TABLE [dbo].[tblDivisionTerritorial]
 (
 	[IdDivisionTerritorial] INT NOT NULL PRIMARY KEY identity(1,1),
-    [IdLocalidadPadre] INT NULL,
     [IdDivisionTerritorialPadre] INT NULL,
     [IdNegocio] INT NOT NULL,
     	[IdLocalidadNegocio] INT NULL, 

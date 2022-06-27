@@ -8,7 +8,7 @@
                 <MudItem md="7">
                     @if (territorios.Count() > 0)
                     {
-                        <MudSelect T="Territorio" @bind-Value="SelectedTipoLocalidad" Label="Tipo Loc. Padre">
+                        <MudSelect T="DivisionTerritorial" @bind-Value="SelectedTipoLocalidad" Label="Tipo Loc. Padre">
 
                             @foreach (var item in territorios)
                             {

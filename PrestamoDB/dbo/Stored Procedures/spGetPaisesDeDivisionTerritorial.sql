@@ -8,24 +8,11 @@
 as
 begin
 
-	SELECT
-		t1.*,
-		t2.Nombre as DescripcionPadre
-	FROM 
-		tblDivisionTerritorial t1,
-		tblDivisionTerritorial t2
-	WHERE
-		t1.IdLocalidadPadre in (	SELECT
-		t1.IdDivisionTerritorial
-	FROM
-		tblDivisionTerritorial t1,
-		tblDivisionTerritorial t2
-	WHERE
-		--t1.IdNegocio in (select idNegocio from dbo.fnGetNegocioAndPadres(@IdNegocio)) and
-		t1.IdLocalidadPadre = t2.IdDivisionTerritorial
-		AND t2.IdLocalidadPadre IS NULL)
-		AND t1.IdLocalidadPadre = t2.IdDivisionTerritorial
-		and ((@condicionBorrado= 0 and t1.BorradoPor is null) 
-		or (@condicionBorrado=1 and t1.BorradoPor is not null)
-		or (@condicionBorrado=-1))
+SELECT t1.IdDivisionTerritorial, t1.IdDivisionTerritorialPadre, t1.Nombre FROM tblDivisionTerritorial AS t1
+inner join tblDivisionTerritorial AS t2 on t2.IdDivisionTerritorial = t1.IdDivisionTerritorialPadre
+WHERE 
+t2.IdDivisionTerritorialPadre IS null 
+and ((@condicionBorrado= 0 and t1.BorradoPor is null) 
+or (@condicionBorrado=1 and t1.BorradoPor is not null)
+or (@condicionBorrado=-1))
 End

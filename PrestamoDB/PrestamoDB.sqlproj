@@ -77,6 +77,7 @@
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Post-Deployment" />
     <Folder Include="dbo\User Defined Types" />
+    <Folder Include="Scripts\NotInBuild" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PrestamoDB.refactorlog" />
@@ -140,9 +141,6 @@
     <Build Include="dbo\Stored Procedures\spInsUpdCatalogo.sql" />
     <Build Include="dbo\Stored Procedures\spToggleStatusCatalogo.sql" />
     <Build Include="dbo\Stored Procedures\spDelCatalogo.sql" />
-    <Build Include="dbo\Tables\tblRoles.sql" />
-    <Build Include="dbo\Tables\tblOperaciones.sql" />
-    <Build Include="dbo\Tables\tblRolesOperaciones.sql" />
     <Build Include="dbo\Stored Procedures\spGetRoles.sql" />
     <Build Include="dbo\Stored Procedures\spGetOperaciones.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdRoleOperacion.sql" />
@@ -218,14 +216,9 @@
     <Build Include="dbo\Stored Procedures\SpDeleteRegistro.sql" />
     <Build Include="dbo\Stored Procedures\spGetCatalogosV2.sql" />
     <Build Include="dbo\Tables\tblTiposTelefonos.sql" />
+    <None Include="Scripts\NotInBuild\RemoveColumnAndRenameForTblDivisionTerritotail.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PrestamoDB.publish.xml" />
-    <None Include="DeployProfile.publish.publish.xml" />
-    <None Include="Prestamo_dev.publish.publish.xml" />
-    <None Include="PrestamoDB_Dev.publish.publish.xml" />
-    <None Include="Prestamo_ing.publish.publish.xml" />
-    <None Include="Prestamo_permisos.publish.publish.xml" />
     <None Include="Prestamo_api.publish.publish.xml" />
     <None Include="Bisend_PrestamoApi.publish.xml" />
     <None Include="SchemaCompareForAbdiel.scmp" />

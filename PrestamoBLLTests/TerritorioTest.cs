@@ -24,19 +24,28 @@ namespace PrestamoBLL.Tests
         }
 
         [TestMethod()]
+        public void GetDivisionesTerritorial()
+        {
+            var search = new DivisionSearchParams { IdDivisionTerritorialPadre = 2, IdNegocio = 1 };
+            var result = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(search);
+            var result2 = BLLPrestamo.Instance.GetDivisionesTerritoriales(new DivisionTerritorialGetParams());
+            Assert.IsTrue(result.Count() > 0, "no se econtro dato para la division territorial");
+        }
+
+        [TestMethod()]
         public void DivisionTerritoriosTreeTest()
         {
             var search = new DivisionSearchParams { IdDivisionTerritorialPadre = 2, IdNegocio = 1 };
             var DivisionTerritoriales = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(search);
-            var div2 = BLLPrestamo.Instance.TerritorioDivisionesTerritorialesGet(new TerritorioGetParams());
+            var div2 = BLLPrestamo.Instance.GetDivisionesTerritoriales2(new DivisionTerritorialGetParams());
             TreeBuilder divisionTerritorialTree = null;
             IEnumerable<ITreeNode> treeNodes = null;
             string errorMessage = string.Empty;
             try
             {
-                DivisionTerritoriales.First().IdLocalidadPadre=0; // esto es para hacerlo el nodo raiz
+                DivisionTerritoriales.First().IdDivisionTerritorialPadre=0; // esto es para hacerlo el nodo raiz
                 var treeItems = DivisionTerritoriales.Select(item =>
-                                new TreeItem(item.IdDivisionTerritorial, item.IdLocalidadPadre, item.Nombre));
+                                new TreeItem(item.IdDivisionTerritorial, item.IdDivisionTerritorialPadre, item.Nombre));
                 divisionTerritorialTree = new TreeBuilder(treeItems);
                 treeNodes = divisionTerritorialTree.GetTreeNodes();
                 treeNodes.DisplayTo((e) => Trace.WriteLine(e));

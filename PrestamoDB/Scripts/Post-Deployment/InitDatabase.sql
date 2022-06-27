@@ -17,6 +17,7 @@ Post-Deployment Script Template
 */
 	declare @usuario varchar(50)= 'SeedDBUser'
 	declare @idNegocio int = 1
+	declare @idLocalidadNegocio int = 1
 	
 	--Script para datos de Negocios
 	--Negocio Matriz y otras truncales no permite realizar transacciones
@@ -97,58 +98,22 @@ Post-Deployment Script Template
 	--Script para datos de Moras
 	insert into tblTiposMora
 			(Nombre,
-			idNegocio,Codigo,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,InsertadoPor, FechaInsertado)
+			idNegocio, IdLocalidadNegocio,Codigo,DiasDeGracia, CalcularCargoPor, AplicarA,TipoCargo,MontoOPorCientoACargar,InsertadoPor, FechaInsertado)
 		VALUES
 			('Porcentual 10% al interes y capital atrasado por cada dia por cada cuota',
-			@idNegocio,'P10IC',3,1,1,1,10.00,@usuario,getdate()),
+			@idNegocio,@IdLocalidadNegocio,'P10IC',3,1,1,1,10.00,@usuario,getdate()),
 			('Porcentual 5% al interes y capital atrasado por cada dia por cada cuota',
-			@idNegocio,'P05IC',3,1,1,1,10.00,@usuario,getdate()),
+			@idNegocio,@IdLocalidadNegocio,'P05IC',3,1,1,1,10.00,@usuario,getdate()),
 			('Porcentual 10% al interes atrasado por cada dia por cada cuota',
-			@idNegocio,'P10I',3,2,1,1,10.00,@usuario,getdate()),
+			@idNegocio,@IdLocalidadNegocio,'P10I',3,2,1,1,10.00,@usuario,getdate()),
 			('Porcentual 5% al interes  atrasado por cada dia por cada cuota',
-			@idNegocio,'P05I',3,2,1,1,10.00,@usuario,getdate()),
+			@idNegocio,@IdLocalidadNegocio,'P05I',3,2,1,1,10.00,@usuario,getdate()),
 			('Acumulada 10% por total atrasado',
-			@idNegocio,'A10IC',3,3,1,1,10.00,@usuario,getdate()),
+			@idNegocio,@IdLocalidadNegocio,'A10IC',3,3,1,1,10.00,@usuario,getdate()),
 			('Acumulada 10% por total atrasado',
-			@idNegocio,'A05IC',3,3,1,1,5.00,@usuario,getdate()),
+			@idNegocio,@IdLocalidadNegocio,'A05IC',3,3,1,1,5.00,@usuario,getdate()),
 			('Lineal 10 pesos por cada dia atrasado',
-			@idNegocio,'L05',3,3,1,1,5.00,@usuario,getdate())
--- Table:  tblUsuario
--- Date:   13-Feb-20 5:46 AM
-
-INSERT INTO dbo.tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado, ImgFilePath, VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado)
-VALUES 
-	(@idNegocio,'Admin','Usuario Administrador','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null),
-
-	(@idNegocio,'Usuario','Usuario por defecto','slT@idNegociocIeEDhgXsnLcD0w/ng==',0,null,'809-550-8455',null,1,0,null,0,null,null,null,-1,null,null,@usuario,getdate(),null,null,null,null),
-
-	(@idNegocio, 'usrcc', 'Cambiar Contraseña', 'cu0+Y/VLEdwHc/4vxsazEQ==', 1, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL),
-
-	(@idNegocio, 'usrina', 'Usuario Inactivo', 'cu0+Y/VLEdwHc/4vxsazEQ==', 1, getdate(), '(809) 813-1719', '', 0, 0, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL),
-
-	(@idNegocio, 'usrbl', 'usuario bloqueado', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 813-1719', '', 1, 1, '', 0, '', '2020-03-28', '1900-01-01', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL),
-
-	(@idNegocio, 'usrconex', 'usuario contrasena expira', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 550-2897', '', 1, 0, 'abdieltaveras@gmail.com', 0, '', '2020-03-28', '1900-01-01', 1, -1, 0, 'admin', getdate(), 'usrconex', '2020-03-30 08:35:59.4', NULL, NULL),
-	 (@idNegocio, 'usrlivi', 'usuario limitar vigencia', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '(809) 550-4678', '', 1, 0, '', 0, '', '2020-03-28', '2020-03-29', -1, -1, 0, 'admin', getdate(), NULL, NULL, NULL, NULL),
-
-	(@idNegocio, 'success', 'Succes User', 'cu0+Y/VLEdwHc/4vxsazEQ==', 0, getdate(), '829-961-9141', '', 1, 0, 'abdieltaveras@hotmail.com', 0, '', '1900-01-01', '1900-01-01', 1, -1, 0, 'UsuarioTest', '2020-03-28 10:17:44.833', 'testUser29-Mar-20', '2020-03-29 22:15:53.987', NULL, NULL)
-
-INSERT INTO tblUsuarios (IdNegocio, LoginName, NombreRealCompleto, Contraseña, DebeCambiarContraseñaAlIniciarSesion, 
-InicioVigenciaContraseña, Telefono1, Telefono2, Activo, Bloqueado, CorreoElectronico, EsEmpleado,  VigenteDesde, VigenteHasta, ContraseñaExpiraCadaXMes, RazonBloqueo, IdPersonal, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, ImgFilePath) 
-values	(@idNegocio,'bryan','Bryan Pouerie','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null, 'Bryan01.png'),
-
-(@idNegocio,'usrpapito','usr Papito-inv. Bancola','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null, 'Bryan01.png'),
-
-
-	(@idNegocio,'usrfyg','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null, 'Bryan01.png'),
-
-
-	(@idNegocio,'usran','usr fyg','cu0+Y/VLEdwHc/4vxsazEQ==',0,null,'829-973-4733',null,1,0,null,0,null,null,-1,null,null,
-			@usuario,getdate(),null,null,null,null, 'Bryan01.png')
-
+			@idNegocio,@IdLocalidadNegocio,'L05',3,3,1,1,5.00,@usuario,getdate())
 
 --@idnegocio, @loginname, @nombrerealcompleto, @contraseña, @debecambiarcontraseñaaliniciarsesion,
 --@iniciovigenciacontraseña, @telefono1, @telefono2, @activo, @bloqueado, @correoelectronico, 
@@ -194,12 +159,12 @@ VALUES	('Blanco', 1, null, 1, @usuario, '2020-02-13 05:17:52.627', NULL, NULL, N
 -- Table:  tblTipos
 -- Date:   13-Feb-20 5:46 AM
 
-INSERT INTO tblTiposGarantia (IdClasificacion, Nombre, Codigo, Activo, IdNegocio, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado)
-VALUES	(2, 'Vehiculos (Carros, Camionetas, Geepetas, etc)', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(2, 'Motocicletas', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(1, 'Casa', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(1, 'Solar con Edificacion', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(1, 'Solar sin Edificacion', '', 1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
+INSERT INTO tblTiposGarantia (IdClasificacion, Nombre, Codigo, Activo, IdNegocio, IdLocalidadNegocio, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado)
+VALUES	(2, 'Vehiculos (Carros, Camionetas, Geepetas, etc)', '', 1, @IdNegocio,@IdLocalidadNegocio, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(2, 'Motocicletas', '', 1,@IdNegocio,@IdLocalidadNegocio, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(1, 'Casa', '', 1,@IdNegocio,@IdLocalidadNegocio, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(1, 'Solar con Edificacion', '', 1,@IdNegocio,@IdLocalidadNegocio, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(1, 'Solar sin Edificacion', '', 1, @IdNegocio,@IdLocalidadNegocio, @usuario, getdate(), NULL, NULL, NULL, NULL)
 		
 
 	-- Table: Garantias
@@ -236,15 +201,14 @@ VALUES (1, NULL, 'ernesto', 'Tejeda', @codigo, 2, '1969-07-31', '2020-02-13 05:1
 -- Date:   13-Feb-20 5:53 AM
 -- Table:  tblDivisionTerritorial
 
-INSERT INTO tblDivisionTerritorial(IdLocalidadPadre, IdDivisionTerritorialPadre, IdNegocio, Nombre, Activo, PermiteCalle, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
-VALUES (NULL, NULL, 1, 'Division Territorial Raiz (Nunca Borrar)',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(1, 0, 1, 'Division Territorial tipo Republica Dominicana',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(2, 2, 1, 'Pais',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(3, 2, 1, 'Provincia', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(4, 2, 1, 'Municipio',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(5, 2, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(5, 2, 1, 'Distrito Municipal', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(7, 2, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
+INSERT INTO tblDivisionTerritorial(IdDivisionTerritorialPadre, IdNegocio, Nombre, Activo, PermiteCalle, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
+VALUES ( null, 1, 'Division Territorial tipo Republica Dominicana',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(2, 1, 'Pais',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(3, 1, 'Provincia', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(4, 1, 'Municipio',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(5, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(5, 1, 'Distrito Municipal', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(7, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
 
 --Localidades
 INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
@@ -257,7 +221,7 @@ VALUES (0, 1, 3, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.64
 	   (4, 1, 6, 'Villa Pereira', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
 	   (4, 1, 6, 'Villa España', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
 	   (2, 1, 5, 'Villa Hermosa', '', 1, 'bryan', '2020-04-05 14:40:42.557',null,null,null,null),
-	   (6, 1, 6, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
+	   (9, 1, 6, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
 
 --Nuevos catalogos
 	declare @codigo1 varchar(50)= 'cod1'
@@ -276,18 +240,18 @@ INSERT INTO tblVerificadorDirecciones(Nombre, IdNegocio, Codigo, Activo, Inserta
 			('Lidia Perez', 1, @codigo3, 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
 
 --Tipo de telefonos
-INSERT INTO tblTipoTelefonos(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
-	VALUES	('Casa', 1, @codigo1, 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
-	   		('Oficina', 1, @codigo2, 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
-			('Personal', 1, @codigo3, 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+INSERT INTO tblTipoTelefonos(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, idLocalidadNegocio) 
+	VALUES	('Casa', 1, @codigo1, 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL,1),
+	   		('Oficina', 1, @codigo2, 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL,1),
+			('Personal', 1, @codigo3, 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL,1)
 
 -- Tipo de sexos
-INSERT INTO tblTipoSexos(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado)
-	VALUES	('Mujer', 1, @codigo1, 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
-	   		('Hombre', 1, @codigo2, 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
-			('Sin sexo', 1, @codigo3, 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
+INSERT INTO tblTipoSexos (Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado,IdlocalidadNegocio )
+	VALUES	('Mujer', 1, @codigo1, 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL,1),
+	   		('Hombre', 1, @codigo2, 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL,1),
+			('Sin sexo', 1, @codigo3, 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL,1)
 
--- Tipo de sexos
+-- tasadores
 INSERT INTO tblTasadores(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
 	VALUES	('Michael', 1, @codigo1, 1, @usuario, '2020-02-13 05:16:14.567', NULL, NULL, NULL, NULL),
 	   		('Denzel', 1, @codigo2, 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
@@ -303,32 +267,10 @@ INSERT INTO tblEstadosCiviles(Nombre, IdNegocio, Codigo, Activo, InsertadoPor, F
 	   		('Casado', 1, @codigo2, 1, @usuario, '2020-02-13 05:16:21.607', NULL, NULL, NULL, NULL),
 			('Viudo\a', 1, @codigo3, 1, @usuario, '2020-02-13 05:16:28.543', NULL, NULL, NULL, NULL)
 --Fin de nuevos catalogos punto 66
-
-INSERT INTO tblRoles(Nombre, Descripcion)
-	VALUES	('Contador', 'Role para contadores de PCP Prog')
-
-INSERT INTO tblOperaciones(Nombre, Descripcion, Grupo, Codigo)
-	VALUES	('Ver tasa interes', 'Con este permiso podra ver todas las tasas de interes', 1, 'tasainteres-ver'),
-			('Crear tasa interes', 'Con este permiso podra crear tasas de interes', 1, 'tasainteres-crear'),
-			('Editar tasa interes', 'Con este permiso podra editar todas las tasas de interes', 1, 'tasainteres-editar'),
-			('Borrar tasa interes', 'Con este permiso podra borrar todas las tasas de interes', 1, 'tasainteres-anular'),
-			('Desactivar tasa interes', 'Con este permiso podra desactivar todas las tasas de interes', 1, 'tasainteres-desactivar'),
-			('Ver moras', 'Con este permiso podra ver todas las moras', 2, 'moras-ver'),
-			('Crear moras', 'Con este permiso podra crear moras', 2, 'moras-crear'),
-			('Editar moras', 'Con este permiso podra editar todas las moras', 2, 'moras-editar'),
-			('Borrar moras', 'Con este permiso podra borrar todas las moras', 2, 'moras-anular'),
-			('Desactivar moras', 'Con este permiso podra desactivar todas las moras', 2, 'moras-desactivar'),
-			('Reporte de ventas', 'Con este permiso podra ver el reporte de ventas', 3, 'reporteventas-ver'),
-			('Aplicar descuento', 'Con este permiso podra aplicar descuento a los prestamos', 4, 'aplicardescuento-crear')
-
-INSERT INTO tblUsersRoles(IdUser, IdRole, InsertadoPor)
-	VALUES	(2, 1, @usuario)
-
-INSERT INTO tblRolesOperaciones(IdOperacion, IdRole, InsertadoPor)
-	VALUES	(1, 1, @usuario)
 declare @prestamoNumero1 varchar(20), @prestamoNumero2 varchar(20), @prestamoNumero3 varchar(20),
 	@prestamoNumero4 varchar(20), @prestamoNumero5 varchar(20), @prestamoNumero6 varchar(20),
 	@prestamoNumero7 varchar(20), @prestamoNumero8 varchar(20)
+
 exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero1 output
 exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero2 output
 exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero3 output

@@ -16,47 +16,47 @@ namespace PrestamoWS.Controllers
     [ApiController]
     [Route("api/[controller]/[action]")]
 
-    public class TerritorioController : ControllerBasePrestamoWS
+    public class DivisionTerritorialController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Territorio> Get()
+        public IEnumerable<DivisionTerritorial> Get()
         {
-            var result = BLLPrestamo.Instance.TerritoriosGet(new TerritorioGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
+            var result = BLLPrestamo.Instance.GetDivisionesTerritoriales2(new DivisionTerritorialGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
             return result;
             //return View("CreateOrEdit", datos);
         }
         [HttpGet]
-        public IEnumerable<Territorio> GetDivisionesTerritoriales()
+        public IEnumerable<DivisionTerritorial> GetDivisionesTerritoriales()
         {
-            var result = BLLPrestamo.Instance.TerritorioDivisionesTerritorialesGet(new TerritorioGetParams() { IdNegocio = 1 });
+            var result = BLLPrestamo.Instance.GetDivisionesTerritoriales(new DivisionTerritorialGetParams() { IdNegocio = 1 });
             return result;
             //return View("CreateOrEdit", datos);
         }
        
         [HttpGet]
-        public IEnumerable<Territorio> BuscarComponenteDeDivision()
+        public IEnumerable<DivisionTerritorial> BuscarComponenteDeDivision()
         {
             string IdDivision = "";
             IdDivision = "2";
-            IEnumerable<Territorio> territorios = null;
-            territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorialPadre = int.Parse(IdDivision) });
+            IEnumerable<DivisionTerritorial> DivisionTerritorials = null;
+            DivisionTerritorials = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorialPadre = int.Parse(IdDivision) });
 
-            return territorios;
-            //return JsonConvert.SerializeObject(territorios);
+            return DivisionTerritorials;
+            //return JsonConvert.SerializeObject(DivisionTerritorials);
         }
         [HttpGet]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public IEnumerable<Territorio> BuscarComponenteDeDivision2(int IdDivision)
+        public IEnumerable<DivisionTerritorial> BuscarComponenteDeDivision2(int IdDivision)
         {
             
             //IdDivision = "2";
-            IEnumerable<Territorio> territorios = null;
-            territorios = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorialPadre = IdDivision });
+            IEnumerable<DivisionTerritorial> DivisionTerritorials = null;
+            DivisionTerritorials = BLLPrestamo.Instance.TerritorioBuscarComponentesDivisionesTerritoriales(new DivisionSearchParams() { IdNegocio = 1, IdDivisionTerritorialPadre = IdDivision });
 
-            //return territorios;
-            return territorios;
+            //return DivisionTerritorials;
+            return DivisionTerritorials;
         }
-        //public IEnumerable<Territorio> GetByParam(int idColor, int idLocalidadNegocio)
+        //public IEnumerable<DivisionTerritorial> GetByParam(int idColor, int idLocalidadNegocio)
         //{
         //    var search = new ColorGetParams { IdColor = idColor, IdLocalidadNegocio = idLocalidadNegocio };
         //    var result = BLLPrestamo.Instance.GetColores(new ColorGetParams { IdNegocio = 1/*this.pcpUserIdNegocio*/ });
@@ -65,34 +65,34 @@ namespace PrestamoWS.Controllers
         //}
         [HttpGet]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public IEnumerable<Territorio> BuscarTerritorios(string localidadPadre)
+        public IEnumerable<DivisionTerritorial> BuscarDivisionTerritorials(string localidadPadre)
         {
-            IEnumerable<Territorio> territorios = null;
-            territorios = BLLPrestamo.Instance.TerritorioBuscarTerritoriosHijos(new TerritorioSearchParams() { IdNegocio = 1, IdLocalidadPadre = int.Parse(localidadPadre) });
-            return territorios;
+            IEnumerable<DivisionTerritorial> DivisionTerritorials = null;
+            DivisionTerritorials = BLLPrestamo.Instance.GetDivisionesTerritoriales(new DivisionTerritorialGetParams() { IdNegocio = 1, IdLocalidadPadre = int.Parse(localidadPadre) });
+            return DivisionTerritorials;
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Territorio territorio)
+        public IActionResult Post([FromBody] DivisionTerritorial DivisionTerritorial)
         {
-            territorio.Usuario = this.LoginName;
-            territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;
-            territorio.IdNegocio = 1;
-            //territorio.Codigo = "";
-            BLLPrestamo.Instance.TerritorioInsUpd(territorio);
+            DivisionTerritorial.Usuario = this.LoginName;
+            DivisionTerritorial.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            DivisionTerritorial.IdNegocio = 1;
+            //DivisionTerritorial.Codigo = "";
+            BLLPrestamo.Instance.InsUpdDivisionTerritorial(DivisionTerritorial);
             return Ok();
             //return RedirectToAction("CreateOrEdit");
         }
 
         //[HttpPost]
-        //public IActionResult SaveDivisionTerritorial([FromBody] Territorio territorio)
+        //public IActionResult SaveDivisionTerritorial([FromBody] DivisionTerritorial DivisionTerritorial)
         //{
-        //    territorio.Usuario = this.LoginName;
-        //    territorio.IdLocalidadNegocio = this.IdLocalidadNegocio;
-        //    territorio.IdNegocio = 1;
-        //    //territorio.IdLocalidadPadre = 1;
-        //    territorio.PermiteCalle = false;
-        //    //territorio.Codigo = "";
-        //    BLLPrestamo.Instance.TerritorioInsUpd(territorio);
+        //    DivisionTerritorial.Usuario = this.LoginName;
+        //    DivisionTerritorial.IdLocalidadNegocio = this.IdLocalidadNegocio;
+        //    DivisionTerritorial.IdNegocio = 1;
+        //    //DivisionTerritorial.IdLocalidadPadre = 1;
+        //    DivisionTerritorial.PermiteCalle = false;
+        //    //DivisionTerritorial.Codigo = "";
+        //    BLLPrestamo.Instance.DivisionTerritorialInsUpd(DivisionTerritorial);
         //    return Ok();
         //}
     }

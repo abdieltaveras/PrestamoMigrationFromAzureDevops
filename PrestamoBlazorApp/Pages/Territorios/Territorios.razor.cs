@@ -16,16 +16,16 @@ namespace PrestamoBlazorApp.Pages.Territorios
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
         TerritoriosService TerritoriosService { get; set; }
-        IEnumerable<Territorio> _Territorios { get; set; } = new List<Territorio>();
-        IEnumerable<Territorio> Listadeterritorios { get; set; } = new List<Territorio>();
+        IEnumerable<DivisionTerritorial> _Territorios { get; set; } = new List<DivisionTerritorial>();
+        IEnumerable<DivisionTerritorial> Listadeterritorios { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
-        public Territorio Territorio { get; set; }
+        public DivisionTerritorial Territorio { get; set; }
         
         void Clear() => _Territorios = null;
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            this.Territorio = new Territorio();
+            this.Territorio = new DivisionTerritorial();
             //this.Ocupacion = new Ocupacion();
         }
         protected override async Task OnInitializedAsync()
@@ -41,7 +41,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         {
             try
             {
-                if (this.Territorio.IdDivisionTerritorialPadre <= 0 || this.Territorio.IdLocalidadPadre <= 0)
+                if (this.Territorio.IdDivisionTerritorialPadre <= 0 || this.Territorio.IdDivisionTerritorialPadre <= 0)
                 {
                     await OnSaveNotification("Error Al Guardar, llene todos los campos");
                 }

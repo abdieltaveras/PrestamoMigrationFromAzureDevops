@@ -25,7 +25,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
         public Localidad Localidad { get; set; } = new Localidad();
         BuscarLocalidadParams buscarLocalidadParams { get; set; } = new BuscarLocalidadParams();
         IEnumerable<Localidad> Localidades { get; set; } = new List<Localidad>();
-        IEnumerable<Territorio> territorios { get; set; } = new List<Territorio>();
+        IEnumerable<DivisionTerritorial> territorios { get; set; } = new List<DivisionTerritorial>();
         private int? _SelectedLocalidad = null;
         public int? SelectedLocalidad { get { return _SelectedLocalidad; } set { _SelectedLocalidad = value;  } }
 

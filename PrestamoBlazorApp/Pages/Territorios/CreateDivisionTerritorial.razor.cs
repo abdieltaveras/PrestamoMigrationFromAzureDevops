@@ -15,15 +15,15 @@ namespace PrestamoBlazorApp.Pages.Territorios
     {
         [Inject]
         TerritoriosService territoriosService { get; set; }
-        IEnumerable<Territorio> listadeterritorios { get; set; } = new List<Territorio>();
+        IEnumerable<DivisionTerritorial> listadeterritorios { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
-        public Territorio Territorio { get; set; }
-        IEnumerable<Territorio> componenteDivision { get; set; } = new List<Territorio>();
+        public DivisionTerritorial Territorio { get; set; }
+        IEnumerable<DivisionTerritorial> componenteDivision { get; set; } = new List<DivisionTerritorial>();
         void Clear() => listadeterritorios = null;
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            this.Territorio = new Territorio();
+            this.Territorio = new DivisionTerritorial();
             //this.Ocupacion = new Ocupacion();
         }
         protected override async Task OnInitializedAsync()
@@ -82,7 +82,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
             }
             else
             {
-                this.Territorio = new Territorio();
+                this.Territorio = new DivisionTerritorial();
             }
             JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }

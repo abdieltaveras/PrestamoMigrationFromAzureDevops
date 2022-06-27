@@ -17,10 +17,10 @@ namespace PrestamoBlazorApp.Pages.Territorios
     {
         [Inject]
         TerritoriosService territoriosService { get; set; }
-        IEnumerable<Territorio> listadeterritorios { get; set; } = new List<Territorio>();
+        IEnumerable<DivisionTerritorial> listadeterritorios { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
-        public Territorio Territorio { get; set; }
-        IEnumerable<Territorio> ComponenteDivision { get; set; } = new List<Territorio>();
+        public DivisionTerritorial Territorio { get; set; }
+        IEnumerable<DivisionTerritorial> ComponenteDivision { get; set; } = new List<DivisionTerritorial>();
         private HashSet<ITreeItemData> TreeItems { get; set; } = new HashSet<ITreeItemData>();
         private ITreeItemData ActivatedValue { get; set; }
 
@@ -30,7 +30,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            this.Territorio = new Territorio();
+            this.Territorio = new DivisionTerritorial();
             //this.Ocupacion = new Ocupacion();
         }
         protected override async Task OnInitializedAsync()
@@ -44,9 +44,9 @@ namespace PrestamoBlazorApp.Pages.Territorios
         
         private async Task<IEnumerable<ITreeNode>> CreateDivisionesTerritorialesNodes()
         {
-            ComponenteDivision.First().IdLocalidadPadre = 0; // esto es para hacerlo el nodo raiz
+            ComponenteDivision.First().IdDivisionTerritorialPadre=0; // esto es para hacerlo el nodo raiz
             var treeItems = ComponenteDivision.Select(item => 
-            new TreeItem(item.IdDivisionTerritorial, item.IdLocalidadPadre, item.Nombre));
+            new TreeItem(item.IdDivisionTerritorial, item.IdDivisionTerritorialPadre, item.Nombre));
             return new TreeBuilder(treeItems).GetTreeNodes();
             
             //TreeBuilder divisionTerritorialTree = null;
@@ -89,7 +89,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
             }
             else
             {
-                this.Territorio = new Territorio();
+                this.Territorio = new DivisionTerritorial();
             }
             JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }

@@ -13,7 +13,7 @@ namespace PrestamoBlazorApp.Services
         public  TerritoriosService territoriosService { get; set; } 
         readonly string apiUrl = "api/localidades";
 
-        public async Task<IEnumerable<Territorio>> GetComponentesTerritorio()
+        public async Task<IEnumerable<DivisionTerritorial>> GetComponentesTerritorio()
         {
             var result = await territoriosService.GetComponenteDeDivision();
             return result;
