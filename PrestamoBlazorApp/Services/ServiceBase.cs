@@ -43,7 +43,7 @@ namespace PrestamoBlazorApp.Services
                 throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {errorMessage}'");
             }
         }
-        public async Task<IEnumerable<@Type>> GetAsync<@Type>(string endpoint, object search)
+        protected async Task<IEnumerable<@Type>> GetAsync<@Type>(string endpoint, object search)
         {
 
             var baseUrl = Configuration["BaseServerUrl"];
@@ -74,7 +74,7 @@ namespace PrestamoBlazorApp.Services
 
         
 
-        public async Task<string> DelAsync(string endpoint, object search, bool requiresAuth = true)
+        protected async Task<string> DelAsync(string endpoint, object search, bool requiresAuth = true)
         {
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
@@ -94,7 +94,7 @@ namespace PrestamoBlazorApp.Services
         }
 
         
-        public async Task<HttpResponseMessage> ReportGenerate(IJSRuntime jSRuntime,string endpoint, object search)
+        protected async Task<HttpResponseMessage> ReportGenerate(IJSRuntime jSRuntime,string endpoint, object search)
         {
 
             var baseUrl = Configuration["BaseServerUrl"];

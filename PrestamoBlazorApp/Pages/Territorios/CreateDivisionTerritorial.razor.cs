@@ -14,7 +14,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
     public partial class CreateDivisionTerritorial : BaseForCreateOrEdit
     {
         [Inject]
-        TerritoriosService territoriosService { get; set; }
+        DivisionTerritorialService territoriosService { get; set; }
         IEnumerable<DivisionTerritorial> listadeterritorios { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
         public DivisionTerritorial Territorio { get; set; }
@@ -29,8 +29,11 @@ namespace PrestamoBlazorApp.Pages.Territorios
         protected override async Task OnInitializedAsync()
         {
 
-            listadeterritorios = await territoriosService.GetDivisionesTerritoriales();
-            componenteDivision = await territoriosService.GetComponenteDeDivision();
+            listadeterritorios = await territoriosService.GetTiposDivisionTerritorial();
+            if (listadeterritorios.Count() == 1)
+            {
+                componenteDivision = await territoriosService.GetDivisionTerritorialComponents(listadeterritorios.First().IdDivisionTerritorial);
+            }
             await LoadTree();
             // await JsInteropUtils.Territorio(jsRuntime);
         }

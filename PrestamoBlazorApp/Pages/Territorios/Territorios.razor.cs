@@ -15,7 +15,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         
         JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
         [Inject]
-        TerritoriosService TerritoriosService { get; set; }
+        DivisionTerritorialService TerritoriosService { get; set; }
         IEnumerable<DivisionTerritorial> _Territorios { get; set; } = new List<DivisionTerritorial>();
         IEnumerable<DivisionTerritorial> Listadeterritorios { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
@@ -30,7 +30,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         }
         protected override async Task OnInitializedAsync()
         {
-             Listadeterritorios = await TerritoriosService.GetDivisionesTerritoriales();
+             Listadeterritorios = await TerritoriosService.GetDivisionesTerritoriales(new DivisionTerritorialGetParams());
             // await JsInteropUtils.Territorio(jsRuntime);
         }
         public async Task VerTerritorios(string id)
@@ -48,7 +48,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
                 else
                 {
                     await BlockPage();
-                    await TerritoriosService.SaveTerritorio(this.Territorio);
+                    await TerritoriosService.SaveDivisionTerritorial(this.Territorio);
                     await UnBlockPage();
                     await SweetMessageBox("Datos Guardados", "success", "/Territorios");
                     //await OnGuardarNotification();
@@ -57,7 +57,6 @@ namespace PrestamoBlazorApp.Pages.Territorios
             }
             catch (Exception ex)
             {
-
                 throw;
             }
           

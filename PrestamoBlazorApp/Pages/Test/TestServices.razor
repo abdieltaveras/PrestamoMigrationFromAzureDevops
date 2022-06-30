@@ -1,0 +1,26 @@
+﻿@page "/testServices"
+<h3>TestServices</h3>
+
+@code {
+
+    [Inject]
+    DivisionTerritorialService TerritorioService { get; set; }
+
+    
+    protected override Task OnInitializedAsync()
+    {
+        Acciones();
+        return base.OnInitializedAsync();
+    }
+
+    private async Task Acciones()
+    {
+        var divisiones = await TerritorioService.GetDivisionesTerritoriales(new DivisionTerritorialGetParams());
+        var tiposDivionesTerritoriales = await TerritorioService.GetTiposDivisionTerritorial();
+        if (tiposDivionesTerritoriales.Count() == 1)
+        {
+            var componentesDivision = await TerritorioService.GetDivisionTerritorialComponents(tiposDivionesTerritoriales.First().IdDivisionTerritorial);
+        }
+    }
+
+}

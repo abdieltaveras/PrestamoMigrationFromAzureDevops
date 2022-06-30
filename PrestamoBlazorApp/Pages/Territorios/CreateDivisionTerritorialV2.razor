@@ -2,13 +2,13 @@
 @inherits BaseForCreateOrEdit
 @*Esto va en un dialogo*@
 <h1>Organizacion de territorios </h1>
-@if (!listadeterritorios.Any())
+@if (!tiposDivionesTerritoriales.Any())
 {
     <h3>Cargando datos</h3>
 }
 else
 { 
-<h2>@listadeterritorios.ToList().First().Nombre</h2>
+<h2>@tiposDivionesTerritoriales.ToList().First().Nombre</h2>
 <MudPaper Width="350px" MaxHeight="500px" Class="overflow-y-auto" Elevation="0">
     <MudTreeView Items="TreeItems">
         <ItemTemplate>

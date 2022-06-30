@@ -62,7 +62,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<LocalidadesService>();
             services.AddScoped<TipoGarantiaService>();
             services.AddScoped<TiposMoraService>();
-            services.AddScoped<TerritoriosService>();
+            services.AddScoped<DivisionTerritorialService>();
             services.AddScoped<TasasInteresService>();
             services.AddScoped<PeriodosService>();
             services.AddScoped<PrestamosService>();

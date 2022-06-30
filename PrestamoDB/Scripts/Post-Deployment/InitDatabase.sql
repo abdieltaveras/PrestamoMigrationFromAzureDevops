@@ -203,12 +203,12 @@ VALUES (1, NULL, 'ernesto', 'Tejeda', @codigo, 2, '1969-07-31', '2020-02-13 05:1
 
 INSERT INTO tblDivisionTerritorial(IdDivisionTerritorialPadre, IdNegocio, Nombre, Activo, PermiteCalle, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
 VALUES ( null, 1, 'Division Territorial tipo Republica Dominicana',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(2, 1, 'Pais',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(3, 1, 'Provincia', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(4, 1, 'Municipio',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(5, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(1, 1, 'Pais',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(2, 1, 'Provincia', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(3, 1, 'Municipio',  1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
+		(4, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL),
 		(5, 1, 'Distrito Municipal', 1, 0, @usuario, getdate(), NULL, NULL, NULL, NULL),
-		(7, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
+		(6, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
 
 --Localidades
 INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 

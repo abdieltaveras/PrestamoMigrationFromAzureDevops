@@ -98,15 +98,13 @@
     <Build Include="dbo\Stored Procedures\spGetLocalidadesConSusPadres.sql" />
     <Build Include="dbo\Stored Procedures\spBuscarLocalidad.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdLocalidad.sql" />
-    <Build Include="dbo\Stored Procedures\spGetTerritorios.sql" />
+    <Build Include="dbo\Stored Procedures\spGetDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdTerritorios.sql" />
     <Build Include="dbo\Tables\tblClientes.sql" />
     <Build Include="dbo\Stored Procedures\spGetClientes.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdCliente.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdNegocio.sql" />
     <Build Include="dbo\Stored Procedures\SpGetNegocios.sql" />
-    <Build Include="dbo\Stored Procedures\spGetDivisionesTerritoriales.sql" />
-    <Build Include="dbo\Stored Procedures\spGetComponentesDeDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\spGetPaisesDeDivisionTerritorial.sql" />
     <Build Include="dbo\User Defined Types\tpCuota.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdCuotas.sql" />
@@ -200,7 +198,6 @@
     <Build Include="dbo\Stored Procedures\spGetOcupaciones.sql" />
     <Build Include="dbo\Stored Procedures\spGetLocalidades.sql" />
     <Build Include="dbo\Stored Procedures\spGetClasificaciones.sql" />
-    <Build Include="dbo\Stored Procedures\spComponentesDeDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\SpCuotaTest.sql" />
     <Build Include="dbo\Tables\tblEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdOcupacion.sql" />
@@ -217,6 +214,9 @@
     <Build Include="dbo\Stored Procedures\spGetCatalogosV2.sql" />
     <Build Include="dbo\Tables\tblTiposTelefonos.sql" />
     <None Include="Scripts\NotInBuild\RemoveColumnAndRenameForTblDivisionTerritotail.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTiposDivisionesTerritoriales.sql" />
+    <Build Include="dbo\Stored Procedures\spGetDivisionTerritorialComponents.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTiposDivisionTerritorial.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />

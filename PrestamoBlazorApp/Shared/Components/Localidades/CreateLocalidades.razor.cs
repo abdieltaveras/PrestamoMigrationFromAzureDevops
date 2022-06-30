@@ -17,7 +17,7 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         [Inject]
         LocalidadesService localidadesService { get; set; }
         [Inject]
-        TerritoriosService territoriosService { get; set; }
+        DivisionTerritorialService territoriosService { get; set; }
         [Parameter]
         public Localidad Localidad { get; set; } = new Localidad();
         BuscarLocalidadParams buscarLocalidadParams { get; set; } = new BuscarLocalidadParams();
@@ -81,7 +81,7 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         private async Task GetLocalidadesByTipo()
         {
             localidadesByTipo = new List<Localidad>();
-            var loc  = await localidadesService.Get(new LocalidadGetParams { IdTipoLocalidad = SelectedTipoLocalidad.IdDivisionTerritorialPadre });
+            var loc  = await localidadesService.Get(new LocalidadGetParams { IdTipoLocalidad = (int)SelectedTipoLocalidad.IdDivisionTerritorialPadre });
             localidadesByTipo = loc;
             if (loc.Count()>0 && IdLocalidad<=0)
             {

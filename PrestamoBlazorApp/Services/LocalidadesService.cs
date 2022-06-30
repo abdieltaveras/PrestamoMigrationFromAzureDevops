@@ -10,12 +10,12 @@ namespace PrestamoBlazorApp.Services
 {
     public class LocalidadesService : ServiceBase
     {
-        public  TerritoriosService territoriosService { get; set; } 
+        public  DivisionTerritorialService territoriosService { get; set; } 
         readonly string apiUrl = "api/localidades";
 
         public async Task<IEnumerable<DivisionTerritorial>> GetComponentesTerritorio()
         {
-            var result = await territoriosService.GetComponenteDeDivision();
+            var result = await territoriosService.GetTiposDivisionTerritorial();
             return result;
         }
         public async Task<IEnumerable<Localidad>> Get(LocalidadGetParams search)
@@ -37,7 +37,7 @@ namespace PrestamoBlazorApp.Services
         
         public LocalidadesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
-            territoriosService = new TerritoriosService(clientFactory, configuration);
+            territoriosService = new DivisionTerritorialService(clientFactory, configuration);
         }
 
         public async Task SaveLocalidad(Localidad Localidad)

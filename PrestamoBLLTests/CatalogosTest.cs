@@ -65,5 +65,10 @@ namespace PrestamoBLL.Tests
             var result = BLLPrestamo.Instance.CreateSqlParams(CatalogoName.Ocupacion, new BaseCatalogoGetParams());
         }
 
+        [TestMethod()]
+        public void GetDivisonTerritorialComponentsTest()
+        {
+
+        }
     }
 }

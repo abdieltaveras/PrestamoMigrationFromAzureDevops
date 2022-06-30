@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using DevBox.Core.DAL.SQLServer;
+using PrestamoEntidades;
 using System.Collections.Generic;
 
 namespace PrestamoBLL
@@ -7,27 +8,17 @@ namespace PrestamoBLL
     {
         public IEnumerable<DivisionTerritorial> GetDivisionesTerritoriales(DivisionTerritorialGetParams searchParam)
         {
-            return BllAcciones.GetData<DivisionTerritorial, DivisionTerritorialGetParams>(searchParam, "spGetTerritorios", GetValidation);
+            return BllAcciones.GetData<DivisionTerritorial, DivisionTerritorialGetParams>(searchParam, "spGetDivisionTerritorial", GetValidation);
         }
-
-        public IEnumerable<DivisionTerritorial> GetDivisionesTerritoriales2(DivisionTerritorialGetParams searchParam)
+        public IEnumerable<DivisionTerritorial> GetDivisionTerritorialComponents(DivisionTerritorialComponentsGetParams searchParam)
         {
-            return BllAcciones.GetData<DivisionTerritorial, DivisionTerritorialGetParams>(searchParam, "spGetDivisionesTerritoriales", GetValidation);
+            return BllAcciones.GetData<DivisionTerritorial, DivisionTerritorialComponentsGetParams>(searchParam, "spGetDivisionTerritorialComponents", GetValidation);
         }
-
-        //public IEnumerable<DivisionTerritorial> TerritorioDivisionesTerritorialesPaisesGet(TerritorioGetParams searchParam)
-        //{
-        //    return BllAcciones.GetData<DivisionTerritorial, TerritorioGetParams>(searchParam, "spGetPaisesDeDivisionTerritorial", GetValidation);
-        //}
-
-        public IEnumerable<DivisionTerritorial> GetDivisonesTerritoriosHijas(TerritorioSearchParams searchParam)
+        public IEnumerable<DivisionTerritorial> GetTiposDivisonTerritorial(string usuario)
         {
-            return BllAcciones.GetData<DivisionTerritorial, TerritorioSearchParams>(searchParam, "spGetTerritorios", GetValidation);
-        }
-
-        public IEnumerable<DivisionTerritorial> TerritorioBuscarComponentesDivisionesTerritoriales(DivisionSearchParams searchParam)
-        {
-            return BllAcciones.GetData<DivisionTerritorial, DivisionSearchParams>(searchParam, "spGetComponentesDeDivisionTerritorial", GetValidation);
+            var searchObj = new SearchRec();
+            searchObj.AddParam("Usuario", usuario);
+            return DBPrestamo.ExecReaderSelSP<DivisionTerritorial>("spGetTiposDivisionTerritorial", searchObj.ToSqlParams());
         }
 
         public void InsUpdDivisionTerritorial(DivisionTerritorial insUpdParam)
@@ -35,4 +26,5 @@ namespace PrestamoBLL
             BllAcciones.InsUpdData<DivisionTerritorial>(insUpdParam, "spInsUpdTerritorios");
         }
     }
+    
 }

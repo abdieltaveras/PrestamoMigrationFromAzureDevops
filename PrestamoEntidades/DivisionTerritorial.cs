@@ -13,7 +13,7 @@ namespace PrestamoEntidades
         public int IdDivisionTerritorial { get; set; }
         
         [Required]
-        public int IdDivisionTerritorialPadre { get; set; }
+        public int? IdDivisionTerritorialPadre { get; set; }
 
         //public int IdNegocio { get; set; }
         [Required]
@@ -34,24 +34,17 @@ namespace PrestamoEntidades
         {
             return  $"DivisionTerritorial {IdDivisionTerritorial} IdPadre {IdDivisionTerritorialPadre} Nombre {Nombre} PermiteCalle{PermiteCalle} ";
         }
-        //public override int GetId()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
-
-    public class DivisionSearchParams : BaseUsuarioEIdNegocio
-    {
-        public int IdDivisionTerritorialPadre { get; set; }
-    }
-
-    public class TerritorioSearchParams : BaseGetParams
-    {
-        public int IdLocalidadPadre { get; set; }
-    }    
 
     public class DivisionTerritorialGetParams : BaseUsuarioEIdNegocio
     {
-        public int IdLocalidadPadre { get; set; }
+        public int idDivisionTerritorial { get; set; } = -1;
+        public int IdDivisionTerritorialPadre { get; set; } = -1;
+    }
+
+    public class DivisionTerritorialComponentsGetParams 
+    {
+        public string Usuario { get; set; } = string.Empty;
+        public int idDivisionTerritorial { get; set; } = -1;
     }
 }
