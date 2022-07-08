@@ -2,7 +2,7 @@
 (
 	[idTipoMora] INT NOT NULL PRIMARY KEY identity(1,1), 
 	[idNegocio] INT NOT NULL, 
-	[IdLocalidadNegocio] INT NOT NULL,
+	[IdLocalidadNegocio] INT NOT NULL DEFAULT -1,
     [Codigo] VARCHAR(10) NOT NULL unique, 
 	[Nombre] VARCHAR(100) NOT NULL,
     [Activo] BIT NOT NULL DEFAULT 1, 
