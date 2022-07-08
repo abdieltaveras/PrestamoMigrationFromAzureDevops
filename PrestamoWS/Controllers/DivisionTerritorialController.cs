@@ -53,6 +53,7 @@ namespace PrestamoWS.Controllers
         private IEnumerable<DivisionTerritorial> _GetDivisiones(DivisionTerritorialGetParams search)
         {
             var result = BLLPrestamo.Instance.GetDivisionesTerritoriales(search);
+            //var result = new DivisionTerritorialBLL(t, "test").GetDivisionesTerritoriales(getParams);
             return result;
         }
         #endregion 

@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
+
+    internal static class ConexionDB
+    {
+        internal static Database DBPrestamo => Database.AdHoc(ConexionDBValue.Server);
+    }
     /// <summary>
     /// Clase que contiene toda la logica de negocios y operaciones que insertan, actualizan, borran, buscan,  datos entre los objetos y la base de datos
     /// </summary>
@@ -56,7 +61,7 @@ namespace PrestamoBLL
             return arraySql;
         }
 
-        internal static Database DBPrestamo => Database.AdHoc(ConexionDB.Server);
+        internal static Database DBPrestamo => ConexionDB.DBPrestamo;
         #region StaticBLL
         private static BLLPrestamo _bll = null;
         public static  BLLPrestamo Instance
