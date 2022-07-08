@@ -1,5 +1,4 @@
 ﻿using DevBox.Core.DAL.SQLServer;
-using DevBox.Core.DAL.SQLServer;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,7 +26,7 @@ namespace PrestamoEntidades
     public abstract class BaseUsuarioEIdNegocio : BaseUsuario, IIdNegocio
     {
         public int IdNegocio { get; set; } = -1;
-        
+   
         public int IdLocalidadNegocio { get; set; } = -1;
     }
 

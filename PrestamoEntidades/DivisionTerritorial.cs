@@ -8,19 +8,22 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
+
     public class DivisionTerritorial : BaseInsUpd
     {
+
         public int IdDivisionTerritorial { get; set; }
         
         [Required]
         public int? IdDivisionTerritorialPadre { get; set; }
-
-        //public int IdNegocio { get; set; }
+                
         [Required]
         public string Nombre { get; set; }
-        [Required]
+
+        [Required] 
         [Display(Name = "Estatus")]
         public bool Activo { get; set; } = true;
+        
         [Required]
         public bool PermiteCalle { get; set; } = false;
 
@@ -35,6 +38,7 @@ namespace PrestamoEntidades
             return  $"DivisionTerritorial {IdDivisionTerritorial} IdPadre {IdDivisionTerritorialPadre} Nombre {Nombre} PermiteCalle{PermiteCalle} ";
         }
     }
+
 
     public class DivisionTerritorialGetParams : BaseUsuarioEIdNegocio
     {
