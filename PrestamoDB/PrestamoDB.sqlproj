@@ -99,7 +99,7 @@
     <Build Include="dbo\Stored Procedures\spBuscarLocalidad.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdLocalidad.sql" />
     <Build Include="dbo\Stored Procedures\spGetDivisionTerritorial.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdTerritorios.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdDivisionDivisionTerritorial.sql" />
     <Build Include="dbo\Tables\tblClientes.sql" />
     <Build Include="dbo\Stored Procedures\spGetClientes.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdCliente.sql" />
@@ -141,8 +141,6 @@
     <Build Include="dbo\Stored Procedures\spDelCatalogo.sql" />
     <Build Include="dbo\Stored Procedures\spGetRoles.sql" />
     <Build Include="dbo\Stored Procedures\spGetOperaciones.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdRoleOperacion.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdRole.sql" />
     <Build Include="dbo\User Defined Types\tpUserRole.sql" />
     <Build Include="dbo\Stored Procedures\UsuarioListaOperacionesSpGet.sql" />
     <Build Include="dbo\Tables\tblEquipos.sql" />

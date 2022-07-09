@@ -16,29 +16,30 @@ namespace PrestamoBLL.Tests
     {
 
         public static string Usuario => "TestUsr";
+
+        public static int IdLocalidadNegocioForFirstLocalidadNegocio => BLLPrestamo.Instance.GetLocalidadesNegocio(new LocalidadNegociosGetParams()).FirstOrDefault().IdLocalidadNegocio;
+
+        public static int AnyIdLocalidadNegocio => -1;
     }
 
     [TestClass()]
     public class DivisionTerritotialTest
     {
-        
+
 
         [TestMethod()]
         public void GetDivisionesTerritorial()
         {
             var getParams = new DivisionTerritorialGetParams();
-            var result = BLLPrestamo.Instance.GetDivisionesTerritoriales(getParams);
-            var result2 = new DivisionTerritorialBLL(1,"test").GetDivisionesTerritoriales(getParams);
+            var result2 = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).GetDivisionesTerritoriales(getParams);
 
-            Assert.IsTrue(result.Count() > 0, "no se econtro dato para la division territorial");
+            Assert.IsTrue(result2.Count() > 0, "no se econtro dato para la division territorial");
         }
 
         [TestMethod()]
         public void CreateDivisionTerritoriosTreeTest()
         {
-            
             var divisionTerritorialComponents = getDivisionesTerritorialesComponents();
-            
             TreeBuilder divisionTerritorialTree = null;
             IEnumerable<ITreeNode> treeNodes = null;
             string errorMessage = string.Empty;
@@ -61,22 +62,31 @@ namespace PrestamoBLL.Tests
 
         private static IEnumerable<DivisionTerritorial> getDivisionesTerritorialesComponents()
         {
-            
+
             //var result = BLLPrestamo.Instance.GetTiposDivisonTerritorial("test");
-            var result = new DivisionTerritorialBLL(1, TestsConstants.Usuario).GetTiposDivisonTerritorial();
-                //BLLPrestamo.Instance.GetTiposDivisonTerritorial("test");
+            var result = new DivisionTerritorialBLL(1, TestsConstants.Usuario).GetTiposDivisionTerritorial();
+            //BLLPrestamo.Instance.GetTiposDivisonTerritorial("test");
             var idDivisionTerritorialSearchComponent = result.FirstOrDefault().IdDivisionTerritorial;
             var search = new DivisionTerritorialComponentsGetParams() { idDivisionTerritorial = result.FirstOrDefault().IdDivisionTerritorial };
-            var DivisionTerritoriales = BLLPrestamo.Instance.GetDivisionTerritorialComponents(search);
+            var DivisionTerritoriales = new DivisionTerritorialBLL(1, TestsConstants.Usuario).GetDivisionTerritorialComponents(search);
             return DivisionTerritoriales;
         }
 
         [TestMethod()]
         public void GetTiposDivisonTerritorialTest()
         {
-            //var result = BLLPrestamo.Instance.GetTiposDivisonTerritorial("test");
-            var result = new DivisionTerritorialBLL(1, TestsConstants.Usuario).GetTiposDivisonTerritorial();
-            Assert.IsTrue(result != null, "por alguna razon no se ejecuto la busqueda") ;
+            var result = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).GetTiposDivisionTerritorial();
+            Assert.IsTrue(result != null, "por alguna razon no se ejecuto la busqueda");
+        }
+
+        [TestMethod()]
+        public void SaveDivisionTerritorialTest()
+        {
+            
+            var divTerr = new DivisionTerritorial { IdDivisionTerritorialPadre = null, Nombre = "Division Territorial Estados Unidos" };
+            var resultId = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).SaveDivisionTerritorial(divTerr);
+
+            Assert.IsTrue(resultId > 0, "No se pudo guardar el registro en division territorial ");
         }
     }
 }

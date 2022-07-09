@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace PrestamoEntidades
 {
 
-    public class DivisionTerritorial : BaseInsUpd
+    public class DivisionTerritorial : BaseInsUpd, IUsuarioAndIdLocalidadNegocio
     {
 
         public int IdDivisionTerritorial { get; set; }
@@ -46,7 +46,7 @@ namespace PrestamoEntidades
         public int IdDivisionTerritorialPadre { get; set; } = -1;
     }
 
-    public class DivisionTerritorialComponentsGetParams 
+    public class DivisionTerritorialComponentsGetParams : IUsuario
     {
         public string Usuario { get; set; } = string.Empty;
         public int idDivisionTerritorial { get; set; } = -1;

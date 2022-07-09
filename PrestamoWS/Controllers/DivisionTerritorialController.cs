@@ -27,33 +27,28 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<DivisionTerritorial> GetTiposDivisionTerritorial()=>  _GetTiposDivisionTerritorial();
         [HttpPost]
-        public IActionResult Post([FromBody] DivisionTerritorial DivisionTerritorial)=>_Save(DivisionTerritorial);
+        public async Task Post([FromBody] DivisionTerritorial DivisionTerritorial)=> await _Save(DivisionTerritorial);
 
         #endregion
 
         #region private functions
-        private IActionResult _Save(DivisionTerritorial DivisionTerritorial)
+        private async Task _Save(DivisionTerritorial DivisionTerritorial)
         {
-            DivisionTerritorial.Usuario = this.LoginName;
-            DivisionTerritorial.IdLocalidadNegocio = this.IdLocalidadNegocio;
-            DivisionTerritorial.IdNegocio = 1;
-            BLLPrestamo.Instance.InsUpdDivisionTerritorial(DivisionTerritorial);
-            return Ok();
+            new DivisionTerritorialBLL(this.IdLocalidadNegocio, this.LoginName).SaveDivisionTerritorial(DivisionTerritorial);
         }
-        private static IEnumerable<DivisionTerritorial> _GetTiposDivisionTerritorial()
+        private IEnumerable<DivisionTerritorial> _GetTiposDivisionTerritorial()
         {
-            var result = BLLPrestamo.Instance.GetTiposDivisonTerritorial("test");
+            var result = new DivisionTerritorialBLL(this.IdLocalidadNegocio, this.LoginName).GetTiposDivisionTerritorial();
             return result;
         }
-        private static IEnumerable<DivisionTerritorial> _GetDivisionTerritorialComponent(DivisionTerritorialComponentsGetParams search)
+        private  IEnumerable<DivisionTerritorial> _GetDivisionTerritorialComponent(DivisionTerritorialComponentsGetParams search)
         {
-            var result = BLLPrestamo.Instance.GetDivisionTerritorialComponents(search);
+            var result = new DivisionTerritorialBLL(this.IdLocalidadNegocio, this.LoginName).GetDivisionTerritorialComponents(search);
             return result;
         }
         private IEnumerable<DivisionTerritorial> _GetDivisiones(DivisionTerritorialGetParams search)
         {
-            var result = BLLPrestamo.Instance.GetDivisionesTerritoriales(search);
-            //var result = new DivisionTerritorialBLL(t, "test").GetDivisionesTerritoriales(getParams);
+            var result = new DivisionTerritorialBLL(this.IdLocalidadNegocio, this.LoginName).GetDivisionesTerritoriales(search);
             return result;
         }
         #endregion 

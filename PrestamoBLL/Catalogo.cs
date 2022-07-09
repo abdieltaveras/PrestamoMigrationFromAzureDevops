@@ -12,8 +12,6 @@ namespace PrestamoBLL
 
     public partial class BLLPrestamo
     {
-
-
         public void InsUpdCatalogo(CatalogoName catalogoName,  BaseInsUpdGenericCatalogo insUpdParams)
         {
             ThrowErroWhenNullCatalogName(catalogoName);

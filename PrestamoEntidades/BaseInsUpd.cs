@@ -8,7 +8,12 @@ namespace PrestamoEntidades
 {
     public interface IUsuario
     {
-        string Usuario {get; set;}
+        string Usuario { get; set; }
+    }
+
+    public interface IUsuarioAndIdLocalidadNegocio : IUsuario
+    {
+        int IdLocalidadNegocio { get; set; }
     }
     /// <summary>
     /// esta clase solo contiene el campo Usuario 
@@ -23,18 +28,15 @@ namespace PrestamoEntidades
     /// <summary>
     /// Clase base que tiene el campo usuario y idNegocio
     /// </summary>
-    public abstract class BaseUsuarioEIdNegocio : BaseUsuario, IIdNegocio
+    public abstract class BaseUsuarioEIdNegocio : BaseUsuario
     {
         public int IdNegocio { get; set; } = -1;
    
         public int IdLocalidadNegocio { get; set; } = -1;
     }
 
-    public interface IIdNegocio
-    {
-        int IdNegocio { get; set; }
-    }
-    public abstract class BaseIdNegocio : IIdNegocio
+    
+    public abstract class BaseIdNegocio 
     {
         /// <summary>
         /// El id del negocio o empresa o punto comercial que identifica la unidad 
