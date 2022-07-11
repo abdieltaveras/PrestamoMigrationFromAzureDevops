@@ -31,7 +31,7 @@ namespace PrestamoBLL
         }
         public IEnumerable<DivisionTerritorial> GetTiposDivisionTerritorial()
         {
-            var userObj = new PropUsuario {Usuario = this.LoginName };
+            var userObj = new PropUsuario { Usuario = this.LoginName };
             var spName = "spGetTiposDivisionTerritorial";
             return this.Get<DivisionTerritorial>(spName, userObj);
         }
@@ -40,6 +40,12 @@ namespace PrestamoBLL
             SetIdLocalidadNegocioAndUsuario(insUpdParam);
             var spName = "spInsUpdDivisionTerritorial";
             return this.InsUpd(spName, insUpdParam);
+        }
+
+        public void DeleteDivisionTerritorial(int idRegistro, string usuario, string motivo)
+        {
+            var spName = "spname";
+            this.Delete(spName, idRegistro, usuario, motivo);
         }
     }
 }

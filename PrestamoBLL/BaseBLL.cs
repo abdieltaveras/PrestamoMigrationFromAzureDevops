@@ -32,6 +32,11 @@ namespace PrestamoBLL
             return GetId(result); 
         }
 
+        internal void Delete(string spName, int idRegistro, string usuario, string motivo)
+        {
+            
+        }
+
         internal void AddParamUsuario(SearchRec obj)
         {
             obj.AddParam("usuario", this.LoginName);
