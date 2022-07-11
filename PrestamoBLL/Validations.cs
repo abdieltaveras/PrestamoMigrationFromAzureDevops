@@ -11,6 +11,26 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
+    internal class BLLValidations
+    {
+        /// <summary>
+        /// throw error if 
+        /// </summary>
+        /// <param name="idLocalidadNegocio"></param>
+        /// <param name="usuario"></param>
+        internal static void LocalidadNegocioNotEqualToZero(int idLocalidadNegocio)
+        {
+            if (idLocalidadNegocio == 0) throw new NullReferenceException("Id Localidad no puede ser igual a 0");
+        }
+
+        internal static void UsuarioNotEmptyOrNUll(string LoginName)
+        {
+            if (string.IsNullOrEmpty(LoginName))
+                throw new NullReferenceException("El usuario no puede estar vacio o nulo");
+        }
+    }
+
+
     public enum ValidationsResult { Success = 1, Fail }
 
     public class Validator<T> : IEnumerable<ValidationRule<T>>

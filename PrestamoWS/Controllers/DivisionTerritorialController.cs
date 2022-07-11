@@ -34,7 +34,7 @@ namespace PrestamoWS.Controllers
         #region private functions
         private async Task _Save(DivisionTerritorial DivisionTerritorial)
         {
-            new DivisionTerritorialBLL(this.IdLocalidadNegocio, this.LoginName).SaveDivisionTerritorial(DivisionTerritorial);
+            new DivisionTerritorialBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdDivisionTerritorial(DivisionTerritorial);
         }
         private IEnumerable<DivisionTerritorial> _GetTiposDivisionTerritorial()
         {

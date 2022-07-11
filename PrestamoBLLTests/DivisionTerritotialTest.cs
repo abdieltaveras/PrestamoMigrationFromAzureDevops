@@ -37,6 +37,12 @@ namespace PrestamoBLL.Tests
         }
 
         [TestMethod()]
+        public void GetDivisionTerritorialComponents()
+        {
+            var divisionTerritorialComponents = getDivisionesTerritorialesComponents();
+            Assert.IsTrue(divisionTerritorialComponents != null, "No fue exitosa la operacion");
+        }
+        [TestMethod()]
         public void CreateDivisionTerritoriosTreeTest()
         {
             var divisionTerritorialComponents = getDivisionesTerritorialesComponents();
@@ -82,9 +88,9 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void SaveDivisionTerritorialTest()
         {
-            
+
             var divTerr = new DivisionTerritorial { IdDivisionTerritorialPadre = null, Nombre = "Division Territorial Estados Unidos" };
-            var resultId = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).SaveDivisionTerritorial(divTerr);
+            var resultId = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).InsUpdDivisionTerritorial(divTerr);
 
             Assert.IsTrue(resultId > 0, "No se pudo guardar el registro en division territorial ");
         }
