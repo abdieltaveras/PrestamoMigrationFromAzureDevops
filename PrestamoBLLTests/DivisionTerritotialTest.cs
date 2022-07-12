@@ -94,5 +94,16 @@ namespace PrestamoBLL.Tests
 
             Assert.IsTrue(resultId > 0, "No se pudo guardar el registro en division territorial ");
         }
+
+        [TestMethod()]
+        public void DeleteDivisionTerritorialTest()
+        {
+            
+            var borrado = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).DeleteDivisionTerritorial(8, "Era una prueba que se estaba haciendo");
+            
+            Assert.IsTrue(borrado,"no se pudo borrar el registro");
+        }
+
+        
     }
 }
