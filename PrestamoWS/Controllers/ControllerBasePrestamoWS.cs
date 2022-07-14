@@ -24,7 +24,7 @@ namespace PrestamoWS.Controllers
 
         private string GetLoginName()
         {
-            return this.User.Identity.Name + DateTime.Now;
+            return "Usuario_Logueado"; //this.User.Identity.Name + DateTime.Now;
         }
 
         private int GetIdLocalidadNegocio()

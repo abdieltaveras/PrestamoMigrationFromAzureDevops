@@ -31,12 +31,19 @@ namespace PrestamoWS.Controllers
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
         [HttpGet]
-        public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams getParams)
+        public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams search) => _GetClientes(search);
+        private IEnumerable<Cliente> _GetClientes(ClienteGetParams search)
         {
-            var imgPath = ImagePathForClientes;    
-            var data = BLLPrestamo.Instance.GetClientes(getParams, getParams.ConvertToObj,  ImagePathForClientes);
-            return data;
+            var result = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(search,search.ConvertToObj,ImagePathForClientes);
+            return result;
         }
+        //[HttpGet]
+        //public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams getParams)
+        //{
+        //    var imgPath = ImagePathForClientes;    
+        //    var data = ClienteBLL.GetClientes(getParams, getParams.ConvertToObj,  ImagePathForClientes);
+        //    return data;
+        //}
 
 
         [HttpGet]

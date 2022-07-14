@@ -7,6 +7,10 @@ using System.Data.SqlClient;
 
 namespace PrestamoBLL
 {
+    internal class PropUsuario : IUsuario
+    {
+        public string Usuario { get; set; }
+    }
     public abstract class BaseBLL
     {
         #region props and constructor

@@ -59,7 +59,7 @@ namespace PrestamoEntidades
         public override string ToString() => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";
     }
 
-    public class Cliente : BasePersonaInsUpd
+    public class Cliente : BasePersonaInsUpd, IUsuarioAndIdLocalidadNegocio
     {
         //public Cliente()
         //{

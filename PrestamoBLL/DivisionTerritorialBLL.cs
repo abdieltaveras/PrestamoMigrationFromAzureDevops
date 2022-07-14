@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    internal class PropUsuario : IUsuario
-    {
-        public string Usuario { get; set; }
-    }
+  
 
     public class DivisionTerritorialBLL : BaseBLL
     {

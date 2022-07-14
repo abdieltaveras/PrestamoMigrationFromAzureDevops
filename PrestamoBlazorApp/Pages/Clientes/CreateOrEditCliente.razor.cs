@@ -143,7 +143,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
                     if (item.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
                 }
             });
-            
         }
 
         private void SetReferencias(List<Referencia> infoReferenciasObj)
