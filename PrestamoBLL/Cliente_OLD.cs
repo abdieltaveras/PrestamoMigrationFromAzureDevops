@@ -15,7 +15,7 @@ namespace PrestamoBLL
         public IEnumerable<Cliente> GetClientes(ClienteGetParams  searchParam, bool convertToObj, string directorioDeImagen = "")
         {
 
-            searchParam.Anulado = null;
+            //searchParam.Anulado = null;
             GetValidation(searchParam as BaseGetParams);
             
             var result= BllAcciones.GetData<Cliente, ClienteGetParams>(searchParam, "spGetClientes", GetValidation);

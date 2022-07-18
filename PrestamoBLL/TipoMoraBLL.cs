@@ -8,29 +8,34 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    public partial class BLLPrestamo
+    public class TipoMoraBLL : BaseBLL
     {
-        
+
+        public TipoMoraBLL(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
+
+
         public IEnumerable<TipoMora> GetTiposMoras(TipoMoraGetParams  searchParam)
         {
-            return BllAcciones.GetData<TipoMora, TipoMoraGetParams>(searchParam, "spGetTiposMora", GetValidation);
+            return this.Get<TipoMora>( "spGetTiposMora", searchParam);
         }
         public int InsUpdTipoMora(TipoMora insUpdParam)
         {
-            return BllAcciones.InsUpdData<TipoMora>(insUpdParam, "spInsUpdTipoMora");
+            return this.InsUpd("spInsUpdTipoMora",insUpdParam);
         }
         
         public void CancelTipoMora(TipoMoraDelParams delParam)
         {
-
-            BllAcciones.CancelData<TipoMoraDelParams>(delParam, "SpDeleteTipoMora");
+            //this.SoftDelete("SpDeleteTipoMora", delParam);
+            //BllAcciones.CancelData<TipoMoraDelParams>(delParam, "SpDeleteTipoMora");
             //PrestamosDB.ExecSelSP("SpDeleteTipoMora", SearchRec.ToSqlParams(delParam));
         }
 
         public void DeleteTipoMora(TipoMoraDelParams delParam)
         {
-            DBPrestamo.ExecSelSP("spDelTipoMora", SearchRec.ToSqlParams(delParam));
-            
+            this.SoftDelete("spDelTipoMora", delParam);
+
+            //DBPrestamo.ExecSelSP("spDelTipoMora", SearchRec.ToSqlParams(delParam));
+
         }
     }
 }

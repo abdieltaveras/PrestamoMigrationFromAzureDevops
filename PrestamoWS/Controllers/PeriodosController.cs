@@ -16,16 +16,21 @@ namespace PrestamoWS.Controllers
     public class PeriodosController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Periodo> Get([FromQuery]PeriodoGetParams getParams)
+        public IEnumerable<Periodo> Get([FromQuery] PeriodoGetParams getParams) => _Get(getParams);
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Periodo insUpdParam) => _Post(insUpdParam);
+        //[HttpGet]
+        private IEnumerable<Periodo> _Get([FromQuery]PeriodoGetParams getParams)
         {
-            
-            var result = BLLPrestamo.Instance.GetPeriodos(getParams);
+
+            var result = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName).GetPeriodos(getParams);
             return result;
         }
-        [HttpPost]
-        public IActionResult Post([FromBody] Periodo insUpdParam)
+        //[HttpPost]
+        private IActionResult _Post([FromBody] Periodo insUpdParam)
         {
-            BLLPrestamo.Instance.InsUpdPeriodo(insUpdParam);
+            new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdPeriodo(insUpdParam);
             return Ok();
         }
         [HttpDelete]

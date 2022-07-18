@@ -16,17 +16,26 @@ namespace PrestamoWS.Controllers
     public class TipoMorasController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<TipoMora> Get(int IdTipoMora = -1)
-        {
-            return BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdTipoMora = IdTipoMora });
-        }
+        public IEnumerable<TipoMora> Get(int IdTipoMora = -1) => _Get(IdTipoMora);
+
         [HttpPost]
-        public IActionResult Post([FromBody] TipoMora tipoMora)
+        public IActionResult Post([FromBody] TipoMora tipoMora) => _Post(tipoMora);
+
+
+        //[HttpGet]
+        private IEnumerable<TipoMora> _Get(int IdTipoMora = -1)
         {
-            tipoMora.Usuario = this.LoginName;
-            tipoMora.IdLocalidadNegocio = this.IdLocalidadNegocio;
-            tipoMora.IdNegocio = 1;
-            var id =   BLLPrestamo.Instance.InsUpdTipoMora(tipoMora);
+            var result = new TipoMoraBLL(this.IdLocalidadNegocio, this.LoginName).GetTiposMoras(new TipoMoraGetParams { IdTipoMora = IdTipoMora });
+            return result;
+        }
+        //[HttpPost]
+        private IActionResult _Post([FromBody] TipoMora tipoMora)
+        {
+            //tipoMora.Usuario = this.LoginName;
+            //tipoMora.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            //tipoMora.IdNegocio = 1;
+            //var id =   BLLPrestamo.Instance.InsUpdTipoMora(tipoMora);
+            var id = new TipoMoraBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdTipoMora(tipoMora);
             return Ok(id);
         }
         [HttpDelete]

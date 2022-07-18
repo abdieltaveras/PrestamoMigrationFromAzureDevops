@@ -30,7 +30,7 @@ namespace PrestamoBLL
         public IEnumerable<GarantiaConMarcaYModeloYPrestamos> SearchGarantiaConDetallesDePrestamos(BuscarGarantiaParams searchParam)
         {
             // esto es para que no lo incluya
-            searchParam.Anulado = null;
+            //searchParam.Anulado = null;
             //var search_Param = SearchRec.ToSqlParams(searchParam);
             var search_Param = SearchRecForGet(searchParam, new ImplicitParams { IncluirAnulados = 0, IncluirBorrados = 0 });
             var dr = DBPrestamo.ExecReaderSelSP("spBuscarGarantiasConPrestamos", search_Param); // aqui explota Luis

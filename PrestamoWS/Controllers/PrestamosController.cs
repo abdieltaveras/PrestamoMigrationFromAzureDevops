@@ -87,8 +87,10 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, int idPeriodo)
         {
+            PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
+
             var searchPeriodo = new PeriodoGetParams { idPeriodo = idPeriodo };
-            var periodo = BLLPrestamo.Instance.GetPeriodos(searchPeriodo).FirstOrDefault();
+            var periodo = periodoBLL.GetPeriodos(searchPeriodo).FirstOrDefault();
             if (periodo == null)
             {
                 var mensaje = "no se encontraron periodos para los parametros especificados";
@@ -106,10 +108,10 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<CxCCuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
-
         {
+            PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
             var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
-            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
+            var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
             infoGenCuotas.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
             infoGenCuotas.Periodo = periodo;
             var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(infoGenCuotas);
@@ -122,19 +124,23 @@ namespace PrestamoWS.Controllers
         public async Task<PrestamoConCalculos> Calcular(Prestamo prestamo)
         //infoGeneradorDeCuotas info)
         {
+            PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
+
             PrestamoConCalculos prconcalc = new PrestamoConCalculos();
             var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = IdNegocio });
-            var tiposMora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams
-            {
-                IdNegocio = IdNegocio
-            });
+            var tiposMora = new TipoMoraBLL(this.IdLocalidadNegocio, this.LoginName).GetTiposMoras(new TipoMoraGetParams { IdNegocio = IdNegocio });
+
+            //var tiposMora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams
+            //{
+            //    IdNegocio = IdNegocio
+            //});
 
             var tasasDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams
             {
                 IdNegocio = IdNegocio
             });
 
-            var periodos = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams
+            var periodos = periodoBLL.GetPeriodos(new PeriodoGetParams
             {
                 IdNegocio = IdNegocio
             });
