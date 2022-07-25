@@ -45,7 +45,7 @@ namespace PrestamoBLL
              // hay que enviar usuario e idlocalidad
             var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = 1 });
             var tiposMora = tipoMoraBLL.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
-            var tasasDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
+            var tasasDeInteres = new TasaInteresBLL(-1,"Luis Prueba").GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
             var periodos = periodoBLL.GetPeriodos(new PeriodoGetParams { IdNegocio = 1 });
             prestamoInProgress = new PrestamoConCalculos();
             prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
@@ -285,9 +285,9 @@ namespace PrestamoBLL
         private void SetTasaInteres(int idTasaDeInteres)
         {
             validarIdNoMenorNiIgualACero(idTasaDeInteres, "IdTasaDeInteres");
-            var tasaDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
+            var tasaDeInteres = new TasaInteresBLL(-1,"Luis Prueba").GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             this.prestamoInProgress.IdTasaInteres = idTasaDeInteres;
-            var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
+            var tasaDeInteresPorPeriodo = new TasaInteresBLL(-1, "Luis Prueba").CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
             this.prestamoInProgress.TasaDeInteresDelPeriodo = tasaDeInteresPorPeriodo.InteresDelPeriodo;
 
         }
@@ -333,7 +333,7 @@ namespace PrestamoBLL
         private void SetGarantias(IEnumerable<int> idGarantias)
         {
             // que las garantias en cuestion no tengan otros prestamos vigente
-            var tienenPrestamosVigentes = BLLPrestamo.Instance.GarantiasTienenPrestamosVigentes(idGarantias);
+            var tienenPrestamosVigentes = new GarantiaBLL(-1, "Luis Prueba").GarantiasTienenPrestamosVigentes(idGarantias);
 
             prestamoInProgress.IdGarantias = new List<int>();
             if (garantias != null)
@@ -684,7 +684,7 @@ namespace PrestamoBLL
 
         public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
         {
-            var result = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
+            var result = new TasaInteresBLL(-1, "Luis Prueba").CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
             return result;
         }
 

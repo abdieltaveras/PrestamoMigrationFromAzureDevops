@@ -20,20 +20,32 @@ namespace PrestamoWS.Controllers
     public class PrestamosController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Prestamo> GetById(int idPrestamo=-1)
+        public IEnumerable<Prestamo> GetById(int idPrestamo = -1) => _GetById(idPrestamo);
+
+        [HttpGet]
+        public IEnumerable<PrestamoConDetallesParaUIPrestamo> GetConDetallesForUi(int idPrestamo = -1) => _GetConDetallesForUi(idPrestamo);
+
+        [HttpGet]
+        public IEnumerable<Prestamo> Get([FromQuery] PrestamosGetParams getParams) => _Get(getParams);
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Prestamo Prestamo) => _Post(Prestamo);
+
+
+        private IEnumerable<Prestamo> _GetById(int idPrestamo=-1)
         {
             var getParams = new PrestamosGetParams
             {
                 idPrestamo = idPrestamo
             };
-            var data = BLLPrestamo.Instance.GetPrestamos(getParams);
+            var data = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).GetPrestamos(getParams); //BLLPrestamo.Instance.GetPrestamos(getParams);
             return data;
         }
-        [HttpGet]
-        public IEnumerable<PrestamoConDetallesParaUIPrestamo> GetConDetallesForUi(int idPrestamo = -1)
+  
+        private IEnumerable<PrestamoConDetallesParaUIPrestamo> _GetConDetallesForUi(int idPrestamo = -1)
         //public PrestamoConDetallesParaUIPrestamo GetConDetallesForUi(int idPrestamo = -1)
         {
-            var prestamo = BLLPrestamo.Instance.GetPrestamoConDetalleForUIPrestamo(idPrestamo,true);
+            var prestamo = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).GetPrestamoConDetalleForUIPrestamo(idPrestamo,true);
             //var prestamos = new List<PrestamoConDetallesParaUIPrestamo>();
             //prestamos.Add(prestamo);
             //var data = prestamo.ToJson<PrestamoConDetallesParaUIPrestamo>();
@@ -42,15 +54,15 @@ namespace PrestamoWS.Controllers
             return result;
         }
 
-        [HttpGet]
-        public IEnumerable<Prestamo> Get([FromQuery] PrestamosGetParams getParams)
+        
+        private IEnumerable<Prestamo> _Get([FromQuery] PrestamosGetParams getParams)
         {
-            var data = BLLPrestamo.Instance.GetPrestamos(getParams);
+            var data = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).GetPrestamos(getParams);
             return data;
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] Prestamo Prestamo)
+        
+        private IActionResult _Post([FromBody] Prestamo Prestamo)
         {
             Prestamo.Usuario = this.LoginName;
             Prestamo.IdNegocio = this.IdNegocio;
@@ -58,7 +70,7 @@ namespace PrestamoWS.Controllers
             var validstate = ModelState.IsValid;
             try
             {
-                var id = BLLPrestamo.Instance.InsUpdPrestamo(Prestamo);
+                var id = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).InsUpdPrestamo(Prestamo);
                 return Ok(id);
             }
             catch (Exception e)
@@ -75,7 +87,7 @@ namespace PrestamoWS.Controllers
         {
             try
             {
-                BLLPrestamo.Instance.AnularPrestamo(idPrestamo);
+                new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).AnularPrestamo(idPrestamo);
                 return Ok("Registro fue eliminado exitosamente");
             }
             catch (Exception e)
@@ -96,7 +108,7 @@ namespace PrestamoWS.Controllers
                 var mensaje = "no se encontraron periodos para los parametros especificados";
                 throw new Exception("datos no encontrados");
             };
-            var data = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
+            var data = new TasaInteresBLL(-1, "Luis Prueba").CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
 
             return data;
         }
@@ -135,7 +147,7 @@ namespace PrestamoWS.Controllers
             //    IdNegocio = IdNegocio
             //});
 
-            var tasasDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams
+            var tasasDeInteres = new TasaInteresBLL(-1, "Luis Prueba").GetTasasDeInteres(new TasaInteresGetParams
             {
                 IdNegocio = IdNegocio
             });

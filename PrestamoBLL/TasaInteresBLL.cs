@@ -9,15 +9,17 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    public partial class BLLPrestamo
+    public class TasaInteresBLL: BaseBLL
     {
+        public TasaInteresBLL(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
+
         public IEnumerable<TasaInteres> GetTasasDeInteres(TasaInteresGetParams searchParam)
         {
-            return BllAcciones.GetData<TasaInteres, TasaInteresGetParams>(searchParam, "spGetTasasInteres", GetValidation);
+            return this.Get<TasaInteres>("spGetTasasInteres", searchParam);
         }
         public int InsUpdTasaInteres(TasaInteres insUpdParam)
         {
-           return BllAcciones.InsUpdData<TasaInteres>(insUpdParam, "spInsUpdTasaInteres");
+           return this.InsUpd( "spInsUpdTasaInteres",insUpdParam);
         }
         
         public void DeleteTasaInteres(TasaInteresDelParams delParam)

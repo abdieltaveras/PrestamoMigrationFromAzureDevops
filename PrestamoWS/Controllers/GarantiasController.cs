@@ -50,7 +50,7 @@ namespace PrestamoWS.Controllers
             //if (search.Length >= BUSCAR_A_PARTIR_DE)
             //{
             getParams.IdNegocio = this.IdNegocio;
-            garantias = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(getParams);
+            garantias = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).SearchGarantiaConDetallesDePrestamos(getParams);
             //}
             //********** enviamos la base64 de la imagen
             var result =(Task<ActionResult<IEnumerable<Garantia>>>)garantias;
@@ -59,7 +59,7 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<Garantia> GetGarantiasByPrestamo(int idPrestamo)
         {
-            var result = BLLPrestamo.Instance.GetGarantiasByPrestamo(idPrestamo);
+            var result = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).GetGarantiasByPrestamo(idPrestamo);
             return result;
         }
 
@@ -69,7 +69,7 @@ namespace PrestamoWS.Controllers
             IEnumerable<GarantiaConMarcaYModelo> garantias = null;
             if (searchText.Length >= BUSCAR_A_PARTIR_DE)
             {
-                garantias = BLLPrestamo.Instance.SearchGarantias(searchText);
+                garantias = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).SearchGarantias(searchText);
                 garantias.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
             }
             return garantias;
@@ -78,21 +78,21 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<GarantiaConMarcaYModelo> GetGarantias([FromQuery] GarantiaGetParams getParams)
         {
-            var result = BLLPrestamo.Instance.GetGarantias(getParams);
+            var result = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).GetGarantias(getParams);
             result.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
             return result;
         }
         [HttpGet]
         public bool TienePrestamoVigentes(int idGarantia)
         {
-            var result = BLLPrestamo.Instance.GarantiasTienenPrestamosVigentes(new int[] { idGarantia });
+            var result = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).GarantiasTienenPrestamosVigentes(new int[] { idGarantia });
             return result;
         }
 
         [HttpGet]
         public IEnumerable<GarantiasConPrestamo> GetPrestamosVigentes(int idGarantia)
         {
-            var result = BLLPrestamo.Instance.GarantiasConPrestamos(new int[] { idGarantia });
+            var result = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).GarantiasConPrestamos(new int[] { idGarantia });
             return result;
         }
 
@@ -101,7 +101,7 @@ namespace PrestamoWS.Controllers
 
         {
             //pcpSetUsuarioAndIdNegocioTo(searchGarantia);
-            var garantias = BLLPrestamo.Instance.GetGarantias(getParams);
+            var garantias = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).GetGarantias(getParams);
             var result = new SeachResult<Garantia>(garantias).DataList.ToList<Garantia>();
             result.ToList().ForEach(item => item.DetallesJSON = item.Detalles.ToType<DetalleGarantia>());
             //result.FirstOrDefault().DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(result.FirstOrDefault().Detalles);
@@ -167,7 +167,7 @@ namespace PrestamoWS.Controllers
             garantia.Imagen1FileName = JsonConvert.SerializeObject(ListaImagenes);
             try
             {
-                BLLPrestamo.Instance.InsUpdGarantia(garantia);
+                new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdGarantia(garantia);
                 return Ok();
             }
             catch (Exception ex)
@@ -205,7 +205,7 @@ namespace PrestamoWS.Controllers
             IEnumerable<Garantia> garantias = new List<Garantia>();
             IEnumerable<Modelo> modelos = new List<Modelo>();
             IEnumerable<Marca> marcas = new List<Marca>();
-            garantias = BLLPrestamo.Instance.GetGarantias(new GarantiaGetParams { IdGarantia = idgarantia });
+            garantias = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).GetGarantias(new GarantiaGetParams { IdGarantia = idgarantia });
             garantia = garantias.FirstOrDefault();
             garantia.DetallesJSON = JsonConvert.DeserializeObject<DetalleGarantia>(garantia.Detalles);
             modelos = BLLPrestamo.Instance.GetModelos(new ModeloGetParams { IdModelo = garantia.IdModelo });

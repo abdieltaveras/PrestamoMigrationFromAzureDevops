@@ -23,7 +23,7 @@ namespace PrestamoWS.Controllers
             //,int idTasaInteres = -1, int idLocalidadNegocio = -1, int activo = -1, string codigo = ""
             
            // var searchParam = new TasaInteresGetParams { Activo = activo, idTasaInteres = idTasaInteres, Codigo = codigo, IdLocalidadNegocio = idLocalidadNegocio };
-            var result = BLLPrestamo.Instance.GetTasasDeInteres(getParams);
+            var result = new TasaInteresBLL(this.IdLocalidadNegocio,this.LoginName).GetTasasDeInteres(getParams);
             return result;
         }
         [HttpGet]
@@ -31,9 +31,9 @@ namespace PrestamoWS.Controllers
         {
             PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
 
-            var tasaDeInteres = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
+            var tasaDeInteres = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
-            var tasaDeInteresPorPeriodo = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, periodo);
+            var tasaDeInteresPorPeriodo = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, periodo);
             var result = new List<TasaInteresPorPeriodos> { tasaDeInteresPorPeriodo };
             return result;
         }
@@ -44,7 +44,7 @@ namespace PrestamoWS.Controllers
             insUpdParam.IdLocalidadNegocio = 1;
             insUpdParam.Usuario = "luis";
             insUpdParam.IdNegocio = 1;
-            var id = BLLPrestamo.Instance.InsUpdTasaInteres(insUpdParam);
+            var id = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdTasaInteres(insUpdParam);
             return Ok(id);
         }
         [HttpDelete]

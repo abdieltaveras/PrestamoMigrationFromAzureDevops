@@ -66,7 +66,7 @@ namespace PrestamoWS.Controllers
             try
             {
                 ManejoImagenes.ProcesarImagenes(cliente.ImagenesObj, ImagePathForClientes , string.Empty);
-                var id = BLLPrestamo.Instance.InsUpdCliente(cliente);
+                var id = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdCliente(cliente);
                 return Ok(id);
             }
             catch (Exception e)
@@ -84,7 +84,7 @@ namespace PrestamoWS.Controllers
         {
             try
             {
-                BLLPrestamo.Instance.AnularClientes(new ClienteDelParams { Id = idCliente, Usuario = "pendiente" });
+                new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).AnularClientes(new ClienteDelParams { Id = idCliente, Usuario = "pendiente" });
                 return Ok("Registro fue eliminado exitosamente");
             }
             catch (Exception e)
@@ -96,7 +96,7 @@ namespace PrestamoWS.Controllers
         private IEnumerable<Cliente> searchCliente(string searchText, bool CargarImagenesClientes)
         {
             IEnumerable<Cliente> clientes = null;
-            clientes = BLLPrestamo.Instance.SearchCliente(new BuscarClienteParams { TextToSearch = searchText, IdNegocio = 1 });
+            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchCliente(new BuscarClienteParams { TextToSearch = searchText, IdNegocio = 1 });
             if (CargarImagenesClientes)
             {
                 foreach (var cliente in clientes)
@@ -116,7 +116,7 @@ namespace PrestamoWS.Controllers
             Cliente cliente = new Cliente();
             IEnumerable<Cliente> clientes = new List<Cliente>();
             IEnumerable<Ocupacion> ocupaciones = new List<Ocupacion>();
-            clientes = BLLPrestamo.Instance.GetClientes(new ClienteGetParams { IdCliente = idcliente }, true, ImagePathForClientes);
+            clientes = new ClienteBLL(this.IdLocalidadNegocio,this.LoginName).GetClientes(new ClienteGetParams { IdCliente = idcliente }, true, ImagePathForClientes);
             cliente = clientes.FirstOrDefault();
             ocupaciones = BLLPrestamo.Instance.GetCatalogos<Ocupacion>(CatalogoName.Ocupacion,new BaseCatalogoGetParams {IdRegistro= cliente.IdTipoProfesionUOcupacion });
             DataTable dtClientes = HConvert.ListToDataTable<Cliente>(clientes.ToList());
