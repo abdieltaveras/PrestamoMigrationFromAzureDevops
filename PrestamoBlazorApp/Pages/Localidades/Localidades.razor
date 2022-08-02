@@ -1,140 +1,54 @@
 ﻿@page "/localidades"
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Localidades
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-6">
-                @*<BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>*@
-                <GetLocalidades OnLocalidadSelected="HandleLocalidadSelected"></GetLocalidades>
-                @*<form autocomplete="off" action="/" method="post" style="padding: 0%">
-                    <div class="col-7" style="margin: auto; padding: 0%; ">
-                        <h4 style="text-align: center;">¿Que lugar buscas?</h4>
-                        <input @onkeyup="VerLocalidades" class="target form-control" type="text" id="searchinput" placeholder="Busca una direccion" name="name" value="" style="height: 60px" />
-                        <div id="list-address-container">
-                            <div class="list-group col-md-12" id="list-tab" role="tablist" style="position: absolute; z-index:2; padding: 0%; vertical-align: middle;">
-                            </div>
-                        </div>
-                    </div>
-                </form>*@
-            </div>
-        </div>
 
-        <hr />
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 id="titulodelocalidad" class="card-title"> @(Territorios.Count() == 1? "Agregar " + Territorios.First().Nombre : "Agregar: ")</h2>
-                        @*<div class="clearfix"></div>*@
-                    </div>
-                    <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
-                        <DataAnnotationsValidator />
-                        <div class="card-body">
-                            <br />
-                            <div style="display: block;">
-                                @*<InputNumber id="inputLocalidadPadre" Value="" @onchange="OnSelectLocalidad" ></InputNumber>*@
-                                @*<input type="text" id="inputLocalidadPadre" @onchange="OnSelectLocalidad" />*@
-                                @*<input type="text" id="inputLocalidadPadre"  @bind-value="CurrentValue" @bind-value:event="oninput" />*@
-                            </div>
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderActions>
+            <MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        @*<GetLocalidades OnLocalidadSelected="HandleLocalidadSelected"></GetLocalidades>*@
+        @*<BuscarLocalidades OnLocalidadSelected="HandleLocalidadSelected"></BuscarLocalidades>*@
+        <MudItem md="6" lg="6">
+            <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
+            <MudChip Color="MudBlazor.Color.Info"> @SelectedLocalidad</MudChip>
+        </MudItem>
+        <h2 id="titulodelocalidad" class="card-title"> @(Territorios.Count() == 1? "Agregar " + Territorios.First().Nombre : "Agregar: ")</h2>
+        <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
+            <DataAnnotationsValidator />
+            <MudGrid>
+                <MudItem xs="4" md="4">
+                    <MudGrid>
+                        <MudSelect @bind-Value="SelectedTipoLocalidad">
+                            @foreach (var item in Territorios)
+                            {
+                                <MudSelectItem Value="@item.IdDivisionTerritorial">@(item.Nombre)</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudGrid>
+                    <MudGrid>
+                        <MudTextField Label="Nombre"
+                                      @bind-Value="Localidad.Nombre" required
+                                      For="() => Localidad.Nombre"></MudTextField>
+                    </MudGrid>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+        <MudList>
+            @foreach (var item in LocalidadesHijas)
+            {
+                <MudListItem>
+                    <p> Tipo: @(item.DivisionTerritorial) - <span class="badge badge-primary">@(item.Nombre)</span> </p>
 
+                </MudListItem>
+            }
+        </MudList>
+    </MudCardContent>
+</MudCard>
 
-                            @*<div id="selecttipolocalidad" style="display: none;">
-                <div class="form-group row">
-                    <div class="col-md-5 col-sm-12 ">
-                        <label class=" ">Tipo de direccion</label>
-                        <select name="IdTipoLocalidad" class="form-control" id="tipolocalidadeshijas">
-                            <option>Elije una opcion</option>
-                        </select>
-                    </div>
-                </div>
-            </div>*@
-                            <div class="form-group row">
-                                @if (Territorios.Count() > 1)
-                                {
-                                    <div class="col-md-8">
-                                        <select @bind="SelectedTipoLocalidad" class="form-control">
-                                            <option value="">Seleccione Un Tipo  </option>
-                                            @foreach (var item in Territorios)
-                                            {
-                                                <option value=@item.IdDivisionTerritorial>@(item.Nombre)  </option>
-                                            }
-                                        </select>
-                                    </div>
-                                }
-                            </div>
-                            <div class="form-group row">
-
-                                <div class="col-md-8">
-                                    <label class="" for="codigo">
-                                        Nombre <span class="required">*</span>
-                                    </label>
-                                    <InputText @bind-Value="Localidad.Nombre" required></InputText>
-                                    <ValidationMessage For="() => Localidad.Nombre" />
-                                </div>
-                            </div>
-
-                            <div class="ln_solid"></div>
-
-
-                        </div>
-                        <div class="card-footer">
-                            <div class="col-md-12" style="display:flex; justify-content:flex-end;">
-                                <button type="submit" id="btnguardar" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </div>
-                    </EditForm>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-sm-12">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h2 id="titulodelocalidad" class="card-title">Lista de localidades</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                @foreach (var item in LocalidadesHijas)
-                                {
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <p> Tipo: @(item.DivisionTerritorial) - <span class="badge badge-primary">@(item.Nombre)</span> </p>
-                                        </div>
-                                    </div>
-                                    
-                                }
-                            </div>
-                         
-                        </div>
-                        </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
- 
-
-
-
-</div>
-@*<button @onclick="VerLocalidades"> Presiona </button>*@
 @code {
     private string CurrentValue { get; set; }
-    private void OnSelectLocalidad(ChangeEventArgs args)
-    {
 
-        int valor = Convert.ToInt32(args.Value.ToString());
-        if (valor> 0)
-        {
-            this.Localidad.IdLocalidadPadre = valor;
-        }
-    }
-    private void Handle_LocalidadSelected(BuscarLocalidad localidad)
-    {
-        var localidadSeleccionada = localidad;
-        this.Localidad.IdLocalidadPadre = localidad.IdLocalidadPadre;
-        
-    }
 }

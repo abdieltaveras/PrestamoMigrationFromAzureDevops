@@ -11,7 +11,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
 {
     public partial class Localidades : BaseForCreateOrEdit
     {
-        
+        string SelectedLocalidad { get; set; }
         LocalidadGetParams localidadGetParams { get; set; } = new LocalidadGetParams();
         [Inject]
         LocalidadesService localidadesService { get; set; }
@@ -74,6 +74,21 @@ namespace PrestamoBlazorApp.Pages.Localidades
             {
                 SelectedTipoLocalidad = this.Territorios.FirstOrDefault().IdDivisionTerritorial;
             }
+        }
+        private void OnSelectLocalidad(ChangeEventArgs args)
+        {
+
+            int valor = Convert.ToInt32(args.Value.ToString());
+            if (valor > 0)
+            {
+                this.Localidad.IdLocalidadPadre = valor;
+            }
+        }
+        private void Handle_LocalidadSelected(BuscarLocalidad localidad)
+        {
+            SelectedLocalidad = localidad.ToString();
+            this.Localidad.IdLocalidadPadre = localidad.IdLocalidadPadre;
+            StateHasChanged();
         }
         //public async Task GetLocalidadesHijas(int selected)
         //{

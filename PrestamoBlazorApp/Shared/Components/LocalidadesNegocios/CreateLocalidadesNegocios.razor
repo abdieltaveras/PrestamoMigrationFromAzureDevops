@@ -1,102 +1,55 @@
 ﻿@inherits BaseForCreateOrEdit
-
-
-
 <EditForm Model="@LocalidadNegocio" OnValidSubmit="@SaveLocalidadNegocio" OnInvalidSubmit="HandleInvalidSubmit">
-    <ObjectGraphDataAnnotationsValidator />
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderActions>
+                <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Guardar</MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
 
-    <div class="row">
-        <div class="col-md-8">
-
-            <div class="form-group">
-                <label for="nombre">Nombre Juridico</label>
-                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.NombreJuridico"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.NombreJuridico" />
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre Comercial</label>
-                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.NombreComercial"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.NombreComercial" />
-            </div>
-            <div class="form-group">
-                <label for="nombre">Prefijo Prestamo</label>
-                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.PrefijoPrestamo"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.PrefijoPrestamo" />
-            </div>
-            <div class="form-group">
-                <label for="nombre">Prefijo Transacciones</label>
-                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.PrefijoTransacciones"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.PrefijoTransacciones" />
-            </div>
-            <div class="form-group">
-                <label for="nombre">TaxID Nacional</label>
-                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.TaxIdNacional"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.TaxIdNacional" />
-            </div>
-            <div class="form-group">
-                <label for="TaxIdLocalidad">TaxID Localidad</label>
-                <InputText id="TaxIdLocalidad" class="form-control" @bind-Value="LocalidadNegocio.TaxIdLocalidad"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.TaxIdLocalidad" />
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="chkActivo">Activo</label>
-                <InputCheckbox id="chkActivo" class="form-control" @bind-Value="LocalidadNegocio.Activo"></InputCheckbox>
-                <ValidationMessage For="() => LocalidadNegocio.Activo" />
-            </div>
-            <div class="form-group">
-                <label for="chkBloqueado">Bloqueado</label>
-                <InputCheckbox id="chkBloqueado" class="form-control col-md-6" @bind-Value="LocalidadNegocio.Bloqueado"></InputCheckbox>
-                <ValidationMessage For="() => LocalidadNegocio.Bloqueado" />
-            </div>
-            <div class="form-group">
-                <label for="chkPermitirOperaciones">Permitir Operaciones</label>
-                <InputCheckbox id="chkPermitirOperaciones" class="form-control col-md-6" @bind-Value="LocalidadNegocio.PermitirOperaciones"></InputCheckbox>
-                <ValidationMessage For="() => LocalidadNegocio.PermitirOperaciones" />
-            </div>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="nombre">Slogan</label>
-                <InputText id="nombre" class="form-control " @bind-Value="LocalidadNegocio.OtrosDetallesObj.Slogan"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Slogan" />
-            </div>
-            <div class="form-group">
-                <label for="nombre">Pais, Ciudad, Municipio</label>
-                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Direccion"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Direccion" />
-            </div>
-            <div class="form-group">
-                <label for="nombre">Calle</label>
-                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Calle"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Calle" />
-            </div>
-            <div class="form-group">
-                <label for="nombre">Correo Electronico</label>
-                <InputText id="nombre" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.CorreoElectronico"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.CorreoElectronico" />
-            </div>
-            <div class="form-group">
-                <label for="telefono1">Telefono 1</label>
-                <InputText id="telefono1" class="form-control" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono1"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Telefono1" />
-            </div>
-            <div class="form-group">
-                <label for="telefono2">Telefono 2</label>
-                <InputText id="telefono2" class="form-control col-md-6" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono2"></InputText>
-                <ValidationMessage For="() => LocalidadNegocio.OtrosDetallesObj.Telefono2" />
-            </div>
-        </div>
-        <div class="modal-footer">
-            <input type="submit" class="btn btn-primary" value="Guardar" />
-        </div>
-    </div>
+            <ObjectGraphDataAnnotationsValidator />
+            <MudGrid>
+                <MudItem md="8" lg="8">
+                    <MudTextField Label="Nombre Juridico" @bind-Value="LocalidadNegocio.NombreJuridico"
+                                  For="()=>LocalidadNegocio.NombreJuridico"></MudTextField>
+                    <MudTextField Label="Nombre Comercial" @bind-Value="LocalidadNegocio.NombreComercial"
+                                  For="()=>LocalidadNegocio.NombreComercial"></MudTextField>
+                    <MudTextField Label="Prefijo Prestamo" @bind-Value="LocalidadNegocio.PrefijoPrestamo"
+                                  For="()=>LocalidadNegocio.PrefijoPrestamo"></MudTextField>
+                    <MudTextField Label="Prefijo Transacciones" @bind-Value="LocalidadNegocio.PrefijoTransacciones"
+                                  For="()=>LocalidadNegocio.PrefijoTransacciones"></MudTextField>
+                    <MudTextField Label="Tax ID Nacional" @bind-Value="LocalidadNegocio.TaxIdNacional"
+                                  For="()=>LocalidadNegocio.TaxIdNacional"></MudTextField>
+                    <MudTextField Label="Tax ID Localidad" @bind-Value="LocalidadNegocio.TaxIdLocalidad"
+                                  For="()=>LocalidadNegocio.TaxIdLocalidad"></MudTextField>
+                </MudItem>
+                <MudItem md="4" lg="4">
+                    <MudCheckBox @bind-Checked="LocalidadNegocio.Activo" Label="Activo"></MudCheckBox>
+                    <MudCheckBox @bind-Checked="LocalidadNegocio.Bloqueado" Label="Bloqueado"></MudCheckBox>
+                    <MudCheckBox @bind-Checked="LocalidadNegocio.PermitirOperaciones" Label="Permitir Operaciones"></MudCheckBox>
+                </MudItem>
+            </MudGrid>
+            <MudDivider />
+            <MudGrid>
+                <MudItem md="12" lg="12">
+                    <MudTextField Label="Slogan" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Slogan"
+                                  For="()=>LocalidadNegocio.OtrosDetallesObj.Slogan"></MudTextField>
+                    <MudTextField Label="Direccion" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Direccion"
+                                  For="()=>LocalidadNegocio.OtrosDetallesObj.Direccion"></MudTextField>
+                    <MudTextField Label="Calle" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Calle"
+                                  For="()=>LocalidadNegocio.OtrosDetallesObj.Calle"></MudTextField>
+                    <MudTextField Label="Correo Electronico" @bind-Value="LocalidadNegocio.OtrosDetallesObj.CorreoElectronico"
+                                  For="()=>LocalidadNegocio.OtrosDetallesObj.CorreoElectronico"></MudTextField>
+                    <MudTextField Label="Telefono 1" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono1"
+                                  For="()=>LocalidadNegocio.OtrosDetallesObj.Telefono1"></MudTextField>
+                    <MudTextField Label="Telefono 2" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Telefono2"
+                                  For="()=>LocalidadNegocio.OtrosDetallesObj.Telefono2"></MudTextField>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
 </EditForm>
-
 
 
 @code {
