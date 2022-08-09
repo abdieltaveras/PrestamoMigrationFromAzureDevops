@@ -22,6 +22,10 @@ namespace PrestamoBlazorApp.Pages.Clientes
         int totalClientes { get; set; }
         IEnumerable<Cliente> clientes;
 
+        //private string _SearchDataBase { get; set; }
+
+        //private string SearchDataBase { get { return _SearchDataBase; } set { _SearchDataBase = value; searchClientesDatabase(value).GetAwaiter(); } }
+
         private string SearchString1 = "";
         private Cliente SelectedItem1 = null;
         private bool FilterFunc1(Cliente element) => FilterFunc(element, SearchString1);
@@ -38,6 +42,24 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.searchClientes.CantidadRegistrosASeleccionar = 50;
             clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
             totalClientes = clientes.Count();
+            StateHasChanged();
+        }
+        private async Task searchClientesDatabase(string search)
+        {
+            LoadingTable = true;
+            if (search.Length > 2)
+            {
+                clientes = new List<Cliente>();
+                clientes = await clientesService.SearchClientes(search, false);
+                totalClientes = clientes.Count();
+            }
+            else
+            {
+                this.searchClientes.CantidadRegistrosASeleccionar = 50;
+                clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
+                totalClientes = clientes.Count();
+            }
+            LoadingTable = false;
         }
         async void PrintFicha(int idcliente, int reportType)
         {

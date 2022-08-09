@@ -5,15 +5,16 @@
 @using PrestamoBlazorApp.Shared.Components.Forms
 
 
-<GeneralList CardTitle="Lista de Clientes" LinkAddButton="clientes/createoredit/">
+<GeneralList CardTitle="Lista de Clientes" LinkAddButton="clientes/createoredit/" cbSearchString="searchClientesDatabase">
     <ActionsButtons>
         <MudIconButton Icon="@Icons.Filled.Print" OnClick="()=>ShowReportGenerator()"></MudIconButton>
     </ActionsButtons>
     <TableList>
-        <MudTable Items="@clientes" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Cliente,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+        <MudTable Loading="LoadingTable" Items="@clientes" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Cliente,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Elementos</MudText>
                 <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                <MudDivider FlexItem="true" Vertical="true" DividerType="DividerType.Middle" Class="ml-1 mr-1 my-1"></MudDivider>
             </ToolBarContent>
             <HeaderContent>
                 <MudTh>Codigo</MudTh>

@@ -1,11 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Components
-<MudCard>
+<MudCard >
     <MudCardHeader>
         <CardHeaderContent>
-            <MudText Typo="Typo.h3">@CardTitle</MudText>
+            <MudGrid Style="@("display:flex; justify-content:start;")">
+                <MudItem md="4" lg="4" Style="@("margin-right:-3% !important;")">
+                    <MudText Typo="Typo.h3">@CardTitle</MudText>
+                </MudItem>
+                <MudItem md="3" lg="3">
+                    <MudTextField Immediate="true" @bind-Value="SearchString" Placeholder="Search Database" Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search" 
+                                  IconSize="Size.Medium" 
+                                  Variant="Variant.Text" 
+                                  AdornmentColor="MudBlazor.Color.Warning"
+                                  Margin="Margin.Dense"
+                                  HelperText="Minimos 2 letras">
+
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>
         </CardHeaderContent>
         <CardHeaderActions>
-            <MudButton OnClick="OnAddClick" Link="@LinkAddButton">Agregar</MudButton>
+            <MudButton OnClick="OnAddClick" Link="@LinkAddButton" Color="MudBlazor.Color.Primary">Agregar</MudButton>
             @ActionsButtons
         </CardHeaderActions>
     </MudCardHeader>
@@ -15,6 +30,15 @@
 </MudCard>
 
 @code {
+    private string _SearchString { get; set; }
+
+    private string SearchString { get { return _SearchString; } set { _SearchString = value; SetSearch(); } }
+    private void SetSearch()
+    {
+        cbSearchString.InvokeAsync(SearchString);
+    }
+    [Parameter]
+    public EventCallback<string> cbSearchString { get; set; }
     [Parameter]
     public string CardTitle { get; set; }
 
