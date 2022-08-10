@@ -15,7 +15,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
     {
         [Inject]
         IDialogService DialogService { get; set; }
-        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
+
         [Inject]
         ClientesService clientesService { get; set; }
         ClienteGetParams searchClientes { get; set; } = new ClienteGetParams();
@@ -26,9 +26,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         //private string SearchDataBase { get { return _SearchDataBase; } set { _SearchDataBase = value; searchClientesDatabase(value).GetAwaiter(); } }
 
-        private string SearchString1 = "";
         private Cliente SelectedItem1 = null;
-        private bool FilterFunc1(Cliente element) => FilterFunc(element, SearchString1);
+        private bool FilterFunc1(Cliente element) => FilterFunc(element, SearchStringTable);
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         protected override async Task OnInitializedAsync()

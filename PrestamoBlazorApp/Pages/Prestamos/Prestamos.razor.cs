@@ -11,15 +11,19 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 {
     public partial class Prestamos : BaseForList
     {
+        private Prestamo SelectedItem1 = null;
+
         [Inject] PrestamosService prestamoService { get; set; }
         [Inject] ClientesService ClientesService { get; set; }
         PrestamosGetParams searchPrestamos { get; set; } = new PrestamosGetParams();
         int totalPrestamos { get; set; }
         IEnumerable<Prestamo> prestamos = new List<Prestamo>();
+        private bool FilterFunc1(Prestamo element) => FilterFunc(element, SearchStringTable);
+
         protected override async Task OnInitializedAsync()
         {
             await Handle_GetDataForList(GetPrestamos);
-            await base.OnInitializedAsync();
+            //await base.OnInitializedAsync();
         }
         private async Task GetPrestamos()
         {
@@ -63,6 +67,38 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             documentosIngreso.Add(doc1);
             return documentosIngreso;
         }
-        
+        private bool FilterFunc(Prestamo element, string searchString)
+        {
+            //if (string.IsNullOrWhiteSpace(searchString))
+            //    return true;
+            //if (element.infoCliente.NombreCompleto.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            //    return true;
+            //if (element.PrestamoNumero.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            //    return true;
+            //if (element.FechaInsertado != null)
+            //{
+            //    if (element.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            //        return true;
+            //}
+            return false;
+        }
+        private async Task searchTableDataBase(string search)
+        {
+            LoadingTable = true;
+            //if (search.Length > 2)
+            //{
+            //    prestamos = await prestamoService.GetAsync(this.searchPrestamos);
+            //    //clientes = new List<Cliente>();
+            //    //clientes = await clientesService.SearchClientes(search, false);
+            //    //totalClientes = clientes.Count();
+            //}
+            //else
+            //{
+            //    //this.searchClientes.CantidadRegistrosASeleccionar = 50;
+            //    //clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
+            //    //totalClientes = clientes.Count();
+            //}
+            LoadingTable = false;
+        }
     }
 }

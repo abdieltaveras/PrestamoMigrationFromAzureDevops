@@ -7,7 +7,10 @@ namespace PrestamoBlazorApp.Shared
 {
     public abstract class BaseForList : CommonBase
     {
+        public bool Dense = true, Hover = true, Bordered = false, Striped = false;
         public bool LoadingTable { get; set; } = false;
+        public string SearchStringTable { get; set; }= "";
+
         // agregar logica para los listados como es OnAgregar, OnDelete, etc
 
         protected async Task Handle_GetDataForList(Func<Task> _action, string redirectTo = "")
