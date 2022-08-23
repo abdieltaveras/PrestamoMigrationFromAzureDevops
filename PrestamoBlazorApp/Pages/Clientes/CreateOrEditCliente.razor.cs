@@ -41,6 +41,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
         Conyuge Conyuge { get; set; } = new Conyuge();
 
         DireccionModel Direccion { get; set; } = new DireccionModel();
+        Direccion InfoDireccion { get; set; } = new Direccion();
+
 
         InfoLaboral InfoLaboral { get; set; } = new InfoLaboral();
 
@@ -121,8 +123,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
             {
                 this.Conyuge = Cliente.InfoConyugeObj;
                 this.InfoLaboral = Cliente.InfoLaboralObj;
-                this.Direccion = Cliente.InfoDireccionObj.ToJson().ToType<DireccionModel>(); ;
-                var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.Direccion.IdLocalidad });
+                this.InfoDireccion = Cliente.InfoDireccion.ToType<Direccion>(); ;
+                var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.InfoDireccion.IdLocalidad });
                 this.Direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
             SetReferencias(Cliente.InfoReferenciasObj);

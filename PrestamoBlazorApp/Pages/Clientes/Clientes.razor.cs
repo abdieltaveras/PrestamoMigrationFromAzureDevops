@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using PrestamoBlazorApp.Shared;
 using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.Reports;
+using PrestamoBlazorApp.Shared.Components.Forms;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
@@ -21,7 +22,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         ClienteGetParams searchClientes { get; set; } = new ClienteGetParams();
         int totalClientes { get; set; }
         IEnumerable<Cliente> clientes;
-
+        List<SelectClass> lstItemsToSearch { get; set; } = new List<SelectClass>();
         //private string _SearchDataBase { get; set; }
 
         //private string SearchDataBase { get { return _SearchDataBase; } set { _SearchDataBase = value; searchClientesDatabase(value).GetAwaiter(); } }
@@ -33,6 +34,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         protected override async Task OnInitializedAsync()
         {
             await Handle_GetDataForList(GetClientes);
+            FillOptions();
             await base.OnInitializedAsync();
         }
         private async Task GetClientes()
@@ -82,7 +84,18 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 //}
             }
         }
+        private async Task SelectedOptionToSearch(SelectClass selected)
+        {
+            var value = selected.Value.ToString();
+            var text = selected.Text.ToString();
+        }
+        private void FillOptions()
+        {
+            lstItemsToSearch.Add(new SelectClass { Value = "valor1", Text = "texto1" });
+            lstItemsToSearch.Add(new SelectClass { Value = "valor2", Text = "texto2" });
+            lstItemsToSearch.Add(new SelectClass { Value = "valor3", Text = "texto3" });
 
+        }
         private bool FilterFunc(Cliente element, string searchString)
         {
             if (string.IsNullOrWhiteSpace(searchString))

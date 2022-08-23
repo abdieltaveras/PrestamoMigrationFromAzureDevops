@@ -2,9 +2,66 @@
 <MudCard >
     <MudCardHeader>
         <CardHeaderContent>
-            <MudGrid Style="@("display:flex; justify-content:start;")">
-                <MudItem md="4" lg="4" Style="@("margin-right:-3% !important;")">
+                <MudGrid Style="@("display:flex; justify-content:start; align-items:center;")">
+                    <MudItem md="2" lg="2">
+                        <MudText Typo="Typo.h5">@CardTitle</MudText>
+
+                    </MudItem>
+                    <MudItem md="3" lg="3" Style="padding-bottom:40px;">
+                        <MudSelect @bind-Value="SelectedOption" Variant="Variant.Text">
+                            @foreach (var item in OptionItems)
+                            {
+                                <MudSelectItem Value="@item"> @item.Text</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem md="3" lg="3">
+                        <MudTextField Immediate="true" @bind-Value="SearchString" Placeholder="Search Database" Adornment="Adornment.Start"
+                                      AdornmentIcon="@Icons.Material.Filled.Search"
+                                      IconSize="Size.Medium"
+                                      Variant="Variant.Text"
+                                      AdornmentColor="MudBlazor.Color.Warning"
+                                      Margin="Margin.Dense"
+                                      HelperText="Minimos 2 letras">
+                        </MudTextField>
+                    </MudItem>
+                </MudGrid>
+                @*<div>
                     <MudText Typo="Typo.h5">@CardTitle</MudText>
+                </div>
+                <div style="padding-left:15px; padding-right:15px;">
+                    <MudItem md="12" lg="12">
+                        <MudSelect @bind-Value="SelectedOption" Variant="Variant.Text">
+                            @foreach (var item in OptionItems)
+                            {
+                                <MudSelectItem Value="@item"> @item.Text</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                </div>
+                <div style="padding-left:10px !important; padding-bottom:15px;">
+                    <MudTextField Immediate="true" @bind-Value="SearchString" Placeholder="Search Database" Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium"
+                                  Variant="Variant.Text"
+                                  AdornmentColor="MudBlazor.Color.Warning"
+                                  Margin="Margin.Dense"
+                                  HelperText="Minimos 2 letras">
+                    </MudTextField>
+                </div>*@
+            
+            @*<MudGrid Style="@("display:flex; justify-content:start;")">
+                <MudItem md="3" lg="3" Style="@("margin-right:-3% !important;")">
+                    <MudText Typo="Typo.h5">@CardTitle</MudText>
+                </MudItem>
+                <MudItem md="3" lg="3">
+                    <MudSelect @bind-Value="SelectedOption">
+                        @foreach (var item in OptionItems)
+                        {
+                            <MudSelectItem Value="@item"> @item.Text</MudSelectItem>
+                        }
+                    </MudSelect>
                 </MudItem>
                 <MudItem md="3" lg="3">
                     <MudTextField Immediate="true" @bind-Value="SearchString" Placeholder="Search Database" Adornment="Adornment.Start"
@@ -14,10 +71,9 @@
                                   AdornmentColor="MudBlazor.Color.Warning"
                                   Margin="Margin.Dense"
                                   HelperText="Minimos 2 letras">
-
                     </MudTextField>
                 </MudItem>
-            </MudGrid>
+            </MudGrid>*@
         </CardHeaderContent>
         <CardHeaderActions>
             <MudButton OnClick="OnAddClick" Link="@LinkAddButton" Color="MudBlazor.Color.Primary">Agregar</MudButton>
@@ -30,15 +86,28 @@
 </MudCard>
 
 @code {
+
+    [Parameter]
+    public List<SelectClass> OptionItems { get; set; } = new List<SelectClass>();
+    [Parameter]
+    public EventCallback<string> OnSearchTextChange { get; set; }
+    [Parameter]
+    public EventCallback<SelectClass> OnOptionChange { get; set; }
+
+    private SelectClass _SelectedOption { get; set; }
+    private SelectClass SelectedOption { get { return _SelectedOption; } set { _SelectedOption = value; SetOption(); } }
+
     private string _SearchString { get; set; }
 
     private string SearchString { get { return _SearchString; } set { _SearchString = value; SetSearch(); } }
     private void SetSearch()
     {
-        cbSearchString.InvokeAsync(SearchString);
+        OnSearchTextChange.InvokeAsync(SearchString);
     }
-    [Parameter]
-    public EventCallback<string> cbSearchString { get; set; }
+    private void SetOption()
+    {
+        OnOptionChange.InvokeAsync(SelectedOption);
+    }
     [Parameter]
     public string CardTitle { get; set; }
 
