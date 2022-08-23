@@ -11,4 +11,5 @@ begin
 	EXEC(
 		'UPDATE '+ @NombreTabla +' SET BorradoPor = '''+@Usuario+''', FechaBorrado = GETDATE() WHERE '+@IdRegistroNombreColumna  + ' = '+@IdRegistroValor +'and borradoPor is null'
 	)
+
 End
