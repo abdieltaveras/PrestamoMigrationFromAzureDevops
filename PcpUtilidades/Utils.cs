@@ -208,6 +208,10 @@ namespace PcpUtilidades
 
     public static class EnumUtils
     {
+        public static List<T> EnumToList<T>(T enumerator)
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>().ToList();
+        }
         public static string getItemName(this Enum _enum, int itemIndex)
         {
             //Enum.GetName(typeof(TiposIdentificacionCliente), (TiposIdentificacionCliente)IdTipoIdentificacion);

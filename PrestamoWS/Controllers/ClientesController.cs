@@ -47,9 +47,9 @@ namespace PrestamoWS.Controllers
 
 
         [HttpGet]
-        public IEnumerable<Cliente> SearchClientes(string textoABuscar, bool cargarImagenesClientes=false)
+        public IEnumerable<Cliente> SearchClientes(string option,string textoABuscar, bool cargarImagenesClientes=false)
         {
-            var clientes = searchCliente(textoABuscar, cargarImagenesClientes);
+            var clientes = searchCliente(option,textoABuscar, cargarImagenesClientes);
             return clientes;
         }
         /// <summary>
@@ -93,10 +93,10 @@ namespace PrestamoWS.Controllers
             }
         }
 
-        private IEnumerable<Cliente> searchCliente(string searchText, bool CargarImagenesClientes)
+        private IEnumerable<Cliente> searchCliente(string option,string searchText, bool CargarImagenesClientes)
         {
             IEnumerable<Cliente> clientes = null;
-            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchCliente(new BuscarClienteParams { TextToSearch = searchText, IdNegocio = 1 });
+            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchCliente(new BuscarClienteParams {Option = option ,TextToSearch = searchText, IdNegocio = 1 });
             if (CargarImagenesClientes)
             {
                 foreach (var cliente in clientes)

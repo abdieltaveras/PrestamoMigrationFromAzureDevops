@@ -262,6 +262,7 @@ namespace PrestamoEntidades
     public class BuscarClienteParams : BaseGetParams
     {
         public string TextToSearch { get; set; } = string.Empty;
+        public string Option { get; set; } = string.Empty;
     }
 
 }

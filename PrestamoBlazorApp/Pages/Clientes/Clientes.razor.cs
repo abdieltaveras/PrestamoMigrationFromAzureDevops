@@ -31,6 +31,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
         private bool FilterFunc1(Cliente element) => FilterFunc(element, SearchStringTable);
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+        private string SelectedOptionSearch { get; set; } = string.Empty;
+        List<eOpcionesSearchCliente> lstOpcionesSearch { get; set; }
         protected override async Task OnInitializedAsync()
         {
             await Handle_GetDataForList(GetClientes);
@@ -51,7 +53,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             if (search.Length > 2)
             {
                 clientes = new List<Cliente>();
-                clientes = await clientesService.SearchClientes(search, false);
+                clientes = await clientesService.SearchClientes(SelectedOptionSearch,search, false);
                 totalClientes = clientes.Count();
             }
             else
@@ -86,15 +88,18 @@ namespace PrestamoBlazorApp.Pages.Clientes
         }
         private async Task SelectedOptionToSearch(SelectClass selected)
         {
+            SelectedOptionSearch = selected.Value.ToString();
             var value = selected.Value.ToString();
             var text = selected.Text.ToString();
         }
         private void FillOptions()
         {
-            lstItemsToSearch.Add(new SelectClass { Value = "valor1", Text = "texto1" });
-            lstItemsToSearch.Add(new SelectClass { Value = "valor2", Text = "texto2" });
-            lstItemsToSearch.Add(new SelectClass { Value = "valor3", Text = "texto3" });
+            var a = Enum.GetValues(typeof(eOpcionesSearchCliente)).Cast<eOpcionesSearchCliente>().ToList();
+            foreach (var item in a)
+            {
+                lstItemsToSearch.Add(new SelectClass { Value = item.ToString(), Text = item.ToString() });
 
+            }
         }
         private bool FilterFunc(Cliente element, string searchString)
         {
