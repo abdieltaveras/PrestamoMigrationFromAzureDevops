@@ -107,6 +107,25 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                     return true;
             }
+            if (element.TelefonoCasa != null)
+            {
+                if (element.TelefonoCasa.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
+            if (element.TelefonoMovil != null)
+            {
+                if (element.TelefonoMovil.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
+
+            if (element.NoIdentificacion != null)
+            {
+                if (element.NoIdentificacion.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
             return false;
         }
     }

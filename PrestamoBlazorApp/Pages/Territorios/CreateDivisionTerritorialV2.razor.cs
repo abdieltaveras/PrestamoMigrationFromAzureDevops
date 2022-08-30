@@ -23,9 +23,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         IEnumerable<DivisionTerritorial> ComponentesDivision { get; set; } = new List<DivisionTerritorial>();
         private HashSet<ITreeItemData> TreeItems { get; set; } = new HashSet<ITreeItemData>();
         private ITreeItemData ActivatedValue { get; set; }
-
         private IEnumerable<ITreeItemData> SelectedValues { get; set; }
-
         void Clear() => tiposDivionesTerritoriales = null;
         protected override void OnInitialized()
         {
