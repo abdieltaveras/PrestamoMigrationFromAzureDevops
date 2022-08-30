@@ -121,9 +121,10 @@ namespace PrestamoBlazorApp.Pages.Clientes
             }
             else
             {
+                this.Direccion = Cliente.InfoDireccion.ToType<DireccionModel>(); //Cliente.InfoDireccionObj;
                 this.Conyuge = Cliente.InfoConyugeObj;
                 this.InfoLaboral = Cliente.InfoLaboralObj;
-                this.InfoDireccion = Cliente.InfoDireccion.ToType<Direccion>(); ;
+                this.InfoDireccion = Cliente.InfoDireccion.ToType<Direccion>();
                 var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.InfoDireccion.IdLocalidad });
                 this.Direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
@@ -164,7 +165,10 @@ namespace PrestamoBlazorApp.Pages.Clientes
         //async Task SaveCliente()
         async Task SaveCliente()
         {
-            await Handle_SaveData(SaveData, () => OnSaveNotification(redirectTo: @"\Clientes"), null, false);
+            await Handle_Funct(() => SaveData());
+            //await Handle_SaveData(()=>SaveData, null, false);
+
+            //await Handle_SaveData(SaveData, () => OnSaveNotification(redirectTo: @"\Clientes"), null, false);
         }
 
         private async Task<bool> SaveData()
@@ -173,7 +177,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.Cliente.InfoReferenciasObj = Referencias;
             this.Cliente.InfoDireccionObj = Direccion;
             this.Cliente.InfoLaboralObj = InfoLaboral;
-
             var result = Validaciones.ForCliente001().Validate(Cliente);
             var validacionesFallidas = result.Where(item => item.Success == false);
             var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));

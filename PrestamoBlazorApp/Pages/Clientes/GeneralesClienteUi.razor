@@ -7,7 +7,7 @@
         }
         else
         {
-            <MudTextField @bind-Value="cliente.Codigo" Label="Codigo" ReadOnly="true"></MudTextField>
+            <MudTextField @bind-Value="cliente.Codigo" Label="Codigo" ></MudTextField>
         }
 
         <MudSelect @bind-Value="cliente.IdTipoIdentificacion" Label="Tipo Identificacion">
@@ -19,20 +19,20 @@
 
         @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
         {
-            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" ReadOnly="true" Placeholder="000-0000000-0"></MudTextField>
+            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion"  Placeholder="000-0000000-0"></MudTextField>
 
             @*<InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />*@
             @*<InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />*@
         }
         else
         {
-            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" ReadOnly="true"></MudTextField>
+            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" ></MudTextField>
 
             @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
         }
-        <MudTextField @bind-Value="cliente.Nombres" Label="Nombres" ReadOnly="true"></MudTextField>
-        <MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos" ReadOnly="true"></MudTextField>
-        <MudTextField @bind-Value="cliente.Apodo" Label="Apodo" ReadOnly="true"></MudTextField>
+        <MudTextField @bind-Value="cliente.Nombres" Label="Nombres" ></MudTextField>
+        <MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos" ></MudTextField>
+        <MudTextField @bind-Value="cliente.Apodo" Label="Apodo" ></MudTextField>
         <MudSelect @bind-Value="IdEstadoCivil" Label="Estado Civil">
             @foreach (var item in EnumToList.GetEnumEstadosCiviles())
             {
@@ -45,8 +45,8 @@
             <MudSelectItem Value="2">Femenino</MudSelectItem>
         </MudSelect>
         <MudDatePicker @bind-Date="cliente.FechaNacimiento" ></MudDatePicker>
-        <MudTextField @bind-Value="cliente.TelefonoCasa" Label="Telefono Casa" ReadOnly="true"></MudTextField>
-        <MudTextField @bind-Value="cliente.TelefonoMovil" Label="Telefono Movil" ReadOnly="true"></MudTextField>
+        <MudTextField @bind-Value="cliente.TelefonoCasa" Label="Telefono Casa" ></MudTextField>
+        <MudTextField @bind-Value="cliente.TelefonoMovil" Label="Telefono Movil" ></MudTextField>
         <MudSelect @bind-Value="cliente.IdTipoProfesionUOcupacion" Label="Profesion">
             @foreach (var item in Ocupaciones)
             {
@@ -221,6 +221,7 @@
     {
         TieneConyuge = cliente.TieneConyuge;
         IdEstadoCivil = cliente.IdEstadoCivil;
+        var cl = cliente;
     }
     
 }

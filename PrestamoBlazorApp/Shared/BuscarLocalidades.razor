@@ -80,10 +80,9 @@
                 // In real life use an asynchronous function for fetching data from an api.
         @*await Task.Delay(5);*@
 
-        // if text is null or empty, don't return values (drop-down will not open)
-        if (string.IsNullOrEmpty(value))
-            return new string[0];
-        @*var a = lstLocalidades.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));*@
-    return lstLocalidades;
-}
+                // if text is null or empty, don't return values (drop-down will not open)
+            @*if (string.IsNullOrEmpty(value))
+            return new string[0];*@
+            return lstLocalidades;
+            }
 }

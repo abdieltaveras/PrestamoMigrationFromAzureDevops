@@ -28,7 +28,7 @@ namespace PrestamoBlazorApp.Shared
         private int totalRegistros { get; set; }
 
         private string _ChoiseLocalidad { get; set; } = "";
-        private string ChoiseLocalidad { get { return _ChoiseLocalidad; } set { _ChoiseLocalidad = value; seleccionar(); } }
+        private string ChoiseLocalidad { get { return _ChoiseLocalidad; } set { _ChoiseLocalidad = value; seleccionar(value); } }
         protected override async Task OnInitializedAsync()
         {
             editContext1 = new EditContext(ChoiseLocalidad);
@@ -54,23 +54,26 @@ namespace PrestamoBlazorApp.Shared
 
         private void filtrar(string valor = "") 
         {
-            valor = ChoiseLocalidad;
+            //valor = ChoiseLocalidad;
             loading = true;
             //this.LocalidadesFiltradas = Localidades.Where(loc => loc.Nombre.ToLower().Contains(this.buscarLocalidad.Search.ToLower()));
             this.LocalidadesFiltradas = Localidades.Where(loc => loc.Nombre.ToLower().Contains(valor.ToLower(), StringComparison.InvariantCultureIgnoreCase));
 
-            totalRegistros = this.LocalidadesFiltradas == null ? 0 : this.LocalidadesFiltradas.Count();
-            if (totalRegistros > 0)
-            {
-                this.SelectedLocalidad = this.LocalidadesFiltradas.FirstOrDefault().IdLocalidad;
-            }
-            selectLocalidad = totalRegistros > 0;
+          
             loading = false;
         }
 
-        void seleccionar()
+        void seleccionar(string valor)
         {
             filtrar();
+            var localidadess = Localidades.Where(loc => loc.Nombre.ToLower().Contains(valor.ToLower(), StringComparison.InvariantCultureIgnoreCase));
+
+            totalRegistros = localidadess.Count();
+            if (totalRegistros > 0)
+            {
+                this.SelectedLocalidad = localidadess.FirstOrDefault().IdLocalidad;
+            }
+            selectLocalidad = totalRegistros > 0;
             var locSelected = Localidades.Where(loc => loc.IdLocalidad == SelectedLocalidad).FirstOrDefault();
             OnLocalidadSelected.InvokeAsync(locSelected);
             selectLocalidad = false;

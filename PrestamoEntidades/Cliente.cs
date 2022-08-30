@@ -120,8 +120,11 @@ namespace PrestamoEntidades
             TelefonoCasa = TelefonoCasa.RemoveAllButNumber();
             TelefonoMovil = TelefonoMovil.RemoveAllButNumber();
             NoIdentificacion =NoIdentificacion.RemoveAllButNumber();
-            InfoConyugeObj.TelefonoTrabajo = InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
-            InfoConyugeObj.NoTelefono1 = InfoConyugeObj.NoTelefono1.RemoveAllButNumber();
+            if (InfoConyugeObj != null)
+            {
+                InfoConyugeObj.TelefonoTrabajo = InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
+                InfoConyugeObj.NoTelefono1 = InfoConyugeObj.NoTelefono1.RemoveAllButNumber();
+            }
             InfoReferenciasObj.ForEach(refe => refe.Telefono.RemoveAllButNumber());
         }
         public string InfoLaboral { get; set; } = string.Empty;
