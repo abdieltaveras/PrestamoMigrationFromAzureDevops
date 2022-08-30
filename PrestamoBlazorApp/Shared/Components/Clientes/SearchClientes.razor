@@ -13,7 +13,7 @@
 
                     <div class="form-group">
                         <select @onchange="OnSelectedOptionChange">
-                            @foreach (var opcionBusqueda in Enum.GetValues(typeof(OpcionesSearchCliente)))
+                            @foreach (var opcionBusqueda in Enum.GetValues(typeof(eOpcionesSearchCliente)))
                             {
                                 <option value="@((int)opcionBusqueda)">@opcionBusqueda</option>
                             }

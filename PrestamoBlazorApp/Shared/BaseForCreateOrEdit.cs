@@ -54,7 +54,7 @@ namespace PrestamoBlazorApp.Shared
                 if (blockPage) { await UnBlockPage(); }
                 if (_OnSuccess == null)
                 {
-                    await SweetMessageBox("Datos Guardados Correctamente", "success", redirectTo);
+                    //await SweetMessageBox("Datos Guardados Correctamente", "success", redirectTo);
                 }
                 else
                 {

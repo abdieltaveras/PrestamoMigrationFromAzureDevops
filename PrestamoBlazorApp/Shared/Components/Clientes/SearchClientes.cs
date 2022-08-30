@@ -39,23 +39,23 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
                 return;
             }
 
-            OpcionesSearchCliente opcion = (OpcionesSearchCliente)SelectedSearchOption;
+            eOpcionesSearchCliente opcion = (eOpcionesSearchCliente)SelectedSearchOption;
             Clientes = new List<Cliente>();
             switch (opcion)
             {
-                case OpcionesSearchCliente.TextoLibre:
-                    Clientes = await ClientesService.SearchClientes(TextToSearch, cargarImagenes);
+                case eOpcionesSearchCliente.TextoLibre:
+                    Clientes = await ClientesService.SearchClientes(opcion.ToString(),TextToSearch, cargarImagenes);
                     break;
-                case OpcionesSearchCliente.NoIdentificacion:
+                case eOpcionesSearchCliente.NoIdentificacion:
                     Clientes = await ClientesService.GetClientesAsync(new ClienteGetParams { NoIdentificacion = TextToSearch });
                     break;
-                case OpcionesSearchCliente.Nombre:
+                case eOpcionesSearchCliente.Nombre:
                     Clientes = await ClientesService.GetClientesAsync(new ClienteGetParams {Nombres = TextToSearch });
                     break;
-                case OpcionesSearchCliente.Apellidos:
+                case eOpcionesSearchCliente.Apellidos:
                     Clientes = await ClientesService.GetClientesAsync(new ClienteGetParams { Apellidos = TextToSearch });
                     break;
-                case OpcionesSearchCliente.Apodo:
+                case eOpcionesSearchCliente.Apodo:
                     Clientes = await ClientesService.GetClientesAsync(new ClienteGetParams { Apodo = TextToSearch });
                     break;
                 default:
@@ -82,6 +82,6 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
 
            
 
-        enum OpcionesSearchCliente { TextoLibre = 1, NoIdentificacion, Nombre, Apellidos, Apodo }
+      
     }
 }
