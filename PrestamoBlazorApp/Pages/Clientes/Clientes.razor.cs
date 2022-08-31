@@ -17,6 +17,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Inject]
         IDialogService DialogService { get; set; }
 
+        
+
         [Inject]
         ClientesService clientesService { get; set; }
         ClienteGetParams searchClientes { get; set; } = new ClienteGetParams();
@@ -32,6 +34,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         private string SelectedOptionSearch { get; set; } = string.Empty;
+        private int MinSearchLength = 4;
         List<eOpcionesSearchCliente> lstOpcionesSearch { get; set; }
         protected override async Task OnInitializedAsync()
         {
@@ -103,7 +106,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
         }
         private bool FilterFunc(Cliente element, string searchString)
         {
-            if (string.IsNullOrWhiteSpace(searchString))
+
+            // evaluar el item seleccionado
+            // si o este texto libre la opcion seleccionada ejecuta el searchDatabase
+
+            if (string.IsNullOrWhiteSpace(searchString) || (searchString.Length<=3))
                 return true;
             if (element.NombreCompleto.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 return true;
@@ -120,17 +127,15 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
             if (element.TelefonoMovil != null)
             {
+
                 if (element.TelefonoMovil.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                     return true;
             }
-
-
             if (element.NoIdentificacion != null)
             {
                 if (element.NoIdentificacion.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                     return true;
             }
-
             return false;
         }
     }

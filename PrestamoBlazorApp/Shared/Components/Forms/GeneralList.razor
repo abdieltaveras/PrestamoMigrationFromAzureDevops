@@ -22,7 +22,7 @@
                                       Variant="Variant.Text"
                                       AdornmentColor="MudBlazor.Color.Warning"
                                       Margin="Margin.Dense"
-                                      HelperText="Minimos 2 letras">
+                                      HelperText=@($"Minimo {@MinSearchLength} letras")>
                         </MudTextField>
                     </MudItem>
                 </MudGrid>
@@ -93,6 +93,9 @@
     public EventCallback<string> OnSearchTextChange { get; set; }
     [Parameter]
     public EventCallback<SelectClass> OnOptionChange { get; set; }
+
+    [Parameter]
+    public int MinSearchLength { get; set; } = 1;
 
     private SelectClass _SelectedOption { get; set; }
     private SelectClass SelectedOption { get { return _SelectedOption; } set { _SelectedOption = value; SetOption(); } }

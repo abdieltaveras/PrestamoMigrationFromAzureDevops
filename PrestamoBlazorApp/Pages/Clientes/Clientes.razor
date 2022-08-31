@@ -5,10 +5,13 @@
 @using PrestamoBlazorApp.Shared.Components.Forms
 
 
+
 <GeneralList CardTitle="Lista de Clientes" LinkAddButton="clientes/createoredit/" 
              OnSearchTextChange="searchClientesDatabase" 
              OptionItems="lstItemsToSearch" 
-             OnOptionChange="SelectedOptionToSearch">
+             OnOptionChange="SelectedOptionToSearch"
+             MinSearchLength="@MinSearchLength"
+             >
     <ActionsButtons>
         <MudIconButton Icon="@Icons.Filled.Print" OnClick="()=>ShowReportGenerator()"></MudIconButton>
     </ActionsButtons>
