@@ -1,0 +1,17 @@
+﻿@inherits CommonBase 
+<MudDialog>
+    <DialogContent>
+        <MudGrid>
+            <MudTextField @bind-Value="DivisionTerritorial.Nombre" Label="Nombre"></MudTextField>
+            <MudTextField @bind-Value="DivisionTerritorial.DescripcionPadre" Label="Descripcion"></MudTextField>
+            <MudCheckBox @bind-Checked="DivisionTerritorial.PermiteCalle" Label="Permite Calle?"></MudCheckBox>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Save">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+}

@@ -62,6 +62,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
                 totalClientes = clientes.Count();
             }
+            //StateHasChanged();
             LoadingTable = false;
         }
         async void PrintFicha(int idcliente, int reportType)
@@ -97,21 +98,30 @@ namespace PrestamoBlazorApp.Pages.Clientes
             var a = Enum.GetValues(typeof(eOpcionesSearchCliente)).Cast<eOpcionesSearchCliente>().ToList();
             foreach (var item in a)
             {
-                lstItemsToSearch.Add(new SelectClass { Value = item.ToString(), Text = item.ToString() });
+                lstItemsToSearch.Add(new SelectClass { Value = Convert.ToInt32(item), Text = item.ToString() });
 
             }
         }
         private bool FilterFunc(Cliente element, string searchString)
         {
-            if (string.IsNullOrWhiteSpace(searchString))
-                return true;
-            if (element.NombreCompleto.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            if (element.Codigo != null)
-            {
-                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            //if (SelectedOptionSearch == eOpcionesSearchCliente.TextoLibre.ToString())
+            //{
+                if (string.IsNullOrWhiteSpace(searchString))
                     return true;
-            }
+                if (element.NombreCompleto.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+                if (element.Codigo != null)
+                {
+                    if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                        return true;
+                }
+            
+                //return true;
+            //}
+            //else
+            //{
+            //    searchClientesDatabase(searchString).GetAwaiter();
+            //}
             return false;
         }
     }

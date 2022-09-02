@@ -15,7 +15,7 @@
     public enum EnumTiposReferencia { Comercial = 1, Familiar, Personal}
     public enum EnumTiposVinculo { Madre = 1, Padre, Hermano, Primo, Tio, Abuelo, Sobrino, Esposa, Hijo, Nieto}
 
-    public enum eOpcionesSearchCliente { TextoLibre = 1, NoIdentificacion, Nombre, Apellidos, Apodo }
+    public enum eOpcionesSearchCliente { TextoLibre = 1, NoIdentificacion, Nombres, Apellidos, Apodo }
     //public enum TipoLocalidad
     //{
     //    Continente = 1,

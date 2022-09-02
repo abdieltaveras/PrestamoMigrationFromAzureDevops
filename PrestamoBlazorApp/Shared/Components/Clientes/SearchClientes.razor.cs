@@ -49,7 +49,7 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
                 case eOpcionesSearchCliente.NoIdentificacion:
                     Clientes = await ClientesService.GetClientesAsync(new ClienteGetParams { NoIdentificacion = TextToSearch });
                     break;
-                case eOpcionesSearchCliente.Nombre:
+                case eOpcionesSearchCliente.Nombres:
                     Clientes = await ClientesService.GetClientesAsync(new ClienteGetParams {Nombres = TextToSearch });
                     break;
                 case eOpcionesSearchCliente.Apellidos:

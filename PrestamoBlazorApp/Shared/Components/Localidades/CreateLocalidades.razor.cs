@@ -22,7 +22,7 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         public Localidad Localidad { get; set; } = new Localidad();
         BuscarLocalidadParams buscarLocalidadParams { get; set; } = new BuscarLocalidadParams();
         IEnumerable<Localidad> localidades { get; set; } = new List<Localidad>();
-        IEnumerable<DivisionTerritorial> territorios { get; set; } = new List<DivisionTerritorial>();
+        IEnumerable<PrestamoEntidades.DivisionTerritorial> territorios { get; set; } = new List<PrestamoEntidades.DivisionTerritorial>();
         private int _SelectedLocalidad = -1;
         public int SelectedLocalidad { get { return _SelectedLocalidad; } set { _SelectedLocalidad = value; } }
         [Parameter]
@@ -31,8 +31,8 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         IEnumerable<Localidad> localidadesByTipo { get; set; } = new List<Localidad>();
-        private DivisionTerritorial _SelectedTipoLocalidad { get; set; }
-        public DivisionTerritorial SelectedTipoLocalidad { get { return _SelectedTipoLocalidad; } set { _SelectedTipoLocalidad = value; GetLocalidadesByTipo().GetAwaiter(); } }
+        private PrestamoEntidades.DivisionTerritorial _SelectedTipoLocalidad { get; set; }
+        public PrestamoEntidades.DivisionTerritorial SelectedTipoLocalidad { get { return _SelectedTipoLocalidad; } set { _SelectedTipoLocalidad = value; GetLocalidadesByTipo().GetAwaiter(); } }
         public int IdLocalidadByTipoSelected { get; set; }
         protected override async Task OnInitializedAsync()
         {
