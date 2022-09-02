@@ -96,7 +96,7 @@ namespace PrestamoWS.Controllers
         private IEnumerable<Cliente> searchCliente(int option,string searchText, bool CargarImagenesClientes)
         {
             IEnumerable<Cliente> clientes = null;
-            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchCliente(new BuscarClienteParams {Option = option ,TextToSearch = searchText, IdNegocio = 1 });
+            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchCliente( option , searchText);
             if (CargarImagenesClientes)
             {
                 foreach (var cliente in clientes)

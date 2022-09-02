@@ -46,9 +46,9 @@ namespace PrestamoBLL
             DBPrestamo.ExecSelSP("spDelCliente", SearchRec.ToSqlParams(delParam));
         }
 
-        public IEnumerable<Cliente> SearchCliente(BuscarClienteParams searchParam)
+        public IEnumerable<Cliente> SearchCliente(int Option, string SearchText)
         {
-            return  this.Get<Cliente>("spBuscarClientes", GetClienteManager(searchParam.Option,searchParam.TextToSearch)); 
+            return  this.Get<Cliente>("spBuscarClientes", GetClienteManager(Option, SearchText)); 
         }
         public IEnumerable<Cliente> ReporteClientes(BaseReporteParams searchParam)
         {

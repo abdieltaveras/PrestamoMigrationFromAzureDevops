@@ -265,7 +265,6 @@ namespace PrestamoEntidades
     public class BuscarClienteParams : BaseGetParams
     {
         public string TextToSearch { get; set; } = string.Empty;
-        public int Option { get; set; } = -1;
         public string NoIdentificacion { get; set; } = string.Empty;
         public string Nombres { get; set; } = string.Empty;
 
