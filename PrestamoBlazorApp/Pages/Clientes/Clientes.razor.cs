@@ -33,8 +33,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
         private bool FilterFunc1(Cliente element) => FilterFunc(element, SearchStringTable);
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
-        private string SelectedOptionSearch { get; set; } = string.Empty;
-        private int MinSearchLength = 4;
+        private int SelectedOptionSearch { get; set; } = -1;
+        private int MinSearchLength = 3;
         List<eOpcionesSearchCliente> lstOpcionesSearch { get; set; }
         protected override async Task OnInitializedAsync()
         {
@@ -53,7 +53,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         private async Task searchClientesDatabase(string search)
         {
             LoadingTable = true;
-            if (search.Length > 2)
+            if (search.Length >= MinSearchLength)
             {
                 clientes = new List<Cliente>();
                 clientes = await clientesService.SearchClientes(SelectedOptionSearch,search, false);
@@ -65,6 +65,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
                 totalClientes = clientes.Count();
             }
+            //StateHasChanged();
             LoadingTable = false;
         }
         async void PrintFicha(int idcliente, int reportType)
@@ -91,16 +92,16 @@ namespace PrestamoBlazorApp.Pages.Clientes
         }
         private async Task SelectedOptionToSearch(SelectClass selected)
         {
-            SelectedOptionSearch = selected.Value.ToString();
-            var value = selected.Value.ToString();
-            var text = selected.Text.ToString();
+            SelectedOptionSearch = Convert.ToInt32(selected.Value);
+            //var value = selected.Value.ToString();
+            //var text = selected.Text.ToString();
         }
         private void FillOptions()
         {
             var a = Enum.GetValues(typeof(eOpcionesSearchCliente)).Cast<eOpcionesSearchCliente>().ToList();
             foreach (var item in a)
             {
-                lstItemsToSearch.Add(new SelectClass { Value = item.ToString(), Text = item.ToString() });
+                lstItemsToSearch.Add(new SelectClass { Value = Convert.ToInt32(item), Text = item.ToString() });
 
             }
         }
@@ -110,9 +111,13 @@ namespace PrestamoBlazorApp.Pages.Clientes
             // evaluar el item seleccionado
             // si o este texto libre la opcion seleccionada ejecuta el searchDatabase
 
-            if (string.IsNullOrWhiteSpace(searchString) || (searchString.Length<=3))
+            if (string.IsNullOrWhiteSpace(searchString) || (searchString.Length <= 3))
                 return true;
             if (element.NombreCompleto.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Nombres.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Apellidos.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                 return true;
             if (element.Codigo != null)
             {
@@ -136,6 +141,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 if (element.NoIdentificacion.Contains(searchString, StringComparison.OrdinalIgnoreCase))
                     return true;
             }
+
             return false;
         }
     }

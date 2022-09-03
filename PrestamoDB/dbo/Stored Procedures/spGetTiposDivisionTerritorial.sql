@@ -1,4 +1,4 @@
-﻿create PROCEDURE [dbo].[spGetTiposDivisionTerritorial]
+﻿CREATE PROCEDURE [dbo].[spGetTiposDivisionTerritorial]
 (
 	@Usuario varchar(100)
 )
@@ -23,6 +23,6 @@ SELECT [IdDivisionTerritorial]
 	from 
 	tblDivisionTerritorial
 	where 
-		IdDivisionTerritorialPadre is null and BorradoPor is null
+		IdDivisionTerritorialPadre =0 and BorradoPor is null
 		
 End

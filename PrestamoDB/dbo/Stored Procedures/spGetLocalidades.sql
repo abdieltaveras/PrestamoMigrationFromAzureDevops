@@ -1,4 +1,4 @@
-﻿create PROCEDURE [dbo].[spGetLocalidades]
+﻿CREATE PROCEDURE [dbo].[spGetLocalidades]
 (
 	@idlocalidad int,
 	@IdNegocio int=-1,
@@ -17,6 +17,7 @@ begin
         loc.Nombre,
 		loc.IdTipoLocalidad,
         loc.IdLocalidadPadre,
+		loc.IdTipoDivisionTerritorial,
 		tipo.Nombre as Descripcion
     FROM
         tblLocalidades loc 

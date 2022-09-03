@@ -1,0 +1,25 @@
+﻿<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h3"> @CardTitle</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton OnClick="OnSaveClick">@SaveButtonText</MudButton>
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        @CardContent
+    </MudCardContent>
+
+</MudCard>
+@code {
+    [Parameter]
+    public RenderFragment? CardContent { get; set; }
+    [Parameter]
+    public string CardTitle { get; set; }
+    [Parameter]
+    public string SaveButtonText { get; set; } = "Guardar";
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnSaveClick { get; set; }
+
+}

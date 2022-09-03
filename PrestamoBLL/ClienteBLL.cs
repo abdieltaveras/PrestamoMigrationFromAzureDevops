@@ -1,6 +1,7 @@
 ﻿using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
 using PrestamoEntidades;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -45,9 +46,9 @@ namespace PrestamoBLL
             DBPrestamo.ExecSelSP("spDelCliente", SearchRec.ToSqlParams(delParam));
         }
 
-        public IEnumerable<Cliente> SearchCliente(BuscarClienteParams searchParam)
+        public IEnumerable<Cliente> SearchCliente(int Option, string SearchText)
         {
-            return this.Get<Cliente>("spBuscarClientes", searchParam); 
+            return  this.Get<Cliente>("spBuscarClientes", GetClienteManager(Option, SearchText)); 
         }
         public IEnumerable<Cliente> ReporteClientes(BaseReporteParams searchParam)
         {
@@ -55,5 +56,26 @@ namespace PrestamoBLL
             var resultSet = this.Get<Cliente>("spRptClientes", param);
             return resultSet;
         }
+        public BuscarClienteParams GetClienteManager(int Option, string Value)
+        {
+            BuscarClienteParams param = new BuscarClienteParams();
+            eOpcionesSearchCliente enumOp = (eOpcionesSearchCliente)Option;
+            switch (enumOp)
+            {
+                case eOpcionesSearchCliente.NoIdentificacion:
+                    param.NoIdentificacion = Value;
+                    break;
+                case eOpcionesSearchCliente.Nombres:
+                    param.Nombres = Value;
+                    break;
+                case eOpcionesSearchCliente.Apellidos:
+                    param.Apellidos = Value;
+                    break;
+                default:
+                    break;
+            }
+            return param;
+        }
     }
+
 }

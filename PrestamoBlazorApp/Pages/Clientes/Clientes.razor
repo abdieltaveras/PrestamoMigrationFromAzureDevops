@@ -11,11 +11,12 @@
              OptionItems="lstItemsToSearch" 
              OnOptionChange="SelectedOptionToSearch"
              MinSearchLength="@MinSearchLength"
+             ShowSearchOption="true"
              >
     <ActionsButtons>
         <MudIconButton Icon="@Icons.Filled.Print" OnClick="()=>ShowReportGenerator()"></MudIconButton>
     </ActionsButtons>
-    <TableList>
+    <CardContent>
         <MudTable Loading="LoadingTable" Items="@clientes" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Cliente,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Elementos</MudText>
@@ -52,5 +53,5 @@
                 <MudTablePager />
             </PagerContent>
         </MudTable>
-    </TableList>
+    </CardContent>
 </GeneralList>

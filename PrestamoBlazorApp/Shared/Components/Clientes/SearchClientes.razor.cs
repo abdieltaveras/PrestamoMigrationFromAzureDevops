@@ -40,16 +40,17 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
             }
 
             eOpcionesSearchCliente opcion = (eOpcionesSearchCliente)SelectedSearchOption;
+
             Clientes = new List<Cliente>();
             switch (opcion)
             {
                 case eOpcionesSearchCliente.TextoLibre:
-                    Clientes = await ClientesService.SearchClientes(opcion.ToString(),TextToSearch, cargarImagenes);
+                    Clientes = await ClientesService.SearchClientes(Convert.ToInt32(opcion), TextToSearch, cargarImagenes);
                     break;
                 case eOpcionesSearchCliente.NoIdentificacion:
                     Clientes = await ClientesService.GetClientesAsync(new ClienteGetParams { NoIdentificacion = TextToSearch });
                     break;
-                case eOpcionesSearchCliente.Nombre:
+                case eOpcionesSearchCliente.Nombres:
                     Clientes = await ClientesService.GetClientesAsync(new ClienteGetParams {Nombres = TextToSearch });
                     break;
                 case eOpcionesSearchCliente.Apellidos:
