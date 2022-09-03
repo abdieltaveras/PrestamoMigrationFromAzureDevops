@@ -12,6 +12,8 @@ namespace PrestamoEntidades
         public int IdLocalidad { get; set; }
         public int IdLocalidadPadre { get; set; }
         public int IdTipoLocalidad { get; set; } = -1;
+        public int IdTipoDivisionTerritorial { get; set; }
+
         //public int IdNegocio { get; set; }
         //public string Nombre { get; set; } = string.Empty;
         [IgnoreOnParams]
@@ -31,6 +33,7 @@ namespace PrestamoEntidades
         public int IdLocalidad { get; set; }
         public int IdLocalidadPadre { get; set; }
         public int IdTipoLocalidad { get; set; }
+        public int IdTipoDivisionTerritorial { get; set; }
         public int IdNegocio { get; set; }
         public string Nombre { get; set; } = string.Empty;
     }

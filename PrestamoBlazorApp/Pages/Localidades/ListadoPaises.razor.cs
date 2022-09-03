@@ -7,11 +7,16 @@ using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
+using PrestamoBlazorApp.Shared.Components;
+
+using MudBlazor;
 
 namespace PrestamoBlazorApp.Pages.Localidades
 {
-    public partial class ListadoPaises
+    public partial class ListadoPaises:BaseForCreateOrEdit
     {
+        [Inject]
+        IDialogService DialogService { get; set; }
         [Inject]
         LocalidadesService localidadesService { get; set; }
         [Parameter]
@@ -39,19 +44,13 @@ namespace PrestamoBlazorApp.Pages.Localidades
         }
         async Task CreateOrEdit(int idLocalidad = -1)
         {
-            if (idLocalidad > 0)
-            {
-                
-                await BlockPage();
-                var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = idLocalidad });
-                Localidad = localidad.FirstOrDefault();
-                await UnBlockPage();
-            }
-            else
-            {
-                this.Localidad = new Localidad();
-            }
-            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            await BlockPage();
+            var parameters = new DialogParameters();
+            parameters.Add("IdLocalidad", idLocalidad);
+            DialogService.Show<Shared.Components.Localidades.CreatePais>("Crear Pais",parameters, dialogOptions);
+            //var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = idLocalidad });
+            //Localidad = localidad.FirstOrDefault();
+            await UnBlockPage();
         }
 
         void RaiseInvalidSubmit()

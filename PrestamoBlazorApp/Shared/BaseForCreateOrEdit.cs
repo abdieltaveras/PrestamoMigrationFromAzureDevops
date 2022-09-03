@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using PrestamoBlazorApp.Services;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace PrestamoBlazorApp.Shared
 
     public abstract class BaseForCreateOrEdit : CommonBase
     {
+        public DialogOptions dialogOptions { get; set; } = new DialogOptions { FullWidth=true ,CloseOnEscapeKey = true, CloseButton = true, MaxWidth = MaxWidth.Medium };
+
         //[Inject]
         //protected SetParametrosService setParametros { get; set; }
         protected bool saving { get; set; }
@@ -54,7 +57,7 @@ namespace PrestamoBlazorApp.Shared
                 if (blockPage) { await UnBlockPage(); }
                 if (_OnSuccess == null)
                 {
-                    //await SweetMessageBox("Datos Guardados Correctamente", "success", redirectTo);
+                    await SweetMessageBox("Datos Guardados Correctamente", "success", redirectTo);
                 }
                 else
                 {

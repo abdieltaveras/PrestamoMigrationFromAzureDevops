@@ -1,11 +1,15 @@
 ﻿<MudDialog>
-    <DialogActions>
-        <MudButton OnClick="OnSaveClick"></MudButton>
-    </DialogActions>
-    <DialogContent>
 
+    <DialogContent>
+        @Content
     </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="OnSaveClick">Guardar</MudButton>
+    </DialogActions>
 </MudDialog>
 @code {
-    EventCallback<MouseEventArgs> OnSaveClick { get; set; }
+    [Parameter]
+    public RenderFragment? Content { get; set; }
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnSaveClick { get; set; }
 }
