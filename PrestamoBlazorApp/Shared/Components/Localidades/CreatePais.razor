@@ -6,7 +6,6 @@
     <Content>
 
         <MudSelect T="DivisionTerritorial" @bind-Value="SelectedTipoLocalidad"  Immediate="true "Label="Tipo Division Territorial">
-
             @foreach (var item in territorios)
             {
                 <MudSelectItem Value="@item">@item.Nombre</MudSelectItem>

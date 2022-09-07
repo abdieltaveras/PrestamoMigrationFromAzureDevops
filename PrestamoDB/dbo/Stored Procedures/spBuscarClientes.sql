@@ -27,9 +27,9 @@ from
 	tblClientes
 where
 	--((@Codigo='') or (Codigo = @Codigo))
-	--CONCAT(tblClientes.Nombres, ' ', tblClientes.Apellidos) LIKE '%' + @TextToSearch + '%' 
+	CONCAT(tblClientes.Nombres, ' ', tblClientes.Apellidos) LIKE '%' + @TextToSearch + '%' 
 	--OR tblClientes.NoIdentificacion LIKE '%' + @TextToSearch + '%'
-	 ((@NoIdentificacion='') or (NoIdentificacion =@NoIdentificacion)) 
+	and ((@NoIdentificacion='') or (NoIdentificacion =@NoIdentificacion)) 
 	and ((@Nombres='') or (Nombres like '%'+@Nombres+'%')) 
 	and ((@Apellidos='') or (Apellidos like '%'+@Apellidos+'%')) 
 End

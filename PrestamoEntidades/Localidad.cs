@@ -11,7 +11,7 @@ namespace PrestamoEntidades
     {
         public int IdLocalidad { get; set; }
         public int IdLocalidadPadre { get; set; }
-        public int IdTipoLocalidad { get; set; } = -1;
+        public int IdDivisionTerritorial { get; set; } = -1;
         public int IdTipoDivisionTerritorial { get; set; }
 
         //public int IdNegocio { get; set; }

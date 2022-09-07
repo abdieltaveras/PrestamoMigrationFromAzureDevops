@@ -15,13 +15,13 @@ begin
 	SELECT
         loc.IdLocalidad,
         loc.Nombre,
-		loc.IdTipoLocalidad,
-        loc.IdLocalidadPadre,
+		loc.IdDivisionTerritorial,
 		loc.IdTipoDivisionTerritorial,
+        loc.IdLocalidadPadre,
 		tipo.Nombre as Descripcion
     FROM
         tblLocalidades loc 
-	JOIN tblDivisionTerritorial tipo ON loc.IdTipoLocalidad = tipo.IdDivisionTerritorial
+	JOIN tblDivisionTerritorial tipo ON loc.IdDivisionTerritorial = tipo.IdDivisionTerritorial
     WHERE (@idlocalidad<=0 or   loc.IdLocalidad = @idlocalidad)
 	--and ((@condicionBorrado= 0 and BorradoPor is null) 
 	--or (@condicionBorrado=1 and BorradoPor is not null)
