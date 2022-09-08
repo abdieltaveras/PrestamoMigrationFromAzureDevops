@@ -40,8 +40,6 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         private async Task Save()
         {
             this.Localidad.IdTipoDivisionTerritorial = SelectedTipoLocalidad.IdDivisionTerritorial;
-            this.Localidad.IdTipoLocalidad = 3;
-            this.Localidad.IdLocalidadPadre = 0;
             this.Localidad.Activo = true;
             this.Localidad.Codigo = "-----";
             await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null, false, "/paises");

@@ -3,7 +3,7 @@
     [IdLocalidadPadre]          INT           NULL,
     [IdNegocio]                 INT           NOT NULL,
     [IdLocalidadNegocio]        INT           NULL,
-    [IdTipoLocalidad]           INT           NOT NULL,
+    [IdDivisionTerritorial]     INT           NULL,
     [IdTipoDivisionTerritorial] INT           NULL,
     [Nombre]                    VARCHAR (50)  NOT NULL,
     [Codigo]                    VARCHAR (10)  NULL,
@@ -16,5 +16,7 @@
     [FechaBorrado]              DATETIME      NULL,
     CONSTRAINT [PK__tmp_ms_x__27432612067DF6F8] PRIMARY KEY CLUSTERED ([IdLocalidad] ASC)
 );
+
+
 
 

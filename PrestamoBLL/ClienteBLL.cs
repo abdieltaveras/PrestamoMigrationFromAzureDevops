@@ -48,7 +48,7 @@ namespace PrestamoBLL
 
         public IEnumerable<Cliente> SearchCliente(int Option, string SearchText)
         {
-            return  this.Get<Cliente>("spBuscarClientes", GetClienteManager(Option, SearchText)); 
+            return  this.Get<Cliente>("spBuscarClientes", new { TextToSearch = SearchText }); 
         }
         public IEnumerable<Cliente> ReporteClientes(BaseReporteParams searchParam)
         {
@@ -56,9 +56,9 @@ namespace PrestamoBLL
             var resultSet = this.Get<Cliente>("spRptClientes", param);
             return resultSet;
         }
-        public BuscarClienteParams GetClienteManager(int Option, string Value)
+        public ClienteGetParams GetClienteManager(int Option, string Value)
         {
-            BuscarClienteParams param = new BuscarClienteParams();
+            ClienteGetParams param = new ClienteGetParams();
             eOpcionesSearchCliente enumOp = (eOpcionesSearchCliente)Option;
             switch (enumOp)
             {
