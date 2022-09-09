@@ -52,7 +52,7 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         async Task SaveLocalidad()
         {
             //await BlockPage();
-            this.Localidad.IdTipoLocalidad = SelectedTipoLocalidad.IdDivisionTerritorial;
+            this.Localidad.IdDivisionTerritorial = SelectedTipoLocalidad.IdDivisionTerritorial;
             this.Localidad.IdLocalidadPadre = IdLocalidadByTipoSelected;
             await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null, false, "/localidades/listado");
             await CloseModal("1");
@@ -68,7 +68,7 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
                 var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = IdLocalidad });
                 Localidad = localidad.FirstOrDefault();
                 territorios = await localidadesService.GetComponentesTerritorio();
-                var ter = territorios.Where(m => m.IdDivisionTerritorial == Localidad.IdTipoLocalidad);
+                var ter = territorios.Where(m => m.IdDivisionTerritorial == Localidad.IdDivisionTerritorial);
                 SelectedTipoLocalidad = ter.FirstOrDefault();
                 IdLocalidadByTipoSelected = Localidad.IdLocalidadPadre;
                 await UnBlockPage();
