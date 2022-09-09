@@ -44,7 +44,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             //{
 
             //}
-            this.Localidad.IdTipoLocalidad = Convert.ToInt32( SelectedTipoLocalidad);
+            this.Localidad.IdDivisionTerritorial = Convert.ToInt32( SelectedTipoLocalidad);
             if (this.Localidad.IdLocalidadPadre <= 0)
             {
                 await SweetMessageBox("Debe seleccionar un una localidad", "error", "/localidades");
@@ -69,7 +69,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             this.Localidad.IdLocalidadPadre = buscarLocalidad.IdLocalidad;
             this.LocalidadesHijas = await localidadesService.GetHijasLocalidades(buscarLocalidad.IdLocalidad);
             var ter = await localidadesService.GetComponentesTerritorio();
-            this.Territorios = ter.Where(m => m.IdDivisionTerritorialPadre == buscarLocalidad.IdTipoLocalidad);
+            this.Territorios = ter.Where(m => m.IdDivisionTerritorialPadre == buscarLocalidad.IdDivisionTerritorial);
             if (this.Territorios.Count() == 1)
             {
                 SelectedTipoLocalidad = this.Territorios.FirstOrDefault().IdDivisionTerritorial;

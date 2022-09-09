@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spInsUpdLocalidad]
 	@idLocalidad int,
 	@IdLocalidadPadre int,
-	@IdTipoLocalidad int,
+	@IdDivisionTerritorial int,
 	@IdNegocio int,
 	@IdLocalidadNegocio int = -1,
 	@Codigo varchar(10) = '',
@@ -15,9 +15,9 @@ Begin
 if (@idLocalidad = 0)
 	begin
 		insert into tblLocalidades
-		(IdLocalidadPadre, IdNegocio, IdTipoLocalidad, Nombre, InsertadoPor, FechaInsertado)
+		(IdLocalidadPadre, IdNegocio, IdDivisionTerritorial, Nombre, InsertadoPor, FechaInsertado)
 		values
-		(@IdLocalidadPadre, @IdNegocio, @IdTipoLocalidad, @Nombre, @Usuario, GetDate())
+		(@IdLocalidadPadre, @IdNegocio, @IdDivisionTerritorial, @Nombre, @Usuario, GetDate())
 	end
 Else
 	Begin
@@ -25,7 +25,7 @@ Else
 		set 
 			IdLocalidadPadre=@IdLocalidadPadre, 
 			idNegocio = @idNegocio,
-			IdTipoLocalidad =@IdTipoLocalidad, 
+			IdDivisionTerritorial =@IdDivisionTerritorial, 
 			Nombre=@Nombre,
 			ModificadoPor=@Usuario,
 			FechaModificado = getdate()
