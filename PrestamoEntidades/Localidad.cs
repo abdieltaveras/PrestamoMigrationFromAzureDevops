@@ -42,7 +42,7 @@ namespace PrestamoEntidades
     {
         public int IdLocalidad { get; set; } = -1;
         public int IdLocalidadPadre { get; set; } = -1;
-        public int IdTipoLocalidad { get; set; } = -1;
+        public int IdDivisionTerritorial { get; set; } = -1;
     }
 
     public class BuscarLocalidad : Localidad

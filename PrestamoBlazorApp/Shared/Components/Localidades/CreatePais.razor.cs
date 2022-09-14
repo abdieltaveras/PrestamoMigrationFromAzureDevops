@@ -53,12 +53,16 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
                 await BlockPage();
                 var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = IdLocalidad });
                 Localidad = localidad.FirstOrDefault();
-                territorios = await localidadesService.GetComponentesTerritorio();
+                //territorios = await localidadesService.GetComponentesTerritorio();
                 SelectedTipoLocalidad = territorios.Where(m => m.IdDivisionTerritorial == Localidad.IdTipoDivisionTerritorial).FirstOrDefault();
                 await UnBlockPage();
             }
             else
             {
+                if (territorios.Count() == 1)
+                {
+                    SelectedTipoLocalidad = territorios.FirstOrDefault();
+                }
                 this.Localidad = new Localidad();
             }
             StateHasChanged();

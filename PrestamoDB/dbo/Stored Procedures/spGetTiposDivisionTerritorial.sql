@@ -23,6 +23,6 @@ SELECT [IdDivisionTerritorial]
 	from 
 	tblDivisionTerritorial
 	where 
-		IdDivisionTerritorialPadre =0 and BorradoPor is null
+		IdDivisionTerritorialPadre  is null and BorradoPor is null
 		
 End
