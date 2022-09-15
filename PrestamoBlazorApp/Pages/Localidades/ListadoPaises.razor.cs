@@ -10,6 +10,7 @@ using PrestamoBlazorApp.Shared;
 using PrestamoBlazorApp.Shared.Components;
 
 using MudBlazor;
+using PrestamoBlazorApp.Shared.Components.Localidades;
 
 namespace PrestamoBlazorApp.Pages.Localidades
 {
@@ -46,12 +47,28 @@ namespace PrestamoBlazorApp.Pages.Localidades
             await BlockPage();
             var parameters = new DialogParameters();
             parameters.Add("IdLocalidad", idLocalidad);
+            dialogOptions.MaxWidth = MaxWidth.Medium;
             DialogService.Show<Shared.Components.Localidades.CreatePais>("Crear Pais",parameters, dialogOptions);
             //var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = idLocalidad });
             //Localidad = localidad.FirstOrDefault();
             await UnBlockPage();
         }
+        private async Task ShowDialog(Localidad localidad)
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("IdLocalidad", localidad.IdLocalidad);
+            var dialog = DialogService.Show<CreateLocalidades>($"Agregar Localidades a {localidad.Nombre}", parameters, dialogOptions);
+            var result = await dialog.Result;
+            if (result.Data != null)
+            {
+                if (result.Data.ToString() == "1")
+                {
+                    this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
+                    StateHasChanged();
+                }
+            }
 
+        }
         void RaiseInvalidSubmit()
         {
 

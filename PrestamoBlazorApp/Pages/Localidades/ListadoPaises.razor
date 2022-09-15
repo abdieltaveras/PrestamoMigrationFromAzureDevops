@@ -19,6 +19,8 @@
                 <MudTd>@contextList.Nombre</MudTd>
                 <MudTd>
                     <MudIconButton Icon="@Icons.Filled.Edit" OnClick="()=>CreateOrEdit(contextList.IdLocalidad)"></MudIconButton>
+                    <MudIconButton Icon="@Icons.Filled.Add" OnClick="()=>ShowDialog(contextList)"></MudIconButton>
+
                 </MudTd>
             </RowTemplate>
         </MudTable>

@@ -42,8 +42,6 @@ namespace PrestamoWS.Controllers
         public IActionResult Post([FromBody] TasaInteres insUpdParam)
         {
             insUpdParam.IdLocalidadNegocio = 1;
-            insUpdParam.Usuario = "luis";
-            insUpdParam.IdNegocio = 1;
             var id = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdTasaInteres(insUpdParam);
             return Ok(id);
         }

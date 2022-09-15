@@ -77,7 +77,6 @@ namespace PrestamoBlazorApp.Shared.Components.Periodos
             Periodo.IdNegocio = 1;
             Periodo.IdLocalidadNegocio = 1;
             Periodo.PeriodoBase = (PeriodoBase)IdSelectedPeriodoBase;
-            Periodo.Usuario = "Luis";
             this.Periodo.RequiereAutorizacion = ChkRequiereAutorizacion;
             this.Periodo.Activo = ChkEstatus;
             await BlockPage();
