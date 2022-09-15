@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spGetLocalidadesConSusPadres]
+﻿create PROCEDURE [dbo].[spGetLocalidadesConSusPadres]
 (
 	@idlocalidad int,
 	@IdNegocio int=-1,
@@ -31,7 +31,7 @@ AS
 	SELECT
         e.IdLocalidad,
         e.Nombre,
-		e.IdTipoLocalidad,
+		e.IdTipoDivisionTerritorial,
         e.IdLocalidadPadre,
 		t.Nombre
     FROM
@@ -39,7 +39,7 @@ AS
         INNER JOIN recursion_location o
             ON o.IdLocalidadPadre = e.IdLocalidad
 		JOIN tblDivisionTerritorial t
-			ON e.IdTipoLocalidad = t.IdDivisionTerritorial
+			ON e.IdTipoDivisionTerritorial = t.IdDivisionTerritorial
 )
 -- references recursion_location
 SELECT *
