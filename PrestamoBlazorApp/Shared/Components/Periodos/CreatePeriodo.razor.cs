@@ -12,16 +12,16 @@ namespace PrestamoBlazorApp.Shared.Components.Periodos
 {
     public partial class CreatePeriodo : BaseForCreateOrEdit
     {
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Inject]
-        PeriodosService PeriodosService { get; set; }
+        PeriodosService PeriodosService { get; set; } 
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
         [Parameter]
         public int IdPeriodo { get; set; } = -1;
-        IEnumerable<Periodo> Periodoss { get; set; } = new List<Periodo>();
-        [Parameter]
+        //[Parameter]
         public Periodo Periodo { get; set; } = new Periodo();
 
+        IEnumerable<Periodo> Periodoss { get; set; } = new List<Periodo>();
         private int? _IdSelectedPeriodo = null;
 
         public int? IdSelectedPeriodo { get { return _IdSelectedPeriodo; } set { _IdSelectedPeriodo = value; Seleccionar(); } }

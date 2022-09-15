@@ -65,20 +65,20 @@ namespace PrestamoBlazorApp.Pages.Periodos
 
         async Task CreateOrEdit(int idPeriodo = -1)
         {
-            await BlockPage();
-            if (idPeriodo > 0)
-            {
-                var periodo = await PeriodosService.Get(new PeriodoGetParams { idPeriodo = idPeriodo });
-                this.Periodo = periodo.FirstOrDefault();
-                this.IdSelectedPeriodo = Periodo.idPeriodo;
-                this.ChkEstatus = this.Periodo.Activo;
-                this.ChkRequiereAutorizacion = this.Periodo.RequiereAutorizacion;
-            }
-            else
-            {
-                this.Periodo = new Periodo();
-            }
-            await UnBlockPage();
+            //await BlockPage();
+            //if (idPeriodo > 0)
+            //{
+            //    var periodo = await PeriodosService.Get(new PeriodoGetParams { idPeriodo = idPeriodo });
+            //    this.Periodo = periodo.FirstOrDefault();
+            //    this.IdSelectedPeriodo = Periodo.idPeriodo;
+            //    this.ChkEstatus = this.Periodo.Activo;
+            //    this.ChkRequiereAutorizacion = this.Periodo.RequiereAutorizacion;
+            //}
+            //else
+            //{
+            //    this.Periodo = new Periodo();
+            //}
+            //await UnBlockPage();
             ShowDialog(idPeriodo);
             //await JsInteropUtils.ShowModal(jsRuntime, "#MyModal");
         }
@@ -135,7 +135,7 @@ namespace PrestamoBlazorApp.Pages.Periodos
 
         void ShowDialog(int idperiodo =-1)
         {
-            var parameters = new DialogParameters();
+            var parameters = new DialogParameters(); 
             parameters.Add("IdPeriodo", idperiodo);
             DialogService.Show<CreatePeriodo>("",parameters, dialogOptions);
         }
