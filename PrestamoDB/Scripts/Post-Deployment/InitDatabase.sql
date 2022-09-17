@@ -212,16 +212,16 @@ VALUES ( null, 1, 'Division Territorial tipo Republica Dominicana',  1, 0, @usua
 
 --Localidades
 INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdDivisionTerritorial,IdTipoDivisionTerritorial, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
-VALUES (0, 1, 3,1, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.643', NULL, NULL, NULL, NULL),
-	   (1, 1, 4,1, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:14.683', NULL, NULL, NULL, NULL),
-	   (1, 1, 4,1, 'San Pedro', '', 1, 'bryan', '2020-04-05 14:02:32.96', NULL, NULL, NULL, NULL),
-	   (2, 1, 5,1, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:46.863', NULL, NULL, NULL, NULL),
-	   (4, 1, 6,1, 'Las Orquideas', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
-	   (4, 1, 6,1, 'Quisquella', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
-	   (4, 1, 6,1, 'Villa Pereira', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
-	   (4, 1, 6,1, 'Villa España', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
-	   (2, 1, 5,1, 'Villa Hermosa', '', 1, 'bryan', '2020-04-05 14:40:42.557',null,null,null,null),
-	   (9, 1, 6,1, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
+VALUES (0, 1, 2,1, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.643', NULL, NULL, NULL, NULL),
+	   (1, 1, 3,1, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:14.683', NULL, NULL, NULL, NULL),
+	   (1, 1, 3,1, 'San Pedro', '', 1, 'bryan', '2020-04-05 14:02:32.96', NULL, NULL, NULL, NULL),
+	   (2, 1, 4,1, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:46.863', NULL, NULL, NULL, NULL),
+	   (4, 1, 5,1, 'Las Orquideas', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 5,1, 'Quisquella', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 5,1, 'Villa Pereira', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 5,1, 'Villa España', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (2, 1, 4,1, 'Villa Hermosa', '', 1, 'bryan', '2020-04-05 14:40:42.557',null,null,null,null),
+	   (9, 1, 5,1, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
 
 --Nuevos catalogos
 	declare @codigo1 varchar(50)= 'cod1'

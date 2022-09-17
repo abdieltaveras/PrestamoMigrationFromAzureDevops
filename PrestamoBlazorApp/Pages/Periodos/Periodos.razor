@@ -1,6 +1,6 @@
 ﻿@page "/periodos"
 @inherits BaseForCreateOrEdit
-
+@using PrestamoBlazorApp.Shared.Components.Periodos;
 <MudCard>
     <MudCardHeader>
         <CardHeaderContent>
@@ -15,6 +15,7 @@
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
+        
         <MudTable Items="@Periodoss" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Periodo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Elementos</MudText>
@@ -23,7 +24,7 @@
             <HeaderContent>
                 <MudTh>Codigo</MudTh>
                 <MudTh>Nombre</MudTh>
-        
+
                 <MudTh>Activo</MudTh>
                 <MudTh>Requiere Autorizacion</MudTh>
                 <MudTh>Acciones</MudTh>
@@ -53,6 +54,7 @@
                 </MudTd>
                 <MudTd>
                     <MudIconButton OnClick="@(()=>CreateOrEdit(context.idPeriodo))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+
                 </MudTd>
             </RowTemplate>
             <PagerContent>
