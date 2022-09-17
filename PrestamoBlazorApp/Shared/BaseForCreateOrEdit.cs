@@ -11,6 +11,8 @@ namespace PrestamoBlazorApp.Shared
 
     public abstract class BaseForCreateOrEdit : CommonBase
     {
+        [Inject]
+        public IDialogService DialogService { get; set; }
         public DialogOptions dialogOptions { get; set; } = new DialogOptions { FullWidth=true ,CloseOnEscapeKey = true, CloseButton = true, MaxWidth = MaxWidth.Medium };
 
         //[Inject]
@@ -45,7 +47,7 @@ namespace PrestamoBlazorApp.Shared
             loading = false;
         }
 
-        protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage = false, string redirectTo = "")
+        protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage = false, string redirectTo = "", MudDialogInstance mudDialogInstance = null)
         {
             if (blockPage) { await BlockPage(); }
             await Handle_Funct(()=> SetOverlay(true));
@@ -57,7 +59,15 @@ namespace PrestamoBlazorApp.Shared
                 if (blockPage) { await UnBlockPage(); }
                 if (_OnSuccess == null)
                 {
-                    await SweetMessageBox("Datos Guardados Correctamente", "success", redirectTo);
+                    if (mudDialogInstance == null)
+                    {
+                        await SweetMessageBox("Datos Guardados Correctamente", "success", redirectTo);
+                    }
+                    else
+                    {
+                        await SweetMessageBox("Datos Guardados Correctamente", "success");
+                        mudDialogInstance.Close();
+                    }
                 }
                 else
                 {
@@ -83,9 +93,8 @@ namespace PrestamoBlazorApp.Shared
                     }
                 }
             }
+            if (blockPage) { await UnBlockPage(); }
             await Handle_Funct(() => SetOverlay(false));
-
-
         }
 
 

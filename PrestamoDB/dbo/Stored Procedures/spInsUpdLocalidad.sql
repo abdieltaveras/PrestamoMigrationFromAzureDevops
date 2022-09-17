@@ -2,6 +2,7 @@
 	@idLocalidad int,
 	@IdLocalidadPadre int,
 	@IdDivisionTerritorial int,
+	@IdTipoDivisionTerritorial int =-1,
 	@IdNegocio int,
 	@IdLocalidadNegocio int = -1,
 	@Codigo varchar(10) = '',

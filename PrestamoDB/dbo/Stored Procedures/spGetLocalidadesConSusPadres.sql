@@ -18,13 +18,13 @@ AS
 	SELECT
         loc.IdLocalidad,
         loc.Nombre,
-		loc.IdDivisionTerritorial,
+		loc.IdTipoLocalidad,
         loc.IdLocalidadPadre,
 		tipo.Nombre as Descripcion
     FROM
         tblLocalidades loc, tblDivisionTerritorial tipo
     WHERE (@idlocalidad<=0 or   loc.IdLocalidad = @idlocalidad)
-	AND tipo.IdDivisionTerritorial = loc.IdDivisionTerritorial
+	AND tipo.IdDivisionTerritorial = loc.IdTipoLocalidad
     UNION ALL
     -- Recursive member that references recursion_location.
 
