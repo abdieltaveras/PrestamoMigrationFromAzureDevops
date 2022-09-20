@@ -7,94 +7,81 @@ using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
+using MudBlazor;
+using PrestamoBlazorApp.Shared.Components.Localidades;
 namespace PrestamoBlazorApp.Pages.Localidades
 {
-    public partial class Localidades : BaseForCreateOrEdit
+    public partial class Localidades: BaseForCreateOrEdit
     {
-        string SelectedLocalidad { get; set; }
-        LocalidadGetParams localidadGetParams { get; set; } = new LocalidadGetParams();
+     
         [Inject]
         LocalidadesService localidadesService { get; set; }
-        private int? _SelectedTipoLocalidad = null;
-
-        public int? SelectedTipoLocalidad { get { return _SelectedTipoLocalidad; } set { _SelectedTipoLocalidad = value; } }
-        IEnumerable<LocalidadesHijas> LocalidadesHijas { get; set; } = new List<LocalidadesHijas>();
-        IEnumerable<DivisionTerritorial> Territorios { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
         public Localidad Localidad { get; set; } = new Localidad();
-        //void Clear() => localidades = null;
+        BuscarLocalidadParams buscarLocalidadParams { get; set; } = new BuscarLocalidadParams();
+        IEnumerable<Localidad> localidades { get; set; } = new List<Localidad>();
+        IEnumerable<DivisionTerritorial> territorios { get; set; } = new List<DivisionTerritorial>();
+        private int? _SelectedLocalidad = null;
+        public int? SelectedLocalidad { get { return _SelectedLocalidad; } set { _SelectedLocalidad = value;  } }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                //await VerLocalidades();
-                await BlockPage();
-                //localidades = await localidadesService.GetLocalidadesAsync(new LocalidadGetParams());
-                await UnBlockPage();
-                StateHasChanged();
-            }
+        private string SearchString1 = "";
+        private Localidad SelectedItem1 = null;
+        private bool FilterFunc1(Localidad element) => FilterFunc(element, SearchString1);
+        private bool ShowDialogCreate { get; set; } = false;
+        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
 
-        }
-        async Task SaveLocalidad()
+        private bool Dense = true, Hover = true, Bordered = false, Striped = false;
+        protected override async Task OnInitializedAsync()
         {
-            await BlockPage();
-            StateHasChanged();
-            //if (this.Localidad.)
-            //{
+            //this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
+            this.localidades = await localidadesService.Get(new LocalidadGetParams());
 
-            //}
-            this.Localidad.IdDivisionTerritorial = Convert.ToInt32( SelectedTipoLocalidad);
-            if (this.Localidad.IdLocalidadPadre <= 0)
-            {
-                await SweetMessageBox("Debe seleccionar un una localidad", "error", "/localidades");
-            }
-            else
-            {
-                await localidadesService.SaveLocalidad(this.Localidad);
-                await UnBlockPage();
-                await SweetMessageBox("Guardado Correctamente", "success", "/localidades");
-            }
-        
-        }
-        public async Task VerLocalidades()
-        {
-            await JsInteropUtils.SearchLocalidad(jsRuntime);
+            //this.territorios = await localidadesService.GetComponentesTerritorio();
         }
         public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)
         {
-            
-            this.LocalidadesHijas = new List<LocalidadesHijas>();
-            this.Territorios = new List<DivisionTerritorial>();
-            this.Localidad.IdLocalidadPadre = buscarLocalidad.IdLocalidad;
-            this.LocalidadesHijas = await localidadesService.GetHijasLocalidades(buscarLocalidad.IdLocalidad);
-            var ter = await localidadesService.GetComponentesTerritorio();
-            this.Territorios = ter.Where(m => m.IdDivisionTerritorialPadre == buscarLocalidad.IdDivisionTerritorial);
-            if (this.Territorios.Count() == 1)
-            {
-                SelectedTipoLocalidad = this.Territorios.FirstOrDefault().IdDivisionTerritorial;
-            }
+            var lst = await localidadesService.GetComponentesTerritorio();
+            territorios = lst.ToList();
+            var result = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = buscarLocalidad.IdLocalidad });
+            var locate = result.Where(m => m.IdLocalidad == buscarLocalidad.IdLocalidad).FirstOrDefault();
+            this.Localidad = locate;
+        
         }
-        private void OnSelectLocalidad(ChangeEventArgs args)
+        async Task GetLocalidades()
         {
+            this.localidades = await localidadesService.Get(new LocalidadGetParams());
 
-            int valor = Convert.ToInt32(args.Value.ToString());
-            if (valor > 0)
-            {
-                this.Localidad.IdLocalidadPadre = valor;
-            }
         }
-        private void Handle_LocalidadSelected(BuscarLocalidad localidad)
+        private bool FilterFunc(Localidad element, string searchString)
         {
-            SelectedLocalidad = localidad.ToString();
-            this.Localidad.IdLocalidadPadre = localidad.IdLocalidadPadre;
-            StateHasChanged();
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Codigo != null)
+            {
+                if (element.Codigo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
         }
-        //public async Task GetLocalidadesHijas(int selected)
-        //{
-        //   //var result = await localidadesService.GetHijasLocalidades(selected);
-        //   //this.LocalidadesHijas = result;
-        //}
+        async Task CreateOrEdit(int idLocalidad = -1)
+        {
+            await BlockPage();
+            var parameters = new DialogParameters();
+            parameters.Add("IdLocalidad", idLocalidad);
+
+            dialogOptions.MaxWidth = MaxWidth.Medium;
+            var dialog =  DialogService.Show<Shared.Components.Localidades.CreateLocalidad>("Crear Pais", parameters, dialogOptions);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                await GetLocalidades();
+            }
+            //var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = idLocalidad });
+            //Localidad = localidad.FirstOrDefault();
+            await UnBlockPage();
+        }
         void RaiseInvalidSubmit()
         {
 

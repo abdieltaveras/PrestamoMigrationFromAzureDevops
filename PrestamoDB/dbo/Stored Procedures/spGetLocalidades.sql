@@ -16,7 +16,7 @@ begin
         loc.IdLocalidad,
         loc.Nombre,
 		loc.IdDivisionTerritorial,
-		loc.IdTipoDivisionTerritorial,
+		tipo.IdDivisionTerritorialPadre as IdTipoDivisionTerritorial,
         loc.IdLocalidadPadre,
 		tipo.Nombre as Descripcion
     FROM

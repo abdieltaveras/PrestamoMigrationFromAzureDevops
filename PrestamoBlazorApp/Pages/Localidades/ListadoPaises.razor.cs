@@ -35,12 +35,17 @@ namespace PrestamoBlazorApp.Pages.Localidades
         async Task SaveLocalidad()
         {
 
-            this.Localidad.IdTipoDivisionTerritorial = 3;
+            //this.Localidad.IdTipoDivisionTerritorial = 3;
             this.Localidad.IdNegocio = 1;
             await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null,false, "/localidades/listadopaises");
             await CreateOrEdit(this.Localidad.IdLocalidad);
             //await UnBlockPage();
 
+        }
+        async Task GetLocalidades()
+        {
+            var ter = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
+            this.localidades = ter.Where(m => m.IdLocalidadPadre == 0);
         }
         async Task CreateOrEdit(int idLocalidad = -1)
         {
@@ -48,7 +53,12 @@ namespace PrestamoBlazorApp.Pages.Localidades
             var parameters = new DialogParameters();
             parameters.Add("IdLocalidad", idLocalidad);
             dialogOptions.MaxWidth = MaxWidth.Medium;
-            DialogService.Show<Shared.Components.Localidades.CreatePais>("Crear Pais",parameters, dialogOptions);
+            var dialog = DialogService.Show<Shared.Components.Localidades.CreatePais>("Crear Pais",parameters, dialogOptions);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                await GetLocalidades();
+            }
             //var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = idLocalidad });
             //Localidad = localidad.FirstOrDefault();
             await UnBlockPage();
@@ -57,7 +67,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
         {
             var parameters = new DialogParameters();
             parameters.Add("IdLocalidad", localidad.IdLocalidad);
-            var dialog = DialogService.Show<CreateLocalidades>($"Agregar Localidades a {localidad.Nombre}", parameters, dialogOptions);
+            var dialog = DialogService.Show<AddLocalidadesToPais>($"Agregar Localidades a {localidad.Nombre}", parameters, dialogOptions);
             var result = await dialog.Result;
             if (result.Data != null)
             {

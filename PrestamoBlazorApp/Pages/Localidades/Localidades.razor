@@ -2,53 +2,83 @@
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Localidades
 
+
 <MudCard>
     <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4">Localidades</MudText>
+        </CardHeaderContent>
         <CardHeaderActions>
-            <MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit(-1))">Agregar</MudButton>
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
-        @*<GetLocalidades OnLocalidadSelected="HandleLocalidadSelected"></GetLocalidades>*@
-        @*<BuscarLocalidades OnLocalidadSelected="HandleLocalidadSelected"></BuscarLocalidades>*@
-        <MudItem md="6" lg="6">
-            <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
-            <MudChip Color="MudBlazor.Color.Info"> @SelectedLocalidad</MudChip>
-        </MudItem>
-        <h2 id="titulodelocalidad" class="card-title"> @(Territorios.Count() == 1? "Agregar " + Territorios.First().Nombre : "Agregar: ")</h2>
-        <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
-            <DataAnnotationsValidator />
-            <MudGrid>
-                <MudItem xs="4" md="4">
-                    <MudGrid>
-                        <MudSelect @bind-Value="SelectedTipoLocalidad">
-                            @foreach (var item in Territorios)
-                            {
-                                <MudSelectItem Value="@item.IdDivisionTerritorial">@(item.Nombre)</MudSelectItem>
-                            }
-                        </MudSelect>
-                    </MudGrid>
-                    <MudGrid>
-                        <MudTextField Label="Nombre"
-                                      @bind-Value="Localidad.Nombre" required
-                                      For="() => Localidad.Nombre"></MudTextField>
-                    </MudGrid>
-                </MudItem>
-            </MudGrid>
-        </EditForm>
-        <MudList>
-            @foreach (var item in LocalidadesHijas)
-            {
-                <MudListItem>
-                    <p> Tipo: @(item.DivisionTerritorial) - <span class="badge badge-primary">@(item.Nombre)</span> </p>
-
-                </MudListItem>
-            }
-        </MudList>
+        <MudTable Items="@localidades" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Localidad,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Codigo</MudTh>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd>
+                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdLocalidad))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
     </MudCardContent>
 </MudCard>
 
+@*<table class="table table-responsive-md table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Operacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (localidades.Count() > 0)
+            {
+                @foreach (var item in localidades)
+                {
+                    <tr>
+                        @{
+                            var datos = territorios.Where(m => m.IdDivisionTerritorial == item.IdTipoLocalidad).FirstOrDefault();
+                        }
+                        <td>@item.Nombre</td>
+                        <td>@(datos == null ? "": datos.Nombre)</td>
+                        <td> <button @onclick="()=>Edit(item.IdLocalidad)" class="btn btn-outline-primary">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>Cargando datos ejecute una busqueda</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>*@
+
+
+
+
+
+
 @code {
-    private string CurrentValue { get; set; }
 
 }
