@@ -9,7 +9,17 @@ namespace PrestamoBlazorApp.Controllers
     [Route("[controller]/[action]")]
     public class TestController : Controller
     {
-        public IActionResult Test()
+        public  IActionResult Test()
+        {
+            return View();
+        }
+
+        public IActionResult Test2()
+        {
+            return View();
+        }
+
+        public IActionResult GetLocalidades()
         {
             return View();
         }
