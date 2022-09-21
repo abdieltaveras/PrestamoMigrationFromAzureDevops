@@ -17,7 +17,7 @@ begin
 	FROM 
 		tblLocalidades 
 	JOIN 
-		tblDivisionTerritorial ON tblLocalidades.IdTipoLocalidad = tblDivisionTerritorial.IdDivisionTerritorial 
+		tblDivisionTerritorial ON tblLocalidades.IdDivisionTerritorial = tblDivisionTerritorial.IdDivisionTerritorial 
 	WHERE 
 		tblLocalidades.IdLocalidadPadre = @IdLocalidad
 		AND tblLocalidades.IdNegocio IN (SELECT idNegocio FROM dbo.fnGetNegocioAndPadres(@IdNegocio))

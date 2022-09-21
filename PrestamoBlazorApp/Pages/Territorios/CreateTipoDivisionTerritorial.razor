@@ -1,6 +1,6 @@
-﻿@page "/territorios/CreateDivisionTerritorial"
+﻿@page "/DivisionesTerritoriales"
 @inherits BaseForCreateOrEdit
-@*Esto va en un dialogo*@
+@* Esto va en un dialogo *@
 
 <MudCard>
     <MudCardContent>
@@ -21,7 +21,7 @@
             @*<ToolBarButtons TItem="Catalogo" ToolbarButtons="Buttons()" SelectedItem="SelectedItem" />*@
 
             <!--Tabla-->
-            <MudTable Items="listadeterritorios" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true">
+            <MudTable Items="DivisionesTerritoriales" MultiSelection="false" Outlined="true" Dense="true" Hover="true" Bordered="false" Striped="true">
               
                 <HeaderContent>
                     @*<MudTh><MudTableSortLabel SortBy="new Func<Territorio, object>(x=>x.Codigo)">Codigo</MudTableSortLabel></MudTh>*@

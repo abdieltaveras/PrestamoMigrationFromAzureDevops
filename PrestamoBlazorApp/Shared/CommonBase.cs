@@ -108,5 +108,10 @@ namespace PrestamoBlazorApp.Shared
             }
             //await HSetOverlay(false);
         }
+
+        protected virtual async Task OnSaveNotification(string message = ConstForCreateOrEdit.RegistroGuardado, string redirectTo = "")
+        {
+            await SweetAlertSuccess(message, redirectTo);
+        }
     }
 }

@@ -32,13 +32,14 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         IEnumerable<Localidad> localidadesByTipo { get; set; } = new List<Localidad>();
-        private PrestamoEntidades.DivisionTerritorial _SelectedTipoLocalidad { get; set; }
-        public PrestamoEntidades.DivisionTerritorial SelectedDivisionTerritorial { get { return _SelectedTipoLocalidad; } set { _SelectedTipoLocalidad = value; GetLocalidadesByTipo().GetAwaiter(); } }
+        private PrestamoEntidades.DivisionTerritorial _SelectedDivisionTerritorial { get; set; } 
+        public PrestamoEntidades.DivisionTerritorial SelectedDivisionTerritorial { get { return _SelectedDivisionTerritorial; } set { _SelectedDivisionTerritorial = value; GetLocalidadesByTipo().GetAwaiter(); } }
         //public int IdLocalidadByTipoSelected { get; set; }
         protected override async Task OnInitializedAsync()
         {
             this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
-            this.territorios = await localidadesService.GetComponentesTerritorio(); 
+            this.territorios = await localidadesService.GetComponentesTerritorio();
+            
             await CreateOrEdit();
         }
         public async Task HandleLocalidadSelected(BuscarLocalidad buscarLocalidad)

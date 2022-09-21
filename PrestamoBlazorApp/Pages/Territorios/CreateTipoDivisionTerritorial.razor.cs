@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Territorios
 {
-    public partial class CreateDivisionTerritorial : BaseForCreateOrEdit
+    public partial class CreateTipoDivisionTerritorial : BaseForCreateOrEdit
     {
         [Inject]
         DivisionTerritorialService territoriosService { get; set; }
-        IEnumerable<DivisionTerritorial> listadeterritorios { get; set; } = new List<DivisionTerritorial>();
+        IEnumerable<DivisionTerritorial> DivisionesTerritoriales { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
         public DivisionTerritorial Territorio { get; set; }
         IEnumerable<DivisionTerritorial> componenteDivision { get; set; } = new List<DivisionTerritorial>();
-        void Clear() => listadeterritorios = null;
+        void Clear() => DivisionesTerritoriales = new List<DivisionTerritorial>();
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -29,10 +29,11 @@ namespace PrestamoBlazorApp.Pages.Territorios
         protected override async Task OnInitializedAsync()
         {
 
-            listadeterritorios = await territoriosService.GetTiposDivisionTerritorial();
-            if (listadeterritorios.Count() == 1)
+            DivisionesTerritoriales = await territoriosService.GetTiposDivisionTerritorial();
+            //.GetTiposDivisionTerritorial();
+            if (DivisionesTerritoriales.Count() == 1)
             {
-                componenteDivision = await territoriosService.GetDivisionTerritorialComponents(listadeterritorios.First().IdDivisionTerritorial);
+                componenteDivision = await territoriosService.GetDivisionTerritorialComponents(DivisionesTerritoriales.First().IdDivisionTerritorial);
             }
             await LoadTree();
             // await JsInteropUtils.Territorio(jsRuntime);
@@ -81,7 +82,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         {
             if (idDivision > 0)
             {
-                this.Territorio = listadeterritorios.Where(m => m.IdDivisionTerritorial == idDivision).FirstOrDefault();
+                this.Territorio = DivisionesTerritoriales.Where(m => m.IdDivisionTerritorial == idDivision).FirstOrDefault();
             }
             else
             {

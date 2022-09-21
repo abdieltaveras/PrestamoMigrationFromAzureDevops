@@ -1,5 +1,55 @@
-﻿@page "/territorios"
-@inherits BaseForCreateOrEdit
+﻿@page "/territorios/territorios"
+@inherits BaseForList
+
+
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4" xs="1"> Tipos Divisiones Territoriales</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit(-1))">Agregar</MudButton>
+            @*<MudMenu Label="Reportes">
+                    <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
+                    <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
+                </MudMenu>*@
+        </CardHeaderActions>
+    </MudCardHeader>
+
+    <MudCardContent>
+        <MudTable Items="@TiposTerritorios" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<DivisionTerritorial,bool>(FilterFunc)" @bind-SelectedItem="SelectedItem1">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudTextField Immediate="true" @bind-Value="SearchStringTable" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd>
+                    @if (context.Activo)
+                    {
+                        <MudChip Color="MudBlazor.Color.Success">Activo</MudChip>
+                    }
+                    else
+                    {
+                        <MudChip Color="MudBlazor.Color.Error">Inactivo</MudChip>
+                    }
+                </MudTd>
+                
+                <MudTd>
+                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdDivisionTerritorial))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
+
 
 <MudCard>
     <MudCardHeader>
@@ -10,8 +60,8 @@
             <DataAnnotationsValidator />
             <ValidationSummary />
 
-            <MudSelect @bind-Value="territorioSelected" Label="Divisiones territoriales"> 
-                @foreach (var item in Listadeterritorios)
+            <MudSelect @bind-Value="territorioSelected" Label="Divisiones territoriales">
+                @foreach (var item in TiposTerritorios)
                 {
                     <MudSelectItem Value="@item.IdDivisionTerritorial">
                         @item.Nombre
@@ -22,172 +72,11 @@
                     </MudSelectItem>
                 }
             </MudSelect>
-            @*<MudSelect @bind-Value="selectedLocalidadPadre">
-                @foreach (var item in territorios)
-	            {
-		 
-	            }
-            </MudSelect>*@
+
             <MudTextField @bind-Value="this.Territorio.Nombre" Label="Nombre"></MudTextField>
             <MudCheckBox @bind-Checked="Territorio.PermiteCalle">¿Permite calle?</MudCheckBox>
-             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Primary">Guardar</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Primary">Guardar</MudButton>
 
         </EditForm>
     </MudCardContent>
 </MudCard>
-    <!--<div class="row">
-        <div class="col-md-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Agregar componentes a division territorial</h2>
-
-                    <div class="clearfix"></div>
-                </div>
-                <hr />
-                <div class="x_content">
-                 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <EditForm autocomplete="off" Model="@Territorio" OnValidSubmit="SaveTerritorio" OnInvalidSubmit="RaiseInvalidSubmit">
-                                <DataAnnotationsValidator />
-                                <ValidationSummary />
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Divisiones territoriales</label>
-                                    <div class="col-md-9 col-sm-9 ">
-                                        <select class="form-control" id="idTipoDivision" @onchange="selectedTerritorio" required>
-                                            <option value="-1">Seleccione una opcion</option>
-                                            @foreach (var item in listadeterritorios)
-                                            {
-                                                <option value="@item.IdDivisionTerritorial">
-                                                    @item.Nombre
-                                                    @if (@item.NombreTipoHijoDe != null)
-                                                    {
-                                                        @item.NombreTipoHijoDe
-                                                    }
-                                                </option>
-                                            }-->
-                                            @*@foreach (var item in Model.ListaTerritorios)
-                        {
-                            <option value="@item.IdDivisionTerritorial" @(Model.territorioSeleccionado= =item.IdDivisionTerritorial ? "selected" : "" )>
-                                @item.Nombre
-                                @if (@item.NombreTipoHijoDe != null)
-                                {
-                                    @item.NombreTipoHijoDe
-                                }
-                            </option>
-                        }*@
-                                        <!--</select>-->
-                                        @*<button >Precioname </button>*@
-                                    <!--</div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="control-label col-md-3 col-sm-3 ">Componente de division</label>
-                                    <div class="col-md-9 col-sm-9 ">
-                                        <select name="IdLocalidadPadre" class="form-control" id="divisionesterritorialeshijas" @onchange="selectedLocalidadPadre" required>
-                                            <option value="-1">Elije una opcion</option>
-                                        </select>
-                                    </div>
-                                </div>-->
-
-                                @*<input type="hidden" id="inputIdDivisionTerritorialPadre" name="IdDivisionTerritorialPadre" value="" required />*@
-                                <!--<input type="hidden" id="inputIdDivisionTerritorialPadre" @bind-value="this.Territorio.IdDivisionTerritorialPadre" required />
-
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="nombre">
-                                        Nombre <span class="required">*</span>
-                                    </label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="nombre" @bind-value="this.Territorio.Nombre" required />-->
-                                        @*<input type="text" id="nombre" name="Nombre" value="" class="form-control" required />*@
-                                    <!--</div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-3">¿Permite calle?</div>
-                                    <div class="col-sm-9">
-
-                                        <input data-val="true"
-                                               class="checkbox"
-                                               data-val-required="The isNewlyEnrolled field is required."
-                                               id="PermiteCalle"
-                                               name="PermiteCalle"
-                                               type="checkbox"
-                                               value="true" @onchange="checkPermiteCalle" />-->
-                                        @*<input name="TasaInteres.RequiereAutorizacion" type="hidden" value="false" />*@
-                                        <!--<label for="PermiteCalle" class="switch" id="switch"></label>
-
-                                    </div>
-                                </div>
-
-                                <div class="ln_solid"></div>
-                                <div class="item form-group" style="float: right;">
-                                    <div class="col-md-6 col-sm-6 offset-md-3">
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </div>-->
-                                @*</form>*@
-                                @*}*@
-                            <!--</EditForm>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="x_panel col-md-6">
-                                <div id="info-component-container">
-                                    <strong>La cantidad de componentes es: <span id="component-count"></span></strong>-->
-                                    @*<p ></p>*@
-                                    <!--<p id="component-list"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
-                    @*@using (Html.BeginForm("GuardarTerritorio", "Territorio", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", onsubmit = "validarDatos()" }))
-        {*@
-             
-                <!--</div>
-            </div>
-        </div>
-      
-    </div>-->
-
-
-@code{
-    //async Task Ver()
-    //{
-    //    await VerTerritorios("");
-    //}
-    int territorioSelected = -1;
-    int localidadPadreSelected = -1;
-    //bool permiteCalleChecked = false;
-    private async void selectedTerritorio(ChangeEventArgs args)
-    {
-        territorioSelected = Convert.ToInt32(args.Value.ToString());
-
-        //if (territorioSelected > 0)
-        //{
-        await VerTerritorios(territorioSelected.ToString());
-        this.Territorio.IdDivisionTerritorialPadre = territorioSelected;
-      
-        //}
-        //else
-        //{
-        //    this.Territorio.IdDivisionTerritorialPadre = -1;
-        //}
-    }
-    private  void selectedLocalidadPadre(ChangeEventArgs args)
-    {
-        localidadPadreSelected = Convert.ToInt32(args.Value.ToString());
-
-        //if (localidadPadreSelected > 0)
-        //{
-        this.Territorio.IdDivisionTerritorialPadre = localidadPadreSelected;
-        //    }
-        //else
-        //{
-        //    this.Territorio.IdLocalidadPadre = -1;
-        //}
-    }
-    private void checkPermiteCalle(ChangeEventArgs args)
-    {
-        this.Territorio.PermiteCalle = Convert.ToBoolean(args.Value);
-    }
-}
