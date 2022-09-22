@@ -11,7 +11,7 @@
 AS
 Begin
 -- verificar si id es 0 inserta si es diferente modificar
-if (@idTasaInteres =0)
+if (@idTasaInteres <=0)
 	begin
 		insert into tblTasasInteres
 		(idNegocio, Codigo, Nombre,  Activo, RequiereAutorizacion,InteresMensual, InsertadoPor, FechaInsertado)

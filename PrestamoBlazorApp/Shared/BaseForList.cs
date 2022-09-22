@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
+using PrestamoBlazorApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +10,11 @@ namespace PrestamoBlazorApp.Shared
 {
     public abstract class BaseForList : CommonBase
     {
+        [Inject]
+        protected IDialogService DialogSvr { get; set; }
+
+        JsInteropUtils JsInteropUtils { get; set; } = new JsInteropUtils();
+
         public bool Dense = true, Hover = true, Bordered = false, Striped = false;
         public bool LoadingTable { get; set; } = false;
         public string SearchStringTable { get; set; }= "";

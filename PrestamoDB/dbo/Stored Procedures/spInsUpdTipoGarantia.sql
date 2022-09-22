@@ -8,7 +8,7 @@
 	@Usuario varchar(100)
 AS
 Begin
-if (@IdTipoGarantia = 0)
+if (@IdTipoGarantia <= 0)
 	begin
 		insert into tblTiposGarantia
 		( IdClasificacion, Nombre, IdNegocio, InsertadoPor, FechaInsertado)

@@ -64,7 +64,7 @@
       <HintPath>..\SharedDLL\PcpSoft\PcpSoft.PcpSoft.MudBlazorHelpers.dll</HintPath>
     </Reference>
     <Reference Include="PcpSoft.System">
-      <HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
+      <HintPath>..\..\CommonDLLS\PcpSoft.System.dll</HintPath>
     </Reference>
     <Reference Include="PrestamoModelsForFrontEnd">
       <HintPath>..\SharedDLL\PcProg\PrestamoModelsForFrontEnd.dll</HintPath>

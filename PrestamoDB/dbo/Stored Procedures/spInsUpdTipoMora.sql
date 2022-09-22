@@ -19,7 +19,7 @@
 AS
 Begin
 -- verificar si id es 0 inserta si es diferente modificar
-if (@idTipoMora =0)
+if (@idTipoMora <=0)
 	begin
 		insert into tblTiposMora
 		(idNegocio, Codigo, Nombre, Activo, RequiereAutorizacion, AplicarA, CalcularCargoPor, TipoCargo,DiasDeGracia,MontoOPorCientoACargar,MontoCuotaDesde,MontoCuotaHasta, InsertadoPor, FechaInsertado)

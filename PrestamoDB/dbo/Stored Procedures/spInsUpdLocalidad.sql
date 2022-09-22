@@ -13,7 +13,7 @@
 AS
 Begin
  --verificar si id es 0 inserta si es diferente modificar
-if (@idLocalidad = 0)
+if (@idLocalidad <= 0)
 	begin
 		insert into tblLocalidades
 		(IdLocalidadPadre, IdNegocio, IdDivisionTerritorial, Nombre, InsertadoPor, FechaInsertado)

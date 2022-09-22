@@ -27,14 +27,15 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<DivisionTerritorial> GetTiposDivisionTerritorial()=>  _GetTiposDivisionTerritorial();
         [HttpPost]
-        public async Task Post([FromBody] DivisionTerritorial DivisionTerritorial)=> await _Save(DivisionTerritorial);
+        public async Task<int> Post([FromBody] DivisionTerritorial DivisionTerritorial)=> await _Save(DivisionTerritorial);
 
         #endregion
 
         #region private functions
-        private async Task _Save(DivisionTerritorial DivisionTerritorial)
+        private async Task<int> _Save(DivisionTerritorial DivisionTerritorial)
         {
-            new DivisionTerritorialBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdDivisionTerritorial(DivisionTerritorial);
+            var result = new DivisionTerritorialBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdDivisionTerritorial(DivisionTerritorial);
+            return result;
         }
         private IEnumerable<DivisionTerritorial> _GetTiposDivisionTerritorial()
         {

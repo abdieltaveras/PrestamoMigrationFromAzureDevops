@@ -1,4 +1,4 @@
-﻿@page "/territorios/territorios"
+﻿@page "/TiposDivisionTerritorial"
 @inherits BaseForList
 
 
@@ -17,7 +17,7 @@
     </MudCardHeader>
 
     <MudCardContent>
-        <MudTable Items="@TiposTerritorios" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<DivisionTerritorial,bool>(FilterFunc)" @bind-SelectedItem="SelectedItem1">
+        <MudTable Items="@TiposTerritorios" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<DivisionTerritorial,bool>(FilterFunc)" >
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Elementos</MudText>
                 <MudTextField Immediate="true" @bind-Value="SearchStringTable" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
@@ -51,32 +51,4 @@
 </MudCard>
 
 
-<MudCard>
-    <MudCardHeader>
-        <MudText Typo="Typo.h4">Agregar componentes a division territorial</MudText>
-    </MudCardHeader>
-    <MudCardContent>
-        <EditForm autocomplete="off" Model="@Territorio" OnValidSubmit="SaveTerritorio" OnInvalidSubmit="RaiseInvalidSubmit">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
 
-            <MudSelect @bind-Value="territorioSelected" Label="Divisiones territoriales">
-                @foreach (var item in TiposTerritorios)
-                {
-                    <MudSelectItem Value="@item.IdDivisionTerritorial">
-                        @item.Nombre
-                        @if (@item.NombreTipoHijoDe != null)
-                        {
-                            @item.NombreTipoHijoDe
-                        }
-                    </MudSelectItem>
-                }
-            </MudSelect>
-
-            <MudTextField @bind-Value="this.Territorio.Nombre" Label="Nombre"></MudTextField>
-            <MudCheckBox @bind-Checked="Territorio.PermiteCalle">¿Permite calle?</MudCheckBox>
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="MudBlazor.Color.Primary">Guardar</MudButton>
-
-        </EditForm>
-    </MudCardContent>
-</MudCard>

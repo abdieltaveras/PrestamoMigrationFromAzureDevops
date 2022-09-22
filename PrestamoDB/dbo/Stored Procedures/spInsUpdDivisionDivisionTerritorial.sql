@@ -11,7 +11,7 @@
 AS
 Begin
  --verificar si id es 0 inserta si es diferente modificar
-if (@IdDivisionTerritorial = 0)
+if (@IdDivisionTerritorial <= 0)
 	begin
 		insert into tblDivisionTerritorial
 			(IdDivisionTerritorialPadre, IdNegocio, Nombre, PermiteCalle, InsertadoPor, FechaInsertado)

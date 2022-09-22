@@ -14,7 +14,7 @@ namespace PrestamoEntidades
 
         public int IdDivisionTerritorial { get; set; }
         
-        [Required]
+        
         public int? IdDivisionTerritorialPadre { get; set; }
                 
         [Required]

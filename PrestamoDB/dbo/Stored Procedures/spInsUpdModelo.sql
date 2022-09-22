@@ -9,7 +9,7 @@
 	@Activo bit = 1
 AS
 Begin
-if (@IdModelo = 0)
+if (@IdModelo <= 0)
 	begin
 		insert into tblModelos
 		(IdMarca, Nombre, IdNegocio, InsertadoPor, FechaInsertado)

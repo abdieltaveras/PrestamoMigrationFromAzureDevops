@@ -1,5 +1,7 @@
 ﻿
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using PcpSoft.System;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -35,17 +37,21 @@ namespace PrestamoBlazorApp.Services
             return await GetAsync<DivisionTerritorial>(apiUrl + "/GetTiposDivisionTerritorial", null);
         }
 
-        public async Task SaveDivisionTerritorial(DivisionTerritorial territorio)
+        public async Task<bool> SaveDivisionTerritorial(DivisionTerritorial territorio)
         {
+            var response = true;
+
             try
             {
-                await PostAsync<DivisionTerritorial>(apiUrl+ "/SaveDivisionTerritorial", territorio);
+                await PostAsync<DivisionTerritorial>(apiUrl + "/Post", territorio);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw new Exception("Error al guardar", ex);
+                response = false;
+                    //JsonConvert.DeserializeObject<ResponseResult<int>>(e.Message);
             }
 
+            return response;
         }
     }
 }

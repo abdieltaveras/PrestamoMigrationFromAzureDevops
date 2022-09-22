@@ -15,6 +15,9 @@ namespace PrestamoBlazorApp.Shared
         public IDialogService DialogService { get; set; }
         public DialogOptions dialogOptions { get; set; } = new DialogOptions { FullWidth=true ,CloseOnEscapeKey = true, CloseButton = true, MaxWidth = MaxWidth.Medium };
 
+        protected bool success;
+
+        protected string[] errors = { };
         //[Inject]
         //protected SetParametrosService setParametros { get; set; }
         protected bool saving { get; set; }

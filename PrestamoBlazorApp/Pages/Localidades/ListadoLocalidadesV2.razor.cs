@@ -12,7 +12,6 @@ using PrestamoBlazorApp.Shared.Components.Localidades;
 using PcpSoft.MudBlazorHelpers;
 using PcpSoft.System;
 
-
 namespace PrestamoBlazorApp.Pages.Localidades
 {
     public partial class ListadoLocalidadesV2

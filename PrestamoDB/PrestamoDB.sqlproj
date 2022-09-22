@@ -142,7 +142,6 @@
     <Build Include="dbo\Stored Procedures\spGetRoles.sql" />
     <Build Include="dbo\Stored Procedures\spGetOperaciones.sql" />
     <Build Include="dbo\User Defined Types\tpUserRole.sql" />
-    <Build Include="dbo\Stored Procedures\UsuarioListaOperacionesSpGet.sql" />
     <Build Include="dbo\Tables\tblEquipos.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdEquipos.sql" />
     <Build Include="dbo\Stored Procedures\spGetEquipos.sql" />
@@ -157,7 +156,6 @@
     <Build Include="dbo\Functions\fnGetIdNegocioMatriz.sql" />
     <Build Include="dbo\Stored Procedures\spGetNegociosAndhijos.sql" />
     <Build Include="dbo\Stored Procedures\spGetNegocioAndPadre.sql" />
-    <Build Include="dbo\Stored Procedures\SpUpdContraseñaUsuario.sql" />
     <Build Include="dbo\Stored Procedures\CatalogoSpBuscar.sql" />
     <Build Include="dbo\Stored Procedures\LocalidadPaisesSpGet.sql" />
     <Build Include="dbo\Stored Procedures\LocalidadLocalidadesHijasDeLocalidadSpGet.sql" />

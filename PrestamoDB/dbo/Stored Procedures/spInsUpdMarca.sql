@@ -8,7 +8,7 @@
 	@Activo bit = 1
 AS
 Begin
-if (@IdMarca = 0)
+if (@IdMarca <= 0)
 	begin
 		insert into tblMarcas
 		( Nombre, IdNegocio, InsertadoPor, FechaInsertado)

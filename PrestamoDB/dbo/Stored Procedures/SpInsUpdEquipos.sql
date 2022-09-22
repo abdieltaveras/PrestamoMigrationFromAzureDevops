@@ -14,7 +14,7 @@ if (@codigo='')
 	begin
 		set @codigo = NEWID()
 	end
-if (@IdEquipo = 0)
+if (@IdEquipo <= 0)
 	begin
 		insert into tblEquipos
 		(Nombre, IdNegocio, Codigo, Descripcion, InsertadoPor, FechaInsertado)
