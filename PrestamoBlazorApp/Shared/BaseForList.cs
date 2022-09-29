@@ -37,11 +37,12 @@ namespace PrestamoBlazorApp.Shared
             }
             catch (Exception e)
             {
-                if (e.Message.ToUpper().Contains("JAVASCRIPT INTEROP", StringComparison.InvariantCultureIgnoreCase) == false && e.Message.ToLower().Contains("cannot read properties of null", StringComparison.InvariantCultureIgnoreCase) == false)
-                {
-                    var redirect = redirectTo == "" ? @"\" : redirectTo;
-                    await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "info", redirect, 5000);
-                }
+                await NotifyMessageBySnackBar("Los datos no pudieron ser Guardados", Severity.Warning);
+                //if (e.Message.ToUpper().Contains("JAVASCRIPT INTEROP", StringComparison.InvariantCultureIgnoreCase) == false && e.Message.ToLower().Contains("cannot read properties of null", StringComparison.InvariantCultureIgnoreCase) == false)
+                //{
+                //    var redirect = redirectTo == "" ? @"\" : redirectTo;
+                //    await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "info", redirect, 5000);
+                //}
             }
             await Handle_Funct(() => SetOverlay(false));
 

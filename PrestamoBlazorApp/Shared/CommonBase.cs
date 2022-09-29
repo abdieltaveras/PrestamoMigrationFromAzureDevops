@@ -43,9 +43,9 @@ namespace PrestamoBlazorApp.Shared
              await JsInteropUtils.NotifyMessageBox(jsRuntime, message,delay);
         }
 
-        protected async Task NotifyMessageBySnackBar(string message, Severity severity= Severity.Normal)
+        protected async Task NotifyMessageBySnackBar(string message, Severity severity)
         {
-            Snackbar.Add(message, severity);
+            await Task.Run(() => Snackbar.Add(message, severity));
         }
         /// <summary>
         /// alert using javascript alert method

@@ -18,6 +18,7 @@ AS
 	SELECT
         loc.IdLocalidad,
         loc.Nombre,
+		loc.IdDivisionTerritorial,
         loc.IdLocalidadPadre,
 		tipo.Nombre as Descripcion
     FROM

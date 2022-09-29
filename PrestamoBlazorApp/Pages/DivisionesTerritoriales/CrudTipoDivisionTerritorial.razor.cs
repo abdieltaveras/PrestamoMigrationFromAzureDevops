@@ -37,7 +37,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
             await base.OnInitializedAsync();
         }
 
-        private MudBlazor.Color SetColor() => _DivisionTerritorial.Activo ? MudBlazor.Color.Success : MudBlazor.Color.Info;
+        
 
         private async Task GetData()
         {
@@ -68,7 +68,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
                 MudDialog.Close(DialogResult.Ok(true));
             }
         }
-        private int MudItemSize => (FormFieldErrors.Length>0  && IsShowErrors)  ? 7 : 12;
+        private int MudItemSize => (FormFieldErrors.Length>0  && IsFormShowErrors)  ? 7 : 12;
 
     }
 

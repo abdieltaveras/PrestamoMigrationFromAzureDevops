@@ -26,18 +26,17 @@ namespace PrestamoBlazorApp.Pages.EntidadEstatus
         private bool ChkEstatus { get; set; } = true;
 
 
-        private string SearchString1 = "";
+
         private PrestamoEntidades.EntidadEstatus SelectedItem1 = null;
-        private bool FilterFunc1(PrestamoEntidades.EntidadEstatus element) => FilterFunc(element, SearchString1);
+        private bool FilterFunc1(PrestamoEntidades.EntidadEstatus element) => FilterFunc(element, SearchStringTable);
 
         private bool ShowDialogCreate { get; set; } = false;
 
         protected override async Task OnInitializedAsync()
         {
-
             await GetDataList();
         }
-        private async Task searchClientesDatabase(string search)
+        private async Task searchEstatusDatabase(string search)
         {
             LoadingTable = true;
             if (search.Length >= MinSearchLength)

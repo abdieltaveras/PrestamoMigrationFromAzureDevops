@@ -51,6 +51,7 @@
   
   
   <ItemGroup>
+    <Folder Include="Pages\Ocupaciones\" />
     <Folder Include="Reports\Rdlc\" />
   </ItemGroup>
 

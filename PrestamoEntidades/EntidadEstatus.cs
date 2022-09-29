@@ -14,7 +14,7 @@ namespace PrestamoEntidades
         public bool IsNotPrintOnReport { get; set; }
         public bool IsImpedirPagoEnCaja { get; set; }
         public bool IsRequiereAutorizacionEnCaja { get; set; }
-        public bool IsActivo { get; set; }
+        public bool IsActivo { get; set; } = true;
         public bool IsImpedirHacerPrestamo { get; set; }
     }
 

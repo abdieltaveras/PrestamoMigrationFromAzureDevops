@@ -1,27 +1,18 @@
 ﻿@inherits BaseForCreateOrEdit 
-<EditForm Model="EntidadEstatus" OnValidSubmit="Save">
+<MudForm @ref="form" @bind-IsValid="@IsFormSuccess" @bind-Errors="@FormFieldErrors">
     <MudDialog>
         <DialogContent>
-            <MudTextField @bind-Value="EntidadEstatus.Name" Label="Nombre" T="string" InputMode="InputMode.text" Immediate="true">></MudTextField>
-            <MudTextField @bind-Value="EntidadEstatus.Description" Label="Descripcion" T="string" InputMode="InputMode.text" Immediate="true"></MudTextField>
-            <MudCheckBox @bind-Checked="EntidadEstatus.IsNotPrintOnReport" Label="No Imprimir Reportes"></MudCheckBox>
-            <MudCheckBox @bind-Checked="EntidadEstatus.IsImpedirHacerPrestamo" Label="Impedir hacer prestamos"></MudCheckBox>
-            <MudCheckBox @bind-Checked="EntidadEstatus.IsImpedirPagoEnCaja" Label="Imprimir en caja"></MudCheckBox>
-            <MudCheckBox @bind-Checked="EntidadEstatus.IsRequiereAutorizacionEnCaja" Label="Requiere autorizacion en caja"></MudCheckBox>
-            <MudCheckBox @bind-Checked="EntidadEstatus.IsActivo" Label="Activo?"></MudCheckBox>
-
-
-
-
-
+            <MudTextField @bind-Value="EntidadEstatus.Name" Required="true" RequiredError="Campo Requerido" Label="Nombre" T="string" InputMode="InputMode.text" Immediate="true">></MudTextField>
+            <MudTextField @bind-Value="EntidadEstatus.Description" Required="true" RequiredError="Campo Requerido" Label="Descripcion" T="string" InputMode="InputMode.text" Immediate="true"></MudTextField>
+            <MudCheckBox @bind-Checked="EntidadEstatus.IsNotPrintOnReport" Color="@SetColorForCheckBox(EntidadEstatus.IsNotPrintOnReport)" Label="No Imprimir Reportes"></MudCheckBox>
+            <MudCheckBox @bind-Checked="EntidadEstatus.IsImpedirHacerPrestamo" Color="@SetColorForCheckBox(EntidadEstatus.IsImpedirHacerPrestamo)" Label="Impedir hacer prestamos"></MudCheckBox>
+            <MudCheckBox @bind-Checked="EntidadEstatus.IsImpedirPagoEnCaja" Color="@SetColorForCheckBox(EntidadEstatus.IsImpedirPagoEnCaja)" Label="Imprimir en caja"></MudCheckBox>
+            <MudCheckBox @bind-Checked="EntidadEstatus.IsRequiereAutorizacionEnCaja" Color="@SetColorForCheckBox(EntidadEstatus.IsRequiereAutorizacionEnCaja)" Label="Requiere autorizacion en caja"></MudCheckBox>
+            <MudCheckBox @bind-Checked="EntidadEstatus.IsActivo" Color="@SetColorForCheckBox(EntidadEstatus.IsActivo)" Label="Activo?" ReadOnly="@(IdEntidadEstatus<=0)"></MudCheckBox>
         </DialogContent>
         <DialogActions>
-            <MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>
+            <MudButton OnClick="Save">Guardar</MudButton>
         </DialogActions>
     </MudDialog>
-</EditForm>
-
-
-@code {
-
-}
+    </MudForm>
+        

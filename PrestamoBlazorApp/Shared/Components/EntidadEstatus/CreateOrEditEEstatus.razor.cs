@@ -12,12 +12,12 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
     public partial class CreateOrEditEEstatus : BaseForCreateOrEdit
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-
-        PrestamoEntidades.EntidadEstatus EntidadEstatus { get; set; } = new PrestamoEntidades.EntidadEstatus();
         [Inject]
         EntidadEstatusService EntidadEstatusService { get; set; }
         [Parameter]
         public int IdEntidadEstatus { get; set; }
+
+        PrestamoEntidades.EntidadEstatus EntidadEstatus { get; set; } = new PrestamoEntidades.EntidadEstatus();
         protected override async Task OnInitializedAsync()
         {
             //EntidadEstatus = new PrestamoEntidades.EntidadEstatus();
@@ -47,6 +47,9 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
 
             await BlockPage();
             await Handle_SaveData(async () => await EntidadEstatusService.Save(this.EntidadEstatus), null, null, false, mudDialogInstance: MudDialog);
+            await UnBlockPage();
+         
+
             //await Handle_Funct(async () => await EntidadEstatusService.Save(this.EntidadEstatus));
 
             //await SweetAlertSuccess("Datos Guardados Correctamente");

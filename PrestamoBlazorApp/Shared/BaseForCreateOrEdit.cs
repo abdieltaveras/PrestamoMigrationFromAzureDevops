@@ -13,11 +13,12 @@ namespace PrestamoBlazorApp.Shared
     {
         [Inject]
         public IDialogService svrDialogService { get; set; }
-        public DialogOptions dialogOptions { get; set; } = new DialogOptions { FullWidth=true ,CloseOnEscapeKey = true, CloseButton = true, MaxWidth = MaxWidth.Medium };
+        public DialogOptions dialogOptions { get; set; } = new DialogOptions { FullWidth = true, CloseOnEscapeKey = true, CloseButton = true, MaxWidth = MaxWidth.Medium };
 
-        protected bool IsShowErrors;
+        protected bool IsFormShowErrors;
         protected string[] FormFieldErrors = { };
-        protected  MudForm form;
+        protected bool IsFormSuccess { get; set; }
+        protected MudForm form;
 
         //[Inject]
         //protected SetParametrosService setParametros { get; set; }
@@ -31,7 +32,7 @@ namespace PrestamoBlazorApp.Shared
         /// <param name="mesasageDelayInMilliseconds"> the time message will last showing</param>
         /// <param name="watingTimeBeforeContinueExecution">as an async method yue set here if you want some time to be awaited before leveing this method and continue execution</param>
         /// <returns></returns>
-        
+
 
         protected async Task Handle_GetData(Func<Task> _action, string redirectTo = @"/")
         {
@@ -50,10 +51,19 @@ namespace PrestamoBlazorApp.Shared
 
         protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage = false, string redirectTo = "", MudDialogInstance mudDialogInstance = null)
         {
+
+            await form.Validate();
+            if (form.IsValid == false)
+            {
+                await NotifyMessageBySnackBar("Revisar hay errores en el formulario", Severity.Warning);
+                return;
+            }
+
             if (blockPage) { await BlockPage(); }
-            await Handle_Funct(()=> SetOverlay(true));
+            await Handle_Funct(() => SetOverlay(true));
             try
             {
+
                 saving = true;
                 await _action();
                 saving = false;
@@ -62,11 +72,11 @@ namespace PrestamoBlazorApp.Shared
                 {
                     if (mudDialogInstance == null)
                     {
-                        await SweetMessageBox("Datos Guardados Correctamente", "success", redirectTo);
+                        await NotifyMessageBySnackBar("Los datos no pudieron ser Guardados", Severity.Warning);
                     }
                     else
                     {
-                        await SweetMessageBox("Datos Guardados Correctamente", "success");
+                        await NotifyMessageBySnackBar("Datos Guardados Correctamente", Severity.Success);
                         mudDialogInstance.Close();
                     }
                 }
@@ -77,26 +87,29 @@ namespace PrestamoBlazorApp.Shared
             }
             catch (Exception e)
             {
-                if (e.Message.ToUpper().Contains("JAVASCRIPT INTEROP", StringComparison.InvariantCultureIgnoreCase) == false && e.Message.ToLower().Contains("cannot read properties of null", StringComparison.InvariantCultureIgnoreCase) == false)
-                {
-                    //await SweetMessageBox("Error al ejecutar listado: " + ex.Message, Severity.Error);
-                
-                    if (blockPage) { await UnBlockPage(); }
-                    if (_OnFail == null)
-                    {
-                        var mens1 = redirectTo != "" ? "regresale al listado" : "";
-                        await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message} {mens1}", "error", redirectTo, 10000);
-                        // await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException.Message} regresale al listado", "error", redirectoTo, 10000);
-                    }
-                    else
-                    {
-                        await _OnFail();
-                    }
-                }
+                await NotifyMessageBySnackBar("Los datos no pudieron ser Guardados", Severity.Warning);
+                //if (e.Message.ToUpper().Contains("JAVASCRIPT INTEROP", StringComparison.InvariantCultureIgnoreCase) == false && e.Message.ToLower().Contains("cannot read properties of null", StringComparison.InvariantCultureIgnoreCase) == false)
+                //{
+                //    //await SweetMessageBox("Error al ejecutar listado: " + ex.Message, Severity.Error);
+
+                //    if (blockPage) { await UnBlockPage(); }
+                //    if (_OnFail == null)
+                //    {
+                //        var mens1 = redirectTo != "" ? "regresale al listado" : "";
+                //        await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message} {mens1}", "error", redirectTo, 10000);
+                //        // await SweetMessageBox($"Lo siento error al guardar los datos error {e.Message } {e.InnerException.Message} regresale al listado", "error", redirectoTo, 10000);
+                //    }
+                //    else
+                //    {
+                //        await _OnFail();
+                //    }
+                //}
             }
             if (blockPage) { await UnBlockPage(); }
             await Handle_Funct(() => SetOverlay(false));
         }
+
+        protected MudBlazor.Color SetColorForCheckBox(bool value) => value ? Color.Success : Color.Default;
 
 
     }
