@@ -112,7 +112,7 @@ namespace PrestamoEntidades
         public virtual string Codigo { get; set; } 
 
         [Required(ErrorMessage = "ingrese el nombre")]
-        public virtual string Nombre { get; set; } 
+        public string Nombre { get; set; }
         public abstract int GetId();
     }
 

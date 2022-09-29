@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
-    <ProjectReference Include="..\PrestamoModelsForFrontEnd\PrestamoModelsForFrontEnd.csproj" />
+    <!--<ProjectReference Include="..\PrestamoModelsForFrontEnd\PrestamoModelsForFrontEnd.csproj" />-->
   </ItemGroup>
 
   <ItemGroup>

@@ -71,6 +71,8 @@ namespace PrestamoBlazorApp
             services.AddScoped<CodeudoresService>();
             services.AddScoped<TestService>();
             services.AddScoped<LocalidadesNegociosService>();
+            services.AddScoped<EntidadEstatusService>();
+
         }
 
         private static void AddMudBlazorServices(IServiceCollection services)

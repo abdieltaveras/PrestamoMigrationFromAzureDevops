@@ -47,15 +47,16 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         }
         async Task CreateOrEdit()
         {
+            await BlockPage();
             territorios = await localidadesService.GetComponentesTerritorio();
             if (IdLocalidad > 0)
             {
-                await BlockPage();
+               
                 var localidad = await localidadesService.Get(new LocalidadGetParams { IdLocalidad = IdLocalidad });
                 Localidad = localidad.FirstOrDefault();
                 //territorios = await localidadesService.GetComponentesTerritorio();
                 SelectedTipoLocalidad = territorios.Where(m => m.IdDivisionTerritorial == Localidad.IdTipoDivisionTerritorial).FirstOrDefault();
-                await UnBlockPage();
+         
             }
             else
             {
@@ -65,6 +66,7 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
                 }
                 this.Localidad = new Localidad();
             }
+            await UnBlockPage();
             StateHasChanged();
         }
         private async Task GetLocalidadesByTipo()
