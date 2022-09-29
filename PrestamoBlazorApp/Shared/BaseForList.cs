@@ -10,6 +10,7 @@ namespace PrestamoBlazorApp.Shared
         public bool Dense = true, Hover = true, Bordered = false, Striped = false;
         public bool LoadingTable { get; set; } = false;
         public string SearchStringTable { get; set; }= "";
+        public int MinSearchLength = 3;
 
         // agregar logica para los listados como es OnAgregar, OnDelete, etc
 
