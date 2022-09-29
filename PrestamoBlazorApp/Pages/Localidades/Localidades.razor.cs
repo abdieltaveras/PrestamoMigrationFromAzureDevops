@@ -72,7 +72,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             parameters.Add("IdLocalidad", idLocalidad);
 
             dialogOptions.MaxWidth = MaxWidth.Medium;
-            var dialog =  DialogService.Show<Shared.Components.Localidades.CreateLocalidad>("Crear Pais", parameters, dialogOptions);
+            var dialog =  svrDialogService.Show<Shared.Components.Localidades.CreateLocalidad>("Crear Pais", parameters, dialogOptions);
             var result = await dialog.Result;
             if (!result.Cancelled)
             {

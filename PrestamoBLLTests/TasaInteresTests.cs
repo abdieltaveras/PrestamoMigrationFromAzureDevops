@@ -20,7 +20,7 @@ namespace PrestamoBLL.Tests
 
         public void GetTasaInteresTest()
         {
-            var result = BLLPrestamo.Instance.GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
+            var result = new TasaInteresBLL(1, TestInfo.Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
             Assert.IsTrue(result.Count() > 0);
         }
         /// <summary>
@@ -33,62 +33,21 @@ namespace PrestamoBLL.Tests
             var OperacionExitosa = true;
             var tasaInteres = new TasaInteres { Codigo = "B05", InteresMensual = 2.5M, Usuario = "TestProject", IdNegocio = 1 };
             var searchData = new TasaInteresGetParams { Codigo = "B05", IdNegocio = -1 };
-            var result = BLLPrestamo.Instance.GetTasasDeInteres(searchData);
+            var result = new TasaInteresBLL(1, TestInfo.Usuario).GetTasasDeInteres(searchData);
             if (result.Count() != 0)
             {
                 tasaInteres.idTasaInteres = result.First().idTasaInteres;
             }
             try
             {
-                BLLPrestamo.Instance.InsUpdTasaInteres(tasaInteres);
+             
+                new TasaInteresBLL(1, TestInfo.Usuario).InsUpdTasaInteres(tasaInteres);
             }
             catch (Exception e)
             {
                 error = e;
                 OperacionExitosa = false;
 
-            }
-            Assert.IsTrue(OperacionExitosa, error.Message);
-        }
-
-        [TestMethod()]
-        public void GetTiposMorasTest()
-        {
-            var result = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
-            var resultAsList = result.ToList();
-            Assert.IsTrue(result.Count() > 0);
-        }
-
-        [TestMethod()]
-        public void insUpdTipoMoraTest()
-        {
-            var error = new Exception();
-            var OperacionExitosa = true;
-            var tipoMora = new TipoMora
-            {
-                Codigo = "P05",
-                Usuario = "TestProject",
-                IdNegocio = 1,
-                TipoCargo = (int)TiposCargosMora.Porcentual,
-                AplicarA = (int)AplicarMoraAl.Capital_intereses_y_moras,
-                CalcularCargoPor = (int)CalcularMoraPor.cada_30_dias_transcurrido_por_cada_cuota_vencida,
-                MontoOPorcientoACargar = 5.00M,
-                DiasDeGracia = 4
-            };
-            var searchData = new TipoMoraGetParams { Codigo = "P05", IdNegocio = -1 };
-            var result = BLLPrestamo.Instance.GetTiposMoras(searchData);
-            if (result.Count() != 0)
-            {
-                tipoMora.IdTipoMora = result.First().IdTipoMora;
-            }
-            try
-            {
-                BLLPrestamo.Instance.InsUpdTipoMora(tipoMora);
-            }
-            catch (Exception e)
-            {
-                error = e;
-                OperacionExitosa = false;
             }
             Assert.IsTrue(OperacionExitosa, error.Message);
         }
@@ -96,11 +55,11 @@ namespace PrestamoBLL.Tests
         public void CalcularTasaInterePorPeriodoTest()
         {
             var search = new PeriodoGetParams();
-            var periodos = BLLPrestamo.Instance.GetPeriodos(search);
+            var periodos = new PeriodoBLL(1,TestInfo.Usuario).GetPeriodos(search);
 
             foreach (var item in periodos)
             {
-                var result = BLLPrestamo.Instance.CalcularTasaInteresPorPeriodos(10, item);
+                var result = new TasaInteresBLL(1, TestInfo.Usuario).CalcularTasaInteresPorPeriodos(10, item);
                 var NombrePeriodo = item.Nombre;
                 var tasaInteresPeriodo = result.InteresDelPeriodo;
             }
@@ -108,6 +67,23 @@ namespace PrestamoBLL.Tests
             Assert.Fail();
         }
 
+        [TestMethod()]
+        public void CalcularTasaInterePorPeriodoTest2()
+        {
+            var search = new PeriodoGetParams();
+            var periodos = new PeriodoBLL(1, "test").GetPeriodos(search);
 
+            var diario = periodos.Where(per => per.Codigo == "DIA").FirstOrDefault();
+            var semanal = periodos.Where(per => per.Codigo == "SEM").FirstOrDefault();
+            var quincenal = periodos.Where(per => per.Codigo == "QUI").FirstOrDefault();
+            var mensual = periodos.Where(per => per.Codigo == "MES").FirstOrDefault();
+
+            var tasaIntBll = new TasaInteresBLL(1, TestInfo.Usuario);
+            var resultDiario = tasaIntBll.CalcularTasaInteresPorPeriodos(10, diario);
+            var resultQuincenal = tasaIntBll.CalcularTasaInteresPorPeriodos(10, quincenal);
+            var resultSemanal = tasaIntBll.CalcularTasaInteresPorPeriodos(10, semanal);
+            var resultMensual = tasaIntBll.CalcularTasaInteresPorPeriodos(10, mensual);
+            Assert.Fail();
+        }
     }
 }

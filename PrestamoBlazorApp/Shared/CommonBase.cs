@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using MudBlazor;
 using PrestamoBlazorApp.Services;
 using PrestamoEntidades;
 using System;
@@ -15,7 +16,8 @@ namespace PrestamoBlazorApp.Shared
         protected NavigationManager NavManager { get; set; }
         [Inject]
         internal IJSRuntime jsRuntime { get; private set; }
-
+        [Inject]
+        ISnackbar Snackbar { get; set; }
         protected bool loading { get; set; } = false;
 
         protected virtual async Task SweetAlertSuccess(string message, string redirectTo = "")
@@ -41,6 +43,10 @@ namespace PrestamoBlazorApp.Shared
              await JsInteropUtils.NotifyMessageBox(jsRuntime, message,delay);
         }
 
+        protected async Task NotifyMessageBySnackBar(string message, Severity severity= Severity.Normal)
+        {
+            Snackbar.Add(message, severity);
+        }
         /// <summary>
         /// alert using javascript alert method
         /// </summary>

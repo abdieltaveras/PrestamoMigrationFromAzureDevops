@@ -32,8 +32,7 @@ SELECT [IdDivisionTerritorial]
 	where 
 		((@IdDivisionTerritorial=-1) or (IdDivisionTerritorial = @IdDivisionTerritorial))
 		and ((@IdNegocio=-1) or (IdNegocio=@idNegocio))
-		and (@IdDivisionTerritorialPadre is null and IdDivisionTerritorialPadre is null)
-		or ((@IdDivisionTerritorialPadre=-1) or (IdDivisionTerritorialPadre = @IdDivisionTerritorialPadre))
+		and (@IdDivisionTerritorialPadre is null or  IdDivisionTerritorialPadre= @IdDivisionTerritorialPadre)
 		and ((@Nombre='') or (Nombre like '%'+@Nombre+'%'))
 		and ((@condicionBorrado= 0 and BorradoPor is null) 
 		or (@condicionBorrado=1 and BorradoPor is not null)

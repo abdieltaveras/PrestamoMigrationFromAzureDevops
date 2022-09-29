@@ -9,37 +9,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PrestamoBlazorApp.Pages.Territorios
+namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
 {
-    public partial class CreateDivisionTerritorialV2 : BaseForCreateOrEdit
+    public partial class CrudComponentsDivisionTerritorial : BaseForCreateOrEdit
     {
         [Inject]
         DivisionTerritorialService territoriosService { get; set; }
-        IEnumerable<DivisionTerritorial> tiposDivionesTerritoriales { get; set; } = new List<DivisionTerritorial>();
         [Parameter]
-        public DivisionTerritorial Territorio { get; set; }
+        public int IdDivisionTerritorial { get; set; }
+
+        private string DivisionTerritorialName { get; set; }
+        private DivisionTerritorial Territorio { get; set; }
+        private DivisionTerritorial NewTerritorio { get; set; } = new DivisionTerritorial();
         IEnumerable<DivisionTerritorial> ComponentesDivision { get; set; } = new List<DivisionTerritorial>();
         private HashSet<ITreeItemData> TreeItems { get; set; } = new HashSet<ITreeItemData>();
         private ITreeItemData ActivatedValue { get; set; }
         private IEnumerable<ITreeItemData> SelectedValues { get; set; }
-        void Clear() => tiposDivionesTerritoriales = null;
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            this.Territorio = new DivisionTerritorial();
-            //this.Ocupacion = new Ocupacion();
-        }
+        
+        void Clear() => ComponentesDivision = new DivisionTerritorial[0];
+        
+        
         protected override async Task OnInitializedAsync()
         {
-            tiposDivionesTerritoriales = await territoriosService.GetTiposDivisionTerritorial();
-            if (tiposDivionesTerritoriales.Count() == 1)
-            {
-                ComponentesDivision = await territoriosService.GetDivisionTerritorialComponents(tiposDivionesTerritoriales.First().IdDivisionTerritorial);
-            }
+            this.Territorio = new DivisionTerritorial();
+            ComponentesDivision = await territoriosService.GetDivisionTerritorialComponents(IdDivisionTerritorial);
+            DivisionTerritorialName = ComponentesDivision.FirstOrDefault().Nombre;
             var divisionesTreeNodes = await CreateDivisionesTerritorialesNodes();  // crear los ITreeItems especificos
             this.TreeItems = await new MudBlazorTreeBuilder(divisionesTreeNodes).GetTreeItems(); // pasar los ITreeNodes para que genere El tree para mudBlazor
+            await base.OnInitializedAsync();
         }
-        
+
+        private async Task Guardar() { }
+
+        private async Task Cancelar() { }
         private async Task<IEnumerable<ITreeNode>> CreateDivisionesTerritorialesNodes()
         {
             ComponentesDivision.First().IdDivisionTerritorialPadre=0; // esto es para hacerlo el nodo raiz
@@ -83,7 +85,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
         {
             if (idDivision > 0)
             {
-                this.Territorio = tiposDivionesTerritoriales.Where(m => m.IdDivisionTerritorial == idDivision).FirstOrDefault();
+                this.Territorio = ComponentesDivision.Where(m => m.IdDivisionTerritorial == idDivision).FirstOrDefault();
             }
             else
             {

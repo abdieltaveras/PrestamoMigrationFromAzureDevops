@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PrestamoBlazorApp.Pages.Territorios
+namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
 {
     public partial class TiposDivisionTerritorial : BaseForList
     {
@@ -25,7 +25,7 @@ namespace PrestamoBlazorApp.Pages.Territorios
             await base.OnInitializedAsync();
         }
 
-        private async Task GetTiposDivisionesTerritoriales(bool stateChange=false)
+        private async Task GetTiposDivisionesTerritoriales(bool stateChange = false)
         {
             TiposTerritorios = await TerritoriosService.GetTiposDivisionTerritorial();
             if (stateChange) StateHasChanged();
@@ -35,16 +35,25 @@ namespace PrestamoBlazorApp.Pages.Territorios
 
         async Task CreateOrEdit(int id)
         {
-            DialogParameters parameters = SetParametersToView(id);
-            DialogSvr.Show<CrudDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
+            DialogParameters parameters = SetParametersToView(id,true);
+            DialogSvr.Show<CrudTipoDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
         }
 
-        private DialogParameters SetParametersToView(int id)
+        async Task CreateOrEditComponents(int id)
+        {
+            DialogParameters parameters = SetParametersToView(id,false);
+            DialogSvr.Show<CrudComponentsDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
+        }
+
+        private DialogParameters SetParametersToView(int id, bool addCallBack)
         {
             DialogParameters parameters = new DialogParameters();
             parameters.Add("IdDivisionTerritorial", id);
-            var action = EventCallback.Factory.Create<bool>(this, (e) => GetTiposDivisionesTerritoriales(e));
-            parameters.Add("HandleListUpdate", action);
+            if (addCallBack)
+            {
+                var action = EventCallback.Factory.Create<bool>(this, (e) => GetTiposDivisionesTerritoriales(e));
+                parameters.Add("HandleListUpdate", action);
+            }
             return parameters;
         }
         private bool FilterFunc(DivisionTerritorial element)

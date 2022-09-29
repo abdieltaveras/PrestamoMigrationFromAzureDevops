@@ -26,7 +26,7 @@ namespace PrestamoBLL.Tests
             Func<bool> condicion = () => tinfo.MensajeError == string.Empty;
             try
             {
-                BLLPrestamo.Instance.InsUpdPeriodo(periodo);
+                new PeriodoBLL(1, TestInfo.Usuario).InsUpdPeriodo(periodo);
             }
             catch (Exception e)
             {
@@ -65,7 +65,7 @@ namespace PrestamoBLL.Tests
                 var result2 = System.Configuration.ConfigurationManager.ConnectionStrings;
                 var result3 = ConfigurationManager.AppSettings;
 
-                var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { idPeriodo = -1 });
+                var periodo = new PeriodoBLL(1, TestInfo.Usuario).GetPeriodos(new PeriodoGetParams { idPeriodo = -1 });
             }
             catch (Exception e)
             {
@@ -75,14 +75,15 @@ namespace PrestamoBLL.Tests
         }
         private int GetPeriodo()
         {
-            var periodo = BLLPrestamo.Instance.GetPeriodos(new PeriodoGetParams { IdNegocio = 6, Codigo = "MES" }).FirstOrDefault();
+            
+            var periodo = new PeriodoBLL(1, TestInfo.Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = 6, Codigo = "MES" }).FirstOrDefault();
             return periodo.idPeriodo;
         }
         [TestMethod()]
         public void GetInvalidIdPeriodoTest()
         {
             var searchPeriodo = new PeriodoGetParams { idPeriodo = 1526 };
-            var periodo = BLLPrestamo.Instance.GetPeriodos(searchPeriodo).FirstOrDefault();
+            var periodo = new PeriodoBLL(1, TestInfo.Usuario).GetPeriodos(searchPeriodo).FirstOrDefault();
             Assert.IsTrue(periodo == null, "el id invalido retorno un valor diferente de null");
         }
 

@@ -40,7 +40,6 @@ namespace PrestamoBlazorApp.Services
         public async Task<bool> SaveDivisionTerritorial(DivisionTerritorial territorio)
         {
             var response = true;
-
             try
             {
                 await PostAsync<DivisionTerritorial>(apiUrl + "/Post", territorio);
@@ -50,7 +49,6 @@ namespace PrestamoBlazorApp.Services
                 response = false;
                     //JsonConvert.DeserializeObject<ResponseResult<int>>(e.Message);
             }
-
             return response;
         }
     }

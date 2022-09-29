@@ -78,13 +78,14 @@ namespace PrestamoBlazorApp
             services.AddMudServices(config =>
             {
                 config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopCenter;
-                config.SnackbarConfiguration.PreventDuplicates = true;
-                config.SnackbarConfiguration.NewestOnTop = true;
+                config.SnackbarConfiguration.PreventDuplicates = false;
+                config.SnackbarConfiguration.NewestOnTop = false;
                 config.SnackbarConfiguration.ShowCloseIcon = true;
-                config.SnackbarConfiguration.VisibleStateDuration = 20000;
+                config.SnackbarConfiguration.VisibleStateDuration = 4000;
                 config.SnackbarConfiguration.HideTransitionDuration = 600;
                 config.SnackbarConfiguration.ShowTransitionDuration = 600;
-                //config.SnackbarConfiguration.SnackbarVariant = Variant.Outlined;
+                config.SnackbarConfiguration.ClearAfterNavigation = true;
+                config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
             });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

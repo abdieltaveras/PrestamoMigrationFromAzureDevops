@@ -14,13 +14,11 @@ Begin
 if (@IdDivisionTerritorial <= 0)
 	begin
 		insert into tblDivisionTerritorial
-			(IdDivisionTerritorialPadre, IdNegocio, Nombre, PermiteCalle, InsertadoPor, FechaInsertado)
+			(IdDivisionTerritorialPadre, IdNegocio, Nombre, PermiteCalle, Activo, InsertadoPor, FechaInsertado)
 		values
-			( @IdDivisionTerritorialPadre, @IdNegocio, @Nombre, @PermiteCalle, @Usuario, GetDate())
+			( @IdDivisionTerritorialPadre, @IdNegocio, @Nombre, @PermiteCalle,1,  @Usuario, GetDate())
 		set @IdDivisionTerritorial = (select SCOPE_IDENTITY())
 	end
-
-	
 Else
 	Begin
 	update tblDivisionTerritorial 
@@ -30,6 +28,7 @@ Else
 			Nombre = @Nombre,
 			PermiteCalle=@PermiteCalle,
 			ModificadoPor=@Usuario,
+			Activo=@Activo,
 			FechaModificado = getdate()
 		where IdDivisionTerritorial = @IdDivisionTerritorial
 	End

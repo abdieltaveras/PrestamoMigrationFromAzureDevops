@@ -43,7 +43,7 @@ namespace PrestamoEntidades
     public class DivisionTerritorialGetParams : BaseUsuarioEIdNegocio
     {
         public int idDivisionTerritorial { get; set; } = -1;
-        public int IdDivisionTerritorialPadre { get; set; } = -1;
+        public int? IdDivisionTerritorialPadre { get; set; } 
     }
 
     public class DivisionTerritorialComponentsGetParams : IUsuario

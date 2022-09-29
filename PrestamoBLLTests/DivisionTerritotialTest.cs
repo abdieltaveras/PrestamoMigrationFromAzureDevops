@@ -12,25 +12,24 @@ using System.Diagnostics;
 
 namespace PrestamoBLL.Tests
 {
-    public static class TestsConstants
-    {
-
-        public static string Usuario => "TestUsr";
-
-        public static int IdLocalidadNegocioForFirstLocalidadNegocio => BLLPrestamo.Instance.GetLocalidadesNegocio(new LocalidadNegociosGetParams()).FirstOrDefault().IdLocalidadNegocio;
-
-        public static int AnyIdLocalidadNegocio => -1;
-    }
 
     [TestClass()]
     public class DivisionTerritotialTest
     {
 
-
         [TestMethod()]
         public void GetDivisionesTerritorial()
         {
             var getParams = new DivisionTerritorialGetParams();
+            var result2 = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).GetDivisionesTerritoriales(getParams);
+
+            Assert.IsTrue(result2.Count() > 0, "no se econtro dato para la division territorial");
+        }
+
+        [TestMethod()]
+        public void GetDivisionesTerritorialById()
+        {
+            var getParams = new DivisionTerritorialGetParams() { idDivisionTerritorial = 8 };
             var result2 = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).GetDivisionesTerritoriales(getParams);
 
             Assert.IsTrue(result2.Count() > 0, "no se econtro dato para la division territorial");
@@ -89,10 +88,26 @@ namespace PrestamoBLL.Tests
         public void SaveDivisionTerritorialTest()
         {
 
-            var divTerr = new DivisionTerritorial { IdDivisionTerritorialPadre = null, Nombre = "Division Territorial Estados Unidos" };
+            var divTerr = new DivisionTerritorial { IdDivisionTerritorialPadre = null, Nombre = "Division Territorial Estados Unidos"};
             var resultId = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).InsUpdDivisionTerritorial(divTerr);
-
             Assert.IsTrue(resultId > 0, "No se pudo guardar el registro en division territorial ");
+        }
+
+        [TestMethod()]
+        public void UpdateDivisionTerritorialTest()
+        {
+
+            var getParams = new DivisionTerritorialGetParams() { idDivisionTerritorial = 8 };
+            var divisionTerritorialOriginal = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).GetDivisionesTerritoriales(getParams).FirstOrDefault();
+            var activoExpectedValue = !divisionTerritorialOriginal.Activo;
+
+            divisionTerritorialOriginal.Activo = activoExpectedValue;
+
+            var resultId = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).InsUpdDivisionTerritorial(divisionTerritorialOriginal);
+
+            var updated = new DivisionTerritorialBLL(TestsConstants.AnyIdLocalidadNegocio, TestsConstants.Usuario).GetDivisionesTerritoriales(getParams).FirstOrDefault();
+
+            Assert.IsTrue(updated.Activo == activoExpectedValue, "Lo siento la actualizacion no se realizo");
         }
 
         [TestMethod()]

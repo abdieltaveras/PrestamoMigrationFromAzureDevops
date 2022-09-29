@@ -1,4 +1,4 @@
-﻿@page "/TiposDivisionTerritorial"
+﻿@page "/DivisionesTerritoriales/TiposDivisionTerritorial"
 @inherits BaseForList
 
 
@@ -19,7 +19,7 @@
     <MudCardContent>
         <MudTable Items="@TiposTerritorios" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<DivisionTerritorial,bool>(FilterFunc)" >
             <ToolBarContent>
-                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudText Typo="Typo.h6">filtrar datos</MudText>
                 <MudTextField Immediate="true" @bind-Value="SearchStringTable" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <HeaderContent>
@@ -40,7 +40,8 @@
                 </MudTd>
                 
                 <MudTd>
-                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdDivisionTerritorial))" Icon="@Icons.Outlined.Edit"></MudIconButton>
+                    <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdDivisionTerritorial))" Icon="@Icons.Outlined.Edit" Title="Editar La Division"></MudIconButton>
+                    <MudIconButton OnClick="@(()=>CreateOrEditComponents(context.IdDivisionTerritorial))" Icon="@Icons.Outlined.LocationCity" Title="Editar Componentes"></MudIconButton>
                 </MudTd>
             </RowTemplate>
             <PagerContent>

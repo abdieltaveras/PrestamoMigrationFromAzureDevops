@@ -23,7 +23,8 @@ namespace PrestamoBLL.Tests
             IEnumerable<GarantiaConMarcaYModeloYPrestamos> result = null;
             try
             {
-                result = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = "2" });
+             
+                result = new GarantiaBLL(1,TestInfo.Usuario).SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = "2" });
             }
             catch (Exception e)
             {
@@ -41,7 +42,7 @@ namespace PrestamoBLL.Tests
             IEnumerable<GarantiaConMarcaYModeloYPrestamos> result = null;
             try
             {
-                 result = BLLPrestamo.Instance.SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = "2" });
+                 result = new GarantiaBLL(1,TestInfo.Usuario).SearchGarantiaConDetallesDePrestamos(new BuscarGarantiaParams { Search = "2" });
             }
             catch (Exception e)
             {
@@ -57,7 +58,7 @@ namespace PrestamoBLL.Tests
             IEnumerable<GarantiaConMarcaYModelo> result = null;
             try
             {
-                result = BLLPrestamo.Instance.SearchGarantias("27");
+                result = new GarantiaBLL(1,TestInfo.Usuario).SearchGarantias("27");
             }
             catch (Exception e)
             {
@@ -73,8 +74,8 @@ namespace PrestamoBLL.Tests
             //tpIdGarantias.Add(new tpIdGarantia { IdGarantia = 4 });
             //tpIdGarantias.Add(new tpIdGarantia { IdGarantia = 3 });
             var IdGarantias = new List<int> { 4, 3 };
-            var result =BLLPrestamo.Instance.GarantiasTienenPrestamosVigentes(IdGarantias);
-            var result2 = BLLPrestamo.Instance.GarantiasConPrestamos(IdGarantias);
+            var result =new GarantiaBLL(1,TestInfo.Usuario).GarantiasTienenPrestamosVigentes(IdGarantias);
+            var result2 = new GarantiaBLL(1,TestInfo.Usuario).GarantiasConPrestamos(IdGarantias);
             Assert.Fail();
         }
     }
