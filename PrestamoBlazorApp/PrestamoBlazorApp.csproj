@@ -61,8 +61,8 @@
     <Reference Include="DevBox.Core.Classes">
       <HintPath>..\SharedDLL\PcProg\DevBox.Core.Classes.dll</HintPath>
     </Reference>
-    <Reference Include="PcpSoft.PcpSoft.MudBlazorHelpers">
-      <HintPath>..\SharedDLL\PcpSoft\PcpSoft.PcpSoft.MudBlazorHelpers.dll</HintPath>
+    <Reference Include="PcpSoft.MudBlazorHelpers">
+      <HintPath>..\..\CommonDLLS\PcpSoft.MudBlazorHelpers.dll</HintPath>
     </Reference>
     <Reference Include="PcpSoft.System">
       <HintPath>..\..\CommonDLLS\PcpSoft.System.dll</HintPath>
