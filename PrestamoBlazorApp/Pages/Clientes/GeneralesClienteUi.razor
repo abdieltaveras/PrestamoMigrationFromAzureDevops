@@ -1,6 +1,8 @@
 ﻿@inherits CommonBase
+@using PrestamoBlazorApp.Shared.Components.EntidadEstatus
 <MudGrid>
     <MudItem md="12" lg="12">
+        <AddEstatus OnSelectItem="GetEntidadEstatus" ></AddEstatus>
         @if (AllowInputCodigo)
         {
             <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
@@ -179,6 +181,11 @@
 
 @code {
 
+    private async Task GetEntidadEstatus(string val)
+    {
+        var a = val;
+    }
+
     [Parameter]
     public Cliente cliente { get; set; }
     [Parameter]
@@ -223,5 +230,5 @@
         IdEstadoCivil = cliente.IdEstadoCivil;
         var cl = cliente;
     }
-    
+
 }

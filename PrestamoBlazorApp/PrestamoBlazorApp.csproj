@@ -62,10 +62,10 @@
       <HintPath>..\SharedDLL\PcProg\DevBox.Core.Classes.dll</HintPath>
     </Reference>
     <Reference Include="PcpSoft.MudBlazorHelpers">
-      <HintPath>..\..\CommonDLLS\PcpSoft.MudBlazorHelpers.dll</HintPath>
+      <HintPath>..\SharedDLL\PcpSoft\PcpSoft.MudBlazorHelpers.dll</HintPath>
     </Reference>
     <Reference Include="PcpSoft.System">
-      <HintPath>..\..\CommonDLLS\PcpSoft.System.dll</HintPath>
+      <HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
     </Reference>
     <Reference Include="PrestamoModelsForFrontEnd">
       <HintPath>..\SharedDLL\PcProg\PrestamoModelsForFrontEnd.dll</HintPath>
