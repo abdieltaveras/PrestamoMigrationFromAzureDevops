@@ -21,7 +21,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         private SelectClass value2 { get { return _value2; } set { _value2 = value; OnSelect(value).GetAwaiter(); } }
         private List<SelectClass> lstEstatus { get; set; } = new List<SelectClass>();
         [Parameter]
-        public EventCallback<string> OnSelectItem { get; set; }
+        public EventCallback<SelectClass> OnSelectItem { get; set; }
 
         //private string[] states =
         //{
@@ -61,17 +61,17 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
             }
             StateHasChanged();
         }
-        private async Task<IEnumerable<string>> Search1(string value)
-        {
-            await GetStatus();
-            //return lstEstatus;
-            // In real life use an asynchronous function for fetching data from an api.
-            //await Task.Delay(5);
+        //private async Task<IEnumerable<string>> Search1(string value)
+        //{
+        //    await GetStatus();
+        //    //return lstEstatus;
+        //    // In real life use an asynchronous function for fetching data from an api.
+        //    //await Task.Delay(5);
 
-            // if text is null or empty, show complete list
-            if (string.IsNullOrEmpty(value))
-                return lstEstatus;
-            return lstEstatus.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-        }
+        //    // if text is null or empty, show complete list
+        //    if (string.IsNullOrEmpty(value))
+        //        return lstEstatus;
+        //    return lstEstatus.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        //}
     }
 }
