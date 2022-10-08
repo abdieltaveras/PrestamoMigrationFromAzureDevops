@@ -1,11 +1,14 @@
-﻿<MudItem xs="12" sm="6" md="4">
+﻿@using PrestamoBlazorApp.Shared.Components.Forms
+    
+<GeneralAutoComplete Label="Seleccionar Estatus" @bind-Value="value2"  listItems="lstEstatus" />
+@*<MudItem xs="12" sm="6" md="4">
     <MudAutocomplete T="string" Label="Entidad Estatus" @bind-Value="value2" SearchFunc="@Search1"
                      ResetValueOnEmptyText="@resetValueOnEmptyText"
                      CoerceText="@coerceText" CoerceValue="@coerceValue"
                      AdornmentIcon="@Icons.Material.Filled.Search"
                      AdornmentColor="MudBlazor.Color.Primary" Clearable="true"   >
     </MudAutocomplete>
-</MudItem>
+</MudItem>*@
 
 @code {
   

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PrestamoBlazorApp.Services;
+using PrestamoBlazorApp.Shared.Components.Forms;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,11 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         private bool resetValueOnEmptyText;
         private bool coerceText;
         private bool coerceValue;
-        private string _value2 { get; set; }
-        private string value2 { get { return _value2; } set { _value2 = value; OnSelect(value).GetAwaiter(); } }
-        private List<string> lstEstatus { get; set; } = new List<string>();
+        private SelectClass _value2 { get; set; }
+        private SelectClass value2 { get { return _value2; } set { _value2 = value; OnSelect(value).GetAwaiter(); } }
+        private List<SelectClass> lstEstatus { get; set; } = new List<SelectClass>();
         [Parameter]
-        public EventCallback<string> OnSelectItem { get; set; }
+        public EventCallback<SelectClass> OnSelectItem { get; set; }
 
         //private string[] states =
         //{
@@ -46,31 +47,31 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
             //await base.OnInitializedAsync();
         }
 
-        private async Task OnSelect(string val)
+        private async Task OnSelect(SelectClass val)
         {
             await OnSelectItem.InvokeAsync(val);
         }
         private async Task GetStatus()
         {
-            lstEstatus = new List<string>();
+            lstEstatus = new List<SelectClass>();
             var datos = await EntidadEstatusService.Get(new EntidadEstatusGetParams { Option = 1 });
             foreach (var item in datos)
             {
-                lstEstatus.Add(item.Name);
+                lstEstatus.Add(new SelectClass { Value = item.IdEntidadEstatus, Text = item.Name.ToString() });
             }
             StateHasChanged();
         }
-        private async Task<IEnumerable<string>> Search1(string value)
-        {
-            await GetStatus();
-            //return lstEstatus;
-            // In real life use an asynchronous function for fetching data from an api.
-            //await Task.Delay(5);
+        //private async Task<IEnumerable<string>> Search1(string value)
+        //{
+        //    await GetStatus();
+        //    //return lstEstatus;
+        //    // In real life use an asynchronous function for fetching data from an api.
+        //    //await Task.Delay(5);
 
-            // if text is null or empty, show complete list
-            if (string.IsNullOrEmpty(value))
-                return lstEstatus;
-            return lstEstatus.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-        }
+        //    // if text is null or empty, show complete list
+        //    if (string.IsNullOrEmpty(value))
+        //        return lstEstatus;
+        //    return lstEstatus.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        //}
     }
 }

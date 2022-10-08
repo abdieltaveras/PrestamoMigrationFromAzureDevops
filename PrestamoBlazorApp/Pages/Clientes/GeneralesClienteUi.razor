@@ -1,5 +1,6 @@
 ﻿@inherits CommonBase
 @using PrestamoBlazorApp.Shared.Components.EntidadEstatus
+@using PrestamoBlazorApp.Shared.Components.Forms
 <MudGrid>
     <MudItem md="12" lg="12">
         <AddEstatus OnSelectItem="GetEntidadEstatus" ></AddEstatus>
@@ -181,7 +182,7 @@
 
 @code {
 
-    private async Task GetEntidadEstatus(string val)
+    private async Task GetEntidadEstatus(SelectClass val)
     {
         var a = val;
     }
