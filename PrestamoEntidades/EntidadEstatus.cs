@@ -17,11 +17,13 @@ namespace PrestamoEntidades
         public bool IsActivo { get; set; } = true;
         public bool IsImpedirHacerPrestamo { get; set; }
     }
-
     public class EntidadEstatusGetParams
     {
+        /// <summary>
+        /// para permitir personalizar la columna y usarla para calculos y asuntos personalizados
+        /// </summary>
         public int Option { get; set; }
         public int IdEntidadEstatus { get; set; }
-        public string Name { get; set; } 
+        public string Name { get; set; }
     }
 }
