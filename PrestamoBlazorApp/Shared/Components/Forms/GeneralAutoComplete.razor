@@ -1,0 +1,76 @@
+﻿<MudAutocomplete T="SelectClass"
+                 Label="@Label"
+                 @bind-Value="@Value"
+                 SearchFunc="@Search"
+                 ToStringFunc="@(e=> e==null? "" : $"{e.Text}")"
+                 Variant="Variant.Text"
+                 ResetValueOnEmptyText="true"
+                 AdornmentIcon="@Icons.Material.Filled.Search"
+                 AdornmentColor="MudBlazor.Color.Primary"
+                 Clearable="true">
+</MudAutocomplete>
+@if (Value != null)
+{
+    <MudChip>@(Value.Text ?? "Sin Seleccionar")</MudChip>
+}
+else
+{
+    <MudChip>@("Sin Seleccionar")</MudChip>
+
+}
+
+@code {
+
+    [Parameter]
+    public SelectClass Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) return;
+
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<SelectClass> ValueChanged { get; set; }
+
+    [Parameter]
+    public string Placeholder { get; set; }
+
+    private SelectClass _value;
+    @*[Parameter]
+        public EventCallback<SelectClass> OnSelectItem { get; set; }*@
+
+    @*private SelectClass _Selected { get; set; }
+        private SelectClass Selected { get { return _Selected; } set { _Selected = value; OnSelect(value).GetAwaiter(); } }*@
+    [Parameter]
+    public List<SelectClass> listItems { get; set; } = new List<SelectClass>();
+    [Parameter]
+    public string Label { get; set; }
+
+    @*private SelectClass value1;*@
+
+    private async Task<IEnumerable<SelectClass>> Search(string value = "")
+    {
+        if (value == null)
+        {
+            value = "";
+        }
+        return listItems.Where(m => m.Text.ToString().Contains(value));
+        @*return await httpClient.GetFromJsonAsync<List<Element>>($"webapi/periodictable/{value}");*@
+    }
+
+    private async Task<IEnumerable<SelectClass>> SearchEmpty(string value)
+    {
+        await Task.Delay(5);
+        return Array.Empty<SelectClass>();
+    }
+
+    @*private async Task OnSelect(SelectClass val)
+        {
+            await OnSelectItem.InvokeAsync(val);
+        }*@
+}

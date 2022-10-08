@@ -1,10 +1,12 @@
-﻿<MudItem xs="12" sm="6" md="4">
-
-    <MudAutocomplete T="string" Label="Estatus" @bind-Value="SelectedEstatus" SearchFunc="@EstatusListSearch"
-                     ResetValueOnEmptyText="@false" CoerceText="@false" CoerceValue="@false"
-                     Clearable="true" HelperTextOnFocus="true" HelperText="puede escribir para buscar el estatus"   title="Puede escribir para buscar el estatus"
+﻿@using PrestamoBlazorApp.Shared.Components.Forms
+    
+<GeneralAutoComplete Label="Seleccionar Estatus" @bind-Value="value2"  listItems="lstEstatus" />
+@*<MudItem xs="12" sm="6" md="4">
+    <MudAutocomplete T="string" Label="Entidad Estatus" @bind-Value="value2" SearchFunc="@Search1"
+                     ResetValueOnEmptyText="@resetValueOnEmptyText"
+                     CoerceText="@coerceText" CoerceValue="@coerceValue"
                      AdornmentIcon="@Icons.Material.Filled.Search"
                      AdornmentColor="MudBlazor.Color.Primary">
     </MudAutocomplete>
-</MudItem>
+</MudItem>*@
 

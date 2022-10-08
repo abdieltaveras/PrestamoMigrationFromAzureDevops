@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PrestamoBlazorApp.Services;
+using PrestamoBlazorApp.Shared.Components.Forms;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -13,43 +14,64 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
     {
         [Inject]
         EntidadEstatusService EntidadEstatusService { get; set; }
-
-        private string _SelectedEstatus { get; set; }
-        private string SelectedEstatus { get { return _SelectedEstatus; } set { _SelectedEstatus = value; OnSelect(value).GetAwaiter(); } }
-        private List<string> lstEstatus { get; set; } = new List<string>();
+        private bool resetValueOnEmptyText;
+        private bool coerceText;
+        private bool coerceValue;
+        private SelectClass _value2 { get; set; }
+        private SelectClass value2 { get { return _value2; } set { _value2 = value; OnSelect(value).GetAwaiter(); } }
+        private List<SelectClass> lstEstatus { get; set; } = new List<SelectClass>();
         [Parameter]
-        public EventCallback<string> OnSelectItem { get; set; }
+        public EventCallback<SelectClass> OnSelectItem { get; set; }
+
+        //private string[] states =
+        //{
+        //    "Alabama", "Alaska", "American Samoa", "Arizona",
+        //    "Arkansas", "California", "Colorado", "Connecticut",
+        //    "Delaware", "District of Columbia", "Federated States of Micronesia",
+        //    "Florida", "Georgia", "Guam", "Hawaii", "Idaho",
+        //    "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+        //    "Louisiana", "Maine", "Marshall Islands", "Maryland",
+        //    "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+        //    "Missouri", "Montana", "Nebraska", "Nevada",
+        //    "New Hampshire", "New Jersey", "New Mexico", "New York",
+        //    "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio",
+        //    "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico",
+        //    "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+        //    "Texas", "Utah", "Vermont", "Virgin Island", "Virginia",
+        //    "Washington", "West Virginia", "Wisconsin", "Wyoming",
+        //};
+
         protected override async Task OnInitializedAsync()
         {
             await GetStatus();
             await base.OnInitializedAsync();
         }
 
-        private async Task OnSelect(string val)
+        private async Task OnSelect(SelectClass val)
         {
             await OnSelectItem.InvokeAsync(val);
         }
         private async Task GetStatus()
         {
-            lstEstatus = new List<string>();
+            lstEstatus = new List<SelectClass>();
             var datos = await EntidadEstatusService.Get(new EntidadEstatusGetParams { Option = 1 });
             foreach (var item in datos)
             {
-                lstEstatus.Add(item.Name);
+                lstEstatus.Add(new SelectClass { Value = item.IdEntidadEstatus, Text = item.Name.ToString() });
             }
             StateHasChanged();
         }
-        private async Task<IEnumerable<string>> EstatusListSearch(string value)
-        {
-            // await GetStatus(); no recargaremos a menos que sea necesario mediante un refresh
-            //return lstEstatus;
-            // In real life use an asynchronous function for fetching data from an api.
-            //await Task.Delay(5);
-            await Task.Delay(5);
-            // if text is null or empty, show complete list
-            if (string.IsNullOrEmpty(value)) return lstEstatus; //return new String[0]; 
-            return lstEstatus.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-        }
+        //private async Task<IEnumerable<string>> Search1(string value)
+        //{
+        //    await GetStatus();
+        //    //return lstEstatus;
+        //    // In real life use an asynchronous function for fetching data from an api.
+        //    //await Task.Delay(5);
 
+        //    // if text is null or empty, show complete list
+        //    if (string.IsNullOrEmpty(value))
+        //        return lstEstatus;
+        //    return lstEstatus.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        //}
     }
 }
