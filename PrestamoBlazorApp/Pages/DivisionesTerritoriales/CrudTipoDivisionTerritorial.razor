@@ -6,7 +6,7 @@
             <MudItem xs="12" sm="@MudItemSize">
                 <MudForm @ref="form" @bind-Errors="@FormFieldErrors">
                     <MudTextField @bind-Value="@_DivisionTerritorial.Nombre" Required="true" RequiredError="Es obligatorio llenar este campo" Label="Nombre tipo division territorial" />
-                    <MudSwitch  @bind-Checked="@_DivisionTerritorial.Activo" Label="Activo" Disabled="@(idDivisionTerritorial==-1)" Color="@(_DivisionTerritorial.Activo ? MudBlazor.Color.Success : MudBlazor.Color.Info)" />
+                    <MudSwitch  @bind-Checked="@_DivisionTerritorial.Activo" Label="Activo" Disabled="@(idDivisionTerritorial==-1)" Color="MudBlazor.Color.Success" />
                 </MudForm>
             </MudItem>
             @{
