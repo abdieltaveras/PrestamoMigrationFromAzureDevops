@@ -1,0 +1,32 @@
+﻿
+@if (estatus.IdEstatus > 0)
+{
+<MudChip Color="MudBlazor.Color.Info">
+    @estatus.Name
+</MudChip>
+    @*<MudText></MudText>*@
+
+}
+else
+{
+    <MudText>Sin resultados</MudText>
+}
+@*@if (cliente.IdCliente > 0 || prestamo.IdPrestamo > 0)
+    {
+        @if (TipoBusqueda == 1)
+        {
+            <MudText>@cliente.IdEstatus</MudText>
+        }
+        else
+        {
+            <MudText>@prestamo.IdEstatus</MudText>
+        }
+    }
+    else
+    {
+        <MudText>Sin resultados</MudText>
+    }*@
+
+@code {
+
+}

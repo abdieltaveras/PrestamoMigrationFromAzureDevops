@@ -181,7 +181,7 @@ namespace PrestamoEntidades
             get { return (TiposAmortizacion)IdTipoAmortizacion; }
             set { IdTipoAmortizacion = (int)value; }
         }
-
+        public int IdEstatus { get; set; }
         /// <summary>
         /// retorna true o false al contar si hay o no garantias para este prestamo
         /// </summary>

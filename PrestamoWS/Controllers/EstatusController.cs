@@ -15,14 +15,20 @@ namespace PrestamoWS.Controllers
     [ApiController]
     [Route("api/[controller]/[action]")]
 
-    public class EntidadEstatusController : ControllerBasePrestamoWS
+    public class EstatusController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<EntidadEstatus> Get([FromQuery] EntidadEstatusGetParams getParams)
+        public IEnumerable<Estatus> Get([FromQuery] EstatusGetParams getParams)
         {
-            var result = new EntidadEstatusBLL(this.IdLocalidadNegocio,this.LoginName).Get(getParams);
+            var result = new EstatusBLL(this.IdLocalidadNegocio,this.LoginName).Get(getParams);
             return result;
         }
+        //[HttpGet]
+        //public IEnumerable<Estatus> ListEstatus()
+        //{
+        //    var result = new EstatusBLL(this.IdLocalidadNegocio, this.LoginName).ListEstatus();
+        //    return result;
+        //}
         //[HttpGet]
         //public async Task<IEnumerable<TasaInteresPorPeriodos>> GetTasaInteresPorPeriodo(int idTasaDeInteres, int idPeriodo)
         //{
@@ -36,10 +42,10 @@ namespace PrestamoWS.Controllers
         //}
 
         [HttpPost]
-        public IActionResult Post([FromBody] EntidadEstatus insUpdParam)
+        public IActionResult Post([FromBody] Estatus insUpdParam)
         {
             //insUpdParam.IdLocalidadNegocio = 1;
-            var id = new EntidadEstatusBLL(this.IdLocalidadNegocio, this.LoginName).InsUpd(insUpdParam);
+            var id = new EstatusBLL(this.IdLocalidadNegocio, this.LoginName).InsUpd(insUpdParam);
             return Ok(id);
         }
         //[HttpDelete]

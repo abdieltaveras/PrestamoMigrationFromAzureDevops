@@ -213,9 +213,12 @@
     <Build Include="dbo\Stored Procedures\spGetDivisionTerritorialComponents.sql" />
     <Build Include="dbo\Stored Procedures\spGetTiposDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\spSearchClientes.sql" />
-    <Build Include="dbo\Tables\tblEntidadEstatus.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdEntidadEstatus.sql" />
-    <Build Include="dbo\Stored Procedures\spGetEntidadEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\UsuarioListaOperacionesSpGet.sql" />
+    <Build Include="dbo\Stored Procedures\SpUpdContraseñaUsuario.sql" />
+    <Build Include="dbo\Stored Procedures\spListEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spGetEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spAddEstatusToCliente.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />

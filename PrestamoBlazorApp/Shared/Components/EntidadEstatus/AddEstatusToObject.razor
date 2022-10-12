@@ -1,0 +1,50 @@
+﻿@page "/asignarestatus"
+@using PrestamoBlazorApp.Shared.Components.EntidadEstatus 
+
+<MudCard>
+    <MudCardContent>
+        <MudGrid>
+            <MudItem md="3" lg="3">
+                <MudSelect @bind-Value="@TipoBusqueda" Label="@($"Buscar {TipoBusquedaStr} por ID")">
+                    <MudSelectItem Value="-1">Seleccionar un tipo de busqueda</MudSelectItem>
+                    <MudSelectItem Value="1">Cliente</MudSelectItem>
+                    <MudSelectItem Value="2">Prestamo</MudSelectItem>
+                </MudSelect>
+            </MudItem>
+            <MudItem md="5" lg="5">
+                <MudTextField T="int" @bind-Value="@Id" Label="@($"Buscar {TipoBusquedaStr} por ID")" Variant="Variant.Text" />
+            </MudItem>
+            <MudItem md="2" lg="2">
+                <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Buscar @TipoBusquedaStr</MudButton>
+            </MudItem>
+        </MudGrid>
+
+
+    </MudCardContent>
+</MudCard>
+
+<MudCard>
+    <MudCardHeader>
+        <MudText>Estatus Asignado</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudGrid>
+            <MudItem md="3" lg="3">
+                <AddEstatus OnSelectItem="EstatusSelected" />
+            </MudItem>
+            <MudItem md="2" lg="2">
+                <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Asignar</MudButton>
+            </MudItem>
+        </MudGrid>
+        <MudDivider Absolute="true" DividerType="DividerType.Middle"/>
+        <MudGrid>
+            <MudItem>
+                <ViewEstatusOfObject IdEstatus="@Id"></ViewEstatusOfObject>
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+</MudCard>
+
+@code {
+
+}

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class EntidadEstatus //:BaseInsUpd //: BaseInsUpdCatalogo
+    public class Estatus //:BaseInsUpd //: BaseInsUpdCatalogo
     {
-        public int IdEntidadEstatus { get; set; }
+        public int IdEstatus { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsNotPrintOnReport { get; set; }
@@ -18,10 +18,9 @@ namespace PrestamoEntidades
         public bool IsImpedirHacerPrestamo { get; set; }
     }
 
-    public class EntidadEstatusGetParams
+    public class EstatusGetParams
     {
-        public int Option { get; set; }
-        public int IdEntidadEstatus { get; set; }
-        public string Name { get; set; } 
+        public int IdEstatus { get; set; } = -1;
+        public string Name { get; set; } = "";
     }
 }

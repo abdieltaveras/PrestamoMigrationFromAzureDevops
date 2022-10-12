@@ -18,17 +18,17 @@ namespace PrestamoBlazorApp.Pages.EntidadEstatus
         [Inject]
         NavigationManager NavigationManager { get; set; }
         [Inject]
-        EntidadEstatusService EntidadEstatusService { get; set; }
-        IEnumerable<PrestamoEntidades.EntidadEstatus> entidadesEstatus { get; set; }
+        EstatusService EntidadEstatusService { get; set; }
+        IEnumerable<PrestamoEntidades.Estatus> entidadesEstatus { get; set; }
         [Parameter]
-        public PrestamoEntidades.EntidadEstatus eEntidadEstatus { get; set; } = new PrestamoEntidades.EntidadEstatus();
+        public PrestamoEntidades.Estatus eEntidadEstatus { get; set; } = new PrestamoEntidades.Estatus();
         private bool ChkRequiereAutorizacion { get; set; }
         private bool ChkEstatus { get; set; } = true;
 
 
 
-        private PrestamoEntidades.EntidadEstatus SelectedItem1 = null;
-        private bool FilterFunc1(PrestamoEntidades.EntidadEstatus element) => FilterFunc(element, SearchStringTable);
+        private PrestamoEntidades.Estatus SelectedItem1 = null;
+        private bool FilterFunc1(PrestamoEntidades.Estatus element) => FilterFunc(element, SearchStringTable);
 
         private bool ShowDialogCreate { get; set; } = false;
 
@@ -41,7 +41,7 @@ namespace PrestamoBlazorApp.Pages.EntidadEstatus
             LoadingTable = true;
             if (search.Length >= MinSearchLength)
             {
-                entidadesEstatus = new List<PrestamoEntidades.EntidadEstatus>();
+                entidadesEstatus = new List<PrestamoEntidades.Estatus>();
   
             }
             //StateHasChanged();
@@ -52,10 +52,10 @@ namespace PrestamoBlazorApp.Pages.EntidadEstatus
 
         async Task GetDataList()
         {
-            entidadesEstatus = await EntidadEstatusService.Get(new EntidadEstatusGetParams { Option = 1 });
+            entidadesEstatus = await EntidadEstatusService.Get(new EstatusGetParams());
             StateHasChanged();
         }
-        private bool FilterFunc(PrestamoEntidades.EntidadEstatus element, string searchString)
+        private bool FilterFunc(PrestamoEntidades.Estatus element, string searchString)
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;
