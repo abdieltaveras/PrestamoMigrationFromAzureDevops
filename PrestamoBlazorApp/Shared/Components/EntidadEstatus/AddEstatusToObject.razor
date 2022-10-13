@@ -6,16 +6,47 @@
         <MudGrid>
             <MudItem md="3" lg="3">
                 <MudSelect @bind-Value="@TipoBusqueda" Label="@($"Buscar {TipoBusquedaStr} por ID")">
-                    <MudSelectItem Value="-1">Seleccionar un tipo de busqueda</MudSelectItem>
+                    <MudSelectItem Value="-1" Disabled="true">Seleccionar un tipo de busqueda</MudSelectItem>
                     <MudSelectItem Value="1">Cliente</MudSelectItem>
                     <MudSelectItem Value="2">Prestamo</MudSelectItem>
                 </MudSelect>
             </MudItem>
             <MudItem md="5" lg="5">
-                <MudTextField T="int" @bind-Value="@Id" Label="@($"Buscar {TipoBusquedaStr} por ID")" Variant="Variant.Text" />
+                <MudNumericField  T="int" @bind-Value="@Id" Label="@($"Buscar {TipoBusquedaStr} por ID")" Variant="Variant.Text" />
+                @if (TipoBusqueda == 1)
+                {
+                    if (ClienteSelected.IdCliente > 0)
+                    {
+                        <MudChip>@ClienteSelected.NombreCompleto</MudChip>
+                    }
+                    else
+                    {
+                        <MudChip>@TipoBusquedaStr sin seleccionar</MudChip>
+                    }
+                }
+                else
+                {
+                    @if (TipoBusqueda == 2)
+                    {
+                        if (PrestamoSelected.IdPrestamo > 0)
+                        {
+                            <MudChip>@PrestamoSelected.IdPrestamo | @PrestamoSelected.PrestamoNumero</MudChip>
+                        }
+                        else
+                        {
+                            <MudChip>@TipoBusquedaStr sin seleccionar</MudChip>
+
+                        }
+                    }
+                    else
+                    {
+                        <MudChip>@TipoBusquedaStr sin seleccionar</MudChip>
+
+                    }
+                }
             </MudItem>
             <MudItem md="2" lg="2">
-                <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Buscar @TipoBusquedaStr</MudButton>
+                <MudButton Style='@(TipoBusqueda>0 ? "display:block;":"display:none;")' ButtonType="ButtonType.Button" OnClick="()=>GetData()" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Buscar @TipoBusquedaStr</MudButton>
             </MudItem>
         </MudGrid>
 
@@ -30,7 +61,7 @@
     <MudCardContent>
         <MudGrid>
             <MudItem md="3" lg="3">
-                <AddEstatus OnSelectItem="EstatusSelected" />
+                <SearchEstatus OnSelectItem="EstatusSelected" />
             </MudItem>
             <MudItem md="2" lg="2">
                 <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Asignar</MudButton>
@@ -38,9 +69,19 @@
         </MudGrid>
         <MudDivider Absolute="true" DividerType="DividerType.Middle"/>
         <MudGrid>
-            <MudItem>
-                <ViewEstatusOfObject IdEstatus="@Id"></ViewEstatusOfObject>
-            </MudItem>
+            @if (ClienteSelected.IdCliente > 0 || PrestamoSelected.IdPrestamo > 0)
+            {
+                <MudItem>
+                    <ViewEstatusOfObject IdEstatus="@IdEstatus"></ViewEstatusOfObject>
+                </MudItem>
+            }
+            else
+            {
+                <MudItem>
+                    <ViewEstatusOfObject IdEstatus="@IdEstatus"></ViewEstatusOfObject>
+                </MudItem>
+            }
+
         </MudGrid>
     </MudCardContent>
 </MudCard>

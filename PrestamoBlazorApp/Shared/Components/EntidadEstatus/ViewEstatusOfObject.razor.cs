@@ -31,7 +31,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         }
         public async Task GetEstatusById()
         {
-            IdEstatus = 1;
+            //IdEstatus = 1;
             var estatuses = await EntidadEstatusService.Get(new PrestamoEntidades.EstatusGetParams { IdEstatus = IdEstatus });
             if (estatuses.Count()>0)
             {

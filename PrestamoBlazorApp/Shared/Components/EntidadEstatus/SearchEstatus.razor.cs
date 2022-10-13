@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
 {
-    public partial class AddEstatus
+    public partial class SearchEstatus
     {
         [Inject]
         EstatusService EntidadEstatusService { get; set; }
