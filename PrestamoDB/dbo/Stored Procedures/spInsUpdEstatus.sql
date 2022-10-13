@@ -1,5 +1,5 @@
-﻿CREATE proc [dbo].[spInsUpdEntidadEstatus]
-@IdEntidadEstatus int,
+﻿CREATE proc [dbo].[spInsUpdEstatus]
+@IdEstatus int,
 @Name varchar(50),
 @Description varchar(100),
 @IsNotPrintOnReport bit,
@@ -8,14 +8,14 @@
 @IsActivo bit,
 @IsImpedirHacerPrestamo bit
 as
-IF(@IdEntidadEstatus <= 0)
+IF(@IdEstatus <= 0)
 	BEGIN
-		INSERT INTO tblEntidadEstatus (Name,Description,IsNotPrintOnReport,IsImpedirPagoEnCaja,IsRequiereAutorizacionEnCaja,IsActivo,IsImpedirHacerPrestamo)
+		INSERT INTO tblEstatus(Name,Description,IsNotPrintOnReport,IsImpedirPagoEnCaja,IsRequiereAutorizacionEnCaja,IsActivo,IsImpedirHacerPrestamo)
 		values (@Name,@Description,@IsNotPrintOnReport,@IsImpedirPagoEnCaja,@IsRequiereAutorizacionEnCaja,@IsActivo,@IsImpedirHacerPrestamo)
 	END
 	ELSE
 	BEGIN
-		UPDATE tblEntidadEstatus SET
+		UPDATE tblEstatus SET
 		Name = @Name,
 		Description = @Description,
 		IsNotPrintOnReport = @IsNotPrintOnReport,
@@ -23,5 +23,5 @@ IF(@IdEntidadEstatus <= 0)
 		IsRequiereAutorizacionEnCaja = @IsRequiereAutorizacionEnCaja,
 		IsActivo = @IsActivo,
 		IsImpedirHacerPrestamo = @IsImpedirHacerPrestamo
-		WHERE IdEntidadEstatus = @IdEntidadEstatus
+		WHERE IdEstatus = @IdEstatus
 	END

@@ -99,6 +99,7 @@ namespace PrestamoEntidades
         [Required(ErrorMessage = "el campo {0} es requerido")]
         public string Apodo { get; set; } = string.Empty;
         public int idSexo { get; set; } = (int)Sexo.Masculino;
+        public int IdEstatus { get; set; }
     }
 
     public abstract class BaseInsUpdCatalogo : BaseInsUpd

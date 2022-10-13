@@ -1,4 +1,4 @@
-﻿@page "/EstatusList"
+﻿@page "/Estatus"
 @inherits BaseForList
 @using PrestamoBlazorApp.Shared.Components.Forms
 
@@ -8,8 +8,8 @@
              ShowSearchOption="false">
 
     <CardContent>
-            <MudTable T="PrestamoEntidades.EntidadEstatus" Loading="LoadingTable" Items="@entidadesEstatus" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped"
-                      Filter="new Func<PrestamoEntidades.EntidadEstatus,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+            <MudTable T="PrestamoEntidades.Estatus" Loading="LoadingTable" Items="@entidadesEstatus" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped"
+                      Filter="new Func<PrestamoEntidades.Estatus,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
                 <ToolBarContent>
                     <MudText Typo="Typo.h6">Elementos</MudText>
                     <MudTextField Immediate="true" @bind-Value="SearchStringTable" Required="true" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
@@ -24,7 +24,7 @@
                     <MudTd DataLabel="Codigo">@context.Name</MudTd>
                     <MudTd DataLabel="Nombre">@context.Description</MudTd>
                     <MudTd>
-                        <MudIconButton OnClick='()=>CreateOrEdit(context.IdEntidadEstatus)' Icon="@Icons.Outlined.Edit"></MudIconButton>
+                        <MudIconButton OnClick='()=>CreateOrEdit(context.IdEstatus)' Icon="@Icons.Outlined.Edit"></MudIconButton>
                     </MudTd>
                 </RowTemplate>
                 <PagerContent>

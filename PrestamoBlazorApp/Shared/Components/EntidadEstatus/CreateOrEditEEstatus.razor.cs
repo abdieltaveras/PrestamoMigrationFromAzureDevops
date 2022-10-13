@@ -13,11 +13,11 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Inject]
-        EntidadEstatusService EntidadEstatusService { get; set; }
+        EstatusService EntidadEstatusService { get; set; }
         [Parameter]
         public int IdEntidadEstatus { get; set; }
 
-        PrestamoEntidades.EntidadEstatus EntidadEstatus { get; set; } = new PrestamoEntidades.EntidadEstatus();
+        PrestamoEntidades.Estatus EntidadEstatus { get; set; } = new PrestamoEntidades.Estatus();
         protected override async Task OnInitializedAsync()
         {
             //EntidadEstatus = new PrestamoEntidades.EntidadEstatus();
@@ -30,12 +30,12 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
             //await BlockPage();
             if (IdEntidadEstatus > 0)
             {
-                var data = await EntidadEstatusService.Get(new EntidadEstatusGetParams { Option = 2 ,IdEntidadEstatus = IdEntidadEstatus });
+                var data = await EntidadEstatusService.Get(new EstatusGetParams { IdEstatus = IdEntidadEstatus });
                 EntidadEstatus = data.FirstOrDefault();
             }
             else
             {
-                this.EntidadEstatus = new PrestamoEntidades.EntidadEstatus();
+                this.EntidadEstatus = new PrestamoEntidades.Estatus();
             }
             StateHasChanged();
             //await UnBlockPage();
