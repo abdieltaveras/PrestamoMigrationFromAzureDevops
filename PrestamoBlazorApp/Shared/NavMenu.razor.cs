@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.JSInterop;
+using MudBlazor;
 using PrestamoBlazorApp.Services;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace PrestamoBlazorApp.Shared
         NavigationManager navManager { get; set; }
         [Inject]
         private IJSRuntime jsRuntime { get; set; }
+        [Inject]
+        ISnackbar Snackbar { get; set; }
+
         private JsInteropUtils jsInterop { get; set; } = new JsInteropUtils();
         private bool IsDevelopment => env.EnvironmentName == "Development";
         public NavMenu()
@@ -29,6 +33,8 @@ namespace PrestamoBlazorApp.Shared
             navManager.NavigateTo(linkUrl, true);
         }
 
-        
+        private async Task NotImplementedMessage()=> await Task.Run(() => Snackbar.Add("Opcion no implementada", Severity.Warning));
+
+
     }
 }

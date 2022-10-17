@@ -11,7 +11,7 @@ namespace PrestamoBlazorApp.Shared
 {
     public abstract class CommonBase : ComponentBase
     {
-        
+       
         [Inject]
         protected NavigationManager NavManager { get; set; }
         [Inject]

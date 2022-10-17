@@ -2,15 +2,15 @@
     <MudNavLink Href="/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.All">Inicio</MudNavLink>
     @{
         if (IsDevelopment)
-        { 
-        <MudNavGroup Title="Test" Expanded="false">
-            <MudNavLink Href="test/test" Match="NavLinkMatch.All" title="Calling blazor component from controller"> Calling Comp.</MudNavLink>
-            <MudNavLink Href="/Ocupaciones" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Ocupaciones  </MudNavLink>
-            <MudNavLink Href="/Colores" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Colores  </MudNavLink>
-            <MudNavLink Href="/TiposSexo" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Tipos Sexo  </MudNavLink>
-            <MudNavLink Href="/TiposTelefonos" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Tipos Telefonos  </MudNavLink>
-            <MudNavLink Href="/EstatusList" Match="NavLinkMatch.All" title="Listado Estatus"> Listado Estatus  </MudNavLink>
-        </MudNavGroup>
+        {
+            <MudNavGroup Title="Test" Expanded="false">
+                <MudNavLink Href="test/test" Match="NavLinkMatch.All" title="Calling blazor component from controller"> Calling Comp.</MudNavLink>
+                <MudNavLink Href="/Ocupaciones" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Ocupaciones  </MudNavLink>
+                <MudNavLink Href="/Colores" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Colores  </MudNavLink>
+                <MudNavLink Href="/TiposSexo" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Tipos Sexo  </MudNavLink>
+                <MudNavLink Href="/TiposTelefonos" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Tipos Telefonos  </MudNavLink>
+                <MudNavLink Href="/EstatusList" Match="NavLinkMatch.All" title="Listado Estatus"> Listado Estatus  </MudNavLink>
+            </MudNavGroup>
         }
     }
     <MudNavGroup Title="Catalogos" Expanded="false">
@@ -64,6 +64,10 @@
             <MudNavLink Href="/notimplemented/registrar notas de credito" Match="NavLinkMatch.All"> registrar notas de credito</MudNavLink>
         </MudNavGroup>
 
+    </MudNavGroup>
+
+    <MudNavGroup Title="En Proceso" Expanded="true">
+            <MudNavLink  Match="NavLinkMatch.All"  OnClick="NotImplementedMessage"> tarea Pendiente </MudNavLink>
     </MudNavGroup>
 
 </MudNavMenu>
