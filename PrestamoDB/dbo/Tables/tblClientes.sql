@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblClientes]
 (
 	[IdCliente] INT NOT NULL PRIMARY KEY identity(1,1), 
-	[IdStatus] INT NULL,
+	[IdEstatus] INT NULL,
 	[IdNegocio] INT NOT NULL, 
 	[IdLocalidadNegocio] INT NOT NULL, 
 	[Activo] bit default(1) not null,
