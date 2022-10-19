@@ -13,7 +13,7 @@
             </MudItem>
             <MudItem md="5" lg="5">
                 <MudNumericField  T="int" @bind-Value="@Id" Label="@($"Buscar {TipoBusquedaStr} por ID")" Variant="Variant.Text" />
-                @if (TipoBusqueda == 1)
+                @if (TipoBusqueda == (int)eAddEstatusTo.Clientes)
                 {
                     if (ClienteSelected.IdCliente > 0)
                     {
@@ -26,7 +26,7 @@
                 }
                 else
                 {
-                    @if (TipoBusqueda == 2)
+                    @if (TipoBusqueda == (int)eAddEstatusTo.Prestamos)
                     {
                         if (PrestamoSelected.IdPrestamo > 0)
                         {
@@ -64,24 +64,14 @@
                 <SearchEstatus OnSelectItem="EstatusSelected" />
             </MudItem>
             <MudItem md="2" lg="2">
-                <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Asignar</MudButton>
+                <MudButton OnClick="OnAsignarClick" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Asignar</MudButton>
             </MudItem>
-        </MudGrid>
-        <MudDivider Absolute="true" DividerType="DividerType.Middle"/>
-        <MudGrid>
-            @if (ClienteSelected.IdCliente > 0 || PrestamoSelected.IdPrestamo > 0)
-            {
-                <MudItem>
-                    <ViewEstatusOfObject IdEstatus="@IdEstatus"></ViewEstatusOfObject>
-                </MudItem>
-            }
-            else
-            {
-                <MudItem>
-                    <ViewEstatusOfObject IdEstatus="@IdEstatus"></ViewEstatusOfObject>
-                </MudItem>
-            }
-
+            <MudItem md="7" lg="7">
+                @if (ClienteSelected.IdCliente > 0 || PrestamoSelected.IdPrestamo > 0)
+                {
+                     <ViewEstatusOfObject Id="@Id" TipoBusqueda="@TipoBusqueda"></ViewEstatusOfObject>
+                }
+            </MudItem>
         </MudGrid>
     </MudCardContent>
 </MudCard>
