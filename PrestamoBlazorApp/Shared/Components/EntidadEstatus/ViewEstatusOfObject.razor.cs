@@ -11,14 +11,16 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
     {
 
         [Parameter]
-        public int IdEstatus { get; set; }
+        public int Id { get; set; }
         [Parameter]
         public int TipoBusqueda { get; set; }
         //private ClientesService ClientesService { get; set; }
         //private PrestamosService PrestamosService { get; set; }
         [Inject]
+        private ClientesEstatusService ClientesEstatusService { get; set; }
+        [Inject]
         private EstatusService EntidadEstatusService { get; set; }
-        private PrestamoEntidades.Estatus estatus { get; set; } = new PrestamoEntidades.Estatus();
+        private IEnumerable<PrestamoEntidades.ClienteEstatusGet> estatusesCliente { get; set; } = new List<PrestamoEntidades.ClienteEstatusGet>();
         //private PrestamoEntidades.Prestamo prestamo = new PrestamoEntidades.Prestamo();
 
         //private PrestamoEntidades.Cliente cliente = new PrestamoEntidades.Cliente();
@@ -26,17 +28,23 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         protected override async Task OnInitializedAsync()
         {
             //EntidadEstatus = new PrestamoEntidades.EntidadEstatus();
+            estatusesCliente = new List<PrestamoEntidades.ClienteEstatusGet>();
+            //private PrestamoEntidades.Prestamo prestamo = new PrestamoEntidades.Prestamo();
             await GetEstatusById();
             //await base.OnInitializedAsync();
         }
         public async Task GetEstatusById()
         {
             //IdEstatus = 1;
-            var estatuses = await EntidadEstatusService.Get(new PrestamoEntidades.EstatusGetParams { IdEstatus = IdEstatus });
-            if (estatuses.Count()>0)
+            if (TipoBusqueda == (int)PrestamoEntidades.eAddEstatusTo.Clientes)
             {
-                estatus = estatuses.FirstOrDefault();
+                var estatuss = await ClientesEstatusService.Get(new PrestamoEntidades.ClienteEstatusGetParams { IdCliente = Id });
+                if (estatuss.Count() > 0)
+                {
+                    estatusesCliente = estatuss;
+                }
             }
+
             //if (TipoBusqueda == 1)
             //{
             //    var clientes = await ClientesService.GetClientesAsync(new PrestamoEntidades.ClienteGetParams { IdCliente = Id });
