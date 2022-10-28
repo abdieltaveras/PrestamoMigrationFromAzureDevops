@@ -1,0 +1,26 @@
+﻿@using PrestamoBlazorApp.Shared.Components.Forms
+@inherits BaseForCreateOrEdit
+
+<GeneralModal OnSaveClick="Save" >
+    <Content>
+        <MudForm @ref="form">
+            <MudTextField @bind-Value="Localizador.Codigo" T="string" Label="Codigo" For="@(() => Localizador.Codigo)"></MudTextField>
+
+            <MudTextField @bind-Value="Localizador.Nombre" T="string" Label="Nombre" For="@(() => Localizador.Nombre)"></MudTextField>
+            <MudTextField @bind-Value="Localizador.Apellidos" T="string" Label="Apellidos" For="@(() => Localizador.Apellidos)"></MudTextField>
+            <MudTextField @bind-Value="Localizador.Direccion" T="string" Label="Direccion" For="@(() => Localizador.Direccion)"></MudTextField>
+            <MudTextField @bind-Value="Localizador.Telefonos" T="string" Label="Telefonos" For="@(() => Localizador.Telefonos)"></MudTextField>
+        </MudForm>
+        @*<MudSelect T="DivisionTerritorial" @bind-Value="SelectedTipoLocalidad" Immediate="true " Label="Tipo Division Territorial">
+            @foreach (var item in territorios)
+            {
+                <MudSelectItem Value="@item"
+        >@item.Nombre</MudSelectItem>
+            }
+        </MudSelect>*@
+
+    </Content>
+</GeneralModal>
+@code {
+
+}

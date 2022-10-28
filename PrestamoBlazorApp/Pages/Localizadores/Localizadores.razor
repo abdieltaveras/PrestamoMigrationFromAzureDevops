@@ -1,0 +1,37 @@
+﻿@page "/localizadores"
+@inherits BaseForList
+@using PrestamoBlazorApp.Shared.Components.Forms
+
+<GeneralList CardTitle="Localizadores"
+             ShowSearchOption="false" OnAddClick="()=>ShowDialog()">
+    <CardContent>
+        <MudTable Loading="LoadingTable" Items="@localizadores"
+                  Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" >
+            <HeaderContent>
+                <MudTh>Codigo</MudTh>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Apellidos</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd DataLabel="Apellidos">@context.Apellidos </MudTd>
+        
+                <MudTd>
+                    <MudIconButton OnClick='()=>ShowDialog(context.IdLocalizador)' Icon="@Icons.Outlined.Edit"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </CardContent>
+</GeneralList>
+
+
+
+
+@code {
+
+}
