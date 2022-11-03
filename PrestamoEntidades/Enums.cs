@@ -22,6 +22,12 @@
         Clientes = 1,
         Prestamos
     }
+    public enum eTablasOrigen
+    {
+        Clientes = 1,
+        Prestamos,
+        Garantias
+    }
     //public enum TipoLocalidad
     //{
     //    Continente = 1,
