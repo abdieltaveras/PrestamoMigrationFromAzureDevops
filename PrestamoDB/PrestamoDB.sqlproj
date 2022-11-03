@@ -219,6 +219,14 @@
     <Build Include="dbo\Stored Procedures\spInsUpdEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spGetEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spAddEstatusToCliente.sql" />
+    <Build Include="dbo\Tables\tblComentarios.sql" />
+    <Build Include="dbo\Tables\tblClienteEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdLocalizador.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdComentario.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdClienteEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spGetLocalizadores.sql" />
+    <Build Include="dbo\Stored Procedures\spGetClienteEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spAddEstatusToCliente_1.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />

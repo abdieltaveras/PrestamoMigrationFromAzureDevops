@@ -7,7 +7,11 @@
     [IsRequiereAutorizacionEnCaja] BIT           NOT NULL,
     [IsActivo]                     BIT           NOT NULL,
     [IsImpedirHacerPrestamo]       BIT           NOT NULL,
+    [IdNegocio]                    INT           NULL,
+    [IdLocalidadNegocio]           INT           NULL,
     CONSTRAINT [PK_EntidadEstatus] PRIMARY KEY CLUSTERED ([IdEstatus] ASC)
 );
+
+
 
 
