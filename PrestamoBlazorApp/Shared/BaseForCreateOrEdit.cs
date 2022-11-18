@@ -18,7 +18,7 @@ namespace PrestamoBlazorApp.Shared
         protected bool IsFormShowErrors;
         protected string[] FormFieldErrors = { };
         protected bool IsFormSuccess { get; set; }
-        protected MudForm form;
+        protected MudForm form = null;
 
         //[Inject]
         //protected SetParametrosService setParametros { get; set; }
@@ -54,13 +54,16 @@ namespace PrestamoBlazorApp.Shared
 
         protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage = false, string redirectTo = "", MudDialogInstance mudDialogInstance = null)
         {
-
-            await form.Validate();
-            if (form.IsValid == false)
+            if (form!=null)
             {
-                await NotifyMessageBySnackBar("Revisar hay errores en el formulario", Severity.Warning);
-                return;
+                await form.Validate();
+                if (form.IsValid == false)
+                {
+                    await NotifyMessageBySnackBar("Revisar hay errores en el formulario", Severity.Warning);
+                    return;
+                }
             }
+          
 
             if (blockPage) { await BlockPage(); }
             await Handle_Funct(() => SetOverlay(true));

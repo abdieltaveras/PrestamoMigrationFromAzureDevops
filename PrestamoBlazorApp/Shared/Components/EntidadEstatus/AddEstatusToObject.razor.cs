@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
 {
-    public partial class AddEstatusToObject
+    public partial class AddEstatusToObject : BaseForCreateOrEdit
     {
 
         MudBlazor.MudForm form;
@@ -25,6 +25,8 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         [Inject]
         ClientesEstatusService ClientesEstatusService { get; set; }
         [Inject]
+        PrestamosEstatusService PrestamosEstatusService { get; set; }
+        [Inject]
         ClientesService ClientesService { get; set; }
         [Inject]
         PrestamosService PrestamosService { get; set; }
@@ -32,10 +34,11 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         private PrestamoEntidades.Prestamo PrestamoSelected { get; set; } = new PrestamoEntidades.Prestamo();
         public int SelectedEstatus { get; set; }
         private ClienteEstatus ClienteEstatus { get; set; } = new ClienteEstatus();
-
+        private PrestamoEstatus PrestamoEstatus { get; set; } = new PrestamoEstatus();
         protected override async Task OnInitializedAsync()
         {
             ClienteEstatus = new ClienteEstatus();
+            PrestamoEstatus = new PrestamoEstatus();
         }
         private void EstatusSelected(SelectClass selected)
         {
@@ -46,6 +49,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
             ClienteSelected = new Cliente();
             PrestamoSelected = new Prestamo();
             ClienteEstatus = new ClienteEstatus();
+            PrestamoEstatus = new PrestamoEstatus();
             SelectedEstatus = -1;
             Id = -1;
             if (TipoBusqueda == (int)eAddEstatusTo.Clientes)
@@ -86,7 +90,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
                     if (prestamos.Count() > 0)
                     {
                         PrestamoSelected = prestamos.FirstOrDefault();
-                        Id = PrestamoSelected.IdEstatus;
+                        Id = PrestamoSelected.IdPrestamo;
                     }
                 }
             }
@@ -94,12 +98,19 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         }
         private async Task OnAsignarClick()
         {
-            ClienteEstatus.IdEstatus = SelectedEstatus;
             if (TipoBusqueda == (int)eAddEstatusTo.Clientes)
             {
+                ClienteEstatus.IdEstatus = SelectedEstatus;
                 ClienteEstatus.IdCliente = ClienteSelected.IdCliente;
-                await ClientesEstatusService.Save(ClienteEstatus);
+                await Handle_SaveData(()=> ClientesEstatusService.Save(ClienteEstatus));
+            }else if (TipoBusqueda == (int)eAddEstatusTo.Prestamos)
+            {
+                PrestamoEstatus.IdEstatus = SelectedEstatus;
+                PrestamoEstatus.IdPrestamo = PrestamoSelected.IdPrestamo;
+                await Handle_SaveData(()=> PrestamosEstatusService.Save(PrestamoEstatus));
             }
+            await SweetMessageBox("Asignado correctamente");
+            await GetData();
         }
     }
 }

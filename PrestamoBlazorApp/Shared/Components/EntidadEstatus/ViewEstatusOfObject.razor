@@ -1,10 +1,27 @@
 ﻿
 @if (estatusesCliente.Count() > 0)
 {
-    <MudTable Items="@estatusesCliente" 
-              Hover="true" 
-              Breakpoint="Breakpoint.Sm" 
-              >
+    <MudTable Items="@estatusesCliente"
+              Hover="true"
+              Breakpoint="Breakpoint.Sm">
+        <HeaderContent>
+            <MudTh>Estatus</MudTh>
+            <MudTh>Accion</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nr">@context.EstatusName</MudTd>
+            <MudTd DataLabel="Sign">
+                <MudButton Color="MudBlazor.Color.Error">Eliminar</MudButton>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+
+}
+else if (estatusesPrestamo.Count() > 0)
+{
+    <MudTable Items="@estatusesPrestamo"
+              Hover="true"
+              Breakpoint="Breakpoint.Sm">
         <HeaderContent>
             <MudTh>Estatus</MudTh>
             <MudTh>Accion</MudTh>
@@ -20,7 +37,7 @@
 }
 else
 {
-    <MudText>Sin estatus asignado.</MudText>
+<MudText>Sin estatus asignado.</MudText>
 }
 @code {
 
