@@ -74,6 +74,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<EstatusService>();
             services.AddScoped<ClientesEstatusService>();
             services.AddScoped<LocalizadoresService>();
+            services.AddScoped<PrestamosEstatusService>();
 
 
 

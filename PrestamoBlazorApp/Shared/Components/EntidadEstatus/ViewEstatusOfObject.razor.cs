@@ -19,8 +19,12 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         [Inject]
         private ClientesEstatusService ClientesEstatusService { get; set; }
         [Inject]
+        private PrestamosEstatusService PrestamosEstatusService { get; set; }
+        [Inject]
         private EstatusService EntidadEstatusService { get; set; }
         private IEnumerable<PrestamoEntidades.ClienteEstatusGet> estatusesCliente { get; set; } = new List<PrestamoEntidades.ClienteEstatusGet>();
+        private IEnumerable<PrestamoEntidades.PrestamoEstatusGet> estatusesPrestamo { get; set; } = new List<PrestamoEntidades.PrestamoEstatusGet>();
+
         //private PrestamoEntidades.Prestamo prestamo = new PrestamoEntidades.Prestamo();
 
         //private PrestamoEntidades.Cliente cliente = new PrestamoEntidades.Cliente();
@@ -43,6 +47,14 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
                 {
                     estatusesCliente = estatuss;
                 }
+            }
+            else if (TipoBusqueda == (int)PrestamoEntidades.eAddEstatusTo.Prestamos)
+            {
+                var estatuss = await PrestamosEstatusService.Get(new PrestamoEntidades.PrestamoEstatusGetParams { IdPrestamo = Id });
+                if (estatuss.Count() > 0)
+                {
+                    estatusesPrestamo = estatuss;
+                }   
             }
 
             //if (TipoBusqueda == 1)

@@ -1,6 +1,6 @@
 ﻿@page "/asignarestatus"
 @using PrestamoBlazorApp.Shared.Components.EntidadEstatus 
-
+@inherits BaseForCreateOrEdit
 <MudCard>
     <MudCardContent>
         <MudGrid>
@@ -46,7 +46,10 @@
                 }
             </MudItem>
             <MudItem md="2" lg="2">
-                <MudButton Style='@(TipoBusqueda>0 ? "display:block;":"display:none;")' ButtonType="ButtonType.Button" OnClick="()=>GetData()" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Buscar @TipoBusquedaStr</MudButton>
+                <MudButton Style='@(TipoBusqueda>0 ? "display:block;":"display:none;")' ButtonType="ButtonType.Button"
+                           OnClick="()=>GetData()" 
+                           Color="MudBlazor.Color.Primary" 
+                           Variant="Variant.Filled"> Buscar @TipoBusquedaStr</MudButton>
             </MudItem>
         </MudGrid>
 
