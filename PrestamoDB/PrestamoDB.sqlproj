@@ -227,6 +227,9 @@
     <Build Include="dbo\Stored Procedures\spGetLocalizadores.sql" />
     <Build Include="dbo\Stored Procedures\spGetClienteEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spAddEstatusToCliente_1.sql" />
+    <Build Include="dbo\Tables\tblPrestamoEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdPrestamoEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPrestamoEstatus.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
