@@ -37,6 +37,7 @@ namespace PrestamoBLL
             var result = DBPrestamo.ExecReaderSelSP(spName, SearchRec.ToSqlParams(parameters));
             return GetId(result);
         }
+
         #endregion
 
         #region Delete Methods

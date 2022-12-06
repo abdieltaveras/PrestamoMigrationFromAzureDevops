@@ -230,6 +230,7 @@
     <Build Include="dbo\Tables\tblPrestamoEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdPrestamoEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamoEstatus.sql" />
+    <Build Include="dbo\Stored Procedures\spSearchTableByColunm.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />

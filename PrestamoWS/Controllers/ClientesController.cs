@@ -52,6 +52,14 @@ namespace PrestamoWS.Controllers
             var clientes = searchCliente(option,textoABuscar, cargarImagenesClientes);
             return clientes;
         }
+
+        //Estp se puede poner como un servicio Generico, con un DataTable, asi nos evitamos estar creandolo
+        [HttpGet]
+        public IEnumerable<Cliente> SearchClientesByColumn(string SearchText, string Colunm, string OrderBy = "")
+        {
+            var clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchClienteByColumn(SearchText, "tblClientes", Colunm, OrderBy);
+            return clientes;
+        }
         /// <summary>
         /// esto es para insertar o actualizar un cliente
         /// </summary>
