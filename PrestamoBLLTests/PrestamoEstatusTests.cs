@@ -22,41 +22,47 @@ namespace PrestamoBLL.Tests
             //
         }
 
-  
-
         [TestMethod]
         public void InsUpdTest()
         {
             //
             // TODO: Add test logic here
             //
-            string result = "";
+            string errorMessage = string.Empty;
+
+            // Que me inserte un estaus  un prestamo 
+            // no Buscar un prestamo
+            // seleccionar un estatus
+
+
+            
+            
+            //SeleccionameUnprestamo (Seleccioname el primer prestamo registrado)
+            var prestamoList = new List<Prestamo>();
+            var firsPrestamo = prestamoList.FirstOrDefault();
+            //SeleccionameUnEstatus
+            var EstatusList = new EstatusBLL(1, "BllTest").Get(new EstatusGetParams());
+            var firstEstatus = EstatusList.FirstOrDefault();
+            
             try
             {
-                try
+                //AsignaleAlPrestamoElEstatusSeleccionado
+                PrestamoEstatus param = new PrestamoEstatus
                 {
-                    PrestamoEstatus param = new PrestamoEstatus
-                    {
-                        IdPrestamo = 1,
-                        IdEstatus = 1,
-                        IdLocalidadNegocio = 1,
-                        IdNegocio = 1,
-                        Usuario = "Luis",
-                        Comentario = "Ninguno"
-                    };
-                    var id = new PrestamoEstatusBLL(1,"Luis").InsUpd(param);
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("El cliente no pudo ser creado");
-
-                }
+                    IdPrestamo = firsPrestamo.IdPrestamo,
+                    IdEstatus = firstEstatus.IdEstatus,
+                    IdLocalidadNegocio = 1, // no es necesario
+                    IdNegocio = 1,  //no es necesario
+                    Usuario = "Luis",
+                    Comentario = "Ninguno"
+                };
+                var id = new PrestamoEstatusBLL(1, "Luis").InsUpd(param);
             }
             catch (Exception e)
             {
-                result = e.Message  + e.StackTrace;
-                throw;
+                errorMessage = e.Message;
             }
+            Assert.IsTrue(string.IsNullOrEmpty(errorMessage),  errorMessage);
         }
 
         [TestMethod]
@@ -72,7 +78,7 @@ namespace PrestamoBLL.Tests
                 {
                     IdPrestamo = 1
                 };
-                var datos = new PrestamoEstatusBLL(1,"Luis").Get(param);
+                var datos = new PrestamoEstatusBLL(1, "Luis").Get(param);
 
             }
             catch (Exception e)
