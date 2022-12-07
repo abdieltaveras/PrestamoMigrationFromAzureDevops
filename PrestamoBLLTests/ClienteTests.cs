@@ -136,6 +136,24 @@ namespace PrestamoBLL.Tests
             // debe fallar si el error 
             Assert.IsTrue(ocurrioError, error);
         }
+
+        [TestMethod()]
+        public void SearchClienteByColunmTest()
+        {
+            var ocurrioError = false;
+            var error = string.Empty;
+            try
+            {
+                var datos = new ClienteBLL(1, "testBll").SearchClienteByColumn("a","tblClientes","Nombres","Nombres");
+            }
+            catch (Exception e)
+            {
+                error = e.Message;
+                ocurrioError = true;
+            }
+            // debe fallar si el error 
+            Assert.IsTrue(ocurrioError, error);
+        }
     }
     
 }

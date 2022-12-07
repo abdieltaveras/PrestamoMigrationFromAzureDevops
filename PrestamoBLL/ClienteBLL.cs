@@ -77,6 +77,33 @@ namespace PrestamoBLL
             }
             return param;
         }
+        public IEnumerable<Cliente> SearchClienteByColumn(string SearchText, string Table, string Column, string OrderBy = "") 
+        {
+            return this.Get<Cliente>("spSearchTableByColunm",new
+            {
+                SearchText,
+                Table,
+                Column,
+                OrderBy
+            });
+            //return this.Get<Cliente>("spSearchTableByColunm", SearchRec.ToSqlParams(new
+            //{
+            //    SearchText = SearchText,
+            //    Tabla = Tabla,
+            //    Columna = Columna,
+            //    OrderBy = OrderBy
+            //}));
+        }
+        //public static IEnumerable<> SearchClienteByColumn<TResult>(string SearchText, string Tabla, string Columna, string OrderBy = "") where TResult : class
+        //{
+        //    return DBPrestamo.ExecReaderSelSP<TResult>("spSearchTableByColunm", SearchRec.ToSqlParams(new
+        //    {
+        //        SearchText = SearchText,
+        //        Tabla = Tabla,
+        //        Columna = Columna,
+        //        OrderBy = OrderBy
+        //    }));
+        //}
     }
 
 }

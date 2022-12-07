@@ -8,6 +8,19 @@ namespace PrestamoBLL
 {
     public static class UtilsBLL
     {
+
+
+
+        //public static IEnumerable<TResult> SearchTableByColunm<TResult>(string SearchText, string Tabla, string Columna, string OrderBy = "") where TResult : class
+        //{
+        //    return DBPrestamo.ExecReaderSelSP<TResult>("spSearchTableByColunm", SearchRec.ToSqlParams(new
+        //    {
+        //        SearchText = SearchText,
+        //        Tabla = Tabla,
+        //        Columna = Columna,
+        //        OrderBy = OrderBy
+        //    }));
+        //}
         //public static DateTime GetDateFromSqlServer()
         //{
         //    // todo investigar con ernesto como hacerlo ahora con la nueva version
