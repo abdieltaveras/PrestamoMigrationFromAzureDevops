@@ -57,7 +57,7 @@ namespace PrestamoBLL
             var resultSet = this.Get<Cliente>("spRptClientes", param);
             return resultSet;
         }
-        public ClienteGetParams GetClienteManager(int Option, string Value)
+        public IEnumerable<Cliente> SearchClientesByProperties(int Option, string Value)
         {
             ClienteGetParams param = new ClienteGetParams();
             eOpcionesSearchCliente enumOp = (eOpcionesSearchCliente)Option;
@@ -75,7 +75,9 @@ namespace PrestamoBLL
                 default:
                     break;
             }
-            return param;
+            SetUsuario(param);
+            var spName = "spGetClientes";
+            return this.Get<Cliente>(spName, param);
         }
         public IEnumerable<Cliente> SearchClienteByColumn(string SearchText, string Table, string Column, string OrderBy = "") 
         {
