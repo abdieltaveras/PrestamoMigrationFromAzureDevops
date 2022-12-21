@@ -114,7 +114,12 @@ namespace PrestamoWS.Controllers
             }
             return clientes;
         }
-
+        private IEnumerable<Cliente> SearchClienteByProperties(int Option, string SearchText)
+        {
+            IEnumerable<Cliente> clientes = null;
+            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchClientesByProperties(Option, SearchText);
+            return clientes;
+        }
         [HttpGet]
         public IActionResult ClienteReportInfo([FromQuery] int idcliente, int reportType)
         {
