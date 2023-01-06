@@ -1,7 +1,7 @@
 ﻿@page "/clientes/searchbycolumn"
 @using PrestamoBlazorApp.Shared.Components.Clientes
 @inject IDialogService DialogService
-<SearchClientesByColumn Columns="cols" @bind-Value="Cliente"></SearchClientesByColumn>
+<SearchClientesByProperty Columns="cols" @bind-Value="Cliente"></SearchClientesByProperty>
 <MudButton OnClick="ShowWtInstance">
     Show With Dialog Instance
 </MudButton>
@@ -15,7 +15,7 @@
     {
         var parameters = new DialogParameters { ["Columns"] = cols };
         DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true };
-        var dialog = DialogService.Show<SearchClientesByColumn>("Seleccionar Cliente", parameters,dialogOptions);
+        var dialog = DialogService.Show<SearchClientesByProperty>("Seleccionar Cliente", parameters,dialogOptions);
         var result = await dialog.Result;
 
         if (!result.Cancelled)

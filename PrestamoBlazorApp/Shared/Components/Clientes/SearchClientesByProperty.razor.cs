@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared.Components.Clientes
 {
-    public partial class SearchClientesByColumn:BaseForCreateOrEdit
+    public partial class SearchClientesByProperty:BaseForCreateOrEdit
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Parameter]
@@ -18,6 +18,7 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
         private string SearchText { get; set; }
         private string SelectedColumn { get; set; }
         private string OrderBy { get; set; }
+        private int SelectedPropertySearch { get; set; } = 1;
 
         [Inject]
         ClientesService ClientesService { get; set; }
@@ -42,7 +43,7 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
 
         private async Task GetClientes()
         {
-            clientes = await ClientesService.SearchClientesByColunm(SearchText, SelectedColumn, OrderBy);
+            clientes = await ClientesService.SearchClienteByProperties(SelectedPropertySearch, SearchText);
         }
         private async Task onSearchClick()
         {
