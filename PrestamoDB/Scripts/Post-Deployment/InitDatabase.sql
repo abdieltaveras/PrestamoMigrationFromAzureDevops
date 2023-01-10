@@ -211,17 +211,17 @@ VALUES ( null, 1, 'Division Territorial tipo Republica Dominicana',  1, 0, @usua
 		(6, 1, 'Sector',  1, 1, @usuario, getdate(), NULL, NULL, NULL, NULL)
 
 --Localidades
-INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdDivisionTerritorial,IdTipoDivisionTerritorial, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
-VALUES (0, 1, 2,1, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.643', NULL, NULL, NULL, NULL),
-	   (1, 1, 3,1, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:14.683', NULL, NULL, NULL, NULL),
-	   (1, 1, 3,1, 'San Pedro', '', 1, 'bryan', '2020-04-05 14:02:32.96', NULL, NULL, NULL, NULL),
-	   (2, 1, 4,1, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:46.863', NULL, NULL, NULL, NULL),
-	   (4, 1, 5,1, 'Las Orquideas', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
-	   (4, 1, 5,1, 'Quisquella', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
-	   (4, 1, 5,1, 'Villa Pereira', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
-	   (4, 1, 5,1, 'Villa España', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
-	   (2, 1, 4,1, 'Villa Hermosa', '', 1, 'bryan', '2020-04-05 14:40:42.557',null,null,null,null),
-	   (9, 1, 5,1, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
+INSERT INTO tblLocalidades (IdLocalidadPadre, IdNegocio, IdDivisionTerritorial, Nombre, Codigo, Activo, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
+VALUES (0, 1, 2, 'Republica Dominicana', '', 1, 'bryan', '2020-04-05 14:01:56.643', NULL, NULL, NULL, NULL),
+	   (1, 1, 3, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:14.683', NULL, NULL, NULL, NULL),
+	   (1, 1, 3, 'San Pedro', '', 1, 'bryan', '2020-04-05 14:02:32.96', NULL, NULL, NULL, NULL),
+	   (2, 1, 4, 'La Romana', '', 1, 'bryan', '2020-04-05 14:02:46.863', NULL, NULL, NULL, NULL),
+	   (4, 1, 5, 'Las Orquideas', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 5, 'Quisquella', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 5, 'Villa Pereira', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (4, 1, 5, 'Villa España', '', 1, 'bryan', '2020-04-05 14:40:19.337', NULL, NULL, NULL, NULL),
+	   (2, 1, 4, 'Villa Hermosa', '', 1, 'bryan', '2020-04-05 14:40:42.557',null,null,null,null),
+	   (9, 1, 5, 'Pica Piedra', '', 1, 'bryan', '2020-04-05 14:41:06.373', NULL, NULL, NULL, NULL)
 
 --Nuevos catalogos
 	declare @codigo1 varchar(50)= 'cod1'
@@ -282,7 +282,7 @@ exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero8 ou
 
 -- tblPrestamos
 INSERT INTO tblPrestamos (idNegocio,idlocalidadNegocio,  idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
-	VALUES (1,1, 1, prestamoNumero1, NULL, 0, 1, 1, '2020-05-17', '2020-05-17', '2020-10-17', 3, 3, 4, 5, 10000, 1, 0, 0, 0, 0, 0, 0, '1900-01-01', '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL),
+	VALUES (1,1, 1, @prestamoNumero1, NULL, 0, 1, 1, '2020-05-17', '2020-05-17', '2020-10-17', 3, 3, 4, 5, 10000, 1, 0, 0, 0, 0, 0, 0, '1900-01-01', '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL),
 
 
 -- seccion de prestamos-cuotas-garantias
