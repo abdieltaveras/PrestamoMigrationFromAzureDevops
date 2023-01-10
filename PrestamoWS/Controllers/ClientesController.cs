@@ -55,10 +55,19 @@ namespace PrestamoWS.Controllers
 
         //Estp se puede poner como un servicio Generico, con un DataTable, asi nos evitamos estar creandolo
         [HttpGet]
-        public IEnumerable<Cliente> SearchClientesByColumn(string SearchText, string Colunm, string OrderBy = "")
+        public IActionResult SearchClientesByColumn(string SearchText, string Colunm, string OrderBy = "")
         {
-            var clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchClienteByColumn(SearchText, "tblClientes", Colunm, OrderBy);
-            return clientes;
+            IEnumerable<Cliente> clientes = new List<Cliente>();
+            try
+            {
+                clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchClienteByColumn(SearchText, "tblClientes", Colunm, OrderBy);
+                //return Ok(clientes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(clientes);
         }
         /// <summary>
         /// esto es para insertar o actualizar un cliente
@@ -79,8 +88,7 @@ namespace PrestamoWS.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception("El cliente no pudo ser creado");
-
+              return BadRequest($"El cliente no pudo ser creado || {e.Message}");
             }
         }
         /// <summary>
@@ -114,11 +122,13 @@ namespace PrestamoWS.Controllers
             }
             return clientes;
         }
-        private IEnumerable<Cliente> SearchClienteByProperties(int Option, string SearchText)
+        [HttpGet]
+        public IActionResult SearchClienteByProperties(int Option, string SearchText)
         {
             IEnumerable<Cliente> clientes = null;
-            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchClientesByProperties(Option, SearchText);
-            return clientes;
+            //var a = (eOpcionesSearchCliente)9;
+            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchClientesByProperties((eOpcionesSearchCliente)Option, SearchText);
+            return Ok(clientes);
         }
         [HttpGet]
         public IActionResult ClienteReportInfo([FromQuery] int idcliente, int reportType)

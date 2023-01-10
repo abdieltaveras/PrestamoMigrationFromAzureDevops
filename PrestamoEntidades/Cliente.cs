@@ -8,6 +8,15 @@ using System.ComponentModel.DataAnnotations;
 namespace PrestamoEntidades
 {
 
+    public class ClienteTipoBusqueda : Enumeration
+    {
+        public static ClienteTipoBusqueda Nombre = new(1, nameof(Nombre));
+        public static ClienteTipoBusqueda Apellido = new(2, nameof(Apellido));
+        public ClienteTipoBusqueda(int id, string name) : base(id, name)
+        {
+        }
+    }
+
     public enum TiposFotosPersonas {Rostro, DocIdentificacion }
 
     public class InfoCodeudorDrCr

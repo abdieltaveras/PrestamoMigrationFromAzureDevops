@@ -1,0 +1,27 @@
+﻿@page "/prestamos/pruebas"
+@using PrestamoBlazorApp.Shared.Components.Prestamos
+@inject IDialogService DialogService
+<SearchPrestamoById Columns="cols" @bind-Value="Prestamo"></SearchPrestamoById>
+<MudButton OnClick="ShowWtInstance">
+    Show With Dialog Instance
+</MudButton>
+<MudChip>Prestamo: @Prestamo.infoPrestamo.IdPrestamo | Cliente Seleccionado: @Prestamo.infoCliente.NombreCompleto</MudChip>
+@code{
+    string[] cols = { "Nombres", "Apellidos" };
+
+    PrestamoConDetallesParaUIPrestamo Prestamo { get; set; } = new PrestamoConDetallesParaUIPrestamo();
+
+    private async Task ShowWtInstance()
+    {
+        var parameters = new DialogParameters { ["Columns"] = cols };
+        DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true };
+        var dialog = DialogService.Show<SearchPrestamoById>("Seleccionar Prestamo", parameters, dialogOptions);
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            Prestamo = (PrestamoConDetallesParaUIPrestamo)result.Data;
+        }
+    }
+}
+
