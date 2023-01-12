@@ -4,8 +4,8 @@
     <MudItem md="6" lg="6">
         <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
         <MudChip Color="MudBlazor.Color.Info"> @SelectedLocalidad</MudChip>
-    </MudItem>
-    <MudItem md="6" lg="6">
+    @*</MudItem>*@
+    @*<MudItem md="6" lg="6">*@
         <MudTextField @bind-Value="direccion.Calle" Validation="@direccion.Calle"></MudTextField>
         <MudTextField @bind-Value="direccion.Latitud" Validation="@direccion.Latitud"></MudTextField>
         <MudTextField @bind-Value="direccion.Longitud" Validation="@direccion.Longitud"></MudTextField>
