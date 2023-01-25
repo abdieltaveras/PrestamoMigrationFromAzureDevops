@@ -126,7 +126,80 @@ namespace PrestamoEntidades
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; } = new List<InfoCodeudorDrCr>();
 
     }
+    public class PrestamoClienteUI
+    {
+        public string NombreDocumentoIdentidad => Enum.GetName(typeof(TiposIdentificacionCliente), IdTipoIdentificacion);
 
+        public string NumeracionDocumentoIdentidad { get; set; } = string.Empty;
+
+        public string InfoLaboral { get; set; } = string.Empty;
+
+        public string TelefonoTrabajo1 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono1;
+
+        public string TelefonoTrabajo2 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono2;
+
+        public string OtrosDetalles { get; set; } = string.Empty;
+
+        public string CodigoCliente { get; set; } = string.Empty;
+
+        public int IdCliente { get; set; }
+
+        public string Nombres { get; set; } = string.Empty;
+
+        public string Apellidos { get; set; } = string.Empty;
+
+        public string NombreCompleto => $"{Nombres} {Apellidos}";
+
+        public string TelefonoMovil { get; set; } = string.Empty;
+
+        public string TelefonoCasa { get; set; } = string.Empty;
+
+        public string Imagen1FileName { get; set; } = string.Empty;
+
+        public string Imagen2FileName { get; set; } = string.Empty;
+
+        public bool Activo { get; set; } = false;
+        public int IdTipoIdentificacion { get; set; }
+        public override string ToString() => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";
+
+        //
+
+        public int IdTipoAmortizacion { get;  set; }
+        public string NombreClasificacion { get; internal set; } = string.Empty;
+
+        public string NombreTipoAmortizacion => Enum.GetName(typeof(TiposAmortizacion), IdTipoAmortizacion);
+
+        public string NombreTipoMora { get; set; } = string.Empty;
+
+        public string IdTipoMora { get;  set; } = string.Empty;
+
+        //public string OtrosDetalles { get; internal set; } = string.Empty;
+
+        public string NombrePeriodo { get;  set; } = string.Empty;
+
+        public int IdPrestamo { get;  set; }
+
+        public string PrestamoNumero { get;  set; } = string.Empty;
+
+        public decimal TotalPrestado { get;  set; }
+
+        public DateTime FechaEmisionReal { get;  set; } = InitValues._19000101;
+
+        public DateTime FechaEmisionParaCalculos { get;  set; } = InitValues._19000101;
+
+        public DateTime FechaVencimiento { get;  set; } = InitValues._19000101;
+    }
+    public class PrestamoClienteUIGetParam
+    {
+        public int IdPrestamo { get; set; } = -1;
+        public int IdGarantia { get; set; } = -1;
+        public int IdCliente { get; set; } = -1;
+        public string NoIdentificacion { get; set; } = "";
+        public string Nombres { get; set; } = "";
+        public string Apellidos { get; set; } = "";
+
+
+    }
     public class PrestamoConDetallesParaCreditosYDebitos
     //: IPrestamoConDetallesParaCreditosyDebitos
     {

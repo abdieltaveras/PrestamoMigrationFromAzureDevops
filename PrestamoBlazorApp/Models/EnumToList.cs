@@ -43,6 +43,11 @@ namespace PrestamoBlazorApp.Models
             var result = ((eOpcionesSearchCliente[])Enum.GetValues(typeof(eOpcionesSearchCliente))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();
             return result;
         }
+        public static List<EnumModel> TipoBusquedaPrestamo()
+        {
+            var result = ((eOpcionesSearchPrestamo[])Enum.GetValues(typeof(eOpcionesSearchPrestamo))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();
+            return result;
+        }
     }
 
 }

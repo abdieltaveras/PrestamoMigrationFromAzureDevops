@@ -67,6 +67,11 @@ namespace PrestamoBLL
             return data;
         }
 
+        public IEnumerable<PrestamoClienteUI> GetPrestamoCliente(PrestamoClienteUIGetParam searchParam)
+        {
+            var data = this.Get<PrestamoClienteUI>("spGetPrestamoCliente", searchParam);
+            return data;
+        }
 
         /// <summary>
         /// para buscar los prestamos incluyendo informaciones de garantias, clientes, codeudores, etc.

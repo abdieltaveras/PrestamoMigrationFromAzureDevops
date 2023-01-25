@@ -56,28 +56,28 @@ namespace PrestamoBLL
             var resultSet = this.Get<Cliente>("spRptClientes", param);
             return resultSet;
         }
-        public IEnumerable<Cliente> SearchClientesByProperties(eOpcionesSearchCliente Option, string Value)
+        public IEnumerable<Cliente> SearchClientesByProperties(ClienteGetParams param)
         {
-            bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchCliente), Option);
-            ClienteGetParams param = new ClienteGetParams();
-            if (isDefined)
-            {
-                eOpcionesSearchCliente enumOp = Option;
-                switch (enumOp)
-                {
-                    case eOpcionesSearchCliente.NoIdentificacion:
-                        param.NoIdentificacion = Value;
-                        break;
-                    case eOpcionesSearchCliente.Nombres:
-                        param.Nombres = Value;
-                        break;
-                    case eOpcionesSearchCliente.Apellidos:
-                        param.Apellidos = Value;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchCliente), Option);
+            //ClienteGetParams param = new ClienteGetParams();
+            //if (isDefined)
+            //{
+            //    eOpcionesSearchCliente enumOp = Option;
+            //    switch (enumOp)
+            //    {
+            //        case eOpcionesSearchCliente.NoIdentificacion:
+            //            param.NoIdentificacion = Value;
+            //            break;
+            //        case eOpcionesSearchCliente.Nombres:
+            //            param.Nombres = Value;
+            //            break;
+            //        case eOpcionesSearchCliente.Apellidos:
+            //            param.Apellidos = Value;
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
             SetUsuario(param);
             var spName = "spGetClientes";
             return this.Get<Cliente>(spName, param);

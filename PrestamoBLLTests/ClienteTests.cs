@@ -163,7 +163,7 @@ namespace PrestamoBLL.Tests
             try
             {
                 var a = (eOpcionesSearchCliente)9;
-                var datos = new ClienteBLL(1, "testBll").SearchClientesByProperties(a,"Abdiel");
+                var datos = new ClienteBLL(1, "testBll").SearchClientesByProperties(new ClienteGetParams { });
                 //var datos = new ClienteBLL(1, "testBll").SearchClienteByColumn("a", "tblClientes", "Nombres", "Nombres");
             }
             catch (Exception e)

@@ -37,8 +37,15 @@ namespace PrestamoBLL.Tests
             var result = BLLPrestamo.Instance.InsUpdRole(ins);
             Assert.IsTrue(result > 0, $"se esperaba valor mayor a 0 y se obtuvo {result}");
         }
+        [TestMethod()]
+        public void GetPrestamoCliente()
+        {
+            //var ins = new Role { Nombre = "Probando", Usuario = "test", IdNegocio = 1 };
+            var result = new PrestamoBLLC(1, "Test").GetPrestamoCliente(new PrestamoClienteUIGetParam { IdCliente = 1 });
+            //Assert.IsTrue(result > 0, $"se esperaba valor mayor a 0 y se obtuvo {result}");
+        }
 
-        
+
 
         public void GetOperacionesWithUserId_2()
         {

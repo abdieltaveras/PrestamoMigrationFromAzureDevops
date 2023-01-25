@@ -43,11 +43,37 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
 
         private async Task GetClientes()
         {
-            clientes = await ClientesService.SearchClienteByProperties(SelectedPropertySearch, SearchText);
+            ClienteGetParams param = new ClienteGetParams();
+            param = await SearchFor(SelectedPropertySearch, SearchText);
+            clientes = await ClientesService.SearchClienteByProperties(param);
         }
         private async Task onSearchClick()
         {
             await GetClientes();
+        }
+        private async Task<ClienteGetParams> SearchFor(int SelectedProperty, string searchText)
+        {
+            bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchCliente), SelectedProperty);
+            ClienteGetParams param = new ClienteGetParams();
+            if (isDefined)
+            {
+                eOpcionesSearchCliente enumOp = (eOpcionesSearchCliente)SelectedProperty;
+                switch (enumOp)
+                {
+                    case eOpcionesSearchCliente.NoIdentificacion:
+                        param.NoIdentificacion = searchText;
+                        break;
+                    case eOpcionesSearchCliente.Nombres:
+                        param.Nombres = searchText;
+                        break;
+                    case eOpcionesSearchCliente.Apellidos:
+                        param.Apellidos = searchText;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return param;
         }
         private async Task SelectClient(Cliente cliente)
         {

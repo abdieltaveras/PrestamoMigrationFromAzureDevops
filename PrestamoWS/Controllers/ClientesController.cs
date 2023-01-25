@@ -123,12 +123,21 @@ namespace PrestamoWS.Controllers
             return clientes;
         }
         [HttpGet]
-        public IActionResult SearchClienteByProperties(int Option, string SearchText)
+        public IActionResult SearchClienteByProperties([FromQuery] ClienteGetParams param)
         {
-            IEnumerable<Cliente> clientes = null;
-            //var a = (eOpcionesSearchCliente)9;
-            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchClientesByProperties((eOpcionesSearchCliente)Option, SearchText);
-            return Ok(clientes);
+            try
+            {
+                IEnumerable<Cliente> clientes = null;
+                //var a = (eOpcionesSearchCliente)9;
+                clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchClientesByProperties(param);
+                return Ok(clientes);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+   
         }
         [HttpGet]
         public IActionResult ClienteReportInfo([FromQuery] int idcliente, int reportType)

@@ -15,16 +15,18 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Parameter]
         public string[] Columns { get; set; } = { };
-        private int SearchText { get; set; }
+        private PrestamoClienteUIGetParam GetParams { get; set; } = new PrestamoClienteUIGetParam();
         private string SelectedColumn { get; set; }
         private string OrderBy { get; set; }
         private int SelectedPropertySearch { get; set; } = 1;
-
+        private Cliente _Cliente { get; set; }
+        private string SearchText { get; set; }
+        //private Cliente Cliente { get { return _Cliente; } set { _Cliente = value; onSelectCliente(value); } }
         [Inject]
         PrestamosService PrestamosService { get; set; }
-        List<PrestamoConDetallesParaUIPrestamo> prestamos { get; set; } = new List<PrestamoConDetallesParaUIPrestamo>();
+        IEnumerable<PrestamoClienteUI> prestamos { get; set; } = new List<PrestamoClienteUI>();
         [Parameter]
-        public PrestamoConDetallesParaUIPrestamo Value
+        public PrestamoClienteUI Value
         {
             get => _value;
             set
@@ -37,16 +39,18 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
         }
 
         [Parameter]
-        public EventCallback<PrestamoConDetallesParaUIPrestamo> ValueChanged { get; set; }
+        public EventCallback<PrestamoClienteUI> ValueChanged { get; set; }
         MudMessageBox MudMessageBox { get; set; }
 
-        private PrestamoConDetallesParaUIPrestamo _value;
+        private PrestamoClienteUI _value;
         private async Task Get()
         {
-            if (SearchText > 0)
+            PrestamoClienteUIGetParam param = new PrestamoClienteUIGetParam();
+            param = await SearchFor(SelectedPropertySearch, SearchText);
+            if (GetParams != null)
             {
-                PrestamoConDetallesParaUIPrestamo prestamo = await PrestamosService.GetConDetallesForUiAsync(SearchText);
-                prestamos.Add(prestamo);
+                prestamos = await PrestamosService.GetPrestamoClienteUI(param);
+                //prestamos.Add(prestamo);
             }
             else
             {
@@ -55,11 +59,41 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
             }
             
         }
+        //private async Task onSelectCliente(Cliente cl)
+        //{
+        //    GetParams = new PrestamoClienteUIGetParam { IdCliente = cl.IdCliente };
+        //    await Get();
+        //}
         private async Task onSearchClick()
         {
             await Get();
         }
-        private async Task SelectedValue(PrestamoConDetallesParaUIPrestamo select)
+
+        private async Task<PrestamoClienteUIGetParam> SearchFor(int SelectedProperty, string searchText)
+        {
+            bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchPrestamo), SelectedProperty);
+            PrestamoClienteUIGetParam param = new PrestamoClienteUIGetParam();
+            if (isDefined)
+            {
+                eOpcionesSearchPrestamo enumOp = (eOpcionesSearchPrestamo)SelectedProperty;
+                switch (enumOp)
+                {
+                    case eOpcionesSearchPrestamo.NoIdentificacion:
+                        param.NoIdentificacion = searchText;
+                        break;
+                    case eOpcionesSearchPrestamo.Nombres:
+                        param.Nombres = searchText;
+                        break;
+                    case eOpcionesSearchPrestamo.Apellidos:
+                        param.Apellidos = searchText;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return param;
+        }
+        private async Task SelectedValue(PrestamoClienteUI select)
         {
             Value = select;
             if (MudDialog != null)

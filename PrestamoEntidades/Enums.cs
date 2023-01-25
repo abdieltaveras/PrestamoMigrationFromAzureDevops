@@ -16,6 +16,8 @@
     public enum EnumTiposVinculo { Madre = 1, Padre, Hermano, Primo, Tio, Abuelo, Sobrino, Esposa, Hijo, Nieto}
 
     public enum eOpcionesSearchCliente { TextoLibre = 1, NoIdentificacion, Nombres, Apellidos, Apodo }
+    public enum eOpcionesSearchPrestamo { IdPrestamo = 1, NoIdentificacion, Nombres, Apellidos }
+
 
     public enum eAddEstatusTo
     {

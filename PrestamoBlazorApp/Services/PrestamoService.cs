@@ -32,7 +32,11 @@ namespace PrestamoBlazorApp.Services
             var result = await GetAsync<PrestamoConDetallesParaUIPrestamo>(apiUrl+ "/GetConDetallesForUi", new { idPrestamo = idPrestamo});
             return result.FirstOrDefault();
         }
-
+        public async Task<IEnumerable< PrestamoClienteUI>> GetPrestamoClienteUI(PrestamoClienteUIGetParam param)
+        {
+            var result = await GetAsync<PrestamoClienteUI>(apiUrl + "/GetPrestamoClienteUI", param);
+            return result;
+        }
         public PrestamosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
         {
 

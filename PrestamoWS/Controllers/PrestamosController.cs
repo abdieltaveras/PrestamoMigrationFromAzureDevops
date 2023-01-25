@@ -61,7 +61,22 @@ namespace PrestamoWS.Controllers
             return data;
         }
 
-        
+        [HttpGet]
+        public IActionResult GetPrestamoClienteUI([FromQuery] PrestamoClienteUIGetParam getParams)
+        {
+            try
+            {
+
+                var data = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).GetPrestamoCliente(getParams);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         private IActionResult _Post([FromBody] Prestamo Prestamo)
         {
             Prestamo.Usuario = this.LoginName;
