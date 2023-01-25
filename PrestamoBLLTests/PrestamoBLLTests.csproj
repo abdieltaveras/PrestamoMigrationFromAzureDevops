@@ -1,41 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<ImplicitUsing>enable</ImplicitUsing>
+		<Nullable>Enable</Nullable>
+		<LangVersion>8.0</LangVersion>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<ItemGroup>
+		<None Remove="appsettings.Development.json" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="appsettings.Development.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations.Core" Version="8.2.0.2160" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
+		<PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
+		<PackageReference Include="coverlet.collector" Version="1.2.0" />
+		<PackageReference Include="NullGuard.Fody" Version="3.1.0" PrivateAssets="All" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
-    <PackageReference Include="coverlet.collector" Version="1.2.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
+		<!--<ProjectReference Include="..\PrestamoModelsForFrontEnd\PrestamoModelsForFrontEnd.csproj" />-->
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
-    <!--<ProjectReference Include="..\PrestamoModelsForFrontEnd\PrestamoModelsForFrontEnd.csproj" />-->
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="PcpSoft.System">
+			<HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="PcpSoft.System">
-      <HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="testhost.dll.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="testhost.dll.config">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@ using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,12 +13,12 @@ namespace PrestamoBLL
 
     public class ClienteBLL : BaseBLL
     {
-        public ClienteBLL(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
+        public ClienteBLL([DisallowNull] int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
 
-
+        
         public IEnumerable<Cliente> GetClientes(ClienteGetParams searchParam, bool convertToObj, string directorioDeImagen = "")
         {
-   
+            
             SetUsuario(searchParam);
             var spName = "spGetClientes";
             return this.Get<Cliente>(spName, searchParam);

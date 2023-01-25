@@ -48,6 +48,8 @@ namespace PrestamoBlazorApp.Shared
                 // await SweetMessageBox("Ha ocurrido algun error " + e.Message, icon: "error", redirectTo, 5000);
             }
             loading = false;
+         
+         
         }
 
         protected async Task Handle_SaveData(Func<Task> _action, Func<Task> _OnSuccess = null, Func<Task> _OnFail = null, bool blockPage = false, string redirectTo = "", MudDialogInstance mudDialogInstance = null)

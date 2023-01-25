@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using MudBlazor;
 using PrestamoBlazorApp.Services;
-using PrestamoEntidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 namespace PrestamoBlazorApp.Shared
 {
     public abstract class CommonBase : ComponentBase
@@ -18,6 +18,8 @@ namespace PrestamoBlazorApp.Shared
         internal IJSRuntime jsRuntime { get; private set; }
         [Inject]
         ISnackbar Snackbar { get; set; }
+        [Inject]
+        protected IWebHostEnvironment Env { get; set; }
         protected bool loading { get; set; } = false;
 
         protected virtual async Task SweetAlertSuccess(string message, string redirectTo = "")
@@ -119,5 +121,7 @@ namespace PrestamoBlazorApp.Shared
         {
             await SweetAlertSuccess(message, redirectTo);
         }
+
+        protected bool IsDevelopmentEnvironment => Env.IsDevelopment();
     }
 }
