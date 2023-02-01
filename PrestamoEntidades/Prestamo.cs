@@ -197,6 +197,9 @@ namespace PrestamoEntidades
         public string NoIdentificacion { get; set; } = "";
         public string Nombres { get; set; } = "";
         public string Apellidos { get; set; } = "";
+        public string NombreCompleto { get; set; } = "";
+        public string Matricula { get; set; } = "";
+        public string Placa { get; set; } = "";
 
 
     }

@@ -69,6 +69,9 @@ namespace PrestamoBlazorApp.Shared.Components.Clientes
                     case eOpcionesSearchCliente.Apellidos:
                         param.Apellidos = searchText;
                         break;
+                    case eOpcionesSearchCliente.NombreCompleto:
+                        param.NombreCompleto = searchText;
+                        break;
                     default:
                         break;
                 }

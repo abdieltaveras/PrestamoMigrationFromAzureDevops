@@ -5,7 +5,10 @@
 	@idCliente int = -1,
 	@NoIdentificacion varchar(50) = '',
 	@Nombres varchar(100)='',
-	@Apellidos varchar(100)=''
+	@Apellidos varchar(100)='',
+	@NombreCompleto varchar (100)= '',
+	@Placa varchar(100),
+	@Matricula varchar(100)
 )
 as
 begin
@@ -16,11 +19,20 @@ begin
 	FROM	dbo.tblPrestamos as pres
 	inner Join tblClientes clie 
 	on clie.idCliente = pres.IdCliente
+	left join tblPrestamoGarantias presgar
+	on pres.IdPrestamo = presgar.IdPrestamo
+	left join tblGarantias gar
+	on presgar.IdGarantia = gar.IdGarantia
 	where (@IdPrestamo=-1 or pres.idPrestamo = @IdPrestamo) and
 	(@idCliente = -1 or pres.idCliente = @idCliente) 
 	and ((@NoIdentificacion='') or (clie.NoIdentificacion =@NoIdentificacion)) 
 	and ((@Nombres='') or (clie.Nombres like '%'+@Nombres+'%')) 
 	and ((@Apellidos='') or (clie.Apellidos like '%'+@Apellidos+'%')) 
+	and ((@NombreCompleto='') or (CONCAT(clie.Nombres, ' ', clie.Apellidos) like '%'+@NombreCompleto+'%')) 
+    and(@Matricula ='' or JSON_VALUE(Detalles, '$.Matricula') like '%'+@Matricula+'%') 
+	and(@Placa ='' or JSON_VALUE(Detalles, '$.Placa') like '%'+@Placa+'%') 
+
+
 	
 
 End

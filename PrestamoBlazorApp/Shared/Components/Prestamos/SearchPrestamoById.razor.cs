@@ -87,6 +87,15 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
                     case eOpcionesSearchPrestamo.Apellidos:
                         param.Apellidos = searchText;
                         break;
+                    case eOpcionesSearchPrestamo.NombreCompleto:
+                        param.NombreCompleto = searchText;
+                        break;
+                    case eOpcionesSearchPrestamo.Placa:
+                        param.Placa = searchText;
+                        break;
+                    case eOpcionesSearchPrestamo.Matricula:
+                        param.Matricula = searchText;
+                        break;
                     default:
                         break;
                 }

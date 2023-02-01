@@ -18,7 +18,8 @@
     @SeleccionarLuegoDelIdCliente  int = -1,
   	@Usuario varchar(100)='',
 	@Anulado varchar(100) = '',
-	@condicionBorrado int = 0
+	@condicionBorrado int = 0,
+	@NombreCompleto varchar(100) = ''
 )
 as
 begin
@@ -40,6 +41,7 @@ begin
 		and ((@Nombres='') or (Nombres like '%'+@Nombres+'%')) 
 		and ((@Apellidos='') or (Apellidos like '%'+@Apellidos+'%')) 
 		and ((@Apodo='') or (Apodo like '%'+@Apodo+'%')) 
+		and ((@NombreCompleto='') or (CONCAT(Nombres, ' ', Apellidos) like '%'+@NombreCompleto+'%')) 
 		and (@IdLocalidadNegocio =-1 or idLocalidadNegocio=@idLocalidadNegocio)
 		and (@SeleccionarLuegoDelIdCliente =-1 or idCliente > @SeleccionarLuegoDelIdCliente)
 			and ((@condicionBorrado= 0 and BorradoPor is null) 
