@@ -33,8 +33,9 @@ namespace PrestamoBlazorApp.Shared
             navManager.NavigateTo(linkUrl, true);
         }
 
-        private async Task NotImplementedMessage()=> await Task.Run(() => Snackbar.Add("Opcion no implementada", Severity.Warning));
+        private async Task NotImplementedMessage()=> await Task.Run(() => Snackbar.Add("Opcion no implementada o revisar la url y asignarla", Severity.Warning));
 
+        
 
     }
 }

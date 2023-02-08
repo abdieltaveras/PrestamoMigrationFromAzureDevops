@@ -5,28 +5,33 @@
         {
             <MudNavGroup Title="Test" Expanded="false">
                 <MudNavLink Href="test/test" Match="NavLinkMatch.All" title="Calling blazor component from controller"> Calling Comp.</MudNavLink>
-                <MudNavLink Href="/Ocupaciones" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Ocupaciones  </MudNavLink>
-                <MudNavLink Href="/Colores" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Colores  </MudNavLink>
-                <MudNavLink Href="/TiposSexo" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Tipos Sexo  </MudNavLink>
-                <MudNavLink Href="/TiposTelefonos" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Tipos Telefonos  </MudNavLink>
-                <MudNavLink Href="/EstatusList" Match="NavLinkMatch.All" title="Listado Estatus"> Listado Estatus  </MudNavLink>
             </MudNavGroup>
         }
     }
     <MudNavGroup Title="Catalogos" Expanded="false">
+        <MudNavGroup Title="Diversos" Expanded="false">
+            <MudNavLink Href="/EstatusList" Match="NavLinkMatch.All" title="Listado Estatus"> Listado Estatus  </MudNavLink>
+            <MudNavGroup Title="Localidades Negocios" Expanded="false">
+                <MudNavLink Href="/localidadesnegocios" Match="NavLinkMatch.All">Listado Localidades</MudNavLink>
+                <MudNavLink Href="/localidadesnegocios/createoredit" Match="NavLinkMatch.All">Crear Localidades</MudNavLink>
+            </MudNavGroup>
+        </MudNavGroup>
         <MudNavGroup Title="Prestamos" Expanded="false">
             <MudNavLink Href="/tasasinteres" Match="NavLinkMatch.All">Tasa de interes</MudNavLink>
             <MudNavLink Href="/periodos" Match="NavLinkMatch.All">Periodo</MudNavLink>
             <MudNavLink Href="/tiposmora" Match="NavLinkMatch.All">Moras</MudNavLink>
+            <MudNavLink Href="/tiposmora" Match="NavLinkMatch.All">Moras</MudNavLink>
         </MudNavGroup>
         <MudNavGroup Title="Clientes" Expanded="false">
             <MudNavLink Href="/ocupaciones" Match="NavLinkMatch.All">Ocupaciones</MudNavLink>
-            <MudNavLink Href="/localidades/listado" Match="NavLinkMatch.All">Localidades</MudNavLink>
+
+            <MudNavLink Href="/TiposSexo" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Tipos Sexo  </MudNavLink>
+            <MudNavLink Href="/TiposTelefonos" Match="NavLinkMatch.All" title="testing ocupacions after adding mudDialog"> Tipos Telefonos  </MudNavLink>
         </MudNavGroup>
         <MudNavGroup Title="Territorios" Expanded="false">
-            <MudNavLink Href="/territorios/CreateDivisionTerritorial" Match="NavLinkMatch.All">Division Territorial</MudNavLink>
-            <MudNavLink Href="/territorios" Match="NavLinkMatch.All">Territorios/Paises</MudNavLink>
-            <MudNavLink Href="/localidades" Match="NavLinkMatch.All">Localidades</MudNavLink>
+            <MudNavLink Href="/TiposDivisionTerritorial" Match="NavLinkMatch.All">Tipos Divisiones y componentes</MudNavLink>
+            <MudNavLink Href="/localidades/listadopaises" Match="NavLinkMatch.All">Paises</MudNavLink>
+            <MudNavLink Href="/localidades/Localidades" Match="NavLinkMatch.All">Localidades (de los paises)</MudNavLink>
         </MudNavGroup>
         <MudNavGroup Title="Garantia" Expanded="false">
             <MudNavLink Href="/colores" Match="NavLinkMatch.All">Colores</MudNavLink>
@@ -73,11 +78,7 @@
         <MudNavLink Match="NavLinkMatch.All" Href="/asignarestatus">Asignar Estatus</MudNavLink>
         <MudNavLink Match="NavLinkMatch.All" Href="/clientes/searchbycolumn">Buscar Clientes</MudNavLink>
         <MudNavLink Match="NavLinkMatch.All" Href="/prestamos/pruebas">Pruebas de Prestamos</MudNavLink>
-
-
         @*/clientes/searchbycolumn*@
-
-
     </MudNavGroup>
 
 </MudNavMenu>
