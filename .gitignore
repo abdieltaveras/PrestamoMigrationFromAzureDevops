@@ -272,3 +272,4 @@ _Pvt_Extensions
 *.sln.iml
 /WSPrestamo/Content/ImagesFor/Clientes
 /WSPrestamo/Content/ImagesFor/Garantias
+/PrestamoBLLTests/testhost.dll.config

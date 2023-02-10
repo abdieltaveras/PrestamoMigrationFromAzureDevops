@@ -20,9 +20,9 @@ namespace PrestamoBlazorApp.Services
             var result = await GetAsync<Cliente>(apiUrl + "/searchClientes", new { option = option,textoABuscar = search, cargarImagenes = cargarImagenes });
             return result;
         }
-        //public async Task<IEnumerable<Cliente>> SearchClientesByColunm(string SearchText, string Colunm, string OrderBy = "")
+        //public async Task<IEnumerable<Cliente>> SearchClientesByColunm(string SearchText2, string Colunm, string OrderBy = "")
         //{
-        //    var result = await GetAsync<Cliente>(apiUrl + "/SearchClientesByColumn", new { SearchText = SearchText, Colunm = Colunm,OrderBy = OrderBy});
+        //    var result = await GetAsync<Cliente>(apiUrl + "/SearchClientesByColumn", new { SearchText2 = SearchText2, Colunm = Colunm,OrderBy = OrderBy});
         //    return result;
         //}
         public async Task<IEnumerable<Cliente>> SearchClienteByProperties(ClienteGetParams param)

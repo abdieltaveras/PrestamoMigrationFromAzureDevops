@@ -51,6 +51,7 @@
   
   
   <ItemGroup>
+    <Folder Include="Domain\" />
     <Folder Include="Pages\Ocupaciones\" />
     <Folder Include="Reports\Rdlc\" />
     <Folder Include="Shared\Components\ClienteEstatus\" />
