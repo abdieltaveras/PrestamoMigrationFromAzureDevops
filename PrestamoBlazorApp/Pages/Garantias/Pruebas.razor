@@ -1,0 +1,28 @@
+﻿@page "/garantias/pruebas"
+@using PrestamoBlazorApp.Shared.Components.Garantias
+@inject IDialogService DialogService
+
+<SearchGarantiaByProperty @bind-Value="Garantia"/>
+<MudButton OnClick="ShowWtInstance">
+    Show With Dialog Instance
+</MudButton>
+<MudChip>Marca: @Garantia.NombreMarca | Modelo: @Garantia.NombreModelo</MudChip>
+@code{
+    string[] cols = { "Nombres", "Apellidos" };
+
+    GarantiaConMarcaYModelo Garantia { get; set; } = new GarantiaConMarcaYModelo();
+
+    private async Task ShowWtInstance()
+    {
+        var parameters = new DialogParameters { ["Columns"] = cols };
+        DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton=true };
+        var dialog = DialogService.Show<SearchGarantiaByProperty>("Seleccionar Garantia", parameters, dialogOptions);
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            Garantia = (GarantiaConMarcaYModelo)result.Data;
+        }
+    }
+}
+

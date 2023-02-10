@@ -1,90 +1,49 @@
 ﻿@page "/garantias"
-@inherits BaseForCreateOrEdit
-@*<h1>Garantias  <button class="btn btn-primary" @onclick="()=>CreateOrEdit()">Agregar</button></h1>*@
+@inherits BaseForList
+@using PrestamoBlazorApp.Shared.Components.Forms
 
-<MudCard>
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText>Garantias</MudText>
-        </CardHeaderContent>
-        <CardHeaderActions>
-            <MudLink Href="garantias/createoredit"></MudLink>
-        </CardHeaderActions>
-    </MudCardHeader>
-    <MudCardContent>
-        @if (loading)
-        {
-            <div class="loader">Cargando datos, espere...</div>
-        }
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-responsive-md table-hover">
-                    <thead>
-                        <tr>
-                            <th>Numeracion</th>
-                            <th>Tipo</th>
-                            <th>Descripcion</th>
-                            <th>Operacion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (garantias.Count() > 0)
-                        {
-                            @foreach (var item in garantias)
-                            {
-                                <tr>
-                                    <td>@item.NoIdentificacion</td>
-                                    @if (item.DetallesJSON != null)
-                                    {
-                                        @if (item.IdTipoGarantia == 1)
-                                        {
-                                            <td>@TiposClasificacionGarantia.Inmobiliaria</td>
-                                        }
-                                        @if (item.IdTipoGarantia == 2)
-                                        {
-                                            <td>@TiposClasificacionGarantia.Mobiliaria</td>
-                                        }
 
-                                        <td>@item.DetallesJSON.Descripcion</td>
 
-                                    }
+<GeneralList CardTitle="Lista De Garantias"
+             LinkAddButton="garantias/createoredit/"
+             ShowSearchOption="false">
+    <ActionsButtons>
+        @*<MudIconButton Icon="@Icons.Filled.Print" OnClick="()=>ShowReportGenerator()"></MudIconButton>*@
+    </ActionsButtons>
+    <CardContent>
+        <MudTable Loading="LoadingTable" Items="@garantias" 
+                  Dense="@Dense" Hover="@Hover" Bordered="@Bordered" 
+                  Striped="@Striped" >
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                @*<MudTextField Immediate="true" @bind-Value="SearchStringTable" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>*@
+                <MudDivider FlexItem="true" Vertical="true" DividerType="DividerType.Middle" Class="ml-1 mr-1 my-1"></MudDivider>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Id</MudTh>
+                <MudTh>Identificacion</MudTh>
 
-                                    <td>
-                                        <a href="@($"garantias/createoredit/{item.IdGarantia}")" title="editar" class="btn btn-outline-primary">
-                                            <i class="oi oi-pencil"></i>
-                                        </a>
-                                        <div class="dropdown show" style="display:inline-block;">
-                                            <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-th"></i>
-                                            </a>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.IdGarantia</MudTd>
+                <MudTd DataLabel="Nombre">@context.NoIdentificacion</MudTd>
+   
+                <MudTd>
+                    <MudIconButton OnClick='()=>OnEditClick("garantias/createoredit/" + context.IdGarantia.ToString())' Icon="@Icons.Outlined.Edit"></MudIconButton>
+                    <MudMenu Icon="@Icons.Filled.Print">
+                        <MudMenuItem OnClick="()=>PrintFicha(context.IdGarantia,1)">PDF</MudMenuItem>
+                        <MudMenuItem OnClick="()=>PrintFicha(context.IdGarantia,2)">EXCEL</MudMenuItem>
+                    </MudMenu>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </CardContent>
+</GeneralList>
 
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <button class="dropdown-item" @onclick="()=>PrintFicha(item.IdGarantia,1)">
-                                                    <i class="fa fa-file-pdf-o"></i> PDF
-                                                </button>
-                                                <button class="dropdown-item" @onclick="()=>PrintFicha(item.IdGarantia,2)">
-                                                    <i class="fa fa-file-excel-o"></i> EXCEL
-                                                </button>
+@code{
 
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    @*<td> <button @onclick="()=>CreateOrEdit(item.IdGarantia)" class="btn btn-info"> Editar </button></td>*@
-                                </tr>
-
-                            }
-                        }
-                        else
-                        {
-                            <p> no existen datos</p>
-
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </MudCardContent>
-</MudCard>
-  
-
+}

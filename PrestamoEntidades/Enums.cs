@@ -17,6 +17,7 @@
 
     public enum eOpcionesSearchCliente { TextoLibre = 1, NoIdentificacion, Nombres, Apellidos, Apodo, NombreCompleto }
     public enum eOpcionesSearchPrestamo { NoIdentificacion = 1, Nombres, Apellidos, NombreCompleto,Placa,Matricula }
+    public enum eOpcionesSearchGarantia { TextoLibre = 1, NoIdentificacion, Placa, Matricula }
 
 
     public enum eAddEstatusTo

@@ -15,7 +15,7 @@ namespace PrestamoWS.Controllers
    [Route("api/[controller]/[action]")]
     public class MarcasController : CatalogoController<Marca>
     {
-        public MarcasController(): base(CatalogoName.Ocupacion)  { }
+        public MarcasController(): base(CatalogoName.Marcas)  { }
         [HttpGet]
         public override IEnumerable<Marca> Get([FromQuery] BaseCatalogoGetParams getParams) => base.GetBase(getParams);
         [HttpPost]

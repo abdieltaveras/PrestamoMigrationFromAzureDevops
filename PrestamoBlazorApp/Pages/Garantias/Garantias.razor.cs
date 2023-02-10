@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace PrestamoBlazorApp.Pages.Garantias
 {
-    public partial class Garantias : BaseForCreateOrEdit
+    public partial class Garantias : BaseForList
     {
         [Inject]
         GarantiasService GarantiasService { get; set; }

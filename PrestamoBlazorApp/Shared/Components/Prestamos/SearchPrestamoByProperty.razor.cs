@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared.Components.Prestamos
 {
-    public partial class SearchPrestamoById:BaseForCreateOrEdit
+    public partial class SearchPrestamoByProperty:BaseForCreateOrEdit
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Parameter]

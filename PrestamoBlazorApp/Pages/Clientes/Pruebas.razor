@@ -14,7 +14,7 @@
     private async Task ShowWtInstance()
     {
         var parameters = new DialogParameters { ["Columns"] = cols };
-        DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true };
+        DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true,  CloseButton = true };
         var dialog = DialogService.Show<SearchClientesByProperty>("Seleccionar Cliente", parameters,dialogOptions);
         var result = await dialog.Result;
 

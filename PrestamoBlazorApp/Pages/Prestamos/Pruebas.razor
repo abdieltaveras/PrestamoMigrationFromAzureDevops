@@ -2,7 +2,7 @@
 @using PrestamoBlazorApp.Shared.Components.Prestamos
 @inject IDialogService DialogService
 
-<SearchPrestamoById @bind-Value="Prestamo"/>
+<SearchPrestamoByProperty @bind-Value="Prestamo"/>
 <MudButton OnClick="ShowWtInstance">
     Show With Dialog Instance
 </MudButton>
@@ -15,8 +15,8 @@
     private async Task ShowWtInstance()
     {
         var parameters = new DialogParameters { ["Columns"] = cols };
-        DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true };
-        var dialog = DialogService.Show<SearchPrestamoById>("Seleccionar Prestamo", parameters, dialogOptions);
+        DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+        var dialog = DialogService.Show<SearchPrestamoByProperty>("Seleccionar Prestamo", parameters, dialogOptions);
         var result = await dialog.Result;
 
         if (!result.Cancelled)
