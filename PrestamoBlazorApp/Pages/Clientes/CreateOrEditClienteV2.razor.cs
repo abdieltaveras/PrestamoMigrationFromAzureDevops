@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using PcpUtilidades;
 
 
 using PrestamoBlazorApp.Models;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
-
+using PrestamoBlazorApp.Shared.Components.Forms.InputReferencia;
 using PrestamoEntidades;
 using PrestamoValidaciones;
 using System;
@@ -19,7 +20,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
     public partial class CreateOrEditClienteV2 : BaseForCreateOrEdit
     {
         // servicios
-
+        [Inject]
+        IDialogService DialogService { get; set; }
         [Inject] protected CatalogosServicesFactoryManager CatalogosFactory { get; set; }
         
         [Inject]
@@ -210,6 +212,14 @@ namespace PrestamoBlazorApp.Pages.Clientes
         //    var imageFiles = e.GetMultipleFiles();
         //}
 
+
+        public async Task AddReferencia()
+        {
+            var parameters = new DialogParameters { ["Referencias"] = Referencias };
+            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium,FullWidth = true, CloseButton = true };
+            var dialog = DialogService.Show<InputReferenciaV3>("Agregar Referencias", parameters, dialogOptions);
+            var result = await dialog.Result;
+        }
         private void SetImages(Imagen imagen)
         {
             Cliente.ImagenesObj.Add(imagen);

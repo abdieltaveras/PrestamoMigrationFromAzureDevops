@@ -53,6 +53,8 @@ namespace PrestamoBlazorApp.Models
             var result = ((eOpcionesSearchGarantia[])Enum.GetValues(typeof(eOpcionesSearchGarantia))).Select(c => new EnumModel() { Value = (int)c, Text = c.ToString() }).ToList();
             return result;
         }
+
+
     }
 
 }

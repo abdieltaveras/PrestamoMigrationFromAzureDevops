@@ -1,0 +1,105 @@
+﻿@using PrestamoEntidades;
+<MudCard Style="margin-bottom:10px;">
+    <MudCardContent>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudChip Color="MudBlazor.Color.Info">No @(Index+1)</MudChip>
+
+                <MudSelect @bind-Value="referencia.Tipo" Label="Tipo Referencia">
+     
+                    @foreach (var item in EnumToList.GetEnumTiposReferencias())
+                    {
+                        <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudTextField @bind-Value="@referencia.NombreCompleto" Label="Nombre Completo"></MudTextField>
+                <MudTextField @bind-Value="@referencia.Telefono" Label="Telefono"></MudTextField>
+                @if (referencia.Tipo == (int)@EnumTiposReferencia.Familiar)
+                {
+                    <MudTextField @bind-Value="@referencia.Vinculo" Label="Vinculo"></MudTextField>
+
+                    @*<input @bind-value=@referencia.Vinculo class="col-sm-2" />*@
+                }
+                else
+                {
+                    <MudChip Color="MudBlazor.Color.Info">No Aplica Vinculo Familiar</MudChip>
+                    @*<label class="col-sm-2">No Aplica</label>*@
+                }
+                <MudTextField @bind-Value="@referencia.Direccion" Label="Direccion" Lines="3"></MudTextField>
+                <MudTextField @bind-Value="@referencia.Detalles" Label="Detalles" Lines="3"></MudTextField>
+                <MudDivider />
+            </MudItem>
+            <!--<MudItem xs="6">
+                @if (referencia.Tipo == (int)@EnumTiposReferencia.Familiar)
+                {
+                    <MudTextField @bind-Value="@referencia.Vinculo"></MudTextField>-->
+
+                    @*<input @bind-value=@referencia.Vinculo class="col-sm-2" />*@
+                <!--}
+                else
+                {
+                    <MudChip Color="MudBlazor.Color.Info">No Aplica Vinculo Familiar</MudChip>-->
+                    @*<label class="col-sm-2">No Aplica</label>*@
+                <!--}
+                <MudTextField @bind-Value="@referencia.Direccion" Label="Direccion" Lines="3"></MudTextField>
+                <MudTextField @bind-Value="@referencia.Detalles" Label="Detalles" Lines="3"></MudTextField>
+                <MudDivider />
+            </MudItem>-->
+        </MudGrid>
+    </MudCardContent>
+</MudCard>
+      
+
+  <!--<div class="form-group row bg-dark">
+            <label class="col-sm-1 text-left text-white">No @(Index+1)</label>
+            <label class="col-sm-1 text-center text-white"> Tipo </label>
+            <label class="col-sm-5 text-center text-white">Nombre Completo </label>
+            <label class="col-sm-5 text-center text-white">Telefonos </label>
+        </div>
+        <div class="form-group row">
+            <InputSelect id="select1" @bind-Value="@referencia.Tipo" class="form-control col-sm-2">
+                @{
+                    int indexEnum = 0;
+                }
+                @foreach (var tipoReferencia in Enum.GetValues(typeof(EnumTiposReferencia)))
+                {
+                    indexEnum++;
+                    <option value="@indexEnum"> @tipoReferencia </option>
+                }
+            </InputSelect>
+
+            <input id="NombreCompleto-referencia" @bind-value=@referencia.NombreCompleto class="col-sm-5" />-->
+        @*@onchange="@(e=> cliente.InfoReferenciasObj[referencia.Index].NombreCompleto=e.Value.ToString())"*@
+        <!--<input @bind-value=@referencia.Telefono class="col-sm-5" />
+        </div>
+
+        <div class="form-group row bg-info">
+            <label class="col-sm-2 text-center text-white">Vinculo </label>
+            <label class="col-sm-5 text-center text-white">Direccion </label>
+            <label class="col-sm-5 text-center text-white">Detalles </label>
+        </div>
+        <div class="form-group row">
+            @if (referencia.Tipo == (int)@EnumTiposReferencia.Familiar)
+            {
+                <input @bind-value=@referencia.Vinculo class="col-sm-2" />
+            }
+            else
+            {
+                <label class="col-sm-2">No Aplica</label>
+            }
+
+            <InputTextArea @bind-Value=@referencia.Direccion class="col-sm-5" />
+            <InputTextArea @bind-Value=@referencia.Detalles class="col-sm-5" />
+        </div>-->
+
+
+        @code {
+
+            [Parameter]
+            public Referencia referencia { get; set; } = new Referencia();
+
+            [Parameter]
+            public int Index { get; set; }
+
+        }

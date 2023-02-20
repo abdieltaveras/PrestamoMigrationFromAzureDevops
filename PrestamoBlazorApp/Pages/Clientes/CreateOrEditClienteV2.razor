@@ -1,6 +1,7 @@
 ﻿@page "/clientes/CreateOrEditV2"
 @page "/clientes/CreateOrEditV2/{idCliente:int}"
 @using PrestamoBlazorApp.Shared.Components.Forms
+@using PrestamoBlazorApp.Shared.Components.Forms.InputReferencia
 @*@using PrestamoEntidades;*@
 @*@using PrestamoBlazorApp.Shared;*@
 @*@using PrestamoBlazorApp.Pages.Clientes;
@@ -17,24 +18,30 @@
             <MudText>GENERALES</MudText>
             <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="Cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
                                 FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
-            @if (Cliente.TieneConyuge || Cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
-            {
-                <MudItem xs="12" Text="Conyugue">
-                    <ConyugeUI conyuge=@Conyuge></ConyugeUI>
-                </MudItem>
-            }
+
         </MudItem>
         <MudItem xs="12" sm="4">
-            <MudText>Referencia</MudText>
-            @for (int i = 0; i < Referencias.Count; i++)
-            {
-                <InputReferenciaV2 referencia=@Referencias[i] Index=@i />
-            }
-        </MudItem>
-        <MudItem xs="12" sm="5">
             <MudText>Direccion</MudText>
             <DireccionUI direccion=@Direccion />
         </MudItem>
+        @if (Cliente.TieneConyuge || Cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
+        {
+            <MudItem xs="12" Text="Conyugue">
+                <ConyugeUI conyuge=@Conyuge></ConyugeUI>
+            </MudItem>
+        }
+    <MudItem xs="12" sm="3">
+        <MudButton OnClick="AddReferencia">Agregar Referencias</MudButton>
+
+        @*<MudText>Referencia</MudText>
+        <InputReferenciaV3 Referencias="Referencias" />*@
+
+        @*@for (int i = 0; i < Referencias.Count; i++)
+        {
+            <InputReferenciaV2 referencia=@Referencias[i] Index=@i />
+        }*@
+    </MudItem>
+
     </MudGrid>
     @*<MudGrid>
             <MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0">
@@ -67,8 +74,9 @@
                 </MudItem>
             </MudItem>
         </MudGrid>*@
-  
+
 </EditForm>
+
     <!--<div class="grid-container">
         <EditForm Model="@cliente">
             <DataAnnotationsValidator />
