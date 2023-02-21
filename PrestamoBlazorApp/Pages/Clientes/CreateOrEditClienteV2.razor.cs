@@ -130,7 +130,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.InfoDireccion.IdLocalidad });
                 this.Direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
-            SetReferencias(Cliente.InfoReferenciasObj);
+            Referencias = Cliente.InfoReferenciasObj;
             FilterImagesByGroup();
             LoadedFotos = true;
             //StateHasChanged();
@@ -150,27 +150,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
             });
         }
 
-        private void SetReferencias(List<Referencia> infoReferenciasObj)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                var referencia = new Referencia { Tipo = (int)EnumTiposReferencia.Personal };
 
-                if ((i + 1) <= infoReferenciasObj.Count())
-                {
-                    referencia = infoReferenciasObj[i];
-                }
-                Referencias.Add(referencia);
-            }
-        }
 
-        //async Task SaveCliente()
         async Task SaveCliente()
         {
             await Handle_Funct(() => SaveData());
-            //await Handle_SaveData(()=>SaveData, null, false);
-
-            //await Handle_SaveData(SaveData, () => OnSaveNotification(redirectTo: @"\Clientes"), null, false);
         }
 
         private async Task<bool> SaveData()
