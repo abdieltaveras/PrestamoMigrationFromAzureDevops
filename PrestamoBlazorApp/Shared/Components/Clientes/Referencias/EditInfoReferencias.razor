@@ -1,0 +1,60 @@
+﻿
+<MudDialog>
+    <DialogContent>
+        <MudGrid>
+            <MudItem xs="6">
+                @*<MudChip Color="MudBlazor.Color.Info">No @(Index+1)</MudChip>*@
+
+                <MudSelect @bind-Value="Referencia.Tipo" Label="Tipo Referencia">
+                    @{
+                        int indexEnum = 0;
+                    }
+                    @foreach (var tipoReferencia in Enum.GetValues(typeof(EnumTiposReferencia)))
+                    {
+                        indexEnum++;
+                        <MudSelectItem Value="@indexEnum">@tipoReferencia</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudTextField @bind-Value="@Referencia.NombreCompleto" Label="Nombre Completo"></MudTextField>
+                <MudTextField @bind-Value="@Referencia.Telefono" Label="Telefono"></MudTextField>
+            </MudItem>
+            <MudItem xs="6">
+                @if (Referencia.Tipo == (int)@EnumTiposReferencia.Familiar)
+                {
+                    <MudTextField @bind-Value="@Referencia.Vinculo"></MudTextField>
+
+                    @*<input @bind-value=@referencia.Vinculo class="col-sm-2" />*@
+                }
+                else
+                {
+                    <MudChip Color="MudBlazor.Color.Info">No Aplica Vinculo Familiar</MudChip>
+                    @*<label class="col-sm-2">No Aplica</label>*@
+                }
+                <MudTextField @bind-Value="@Referencia.Direccion" Label="Direccion" Lines="3"></MudTextField>
+                <MudTextField @bind-Value="@Referencia.Detalles" Label="Detalles" Lines="3"></MudTextField>
+                <MudDivider />
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton OnClick="Close">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance DialogInstance { get; set; }
+    [Parameter]
+    public Referencia Referencia { get; set; }
+    private async Task Close()
+    {
+        DialogInstance.Close(DialogResult.Ok(Referencia));
+    }
+    private async Task Cancel()
+    {
+        DialogInstance.Cancel();
+    }
+
+}
