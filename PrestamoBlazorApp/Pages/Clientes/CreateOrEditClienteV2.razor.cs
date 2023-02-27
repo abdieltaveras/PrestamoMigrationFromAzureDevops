@@ -197,12 +197,25 @@ namespace PrestamoBlazorApp.Pages.Clientes
         //}
 
 
-        public async Task AddReferencia()
+        //public async Task AddReferencia() // Boton Dinamico
+        //{
+        //    var parameters = new DialogParameters { ["Referencias"] = Referencias };
+        //    DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium,FullWidth = true, CloseButton = true };
+        //    var dialog = DialogService.Show<InputReferenciaV3>("Agregar Referencias", parameters, dialogOptions);
+        //    var result = await dialog.Result;
+        //}
+        private async Task AddReferencia()
         {
             var parameters = new DialogParameters { ["Referencias"] = Referencias };
-            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium,FullWidth = true, CloseButton = true };
-            var dialog = DialogService.Show<InputReferenciaV3>("Agregar Referencias", parameters, dialogOptions);
+            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Clientes.Referencias.ListInfoReferencias>("Listado de Referencias", parameters, dialogOptions);
             var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                //Tambien se puede Manejar la respuesta Aqui
+                //Referencias = (Referencia)result.Data;
+            }
         }
         private void SetImages(Imagen imagen)
         {

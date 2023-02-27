@@ -1,0 +1,72 @@
+﻿@inherits BaseForList
+@using PrestamoBlazorApp.Shared.Components.Reports
+
+@using PrestamoBlazorApp.Shared.Components.Forms
+@inject IDialogService DialogService
+<MudDialog>
+    <DialogContent>
+        <MudTable Loading="LoadingTable" Items="@Referencias" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" 
+                    >
+            <ToolBarContent>
+                <div id="toolBarDiv" style="display:flex; justify-content:flex-end; width:100%;">
+                    <MudButton OnClick="()=>ShowEdit(new Referencia())">Agregar</MudButton>
+                </div>
+                @*<MudDivider FlexItem="true" Vertical="true" DividerType="DividerType.Middle" Class="ml-1 mr-1 my-1"></MudDivider>*@
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Telefono</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nombre">@context.NombreCompleto</MudTd>
+                <MudTd DataLabel="Telefono">@context.Telefono </MudTd>
+                <MudTd>
+                    <MudIconButton OnClick='()=>ShowEdit(context)' Icon="@Icons.Outlined.Edit"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </DialogContent>
+</MudDialog>
+
+
+
+@code {
+    [Parameter]
+    public List<Referencia> Referencias { get; set; }
+    @*[Parameter]
+    public Referencia Referencia { get; set; }*@
+private async Task ShowEdit(Referencia refe)
+{
+    var parameters = new DialogParameters { ["Referencia"] = refe };
+    DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+    var dialog = DialogService.Show<EditInfoReferencias>("Editar Referencia", parameters, dialogOptions);
+    var result = await dialog.Result;
+
+    if (!result.Cancelled)
+    {
+        var referenciaComing = (Referencia)result.Data;
+        var editarRef = Referencias.Where(m => m.Id == referenciaComing.Id).ToList();
+        if (editarRef.Count() > 0)
+        {
+            for (int i = 0; i < editarRef.Count(); i++)
+            {
+                editarRef[i] = referenciaComing;
+            }
+        }
+        else
+        {
+            var id = 1;
+            if (Referencias.Count() > 0)
+            {
+                id= Referencias.Max(m => m.Id) + 1;
+            }
+            referenciaComing.Id = id;
+            Referencias.Add(referenciaComing);
+        }
+    }
+}
+}
