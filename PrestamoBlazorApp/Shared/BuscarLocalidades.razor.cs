@@ -28,7 +28,7 @@ namespace PrestamoBlazorApp.Shared
         private int totalRegistros { get; set; }
 
         private string _ChoiseLocalidad { get; set; } = "";
-        private string ChoiseLocalidad { get { return _ChoiseLocalidad; } set { _ChoiseLocalidad = value; seleccionar(value); } }
+        private string ChoiseLocalidad { get { return _ChoiseLocalidad; } set { _ChoiseLocalidad = value; SeleccionarLocalidad(value); } }
         protected override async Task OnInitializedAsync()
         {
             editContext1 = new EditContext(ChoiseLocalidad);
@@ -63,15 +63,15 @@ namespace PrestamoBlazorApp.Shared
             loading = false;
         }
 
-        void seleccionar(string valor)
+        void SeleccionarLocalidad(string valor)
         {
-            filtrar();
-            var localidadess = Localidades.Where(loc => loc.Nombre.ToLower().Contains(valor.ToLower(), StringComparison.InvariantCultureIgnoreCase));
+            filtrar(); // para limpiar el filtro
+            var localidades = Localidades.Where(loc => loc.Nombre.ToLower().Contains(valor.ToLower(), StringComparison.InvariantCultureIgnoreCase));
 
-            totalRegistros = localidadess.Count();
+            totalRegistros = localidades.Count();
             if (totalRegistros > 0)
             {
-                this.SelectedLocalidad = localidadess.FirstOrDefault().IdLocalidad;
+                this.SelectedLocalidad = localidades.FirstOrDefault().IdLocalidad;
             }
             selectLocalidad = totalRegistros > 0;
             var locSelected = Localidades.Where(loc => loc.IdLocalidad == SelectedLocalidad).FirstOrDefault();

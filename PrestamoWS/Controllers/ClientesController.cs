@@ -164,7 +164,7 @@ namespace PrestamoWS.Controllers
             dtClientes.Rows[0]["ContactoTrabajo"] = $"{cliente.InfoLaboralObj.NoTelefono1} || {cliente.InfoLaboralObj.NoTelefono2}";
             dtClientes.Rows[0]["DireccionTrabajo"] = $"{cliente.InfoLaboralObj.Direccion}";
             dtClientes.Rows[0]["NombreConyugue"] = $"{cliente.InfoConyugeObj.Nombres} {cliente.InfoConyugeObj.Apellidos}";
-            dtClientes.Rows[0]["ContactoConyugue"] = $"{cliente.InfoConyugeObj.NoTelefono1} ";
+            dtClientes.Rows[0]["ContactoConyugue"] = $"{cliente.InfoConyugeObj.TelefonoPersonal} ";
             dtClientes.Rows[0]["ProfesionCliente"] = $"{ocupaciones.FirstOrDefault().Nombre}";
             dtClientes.Rows[0]["EstadoCivil"] = $"{Enum.GetName(typeof(EstadosCiviles), cliente.IdEstadoCivil)}";
 

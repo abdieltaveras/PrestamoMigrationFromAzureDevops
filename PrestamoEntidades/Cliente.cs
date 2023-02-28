@@ -70,13 +70,7 @@ namespace PrestamoEntidades
 
     public class Cliente : BasePersonaInsUpd, IUsuarioAndIdLocalidadNegocio
     {
-        //public Cliente()
-        //{
-        //    this.InfoConyugeObj = new Conyuge();
-        //    this.InfoDireccionObj = new Direccion();
-        //    this.InfoLaboralObj = new InfoLaboral();
-        //    this.InfoReferenciasObj = new List<Referencia>();
-        //}
+        
         [KeyAttribute]
         public int IdCliente { get; set; } = 0;
         [IgnoreOnParams]
@@ -89,7 +83,7 @@ namespace PrestamoEntidades
         [Display(Name = "Tipo Identificacion")]
         public int IdTipoIdentificacion { get; set; } = (int)TiposIdentificacionPersona.Cedula;
         [Display(Name = "Profesion u Ocupacion")]
-        public int IdTipoProfesionUOcupacion { get; set; } = 0;
+        public int IdTipoProfesionUOcupacion { get; set; } = -1;
         [Required(ErrorMessage = "digite el numero de identificacion")]
         [Display(Name = "No Identificacion")]
         public string NoIdentificacion { get; set; } = string.Empty;
@@ -111,14 +105,14 @@ namespace PrestamoEntidades
         //</summary>
         public string InfoConyuge { get; set; } = string.Empty;
         [IgnoreOnParams]
-        public Conyuge InfoConyugeObj { get; set; } 
+        public Conyuge InfoConyugeObj { get; set; } = new Conyuge();
             //{return string.IsNullOrEmpty(InfoConyuge) ? new Conyuge() : InfoConyuge.ToType<Conyuge>(); } set { InfoConyuge = value.ToJson(); } }
         //<summary>
         //la direccion en formato json
         //</summary>
         public string InfoDireccion { get; set; } = string.Empty;
         [IgnoreOnParams]
-        public Direccion InfoDireccionObj { get; set; }
+        public Direccion InfoDireccionObj { get; set; } = new Direccion();
 
         //{ get { return string.IsNullOrEmpty(InfoDireccion) ? new Direccion() : InfoDireccion.ToType<Direccion>(); } set { InfoDireccion = value.ToJson(); } }
         /// <summary>
@@ -132,13 +126,13 @@ namespace PrestamoEntidades
             if (InfoConyugeObj != null)
             {
                 InfoConyugeObj.TelefonoTrabajo = InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
-                InfoConyugeObj.NoTelefono1 = InfoConyugeObj.NoTelefono1.RemoveAllButNumber();
+                InfoConyugeObj.TelefonoPersonal = InfoConyugeObj.TelefonoPersonal.RemoveAllButNumber();
             }
             InfoReferenciasObj.ForEach(refe => refe.Telefono.RemoveAllButNumber());
         }
         public string InfoLaboral { get; set; } = string.Empty;
         [IgnoreOnParams]
-        public InfoLaboral InfoLaboralObj { get; set; }
+        public InfoLaboral InfoLaboralObj { get; set; } = new InfoLaboral();
             //get { return string.IsNullOrEmpty(InfoLaboral) ? new InfoLaboral() : InfoLaboral.ToType<InfoLaboral>(); } set { InfoLaboral = value.ToJson(); } }
         /// <summary>
         /// la informacion de referencias en formato json, use el objeto para trabajar
@@ -215,6 +209,7 @@ namespace PrestamoEntidades
             //return $"{Codigo}: {Nombres } {Apellidos} {Codigo} ";
             return $" {Nombres } {Apellidos} ";
         }
+
     }
     public class ClienteGetParams : BaseGetParams
     //: BaseGetParams

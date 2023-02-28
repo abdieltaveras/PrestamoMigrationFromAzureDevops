@@ -4,6 +4,7 @@ using PcpUtilidades;
 
 
 using PrestamoBlazorApp.Models;
+using PrestamoBlazorApp.Pages.Localidades;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoBlazorApp.Shared.Components.Forms.InputReferencia;
@@ -23,7 +24,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Inject]
         IDialogService DialogService { get; set; }
         [Inject] protected CatalogosServicesFactoryManager CatalogosFactory { get; set; }
-        
+
         [Inject]
         LocalidadesService localidadService { get; set; }
         [Inject]
@@ -44,12 +45,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         DireccionModel Direccion { get; set; } = new DireccionModel();
         Direccion InfoDireccion { get; set; } = new Direccion();
-
-
         InfoLaboral InfoLaboral { get; set; } = new InfoLaboral();
 
-        
-        
         List<EnumModel> TiposIdentificacionPersonaList { get; set; }
 
         private IEnumerable<BaseInsUpdGenericCatalogo> Ocupaciones { get; set; } = new List<Ocupacion>();
@@ -64,19 +61,19 @@ namespace PrestamoBlazorApp.Pages.Clientes
         List<Referencia> Referencias = new List<Referencia>();
 
 
-        
+
 
         protected override async Task OnInitializedAsync()
         {
 
-            await Handle_GetData(prepareModel,@"/Clientes");
+            await Handle_GetData(prepareModel, @"/Clientes");
             //await prepareModel();
             await base.OnInitializedAsync();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-                
+
         }
 
         private void UpdateTieneConyuge(bool value)
@@ -89,51 +86,67 @@ namespace PrestamoBlazorApp.Pages.Clientes
             //NotifyMessageBox("estado civil actualizado");
             Cliente.IdEstadoCivil = value;
         }
-        
+
         private async Task prepareModel()
         {
             Ocupaciones = await GetOcupaciones();
             LoadedFotos = false;
-            if (idCliente != 0)
+            if (this.idCliente == 46232)
             {
-                var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente}, true);
-                this.Cliente = clientes.FirstOrDefault();
-            }
-            if (this.Cliente == null || idCliente <= 0)
-            {
-                this.Cliente = new Cliente
-                {
-                    Codigo = "Nuevo",
-                    Nombres = "a1",
-                    Apellidos = "a2",
-                    Apodo = "a3",
-                    IdTipoIdentificacion = 1,
-                    NoIdentificacion = "000-0000000-1",
-                    InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
-                    InfoLaboralObj = new InfoLaboral { Direccion = "d1", Nombre = "d2" },
-                    InfoDireccionObj = new Direccion
-                    {
-                        IdLocalidad = 5,
-                        Calle = "Calle emilio prud home #5",
-                        Latitud = 18.43056,
-                        Longitud = -68.98449
-                    }
-                };
-                //clinica coral Lat = 18.43190, Lng = -68.98503;
+                await CreateTestCliente();
             }
             else
             {
-                this.Direccion = Cliente.InfoDireccion.ToType<DireccionModel>(); //Cliente.InfoDireccionObj;
-                this.Conyuge = Cliente.InfoConyugeObj;
-                this.InfoLaboral = Cliente.InfoLaboralObj;
-                this.InfoDireccion = Cliente.InfoDireccion.ToType<Direccion>();
-                var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.InfoDireccion.IdLocalidad });
-                this.Direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
+                if (idCliente != 0)
+                {
+                    var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente }, true);
+                    this.Cliente = clientes.FirstOrDefault();
+                }
+
+                if (this.Cliente == null)
+                {
+                    this.Direccion = Cliente.InfoDireccion.ToType<DireccionModel>(); //Cliente.InfoDireccionObj;
+                    this.Conyuge = Cliente.InfoConyugeObj;
+                    this.InfoLaboral = Cliente.InfoLaboralObj;
+                    this.InfoDireccion = Cliente.InfoDireccion.ToType<Direccion>();
+                    var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.InfoDireccion.IdLocalidad });
+                    this.Direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
+                }
             }
             Referencias = Cliente.InfoReferenciasObj;
             FilterImagesByGroup();
             LoadedFotos = true;
             //StateHasChanged();
+        }
+
+        private async Task CreateTestCliente()
+        {
+            this.Cliente = new Cliente
+            {
+                Codigo = "Nuevo",
+                Nombres = "a1",
+                Apellidos = "a2",
+                Apodo = "a3",
+                IdTipoIdentificacion = 1,
+                NoIdentificacion = "000-0000000-1",
+                TelefonoCasa = "8098131438",
+                TelefonoMovil = "8299619141",
+                TieneConyuge = true,
+                InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
+                InfoLaboralObj = new InfoLaboral { Direccion = "direccion trabajo", Nombre = "Respueto la union" },
+            };
+            this.Direccion = new DireccionModel
+            {
+                Calle = "Serapia no 3",
+                Latitud = 18.43056,
+                Longitud = -68.98449,
+                Detalles="queda al lado de la banca la nacional"
+            };
+            this.Conyuge = Cliente.InfoConyugeObj;
+            var localidad = await localidadService.BuscarLocalidad(new BuscarLocalidadParams { SoloLosQuePermitenCalle=true , Search="Las orquideas"} );
+            var firstSector = localidad.FirstOrDefault();
+            this.Direccion.IdLocalidad = firstSector.IdLocalidad;
+            this.Direccion.selectedLocalidad = firstSector.ToString();
         }
 
         private void FilterImagesByGroup()
@@ -176,7 +189,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
 
                 await clientesService.SaveCliente(this.Cliente);
-         
+
             }
             catch (ValidationObjectException e)
             {
@@ -185,25 +198,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
             return true;
         }
 
-        //void OnChange(object value, string name)
-        //{
-        //    var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-        //    var selectedValue = Convert.ToInt32(str);
-        //    //console.Log($"{name} value changed to {str}");
-        //}
-        //void OnInputFileChange(InputFileChangeEventArgs e)
-        //{
-        //    var imageFiles = e.GetMultipleFiles();
-        //}
-
-
-        //public async Task AddReferencia() // Boton Dinamico
-        //{
-        //    var parameters = new DialogParameters { ["Referencias"] = Referencias };
-        //    DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium,FullWidth = true, CloseButton = true };
-        //    var dialog = DialogService.Show<InputReferenciaV3>("Agregar Referencias", parameters, dialogOptions);
-        //    var result = await dialog.Result;
-        //}
         private async Task AddReferencia()
         {
             var parameters = new DialogParameters { ["Referencias"] = Referencias };

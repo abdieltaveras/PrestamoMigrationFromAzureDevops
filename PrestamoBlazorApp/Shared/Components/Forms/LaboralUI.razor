@@ -1,40 +1,16 @@
-﻿<h3> Datos empresa o negocio donde labora</h3>
-<div class="col-sm-6">
-    <div class="form-group row">
-        <label class="col-sm-3 col-form-label text-label-align">Nombre</label>
-        <InputText @bind-Value=@infoLaboral.Nombre class="col-sm-8" />
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-form-label text-label-align">Direccion</label>
-        <InputText @bind-Value=@infoLaboral.Direccion class="col-sm-8" />
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-form-label text-label-align">Puesto</label>
-        <InputText @bind-Value=@infoLaboral.Puesto class="col-sm-8" />
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-form-label text-label-align">Telefono 1</label>
-        <InputText @bind-Value="infoLaboral.NoTelefono1" class="col-sm-8 masked" data-inputmask="'mask': '(999)-999-9999'" />
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-form-label text-label-align">Telefono 2</label>
-        <InputText @bind-Value="infoLaboral.NoTelefono2" class="col-sm-8 masked"  data-inputmask="'mask': '(999)-999-9999'"/>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-3 col-form-label text-label-align">Otros detalles</label>
-        <InputTextArea @bind-Value="infoLaboral.Notas" class="col-sm-8" />
-    </div>
-</div>
+﻿<MudTextField Label="Nombre donde trabaja" @bind-Value="@infoLaboral.Nombre" Validation="@infoLaboral.Nombre"></MudTextField>
+
+<MudTextField Label="Direccion" @bind-Value="@infoLaboral.Direccion" Validation="@infoLaboral.Direccion" Lines="2" ></MudTextField>
+
+<MudTextField Label="Telefono 1" @bind-Value="@infoLaboral.NoTelefono1" Validation="@infoLaboral.NoTelefono1"></MudTextField>
+
+<MudTextField Label="Telefono 2" @bind-Value="@infoLaboral.NoTelefono2" Validation="@infoLaboral.NoTelefono2"></MudTextField>
+        
+<MudTextField Label="Puesto o funcion" @bind-Value="@infoLaboral.Puesto" Validation="@infoLaboral.Puesto"></MudTextField>
+
+<MudTextField Label="Otros detalles" @bind-Value="@infoLaboral.Notas" Validation="@infoLaboral.Notas" Lines="3"></MudTextField>
+
 @code {
     [Parameter]
-    public InfoLaboral infoLaboral { get; set; }
-
-
-    [Inject]
-    IJSRuntime jsRuntime { get; set; }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        //await JsInteropUtils.SetInputMask(jsRuntime);
-    }
+    public InfoLaboral infoLaboral { get; set; } = new InfoLaboral();
 }

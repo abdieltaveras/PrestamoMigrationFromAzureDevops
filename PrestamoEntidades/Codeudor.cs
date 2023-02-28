@@ -63,7 +63,7 @@ namespace PrestamoEntidades
             TelefonoMovil = TelefonoMovil.RemoveAllButNumber();
             NoIdentificacion =NoIdentificacion.RemoveAllButNumber();
             //InfoConyugeObj.TelefonoTrabajo = InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
-            //InfoConyugeObj.NoTelefono1 = InfoConyugeObj.NoTelefono1.RemoveAllButNumber();
+            //InfoConyugeObj.TelefonoPersonal = InfoConyugeObj.TelefonoPersonal.RemoveAllButNumber();
             //InfoReferenciasObj.ForEach(refe => refe.Telefono.RemoveAllButNumber());
         }
         public string InfoLaboral { get; set; } = string.Empty;

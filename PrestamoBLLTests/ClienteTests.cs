@@ -20,7 +20,7 @@ namespace PrestamoBLL.Tests
                 Apellidos = "Rodriguez Castillo",
                 LugarTrabajo = "Glipsy",
                 DireccionLugarTrabajo = "Villa españa calle d no 5",
-                NoTelefono1 = "829-961-9141"
+                TelefonoPersonal = "829-961-9141"
             };
             return conyuge1;
         }

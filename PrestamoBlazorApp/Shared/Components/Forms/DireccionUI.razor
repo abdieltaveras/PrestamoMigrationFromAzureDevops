@@ -1,77 +1,34 @@
 ﻿@using BlazorUtilsLibrary.Map
 @using PrestamoBlazorApp.Models
-<MudGrid>
-    <MudItem md="6" lg="6">
-        <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
+
+@{
+    if (!string.IsNullOrEmpty(this.SelectedLocalidad))
+    {
         <MudChip Color="MudBlazor.Color.Info"> @SelectedLocalidad</MudChip>
-    @*</MudItem>*@
-    @*<MudItem md="6" lg="6">*@
-        <MudTextField @bind-Value="direccion.Calle" Validation="@direccion.Calle"></MudTextField>
-        <MudTextField @bind-Value="direccion.Latitud" Validation="@direccion.Latitud"></MudTextField>
-        <MudTextField @bind-Value="direccion.Longitud" Validation="@direccion.Longitud"></MudTextField>
-        <MudTextField @bind-Value="direccion.Detalles" Validation="@direccion.Detalles"></MudTextField>
-        <MudButton OnClick="UpdateMapMarkers" Color="MudBlazor.Color.Info">Actualizar Mapa</MudButton>
-        <Map Zoom="10" Markers="MapMarkers"></Map>
-    </MudItem>
-</MudGrid>
-@*<div class="row">
-
-    <div class="col-sm-6">
-        <h2> donde vive la persona ?</h2>
-        <div class="form-group row">
-            <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
-        </div>
-
-        <div class="form-group row alert-info">
-            <label class="col-sm-3 col-form-label text-label-align">Localidad </label>
-            <label class="col-sm-8 mt-2"> @direccion.selectedLocalidad  </label>
-        </div>
-
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-label-align">Calle</label>
-            <InputText @bind-Value=@direccion.Calle class="col-sm-8" />
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-label-align">Latitud</label>
-            <InputNumber @bind-Value="@direccion.Latitud" class="col-sm-8" />
-
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-label-align">Longitud</label>
-            <InputNumber @bind-Value="@direccion.Longitud" class="col-sm-8" />
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label text-label-align">Detalles</label>
-            <InputTextArea @bind-Value=@direccion.Detalles class="col-sm-8" />
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <h2>Mapa <button type="button" @onclick="UpdateMapMarkers">Actualizar</button></h2>
-        <div class="track-order-map">
-            <Map Zoom="10" Markers="MapMarkers"></Map>
-        </div>
-
-    </div>
-</div>*@
+        <MudButton OnClick="()=>{SearchLocalidad=!SearchLocalidad;}"Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" >Cambiar sector</MudButton>
+    }
+    
+    if (SearchLocalidad)
+    {
+        <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
+    }
+}
+<MudTextField @bind-Value="direccion.Calle" Validation="@direccion.Calle" Label="Calle"/>
+<MudTextField @bind-Value="direccion.Latitud" Validation="@direccion.Latitud" Label="Latitud"/>
+<MudTextField @bind-Value="direccion.Longitud" Validation="@direccion.Longitud" label="Longitud"/>
+<MudTextField @bind-Value="direccion.Detalles" Validation="@direccion.Detalles" Label="otros Detalles" Lines="5" Variant="Variant.Filled"/>
+<MudText Color="MudBlazor.Color.Primary">Area para el mapa</MudText>
+@*<MudButton OnClick="UpdateMapMarkers" Color="MudBlazor.Color.Info">Actualizar Mapa</MudButton>*@
+@*<Map Zoom="5" Markers="MapMarkers"></Map>*@
 
 @code {
 
     [Parameter]
     public DireccionModel direccion { get; set; }
-
     BuscarLocalidad buscarLocalidad { get; set; } = new BuscarLocalidad();
-
-
     public List<Marker> MapMarkers { get; set; } = new List<Marker>();
-
-    int zoom = 10;
-    bool showMadridMarker;
-    EventConsole console;
-
+    private int zoom = 10;
+    private bool SearchLocalidad { get; set; }
     private string SelectedLocalidad { get; set; }
     //void OnMapClick(GoogleMapClickEventArgs args)
     //{
@@ -100,13 +57,12 @@
     private async Task Handle_LocalidadSelected(BuscarLocalidad localidad)
     {
         var localidadSeleccionada = localidad;
-        @*direccion.selectedLocalidad = localidad.ToString();*@
-        @*this.direccion.IdLocalidad = localidad.IdLocalidad;*@
-    SelectedLocalidad = localidad.ToString();
-    direccion.IdLocalidad = localidad.IdLocalidad;
-    direccion.selectedLocalidad = localidad.ToString();
-    StateHasChanged();
-}
+        SelectedLocalidad = localidad.ToString();
+        direccion.IdLocalidad = localidad.IdLocalidad;
+        direccion.selectedLocalidad = localidad.ToString();
+        this.SearchLocalidad = false;
+        StateHasChanged();
+    }
 
 
 

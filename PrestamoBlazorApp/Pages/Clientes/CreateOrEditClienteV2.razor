@@ -2,129 +2,45 @@
 @page "/clientes/CreateOrEditV2/{idCliente:int}"
 @using PrestamoBlazorApp.Shared.Components.Forms
 @using PrestamoBlazorApp.Shared.Components.Forms.InputReferencia
-@*@using PrestamoEntidades;*@
-@*@using PrestamoBlazorApp.Shared;*@
-@*@using PrestamoBlazorApp.Pages.Clientes;
-    @using Microsoft.AspNetCore.WebUtilities*@
-@*@inject NavigationManager NavigationManager*@
 
 @inherits BaseForCreateOrEdit
 <EditForm Model="@Cliente">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <MudGrid Justify="Justify.FlexStart">
-        <MudItem xs="12" sm="3">
+    <MudGrid>
+        <MudItem xs="12" sm="12">
             <MudButton OnClick="SaveCliente">Guardar</MudButton>
+        </MudItem>
+
+        <MudItem xs="12" sm="3">
+
             <MudText>GENERALES</MudText>
             <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="Cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
                                 FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
 
         </MudItem>
-        <MudItem xs="12" sm="4">
+        <MudItem xs="12" sm="3">
             <MudText>Direccion</MudText>
             <DireccionUI direccion=@Direccion />
         </MudItem>
         @if (Cliente.TieneConyuge || Cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
         {
-            <MudItem xs="12" Text="Conyugue">
+
+            <MudItem xs="12" sm="3">
+                <MudText>Conyuge</MudText>
                 <ConyugeUI conyuge=@Conyuge></ConyugeUI>
             </MudItem>
         }
-    <MudItem xs="12" sm="3">
-        <MudButton OnClick="AddReferencia">Agregar Referencias</MudButton>
-
-        @*<MudText>Referencia</MudText>
-        <InputReferenciaV3 Referencias="Referencias" />*@
-
-        @*@for (int i = 0; i < Referencias.Count; i++)
-        {
-            <InputReferenciaV2 referencia=@Referencias[i] Index=@i />
-        }*@
-    </MudItem>
-
+        
+        <MudItem xs="12" sm="3">
+        <MudItem xs="12" sm="12">
+            <LaboralUI infoLaboral=@Cliente.InfoLaboralObj/>
+        </MudItem>
+        <MudItem xs="12" sm="12">
+            <MudButton OnClick="AddReferencia" Variant="Variant.Filled">Agregar Referencias</MudButton>
+        </MudItem>
+        </MudItem>
     </MudGrid>
-    @*<MudGrid>
-            <MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0">
-                <MudItem md="12" lg="12">
-                    <MudButton OnClick="SaveCliente">Guardar</MudButton>
-                </MudItem>
-            </MudPaper>
-        </MudGrid>
-
-        <MudGrid>
-            <MudItem md="12" lg="12">
-                <MudItem xs="12" Text="Generales">
-                    <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="Cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
-                                        FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
-                </MudItem>
-                @if (Cliente.TieneConyuge || Cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
-                {
-                    <MudItem xs="12" Text="Conyugue">
-                        <ConyugeUI conyuge=@Conyuge></ConyugeUI>
-                    </MudItem>
-                }
-                <MudItem xs="6" Text="Direccion">
-                    <DireccionUI direccion=@Direccion />
-                </MudItem>
-                <MudItem xs="6" Text="Referencias">
-                    @for (int i = 0; i < Referencias.Count; i++)
-                    {
-                        <InputReferencia referencia=@Referencias[i] Index=@i />
-                    }
-                </MudItem>
-            </MudItem>
-        </MudGrid>*@
-
 </EditForm>
-
-    <!--<div class="grid-container">
-        <EditForm Model="@cliente">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="bg-secondary">
-                <h3 class="text-left">Crear o Editar clientes</h3>
-                <div class="text-label-align">
-                    <button id="btnGuardar" type="button" @onclick="@SaveCliente">Guardar</button>-->
-                    @*<button id="btnsh" type="button" onclick="() =>$('#btnsh').prop('disabled',true)>show hide</button>*@
-                <!--</div>
-            </div>
-            @if (loading)
-            {
-                <div class="loader">Cargando...</div>
-            }
-            <RadzenTabs style="height: 880px">
-                <Tabs>
-                    <RadzenTabsItem Text="Generales">
-                        <div class="row">
-                            <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
-                                                FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
-                        </div>
-                    </RadzenTabsItem>
-                    @if (cliente.TieneConyuge || cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
-                    {
-                        <RadzenTabsItem Text="conyuge">
-                            <ConyugeUI conyuge=@conyuge></ConyugeUI>
-                        </RadzenTabsItem>
-                    }
-                    <RadzenTabsItem Text="Direccion">
-                        <DireccionUI direccion=@direccion />
-                    </RadzenTabsItem>
-                    <RadzenTabsItem Text="Laborales">
-                        <LaboralUI infoLaboral=@infoLaboral />
-                    </RadzenTabsItem>
-                    <RadzenTabsItem Text="Referencias">
-                        @for (int i = 0; i < referencias.Count; i++)
-                        {
-                            <InputReferencia referencia=@referencias[i] Index=@i />
-                        }
-                    </RadzenTabsItem>
-                </Tabs>
-            </RadzenTabs>
-        </EditForm>-->
-        @*<EventConsole @ref="@console"> </EventConsole>*@
-    <!--</div>-->
-
-
-
 
 

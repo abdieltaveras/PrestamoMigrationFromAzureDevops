@@ -1,88 +1,20 @@
-﻿
-@*@page "/localidades/buscar"*@
+﻿@*@page "/localidades/buscar"*@
 @inherits BaseForSearch;
-<div class="col-sm-12">
-    <h3>Busqueda de localidades que acepten calles</h3>
-</div>
+    <MudAutocomplete T="string" Label="Buscar Localidad" @bind-Value="ChoiseLocalidad" SearchFunc="@SearchFunc" Dense="true"
+                     AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="MudBlazor.Color.Primary" MinCharacters="2"
+                     For="@(() => ChoiseLocalidad)" />
 
-<MudGrid>
-    <MudItem>
-        <EditForm EditContext="editContext1">
-            <DataAnnotationsValidator />
-            <MudAutocomplete T="string" Label="Buscar Localidad" @bind-Value="ChoiseLocalidad" SearchFunc="@SearchFunc" Dense="true"
-                             AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="MudBlazor.Color.Primary" MinCharacters="2"
-                             For="@(() => ChoiseLocalidad)" />
-        </EditForm>
-    </MudItem>
-</MudGrid>
-<!--<div class="col-sm-12 search">
-    <EditForm Model="@buscarLocalidad">
-        <DataAnnotationsValidator />
-        <ValidationSummary />-->
-            @*<InputText id="texto" @bind-Value="buscarLocalidad.Search" placeholder="digite valor" @attributes />*@
-            <!--<input class="col-sm-8" id="texto" @bind-value=@buscarLocalidad.Search placeholder="localidad a buscar" minlength="2" />
-            <button type="button" class="col-sm-2 fa fa-search" @onclick=@filtrar>Buscar</button>
-    </EditForm>
-</div>-->
-@*<div>
-        <label >Localidad Elegida: @LocalidadElegida</label>
-    </div>*@
 
-@*<div class="col-sm-12">
-    @if (loading)
+@code {
+    private EditContext editContext1;
+    private async Task<IEnumerable<string>> SearchFunc(string value)
     {
-        <div class="loader">Cargando...</div>
-    }
-    else
-    {
-        if (LocalidadesFiltradas == null)
+        List<string> lstLocalidades = new List<string>();
+        filtrar(value);
+        foreach (var item in LocalidadesFiltradas)
         {
-            <p><em>datos no encontrados</em></p>
+            lstLocalidades.Add(item.Nombre);
         }
-        else
-        {
-
-            if (totalRegistros > 0 && selectLocalidad)
-            {
-
-                <label class="col-sm-12">registros encontrados @totalRegistros</label>
-                <EditForm Model="LocalidadesFiltradas">
-                    <InputSelect id="Localidades" @bind-Value=@SelectedLocalidad class="form-control col-sm-8">
-
-                        @foreach (var localidad in LocalidadesFiltradas)
-                                    {
-                            //var value = $"[{localidad.Nombre}-{localidad.Descripcion}] {localidad.TipoNombrePadre} {localidad.NombrePadre}";
-                            <option value=@localidad.IdLocalidad>@localidad.ToString()</option>
-                                    }
-                    </InputSelect>
-                    <button type="button" class="" @onclick=@seleccionar>Seleccionar</button>
-                </EditForm>
-            }
-            else
-            {
-                <p><em>datos no encontrados</em></p>
-            }
-        }
+        return lstLocalidades;
     }
-
-</div>*@
-
-@code{
-            private EditContext editContext1;
-            private async Task<IEnumerable<string>> SearchFunc(string value)
-            {
-                List<string> lstLocalidades = new List<string>();
-                filtrar(value);
-                foreach (var item in LocalidadesFiltradas)
-                {
-                    lstLocalidades.Add(item.Nombre);
-                }
-                // In real life use an asynchronous function for fetching data from an api.
-        @*await Task.Delay(5);*@
-
-                // if text is null or empty, don't return values (drop-down will not open)
-            @*if (string.IsNullOrEmpty(value))
-            return new string[0];*@
-            return lstLocalidades;
-            }
 }

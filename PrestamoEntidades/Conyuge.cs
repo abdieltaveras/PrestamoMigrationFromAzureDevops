@@ -16,7 +16,7 @@ namespace PrestamoEntidades
         [Required(ErrorMessage = "ingrese los apellidos")]
         public string Apellidos { get; set; } = string.Empty;
         [Display(Name = "Telefono")]
-        public string NoTelefono1 { get; set; } = string.Empty;
+        public string TelefonoPersonal { get; set; } = string.Empty;
         [Display(Name = "Donde Labora")]
         public string LugarTrabajo { get; set; } = string.Empty;
         
@@ -31,6 +31,8 @@ namespace PrestamoEntidades
         public string NoIdentificacion { get; set; } = string.Empty;
         [Display(Name = "Otros detalles")]
         public string Notas { get; set; } = string.Empty;
+
+        
     }
     
 }

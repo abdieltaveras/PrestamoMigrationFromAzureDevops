@@ -1,88 +1,25 @@
-﻿<MudGrid>
-    <MudItem md="12" lg="12">
-        <MudTextField @bind-Value="conyuge.Nombres" Validation="@conyuge.Nombres"></MudTextField>
-        <MudTextField @bind-Value="conyuge.Apellidos" Validation="@conyuge.Apellidos"></MudTextField>
-        <MudTextField @bind-Value="conyuge.Apodo" Validation="@conyuge.Apodo"></MudTextField>
-        <MudSelect @bind-Value="conyuge.IdTipoIdentificacion" Label="Tipo Identificacion">
-            @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
-            {
-                <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
-            }
-        </MudSelect>
-        @if (conyuge.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
-        {
-            <MudTextField @bind-Value="conyuge.NoIdentificacion" Label="Numeracion" ReadOnly="true" Placeholder="000-0000000-0"></MudTextField>
-
-            @*<InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />*@
-            @*<InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />*@
-        }
-        else
-        {
-            <MudTextField @bind-Value="conyuge.NoIdentificacion" Label="Numeracion" ReadOnly="true"></MudTextField>
-
-            @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
-        }
-        <MudTextField @bind-Value="conyuge.NoTelefono1" Validation="@conyuge.NoTelefono1"></MudTextField>
-        <MudTextField @bind-Value="conyuge.LugarTrabajo" Validation="@conyuge.LugarTrabajo"></MudTextField>
-        <MudTextField @bind-Value="conyuge.DireccionLugarTrabajo" Validation="@conyuge.DireccionLugarTrabajo"></MudTextField>
-        <MudTextField @bind-Value="conyuge.TelefonoTrabajo" Validation="@conyuge.TelefonoTrabajo"></MudTextField>
-
-    </MudItem>
-</MudGrid>
-    @*<div class="row">
-        <div class="col-sm-6">
-            <h2> Datos del conyuge</h2>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-label-align">Nombres</label>
-                <InputText id="conyugeNombre" @bind-Value=@conyuge.Nombres class="col-sm-8" required />
-                <ValidationMessage For="@(()=>conyuge.Nombres)" />
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-label-align">Apellidos</label>
-                <InputText @bind-Value=@conyuge.Apellidos class="col-sm-8" />
-            </div>
-
-
-            <div class="form-group row">
-
-                <label class="col-sm-3 col-form-label text-label-align">Apodo</label>
-                <InputText @bind-Value=@conyuge.Apodo class="col-sm-8" />
-            </div>
-
-            <div class="form-group row">
-                <label for="tiposIdentificacionPersonas" class="col-sm-3 col-form-label text-label-align"> Tipo Identif</label>
-                <InputSelect id="tiposIdentificacion" @bind-Value="conyuge.IdTipoIdentificacion" class="form-control col-sm-3">
-                    @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
-                    {
-                        <option value=@item.Value>@item.Text</option>
-                    }
-                </InputSelect>
-                <label for="noIdentificacion" class="col-sm-2 col-form-label text-label-align">Numeracion </label>
-                <InputText placeholder="000-0000000-0" @bind-Value="conyuge.NoIdentificacion " class="col-sm-3  masked" data-inputmask="'mask': '999-9999999-9'" />
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-label-align">Telefono 1</label>
-                <input type="Text" @bind-value="@conyuge.NoTelefono1" class="col-sm-8 masked" data-inputmask="'mask': '(999)-999-9999'" />
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-label-align">Donde Labora</label>
-                <input type="text" @bind-value="@conyuge.LugarTrabajo" class="col-sm-8 m-0" />
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-label-align">Direccion Empresa</label>
-                <input type="text" @bind-value="@conyuge.DireccionLugarTrabajo" class="col-sm-8" />
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label text-label-align">Telefono Trabajo</label>
-                <input type="Text" @bind-value="@conyuge.TelefonoTrabajo" class="col-sm-8 masked" data-inputmask="'mask': '(999)-999-9999'" />
-            </div>
-        </div>
-    </div>*@
+﻿<MudTextField Label="Nombre" @bind-Value="conyuge.Nombres" Validation="@conyuge.Nombres"></MudTextField>
+<MudTextField Label="Apellidos" @bind-Value="conyuge.Apellidos" Validation="@conyuge.Apellidos"></MudTextField>
+<MudTextField Label="Apodo" @bind-Value="conyuge.Apodo" Validation="@conyuge.Apodo"></MudTextField>
+<MudSelect @bind-Value="conyuge.IdTipoIdentificacion" Label="Tipo Identificacion">
+    @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
+    {
+        <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+    }
+</MudSelect>
+@if (conyuge.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
+{
+    <MudTextField @bind-Value="conyuge.NoIdentificacion" Label="Cedula"></MudTextField>
+}
+else
+{
+    <MudTextField @bind-Value="conyuge.NoIdentificacion" Label="Otro"></MudTextField>
+}
+<MudTextField Label="Telefono personal" @bind-Value="conyuge.TelefonoPersonal" Validation="@conyuge.TelefonoPersonal"></MudTextField>
+<MudTextField Label="Lugar donde trabaja" @bind-Value="conyuge.LugarTrabajo" Validation="@conyuge.LugarTrabajo"></MudTextField>
+<MudTextField Label="Direccion del trabajo" @bind-Value="conyuge.DireccionLugarTrabajo" Validation="@conyuge.DireccionLugarTrabajo"></MudTextField>
+<MudTextField Label="Telefono del trabajo" @bind-Value="conyuge.TelefonoTrabajo" Validation="@conyuge.TelefonoTrabajo"></MudTextField>
+<MudTextField Label="Otros detalles" @bind-Value="conyuge.Notas" Validation="@conyuge.TelefonoTrabajo"></MudTextField>
 
 @code {
 
