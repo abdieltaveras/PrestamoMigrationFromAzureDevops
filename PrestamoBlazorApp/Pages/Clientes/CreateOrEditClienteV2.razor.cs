@@ -198,17 +198,44 @@ namespace PrestamoBlazorApp.Pages.Clientes
             return true;
         }
 
-        private async Task AddReferencia()
+        private async Task AddReferencia(Referencia refe)
         {
-            var parameters = new DialogParameters { ["Referencias"] = Referencias };
+            //var parameters = new DialogParameters { ["Referencias"] = Referencias };
+            //DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            //var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Clientes.Referencias.EditInfoReferencias>("Editar Referencias", parameters, dialogOptions);
+            //var result = await dialog.Result;
+
+            //if (!result.Cancelled)
+            //{
+            //    //Tambien se puede Manejar la respuesta Aqui
+            //    //Referencias = (Referencia)result.Data;
+            //}
+            var parameters = new DialogParameters { ["Referencia"] = refe };
             DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
-            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Clientes.Referencias.ListInfoReferencias>("Listado de Referencias", parameters, dialogOptions);
+            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Clientes.Referencias.EditInfoReferencias>("Editar Referencia", parameters, dialogOptions);
             var result = await dialog.Result;
 
             if (!result.Cancelled)
             {
-                //Tambien se puede Manejar la respuesta Aqui
-                //Referencias = (Referencia)result.Data;
+                var referenciaComing = (Referencia)result.Data;
+                var editarRef = Referencias.Where(m => m.Id == referenciaComing.Id).ToList();
+                if (editarRef.Count() > 0)
+                {
+                    for (int i = 0; i < editarRef.Count(); i++)
+                    {
+                        editarRef[i] = referenciaComing;
+                    }
+                }
+                else
+                {
+                    var id = 1;
+                    if (Referencias.Count() > 0)
+                    {
+                        id = Referencias.Max(m => m.Id) + 1;
+                    }
+                    referenciaComing.Id = id;
+                    Referencias.Add(referenciaComing);
+                }
             }
         }
         private void SetImages(Imagen imagen)

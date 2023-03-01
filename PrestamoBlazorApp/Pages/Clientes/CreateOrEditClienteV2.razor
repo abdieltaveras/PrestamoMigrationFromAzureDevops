@@ -37,7 +37,8 @@
             <LaboralUI infoLaboral=@Cliente.InfoLaboralObj/>
         </MudItem>
         <MudItem xs="12" sm="12">
-            <MudButton OnClick="AddReferencia" Variant="Variant.Filled">Agregar Referencias</MudButton>
+            <MudButton OnClick="()=>AddReferencia(new Referencia())" Variant="Variant.Filled">Agregar Referencias</MudButton>
+            <PrestamoBlazorApp.Shared.Components.Clientes.Referencias.ListInfoReferencias Referencias="Referencias" OnSelectReferencia="AddReferencia" />
         </MudItem>
         </MudItem>
     </MudGrid>

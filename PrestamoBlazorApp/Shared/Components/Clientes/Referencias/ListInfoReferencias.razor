@@ -3,43 +3,58 @@
 
 @using PrestamoBlazorApp.Shared.Components.Forms
 @inject IDialogService DialogService
-<MudDialog>
-    <DialogContent>
+@*<MudDialog>
+    <DialogContent>*@
         <MudTable Loading="LoadingTable" Items="@Referencias" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" 
                     >
-            <ToolBarContent>
+            @*<ToolBarContent>
                 <div id="toolBarDiv" style="display:flex; justify-content:flex-end; width:100%;">
                     <MudButton OnClick="()=>ShowEdit(new Referencia())">Agregar</MudButton>
-                </div>
+                </div>*@
                 @*<MudDivider FlexItem="true" Vertical="true" DividerType="DividerType.Middle" Class="ml-1 mr-1 my-1"></MudDivider>*@
-            </ToolBarContent>
+            @*</ToolBarContent>*@
             <HeaderContent>
                 <MudTh>Nombre</MudTh>
-                <MudTh>Telefono</MudTh>
+                @*<MudTh>Telefono</MudTh>*@
                 <MudTh>Acciones</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Nombre">@context.NombreCompleto</MudTd>
-                <MudTd DataLabel="Telefono">@context.Telefono </MudTd>
-                <MudTd>
-                    <MudIconButton OnClick='()=>ShowEdit(context)' Icon="@Icons.Outlined.Edit"></MudIconButton>
-                </MudTd>
+                @*<MudTd DataLabel="Telefono">@context.Telefono </MudTd>*@
+            <MudTd>
+                <MudIconButton OnClick='()=>SelectReferencia(context)' Icon="@Icons.Outlined.Edit"></MudIconButton>
+                <MudIconButton OnClick='()=>RemoveReferencia(context)' Icon="@Icons.Outlined.Delete"></MudIconButton>
+
+            </MudTd>
             </RowTemplate>
             <PagerContent>
                 <MudTablePager />
             </PagerContent>
         </MudTable>
-    </DialogContent>
-</MudDialog>
+    @*</DialogContent>
+</MudDialog>*@
 
 
 
 @code {
     [Parameter]
     public List<Referencia> Referencias { get; set; }
+
+    [Parameter]
+    public EventCallback<Referencia> OnSelectReferencia { get; set; }
+
+    private async Task SelectReferencia(Referencia refe)
+    {
+        await OnSelectReferencia.InvokeAsync(refe);
+    }
+
+    private void RemoveReferencia(Referencia refe)
+    {
+        new Hooks.AddRemoveListItemHook<Referencia>(Referencias).RemoveItem(refe);
+    }
     @*[Parameter]
     public Referencia Referencia { get; set; }*@
-private async Task ShowEdit(Referencia refe)
+@*private async Task ShowEdit(Referencia refe)
 {
     var parameters = new DialogParameters { ["Referencia"] = refe };
     DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
@@ -68,5 +83,5 @@ private async Task ShowEdit(Referencia refe)
             Referencias.Add(referenciaComing);
         }
     }
-}
+}*@
 }
