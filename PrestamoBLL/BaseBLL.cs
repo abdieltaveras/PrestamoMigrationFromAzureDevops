@@ -34,7 +34,8 @@ namespace PrestamoBLL
 
         internal int InsUpd(string spName, object parameters)
         {
-            var result = DBPrestamo.ExecReaderSelSP(spName, SearchRec.ToSqlParams(parameters));
+            var param = SearchRec.ToSqlParams(parameters);
+            var result = DBPrestamo.ExecReaderSelSP(spName, param);
             return GetId(result);
         }
 

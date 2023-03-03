@@ -8,12 +8,13 @@
 @*@inject NavigationManager NavigationManager*@
 
 @inherits BaseForCreateOrEdit
-<EditForm Model="@Cliente">
+<EditForm Model="@Cliente" OnSubmit="SaveCliente" OnInvalidSubmit="ShowErrors">
     <DataAnnotationsValidator />
+    <ObjectGraphDataAnnotationsValidator/>
     <ValidationSummary />
     <MudGrid>
         <MudItem md="12" lg="12">
-            <MudButton OnClick="SaveCliente">Guardar</MudButton>
+            <MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>
         </MudItem>
         
     </MudGrid>

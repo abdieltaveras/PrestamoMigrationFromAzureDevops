@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using PcpUtilidades;
 
 
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
@@ -68,7 +70,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         {
 
             await Handle_GetData(prepareModel,@"/Clientes");
-            //await prepareModel();
+            //await GetCliente();
             await base.OnInitializedAsync();
         }
 
@@ -223,6 +225,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
             var index = this.Cliente.ImagenesObj.IndexOf(imagen);
             this.Cliente.ImagenesObj[index].Quitar = true;
             this.Cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
+        }
+
+        private async Task ShowErrors()
+        {
+            await NotifyMessageBySnackBar("Errores en el formulario", Severity.Error);
         }
 
     }

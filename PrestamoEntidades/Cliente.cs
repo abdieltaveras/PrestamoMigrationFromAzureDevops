@@ -77,7 +77,6 @@ namespace PrestamoEntidades
         [StringLength(40)]
         [Required]
         public string Codigo { get; set; } = string.Empty;
-        
         public bool GenerarSecuencia { get; set; } = true;
 
         [Display(Name = "Tipo Identificacion")]
@@ -89,7 +88,7 @@ namespace PrestamoEntidades
         public string NoIdentificacion { get; set; } = string.Empty;
         [Display(Name = "Fecha Nacimiento")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime? FechaNacimiento { get; set; } = DateTime.Now;
+        public DateTime? FechaNacimiento { get; set; } = InitValues._19000101;
         [Display(Name = "Telefono movil")]
         public string TelefonoMovil { get; set; } = string.Empty;
         [Display(Name = "Telefono Casa")]

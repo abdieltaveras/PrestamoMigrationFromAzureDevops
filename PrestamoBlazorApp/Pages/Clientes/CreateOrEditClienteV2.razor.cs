@@ -61,13 +61,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
         List<Referencia> Referencias = new List<Referencia>();
 
 
-
-
         protected override async Task OnInitializedAsync()
         {
 
-            await Handle_GetData(prepareModel, @"/Clientes");
-            //await prepareModel();
+            await Handle_GetData(GetCliente, @"/Clientes");
+            //await GetCliente();
             await base.OnInitializedAsync();
         }
 
@@ -87,7 +85,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             Cliente.IdEstadoCivil = value;
         }
 
-        private async Task prepareModel()
+        private async Task GetCliente()
         {
             Ocupaciones = await GetOcupaciones();
             LoadedFotos = false;
@@ -105,18 +103,33 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
                 if (this.Cliente == null)
                 {
-                    this.Direccion = Cliente.InfoDireccion.ToType<DireccionModel>(); //Cliente.InfoDireccionObj;
-                    this.Conyuge = Cliente.InfoConyugeObj;
-                    this.InfoLaboral = Cliente.InfoLaboralObj;
-                    this.InfoDireccion = Cliente.InfoDireccion.ToType<Direccion>();
+                    this.Cliente = new Cliente();
                     var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.InfoDireccion.IdLocalidad });
                     this.Direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
                 }
             }
+            //this.Direccion = Cliente.InfoDireccion.ToType<DireccionModel>(); //Cliente.InfoDireccionObj;
+
+            this.Conyuge = Cliente.InfoConyugeObj;
+            this.InfoLaboral = Cliente.InfoLaboralObj;
+            this.InfoDireccion = await CreateInfoDireccion(Cliente.InfoDireccionObj);
             Referencias = Cliente.InfoReferenciasObj;
             FilterImagesByGroup();
             LoadedFotos = true;
             //StateHasChanged();
+        }
+
+        private async Task<DireccionModel> CreateInfoDireccion(Direccion infoDireccion)
+        {
+            if (this.idCliente==46232) return this.Direccion;
+
+            var direccion = infoDireccion.ToJson().ToType<DireccionModel>();
+            var localidades = await localidadService.Get(new LocalidadGetParams { IdLocalidad = infoDireccion.IdLocalidad });
+
+            var localidad = localidades.FirstOrDefault();
+            var localidadModel = await localidadService.BuscarLocalidad(new BuscarLocalidadParams { SoloLosQuePermitenCalle = true, Search = localidad.Nombre });
+            direccion.selectedLocalidad = localidadModel.FirstOrDefault().ToString();
+            return direccion;
         }
 
         private async Task CreateTestCliente()
@@ -133,20 +146,20 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 TelefonoMovil = "8299619141",
                 TieneConyuge = true,
                 InfoConyugeObj = new Conyuge { Nombres = "b1", Apellidos = "b2", DireccionLugarTrabajo = "b3" },
-                InfoLaboralObj = new InfoLaboral { Direccion = "direccion trabajo", Nombre = "Respueto la union" },
+                InfoLaboralObj = new InfoLaboral { Direccion = "direccion trabajo", Nombre = "Respueto la union", Notas="Detalles del trabajo", NoTelefono1="8095768956", NoTelefono2="8097548956", Puesto="Vendedor", FechaInicio=new DateTime(2005,12,15) },
             };
             this.Direccion = new DireccionModel
             {
                 Calle = "Serapia no 3",
                 Latitud = 18.43056,
                 Longitud = -68.98449,
-                Detalles="queda al lado de la banca la nacional"
+                Detalles = "queda al lado de la banca la nacional"
             };
-            this.Conyuge = Cliente.InfoConyugeObj;
-            var localidad = await localidadService.BuscarLocalidad(new BuscarLocalidadParams { SoloLosQuePermitenCalle=true , Search="Las orquideas"} );
+            var localidad = await localidadService.BuscarLocalidad(new BuscarLocalidadParams { SoloLosQuePermitenCalle = true, Search = "Las orquideas" });
             var firstSector = localidad.FirstOrDefault();
             this.Direccion.IdLocalidad = firstSector.IdLocalidad;
             this.Direccion.selectedLocalidad = firstSector.ToString();
+            this.Cliente.InfoDireccionObj = this.Direccion;
         }
 
         private void FilterImagesByGroup()
@@ -162,12 +175,14 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 }
             });
         }
-
-
-
         async Task SaveCliente()
         {
-            await Handle_Funct(() => SaveData());
+            await form.Validate();
+            if (form.IsValid)
+            {
+                //await Handle_Funct(() => SaveData());
+                await SaveData();
+            }
         }
 
         private async Task<bool> SaveData()
@@ -179,21 +194,16 @@ namespace PrestamoBlazorApp.Pages.Clientes
             var result = Validaciones.ForCliente001().Validate(Cliente);
             var validacionesFallidas = result.Where(item => item.Success == false);
             var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
-            if (validacionesFallidas.Count() > 0)
-            {
-                await SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
-                return false;
-            }
             try
             {
                 //todo: validationresult https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
-
                 await clientesService.SaveCliente(this.Cliente);
-
+                await NotifyMessageBySnackBar("Datos guardados para "+Cliente.NombreCompleto, Severity.Info);
+                form.Reset();
             }
-            catch (ValidationObjectException e)
+            catch (Exception e)
             {
-                await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
+                await NotifyMessageBySnackBar("Lo siento error no se pudieron guardar los datos", Severity.Warning);
             }
             return true;
         }
@@ -251,6 +261,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
             var index = this.Cliente.ImagenesObj.IndexOf(imagen);
             this.Cliente.ImagenesObj[index].Quitar = true;
             this.Cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
+        }
+
+        private async Task ShowErrors()
+        {
+            await NotifyMessageBySnackBar("Errores en el formulario", Severity.Error);
         }
 
     }

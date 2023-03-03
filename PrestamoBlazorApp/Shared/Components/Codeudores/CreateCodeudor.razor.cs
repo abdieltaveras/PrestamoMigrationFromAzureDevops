@@ -62,7 +62,7 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
         {
 
             await Handle_GetData(prepareModel, @"/Codeudores");
-            //await prepareModel();
+            //await GetCliente();
             await base.OnInitializedAsync();
         }
 

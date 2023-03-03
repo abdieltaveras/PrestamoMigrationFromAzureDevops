@@ -22,7 +22,7 @@ namespace PrestamoEntidades
         public string Puesto { get; set; } = string.Empty;
         [Display(Name = "Fecha que inicio")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime FechaInicio { get; set; } = InitValues._19000101;
+        public DateTime? FechaInicio { get; set; } = InitValues._19000101;
         [Display(Name = "Telefono 1")]
         public string NoTelefono1 { get; set; } = string.Empty;
         [Display(Name = "Telefono 2")]

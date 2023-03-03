@@ -30,7 +30,8 @@ namespace PrestamoEntidades
     public class Direccion: BaseInsUpd
     {
         public int IdDireccion {get;set;}
-        [Display(Name ="Localidad")]
+        [Display(Name = "Localidad")]
+
 
         [Range(1,99999999,ErrorMessage ="Es necesario establecer una localidad")]
         public int IdLocalidad { get; set; }

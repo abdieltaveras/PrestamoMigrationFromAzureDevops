@@ -123,5 +123,13 @@ namespace PrestamoBlazorApp.Shared
         }
 
         protected bool IsDevelopmentEnvironment => Env.IsDevelopment();
+
+        protected virtual async Task NavigateTo(string url)
+        {
+            if (String.IsNullOrWhiteSpace(url) == false)
+            {
+                await Task.Run(() => NavManager.NavigateTo(url));
+            }
+        }
     }
 }

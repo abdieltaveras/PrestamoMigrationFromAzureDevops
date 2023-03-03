@@ -1,16 +1,21 @@
-﻿<MudTextField Label="Nombre donde trabaja" @bind-Value="@infoLaboral.Nombre" Validation="@infoLaboral.Nombre"></MudTextField>
+﻿<MudTextField Label="Nombre donde trabaja" @bind-Value="@InfoLaboral.Nombre" Required="true" RequiredError="No se aceptan valores vacios" Validation="@InfoLaboral.Nombre"></MudTextField>
 
-<MudTextField Label="Direccion" @bind-Value="@infoLaboral.Direccion" Validation="@infoLaboral.Direccion" Lines="2" ></MudTextField>
+<MudTextField Label="Direccion" @bind-Value="@InfoLaboral.Direccion" Required="true" RequiredError="No se aceptan valores vacios" Lines="2"></MudTextField>
 
-<MudTextField Label="Telefono 1" @bind-Value="@infoLaboral.NoTelefono1" Validation="@infoLaboral.NoTelefono1"></MudTextField>
+<MudTextField Label="Telefono 1" @bind-Value="@InfoLaboral.NoTelefono1"></MudTextField>
 
-<MudTextField Label="Telefono 2" @bind-Value="@infoLaboral.NoTelefono2" Validation="@infoLaboral.NoTelefono2"></MudTextField>
-        
-<MudTextField Label="Puesto o funcion" @bind-Value="@infoLaboral.Puesto" Validation="@infoLaboral.Puesto"></MudTextField>
+<MudTextField Label="Telefono 2" @bind-Value="@InfoLaboral.NoTelefono2"></MudTextField>
 
-<MudTextField Label="Otros detalles" @bind-Value="@infoLaboral.Notas" Validation="@infoLaboral.Notas" Lines="3"></MudTextField>
+<MudTextField Label="Puesto o funcion" @bind-Value="@InfoLaboral.Puesto" Required="true" RequiredError="No se aceptan valores vacios"></MudTextField>
+
+<MudDatePicker Label="Fecha inicio" @bind-Date="InfoLaboral.FechaInicio" Required="true" RequiredError="No se aceptan valores vacios"></MudDatePicker>
+
+<MudTextField Label="Otros detalles" @bind-Value="@InfoLaboral.Notas" Required="true" RequiredError="No se aceptan valores vacios" Lines="3"></MudTextField>
+
+
 
 @code {
-    [Parameter]
-    public InfoLaboral infoLaboral { get; set; } = new InfoLaboral();
+ 
+    [Parameter] public InfoLaboral InfoLaboral { get; set; }
+    
 }

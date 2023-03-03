@@ -20,10 +20,7 @@
 
         @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
         {
-            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion"  Placeholder="000-0000000-0"></MudTextField>
-
-            @*<InputText id="noIdentificacion" class="form-control col-sm-4" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" />*@
-            @*<InputText id="noIdentificacion" placeholder="000-0000000-0" @bind-Value="cliente.NoIdentificacion" data-inputmask="'mask': '999-9999999-9'" class="col-sm-3 masked" />*@
+            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" Placeholder="000-0000000-0"></MudTextField>
         }
         else
         {
@@ -31,7 +28,9 @@
 
             @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
         }
-        <MudTextField @bind-Value="cliente.Nombres" Label="Nombres" ></MudTextField>
+        <MudTextField @bind-Value="cliente.Nombres" Label="Nombres" Required="true" RequiredError="es obligatorio escribir el nombre" ></MudTextField>
+        
+        @*<ValidationMessage For="() => cliente.Nombres" />*@
         <MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos" ></MudTextField>
         <MudTextField @bind-Value="cliente.Apodo" Label="Apodo" ></MudTextField>
         <MudSelect @bind-Value="IdEstadoCivil" Label="Estado Civil">
@@ -70,11 +69,6 @@
 
 @code {
 
-    private async Task GetEntidadEstatus(SelectClass val)
-    {
-        var a = val;
-    }
-
     [Parameter]
     public Cliente cliente { get; set; }
     [Parameter]
@@ -89,6 +83,10 @@
         }
     }
 
+    private async Task GetEntidadEstatus(SelectClass val)
+    {
+        var a = val;
+    }
     private int _idEstadoCivil;
 
     private int IdEstadoCivil { get => _idEstadoCivil;
