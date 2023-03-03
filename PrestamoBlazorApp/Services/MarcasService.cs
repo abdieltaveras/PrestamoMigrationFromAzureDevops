@@ -24,7 +24,7 @@ namespace PrestamoBlazorApp.Services
         public async Task<IEnumerable<Marca>> Get(MarcaGetParams marcaGetParams)
         {
             
-            var result =  await GetAsync<Marca>(apiUrl+"get", marcaGetParams);
+            var result =  await GetAsync<Marca>(apiUrl+"/get", marcaGetParams);
             return result;
         }
         public MarcasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)

@@ -1,4 +1,4 @@
-﻿@page "/marcas"
+﻿
 @inherits BaseForList
 @using PrestamoBlazorApp.Shared.Components.Catalogos
 
@@ -6,10 +6,10 @@
 <MudCard>
     <MudCardHeader>
         <CardHeaderContent>
-            <MudText Typo="Typo.h4" xs="1"> Listado De Marcas</MudText>
+            <MudText Typo="Typo.h4" xs="1"> Listado De Modelos</MudText>
         </CardHeaderContent>
         <CardHeaderActions>
-            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit(new Marca()))">Agregar</MudButton>
+            <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit())">Agregar</MudButton>
             @*<MudMenu Label="Reportes">
             <MudMenuItem OnClick="()=>PrintListado(1)"> Pdf </MudMenuItem>
             <MudMenuItem OnClick="()=>PrintListado(2)"> Excel</MudMenuItem>
@@ -17,8 +17,8 @@
         </CardHeaderActions>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@marcas" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" 
-            Filter="new Func<Marca,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+        <MudTable Items="@Modelos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" 
+            Filter="new Func<Modelo,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Elementos</MudText>
                 <MudTextField Immediate="true" @bind-Value="SearchString1" Placeholder="Search" 
@@ -35,7 +35,7 @@
 
                 <MudTd>
                     <MudIconButton OnClick="@(()=>CreateOrEdit(context))" Icon="@Icons.Outlined.Edit"></MudIconButton>
-                    <MudIconButton OnClick="@(()=>ShowModelos(context))" Icon="@Icons.Outlined.CardTravel"></MudIconButton>
+                    @*<MudIconButton OnClick="@(()=>ShowModelos((int)context.IdModelo))" Icon="@Icons.Outlined.Edit"></MudIconButton>*@
 
                 </MudTd>
             </RowTemplate>

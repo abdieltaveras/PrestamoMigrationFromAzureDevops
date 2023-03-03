@@ -15,7 +15,7 @@ namespace PrestamoWS.Controllers
     [ApiController]
     [Route("api/[controller]/[action]")]
 
-    public class MarcasControllerOld : ControllerBasePrestamoWS
+    public class MarcasController : ControllerBasePrestamoWS
     {
         [HttpGet]
         public IEnumerable<Marca> Get([FromQuery] MarcaGetParams getParams)

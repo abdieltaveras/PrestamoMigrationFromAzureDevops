@@ -20,7 +20,7 @@ namespace PrestamoEntidades
 
         protected override void SetIdForConcreteObject()
         {
-            this.IdMarca = IdRegistro;
+            //this.IdMarca = IdRegistro;
         }
     }
     public class MarcaGetParams : BaseGetParams
