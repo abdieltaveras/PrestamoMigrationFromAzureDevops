@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblModelos]
 (
 	[IdModelo]INT NOT NULL PRIMARY KEY  identity(1,1),
-	[IdMarca]INT NOT NULL,
+	[IdMarca]INT NOT NULL references tblMarcas(IdMarca),
 	[Nombre] NVARCHAR(50) NOT NULL,
 	[IdNegocio] INT NOT NULL,
 	[IdLocalidadNegocio] INT  NULL,
