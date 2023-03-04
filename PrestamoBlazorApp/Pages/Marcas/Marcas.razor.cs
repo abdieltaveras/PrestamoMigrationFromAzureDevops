@@ -73,28 +73,28 @@ namespace PrestamoBlazorApp.Pages.Marcas
             await SweetMessageBox("Guardado Correctamente", "success", "");
             //await JsInteropUtils.Reload(jsRuntime, true);
         }
-        async Task CreateOrEdit(Marca m)
-        {
-            await BlockPage();
-            if (m.IdMarca > 0)
-            {
-                var marca = await marcasService.Get(new MarcaGetParams { IdMarca = Convert.ToInt32(m.IdMarca)});
-                this.Marca = marca.FirstOrDefault();
-            }
-            else
-            {
-                this.Marca = new Marca();
-            }
-            await UnBlockPage();
-            //await JsInteropUtils.ShowModal(jsRuntime, "#edtMarca");
-        }
+        //async Task CreateOrEdit(Marca m)
+        //{
+        //    await BlockPage();
+        //    if (m.IdMarca > 0)
+        //    {
+        //        var marca = await marcasService.Get(new MarcaGetParams { IdMarca = Convert.ToInt32(m.IdMarca)});
+        //        this.Marca = marca.FirstOrDefault();
+        //    }
+        //    else
+        //    {
+        //        this.Marca = new Marca();
+        //    }
+        //    await UnBlockPage();
+        //    //await JsInteropUtils.ShowModal(jsRuntime, "#edtMarca");
+        //}
         async Task ShowModelos(Marca m )
         {
-            var modelos = await ModelosService.Get(new ModeloGetParams { IdMarca =  (int)m.IdMarca });
+            //var modelos = await ModelosService.Get(new ModeloGetParams { IdMarca =  (int)m.IdMarca });
 
-            var parameters = new DialogParameters { ["Modelos"] = modelos };
+            var parameters = new DialogParameters {  ["Marca"] = m };
             DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
-            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Modelos.ModelosList>("Listado de Modelos", parameters, dialogOptions);
+            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Modelos.ModelosList>($"Modelos Marca: {m.Nombre}", parameters, dialogOptions);
             var result = await dialog.Result;
 
             if (!result.Cancelled)
@@ -102,6 +102,26 @@ namespace PrestamoBlazorApp.Pages.Marcas
            
             }
         
+        }
+
+        async Task CreateOrEdit(Marca param = null)
+        {
+
+            //var modelos = await ModelosService.Get(new ModeloGetParams { IdMarca = idMarca });
+            if (param == null)
+            {
+                param = new Marca();
+            }
+            var parameters = new DialogParameters { ["Marca"] = param };
+            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Marcas.EditMarcas>($"Marca: {Marca.Nombre}", parameters, dialogOptions);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+
+            }
+            await GetMarcas();
         }
         private bool FilterFunc(Marca element, string searchString)
         {

@@ -12,6 +12,8 @@ namespace PrestamoBlazorApp.Shared.Components.Modelos
 
         [Parameter]
         public Modelo Modelo { get; set; }
+        [Parameter]
+        public Marca Marca { get; set; }
         [Inject]
         ModelosService ModelosService { get; set; }
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
@@ -25,8 +27,9 @@ namespace PrestamoBlazorApp.Shared.Components.Modelos
 
         async Task SaveModelo()
         {
-            //await ModelosService.SaveModelo(Modelo);
+            //await ModelosService.SaveModelo(Modelo); 
             this.form = null;
+            Modelo.IdMarca = (int)Marca.IdMarca;
             await Handle_SaveData(() => ModelosService.SaveModelo(Modelo), mudDialogInstance:MudDialog);
             //await BlockPage();
             //await marcasService.SaveMarca(this.Marca);
