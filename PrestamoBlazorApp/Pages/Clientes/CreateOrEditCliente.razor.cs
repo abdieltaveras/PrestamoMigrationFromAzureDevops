@@ -87,7 +87,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             }
             else
             {
-                if (idCliente != 0)
+                if (idCliente > 0)
                 {
                     var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente }, true);
                     this.Cliente = clientes.FirstOrDefault();
@@ -191,6 +191,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 await clientesService.SaveCliente(this.Cliente);
                 await NotifyMessageBySnackBar("Datos guardados para "+Cliente.NombreCompleto, Severity.Info);
                 form.Reset();
+                this.idCliente = -1;
+                await GetCliente();
             }
             catch (Exception e)
             {
