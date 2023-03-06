@@ -68,11 +68,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
             await base.OnInitializedAsync();
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-
-        }
-
         private void UpdateTieneConyuge(bool value)
         {
             Cliente.TieneConyuge = value;
@@ -80,7 +75,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         private void UpdateEstadoCivil(int value)
         {
-            //NotifyMessageBox("estado civil actualizado");
             Cliente.IdEstadoCivil = value;
         }
 
