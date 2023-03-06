@@ -13,14 +13,14 @@ namespace PrestamoWS.Controllers
 {
    [ApiController]
    [Route("api/[controller]/[action]")]
-    public class MarcasControllerOld : CatalogoController<Marca>
+    public class MarcasControllerOld //: CatalogoController<Marca>
     {
-        public MarcasControllerOld(): base(CatalogoName.Marcas)  { }
-        [HttpGet]
-        public override IEnumerable<Marca> Get([FromQuery] BaseCatalogoGetParams getParams) => base.GetBase(getParams);
-        [HttpPost]
-        public override IActionResult Post([FromBody] Marca insUpdParam) => base.PostBase(insUpdParam);
-        [HttpPost]
-        public override IActionResult Delete([FromBody] BaseCatalogoDeleteParams catalogoDelParams) => base.DeleteBase(catalogoDelParams);
+        //public MarcasControllerOld(): base(CatalogoName.Marcas)  { }
+        //[HttpGet]
+        //public override IEnumerable<Marca> Get([FromQuery] BaseCatalogoGetParams getParams) => base.GetBase(getParams);
+        //[HttpPost]
+        //public override IActionResult Post([FromBody] Marca insUpdParam) => base.PostBase(insUpdParam);
+        //[HttpPost]
+        //public override IActionResult Delete([FromBody] BaseCatalogoDeleteParams catalogoDelParams) => base.DeleteBase(catalogoDelParams);
     }
 }

@@ -11,15 +11,16 @@ Begin
 if (@IdMarca <= 0)
 	begin
 		insert into tblMarcas
-		( Nombre, IdNegocio, InsertadoPor, FechaInsertado)
+		( Nombre,Codigo, IdNegocio, InsertadoPor, FechaInsertado)
 		values
-		( @Nombre, @IdNegocio, @Usuario, GETDATE())
+		( @Nombre,@Codigo, @IdNegocio, @Usuario, GETDATE())
 	end
 Else
 	Begin
 	update tblMarcas 
 		set 
 			Nombre=@Nombre,
+			Codigo = @Codigo,
 			IdNegocio = @IdNegocio,
 			ModificadoPor = @Usuario,
 			FechaModificado = GETDATE()
