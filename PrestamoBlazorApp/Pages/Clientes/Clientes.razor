@@ -42,7 +42,7 @@
                 <MudTd DataLabel="Nombre">@context.NoIdentificacion</MudTd>
 
                 <MudTd>
-                    <MudIconButton OnClick='()=>OnEditClick("clientes/createoreditV2/" + context.IdCliente)' Icon="@Icons.Outlined.Edit"></MudIconButton>
+                    <MudIconButton OnClick='()=>OnEditClick("clientes/createoredit/" + context.IdCliente)' Icon="@Icons.Outlined.Edit"></MudIconButton>
                     <MudMenu Icon="@Icons.Filled.Print">
                         <MudMenuItem OnClick="()=>PrintFicha(context.IdCliente,1)">PDF</MudMenuItem>
                         <MudMenuItem OnClick="()=>PrintFicha(context.IdCliente,1)">EXCEL</MudMenuItem>

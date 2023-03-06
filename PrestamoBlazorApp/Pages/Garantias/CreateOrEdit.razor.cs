@@ -181,7 +181,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
      
              SelectedLocalidad = localidad.ToString();
             //direccion.IdLocalidad = localidad.IdLocalidad;
-            //direccion.selectedLocalidad = localidad.ToString();
+            //direccion.SelectedLocalidad = localidad.ToString();
             StateHasChanged();
         }
     }

@@ -8,6 +8,6 @@ namespace PrestamoBlazorApp.Models
 {
     public class DireccionModel : Direccion
     {
-        public string selectedLocalidad { get; set; }
+        public string SelectedLocalidad { get; set; }
     }
 }

@@ -17,60 +17,60 @@ namespace PrestamoEntidades
         }
     }
 
-    public enum TiposFotosPersonas {Rostro, DocIdentificacion }
+    public enum TiposFotosPersonas { Rostro, DocIdentificacion }
 
     public class InfoCodeudorDrCr
     {
-        public int IdCodeudor { get;  set; }
+        public int IdCodeudor { get; set; }
 
         public string Nombres { get; set; } = string.Empty;
 
-        public string Apellidos { get;  set; } = string.Empty;
+        public string Apellidos { get; set; } = string.Empty;
 
     }
 
-    public class InfoClienteDrCr 
-        //: IInfoClienteDrCr
+    public class InfoClienteDrCr
+    //: IInfoClienteDrCr
     {
-        
-        public string NombreDocumentoIdentidad => Enum.GetName(typeof(TiposIdentificacionCliente ), IdTipoIdentificacion);
-        
-        public string NumeracionDocumentoIdentidad { get;  set; } = string.Empty;
 
-        public string InfoLaboral {  get;  set; } = string.Empty;
+        public string NombreDocumentoIdentidad => Enum.GetName(typeof(TiposIdentificacionCliente), IdTipoIdentificacion);
+
+        public string NumeracionDocumentoIdentidad { get; set; } = string.Empty;
+
+        public string InfoLaboral { get; set; } = string.Empty;
 
         public string TelefonoTrabajo1 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono1;
 
         public string TelefonoTrabajo2 => this.InfoLaboral.ToType<InfoLaboral>().NoTelefono2;
 
-        public string OtrosDetalles { get;  set; } = string.Empty;
+        public string OtrosDetalles { get; set; } = string.Empty;
 
-        public string CodigoCliente { get;  set; } = string.Empty;
+        public string CodigoCliente { get; set; } = string.Empty;
 
-        public int IdCliente { get;  set; } 
+        public int IdCliente { get; set; }
 
-        public string Nombres { get;  set; } = string.Empty;
+        public string Nombres { get; set; } = string.Empty;
 
-        public string Apellidos  { get; set; } = string.Empty;
+        public string Apellidos { get; set; } = string.Empty;
 
         public string NombreCompleto => $"{Nombres} {Apellidos}";
 
-        public string TelefonoMovil  { get;  set; } = string.Empty;
+        public string TelefonoMovil { get; set; } = string.Empty;
 
-        public string TelefonoCasa  { get;  set; } = string.Empty;
+        public string TelefonoCasa { get; set; } = string.Empty;
 
-        public string Imagen1FileName { get;  set; } = string.Empty;
+        public string Imagen1FileName { get; set; } = string.Empty;
 
-        public string Imagen2FileName { get;  set; } = string.Empty;
+        public string Imagen2FileName { get; set; } = string.Empty;
 
-        public bool Activo { get;  set; } = false;
+        public bool Activo { get; set; } = false;
         public int IdTipoIdentificacion { get; set; }
         public override string ToString() => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";
     }
 
     public class Cliente : BasePersonaInsUpd, IUsuarioAndIdLocalidadNegocio
     {
-        
+
         [KeyAttribute]
         public int IdCliente { get; set; } = 0;
         [IgnoreOnParams]
@@ -105,7 +105,7 @@ namespace PrestamoEntidades
         public string InfoConyuge { get; set; } = string.Empty;
         [IgnoreOnParams]
         public Conyuge InfoConyugeObj { get; set; } = new Conyuge();
-            //{return string.IsNullOrEmpty(InfoConyuge) ? new Conyuge() : InfoConyuge.ToType<Conyuge>(); } set { InfoConyuge = value.ToJson(); } }
+        //{return string.IsNullOrEmpty(InfoConyuge) ? new Conyuge() : InfoConyuge.ToType<Conyuge>(); } set { InfoConyuge = value.ToJson(); } }
         //<summary>
         //la direccion en formato json
         //</summary>
@@ -118,10 +118,11 @@ namespace PrestamoEntidades
         /// la informacion laboral en formato json
         /// </summary>
 
-        public void RemoveAllButNumber() {
+        public void RemoveAllButNumber()
+        {
             TelefonoCasa = TelefonoCasa.RemoveAllButNumber();
             TelefonoMovil = TelefonoMovil.RemoveAllButNumber();
-            NoIdentificacion =NoIdentificacion.RemoveAllButNumber();
+            NoIdentificacion = NoIdentificacion.RemoveAllButNumber();
             if (InfoConyugeObj != null)
             {
                 InfoConyugeObj.TelefonoTrabajo = InfoConyugeObj.TelefonoTrabajo.RemoveAllButNumber();
@@ -132,11 +133,11 @@ namespace PrestamoEntidades
         public string InfoLaboral { get; set; } = string.Empty;
         [IgnoreOnParams]
         public InfoLaboral InfoLaboralObj { get; set; } = new InfoLaboral();
-            //get { return string.IsNullOrEmpty(InfoLaboral) ? new InfoLaboral() : InfoLaboral.ToType<InfoLaboral>(); } set { InfoLaboral = value.ToJson(); } }
+        //get { return string.IsNullOrEmpty(InfoLaboral) ? new InfoLaboral() : InfoLaboral.ToType<InfoLaboral>(); } set { InfoLaboral = value.ToJson(); } }
         /// <summary>
         /// la informacion de referencias en formato json, use el objeto para trabajar
         /// </summary>
-        public string InfoReferencias { get;  set; } = string.Empty;
+        public string InfoReferencias { get; set; } = string.Empty;
         [IgnoreOnParams]
         public List<Referencia> InfoReferenciasObj { get; set; } = new List<Referencia>();
 
@@ -157,7 +158,7 @@ namespace PrestamoEntidades
                     this.Imagenes += ",";
                 }
                 this.Imagenes += ImagenesObj[i].ConvertToJson();
-                
+
             }
 
             this.Imagenes = "[" + this.Imagenes + "]";
@@ -168,22 +169,33 @@ namespace PrestamoEntidades
         /// </summary>
         public void ConvertJsonToObj(string directorioDeImagenes)
         {
-            this.InfoLaboralObj = InfoLaboral.ToType<InfoLaboral>();
-            this.InfoDireccionObj = InfoDireccion.ToType<Direccion>();
-            this.InfoConyugeObj = InfoConyuge.ToType<Conyuge>();
-            this.InfoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
-            this.ImagenesObj = Imagenes.ToType<List<Imagen>>();
-            foreach (var item in ImagenesObj)
+            var infoLaboralObj = InfoLaboral.ToType<InfoLaboral>();
+            var infoDireccionObj = InfoDireccion.ToType<Direccion>();
+            var infoConyugeObj = InfoConyuge.ToType<Conyuge>();
+            var infoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
+            var imagenesObj = Imagenes.ToType<List<Imagen>>();
+
+            // todo : 20230304 resolver esto de las imagenes 
+            if (!string.IsNullOrEmpty(directorioDeImagenes))
             {
-                item.ConvertNombreArchivoToBase64String(directorioDeImagenes);
+                foreach (var item in ImagenesObj)
+                {
+                    item.ConvertNombreArchivoToBase64String(directorioDeImagenes);
+                }
             }
             if (this.InfoReferenciasObj == null)
             {
                 this.InfoReferenciasObj = new List<Referencia>();
             }
+
+            this.InfoLaboralObj = infoLaboralObj==null ? new InfoLaboral() : infoLaboralObj;
+            this.InfoDireccionObj = infoDireccionObj ==null ? new Direccion() : infoDireccionObj;
+            this.InfoConyugeObj = infoConyugeObj ==null ? new Conyuge() : infoConyugeObj;
+            this.ImagenesObj = imagenesObj ==null? new List<Imagen>() : imagenesObj; 
+
         }
 
-        
+
         /// <summary>
         /// guarda el nombre de la imagen
         /// </summary>
@@ -206,7 +218,7 @@ namespace PrestamoEntidades
         public override string ToString()
         {
             //return $"{Codigo}: {Nombres } {Apellidos} {Codigo} ";
-            return $" {Nombres } {Apellidos} ";
+            return $" {Nombres} {Apellidos} ";
         }
 
     }
@@ -242,7 +254,7 @@ namespace PrestamoEntidades
         public DateTime? InsertadoDesde { get; set; } = null;
 
         public DateTime? InsertadoHasta { get; set; } = null;
-        
+
         /// <summary>
         /// cantidad de registros a seleccionar enviar null
         /// hara que por defecto el procedimiento seleccione 100
@@ -254,7 +266,7 @@ namespace PrestamoEntidades
         /// selecciona esta cantidad de registros cada vez que hace el get
         /// </summary>
         public int SeleccionarLuegoDelIdCliente { get; set; } = -1;
-        
+
         public int IdLocalidad { get; set; } = -1;
 
         [IgnoreOnParams]

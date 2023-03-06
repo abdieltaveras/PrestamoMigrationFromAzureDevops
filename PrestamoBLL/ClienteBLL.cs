@@ -21,7 +21,15 @@ namespace PrestamoBLL
             
             SetUsuario(searchParam);
             var spName = "spGetClientes";
-            return this.Get<Cliente>(spName, searchParam);
+            var result = this.Get<Cliente>(spName, searchParam);
+            var clientes = new List<Cliente>();
+            foreach (var item in result)
+            {
+                item.ConvertJsonToObj(null);
+                clientes.Add(item);
+            }
+
+            return clientes;
         }
 
 

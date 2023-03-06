@@ -2,9 +2,9 @@
 @using PrestamoBlazorApp.Models
 
 @{
-    if (!string.IsNullOrEmpty(this.SelectedLocalidad))
+    if (!string.IsNullOrEmpty(this.direccion.SelectedLocalidad))
     {
-        <MudChip Color="MudBlazor.Color.Info"> @SelectedLocalidad</MudChip>
+        <MudChip Color="MudBlazor.Color.Info"> @direccion.SelectedLocalidad</MudChip>
         <MudButton OnClick="()=>{SearchLocalidad=!SearchLocalidad;}"Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" >Cambiar sector</MudButton>
     }
     
@@ -29,7 +29,7 @@
     public List<Marker> MapMarkers { get; set; } = new List<Marker>();
     private int zoom = 10;
     private bool SearchLocalidad { get; set; }
-    private string SelectedLocalidad { get; set; }
+    
     //void OnMapClick(GoogleMapClickEventArgs args)
     //{
     //    console.Log($"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
@@ -37,7 +37,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        SelectedLocalidad = direccion.selectedLocalidad;
         UpdateMapMarkers();
     }
 
@@ -57,14 +56,11 @@
     private async Task Handle_LocalidadSelected(BuscarLocalidad localidad)
     {
         var localidadSeleccionada = localidad;
-        SelectedLocalidad = localidad.ToString();
         direccion.IdLocalidad = localidad.IdLocalidad;
-        direccion.selectedLocalidad = localidad.ToString();
+        direccion.SelectedLocalidad = localidad.ToString();
         this.SearchLocalidad = false;
         StateHasChanged();
     }
-
-
 
 }
 

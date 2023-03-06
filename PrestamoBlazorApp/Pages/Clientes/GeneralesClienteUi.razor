@@ -2,70 +2,75 @@
 @using PrestamoBlazorApp.Shared.Components.EntidadEstatus
 @using PrestamoBlazorApp.Shared.Components.Forms
 
-        @if (AllowInputCodigo)
-        {
-            <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
-        }
-        else
-        {
-            <MudTextField @bind-Value="cliente.Codigo" Label="Codigo" ></MudTextField>
-        }
+@if (AllowInputCodigo)
+{
+    <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
+}
+else
+{
+    <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
+}
 
-        <MudSelect @bind-Value="cliente.IdTipoIdentificacion" Label="Tipo Identificacion">
-            @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
-            {
-                <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
-            }
-        </MudSelect>
+<MudSelect @bind-Value="cliente.IdTipoIdentificacion" Label="Tipo Identificacion">
+    @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
+    {
+        <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+    }
+</MudSelect>
 
-        @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
-        {
-            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" Placeholder="000-0000000-0"></MudTextField>
-        }
-        else
-        {
-            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" ></MudTextField>
+@if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
+{
+    <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" Placeholder="000-0000000-0"></MudTextField>
+}
+else
+{
+    <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion"></MudTextField>
 
-            @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
-        }
-        <MudTextField @bind-Value="cliente.Nombres" Label="Nombres" Required="true" RequiredError="es obligatorio escribir el nombre" ></MudTextField>
-        
-        @*<ValidationMessage For="() => cliente.Nombres" />*@
-        <MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos" ></MudTextField>
-        <MudTextField @bind-Value="cliente.Apodo" Label="Apodo" ></MudTextField>
-        <MudSelect @bind-Value="IdEstadoCivil" Label="Estado Civil">
-            @foreach (var item in EnumToList.GetEnumEstadosCiviles())
-            {
-                <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
-            }
-        </MudSelect>
-        <MudSwitch @bind-Checked="TieneConyuge" Label="Tiene Conyuge o Pareja"></MudSwitch>
-        <MudSelect @bind-Value="cliente.idSexo" Label="Sexo">
-            <MudSelectItem Value="1">Masculino</MudSelectItem>
-            <MudSelectItem Value="2">Femenino</MudSelectItem>
-        </MudSelect>
-        <MudDatePicker @bind-Date="cliente.FechaNacimiento" Label="Fecha nacimiento"></MudDatePicker>
-        <MudTextField @bind-Value="cliente.TelefonoCasa" Label="Telefono Casa" ></MudTextField>
-        <MudTextField @bind-Value="cliente.TelefonoMovil" Label="Telefono Movil" ></MudTextField>
-        <MudSelect @bind-Value="cliente.IdTipoProfesionUOcupacion" Label="Profesion">
-            <MudSelectItem Value="-1">Seleccionar ocupacion</MudSelectItem>
-            @foreach (var item in Ocupaciones)
-            {
-                <MudSelectItem Value="@item.IdRegistro">@item.Nombre</MudSelectItem>
-            }
-        </MudSelect>
+    @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
+}
+<MudTextField @bind-Value="cliente.Nombres" Label="Nombres" Required="true" RequiredError="es obligatorio escribir el nombre"></MudTextField>
 
-        <div class="ml-5">
+@*<ValidationMessage For="() => cliente.Nombres" />*@
+<MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos"></MudTextField>
+<MudTextField @bind-Value="cliente.Apodo" Label="Apodo"></MudTextField>
+<MudSelect Value="cliente.IdEstadoCivil" Label="Estado Civil" ValueChanged="OnEstadoCivilChange">
+    @foreach (var item in EnumToList.GetEnumEstadosCiviles())
+    {
+        <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+    }
+</MudSelect>
+<MudSwitch Checked="cliente.TieneConyuge" CheckedChanged="OnTieneConyugeChange" Label="Tiene Conyuge o Pareja"></MudSwitch>
 
-            @{ var tGrupo = TiposFotosPersonas.Rostro.ToString(); }
-            <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
-        </div>
+<MudSelect @bind-Value="cliente.idSexo" Label="Sexo">
+    <MudSelectItem Value="1">Masculino</MudSelectItem>
+    <MudSelectItem Value="2">Femenino</MudSelectItem>
+</MudSelect>
+<MudDatePicker @bind-Date="cliente.FechaNacimiento" Label="Fecha nacimiento"></MudDatePicker>
+<MudTextField @bind-Value="cliente.TelefonoCasa" Label="Telefono Casa"></MudTextField>
+<MudTextField @bind-Value="cliente.TelefonoMovil" Label="Telefono Movil"></MudTextField>
+<MudSelect T="Int32" @bind-Value="cliente.IdTipoProfesionUOcupacion" Label="Profesion">
+    <MudSelectItem Value="-1">Seleccionar ocupacion </MudSelectItem>
+    @foreach (var item in Ocupaciones)
+    {
+        <MudSelectItem Value="@item.IdRegistro">@item.Nombre</MudSelectItem>
+    }
+</MudSelect>
 
-        <div class="ml-5">
+<div class="ml-5">
 
-            @{ var tGrp = TiposFotosPersonas.DocIdentificacion.ToString(); }
-            <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
-        </div>
+    @{
+        var tGrupo = TiposFotosPersonas.Rostro.ToString();
+    }
+    <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
+</div>
+
+<div class="ml-5">
+
+    @{
+        var tGrp = TiposFotosPersonas.DocIdentificacion.ToString();
+    }
+    <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
+</div>
 
 @code {
 
@@ -75,27 +80,6 @@
     public IEnumerable<BaseInsUpdGenericCatalogo> Ocupaciones { get; set; } = new List<Ocupacion>();
     [Parameter]
     public bool AllowInputCodigo { get; set; } = false;
-
-    private bool _tieneConyuge;
-    private bool TieneConyuge { get => _tieneConyuge; set
-        { _tieneConyuge = value;
-            OnTieneConyugeChange.InvokeAsync(value);
-        }
-    }
-
-    private async Task GetEntidadEstatus(SelectClass val)
-    {
-        var a = val;
-    }
-    private int _idEstadoCivil;
-
-    private int IdEstadoCivil { get => _idEstadoCivil;
-        set
-        {
-            _idEstadoCivil = value;
-            OnEstadoCivilChange.InvokeAsync(value);
-        }
-    }
 
     [Parameter]
     public IEnumerable<Imagen> FotosRostroCliente { get; set; }
@@ -111,11 +95,23 @@
     public EventCallback<int> OnEstadoCivilChange { get; set; }
     [Parameter]
     public EventCallback<Imagen> RemoveImages { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
-        TieneConyuge = cliente.TieneConyuge;
-        IdEstadoCivil = cliente.IdEstadoCivil;
-        var cl = cliente;
+
     }
 
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            StateHasChanged();
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void Handle_EstadoCivilChange(int value)
+    {
+        OnEstadoCivilChange.InvokeAsync(cliente.IdEstadoCivil);
+    }
 }

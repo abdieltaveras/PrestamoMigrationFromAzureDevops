@@ -117,7 +117,7 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
                 this.infoLaboral = Codeudor.InfoLaboralObj;
                 this.direccion = Codeudor.InfoDireccionObj.ToJson().ToType<DireccionModel>(); ;
                 var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.direccion.IdLocalidad });
-                this.direccion.selectedLocalidad = localidad.FirstOrDefault().Nombre;
+                this.direccion.SelectedLocalidad = localidad.FirstOrDefault().Nombre;
             }
             FilterImagesByGroup();
             LoadedFotos = true;
