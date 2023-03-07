@@ -2,6 +2,7 @@
 using MudBlazor;
 using PrestamoBlazorApp.Services;
 using PrestamoEntidades;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared.Components.Modelos
@@ -28,9 +29,12 @@ namespace PrestamoBlazorApp.Shared.Components.Modelos
         async Task SaveModelo()
         {
             //await ModelosService.SaveModelo(Modelo); 
-            this.form = null;
-            Modelo.IdMarca = (int)Marca.IdMarca;
-            await Handle_SaveData(() => ModelosService.SaveModelo(Modelo), mudDialogInstance:MudDialog);
+            if (this.form.Errors.Count() <= 0)
+            {
+                Modelo.IdMarca = (int)Marca.IdMarca;
+                await Handle_SaveData(() => ModelosService.SaveModelo(Modelo), mudDialogInstance: MudDialog);
+            }
+
             //await BlockPage();
             //await marcasService.SaveMarca(this.Marca);
             //await UnBlockPage();
