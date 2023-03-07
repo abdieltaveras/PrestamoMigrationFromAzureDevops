@@ -16,7 +16,7 @@ namespace PrestamoBlazorApp.Shared
         public DialogOptions dialogOptions { get; set; } = new DialogOptions { FullWidth = true, CloseOnEscapeKey = true, CloseButton = true, MaxWidth = MaxWidth.Medium };
 
         protected bool IsFormShowErrors;
-        protected string[] FormFieldErrors = { };
+        protected string[] FormFieldErrors { get; set; }
         protected bool IsFormSuccess { get; set; }
         protected MudForm form = null;
 
