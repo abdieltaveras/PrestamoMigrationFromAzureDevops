@@ -3,56 +3,63 @@
 @using PrestamoBlazorApp.Shared.Components.Forms
 @using PrestamoBlazorApp.Shared.Components.Forms.InputReferencia
 @inherits BaseForCreateOrEdit
+<MudCard>
+    <MudCardHeader>
+        <MudForm Model="@Cliente" @ref="@form" Errors="FormFieldErrors">
+            @*<EditForm Model="@Cliente" OnValidSubmit="SaveCliente" OnInvalidSubmit="ShowErrors">*@
+            @*<DataAnnotationsValidator />
+            <ValidationSummary />*@
 
-<MudForm Model="@Cliente" @ref="@form" Errors="FormFieldErrors">
-    @*<EditForm Model="@Cliente" OnValidSubmit="SaveCliente" OnInvalidSubmit="ShowErrors">*@
-    @*<DataAnnotationsValidator />
-    <ValidationSummary />*@
+            <MudGrid>
 
-    <MudGrid>
-
-        <MudItem xs="12" sm="12" Class="d-flex justify-end flex-grow-1">
-            <MudButton OnClick="SaveCliente" Color="MudBlazor.Color.Primary" Variant="Variant.Filled">Guardar</MudButton>
-            <MudButton @onclick='()=>NavigateTo("Clientes")' StartIcon="@Icons.Material.Filled.Undo" Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" title="Volver al listado"></MudButton>
-            @*<MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>*@
-        </MudItem>
-
-        
-            <MudItem xs="12" sm="3">
-
-                <MudText>GENERALES</MudText>
-                @*cliente="Cliente"*@
-                <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="Cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
-                                    FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
+                <MudItem xs="12" sm="12" Class="d-flex justify-end flex-grow-1">
+                    <MudButton OnClick="SaveCliente" Color="MudBlazor.Color.Primary" Variant="Variant.Filled">Guardar</MudButton>
+                    <MudButton @onclick='()=>NavigateTo("Clientes")' StartIcon="@Icons.Material.Filled.Undo" Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" title="Volver al listado"></MudButton>
+                    @*<MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>*@
+                </MudItem>
 
 
-            </MudItem>
+                <MudItem xs="12" sm="3">
 
-        <MudItem xs="12" sm="3">
-            <MudText>Direccion</MudText>
-            <DireccionUI direccion=@this.InfoDireccion />
-        </MudItem>
-        @if (Cliente.TieneConyuge || Cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
-        {
+                    @*<MudText>Generales</MudText>*@
+                    <MudAlert Severity="Severity.Info">Generales</MudAlert>
+                    @*cliente="Cliente"*@
+                    <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="Cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
+                                        FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
 
-            <MudItem xs="12" sm="3">
-                <MudText>Conyuge</MudText>
-                <ConyugeUI conyuge=@Conyuge></ConyugeUI>
-            </MudItem>
-        }
 
-        <MudItem xs="12" sm="3">
-            <MudItem xs="12" sm="12">
-                <LaboralUI InfoLaboral="@InfoLaboral" />
-                @*<LaboralUI2 Cliente=@Cliente />*@
-            </MudItem>
-            <MudItem xs="12" sm="12">
-                <MudButton OnClick="()=>AddReferencia(new Referencia())" Variant="Variant.Filled">Agregar Referencias</MudButton>
-                <PrestamoBlazorApp.Shared.Components.Clientes.Referencias.ListInfoReferencias Referencias="Referencias" OnSelectReferencia="AddReferencia" />
-            </MudItem>
-        </MudItem>
-    </MudGrid>
-    @*</EditForm>*@
-</MudForm>
+                </MudItem>
 
+                <MudItem xs="12" sm="3">
+                    @*<MudText>Direccion</MudText>*@
+                    <MudAlert Severity="Severity.Info">Direccion</MudAlert>
+                    <DireccionUI direccion=@this.InfoDireccion />
+                </MudItem>
+                @if (Cliente.TieneConyuge || Cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
+                {
+
+                    <MudItem xs="12" sm="3">
+                        @*<MudText>Conyuge</MudText>*@
+                        <MudAlert Severity="Severity.Info">Conyuge</MudAlert>
+                        <ConyugeUI conyuge=@Conyuge></ConyugeUI>
+                    </MudItem>
+                }
+
+                <MudItem xs="12" sm="3">
+                    <MudItem xs="12" sm="12">
+                        @*<MudText>Laborales</MudText>*@
+                        <MudAlert Severity="Severity.Info">Laborales</MudAlert>
+                        <LaboralUI InfoLaboral="@InfoLaboral" />
+                        @*<LaboralUI2 Cliente=@Cliente />*@
+                    </MudItem>
+                    <MudItem xs="12" sm="12">
+                        <MudButton OnClick="()=>AddReferencia(new Referencia())" Variant="Variant.Filled">Agregar Referencias</MudButton>
+                        <PrestamoBlazorApp.Shared.Components.Clientes.Referencias.ListInfoReferencias Referencias="Referencias" OnSelectReferencia="AddReferencia" />
+                    </MudItem>
+                </MudItem>
+            </MudGrid>
+            @*</EditForm>*@
+        </MudForm>
+    </MudCardHeader>
+</MudCard>
 

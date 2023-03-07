@@ -114,12 +114,15 @@ namespace PrestamoBlazorApp.Pages.Clientes
         {
             if (this.idCliente==46232) return this.InfoDireccion;
 
-            var direccion = infoDireccion.ToJson().ToType<DireccionModel>();
+            
             var localidades = await localidadService.Get(new LocalidadGetParams { IdLocalidad = infoDireccion.IdLocalidad });
-
-            var localidad = localidades.FirstOrDefault();
-            var localidadModel = await localidadService.BuscarLocalidad(new BuscarLocalidadParams { SoloLosQuePermitenCalle = true, Search = localidad.Nombre });
-            direccion.SelectedLocalidad = localidadModel.FirstOrDefault().ToString();
+            var direccion = new DireccionModel();
+            if (localidades.FirstOrDefault() is Localidad localidad)
+            {
+                direccion = infoDireccion.ToJson().ToType<DireccionModel>();
+                var localidadModel = await localidadService.BuscarLocalidad(new BuscarLocalidadParams { SoloLosQuePermitenCalle = true, Search = localidad.Nombre });
+                direccion.SelectedLocalidad = localidadModel.FirstOrDefault().ToString();
+            }
             return direccion;
         }
 
