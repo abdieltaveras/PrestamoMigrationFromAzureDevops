@@ -84,7 +84,7 @@ namespace PrestamoBLL.Tests
     public class ClienteTests
     {
         [TestMethod()]
-        public void GetClientes_DoesNotThrowError()
+        public void GetClientesWithoutConvertingJson()
         {
             var searhData = ClienteData.SearchCliente();
             searhData.IdNegocio = -1;
@@ -100,7 +100,26 @@ namespace PrestamoBLL.Tests
                 mensajeError = e.Message;
             }
             Assert.IsTrue(string.IsNullOrEmpty(mensajeError),"fallo la rutina de buscar clientes mensaje de error "+mensajeError);
-        }   
+        }
+
+        [TestMethod()]
+        public void GetClientesConvertingJson()
+        {
+            var searhData = ClienteData.SearchCliente();
+            searhData.IdNegocio = -1;
+            var mensajeError = string.Empty;
+
+            searhData.IdCliente = 1;
+            try
+            {
+                var result = new ClienteBLL(1, "testBll").GetClientes(searhData, true);
+            }
+            catch (Exception e)
+            {
+                mensajeError = e.Message;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(mensajeError), "fallo la rutina de buscar clientes mensaje de error " + mensajeError);
+        }
 
         [TestMethod()]
         public void insUpdClienteTest()

@@ -22,7 +22,7 @@
             <MudItem xs="6">
                 @if (Referencia.Tipo == (int)@EnumTiposReferencia.Familiar)
                 {
-                    <MudTextField @bind-Value="@Referencia.Vinculo"></MudTextField>
+                    <MudTextField @bind-Value="@Referencia.Vinculo" Label="Vinculo Familiar"></MudTextField>
 
                     @*<input @bind-value=@referencia.Vinculo class="col-sm-2" />*@
                 }
