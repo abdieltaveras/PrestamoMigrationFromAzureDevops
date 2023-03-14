@@ -16,10 +16,12 @@
                     <MudTextField Label="Nombre Comercial" @bind-Value="LocalidadNegocio.NombreComercial"
                                   For="()=>LocalidadNegocio.NombreComercial"></MudTextField>
                     <MudTextField Label="Prefijo Prestamo" @bind-Value="LocalidadNegocio.PrefijoPrestamo"
-                                  For="()=>LocalidadNegocio.PrefijoPrestamo"></MudTextField>
+                                  For="()=>LocalidadNegocio.PrefijoPrestamo" MaxLength="3"></MudTextField>
                     <MudTextField Label="Prefijo Transacciones" @bind-Value="LocalidadNegocio.PrefijoTransacciones"
-                                  For="()=>LocalidadNegocio.PrefijoTransacciones"></MudTextField>
+                                  InputType="InputType.Number"
+                                  For="()=>LocalidadNegocio.PrefijoTransacciones" MaxLength="3"></MudTextField>
                     <MudTextField Label="Tax ID Nacional" @bind-Value="LocalidadNegocio.TaxIdNacional"
+                    InputType="InputType.Number"
                                   For="()=>LocalidadNegocio.TaxIdNacional"></MudTextField>
                     <MudTextField Label="Tax ID Localidad" @bind-Value="LocalidadNegocio.TaxIdLocalidad"
                                   For="()=>LocalidadNegocio.TaxIdLocalidad"></MudTextField>

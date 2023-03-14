@@ -13,7 +13,8 @@ namespace PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
     {
         [Inject]
         public LocalidadesNegociosService LocalidadesNegociosService { get; set; }
-        public LocalidadNegocio LocalidadNegocio { get; set; }
+        [Parameter]
+        public LocalidadNegocio LocalidadNegocio { get; set; } = new LocalidadNegocio();
         private LocalidadNegociosGetParams LocalidadNegociosGetParams { get; set; }
         private IEnumerable<LocalidadNegocio> localidadesnegocios { get; set; }
         [Parameter]
@@ -51,7 +52,7 @@ namespace PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
             LocalidadNegocio.IdLocalidadNegocio = 1;
             try
             {
-                await Handle_SaveData(()=> LocalidadesNegociosService.Post(this.LocalidadNegocio),null,()=>HandleInvalidSubmit(),false,"/localidadesnegocios");
+                await Handle_SaveData(()=> LocalidadesNegociosService.Post(this.LocalidadNegocio),()=> NotifyMessageBySnackBar("Guardado Correctamente",MudBlazor.Severity.Success),()=>HandleInvalidSubmit(),false,"/localidadesnegocios");
             }
             catch (ValidationObjectException e)
             {

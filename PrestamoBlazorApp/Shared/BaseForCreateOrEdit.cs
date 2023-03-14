@@ -89,6 +89,10 @@ namespace PrestamoBlazorApp.Shared
                 else
                 {
                     await _OnSuccess();
+                    if (!string.IsNullOrEmpty(redirectTo))
+                    {
+                        await NavigateTo(redirectTo);
+                    }
                 }
             }
             catch (Exception e)
@@ -113,6 +117,7 @@ namespace PrestamoBlazorApp.Shared
             }
             if (blockPage) { await UnBlockPage(); }
             await Handle_Funct(() => SetOverlay(false));
+         
         }
 
         protected MudBlazor.Color SetColorForCheckBox(bool value) => value ? Color.Success : Color.Default;
