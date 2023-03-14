@@ -19,11 +19,11 @@ namespace PrestamoBLL
     {
         public PrestamoBLLC(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
 
+        
+
 
         public int InsUpdPrestamo(Prestamo prestamo)
         {
-
-
             //var prToBuild = new PrestamoBuilder(prestamo);
             //var result = prToBuild.Build();
             var prToBuild2 = new PrestamoBuilder(prestamo);
@@ -177,6 +177,20 @@ namespace PrestamoBLL
             PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
             PrestamoConDetalle.InfoDeuda = new InfoDeudaPrestamoDrCr(cuotas, fecha);
             return PrestamoConDetalle;
+        }
+
+
+        public IEnumerable<CxCPrestamo> GetCXC(int idPrestamo, DateTime fecha, bool ConvertDetallesGarantiaToJson = false)
+        {
+            if (idPrestamo <= 0)
+            {
+                throw new NullReferenceException("el Id del prestamo enviado es invalido, o la fecha esta nula");
+            }
+            if (fecha.IsNull())
+            {
+                fecha = DateTime.Now;
+            }
+            return null;
         }
         public void AnularPrestamo(int idPrestamo)
         {

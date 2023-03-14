@@ -34,10 +34,16 @@ namespace PrestamoBlazorApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
+            services.AddServerSideBlazor().AddHubOptions(options =>
+            {
+                // maximum message size of 2MB
+                options.MaximumReceiveMessageSize = 2000000;
+            });
             services.AddHttpClient();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            
             ProjectServices(services);
             AddMudBlazorServices(services);
         }

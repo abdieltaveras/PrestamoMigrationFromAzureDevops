@@ -1,19 +1,21 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.JSInterop;
 using MudBlazor;
 using PrestamoBlazorApp.Services;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared
 {
-    public partial class InputImages2
+    public partial class InputImages2 : CommonBase
     {
-      
+
         [Inject]
         IJSRuntime JsRuntime { get; set; }
 
@@ -45,6 +47,8 @@ namespace PrestamoBlazorApp.Shared
         [Parameter]
         public int ImageQty { get; set; }
 
+        [Inject]
+        ISnackbar Snackbar { get; set; }
         protected async override Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -62,7 +66,7 @@ namespace PrestamoBlazorApp.Shared
                 if (string.IsNullOrEmpty(MensajeLimiteImagenes))
                 {
                     MensajeLimiteImagenes = $"eligio {imageFiles.Count} imagenes, y solo se permiten {this.ImageQty}";
-                    await JsInteropUtils.NotifyMessageBox(JsRuntime, MensajeLimiteImagenes);
+                    await NotifyMessageBySnackBar(MensajeLimiteImagenes, Severity.Warning);
                 }
                 return;
             }
@@ -70,34 +74,52 @@ namespace PrestamoBlazorApp.Shared
             Imagen imagen = null;
             foreach (var imageFile in imageFiles)
             {
+                byte[] buffer = null;
+                bool bigSize = false;
 
-                
-                var resizedImageFile = imageFile.Size > 20000 ? 
-                    await imageFile.RequestImageFileAsync(format,100, 100)
-                    :
-                    imageFile;
-
-                var buffer = new byte[resizedImageFile.Size];
                 try
                 {
+                    bigSize = imageFile.Size > 500000;
+                    var resizedImageFile =  bigSize ?
+                        await imageFile.RequestImageFileAsync(format, 160, 140)
+                        :
+                        imageFile;
+
+                    buffer = new byte[resizedImageFile.Size];
                     await resizedImageFile.OpenReadStream().ReadAsync(buffer);
                 }
                 catch (Exception ex)
                 {
-                    await JsInteropUtils.SweetMessageBox(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra","warning");
+                    await NotifyMessageBySnackBar("Sucedio algo que impidio cargar la imagen" + ex.Message, Severity.Warning);
+                    return;
                 }
+
+
                 var imageDataUrl = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
-                imagen = new Imagen { Base64string = imageDataUrl, Grupo = this.GrupoImagen, NombreArchivo = Guid.NewGuid().ToString(), Agregar=true };
-                if (imageFile.Size > 20000)
+                imagen = new Imagen { Base64string = imageDataUrl, Grupo = this.GrupoImagen, NombreArchivo = Guid.NewGuid().ToString(), Agregar = true };
+                if (bigSize)
                 {
-                    //await JsInteropUtils.SweetMessageBox(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra", "warning");
-                    await JsInteropUtils.NotifyMessageBox(JsRuntime, "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra",6000);
+                    var message = "La imagen elegida fue ajustada su tamaño, si no tiene buena calidad recomendamos elegir otra";
+                    await NotifyMessageBySnackBar(message, Severity.Warning);
                 }
             }
             imagenes.Add(imagen);
             await OnImageSet.InvokeAsync(imagen);
         }
 
+        public static Image ScaleImage(Image image, int height)
+        {
+            double ratio = (double)height / image.Height;
+            int newWidth = (int)(image.Width * ratio);
+            int newHeight = (int)(image.Height * ratio);
+            Bitmap newImage = new Bitmap(newWidth, newHeight);
+            using (Graphics g = Graphics.FromImage(newImage))
+            {
+                g.DrawImage(image, 0, 0, newWidth, newHeight);
+            }
+            image.Dispose();
+            return newImage;
+        }
         void QuitarImagen(object _imagen)
         {
             var imagen = _imagen as Imagen;

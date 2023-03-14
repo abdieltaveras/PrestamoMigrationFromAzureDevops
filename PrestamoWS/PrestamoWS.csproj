@@ -14,25 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ImagesFor\Clientes\27ebfafc-3d96-464b-a146-f5eb8799a8d7.png" />
-    <None Remove="ImagesFor\Clientes\2eb1e360-dee8-4064-b880-1eba4c39deb2.png" />
-    <None Remove="ImagesFor\Clientes\2ff232be-85df-4495-84ba-d3b265d0fbf3.png" />
-    <None Remove="ImagesFor\Clientes\3d59ce74-ed67-4dfe-ba70-66e5799fc3f5.png" />
-    <None Remove="ImagesFor\Clientes\45ab8da3-c0ed-4c80-ba5b-2fbc6efd0908.png" />
-    <None Remove="ImagesFor\Clientes\49d2eb66-e293-4c3f-a4ee-c25a59d896c8.png" />
-    <None Remove="ImagesFor\Clientes\5d508497-a919-4495-aab8-6348ed10b513.png" />
-    <None Remove="ImagesFor\Clientes\6418b7c0-b52f-4131-a500-a899d5690dc2.png" />
-    <None Remove="ImagesFor\Clientes\732b801a-1d23-47ae-9ae7-a4604839988f.png" />
-    <None Remove="ImagesFor\Clientes\808a5aa1-8104-4a8f-9b8e-763c0e131f2e.png" />
-    <None Remove="ImagesFor\Clientes\84818b0b-9657-44bc-97b2-71116e388b81.png" />
-    <None Remove="ImagesFor\Clientes\8597e9c2-45ba-40e1-99ee-4515ea3f93d9.png" />
-    <None Remove="ImagesFor\Clientes\934d80b3-d3a2-4035-818b-68cca36c891f.png" />
-    <None Remove="ImagesFor\Clientes\98749f99-b827-45b6-a3b7-30e882748382.png" />
-    <None Remove="ImagesFor\Clientes\9f088fac-1e62-4c71-b441-a30a945095a9.png" />
-    <None Remove="ImagesFor\Clientes\a4f73202-6c48-4981-897d-09d5498b98a4.png" />
-    <None Remove="ImagesFor\Clientes\af730f48-23dd-4d6b-bd9d-26db11b99499.png" />
-    <None Remove="ImagesFor\Clientes\d24827d2-2ea8-4ade-b4c9-ee86df0e190e.png" />
-    <None Remove="ImagesFor\Clientes\d95ea82c-2b9a-481f-90ea-5c5024f5ac00.png" />
     <None Remove="ImagesFor\Garantias\-0.jpg" />
     <None Remove="ImagesFor\Garantias\-1.jpg" />
     <None Remove="ImagesFor\Garantias\imagenprueba.jpg" />
@@ -50,82 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ImagesFor\Clientes\27ebfafc-3d96-464b-a146-f5eb8799a8d7.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\2eb1e360-dee8-4064-b880-1eba4c39deb2.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\2ff232be-85df-4495-84ba-d3b265d0fbf3.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\3d59ce74-ed67-4dfe-ba70-66e5799fc3f5.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\45ab8da3-c0ed-4c80-ba5b-2fbc6efd0908.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\49d2eb66-e293-4c3f-a4ee-c25a59d896c8.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\5d508497-a919-4495-aab8-6348ed10b513.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\6418b7c0-b52f-4131-a500-a899d5690dc2.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\732b801a-1d23-47ae-9ae7-a4604839988f.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\808a5aa1-8104-4a8f-9b8e-763c0e131f2e.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\84818b0b-9657-44bc-97b2-71116e388b81.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\8597e9c2-45ba-40e1-99ee-4515ea3f93d9.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\934d80b3-d3a2-4035-818b-68cca36c891f.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\98749f99-b827-45b6-a3b7-30e882748382.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\9f088fac-1e62-4c71-b441-a30a945095a9.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\a4f73202-6c48-4981-897d-09d5498b98a4.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\af730f48-23dd-4d6b-bd9d-26db11b99499.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\d24827d2-2ea8-4ade-b4c9-ee86df0e190e.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="ImagesFor\Clientes\d95ea82c-2b9a-481f-90ea-5c5024f5ac00.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="ImagesFor\Garantias\-0.jpg">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -211,6 +116,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ImagesFor\Clientes\" />
     <Folder Include="ImagesFor\Codeudores\" />
     <Folder Include="ImagesFor\Inversionistas\" />
     <Folder Include="Services\" />
