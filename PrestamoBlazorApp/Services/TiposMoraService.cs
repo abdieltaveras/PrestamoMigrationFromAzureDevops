@@ -35,7 +35,7 @@ namespace PrestamoBlazorApp.Services
         {
             try
             {
-                await PostAsync<TipoMora>(apiUrl, tipoMora);
+                await PostAsync<TipoMora>(apiUrl+"/post", tipoMora);
             }
             catch (Exception ex)
             {

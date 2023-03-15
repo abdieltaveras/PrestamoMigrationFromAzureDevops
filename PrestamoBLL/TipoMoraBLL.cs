@@ -20,6 +20,7 @@ namespace PrestamoBLL
         }
         public int InsUpdTipoMora(TipoMora insUpdParam)
         {
+            this.SetIdLocalidadNegocioAndUsuario(insUpdParam);
             return this.InsUpd("spInsUpdTipoMora",insUpdParam);
         }
         
