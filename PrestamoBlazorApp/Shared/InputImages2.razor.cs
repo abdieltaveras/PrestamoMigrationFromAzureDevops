@@ -8,6 +8,7 @@ using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,6 +50,8 @@ namespace PrestamoBlazorApp.Shared
 
         [Inject]
         ISnackbar Snackbar { get; set; }
+
+        bool loadedImages { get; set; } = false;
         protected async override Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -58,7 +61,66 @@ namespace PrestamoBlazorApp.Shared
             }
         }
 
+        public async Task<string> UploadMedia(IBrowserFile file)
+        {
+            long maxFileSize;
+            int mb = 2;
+            maxFileSize = 1024 * 1024 * mb;
+            byte[] buffer;
+            using (Stream readStream = file.OpenReadStream(maxFileSize))
+            {
+                var buf = new byte[readStream.Length];
+                //var ms = new MemoryStream(buf);
+                using (MemoryStream ms = new MemoryStream(buf))
+                {
+                    await readStream.CopyToAsync(ms);
+                    buffer = ms.ToArray();
+                }
+            }
+            return Convert.ToBase64String(buffer);
+        }
+
+        void UploadFiles(IBrowserFile file)
+        {
+        }
+
+        void TryLoadFile()
+        {
+
+        }
         async Task OnInputFileChange(InputFileChangeEventArgs e)
+        {
+
+            loadedImages = false;
+
+            var imageFiles = e.GetMultipleFiles();
+            
+            if (imageFiles.Count > ImageQty)
+            {
+                if (string.IsNullOrEmpty(MensajeLimiteImagenes))
+                {
+                    MensajeLimiteImagenes = $"eligio {imageFiles.Count} imagenes, y solo se permiten {this.ImageQty}";
+                    await NotifyMessageBySnackBar(MensajeLimiteImagenes, Severity.Warning);
+                }
+                return;
+            }
+            var format = "image/png";
+            string file64Base = string.Empty;
+            foreach (var imageFile in imageFiles)
+            {
+                file64Base = await UploadMedia(imageFile);
+            }
+
+            //await NotifyMessageBySnackBar("pasando imagen a string", Severity.Warning);
+            var imageDataUrl = $"data:{format};base64,{file64Base}";
+            var imagen = new Imagen { Base64string = imageDataUrl, Grupo = this.GrupoImagen, NombreArchivo = Guid.NewGuid().ToString(), Agregar = true };
+            imagenes.Add(imagen);
+            await OnImageSet.InvokeAsync(imagen);
+            loadedImages = true;
+        }
+
+
+        async Task OnInputFileChange2(InputFileChangeEventArgs e)
         {
             var imageFiles = e.GetMultipleFiles();
             if (imageFiles.Count > ImageQty)

@@ -24,7 +24,7 @@
                 </MudButton>
             </MudItem>
             <MudItem xs="12" sm="12">
-                <InputFile id="fileInput" OnChange="OnInputFileChange" accept="image/*" MaxBufferSize="@(20*1024)" hidden />
+                <InputFile id="fileInput" OnChange="OnInputFileChange" accept="image/*" hidden />
             </MudItem>
         }
     }
@@ -35,19 +35,23 @@
         <tbody>
             <tr>
                 @{
-
-                    int imageIndex = 0;
-                    @foreach (var imagen in imagenes.Where(ima => !ima.Quitar))
+                    if (loadedImages)
                     {
-                        <td>
-                            <img src="@imagen.Base64string" style="height:@HeightInPx" />
-                            <ConfirmationDialog ButtonText="Quitar"
+
+                        int imageIndex = 0;
+                        @foreach (var imagen in imagenes.Where(ima => !ima.Quitar))
+                        {
+                            <td>
+                                <img src="@imagen.Base64string" style="height:@HeightInPx" />
+                                <ConfirmationDialog ButtonText="Quitar"
                                         objRef="@imagen"
                                         OnOk="QuitarImagen"
                                         Title="Confirmar Quitar Foto"
                                         ConfirmationMessage="Realmente desea quitar la foto" />
-                        </td>
-                        imageIndex++;
+                            </td>
+                            imageIndex++;
+                            <MudText>@imageIndex</MudText>
+                        }
                     }
                 }
             </tr>
