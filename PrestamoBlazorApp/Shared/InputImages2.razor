@@ -19,12 +19,12 @@
                    Variant="Variant.Filled"
                    Color="MudBlazor.Color.Primary"
                    StartIcon="@Icons.Material.Filled.CloudUpload"
-                       for="fileInput">
+                       for="@idFileInputName">
                     @ImageQty
                 </MudButton>
             </MudItem>
             <MudItem xs="12" sm="12">
-                <InputFile id="fileInput" OnChange="OnInputFileChange" accept="image/*" hidden />
+                <InputFile id="@idFileInputName" OnChange="OnInputFileChange" accept="image/*" hidden />
             </MudItem>
         }
     }

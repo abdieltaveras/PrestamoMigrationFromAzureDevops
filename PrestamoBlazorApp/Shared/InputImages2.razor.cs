@@ -52,9 +52,12 @@ namespace PrestamoBlazorApp.Shared
         ISnackbar Snackbar { get; set; }
 
         bool loadedImages { get; set; } = false;
+        
+        private string idFileInputName { get; set; }
         protected async override Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
+            idFileInputName = Guid.NewGuid().ToString();
             if (ListaImagenes.Count() > 0)
             {
                 imagenes.AddRange(ListaImagenes);
