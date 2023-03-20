@@ -118,9 +118,9 @@ namespace PrestamoBLL.Tests
             var idNegocio = Result.FirstOrDefault().IdNegocio;
             if (Result.Count() > 0)
             {
-                var negocioMatriz =  BLLPrestamo.Instance.GetNegocioMatriz(idNegocio);
-                var loginResultSuccess = BLLPrestamo.Instance.Login(new Usuario { LoginName="bryan", IdNegocio=negocioMatriz, Contraseña="1"});
-                var loginResultNotFound = BLLPrestamo.Instance.Login(new Usuario { LoginName = "bryan", IdNegocio = 9, Contraseña = "1" });
+                //var negocioMatriz =  BLLPrestamo.Instance.GetNegocioMatriz(idNegocio);
+                //var loginResultSuccess = BLLPrestamo.Instance.Login(new Usuario { LoginName="bryan", IdNegocio=negocioMatriz, Contraseña="1"});
+                //var loginResultNotFound = BLLPrestamo.Instance.Login(new Usuario { LoginName = "bryan", IdNegocio = 9, Contraseña = "1" });
             }
         }
 

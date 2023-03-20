@@ -2,8 +2,8 @@
 @using PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Forms 
-<GeneralList >
-    <TableList>
+<GeneralList OnAddClick='()=>OnEditClick("localidadesnegocios/createoredit/")'>
+    <CardContent>
         <MudTable Items="localidadesnegocios" Context="ct">
             <HeaderContent>
                     <MudTh>IdNegocio</MudTh>
@@ -25,7 +25,7 @@
                 </MudTd>
             </RowTemplate>
         </MudTable>
-    </TableList>
+    </CardContent>
 </GeneralList>
 
 
