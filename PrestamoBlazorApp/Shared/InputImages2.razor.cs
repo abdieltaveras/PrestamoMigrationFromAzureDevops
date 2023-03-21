@@ -48,11 +48,10 @@ namespace PrestamoBlazorApp.Shared
         [Parameter]
         public int ImageQty { get; set; }
 
-        [Inject]
-        ISnackbar Snackbar { get; set; }
-
-        bool loadedImages { get; set; } = false;
+        [Parameter]
+        public long MaxFileSize { get; set; } = 1024 * 1024 * 2;
         
+        bool loadedImages { get; set; } = false;
         private string idFileInputName { get; set; }
         protected async override Task OnInitializedAsync()
         {
@@ -66,11 +65,10 @@ namespace PrestamoBlazorApp.Shared
 
         public async Task<string> UploadMedia(IBrowserFile file)
         {
-            long maxFileSize;
             int mb = 2;
-            maxFileSize = 1024 * 1024 * mb;
             byte[] buffer;
-            using (Stream readStream = file.OpenReadStream(maxFileSize))
+            
+            using (Stream readStream = file.OpenReadStream(MaxFileSize))
             {
                 var buf = new byte[readStream.Length];
                 //var ms = new MemoryStream(buf);
@@ -83,14 +81,7 @@ namespace PrestamoBlazorApp.Shared
             return Convert.ToBase64String(buffer);
         }
 
-        void UploadFiles(IBrowserFile file)
-        {
-        }
-
-        void TryLoadFile()
-        {
-
-        }
+        
         async Task OnInputFileChange(InputFileChangeEventArgs e)
         {
 
@@ -111,6 +102,12 @@ namespace PrestamoBlazorApp.Shared
             string file64Base = string.Empty;
             foreach (var imageFile in imageFiles)
             {
+                if (imageFile.Size > MaxFileSize)
+                {
+                    await NotifyMessageBySnackBar($"El archivo seleccionado es muy grande, debe elegirlo no mayor a {MaxFileSize/(1024*1024)} mb", Severity.Warning);
+                    return;
+                }
+                else
                 file64Base = await UploadMedia(imageFile);
             }
 

@@ -28,20 +28,22 @@ namespace PrestamoBlazorApp
 
         public IConfiguration Configuration { get; }
 
-        
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages(); // estaba antes debajo de addHttpClient();
+            services.AddServerSideBlazor();
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
             services.AddServerSideBlazor().AddHubOptions(options =>
             {
                 // maximum message size of 2MB
-                options.MaximumReceiveMessageSize = 2000000;
+                options.MaximumReceiveMessageSize = (1024*1024*5);
             });
             services.AddHttpClient();
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
+
+            
+            //services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             
             ProjectServices(services);
