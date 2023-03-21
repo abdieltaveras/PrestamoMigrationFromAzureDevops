@@ -90,12 +90,16 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         private async Task GetLocalidadesByTipo()
         {
             localidadesByTipo = new List<Localidad>();
-            var loc  = await localidadesService.Get(new LocalidadGetParams { IdDivisionTerritorial = (int)SelectedDivisionTerritorial.IdDivisionTerritorialPadre });
-            localidadesByTipo = loc;
-            if (loc.Count()>0)
+            if(SelectedDivisionTerritorial != null)
             {
-                LocalidadTipoSelected = localidadesByTipo.FirstOrDefault();
+                var loc = await localidadesService.Get(new LocalidadGetParams { IdDivisionTerritorial = (int)SelectedDivisionTerritorial.IdDivisionTerritorialPadre });
+                localidadesByTipo = loc;
+                if (loc.Count() > 0)
+                {
+                    LocalidadTipoSelected = localidadesByTipo.FirstOrDefault();
+                }
             }
+         
             StateHasChanged();
         }
         private async Task CloseModal(string result = "")

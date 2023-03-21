@@ -67,6 +67,8 @@ namespace PrestamoBlazorApp.Pages.Localidades
         {
             var parameters = new DialogParameters();
             parameters.Add("IdLocalidad", localidad.IdLocalidad);
+            //parameters.Add("Localidad", localidad);
+
             var dialog = DialogService.Show<AddLocalidadesToPais>($"Agregar Localidades a {localidad.Nombre}", parameters, dialogOptions);
             var result = await dialog.Result;
             if (result.Data != null)
