@@ -28,8 +28,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
         protected override async Task OnInitializedAsync()
         {
 
-            var ter = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
-            this.localidades = ter.Where(m => m.IdLocalidadPadre == 0);
+            await GetLocalidades();
         }
       
         async Task SaveLocalidad()
@@ -44,6 +43,8 @@ namespace PrestamoBlazorApp.Pages.Localidades
         }
         async Task GetLocalidades()
         {
+            //var ter = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
+            //this.localidades = ter.Where(m => m.IdLocalidadPadre == 0);
             var ter = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
             this.localidades = ter.Where(m => m.IdLocalidadPadre == 0);
         }
@@ -75,7 +76,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             {
                 if (result.Data.ToString() == "1")
                 {
-                    this.localidades = await localidadesService.BuscarLocalidad(new BuscarLocalidadParams { Search = "", MinLength = 0 });
+                    await GetLocalidades();
                     StateHasChanged();
                 }
             }

@@ -76,15 +76,19 @@ namespace PrestamoBlazorApp.Shared
                 if (blockPage) { await UnBlockPage(); }
                 if (_OnSuccess == null)
                 {
-                    if (mudDialogInstance == null)
-                    {
-                        await NotifyMessageBySnackBar("Los datos no pudieron ser Guardados", Severity.Warning);
-                    }
-                    else
-                    {
+                    //if (mudDialogInstance == null)
+                    //{
+                    //    await NotifyMessageBySnackBar("Los datos no pudieron ser Guardados", Severity.Warning);
+                    //}
+                    //else
+                    //{
                         await NotifyMessageBySnackBar("Datos Guardados Correctamente", Severity.Success);
-                        mudDialogInstance.Close();
-                    }
+                        if (mudDialogInstance != null)
+                        {
+                            //await NotifyMessageBySnackBar("Los datos no pudieron ser Guardados", Severity.Warning);
+                            mudDialogInstance.Close();
+                        }
+                    //}
                 }
                 else
                 {
