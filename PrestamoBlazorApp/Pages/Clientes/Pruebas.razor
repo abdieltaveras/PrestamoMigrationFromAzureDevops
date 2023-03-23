@@ -2,9 +2,9 @@
 @using PrestamoBlazorApp.Shared.Components.Clientes
 @inject IDialogService DialogService
 
-@*<SearchClientesByProperty Columns="cols" @bind-Value="Cliente"></SearchClientesByProperty>*@
-<MudButton OnClick="ShowReferencias">
-    Show Referencias
+<SearchClientesByProperty Columns="cols" @bind-Value="Cliente"></SearchClientesByProperty>
+<MudButton OnClick="ShowClientes">
+    Show Clientes
 </MudButton>
 <MudChip>Cliente Seleccionado: @Cliente.NombreCompleto</MudChip>
 @code{
@@ -12,7 +12,7 @@
 
     Cliente Cliente { get; set; } = new Cliente();
     List<Referencia> Referencias = new List<Referencia>();
-    private async Task ShowWtInstance()
+    private async Task ShowClientes()
     {
         var parameters = new DialogParameters { ["Columns"] = cols };
         DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true,  CloseButton = true };

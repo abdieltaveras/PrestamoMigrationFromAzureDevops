@@ -55,10 +55,19 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
         {
             if (LocalidadTipoSelected.IdLocalidad > 0)
             {
-                this.Localidad.IdDivisionTerritorial = SelectedDivisionTerritorial.IdDivisionTerritorial;
-                this.Localidad.IdLocalidadPadre = LocalidadTipoSelected.IdLocalidad;
-                await CloseModal("1");
-                await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null, false, "/localidades/listadopaises");
+                if(this.Localidad.Codigo?.Trim().Length == 10)
+                {
+                    this.Localidad.IdDivisionTerritorial = SelectedDivisionTerritorial.IdDivisionTerritorial;
+                    this.Localidad.IdLocalidadPadre = LocalidadTipoSelected.IdLocalidad;
+                    await CloseModal("1");
+                    await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null, false, "/localidades/listadopaises");
+                }
+                else
+                {
+                    await NotifyMessageBySnackBar("El campo codigo debe contener 10 caracteres", Severity.Error);
+
+                }
+
             }
             else
             {
