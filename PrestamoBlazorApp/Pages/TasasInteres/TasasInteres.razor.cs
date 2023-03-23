@@ -8,13 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PrestamoBlazorApp.Shared.Components.TasasInteres;
+using PrestamoBlazorApp.Domain;
+
 namespace PrestamoBlazorApp.Pages.TasasInteres
 {
     public partial class TasasInteres : BaseForCreateOrEdit
     {
         [Inject]
         IDialogService DialogService { get; set; }
-        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+        
         [Inject]
         NavigationManager NavigationManager { get; set; }
         [Inject]
@@ -101,8 +103,9 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         private async Task ShowDialog(int id = -1)
         {
             var parameters = new DialogParameters();
+
             parameters.Add("IdTasaInteres", id);
-            var dialog = DialogService.Show<CreateTasasInteres>("", parameters, dialogOptions);
+            var dialog = DialogService.Show<CreateTasasInteres>("", parameters, ShowDialogs.DlgOptionsMediumFullWidth);
             var result = await dialog.Result;
             if (Convert.ToInt32(result.Data.ToString()) == 1)
             {

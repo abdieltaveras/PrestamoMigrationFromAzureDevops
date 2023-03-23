@@ -200,8 +200,8 @@ namespace PrestamoEntidades
         /// <summary>
         /// guarda el nombre de la imagen
         /// </summary>
-        public string Imagen1FileName { get; set; } = string.Empty;
-        public string Imagen2FileName { get; set; } = string.Empty;
+        public string Imagen1FileName { get; private set; } = string.Empty;
+        public string Imagen2FileName { get; private set; } = string.Empty;
 
 
         [Display(Name = "Tiene Pareja o Conyuge")]

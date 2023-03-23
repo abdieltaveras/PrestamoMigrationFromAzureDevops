@@ -10,7 +10,6 @@ namespace PrestamoBlazorApp.Models
     public class PrestamoConCalculosVM : Prestamo
     {
         
-
         public new bool LlevaGarantia()
         {
                 if (Clasificaciones != null)
@@ -27,8 +26,6 @@ namespace PrestamoBlazorApp.Models
 
         private async Task NoCalcular() => await Task.Run(() => { });
         
-
-
         EventHandler<string> OnNotificarMensaje;
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
@@ -107,7 +104,7 @@ namespace PrestamoBlazorApp.Models
         }
         private async Task CalcularGastoDeCierre()
         {
-            MontoGastoDeCierre = LlevaGastoDeCierre ? MontoPrestado * (InteresGastoDeCierre / 100) : 0;
+            await Task.Run(() => MontoGastoDeCierre = LlevaGastoDeCierre ? MontoPrestado * (InteresGastoDeCierre / 100) : 0);
         }
 
         public void SetServices(EventHandler<string> notificarMensaje,

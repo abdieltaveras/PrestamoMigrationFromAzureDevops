@@ -17,7 +17,6 @@ namespace PrestamoBlazorApp.Pages.Clasificaciones
         IEnumerable<Clasificacion> clasificaciones { get; set; } = new List<Clasificacion>();
         [Parameter]
         public Clasificacion Clasificacion { get; set; }
-        bool loading = false;
         ClasificacionesGetParams SearchClasificacion { get; set; } = new ClasificacionesGetParams();
         void Clear() => clasificaciones = null;
         protected override void OnInitialized()

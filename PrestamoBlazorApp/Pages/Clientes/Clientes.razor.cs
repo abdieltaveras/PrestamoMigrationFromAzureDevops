@@ -17,8 +17,6 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Inject]
         IDialogService DialogService { get; set; }
 
-        
-
         [Inject]
         ClientesService clientesService { get; set; }
         ClienteGetParams searchClientes { get; set; } = new ClienteGetParams();
@@ -34,10 +32,11 @@ namespace PrestamoBlazorApp.Pages.Clientes
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         private int SelectedOptionSearch { get; set; } = -1;
-        private int MinSearchLength = 3;
+        
         List<eOpcionesSearchCliente> lstOpcionesSearch { get; set; }
         protected override async Task OnInitializedAsync()
         {
+            MinSearchLength = 3;
             await Handle_GetDataForList(GetClientes);
             FillOptions();
             await base.OnInitializedAsync();
