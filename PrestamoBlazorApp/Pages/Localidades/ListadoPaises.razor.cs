@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using PrestamoBlazorApp.Shared.Components;
-
 using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.Localidades;
 using PrestamoBlazorApp.Domain;
