@@ -2,10 +2,10 @@
 
 namespace PrestamoBlazorApp.Domain
 {
-    public class Showdialogs
+    public class ShowDialogs
     {
-        public static DialogOptions BasicOptions => new DialogOptions{ DisableBackdropClick=true, MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
-        public static DialogOptions DialogMedium => new DialogOptions { DisableBackdropClick = true, MaxWidth = MaxWidth.Medium, FullWidth = true, CloseOnEscapeKey = true };
+        public static DialogOptions DlgOptionsMediumFullWidth => new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true, CloseOnEscapeKey = true, DisableBackdropClick=true };
 
+        public static DialogOptions DlgOptionsExtraSmallFullWidth => new DialogOptions { MaxWidth = MaxWidth.ExtraSmall, FullWidth = true, CloseButton = true, CloseOnEscapeKey = true };
     }
 }

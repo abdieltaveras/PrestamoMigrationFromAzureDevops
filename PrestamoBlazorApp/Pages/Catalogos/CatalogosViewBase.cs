@@ -14,7 +14,7 @@ using PrestamoBlazorApp.Domain;
 
 namespace PrestamoBlazorApp.Pages.Catalogos
 {
-    public  abstract  class CatalogosViewBase : BaseCatalogoComponent
+    public abstract class CatalogosViewBase : BaseCatalogoComponent
     {
 
         [Inject] protected CatalogosServicesFactoryManager CatalogosFactory { get; set; }
@@ -25,7 +25,7 @@ namespace PrestamoBlazorApp.Pages.Catalogos
 
         [Inject] protected CommonInjectionsService CommomInjectionsService { get; set; }
 
-        protected virtual async Task ShowEditor(CatalogoInsUpd catalogo, bool usarFormularioParaEliminar=false, Func<Task> action=null)
+        protected virtual async Task ShowEditor(CatalogoInsUpd catalogo, bool usarFormularioParaEliminar = false, Func<Task> action = null)
         {
             var parameters = new DialogParameters(); 
             parameters.Add("Catalogo", catalogo);
@@ -37,16 +37,16 @@ namespace PrestamoBlazorApp.Pages.Catalogos
         }
 
         protected virtual CatalogosService GetService { get; }
-        
+
         protected override async Task ShowAddEditor(CatalogoInsUpd catalogo, Func<Task> action)
         {
             await ShowEditor(catalogo, false, action);
         }
 
-        protected override async Task   ShowEditEditor(CatalogoInsUpd catalogo, Func<Task> action)
+        protected override async Task ShowEditEditor(CatalogoInsUpd catalogo, Func<Task> action)
         {
             await ShowEditor(catalogo, false, action);
-            
+
         }
 
         protected override async Task ShowDeleteEditor(CatalogoInsUpd catalogo, Func<Task> action)
@@ -55,12 +55,12 @@ namespace PrestamoBlazorApp.Pages.Catalogos
         }
 
         protected async Task UpdateList() => await GetCatalogos(new BaseCatalogoGetParams());
-        protected override async  Task<IEnumerable<CatalogoInsUpd>> GetCatalogos(BaseCatalogoGetParams getParam)
+        protected override async Task<IEnumerable<CatalogoInsUpd>> GetCatalogos(BaseCatalogoGetParams getParam)
         {
             var Catalogos = await GetService.Get(getParam);
             return Catalogos;
         }
 
     }
-    
+
 }

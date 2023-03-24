@@ -1,64 +1,57 @@
-﻿
-<div>
-    <label class="ml-2">@Text </label>
-</div>
-<div class="form-group row">
-    @if (imagenes.Where(ima => !ima.Quitar).Count() >= ImageQty)
-    {
-    <label class="ml-4">
-        imagenes permitidas @ImageQty
-        @*Si desea agregar imagenes debe quitar de las que ya estan*@
-    </label>
-    }
-    else
-    {
-        <MudGrid>
-            <MudItem>
-                <InputFile id="fileInput" OnChange="OnInputFileChange" accept="image/*" hidden />
+﻿@inherits CommonBase
+<MudGrid>
+    <MudItem xs="8" sm="8">
+        @Text
+    </MudItem>
 
+    @{
+        if (imagenes.Where(ima => !ima.Quitar).Count() >= ImageQty)
+        {
+            <MudItem xs="12" sm="12">
+                <MudText>    imagenes permitidas @ImageQty </MudText>
+                @*Si desea agregar imagenes debe quitar de las que ya estan*@
+            </MudItem>
+        }
+        else
+        {
+            <MudItem xs="12" sm="4">
                 <MudButton HtmlTag="label"
-                           Variant="Variant.Filled"
-                           Color="MudBlazor.Color.Primary"
-                           StartIcon="@Icons.Filled.CloudUpload"
-                           for="fileInput">
-                    Subir Imagenes
+                   Variant="Variant.Filled"
+                   Color="MudBlazor.Color.Primary"
+                   StartIcon="@Icons.Material.Filled.CloudUpload"
+                       for="@idFileInputName">
+                    @ImageQty
                 </MudButton>
             </MudItem>
-        </MudGrid>
-        @*<div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Imagenes</span>
-            </div>
-            <div class="custom-file">
-                <InputFile OnChange="OnInputFileChange" accept="image/*" capture class=" custom-file-input " />
-                <label class="custom-file-label" for="inputGroupFile01"></label>
-            </div>
-        </div>*@
+            <MudItem xs="12" sm="12">
+                <InputFile id="@idFileInputName" OnChange="OnInputFileChange" accept="image/*" hidden />
+            </MudItem>
+        }
     }
-
-    @*<InputFile @onclick="Validate" OnChange="OnInputFileChange" accept="image/*" capture multiple />*@
-    @*@onclick:preventDefault="preventDefault"*@
-</div>
-<br />
+</MudGrid>
 
 <div class="img-fluid col-md-5">
     <table class="table">
         <tbody>
             <tr>
                 @{
-
-                    int imageIndex = 0;
-                    @foreach (var imagen in imagenes.Where(ima=> !ima.Quitar))
+                    if (loadedImages)
                     {
-                        <td>
-                            <img src="@imagen.Base64string" style="height:@HeightInPx" />
-                            <ConfirmationDialog ButtonText="Quitar"
-                                                objRef="@imagen"
-                                                OnOk="QuitarImagen"
-                                                Title="Confirmar Quitar Foto"
-                                                ConfirmationMessage="Realmente desea quitar la foto" />
-                        </td>
-                        imageIndex++;
+
+                        int imageIndex = 0;
+                        @foreach (var imagen in imagenes.Where(ima => !ima.Quitar))
+                        {
+                            <td>
+                                <img src="@imagen.Base64string" style="height:@HeightInPx" />
+                                <ConfirmationDialog ButtonText="Quitar"
+                                        objRef="@imagen"
+                                        OnOk="QuitarImagen"
+                                        Title="Confirmar Quitar Foto"
+                                        ConfirmationMessage="Realmente desea quitar la foto" />
+                            </td>
+                            imageIndex++;
+                            <MudText>@imageIndex</MudText>
+                        }
                     }
                 }
             </tr>

@@ -102,6 +102,7 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         private async Task ShowDialog(int id = -1)
         {
             var parameters = new DialogParameters();
+
             parameters.Add("IdTasaInteres", id);
             var dialog = DialogService.Show<CreateTasasInteres>("", parameters, Showdialogs.BasicOptions);
             var result = await dialog.Result;

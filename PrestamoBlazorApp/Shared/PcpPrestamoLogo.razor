@@ -1,28 +1,24 @@
-﻿<MudGrid>
-    <MudItem xs="12">
-        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Height="30" Width="30" > 
-            <img class="perc30" src="_content/Images/Site/pcpprestamo-07.jpg" />
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12">
-        <MudText Typo="Typo.subtitle1" Align="Align.Center">Un mundo de grandes posiblidades para tus operaciones financieras </MudText>
-        <MudText Align="Align.Center">puedes contactarnos al <MudIcon Icon="@Icons.Custom.Brands.WhatsApp"> </MudIcon>809-550-8455, 809-813-1251</MudText>
-        <MudText Align="Align.Center">La Romana, Rep. Dom.</MudText>
-        <MudText Align="Align.Center">Para Mas informacion visitanos nuestro <MudLink href="https://www.pcpapps.com">Website https://www.pcpapps.com </MudLink> </MudText>
-    </MudItem>
-</MudGrid>
+﻿    <MudGrid>
+        <MudItem xs="12">
+            <MudPaper Class="d-flex align-center justify-center mud-width-full" Elevation="0">
+                @*<img class="perc30" src="_content/Images/Site/pcpprestamo-07.jpg" />*@
+                <MudImage Src="_content/Images/Site/pcpprestamo-07.jpg" Height="200" Width="400" Fluid="true" Alt="pcp prestamo" Elevation="0" Class="rounded-lg" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+            <MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0">
+                @ChildContent
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+            <MudText Typo="Typo.subtitle1" Align="Align.Center">Un mundo de grandes posiblidades para tus operaciones financieras </MudText>
+            <MudText Align="Align.Center">puedes contactarnos al <MudIcon Icon="@Icons.Custom.Brands.WhatsApp"> </MudIcon>809-550-8455, 809-813-1251</MudText>
+            <MudText Align="Align.Center">La Romana, Rep. Dom.</MudText>
+            <MudText Align="Align.Center">Para Mas informacion visitanos nuestro <MudLink href="https://www.pcpapps.com">Website https://www.pcpapps.com </MudLink> </MudText>
+        </MudItem>
+    </MudGrid>
 
-@*<div>
-
-        <img class="perc30" src="_content/Images/Site/pcpprestamo-07.jpg" />
-        <h3 class="padZero">Un mundo de grandes posibilidades para sus operaciones financieras</h3>
-        <p class="padZero">Comunicate con nosotros al <i class="fa  fa-phone">  <i class="fa fa-whatsapp" style="color:green"> 809-550-8455 </i> </i>,  <i class="fa  fa-phone"> 809-813-1251 </i> </p>
-        <p class="padZero">La Romana, Republica Dominicana</p>
-        <p class="padZero">Para Mas informacion visitanos nuestro <a href="http://www.pcpapps.com">Website </a></p>
-        @ChildContent
-    </div>*@
 @code {
     [Parameter]
     public RenderFragment ChildContent { get; set; }
-
 }

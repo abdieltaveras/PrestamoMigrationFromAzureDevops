@@ -113,6 +113,8 @@ namespace PrestamoBLL.Tests
             try
             {
                 var result = new ClienteBLL(1, "testBll").GetClientes(searhData, true);
+                var resultCliente = result.FirstOrDefault();
+                var imagenes = (resultCliente is Cliente) ? resultCliente.ImagenesObj : null;
             }
             catch (Exception e)
             {

@@ -28,11 +28,26 @@ else
 
     @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
 }
+<div class="ml-5">
+
+    @{
+        var tGrp = TiposFotosPersonas.DocIdentificacion.ToString();
+    }
+    <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagen"></InputImages2>
+</div>
+
 <MudTextField @bind-Value="cliente.Nombres" Label="Nombres" Required="true" RequiredError="es obligatorio escribir el nombre"></MudTextField>
 
 @*<ValidationMessage For="() => cliente.Nombres" />*@
 <MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos"></MudTextField>
 <MudTextField @bind-Value="cliente.Apodo" Label="Apodo"></MudTextField>
+<div class="ml-5">
+
+    @{
+        var tGrupo = TiposFotosPersonas.Rostro.ToString();
+    }
+    <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
+</div>
 <MudSelect Value="cliente.IdEstadoCivil" Label="Estado Civil" ValueChanged="OnEstadoCivilChange">
     @foreach (var item in EnumToList.GetEnumEstadosCiviles())
     {
@@ -56,62 +71,6 @@ else
     }
 </MudSelect>
 
-<div class="ml-5">
 
-    @{
-        var tGrupo = TiposFotosPersonas.Rostro.ToString();
-    }
-    <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
-</div>
 
-<div class="ml-5">
 
-    @{
-        var tGrp = TiposFotosPersonas.DocIdentificacion.ToString();
-    }
-    <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagenes Documento de Identificacion"></InputImages2>
-</div>
-
-@code {
-
-    [Parameter]
-    public Cliente cliente { get; set; }
-    [Parameter]
-    public IEnumerable<BaseInsUpdGenericCatalogo> Ocupaciones { get; set; } = new List<Ocupacion>();
-    [Parameter]
-    public bool AllowInputCodigo { get; set; } = false;
-
-    [Parameter]
-    public IEnumerable<Imagen> FotosRostroCliente { get; set; }
-    [Parameter]
-    public IEnumerable<Imagen> FotosDocIdentificacion { get; set; }
-    [Parameter]
-    public EventCallback<Imagen> SetImages { get; set; }
-
-    [Parameter]
-    public EventCallback<bool> OnTieneConyugeChange { get; set; }
-
-    [Parameter]
-    public EventCallback<int> OnEstadoCivilChange { get; set; }
-    [Parameter]
-    public EventCallback<Imagen> RemoveImages { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-
-    }
-
-    protected override Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender)
-        {
-            StateHasChanged();
-        }
-        return base.OnAfterRenderAsync(firstRender);
-    }
-
-    private void Handle_EstadoCivilChange(int value)
-    {
-        OnEstadoCivilChange.InvokeAsync(cliente.IdEstadoCivil);
-    }
-}

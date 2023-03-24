@@ -126,7 +126,6 @@
     <Build Include="dbo\Tables\tblColores.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdColor.sql" />
     <Build Include="dbo\Stored Procedures\spGetLocalidadById.sql" />
-    <Build Include="dbo\Stored Procedures\spGetUsuarios.sql" />
     <Build Include="dbo\Stored Procedures\spGetModelosGarantiaByMarca.sql" />
     <Build Include="dbo\Tables\tblOcupaciones.sql" />
     <Build Include="dbo\Tables\tblVerificadorDirecciones.sql" />
@@ -139,8 +138,6 @@
     <Build Include="dbo\Stored Procedures\spInsUpdCatalogo.sql" />
     <Build Include="dbo\Stored Procedures\spToggleStatusCatalogo.sql" />
     <Build Include="dbo\Stored Procedures\spDelCatalogo.sql" />
-    <Build Include="dbo\Stored Procedures\spGetRoles.sql" />
-    <Build Include="dbo\Stored Procedures\spGetOperaciones.sql" />
     <Build Include="dbo\User Defined Types\tpUserRole.sql" />
     <Build Include="dbo\Tables\tblEquipos.sql" />
     <Build Include="dbo\Stored Procedures\SpInsUpdEquipos.sql" />
@@ -162,7 +159,6 @@
     <Build Include="dbo\Tables\tblSecuencias.sql" />
     <Build Include="dbo\Stored Procedures\spGenerarSecuencia.sql" />
     <Build Include="dbo\Stored Procedures\spGenerarSecuenciaString.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdTblTest1GenerandoSecuencia.sql" />
     <Build Include="dbo\Tables\tblPeriodos.sql" />
     <Build Include="dbo\Stored Procedures\spGetPeriodos.sql" />
     <Build Include="dbo\Tables\tblPrestamo.sql" />
@@ -213,8 +209,6 @@
     <Build Include="dbo\Stored Procedures\spGetDivisionTerritorialComponents.sql" />
     <Build Include="dbo\Stored Procedures\spGetTiposDivisionTerritorial.sql" />
     <Build Include="dbo\Stored Procedures\spSearchClientes.sql" />
-    <Build Include="dbo\Stored Procedures\UsuarioListaOperacionesSpGet.sql" />
-    <Build Include="dbo\Stored Procedures\SpUpdContraseñaUsuario.sql" />
     <Build Include="dbo\Stored Procedures\spListEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spGetEstatus.sql" />
