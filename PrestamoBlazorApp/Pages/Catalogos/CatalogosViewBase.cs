@@ -10,6 +10,8 @@ using PrestamoBlazorApp.Shared;
 using PrestamoBlazorApp.Shared.Components.Catalogos;
 using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.Base;
+using PrestamoBlazorApp.Domain;
+
 namespace PrestamoBlazorApp.Pages.Catalogos
 {
     public  abstract  class CatalogosViewBase : BaseCatalogoComponent
@@ -30,8 +32,8 @@ namespace PrestamoBlazorApp.Pages.Catalogos
             parameters.Add("UsarFormularioParaEliminar", usarFormularioParaEliminar);
             parameters.Add("UpdateList", action);
             parameters.Add("CatalogosService", GetService);
-            var options = new DialogOptions() {  CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
-            Dialog.Show<CatalogoEditor>("Editar", parameters, options);
+           // var options = new DialogOptions() {  CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+            Dialog.Show<CatalogoEditor>("Editar", parameters, Showdialogs.BasicOptions);
         }
 
         protected virtual CatalogosService GetService { get; }

@@ -9,11 +9,14 @@ using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.Localidades;
+using PrestamoBlazorApp.Domain;
+
 namespace PrestamoBlazorApp.Pages.Localidades
 {
     public partial class Localidades: BaseForCreateOrEdit
     {
-     
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
         [Inject]
         LocalidadesService localidadesService { get; set; }
         [Parameter]
@@ -71,8 +74,8 @@ namespace PrestamoBlazorApp.Pages.Localidades
             var parameters = new DialogParameters();
             parameters.Add("IdLocalidad", idLocalidad);
 
-            dialogOptions.MaxWidth = MaxWidth.Medium;
-            var dialog =  svrDialogService.Show<Shared.Components.Localidades.CreateLocalidad>("Crear Pais", parameters, dialogOptions);
+           // dialogOptions.MaxWidth = MaxWidth.Medium;
+            var dialog =  svrDialogService.Show<Shared.Components.Localidades.CreateLocalidad>("Crear Pais", parameters, Showdialogs.BasicOptions);
             var result = await dialog.Result;
             if (!result.Cancelled)
             {
@@ -82,6 +85,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             //Localidad = localidad.FirstOrDefault();
             await UnBlockPage();
         }
+        
         void RaiseInvalidSubmit()
         {
 

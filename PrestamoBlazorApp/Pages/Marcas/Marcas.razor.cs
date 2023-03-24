@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using MudBlazor;
+using PrestamoBlazorApp.Domain;
 //using PrestamoBlazorApp.Pages.Base;
 //using PrestamoBlazorApp.Shared;
 
@@ -93,8 +94,8 @@ namespace PrestamoBlazorApp.Pages.Marcas
             //var modelos = await ModelosService.Get(new ModeloGetParams { IdMarca =  (int)m.IdMarca });
 
             var parameters = new DialogParameters {  ["Marca"] = m };
-            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
-            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Modelos.ModelosList>($"Modelos Marca: {m.Nombre}", parameters, dialogOptions);
+           // DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Modelos.ModelosList>($"Modelos Marca: {m.Nombre}", parameters,Showdialogs.DialogMedium );
             var result = await dialog.Result;
 
             if (!result.Cancelled)
@@ -113,8 +114,8 @@ namespace PrestamoBlazorApp.Pages.Marcas
                 param = new Marca();
             }
             var parameters = new DialogParameters { ["Marca"] = param };
-            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
-            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Marcas.EditMarcas>($"Marca: {Marca.Nombre}", parameters, dialogOptions);
+           // DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            var dialog = DialogService.Show<PrestamoBlazorApp.Shared.Components.Marcas.EditMarcas>($"Marca: {Marca.Nombre}", parameters, Showdialogs.BasicOptions);
             var result = await dialog.Result;
 
             if (!result.Cancelled)

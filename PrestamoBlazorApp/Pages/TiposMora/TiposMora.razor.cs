@@ -9,13 +9,15 @@ using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
 using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.TiposMora;
+using PrestamoBlazorApp.Domain;
+
 namespace PrestamoBlazorApp.Pages.TiposMora
 {
     public partial class TiposMora : BaseForCreateOrEdit
     {
         [Inject]
         IDialogService DialogService { get; set; }
-        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+        //private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         [Inject]
         TiposMoraService TiposMoraService { get; set; }
         IEnumerable<TipoMora> tiposmora { get; set; } = new List<TipoMora>();
@@ -70,7 +72,7 @@ namespace PrestamoBlazorApp.Pages.TiposMora
         {
             var parameters = new DialogParameters();
             parameters.Add("IdTipoMora", id);
-            var dialog = DialogService.Show<CreateTiposMora>("", parameters, dialogOptions);
+            var dialog = DialogService.Show<CreateTiposMora>("", parameters,Showdialogs.BasicOptions);
             var result = await dialog.Result;
             //if (Convert.ToInt32(result.Data.ToString()) == 1)
             //{

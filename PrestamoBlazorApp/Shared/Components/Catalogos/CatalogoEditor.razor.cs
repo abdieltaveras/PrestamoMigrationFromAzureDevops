@@ -57,7 +57,10 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             this.Catalogo = new CatalogoInsUpd();
       
         }
-        
+        private async Task CloseModal(int result = -1)
+        {
+            MudDialog.Close(DialogResult.Ok(result));
+        }
         async Task DeleteCatalogo ()
         {
             if (DeleteValueToConfirm != DeleteConfirmedValue)

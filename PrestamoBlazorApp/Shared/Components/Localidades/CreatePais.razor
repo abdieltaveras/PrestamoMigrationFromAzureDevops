@@ -2,7 +2,7 @@
 @using PrestamoBlazorApp.Shared.Components.Forms
 @inherits BaseForCreateOrEdit
 
-<GeneralModal OnSaveClick="Save">
+<GeneralModal OnCancelClick="CloseModal"  OnSaveClick="Save">
     <Content>
 
         <MudSelect T="DivisionTerritorial" @bind-Value="SelectedTipoLocalidad"  Immediate="true "Label="Tipo Division Territorial">

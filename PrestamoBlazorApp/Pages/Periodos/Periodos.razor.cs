@@ -37,7 +37,7 @@ namespace PrestamoBlazorApp.Pages.Periodos
         private bool FilterFunc1(Periodo element) => FilterFunc(element, SearchString1);
 
         private bool ShowDialogCreate { get; set; } = false;
-        private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
+        private DialogOptions dialogOptions = new() { DisableBackdropClick=true, MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
         private bool Dense = true, Hover = true, Bordered = false, Striped = false;
         void Seleccionar()
         {

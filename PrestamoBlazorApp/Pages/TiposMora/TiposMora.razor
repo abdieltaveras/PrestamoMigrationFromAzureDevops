@@ -31,7 +31,6 @@
                 <MudTh>Rango</MudTh>
                 <MudTh>Descripcion</MudTh>
                 <MudTh>Estado</MudTh>
-
                 <MudTh>Acciones</MudTh>
             </HeaderContent>
             <RowTemplate>
@@ -54,6 +53,9 @@
 
                 <MudTd> <span>Desde @context.MontoCuotaDesde hasta @context.MontoCuotaHasta</span></MudTd>
                 <MudTd>@context.Nombre</MudTd>
+                <MudTd>
+                    @*<MudIconButton OnClick="@(()=>CreateOrEdit(context.IdTipoMora))" Icon="@Icons.Outlined.Edit"></MudIconButton>*@
+                </MudTd>
                 <MudTd>
                     <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdTipoMora))" Icon="@Icons.Outlined.Edit"></MudIconButton>
                 </MudTd>
