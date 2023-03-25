@@ -229,7 +229,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
-    <None Include="Bisend_PrestamoApi.publish.xml" />
     <None Include="SchemaCompareForAbdiel.scmp" />
     <None Include="RandyPrestamoDB.publish.xml" />
   </ItemGroup>
