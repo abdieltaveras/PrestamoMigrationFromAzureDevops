@@ -1,4 +1,7 @@
-﻿using PcpUtilidades;
+﻿using HESRAM.Utils;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using PcpUtilidades;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -52,6 +55,39 @@ namespace PrestamoBLL
                     }
                 }
             }
+        }
+
+        public static List<string> GetImagen(string ImagePath, string ImageListJson)
+        {
+            #region Imagen
+            List<string> list = new List<string>();
+            //if (result.FirstOrDefault().Imagen1FileName != null)
+            //{
+                var listResult = JsonConvert.DeserializeObject<dynamic>(ImageListJson);
+                foreach (var item in listResult)
+                {
+                    string imagen = Convert.ToString(item.Value);
+                    //Obtenemos la ruta de la imagen
+                    string path = ImagePath + item.Value;
+                    //Evaluamos si existe la imagen
+                    var ExisteImagen = System.IO.File.Exists(path);
+                    if (ExisteImagen)
+                    {
+                        // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
+                        var imagepath = HConvert.GetImageBase64FromPath(path);
+                        // creamos una lista para agregar nuestras bases
+                        list.Add("data:image/jpg;base64," + imagepath);
+                    }
+
+                }
+                IEnumerable<string> sendList = list;
+                //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
+                return sendList.ToList();
+            //}
+
+            //******************************************************//
+            #endregion
+
         }
     }
 }
