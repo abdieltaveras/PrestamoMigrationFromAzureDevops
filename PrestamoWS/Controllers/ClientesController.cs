@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PrestamoWS.Controllers
 {
@@ -138,6 +139,43 @@ namespace PrestamoWS.Controllers
                 return BadRequest(ex.Message);
             }
    
+        }
+
+        public IActionResult GetImagenCliente(int IdCliente)
+        {
+            try
+            {
+                var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { IdCliente = IdCliente }, false);
+                if (cliente.Count() > 0)
+                {
+                    var lst = ManejoImagenes.GetImagen(ImagePathForClientes, cliente.FirstOrDefault().Imagenes);
+                    return Ok(lst);
+
+                }
+                return BadRequest("Cliente no encontrado");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        public IActionResult GetImagenIdentificacion(string Identificacion)
+        {
+            try
+            {
+                var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { NoIdentificacion=Identificacion},false);
+                if (cliente.Count() > 0)
+                {
+                    var lst = ManejoImagenes.GetImagen(ImagePathForClientesIdentificaciones,cliente.FirstOrDefault().Imagenes);
+                    return Ok(lst);
+
+                }
+                return BadRequest("Cliente no encontrado");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet]
         public IActionResult ClienteReportInfo([FromQuery] int idcliente, int reportType)

@@ -38,6 +38,8 @@ namespace PrestamoWS.Controllers
 
         protected string currentDir => Directory.GetCurrentDirectory();
         protected string ImagePathForClientes => currentDir + @"\imagesFor\Clientes\";
+        protected string ImagePathForClientesIdentificaciones => currentDir + @"\imagesFor\Clientes\Identificaciones";
+
         protected string ImagePathForGarantia => currentDir+ @"\imagesFor\Garantias\";
         protected string ImagePathForCodeudores => currentDir + @"\imagesFor\Codeudores\";
         protected string ImagePathForInversionistas => currentDir + @"\imagesFor\Inversionistas\";

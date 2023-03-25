@@ -116,7 +116,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ImagesFor\Clientes\" />
+    <Folder Include="ImagesFor\Clientes\Identificaciones\" />
     <Folder Include="ImagesFor\Codeudores\" />
     <Folder Include="ImagesFor\Inversionistas\" />
     <Folder Include="Services\" />
