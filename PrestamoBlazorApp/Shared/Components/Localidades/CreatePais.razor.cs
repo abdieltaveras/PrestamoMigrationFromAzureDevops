@@ -45,6 +45,10 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
             await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad), null, null, false, mudDialogInstance:MudDialog);
 
         }
+        private async Task CloseModal()
+        {
+            MudDialog.Close(DialogResult.Ok("")) ;
+        }
         async Task CreateOrEdit()
         {
             await BlockPage();

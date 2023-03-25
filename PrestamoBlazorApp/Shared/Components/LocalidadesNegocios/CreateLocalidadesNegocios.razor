@@ -1,7 +1,7 @@
 ﻿@inherits BaseForCreateOrEdit
 <EditForm Model="@LocalidadNegocio" OnValidSubmit="@SaveLocalidadNegocio" OnInvalidSubmit="HandleInvalidSubmit">
     <MudCard>
-        <MudCardHeader>
+        <MudCardHeader Class="d-flex justify-end">
             <CardHeaderActions>
                 <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Guardar</MudButton>
             </CardHeaderActions>
@@ -10,7 +10,7 @@
 
             <ObjectGraphDataAnnotationsValidator />
             <MudGrid>
-                <MudItem md="8" lg="8">
+                <MudItem md="6" lg="5">
                     <MudTextField Label="Nombre Juridico" @bind-Value="LocalidadNegocio.NombreJuridico"
                                   For="()=>LocalidadNegocio.NombreJuridico"></MudTextField>
                     <MudTextField Label="Nombre Comercial" @bind-Value="LocalidadNegocio.NombreComercial"
@@ -34,7 +34,7 @@
             </MudGrid>
             <MudDivider />
             <MudGrid>
-                <MudItem md="12" lg="12">
+                <MudItem md="7" lg="6">
                     <MudTextField Label="Slogan" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Slogan"
                                   For="()=>LocalidadNegocio.OtrosDetallesObj.Slogan"></MudTextField>
                     <MudTextField Label="Direccion" @bind-Value="LocalidadNegocio.OtrosDetallesObj.Direccion"

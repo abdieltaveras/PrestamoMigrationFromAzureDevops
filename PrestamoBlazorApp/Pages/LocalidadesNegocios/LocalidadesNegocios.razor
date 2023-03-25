@@ -2,6 +2,8 @@
 @using PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Forms 
+
+<MudText Typo="Typo.h4" Align="Align.Center" Color="MudBlazor.Color.Info">Lista de Localides de Negocios</MudText>
 <GeneralList OnAddClick='()=>OnEditClick("localidadesnegocios/createoredit/")'>
     <CardContent>
         <MudTable Items="localidadesnegocios" Context="ct">

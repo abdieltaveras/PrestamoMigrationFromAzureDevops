@@ -155,8 +155,10 @@
             </div>-->
 
         </DialogContent>
+
         <DialogActions>
-            <MudButton ButtonType="ButtonType.Submit">Guardar</MudButton>
+            <MudButton Variant="Variant.Filled" OnClick="()=>CloseModal(-1)" Class="px-10">Cancelar</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit">Guardar</MudButton>
         </DialogActions>
     </MudDialog>
 </EditForm>

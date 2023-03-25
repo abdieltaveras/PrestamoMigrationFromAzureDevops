@@ -38,6 +38,10 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
             this.Localidad.Codigo = "-----";
             await Handle_SaveData(async () => await localidadesService.SaveLocalidad(this.Localidad),null, null, false, mudDialogInstance:MudDialog);
         }
+        private async Task CloseModal()
+        {
+            MudDialog.Close(DialogResult.Ok(""));
+        }
         async Task CreateOrEdit()
         {
             territorios = await localidadesService.GetComponentesTerritorio();

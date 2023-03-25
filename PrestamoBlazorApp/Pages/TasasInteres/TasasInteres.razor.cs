@@ -16,7 +16,6 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
     {
         [Inject]
         IDialogService DialogService { get; set; }
-        
         [Inject]
         NavigationManager NavigationManager { get; set; }
         [Inject]
@@ -105,7 +104,7 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
             var parameters = new DialogParameters();
 
             parameters.Add("IdTasaInteres", id);
-            var dialog = DialogService.Show<CreateTasasInteres>("", parameters, ShowDialogs.DlgOptionsMediumFullWidth);
+            var dialog = DialogService.Show<CreateTasasInteres>("", parameters, Showdialogs.BasicOptions);
             var result = await dialog.Result;
             if (Convert.ToInt32(result.Data.ToString()) == 1)
             {

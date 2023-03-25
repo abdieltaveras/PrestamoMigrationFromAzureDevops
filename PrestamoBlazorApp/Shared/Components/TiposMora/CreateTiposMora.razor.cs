@@ -7,11 +7,13 @@ using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PrestamoBlazorApp.Shared;
+using MudBlazor;
 
 namespace PrestamoBlazorApp.Shared.Components.TiposMora
 {
     public partial class CreateTiposMora : BaseForCreateOrEdit
     {
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Inject]
         TiposMoraService TiposMoraService { get; set; }
         IEnumerable<TipoMora> tiposmora { get; set; } = new List<TipoMora>();
@@ -73,6 +75,10 @@ namespace PrestamoBlazorApp.Shared.Components.TiposMora
                 this.TipoMora = new TipoMora();
             }
             //await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+        }
+        private async Task CloseModal(int result = -1)
+        {
+            MudDialog.Close(DialogResult.Ok(result));
         }
         void RaiseInvalidSubmit()
         {

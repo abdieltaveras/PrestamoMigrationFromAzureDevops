@@ -1,9 +1,9 @@
 ﻿@page "/CreateLocalidad"
 @using PrestamoBlazorApp.Shared.Components.Forms
 @inherits BaseForCreateOrEdit
-<GeneralModal OnSaveClick="Save">
-    <Content>
 
+<GeneralModal OnCancelClick="CloseModal" OnSaveClick="Save">
+    <Content>
         @*<MudSelect T="DivisionTerritorial" @bind-Value="SelectedTipoLocalidad" Immediate="true " Label="Tipo Division Territorial">
             @foreach (var item in territorios)
             {

@@ -10,6 +10,8 @@ using PrestamoBlazorApp.Shared;
 using PrestamoBlazorApp.Shared.Components.Catalogos;
 using MudBlazor;
 using PrestamoBlazorApp.Shared.Components.Base;
+using PrestamoBlazorApp.Domain;
+
 namespace PrestamoBlazorApp.Pages.Catalogos
 {
     public abstract class CatalogosViewBase : BaseCatalogoComponent
@@ -25,15 +27,13 @@ namespace PrestamoBlazorApp.Pages.Catalogos
 
         protected virtual async Task ShowEditor(CatalogoInsUpd catalogo, bool usarFormularioParaEliminar = false, Func<Task> action = null)
         {
-            
-                var parameters = new DialogParameters();
-                parameters.Add("Catalogo", catalogo);
-                parameters.Add("UsarFormularioParaEliminar", usarFormularioParaEliminar);
-                parameters.Add("UpdateList", action);
-                parameters.Add("CatalogosService", GetService);
-                var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
-                await Dialog.ShowAsync<CatalogoEditor>("Editar", parameters, options);
-            
+            var parameters = new DialogParameters(); 
+            parameters.Add("Catalogo", catalogo);
+            parameters.Add("UsarFormularioParaEliminar", usarFormularioParaEliminar);
+            parameters.Add("UpdateList", action);
+            parameters.Add("CatalogosService", GetService);
+           // var options = new DialogOptions() {  CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+            Dialog.Show<CatalogoEditor>("Editar", parameters, Showdialogs.BasicOptions);
         }
 
         protected virtual CatalogosService GetService { get; }

@@ -3,6 +3,7 @@
         @Content
     </DialogContent>
     <DialogActions>
+        <MudButton OnClick="OnCancelClick">Cancelar</MudButton>
         @if (ShowGuardar) 
         { 
          <MudButton OnClick="OnSaveClick">Guardar</MudButton>
@@ -18,4 +19,9 @@
         public EventCallback<MouseEventArgs> OnSaveClick { get; set; }
         [Parameter]
         public bool ShowGuardar { get; set; } = true;
+        [Parameter]
+        public EventCallback<MouseEventArgs> OnCancelClick { get; set; }
+
+
+        
 }
