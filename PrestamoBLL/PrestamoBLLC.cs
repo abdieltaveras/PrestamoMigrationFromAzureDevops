@@ -20,8 +20,6 @@ namespace PrestamoBLL
         public PrestamoBLLC(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
 
         
-
-
         public int InsUpdPrestamo(Prestamo prestamo)
         {
             //var prToBuild = new PrestamoBuilder(prestamo);

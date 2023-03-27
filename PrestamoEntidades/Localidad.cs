@@ -1,6 +1,7 @@
 ﻿using DevBox.Core.DAL.SQLServer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace PrestamoEntidades
     {
         public int IdLocalidad { get; set; }
         public int IdLocalidadPadre { get; set; }
+        //[Range(1, Int32.MaxValue, ErrorMessage = "debe elegir una division")]
         public int IdDivisionTerritorial { get; set; } = -1;
         public int IdTipoDivisionTerritorial { get; set; }
 

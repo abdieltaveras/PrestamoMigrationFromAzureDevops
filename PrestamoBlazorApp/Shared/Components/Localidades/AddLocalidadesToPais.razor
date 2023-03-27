@@ -1,8 +1,8 @@
 ﻿@inherits BaseForCreateOrEdit
-<MudDialog>
-    <DialogContent>
-        <EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
-            <DataAnnotationsValidator />
+<EditForm Model="@Localidad" OnValidSubmit="SaveLocalidad" OnInvalidSubmit="RaiseInvalidSubmit">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
 
             <MudGrid>
                 <MudItem md="12">
@@ -19,8 +19,8 @@
                     @if (localidadesByTipo.Count() > 0)
                     {
                         <MudSelect T="Localidad"
-                                   @bind-Value="LocalidadTipoSelected"
-                                   Label="@($"Agregar {SelectedDivisionTerritorial.Nombre} a { LocalidadTipoSelected.Nombre}")">
+                               @bind-Value="LocalidadTipoSelected"
+                               Label="@($"Agregar {SelectedDivisionTerritorial.Nombre} a { LocalidadTipoSelected.Nombre}")">
 
                             @foreach (var item in localidadesByTipo)
                             {
@@ -32,17 +32,16 @@
             </MudGrid>
             <MudGrid>
                 <MudItem md="12">
-                    <MudTextField @bind-Value="Localidad.Codigo" T="string" Label="Codigo" MaxLength="10" ></MudTextField>
+                    <MudTextField @bind-Value="Localidad.Codigo" T="string" Label="Codigo" For="@(() =>Localidad.Codigo)"></MudTextField>
                     <MudTextField @bind-Value="Localidad.Nombre" T="string" Label="Nombre" For="@(() => Localidad.Nombre)"></MudTextField>
                 </MudItem>
             </MudGrid>
-        </EditForm>
-    </DialogContent>
-    <DialogActions>
-        <MudButton Variant="Variant.Filled" OnClick="()=>CloseModal()" Class="px-10">Cancelar</MudButton>
-        <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" OnClick="SaveLocalidad" Class="px-10">Guardar</MudButton>
-    </DialogActions>
-</MudDialog>
-@code {
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Filled" OnClick="()=>CloseModal()" Class="px-10">Cancelar</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Class="px-10">Guardar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
 
-}
+

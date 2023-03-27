@@ -50,8 +50,17 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<Cliente> SearchClientes(int option,string textoABuscar, bool cargarImagenesClientes=false)
         {
-            var clientes = searchCliente(option,textoABuscar, cargarImagenesClientes);
+            IEnumerable<Cliente> clientes = null;
+            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchCliente(option, textoABuscar);
+            if (cargarImagenesClientes)
+            {
+                foreach (var cliente in clientes)
+                {
+                    //cliente.Imagen1FileName = Url.Content(SiteDirectory.ImagesForClientes + "/" + cliente.Imagen1FileName);
+                }
+            }
             return clientes;
+            
         }
 
         //Estp se puede poner como un servicio Generico, con un DataTable, asi nos evitamos estar creandolo
@@ -110,19 +119,7 @@ namespace PrestamoWS.Controllers
             }
         }
 
-        private IEnumerable<Cliente> searchCliente(int option,string searchText, bool CargarImagenesClientes)
-        {
-            IEnumerable<Cliente> clientes = null;
-            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchCliente( option , searchText);
-            if (CargarImagenesClientes)
-            {
-                foreach (var cliente in clientes)
-                {
-                    //cliente.Imagen1FileName = Url.Content(SiteDirectory.ImagesForClientes + "/" + cliente.Imagen1FileName);
-                }
-            }
-            return clientes;
-        }
+        
         [HttpGet]
         public IActionResult SearchClienteByProperties([FromQuery] ClienteGetParams param)
         {
@@ -140,7 +137,7 @@ namespace PrestamoWS.Controllers
             }
    
         }
-
+        [HttpGet]
         public IActionResult GetImagenCliente(int IdCliente)
         {
             try
@@ -159,6 +156,7 @@ namespace PrestamoWS.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet]
         public IActionResult GetImagenIdentificacion(string Identificacion)
         {
             try

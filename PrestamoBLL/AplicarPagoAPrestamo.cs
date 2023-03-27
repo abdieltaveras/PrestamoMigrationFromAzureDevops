@@ -12,7 +12,6 @@ namespace PrestamoBLL
     {
         public List<string> ErrorMessages { get; internal set; }
         internal PagoResult() { }
-        public PagoResult Result { get; set; }
         internal PagoResult AddErrorMessage(string errorMessage)
         {
             this.ErrorMessages.Add(errorMessage);
@@ -29,24 +28,24 @@ namespace PrestamoBLL
 
         private string Usuario { get; set; }
 
-        private decimal MontoPagado { get; set; }
+        private decimal MontoAAplicar { get; set; }
 
         private Prestamo Prestamo { get; set; }
 
         private PrestamoBLLC PrestamoBLLC { get; set; }
 
         private List<string> ErrorMessages { get; set; }
-        public AplicarPagoAPrestamo(int idprestamo, DateTime Fecha, string nombreUsuario, PositiveDecimal MontoPagado, int idLocalidadNegocio) : base(idLocalidadNegocio, nombreUsuario)
+        private AplicarPagoAPrestamo(int idprestamo, DateTime fecha, string nombreUsuario, PositiveDecimal montoPagado, int idLocalidadNegocio) : base(idLocalidadNegocio, nombreUsuario)
         {
             this.IdPrestamo = idprestamo;
-            this.Fecha = Fecha;
+            this.Fecha = fecha;
             this.Usuario = nombreUsuario;
-            this.MontoPagado = MontoPagado;
+            this.MontoAAplicar = montoPagado;
         }
 
         private PagoResult ProcesarPago()
         {
-            GetPrestamo();
+            //GetPrestamo();
             if (Fecha <= Prestamo.FechaEmisionReal)
             {
                 return new PagoResult().AddErrorMessage("Lo siento la fecha de esta transaccion no puede ser menor o igual a la fecha real de creacion del prestamo");
@@ -55,21 +54,21 @@ namespace PrestamoBLL
 
             return new PagoResult();
         }
-        private void GetPrestamo()
+        private void GetDeuda()
         {
-            PrestamoBLLC = new PrestamoBLLC(this.IdLocalidadNegocioLoggedIn, this.LoginName);
             var result = PrestamoBLLC.GetPrestamos(new PrestamosGetParams { idPrestamo = IdPrestamo }).FirstOrDefault();
             this.Prestamo = result;
         }
 
         private void GetCXC()
         {
-            PrestamoBLLC.GetCXC(this.IdPrestamo,DateTime.Now);
+            PrestamoBLLC.GetCXC(this.IdPrestamo, DateTime.Now);
         }
 
-        private void aplicarPago()
+        public void AplicarCredito(int idprestamo, DateTime fecha, PositiveDecimal montoPagado, int idLocalidadNegocio, string nombreUsuario)
         {
-
+            var pago = new AplicarPagoAPrestamo(idprestamo,fecha,  nombreUsuario, montoPagado, idLocalidadNegocio);
+            GetDeuda();
         }
     }
 }

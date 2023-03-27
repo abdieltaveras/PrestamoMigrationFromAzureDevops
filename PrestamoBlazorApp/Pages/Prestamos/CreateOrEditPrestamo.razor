@@ -1,15 +1,11 @@
 ﻿@page "/prestamo/createoredit"
-@page "/prestamos/createoreditprestamo"
+@page "/prestamo/createoreditprestamo"
 @page "/prestamo/CreateOrEdit/{idPrestamo:int}"
 @*@using PrestamoBlazorApp.Pages.Garantias*@
 @using PrestamoBlazorApp.Shared.Components.Clientes;
 
 @inherits BaseForCreateOrEdit
 
-@{
-    var textLabelJustify = "text-left";
-}
-<div class="grid-container">
     <EditForm Model="@prestamo">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -165,107 +161,22 @@
                             <MudItem md="12" lg="12">
                                 @if (Cuotas.Count() > 0)
                                 {
-                                    <h3>Proyeccion Cuotas: @InfoCuotas()</h3>
-                                    <div class="form-group row">
-                                        <ProyeccionCuotasValoresIniciales Cuotas="@Cuotas" />
-                                    </div>
+                                    <MudText Typo="Typo.body2"> Proyeccion Cuotas: @InfoCuotas()</MudText> 
+                                    <ProyeccionCuotasValoresIniciales Cuotas="@Cuotas" />
                                 }
                                 else
                                 {
-                                    <div class="form-group row">
+                                    <MudText>
                                         Cuota no generada @Cuotas.Count()
-                                    </div>
+                                    </MudText>
                                 }
                             </MudItem>
                         </MudGrid>
                     </MudItem>
                 </MudGrid>
-           
+
             </MudCardContent>
         </MudCard>
-        <!--<div class="bg-secondary">
-            <h3 class="text-left">Crear o Editar Prestamo</h3>
-            <div class="@textLabelJustify">
-                <button id="btnGuardar" type="button" @onclick="@SavePrestamo">Guardar</button>-->
-                @*<button id="btnsh" type="button" onclick="() =>$('#btnsh').prop('disabled',true)>show hide</button>*@
-            <!--</div>
-        </div>-->
-        @if (loading)
-        {
-            <div class="loader">Cargando...</div>
-        }
-        else
-        {
-            <div class="row">
-       
-                <div class="col-sm-7">
-                    
-                        <!--<div class="form-group row">-->
-                            @*<label class="col-sm-4 col-form-label @textLabelJustify">Codigo de Interes</label>
-                                <InputText @bind-Value="CodigoInteres" class="col-sm-2" />*@
-                            <!--<label class="col-sm-4 col-form-label @textLabelJustify">Interes</label>
-                            <select value="@prestamo.IdTasaInteres"  @onchange="OnTasaInteresChange" class="form-control col-sm-4">
-                                <option value=-1>Seleccione un Interes</option>
-                                @foreach (var item in TasasDeInteres)
-                                        {
-                                    <option value=@item.idTasaInteres>@($"{item.Codigo} Tasa Mensual {item.InteresMensual.ToString("#.0000")} Anual {item.InteresAnual.ToString("#.0000")}")</option>
-                                        }
-                            </select>
-                        </div>-->
-                    
-
-                        <!--<div class="form-group row">-->
-                            @*<label class="col-sm-4 col-form-label @textLabelJustify">Periodo</label>
-                                <InputText @bind-Value="CodigoPeriodo" class="col-sm-2" />*@
-                            <!--<label class="col-sm-4 col-form-label @textLabelJus.Periodo</label>
-                            <select value="@prestamo.IdPeriodo" @onchange="OnPeriodoChange" class="form-control col-sm-4">
-                                <option value=-1>Seleccione un Periodo</option>
-                                @foreach (var item in Periodos)
-                                        {
-                                    <option value=@item.idPeriodo>@($"{item.Codigo}  {item.Nombre}")</option>
-                                        }
-                            </select>
-                        </div>-->
-                    
-
-
-
-                    @*<div class="form-group row">
-                        <label class="col-sm-4 col-form-label @textLabelJustify">Cantidad de Cuotas</label>
-                        <input type="number" value="@prestamo.CantidadDePeriodos" @onchange="OnCantidadPeriodoChange" class="col-sm-2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern="0+\.[0-9]*[1-9][0-9]*$" step="1" min="1" max="99999" />
-                    </div>*@
-                    
-                        <!--<div class="form-group row">-->
-                            @*<label class="col-sm-4 col-form-label @textLabelJustify">Codigo de Mora</label>
-                                <InputText @bind-Value="CodigoMora" class="col-sm-3" />*@
-                            <!--<label class="col-sm-4 col-form-label @textLabelJustify">Mora</label>-->
-                            @*<InputSelect @bind-Value="@prestamo.IdTipoMora" class="form-control col-sm-4">
-                                <option value=-1>Seleccione La Mora</option>
-                                @foreach (var item in TiposMora)
-                                        {
-                                    <option value=@item.IdTipoMora>@($"{item.Codigo}  {item.Nombre}")</option>
-                                        }
-                            </InputSelect>*@
-                        <!--</div>-->
-                    
-                        @*@if (Cuotas.Count() > 0)
-                        {
-                            <h3>Proyeccion Cuotas: @InfoCuotas()</h3>
-                            <div class="form-group row">
-                                <ProyeccionCuotasValoresIniciales Cuotas="@Cuotas" />
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="form-group row">
-                                Cuota no generada @Cuotas.Count()
-                            </div>
-                        }*@
-                    
-                </div>
-            </div>
-
-        }
     </EditForm>
-</div>
+
 

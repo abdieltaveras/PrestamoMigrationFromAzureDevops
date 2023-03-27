@@ -107,9 +107,9 @@ namespace PrestamoEntidades
         [Required]
         [Display(Name = "Estatus")]
         public virtual bool Activo { get; set; } = true;
-        [Required(ErrorMessage = "ingrese el Codigo")]
-        [MaxLength(10)]
-        [MinLength(3)]
+        [Required(ErrorMessage = "no se permite codigo vacio debe ingresar codigo")]
+        [MaxLength(10, ErrorMessage = "El codigo no puede ser mas de 3 digitos")]
+        [MinLength(3, ErrorMessage ="El codigo no puede ser menos de 3 digitos")]
         public virtual string Codigo { get; set; } 
 
         [Required(ErrorMessage = "ingrese el nombre")]
