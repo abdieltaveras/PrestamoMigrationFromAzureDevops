@@ -56,6 +56,7 @@
     <Folder Include="Reports\Rdlc\" />
     <Folder Include="Shared\Components\ClienteEstatus\" />
     <Folder Include="Shared\Components\Negocios\" />
+    <Folder Include="Shared\Components\TasasInteres\" />
   </ItemGroup>
 
   

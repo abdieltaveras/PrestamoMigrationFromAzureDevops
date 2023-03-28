@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PrestamoBlazorApp.Shared.Components.TasasInteres;
+using PrestamoBlazorApp.Pages.TasasInteres;
 using PrestamoBlazorApp.Domain;
 
 namespace PrestamoBlazorApp.Pages.TasasInteres

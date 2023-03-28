@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PrestamoBlazorApp.Shared.Components.TasasInteres;
+using PrestamoBlazorApp.Pages.TasasInteres;
 namespace PrestamoBlazorApp.Pages.EntidadEstatus
 {
     public partial class EntidadEstatus : BaseForList

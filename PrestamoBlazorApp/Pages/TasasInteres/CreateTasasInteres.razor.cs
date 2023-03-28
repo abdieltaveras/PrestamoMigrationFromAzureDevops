@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PrestamoBlazorApp.Shared.Components.TasasInteres
+namespace PrestamoBlazorApp.Pages.TasasInteres
 {
     public partial class CreateTasasInteres : BaseForCreateOrEdit
     {
