@@ -1,0 +1,44 @@
+﻿@page "/Cliente/PrestamoInfo"
+<MudCard>
+    <MudCardContent>
+        <MudGrid>
+            <MudItem md="6" lg="6">
+                <MudTextField @bind-bind-Value="@SearchText" T="string"  />
+            </MudItem>
+            <MudItem md="6" lg="6">
+                <MudButton OnClick="@DialogSearchPrestamo" >
+                    Buscar Prestamo
+                </MudButton>
+                @*<MudTextField @bind-bind-Value="@SearchText" T="string" />*@
+            </MudItem>
+        </MudGrid>
+        <br/>
+        <MudDivider/>
+        <MudGrid>
+            <MudItem md="4" lg="4">
+                <h2>Datos Del Cliente</h2>
+                <p style="font-weight:bold;">Nombre: <span style="font-weight:normal;">@_Prestamo.NombreCompleto</span></p>
+                <p style="font-weight:bold;">TipoDocumento: <span style="font-weight:normal;">@_Prestamo.NombreDocumentoIdentidad</span></p>
+                <p style="font-weight:bold;">Documento: ***<span style="font-weight:normal;">@_Prestamo.DocumentoIdentidadMasked</span></p>
+
+            </MudItem>
+            <MudItem md="4" lg="4">
+                <h2>Datos Del Prestamo</h2>
+                <p style="font-weight:bold;"># Prestamo: <span style="font-weight:normal;">@_Prestamo.PrestamoNumero</span></p>
+                <p style="font-weight:bold;">Emision: <span style="font-weight:normal;">@_Prestamo.FechaEmisionReal</span></p>
+                <p style="font-weight:bold;">Vence: <span style="font-weight:normal;">@_Prestamo.FechaVencimiento</span></p>
+
+            </MudItem>
+            <MudItem md="4" lg="4">
+                <h2>Datos De La Garantia</h2>
+                <p style="font-weight:bold;">Marca: <span style="font-weight:normal;">@_Garantia.NombreMarca</span></p>
+                <p style="font-weight:bold;">Modelo: <span style="font-weight:normal;">@_Garantia.NombreModelo</span></p>
+                <p style="font-weight:bold;">Color: <span style="font-weight:normal;">@_Garantia.NombreColor</span></p>
+
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+</MudCard>
+@code {
+
+}

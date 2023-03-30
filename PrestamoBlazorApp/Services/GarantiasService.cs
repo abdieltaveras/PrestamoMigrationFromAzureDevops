@@ -18,9 +18,9 @@ namespace PrestamoBlazorApp.Services
     public class GarantiasService : ServiceBase
     {
         string apiUrl = "api/garantias";
-        public async Task<IEnumerable<Garantia>> GetWithPrestamo(BuscarGarantiaParams buscarGarantiaParams)
+        public async Task<IEnumerable<GarantiaConMarcaYModeloYPrestamos>> GetWithPrestamo(BuscarGarantiaParams buscarGarantiaParams)
         {
-            var result = await GetAsync<Garantia>(apiUrl + "/GetWithPrestamo", new { JsonGet = buscarGarantiaParams.ToJson() });
+            var result = await GetAsync<GarantiaConMarcaYModeloYPrestamos>(apiUrl + "/GetWithPrestamo", new { JsonGet = buscarGarantiaParams.ToJson() });
             return result;
         }
 

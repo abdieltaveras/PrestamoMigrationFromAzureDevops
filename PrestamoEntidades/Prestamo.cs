@@ -128,9 +128,12 @@ namespace PrestamoEntidades
     }
     public class PrestamoClienteUI
     {
+        public int IdGarantia { get; set; } = -1;
+
         public string NombreDocumentoIdentidad => Enum.GetName(typeof(TiposIdentificacionCliente), IdTipoIdentificacion);
 
         public string NumeracionDocumentoIdentidad { get; set; } = string.Empty;
+        public string DocumentoIdentidadMasked { get { return NumeracionDocumentoIdentidad.Length>4?  NumeracionDocumentoIdentidad.Substring(NumeracionDocumentoIdentidad.Length - 4) : NumeracionDocumentoIdentidad; } } 
 
         public string InfoLaboral { get; set; } = string.Empty;
 
