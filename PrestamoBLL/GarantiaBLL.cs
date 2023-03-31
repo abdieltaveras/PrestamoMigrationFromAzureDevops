@@ -81,10 +81,10 @@ namespace PrestamoBLL
             return (result!=null);
         }
 
-        public IEnumerable<Garantia> GetGarantiasByPrestamo(int idPrestamo)
+        public IEnumerable<GarantiaConMarcaYModelo> GetGarantiasByPrestamo(int idPrestamo)
         {
             var searchParam = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
-            var result = DBPrestamo.ExecReaderSelSP<Garantia>("spGetGarantiasByprestamo", searchParam);
+            var result = DBPrestamo.ExecReaderSelSP<GarantiaConMarcaYModelo>("spGetGarantiasByprestamo", searchParam);
             return result;
         }
         public IEnumerable<GarantiasConPrestamo> GarantiasConPrestamos(IEnumerable<int> idGarantias)

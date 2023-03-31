@@ -1,4 +1,5 @@
 ﻿using DevBox.Core.DAL.SQLServer;
+using Newtonsoft.Json;
 using PcpUtilidades;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,7 @@ namespace PrestamoEntidades
         public string NombreModelo { get;  set; }
 
         public string NombreColor { get; set; }
+        public DetalleGarantia DetalleGarantia { get { return JsonConvert.DeserializeObject<DetalleGarantia>(Detalles); } }
     }
 
     public class GarantiaConMarcaYModeloYPrestamos : Garantia

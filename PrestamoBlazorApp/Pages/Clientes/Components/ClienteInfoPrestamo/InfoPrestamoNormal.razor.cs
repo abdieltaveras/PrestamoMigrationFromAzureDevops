@@ -20,7 +20,7 @@ namespace PrestamoBlazorApp.Pages.Clientes.Components.ClienteInfoPrestamo
         GarantiasService _GarantiasService { get; set; }
 
         PrestamoClienteUI _Prestamo { get; set; } = new PrestamoClienteUI();
-        GarantiaConMarcaYModelo _Garantia { get; set; } = new GarantiaConMarcaYModelo();
+        IEnumerable<GarantiaConMarcaYModelo> _Garantias { get; set; } = new List<GarantiaConMarcaYModelo>();
 
 
         private async Task DialogSearchPrestamo()
@@ -34,16 +34,13 @@ namespace PrestamoBlazorApp.Pages.Clientes.Components.ClienteInfoPrestamo
             if (!result.Cancelled)
             {
                 _Prestamo = (PrestamoClienteUI)result.Data;
-                await GetGarantia(_Prestamo.IdPrestamo);
+                await GetGarantias(_Prestamo.IdPrestamo);
             }
         }
-        private async Task GetGarantia(int IdPrestamo)
+        private async Task GetGarantias(int IdPrestamo)
         {
-            var gar = await _GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = _Prestamo.IdGarantia});
-            if (gar.Count() > 0)
-            {
-                _Garantia = gar.FirstOrDefault();
-            }
+            var gar = await _GarantiasService.GetGarantiasByPrestamo(IdPrestamo);
+             _Garantias = gar;
         }
     }
 }
