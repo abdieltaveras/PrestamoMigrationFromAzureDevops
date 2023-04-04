@@ -486,7 +486,7 @@ namespace PrestamoEntidades
         public int idLocalidadNegocio { get; set; } = -1;
         public int idCliente { get; set; } = -1;
         public int idGarantia { get; set; } = -1;
-        public DateTime? fechaEmisionRealDesde { get; set; } 
+        public DateTime? fechaEmisionRealDesde { get; set; }  
         public DateTime? fechaEmisionRealHasta { get; set; } 
     }
 
