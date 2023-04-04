@@ -203,8 +203,6 @@ namespace PrestamoEntidades
         public string NombreCompleto { get; set; } = "";
         public string Matricula { get; set; } = "";
         public string Placa { get; set; } = "";
-
-
     }
     public class PrestamoConDetallesParaCreditosYDebitos
     //: IPrestamoConDetallesParaCreditosyDebitos
@@ -490,8 +488,8 @@ namespace PrestamoEntidades
         public int idLocalidadNegocio { get; set; } = -1;
         public int idCliente { get; set; } = -1;
         public int idGarantia { get; set; } = -1;
-        public DateTime fechaEmisionRealDesde { get; set; } = InitValues._19000101;
-        public DateTime fechaEmisionRealHasta { get; set; } = InitValues._19000101;
+        public DateTime? fechaEmisionRealDesde { get; set; } 
+        public DateTime? fechaEmisionRealHasta { get; set; } 
     }
 
     
