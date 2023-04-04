@@ -61,7 +61,11 @@ namespace PrestamoBlazorApp.Services
         {
             return await GetAsync<Color>("api/color/get", new { JsonGet = colorGetParams.ToJson() });
         }
-
+        public async Task<IEnumerable<GarantiaConMarcaYModelo>> GetGarantiasByPrestamo(int IdPrestamo)
+        {
+            return await GetAsync<GarantiaConMarcaYModelo>(apiUrl+ "/GetGarantiasByPrestamo", new { IdPrestamo = IdPrestamo });
+        }
+        //GetGarantiasByPrestamo
         public async Task<bool> TienePrestamoVigente(int idGarantia)
         {
             var result = await GetAsync<bool>("api/Garantias/TienePrestamoVigentes", new { idGarantia = idGarantia});

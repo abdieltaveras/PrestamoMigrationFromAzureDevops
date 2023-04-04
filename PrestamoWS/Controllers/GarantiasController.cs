@@ -57,10 +57,10 @@ namespace PrestamoWS.Controllers
             return result;
         }
         [HttpGet]
-        public IEnumerable<Garantia> GetGarantiasByPrestamo(int idPrestamo)
+        public IActionResult GetGarantiasByPrestamo(int idPrestamo)
         {
             var result = new GarantiaBLL(this.IdLocalidadNegocio, this.LoginName).GetGarantiasByPrestamo(idPrestamo);
-            return result;
+            return Ok(result);
         }
 
         [HttpGet]

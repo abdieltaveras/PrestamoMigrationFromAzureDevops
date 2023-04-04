@@ -128,8 +128,6 @@ namespace PrestamoEntidades
     }
     public class PrestamoClienteUI
     {
-        public int IdGarantia { get; set; } = -1;
-
         public string NombreDocumentoIdentidad => Enum.GetName(typeof(TiposIdentificacionCliente), IdTipoIdentificacion);
 
         public string NumeracionDocumentoIdentidad { get; set; } = string.Empty;
