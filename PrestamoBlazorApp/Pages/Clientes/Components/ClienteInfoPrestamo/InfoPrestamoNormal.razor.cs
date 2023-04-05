@@ -57,7 +57,7 @@ namespace PrestamoBlazorApp.Pages.Clientes.Components.ClienteInfoPrestamo
             var dialog = DialogService.Show<SearchPrestamoByProperty>("Seleccionar Prestamo", parameters, dialogOptions);
             var result = await dialog.Result;
 
-            if (!result.Cancelled)
+            if (!result.Canceled)
             {
                 _Prestamo = (PrestamoClienteUI)result.Data;
                 await GetGarantias(_Prestamo.IdPrestamo);

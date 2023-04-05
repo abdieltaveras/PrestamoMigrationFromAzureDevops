@@ -14,7 +14,7 @@
              ShowSearchOption="true"
              >
     <ActionsButtons>
-        <MudIconButton Icon="@Icons.Filled.Print" OnClick="()=>ShowReportGenerator()"></MudIconButton>
+        <MudIconButton Icon="@Icons.Material.Filled.Print" OnClick="()=>ShowReportGenerator()"></MudIconButton>
     </ActionsButtons>
     <CardContent>
         <MudTable Loading="LoadingTable" Items="@clientes" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" Filter="new Func<Cliente,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
@@ -43,7 +43,7 @@
 
                 <MudTd>
                     <MudIconButton OnClick='()=>OnEditClick("clientes/createoredit/" + context.IdCliente)' Icon="@Icons.Material.Outlined.Edit"></MudIconButton>
-                    <MudMenu Icon="@Icons.Filled.Print">
+                    <MudMenu Icon="@Icons.Material.Filled.Print">
                         <MudMenuItem OnClick="()=>PrintFicha(context.IdCliente,1)">PDF</MudMenuItem>
                         <MudMenuItem OnClick="()=>PrintFicha(context.IdCliente,1)">EXCEL</MudMenuItem>
                     </MudMenu>

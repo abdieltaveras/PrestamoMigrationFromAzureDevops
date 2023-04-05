@@ -2,7 +2,7 @@
 @inherits BaseForList
 @using PrestamoBlazorApp.Shared.Components.Forms
 
-<GeneralList CardTitle="Lista de Prestamos" LinkAddButton="prestamos/createoredit/" cbSearchString="searchTableDataBase">
+<GeneralList CardTitle="Lista de Prestamos" LinkAddButton="prestamos/createoredit/">
     <ActionsButtons>
    
     </ActionsButtons>
@@ -27,8 +27,8 @@
                 <MudTd DataLabel="Monto Prestado">@context.MontoPrestado</MudTd>
 
                 <MudTd>
-                    <MudIconButton OnClick='()=>OnEditClick("prestamos/createoredit/" + context.IdPrestamo.ToString())' Icon="@Icons.Material.Outlined.Edit"></MudIconButton>
-                    <MudMenu Icon="@Icons.Filled.Print">
+                    <MudIconButton OnClick='()=>OnEditClick("prestamo/createoredit/" + context.IdPrestamo.ToString())' Icon="@Icons.Material.Outlined.Edit"></MudIconButton>
+                    <MudMenu Icon="@Icons.Material.Filled.Print">
                         @*<MudMenuItem OnClick="()=>PrintFicha(context.IdCliente,1)">PDF</MudMenuItem>*@
                         @*<MudMenuItem OnClick="()=>PrintFicha(context.IdCliente,1)">EXCEL</MudMenuItem>*@
                     </MudMenu>
