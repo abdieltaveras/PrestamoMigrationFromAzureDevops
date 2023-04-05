@@ -1,0 +1,38 @@
+﻿@inherits BaseForList
+@using PrestamoBlazorApp.Shared.Components.Forms
+
+
+<MudDialog>
+    <DialogContent>
+        <MudTable Items="@prestamos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped" >
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Elementos</MudText>
+                <MudTextField Immediate="true" @bind-Value="SearchStringTable" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                <MudDivider FlexItem="true" Vertical="true" DividerType="DividerType.Middle" Class="ml-1 mr-1 my-1"></MudDivider>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>No Prestamo</MudTh>
+                <MudTh>Fecha Emision</MudTh>
+                <MudTh>Cliente</MudTh>
+                <MudTh>Monto</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.PrestamoNumero</MudTd>
+                <MudTd DataLabel="Fecha">@context.FechaEmisionReal.ToString("dd/MM/yyyy")</MudTd>
+                <MudTd DataLabel="Nombre">@context.NombreCompleto </MudTd>
+                <MudTd DataLabel="Monto Prestado">@context.TotalPrestado</MudTd>
+                <MudTd>
+                    <MudIconButton OnClick='()=>SelectPrestamo(context)' Icon="@Icons.Material.Outlined.ChevronRight"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </DialogContent>
+</MudDialog>
+
+@code {
+
+}

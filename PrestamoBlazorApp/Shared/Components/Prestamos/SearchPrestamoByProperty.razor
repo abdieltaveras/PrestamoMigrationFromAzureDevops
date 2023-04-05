@@ -27,19 +27,19 @@
                 {
                     <MudTable Items="@prestamos" Hover="true" Breakpoint="Breakpoint.Sm" Height="400px">
                         <HeaderContent>
-                            <MudTh>IdPrestamo</MudTh>
+                            <MudTh># Prestamo</MudTh>
                             <MudTh>Identificacion</MudTh>
                             <MudTh>Nombre</MudTh>
 
                             <MudTh>Seleccionar</MudTh>
                         </HeaderContent>
                         <RowTemplate>
-                            <MudTd DataLabel="IdPrestamo">@context.IdPrestamo</MudTd>
+                            <MudTd DataLabel="IdPrestamo">@context.PrestamoNumero</MudTd>
                             <MudTd DataLabel="Identificacion">@context.NumeracionDocumentoIdentidad</MudTd>
                             <MudTd DataLabel="Nombre Completo">@context.NombreCompleto</MudTd>
 
                             <MudTd>
-                                <MudIconButton Icon="@Icons.Filled.Add" OnClick="()=>SelectedValue(context)" />
+                                <MudIconButton Icon="@Icons.Filled.ChevronRight" OnClick="()=>SelectedValue(context)" />
                             </MudTd>
                         </RowTemplate>
                     </MudTable>
