@@ -17,7 +17,7 @@ namespace PrestamoWS.Controllers
 
         protected int IdLocalidadNegocio { get { return GetIdLocalidadNegocio(); } }
 
-        protected int IdNegocio { get; } = 1;
+        protected int IdNegocio { get ; } = 1;
 
         protected string LoginName { get { return this.GetLoginName(); }  }
 
@@ -31,6 +31,8 @@ namespace PrestamoWS.Controllers
         {
             return 1;
         }
+
+        
         //private string GetLoginName()
         //{
         //    return "development"+DateTime.Now;
