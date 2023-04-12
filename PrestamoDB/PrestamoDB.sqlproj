@@ -231,5 +231,6 @@
     <None Include="Prestamo_api.publish.publish.xml" />
     <None Include="SchemaCompareForAbdiel.scmp" />
     <None Include="RandyPrestamoDB.publish.xml" />
+    <None Include="SchemaCompareForRandy.scmp" />
   </ItemGroup>
 </Project>

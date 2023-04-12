@@ -1,0 +1,24 @@
+﻿@page "/createClasificacion"
+@inherits BaseForCreateOrEdit
+
+<MudText Align="Align.Center" Color="MudBlazor.Color.Info" Typo="Typo.h5">  Creacion y Edicion </MudText>
+    <MudDialog>
+        <DialogContent>
+            <EditForm Model="Clasificacion" OnInvalidSubmit="SaveClasificacion">
+           @* <MudTextField @bind-Value="Clasificacion.Codigo" T="string" Label="Codigo"></MudTextField>*@
+            <MudTextField @bind-Value="Clasificacion.Nombre" T="string" Label="Nombre"></MudTextField>
+            <MudCheckBox @bind-Checked="Clasificacion.RequiereGarantia" Label="Requiere Garantia" Color="MudBlazor.Color.Primary"UnCheckedColor="MudBlazor.Color.Secondary"></MudCheckBox>
+            <MudCheckBox @bind-Checked="Clasificacion.RequiereAutorizacion" Label="Requiere Autorizacion" Color="MudBlazor.Color.Primary" UnCheckedColor="MudBlazor.Color.Secondary"></MudCheckBox>
+            <MudCheckBox @bind-Checked="Clasificacion.SaltarDomingo" Label="Saltar Domingo" Color="MudBlazor.Color.Primary" UnCheckedColor="MudBlazor.Color.Secondary"></MudCheckBox>
+            </EditForm>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Color="MudBlazor.Color.Warning" Variant="Variant.Filled" OnClick="()=>CloseModal(-1)" Class="px-10">Cancelar</MudButton>
+        <MudButton Color="MudBlazor.Color.Info" OnClick="SaveClasificacion" Variant="Variant.Filled" Class="px-10">Guardar</MudButton>
+        </DialogActions>
+    </MudDialog>
+
+
+@code {
+
+}

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PrestamoBlazorApp.Pages.TasasInteres;
 using PrestamoBlazorApp.Domain;
+using PrestamoBlazorApp.Pages.Clasificaciones;
 
 namespace PrestamoBlazorApp.Pages.TasasInteres
 {
@@ -46,12 +47,12 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         {
             await GetData();
         }
-        async Task CreateOrEdit(int idTasaInteres = -1)
+        async Task CreateOrEdit(int IdTasaInteres = -1)
         {
             await BlockPage();
-            if (idTasaInteres > 0)
+            if (IdTasaInteres > 0)
             {
-                var tasainteres = await TasasInteresService.Get(new TasaInteresGetParams { idTasaInteres = idTasaInteres });
+                var tasainteres = await TasasInteresService.Get(new TasaInteresGetParams { idTasaInteres = IdTasaInteres });
                 this.TasaInteres = tasainteres.FirstOrDefault();
                 this.ChkRequiereAutorizacion = this.TasaInteres.RequiereAutorizacion;
                 this.ChkEstatus = this.TasaInteres.Activo;
@@ -63,7 +64,7 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
                 this.TasaInteres = new TasaInteres();
             }
             await UnBlockPage();
-            ShowDialog(idTasaInteres);
+            ShowDialog(IdTasaInteres);
             //await JsInteropUtils.ShowModal(jsRuntime, "#MyModal");
         }
         async Task SaveTasaInteres()
@@ -102,7 +103,6 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
         private async Task ShowDialog(int id = -1)
         {
             var parameters = new DialogParameters();
-
             parameters.Add("IdTasaInteres", id);
             var dialog = DialogService.Show<CreateTasasInteres>("", parameters, Showdialogs.BasicOptions);
             var result = await dialog.Result;

@@ -3,17 +3,13 @@
 @using PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
 @inherits BaseForCreateOrEdit
 
-<div class="card">
-    <div class="card-header">
+<MudGrid>
+@*<div class="card">*@
+    <MudItem md="12"sm="12" >
         <MudText Color="MudBlazor.Color.Info" Typo="Typo.h4" Align="Align.Center">Creacion y Edicion de Localidades de Negocios</MudText>
-       @* <h4 class="card-title">Creacion y edicion de localidades de negocio </h4>*@
-    </div>
-    <div class="card-body">
         <CreateLocalidadesNegocios IdLocalidadNegocio="IdLocalidadNegocio"></CreateLocalidadesNegocios>
-    </div>
-
-</div>
-
+    </MudItem>
+</MudGrid>
 
 @code {
 

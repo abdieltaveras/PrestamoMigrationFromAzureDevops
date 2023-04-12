@@ -1,0 +1,187 @@
+﻿@*@page "/clasificaciones/clasificaciones"*@
+@page "/clasificacionesV2"
+@using PrestamoBlazorApp.Shared.Components.Catalogos
+@inherits BaseForCreateOrEdit
+
+<MudText Typo="Typo.h2" Align="Align.Center" Color="MudBlazor.Color.Info">Clasificaciones</MudText>
+<MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@(()=>CreateOrEdit())">Agregar</MudButton>
+<MudTable Items="@clasificaciones" Dense="true" Hover="true" Bordered="false" Striped="false">
+    <HeaderContent>
+                <MudTh>Nombre </MudTh>
+                <MudTh>Requiere Garantia</MudTh>
+                <MudTh>Requiere Autorizacion</MudTh>
+                <MudTh>Salta el Domingo</MudTh>
+                <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+     <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+        <MudTd>
+             @if (context.RequiereGarantia)
+                {
+
+                    <span class="badge badge-success">Si</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">No</span>
+                }
+            </MudTd>
+            <MudTd>
+            @if (context.RequiereAutorizacion)
+            {
+                <span class="badge badge-success">Si</span>
+            }
+            else
+            {
+                <span class="badge badge-danger">No</span>
+            }
+            </MudTd>
+            <MudTd>
+            @if(context.SaltarDomingo)
+            {
+               <span class="badge badge-success">Si</span>
+            }
+            else
+            {
+              <span class="badge badge-danger">No</span>
+            }
+            </MudTd>
+            <MudTd>
+            @*<MudButton> title="ver detalles" Variant="Variant.Outlined"</MudButton>*@
+            <MudButton OnClick="@(()=>CreateOrEdit(context.IdClasificacion))" Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Edit">
+            </MudButton>
+            <MudButton title="Anular o Eliminar" Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Delete" Color="MudBlazor.Color.Error">Eliminar</MudButton>
+            </MudTd>
+    </RowTemplate>
+</MudTable >
+ 
+@*<table class="table table-responsive-md table-hover table-sm">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Requiere Garantia</th>
+            <th>Requiere Autorizacion</th>
+            <th>Salta el Domingo</th>
+            <th>Operacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (clasificaciones.Count() > 0)
+        {
+            @foreach (var item in clasificaciones)
+            {
+        <tr>
+            <td>@item.Nombre</td>
+            <td>
+                @if (item.RequiereGarantia)
+                {
+                    <span class="badge badge-success">Si</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">No</span>
+                }
+            </td>
+            <td>
+                @if (item.RequiereAutorizacion)
+                {
+                    <span class="badge badge-success">Si</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">No</span>
+                }
+            </td>
+            <td>
+                @if (item.SaltarDomingo)
+                {
+                    <span class="badge badge-success">Si</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">No</span>
+                }
+            </td>
+            <td>
+                @*<button class="btn btn-outline-warning">
+                <i class="oi oi-document"></i>
+            </button>*@
+
+            @*    <button onclick="alert('opcion no implementada aun')" title="ver detalles" class="btn btn-outline-primary">
+                    <i class="fa fa-info-circle"></i>
+                </button>
+                <button @onclick="()=>CreateOrEdit(item.IdClasificacion)" class="btn btn-outline-primary">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button title="Anular o Eliminar" class="btn btn-outline-danger">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+
+            }
+        }
+        else
+        {
+            <tr>
+                <td>Cargando datos ejecute una busqueda</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+<div class="modal fade" id="ModalCreateOrEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Clasificacion.IdClasificacion > 0)
+                {
+                    <h5 class="modal-title" id="edtMarcaTitel">Editar Marca</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title" id="edtMarcaTitel">Crear Marca</h5>
+                }
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md-12">
+                <EditForm autocomplete="off" Model="@Clasificacion" OnValidSubmit="SaveClasificacion" OnInvalidSubmit="RaiseInvalidSubmit">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="codigo">Codigo</label>
+                                <InputText id="codigo" class="form-control col-md-4" @bind-Value="Clasificacion.Codigo"></InputText>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <InputText id="nombre" class="form-control col-md-6" @bind-Value="Clasificacion.Nombre"></InputText>
+                            </div>
+                            <div class="form-group">
+                                <label for="reqGarantia">Requiere Garantia</label>
+                                <InputCheckbox id="reqGarantia" @bind-Value="Clasificacion.RequiereGarantia" class="form-control"></InputCheckbox>
+                            </div>
+                            <div class="form-group">
+                                <label for="reqAutorizacion">Requiere Autorizacion</label>
+                                <InputCheckbox id="reqAutorizacion" @bind-Value="Clasificacion.RequiereAutorizacion" class="form-control"></InputCheckbox>
+                            </div>
+                            <div class="form-group">
+                                <label for="saltarDomingo">Saltar Domingo</label>
+                                <InputCheckbox id="saltarDomingo" @bind-Value="Clasificacion.SaltarDomingo" class="form-control"></InputCheckbox>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+
+        </div>
+    </div>
+</div>
+@if (loading)
+{
+    <div class="loader">Cargando datos, espere...</div>*@
