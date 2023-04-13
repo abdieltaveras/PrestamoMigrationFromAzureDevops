@@ -39,10 +39,12 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] TasaInteres insUpdParam)
+        public IActionResult Post([FromBody] TasaInteres tasaDeInteres)
         {
-            insUpdParam.IdLocalidadNegocio = 1;
-            var id = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdTasaInteres(insUpdParam);
+            // Todo Bug 449
+            tasaDeInteres.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            tasaDeInteres.IdNegocio = this.IdNegocio;
+            var id = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdTasaInteres(tasaDeInteres);
             return Ok(id);
         }
         [HttpDelete]

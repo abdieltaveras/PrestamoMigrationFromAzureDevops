@@ -30,11 +30,13 @@
             {
                 if (Garantia.IdClasificacion == 1)
                 {
-                    <h3> Tipo: Mobiliario</h3>
+                    <MudText Typo="Typo.h4">Tipo: Mobiliario</MudText>
+                    
                 }
                 else
                 {
-                    <h3> Tipo: InMobiliario</h3>
+                    <MudText Typo="Typo.h4">Tipo: InMobiliario</MudText>
+                    
                 }
             }
             <MudGrid>
@@ -150,21 +152,25 @@
                     {
                         @if (this.Garantia.ImagesForGaratia != null)
                         {
+                            <MudItem md="12">
+                                <InputImages @key="1" OnImageSet="SetImages" ListaImagenesURL="this.Garantia.ImagesForGaratia" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
+                            </MudItem>@*
                             <div class="col-md-12">
                                 <InputImages @key="1" OnImageSet="SetImages" ListaImagenesURL="this.Garantia.ImagesForGaratia" ImageQty="4" Text="Seleccione las imagenes para el cliente"></InputImages>
-                            </div>
+                            </div>*@
                         }
                         else
                         {
+                            <MudItem md="12">
+                                <InputImages @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para las Garantias"></InputImages>
+                            </MudItem>@*
                             <div class="col-md-12">
                                 <InputImages @key="1" OnImageSet="SetImages" ImageQty="4" Text="Seleccione las imagenes para las Garantias"></InputImages>
-                            </div>
+                            </div>*@
                         }
                     }
                 </MudItem>
             </MudGrid>
-                        
-
         </MudCardContent>
         <MudCardContent>
             <MudCardActions>
