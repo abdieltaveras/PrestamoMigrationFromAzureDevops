@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NullGuard;
+using PcpUtilidades;
 using PrestamoBLL;
 using PrestamoEntidades;
 using System;
@@ -17,6 +18,13 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetSvrDateTest()
         {
+            //var result = UtilsBLL.GetDateFromSqlServer();
+            //Assert.IsNotNull(result, "no pudo obtener la fecha");
+        }
+        [TestMethod()]
+        public void FillZero()
+        {
+            var result = Utils.FillZerosLeftNumber(10, 56);
             //var result = UtilsBLL.GetDateFromSqlServer();
             //Assert.IsNotNull(result, "no pudo obtener la fecha");
         }

@@ -2,6 +2,7 @@
 using MudBlazor;
 using PrestamoBlazorApp.Pages.Prestamos;
 using PrestamoBlazorApp.Pages.Prestamos.Components;
+using PrestamoBlazorApp.Pages.Prestamos.Components.Estatus;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoBlazorApp.Shared.Components.Prestamos;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 namespace PrestamoBlazorApp.Pages.Clientes.Components.ClienteInfoPrestamo
 {
     //  esto es un componente, pero lo puse en una pagina para desarrollarlo sin tener que perder tiempo invocando
-    public partial class InfoPrestamoNormal:BaseForList
+    public partial class InfoPrestamoNormal : BaseForList
     {
         [Inject]
         private PrestamosService PrestamosService { get; set; }
@@ -26,7 +27,9 @@ namespace PrestamoBlazorApp.Pages.Clientes.Components.ClienteInfoPrestamo
 
         PrestamoClienteUI _Prestamo { get; set; } = new PrestamoClienteUI();
         IEnumerable<GarantiaConMarcaYModelo> _Garantias { get; set; } = new List<GarantiaConMarcaYModelo>();
-
+        private IEnumerable<PrestamoEntidades.PrestamoEstatusGet> estatusesPrestamo { get; set; } = new List<PrestamoEntidades.PrestamoEstatusGet>();
+        [Inject]
+        private PrestamosEstatusService PrestamosEstatusService { get; set; }
         protected override async Task OnInitializedAsync()
         {
            
@@ -45,6 +48,7 @@ namespace PrestamoBlazorApp.Pages.Clientes.Components.ClienteInfoPrestamo
                 {
                     _Prestamo = (PrestamoClienteUI)result.Data;
                     await GetGarantias(_Prestamo.IdPrestamo);
+                    await DialogPrestamoStatus(_Prestamo.IdPrestamo);
                 }
             }
        
@@ -62,6 +66,19 @@ namespace PrestamoBlazorApp.Pages.Clientes.Components.ClienteInfoPrestamo
                 _Prestamo = (PrestamoClienteUI)result.Data;
                 await GetGarantias(_Prestamo.IdPrestamo);
                 await DialogPrestamosList(_Prestamo.IdCliente);
+            }
+        }
+        public async Task DialogPrestamoStatus(int id)
+        {
+   
+            var estatuss = await PrestamosEstatusService.Get(new PrestamoEntidades.PrestamoEstatusGetParams { IdPrestamo = id });
+            if (estatuss.Count() > 0)
+            {
+                //estatusesPrestamo = estatuss;
+                await NotifyMessageBySnackBar($"Este Prestamo tiene varios status", Severity.Error);
+                var parameters = new DialogParameters { ["estatusesPrestamo"] = estatuss };
+                DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+                var dialog = DialogService.Show<PrestamoDialogEstatus>("Estatus de este prestamo", parameters, dialogOptions);
             }
         }
         private async Task GetGarantias(int IdPrestamo)

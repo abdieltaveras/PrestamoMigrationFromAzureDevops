@@ -25,6 +25,8 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         private IEnumerable<PrestamoEntidades.ClienteEstatusGet> estatusesCliente { get; set; } = new List<PrestamoEntidades.ClienteEstatusGet>();
         private IEnumerable<PrestamoEntidades.PrestamoEstatusGet> estatusesPrestamo { get; set; } = new List<PrestamoEntidades.PrestamoEstatusGet>();
 
+        [Parameter]
+        public bool AllowActions { get; set; } = false;
         //private PrestamoEntidades.Prestamo prestamo = new PrestamoEntidades.Prestamo();
 
         //private PrestamoEntidades.Cliente cliente = new PrestamoEntidades.Cliente();

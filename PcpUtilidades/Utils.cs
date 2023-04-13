@@ -50,7 +50,11 @@ namespace PcpUtilidades
             var result = new Tuple<string, Image>(nombreArchivoSinExtension + "." + extension, image);
             return result;
         }
-
+        public static string FillZerosLeftNumber(int zeros, int value)
+        {
+            string format = value.ToString($"D{zeros}");
+            return format;
+        }
         public static string ConvertFileToBase64(string fullFileName)
         {
             if (File.Exists(fullFileName))

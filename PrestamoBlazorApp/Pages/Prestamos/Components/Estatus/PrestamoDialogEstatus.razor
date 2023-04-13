@@ -1,0 +1,14 @@
+﻿<MudTable Items="@estatusesPrestamo"
+          Hover="true"
+          Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Estatus</MudTh>
+
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombre">@context.EstatusName</MudTd>
+    </RowTemplate>
+</MudTable>
+@code {
+
+}

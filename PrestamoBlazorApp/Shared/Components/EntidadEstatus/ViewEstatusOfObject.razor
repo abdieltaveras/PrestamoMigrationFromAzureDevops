@@ -6,13 +6,20 @@
               Breakpoint="Breakpoint.Sm">
         <HeaderContent>
             <MudTh>Estatus</MudTh>
-            <MudTh>Accion</MudTh>
+            @if (AllowActions)
+            {
+                <MudTh>Accion</MudTh>
+            }
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Nr">@context.EstatusName</MudTd>
-            <MudTd DataLabel="Sign">
-                <MudButton Color="MudBlazor.Color.Error">Eliminar</MudButton>
-            </MudTd>
+            <MudTd DataLabel="Nombre">@context.EstatusName</MudTd>
+            @if (AllowActions)
+            {
+                <MudTd DataLabel="Accion">
+                    <MudButton Color="MudBlazor.Color.Error">Eliminar</MudButton>
+                </MudTd>
+            }
+          
         </RowTemplate>
     </MudTable>
 
@@ -24,13 +31,20 @@ else if (estatusesPrestamo.Count() > 0)
               Breakpoint="Breakpoint.Sm">
         <HeaderContent>
             <MudTh>Estatus</MudTh>
-            <MudTh>Accion</MudTh>
+            @if (AllowActions)
+            {
+                <MudTh>Accion</MudTh>
+            }
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Nr">@context.EstatusName</MudTd>
-            <MudTd DataLabel="Sign">
-                <MudButton Color="MudBlazor.Color.Error">Eliminar</MudButton>
-            </MudTd>
+            <MudTd DataLabel="Nombre">@context.EstatusName</MudTd>
+            @if (AllowActions)
+            {
+                <MudTd DataLabel="Accion">
+                    <MudButton Color="MudBlazor.Color.Error">Eliminar</MudButton>
+                </MudTd>
+            }
+     
         </RowTemplate>
     </MudTable>
 
