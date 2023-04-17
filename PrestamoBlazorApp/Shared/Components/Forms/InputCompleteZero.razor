@@ -1,0 +1,48 @@
+﻿<MudTextField  @ref="@textInput" Text="@Text"  T="string" ValueChanged="OnChan" OnBlur="@Fun" />
+@Value
+@code {
+    MudBaseInput<string> textInput;
+    [Parameter]
+    public string Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) return;
+
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    private string _value;
+    string Text { get; set; }
+    private async Task OnKeyPr(KeyboardEventArgs args)
+    {
+        if(Value?.Length < 10)
+        {
+            if (args.Key.ToLower() == "enter")
+            {
+                //Value = PcpUtilidades.Utils.FillZerosLeftNumber(10, Convert.ToInt32(Value));
+                Text = PcpUtilidades.Utils.FillZerosLeftNumber(10, Convert.ToInt32(Value));
+            }
+        }
+        StateHasChanged();
+    }
+    private async Task OnChan(string val)
+    {
+        Value = val;
+        Text = val;
+    }
+    private async Task Fun(FocusEventArgs args)
+    {
+     
+        //Value = PcpUtilidades.Utils.FillZerosLeftNumber(10, Convert.ToInt32(Value));
+        Text = PcpUtilidades.Utils.FillZerosLeftNumber(10, Convert.ToInt32(Value));
+        await textInput.FocusAsync();        
+        StateHasChanged();
+    }
+}

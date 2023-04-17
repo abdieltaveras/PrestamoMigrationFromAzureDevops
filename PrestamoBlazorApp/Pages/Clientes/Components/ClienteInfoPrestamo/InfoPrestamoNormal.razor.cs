@@ -17,6 +17,7 @@ namespace PrestamoBlazorApp.Pages.Clientes.Components.ClienteInfoPrestamo
     //  esto es un componente, pero lo puse en una pagina para desarrollarlo sin tener que perder tiempo invocando
     public partial class InfoPrestamoNormal : BaseForList
     {
+        string SearchInputValue { get; set; }
         [Inject]
         private PrestamosService PrestamosService { get; set; }
         [Inject]

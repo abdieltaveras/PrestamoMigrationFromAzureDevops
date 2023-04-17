@@ -5,7 +5,8 @@
     <MudCardContent>
         <MudGrid>
             <MudItem md="6" lg="6">
-                <MudTextField @bind-bind-Value="@SearchText" T="string"  />
+                <PrestamoBlazorApp.Shared.Components.Forms.InputCompleteZero @bind-Value="@SearchInputValue" />
+                @*<MudTextField @bind-bind-Value="@SearchText" T="string"  />*@
             </MudItem>
             <MudItem md="6" lg="6">
                 <MudButton OnClick="@DialogSearchPrestamo" >
