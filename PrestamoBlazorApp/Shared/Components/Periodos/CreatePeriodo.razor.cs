@@ -79,13 +79,13 @@ namespace PrestamoBlazorApp.Shared.Components.Periodos
             Periodo.PeriodoBase = (PeriodoBase)IdSelectedPeriodoBase;
             this.Periodo.RequiereAutorizacion = ChkRequiereAutorizacion;
             this.Periodo.Activo = ChkEstatus;
-            await BlockPage();
+            //await BlockPage();
             await Handle_SaveData(async () => await PeriodosService.SavePeriodo(this.Periodo));
-            // await PeriodosService.SavePeriodo(this.Periodo);
+            //await PeriodosService.SavePeriodo(this.Periodo);
             await SweetMessageBox("Guardado Correctamente", "success", "");
             await CloseModal(1);
             await GetData();
-            await UnBlockPage();
+           // await UnBlockPage();
         }
 
         async Task OnSelectedPeriodoChange()
@@ -107,7 +107,6 @@ namespace PrestamoBlazorApp.Shared.Components.Periodos
         {
             Periodoss = await PeriodosService.Get(new PeriodoGetParams());
         }
-
 
         private async Task CloseModal(int result = -1)
         {
