@@ -47,7 +47,7 @@ namespace PrestamoBlazorApp.Pages.Clasificaciones
             await BlockPage();
             await ClasificacionesService.SaveClasificacion(this.Clasificacion);
             await UnBlockPage();
-            CloseModal();
+            await CloseModal();
             await SweetMessageBox("Guardado Correctamente", "success", "/clasificacionesV2");
             
         }
