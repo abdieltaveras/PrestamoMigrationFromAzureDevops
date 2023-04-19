@@ -173,7 +173,7 @@ namespace PrestamoEntidades
             var infoDireccionObj = InfoDireccion.ToType<Direccion>();
             var infoConyugeObj = InfoConyuge.ToType<Conyuge>();
             var infoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
-            var imagenesObj = Imagenes.ToType<List<Imagen>>();
+            //var imagenesObj = Imagenes.ToType<List<Imagen>>();
 
             // todo : 20230304 resolver esto de las imagenes 
             if (!string.IsNullOrEmpty(directorioDeImagenes))
@@ -192,7 +192,7 @@ namespace PrestamoEntidades
             this.InfoDireccionObj = infoDireccionObj ==null ? new Direccion() : infoDireccionObj;
             this.InfoConyugeObj = infoConyugeObj ==null ? new Conyuge() : infoConyugeObj;
             this.InfoReferenciasObj = infoReferenciasObj ==null ? new List<Referencia>() : infoReferenciasObj;
-            this.ImagenesObj = imagenesObj ==null? new List<Imagen>() : imagenesObj; 
+            //this.ImagenesObj = imagenesObj ==null? new List<Imagen>() : imagenesObj; 
 
         }
 
