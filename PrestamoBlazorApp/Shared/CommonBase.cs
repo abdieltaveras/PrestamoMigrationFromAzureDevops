@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using MudBlazor;
 using PrestamoBlazorApp.Services;
+using PrestamoEntidades;
+using Newtonsoft.Json;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PrestamoBlazorApp.Shared
 {
@@ -87,9 +91,16 @@ namespace PrestamoBlazorApp.Shared
            return await SweetConfirmWithIcon(title,text);
             //throw new NotImplementedException();
         }
-        protected virtual async Task<bool> FichaDetalleDrCr(string datosJson)
+        protected virtual async Task<bool> FichaDetalleDrCr(List<DetalleDrCrImpresionDocumento> datos)
         {
+            string datosJson = JsonConvert.SerializeObject(datos);
             return await JsInteropUtils.FichaDetalleDrCr(jsRuntime,datosJson);
+            //throw new NotImplementedException();
+        }
+        protected virtual async Task<bool> GenerarReciboIngreso(List<DetalleDrCrImpresionDocumento> datos)
+        {
+            string datosJson = JsonConvert.SerializeObject(datos);
+            return await JsInteropUtils.GenerarReciboIngreso(jsRuntime, datosJson);
             //throw new NotImplementedException();
         }
         protected virtual async Task<bool> SetOverlay(bool value)

@@ -4,7 +4,7 @@
 
 <GeneralList CardTitle="Lista de Prestamos" LinkAddButton="prestamos/createoredit/">
     <ActionsButtons>
-   
+        <MudButton OnClick="GenerarFicha">Generar Recibo Ingreso</MudButton>
     </ActionsButtons>
     <CardContent>
         <MudTable Items="@prestamos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped"  @bind-SelectedItem="SelectedItem1">

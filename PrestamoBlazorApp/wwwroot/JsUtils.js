@@ -238,6 +238,16 @@ window.FichaDetalleDrCr = function (datos) {
     return true;
 }
 
+
+window.GenerarReciboIngreso = function (datos) {
+    if (datos != null) {
+        var dt = JSON.parse(datos)[0];
+        GenerarReciboIng(dt)
+    }
+    return true;
+}
+
+
 window.HSetOverlay = function (value) {
     if (value === true) {
         document.getElementById("HOverlay").style.display = "flex";

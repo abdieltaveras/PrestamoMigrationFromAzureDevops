@@ -30,10 +30,10 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             prestamos = await prestamoService.GetAsync(this.searchPrestamos);
             totalPrestamos = prestamos.Count();
         }
-        private async Task DatosFicha()
+        private async Task GenerarFicha()
         {
             var datos = JsonConvert.SerializeObject(DocumentosIngresoData());
-            var a = await FichaDetalleDrCr(datos);
+            var a = await GenerarReciboIngreso(DocumentosIngresoData().ToList());
         }
         public IEnumerable<DetalleDrCrImpresionDocumento> DocumentosIngresoData()
         {
@@ -41,6 +41,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
             var doc1 = new DetalleDrCrImpresionDocumento
             {
+                NCF ="00000011111122",
+                TipoComprobante="Consumidor Final",
                 BalanceDocumentoCXC = 100000,
                 MontoPagado = 10000,
                 Capital = 5000,

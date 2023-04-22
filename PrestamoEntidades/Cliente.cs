@@ -192,7 +192,7 @@ namespace PrestamoEntidades
             this.InfoDireccionObj = infoDireccionObj ==null ? new Direccion() : infoDireccionObj;
             this.InfoConyugeObj = infoConyugeObj ==null ? new Conyuge() : infoConyugeObj;
             this.InfoReferenciasObj = infoReferenciasObj ==null ? new List<Referencia>() : infoReferenciasObj;
-            //this.ImagenesObj = imagenesObj ==null? new List<Imagen>() : imagenesObj; 
+            //this.ImagenesObj = imagenesObj == null ? new List<Imagen>() : imagenesObj;
 
         }
 

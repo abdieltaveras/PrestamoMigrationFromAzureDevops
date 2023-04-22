@@ -9,6 +9,8 @@ namespace PrestamoEntidades
     // solo para detallar la transaccion de debito o credito 
     public class DetalleDrCrImpresionDocumento
     {
+        public string NCF { get; set; }
+        public string TipoComprobante { get; set; }
 
         public string NombreDocumento { get; set; }
         public string NumeracionDocumento { get; set; }
