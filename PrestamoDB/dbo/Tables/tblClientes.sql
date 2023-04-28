@@ -23,8 +23,6 @@
 	[TelefonoMovil] VARCHAR(20) NOT NULL,
     [CorreoElectronico] VARCHAR(30) NOT NULL, 
 	[TieneConyuge] bit default 0,
-	Imagen1FileName varchar(50),
-	Imagen2FileName varchar(50),
 	Imagenes varchar(max),
 	[InfoReferencias] VARCHAR(max),
 	[InsertadoPor] varchar(100) not null,

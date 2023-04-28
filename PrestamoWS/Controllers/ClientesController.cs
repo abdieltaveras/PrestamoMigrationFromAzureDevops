@@ -140,6 +140,7 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IActionResult GetImagenCliente(int IdCliente)
         {
+
             try
             {
                 var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { IdCliente = IdCliente }, false);
@@ -150,6 +151,26 @@ namespace PrestamoWS.Controllers
 
                 }
                 return BadRequest("Cliente no encontrado");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetImagenesClienteV2(int idCliente)
+        {
+            List<Imagen> imagenesDelCliente = new List<Imagen>();
+            try
+            {
+                var clientes = new ClienteBLL(1, "BllTest").GetClientes(new ClienteGetParams { IdCliente = idCliente }, false);
+                var cliente = clientes.FirstOrDefault();
+                if (cliente != null)
+                {
+                    cliente.ConvertImagenJsonToObj(ImagePathForClientes);
+                }
+                return Ok(cliente.ImagenesObj);
             }
             catch (Exception ex)
             {

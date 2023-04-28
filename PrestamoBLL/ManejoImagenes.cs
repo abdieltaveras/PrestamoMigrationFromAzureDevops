@@ -57,7 +57,7 @@ namespace PrestamoBLL
             }
         }
 
-        public static List<string> GetImagen(string ImagePath, string ImageListJson)
+        public static List<string> GetImagen(string ImagePath, string ImageListJson )
         {
             #region Imagen
             List<string> list = new List<string>();
@@ -80,6 +80,7 @@ namespace PrestamoBLL
                     }
 
                 }
+
                 IEnumerable<string> sendList = list;
                 //garantias.FirstOrDefault().ImagesForGaratiaEntrantes = sendList;
                 return sendList.ToList();

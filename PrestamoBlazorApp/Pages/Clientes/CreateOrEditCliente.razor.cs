@@ -104,6 +104,9 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.Conyuge = Cliente.InfoConyugeObj;
             this.InfoLaboral = Cliente.InfoLaboralObj;
             this.InfoDireccion = await CreateInfoDireccion(Cliente.InfoDireccionObj);
+
+            var imagenes = await clientesService.GetImagenes(idCliente);
+            FotosRostroCliente = imagenes.Where(img => img.Grupo == "Rostro").ToList();
             Referencias = Cliente.InfoReferenciasObj;
             FilterImagesByGroup();
             LoadedFotos = true;

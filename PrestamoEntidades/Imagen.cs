@@ -38,8 +38,13 @@ namespace PrestamoEntidades
 
         public void ConvertNombreArchivoToBase64String(string directorio)
         {
+            
             if (!string.IsNullOrEmpty(directorio))
             {
+                if (!directorio.EndsWith(@"\"))
+                    { 
+                        directorio+=@"\";
+                    }
                 var fileName = directorio + NombreArchivo;
                 this.Base64string= Utils.ConvertFileToBase64(fileName);
             }

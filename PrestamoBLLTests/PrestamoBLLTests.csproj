@@ -10,10 +10,80 @@
 
 	<ItemGroup>
 		<None Remove="appsettings.Development.json" />
+		<None Remove="ImagesFor\Garantias\-0.jpg" />
+		<None Remove="ImagesFor\Garantias\-1.jpg" />
+		<None Remove="ImagesFor\Garantias\imagenprueba.jpg" />
+		<None Remove="ImagesFor\Garantias\p2626-0.jpg" />
+		<None Remove="ImagesFor\Garantias\p2626-1.jpg" />
+		<None Remove="ImagesFor\Garantias\p2929-0.jpg" />
+		<None Remove="ImagesFor\Garantias\pl001-0.jpg" />
+		<None Remove="ImagesFor\Garantias\pl001-1.jpg" />
+		<None Remove="ImagesFor\Garantias\pl2026-0.jpg" />
+		<None Remove="ImagesFor\Garantias\pl2026-1.jpg" />
+		<None Remove="ImagesFor\Garantias\pl2058-0.jpg" />
+		<None Remove="ImagesFor\Garantias\pl2058-1.jpg" />
+		<None Remove="ImagesFor\Garantias\pl2058-2.jpg" />
+		<None Remove="ImagesFor\Garantias\placa-0.jpg" />
 		<None Remove="testhost.dll.config" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="ImagesFor\Garantias\-0.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\-1.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\imagenprueba.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\p2626-0.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\p2626-1.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\p2929-0.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\pl001-0.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\pl001-1.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\pl2026-0.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\pl2026-1.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\pl2058-0.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\pl2058-1.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\pl2058-2.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Include="ImagesFor\Garantias\placa-0.jpg">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	  <Content Include="testhost.dll.config">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -49,6 +119,12 @@
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ImagesFor\Clientes\Identificaciones\" />
+	  <Folder Include="ImagesFor\Codeudores\" />
+	  <Folder Include="ImagesFor\Inversionistas\" />
 	</ItemGroup>
 
 </Project>
