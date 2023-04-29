@@ -30,7 +30,7 @@ begin
 	end
 
 
-	SELECT TOP (@CantidadRegistrosASeleccionar)    IdCliente,IdEstatus, Codigo,Activo, BorradoPor, Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaBorrado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, IdSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencias, Imagenes
+	SELECT TOP (@CantidadRegistrosASeleccionar)    IdCliente,IdEstatus, Codigo,Activo, BorradoPor, Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, FechaModificado, FechaInsertado, FechaBorrado, IdNegocio, IdTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion, InsertadoPor, ModificadoPor, NoIdentificacion, Nombres, IdSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, TieneConyuge, infoReferencias, Imagenes
 	FROM dbo.tblClientes(nolock) 
 	where 
 		((@idCliente=-1) or (IdCliente = @IdCliente))
