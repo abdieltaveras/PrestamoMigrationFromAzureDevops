@@ -14,8 +14,6 @@
 	@infolaboral varchar(max), 
 	@infodireccion varchar(max),  
 	@noidentificacion varchar(20), 
-	@imagen1FileName varchar(50), 
-	@imagen2FileName varchar(50), 
 	@nombres varchar(400), 
 	@idSexo int, 
 	@tieneConyuge bit, 
@@ -37,9 +35,9 @@ Begin
 				begin
 					exec dbo.spGenerarSecuenciaString 'Codigo de Clientes',10,1, @codigo output
 				end
-				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, idSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, Imagen1FileName, Imagen2FileName, TieneConyuge, infoReferencias, codigo, IdLocalidadNegocio, Imagenes)
+				INSERT INTO dbo.tblClientes (Activo,  Apodo, Apellidos, IdEstadoCivil, FechaNacimiento, idNegocio, idTipoIdentificacion, IdTipoProfesionUOcupacion, InfoConyuge, InfoLaboral, InfoDireccion,InsertadoPor, FechaInsertado, NoIdentificacion, Nombres, idSexo, TelefonoCasa, TelefonoMovil, CorreoElectronico, TieneConyuge, infoReferencias, codigo, IdLocalidadNegocio, Imagenes)
 
-				VALUES (@activo, @apodo, @apellidos, @IdEstadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @idSexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @Imagen1FileName, @imagen2FileName, @tieneConyuge, @infoReferencias, @codigo, @idLocalidadNegocio, @Imagenes)
+				VALUES (@activo, @apodo, @apellidos, @IdEstadocivil, @fechanacimiento, @idnegocio, @idtipoidentificacion, @IdTipoProfesionUOcupacion,@infoconyuge, @infolaboral, @infodireccion, @usuario,getdate(), @NoIdentificacion, @Nombres, @idSexo, @TelefonoCasa, @TelefonoMovil, @correoElectronico, @tieneConyuge, @infoReferencias, @codigo, @idLocalidadNegocio, @Imagenes)
 				SELECT SCOPE_IDENTITY(); 
 				commit
 			end try
@@ -74,8 +72,6 @@ Begin
 				TelefonoCasa = @telefonocasa,
 				TelefonoMovil = @telefonomovil,
 				CorreoElectronico = @correoElectronico,
-				Imagen1FileName = @imagen1FileName,
-				Imagen2FileName = @imagen2FileName,
 				TieneConyuge = @tieneConyuge,
 				InfoReferencias = @infoReferencias
 				where IdCliente = @IdCliente

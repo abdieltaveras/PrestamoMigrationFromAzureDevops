@@ -17,7 +17,6 @@ select
 	tblClasificaciones.Nombre as Clasificacion,
 	tblClientes.Nombres,
 	tblClientes.Apellidos,
-	tblClientes.Imagen1FileName as FotoCliente,
 	tblTipoSexos.Nombre as Sexo
 from 
 	tblPrestamos, tblClientes, tblClasificaciones, tblTipoSexos

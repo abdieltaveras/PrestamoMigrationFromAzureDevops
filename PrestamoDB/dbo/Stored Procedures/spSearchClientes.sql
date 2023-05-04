@@ -14,7 +14,6 @@ select
 	tblClientes.IdCliente,
 	tblClientes.Nombres,
 	tblClientes.Apellidos,
-	tblClientes.Imagen1FileName,
 	tblClientes.NoIdentificacion,
 	tblClientes.TelefonoMovil,
 	tblClientes.Activo,

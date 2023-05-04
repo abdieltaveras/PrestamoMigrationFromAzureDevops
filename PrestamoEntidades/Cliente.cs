@@ -3,7 +3,7 @@ using PcpUtilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Linq;
 
 namespace PrestamoEntidades
 {
@@ -196,13 +196,19 @@ namespace PrestamoEntidades
 
         }
 
-
-        /// <summary>
-        /// guarda el nombre de la imagen
-        /// </summary>
-        public string Imagen1FileName { get; private set; } = string.Empty;
-        public string Imagen2FileName { get; private set; } = string.Empty;
-
+        public void ConvertImagenJsonToObj(string directorioDeImagenes)
+        {
+            var imagenesObj = Imagenes.ToType<List<Imagen>>();
+            if (!string.IsNullOrEmpty(directorioDeImagenes))
+            {
+                foreach (var item in imagenesObj)
+                {
+                        item.ConvertNombreArchivoToBase64String(directorioDeImagenes);
+                }
+            }
+            this.ImagenesObj = imagenesObj == null ? new List<Imagen>() : imagenesObj;
+            
+        }
 
         [Display(Name = "Tiene Pareja o Conyuge")]
         public bool TieneConyuge { get; set; } = false;

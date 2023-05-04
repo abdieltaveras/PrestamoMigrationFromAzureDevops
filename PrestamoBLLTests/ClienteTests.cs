@@ -195,6 +195,25 @@ namespace PrestamoBLL.Tests
             // debe fallar si el error 
             Assert.IsTrue(ocurrioError, error);
         }
+        [TestMethod()]
+        public void GetImagesTest()
+        {
+            var idCliente = 1;
+            var ImagePathForClientes = @"C:\PcpProjects\Development\prestamo\PrestamoBLLTests\ImagesFor\Clientes";
+            try
+            {
+                var clientes = new ClienteBLL(1,"BllTest").GetClientes(new ClienteGetParams { IdCliente = idCliente }, false);
+                var cliente = clientes.FirstOrDefault();
+                if (cliente!=null)
+                {
+                    var data = cliente.ImagenesObj;
+                    cliente.ConvertImagenJsonToObj(ImagePathForClientes);
+                    var data2 = cliente.ImagenesObj; 
+                }
+            }
+            catch { }
+
+        }
     }
     
 }

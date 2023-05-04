@@ -1,0 +1,24 @@
+﻿@page "/testImage"
+<h3>probando imagen</h3>
+<MudImage Src="@imagenBase64" Width="200" Height="300" ></MudImage>
+
+@code {
+    [Inject] ClientesService ClienteSrv { get;set; }
+
+    string imagenBase64 { get; set; } = string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        await updateImage();
+        await base.OnInitializedAsync();
+    }
+
+    async Task updateImage()
+    {
+        var idCliente = 1;
+        var imagenes = await ClienteSrv.GetImagenes(idCliente);
+        imagenes.Where(img => img.Grupo == "Rostro");
+        imagenBase64 = imagenes.FirstOrDefault().Base64string;
+    }
+
+    
+}
