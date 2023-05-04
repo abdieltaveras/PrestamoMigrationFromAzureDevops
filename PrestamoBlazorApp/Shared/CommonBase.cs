@@ -75,6 +75,14 @@ namespace PrestamoBlazorApp.Shared
             await JsInteropUtils.UnBlockPage(jsRuntime);
             //await Task.Delay(watingTimeBeforeContinueExecution);
         }
+        protected virtual async Task OnlyNumberInput(string inputName)
+        {
+            await JsInteropUtils.OnlyNumberInput(jsRuntime, inputName);
+        }
+        protected virtual async Task FocusOnInput(string inputName)
+        {
+            await JsInteropUtils.FocusOnInput(jsRuntime, inputName);
+        }
         protected virtual async Task<int> SweetConfirm(string title, string DenyBtnText = "")
         {
             return await JsInteropUtils.SweetConfirm(jsRuntime, title, DenyBtnText);

@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+    <PackageReference Include="BlazorInputMask" Version="1.0.20" />
     <PackageReference Include="jQuery" Version="3.5.1" />
     <PackageReference Include="MudBlazor" Version="6.1.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
