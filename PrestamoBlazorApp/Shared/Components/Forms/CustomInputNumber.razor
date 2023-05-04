@@ -1,0 +1,56 @@
+﻿@using System.Text.RegularExpressions;
+@inherits CommonBase
+<MudInput 
+    InputType="InputType.Text" 
+    Label="@Label" 
+    T="string" 
+    @bind-Value="@Value"
+    Immediate="true"
+    MaxLength="@MaxLength" 
+    id="@InputId"
+    Variant="@Variant"
+    Margin="Margin"      
+    Style="@Style" />
+
+@code {
+    [Parameter]
+    public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter]
+    public int MaxLength { get; set; }
+    [Parameter]
+    public string Label { get; set; }
+    [Parameter]
+    public string? Style { get; set; }
+    [Parameter]
+    public string InputId { get; set; }
+    [Parameter]
+    public int Limit { get; set; } = 1;
+    [Parameter]
+    public Margin Margin { get; set; } = Margin.Dense;
+    [Parameter]
+    public string Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) return;
+
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    private string _value;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await OnlyNumberInput(InputId);
+        }
+    }
+}
+

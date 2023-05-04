@@ -1,0 +1,11 @@
+﻿@page "/Cliente/Pruebas/CedulaInputText"
+<MudCard>
+    <MudCardContent>
+        <PrestamoBlazorApp.Shared.Components.Forms.CedulaInputText @bind-Value="@Value" />
+    </MudCardContent>
+</MudCard>
+  
+@Value
+@code {
+    string Value { get; set; }
+}

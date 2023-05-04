@@ -13,7 +13,6 @@ namespace PrestamoBlazorApp.Shared.Components.Forms.InputReferencia
         [Parameter]
         public int Limit { get; set; } = 1;
 
-
         [Parameter]
         public List<Referencia> Referencias
         {

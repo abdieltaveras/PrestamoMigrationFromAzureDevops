@@ -38,6 +38,9 @@ namespace PrestamoBlazorApp.Services
         //GenerarReciboIngreso
         //public static Task<bool> Territorio(IJSRuntime jsRuntime) => Task.Run(async () => await jsRuntime.InvokeAsync<string>("BuscarComponentesDeDivisionTerritorial"));
         public static Task<bool> HSetOverlay(IJSRuntime JsRuntime, bool value) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("HSetOverlay", value));
+        public static Task<bool> OnlyNumberInput(IJSRuntime JsRuntime, string inputName) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("OnlyNumberInput", inputName));
+        public static Task<bool> FocusOnInput(IJSRuntime JsRuntime, string inputName) => Task.Run(async () => await JsRuntime.InvokeAsync<bool>("FocusOnInput", inputName));
 
+        //FocusOnInput
     }
 }
