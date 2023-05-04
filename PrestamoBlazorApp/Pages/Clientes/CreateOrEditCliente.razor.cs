@@ -34,8 +34,9 @@ namespace PrestamoBlazorApp.Pages.Clientes
         [Parameter]
         public int idCliente { get; set; }
 
-        List<Imagen> FotosRostroCliente { get; set; } = new List<Imagen>();
+        //List<Imagen> FotosRostroCliente { get; set; } = new List<Imagen>();
 
+        List<Imagen> FotosRostroCliente { get; set; } = new List<Imagen>();
         List<Imagen> FotosDocIdentificacion { get; set; } = new List<Imagen>();
         // miembros
         string searchSector = string.Empty;
@@ -104,10 +105,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.Conyuge = Cliente.InfoConyugeObj;
             this.InfoLaboral = Cliente.InfoLaboralObj;
             this.InfoDireccion = await CreateInfoDireccion(Cliente.InfoDireccionObj);
-            var imagenes = await clientesService.GetImagenes(idCliente);
-            FotosRostroCliente = imagenes.Where(img => img.Grupo == "Rostro").ToList();
             Referencias = Cliente.InfoReferenciasObj;
-            FilterImagesByGroup();
+            await FilterImagesByGroup();
             LoadedFotos = true;
             StateHasChanged();
         }
@@ -158,11 +157,13 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.Cliente.InfoDireccionObj = this.InfoDireccion;
         }
 
-        private void FilterImagesByGroup()
+        private async Task FilterImagesByGroup()
         {
+            var imagenes = await clientesService.GetImagenes(idCliente);
+            
             FotosRostroCliente.Clear();
             FotosDocIdentificacion.Clear();
-            Cliente.ImagenesObj.ForEach(item =>
+            imagenes.ForEach(item =>
             {
                 if (!item.Quitar)
                 {

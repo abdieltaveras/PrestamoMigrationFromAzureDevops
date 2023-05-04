@@ -24,9 +24,13 @@
                     @*<MudText>Generales</MudText>*@
                     <MudAlert Severity="Severity.Info">Generales</MudAlert>
                     @*cliente="Cliente"*@
-                    <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="Cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
+                    @{
+                        if (LoadedFotos)
+                        {
+                            <GeneralesClienteUi Ocupaciones="Ocupaciones" cliente="Cliente" AllowInputCodigo=false OnTieneConyugeChange=@UpdateTieneConyuge OnEstadoCivilChange=@UpdateEstadoCivil
                                         FotosDocIdentificacion="FotosDocIdentificacion" FotosRostroCliente="FotosRostroCliente" RemoveImages="RemoveImages" SetImages="SetImages" />
-
+                        }
+                    }
 
                 </MudItem>
 

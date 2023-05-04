@@ -60,6 +60,7 @@ namespace PrestamoBlazorApp.Shared
             if (ListaImagenes.Count() > 0)
             {
                 imagenes.AddRange(ListaImagenes);
+                loadedImages = true;
             }
         }
 
