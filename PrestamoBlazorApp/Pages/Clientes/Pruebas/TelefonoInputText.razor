@@ -1,0 +1,11 @@
+﻿@page "/Cliente/Pruebas/TelefonoInputText"
+<MudCard>
+    <MudCardContent>
+        <PrestamoBlazorApp.Shared.Components.Forms.TelefonoInputText @bind-Value="@Value" />
+    </MudCardContent>
+</MudCard>
+  
+@Value
+@code {
+    string Value { get; set; }
+}

@@ -1,0 +1,71 @@
+﻿@using System.Text
+@using System.Text.RegularExpressions;
+@inherits CommonBase
+
+<div>
+    @*<CustomInputNumber InputId="Primero" Variant="Variant.Outlined" @bind-Value="Primeros" MaxLength="3" Style="@("width:60px;")" />*@
+    <div style="@("width:60px; display:inline-block;")">
+        <MudSelect T="string" @bind-Value="@Primeros" >
+            @foreach (var item in codigoArea)
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+    </div>
+
+    -
+    <CustomInputNumber InputId="Segundo" Variant="Variant.Outlined" @bind-Value="Segundos" MaxLength="3" Style="@("width:60px;")" />
+    -
+    <CustomInputNumber InputId="Tercero" Variant="Variant.Outlined" @bind-Value="Ultimos" MaxLength="4" Style="@("width:70px;")" />
+</div>
+
+@code {
+
+    string[] codigoArea = { "809", "829","849" }; //esto se  puede colocar en otra parte todo: Abdiel colocar donde prefiera
+
+    private string _Value { get; set; }
+    [Parameter]
+    public string Value { get; set; }
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    private string Primeros
+    {
+        get { return _Primeros; }
+        set
+        {
+            _Primeros = value;
+            ValueChanged.InvokeAsync($"{value}{Segundos}{Ultimos}");
+            if (value.Length == 3)
+            {
+                FocusOnInput("Segundo").GetAwaiter();
+            }
+        }
+    }
+
+    private string Segundos
+    {
+        get { return _Segundos; }
+        set
+        {
+            _Segundos = value; ValueChanged.InvokeAsync($"{Primeros}{value}{Ultimos}");
+            if (value.Length == 3)
+            {
+                FocusOnInput("Tercero").GetAwaiter();
+            }
+        }
+    }
+
+    private string Ultimos
+    {
+        get { return _Ultimos; }
+        set
+        {
+            _Ultimos = value; ValueChanged.InvokeAsync($"{Primeros}{Segundos}{value}");
+        }
+    }
+    private string _Primeros { get; set; }
+    private string _Segundos { get; set; }
+    private string _Ultimos { get; set; }
+
+}
