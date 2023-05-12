@@ -157,7 +157,7 @@ namespace PrestamoBlazorApp.Shared.Components.Codeudores
             }
             catch (ValidationObjectException e)
             {
-                await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
+            
             }
             return true;
         }

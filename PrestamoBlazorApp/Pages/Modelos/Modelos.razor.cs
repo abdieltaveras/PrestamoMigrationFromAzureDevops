@@ -76,7 +76,7 @@ namespace PrestamoBlazorApp.Pages.Modelos
             await BlockPage();
             await modelosService.SaveModelo(this.Modelo);
             await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "/modelos");
+            await NotifyMessageBySnackBar("Guardado Correctamente", MudBlazor.Severity.Success);
         }
         async Task CreateOrEdit(int IdModelo = -1)
         {

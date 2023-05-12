@@ -184,7 +184,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
             if (validacionesFallidas.Count() > 0)
             {
-                await SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
+                //await SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
                 return false;
             }
             try
@@ -196,7 +196,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             }
             catch (ValidationObjectException e)
             {
-                await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
+                //await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
             }
             return true;
         }

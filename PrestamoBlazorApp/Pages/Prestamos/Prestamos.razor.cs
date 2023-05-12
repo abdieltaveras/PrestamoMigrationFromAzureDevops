@@ -33,7 +33,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task GenerarFicha()
         {
             var datos = JsonConvert.SerializeObject(DocumentosIngresoData());
-            var a = await GenerarReciboIngreso(DocumentosIngresoData().ToList());
+            var a = await GenerarReciboIngreso(DocumentosIngresoData().FirstOrDefault());
         }
         public IEnumerable<DetalleDrCrImpresionDocumento> DocumentosIngresoData()
         {

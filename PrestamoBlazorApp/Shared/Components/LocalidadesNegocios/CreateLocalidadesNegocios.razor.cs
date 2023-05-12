@@ -56,14 +56,13 @@ namespace PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
             }
             catch (ValidationObjectException e)
             {
-                await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
+     
             }
             return true;
         }
 
         private async Task HandleInvalidSubmit()
         {
-           await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Error al validar los datos.");
         }
 
         public async Task ShowModal(int id =-1)

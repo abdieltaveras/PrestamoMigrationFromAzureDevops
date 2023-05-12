@@ -85,7 +85,7 @@ namespace PrestamoBlazorApp.Pages.Garantias
             await BlockPage();
             this.Garantia.DetallesJSON = this.detalleGarantia;
             await GarantiasService.SaveGarantia(this.Garantia);
-            await SweetMessageBox("Guardado Correctamente", "success", "/Garantias", 1500);
+            await NotifyMessageBySnackBar("Guardado Correctamente",MudBlazor.Severity.Success);
             await UnBlockPage();
             //await OnGuardarNotification();
             //NavManager.NavigateTo("/Garantias");

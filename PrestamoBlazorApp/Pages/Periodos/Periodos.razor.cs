@@ -91,7 +91,7 @@ namespace PrestamoBlazorApp.Pages.Periodos
             await BlockPage();
             await Handle_SaveData(async () => await PeriodosService.SavePeriodo(this.Periodo));
            // await PeriodosService.SavePeriodo(this.Periodo);
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            await NotifyMessageBySnackBar("Guardado Correctamente", MudBlazor.Severity.Success);
             //await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");
             ShowDialog();
             await GetData();

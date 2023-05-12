@@ -82,7 +82,7 @@ namespace PrestamoBlazorApp.Shared.Components.Periodos
             //await BlockPage();
             await Handle_SaveData(async () => await PeriodosService.SavePeriodo(this.Periodo));
             //await PeriodosService.SavePeriodo(this.Periodo);
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            await NotifyMessageBySnackBar("Guardado Correctamente", Severity.Success);
             await CloseModal(1);
             await GetData();
            // await UnBlockPage();

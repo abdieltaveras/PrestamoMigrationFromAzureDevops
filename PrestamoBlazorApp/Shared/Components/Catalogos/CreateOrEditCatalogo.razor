@@ -35,8 +35,8 @@
                 <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
                 <MudTd>
                     <MudIconButton OnClick="@(()=>CreateOrEdit(context.IdRegistro))" Title="Editar" Icon="@Icons.Material.Outlined.Edit"></MudIconButton>
-                    <MudIconButton OnClick="@(()=>NotifyNotImplementedAction())" Title="Desactivar" Icon="@Icons.Material.Outlined.Delete"></MudIconButton>
-                    <MudIconButton OnClick="@(()=>NotifyNotImplementedAction())" Title="Eliminar" Icon="@Icons.Material.Outlined.DeleteForever"></MudIconButton>
+                    <MudIconButton  Title="Desactivar" Icon="@Icons.Material.Outlined.Delete"></MudIconButton>
+                    <MudIconButton Title="Eliminar" Icon="@Icons.Material.Outlined.DeleteForever"></MudIconButton>
                 </MudTd>
             </RowTemplate>
             <PagerContent>

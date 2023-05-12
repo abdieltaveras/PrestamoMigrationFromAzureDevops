@@ -32,22 +32,10 @@ namespace PrestamoBlazorApp.Shared
             {
                 message = ConstForCreateOrEdit.RegistroGuardado;
             }
-            await JsInteropUtils.SweetAlertSuccess(jsRuntime, message, redirectTo);
             //await Task.Delay(watingTimeBeforeContinueExecution);
         }
 
-        protected virtual async Task NotifyNotImplementedAction()
-        {
-            await JsInteropUtils.SweetAlertSuccess(jsRuntime, "Accion no implementada aun");
-        }
-        protected virtual async Task SweetMessageBox(string message = "", string icon = "info", string redirectTo = "", int delayMilliSeconds = 1500)
-        {
-            await JsInteropUtils.SweetMessageBox(jsRuntime, message, icon, redirectTo, delayMilliSeconds);
-        }
-        protected virtual async Task NotifyMessageBox(string message, int delay=5000)
-        {
-             await JsInteropUtils.NotifyMessageBox(jsRuntime, message,delay);
-        }
+      
 
         protected async Task NotifyMessageBySnackBar(string message, Severity severity)
         {
@@ -75,22 +63,18 @@ namespace PrestamoBlazorApp.Shared
             await JsInteropUtils.UnBlockPage(jsRuntime);
             //await Task.Delay(watingTimeBeforeContinueExecution);
         }
-        protected virtual async Task OnlyNumberInput(string inputName)
-        {
-            await JsInteropUtils.OnlyNumberInput(jsRuntime, inputName);
-        }
+        //protected virtual async Task OnlyNumberInput(string inputName)
+        //{
+        //    await JsInteropUtils.OnlyNumberInput(jsRuntime, inputName);
+        //}
         protected virtual async Task FocusOnInput(string inputName)
         {
             await JsInteropUtils.FocusOnInput(jsRuntime, inputName);
         }
-        protected virtual async Task<int> SweetConfirm(string title, string DenyBtnText = "")
-        {
-            return await JsInteropUtils.SweetConfirm(jsRuntime, title, DenyBtnText);
-            //throw new NotImplementedException();
-        }
+        
         protected virtual async Task<bool> SweetConfirmWithIcon(string title,string text ="", string ConfirmedButtonText = "Ok")
         {
-          var a = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, title,text, ConfirmedButtonText);
+            var a = true; //await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, title,text, ConfirmedButtonText);
             return a;
             //throw new NotImplementedException();
         }
@@ -105,7 +89,7 @@ namespace PrestamoBlazorApp.Shared
             return await JsInteropUtils.FichaDetalleDrCr(jsRuntime,datosJson);
             //throw new NotImplementedException();
         }
-        protected virtual async Task<bool> GenerarReciboIngreso(List<DetalleDrCrImpresionDocumento> datos)
+        protected virtual async Task<bool> GenerarReciboIngreso(DetalleDrCrImpresionDocumento datos)
         {
             string datosJson = JsonConvert.SerializeObject(datos);
             return await JsInteropUtils.GenerarReciboIngreso(jsRuntime, datosJson);

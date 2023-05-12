@@ -72,7 +72,6 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
             else
             {
                 await territoriosService.SaveDivisionTerritorial(this.Territorio);
-                await SweetMessageBox("Datos Guardados", "success", "/Territorios/CreateDivisionTerritorial");
                 //await SweetAlertSuccess(null, "/Territorios/CreateDivisionTerritorial");
                 //await OnGuardarNotification();
                 //NavManager.NavigateTo("/Territorios");
@@ -91,7 +90,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
             {
                 this.Territorio = new DivisionTerritorial();
             }
-            JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
+            //JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
         void RaiseInvalidSubmit()
         {

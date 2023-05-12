@@ -48,7 +48,7 @@ namespace PrestamoBlazorApp.Pages.Clasificaciones
             await BlockPage();
             await ClasificacionesService.SaveClasificacion(this.Clasificacion);
             await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "/clasificaciones");
+            //await SweetMessageBox("Guardado Correctamente", "success", "/clasificaciones");
         }
         async Task CreateOrEdit(int idClasificacion = -1)
         {
@@ -62,7 +62,6 @@ namespace PrestamoBlazorApp.Pages.Clasificaciones
             {
                 this.Clasificacion = new Clasificacion();
             }
-            await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
             await UnBlockPage();
         }
         void RaiseInvalidSubmit()

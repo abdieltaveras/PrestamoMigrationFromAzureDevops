@@ -71,7 +71,7 @@ namespace PrestamoBlazorApp.Pages.Marcas
             await BlockPage();
             await marcasService.SaveMarca(this.Marca);
             await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            await NotifyMessageBySnackBar("Guardado Correctamente", MudBlazor.Severity.Success);
             //await JsInteropUtils.Reload(jsRuntime, true);
         }
         //async Task CreateOrEdit(Marca m)

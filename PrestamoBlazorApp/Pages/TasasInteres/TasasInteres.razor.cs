@@ -75,7 +75,7 @@ namespace PrestamoBlazorApp.Pages.TasasInteres
             this.TasaInteres.RequiereAutorizacion = ChkRequiereAutorizacion;
             this.TasaInteres.InteresMensual = this.Tasa;
             await TasasInteresService.SaveTasaInteres(this.TasaInteres);
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            await NotifyMessageBySnackBar("Guardado Correctamente",Severity.Success);
             //await JsInteropUtils.CloseModal(jsRuntime, "#MyModal");
             ShowDialog();
             await GetData();

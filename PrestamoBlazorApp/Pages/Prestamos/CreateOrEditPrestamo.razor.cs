@@ -96,7 +96,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 //var getResult2 = await prestamoService.GetByIdAsync(idPrestamo);
                 if (getResult == null)
                 {
-                    await SweetMessageBox("Lo siento no encontramos prestamo para su peticion", redirectTo: "/prestamos");
                 };
                 prestamo = getResult.infoPrestamo;
                 await OnClasificacionChange(new ChangeEventArgs { Value= prestamo.IdClasificacion });
@@ -129,7 +128,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         {
             if (prestamo.AcomodarFechaALasCuotas)
             {
-                await SweetMessageBox("Aun no permito trabajar con prestamos acomodando cuotas", redirectTo: "/prestamos");
             }
             if (firstRender)
             {
@@ -204,7 +202,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             }
             catch (Exception e)
             {
-                await SweetMessageBox(e.Message, delayMilliSeconds: 5000);
             }
             this.Cuotas.Clear();
             this.Cuotas = cuotas.ToList();
@@ -216,7 +213,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         private void NotificadorDeMensaje(object sender, string e)
         {
-            NotifyMessageBox(e);
         }
 
         private List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
@@ -243,7 +239,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             var MensajesValidacionesFallida = string.Join(", ", validacionesFallidas.Select((item, i) => (i + 1) + "-" + item.Message + Environment.NewLine));
             if (validacionesFallidas.Count() > 0)
             {
-                await SweetMessageBox("Se han encontrado errores" + Environment.NewLine + MensajesValidacionesFallida, "error", "", 5000);
                 return;
             }
             try
@@ -253,14 +248,13 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             }
             catch (ValidationObjectException e)
             {
-                await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
+                //await JsInteropUtils.NotifyMessageBox(jsRuntime, $"Lo siento error al guardar los datos mensaje recibido {e.Message}");
             }
 
         }
 
         private async Task Test(MouseEventArgs mouseEventArgs)
         {
-            await NotifyMessageBox("ejecutando Test");
             //JsInteropUtils.NotifyMessageBox
             await JsInteropUtils.ConsoleLog(jsRuntime, prestamo);
             var pr = this.prestamo;
@@ -296,7 +290,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             this.ShowSearchGarantia = false;
             if (prestamo.IdGarantias.Exists(val => val == idGarantia))
             {
-                await SweetMessageBox("Esta garantia ya fue añadida");
                 return;
             }
             //todo que la garantia valide si permite usarse en mas de 1 prestamo
@@ -312,7 +305,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             {
 
                 var prestamosForGarantia = string.Join(",", prestamosVinculados.Select(elem => elem.prestamoNumero));
-                await SweetMessageBox("garantia no aceptadad porque esta vinculada con otro(s) prestamo " + prestamosForGarantia, delayMilliSeconds: 5000);
                 return;
             }
 
@@ -352,12 +344,12 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             //var result = await JsInteropUtils.Confirm(jsRuntime, "Desea realmente quitar esta garantia");
             //var result2 = await JsInteropUtils.SweetConfirm(jsRuntime, "Quitar Garantia", "Desea realmente quitar esta garantia");
             //await NotifyMessageBox(result2.ToString());
-            var result = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, "Quitar Garantia", "Desea realmente quitar esta garantia");
-            if (result)
-            {
-                prestamo.IdGarantias.RemoveAll(value => value == idGarantia);
-                InfoGarantias.RemoveAll(gar => gar.IdGarantia == idGarantia);
-            }
+            //var result = await JsInteropUtils.SweetConfirmWithIcon(jsRuntime, "Quitar Garantia", "Desea realmente quitar esta garantia");
+            //if (result)
+            //{
+            //    prestamo.IdGarantias.RemoveAll(value => value == idGarantia);
+            //    InfoGarantias.RemoveAll(gar => gar.IdGarantia == idGarantia);
+            //}
         }
 
         int IdClienteSelected { get; set; }
@@ -405,7 +397,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         {
             
             var value = Convert.ToDecimal(args.Value.ToString().RemoveAllButNumber());
-            await NotifyMessageBox(value.ToString());
             this.prestamo.MontoPrestado = value;
             await Calcular();
         }
@@ -424,7 +415,9 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             await Calcular();
         }
 
-        protected async Task SetFecha(DateTime fecha) { await NotifyMessageBox("ejec setfecha");  }
+        protected async Task SetFecha(DateTime fecha) 
+        { 
+        }
         protected async Task OnFechaEmisionRealChange(ChangeEventArgs args)
         {
             var value = DateTime.Now;
@@ -432,7 +425,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             if (value > DateTime.Now )
             {
                 SetFechaEmisionReal();
-                await SweetMessageBox("fecha digitada no puede ser mayor a la fecha de hoy");
             }
             if (convertionSucceed)
             {
@@ -442,7 +434,6 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             else
             {
                 SetFechaEmisionReal();
-                await SweetMessageBox("la fecha digitada es invalida");
             }
 
         }

@@ -65,7 +65,7 @@ namespace PrestamoBlazorApp.Shared.Components.Localidades
             }
             else
             {
-                await SweetMessageBox("Dene SeleccionarLocalidad una localidad para agregar el hijo.", "error", "");
+                await NotifyMessageBySnackBar("Dene SeleccionarLocalidad una localidad para agregar el hijo.", Severity.Error);
             }
         }
         async Task CreateOrEdit()

@@ -77,7 +77,7 @@ namespace PrestamoBlazorApp.Shared.Components.Garantias
             {
                 if (SearchText.Length <= 2)
                 {
-                    await NotifyMessageBox("Debe digitar minimo 2 digitos (letras y/o numeros) para realizar la busqueda");
+                    await NotifyMessageBySnackBar("Debe digitar minimo 2 digitos (letras y/o numeros) para realizar la busqueda",Severity.Error);
 
                 }
                 else

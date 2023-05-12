@@ -95,7 +95,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             var a = await OnDeleteConfirm("Desea Eliminar?", " (OnDeleteConfirm)"); //Funciona
             if (a == true)
             {
-                await SweetMessageBox("Eliminado");
+                //await SweetMessageBox("Eliminado");
             }
 
         }

@@ -109,7 +109,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
                 PrestamoEstatus.IdPrestamo = PrestamoSelected.IdPrestamo;
                 await Handle_SaveData(()=> PrestamosEstatusService.Save(PrestamoEstatus));
             }
-            await SweetMessageBox("Asignado correctamente");
+            await NotifyMessageBySnackBar("Asignado correctamente",MudBlazor.Severity.Success);
             await GetData();
         }
     }

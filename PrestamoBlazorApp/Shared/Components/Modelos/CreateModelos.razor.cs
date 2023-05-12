@@ -58,7 +58,7 @@ namespace PrestamoBlazorApp.Shared.Components.Modelos
             //await BlockPage();
             await MODELOSSERVICE.SaveModelo(this.MODELO);
             //await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "/modelos");
+            await NotifyMessageBySnackBar("Guardado Correctamente", Severity.Success);
         }
         private async Task CloseModal(int result = -1)
         {

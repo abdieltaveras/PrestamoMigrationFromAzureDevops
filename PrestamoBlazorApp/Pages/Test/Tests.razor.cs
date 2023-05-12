@@ -29,7 +29,7 @@ namespace PrestamoBlazorApp.Pages.Test
         {
             var elapseTime = new Stopwatch();
             elapseTime.Start();
-            await SweetMessageBox($"Realizando las tareas");
+            //await SweetMessageBox($"Realizando las tareas");
             var tarea1 = testService.GetTest01(10);
             var tarea2 = testService.GetTest02(5);
             var tarea3 = testService.GetTest03(15);
@@ -45,58 +45,57 @@ namespace PrestamoBlazorApp.Pages.Test
                 if (finishedTask == tarea1)
                 {
                     var result = tarea1.Result;
-                    await NotifyMessageBox($"termine la tarea 1 me devolvio el valor {result}");
+                    //await NotifyMessageBox($"termine la tarea 1 me devolvio el valor {result}");
                 }
                 else if (finishedTask == tarea2)
                 {
                     var result = tarea2.Result;
-                    await NotifyMessageBox($"termine la tarea 2 me devolvio el valor {result}");
+                    //await NotifyMessageBox($"termine la tarea 2 me devolvio el valor {result}");
                 }
                 else if (finishedTask == tarea3)
                 {
                     var result = tarea3.Result;
-                    await NotifyMessageBox($"termine la tarea 3 me devolvio el valor {result}");
                 }
                 else if (finishedTask == tarea4)
                 {
                     var result = tarea4.Result;
-                    await NotifyMessageBox($"termine la tarea 4 me devolvio el valor {result}");
+                    //await NotifyMessageBox($"termine la tarea 4 me devolvio el valor {result}");
                 }
                 else if (finishedTask == tarea5)
                 {
                     var result = tarea5.Result;
-                    await NotifyMessageBox($"termine la tarea 5 me devolvio el valor {result}");
+                    //await NotifyMessageBox($"termine la tarea 5 me devolvio el valor {result}");
                 }
                 else if (finishedTask == tarea6)
                 {
                     var result = tarea6.Result;
-                    await NotifyMessageBox($"termine la tarea 6 me devolvio el valor {result}");
+                    //await NotifyMessageBox($"termine la tarea 6 me devolvio el valor {result}");
                 }
                 tareas.Remove(finishedTask);
             }
             elapseTime.Stop();
-            await SweetMessageBox($"async se tardo {elapseTime.ElapsedMilliseconds / 1000}");
+            //await SweetMessageBox($"async se tardo {elapseTime.ElapsedMilliseconds / 1000}");
         }
 
         private async Task TestAsyncBad()
         {
             var elapseTime = new Stopwatch();
             elapseTime.Start();
-            await SweetMessageBox($"Realizando las tareas");
+            //await SweetMessageBox($"Realizando las tareas");
             await getTest01();
-            await NotifyMessageBox($"termine la tarea 1");
+            //await NotifyMessageBox($"termine la tarea 1");
             await getTest02();
-            await NotifyMessageBox($"termine la tarea 2");
+            //await NotifyMessageBox($"termine la tarea 2");
             await getTest03();
-            await NotifyMessageBox($"termine la tarea 3");
+            //await NotifyMessageBox($"termine la tarea 3");
             await getTest01();
-            await NotifyMessageBox($"termine la tarea 1");
+            //await NotifyMessageBox($"termine la tarea 1");
             await getTest02();
-            await NotifyMessageBox($"termine la tarea 2");
+            //await NotifyMessageBox($"termine la tarea 2");
             await getTest03();
-            await NotifyMessageBox($"termine la tarea 3");
+            //await NotifyMessageBox($"termine la tarea 3");
             elapseTime.Stop();
-            await SweetMessageBox($"async se tardo {elapseTime.ElapsedMilliseconds / 1000}");
+            //await SweetMessageBox($"async se tardo {elapseTime.ElapsedMilliseconds / 1000}");
         }
 
         private async Task getTest03()

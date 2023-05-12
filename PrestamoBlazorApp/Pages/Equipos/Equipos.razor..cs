@@ -52,7 +52,6 @@ namespace PrestamoBlazorApp.Pages.Equipos
             await BlockPage();
             await EquiposService.SaveEquipo(this.Equipo);
             await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "/equipos");
         }
         async Task CreateOrEdit(int IdEquipo = -1)
         {
@@ -65,7 +64,6 @@ namespace PrestamoBlazorApp.Pages.Equipos
             {
                 this.Equipo = new Equipo();
             }
-           await JsInteropUtils.ShowModal(jsRuntime, "#ModalCreateOrEdit");
         }
         void RaiseInvalidSubmit()
         {

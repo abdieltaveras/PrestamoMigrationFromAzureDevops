@@ -1,19 +1,4 @@
-﻿////$(document).ready(function () {
-////    alert("ready");
-////    $(".currency").inputmask('decimal', {
-////        'alias': 'numeric',
-////        'groupSeparator': ',',
-////        'autoGroup': true,
-////        'digits': 2,
-////        'radixPoint': ".",
-////        'digitsOptional': false,
-////        'allowMinus': false,
-////        'prefix': 'R$ ',
-////        'placeholder': ''
-////    });
-////});
-
-window.Alert = function (message) {
+﻿window.Alert = function (message) {
     if ((typeof message) === "string") {
         alert(message);
     }
@@ -85,122 +70,122 @@ window.searchLocalidad = function () {
      
     //});
 }
-window.sweetAlertSuccess = function(message,redirectTo = "") {
-    Swal.fire({
-        icon: 'success',
-        title: message,
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        showCloseButton:true,
-        timer: 1500
-        //text: 'Something went wrong!',
-        //footer: '<a href>Why do I have this issue?</a>'
-    }).then(function () {
-        if (redirectTo != "") {
-            if (redirectTo === "Reload" || redirectTo === "reload") {
-                location.reload();
-            } else {
-                window.location = redirectTo;
-            }
+//window.sweetAlertSuccess = function(message,redirectTo = "") {
+//    Swal.fire({
+//        icon: 'success',
+//        title: message,
+//        allowOutsideClick: false,
+//        showConfirmButton: false,
+//        showCloseButton:true,
+//        timer: 1500
+//        //text: 'Something went wrong!',
+//        //footer: '<a href>Why do I have this issue?</a>'
+//    }).then(function () {
+//        if (redirectTo != "") {
+//            if (redirectTo === "Reload" || redirectTo === "reload") {
+//                location.reload();
+//            } else {
+//                window.location = redirectTo;
+//            }
          
-        } 
-        //Nota: luis lo obvie porque esto hace que se reinicie todo y se pierdan valores ya guardados
-        //que esto lo decida el cliente, porque se puede usar en diferentes contextos
-        /*else {*/
-        //    location.reload();
-        //}
+//        } 
+//        //Nota: luis lo obvie porque esto hace que se reinicie todo y se pierdan valores ya guardados
+//        //que esto lo decida el cliente, porque se puede usar en diferentes contextos
+//        /*else {*/
+//        //    location.reload();
+//        //}
        
-    });
-    return true;
-}
-window.SweetMessageBox = function (message, icon, redirectTo = "", delayMilliSeconds) {
-    Swal.fire({
-        icon: icon,
-        title: message,
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        showCloseButton: true,
-        timer: delayMilliSeconds
-        //text: 'Something went wrong!',
-        //footer: '<a href>Why do I have this issue?</a>'
-    }).then(function () {
-        if (redirectTo != "") {
-            if (redirectTo == "Reload" || redirectTo == "reload") {
-                location.reload();
-            } else {
-                window.location = redirectTo;
-            }
+//    });
+//    return true;
+//}
+//window.SweetMessageBox = function (message, icon, redirectTo = "", delayMilliSeconds) {
+//    Swal.fire({
+//        icon: icon,
+//        title: message,
+//        allowOutsideClick: false,
+//        showConfirmButton: false,
+//        showCloseButton: true,
+//        timer: delayMilliSeconds
+//        //text: 'Something went wrong!',
+//        //footer: '<a href>Why do I have this issue?</a>'
+//    }).then(function () {
+//        if (redirectTo != "") {
+//            if (redirectTo == "Reload" || redirectTo == "reload") {
+//                location.reload();
+//            } else {
+//                window.location = redirectTo;
+//            }
 
-        } 
-        //Nota: luis lo obvie porque esto hace que se reinicie todo y se pierdan valores ya guardados
-        //que esto lo decida el cliente porque s epuee usar en diferentes contexto
-        /*else {*/
-        //    location.reload();
-        //}
+//        } 
+//        //Nota: luis lo obvie porque esto hace que se reinicie todo y se pierdan valores ya guardados
+//        //que esto lo decida el cliente porque s epuee usar en diferentes contexto
+//        /*else {*/
+//        //    location.reload();
+//        //}
 
-    });
-    return true;
-}
-window.SweetConfirm = function (title, DenyButtonText = "") {
-    return new Promise(resolve => {
-        if (DenyButtonText == "") {
-            //
-            Swal.fire({
-                title: title,
-                showCancelButton: true,
-                confirmButtonText: `Ok`,
-            }).then((result) => {
-                resolve(1);
-            });
+//    });
+//    return true;
+//}
+//window.SweetConfirm = function (title, DenyButtonText = "") {
+//    return new Promise(resolve => {
+//        if (DenyButtonText == "") {
+//            //
+//            Swal.fire({
+//                title: title,
+//                showCancelButton: true,
+//                confirmButtonText: `Ok`,
+//            }).then((result) => {
+//                resolve(1);
+//            });
           
-        } else {
-            Swal.fire({
-                title: title,
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: `Ok`,
-                denyButtonText: DenyButtonText,
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    resolve(1);
-                    //Swal.fire(title, '', 'success')
+//        } else {
+//            Swal.fire({
+//                title: title,
+//                showDenyButton: true,
+//                showCancelButton: true,
+//                confirmButtonText: `Ok`,
+//                denyButtonText: DenyButtonText,
+//            }).then((result) => {
+//                /* Read more about isConfirmed, isDenied below */
+//                if (result.isConfirmed) {
+//                    resolve(1);
+//                    //Swal.fire(title, '', 'success')
 
-                } else if (result.isDenied) {
-                    resolve(2);
+//                } else if (result.isDenied) {
+//                    resolve(2);
                     
-                    //resolve('isDenied'); // ajustar para devolver string o int
-                    //alert(result.isDenied);
-                    //Swal.fire(title, '', 'info')
-                }
-            });
-        }
+//                    //resolve('isDenied'); // ajustar para devolver string o int
+//                    //alert(result.isDenied);
+//                    //Swal.fire(title, '', 'info')
+//                }
+//            });
+//        }
      
-    });
-}
-window.SweetConfirmWithIcon = function (title, text, ConfirmButtonText = "Ok") {
-    return new Promise(resolve => {
-        Swal.fire({
-            title: title,
-            text: text,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: ConfirmButtonText
-        }).then((result) => {
-            resolve(result.isConfirmed);
-            //if (result.isConfirmed) {
-            //    confirm = true;
-            //    //Swal.fire(
-            //    //    ConfirmedMessage,
-            //    //    '',
-            //    //    'success'
-            //    //)
-            //}
-        });
-    });
-}
+//    });
+//}
+//window.SweetConfirmWithIcon = function (title, text, ConfirmButtonText = "Ok") {
+//    return new Promise(resolve => {
+//        Swal.fire({
+//            title: title,
+//            text: text,
+//            icon: 'warning',
+//            showCancelButton: true,
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            confirmButtonText: ConfirmButtonText
+//        }).then((result) => {
+//            resolve(result.isConfirmed);
+//            //if (result.isConfirmed) {
+//            //    confirm = true;
+//            //    //Swal.fire(
+//            //    //    ConfirmedMessage,
+//            //    //    '',
+//            //    //    'success'
+//            //    //)
+//            //}
+//        });
+//    });
+//}
 window.BlockPage = function()
 {
     $.blockUI({
@@ -241,7 +226,7 @@ window.FichaDetalleDrCr = function (datos) {
 
 window.GenerarReciboIngreso = function (datos) {
     if (datos != null) {
-        var dt = JSON.parse(datos)[0];
+        var dt = JSON.parse(datos);
         GenerarReciboIng(dt)
     }
     return true;
@@ -257,23 +242,6 @@ window.HSetOverlay = function (value) {
     return true;
 }
 
-window.OnlyNumberInput = (inputName) => {
-    try {
-        const numberInput = document.getElementById(inputName);
-        numberInput.addEventListener('keypress', (event) => {
-            const keyCode = event.keyCode || event.which;
-            const keyValue = String.fromCharCode(keyCode);
-            if (!/^\d+$/.test(keyValue)) {
-                event.preventDefault();
-            }
-        })
-        return true;
-    } catch (e) {
-        console.log({ e });
-    }
-
-    return false;
-}
 
 window.FocusOnInput = (inputName) => {
     try {
@@ -285,4 +253,3 @@ window.FocusOnInput = (inputName) => {
 
     return false;
 }
-//  document.getElementById("myTextField").focus();

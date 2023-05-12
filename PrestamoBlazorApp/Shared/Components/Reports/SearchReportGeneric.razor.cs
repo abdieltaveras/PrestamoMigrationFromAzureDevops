@@ -37,7 +37,6 @@ namespace PrestamoBlazorApp.Shared.Components.Reports
         }
        private async void GenerarReporte()
        {
-            await JsInteropUtils.CloseModal(jsRuntime, "#ModalGenerarReporte");
             await BlockPage();
             BaseReporteParams.Opcion = 1;
             if (ShowDatePicker)
@@ -67,7 +66,6 @@ namespace PrestamoBlazorApp.Shared.Components.Reports
        private async void VerGenerador() 
        {
             
-            await JsInteropUtils.ShowModal(jsRuntime, "#ModalGenerarReporte");
        }
 
     }

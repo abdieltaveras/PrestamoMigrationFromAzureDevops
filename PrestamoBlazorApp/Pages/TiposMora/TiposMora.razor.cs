@@ -64,7 +64,7 @@ namespace PrestamoBlazorApp.Pages.TiposMora
             await BlockPage();
             await TiposMoraService.SaveTipoMora(this.TipoMora);
             await UnBlockPage();
-            await SweetMessageBox("Guardado Correctamente", "success", "");
+            await NotifyMessageBySnackBar("Guardado Correctamente",Severity.Success);
             //await OnGuardarNotification();
             //NavManager.NavigateTo("/TiposMora");
         }
