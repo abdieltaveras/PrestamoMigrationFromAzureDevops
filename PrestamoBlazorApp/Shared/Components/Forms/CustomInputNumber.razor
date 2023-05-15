@@ -1,4 +1,5 @@
-﻿@using System.Text.RegularExpressions;
+﻿@implements IAsyncDisposable
+@using System.Text.RegularExpressions;
 @inherits CommonBase
 <MudInput 
     InputType="InputType.Text" 
@@ -40,6 +41,8 @@
         }
     }
 
+    private IJSObjectReference? module { get; set; }
+
     [Parameter]
     public EventCallback<string> ValueChanged { get; set; }
 
@@ -53,5 +56,14 @@
             await module.InvokeVoidAsync("OnlyNumberInput", InputId);
         }
     }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+
 }
 
