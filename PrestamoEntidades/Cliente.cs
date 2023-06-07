@@ -59,10 +59,6 @@ namespace PrestamoEntidades
 
         public string TelefonoCasa { get; set; } = string.Empty;
 
-        public string Imagen1FileName { get; set; } = string.Empty;
-
-        public string Imagen2FileName { get; set; } = string.Empty;
-
         public bool Activo { get; set; } = false;
         public int IdTipoIdentificacion { get; set; }
         public override string ToString() => $"{this.Nombres} {this.Apellidos} {this.TelefonoCasa}";

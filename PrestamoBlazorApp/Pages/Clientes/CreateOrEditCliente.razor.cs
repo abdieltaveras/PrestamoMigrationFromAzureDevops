@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using static MudBlazor.CategoryTypes;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
@@ -106,7 +107,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.InfoLaboral = Cliente.InfoLaboralObj;
             this.InfoDireccion = await CreateInfoDireccion(Cliente.InfoDireccionObj);
             Referencias = Cliente.InfoReferenciasObj;
-            await FilterImagesByGroup();
+            await LoadImages();
+            //await FilterImagesByGroup();
             LoadedFotos = true;
             StateHasChanged();
         }
@@ -157,20 +159,23 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.Cliente.InfoDireccionObj = this.InfoDireccion;
         }
 
-        private async Task FilterImagesByGroup()
+        private async Task SetImagesByGroup(Imagen imagen)
         {
-            var imagenes = await clientesService.GetImagenes(idCliente);
-            
-            FotosRostroCliente.Clear();
-            FotosDocIdentificacion.Clear();
-            imagenes.ForEach(item =>
-            {
-                if (!item.Quitar)
-                {
-                    if (item.Grupo == TiposFotosPersonas.Rostro.ToString()) FotosRostroCliente.Add(item);
-                    if (item.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
-                }
-            });
+            if (imagen.Grupo == TiposFotosPersonas.Rostro.ToString()) FotosRostroCliente.Add(imagen);
+            if (imagen.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(imagen);
+
+            //var imagenes = await clientesService.GetImagenes(idCliente);
+
+            //FotosRostroCliente.Clear();
+            //FotosDocIdentificacion.Clear();
+            //imagenes.ForEach(item =>
+            //{
+            //    if (!item.Quitar)
+            //    {
+            //        if (item.Grupo == TiposFotosPersonas.Rostro.ToString()) FotosRostroCliente.Add(item);
+            //        if (item.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
+            //    }
+            //});
         }
         async Task SaveCliente()
         {
@@ -197,6 +202,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 await clientesService.SaveCliente(this.Cliente);
                 await NotifyMessageBySnackBar("Datos guardados para "+Cliente.NombreCompleto, Severity.Info);
                 form.Reset();
+                this.FotosRostroCliente = new List<Imagen>();
+                this.FotosDocIdentificacion = new List<Imagen>();
                 this.idCliente = -1;
                 await GetCliente();
             }
@@ -247,19 +254,31 @@ namespace PrestamoBlazorApp.Pages.Clientes
                 }
             }
         }
-        private void SetImages(Imagen imagen)
+        private async Task SetImages(Imagen imagen)
         {
             Cliente.ImagenesObj.Add(imagen);
-            FilterImagesByGroup();
+            await SetImagesByGroup(imagen);
         }
-
+        private async Task LoadImages()
+        {
+            var imagenes = await clientesService.GetImagenes(idCliente);
+            Cliente.ImagenesObj = imagenes.ToList();
+            imagenes.ForEach(item =>
+            {
+                if (item.Grupo == TiposFotosPersonas.Rostro.ToString()) FotosRostroCliente.Add(item);
+                if (item.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Add(item);
+            });
+        }
 
 
         private void RemoveImages(Imagen imagen)
         {
-            var index = this.Cliente.ImagenesObj.IndexOf(imagen);
-            this.Cliente.ImagenesObj[index].Quitar = true;
-            this.Cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
+            //var index = this.Cliente.ImagenesObj.IndexOf(imagen);
+            this.Cliente.ImagenesObj.Remove(imagen);
+            if (imagen.Grupo == TiposFotosPersonas.Rostro.ToString()) FotosRostroCliente.Remove(imagen);
+            if (imagen.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Remove(imagen);
+            //this.Cliente.ImagenesObj[index].Quitar = true;
+            //this.Cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
         }
 
         private async Task ShowErrors()
