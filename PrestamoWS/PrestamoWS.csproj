@@ -119,6 +119,7 @@
     <Folder Include="ImagesFor\Clientes\Identificaciones\" />
     <Folder Include="ImagesFor\Codeudores\" />
     <Folder Include="ImagesFor\Inversionistas\" />
+    <Folder Include="ImagesFor\Deleted\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

@@ -216,7 +216,8 @@ namespace PrestamoEntidades
 
         [IgnoreOnParams]
         public List<Imagen> ImagenesObj { get; set; } = new List<Imagen>();
-
+        [IgnoreOnParams]
+        public List<Imagen> ImagenesRemover { get; set; } = new List<Imagen>();
 
         public override string ToString()
         {

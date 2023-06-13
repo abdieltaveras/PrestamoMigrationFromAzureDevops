@@ -92,6 +92,7 @@ namespace PrestamoWS.Controllers
             var state = ModelState.IsValid;
             try
             {
+                ManejoImagenes.MoverImagenes(cliente.ImagenesRemover, ImagePathForClientes, ImagePathDeleted);
                 ManejoImagenes.ProcesarImagenes(cliente.ImagenesObj, ImagePathForClientes , string.Empty);
                 var id = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdCliente(cliente);
                 return Ok(id);
