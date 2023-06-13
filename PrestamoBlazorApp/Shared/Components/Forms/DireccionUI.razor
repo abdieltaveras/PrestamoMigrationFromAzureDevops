@@ -13,11 +13,22 @@
         <BuscarLocalidades OnLocalidadSelected="Handle_LocalidadSelected"></BuscarLocalidades>
     }
 }
-<MudTextField @bind-Value="direccion.Calle" Validation="@direccion.Calle" Label="Calle"/>
-<MudTextField @bind-Value="direccion.Latitud" Validation="@direccion.Latitud" Label="Latitud"/>
-<MudTextField @bind-Value="direccion.Longitud" Validation="@direccion.Longitud" label="Longitud"/>
-<MudTextField @bind-Value="direccion.Detalles" Validation="@direccion.Detalles" Label="otros Detalles" Lines="5" Variant="Variant.Filled"/>
-<MudText Color="MudBlazor.Color.Primary">Area para el mapa</MudText>
+<MudGrid>
+        <MudItem  xs="5">
+        
+            <MudTextField @bind-Value="direccion.Calle" Validation="@direccion.Calle" Label="Calle" />
+            <MudTextField @bind-Value="direccion.Latitud" Validation="@direccion.Latitud" Label="Latitud" />
+        
+        </MudItem>
+        <MudItem xs="5">
+        
+            <MudTextField @bind-Value="direccion.Longitud" Validation="@direccion.Longitud" Label="Longitud" />
+            <MudTextField @bind-Value="direccion.Detalles" Validation="@direccion.Detalles" Label="otros Detalles" Lines="5" Variant="Variant.Filled" />
+            <MudText Color="MudBlazor.Color.Primary">Area para el mapa</MudText>
+        
+        </MudItem>
+
+</MudGrid>
 @*<MudButton OnClick="UpdateMapMarkers" Color="MudBlazor.Color.Info">Actualizar Mapa</MudButton>*@
 @*<Map Zoom="5" Markers="MapMarkers"></Map>*@
 

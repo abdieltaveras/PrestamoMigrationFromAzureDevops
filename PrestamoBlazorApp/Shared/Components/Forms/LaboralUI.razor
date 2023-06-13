@@ -1,16 +1,19 @@
-﻿<MudTextField Label="Nombre donde trabaja" @bind-Value="@InfoLaboral.Nombre" Required="true" RequiredError="No se aceptan valores vacios" Validation="@InfoLaboral.Nombre"></MudTextField>
+﻿
+<MudGrid>
+    <MudItem xs="5">
+    <MudTextField Label="Nombre donde trabaja" @bind-Value="@InfoLaboral.Nombre" Required="true" RequiredError="No se aceptan valores vacios" Validation="@InfoLaboral.Nombre"></MudTextField>
+    <MudTextField Label="Direccion" @bind-Value="@InfoLaboral.Direccion" Required="true" RequiredError="No se aceptan valores vacios" Lines="2"></MudTextField>
+    <MudTextField Label="Telefono 1" @bind-Value="@InfoLaboral.NoTelefono1"></MudTextField>
+    </MudItem>
 
-<MudTextField Label="Direccion" @bind-Value="@InfoLaboral.Direccion" Required="true" RequiredError="No se aceptan valores vacios" Lines="2"></MudTextField>
+    <MudItem xs="5">
+        <MudTextField Label="Telefono 2" @bind-Value="@InfoLaboral.NoTelefono2"></MudTextField>
+        <MudTextField Label="Puesto o funcion" @bind-Value="@InfoLaboral.Puesto" Required="true" RequiredError="No se aceptan valores vacios"></MudTextField>
+        <MudDatePicker Label="Fecha inicio" @bind-Date="InfoLaboral.FechaInicio" Required="true" RequiredError="No se aceptan valores vacios"></MudDatePicker>
+        <MudTextField Label="Otros detalles" @bind-Value="@InfoLaboral.Notas" Required="true" RequiredError="No se aceptan valores vacios" Lines="3"></MudTextField>
+    </MudItem>
+    </MudGrid>
 
-<MudTextField Label="Telefono 1" @bind-Value="@InfoLaboral.NoTelefono1"></MudTextField>
-
-<MudTextField Label="Telefono 2" @bind-Value="@InfoLaboral.NoTelefono2"></MudTextField>
-
-<MudTextField Label="Puesto o funcion" @bind-Value="@InfoLaboral.Puesto" Required="true" RequiredError="No se aceptan valores vacios"></MudTextField>
-
-<MudDatePicker Label="Fecha inicio" @bind-Date="InfoLaboral.FechaInicio" Required="true" RequiredError="No se aceptan valores vacios"></MudDatePicker>
-
-<MudTextField Label="Otros detalles" @bind-Value="@InfoLaboral.Notas" Required="true" RequiredError="No se aceptan valores vacios" Lines="3"></MudTextField>
 
 
 
