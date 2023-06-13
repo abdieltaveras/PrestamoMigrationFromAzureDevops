@@ -56,6 +56,19 @@ namespace PrestamoBLL
                 }
             }
         }
+        public static void MoverImagenes(List<Imagen> imagenes, string directorioDeImagenes, string directoryToCopy)
+        {
+            foreach (var item in imagenes)
+            {
+                var fileName = directorioDeImagenes + item.NombreArchivo;
+                FileInfo file = new FileInfo(fileName);
+                if (file.Exists)//check file exsit or not  
+                {
+                    file.CopyTo(directoryToCopy + item.NombreArchivo);
+                    file.Delete();
+                }
+            }
+        }
 
         public static List<string> GetImagen(string ImagePath, string ImageListJson )
         {
