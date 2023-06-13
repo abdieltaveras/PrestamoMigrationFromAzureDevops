@@ -97,11 +97,12 @@ namespace PrestamoBlazorApp.Pages.Clientes
                     this.Cliente = clientes.FirstOrDefault();
                 }
 
-                if (this.Cliente == null)
+                if (this.Cliente == null || idCliente<=0 )
                 {
                     this.Cliente = new Cliente();
                     var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.InfoDireccion.IdLocalidad });
                 }
+                
             }
             //this.Direccion = Cliente.InfoDireccion.ToType<DireccionModel>(); //Cliente.InfoDireccionObj;
 
@@ -263,6 +264,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
         }
         private async Task LoadImages()
         {
+            if (idCliente <= 0) return;
             var imagenes = await clientesService.GetImagenes(idCliente);
             Cliente.ImagenesObj = imagenes.ToList();
             imagenes.ForEach(item =>
