@@ -2,75 +2,86 @@
 @using PrestamoBlazorApp.Shared.Components.EntidadEstatus
 @using PrestamoBlazorApp.Shared.Components.Forms
 
-@if (AllowInputCodigo)
-{
-    <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
-}
-else
-{
-    <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
-}
 
-<MudSelect @bind-Value="cliente.IdTipoIdentificacion" Label="Tipo Identificacion">
-    @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
+<MudGrid>
+    <MudItem sm="4">
+
+        @if (AllowInputCodigo)
     {
-        <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+        <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
     }
-</MudSelect>
-
-@if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
-{
-    <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" Placeholder="000-0000000-0"></MudTextField>
-}
-else
-{
-    <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion"></MudTextField>
-
-    @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
-}
-<div class="ml-5">
-
-    @{
-        var tGrp = TiposFotosPersonas.DocIdentificacion.ToString();
-    }
-    <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagen"></InputImages2>
-</div>
-
-<MudTextField @bind-Value="cliente.Nombres" Label="Nombres" Required="true" RequiredError="es obligatorio escribir el nombre"></MudTextField>
-
-@*<ValidationMessage For="() => cliente.Nombres" />*@
-<MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos"></MudTextField>
-<MudTextField @bind-Value="cliente.Apodo" Label="Apodo"></MudTextField>
-<div class="ml-5">
-
-    @{
-        var tGrupo = TiposFotosPersonas.Rostro.ToString();
-    }
-    <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
-</div>
-<MudSelect Value="cliente.IdEstadoCivil" Label="Estado Civil" ValueChanged="OnEstadoCivilChange">
-    @foreach (var item in EnumToList.GetEnumEstadosCiviles())
+    else
     {
-        <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+        <MudTextField @bind-Value="cliente.Codigo" Label="Codigo"></MudTextField>
     }
-</MudSelect>
-<MudSwitch Checked="cliente.TieneConyuge" CheckedChanged="OnTieneConyugeChange" Label="Tiene Conyuge o Pareja"></MudSwitch>
 
-<MudSelect @bind-Value="cliente.idSexo" Label="Sexo">
-    <MudSelectItem Value="1">Masculino</MudSelectItem>
-    <MudSelectItem Value="2">Femenino</MudSelectItem>
-</MudSelect>
-<MudDatePicker @bind-Date="cliente.FechaNacimiento" Label="Fecha nacimiento"></MudDatePicker>
-<MudTextField @bind-Value="cliente.TelefonoCasa" Label="Telefono Casa"></MudTextField>
-<MudTextField @bind-Value="cliente.TelefonoMovil" Label="Telefono Movil"></MudTextField>
-<MudSelect T="Int32" @bind-Value="cliente.IdTipoProfesionUOcupacion" Label="Profesion">
-    <MudSelectItem Value="-1">Seleccionar ocupacion </MudSelectItem>
-    @foreach (var item in Ocupaciones)
-    {
-        <MudSelectItem Value="@item.IdRegistro">@item.Nombre</MudSelectItem>
-    }
-</MudSelect>
+    <MudSelect @bind-Value="cliente.IdTipoIdentificacion" Label="Tipo Identificacion">
+        @foreach (var item in EnumToList.GetEnumTiposIdentificacionPersona())
+        {
+            <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+        }
+    </MudSelect>
+        @if (cliente.IdTipoIdentificacion == (int)TiposIdentificacionPersona.Cedula)
+        {
+            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion" Placeholder="000-0000000-0"></MudTextField>
+        }
+        else
+        {
+            <MudTextField @bind-Value="cliente.NoIdentificacion" Label="Numeracion"></MudTextField>
 
+            @*<InputText id="noIdentificacion" @bind-Value="cliente.NoIdentificacion" class="col-sm-3" />*@
+        }
+         <div class="ml-5">
 
+        @{
+            var tGrp = TiposFotosPersonas.DocIdentificacion.ToString();
+        }
+        <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosDocIdentificacion" GrupoImagen="@tGrp" ImageQty="2" Text="Imagen"></InputImages2>
+    </div>
+    </MudItem>
 
+    <MudItem>
+       
 
+    <MudTextField @bind-Value="cliente.Nombres" Label="Nombres" Required="true" RequiredError="es obligatorio escribir el nombre"></MudTextField>
+
+    @*<ValidationMessage For="() => cliente.Nombres" />*@
+    <MudTextField @bind-Value="cliente.Apellidos" Label="Apellidos"></MudTextField>
+    <MudTextField @bind-Value="cliente.Apodo" Label="Apodo"></MudTextField>
+    <div class="ml-5">
+
+        @{
+            var tGrupo = TiposFotosPersonas.Rostro.ToString();
+        }
+        <InputImages2 @key="1" OnImageSet="SetImages " OnImageRemove="RemoveImages" ListaImagenes="this.FotosRostroCliente" GrupoImagen="@tGrupo" ImageQty="1" Text="Imagen Rostro Del Cliente"></InputImages2>
+    </div>
+    </MudItem>
+
+    <MudItem>
+            <MudSelect Value="cliente.IdEstadoCivil" Label="Estado Civil" ValueChanged="OnEstadoCivilChange">
+                @foreach (var item in EnumToList.GetEnumEstadosCiviles())
+                {
+                    <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSwitch Checked="cliente.TieneConyuge" CheckedChanged="OnTieneConyugeChange" Label="Tiene Conyuge o Pareja"></MudSwitch>
+
+            <MudSelect @bind-Value="cliente.idSexo" Label="Sexo">
+                <MudSelectItem Value="1">Masculino</MudSelectItem>
+                <MudSelectItem Value="2">Femenino</MudSelectItem>
+            </MudSelect>
+            <MudDatePicker @bind-Date="cliente.FechaNacimiento" Label="Fecha nacimiento"></MudDatePicker>
+            <MudTextField @bind-Value="cliente.TelefonoCasa" Label="Telefono Casa"></MudTextField>
+            <MudTextField @bind-Value="cliente.TelefonoMovil" Label="Telefono Movil"></MudTextField>
+            <MudSelect T="Int32" @bind-Value="cliente.IdTipoProfesionUOcupacion" Label="Profesion">
+                <MudSelectItem Value="-1">Seleccionar ocupacion </MudSelectItem>
+                @foreach (var item in Ocupaciones)
+                {
+                    <MudSelectItem Value="@item.IdRegistro">@item.Nombre</MudSelectItem>
+                }
+            </MudSelect>
+    </MudItem>
+    
+    
+
+   </MudGrid>
