@@ -4,17 +4,18 @@
 	@Codigo          VARCHAR (20),
 	@NombreJuridico  VARCHAR (100),
 	@NombreComercial VARCHAR (100),
-	@CorreoElectronico VARCHAR (100),
+	@CorreoElectronico VARCHAR (100) ,
 	@Activo          BIT,
 	@Bloqueado       BIT,
 	@idNegocioPadre  INT=null,
 	@TaxIdNo         VARCHAR (20),
 	@OtrosDetalles   VARCHAR (100),
-	@Logo   VARCHAR (100),
-	@InfoAccion		 varchar (max),
+	@Logo   VARCHAR (100) = '',
+	@InfoAccion		 varchar (max) = '',
 	@Usuario varchar(50),
-	@Prefijo varchar(3),
-	@PermitirOperaciones int
+	@Prefijo varchar(3)='',
+	@PermitirOperaciones int,
+	@IdLocalidadNegocio int 
 	--@GenerarSecuencia bit
 )
 AS
@@ -33,7 +34,7 @@ Begin
 		begin
 		UPDATE dbo.tblNegocios
 		SET 
-			Codigo = @codigo,
+			--Codigo = @codigo,
 			NombreJuridico = @nombrejuridico,
 			NombreComercial = @nombrecomercial,
 			CorreoElectronico = @correoElectronico,
@@ -42,7 +43,8 @@ Begin
 			TaxIdNo = @taxidno,
 			OtrosDetalles = @otrosdetalles,
 			ModificadoPor = @InfoAccion,
-			FechaModificado = getdate()
+			FechaModificado = getdate(),
+			Prefijo = @Prefijo
 			where idNegocio = @IdNegocio
 			select @idNegocio 
 		end
