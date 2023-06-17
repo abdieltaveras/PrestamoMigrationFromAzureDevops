@@ -18,6 +18,8 @@ namespace PrestamoEntidades
 
         public string CorreoElectronico { get; set; } = string.Empty;
         public string TaxIdNo { get; set; } = string.Empty;
+        public string Prefijo { get; set; } = string.Empty;
+
         /// <summary>
         /// Detalles adicionales  Direccion, telefono, etc datos que se puedan enviar en un json o xml
         /// </summary>

@@ -16,15 +16,15 @@ namespace PrestamoWS.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class LocalidadesNegociosController : ControllerBasePrestamoWS
+    public class NegociosController : ControllerBasePrestamoWS
     {
         // GET: api/<LocalidadNegocioController>
         [HttpGet]
-        public IActionResult Get([FromQuery] LocalidadNegociosGetParams param)
+        public IActionResult Get([FromQuery] NegociosGetParams param)
         {
             try
             {
-                var result = BLLPrestamo.Instance.GetLocalidadesNegocio(param);
+                var result = new NegocioBLL(this.IdLocalidadNegocio, this.LoginName).GetNegocios(param);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -36,14 +36,13 @@ namespace PrestamoWS.Controllers
 
         // POST api/<LocalidadNegocioController>
         [HttpPost]
-        public IActionResult Post([FromBody] LocalidadNegocio param)
+        public IActionResult Post([FromBody] Negocio param)
         {
             try
             {
-                param.IdNegocio = 1;
                 param.Usuario = this.LoginName;
                 param.IdLocalidadNegocio = this.IdLocalidadNegocio;
-                BLLPrestamo.Instance.InsUpdLocalidadNegocio(param);
+                var result = new NegocioBLL(this.IdLocalidadNegocio, this.LoginName).InsUpd(param);
                 return Ok();
             }
             catch (Exception ex)

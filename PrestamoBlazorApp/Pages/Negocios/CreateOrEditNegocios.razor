@@ -1,0 +1,16 @@
+﻿@page "/negocios/createoredit"
+@page "/negocios/createoredit/{IdNegocio:int}"
+@using PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
+@inherits BaseForCreateOrEdit
+
+<MudGrid>
+@*<div class="card">*@
+    <MudItem md="12"sm="12" >
+        <MudText Color="MudBlazor.Color.Info" Typo="Typo.h4" Align="Align.Center">Creacion y Edicion de Localidades de Negocios</MudText>
+        <PrestamoBlazorApp.Shared.Components.Negocios.CreateNegocios IdNegocio="IdNegocio"></PrestamoBlazorApp.Shared.Components.Negocios.CreateNegocios>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+}

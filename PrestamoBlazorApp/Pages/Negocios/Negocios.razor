@@ -1,0 +1,38 @@
+﻿@page "/negocios"
+@using PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
+@inherits BaseForCreateOrEdit
+@using PrestamoBlazorApp.Shared.Components.Forms 
+
+<MudText Typo="Typo.h4" Align="Align.Center" Color="MudBlazor.Color.Info">Lista de Negocios</MudText>
+<GeneralList OnAddClick='()=>OnEditClick("negocios/createoredit/")'>
+    <CardContent>
+        <MudTable Items="negocios" Context="ct">
+            <HeaderContent>
+                    <MudTh>IdNegocio</MudTh>
+                    <MudTh>Codigo</MudTh>
+                    <MudTh>Nombre Comercial</MudTh>
+                    <MudTh>Nombre Juridico</MudTh>
+                    <MudTh>Accion</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@ct.IdNegocio</MudTd>
+                <MudTd>@ct.Codigo</MudTd>
+                <MudTd>@ct.NombreComercial</MudTd>
+                <MudTd>@ct.NombreJuridico</MudTd>
+                <MudTd>
+                    <MudIconButton OnClick='()=>OnEditClick("negocios/createoredit/" + ct.IdNegocio)'
+                                   Icon="@Icons.Material.Filled.Edit">
+
+                    </MudIconButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    </CardContent>
+</GeneralList>
+
+
+
+@code {
+
+    
+}

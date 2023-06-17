@@ -1,0 +1,43 @@
+﻿@inherits BaseForCreateOrEdit
+<EditForm Model="@Negocio" OnValidSubmit="@SaveLocalidadNegocio" OnInvalidSubmit="HandleInvalidSubmit">
+    <MudCard>
+        <MudCardHeader Class="d-flex justify-end">
+            <CardHeaderActions>
+                <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Guardar</MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+
+            <ObjectGraphDataAnnotationsValidator />
+            <MudGrid>
+                <MudItem md="6" lg="5">
+                    <MudTextField Label="Nombre Juridico" @bind-Value="Negocio.NombreJuridico"
+                                  For="()=>Negocio.NombreJuridico"></MudTextField>
+                    <MudTextField Label="Nombre Comercial" @bind-Value="Negocio.NombreComercial"
+                                  For="()=>Negocio.NombreComercial"></MudTextField>
+                    <MudTextField Label="TaxId" @bind-Value="Negocio.TaxIdNo"
+                                  For="()=>Negocio.TaxIdNo" ></MudTextField>
+                    <MudTextField Label="Correo Electronico" @bind-Value="Negocio.CorreoElectronico"
+                                  For="()=>Negocio.CorreoElectronico" ></MudTextField>
+                    <MudTextField Label="Prefijo" @bind-Value="Negocio.Prefijo"
+                                  For="()=>Negocio.Prefijo" MaxLength="3"></MudTextField>
+                </MudItem>
+                <MudItem md="4" lg="4">
+                    <MudCheckBox @bind-Checked="Negocio.Activo" Label="Activo"></MudCheckBox>
+                    <MudCheckBox @bind-Checked="Negocio.Bloqueado" Label="Bloqueado"></MudCheckBox>
+                    <MudCheckBox @bind-Checked="Negocio.PermitirOperaciones" Label="Permitir Operaciones"></MudCheckBox>
+                </MudItem>
+            </MudGrid>
+            <MudDivider />
+            <MudGrid>
+                <MudItem md="6" lg="5">
+
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+</EditForm>
+
+
+@code {
+}

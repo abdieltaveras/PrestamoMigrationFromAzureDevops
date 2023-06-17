@@ -83,6 +83,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<ClientesEstatusService>();
             services.AddScoped<LocalizadoresService>();
             services.AddScoped<PrestamosEstatusService>();
+            services.AddScoped<NegociosService>();
 
 
 

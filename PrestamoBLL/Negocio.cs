@@ -12,8 +12,12 @@ namespace PrestamoBLL
 
 
     //todo revisar los procedimientos que no devuelvan data anulada, o si la devuelven que dicha dada no pueda ser modificada en ningun stored procedure es una condicion a poner en todos los sp
-    public partial class BLLPrestamo
+    public  class NegocioBLL:BaseBLL
     {
+        public NegocioBLL(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName)
+        {
+        }
+
         public IEnumerable<Negocio> GetNegocios(NegociosGetParams searchParam)
         {
             //ThrowErrorIfUsuarioEmptyOrNull(searchParam.Usuario);
@@ -25,7 +29,7 @@ namespace PrestamoBLL
             }
             catch (Exception e)
             {
-                DatabaseError(e);
+                //DatabaseError(e);
             }
             return result;
         }
@@ -44,7 +48,7 @@ namespace PrestamoBLL
             }
             catch (Exception e)
             {
-                DatabaseError(e);
+                //DatabaseError(e);
             }
             return result;
             
@@ -64,7 +68,7 @@ namespace PrestamoBLL
             }
             catch (Exception e)
             {
-                DatabaseError(e);
+                //DatabaseError(e);
             }
             return result;
 
@@ -107,7 +111,7 @@ namespace PrestamoBLL
             }
             catch (Exception e)
             {
-                DatabaseError(e);
+                //DatabaseError(e);
             }
             return idNegocioResponse;
         }
@@ -126,7 +130,7 @@ namespace PrestamoBLL
             }
             catch (Exception e)
             {
-                DatabaseError(e);
+                //DatabaseError(e);
             }
             return result;
         }
@@ -134,9 +138,10 @@ namespace PrestamoBLL
         /// texto para cuando no haya correo electronico en un campo que lo requiera y haya que ponerle un valor por defecto
         /// </summary>
         
-        public int NegocioinsUpd(Negocio insUpdParam)
+        public int InsUpd(Negocio insUpdParam)
         {
-            InsUpdValidation(insUpdParam);
+            insUpdParam.Codigo = Guid.NewGuid().ToString();
+            //InsUpdValidation(insUpdParam);
             var idResult = -1;
             var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);
             try
@@ -146,7 +151,7 @@ namespace PrestamoBLL
             }
             catch (Exception e)
             {
-                DatabaseError(e);
+                //DatabaseError(e);
             }
             return idResult;
         }
@@ -158,22 +163,23 @@ namespace PrestamoBLL
         /// <returns> 1 if succesfull 0 if fail </returns>
         public int NegocioCreateIfNotExist(string key)
         {
-            if (key != "pcp46232") return 0;
+            //if (key != "pcp46232") return 0;
 
-            if (!ExistDataForTable("tblNegocios"))
-            {
-                var negocio = new Negocio
-                {
-                    NombreComercial = "Empresa Nueva",
-                    Usuario = "InitSis",
-                };
-                NegocioinsUpd(negocio);
-                return 1;
-            }
-            else
-            {
-                return 1;
-            }
+            //if (!ExistDataForTable("tblNegocios"))
+            //{
+            //    var negocio = new Negocio
+            //    {
+            //        NombreComercial = "Empresa Nueva",
+            //        Usuario = "InitSis",
+            //    };
+            //    NegocioinsUpd(negocio);
+            //    return 1;
+            //}
+            //else
+            //{
+            //    return 1;
+            //}
+            return 0;
         }
     }
 }
