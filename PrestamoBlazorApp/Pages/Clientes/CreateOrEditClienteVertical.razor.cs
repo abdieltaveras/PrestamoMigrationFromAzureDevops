@@ -19,7 +19,7 @@ using static MudBlazor.CategoryTypes;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
-    public partial class CreateOrEditClienteV2 : BaseForCreateOrEdit
+    public partial class CreateOrEditClienteVertical : BaseForCreateOrEdit
     {
         // servicios
         [Inject]
@@ -39,6 +39,8 @@ namespace PrestamoBlazorApp.Pages.Clientes
 
         List<Imagen> FotosRostroCliente { get; set; } = new List<Imagen>();
         List<Imagen> FotosDocIdentificacion { get; set; } = new List<Imagen>();
+        List<Imagen> FotosRemover { get; set; } = new List<Imagen>();
+
         // miembros
         string searchSector = string.Empty;
 
@@ -95,11 +97,12 @@ namespace PrestamoBlazorApp.Pages.Clientes
                     this.Cliente = clientes.FirstOrDefault();
                 }
 
-                if (this.Cliente == null || idCliente <= 0)
+                if (this.Cliente == null || idCliente<=0 )
                 {
                     this.Cliente = new Cliente();
                     var localidad = await localidadService.Get(new LocalidadGetParams { IdLocalidad = this.InfoDireccion.IdLocalidad });
                 }
+                
             }
             //this.Direccion = Cliente.InfoDireccion.ToType<DireccionModel>(); //Cliente.InfoDireccionObj;
 
@@ -278,6 +281,7 @@ namespace PrestamoBlazorApp.Pages.Clientes
             this.Cliente.ImagenesObj.Remove(imagen);
             if (imagen.Grupo == TiposFotosPersonas.Rostro.ToString()) FotosRostroCliente.Remove(imagen);
             if (imagen.Grupo == TiposFotosPersonas.DocIdentificacion.ToString()) FotosDocIdentificacion.Remove(imagen);
+            this.Cliente.ImagenesRemover.Add(imagen);
             //this.Cliente.ImagenesObj[index].Quitar = true;
             //this.Cliente.ImagenesObj.Where(img => img.NombreArchivo == imagen.NombreArchivo).FirstOrDefault().Quitar = true;
         }

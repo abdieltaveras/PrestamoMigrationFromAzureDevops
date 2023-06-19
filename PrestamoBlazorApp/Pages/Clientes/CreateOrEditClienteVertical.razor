@@ -1,4 +1,5 @@
-﻿@page "/clientes/CreateOrEditV2"
+﻿@page "/clientes/CreateOrEditVertical"
+@page "/clientes/CreateOrEditVertical/{idCliente:int}"
 @using PrestamoBlazorApp.Shared.Components.Forms
 @using PrestamoBlazorApp.Shared.Components.Forms.InputReferencia
 @inherits BaseForCreateOrEdit
@@ -9,7 +10,7 @@
             @*<DataAnnotationsValidator />
             <ValidationSummary />*@
 
-            <MudGrid >
+            <MudGrid>
 
                 <MudItem xs="12" sm="12" Class="d-flex justify-end flex-grow-1">
                     <MudButton OnClick="SaveCliente" Color="MudBlazor.Color.Primary" Variant="Variant.Filled">Guardar</MudButton>
@@ -18,7 +19,7 @@
                 </MudItem>
 
 
-                <MudItem xs="12" >
+                <MudItem xs="12" sm="3">
 
                     @*<MudText>Generales</MudText>*@
                     <MudAlert Severity="Severity.Info">Generales</MudAlert>
@@ -33,7 +34,7 @@
 
                 </MudItem>
 
-                <MudItem xs="12" >
+                <MudItem xs="12" sm="3">
                     @*<MudText>Direccion</MudText>*@
                     <MudAlert Severity="Severity.Info">Direccion</MudAlert>
                     <DireccionUI direccion=@this.InfoDireccion />
@@ -48,14 +49,14 @@
                     </MudItem>
                 }
 
-                <MudItem xs="12" >
+                <MudItem xs="12" sm="3">
                     <MudItem xs="12" sm="12">
                         @*<MudText>Laborales</MudText>*@
                         <MudAlert Severity="Severity.Info">Laborales</MudAlert>
                         <LaboralUI InfoLaboral="@InfoLaboral" />
                         @*<LaboralUI2 Cliente=@Cliente />*@
                     </MudItem>
-                    <MudItem xs="12" >
+                    <MudItem xs="12" sm="12">
                         <MudButton OnClick="()=>AddReferencia(new Referencia())" Variant="Variant.Filled">Agregar Referencias</MudButton>
                         <PrestamoBlazorApp.Shared.Components.Clientes.Referencias.ListInfoReferencias Referencias="Referencias" OnSelectReferencia="AddReferencia" />
                     </MudItem>
