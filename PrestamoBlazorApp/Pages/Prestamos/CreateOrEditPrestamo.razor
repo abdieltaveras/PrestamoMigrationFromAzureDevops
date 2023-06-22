@@ -54,7 +54,15 @@
                             <MudItem md="12" lg="12">
                                 <MudTextField @bind-Value="@CodigoCliente" ReadOnly="true" Label="Codigo Cliente" Adornment="Adornment.End" OnAdornmentClick="ActivateSearchCliente" AdornmentIcon="@Icons.Material.Filled.Search"></MudTextField>
                                 @*<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="ActivateSearchCliente"></MudIconButton>*@
-                                <SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" OnModalClose="OnCloseSearchCliente" />
+                                @*<SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" OnModalClose="OnCloseSearchCliente" />*@
+                            <MudButton OnClick="ShowSearchCliente">Buscar Cliente</MudButton>
+                            <MudText>
+                                Cliente Seleccionado
+
+                                <MudChip>
+                                    @ClienteSelected.NombreCompleto 
+                                </MudChip>
+                            </MudText>
                                 <MudCard>
                                     <MudCardContent>
                                         @InfoCliente
@@ -81,7 +89,15 @@
                                             <MudListItem OnClick="() => RemoveGarantia(item.IdGarantia)" Icon="@Icons.Material.Filled.Remove"> </MudListItem>
                                         }
                                     </MudList>
-                                    <SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" OnModalClose="OnCloseSearchGarantia" />
+                                <MudButton OnClick="ShowSearchGarantia">Buscar Garantia</MudButton>
+                                    <MudText>Garantia Seleccionada
+                                        
+                                       <MudChip>
+                                            @GarantiaSelected.NoIdentificacion @GarantiaSelected.NombreMarca
+                                       </MudChip> 
+                                      </MudText>
+
+                                    @*<SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" OnModalClose="OnCloseSearchGarantia" />*@
 
                                 }
                             </MudItem>

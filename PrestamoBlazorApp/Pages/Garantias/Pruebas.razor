@@ -14,7 +14,7 @@
 
     private async Task ShowWtInstance()
     {
-        var parameters = new DialogParameters { ["Columns"] = cols };
+        var parameters = new DialogParameters { };
         DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton=true };
         var dialog = DialogService.Show<SearchGarantiaByProperty>("Seleccionar Garantia", parameters, dialogOptions);
         var result = await dialog.Result;

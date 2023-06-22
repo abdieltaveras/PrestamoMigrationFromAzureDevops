@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-
+using MudBlazor;
 using PcpUtilidades;
 using PrestamoBlazorApp.Models;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
+using PrestamoBlazorApp.Shared.Components.Clientes;
+using PrestamoBlazorApp.Shared.Components.Garantias;
 using PrestamoEntidades;
 using PrestamoValidaciones;
 using System;
@@ -17,13 +19,16 @@ namespace PrestamoBlazorApp.Pages.Prestamos
     public partial class CreateOrEditPrestamo : BaseForCreateOrEdit
     {
         [Inject]
+        IDialogService DialogService { get; set; }
+
+        [Inject]
         protected SetParametrosService setParametros { get; set; }
         private Prestamo prestamo { get; set; }
 
         private bool? _LlevaGastoCierre { get; set; }
         private bool? LlevaGastoCierre { get { return _LlevaGastoCierre;  } set { _LlevaGastoCierre = value; } }
         //private Prestamo prestamo { get; set; }
-        private bool ShowSearchGarantia { get; set; } = false;
+        //private bool ShowSearchGarantia { get; set; } = false;
         [Inject]
         PrestamosService prestamoService { get; set; }
         [Inject]
@@ -36,7 +41,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         [Inject]
         PeriodosService periodosService { get; set; }
 
-
+        GarantiaConMarcaYModelo GarantiaSelected { get; set; } = new GarantiaConMarcaYModelo();
+        Cliente ClienteSelected { get; set; } = new Cliente();
         [Inject]
         GarantiasService GarantiasService { get; set; }
         // en la clasificacion que indique
@@ -80,6 +86,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             var result = execTimes;
             //this.prestamo = new Prestamo();
             //await PrepareData();
+            GarantiaSelected = new GarantiaConMarcaYModelo();
             await Handle_GetData(InitPrestamo);
         }
 
@@ -281,39 +288,39 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         private async Task ActivateSearchGarantia()
         {
-            ShowSearchGarantia = true;
+            //ShowSearchGarantia = true;
         }
 
 
         private async Task UpdateGarantiaSelected(int idGarantia)
         {
-            this.ShowSearchGarantia = false;
-            if (prestamo.IdGarantias.Exists(val => val == idGarantia))
-            {
-                return;
-            }
-            //todo que la garantia valide si permite usarse en mas de 1 prestamo
-            // pero pense cambiar la forma, que dicho permiso se otorgue especificante par auna determinada peticion
-            // lo que deseo hacer en el sistema es que se genere un one time petition y diga peticion
-            // se le autorice al usuario para el proceso que desea y que se venza en cierto tiempo
-            // esto es una posiblidad luego de consumida ya expira
-            // dicha solicitud puede tener un boton que diga revisar estatus solicitud
-            // en espera, aceptada, rechazada, expirada
+            //this.ShowSearchGarantia = false;
+            //if (prestamo.IdGarantias.Exists(val => val == idGarantia))
+            //{
+            //    return;
+            //}
+            ////todo que la garantia valide si permite usarse en mas de 1 prestamo
+            //// pero pense cambiar la forma, que dicho permiso se otorgue especificante par auna determinada peticion
+            //// lo que deseo hacer en el sistema es que se genere un one time petition y diga peticion
+            //// se le autorice al usuario para el proceso que desea y que se venza en cierto tiempo
+            //// esto es una posiblidad luego de consumida ya expira
+            //// dicha solicitud puede tener un boton que diga revisar estatus solicitud
+            //// en espera, aceptada, rechazada, expirada
 
-            var prestamosVinculados = await GarantiasService.GetPrestamosVigentesForGarantia(idGarantia);
-            if (prestamosVinculados.Count() > 0)
-            {
+            //var prestamosVinculados = await GarantiasService.GetPrestamosVigentesForGarantia(idGarantia);
+            //if (prestamosVinculados.Count() > 0)
+            //{
 
-                var prestamosForGarantia = string.Join(",", prestamosVinculados.Select(elem => elem.prestamoNumero));
-                return;
-            }
+            //    var prestamosForGarantia = string.Join(",", prestamosVinculados.Select(elem => elem.prestamoNumero));
+            //    return;
+            //}
 
-            this.IdGarantiaSelected = idGarantia;
+            //this.IdGarantiaSelected = idGarantia;
 
-            //await NotifyMessageBox("garantia seleccionada " + idGarantia);
-            var Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = idGarantia });
-            var garantia = Garantias.FirstOrDefault();
-            updateInfoGarantia(garantia);
+            ////await NotifyMessageBox("garantia seleccionada " + idGarantia);
+            //var Garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { IdGarantia = idGarantia });
+            //var garantia = Garantias.FirstOrDefault();
+            //updateInfoGarantia(garantia);
         }
 
         private void updateInfoGarantia(GarantiaConMarcaYModelo garantia)
@@ -353,7 +360,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         }
 
         int IdClienteSelected { get; set; }
-        bool ShowSearchCliente { get; set; }
+        //bool ShowSearchCliente { get; set; }
         string InfoCliente { get; set; }
         [Inject]
         ClientesService clientesService { get; set; }
@@ -362,11 +369,11 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task ActivateSearchCliente()
         {
             InfoCliente = string.Empty;
-            ShowSearchCliente = true;
+            //ShowSearchCliente = true;
         }
         private async Task UpdateClienteSelected(int idCliente)
         {
-            this.ShowSearchCliente = false;
+            //this.ShowSearchCliente = false;
             this.IdClienteSelected = idCliente;
             //await NotifyMessageBox("garantia seleccionada " + idGarantia);
             var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente });
@@ -388,8 +395,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             InfoCliente = $"{cliente.NumeracionDocumentoIdentidad} {cliente.NombreCompleto} ";
         }
 
-        private void OnCloseSearchCliente() => ShowSearchCliente = false;
-        private void OnCloseSearchGarantia() => ShowSearchGarantia = false;
+        //private void OnCloseSearchCliente() => ShowSearchCliente = false;
+        //private void OnCloseSearchGarantia() => ShowSearchGarantia = false;
 
         private bool LlevaGarantia() => ClasificacionSelected.RequiereGarantia; 
 
@@ -488,8 +495,33 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             await SetTasaDeInteresDelPeriodo();
             await Calcular();
         }
+        private async Task ShowSearchGarantia()
+        {
+            //string[] cols = { "Nombres", "Apellidos" };
+            var parameters = new DialogParameters { };
+            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            var dialog = DialogService.Show<SearchGarantiaByProperty>("Seleccionar Garantia", parameters, dialogOptions);
+            var result = await dialog.Result;
 
+            if (!result.Cancelled)
+            {
 
+                GarantiaSelected = (GarantiaConMarcaYModelo)result.Data;
+            }
+        }
+        private async Task ShowSearchCliente()
+        {
+            string[] cols = { "Nombres", "Apellidos" };
+            var parameters = new DialogParameters { ["Columns"] = cols };
+            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            var dialog = DialogService.Show<SearchClientesByProperty>("Seleccionar Cliente", parameters, dialogOptions);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                ClienteSelected = (Cliente)result.Data;
+            }
+        }
     }
     class infoGarantia
     {
