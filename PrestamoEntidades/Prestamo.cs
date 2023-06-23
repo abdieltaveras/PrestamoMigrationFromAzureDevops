@@ -275,7 +275,8 @@ namespace PrestamoEntidades
 
         //[IgnoreOnParams]
         //public List<Codeudor> _Codeudores { get; set; }
-
+        [IgnoreOnParams]
+        public string Cliente { get; set; }
         [IgnoreOnParams]
         public List<int> IdCodeudores { get; set; } = new List<int>();
         [Display(Name = "Fecha de emision")]

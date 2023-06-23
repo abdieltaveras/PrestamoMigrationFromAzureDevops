@@ -13,8 +13,8 @@ namespace PrestamoBlazorApp.Shared.Components.Garantias
     public partial class SearchGarantiaByProperty:BaseForCreateOrEdit
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-        [Parameter]
-        public string[] Columns { get; set; } = { };
+    
+ 
         private GarantiaGetParams GetParams { get; set; } = new GarantiaGetParams();
         private string SelectedColumn { get; set; }
         private string OrderBy { get; set; }
@@ -43,27 +43,7 @@ namespace PrestamoBlazorApp.Shared.Components.Garantias
         MudMessageBox MudMessageBox { get; set; }
 
         private GarantiaConMarcaYModelo _value;
-        //private async Task Get()
-        //{
-        //    PrestamoClienteUIGetParam param = new PrestamoClienteUIGetParam();
-        //    param = await SearchFor(SelectedPropertySearch, SearchText);
-        //    if (GetParams != null)
-        //    {
-        //        prestamos = await PrestamosService.GetPrestamoClienteUI(param);
-        //        //prestamos.Add(prestamo);
-        //    }
-        //    else
-        //    {
-        //        await Alert("El Id del prestamo debe ser mayor a 0.");
-        //        //await SweetMessageBox("El Id del prestamo debe ser mayor a 0.", "error");
-        //    }
-            
-        //}
-        //private async Task onSelectCliente(Cliente cl)
-        //{
-        //    GetParams = new PrestamoClienteUIGetParam { IdCliente = cl.IdCliente };
-        //    await Get();
-        //}
+
         private async Task onSearchClick()
         {
             await Get();
@@ -73,61 +53,44 @@ namespace PrestamoBlazorApp.Shared.Components.Garantias
         {
             bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchGarantia), SelectedPropertySearch);
             GarantiaGetParams param = new GarantiaGetParams();
-            if (isDefined)
+            if (isDefined )
             {
-                if (SearchText.Length <= 2)
+                if(SearchText != null)
                 {
-                    await NotifyMessageBySnackBar("Debe digitar minimo 2 digitos (letras y/o numeros) para realizar la busqueda",Severity.Error);
+                    if (SearchText.Length <= 2)
+                    {
+                        await NotifyMessageBySnackBar("Debe digitar minimo 2 digitos (letras y/o numeros) para realizar la busqueda", Severity.Error);
 
+                    }
+                    else
+                    {
+                        eOpcionesSearchGarantia opcion = (eOpcionesSearchGarantia)SelectedPropertySearch;
+
+                        switch (opcion)
+                        {
+                            case eOpcionesSearchGarantia.TextoLibre:
+                                //param.s = searchText;
+                                garantias = await GarantiasService.SearchGarantias(SearchText);
+                                break;
+                            case eOpcionesSearchGarantia.NoIdentificacion:
+                                garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { NoIdentificacion = SearchText });
+                                break;
+                            case eOpcionesSearchGarantia.Placa:
+                                garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { Placa = SearchText });
+                                break;
+                            case eOpcionesSearchGarantia.Matricula:
+                                garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { Matricula = SearchText });
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
                 else
                 {
-                    eOpcionesSearchGarantia opcion = (eOpcionesSearchGarantia)SelectedPropertySearch;
-                   
-                    switch (opcion)
-                    {
-                        case eOpcionesSearchGarantia.TextoLibre:
-                            //param.s = searchText;
-                            garantias = await GarantiasService.SearchGarantias(SearchText);
-                            break;
-                        case eOpcionesSearchGarantia.NoIdentificacion:
-                            garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { NoIdentificacion = SearchText });
-                            break;
-                        case eOpcionesSearchGarantia.Placa:
-                            garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { Placa = SearchText });
-                            break;
-                        case eOpcionesSearchGarantia.Matricula:
-                            garantias = await GarantiasService.GetGarantias(new GarantiaGetParams { Matricula = SearchText });
-                            break;
-                        default:
-                            break;
-                    }
+                    await NotifyMessageBySnackBar("Debe digitar minimo 2 digitos (letras y/o numeros) para realizar la busqueda", Severity.Error);
                 }
-            
-                //eOpcionesSearchPrestamo enumOp = (eOpcionesSearchPrestamo)SelectedProperty;
-                //switch (enumOp)
-                //{
-                //    case eOpcionesSearchPrestamo.NoIdentificacion:
-                //        param.NoIdentificacion = searchText;
-                //        break;
-                //    case eOpcionesSearchPrestamo.Nombres:
-                //        param.Nombres = searchText;
-                //        break;
-                //    case eOpcionesSearchPrestamo.Apellidos:
-                //        param.Apellidos = searchText;
-                //        break;
-                //    case eOpcionesSearchPrestamo.NombreCompleto:
-                //        param.NombreCompleto = searchText;
-                //        break;
-                //    case eOpcionesSearchPrestamo.Placa:
-                //        param.Placa = searchText;
-                //        break;
-                //    case eOpcionesSearchPrestamo.Matricula:
-                //        param.Matricula = searchText;
-                //        break;
-                //    default:
-                //        break;
-                //}
+
             }
             return param;
         }
