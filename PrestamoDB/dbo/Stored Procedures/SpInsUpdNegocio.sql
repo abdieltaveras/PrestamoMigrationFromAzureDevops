@@ -26,8 +26,8 @@ Begin
 	set @InfoAccion = (select dbo.fnUpdFechaJson(@InfoAccion))
 	if (@idNegocio<=0)	
 		begin
-			INSERT INTO dbo.tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, TaxIdNo, OtrosDetalles, Logo, InsertadoPor, FechaInsertado, Prefijo)
-			VALUES (@codigo, @nombrejuridico, @nombrecomercial, @correoElectronico, @activo, @bloqueado, @taxidno, @otrosdetalles,@Logo,  @infoAccion, getdate(), @prefijo )
+			INSERT INTO dbo.tblNegocios (Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado, TaxIdNo, OtrosDetalles, Logo, InsertadoPor, FechaInsertado, Prefijo, IdLocalidadNegocio)
+			VALUES (@codigo, @nombrejuridico, @nombrecomercial, @correoElectronico, @activo, @bloqueado, @taxidno, @otrosdetalles,@Logo,  @infoAccion, getdate(), @prefijo, @IdLocalidadNegocio )
 			SELECT SCOPE_IDENTITY(); 
 		end
 	else
@@ -44,7 +44,8 @@ Begin
 			OtrosDetalles = @otrosdetalles,
 			ModificadoPor = @InfoAccion,
 			FechaModificado = getdate(),
-			Prefijo = @Prefijo
+			Prefijo = @Prefijo,
+			IdLocalidadNegocio = @IdLocalidadNegocio
 			where idNegocio = @IdNegocio
 			select @idNegocio 
 		end

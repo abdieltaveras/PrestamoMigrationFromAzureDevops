@@ -3,6 +3,7 @@
     <MudCard>
         <MudCardHeader Class="d-flex justify-end">
             <CardHeaderActions>
+                <MudButton ButtonType="ButtonType.Button" OnClick=AsignarLocalidad Color="MudBlazor.Color.Warning" Variant="Variant.Filled"> Asignar Localidad</MudButton>
                 <MudButton ButtonType="ButtonType.Submit" Color="MudBlazor.Color.Primary" Variant="Variant.Filled"> Guardar</MudButton>
             </CardHeaderActions>
         </MudCardHeader>
@@ -26,6 +27,7 @@
                     <MudCheckBox @bind-Checked="Negocio.Activo" Label="Activo"></MudCheckBox>
                     <MudCheckBox @bind-Checked="Negocio.Bloqueado" Label="Bloqueado"></MudCheckBox>
                     <MudCheckBox @bind-Checked="Negocio.PermitirOperaciones" Label="Permitir Operaciones"></MudCheckBox>
+                    <MudChip>Localidad Actual: @LocalidadSelected.Nombre</MudChip>
                 </MudItem>
             </MudGrid>
             <MudDivider />

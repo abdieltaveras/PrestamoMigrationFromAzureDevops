@@ -12,7 +12,9 @@
 		@condicionBorrado int = 0 
 AS
 begin
-	SELECT IdNegocio, Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado,TaxIdNo, OtrosDetalles, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, logo,  dbo.fnGetIdNegocioMatriz(@idNegocio) as idNegocioMatriz
+	SELECT IdNegocio, Codigo, NombreJuridico, NombreComercial, CorreoElectronico, Activo, Bloqueado,TaxIdNo, OtrosDetalles,
+	InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado, logo,  dbo.fnGetIdNegocioMatriz(@idNegocio) as idNegocioMatriz
+	 ,IdLocalidadNegocio
 	FROM dbo.tblNegocios(nolock) 
 	where
 		((@idNegocio=-1) or (IdNegocio = @IdNegocio)) and 

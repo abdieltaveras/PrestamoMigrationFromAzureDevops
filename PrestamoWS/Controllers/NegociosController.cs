@@ -41,8 +41,8 @@ namespace PrestamoWS.Controllers
             try
             {
                 param.Usuario = this.LoginName;
-                param.IdLocalidadNegocio = this.IdLocalidadNegocio;
-                var result = new NegocioBLL(this.IdLocalidadNegocio, this.LoginName).InsUpd(param);
+
+                var result = new NegocioBLL(param.IdLocalidadNegocio, this.LoginName).InsUpd(param);
                 return Ok();
             }
             catch (Exception ex)

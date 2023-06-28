@@ -1,0 +1,40 @@
+﻿@inherits BaseForCreateOrEdit
+<MudDialog>
+    <DialogContent>
+        <MudGrid>
+   
+            <MudItem md="7" lg="7" xs="12" sm="12">
+                <MudTextField @bind-Value="SearchText" Label="Buscar..."></MudTextField>
+            </MudItem>
+            <MudItem md="1" lg="1" xs="12" sm="12">
+                <MudButton OnClick="onSearchClick">Buscar</MudButton>
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem md="12" lg="12" xs="12">
+                <MudTable Items="@clientes" Hover="true" Breakpoint="Breakpoint.Sm">
+                    <HeaderContent>
+                        <MudTh>Identificacion</MudTh>
+                        <MudTh>Nombre</MudTh>
+                        <MudTh>Seleccionar</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Identificacion">@context.Codigo</MudTd>
+                        <MudTd DataLabel="Nombre Completo">@context.Nombre</MudTd>
+                        <MudTd>
+                            <MudIconButton Icon="@Icons.Material.Filled.ArrowRightAlt" OnClick="()=>SelectClient(context)" />
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudItem>
+        </MudGrid>
+
+    </DialogContent>
+    <DialogActions>
+
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+}

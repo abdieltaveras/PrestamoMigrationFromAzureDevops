@@ -6,11 +6,15 @@ using PrestamoEntidades;
 using PrestamoBlazorApp.Services;
 using PcpUtilidades;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
+using PrestamoBlazorApp.Pages.Localidades.Components.LocalidadNegociosListForSelect;
 
 namespace PrestamoBlazorApp.Shared.Components.Negocios
 {
     public partial class CreateNegocios : BaseForCreateOrEdit
     {
+        [Inject]
+        IDialogService DialogService { get; set; }
         [Inject]
         public NegociosService NegociosService { get; set; }
         [Parameter]
@@ -19,7 +23,9 @@ namespace PrestamoBlazorApp.Shared.Components.Negocios
         private IEnumerable<LocalidadNegocio> localidadesnegocios { get; set; }
         [Parameter]
         public int IdNegocio { get; set; } = -1;
-
+        private Localidad LocalidadSelected { get; set; } = new Localidad();
+        [Inject]
+        LocalidadesService LocalidadesService { get; set; }
 
         public Guid Guid = Guid.NewGuid();
         public string ModalDisplay = "none;";
@@ -38,6 +44,8 @@ namespace PrestamoBlazorApp.Shared.Components.Negocios
             {
                 var datos = await NegociosService.Get(new NegociosGetParams { IdNegocio = IdNegocio });
                 this.Negocio = datos.FirstOrDefault();
+                var loc = await LocalidadesService.Get(new LocalidadGetParams { IdLocalidad = Negocio.IdLocalidadNegocio });
+                LocalidadSelected = loc.FirstOrDefault();
             }
             else
             {
@@ -51,6 +59,7 @@ namespace PrestamoBlazorApp.Shared.Components.Negocios
           
             try
             {
+                this.Negocio.IdLocalidadNegocio = LocalidadSelected.IdLocalidad;
                 await Handle_SaveData(()=> NegociosService.Post(this.Negocio),()=> NotifyMessageBySnackBar("Guardado Correctamente",MudBlazor.Severity.Success),()=>HandleInvalidSubmit(),false,"/negocios");
             }
             catch (ValidationObjectException e)
@@ -81,6 +90,18 @@ namespace PrestamoBlazorApp.Shared.Components.Negocios
             ModalClass = "";
             ShowBackdrop = false;
             StateHasChanged();
+        }
+        private async Task AsignarLocalidad()
+        {
+            var parameters = new DialogParameters { };
+            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true, CloseButton = true };
+            var dialog = DialogService.Show<SearchLocalidadesByProperty>("Seleccionar Localidad", parameters, dialogOptions);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                LocalidadSelected = (Localidad)result.Data;
+            }
         }
     }
 }
