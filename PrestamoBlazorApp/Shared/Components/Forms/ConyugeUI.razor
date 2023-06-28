@@ -1,4 +1,6 @@
-﻿<MudTextField Label="Nombre" @bind-Value="conyuge.Nombres" Validation="@conyuge.Nombres"></MudTextField>
+﻿<MudGrid>
+ <MudItem xs="5">
+<MudTextField Label="Nombre" @bind-Value="conyuge.Nombres" Validation="@conyuge.Nombres"></MudTextField>
 <MudTextField Label="Apellidos" @bind-Value="conyuge.Apellidos" Validation="@conyuge.Apellidos"></MudTextField>
 <MudTextField Label="Apodo" @bind-Value="conyuge.Apodo" Validation="@conyuge.Apodo"></MudTextField>
 <MudSelect @bind-Value="conyuge.IdTipoIdentificacion" Label="Tipo Identificacion">
@@ -15,12 +17,18 @@ else
 {
     <MudTextField @bind-Value="conyuge.NoIdentificacion" Label="Otro"></MudTextField>
 }
-<MudTextField Label="Telefono personal" @bind-Value="conyuge.TelefonoPersonal" Validation="@conyuge.TelefonoPersonal"></MudTextField>
-<MudTextField Label="Lugar donde trabaja" @bind-Value="conyuge.LugarTrabajo" Validation="@conyuge.LugarTrabajo"></MudTextField>
-<MudTextField Label="Direccion del trabajo" @bind-Value="conyuge.DireccionLugarTrabajo" Validation="@conyuge.DireccionLugarTrabajo"></MudTextField>
-<MudTextField Label="Telefono del trabajo" @bind-Value="conyuge.TelefonoTrabajo" Validation="@conyuge.TelefonoTrabajo"></MudTextField>
-<MudTextField Label="Otros detalles" @bind-Value="conyuge.Notas" Validation="@conyuge.TelefonoTrabajo"></MudTextField>
+    </MudItem>
 
+    <MudItem xs="5">
+        <MudTextField Label="Telefono personal" @bind-Value="conyuge.TelefonoPersonal" Validation="@conyuge.TelefonoPersonal"></MudTextField>
+        <MudTextField Label="Lugar donde trabaja" @bind-Value="conyuge.LugarTrabajo" Validation="@conyuge.LugarTrabajo"></MudTextField>
+        <MudTextField Label="Direccion del trabajo" @bind-Value="conyuge.DireccionLugarTrabajo" Validation="@conyuge.DireccionLugarTrabajo"></MudTextField>
+        <MudTextField Label="Telefono del trabajo" @bind-Value="conyuge.TelefonoTrabajo" Validation="@conyuge.TelefonoTrabajo"></MudTextField>
+        <MudTextField Label="Otros detalles" @bind-Value="conyuge.Notas" Validation="@conyuge.TelefonoTrabajo"></MudTextField>
+
+    </MudItem>
+
+</MudGrid>
 @code {
 
     [Parameter]

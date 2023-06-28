@@ -42,7 +42,7 @@
                 @if (Cliente.TieneConyuge || Cliente.IdEstadoCivil == (int)EstadosCiviles.Casado)
                 {
 
-                    <MudItem xs="12" sm="3">
+                    <MudItem xs="12" >
                         @*<MudText>Conyuge</MudText>*@
                         <MudAlert Severity="Severity.Info">Conyuge</MudAlert>
                         <ConyugeUI conyuge=@Conyuge></ConyugeUI>
