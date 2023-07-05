@@ -371,26 +371,27 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             InfoCliente = string.Empty;
             //ShowSearchCliente = true;
         }
-        private async Task UpdateClienteSelected(int idCliente)
-        {
-            //this.ShowSearchCliente = false;
-            this.IdClienteSelected = idCliente;
-            //await NotifyMessageBox("garantia seleccionada " + idGarantia);
-            var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente });
-            var cliente = clientes.FirstOrDefault();
-            updateInfoCliente(cliente);
-        }
+        //private async Task UpdateClienteSelected(int idCliente)
+        //{
+        //    //this.ShowSearchCliente = false;
+        //    this.IdClienteSelected = idCliente;
+        //    //await NotifyMessageBox("garantia seleccionada " + idGarantia);
+        //    var clientes = await clientesService.GetClientesAsync(new ClienteGetParams { IdCliente = idCliente });
+        //    var cliente = clientes.FirstOrDefault();
+        //    updateInfoCliente(cliente);
+        //}
 
         private void updateInfoCliente(Cliente cliente)
         {
-            CodigoCliente = cliente.Codigo;
+            CodigoCliente = $"{cliente.Codigo} - {cliente.NombreCompleto}";
             this.prestamo.IdCliente = cliente.IdCliente;
             InfoCliente = $"{cliente.NoIdentificacion} {cliente.NombreCompleto } ";
         }
 
         private void updateInfoCliente(InfoClienteDrCr cliente)
         {
-            CodigoCliente = cliente.CodigoCliente;
+            //CodigoCliente = cliente.CodigoCliente;
+            CodigoCliente = $"{cliente.CodigoCliente} - {cliente.NombreCompleto}";
             this.prestamo.IdCliente = cliente.IdCliente;
             InfoCliente = $"{cliente.NumeracionDocumentoIdentidad} {cliente.NombreCompleto} ";
         }
@@ -507,6 +508,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             {
 
                 GarantiaSelected = (GarantiaConMarcaYModelo)result.Data;
+                updateInfoGarantia(GarantiaSelected);
             }
         }
         private async Task ShowSearchCliente()
@@ -520,6 +522,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             if (!result.Cancelled)
             {
                 ClienteSelected = (Cliente)result.Data;
+                updateInfoCliente(ClienteSelected);
+
             }
         }
     }
@@ -528,7 +532,5 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         public int IdGarantia { get; set; }
         public string Text { get; set; }
         public override string ToString() => Text;
-
     }
-
 }

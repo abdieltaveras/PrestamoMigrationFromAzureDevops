@@ -52,17 +52,12 @@
                                 <MudDatePicker @onchange="OnFechaEmisionRealChange" @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker>
                             </MudItem>
                             <MudItem md="12" lg="12">
-                                <MudTextField @bind-Value="@CodigoCliente" ReadOnly="true" Label="Codigo Cliente" Adornment="Adornment.End" OnAdornmentClick="ActivateSearchCliente" AdornmentIcon="@Icons.Material.Filled.Search"></MudTextField>
-                                @*<MudIconButton Icon="@Icons.Material.Filled.Search" OnClick="ActivateSearchCliente"></MudIconButton>*@
-                                @*<SearchClientes OnClienteSelected="UpdateClienteSelected" showUI="@ShowSearchCliente" OnModalClose="OnCloseSearchCliente" />*@
-                            <MudButton OnClick="ShowSearchCliente">Buscar Cliente</MudButton>
-                            <MudText>
-                                Cliente Seleccionado
-
-                                <MudChip>
-                                    @ClienteSelected.NombreCompleto 
-                                </MudChip>
-                            </MudText>
+                                <MudTextField 
+                                    @bind-Value="@CodigoCliente" 
+                                    ReadOnly="true" Label="Codigo Cliente"
+                                          Adornment="Adornment.End" 
+                                          OnAdornmentClick="ShowSearchCliente" 
+                                          AdornmentIcon="@Icons.Material.Filled.Search"></MudTextField>
                                 <MudCard>
                                     <MudCardContent>
                                         @InfoCliente
@@ -73,32 +68,23 @@
                                 @if (!LlevaGarantia() && @prestamo.IdGarantias.Count == 0)
                                 {
                                     <MudChip>No Requiere Garantia</MudChip>
-
-                                    @*<label for="Garantias" class="card-title col-sm-4 col-form-label @textLabelJustify">No Requiere Garantia </label>*@
                                 }
                                 else
                                 {
-                                    <MudTextField @bind-Value="@CodigoGarantia" Adornment="Adornment.End" OnAdornmentClick="ActivateSearchCliente" AdornmentIcon="@Icons.Material.Filled.Search" Placeholder="No habilitado aun" Label="Codigo Garantia"></MudTextField>
-
-                                    <MudText>Garantias @prestamo.IdGarantias.Count</MudText>
-                                    @*<MudIconButton OnClick="ActivateSearchGarantia" Icon="@Icons.Material.Filled.Search"></MudIconButton>*@
+                                    <MudTextField 
+                                        @bind-Value="@CodigoGarantia" 
+                                        Adornment="Adornment.End"
+                                        OnAdornmentClick="ShowSearchGarantia"
+                                        AdornmentIcon="@Icons.Material.Filled.Search" 
+                                        Placeholder="" 
+                                        Label="Codigo Garantia"></MudTextField>
+                                    <MudText>Garantias: @prestamo.IdGarantias.Count</MudText>
                                     <MudList>
                                         @foreach (var item in @InfoGarantias)
                                         {
-
-                                            <MudListItem OnClick="() => RemoveGarantia(item.IdGarantia)" Icon="@Icons.Material.Filled.Remove"> </MudListItem>
+                                            <MudListItem OnClick="() => RemoveGarantia(item.IdGarantia)" Icon="@Icons.Material.Filled.Remove"> @item.Text </MudListItem>
                                         }
                                     </MudList>
-                                <MudButton OnClick="ShowSearchGarantia">Buscar Garantia</MudButton>
-                                    <MudText>Garantia Seleccionada
-                                        
-                                       <MudChip>
-                                            @GarantiaSelected.NoIdentificacion @GarantiaSelected.NombreMarca
-                                       </MudChip> 
-                                      </MudText>
-
-                                    @*<SearchGarantias OnGarantiaSelected="UpdateGarantiaSelected" showUI="@ShowSearchGarantia" OnModalClose="OnCloseSearchGarantia" />*@
-
                                 }
                             </MudItem>
                             <MudItem lg="12" md="12">
