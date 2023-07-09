@@ -1,14 +1,14 @@
-﻿using PrestamoEntidades;
+﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
+using PrestamoBlazorApp.Services;
+using PrestamoBlazorApp.Shared;
+using PrestamoBlazorApp.Shared.Components.Forms;
+using PrestamoBlazorApp.Shared.Components.Reports;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PrestamoBlazorApp.Services;
-using Microsoft.AspNetCore.Components;
-using PrestamoBlazorApp.Shared;
-using MudBlazor;
-using PrestamoBlazorApp.Shared.Components.Reports;
-using PrestamoBlazorApp.Shared.Components.Forms;
 
 namespace PrestamoBlazorApp.Pages.Clientes
 {
@@ -16,24 +16,19 @@ namespace PrestamoBlazorApp.Pages.Clientes
     {
         [Inject]
         IDialogService DialogService { get; set; }
-
         [Inject]
         ClientesService clientesService { get; set; }
         ClienteGetParams searchClientes { get; set; } = new ClienteGetParams();
-        int totalClientes { get; set; }
         IEnumerable<Cliente> clientes;
         List<SelectClass> lstItemsToSearch { get; set; } = new List<SelectClass>();
-        //private string _SearchDataBase { get; set; }
-
-        //private string SearchDataBase { get { return _SearchDataBase; } set { _SearchDataBase = value; searchClientesDatabase(value).GetAwaiter(); } }
-
+        int totalClientes { get; set; }
         private Cliente SelectedItem1 = null;
         private bool FilterFunc1(Cliente element) => FilterFunc(element, SearchStringTable);
         private bool ShowDialogCreate { get; set; } = false;
         private DialogOptions dialogOptions = new() { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true };
-        private int SelectedOptionSearch { get; set; } = -1;
-        
+        private eOpcionesSearchCliente SelectedOptionSearch { get; set; } = eOpcionesSearchCliente.TextoLibre;
         List<eOpcionesSearchCliente> lstOpcionesSearch { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             MinSearchLength = 3;
@@ -41,32 +36,59 @@ namespace PrestamoBlazorApp.Pages.Clientes
             FillOptions();
             await base.OnInitializedAsync();
         }
+
         private async Task GetClientes()
         {
-            clientes = new List<Cliente>();
-            this.searchClientes.CantidadRegistrosASeleccionar = 50;
-            clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
+            clientes = await clientesService.GetClientesAsync(new ClienteGetParams());
             totalClientes = clientes.Count();
-            StateHasChanged();
         }
+
+        private async Task<ClienteGetParams> SearchFor(int SelectedProperty, string searchText)
+        {
+            bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchCliente), SelectedProperty);
+            ClienteGetParams param = new ClienteGetParams();
+            if (isDefined)
+            {
+                eOpcionesSearchCliente enumOp = (eOpcionesSearchCliente)SelectedProperty;
+                switch (enumOp)
+                {
+                    case eOpcionesSearchCliente.NoIdentificacion:
+                        param.NoIdentificacion = searchText;
+                        break;
+                    case eOpcionesSearchCliente.Nombres:
+                        param.Nombres = searchText;
+                        break;
+                    case eOpcionesSearchCliente.Apellidos:
+                        param.Apellidos = searchText;
+                        break;
+                    case eOpcionesSearchCliente.NombreCompleto:
+                        param.NombreCompleto = searchText;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return param;
+        }
+
         private async Task searchClientesDatabase(string search)
         {
             LoadingTable = true;
             if (search.Length >= MinSearchLength)
             {
-                clientes = new List<Cliente>();
-                clientes = await clientesService.SearchClientes(SelectedOptionSearch,search, false);
-                totalClientes = clientes.Count();
+                ClienteGetParams param = new ClienteGetParams();
+                param = await SearchFor(Convert.ToInt32(SelectedOptionSearch), search);
+                clientes = await clientesService.SearchClienteByProperties(param);
             }
             else
             {
                 this.searchClientes.CantidadRegistrosASeleccionar = 50;
                 clientes = await clientesService.GetClientesAsync(this.searchClientes, false);
-                totalClientes = clientes.Count();
             }
-            //StateHasChanged();
+            totalClientes = clientes.Count();
             LoadingTable = false;
         }
+
         async void PrintFicha(int idcliente, int reportType)
         {
             await BlockPage();
@@ -77,33 +99,28 @@ namespace PrestamoBlazorApp.Pages.Clientes
         private async Task ShowReportGenerator()
         {
             var parameters = new DialogParameters();
-            //parameters.Add("IdLocalidad", id);
             var dialog = DialogService.Show<SearchReportGeneric>("", parameters, dialogOptions);
             var result = await dialog.Result;
             if (result.Data != null)
             {
-                //if (result.Data.ToString() == "1")
-                //{
-                    
-                //    StateHasChanged();
-                //}
             }
         }
+
         private async Task SelectedOptionToSearch(SelectClass selected)
         {
-            SelectedOptionSearch = Convert.ToInt32(selected.Value);
-            //var value = selected.Value.ToString();
-            //var text = selected.Text.ToString();
+            SelectedOptionSearch = (eOpcionesSearchCliente)selected.Value;
         }
+
         private void FillOptions()
         {
             var a = Enum.GetValues(typeof(eOpcionesSearchCliente)).Cast<eOpcionesSearchCliente>().ToList();
             foreach (var item in a)
             {
-                lstItemsToSearch.Add(new SelectClass { Value = Convert.ToInt32(item), Text = item.ToString() });
+                lstItemsToSearch.Add(new SelectClass { Value = item, Text = item.ToString() });
 
             }
         }
+
         private bool FilterFunc(Cliente element, string searchString)
         {
 

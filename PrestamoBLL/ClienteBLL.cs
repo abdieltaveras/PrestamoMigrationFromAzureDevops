@@ -1,12 +1,8 @@
 ﻿using DevBox.Core.DAL.SQLServer;
-using PcpUtilidades;
 using PrestamoEntidades;
-using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
@@ -15,10 +11,10 @@ namespace PrestamoBLL
     {
         public ClienteBLL([DisallowNull] int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
 
-        
+
         public IEnumerable<Cliente> GetClientes(ClienteGetParams searchParam, bool convertToObj, string directorioDeImagen = "")
         {
-            
+
             SetUsuario(searchParam);
             var spName = "spGetClientes";
             var result = this.Get<Cliente>(spName, searchParam);
@@ -35,7 +31,7 @@ namespace PrestamoBLL
 
         public int InsUpdCliente(Cliente insUpdParam)
         {
-           
+
             SetIdLocalidadNegocioAndUsuario(insUpdParam);
             insUpdParam.RemoveAllButNumber();
             var imagesToRemove = insUpdParam.ImagenesObj.Where(item => item.Quitar).ToList();
@@ -47,7 +43,7 @@ namespace PrestamoBLL
 
         public bool DeleteDivisionTerritorial(int idRegistro, string motivo)
         {
-             return this.SoftDeleteUsingCommonSP(idRegistro, "IdCliente",motivo, "tblClientes");
+            return this.SoftDeleteUsingCommonSP(idRegistro, "IdCliente", motivo, "tblClientes");
         }
 
         public void AnularClientes(ClienteDelParams delParam)
@@ -57,7 +53,7 @@ namespace PrestamoBLL
 
         public IEnumerable<Cliente> SearchCliente(int Option, string SearchText)
         {
-            return  this.Get<Cliente>("spBuscarClientes", new { TextToSearch = SearchText }); 
+            return this.Get<Cliente>("spBuscarClientes", new { TextToSearch = SearchText });
         }
         public IEnumerable<Cliente> ReporteClientes(BaseReporteParams searchParam)
         {
@@ -91,9 +87,9 @@ namespace PrestamoBLL
             var spName = "spGetClientes";
             return this.Get<Cliente>(spName, param);
         }
-        public IEnumerable<Cliente> SearchClienteByColumn(string SearchText, string Table, string Column, string OrderBy = "") 
+        public IEnumerable<Cliente> SearchClienteByColumn(string SearchText, string Table, string Column, string OrderBy = "")
         {
-            return this.Get<Cliente>("spSearchTableByColunm",new
+            return this.Get<Cliente>("spSearchTableByColunm", new
             {
                 SearchText,
                 Table,
