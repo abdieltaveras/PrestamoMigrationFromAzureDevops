@@ -10,9 +10,6 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace PrestamoEntidades
 {
@@ -117,9 +114,9 @@ namespace PrestamoEntidades
     }
     public class PrestamoConDetallesParaUIPrestamo
     {
-        public Prestamo infoPrestamo { get;  set; } = new Prestamo();
+        public Prestamo infoPrestamo { get; set; } = new Prestamo();
 
-        public InfoClienteDrCr infoCliente { get;  set; } = new InfoClienteDrCr();
+        public InfoClienteDrCr infoCliente { get; set; } = new InfoClienteDrCr();
 
         public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; set; } = new List<InfoGarantiaDrCr>();
 
@@ -131,7 +128,7 @@ namespace PrestamoEntidades
         public string NombreDocumentoIdentidad => Enum.GetName(typeof(TiposIdentificacionCliente), IdTipoIdentificacion);
 
         public string NumeracionDocumentoIdentidad { get; set; } = string.Empty;
-        public string DocumentoIdentidadMasked { get { return NumeracionDocumentoIdentidad.Length>4?  NumeracionDocumentoIdentidad.Substring(NumeracionDocumentoIdentidad.Length - 4) : NumeracionDocumentoIdentidad; } } 
+        public string DocumentoIdentidadMasked { get { return NumeracionDocumentoIdentidad.Length > 4 ? NumeracionDocumentoIdentidad.Substring(NumeracionDocumentoIdentidad.Length - 4) : NumeracionDocumentoIdentidad; } }
 
         public string InfoLaboral { get; set; } = string.Empty;
 
@@ -165,30 +162,30 @@ namespace PrestamoEntidades
 
         //
 
-        public int IdTipoAmortizacion { get;  set; }
+        public int IdTipoAmortizacion { get; set; }
         public string NombreClasificacion { get; internal set; } = string.Empty;
 
         public string NombreTipoAmortizacion => Enum.GetName(typeof(TiposAmortizacion), IdTipoAmortizacion);
 
         public string NombreTipoMora { get; set; } = string.Empty;
 
-        public string IdTipoMora { get;  set; } = string.Empty;
+        public string IdTipoMora { get; set; } = string.Empty;
 
         //public string OtrosDetalles { get; internal set; } = string.Empty;
 
-        public string NombrePeriodo { get;  set; } = string.Empty;
+        public string NombrePeriodo { get; set; } = string.Empty;
 
-        public int IdPrestamo { get;  set; }
+        public int IdPrestamo { get; set; }
 
-        public string PrestamoNumero { get;  set; } = string.Empty;
+        public string PrestamoNumero { get; set; } = string.Empty;
 
-        public decimal TotalPrestado { get;  set; }
+        public decimal TotalPrestado { get; set; }
 
-        public DateTime FechaEmisionReal { get;  set; } = InitValues._19000101;
+        public DateTime FechaEmisionReal { get; set; } = InitValues._19000101;
 
-        public DateTime FechaEmisionParaCalculos { get;  set; } = InitValues._19000101;
+        public DateTime FechaEmisionParaCalculos { get; set; } = InitValues._19000101;
 
-        public DateTime FechaVencimiento { get;  set; } = InitValues._19000101;
+        public DateTime FechaVencimiento { get; set; } = InitValues._19000101;
     }
     public class PrestamoClienteUIGetParam
     {
@@ -202,20 +199,24 @@ namespace PrestamoEntidades
         public string Matricula { get; set; } = "";
         public string Placa { get; set; } = "";
     }
+    public class PrestamoClienteUIGetParamWtSearchText : PrestamoClienteUIGetParam
+    {
+        public string SearchText { get; set; }
+    }
     public class PrestamoConDetallesParaCreditosYDebitos
     //: IPrestamoConDetallesParaCreditosyDebitos
     {
-        public InfoPrestamoDrCr infoPrestamo { get;  set; }
+        public InfoPrestamoDrCr infoPrestamo { get; set; }
 
         public InfoClienteDrCr infoCliente { get; set; }
 
-        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get;  set; }
+        public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; set; }
 
-        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get;  set; }
+        public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; }
 
-        public IEnumerable<CxCCuota> Cuotas { get;  set; }
+        public IEnumerable<CxCCuota> Cuotas { get; set; }
 
-        public InfoDeudaPrestamoDrCr InfoDeuda { get;  set; }
+        public InfoDeudaPrestamoDrCr InfoDeuda { get; set; }
     }
     public class PrestamoSearch
     {
@@ -242,7 +243,7 @@ namespace PrestamoEntidades
         public int IdPrestamoARenovar { get; set; } = -1;
         [IgnoreOnParams]
         /// attention analizar poner un objeto InfoPrestamoForView que permita poner todos los campos que uno pudiera necesitar como este NumeroPrestamoARenovar, etc
-        public string NumeroPrestamoARenovar { get;  set; } = string.Empty;
+        public string NumeroPrestamoARenovar { get; set; } = string.Empty;
 
         [Display(Name = "Indique la clasificacion")]
         public int IdClasificacion { get; set; } = -1;
@@ -282,7 +283,7 @@ namespace PrestamoEntidades
         [Display(Name = "Fecha de emision")]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public virtual DateTime FechaEmisionReal { get; set; } = DateTime.Now;
-        
+
         [ReadOnly(true)]
         public DateTime FechaEmisionParaCalculos { get; internal set; } = DateTime.Now;
         [Display(Name = "fecha de vencimiento")]
@@ -357,19 +358,19 @@ namespace PrestamoEntidades
         public virtual bool FinanciarGastoDeCierre { get; set; } = true;
         [Display(Name = "Cargo interes al G/C ?")]
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
-        
+
         /// <summary>
         /// determina si se acomodaran las cuotas o no, lo hace determinando el valor de FechaInicioPrimeraCuota
         /// que el mismo le hayan establecido alguno para hacer el calculo
         /// </summary>
-        public virtual bool AcomodarFechaALasCuotas =>  FechaInicioPrimeraCuota!= InitValues._19000101;
-                
+        public virtual bool AcomodarFechaALasCuotas => FechaInicioPrimeraCuota != InitValues._19000101;
+
         /// <summary>
         ///  si se acomoda el prestamo se debe indicar cual es la fecha en que desea que la primera cuota sea generada
         /// </summary>
-        
-        
-        public DateTime FechaInicioPrimeraCuota { get; set; }  = InitValues._19000101;
+
+
+        public DateTime FechaInicioPrimeraCuota { get; set; } = InitValues._19000101;
 
         /// <summary>
         /// este campo es el que tendra la fecha real de donde partira a generar las cuotas y sus fechas de vencimientos, es necesario para cuando al prestamo se le acomode las cuotas
@@ -412,7 +413,7 @@ namespace PrestamoEntidades
         [IgnoreOnParams]
         public bool LlevaGarantia { get; set; }
 
-        
+
     }
 
     public static class ExtMeth
@@ -438,7 +439,7 @@ namespace PrestamoEntidades
                     //inserting property values to datatable rows
                     values[i] = Props[i].GetValue(item, null);
                 }
-                
+
                 dataTable.Rows.Add(values);
             }
             //put a breakpoint here and check datatable
@@ -487,11 +488,11 @@ namespace PrestamoEntidades
         public int idLocalidadNegocio { get; set; } = -1;
         public int idCliente { get; set; } = -1;
         public int idGarantia { get; set; } = -1;
-        public DateTime? fechaEmisionRealDesde { get; set; }  
-        public DateTime? fechaEmisionRealHasta { get; set; } 
+        public DateTime? fechaEmisionRealDesde { get; set; }
+        public DateTime? fechaEmisionRealHasta { get; set; }
     }
 
-    
+
 
 }
 

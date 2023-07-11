@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using PrestamoBlazorApp.Domain;
+using PrestamoBlazorApp.Pages.Prestamos.Components.PrestamoByColumnSelected;
 using PrestamoBlazorApp.Services;
-using PrestamoBlazorApp.Shared.Components.Forms;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Shared.Components.Prestamos
 {
-    public partial class SearchPrestamoByProperty:BaseForCreateOrEdit
+    public partial class SearchPrestamoByProperty : BaseForCreateOrEdit
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Parameter]
@@ -43,6 +43,9 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
         MudMessageBox MudMessageBox { get; set; }
 
         private PrestamoClienteUI _value;
+
+        private IGetDataByColumSelection<PrestamoClienteUIGetParamWtSearchText> PrestamosSearch { get; set; } = new PrestamoGetDataByColumnSelected();
+
         private async Task Get()
         {
             PrestamoClienteUIGetParam param = new PrestamoClienteUIGetParam();
@@ -57,7 +60,7 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
                 await Alert("El Id del prestamo debe ser mayor a 0.");
                 //await SweetMessageBox("El Id del prestamo debe ser mayor a 0.", "error");
             }
-            
+
         }
         //private async Task onSelectCliente(Cliente cl)
         //{
@@ -69,6 +72,31 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
             await Get();
         }
 
+        public async Task GetPrestamos(PrestamoClienteUIGetParamWtSearchText param)
+        {
+            prestamos = await PrestamosService.GetPrestamoClienteUI(param);
+            //if (SelectedPropertySearch == (int)eOpcionesSearchPrestamo.Sector)
+            //{
+            //    param.idLocalidad = IdLocalidadSelected;
+            //    _Personas = await PersonasService.GetPersonas(param);
+            //}
+            //else if (SelectedSearchOption == (int)EPersonaSearchOptions.Municipio)
+            //{
+            //    _Personas = await PersonasService.GetPersonasByLocalidad(IdLocalidadSelected);
+            //}
+            //else
+            //{
+            //    if (!string.IsNullOrWhiteSpace(param.SearchText)) { _Personas = await PersonasService.SearchPersonas(param.SearchText); }
+            //    else { _Personas = await PersonasService.GetPersonas(param); }
+            //    SearchText = string.Empty;
+            //}
+
+        }
+        protected async Task GetData()
+        {
+            await PrestamosSearch.ExecGetDataAction(SelectedPropertySearch, SearchText, GetPrestamos);
+
+        }
         private async Task<PrestamoClienteUIGetParam> SearchFor(int SelectedProperty, string searchText)
         {
             bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchPrestamo), SelectedProperty);

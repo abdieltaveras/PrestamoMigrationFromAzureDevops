@@ -4,7 +4,11 @@
         <MudGrid>
             <MudItem md="4" lg="4" xs="12" sm="12">
                 <MudSelect T="int" @bind-Value="SelectedPropertySearch" Label="Buscar Por...">
-                    @foreach (var item in EnumToList.TipoBusquedaPrestamo())
+           @*         @foreach (var item in EnumToList.TipoBusquedaPrestamo())
+                    {
+                        <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
+                    }*@
+                    @foreach (var item in PrestamosSearch.Items)
                     {
                         <MudSelectItem Value="@item.Value">@item.Text</MudSelectItem>
                     }
@@ -16,7 +20,7 @@
 
 
                 <MudItem md="1" lg="1" xs="12" sm="12">
-                    <MudButton OnClick="onSearchClick">Buscar</MudButton>
+                    <MudButton OnClick="GetData">Buscar</MudButton>
                 </MudItem>
             </MudItem>
       
