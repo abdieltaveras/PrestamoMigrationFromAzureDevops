@@ -28,9 +28,5 @@ namespace PrestamoEntidades
         public int IdMarca { get; set; } = -1;
     }
 
-    // TODO: Resolver con el modelo
-    //public class MarcaInsUpdParams : Marca
-    //{
-    //    public string InsertadoPor { get; set; } = string.Empty;         
-    //}
+    
 }

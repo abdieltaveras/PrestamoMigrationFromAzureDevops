@@ -20,11 +20,11 @@ namespace PrestamoBLL
         public PrestamoBLLC(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
 
         
-        public int InsUpdPrestamo(Prestamo prestamo)
+        public async Task<int> InsUpdPrestamo(Prestamo prestamo)
         {
-            //var prToBuild = new PrestamoBuilder(prestamo);
+            //var prToBuild = new PrestamoManager(prestamo);
             //var result = prToBuild.Build();
-            var prToBuild2 = new PrestamoBuilder(prestamo);
+            var prToBuild2 = await PrestamoManager.Create(prestamo);
             var result2 = prToBuild2.Build();
             //var cuotas = result2._CuotasList;
             var prestamoParam2 = SearchRec.ToSqlParams(result2);

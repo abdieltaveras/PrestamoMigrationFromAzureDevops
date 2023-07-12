@@ -169,9 +169,7 @@ namespace PrestamoEntidades
             var infoDireccionObj = InfoDireccion.ToType<Direccion>();
             var infoConyugeObj = InfoConyuge.ToType<Conyuge>();
             var infoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
-            //var imagenesObj = Imagenes.ToType<List<Imagen>>();
-
-            // todo : 20230304 resolver esto de las imagenes 
+            
             if (!string.IsNullOrEmpty(directorioDeImagenes))
             {
                 foreach (var item in ImagenesObj)
@@ -273,9 +271,7 @@ namespace PrestamoEntidades
 
         public int IdLocalidad { get; set; } = -1;
 
-        [IgnoreOnParams]
-        // para indicar que desea convertir a objeto los datos guardados en formato Json como conyuge, informacion laboral, etc
-        public bool ConvertToObj { get; set; } = false;
+        
     }
 
     public class ClienteDelParams : BaseAnularOrDeleteParams

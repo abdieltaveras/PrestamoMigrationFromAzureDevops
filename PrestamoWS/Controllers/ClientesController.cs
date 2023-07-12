@@ -34,7 +34,7 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams search)
         {
-            var result = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(search, search.ConvertToObj, ImagePathForClientes);
+            var result = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(search);
             return result;
         }
         
@@ -144,7 +144,7 @@ namespace PrestamoWS.Controllers
 
             try
             {
-                var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { IdCliente = IdCliente }, false);
+                var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { IdCliente = IdCliente });
                 if (cliente.Count() > 0)
                 {
                     var lst = ManejoImagenes.GetImagen(ImagePathForClientes, cliente.FirstOrDefault().Imagenes);
@@ -165,7 +165,7 @@ namespace PrestamoWS.Controllers
             List<Imagen> imagenesDelCliente = new List<Imagen>();
             try
             {
-                var clientes = new ClienteBLL(1, "BllTest").GetClientes(new ClienteGetParams { IdCliente = idCliente }, false);
+                var clientes = new ClienteBLL(1, "BllTest").GetClientes(new ClienteGetParams { IdCliente = idCliente });
                 var cliente = clientes.FirstOrDefault();
                 if (cliente != null)
                 {
@@ -183,7 +183,7 @@ namespace PrestamoWS.Controllers
         {
             try
             {
-                var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { NoIdentificacion=Identificacion},false);
+                var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { NoIdentificacion=Identificacion});
                 if (cliente.Count() > 0)
                 {
                     var lst = ManejoImagenes.GetImagen(ImagePathForClientesIdentificaciones,cliente.FirstOrDefault().Imagenes);
@@ -206,7 +206,8 @@ namespace PrestamoWS.Controllers
             Cliente cliente = new Cliente();
             IEnumerable<Cliente> clientes = new List<Cliente>();
             IEnumerable<Ocupacion> ocupaciones = new List<Ocupacion>();
-            clientes = new ClienteBLL(this.IdLocalidadNegocio,this.LoginName).GetClientes(new ClienteGetParams { IdCliente = idcliente }, true, ImagePathForClientes);
+            //todo: 20230711 actualizar esta parte de las imagenes ahora lo hace un procedimiento diferente antes lo hacia en el metodo, pero se decidio hacerlo a solicitud cuando se necesite
+            clientes = new ClienteBLL(this.IdLocalidadNegocio,this.LoginName).GetClientes(new ClienteGetParams { IdCliente = idcliente });
             cliente = clientes.FirstOrDefault();
             ocupaciones = BLLPrestamo.Instance.GetCatalogos<Ocupacion>(CatalogoName.Ocupacion,new BaseCatalogoGetParams {IdRegistro= cliente.IdTipoProfesionUOcupacion });
             DataTable dtClientes = HConvert.ListToDataTable<Cliente>(clientes.ToList());

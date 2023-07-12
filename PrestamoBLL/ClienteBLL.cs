@@ -12,7 +12,7 @@ namespace PrestamoBLL
         public ClienteBLL([DisallowNull] int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }
 
 
-        public IEnumerable<Cliente> GetClientes(ClienteGetParams searchParam, bool convertToObj, string directorioDeImagen = "")
+        public IEnumerable<Cliente> GetClientes(ClienteGetParams searchParam)
         {
 
             SetUsuario(searchParam);

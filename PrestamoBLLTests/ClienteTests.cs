@@ -93,7 +93,7 @@ namespace PrestamoBLL.Tests
             
             try
             {
-                var result = new ClienteBLL(1,"testBll").GetClientes(searhData,false);
+                var result = new ClienteBLL(1,"testBll").GetClientes(searhData);
             }
             catch (Exception e)
             {
@@ -112,7 +112,7 @@ namespace PrestamoBLL.Tests
             searhData.IdCliente = 1;
             try
             {
-                var result = new ClienteBLL(1, "testBll").GetClientes(searhData, true);
+                var result = new ClienteBLL(1, "testBll").GetClientes(searhData);
                 var resultCliente = result.FirstOrDefault();
                 var imagenes = (resultCliente is Cliente) ? resultCliente.ImagenesObj : null;
             }
@@ -147,7 +147,7 @@ namespace PrestamoBLL.Tests
             var error = string.Empty;
             try
             {
-                new ClienteBLL(1,"testBll").GetClientes(gParam,false);
+                new ClienteBLL(1,"testBll").GetClientes(gParam);
             }
             catch (Exception e)
             {
@@ -202,7 +202,7 @@ namespace PrestamoBLL.Tests
             var ImagePathForClientes = @"C:\PcpProjects\Development\prestamo\PrestamoBLLTests\ImagesFor\Clientes";
             try
             {
-                var clientes = new ClienteBLL(1,"BllTest").GetClientes(new ClienteGetParams { IdCliente = idCliente }, false);
+                var clientes = new ClienteBLL(1,"BllTest").GetClientes(new ClienteGetParams { IdCliente = idCliente });
                 var cliente = clientes.FirstOrDefault();
                 if (cliente!=null)
                 {

@@ -17,6 +17,10 @@ namespace PrestamoBLL.Tests
         /// el nombre de usuario que envia este proyecto donde se necesite
         /// </summary>
         public static string Usuario => "PrestamoBllTestProject";
+        public static int GetIdLocalidadNegocio()
+        {
+            return 1;
+        }
         public string _Usuario => Usuario;
         public string MensajeError { get; set; } = string.Empty;
     }

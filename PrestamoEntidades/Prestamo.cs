@@ -287,6 +287,8 @@ namespace PrestamoEntidades
         public DateTime FechaEmisionParaCalculos { get; internal set; } = DateTime.Now;
         [Display(Name = "fecha de vencimiento")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        
+        [IgnoreOnParams(true)]
         public DateTime FechaVencimiento { get; set; }
         [Display(Name = "Indique el codigo de la tasa de interes")]
         public virtual int IdTasaInteres { get; set; } = -1;

@@ -23,12 +23,7 @@ namespace PrestamoEntidades
         public string Nombre { get; set; } = string.Empty;
     }
 
-    // TODO: Resolver con el modelo
-    //public class ModeloInsUpdParams : Modelo
-    //{
-    //    public string InsertadoPor { get; set; } = string.Empty;
-    //}
-
+    
     public class ModeloWithMarca : Modelo
     {
         public string NombreMarca { get; set; } = string.Empty;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    public class PrestamoBuilder
+    public class PrestamoManager
     {
         TipoMoraBLL tipoMoraBLL = new TipoMoraBLL(-1, "");
         PeriodoBLL periodoBLL = new PeriodoBLL(-1, "");
@@ -21,12 +21,16 @@ namespace PrestamoBLL
         public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
         #endregion property members
 
-        public PrestamoBuilder(Prestamo prestamo)
+        internal static async Task<PrestamoManager> Create(Prestamo prestamo)
         {
-            SetPrestamo(prestamo);
+            var myclass = new PrestamoManager();
+            await myclass.SetPrestamo(prestamo);
+            return myclass;
         }
-
-        
+        private  PrestamoManager()
+        {
+            
+        }
         
         private void NotificadorDeMensaje(object sender, string e)
         {
