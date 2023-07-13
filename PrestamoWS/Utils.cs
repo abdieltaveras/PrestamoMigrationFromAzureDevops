@@ -1,21 +1,19 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Reporting.NETCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PrestamoWS
 {
-    public class Utils :PageModel
+    public class Utils : PageModel
     {
         //
-        public FileContentResult CatalogoReportList<@Type, @Base>(IEnumerable<Type> DataInList, string ReportUrl,  int reportType = 1, IEnumerable<Base> DatosBase = null, string DataSetName = "DataSet1", Dictionary<string, string> parameter = null)
+        public FileContentResult CatalogoReportList<@Type, @Base>(IEnumerable<Type> DataInList, string ReportUrl, int reportType = 1, IEnumerable<Base> DatosBase = null, string DataSetName = "DataSet1", Dictionary<string, string> parameter = null)
         {
             //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Stream sl = new FileStream(ReportUrl, FileMode.Open, FileAccess.Read);
@@ -23,14 +21,14 @@ namespace PrestamoWS
             LocalReport localReport = new LocalReport();
             localReport.LoadReportDefinition(sl);
 
-            if (parameter!=null)
+            if (parameter != null)
             {
                 foreach (var item in parameter)
                 {
                     localReport.SetParameters(new[] { new ReportParameter(item.Key, item.Value) });
                 }
             }
-            
+
             if (DatosBase != null)
             {
                 localReport.DataSources.Add(new ReportDataSource("Base", DatosBase));
@@ -62,7 +60,28 @@ namespace PrestamoWS
             return null;
         }
 
-
+        public static DataTable ToDataTable<T>(IList<T> data)
+        {
+            PropertyDescriptorCollection props =
+                TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            for (int i = 0; i < props.Count; i++)
+            {
+                PropertyDescriptor prop = props[i];
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(
+            prop.PropertyType) ?? prop.PropertyType);
+            }
+            object[] values = new object[props.Count];
+            foreach (T item in data)
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    values[i] = props[i].GetValue(item);
+                }
+                table.Rows.Add(values);
+            }
+            return table;
+        }
         //public IActionResult CatalogoReportList<@Type,@Base>(IEnumerable<Type> Datos, string ReportUrl, int reportType = 1, IEnumerable<Base> DatosBase = null) 
         //{
 
@@ -93,7 +112,7 @@ namespace PrestamoWS
         //    return null;
         //}
 
-        public FileContentResult ReportGenerator<@Type, @Base>(DataTable dataInTable,string ReportUrl, int reportType = 1, IEnumerable<Base> DatosBase = null, string DataSetName = "DataSet1", Dictionary<string, string> parameter = null, IEnumerable<Type> DataInList = null)
+        public FileContentResult ReportGenerator<@Type, @Base>(DataTable dataInTable, string ReportUrl, int reportType = 1, IEnumerable<Base> DatosBase = null, string DataSetName = "DataSet1", Dictionary<string, string> parameter = null, IEnumerable<Type> DataInList = null)
         {
             //Encoding Provider
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -129,7 +148,7 @@ namespace PrestamoWS
             else
             {
                 //If is data as List
-                if (DataInList!=null)
+                if (DataInList != null)
                 {
                     localReport.DataSources.Add(new ReportDataSource(DataSetName, DataInList));
                 }
@@ -137,7 +156,7 @@ namespace PrestamoWS
             //Report Type
             if (reportType == 1)
             {
-               
+
                 var result = localReport.Render("PDF");
                 return File(result, "application/pdf");
             }
@@ -148,6 +167,6 @@ namespace PrestamoWS
             }
             return null;
         }
-   
+
     }
 }

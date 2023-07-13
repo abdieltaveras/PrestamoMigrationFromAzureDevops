@@ -1,16 +1,12 @@
-﻿using PrestamoBLL;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using PrestamoBLL;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
-using PcpUtilidades;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Hosting;
-using HESRAM.Utils;
-using Newtonsoft.Json;
+using System.Data;
 using System.Linq;
 using System.Text;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
 
 namespace PrestamoWS.Controllers
 {
@@ -37,7 +33,7 @@ namespace PrestamoWS.Controllers
             var result = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(search);
             return result;
         }
-        
+
         //[HttpGet]
         //public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams getParams)
         //{
@@ -48,7 +44,7 @@ namespace PrestamoWS.Controllers
 
 
         [HttpGet]
-        public IEnumerable<Cliente> SearchClientes(int option,string textoABuscar, bool cargarImagenesClientes=false)
+        public IEnumerable<Cliente> SearchClientes(int option, string textoABuscar, bool cargarImagenesClientes = false)
         {
             IEnumerable<Cliente> clientes = null;
             clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).SearchCliente(option, textoABuscar);
@@ -60,7 +56,7 @@ namespace PrestamoWS.Controllers
                 }
             }
             return clientes;
-            
+
         }
 
         //Estp se puede poner como un servicio Generico, con un DataTable, asi nos evitamos estar creandolo
@@ -93,13 +89,13 @@ namespace PrestamoWS.Controllers
             try
             {
                 ManejoImagenes.MoverImagenes(cliente.ImagenesRemover, ImagePathForClientes, ImagePathDeleted);
-                ManejoImagenes.ProcesarImagenes(cliente.ImagenesObj, ImagePathForClientes , string.Empty);
+                ManejoImagenes.ProcesarImagenes(cliente.ImagenesObj, ImagePathForClientes, string.Empty);
                 var id = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdCliente(cliente);
                 return Ok(id);
             }
             catch (Exception e)
             {
-              return BadRequest($"El cliente no pudo ser creado || {e.Message}");
+                return BadRequest($"El cliente no pudo ser creado || {e.Message}");
             }
         }
         /// <summary>
@@ -120,7 +116,7 @@ namespace PrestamoWS.Controllers
             }
         }
 
-        
+
         [HttpGet]
         public IActionResult SearchClienteByProperties([FromQuery] ClienteGetParams param)
         {
@@ -136,7 +132,7 @@ namespace PrestamoWS.Controllers
 
                 return BadRequest(ex.Message);
             }
-   
+
         }
         [HttpGet]
         public IActionResult GetImagenCliente(int IdCliente)
@@ -183,10 +179,10 @@ namespace PrestamoWS.Controllers
         {
             try
             {
-                var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { NoIdentificacion=Identificacion});
+                var cliente = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { NoIdentificacion = Identificacion });
                 if (cliente.Count() > 0)
                 {
-                    var lst = ManejoImagenes.GetImagen(ImagePathForClientesIdentificaciones,cliente.FirstOrDefault().Imagenes);
+                    var lst = ManejoImagenes.GetImagen(ImagePathForClientesIdentificaciones, cliente.FirstOrDefault().Imagenes);
                     return Ok(lst);
 
                 }
@@ -207,10 +203,10 @@ namespace PrestamoWS.Controllers
             IEnumerable<Cliente> clientes = new List<Cliente>();
             IEnumerable<Ocupacion> ocupaciones = new List<Ocupacion>();
             //todo: 20230711 actualizar esta parte de las imagenes ahora lo hace un procedimiento diferente antes lo hacia en el metodo, pero se decidio hacerlo a solicitud cuando se necesite
-            clientes = new ClienteBLL(this.IdLocalidadNegocio,this.LoginName).GetClientes(new ClienteGetParams { IdCliente = idcliente });
+            clientes = new ClienteBLL(this.IdLocalidadNegocio, this.LoginName).GetClientes(new ClienteGetParams { IdCliente = idcliente });
             cliente = clientes.FirstOrDefault();
-            ocupaciones = BLLPrestamo.Instance.GetCatalogos<Ocupacion>(CatalogoName.Ocupacion,new BaseCatalogoGetParams {IdRegistro= cliente.IdTipoProfesionUOcupacion });
-            DataTable dtClientes = HConvert.ListToDataTable<Cliente>(clientes.ToList());
+            ocupaciones = BLLPrestamo.Instance.GetCatalogos<Ocupacion>(CatalogoName.Ocupacion, new BaseCatalogoGetParams { IdRegistro = cliente.IdTipoProfesionUOcupacion });
+            DataTable dtClientes = Utils.ToDataTable<Cliente>(clientes.ToList()); //HConvert.ListToDataTable<Cliente>(clientes.ToList());
 
             foreach (var item in columnas)
             {
@@ -218,7 +214,7 @@ namespace PrestamoWS.Controllers
             }
             dtClientes.Rows[0]["InfoDireccion"] = $"{cliente.InfoDireccionObj.Calle}  {cliente.InfoDireccionObj.Detalles}";
             dtClientes.Rows[0]["Sexo"] = cliente.idSexo == 1 ? "Hombre" : "Mujer";
-            dtClientes.Rows[0]["TipoIdentificacion"] = Enum.GetName( typeof(TiposIdentificacionPersona), cliente.IdTipoIdentificacion);
+            dtClientes.Rows[0]["TipoIdentificacion"] = Enum.GetName(typeof(TiposIdentificacionPersona), cliente.IdTipoIdentificacion);
             dtClientes.Rows[0]["TrabajaEn"] = $"{cliente.InfoLaboralObj.Nombre} || {cliente.InfoLaboralObj.Puesto}";
             dtClientes.Rows[0]["ContactoTrabajo"] = $"{cliente.InfoLaboralObj.NoTelefono1} || {cliente.InfoLaboralObj.NoTelefono2}";
             dtClientes.Rows[0]["DireccionTrabajo"] = $"{cliente.InfoLaboralObj.Direccion}";
@@ -231,29 +227,17 @@ namespace PrestamoWS.Controllers
 
             #region Imagen
             List<string> listimagen = new List<string>();
-            if (clientes.FirstOrDefault().Imagenes != null)
+            cliente.ConvertImagenJsonToObj(ImagePathForClientes);
+            foreach (var item in cliente.ImagenesObj)
             {
-                var listResult = JsonConvert.DeserializeObject<dynamic>(clientes.FirstOrDefault().Imagenes);
-                foreach (var item in listResult)
-                {
-                    //Obtenemos la ruta de la imagen
-                    string pathimage = ImagePathForClientes + item.NombreArchivo ;
-                    //Evaluamos si existe la imagen
-                    var ExisteImagen = System.IO.File.Exists(pathimage);
-                    if (ExisteImagen)
-                    {
-                        // Utilizamos la libreria HESRAM.Utils y obtenemos el imagebase64 de la ruta de la imagen
-                        var imagebase = HConvert.GetImageBase64FromPath(pathimage);
-                        // creamos una lista para agregar nuestras bases
-                        listimagen.Add(imagebase);
-                    }
-                }
+                // creamos una lista para agregar nuestras bases
+                string base64 = item.Base64string.Split("base64,")[1];
+                listimagen.Add(base64);
             }
-
             //******************************************************//
             #endregion
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            if (listimagen.Count>0)
+            if (listimagen.Count > 0)
             {
                 for (int i = 0; i < listimagen.Count; i++)
                 {
@@ -264,13 +248,14 @@ namespace PrestamoWS.Controllers
             {
                 parameters.Add("Imagen1", NoImageBase64);
             }
-          
+
             //******************************************************//
             _utils = new Utils();
 
             string path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Clientes\\Ficha.rdlc";
-            var resultado = _utils.ReportGenerator(dtClientes, path, reportType, baseReporte, parameter: parameters, DataInList:baseReporte);
+            var resultado = _utils.ReportGenerator(dtClientes, path, reportType, baseReporte, parameter: parameters, DataInList: baseReporte);
             return resultado;
         }
     }
 }
+
