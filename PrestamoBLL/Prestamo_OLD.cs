@@ -27,7 +27,7 @@ namespace PrestamoBLL
             //var cuotas = result2._CuotasList;
             var prestamoParam2 = SearchRec.ToSqlParams(result2);
 
-            prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
+            //prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
             
             var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", ref prestamoParam2);
             var  id= Utils.GetIdFromDataTable(resultId);
