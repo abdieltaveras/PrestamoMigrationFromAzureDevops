@@ -16,17 +16,48 @@ namespace PrestamoBLL
         /// <summary>
         /// throw error if 
         /// </summary>
-        /// <param name="idLocalidadNegocio"></param>
-        /// <param name="usuario"></param>
-        internal static void LocalidadNegocioNotEqualToZero(int idLocalidadNegocio)
+        /// <param name="value"></param>
+        /// <param name="propName">the property Name</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal static void ValueGreaterThanZero(int value, string propName)
         {
-            if (idLocalidadNegocio == 0) throw new NullReferenceException("Id Localidad no puede ser igual a 0");
+            if (value <= 0) throw new ArgumentOutOfRangeException($"el valor de {propName } no puede ser menor o igual a cero");
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="propName">the property name default Usuario </param>
+        /// <exception cref="NullReferenceException"></exception>
+        internal static void StringNotEmptyOrNull(string value, string propName="Usuario")
+        {
+            if (string.IsNullOrEmpty(value))
+                throw new NullReferenceException($"El valor de {propName} no puede ser vacio o nulo");
         }
 
-        internal static void UsuarioNotEmptyOrNUll(string LoginName)
+        internal static void ObjectNotNull(object value, string propName)
         {
-            if (string.IsNullOrEmpty(LoginName))
-                throw new NullReferenceException("El usuario no puede estar vacio o nulo");
+            if (value==null)
+                throw new NullReferenceException($"El valor de {propName} no puede ser nulo");
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="valor"></param>
+        /// <param name="minimo"></param>
+        /// <param name="maximo">si maximo es igual a -1 indica que no lo valide</param>
+        /// <param name="propiedad"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        internal static void ValidateRange(decimal valor, decimal minimo, decimal maximo, string propiedad)
+        {
+            if (valor < minimo)
+            {
+                throw new ArgumentOutOfRangeException($"El valor de {propiedad} es menor al valor minimo aceptado el cual es {minimo}");
+            }
+            if (maximo > 0 && valor > maximo)
+            {
+                throw new ArgumentOutOfRangeException($"El valor de {propiedad} es mayor que el valor maximo aceptado el cual es {minimo}");
+            }
         }
     }
 

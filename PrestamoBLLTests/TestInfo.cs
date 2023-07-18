@@ -21,8 +21,15 @@ namespace PrestamoBLL.Tests
         {
             return 1;
         }
+
+        internal static int GetIdNegocio()
+        {
+            return 1;
+        }
+
         public string _Usuario => Usuario;
         public string MensajeError { get; set; } = string.Empty;
+        public Exception ExceptionOccured { get; set; } = null;
     }
     
 }

@@ -232,7 +232,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 var valorCta = Cuotas.Where(cta => cta.Numero == 1).FirstOrDefault().TotalOrig;
                 montoCuota = Cuotas != null ? valorCta : 0;
             }
-            var result = $"{prestamo.CantidadDePeriodos} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("C")}";
+            var result = $"{prestamo.CantidadDeCuotas} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("C")}";
             return result;
         }
 
@@ -477,7 +477,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         protected async Task OnCantidadPeriodoChange(ChangeEventArgs args)
         {
             var value = Convert.ToInt32(args.Value);
-            prestamo.CantidadDePeriodos = value;
+            prestamo.CantidadDeCuotas = value;
             await Calcular();
         }
 

@@ -11,18 +11,19 @@ namespace PrestamoBLL
 {
     public class PrestamoManager
     {
-        TipoMoraBLL tipoMoraBLL = new TipoMoraBLL(-1, "");
-        PeriodoBLL periodoBLL = new PeriodoBLL(-1, "");
-
+        //private TipoMoraBLL _TipoMoraBLL { get; set; } 
+        //private PeriodoBLL _PeriodoBLL { get; set; }
+        
         #region property members
-
-        PrestamoConCalculos prestamoInProgress = new PrestamoConCalculos();
-        Periodo periodo = new Periodo();
+        
+        private PrestamoConCalculos prestamoInProgress = new PrestamoConCalculos();
+        
         public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
         #endregion property members
 
         internal static async Task<PrestamoManager> Create(Prestamo prestamo)
         {
+            
             var myclass = new PrestamoManager();
             await myclass.SetPrestamo(prestamo);
             return myclass;
@@ -46,15 +47,20 @@ namespace PrestamoBLL
         /// <param name="prestamo"></param>
         private async Task SetPrestamo(Prestamo prestamo)
         {
-             // hay que enviar usuario e idlocalidad
-            var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = 1 });
-            var tiposMora = tipoMoraBLL.GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
-            var tasasDeInteres = new TasaInteresBLL(-1,"Luis Prueba").GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
-            var periodos = periodoBLL.GetPeriodos(new PeriodoGetParams { IdNegocio = 1 });
+            BLLValidations.ValueGreaterThanZero(prestamo.IdLocalidadNegocio, "Id Localidad negocio");
+            BLLValidations.StringNotEmptyOrNull(prestamo.Usuario, "Usuario");
+            // hay que enviar usuario e idlocalidad
+            //_TipoMoraBLL = new TipoMoraBLL(prestamo.IdLocalidadNegocio,prestamo.Usuario);
+            //_PeriodoBLL = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario);
+            var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = prestamo.IdNegocio });
+            var tiposMora = new TipoMoraBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamo.IdNegocio });
+            var tasasDeInteres = new TasaInteresBLL(prestamo.IdLocalidadNegocio,prestamo.Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamo.IdNegocio});
+            var periodos = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = prestamo.IdNegocio });
+            
             prestamoInProgress = new PrestamoConCalculos();
             prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
-
             prestamoInProgress.SetServices(this.NotificadorDeMensaje, clasificaciones, tiposMora, tasasDeInteres, periodos);
+            
             await prestamoInProgress.ExecCalcs();
         }
 
@@ -77,24 +83,30 @@ namespace PrestamoBLL
         }
     }
 
-    public class PrestamoBuilder3
+    internal class PrestamoBuilder
     {
-        TipoMoraBLL tipoMoraBLL = new TipoMoraBLL(-1, "");
-        PeriodoBLL periodoBLL = new PeriodoBLL(-1, "");
+        
         #region property members
-        List<Cliente> clientes = new List<Cliente>();
-        List<Codeudor> codeudores = new List<Codeudor>();
-        List<Garantia> garantias = new List<Garantia>();
-        List<CxCCuota> cuotas = new List<CxCCuota>();
-        Prestamo prestamoInProgress = new Prestamo();
-        Periodo periodo = new Periodo();
+        //IEnumerable<Cliente> clientes = new List<Cliente>();
+        //IEnumerable<Codeudor> codeudores = new List<Codeudor>();
+        //IEnumerable<Garantia> garantias = new List<Garantia>();
+        //IEnumerable<CxCCuota> cuotas = new List<CxCCuota>();
+        //Periodo periodo = new Periodo();
+        private int IdLocalidadnegocio { get; set; }
+        private string Usuario { get; set; }
+        
+        private Prestamo prestamoInProgress = new PrestamoConCalculos();
         public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
         #endregion property members
 
-        public PrestamoBuilder3(Prestamo prestamo)
+        internal static async Task<PrestamoBuilder> Create(Prestamo prestamo)
         {
-            SetPrestamo(prestamo);
+            var myclass = new PrestamoBuilder();
+            await myclass.SetPrestamo(prestamo);
+            return myclass;
         }
+
+        private PrestamoBuilder() { }
 
         #region operaciones
         /// <summary>
@@ -102,13 +114,17 @@ namespace PrestamoBLL
         /// a la base de datos.
         /// </summary>
         /// <param name="prestamo"></param>
-        private void SetPrestamo(Prestamo prestamo)
+        private async Task SetPrestamo(Prestamo prestamo)
         {
+
+            ValidarPrestamo(prestamo);
+            this.IdLocalidadnegocio = prestamo.IdLocalidadNegocio;
+            this.Usuario = prestamo.Usuario;
             //_type.CopyPropertiesTo(prestamo, prestamoInProgress);
-            validarIdNoMenorNiIgualACero(prestamo.IdNegocio, "IdNegocio");
-            prestamoInProgress.IdNegocio = prestamo.IdNegocio;
-            prestamoInProgress.IdLocalidadNegocio = prestamo.IdLocalidadNegocio;
-            prestamoInProgress.OtrosCargos = prestamo.OtrosCargos;
+            prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
+            //prestamoInProgress.IdNegocio = prestamo.IdNegocio;
+            //prestamoInProgress.IdLocalidadNegocio = prestamo.IdLocalidadNegocio;
+            //prestamoInProgress.OtrosCargos = prestamo.OtrosCargos;
             SetFechaDeEmision(prestamo.FechaEmisionReal);
             SetClasificacion(prestamo.IdClasificacion);
             //SetAmortizacion(prestamo.TipoAmortizacion);
@@ -119,15 +135,23 @@ namespace PrestamoBLL
             SetCodeuDores(prestamo.IdCodeudores);
             SetMontoAPrestar(prestamo.MontoPrestado, prestamo.IdDivisa);
             SetGastDeCierre(prestamo);
-            SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDePeriodos); ;
+            SetPeriodoYDuracion(prestamo.IdPeriodo, prestamo.CantidadDeCuotas); ;
             SetTasaInteres(prestamo.IdTasaInteres);
             SetAcomodarFecha(prestamo.FechaInicioPrimeraCuota);
 
             SetMoras(prestamo.IdTipoMora);
         }
+
+        private void ValidarPrestamo(Prestamo prestamo)
+        {
+            BLLValidations.ValueGreaterThanZero(prestamo.IdLocalidadNegocio, "Id Localidad negocio");
+            BLLValidations.StringNotEmptyOrNull(prestamo.Usuario, "Usuario");
+            BLLValidations.ValueGreaterThanZero(prestamo.IdNegocio, "IdNegocio");
+        }
+
         public void AddCodeudor(Prestamo prestamo, int idCodeudor)
         {
-            validarIdNoMenorNiIgualACero(idCodeudor, "IdCodeudor");
+            BLLValidations.ValueGreaterThanZero(idCodeudor, "IdCodeudor");
             prestamo.IdCodeudores.Add(idCodeudor);
 
         }
@@ -148,15 +172,15 @@ namespace PrestamoBLL
         //}
         public void SetMontoAPrestar(decimal monto, int idDivisa)
         {
-            validateRange(monto, getValorMinimo(), getValorMaximo(), "dinero prestado");
-            //validateRange(idDivisa, 1, 0, "La divisa");
+            BLLValidations.ValidateRange(monto, getValorMinimo(), getValorMaximo(), "dinero prestado");
+            //ValidateRange(idDivisa, 1, 0, "La divisa");
             prestamoInProgress.MontoPrestado = monto;
             prestamoInProgress.IdDivisa = idDivisa;
         }
 
         private decimal getValorMaximo()
         {
-            return 100000000;
+            return -1; // significa infinito
         }
 
         private decimal getValorMinimo()
@@ -178,22 +202,9 @@ namespace PrestamoBLL
             prestamoInProgress.FechaEmisionReal = fechaEmision;
         }
 
-        private void validarIdNoMenorNiIgualACero(int id, string nombrePropiedad)
-        {
-            if (id <= 0) { throw new NullReferenceException($"el valor de la propiedad {nombrePropiedad} no puede ser menor o igual a cero"); }
-        }
+        
 
-        private void validateRange(decimal valor, decimal minimo, decimal maximo, string propiedad)
-        {
-            if (valor < minimo)
-            {
-                throw new ArgumentOutOfRangeException($"El valor de {propiedad} es menor al valor minimo aceptado el cual es {minimo}");
-            }
-            if (valor > maximo)
-            {
-                throw new ArgumentOutOfRangeException($"El valor de {propiedad} es mayor que el valor maximo aceptado el cual es {minimo}");
-            }
-        }
+        
 
         private void CargarGastoDeCierre(decimal tasaGastoDeCiere = 0, bool esDeducible = false)
         {
@@ -207,10 +218,11 @@ namespace PrestamoBLL
             prestamoInProgress.FechaInicioPrimeraCuota = fechaInicioPrimeraCuota;
         }
 
+        
         private void SetMoras(int idTipoMora)
         {
-            validarIdNoMenorNiIgualACero(idTipoMora, "IdTipoMora");
-            var mora = tipoMoraBLL.GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamoInProgress.IdNegocio, IdTipoMora = idTipoMora }).FirstOrDefault();
+            BLLValidations.ValueGreaterThanZero(idTipoMora, "IdTipoMora");
+            var mora =  new TipoMoraBLL(IdLocalidadnegocio, Usuario).GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamoInProgress.IdNegocio, IdTipoMora = idTipoMora }).FirstOrDefault();
 
             //var mora = BLLPrestamo.Instance.GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamoInProgress.IdNegocio, IdTipoMora = idTipoMora }).FirstOrDefault();
             prestamoInProgress.IdTipoMora = mora.IdTipoMora;
@@ -221,15 +233,18 @@ namespace PrestamoBLL
         {
             SetPeriodo(idPeriodo, cantidadDePeriodo);
             prestamoInProgress.FechaVencimiento = CalcularFechaVencimiento();
-            prestamoInProgress.CantidadDePeriodos = cantidadDePeriodo;
+            prestamoInProgress.CantidadDeCuotas = cantidadDePeriodo;
         }
 
         public DateTime CalcularFechaVencimiento()
         {
             // primero buscar el periodo
             // luego tomar la fecha inicial de partida y hacer los calculos
-            var duracion = this.prestamoInProgress.CantidadDePeriodos * (int)periodo.MultiploPeriodoBase;
+            
             var fechaVencimiento = new DateTime();
+            var periodo = new PeriodoBLL(this.IdLocalidadnegocio, Usuario).GetPeriodos(new PeriodoGetParams { idPeriodo= prestamoInProgress.IdPeriodo }).FirstOrDefault();
+            BLLValidations.ObjectNotNull(periodo,"Periodo");
+            var duracion = this.prestamoInProgress.CantidadDeCuotas * (int)periodo.MultiploPeriodoBase;
             if (prestamoInProgress.AcomodarFechaALasCuotas)
             {
                 throw new Exception("aun no estamos trabajando con acomodar cuotas");
@@ -270,9 +285,9 @@ namespace PrestamoBLL
 
         private void SetPeriodo(int idPeriodo, int cantidadPeriodo)
         {
-            validarIdNoMenorNiIgualACero(idPeriodo, "IdPeriodo");
-            validarIdNoMenorNiIgualACero(cantidadPeriodo, "cantidadPeriodo");
-            var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { IdNegocio = prestamoInProgress.IdNegocio, idPeriodo = idPeriodo }).FirstOrDefault();
+            BLLValidations.ValueGreaterThanZero(idPeriodo, "IdPeriodo");
+            BLLValidations.ValueGreaterThanZero(cantidadPeriodo, "cantidadPeriodo");
+            var periodo = new PeriodoBLL(IdLocalidadnegocio,Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = prestamoInProgress.IdNegocio, idPeriodo = idPeriodo }).FirstOrDefault();
             if (!periodo.Activo)
             {
                 throw new Exception("El periodo indicado no es valido porque no esta activo");
@@ -283,15 +298,15 @@ namespace PrestamoBLL
             }
             this.prestamoInProgress.Periodo = periodo;
             this.prestamoInProgress.IdPeriodo = idPeriodo;
-            this.prestamoInProgress.CantidadDePeriodos = cantidadPeriodo;
+            this.prestamoInProgress.CantidadDeCuotas = cantidadPeriodo;
         }
 
         private void SetTasaInteres(int idTasaDeInteres)
         {
-            validarIdNoMenorNiIgualACero(idTasaDeInteres, "IdTasaDeInteres");
-            var tasaDeInteres = new TasaInteresBLL(-1,"Luis Prueba").GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
+            BLLValidations.ValueGreaterThanZero(idTasaDeInteres, "IdTasaDeInteres");
+            var tasaDeInteres = new TasaInteresBLL(IdLocalidadnegocio, Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             this.prestamoInProgress.IdTasaInteres = idTasaDeInteres;
-            var tasaDeInteresPorPeriodo = new TasaInteresBLL(-1, "Luis Prueba").CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
+            var tasaDeInteresPorPeriodo = new TasaInteresBLL(IdLocalidadnegocio, Usuario).CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
             this.prestamoInProgress.TasaDeInteresDelPeriodo = tasaDeInteresPorPeriodo.InteresDelPeriodo;
 
         }
@@ -309,12 +324,12 @@ namespace PrestamoBLL
         private void SetCodeuDores(List<int> idCodeudores)
         {
             prestamoInProgress.IdCodeudores = new List<int>();
-            if (idCodeudores != null)
+            if (idCodeudores.Any())
             {
                 foreach (var item in idCodeudores)
                 {
                     AddCodeudor(prestamoInProgress, item);
-                    validarIdNoMenorNiIgualACero(item, "IdCodeudor");
+                    BLLValidations.ValueGreaterThanZero(item, "IdCodeudor");
                     prestamoInProgress.IdCodeudores.Add(item);
                 }
             }
@@ -329,7 +344,7 @@ namespace PrestamoBLL
         //        foreach (var item in garantias)
         //        {
         //            AddGarantia(prestamoInProgress, item);
-        //            validarIdNoMenorNiIgualACero(item.IdGarantia, "IdGarantia");
+        //            ValidarIdNoMenorNiIgualACero(item.IdGarantia, "IdGarantia");
         //            prestamoInProgress.IdGarantias.Add(item.IdGarantia);
         //        }
         //    }
@@ -337,29 +352,31 @@ namespace PrestamoBLL
         private void SetGarantias(IEnumerable<int> idGarantias)
         {
             // que las garantias en cuestion no tengan otros prestamos vigente
-            var tienenPrestamosVigentes = new GarantiaBLL(-1, "Luis Prueba").GarantiasTienenPrestamosVigentes(idGarantias);
+            var tienenPrestamosVigentes = new GarantiaBLL(this.IdLocalidadnegocio, this.Usuario).GarantiasTienenPrestamosVigentes(idGarantias);
 
             prestamoInProgress.IdGarantias = new List<int>();
-            if (garantias != null)
+            if (idGarantias.Any())
             {
                 foreach (var item in idGarantias)
                 {
-                    validarIdNoMenorNiIgualACero(item, "IdGarantia");
+                    BLLValidations.ValueGreaterThanZero(item, "IdGarantia");
                     prestamoInProgress.IdGarantias.Add(item);
                 }
             }
         }
-        //private void SetCodeudores(List<Codeudor> codeudores)
-        //{
-        //    foreach (var item in codeudores)
-        //    {
-        //        AddCodeudor(prestamoInProgress, item);
-        //        prestamoInProgress.IdCodeudores.Add(item.IdCodeudor);
-        //    }
-        //}
+        private void SetCodeudores(List<int> idCodeudores)
+        {
+            if (idCodeudores.Any())
+            {
+                foreach (var item in idCodeudores)
+                {
+                    prestamoInProgress.IdCodeudores.Add(item);
+                }
+            }
+        }
         private void SetClientes(int idCliente)
         {
-            validarIdNoMenorNiIgualACero(idCliente, "IdCliente");
+            BLLValidations.ValueGreaterThanZero(idCliente, "IdCliente");
             prestamoInProgress.IdCliente = idCliente;
         }
 
@@ -381,14 +398,14 @@ namespace PrestamoBLL
 
         private void SetAmortizacion(int idTipoAmortizacion)
         {
-            validarIdNoMenorNiIgualACero(idTipoAmortizacion, "Tipo Amortizacion");
+            BLLValidations.ValueGreaterThanZero(idTipoAmortizacion, "Tipo Amortizacion");
             var amorti = (TiposAmortizacion)idTipoAmortizacion;
             prestamoInProgress.IdTipoAmortizacion = idTipoAmortizacion;
         }
 
         private void SetClasificacion(int idClasificacion)
         {
-            validarIdNoMenorNiIgualACero(idClasificacion, "IdClasifiacion");
+            BLLValidations.ValueGreaterThanZero(idClasificacion, "IdClasifiacion");
             // seria bueno analizar que impida que en un prestamo inmobiliario no ponga un vehiculo o incluso que la clasificacion la tome por las garantias
             this.prestamoInProgress.IdClasificacion = idClasificacion;
 
@@ -514,7 +531,7 @@ namespace PrestamoBLL
             var prestamo = new Prestamo();
             prestamo.FechaEmisionReal = fechaPrestamo;
             prestamo.Periodo = periodo;
-            prestamo.CantidadDePeriodos = cantidadDePeriodos;
+            prestamo.CantidadDeCuotas = cantidadDePeriodos;
             prestamo.FechaInicioPrimeraCuota = FechaInicioPrimeraCuota;
             var fechaVencimiento = PrestamoConCalculos.CalcularFechaVencimiento(prestamo);
             return fechaVencimiento;
@@ -523,7 +540,7 @@ namespace PrestamoBLL
         {
             // primero buscar el periodo
             // luego tomar la fecha inicial de partida y hacer los calculos
-            var duracion = prestamo.CantidadDePeriodos * prestamo.Periodo.MultiploPeriodoBase;
+            var duracion = prestamo.CantidadDeCuotas * prestamo.Periodo.MultiploPeriodoBase;
             var fechaVencimiento = new DateTime();
             if (prestamo.AcomodarFechaALasCuotas)
             {
@@ -599,13 +616,13 @@ namespace PrestamoBLL
         }
 
 
-        public override int CantidadDePeriodos
+        public override int CantidadDeCuotas
         {
-            get => base.CantidadDePeriodos;
+            get => base.CantidadDeCuotas;
             set
             {
                 RejectNegativeValue(value);
-                base.CantidadDePeriodos = value;
+                base.CantidadDeCuotas = value;
                 execCalcs();
             }
         }

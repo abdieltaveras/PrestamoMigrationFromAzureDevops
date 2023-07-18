@@ -22,7 +22,7 @@ namespace PrestamoBLL
         {
             //var prToBuild = new PrestamoManager(prestamo);
             //var result = prToBuild.Build();
-            var prToBuild2 = await PrestamoManager.Create(prestamo);
+            var prToBuild2 = await PrestamoBuilder.Create(prestamo);
             var result2 = prToBuild2.Build();
             //var cuotas = result2._CuotasList;
             var prestamoParam2 = SearchRec.ToSqlParams(result2);

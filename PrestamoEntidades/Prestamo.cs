@@ -257,7 +257,7 @@ namespace PrestamoEntidades
             get { return (TiposAmortizacion)IdTipoAmortizacion; }
             set { IdTipoAmortizacion = (int)value; }
         }
-        public int IdEstatus { get; set; }
+        
         /// <summary>
         /// retorna true o false al contar si hay o no garantias para este prestamo
         /// </summary>
@@ -314,7 +314,7 @@ namespace PrestamoEntidades
         //[RegularExpression(("([1-9][0-9]*)"), ErrorMessage ="la cantidad de periodo digitada no es valida debe ser un valor mayor a cero y no puede tener decimales")]
         [Range(typeof(int), "1", "99999999", ErrorMessage = "solo se acepta valores mayor a 0")]
         //[Min(1,ErrorMessage ="el valor minimo aceptado es 1")]
-        public virtual int CantidadDePeriodos { get; set; } = 1;
+        public virtual int CantidadDeCuotas { get; set; } = 1;
         [Display(Name = "Monto prestado al cliente?")]
         [Required(ErrorMessage = "debe digitar un valor 0 o un valor")]
         //[RegularExpression(("([0-9][0-9]*)"), ErrorMessage = "no se aceptan valores negativos")]
