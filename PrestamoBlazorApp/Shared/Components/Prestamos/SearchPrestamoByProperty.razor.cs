@@ -46,90 +46,19 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
 
         private IGetDataByColumSelection<PrestamoClienteUIGetParamWtSearchText> PrestamosSearch { get; set; } = new PrestamoGetDataByColumnSelected();
 
-        private async Task Get()
-        {
-            PrestamoClienteUIGetParam param = new PrestamoClienteUIGetParam();
-            param = await SearchFor(SelectedPropertySearch, SearchText);
-            if (GetParams != null)
-            {
-                prestamos = await PrestamosService.GetPrestamoClienteUI(param);
-                //prestamos.Add(prestamo);
-            }
-            else
-            {
-                await Alert("El Id del prestamo debe ser mayor a 0.");
-                //await SweetMessageBox("El Id del prestamo debe ser mayor a 0.", "error");
-            }
-
-        }
-        //private async Task onSelectCliente(Cliente cl)
-        //{
-        //    GetParams = new PrestamoClienteUIGetParam { IdCliente = cl.IdCliente };
-        //    await Get();
-        //}
-        private async Task onSearchClick()
-        {
-            await Get();
-        }
+        
 
         public async Task GetPrestamos(PrestamoClienteUIGetParamWtSearchText param)
         {
             prestamos = await PrestamosService.GetPrestamoClienteUI(param);
-            //if (SelectedPropertySearch == (int)eOpcionesSearchPrestamo.Sector)
-            //{
-            //    param.idLocalidad = IdLocalidadSelected;
-            //    _Personas = await PersonasService.GetPersonas(param);
-            //}
-            //else if (SelectedSearchOption == (int)EPersonaSearchOptions.Municipio)
-            //{
-            //    _Personas = await PersonasService.GetPersonasByLocalidad(IdLocalidadSelected);
-            //}
-            //else
-            //{
-            //    if (!string.IsNullOrWhiteSpace(param.SearchText)) { _Personas = await PersonasService.SearchPersonas(param.SearchText); }
-            //    else { _Personas = await PersonasService.GetPersonas(param); }
-            //    SearchText = string.Empty;
-            //}
-
+        
         }
         protected async Task GetData()
         {
             await PrestamosSearch.ExecGetDataAction(SelectedPropertySearch, SearchText, GetPrestamos);
 
         }
-        private async Task<PrestamoClienteUIGetParam> SearchFor(int SelectedProperty, string searchText)
-        {
-            bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchPrestamo), SelectedProperty);
-            PrestamoClienteUIGetParam param = new PrestamoClienteUIGetParam();
-            if (isDefined)
-            {
-                eOpcionesSearchPrestamo enumOp = (eOpcionesSearchPrestamo)SelectedProperty;
-                switch (enumOp)
-                {
-                    case eOpcionesSearchPrestamo.NoIdentificacion:
-                        param.NoIdentificacion = searchText;
-                        break;
-                    case eOpcionesSearchPrestamo.Nombres:
-                        param.Nombres = searchText;
-                        break;
-                    case eOpcionesSearchPrestamo.Apellidos:
-                        param.Apellidos = searchText;
-                        break;
-                    case eOpcionesSearchPrestamo.NombreCompleto:
-                        param.NombreCompleto = searchText;
-                        break;
-                    case eOpcionesSearchPrestamo.Placa:
-                        param.Placa = searchText;
-                        break;
-                    case eOpcionesSearchPrestamo.Matricula:
-                        param.Matricula = searchText;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return param;
-        }
+        
         private async Task SelectedValue(PrestamoClienteUI select)
         {
             Value = select;

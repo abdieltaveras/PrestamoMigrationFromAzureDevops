@@ -7,6 +7,9 @@ using PrestamoBlazorApp.Services;
 using Microsoft.AspNetCore.Components;
 using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
+using PrestamoBlazorApp.Domain;
+using PrestamoBlazorApp.Pages.Prestamos.Components.PrestamoByColumnSelected;
+
 namespace PrestamoBlazorApp.Pages.Prestamos
 {
     public partial class Prestamos : BaseForList
@@ -16,15 +19,36 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         [Inject] PrestamosService prestamoService { get; set; }
         [Inject] ClientesService ClientesService { get; set; }
         PrestamosGetParams searchPrestamos { get; set; } = new PrestamosGetParams();
+        private int SelectedPropertySearch { get; set; } = 1;
         int totalPrestamos { get; set; }
+        string SearchText { get; set; }
         IEnumerable<Prestamo> prestamos = new List<Prestamo>();
         private bool FilterFunc1(Prestamo element) => FilterFunc(element, SearchStringTable);
-
+        private IGetDataByColumSelection<PrestamoClienteUIGetParamWtSearchText> PrestamosSearch { get; set; } = new PrestamoGetDataByColumnSelected();
         protected override async Task OnInitializedAsync()
         {
             await Handle_GetDataForList(GetPrestamos);
             //await base.OnInitializedAsync();
         }
+        protected async Task GetSearchText( string search )
+        {
+            SearchText= search;
+           // await PrestamosSearch.ExecGetDataAction(SelectedPropertySearch, SearchText, GetPrestamos);
+
+        }
+        //protected async Task GetData(string search)
+        //{
+
+        //await PrestamosSearch.ExecGetDataAction(SelectedPropertySearch, SearchText, PrestamoSearch);
+
+        //}
+        public async Task GetPrestamos(PrestamosGetParams param)
+        {
+            prestamos = await prestamoService.GetAsync(param);
+           
+
+        }
+
         private async Task GetPrestamos()
         {
             prestamos = await prestamoService.GetAsync(this.searchPrestamos);
