@@ -22,7 +22,7 @@ namespace PrestamoEntidades
 
         decimal OtrosCargos { get; }
         bool CargarInteresAOtrosGastos { get; }
-        int CantidadDePeriodos { get; }
+        int CantidadDeCuotas { get; }
         bool AcomodarFechaALasCuotas { get; }
         DateTime FechaInicioPrimeraCuota { get; }
         decimal TasaDeInteresDelPeriodo { get; }
@@ -47,7 +47,7 @@ namespace PrestamoEntidades
 
         public bool CargarInteresAlGastoDeCierre { get; set; } = false;
 
-        public int CantidadDePeriodos { get; set; } = 0;
+        public int CantidadDeCuotas { get; set; } = 0;
 
         public bool AcomodarFechaALasCuotas { get; set; } = false;
 
@@ -70,7 +70,7 @@ namespace PrestamoEntidades
         public InfoGeneradorDeCuotas(Prestamo prestamo)
         {
                 AcomodarFechaALasCuotas = prestamo.AcomodarFechaALasCuotas;
-                CantidadDePeriodos = prestamo.CantidadDePeriodos;
+                CantidadDeCuotas = prestamo.CantidadDeCuotas;
                 MontoCapital = prestamo.MontoCapital;
                 FechaEmisionReal = prestamo.FechaEmisionReal;
                 FechaInicioPrimeraCuota = prestamo.FechaInicioPrimeraCuota;

@@ -49,7 +49,7 @@ namespace PrestamoBLL.Tests
             {
                 IdPrestamo = 1,
                 FechaEmisionReal = new DateTime(2021, 01, 01),
-                CantidadDePeriodos = 7,
+                CantidadDeCuotas = 7,
                 TasaDeInteresDelPeriodo = 5,
                 Periodo = periodo,
                 MontoPrestado = 10000,
@@ -65,7 +65,7 @@ namespace PrestamoBLL.Tests
             //var infCuota = new InfoGeneradorDeCuotas()
             //{
             //    AcomodarFechaALasCuotas = false,
-            //    CantidadDePeriodos = 7,
+            //    CantidadDeCuotas = 7,
             //    TasaDeInteresDelPeriodo = 5,
             //    Periodo = periodo,
             //    MontoCapital = 10000,
@@ -105,7 +105,7 @@ namespace PrestamoBLL.Tests
             prestamo = new Prestamo
             {
                 FechaEmisionReal = new DateTime(2021, 01, 01),
-                CantidadDePeriodos = 60,
+                CantidadDeCuotas = 60,
                 TasaDeInteresDelPeriodo = tasaInteresDelPeriodo,
                 Periodo = periodo,
                 MontoPrestado = 12000,
@@ -182,11 +182,11 @@ namespace PrestamoBLL.Tests
                 Resultados.Add(new ResultadosComparacion("gastoDeCierre", compGastoDeCierre));
                 var compOtrosCargos = TotalesCalculados.TOtrosCargos == DatosAComparar.OtrosCargos;
                 Resultados.Add(new ResultadosComparacion("otrosCargos", compOtrosCargos));
-                var compInteres = TotalesCalculados.TInteres == (Math.Round(DatosAComparar.MontoCapital * DatosAComparar.TasaDeInteresDelPeriodo / 100, 2) * DatosAComparar.CantidadDePeriodos);
+                var compInteres = TotalesCalculados.TInteres == (Math.Round(DatosAComparar.MontoCapital * DatosAComparar.TasaDeInteresDelPeriodo / 100, 2) * DatosAComparar.CantidadDeCuotas);
                 Resultados.Add(new ResultadosComparacion("interes", compInteres));
-                var compInteresGastoDeCierre = TotalesCalculados.TInteresGastoDeCierre == (Math.Round(DatosAComparar.MontoGastoDeCierre * DatosAComparar.TasaDeInteresDelPeriodo / 100, 2) * DatosAComparar.CantidadDePeriodos);
+                var compInteresGastoDeCierre = TotalesCalculados.TInteresGastoDeCierre == (Math.Round(DatosAComparar.MontoGastoDeCierre * DatosAComparar.TasaDeInteresDelPeriodo / 100, 2) * DatosAComparar.CantidadDeCuotas);
                 Resultados.Add(new ResultadosComparacion("interes Gasto de Cierre", compInteresGastoDeCierre));
-                var compInteresOtrosCargos = TotalesCalculados.TInteresOtrosCargos == (Math.Round(DatosAComparar.OtrosCargos * (DatosAComparar.CargarInteresAOtrosGastos ? DatosAComparar.TasaDeInteresDelPeriodo / 100 : 0), 2) * DatosAComparar.CantidadDePeriodos);
+                var compInteresOtrosCargos = TotalesCalculados.TInteresOtrosCargos == (Math.Round(DatosAComparar.OtrosCargos * (DatosAComparar.CargarInteresAOtrosGastos ? DatosAComparar.TasaDeInteresDelPeriodo / 100 : 0), 2) * DatosAComparar.CantidadDeCuotas);
                 Resultados.Add(new ResultadosComparacion("interes Otros Cargos", compInteresOtrosCargos));
                 return Resultados;
             }

@@ -17,11 +17,11 @@ namespace PrestamoBLL
         internal int IdLocalidadNegocioLoggedIn { get; }
         internal string LoginName { get; }
         internal Database DBPrestamo => ConexionDB.DBPrestamo;
-        internal BaseBLL(int idLocalidadNegocioLoggedIn, string loginName)
+        internal BaseBLL(int idLocalidadNegocio, string loginName)
         {
-            BLLValidations.LocalidadNegocioNotEqualToZero(idLocalidadNegocioLoggedIn);
-            BLLValidations.UsuarioNotEmptyOrNUll(loginName);
-            this.IdLocalidadNegocioLoggedIn = idLocalidadNegocioLoggedIn;
+            BLLValidations.ValueGreaterThanZero(idLocalidadNegocio,"IdLocalidadNegocio");
+            BLLValidations.StringNotEmptyOrNull(loginName);
+            this.IdLocalidadNegocioLoggedIn = idLocalidadNegocio;
             this.LoginName = loginName;
         }
         #endregion

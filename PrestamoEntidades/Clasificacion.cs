@@ -15,6 +15,9 @@ namespace PrestamoEntidades
         public override int GetId() => this.IdClasificacion;
         public int idClasificacionFinanciera { get; set; } = 1;
         public bool SaltarDomingo { get; set; }
+
+        public override string ToString() => $"{Codigo}-{Nombre} Requiere Garantia {RequiereGarantia} Requiere Autorizacion {RequiereAutorizacion}";
+        
     }
     public class ClasificacionesGetParams : BaseGetParams
     {
