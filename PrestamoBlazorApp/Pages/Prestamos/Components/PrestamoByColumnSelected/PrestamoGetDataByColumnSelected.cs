@@ -59,7 +59,6 @@ public class PrestamoGetDataByColumnSelected : IGetDataByColumSelection<Prestamo
 
         opciones.Add(eOpcionesSearchPrestamo.Nombres, (searchText) => new PrestamoClienteUIGetParamWtSearchText { Nombres = searchText });
         opciones.Add(eOpcionesSearchPrestamo.Apellidos, (searchText) => new PrestamoClienteUIGetParamWtSearchText { Apellidos = searchText });
-
         opciones.Add(eOpcionesSearchPrestamo.Matricula, (searchText) => new PrestamoClienteUIGetParamWtSearchText { Matricula = searchText });
 
         IsGetParamHasValue = true;
