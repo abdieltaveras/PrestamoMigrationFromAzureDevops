@@ -220,7 +220,7 @@ namespace PrestamoBLL
                 var interesOtrosCargos = 0M;
                 // empezaremos pensando en que no tiene interes el gasto de cierre
                 // ni tampoco los otros gastos
-                if (InfoGenerarCuotas.CargarInteresAOtrosGastos)
+                if (InfoGenerarCuotas.CargarInteresOtrosCargos)
                 {
                     interesOtrosCargos = Math.Round(InfoGenerarCuotas.OtrosCargos * (TasaInteresDelPeriodo / 100), 2);
                 }

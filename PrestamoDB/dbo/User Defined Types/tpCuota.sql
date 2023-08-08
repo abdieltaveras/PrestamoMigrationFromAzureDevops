@@ -1,13 +1,14 @@
 ﻿CREATE TYPE tpCuota AS TABLE
-(	IdPrestamo INT,
+(	
 	IdCuota INT,
+	IdPrestamo INT,
 	Numero int,
 	Fecha Date,
-	Capital Numeric(18,2),
-	Interes Numeric(18,2),
-	GastoDeCierre Numeric(18,2),
-    InteresDelGastoDeCierre Numeric(18,2),
-	idTipoCargo int
+	Capital Numeric(18,2) null,
+	Interes Numeric(18,2) null,
+	GastoDeCierre Numeric(18,2) null,
+    InteresDelGastoDeCierre Numeric(18,2) null,
+	idTipoCargo int 
 )
 	
 	

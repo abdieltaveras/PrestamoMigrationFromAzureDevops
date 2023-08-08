@@ -413,4 +413,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IdEstatus" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="f4d51349-9e95-4cf9-b1d1-a0e6986cf9bb" ChangeDateTime="08/08/2023 21:26:10">
+    <Property Name="ElementName" Value="[dbo].[tblPrestamos].[CantidadDeCuotas]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblPrestamos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CantidadDeCuotas" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c1848e44-42c5-40c9-a8dc-cd1180abbb6a" ChangeDateTime="08/08/2023 22:12:18">
+    <Property Name="ElementName" Value="[dbo].[tblPrestamos].[OtrosCargosSinInteres]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblPrestamos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OtrosCargos" />
+  </Operation>
 </Operations>

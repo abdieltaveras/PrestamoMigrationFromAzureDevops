@@ -281,7 +281,7 @@ exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero7 ou
 exec dbo.spGenerarSecuenciaString 'Numero de Prestamo',10,1, @prestamoNumero8 output
 
 -- tblPrestamos
-INSERT INTO tblPrestamos (idNegocio,idlocalidadNegocio,  idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDePeriodos, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
+INSERT INTO tblPrestamos (idNegocio,idlocalidadNegocio,  idCliente, prestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDeCuotas, MontoPrestado, IdDivisa, InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre, FinanciarGastoDeCierre, AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, ModificadoPor, FechaModificado, BorradoPor, FechaBorrado) 
 	VALUES (1,1, 1, @prestamoNumero1, NULL, 0, 1, 1, '2020-05-17', '2020-05-17', '2020-10-17', 3, 3, 4, 5, 10000, 1, 0, 0, 0, 0, 0, 0, '1900-01-01', '', '2020-05-17 22:24:20', NULL, NULL, NULL, NULL),
 
 

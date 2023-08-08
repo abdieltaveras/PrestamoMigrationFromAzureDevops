@@ -289,7 +289,7 @@ namespace PrestamoEntidades
         [Display(Name = "fecha de vencimiento")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         
-        [IgnoreOnParams(true)]
+        //[IgnoreOnParams(true)]
         public DateTime FechaVencimiento { get; set; }
         [Display(Name = "Indique el codigo de la tasa de interes")]
         public virtual int IdTasaInteres { get; set; } = -1;
@@ -399,7 +399,7 @@ namespace PrestamoEntidades
         [Display(Name = "Otros Cargos")]
         public decimal OtrosCargos { get; set; }
 
-        public bool CargarInteresAOtrosGastos { get; set; }
+        public bool CargarInteresOtrosCargos { get; set; }
         /// <summary>
         /// true si es para estimarla generando solamente las primera y ultima cuota o false
         /// si es para generarlas todas se usa normalmente para insertar o actualizar un prestamo
