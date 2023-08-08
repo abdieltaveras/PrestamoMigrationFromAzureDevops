@@ -127,7 +127,7 @@
                             <MudSelectItem Value=@item.idPeriodo>@($"{item.Codigo}  {item.Nombre}")</MudSelectItem>
                         }
                     </MudSelect>
-                    <MudNumericField @bind-Value="@prestamo.CantidadDePeriodos" @onchange="OnCantidadPeriodoChange" Label="Cantidad De Cuotas"></MudNumericField>
+                    <MudNumericField @bind-Value="@prestamo.CantidadDeCuotas" @onchange="OnCantidadPeriodoChange" Label="Cantidad De Cuotas"></MudNumericField>
 
                     <MudSelect @bind-Value="@prestamo.IdTipoMora" Label="Tipo Mora">
                         <MudSelectItem Value=-1>Seleccione un Tipo De Mora</MudSelectItem>
