@@ -77,15 +77,16 @@ namespace PrestamoWS.Controllers
         }
 
 
-        private IActionResult _Post([FromBody] Prestamo Prestamo)
+        private IActionResult _Post([FromBody] Prestamo prestamo)
         {
-            Prestamo.Usuario = this.LoginName;
-            Prestamo.IdNegocio = this.IdNegocio;
-            Prestamo.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            prestamo.Usuario = this.LoginName;
+            prestamo.IdNegocio = this.IdNegocio;
+            prestamo.IdLocalidadNegocio = this.IdLocalidadNegocio;
             var validstate = ModelState.IsValid;
             try
             {
-                var id = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).InsUpdPrestamo(Prestamo);
+                //var id = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).InsUpdPrestamo(prestamo);
+                var id = BLLPrestamo.Instance.InsUpdPrestamo(prestamo);
                 return Ok(id);
             }
             catch (Exception e)
@@ -94,7 +95,7 @@ namespace PrestamoWS.Controllers
             }
         }
         /// <summary>
-        /// Esto es para Borrar, anular un Prestamo
+        /// Esto es para Borrar, anular un prestamo
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete]
