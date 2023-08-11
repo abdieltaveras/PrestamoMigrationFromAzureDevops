@@ -114,7 +114,7 @@ namespace PrestamoBLL.Tests
                 CargarInteresAlGastoDeCierre = true,
                 FinanciarGastoDeCierre = true,
                 OtrosCargos = 300,
-                CargarInteresAOtrosGastos = true
+                CargarInteresOtrosCargos = true
             };
 
             generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo, 1);
@@ -186,7 +186,7 @@ namespace PrestamoBLL.Tests
                 Resultados.Add(new ResultadosComparacion("interes", compInteres));
                 var compInteresGastoDeCierre = TotalesCalculados.TInteresGastoDeCierre == (Math.Round(DatosAComparar.MontoGastoDeCierre * DatosAComparar.TasaDeInteresDelPeriodo / 100, 2) * DatosAComparar.CantidadDeCuotas);
                 Resultados.Add(new ResultadosComparacion("interes Gasto de Cierre", compInteresGastoDeCierre));
-                var compInteresOtrosCargos = TotalesCalculados.TInteresOtrosCargos == (Math.Round(DatosAComparar.OtrosCargos * (DatosAComparar.CargarInteresAOtrosGastos ? DatosAComparar.TasaDeInteresDelPeriodo / 100 : 0), 2) * DatosAComparar.CantidadDeCuotas);
+                var compInteresOtrosCargos = TotalesCalculados.TInteresOtrosCargos == (Math.Round(DatosAComparar.OtrosCargos * (DatosAComparar.CargarInteresOtrosCargos ? DatosAComparar.TasaDeInteresDelPeriodo / 100 : 0), 2) * DatosAComparar.CantidadDeCuotas);
                 Resultados.Add(new ResultadosComparacion("interes Otros Cargos", compInteresOtrosCargos));
                 return Resultados;
             }

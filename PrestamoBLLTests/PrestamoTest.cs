@@ -48,7 +48,6 @@ namespace PrestamoBLLTests
                     MontoPrestado = 10000.00M,
                     IdTasaInteres = idTasainteres,
                     IdTipoMora = idTipoMora
-                    
                 };
                 await BLLPrestamo.Instance.InsUpdPrestamo(prestamo);
             }

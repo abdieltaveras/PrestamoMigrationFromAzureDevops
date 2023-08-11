@@ -21,7 +21,7 @@ namespace PrestamoEntidades
         bool FinanciarGastoDeCierre { get; }
 
         decimal OtrosCargos { get; }
-        bool CargarInteresAOtrosGastos { get; }
+        bool CargarInteresOtrosCargos { get; }
         int CantidadDeCuotas { get; }
         bool AcomodarFechaALasCuotas { get; }
         DateTime FechaInicioPrimeraCuota { get; }
@@ -65,7 +65,7 @@ namespace PrestamoEntidades
 
         public decimal OtrosCargos { get; set; }
 
-        public bool CargarInteresAOtrosGastos {get;set;}
+        public bool CargarInteresOtrosCargos {get;set;}
 
         public InfoGeneradorDeCuotas(Prestamo prestamo)
         {

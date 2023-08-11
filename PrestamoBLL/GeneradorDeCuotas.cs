@@ -86,7 +86,7 @@ namespace PrestamoBLL
 
             foreach (var cuota in cuotas)
             {
-                totalCapitalCuotas += cuota.Capital ?? 0;
+                totalCapitalCuotas += cuota.Capital;
                 totalOtrosCargosSinInteresCuotas += (decimal)cuota.OtrosCargos;
                 totalGastoDeCierreCuotas += (decimal)cuota.GastoDeCierre;
             }

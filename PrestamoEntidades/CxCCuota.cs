@@ -17,11 +17,11 @@ namespace PrestamoEntidades
         public int IdPrestamo { get; set; } = 0;
         public decimal Numero { get; set; } = 0;
         public DateTime Fecha { get;  set; } = DateTime.Now;
-        public decimal? Capital { get; set; } = 0;
-        public decimal? Interes { get; set; } = 0;
-        public decimal? GastoDeCierre { get; set; } = 0;
-        public decimal? InteresDelGastoDeCierre { get; set; } = 0;
-        public int? idTipoCargo { get; internal set; } = -1;
+        public decimal Capital { get; set; } = 0;
+        public decimal Interes { get; set; } = 0;
+        public decimal GastoDeCierre { get; set; } = 0;
+        public decimal InteresDelGastoDeCierre { get; set; } = 0;
+        public int idTipoCargo { get; internal set; } = -1;
     }
     public class CxCCuota : CxCCuotaForSqlType
     {
@@ -30,7 +30,7 @@ namespace PrestamoEntidades
         [IgnoreOnParams]
         public decimal TotalOrig {
             get 
-            {  var valor = (Capital ?? 0) + (Interes ?? 0) + (GastoDeCierre ?? 0) + (InteresDelGastoDeCierre ?? 0) + (OtrosCargos ?? 0) + (InteresOtrosCargos ?? 0);
+            {  var valor = (Capital) + (Interes ) + (GastoDeCierre) + (InteresDelGastoDeCierre) + (OtrosCargos ) + (InteresOtrosCargos);
                //var valor2 = Capital + Interes  + +GastoDeCierre  + InteresDelGastoDeCierre + OtrosCargos  + InteresOtrosCargos ;
                 return valor;
             }
@@ -54,9 +54,9 @@ namespace PrestamoEntidades
         // estas propiedades solo se usan para fines de calculo verlo en la proyeccion
         // pero no para guardarlo en la cuota propiamente
         [IgnoreOnParams]
-        public decimal? OtrosCargos { get;  set; } = 0;
+        public decimal OtrosCargos { get;  set; } = 0;
         [IgnoreOnParams]
-        public decimal? InteresOtrosCargos { get; set; } = 0;
+        public decimal InteresOtrosCargos { get; set; } = 0;
 
         [IgnoreOnParams]
         public string Comentario { get; set; } = String.Empty;
