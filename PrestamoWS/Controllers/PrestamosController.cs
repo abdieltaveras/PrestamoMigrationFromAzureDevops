@@ -85,8 +85,8 @@ namespace PrestamoWS.Controllers
             var validstate = ModelState.IsValid;
             try
             {
-                //var id = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).InsUpdPrestamo(prestamo);
-                var id = BLLPrestamo.Instance.InsUpdPrestamo(prestamo);
+                var id = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).InsUpdPrestamo(prestamo);
+                //var id = BLLPrestamo.Instance.InsUpdPrestamo(prestamo);
                 return Ok(id);
             }
             catch (Exception e)
@@ -113,7 +113,7 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpGet]
-        public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, int idPeriodo)
+        public TasasInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, int idPeriodo)
         {
             PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
 
@@ -129,19 +129,18 @@ namespace PrestamoWS.Controllers
             return data;
         }
 
-        
-
-
 
         [HttpGet]
         public IEnumerable<CxCCuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
         {
+            //todo actualizarlo a la nueva forma con el nuevo objeto
+
             PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
             var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
             var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
             infoGenCuotas.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
-            infoGenCuotas.Periodo = periodo;
+            infoGenCuotas.IdPeriodo = idPeriodo;
             var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(infoGenCuotas);
             var cuotas = generadorCuotas.GenerarCuotas();
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };

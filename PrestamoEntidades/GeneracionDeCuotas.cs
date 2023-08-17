@@ -8,6 +8,12 @@ namespace PrestamoEntidades
 {
     public interface IInfoGeneradorCuotas
     {
+
+        int IdNegocio { get; set; }
+        int idLocalidadNegocio { get; set; }
+
+        
+        string Usuario { get; set; }
         TiposAmortizacion TipoAmortizacion { get; }
         DateTime FechaEmisionReal { get; }
         decimal MontoCapital { get; }
@@ -25,8 +31,11 @@ namespace PrestamoEntidades
         int CantidadDeCuotas { get; }
         bool AcomodarFechaALasCuotas { get; }
         DateTime FechaInicioPrimeraCuota { get; }
-        decimal TasaDeInteresDelPeriodo { get; }
-        Periodo Periodo { get; }
+        int IdPeriodo { get; set; }
+        int IdTasaInteres { get; set; }
+        
+        //decimal TasaDeInteresDelPeriodo { get; }
+        //Periodo Periodo { get; }
         bool ProyectarPrimeraYUltima { get; }
     }
 
@@ -36,6 +45,10 @@ namespace PrestamoEntidades
         {
 
         }
+        public int IdNegocio { get; set; }
+        public int idLocalidadNegocio { get; set; }
+
+        public string Usuario { get; set; }
         public TiposAmortizacion TipoAmortizacion { get; set; }
 
         public DateTime FechaEmisionReal { get; set; } = InitValues._19000101;
@@ -53,16 +66,18 @@ namespace PrestamoEntidades
 
         public DateTime FechaInicioPrimeraCuota { get; set; }
 
-        public decimal TasaDeInteresDelPeriodo { get; set; } = 0;
+        public int IdTasaInteres { get; set; }
+        
+        private decimal TasaDeInteresDelPeriodo { get; set; } = 0;
 
-        public Periodo Periodo { get; set; }
+        public int IdPeriodo { get; set; }
+        //private Periodo Periodo { get; set; }
 
         public bool FinanciarGastoDeCierre { get; set; }
 
         public bool GastoDeCierreEsDeducible { get; set; }
 
-        public bool ProyectarPrimeraYUltima { get; set; } = true;
-
+        public bool ProyectarPrimeraYUltima { get; set; } 
         public decimal OtrosCargos { get; set; }
 
         public bool CargarInteresOtrosCargos {get;set;}
@@ -79,8 +94,8 @@ namespace PrestamoEntidades
                 MontoGastoDeCierre = prestamo.MontoGastoDeCierre;
                 OtrosCargos = prestamo.OtrosCargos;
                 GastoDeCierreEsDeducible = prestamo.GastoDeCierreEsDeducible;
-                TasaDeInteresDelPeriodo = prestamo.TasaDeInteresDelPeriodo;
-                Periodo = prestamo.Periodo;
+                IdPeriodo = prestamo.IdPeriodo;
+                IdTasaInteres = prestamo.IdTasaInteres;
                 TipoAmortizacion = (TiposAmortizacion)prestamo.IdTipoAmortizacion;
         }
     }
