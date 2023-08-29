@@ -37,7 +37,7 @@ namespace PrestamoBlazorApp.Shared
             }
             catch (Exception e)
             {
-                await NotifyMessageBySnackBar("Los datos no pudieron ser Guardados", Severity.Warning);
+                await NotifyMessageBySnackBar("Lo siento los datos solicitado no se pudieron obtener", Severity.Warning);
                 //if (e.Message.ToUpper().Contains("JAVASCRIPT INTEROP", StringComparison.InvariantCultureIgnoreCase) == false && e.Message.ToLower().Contains("cannot read properties of null", StringComparison.InvariantCultureIgnoreCase) == false)
                 //{
                 //    var redirect = redirectTo == "" ? @"\" : redirectTo;

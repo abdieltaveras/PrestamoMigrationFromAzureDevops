@@ -10,7 +10,7 @@ namespace PrestamoEntidades
     {
 
         int IdNegocio { get; set; }
-        int idLocalidadNegocio { get; set; }
+        int IdLocalidadNegocio { get; set; }
 
         
         string Usuario { get; set; }
@@ -46,7 +46,7 @@ namespace PrestamoEntidades
 
         }
         public int IdNegocio { get; set; }
-        public int idLocalidadNegocio { get; set; }
+        public int IdLocalidadNegocio { get; set; }
 
         public string Usuario { get; set; }
         public TiposAmortizacion TipoAmortizacion { get; set; }
@@ -68,8 +68,6 @@ namespace PrestamoEntidades
 
         public int IdTasaInteres { get; set; }
         
-        private decimal TasaDeInteresDelPeriodo { get; set; } = 0;
-
         public int IdPeriodo { get; set; }
         //private Periodo Periodo { get; set; }
 

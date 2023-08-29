@@ -233,7 +233,6 @@ namespace PrestamoEntidades
     public class Prestamo : BaseInsUpd, IInfoGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
-        public int idLocalidadNegocio { get; set; }
         [IgnoreOnParams]
         [Display(Name = "Prestamo Numero")]
         public string PrestamoNumero { get; set; } = string.Empty;
@@ -486,8 +485,6 @@ namespace PrestamoEntidades
     public class PrestamosGetParams : BaseIdNegocio
     {
         public int idPrestamo { get; set; } = -1;
-
-        public int idLocalidadNegocio { get; set; } = -1;
         public int idCliente { get; set; } = -1;
         public int idGarantia { get; set; } = -1;
         public DateTime? fechaEmisionRealDesde { get; set; }

@@ -34,12 +34,10 @@ namespace PrestamoWS.Controllers
 
         private IEnumerable<Prestamo> _GetById(int idPrestamo=-1)
         {
-            var getParams = new PrestamosGetParams
-            {
-                idPrestamo = idPrestamo
-            };
-            var data = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).GetPrestamos(getParams); //BLLPrestamo.Instance.GetPrestamos(getParams);
-            return data;
+            var getParams = new PrestamosGetParams { idPrestamo = idPrestamo };
+            return _Get(getParams);
+            //var data = new PrestamoBLLC(this.IdLocalidadNegocio, this.LoginName).GetPrestamos(getParams); //BLLPrestamo.Instance.GetPrestamos(getParams);
+            //return data;
         }
   
         private IEnumerable<PrestamoConDetallesParaUIPrestamo> _GetConDetallesForUi(int idPrestamo = -1)
@@ -130,6 +128,20 @@ namespace PrestamoWS.Controllers
         }
 
 
+        [HttpGet]
+        public IEnumerable<CxCCuota> GenerarCuotas2(string jsonInfoGenCuotas)
+            //([FromQuery]    InfoGeneradorDeCuotas infoGenCuotas)
+        //infoGeneradorDeCuotas info)
+        {
+            var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
+            infoGenCuotas.Usuario = this.LoginName;
+            infoGenCuotas.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            infoGenCuotas.IdNegocio = this.IdNegocio;
+            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(infoGenCuotas);
+            var cuotas = generadorCuotas.GenerarCuotas();
+            //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
+            return cuotas;
+        }
         [HttpGet]
         public IEnumerable<CxCCuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)

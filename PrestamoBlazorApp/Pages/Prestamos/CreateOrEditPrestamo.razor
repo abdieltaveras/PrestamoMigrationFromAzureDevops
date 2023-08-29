@@ -19,6 +19,7 @@
             <MudItem xs="12" sm="12" Class="d-flex justify-end flex-grow-1">
                 <MudButton OnClick="SavePrestamo" Color="MudBlazor.Color.Primary" Variant="Variant.Filled">Guardar</MudButton>
                 <MudButton @onclick='()=>NavigateTo("/prestamos")' StartIcon="@Icons.Material.Filled.Undo" Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" title="Volver al listado"></MudButton>
+                <MudText>@execTimes</MudText>
             </MudItem>
             <MudItem xs="12">
                 <MudAlert Severity="Severity.Info">Generales</MudAlert>
@@ -127,7 +128,7 @@
                             <MudSelectItem Value=@item.idPeriodo>@($"{item.Codigo}  {item.Nombre}")</MudSelectItem>
                         }
                     </MudSelect>
-                    <MudNumericField @bind-Value="@prestamo.CantidadDeCuotas" @onchange="OnCantidadPeriodoChange" Label="Cantidad De Cuotas"></MudNumericField>
+                    <MudNumericField T="int" Value="@prestamo.CantidadDeCuotas" ValueChanged="OnCantidadCuotasChange"  Label="Cantidad De Cuotas" />
 
                     <MudSelect @bind-Value="@prestamo.IdTipoMora" Label="Tipo Mora">
                         <MudSelectItem Value=-1>Seleccione un Tipo De Mora</MudSelectItem>
@@ -138,7 +139,7 @@
                     </MudSelect>
                 </MudItem>
                 <MudItem md="12" lg="12">
-                    @if (Cuotas.Count() > 0)
+                    @if (Cuotas.Any())
                     {
                         <MudText Typo="Typo.body2"> Proyeccion Cuotas: @InfoCuotas()</MudText>
                         <ProyeccionCuotasValoresIniciales Cuotas="@Cuotas" />

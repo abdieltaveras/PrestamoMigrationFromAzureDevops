@@ -32,7 +32,7 @@ namespace PrestamoBLL
         {
                 BLLValidations.ValueGreaterThanZero(infoGenerarCuotas.IdPeriodo, "IdPeriodo");
                 BLLValidations.ValueGreaterThanZero(infoGenerarCuotas.CantidadDeCuotas, "cantidad de cuotas");
-                var periodo = new PeriodoBLL(infoGenerarCuotas.idLocalidadNegocio, infoGenerarCuotas.Usuario).GetPeriodos(new PeriodoGetParams { idPeriodo = infoGenerarCuotas.IdPeriodo }).FirstOrDefault();
+                var periodo = new PeriodoBLL(infoGenerarCuotas.IdLocalidadNegocio, infoGenerarCuotas.Usuario).GetPeriodos(new PeriodoGetParams { idPeriodo = infoGenerarCuotas.IdPeriodo }).FirstOrDefault();
                 if (!periodo.Activo)
                 {
                     throw new Exception("El Periodo indicado no es valido porque no esta activo");
@@ -47,13 +47,13 @@ namespace PrestamoBLL
 
         private void GetTasaInteresPorPeriodo()
         {
-            this.TasasInteresDelPeriodo = new TasaInteresBLL(infoGenerarCuotas.idLocalidadNegocio, infoGenerarCuotas.Usuario).CalcularTasaInteresPorPeriodos(this.TasaInteres.InteresMensual, this.Periodo);
+            this.TasasInteresDelPeriodo = new TasaInteresBLL(infoGenerarCuotas.IdLocalidadNegocio, infoGenerarCuotas.Usuario).CalcularTasaInteresPorPeriodos(this.TasaInteres.InteresMensual, this.Periodo);
         }
 
         private void GetTasaDeInteres()
         {
             BLLValidations.ValueGreaterThanZero(infoGenerarCuotas.IdTasaInteres, "IdTasaInteres");
-            this.TasaInteres = new TasaInteresBLL(infoGenerarCuotas.idLocalidadNegocio, infoGenerarCuotas.Usuario).GetTasasDeInteres(new TasaInteresGetParams { idTasaInteres = infoGenerarCuotas.IdTasaInteres }).FirstOrDefault();
+            this.TasaInteres = new TasaInteresBLL(infoGenerarCuotas.IdLocalidadNegocio, infoGenerarCuotas.Usuario).GetTasasDeInteres(new TasaInteresGetParams { idTasaInteres = infoGenerarCuotas.IdTasaInteres }).FirstOrDefault();
         }
 
         public List<CxCCuota> GenerarCuotas()
