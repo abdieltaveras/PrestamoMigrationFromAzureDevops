@@ -233,14 +233,14 @@ namespace PrestamoEntidades
     public class Prestamo : BaseInsUpd, IInfoGeneradorCuotas
     {
         public int IdPrestamo { get; set; }
-
+        public int idLocalidadNegocio { get; set; }
         [IgnoreOnParams]
         [Display(Name = "Prestamo Numero")]
         public string PrestamoNumero { get; set; } = string.Empty;
         /// <summary>
         /// el valor menos 1 indica que no se establecio ningun prestamo a renovar
         /// </summary>
-        public int IdPrestamoARenovar { get; set; } = -1;
+        public int IdPrestamoARenovar { get; set; } = 0;
         [IgnoreOnParams]
         /// attention analizar poner un objeto InfoPrestamoForView que permita poner todos los campos que uno pudiera necesitar como este NumeroPrestamoARenovar, etc
         public string NumeroPrestamoARenovar { get; set; } = string.Empty;

@@ -25,13 +25,14 @@ namespace PrestamoBLL
             //var prToBuild = new PrestamoManager(prestamo);
             //var result = prToBuild.Build();
             var prToBuild2 = await PrestamoBuilder.Create(prestamo);
-            var result2 = prToBuild2.Build();
-            //var cuotas = result2._CuotasList;
-            var prestamoParam2 = SearchRec.ToSqlParams(result2);
+            var prestamoParam = prToBuild2.Build();
+            var cuotas = prestamoParam._CuotasList;
+            var cuotasDt = prestamoParam.Cuotas;
+            var prestamoParam2 = SearchRec.ToSqlParams(prestamoParam);
 
-            prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
+            //prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
 
-            var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", ref prestamoParam2);
+            var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
             var id = Utils.GetIdFromDataTable(resultId);
             return id;
         }

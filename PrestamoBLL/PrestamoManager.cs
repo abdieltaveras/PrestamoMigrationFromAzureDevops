@@ -9,80 +9,6 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    public class PrestamoManager
-    {
-        //private TipoMoraBLL _TipoMoraBLL { get; set; } 
-        //private PeriodoBLL _PeriodoBLL { get; set; }
-        
-        #region property members
-        
-        private PrestamoConCalculos prestamoInProgress = new PrestamoConCalculos();
-        
-        public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
-        #endregion property members
-
-        internal static async Task<PrestamoManager> Create(Prestamo prestamo)
-        {
-            
-            var myclass = new PrestamoManager();
-            await myclass.SetPrestamo(prestamo);
-            return myclass;
-        }
-        private  PrestamoManager()
-        {
-            
-        }
-        
-        private void NotificadorDeMensaje(object sender, string e)
-        {
-
-        }
-
-        //Todo: debo arreglar esto con luis
-
-        /// <summary>
-        /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
-        /// a la base de datos.
-        /// </summary>
-        /// <param name="prestamo"></param>
-        private async Task SetPrestamo(Prestamo prestamo)
-        {
-            BLLValidations.ValueGreaterThanZero(prestamo.IdLocalidadNegocio, "Id Localidad negocio");
-            BLLValidations.StringNotEmptyOrNull(prestamo.Usuario, "Usuario");
-            // hay que enviar usuario e idlocalidad
-            //_TipoMoraBLL = new TipoMoraBLL(prestamo.IdLocalidadNegocio,prestamo.Usuario);
-            //_PeriodoBLL = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario);
-            var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = prestamo.IdNegocio });
-            var tiposMora = new TipoMoraBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamo.IdNegocio });
-            var tasasDeInteres = new TasaInteresBLL(prestamo.IdLocalidadNegocio,prestamo.Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamo.IdNegocio});
-            var periodos = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = prestamo.IdNegocio });
-            
-            prestamoInProgress = new PrestamoConCalculos();
-            prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
-            prestamoInProgress.SetServices(this.NotificadorDeMensaje, clasificaciones, tiposMora, tasasDeInteres, periodos);
-            
-            await prestamoInProgress.ExecCalcs();
-        }
-
-        private IGeneradorCuotas GetGeneradorCuotas()
-        {
-            prestamoInProgress.ProyectarPrimeraYUltima = false;
-            //var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
-            return CuotasConCalculo.GetGeneradorDeCuotas(prestamoInProgress);
-        }
-
-        
-        public PrestamoInsUpdParam Build()
-        {
-            IGeneradorCuotas genCuotas = GetGeneradorCuotas();
-            var cuotas = genCuotas.GenerarCuotas();
-            // var cuotasVacias = new List<Cuota>();
-            var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
-            _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
-            return prestamoConDependencias;
-        }
-    }
-
     internal class PrestamoBuilder
     {
         
@@ -91,7 +17,7 @@ namespace PrestamoBLL
         //IEnumerable<Codeudor> codeudores = new List<Codeudor>();
         //IEnumerable<Garantia> garantias = new List<Garantia>();
         //IEnumerable<CxCCuota> cuotas = new List<CxCCuota>();
-        //Periodo periodo = new Periodo();
+        //Periodo Periodo = new Periodo();
         private int IdLocalidadnegocio { get; set; }
         private string Usuario { get; set; }
         
@@ -238,7 +164,7 @@ namespace PrestamoBLL
 
         public DateTime CalcularFechaVencimiento()
         {
-            // primero buscar el periodo
+            // primero buscar el Periodo
             // luego tomar la fecha inicial de partida y hacer los calculos
             
             var fechaVencimiento = new DateTime();
@@ -290,11 +216,11 @@ namespace PrestamoBLL
             var periodo = new PeriodoBLL(IdLocalidadnegocio,Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = prestamoInProgress.IdNegocio, idPeriodo = idPeriodo }).FirstOrDefault();
             if (!periodo.Activo)
             {
-                throw new Exception("El periodo indicado no es valido porque no esta activo");
+                throw new Exception("El Periodo indicado no es valido porque no esta activo");
             }
             if (periodo.Anulado())
             {
-                throw new Exception("El periodo indicado no es valido porque ha sido anulado");
+                throw new Exception("El Periodo indicado no es valido porque ha sido anulado");
             }
             this.prestamoInProgress.Periodo = periodo;
             this.prestamoInProgress.IdPeriodo = idPeriodo;
@@ -303,7 +229,7 @@ namespace PrestamoBLL
 
         private void SetTasaInteres(int idTasaDeInteres)
         {
-            BLLValidations.ValueGreaterThanZero(idTasaDeInteres, "IdTasaDeInteres");
+            BLLValidations.ValueGreaterThanZero(idTasaDeInteres, "IdTasaInteres");
             var tasaDeInteres = new TasaInteresBLL(IdLocalidadnegocio, Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamoInProgress.IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
             this.prestamoInProgress.IdTasaInteres = idTasaDeInteres;
             var tasaDeInteresPorPeriodo = new TasaInteresBLL(IdLocalidadnegocio, Usuario).CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, prestamoInProgress.Periodo);
@@ -405,7 +331,7 @@ namespace PrestamoBLL
 
         private void SetClasificacion(int idClasificacion)
         {
-            BLLValidations.ValueGreaterThanZero(idClasificacion, "IdClasifiacion");
+            BLLValidations.ValueGreaterThanZero(idClasificacion, "IdClasificacion");
             // seria bueno analizar que impida que en un prestamo inmobiliario no ponga un vehiculo o incluso que la clasificacion la tome por las garantias
             this.prestamoInProgress.IdClasificacion = idClasificacion;
 
@@ -424,48 +350,21 @@ namespace PrestamoBLL
         {
             return true;
         }
-        private IGeneradorCuotas GetGeneradorCuotas()
-        {
-            //var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
-            return GetGeneradorDeCuotas(prestamoInProgress);
-        }
+
+        //public static IEnumerable<CxCCuota> CuotasGenerator(IInfoGeneradorCuotas infGenCuotas)
+        //{
+        //    var cuotas = CuotasGenerator.CreateCuotas(infGenCuotas);
+            
+        //}
+
         
-
-
-        public static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)
-        {
-            IGeneradorCuotas generadorCuotas = null;
-            var tipoAmortizacion = info.TipoAmortizacion;
-            switch (tipoAmortizacion)
-            {
-                case TiposAmortizacion.No_Amortizable_cuotas_fijas:
-                    generadorCuotas = new GeneradorCuotasFijasNoAmortizable(info);
-                    break;
-                case TiposAmortizacion.Amortizable_por_dia_abierto:
-                    break;
-                case TiposAmortizacion.Amortizable_por_periodo_abierto:
-
-                    break;
-                case TiposAmortizacion.Amortizable_cuotas_fijas:
-                    break;
-                case TiposAmortizacion.No_Amortizable_abierto:
-                    break;
-                default:
-                    break;
-            }
-
-            if (generadorCuotas == null)
-            {
-                throw new NotImplementedException("no se ha implementado la generacion de cuotas aun para " + tipoAmortizacion.ToString());
-            }
-            return generadorCuotas;
-        }
-        #endregion operaciones
+        #endregion operacione s
 
         public PrestamoInsUpdParam Build()
         {
-            IGeneradorCuotas genCuotas = GetGeneradorCuotas();
-            var cuotas = genCuotas.GenerarCuotas();
+            //IGeneradorCuotas genCuotas = GetGeneradorCuotas();
+            //var cuotas = genCuotas.GenerarCuotas();
+            var cuotas = CuotasGenerator.CreateCuotas(this.prestamoInProgress);
             // var cuotasVacias = new List<Cuota>();
             var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
             _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
@@ -525,29 +424,28 @@ namespace PrestamoBLL
         }
 
 
-        public static DateTime CalcularFechaVencimiento(DateTime fechaPrestamo, Periodo periodo, int cantidadDePeriodos,
-            DateTime FechaInicioPrimeraCuota)
+        //public static DateTime CalcularFechaVencimiento(DateTime fechaPrestamo, Periodo periodo, int cantidadDePeriodos,
+        //    DateTime FechaInicioPrimeraCuota, bool acomodarFechaALasCuotas )
+        //{
+        //    var prestamo = new Prestamo();
+        //    prestamo.FechaEmisionReal = fechaPrestamo;
+        //    prestamo.Periodo = periodo;
+        //    prestamo.CantidadDeCuotas = cantidadDePeriodos;
+        //    prestamo.FechaInicioPrimeraCuota = FechaInicioPrimeraCuota;
+        //    var fechaVencimiento = PrestamoConCalculos.CalcularFechaVencimiento(acomodarFechaALasCuotas,periodo,);
+        //    return fechaVencimiento;
+        //}
+        internal static DateTime CalcularFechaVencimiento(bool acomodarFechaALasCuotas, Periodo periodo, DateTime fechaInicial, int cantidadDeCuotas )
         {
-            var prestamo = new Prestamo();
-            prestamo.FechaEmisionReal = fechaPrestamo;
-            prestamo.Periodo = periodo;
-            prestamo.CantidadDeCuotas = cantidadDePeriodos;
-            prestamo.FechaInicioPrimeraCuota = FechaInicioPrimeraCuota;
-            var fechaVencimiento = PrestamoConCalculos.CalcularFechaVencimiento(prestamo);
-            return fechaVencimiento;
-        }
-        private static DateTime CalcularFechaVencimiento(Prestamo prestamo)
-        {
-            // primero buscar el periodo
+            // primero buscar el Periodo
             // luego tomar la fecha inicial de partida y hacer los calculos
-            var duracion = prestamo.CantidadDeCuotas * prestamo.Periodo.MultiploPeriodoBase;
+            var duracion = cantidadDeCuotas * periodo.MultiploPeriodoBase;
             var fechaVencimiento = new DateTime();
-            if (prestamo.AcomodarFechaALasCuotas)
+            if (acomodarFechaALasCuotas)
             {
                 throw new Exception("aun no estamos trabajando con acomodar cuotas");
             }
-            var fechaInicial = prestamo.FechaEmisionReal;
-            switch (prestamo.Periodo.PeriodoBase)
+            switch (periodo.PeriodoBase)
             {
                 case PeriodoBase.Dia:
                     fechaVencimiento = fechaInicial.AddDays(duracion);
@@ -577,9 +475,9 @@ namespace PrestamoBLL
                 default:
                     break;
             }
-            prestamo.FechaVencimiento = fechaVencimiento;
+            
 
-            return prestamo.FechaVencimiento;
+            return fechaVencimiento;
         }
 
 
@@ -703,9 +601,9 @@ namespace PrestamoBLL
             return cuotas;
         }
 
-        public TasaInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
+        public TasasInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
         {
-            var result = new TasaInteresBLL(-1, "Luis Prueba").CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
+            var result = new TasaInteresBLL(this.IdLocalidadNegocio,this.Usuario).CalcularTasaInteresPorPeriodos(tasaInteresMensual, periodo);
             return result;
         }
 
@@ -718,7 +616,7 @@ namespace PrestamoBLL
             base.TasaDeInteresDelPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
             var infoCuotas = new InfoGeneradorDeCuotas(this);
 
-            // todo poner el calculo de tasa de interes por periodo donde hace el calculo de generar
+            // todo poner el calculo de tasa de interes por Periodo donde hace el calculo de generar
             // cuotas y no que se le envie esa informacion
             var cuotas = GenerarCuotas(infoCuotas);
             //this.Cuotas.Clear();
@@ -726,5 +624,79 @@ namespace PrestamoBLL
             //await JsInteropUtils.NotifyMessageBox(jsRuntime,"calculando cuotas"+cuotas.Count().ToString());
         }
     }
+    //public class PrestamoManager
+    //{
+    //    //private TipoMoraBLL _TipoMoraBLL { get; set; } 
+    //    //private PeriodoBLL _PeriodoBLL { get; set; }
+
+    //    #region property members
+
+    //    private PrestamoConCalculos prestamoInProgress = new PrestamoConCalculos();
+
+    //    public IEnumerable<string> ErrorMessages { get; set; } = new List<string>();
+    //    #endregion property members
+
+    //    internal static async Task<PrestamoManager> Create(Prestamo prestamo)
+    //    {
+
+    //        var myclass = new PrestamoManager();
+    //        await myclass.SetPrestamo(prestamo);
+    //        return myclass;
+    //    }
+    //    private  PrestamoManager()
+    //    {
+
+    //    }
+
+    //    private void NotificadorDeMensaje(object sender, string e)
+    //    {
+
+    //    }
+
+    //    //Todo: debo arreglar esto con luis
+
+    //    /// <summary>
+    //    /// recibe un prestamo para validarlo y hacer todo el proceso necesario de calculos antes de enviarlo
+    //    /// a la base de datos.
+    //    /// </summary>
+    //    /// <param name="prestamo"></param>
+    //    private async Task SetPrestamo(Prestamo prestamo)
+    //    {
+    //        BLLValidations.ValueGreaterThanZero(prestamo.IdLocalidadNegocio, "Id Localidad negocio");
+    //        BLLValidations.StringNotEmptyOrNull(prestamo.Usuario, "Usuario");
+    //        // hay que enviar usuario e idlocalidad
+    //        //_TipoMoraBLL = new TipoMoraBLL(prestamo.IdLocalidadNegocio,prestamo.Usuario);
+    //        //_PeriodoBLL = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario);
+    //        var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = prestamo.IdNegocio });
+    //        var tiposMora = new TipoMoraBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamo.IdNegocio });
+    //        var tasasDeInteres = new TasaInteresBLL(prestamo.IdLocalidadNegocio,prestamo.Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamo.IdNegocio});
+    //        var periodos = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = prestamo.IdNegocio });
+
+    //        prestamoInProgress = new PrestamoConCalculos();
+    //        prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
+    //        prestamoInProgress.SetServices(this.NotificadorDeMensaje, clasificaciones, tiposMora, tasasDeInteres, periodos);
+
+    //        await prestamoInProgress.ExecCalcs();
+    //    }
+
+    //    private IGeneradorCuotas GetGeneradorCuotas()
+    //    {
+    //        prestamoInProgress.ProyectarPrimeraYUltima = false;
+    //        //var tipoAmortizacion = (TiposAmortizacion)prestamoInProgress.IdTipoAmortizacion;
+    //        return CuotasConCalculo.GetGeneradorDeCuotas(prestamoInProgress);
+    //    }
+
+
+    //    public PrestamoInsUpdParam Build()
+    //    {
+    //        IGeneradorCuotas genCuotas = GetGeneradorCuotas();
+    //        var cuotas = genCuotas.GenerarCuotas();
+    //        // var cuotasVacias = new List<Cuota>();
+    //        var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
+    //        _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
+    //        return prestamoConDependencias;
+    //    }
+    //}
+
 
 }

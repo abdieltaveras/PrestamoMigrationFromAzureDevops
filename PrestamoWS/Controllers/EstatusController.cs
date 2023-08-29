@@ -30,14 +30,14 @@ namespace PrestamoWS.Controllers
         //    return result;
         //}
         //[HttpGet]
-        //public async Task<IEnumerable<TasaInteresPorPeriodos>> GetTasaInteresPorPeriodo(int idTasaDeInteres, int idPeriodo)
+        //public async Task<IEnumerable<TasasInteresPorPeriodos>> GetTasaInteresPorPeriodo(int IdTasaInteres, int idPeriodo)
         //{
         //    PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
 
-        //    var tasaDeInteres = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = IdNegocio, idTasaInteres = idTasaDeInteres }).FirstOrDefault();
-        //    var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
-        //    var tasaDeInteresPorPeriodo = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, periodo);
-        //    var result = new List<TasaInteresPorPeriodos> { tasaDeInteresPorPeriodo };
+        //    var tasaDeInteres = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = IdNegocio, IdTasaInteres = IdTasaInteres }).FirstOrDefault();
+        //    var Periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
+        //    var tasaDeInteresPorPeriodo = new TasaInteresBLL(this.IdLocalidadNegocio, this.LoginName).CalcularTasaInteresPorPeriodos(tasaDeInteres.InteresMensual, Periodo);
+        //    var result = new List<TasasInteresPorPeriodos> { tasaDeInteresPorPeriodo };
         //    return result;
         //}
 

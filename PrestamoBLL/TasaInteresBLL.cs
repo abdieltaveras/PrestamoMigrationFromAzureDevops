@@ -28,10 +28,10 @@ namespace PrestamoBLL
         }
 
         
-        public TasaInteresPorPeriodos CalcularTasaInteresPorPeriodos(decimal tasaInteresMensual, Periodo periodo)
+        public TasasInteresPorPeriodos CalcularTasaInteresPorPeriodos(decimal tasaInteresMensual, Periodo periodo)
         {
             
-            var tasaInteresPorPeriodos = new TasaInteresPorPeriodos { InteresMensual = tasaInteresMensual };
+            var tasaInteresPorPeriodos = new TasasInteresPorPeriodos { InteresMensual = tasaInteresMensual };
             tasaInteresPorPeriodos.PeriodoCodigo = periodo.Codigo;
             tasaInteresPorPeriodos.PeriodoNombre = periodo.Nombre;
             tasaInteresPorPeriodos.InteresDiario = (tasaInteresMensual / 30) * 1;

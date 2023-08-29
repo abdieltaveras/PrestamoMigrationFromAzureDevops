@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class TasaInteresPorPeriodos
+    public class TasasInteresPorPeriodos
     {
         public string PeriodoCodigo { get;  set; }
         public string PeriodoNombre { get; set; }

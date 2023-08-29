@@ -60,7 +60,10 @@ namespace PrestamoEntidades
 
         [IgnoreOnParams]
         public string Comentario { get; set; } = String.Empty;
-
+        public override string ToString()
+        {
+            return $"Cuota No {Numero} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/C {GastoDeCierre} Int G/C {InteresDelGastoDeCierre} OtrosCargos {OtrosCargos}  Int O/C {InteresOtrosCargos}";
+        }
     }
 
     public class OtrosCargosPrestamo

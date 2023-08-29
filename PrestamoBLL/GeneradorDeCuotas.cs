@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,9 @@ namespace PrestamoBLL
     public class GeneradorCuotasFijasNoAmortizable : IGeneradorCuotas
     {
         internal readonly IInfoGeneradorCuotas infoGenerarCuotas;
-        internal readonly Periodo periodo;
+        private Periodo Periodo { get; set; }
+        private TasaInteres TasaInteres { get; set; }
+        private TasasInteresPorPeriodos TasasInteresDelPeriodo {get;set;}
 
         DateTime fechaCuotaAnterior = InitValues._19000101;
         List<CxCCuota> cuotas = new List<CxCCuota>();
@@ -20,15 +23,46 @@ namespace PrestamoBLL
         {
             if (info.TipoAmortizacion != TiposAmortizacion.No_Amortizable_cuotas_fijas)
             { throw new InvalidOperationException("para generar este tipo de cuotas, solo se admite el tipo de amortizacion No Amortizable Cuota Fija"); }
-            BLLValidations.ObjectNotNull(info.Periodo, "Periodo");
+            BLLValidations.ValueGreaterThanZero(info.IdPeriodo, "IdPeriodo");
+            BLLValidations.ValueGreaterThanZero(info.IdTasaInteres, "IdTasaInteres");
             infoGenerarCuotas = info;
-            periodo = info.Periodo;
+        }
+
+        private Periodo GetPeriodo()
+        {
+                BLLValidations.ValueGreaterThanZero(infoGenerarCuotas.IdPeriodo, "IdPeriodo");
+                BLLValidations.ValueGreaterThanZero(infoGenerarCuotas.CantidadDeCuotas, "cantidad de cuotas");
+                var periodo = new PeriodoBLL(infoGenerarCuotas.idLocalidadNegocio, infoGenerarCuotas.Usuario).GetPeriodos(new PeriodoGetParams { idPeriodo = infoGenerarCuotas.IdPeriodo }).FirstOrDefault();
+                if (!periodo.Activo)
+                {
+                    throw new Exception("El Periodo indicado no es valido porque no esta activo");
+                }
+                if (periodo.Anulado())
+                {
+                    throw new Exception("El Periodo indicado no es valido porque ha sido anulado");
+                }
+                this.Periodo = periodo;
+                return periodo;
+        }
+
+        private void GetTasaInteresPorPeriodo()
+        {
+            this.TasasInteresDelPeriodo = new TasaInteresBLL(infoGenerarCuotas.idLocalidadNegocio, infoGenerarCuotas.Usuario).CalcularTasaInteresPorPeriodos(this.TasaInteres.InteresMensual, this.Periodo);
+        }
+
+        private void GetTasaDeInteres()
+        {
+            BLLValidations.ValueGreaterThanZero(infoGenerarCuotas.IdTasaInteres, "IdTasaInteres");
+            this.TasaInteres = new TasaInteresBLL(infoGenerarCuotas.idLocalidadNegocio, infoGenerarCuotas.Usuario).GetTasasDeInteres(new TasaInteresGetParams { idTasaInteres = infoGenerarCuotas.IdTasaInteres }).FirstOrDefault();
         }
 
         public List<CxCCuota> GenerarCuotas()
         {
             this.cuotas.Clear();
             GastoDeCierreSinFinanciamiento();
+            GetPeriodo();
+            GetTasaDeInteres();
+            GetTasaInteresPorPeriodo();
             decimal capitalPorCuota = getCapitalPorCuota();
             decimal interesPorCuota = getInteresPorCuota();
             decimal otrosCargosSinInteres = getOtrosCargosSinInteresPorCuota();
@@ -64,7 +98,8 @@ namespace PrestamoBLL
                 {
                     cuota = new CxCCuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = infoGenerarCuotas.CantidadDeCuotas, OtrosCargos = otrosCargosSinInteres };
                     setGastoDeCierreFinaciadoEnCuotas(cuota);
-                    cuota.Fecha = PrestamoConCalculos.CalcularFechaVencimiento(this.infoGenerarCuotas.FechaEmisionReal, infoGenerarCuotas.Periodo, infoGenerarCuotas.CantidadDeCuotas, infoGenerarCuotas.FechaInicioPrimeraCuota);
+                    var fechaParaCuotas = infoGenerarCuotas.AcomodarFechaALasCuotas ? infoGenerarCuotas.FechaInicioPrimeraCuota : infoGenerarCuotas.FechaEmisionReal;
+                    cuota.Fecha = PrestamoConCalculos.CalcularFechaVencimiento(infoGenerarCuotas.AcomodarFechaALasCuotas,Periodo, fechaParaCuotas,  infoGenerarCuotas.CantidadDeCuotas);
                     cuota.Comentario = "Ultima Cuota";
                     cuotas.Add(cuota);
                 }
@@ -143,17 +178,17 @@ namespace PrestamoBLL
         private DateTime calcFecha()
         {
             var fecha = new DateTime();
-            switch (periodo.PeriodoBase)
+            switch (Periodo.PeriodoBase)
             {
                 case PeriodoBase.Dia:
-                    fecha = this.fechaCuotaAnterior.AddDays(1 * (int)periodo.MultiploPeriodoBase);
+                    fecha = this.fechaCuotaAnterior.AddDays(1 * (int)Periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Semana:
-                    fecha = this.fechaCuotaAnterior.AddDays(7 * (int)periodo.MultiploPeriodoBase);
+                    fecha = this.fechaCuotaAnterior.AddDays(7 * (int)Periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Quincena:
                     fecha = this.fechaCuotaAnterior;
-                    for (int periodoCuota = 1; periodoCuota <= (int)periodo.MultiploPeriodoBase; periodoCuota++)
+                    for (int periodoCuota = 1; periodoCuota <= (int)Periodo.MultiploPeriodoBase; periodoCuota++)
                     {
                         if (periodoCuota % 2 == 0)
                         {
@@ -166,10 +201,10 @@ namespace PrestamoBLL
                     }
                     break;
                 case PeriodoBase.Mes:
-                    fecha = this.fechaCuotaAnterior.AddMonths(1 * (int)periodo.MultiploPeriodoBase);
+                    fecha = this.fechaCuotaAnterior.AddMonths(1 * (int)Periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Ano:
-                    fecha = this.fechaCuotaAnterior.AddYears(1 * (int)periodo.MultiploPeriodoBase);
+                    fecha = this.fechaCuotaAnterior.AddYears(1 * (int)Periodo.MultiploPeriodoBase);
                     break;
                 default:
                     break;
@@ -192,22 +227,21 @@ namespace PrestamoBLL
                 // ahora calculamos el interes del gasto de cierre si debe cargarlo
                 if (this.infoGenerarCuotas.CargarInteresAlGastoDeCierre)
                 {
-                    cuota.InteresDelGastoDeCierre = Math.Round(this.infoGenerarCuotas.MontoGastoDeCierre * (this.infoGenerarCuotas.TasaDeInteresDelPeriodo / 100), 2);
+                    cuota.InteresDelGastoDeCierre = Math.Round(this.infoGenerarCuotas.MontoGastoDeCierre * (this.TasasInteresDelPeriodo.InteresDelPeriodo / 100), 2);
                 }
             }
         }
 
         private decimal getInteresPorCuota()
         {
-            var tasaInteresPorPeriodo = infoGenerarCuotas.TasaDeInteresDelPeriodo;
-            // empezaremos pensando en que no tiene interes el gasto de cierre
-            // ni tampoco los otros gastos
-            decimal interesPorCuota = Math.Round(infoGenerarCuotas.MontoCapital * (tasaInteresPorPeriodo / 100), 2);
+            
+            
+            decimal interesPorCuota = Math.Round(infoGenerarCuotas.MontoCapital * (this.TasasInteresDelPeriodo.InteresDelPeriodo / 100), 2);
             return interesPorCuota;
         }
         private decimal getOtrosCargosSinInteresPorCuota()
         {
-            var tasaInteresPorPeriodo = infoGenerarCuotas.TasaDeInteresDelPeriodo;
+            
             // empezaremos pensando en que no tiene interes el gasto de cierre
             // ni tampoco los otros gastos
             decimal otrosCargosSininteresPorCuota = Math.Round(infoGenerarCuotas.OtrosCargos / infoGenerarCuotas.CantidadDeCuotas, 2);

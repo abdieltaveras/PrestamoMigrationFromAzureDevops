@@ -24,9 +24,9 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
-        public async Task<TasaInteresPorPeriodos> GetTasaInteresPorPeriodo(int idPeriodo, int idTasaDeInteres)
+        public async Task<TasasInteresPorPeriodos> GetTasaInteresPorPeriodo(int idPeriodo, int idTasaDeInteres)
         {
-            var result = await GetAsync<TasaInteresPorPeriodos>(apiUrl + "/GetTasaInteresPorPeriodo", new { idTasaDeInteres = idTasaDeInteres, idPeriodo = idPeriodo });
+            var result = await GetAsync<TasasInteresPorPeriodos>(apiUrl + "/GetTasaInteresPorPeriodo", new { idTasaDeInteres = idTasaDeInteres, idPeriodo = idPeriodo });
 
             return result.FirstOrDefault();
         }
