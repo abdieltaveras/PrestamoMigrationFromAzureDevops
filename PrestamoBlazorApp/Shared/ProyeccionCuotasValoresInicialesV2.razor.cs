@@ -14,7 +14,7 @@ namespace PrestamoBlazorApp.Shared
 {
     public partial class ProyeccionCuotasValoresInicialesV2 : BaseForList
     {
-        IEnumerable<CxCCuota> Cuotas = new List<CxCCuota>();
+        [Parameter] public IEnumerable<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
 
 
     }
