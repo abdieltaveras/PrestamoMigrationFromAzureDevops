@@ -53,7 +53,7 @@ namespace PrestamoBLL.Tests
             var cuotaInfo = new InfoGeneradorDeCuotas()
             {
                 Usuario = testInfo._Usuario,
-                idLocalidadNegocio = TestInfo.GetIdLocalidadNegocio(),
+                IdLocalidadNegocio = TestInfo.GetIdLocalidadNegocio(),
                 FechaEmisionReal = new DateTime(2023, 01, 01),
                 TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
                 MontoCapital = montoPrestado,

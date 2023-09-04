@@ -11,93 +11,126 @@
     <MudText>RANDY VCASTILOO</MudText>
     <ValidationSummary />
     <MudCard>
+        @*<MudCardHeader>
+        <CardHeaderActions>
+        <MudButton OnClick="@SavePrestamo">Guardar</MudButton>
+        </CardHeaderActions>
+        </MudCardHeader>*@
         <MudCardContent>
-            <MudItem xs="12" sm="12" Class="d-flex justify-end flex-grow-1">
-                <MudButton OnClick="SavePrestamo" Color="MudBlazor.Color.Primary" Variant="Variant.Filled">Guardar</MudButton>
-                <MudButton @onclick='()=>NavigateTo("/prestamos")' StartIcon="@Icons.Material.Filled.Undo" Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" title="Volver al listado"></MudButton>
-                
-            </MudItem>
-            <MudItem xs="12">
-                <MudAlert Severity="Severity.Info">Generales</MudAlert>
+            <MudGrid>
                 <MudGrid>
-                    <MudItem sm="5">
-                        @if (EnableReadCodigo)
-                        {
-                            <MudTextField @bind-Value="@prestamo.PrestamoNumero" Label="Prestamo Numero"></MudTextField>
-                        }
-                        else
-                        {
-                            <MudChip>@prestamo.PrestamoNumero </MudChip>
-                        }
-                        <MudSelect @bind-Value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" Label="Clasificacion">
-                            @foreach (var item in Clasificaciones)
-                            {
-                                <MudSelectItem Value=@item.IdClasificacion>@item.Nombre</MudSelectItem>
-                            }
-                        </MudSelect>
-                        <MudSelect @bind-Value="@prestamo.IdTipoAmortizacion" Label="Amortizacion">
-                            <MudSelectItem Value=-1>Seleccione la amortizacion</MudSelectItem>
-                            @foreach (var item in EnumToList.TiposAmortizacion())
-                            {
-                                <MudSelectItem Value=@item.Value>@item.Text</MudSelectItem>
-                            }
-                        </MudSelect>
-                        @if (!LlevaGarantia() && @prestamo.IdGarantias.Count == 0)
-                        {
-                            <MudChip>No Requiere Garantia</MudChip>
-                        }
-                        else
-                        {
-                            <MudTextField @bind-Value="@CodigoGarantia"
-                                          Adornment="Adornment.End"
-                                          OnAdornmentClick="ShowSearchGarantia"
-                                          AdornmentIcon="@Icons.Material.Filled.Search"
-                                          Placeholder=""
-                                          Label="Codigo Garantia"></MudTextField>
-                            <MudText>Garantias: @prestamo.IdGarantias.Count</MudText>
-                            <MudList>
-                                @foreach (var item in @InfoGarantias)
-                                {
-                                    <MudListItem OnClick="() => RemoveGarantia(item.IdGarantia)" Icon="@Icons.Material.Filled.Remove"> @item.Text </MudListItem>
-                                }
-                            </MudList>
-                        }
+                    <MudItem md="6">
+                        <MudAlert Severity="Severity.Info">Generales</MudAlert>
                     </MudItem>
-
-                    <MudItem sm="5">
-                        <MudDatePicker @onchange="OnFechaEmisionRealChange" @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker>
-                        <MudTextField @bind-Value="@CodigoCliente"
-                                      ReadOnly="true" Label="Codigo Cliente"
-                                      Adornment="Adornment.End"
-                                      OnAdornmentClick="ShowSearchCliente"
-                                      AdornmentIcon="@Icons.Material.Filled.Search"></MudTextField>
-                        <MudCard>
-                            <MudCardContent>
-                                @InfoCliente
-                            </MudCardContent>
-                        </MudCard>
-                        <MudTextField @bind-Value="@CodigoCodeudor" Placeholder="No habilitado aun" Label="Codigo Codeudor"></MudTextField>
+                    <MudItem md="6" Class="d-flex justify-end flex-grow-1">
+                        @* xs="12" sm="12" Class="d-flex justify-end flex-grow-1" *@
+                        <MudButton OnClick="SavePrestamo" Color="MudBlazor.Color.Primary" Variant="Variant.Filled">Guardar</MudButton>
+                        <MudButton @onclick='()=>NavigateTo("/prestamos")' StartIcon="@Icons.Material.Filled.Undo" Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" title="Volver al listado"></MudButton>
+                        @* <MudText>exectimes @execTimes</MudText> *@
                     </MudItem>
                 </MudGrid>
-            </MudItem>
-            <MudAlert Severity="Severity.Info">Datos del Prestamo</MudAlert>
+                <MudItem xs="12">
+
+                    <MudGrid>
+                        <MudItem md="4">
+                            @if (EnableReadCodigo)
+                            {
+                                <MudTextField @bind-Value="@prestamo.PrestamoNumero" Label="Prestamo Numero"></MudTextField>
+                            }
+                            else
+                            {
+                                <MudChip>@prestamo.PrestamoNumero </MudChip>
+                            }
+                            <MudSelect @bind-Value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" Label="Clasificacion">
+                                @foreach (var item in Clasificaciones)
+                                {
+                                    <MudSelectItem Value=@item.IdClasificacion>@item.Nombre</MudSelectItem>
+                                }
+                            </MudSelect>
+                            <MudSelect @bind-Value="@prestamo.IdTipoAmortizacion" Label="Amortizacion">
+                                <MudSelectItem Value=-1>Seleccione la amortizacion</MudSelectItem>
+                                @foreach (var item in EnumToList.TiposAmortizacion())
+                                {
+                                    <MudSelectItem Value=@item.Value>@item.Text</MudSelectItem>
+                                }
+
+                            </MudSelect>
+                        </MudItem>
+
+                        <MudItem md="4">
+                            <MudDatePicker @onchange="OnFechaEmisionRealChange" @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker>
+                            <MudTextField @bind-Value="@CodigoCliente"
+                                          ReadOnly="true" Label="Codigo Cliente"
+                                          Adornment="Adornment.End"
+                                          OnAdornmentClick="ShowSearchCliente"
+                                          AdornmentIcon="@Icons.Material.Filled.Search"></MudTextField>
+                            <MudCard>
+                                <MudCardContent>
+                                    @InfoCliente
+                                </MudCardContent>
+                            </MudCard>
+                            <MudTextField @bind-Value="@CodigoCodeudor" Placeholder="No habilitado aun" Label="Codigo Codeudor"></MudTextField>
+                        </MudItem>
+                        <MudItem md="4">
+                            @if (!LlevaGarantia() && @prestamo.IdGarantias.Count == 0)
+                            {
+                                <MudChip>No Requiere Garantia</MudChip>
+                            }
+                            else
+                            {
+                                <MudTextField @bind-Value="@CodigoGarantia"
+                                              Adornment="Adornment.End"
+                                              OnAdornmentClick="ShowSearchGarantia"
+                                              AdornmentIcon="@Icons.Material.Filled.Search"
+                                              Placeholder=""
+                                              Label="Codigo Garantia"></MudTextField>
+                                <MudText>Garantias: @prestamo.IdGarantias.Count</MudText>
+                                <MudList>
+                                    @foreach (var item in @InfoGarantias)
+                                    {
+                                        <MudListItem OnClick="() => RemoveGarantia(item.IdGarantia)" Icon="@Icons.Material.Filled.Remove"> @item.Text </MudListItem>
+                                    }
+                                </MudList>
+                            }
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+            </MudGrid>
             <MudGrid>
-                <MudItem sm="5">
-                    <MudNumericField @bind-Value="@prestamo.MontoPrestado" @onchange="OnMontoPrestadoChange" Placeholder="No habilitado aun" Label="Monto Prestado"></MudNumericField>
-                    <MudChip Color="MudBlazor.Color.Primary">@prestamo.MontoPrestado</MudChip>
-                    <MudSwitch Color="MudBlazor.Color.Primary" Checked="@prestamo.LlevaGastoDeCierre" Label="Lleva Gasto Cierre"></MudSwitch>
-                    @if (prestamo.LlevaGastoDeCierre)
+                <MudItem md="12">
+                    <MudAlert Severity="Severity.Info">Datos Financieros</MudAlert>
+                </MudItem>
+                <MudItem md="4">
+                    <MudGrid>
+                    <MudItem md="6">
+                        <MudNumericField @bind-Value="@prestamo.MontoPrestado" @onchange="OnMontoPrestadoChange" Placeholder="No habilitado aun" Label="Monto Prestado"></MudNumericField>
+                    </MudItem>
+                    <MudItem md="6" >
+                        <MudChip Color="MudBlazor.Color.Primary">@prestamo.MontoPrestado.ToString("#,##0.00")</MudChip>
+                    </MudItem>
+                    </MudGrid>
+                    <MudSwitch Color="MudBlazor.Color.Primary" @bind-Checked="@LlevaGastoDeCierre" Label="Lleva Gasto Cierre"></MudSwitch>
+                    @if (LlevaGastoDeCierre)
+
                     {
-                        <MudNumericField @bind-Value="@prestamo.InteresGastoDeCierre" @onchange="OnInteresGastoDeCierreChange" Label="% Gasto Cierre"></MudNumericField>
-                        <MudChip Color="MudBlazor.Color.Primary">@prestamo.MontoGastoDeCierre</MudChip>
+                        <MudGrid>
+                            <MudItem md="6">
+                                <MudNumericField  T="decimal" Value="@prestamo.InteresGastoDeCierre" ValueChanged="OnInteresGastoDeCierreChange" Label="% Gasto Cierre"></MudNumericField>
+                            </MudItem>
+                            <MudItem md="6">
+                                <MudChip Color="MudBlazor.Color.Primary">@prestamo.MontoGastoDeCierre.ToString("#,##0.00")</MudChip>
+                            </MudItem md="6">
+                        </MudGrid>
+                        
                         <MudSwitch @bind-Checked="@prestamo.GastoDeCierreEsDeducible" Label="Es Deducible?" Color="MudBlazor.Color.Primary"></MudSwitch>
                         @if (prestamo.GastoDeCierreEsDeducible)
                         {
                             <MudChip Color="MudBlazor.Color.Primary">Se Rebajara del Monto a entregar al cliente</MudChip>
                         }
+                        
                         @if (!prestamo.GastoDeCierreEsDeducible)
                         {
-                            <MudSwitch @bind-Checked="@prestamo.FinanciarGastoDeCierre" @onchange="@OnFinanciarGastoDeCierreChange" Label="Financiar El G/Cierre" Color="MudBlazor.Color.Primary"></MudSwitch>
+                            <MudSwitch  T="bool" Checked="@prestamo.FinanciarGastoDeCierre" CheckedChanged="OnFinanciarGastoDeCierreChange" Label="Financiar El G/Cierre" Color="MudBlazor.Color.Primary"></MudSwitch>
                             @if (@prestamo.FinanciarGastoDeCierre)
                             {
                                 <MudChip Color="MudBlazor.Color.Primary">Se distribuira en las cuotas</MudChip>
@@ -107,28 +140,25 @@
                                 <MudChip Color="MudBlazor.Color.Primary">Debe pagar el gasto de cierre en caja</MudChip>
                             }
                         }
+                        
                     }
                 </MudItem>
-                <MudItem sm="5">
-                    <MudSelect @bind-Value="@prestamo.IdTasaInteres" Label="Interes" @onchange="OnTasaInteresChange">
+                <MudItem sm="4">
+                    <MudSelect T="int" Value="@prestamo.IdTasaInteres" Label="Interes"  ValueChanged="OnTasaInteresChange">
                         <MudSelectItem Value=-1>Seleccione un Interes</MudSelectItem>
                         @foreach (var item in TasasDeInteres)
                         {
                             <MudSelectItem Value=@item.idTasaInteres>@($"{item.Codigo} Tasa Mensual {item.InteresMensual.ToString("#.0000")} Anual {item.InteresAnual.ToString("#.0000")}")</MudSelectItem>
                         }
                     </MudSelect>
-                    <MudSelect @bind-Value="@prestamo.IdPeriodo" Label="Periodo" @onchange="OnPeriodoChange">
+                    <MudSelect T="int" Value="@prestamo.IdPeriodo" Label="Periodo" ValueChanged="OnPeriodoChange">
                         <MudSelectItem Value=-1>Seleccione Un Periodo</MudSelectItem>
                         @foreach (var item in Periodos)
                         {
                             <MudSelectItem Value=@item.idPeriodo>@($"{item.Codigo}  {item.Nombre}")</MudSelectItem>
                         }
                     </MudSelect>
-<<<<<<< HEAD
-                    @*<MudNumericField @bind-Value="@prestamo.CantidadDePeriodos" @onchange="OnCantidadPeriodoChange" Label="Cantidad De Cuotas"></MudNumericField>*@
-=======
-                    <MudNumericField @bind-Value="@prestamo.CantidadDeCuotas" @onchange="OnCantidadPeriodoChange" Label="Cantidad De Cuotas"></MudNumericField>
->>>>>>> aea04e30c46daa32bbf624f903b16326805996bf
+                    <MudNumericField T="int" Value="@prestamo.CantidadDeCuotas" ValueChanged="OnCantidadCuotasChange" Label="Cantidad De Cuotas" />
 
                     <MudSelect @bind-Value="@prestamo.IdTipoMora" Label="Tipo Mora">
                         <MudSelectItem Value=-1>Seleccione un Tipo De Mora</MudSelectItem>
@@ -138,8 +168,8 @@
                         }
                     </MudSelect>
                 </MudItem>
-                <MudItem md="12" lg="12">
-                    @if (Cuotas.Count() > 0)
+                <MudItem md="4" lg="4">
+                    @if (Cuotas.Any())
                     {
                         <MudText Typo="Typo.body2"> Proyeccion Cuotas: @InfoCuotas()</MudText>
                         <ProyeccionCuotasValoresIniciales Cuotas="@Cuotas" />
