@@ -108,7 +108,7 @@
                         <MudChip Color="MudBlazor.Color.Primary">@prestamo.MontoPrestado.ToString("#,##0.00")</MudChip>
                     </MudItem>
                     </MudGrid>
-                    <MudSwitch Color="MudBlazor.Color.Primary" @bind-Checked="@LlevaGastoDeCierre" Label="Lleva Gasto Cierre"></MudSwitch>
+                    <MudSwitch Color="MudBlazor.Color.Success" @bind-Checked="@LlevaGastoDeCierre" Label="Lleva Gasto Cierre"></MudSwitch>
                     @if (LlevaGastoDeCierre)
 
                     {
@@ -121,7 +121,7 @@
                             </MudItem md="6">
                         </MudGrid>
                         
-                        <MudSwitch @bind-Checked="@prestamo.GastoDeCierreEsDeducible" Label="Es Deducible?" Color="MudBlazor.Color.Primary"></MudSwitch>
+                        <MudSwitch @bind-Checked="@prestamo.GastoDeCierreEsDeducible" Label="Es Deducible?" Color="MudBlazor.Color.Success"></MudSwitch>
                         @if (prestamo.GastoDeCierreEsDeducible)
                         {
                             <MudChip Color="MudBlazor.Color.Primary">Se Rebajara del Monto a entregar al cliente</MudChip>
@@ -129,7 +129,7 @@
                         
                         @if (!prestamo.GastoDeCierreEsDeducible)
                         {
-                            <MudSwitch  T="bool" Checked="@prestamo.FinanciarGastoDeCierre" CheckedChanged="OnFinanciarGastoDeCierreChange" Label="Financiar El G/Cierre" Color="MudBlazor.Color.Primary"></MudSwitch>
+                            <MudSwitch  T="bool" Checked="@prestamo.FinanciarGastoDeCierre" CheckedChanged="OnFinanciarGastoDeCierreChange" Label="Financiar El G/Cierre" Color="MudBlazor.Color.Success"></MudSwitch>
                             @if (@prestamo.FinanciarGastoDeCierre)
                             {
                                 <MudChip Color="MudBlazor.Color.Primary">Se distribuira en las cuotas</MudChip>
