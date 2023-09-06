@@ -172,6 +172,7 @@
                 <MudPaper>
                     @if (Cuotas.Any())
                     {
+                        <MudButton @onclick="CuotasDialog" Variant="Variant.Filled" Color="MudBlazor.Color.Default" >Proyeccion de Cuotas</MudButton>
                         <MudText Typo="Typo.body2"> Proyeccion Cuotas: @InfoCuotas()</MudText>
                         <ProyeccionCuotasValoresIniciales Cuotas="@Cuotas" />
                         <ProyeccionCuotasValoresInicialesV2 Cuotas="@Cuotas" />

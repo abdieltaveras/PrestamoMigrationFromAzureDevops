@@ -9,13 +9,19 @@ using PrestamoBlazorApp.Shared;
 using Newtonsoft.Json;
 using PrestamoBlazorApp.Domain;
 using PrestamoBlazorApp.Pages.Prestamos.Components.PrestamoByColumnSelected;
+using MudBlazor;
+using PrestamoBlazorApp.Pages.Prestamos;
 
 namespace PrestamoBlazorApp.Shared
 {
     public partial class ProyeccionCuotasValoresInicialesV2 : BaseForList
     {
+
+        [Inject]
+        IDialogService DialogService { get; set; }
         [Parameter] public IEnumerable<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
-
-
+        //private List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
+        
+        
     }
 }

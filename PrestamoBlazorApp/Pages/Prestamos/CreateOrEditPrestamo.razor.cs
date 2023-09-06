@@ -38,6 +38,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         GarantiasService GarantiasService { get; set; }
 
         private bool EnableCalculation { get; set; }
+        private CxCCuota CxCCuotaSelected { get; set; }=new CxCCuota(); 
         private GarantiaConMarcaYModelo GarantiaSelected { get; set; } = new GarantiaConMarcaYModelo();
         private Cliente ClienteSelected { get; set; } = new Cliente();
 
@@ -513,6 +514,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 updateInfoGarantia(GarantiaSelected);
             }
         }
+        
         private async Task ShowSearchCliente()
         {
             string[] cols = { "Nombres", "Apellidos" };
@@ -525,6 +527,19 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             {
                 ClienteSelected = (Cliente)result.Data;
                 updateInfoCliente(ClienteSelected);
+
+            }
+        }
+        private async Task CuotasDialog()
+        {
+            DialogOptions dialogOptions = new DialogOptions { MaxWidth= MaxWidth.Medium, FullWidth=true, CloseButton = true };
+            var dialog= DialogService.Show<ProyeccionCuotasValoresInicialesV2>("Total de Cuotas", dialogOptions);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                CxCCuotaSelected = (CxCCuota)result.Data;
+                
 
             }
         }
