@@ -532,8 +532,10 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         }
         private async Task CuotasDialog()
         {
-            DialogOptions dialogOptions = new DialogOptions { MaxWidth= MaxWidth.Medium, FullWidth=true, CloseButton = true };
-            var dialog= DialogService.Show<ProyeccionCuotasValoresInicialesV2>("Total de Cuotas", dialogOptions);
+            DialogOptions dialogOptions = new DialogOptions {MaxWidth = MaxWidth.Medium, CloseOnEscapeKey=true,  CloseButton = true };
+            var parameters = new DialogParameters();
+            parameters.Add("Cuotas", Cuotas);
+            var dialog= DialogService.Show<ProyeccionCuotasValoresInicialesV2>("Total de Cuotas",parameters, dialogOptions);
             var result = await dialog.Result;
 
             if (!result.Cancelled)

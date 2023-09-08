@@ -2,37 +2,36 @@
 @inherits BaseForList
 @using PrestamoBlazorApp.Shared.Components.Forms
 <MudDialog>
-    <DialogContent>
-        <MudTable Items="@Cuotas" Dense="true" Hover="true" FixedHeader="true" FixedFooter="false" Height="200px">
-            <HeaderContent>
-                <MudTh>No</MudTh>
-                <MudTh>Fecha</MudTh>
-                <MudTh>Total</MudTh>
-                <MudTh>Capital</MudTh>
-                <MudTh>Interes</MudTh>
-                <MudTh>Gastos Cierre</MudTh>
-                <MudTh>Int G/C</MudTh>
-                <MudTh>Otros Gastos</MudTh>
-                <MudTh>Int O/C</MudTh>
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd DataLabel="Nr">@context.Numero</MudTd>
-                <MudTd DataLabel="Sign">@context.Fecha.ToString("dd/MM/yyyy")</MudTd>
-                <MudTd DataLabel="Name">@context.TotalOrig</MudTd>
-                <MudTd DataLabel="Name">@context.Capital</MudTd>
-                <MudTd DataLabel="Name">@context.Interes</MudTd>
-                <MudTd DataLabel="Name">@context.GastoDeCierre</MudTd>
-                <MudTd DataLabel="Name">@context.BceInteresDelGastoDeCierre</MudTd>
-                <MudTd DataLabel="Name">@context.OtrosCargos</MudTd>
-                <MudTd DataLabel="Name">@context.InteresOtrosCargos</MudTd>
-            </RowTemplate>
-        </MudTable>
+    <DialogContent >
+        <MudTable Items="@Cuotas" Hover="true" Style="background-color:whitesmoke"FixedHeader="true"FixedFooter="true"Height="400px">
+                <HeaderContent>
+                <MudTh Style="background-color:dodgerblue ">No</MudTh>
+                <MudTh Style="background-color:dodgerblue ">Fecha</MudTh>
+                <MudTh Style="background-color:dodgerblue ">Total</MudTh>
+                <MudTh Style="background-color:dodgerblue ">Capital</MudTh>
+                <MudTh Style="background-color:dodgerblue ">Interes</MudTh>
+                <MudTh Style="background-color:dodgerblue ">Gastos Cierre</MudTh>
+                <MudTh Style="background-color:dodgerblue ">Int G/C</MudTh>
+                <MudTh Style="background-color:dodgerblue ">Otros Gastos</MudTh>
+                <MudTh Style="background-color:dodgerblue ">Int O/C</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Nr">@context.Numero</MudTd>
+                    <MudTd DataLabel="Sign">@context.Fecha.ToString("dd/MM/yyyy")</MudTd>
+                    <MudTd DataLabel="Name">@context.TotalOrig</MudTd>
+                    <MudTd DataLabel="Name">@context.Capital</MudTd>
+                    <MudTd DataLabel="Name">@context.Interes</MudTd>
+                    <MudTd DataLabel="Name">@context.GastoDeCierre</MudTd>
+                    <MudTd DataLabel="Name">@context.BceInteresDelGastoDeCierre</MudTd>
+                    <MudTd DataLabel="Name">@context.OtrosCargos</MudTd>
+                    <MudTd DataLabel="Name">@context.InteresOtrosCargos</MudTd>
+                </RowTemplate>
+            </MudTable>
     </DialogContent>
 </MudDialog>
- 
+  
+
 @code
 {
-    
- 
     
 }
