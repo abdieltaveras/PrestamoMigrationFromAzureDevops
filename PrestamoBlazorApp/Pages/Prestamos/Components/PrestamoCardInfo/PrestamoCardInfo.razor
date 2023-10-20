@@ -1,0 +1,63 @@
+﻿
+<MudCard>
+    <MudCardHeader>
+        <MudText>Informacion Del Cliente</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudText><b>Nombre: </b> @Prestamo.infoCliente.NombreCompleto </MudText>
+        <MudText><b>Documento: </b> @Prestamo.infoCliente.NumeracionDocumentoIdentidad </MudText>
+        <MudText><b>Direccion: </b> @Prestamo.infoCliente.Direccion </MudText>
+    </MudCardContent>
+</MudCard>
+<MudDivider />
+<MudCard>
+    <MudCardHeader>
+        <MudText>Informacion Del Prestamo</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudGrid >
+            <MudItem md="8" sm="8" lg="8">
+                <MudText><b>Prestamo # : </b> @Prestamo.infoPrestamo.PrestamoNumero</MudText>
+                <MudText><b>Cantidad De Cuotas: </b> @Prestamo.infoPrestamo.CantidadDeCuotas</MudText>
+                <MudText><b>Cuotas Pendientes: </b> -</MudText>
+                <MudText><b>Monto: </b> @Prestamo.infoPrestamo.MontoPrestado</MudText>
+                <MudText><b>Fecha Prestamo: </b> @Prestamo.infoPrestamo.FechaEmisionReal</MudText>
+                <MudText><b>Fecha Ultimo Pago: </b> @DateTime.Now.ToShortDateString()</MudText>
+                <MudText><b>Ultimo Balance: </b> 50,000.00</MudText>
+                <MudText><b>Cargo Por Mora / Atrasos: </b> @Prestamo.PrestamoInfo.CargoMora </MudText>
+                <MudText><b>Periodos a Cargar: </b> @Prestamo.PrestamoInfo.PeriodosCargar</MudText>
+                <MudText><b>Interes A Cargar: </b> @Prestamo.PrestamoInfo.InteresCargar</MudText>
+            </MudItem>
+            <MudItem md="4" sm="4" lg="4" Style="display: grid;align-items: end;justify-content: end;">
+                <div >
+                <MudText><b>Balance: </b> @Prestamo.PrestamoInfo.Balance</MudText>
+                <MudText><b>Total A Pagar Hoy: </b> @Prestamo.PrestamoInfo.TotalPagarHoy</MudText>
+                <MudText><b>Interes Al Dia : </b> @Prestamo.PrestamoInfo.InteresAlDia</MudText>
+                <MudText><b>Capital De Inicio: </b> @Prestamo.PrestamoInfo.CapitalInicio</MudText>
+                </div>
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+</MudCard>
+@if (Prestamo.infoPrestamo.LlevaGarantia)
+{
+    <MudDivider/>
+    <MudCard>
+        <MudCardHeader>
+            <MudText>Informacion De Las Garantias</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            @foreach (var item in Prestamo.infoGarantias)
+            {
+                <MudText><b>Tipo De Garantia : </b> @item.NombreTipoGarantia</MudText>
+                <MudText><b>Garantia No.: </b> @item.NumeracionGarantia</MudText>
+                <MudText><b>Garantia: </b> @item.NombreModelo </MudText>
+            }
+
+        </MudCardContent>
+    </MudCard>
+
+}
+@code {
+
+}
