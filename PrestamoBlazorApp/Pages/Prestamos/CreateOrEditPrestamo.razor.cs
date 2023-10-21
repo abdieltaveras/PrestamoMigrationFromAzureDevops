@@ -105,7 +105,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 var getResult = await prestamoService.GetConDetallesForUiAsync(idPrestamo);
                 // var getResult2 = await prestamoService.GetByIdAsync(idPrestamo);
                 if (getResult == null) { };
-                prestamo = getResult.infoPrestamo;
+                prestamo = getResult.Prestamo;
                 LlevaGastoDeCierre = prestamo.LlevaGastoDeCierre;
                 await OnClasificacionChange(new ChangeEventArgs { Value = prestamo.IdClasificacion });
                 updateInfoCliente(getResult.infoCliente);

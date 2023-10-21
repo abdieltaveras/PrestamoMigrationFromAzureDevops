@@ -109,7 +109,7 @@ namespace PrestamoBLL
             // las garantia
             // los codeudores
             var PrestamoConDetalle = new PrestamoConDetallesParaUIPrestamo();
-            PrestamoConDetalle.infoPrestamo = infoPrestamo;
+            PrestamoConDetalle.Prestamo = infoPrestamo;
 
             PrestamoConDetalle.infoCliente = infoCliente;
             PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
