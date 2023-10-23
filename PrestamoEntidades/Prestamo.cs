@@ -489,6 +489,7 @@ namespace PrestamoEntidades
         public int idGarantia { get; set; } = -1;
         public DateTime? fechaEmisionRealDesde { get; set; }
         public DateTime? fechaEmisionRealHasta { get; set; }
+        public string PrestamoNumero { get; set; }
     }
 
 

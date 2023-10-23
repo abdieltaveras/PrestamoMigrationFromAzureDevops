@@ -14,9 +14,8 @@ namespace PrestamoBLL
             PositiveValue = value;
         }
 
-        public static implicit operator PositiveDecimal(decimal temp) => new PositiveDecimal(temp);
+        public static implicit operator PositiveDecimal(decimal value) => new PositiveDecimal(value);
 
-        public static implicit operator decimal(PositiveDecimal c) => c.PositiveValue;
         public override string ToString() => PositiveValue.ToString();
     }
 }
