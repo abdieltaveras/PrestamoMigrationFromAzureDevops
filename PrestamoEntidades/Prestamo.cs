@@ -114,13 +114,15 @@ namespace PrestamoEntidades
     }
     public class PrestamoConDetallesParaUIPrestamo
     {
-        public Prestamo infoPrestamo { get; set; } = new Prestamo();
+        public Prestamo Prestamo { get; set; } = new Prestamo();
 
         public InfoClienteDrCr infoCliente { get; set; } = new InfoClienteDrCr();
 
         public IEnumerable<InfoGarantiaDrCr> infoGarantias { get; set; } = new List<InfoGarantiaDrCr>();
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; } = new List<InfoCodeudorDrCr>();
+        public PrestamoInfo PrestamoInfo { get; set; } = new PrestamoInfo();
+        public IEnumerable<CuotaPrestamo> Cuotas { get; set; } = new List<CuotaPrestamo>();
 
     }
     public class PrestamoClienteUI
@@ -256,7 +258,7 @@ namespace PrestamoEntidades
             get { return (TiposAmortizacion)IdTipoAmortizacion; }
             set { IdTipoAmortizacion = (int)value; }
         }
-        
+
         /// <summary>
         /// retorna true o false al contar si hay o no garantias para este prestamo
         /// </summary>
@@ -287,7 +289,7 @@ namespace PrestamoEntidades
         public DateTime FechaEmisionParaCalculos { get; internal set; } = DateTime.Now;
         [Display(Name = "fecha de vencimiento")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        
+
         //[IgnoreOnParams(true)]
         public DateTime FechaVencimiento { get; set; }
         [Display(Name = "Indique el codigo de la tasa de interes")]
@@ -448,6 +450,20 @@ namespace PrestamoEntidades
         }
     }
 
+    public class PrestamoInfo
+    {
+        public decimal CargoMora { get; set; }
+        public string PeriodosCargar { get; set; }
+        public string InteresCargar { get; set; }
+        public decimal Balance { get; set; }
+        public decimal TotalPagarHoy { get; set; }
+        public decimal InteresAlDia { get; set; }
+        public decimal CapitalInicio { get; set; }
+        public string Emision { get; set; }
+        public string Vence { get; set; }
+
+
+    }
     public class PrestamoInsUpdParam : Prestamo
     {
         public readonly IEnumerable<CxCCuotaForSqlType> _CuotasList = new List<CxCCuotaForSqlType>();

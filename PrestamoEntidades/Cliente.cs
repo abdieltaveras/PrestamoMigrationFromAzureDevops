@@ -3,7 +3,6 @@ using PcpUtilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace PrestamoEntidades
 {
@@ -58,6 +57,8 @@ namespace PrestamoEntidades
         public string TelefonoMovil { get; set; } = string.Empty;
 
         public string TelefonoCasa { get; set; } = string.Empty;
+        public string Direccion { get; set; } = string.Empty;
+
 
         public bool Activo { get; set; } = false;
         public int IdTipoIdentificacion { get; set; }
@@ -169,7 +170,7 @@ namespace PrestamoEntidades
             var infoDireccionObj = InfoDireccion.ToType<Direccion>();
             var infoConyugeObj = InfoConyuge.ToType<Conyuge>();
             var infoReferenciasObj = InfoReferencias.ToType<List<Referencia>>();
-            
+
             if (!string.IsNullOrEmpty(directorioDeImagenes))
             {
                 foreach (var item in ImagenesObj)
@@ -182,10 +183,10 @@ namespace PrestamoEntidades
                 this.InfoReferenciasObj = new List<Referencia>();
             }
 
-            this.InfoLaboralObj = infoLaboralObj==null ? new InfoLaboral() : infoLaboralObj;
-            this.InfoDireccionObj = infoDireccionObj ==null ? new Direccion() : infoDireccionObj;
-            this.InfoConyugeObj = infoConyugeObj ==null ? new Conyuge() : infoConyugeObj;
-            this.InfoReferenciasObj = infoReferenciasObj ==null ? new List<Referencia>() : infoReferenciasObj;
+            this.InfoLaboralObj = infoLaboralObj == null ? new InfoLaboral() : infoLaboralObj;
+            this.InfoDireccionObj = infoDireccionObj == null ? new Direccion() : infoDireccionObj;
+            this.InfoConyugeObj = infoConyugeObj == null ? new Conyuge() : infoConyugeObj;
+            this.InfoReferenciasObj = infoReferenciasObj == null ? new List<Referencia>() : infoReferenciasObj;
             //this.ImagenesObj = imagenesObj == null ? new List<Imagen>() : imagenesObj;
 
         }
@@ -197,11 +198,11 @@ namespace PrestamoEntidades
             {
                 foreach (var item in imagenesObj)
                 {
-                        item.ConvertNombreArchivoToBase64String(directorioDeImagenes);
+                    item.ConvertNombreArchivoToBase64String(directorioDeImagenes);
                 }
             }
             this.ImagenesObj = imagenesObj == null ? new List<Imagen>() : imagenesObj;
-            
+
         }
 
         [Display(Name = "Tiene Pareja o Conyuge")]
@@ -271,7 +272,7 @@ namespace PrestamoEntidades
 
         public int IdLocalidad { get; set; } = -1;
 
-        
+
     }
 
     public class ClienteDelParams : BaseAnularOrDeleteParams
