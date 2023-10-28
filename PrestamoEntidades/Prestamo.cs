@@ -122,7 +122,7 @@ namespace PrestamoEntidades
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; } = new List<InfoCodeudorDrCr>();
         public PrestamoInfo PrestamoInfo { get; set; } = new PrestamoInfo();
-        public IEnumerable<CuotaPrestamo> Cuotas { get; set; } = new List<CuotaPrestamo>();
+        public IEnumerable<CuotaModel> Cuotas { get; set; } = new List<CuotaModel>();
 
     }
     public class PrestamoClienteUI
