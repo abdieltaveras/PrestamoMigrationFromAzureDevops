@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
@@ -181,7 +179,7 @@ namespace PrestamoEntidades
 
     public abstract class CxCPrestamoDrItemBase : IEquatable<CxCPrestamoDrItemBase>
     {
-        public int IdCxCD { get;  internal set; }
+        public int IdCxCD { get; internal set; }
 
         public int IdCxCM { get; internal set; }
 
@@ -192,7 +190,7 @@ namespace PrestamoEntidades
         public Decimal Monto { get; internal set; }
 
         public TiposCargosPrestamo TipoCargo { get; internal set; }
-        public Decimal Balance { get;  set; }
+        public Decimal Balance { get; set; }
 
         public virtual List<CxCPrestamoDrItemBase> ItemsCxC { get; internal set; } = new List<CxCPrestamoDrItemBase>();
         public CxCPrestamoDrItemBase()
@@ -239,7 +237,7 @@ namespace PrestamoEntidades
         public int NumeroCuota { get; protected set; }
 
 
-        public virtual DateTime FechaMoraAplicada { get;  set; }
+        public virtual DateTime FechaMoraAplicada { get; set; }
         public virtual DateTime FechaMoraTransitoria { get; set; }
 
         public virtual DateTime FechaInteresVencidoAplicado { get; set; }
@@ -258,7 +256,7 @@ namespace PrestamoEntidades
             this.FechaMoraAplicada = fecha;
             this.FechaMoraTransitoria = fecha;
             this.FechaInteresVencidoAplicado = fecha;
-            this.FechaInteresVencidoTransitorio  = fecha;
+            this.FechaInteresVencidoTransitorio = fecha;
             this.TipoTransaccionCxC = TiposTransaccionesCxCPrestamo.Cuota;
             this.TipoDrCr = TiposDrCr.Dr;
         }
@@ -271,20 +269,25 @@ namespace PrestamoEntidades
         {
             this.Cuotas = cuotas;
         }
-        
+
     }
 
     public class CuotaPrestamoDetalle : CxCPrestamoDrItemBase
     {
-        public CuotaPrestamoDetalle(TiposCargosPrestamo tipoCargoPrestamo, Decimal monto): base()
+        public CuotaPrestamoDetalle(TiposCargosPrestamo tipoCargoPrestamo, Decimal monto) : base()
         {
             this.TipoCargo = tipoCargoPrestamo;
             this.Monto = monto;
         }
 
     }
-    
 
+    public class CuotaModel
+    {
+        public int NumeroCuota { get; set; }
+        public decimal Monto { get; set; }
+        public decimal Balance { get; set; }
+    }
     public static class ExtMetCuotaPrestamo
     {
         private static decimal GetMonto(CxCPrestamoDrItemBase cxCPrestamoDetalle) => cxCPrestamoDetalle == null ? 0 : cxCPrestamoDetalle.Monto;
@@ -306,7 +309,7 @@ namespace PrestamoEntidades
 
         internal static Decimal GetGastoDeCierreBce(this CxCPrestamoDrMaestroBase cuota) => GetBalance(cuota.ItemsDrCxC.Where(cta => cta.TipoCargo == TiposCargosPrestamo.GastoDeCierre).FirstOrDefault());
 
-        internal static Decimal GetInteresGastoDeCierreMonto(this CxCPrestamoDrMaestroBase cuota) => GetMonto( cuota.ItemsDrCxC.Where(cta => cta.TipoCargo == TiposCargosPrestamo.InteresGastoDeCierre).FirstOrDefault());
+        internal static Decimal GetInteresGastoDeCierreMonto(this CxCPrestamoDrMaestroBase cuota) => GetMonto(cuota.ItemsDrCxC.Where(cta => cta.TipoCargo == TiposCargosPrestamo.InteresGastoDeCierre).FirstOrDefault());
 
         internal static Decimal GetInteresGastoDeCierreBce(this CxCPrestamoDrMaestroBase cuota) => GetBalance(cuota.ItemsDrCxC.Where(cta => cta.TipoCargo == TiposCargosPrestamo.InteresGastoDeCierre).FirstOrDefault());
         internal static Decimal GetOtrosCargosMonto(this CxCPrestamoDrMaestroBase cuota) => GetMonto(cuota.ItemsDrCxC.Where(cta => cta.TipoCargo == TiposCargosPrestamo.OtrosCargos).FirstOrDefault());
@@ -347,7 +350,7 @@ namespace PrestamoEntidades
 
         public static Decimal TotalCapitalMonto(this IEnumerable<CxCPrestamoDrMaestroBase> items) => items.Select(item => item.CapitalMonto).Sum();
 
-//TotalMontoOriginalPorTipoCargo(cuotas, TiposCargosPrestamo.Capital);
+        //TotalMontoOriginalPorTipoCargo(cuotas, TiposCargosPrestamo.Capital);
 
         public static Decimal TotalInteresMonto(this IEnumerable<CxCPrestamoDrMaestroBase> cuotas) => TotalMontoOriginalPorTipoCargo(cuotas, TiposCargosPrestamo.InteresCapital);
 
@@ -362,7 +365,7 @@ namespace PrestamoEntidades
             return total;
         }
 
-        
+
 
         public static Decimal TotalBcePorTipoCargo(this IEnumerable<CxCPrestamoDrMaestroBase> cuotas, TiposCargosPrestamo tipoCargo)
         {

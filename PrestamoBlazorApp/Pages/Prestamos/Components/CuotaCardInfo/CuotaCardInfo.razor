@@ -1,0 +1,10 @@
+﻿<MudDialog>
+    <DialogContent>
+        @Cuota.Balance
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [Parameter]
+    public CuotaModel Cuota { get; set; } = new CuotaModel();
+}
