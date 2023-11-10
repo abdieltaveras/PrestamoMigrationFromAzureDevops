@@ -10,19 +10,18 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Login
 {
+    public partial class LoginTest : BaseForCreateOrEdit
+    {
+        private Users users { get; set; } = new Users();    
 
-    internal class Users
+
+    }
+
+    public class Users
     {
         public string Nombre { get; set; }
         public string Contraseña { get; set; }
     }
-        public partial class LoginTest : BaseForCreateOrEdit
-    {
-        private Users users { get; set; }
-    }
-
-    
-
 }
 
 
