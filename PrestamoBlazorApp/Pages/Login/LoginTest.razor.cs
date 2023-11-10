@@ -8,17 +8,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
-public class Users
+namespace PrestamoBlazorApp.Pages.Login
 {
-    private string nombre { get; set; }
-    private string Contraseña { get; set; }
-}
-    public partial class LoginTest : BaseForList
+
+    internal class Users
     {
-   
-
-
+        public string Nombre { get; set; }
+        public string Contraseña { get; set; }
     }
+        public partial class LoginTest : BaseForCreateOrEdit
+    {
+        private Users users { get; set; }
+    }
+
+    
+
+}
 
 
