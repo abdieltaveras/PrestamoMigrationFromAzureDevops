@@ -1,0 +1,17 @@
+﻿@page "/loginV2"
+@page "/Testlogin"
+@inherits BaseForCreateOrEdit
+@using System.ComponentModel.DataAnnotations
+@using PrestamoBlazorApp.Pages.Login
+
+<EditForm Model="@users">
+<DataAnnotationsValidator/>
+    <ValidationSummary />
+<MudGrid>
+    <MudItem xs="12" sm="7">
+                <MudTextField Label="Nombre"@bind-Value="@users.Nombre" />
+                <MudTextField Label="Email"@bind-Value="@users.Contraseña" />
+        </MudItem>
+</MudGrid>
+</EditForm>
+
