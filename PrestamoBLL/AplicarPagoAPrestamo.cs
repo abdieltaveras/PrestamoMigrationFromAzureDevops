@@ -86,5 +86,7 @@ namespace PrestamoBLL
             this.Prestamo = result.FirstOrDefault();
             GetDeuda();
         }
+
+        private void probando_stash() { }
     }
 }

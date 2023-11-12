@@ -14,8 +14,11 @@ namespace PrestamoBLL
             PositiveValue = value;
         }
 
+        // permitir manejo de decimales, lo toma por el parametro
         public static implicit operator PositiveDecimal(decimal value) => new PositiveDecimal(value);
 
+        public static implicit operator decimal(PositiveDecimal value) => new PositiveDecimal(value); //value.PositiveValue;
         public override string ToString() => PositiveValue.ToString();
+        
     }
 }
