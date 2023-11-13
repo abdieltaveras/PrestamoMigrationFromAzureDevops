@@ -19,7 +19,7 @@
                                
                
             <MudTextField Label="Contraseña" Class="border-solid border-2 mud-border-primary pa-0" Elevation="0" @bind-Value="@users.Contraseña" />
-            <MudButton Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>
+            <MudButton @onclick='()=>NavigateTo("/loginEmpresa")' Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>
         </MudItem>       
 </MudGrid>
 </EditForm>

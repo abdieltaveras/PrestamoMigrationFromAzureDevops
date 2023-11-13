@@ -19,7 +19,7 @@ namespace PrestamoBlazorApp.Pages.Login
 
     public class Users
     {
-        public string  Nombre { get; set; }
+        public string Nombre { get; set; }
         public string Contraseña { get; set; }
     }
 }
