@@ -7,17 +7,16 @@
 <EditForm Model="@users">
 <DataAnnotationsValidator/>
 <ValidationSummary />
-<MudGrid  Justify="Justify.Center" Style="background-color:#daedf4">
-        <MudItem xs="5" sm="5" Style="text-align:center; margin-top:5em">
+    <MudGrid Justify="Justify.Center" Style="background-color:#daedf4" >
+        <MudItem xs="5" sm="5" Style="text-align:center; margin-top:5em; margin-bottom:15em">
          
             <MudImage Src="images/logo.jpg" Alt="onno2" Elevation="25" Class="rounded-lg" Width="85" Height="85" />
-            <MudText Typo="Typo.h3">PC PROG</MudText>
+            <MudText Typo ="Typo.h4">PC PROG</MudText>
     
-            <MudText Typo="Typo.h3">login</MudText>
+            <MudText Typo="Typo.h4">login</MudText>
 
-            <MudTextField Label="Nombre" Class="border-solid border-2 mud-border-primary pa-0 "  Elevation="0" @bind-Value="@users.Nombre" />
-                               
-               
+            <MudTextField Label="Nombre"  aria-label="delete" Class="border-solid border-2 mud-border-primary pa-0 " Elevation="0" @bind-Value="@users.Nombre" />
+            
             <MudTextField Label="Contraseña" Class="border-solid border-2 mud-border-primary pa-0" Elevation="0" @bind-Value="@users.Contraseña" />
             <MudButton Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>
         </MudItem>       
