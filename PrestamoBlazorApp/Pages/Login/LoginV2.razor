@@ -1,0 +1,36 @@
+﻿@page "/loginEmpresa"
+@inherits BaseForCreateOrEdit
+@using System.ComponentModel.DataAnnotations
+@using PrestamoBlazorApp.Pages.Login
+
+<EditForm Model="@Compañia">
+<DataAnnotationsValidator/>
+<ValidationSummary />
+<MudGrid  Justify="Justify.Center" Style="background-color:#daedf4">
+        <MudItem xs="5" sm="5" Style="text-align:center; margin-top:5em">
+         
+            <MudImage Src="images/logo.jpg" Alt="onno2" Elevation="25" Class="rounded-lg" Width="85" Height="85" />
+            <MudText Typo="Typo.h3">PC PROG</MudText>
+    
+            <MudText Typo="Typo.h3">login</MudText>
+
+            <MudSelect Dense="true" OpenIcon="@Icons.Material.Filled.LocalHotel"  @bind-Value="@Compañia.IdEmpresas" Label="Empresa">
+                <MudSelectItem Value=0>Seleccion la Empresa</MudSelectItem>
+                @foreach (var empresa in EmpresasList)
+                {
+                    <MudSelectItem Value="@empresa.IdEmpresas">@empresa.Empresa</MudSelectItem>
+                }
+            </MudSelect>
+                               
+            <MudSelect Dense="true" @bind-Value="@Compañia.IdEmpresas" Label="Localidad">
+                <MudSelectItem Value=0>Seleccione Localidad</MudSelectItem>
+                @foreach (var empresa in EmpresasList)
+                {
+                    <MudSelectItem Value="@empresa.IdEmpresas">@empresa.Localidad</MudSelectItem>
+                }
+            </MudSelect>
+            <MudButton Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>
+        </MudItem>       
+</MudGrid>
+</EditForm>
+
