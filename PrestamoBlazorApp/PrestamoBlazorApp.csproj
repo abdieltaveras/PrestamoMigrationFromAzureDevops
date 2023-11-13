@@ -62,6 +62,12 @@
   
   
   <ItemGroup>
+    <None Include="wwwroot\Images\logo.jpg" />
+  </ItemGroup>
+
+  
+  
+  <ItemGroup>
     <Reference Include="DevBox.Core.Classes">
       <HintPath>..\SharedDLL\PcProg\DevBox.Core.Classes.dll</HintPath>
     </Reference>
