@@ -22,11 +22,11 @@ namespace PrestamoBlazorApp.Pages.Login
             EmpresasList = new List<Compañias>
             {
 
-            new Compañias { IdEmpresas = 1, Empresa = "Intagsa", Localidad = "La Romana" },
-            new Compañias { IdEmpresas = 2, Empresa = "Papito Prestamo", Localidad = "seibo" },
-            new Compañias { IdEmpresas = 4, Empresa = "FyG", Localidad = "San Pedro de Macoris" },
-            new Compañias { IdEmpresas = 3, Empresa = "castillo Prestamo", Localidad = "Higuey" }
 
+             new Compañias { IdEmpresas = 1, Empresa = "Intagsa", Localidades = new List <string> { "La Romana" } },
+            new Compañias { IdEmpresas = 2, Empresa = "Papito Prestamo", Localidades = new List<string> { "Seibo", "La Romana" } },
+            new Compañias { IdEmpresas = 4, Empresa = "FyG", Localidades = new List<string> { "San Pedro de Macoris","Higuey" } },
+            new Compañias { IdEmpresas = 3, Empresa = "Castillo Prestamo", Localidades = new List<string> { "Higuey" } },
             };
         }
     }  
@@ -36,7 +36,8 @@ namespace PrestamoBlazorApp.Pages.Login
     {
         public int IdEmpresas { get; set; }
         public string Empresa { get; set; }
-        public string Localidad { get; set; }
+        public List<string> Localidades { get; set; }
+       
     }
 
 

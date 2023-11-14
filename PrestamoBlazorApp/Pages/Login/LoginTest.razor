@@ -17,7 +17,7 @@
                
             <MudText Typo="Typo.h4">login</MudText>
 
-            <MudTextField Label="Nombre"  aria-label="delete" Class="border-solid border-2 mud-border-primary pa-0 " Elevation="0" @bind-Value="@users.Nombre" />
+            <MudTextField Label="Nombre"  Class="border-solid border-2 mud-border-primary pa-0 " Elevation="0" @bind-Value="@users.Nombre" />
             
             <MudTextField Label="Contraseña" Class="border-solid border-2 mud-border-primary pa-0" Elevation="0" @bind-Value="@users.Contraseña" />
             <MudButton @onclick='()=>NavigateTo("/loginEmpresa")' Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>
