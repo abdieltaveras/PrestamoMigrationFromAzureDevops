@@ -12,7 +12,7 @@ namespace PrestamoBlazorApp.Pages.Login
 {
     public partial class LoginTest : BaseForCreateOrEdit
     {
-        private Users users { get; set; } = new Users();    
+        private Users users { get; set; } = new Users();
 
 
     }
@@ -21,7 +21,20 @@ namespace PrestamoBlazorApp.Pages.Login
     {
         public string Nombre { get; set; }
         public string Contraseña { get; set; }
+
+
+    }
+
+    public class UserValidator
+    {
+        public bool ValidateUser(string Nombre, string Contraseña)
+        {
+            return Nombre == "usuario" && Contraseña == "contraseña";
+        }
     }
 }
+
+
+
 
 

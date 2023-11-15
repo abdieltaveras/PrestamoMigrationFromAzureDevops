@@ -29,6 +29,7 @@ namespace PrestamoBlazorApp.Pages.Login
                     new Localidad {IdLocalidad=1, Nombre="La Romana" },
                     new Localidad {IdLocalidad=2, Nombre="Rsj" },
                     new Localidad {IdLocalidad=3, Nombre="Sosua" },
+                      new Localidad {IdLocalidad=3, Nombre="Higuey" },
                 } },
                 new Compañias { IdEmpresa = 2, Empresa = "Motoprestamo Richiez (una sola localidad)", Localidades = new List<Localidad> { new Localidad { IdLocalidad = 4, Nombre = "Higuey" } } }
             };

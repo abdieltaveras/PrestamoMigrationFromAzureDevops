@@ -17,9 +17,11 @@
                
             <MudText Typo="Typo.h4">login</MudText>
 
-            <MudTextField Label="Nombre"  Class="border-solid border-2 mud-border-primary pa-0 " Elevation="0" @bind-Value="@users.Nombre" />
-            
-            <MudTextField Label="Contraseña" Class="border-solid border-2 mud-border-primary pa-0" Elevation="0" @bind-Value="@users.Contraseña" />
+            <MudTextField Label="Nombre" Class="border-solid border-2 mud-border-primary pa-0 "  Required="true" RequiredError="User name is required!" Elevation="0" @bind-Value="@users.Nombre" />
+           
+            <MudTextField Label="Contraseña" Class="border-solid border-2 mud-border-primary pa-0" Required="true" RequiredError="User name is required!" Elevation="0" @bind-Value="@users.Contraseña" />
+            <ValidationMessage For="@(() => users.Contraseña)" />
+
             <MudButton @onclick='()=>NavigateTo("/loginEmpresa")' Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>
         </MudItem>       
 </MudGrid>
