@@ -14,7 +14,7 @@
 
             <MudText Typo="Typo.h3">login</MudText>
 
-            <MudSelect Dense="true" OpenIcon="@Icons.Material.Filled.HomeWork" @bind-Value="@CompañiaSeleccionada.IdEmpresa" Label="Empresa">
+            <MudSelect Dense="true" OpenIcon="@Icons.Material.Filled.HomeWork" Value="@IdCompañiaSeleccionada" ValueChanged="@((int id)=>CompaniaChanged(id))" Label="Empresa">
                 <MudSelectItem Value=0>Seleccion la Empresa</MudSelectItem>
                 @foreach (var empresa in EmpresasList)
                 {
@@ -22,10 +22,10 @@
                 }
             </MudSelect>
             @{
-                if (CompañiaSeleccionada.IdEmpresa > 0)
+                if (IdCompañiaSeleccionada > 0)
                 {
 
-                    <MudSelect Dense="true" @bind-Value="@LocalidadSeleccionada" Label="Localidad">
+                    <MudSelect Dense="true" Value="@IdLocalidadSeleccionada" ValueChanged="(int id)=> LocalidadChanged(id)" Label="Localidad">
                         <MudSelectItem  Value="0">Seleccione Localidad</MudSelectItem>
 
                         @foreach (var localidad in @CompañiaSeleccionada.Localidades)
