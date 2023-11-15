@@ -36,7 +36,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetPrestamoCliente()
         {
-            //var ins = new Role { Nombre = "Probando", Usuario = "test", IdNegocio = 1 };
+            //var ins = new Role { Nombre = "Probando", Users = "test", IdNegocio = 1 };
             //var result = new PrestamoBLLC(1, "Test").GetPrestamoCliente(new PrestamoClienteUIGetParam { IdCliente = 1 });
             var result = new PrestamoBLLC(1, "Test").GetPrestamoConDetalle(1, DateTime.Now, false);
 

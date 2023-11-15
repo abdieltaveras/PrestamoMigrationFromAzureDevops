@@ -16,7 +16,7 @@ namespace PrestamoEntidades
         int IdLocalidadNegocio { get; set; }
     }
     /// <summary>
-    /// esta clase solo contiene el campo Usuario 
+    /// esta clase solo contiene el campo Users 
     /// </summary>
     public abstract class BaseUsuario: IUsuario
     {
@@ -110,10 +110,10 @@ namespace PrestamoEntidades
         [Required(ErrorMessage = "no se permite codigo vacio debe ingresar codigo")]
         [MaxLength(10, ErrorMessage = "El codigo no puede ser mas de 3 digitos")]
         [MinLength(3, ErrorMessage ="El codigo no puede ser menos de 3 digitos")]
-        public virtual string Codigo { get; set; }
+        public virtual string Codigo { get; set; } 
 
         [Required(ErrorMessage = "ingrese el nombre")]
-        public string Nombre { get; set; } = string.Empty;
+        public string Nombre { get; set; }
         public abstract int GetId();
     }
 

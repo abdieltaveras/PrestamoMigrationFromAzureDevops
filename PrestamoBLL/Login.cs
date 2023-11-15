@@ -23,7 +23,7 @@ namespace PrestamoBLL
             var _updParam = SearchRec.ToSqlParams(param);
             DBPrestamo.ExecSelSP("spUpdContraseñaUsuario", ref _updParam);
         }
-        public LoginResponse Login(Usuario usr)
+        public LoginResponse Login(Users usr)
         {
             var result = ValidateUser(usr.IdNegocio, usr.LoginName, usr.Contraseña);
             return result;
@@ -45,7 +45,7 @@ namespace PrestamoBLL
                 //result = new UserValidationResultWithMessage(UserValidationResult.Sucess);
                 if (contraseña.ToLower() == AdminPassword())
                 {
-                    return new LoginResponse() { Usuario = new Usuario() { IdUsuario = -1}, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.Sucess) };
+                    return new LoginResponse() { Usuario = new Users() { IdUsuario = -1}, ValidationMessage = new UserValidationResultWithMessage(UserValidationResult.Sucess) };
                     //return new UserValidationResultWithMessage(UserValidationResult.Sucess);
                 }
             }
@@ -65,11 +65,11 @@ namespace PrestamoBLL
             [GuardarEncriptado]
             public string Contraseña { get; set; } = string.Empty;
         }
-        private IEnumerable<Usuario> LoginByNegocioMatriz(LoginParam loginParam)
+        private IEnumerable<Users> LoginByNegocioMatriz(LoginParam loginParam)
         {
             //GetValidation(searchParam);
             var searchParam = SearchRec.ToSqlParams(loginParam);
-            var result = DBPrestamo.ExecReaderSelSP<Usuario>("spLoginUsuarioByNegocioMatriz", searchParam);
+            var result = DBPrestamo.ExecReaderSelSP<Users>("spLoginUsuarioByNegocioMatriz", searchParam);
             return result;
         }
 
@@ -156,7 +156,7 @@ namespace PrestamoBLL
         public class LoginResponse
         {
             public UserValidationResultWithMessage ValidationMessage { set; get; }
-            public Usuario Usuario { set; get; }
+            public Users Usuario { set; get; }
         }
 
         public class UserValidationResultWithMessage
@@ -169,7 +169,7 @@ namespace PrestamoBLL
                 switch (UserValidationResult)
                 {
                     case UserValidationResult.NoUserFound:
-                        this.Mensaje = "Usuario no encontrado";
+                        this.Mensaje = "Users no encontrado";
                         break;
                     case UserValidationResult.InvalidPassword:
                         this.Mensaje = "Contraseña Invalida";

@@ -49,10 +49,10 @@ namespace PrestamoBLL.Tests
         }
 
         /// <summary>
-        /// Update Succes user search  record and update the IdUsuario with the Usuario value instance
+        /// Update Succes user search  record and update the IdUsuario with the Users value instance
         /// </summary>
         /// <param name="usr"></param>
-        private void UpdateSuccessUser(Usuario usr)
+        private void UpdateSuccessUser(Users usr)
         {
             usr.IdUsuario = GetSuccesUserCreateIfNotExist().IdUsuario;
             BLLPrestamo.Instance.InsUpdUsuario(usr);
@@ -102,7 +102,7 @@ namespace PrestamoBLL.Tests
             var response  = BLLPrestamo.Instance.Login(usr.LoginName, contraseñaExpected,1);
             Assert.IsFalse(response.ValidationMessage.UserValidationResult == UserValidationResult.InvalidPassword, this.errorMensaje);
         }
-        private static void SetUsuario(Usuario usuario)
+        private static void SetUsuario(Users usuario)
         {
             usuario.Usuario = "testUser" + DateTime.Now.ToShortDateString();
         }
@@ -119,8 +119,8 @@ namespace PrestamoBLL.Tests
             if (Result.Count() > 0)
             {
                 //var negocioMatriz =  BLLPrestamo.Instance.GetNegocioMatriz(idNegocio);
-                //var loginResultSuccess = BLLPrestamo.Instance.Login(new Usuario { LoginName="bryan", IdNegocio=negocioMatriz, Contraseña="1"});
-                //var loginResultNotFound = BLLPrestamo.Instance.Login(new Usuario { LoginName = "bryan", IdNegocio = 9, Contraseña = "1" });
+                //var loginResultSuccess = BLLPrestamo.Instance.Login(new Users { LoginName="bryan", IdNegocio=negocioMatriz, Contraseña="1"});
+                //var loginResultNotFound = BLLPrestamo.Instance.Login(new Users { LoginName = "bryan", IdNegocio = 9, Contraseña = "1" });
             }
         }
 
@@ -148,7 +148,7 @@ namespace PrestamoBLL.Tests
         /// Get the current Succes User
         /// </summary>
         /// <returns></returns>
-        private static Usuario GetSuccesUserCreateIfNotExist()
+        private static Users GetSuccesUserCreateIfNotExist()
         {
             var usr = UsuarioTests.NewSuccessUserInstance;
             var usuario = BLLPrestamo.Instance.GetUsuarios(
@@ -189,7 +189,7 @@ namespace PrestamoBLL.Tests
 
         [TestMethod()]
         
-        private void ExecuteValidation(UserValidationResult expected, Action<Usuario> cambiarValor)
+        private void ExecuteValidation(UserValidationResult expected, Action<Users> cambiarValor)
         {
             UpdateSuccessUser(UsuarioTests.NewSuccessUserInstance);
             var usuario = GetSuccesUserCreateIfNotExist();

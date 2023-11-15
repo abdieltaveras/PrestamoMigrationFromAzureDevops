@@ -16,13 +16,13 @@ namespace PrestamoBLL.Tests
     {
         string errorMensaje = string.Empty;
 
-        static internal Usuario NewSuccessUserInstance
+        static internal Users NewSuccessUserInstance
         {
             get
             {
-                var usr = new Usuario
+                var usr = new Users
                 {
-                    NombreRealCompleto = "Usuario para pruebas BllTest",
+                    NombreRealCompleto = "Users para pruebas BllTest",
                     LoginName = "BllTest",
                     Contraseña = "1",
                     Telefono1 = "829-961-9141",
@@ -130,10 +130,10 @@ namespace PrestamoBLL.Tests
 
 
         /// <summary>
-        /// Update Succes user search  record and update the IdUsuario with the Usuario value instance
+        /// Update Succes user search  record and update the IdUsuario with the Users value instance
         /// </summary>
         /// <param name="usr"></param>
-        private void UpdateSuccessUser(Usuario usr)
+        private void UpdateSuccessUser(Users usr)
         {
             usr.IdUsuario = GetSuccesUser().IdUsuario;
             BLLPrestamo.Instance.InsUpdUsuario(usr);
@@ -163,7 +163,7 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(currentNombreRealCompleto == expectedNombreReal, this.errorMensaje);
         }
 
-        private static void SetUsuario(Usuario usuario)
+        private static void SetUsuario(Users usuario)
         {
             usuario.Usuario = "testUser" + DateTime.Now.ToShortDateString();
         }
@@ -173,7 +173,7 @@ namespace PrestamoBLL.Tests
         /// Get the current Succes User
         /// </summary>
         /// <returns></returns>
-        private Usuario GetSuccesUser()
+        private Users GetSuccesUser()
         {
             var usr = NewSuccessUserInstance;
             var usuario = BLLPrestamo.Instance.GetUsuarios(new UsuarioGetParams { LoginName = usr.LoginName, IdNegocio = 1 }).FirstOrDefault();

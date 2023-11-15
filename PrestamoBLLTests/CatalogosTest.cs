@@ -46,7 +46,7 @@ namespace PrestamoBLL.Tests
 
             //var ocupacionMecanico = catalogos.Where(item => item.Nombre == "Mecanico").FirstOrDefault();
 
-            //var ocupacionABorrar = new BaseCatalogoDeleteParams { IdNombreColumna = "IdOcupacion", NombreTabla = "TblOcupaciones", IdRegistro = ocupacionMecanico.GetId(), Usuario = TestInfo.Usuario };
+            //var ocupacionABorrar = new BaseCatalogoDeleteParams { IdNombreColumna = "IdOcupacion", NombreTabla = "TblOcupaciones", IdRegistro = ocupacionMecanico.GetId(), Users = TestInfo.Users };
 
             //BLLPrestamo.Instance.DeleteCatalogo(ocupacionABorrar);
         }

@@ -14,8 +14,37 @@ namespace PrestamoBlazorApp.Pages.Login
     {
         private Users users { get; set; } = new Users();
 
+        private IEnumerable<Users> UserList { get; set; } = new List<Users>();
+        protected override void OnInitialized()
+        {
+            UserList= new List<Users>
+            {
+                new Users { Nombre = "RANDY", Contraseña = "1438" },
+                new Users { Nombre = "CRISTAL ", Contraseña = "1235" },
+                new Users { Nombre = "CARLOS", Contraseña = "carlos145" }
+            };
+
+            base.OnInitialized();
+            
+        
+        }
+
+        
+          
+    
+      private  async Task ValidateUser( Users users)
+      {
+
+            UserList.Any(u =>
+            u.Nombre == users.Nombre &&
+            u.Contraseña == users.Contraseña);
+      }
+
 
     }
+
+
+ }
 
     public class Users
     {
@@ -25,14 +54,8 @@ namespace PrestamoBlazorApp.Pages.Login
 
     }
 
-    public class UserValidator
-    {
-        public bool ValidateUser(string Nombre, string Contraseña)
-        {
-            return Nombre == "usuario" && Contraseña == "contraseña";
-        }
-    }
-}
+  
+
 
 
 
