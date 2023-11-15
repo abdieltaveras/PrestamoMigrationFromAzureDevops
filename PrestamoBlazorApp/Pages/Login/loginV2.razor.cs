@@ -36,7 +36,7 @@ namespace PrestamoBlazorApp.Pages.Login
 
         }
 
-        private async Task  CompaniaChanged(int idCompañia)
+        private async Task  OnCompaniaChanged(int idCompañia)
         {
             IdCompañiaSeleccionada = idCompañia;
             var value = EmpresasList.FirstOrDefault(item => item.IdEmpresa == idCompañia);
@@ -45,7 +45,7 @@ namespace PrestamoBlazorApp.Pages.Login
             IdLocalidadSeleccionada = 0;
             
         }
-        private async Task LocalidadChanged(int idLocalidad)
+        protected async Task OnLocalidadChanged(int idLocalidad)
         {
             IdLocalidadSeleccionada = idLocalidad;
             LocalidadSeleccionada = CompañiaSeleccionada.Localidades.FirstOrDefault(item => item.IdLocalidad == idLocalidad); 
