@@ -23,16 +23,53 @@ namespace PrestamoBlazorApp.Pages.Login
         public string Contraseña { get; set; }
 
 
-    }
-
-    public class UserValidator
-    {
-        public bool ValidateUser(string Nombre, string Contraseña)
+        public class UserListModel
         {
-            return Nombre == "usuario" && Contraseña == "contraseña";
+            public List<Users> Users { get; set; } = new List<Users>();
+
+            public void AddUser(Users newUser)
+            {
+
+                Users.Add(newUser);
+
+            }
         }
+        public class UserValidator
+        {
+            public bool ValidateUser(string Nombre, string Contraseña)
+            {
+                return Nombre == "usuario" && Contraseña == "contraseña";
+
+
+            }
+
+
+            private Users users = new Users();
+            private string errorMessage;
+
+            private void HandleValidSubmit()
+            {
+                UserValidator validator = new UserValidator();
+
+                // Validar el usuario utilizando la clase UserValidator
+                if (validator.ValidateUser(users.Nombre, users.Contraseña))
+                {
+                    // Usuario autenticado con éxito
+                    // Puedes redirigir a otra página, establecer información de sesión, etc.
+                    // NavigationManager.NavigateTo("/pagina-siguiente");
+                }
+                else
+                {
+                    // Autenticación fallida, puedes mostrar un mensaje de error en la interfaz de usuario.
+                    errorMessage = "Credenciales incorrectas";
+                }
+            }
+
+        }
+
     }
 }
+
 
 
 
