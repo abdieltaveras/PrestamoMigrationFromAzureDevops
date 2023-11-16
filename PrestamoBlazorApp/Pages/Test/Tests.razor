@@ -1,6 +1,10 @@
 ﻿@page "/test"
 @inherits BaseForCreateOrEdit
+<h3>PruebaInyeccion:  @_Name</h3>
+
+<MudButton @onclick="TestInyeccion" Variant="Variant.Filled" title="para ejecutar las tareas asincrona correctamente" Color="MudBlazor.Color.Primary"> TestPruebaInjeccion </MudButton>
 <h3>AsyncUnderstanding</h3>
+
 <MudButton @onclick="TestAsyncOk"  Variant="Variant.Filled"  title="para ejecutar las tareas asincrona correctamente" Color="MudBlazor.Color.Primary"  > Test Async Ok </MudButton>
 <MudButton @onclick="TestAsyncBad" Variant="Variant.Filled" title="para ejecutar las tareas asincrona incorrectamente" Color="MudBlazor.Color.Primary"> Test Async bad </MudButton>
 <h3>Otros</h3>

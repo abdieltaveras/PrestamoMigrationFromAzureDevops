@@ -24,7 +24,7 @@ namespace PrestamoBLL.Tests
                 {
                     NombreRealCompleto = "Users para pruebas BllTest",
                     LoginName = "BllTest",
-                    Contraseña = "1",
+                    Password = "1",
                     Telefono1 = "829-961-9141",
                     Usuario = "UsuarioTest",
                     CorreoElectronico = "abdieltaveras@hotmail.com",

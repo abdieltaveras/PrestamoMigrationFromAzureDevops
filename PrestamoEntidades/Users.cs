@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrestamoEntidades
 {
-    public class Users: BaseInsUpd
+    public class Usuario: BaseInsUpd
     {
         [Required]
         public int IdUsuario { get; set; } = 0;
@@ -17,12 +17,12 @@ namespace PrestamoEntidades
         public string NombreRealCompleto { get; set; } = string.Empty;
         [Required]
         [MaxLength(50)]
-        [Display(Name = "Nombre de Users para iniciar sesion")]
+        [Display(Name = "Nombre de Usuario para iniciar sesion")]
         [RegularExpression(@"^\S*$", ErrorMessage = "No se permiten espacios en blanco")]
         public string LoginName { get; set; } = string.Empty;
         [GuardarEncriptado]
         [DataType(DataType.Password)]
-        public string Contraseña { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
         [EmailAddress]
         [Display(Name = "Correo Electronico")]
         public string CorreoElectronico { get; set; } = string.Empty;

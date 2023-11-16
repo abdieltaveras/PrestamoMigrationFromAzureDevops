@@ -110,6 +110,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="DevBox.Core.BLL">
+      <HintPath>..\SharedDLL\DevBox.Core.BLL.dll</HintPath>
+    </Reference>
+    <Reference Include="DevBox.Core.Classes">
+      <HintPath>..\SharedDLL\DevBox.Core.Classes.dll</HintPath>
+    </Reference>
+    <Reference Include="DevBox.Core.Dal">
+      <HintPath>..\SharedDLL\DevBox.Core.Dal.dll</HintPath>
+    </Reference>
     <Reference Include="HESRAM.Utils">
       <HintPath>..\SharedDLL\HESRAM\HESRAM.Utils.dll</HintPath>
     </Reference>
@@ -120,7 +129,6 @@
     <Folder Include="ImagesFor\Codeudores\" />
     <Folder Include="ImagesFor\Inversionistas\" />
     <Folder Include="ImagesFor\Deleted\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

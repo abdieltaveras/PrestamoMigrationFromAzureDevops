@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PrestamoBlazorApp.Services;
+using PrestamoBlazorApp.Services.Pruebas;
 using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
 using System;
@@ -12,6 +13,10 @@ namespace PrestamoBlazorApp.Pages.Test
 {
     public partial class Tests : BaseForCreateOrEdit
     {
+        string _Name { get; set; }
+        [Inject]
+        ServicioPruebas _ServicioPruebas { get; set; }
+
         [Inject]
         TestService testService { get; set; }
         protected override Task OnAfterRenderAsync(bool firstRender)
@@ -24,6 +29,11 @@ namespace PrestamoBlazorApp.Pages.Test
             var result = await testService.GetLocalidadesNegocioTest();
         }
 
+        private async Task TestInyeccion()
+        {
+            var result = _ServicioPruebas.GetName("Luis");
+            _Name = result;
+        }
 
         private async Task TestAsyncOk()
         {
