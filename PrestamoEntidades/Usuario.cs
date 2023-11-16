@@ -22,7 +22,7 @@ namespace PrestamoEntidades
         public string LoginName { get; set; } = string.Empty;
         [GuardarEncriptado]
         [DataType(DataType.Password)]
-        public string Contraseña { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
         [EmailAddress]
         [Display(Name = "Correo Electronico")]
         public string CorreoElectronico { get; set; } = string.Empty;

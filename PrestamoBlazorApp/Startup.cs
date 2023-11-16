@@ -16,6 +16,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using MudBlazor;
 using MudBlazor.Services;
+using PrestamoBlazorApp.Services.Pruebas;
 
 namespace PrestamoBlazorApp
 {
@@ -84,7 +85,9 @@ namespace PrestamoBlazorApp
             services.AddScoped<LocalizadoresService>();
             services.AddScoped<PrestamosEstatusService>();
             services.AddScoped<NegociosService>();
+            services.AddScoped<ServicioPruebas>();
 
+            //services.AddSingleton<IServicioPruebas, ServicioPruebas>();
 
 
         }

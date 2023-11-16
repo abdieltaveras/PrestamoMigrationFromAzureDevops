@@ -25,7 +25,7 @@ namespace PrestamoBLL
         }
         public LoginResponse Login(Usuario usr)
         {
-            var result = ValidateUser(usr.IdNegocio, usr.LoginName, usr.Contraseña);
+            var result = ValidateUser(usr.IdNegocio, usr.LoginName, usr.Password);
             return result;
         }
         /// <summary>
