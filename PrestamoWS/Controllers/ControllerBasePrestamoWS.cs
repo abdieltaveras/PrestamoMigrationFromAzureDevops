@@ -77,7 +77,7 @@ namespace PrestamoWS.Controllers
         //        IdDispositivo = 1,
         //        IdLocalidadNegocio = 1,
         //        IdUsuario = 1,
-        //        Usuario = "UsrDevelopement"
+        //        Users = "UsrDevelopement"
         //    };
         //}
 

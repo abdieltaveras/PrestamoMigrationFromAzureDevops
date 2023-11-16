@@ -14,10 +14,10 @@ namespace PrestamoBLL
     public partial class BLLPrestamo
     {
         
-        public IEnumerable<Usuario> GetUsuarios(UsuarioGetParams searchParam)
+        public IEnumerable<Users> GetUsuarios(UsuarioGetParams searchParam)
         {
             //GetValidation(searchParam);
-            return BllAcciones.GetData<Usuario, UsuarioGetParams>(searchParam, "spGetUsuarios", GetValidation);
+            return BllAcciones.GetData<Users, UsuarioGetParams>(searchParam, "spGetUsuarios", GetValidation);
         }
 
         public IEnumerable<UsuarioRole> UserRolesSearch(BuscarUserRolesParams searchParam)
@@ -30,7 +30,7 @@ namespace PrestamoBLL
             return BllAcciones.GetData<UsuarioRole, BuscarUserRolesParams>(searchParam, "spBuscarTodosUsuarioRoles", GetValidation);
         }
 
-        public int InsUpdUsuario(Usuario insUpdParam, string from = "")
+        public int InsUpdUsuario(Users insUpdParam, string from = "")
         {
             
             if ((insUpdParam.LoginName.ToLower() == "admin") && (from != bllUser))
@@ -43,7 +43,7 @@ namespace PrestamoBLL
                 throw new Exception("La fecha de vigencia de la cuenta no es valida debe ser mayor a la de hoy");
             }
             insUpdParam.LoginName = insUpdParam.LoginName.ToLower();
-            return BllAcciones.InsUpdData<Usuario>(insUpdParam, "spInsUpdUsuario");
+            return BllAcciones.InsUpdData<Users>(insUpdParam, "spInsUpdUsuario");
         }
 
         public void DeleteUsuario(int idUsuario, string usuario )

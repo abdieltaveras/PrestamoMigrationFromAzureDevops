@@ -26,7 +26,7 @@ namespace PrestamoEntidades
         /// </summary>
         public string Usuario { get; set; }
         /// <summary>
-        /// El id del Usuario
+        /// El id del Users
         /// </summary>
         public int IdUsuario { get; set; }
         /// <summary>

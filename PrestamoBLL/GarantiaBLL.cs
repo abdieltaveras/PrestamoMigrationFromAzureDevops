@@ -21,7 +21,7 @@ namespace PrestamoBLL
         {
             var searchParams = new SearchRec();
             searchParams.AddParam("search", search);
-            //searchParams.AddParam("usuario", searchParam.Usuario);
+            //searchParams.AddParam("usuario", searchParam.Users);
             var result = this.Get<GarantiaConMarcaYModelo>("spBuscarGarantias", searchParams.ToSqlParams());
             return result;
         }

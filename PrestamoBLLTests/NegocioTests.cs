@@ -69,7 +69,7 @@ namespace PrestamoBLL.Tests
         //{
 
         //    mensajeError = string.Empty;
-        //    var result = GetNegocios(new NegociosGetParams { Usuario="testNegocio" }).FirstOrDefault();
+        //    var result = GetNegocios(new NegociosGetParams { Users="testNegocio" }).FirstOrDefault();
         //    Assert.IsTrue(result!=null, "no existen negocios en la tabla");
         //}
 
@@ -109,7 +109,7 @@ namespace PrestamoBLL.Tests
         //    mensajeError = string.Empty;
         //    var negocioAActualizar = GetNegocioIntagsa(getParam);
         //    negocioAActualizar.NombreComercial+= "Modificado";
-        //    negocioAActualizar.Usuario = "NegocioTest";
+        //    negocioAActualizar.Users = "NegocioTest";
 
         //    negocioAActualizar.CorreoElectronico = "intagsa@hotmail.com";
         //    var nombreEsperado = negocioAActualizar.NombreComercial;
@@ -130,7 +130,7 @@ namespace PrestamoBLL.Tests
         //[TestMethod()]
         //public void GetNegocios_PermitirOperaciones()
         //{
-        //    var getParam = new NegociosGetParams { IdNegocio = -1, PermitirOperaciones=1, Usuario=TestInfo.Usuario };
+        //    var getParam = new NegociosGetParams { IdNegocio = -1, PermitirOperaciones=1, Users=TestInfo.Users };
         //    mensajeError = "No se encontro informacion";
         //    var result = GetNegocios(getParam);
         //    Assert.IsTrue(result.Count() > 0 && result.FirstOrDefault().PermitirOperaciones, mensajeError);
@@ -158,7 +158,7 @@ namespace PrestamoBLL.Tests
         //[TestMethod()]
         //public void GetNegocios_NotPermitirOperaciones()
         //{
-        //    var getParam = new NegociosGetParams { IdNegocio = -1, PermitirOperaciones = 0, Usuario = TestInfo.Usuario };
+        //    var getParam = new NegociosGetParams { IdNegocio = -1, PermitirOperaciones = 0, Users = TestInfo.Users };
         //    mensajeError = "No se econtro informacion";
         //    var result = GetNegocios(getParam);
         //    Assert.IsTrue(result.Count() > 0 && !result.FirstOrDefault().PermitirOperaciones, mensajeError);
@@ -171,7 +171,7 @@ namespace PrestamoBLL.Tests
         //{
         //    var negocio = GetNegocios(GetParamNegocioIntangsa()).FirstOrDefault();
         //    negocio.IdNegocio = 0;
-        //    negocio.Usuario = "NegocioTest";
+        //    negocio.Users = "NegocioTest";
         //    negocio.TaxIdNo = negocio.TaxIdNo + "xxx";
         //    mensajeError = string.Empty;
         //    bool ocurrioError = false;
@@ -210,7 +210,7 @@ namespace PrestamoBLL.Tests
         //    var negociosHijosQuePermitenOperaciones = new List<Negocio>();
         //    if (login.ValidationMessage.UserValidationResult == UserValidationResult.Sucess)
         //    {
-        //        var idNegocio = login.Usuario.IdNegocio;
+        //        var idNegocio = login.Users.IdNegocio;
         //        var negociosHijos = BLLPrestamo.Instance.GetNegocioYSusHijos(idNegocio);
         //        negociosHijosQuePermitenOperaciones = negociosHijos.Where(neg => neg.PermitirOperaciones).ToList();
         //    }
@@ -290,7 +290,7 @@ namespace PrestamoBLL.Tests
         //{
         //    var negocioInfo = new NegocioInfo { Direccion1 = "Prol. Gregorio Luperon no 12, Villa España", Direccion2 = "La Romana Rep. Dom.", Telefono1 = "809-813-1719" };
         //    InfoAccion infoAccion = CreateInfoUAccion();
-        //    var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo = "int001",  Usuario = "TestProject",  Logo = "papito.png" };
+        //    var negocio = new Negocio { NombreComercial = "Intagsa", NombreJuridico = "Intagsa SRL", TaxIdNo = "112108236", Codigo = "int001",  Users = "TestProject",  Logo = "papito.png" };
         //    return negocio;
         //}
 
@@ -301,7 +301,7 @@ namespace PrestamoBLL.Tests
         //        IdAplicacion = 1,
         //        IdLocalidad = 1,
         //        IdUsuario = 0,
-        //        Usuario = "NegocioTest"
+        //        Users = "NegocioTest"
         //    };
         //}
 

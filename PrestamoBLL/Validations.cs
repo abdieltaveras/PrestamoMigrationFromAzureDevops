@@ -27,9 +27,9 @@ namespace PrestamoBLL
         /// 
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="propName">the property name default Usuario </param>
+        /// <param name="propName">the property name default Users </param>
         /// <exception cref="NullReferenceException"></exception>
-        internal static void StringNotEmptyOrNull(string value, string propName="Usuario")
+        internal static void StringNotEmptyOrNull(string value, string propName="Users")
         {
             if (string.IsNullOrEmpty(value))
                 throw new NullReferenceException($"El valor de {propName} no puede ser vacio o nulo");

@@ -15,7 +15,7 @@ namespace PrestamoWS.Controllers
     public class UsuariosController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Usuario> Get([FromQuery] UsuarioGetParams getParams)
+        public IEnumerable<Users> Get([FromQuery] UsuarioGetParams getParams)
         {
             //GetValidation(searchParam);
             return BLLPrestamo.Instance.GetUsuarios(getParams);
@@ -32,7 +32,7 @@ namespace PrestamoWS.Controllers
             return BLLPrestamo.Instance.UserRolesSearchAll(getParams);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Usuario usuario, string from = "")
+        public IActionResult Post([FromBody] Users usuario, string from = "")
         {
             try
             {

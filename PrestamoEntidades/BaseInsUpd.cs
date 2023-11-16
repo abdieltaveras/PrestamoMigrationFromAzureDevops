@@ -16,7 +16,7 @@ namespace PrestamoEntidades
         int IdLocalidadNegocio { get; set; }
     }
     /// <summary>
-    /// esta clase solo contiene el campo Usuario 
+    /// esta clase solo contiene el campo Users 
     /// </summary>
     public abstract class BaseUsuario: IUsuario
     {

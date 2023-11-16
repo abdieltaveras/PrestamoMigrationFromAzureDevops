@@ -20,7 +20,7 @@ namespace PrestamoBLL
 
         public IEnumerable<Negocio> GetNegocios(NegociosGetParams searchParam)
         {
-            //ThrowErrorIfUsuarioEmptyOrNull(searchParam.Usuario);
+            //ThrowErrorIfUsuarioEmptyOrNull(searchParam.Users);
             IEnumerable<Negocio> result = new List<Negocio>();
             try
             {
@@ -170,7 +170,7 @@ namespace PrestamoBLL
             //    var negocio = new Negocio
             //    {
             //        NombreComercial = "Empresa Nueva",
-            //        Usuario = "InitSis",
+            //        Users = "InitSis",
             //    };
             //    NegocioinsUpd(negocio);
             //    return 1;

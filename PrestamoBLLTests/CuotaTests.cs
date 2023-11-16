@@ -65,7 +65,7 @@ namespace PrestamoBLL.Tests
                 CargarInteresAlGastoDeCierre = true,
             };
 
-            //var result = new TasaInteresBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).CalcularTasaInteresPorPeriodos (tasaDeInteres.InteresMensual,prestamo.Periodo);
+            //var result = new TasaInteresBLL(prestamo.IdLocalidadNegocio, prestamo.Users).CalcularTasaInteresPorPeriodos (tasaDeInteres.InteresMensual,prestamo.Periodo);
             //var tasaDeInteresDelPeriodo = result.InteresDelPeriodo;
 
             IEnumerable<CxCCuota> cuotas = null;

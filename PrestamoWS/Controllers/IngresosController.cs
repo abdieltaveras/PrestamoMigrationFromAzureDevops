@@ -24,7 +24,7 @@ namespace PrestamoWS.Controllers
         {
             //
             //var getParam = new IngresoGetParams { IdIngreso= idIngreso,FechaDesde= FechaDesde, FechaHasta= fechaHasta,
-            //                IdLocalidadNegocio= idLocalidadNegocio, NumeroTransaccion= numeroTransaccion, Usuario = this.LoginName} ;
+            //                IdLocalidadNegocio= idLocalidadNegocio, NumeroTransaccion= numeroTransaccion, Users = this.LoginName} ;
             var data = BLLPrestamo.Instance.GetIngresos(getParams);
 
             return data;

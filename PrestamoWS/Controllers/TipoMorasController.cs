@@ -31,7 +31,7 @@ namespace PrestamoWS.Controllers
         //[HttpPost]
         private IActionResult _Post([FromBody] TipoMora tipoMora)
         {
-            //tipoMora.Usuario = this.LoginName;
+            //tipoMora.Users = this.LoginName;
             //tipoMora.IdLocalidadNegocio = this.IdLocalidadNegocio;
             //tipoMora.IdNegocio = 1;
             //var id =   BLLPrestamo.Instance.InsUpdTipoMora(tipoMora);

@@ -21,7 +21,7 @@ namespace PrestamoWS.Controllers
     public class AccountController : ControllerBasePrestamoWS
     {
         [HttpGet]
-        public IEnumerable<Usuario> GetAll()
+        public IEnumerable<Users> GetAll()
         {
             var usrGetParams = new UsuarioGetParams { IdLocalidadNegocio = this.IdLocalidadNegocio};
             var data = BLLPrestamo.Instance.GetUsuarios(usrGetParams);
@@ -29,7 +29,7 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpGet]
-        public Usuario Get(string loginName, int idUsuario=-1)
+        public Users Get(string loginName, int idUsuario=-1)
         {
             var usrGetParams = new UsuarioGetParams { LoginName = loginName, IdUsuario=idUsuario, IdLocalidadNegocio = IdLocalidadNegocio};
             var data = BLLPrestamo.Instance.GetUsuarios(usrGetParams);
@@ -46,7 +46,7 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Usuario usuario)
+        public IActionResult Post(Users usuario)
         {
             try
             {

@@ -30,7 +30,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void EqualitySuccessTest()
         {
-            decimal expected = 30;
+            PositiveDecimal expected = 30;
             PositiveDecimal monto = expected;
             var areEqual = monto == expected;
             Assert.IsTrue(areEqual, $"la comparacion de igualdad no fue exitosa");

@@ -79,14 +79,14 @@ namespace PrestamoBLL
     //    private async Task SetPrestamo(Prestamo prestamo)
     //    {
     //        BLLValidations.ValueGreaterThanZero(prestamo.IdLocalidadNegocio, "Id Localidad negocio");
-    //        BLLValidations.StringNotEmptyOrNull(prestamo.Usuario, "Usuario");
+    //        BLLValidations.StringNotEmptyOrNull(prestamo.Users, "Users");
     //        // hay que enviar usuario e idlocalidad
-    //        //_TipoMoraBLL = new TipoMoraBLL(prestamo.IdLocalidadNegocio,prestamo.Usuario);
-    //        //_PeriodoBLL = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario);
+    //        //_TipoMoraBLL = new TipoMoraBLL(prestamo.IdLocalidadNegocio,prestamo.Users);
+    //        //_PeriodoBLL = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Users);
     //        var clasificaciones = BLLPrestamo.Instance.GetClasificaciones(new ClasificacionesGetParams { IdNegocio = prestamo.IdNegocio });
-    //        var tiposMora = new TipoMoraBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamo.IdNegocio });
-    //        var tasasDeInteres = new TasaInteresBLL(prestamo.IdLocalidadNegocio,prestamo.Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamo.IdNegocio});
-    //        var periodos = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = prestamo.IdNegocio });
+    //        var tiposMora = new TipoMoraBLL(prestamo.IdLocalidadNegocio, prestamo.Users).GetTiposMoras(new TipoMoraGetParams { IdNegocio = prestamo.IdNegocio });
+    //        var tasasDeInteres = new TasaInteresBLL(prestamo.IdLocalidadNegocio,prestamo.Users).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = prestamo.IdNegocio});
+    //        var periodos = new PeriodoBLL(prestamo.IdLocalidadNegocio, prestamo.Users).GetPeriodos(new PeriodoGetParams { IdNegocio = prestamo.IdNegocio });
 
     //        prestamoInProgress = new PrestamoConCalculos();
     //        prestamoInProgress = prestamo.ToJson().ToType<PrestamoConCalculos>();
