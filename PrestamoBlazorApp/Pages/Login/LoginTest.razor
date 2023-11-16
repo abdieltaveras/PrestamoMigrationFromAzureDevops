@@ -23,6 +23,7 @@
             <ValidationMessage For="@(() => users.Contraseña)" />
 
             <MudButton @onclick='()=>NavigateTo("/loginEmpresa")' Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>
+            <MudButton @onclick='()=> HandleValidSubmit()' Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Validar</MudButton>
         </MudItem>       
 </MudGrid>
 </EditForm>
