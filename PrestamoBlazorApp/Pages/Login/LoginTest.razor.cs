@@ -13,7 +13,7 @@ namespace PrestamoBlazorApp.Pages.Login
 {
     public partial class LoginTest : BaseForCreateOrEdit
     {
-        [Inject] private IDialogService DialogService { get; set; }
+        
         private Users users { get; set; } = new Users();
 
         private IEnumerable<Users> UserList { get; set; } = new List<Users>();
@@ -30,23 +30,14 @@ namespace PrestamoBlazorApp.Pages.Login
 
 
         }
-
-
         private bool ValidateUser(Users users)
         {
-
-          return  UserList.Any(u => u.Nombre == users.Nombre && u.Contraseña == users.Contraseña);
-            
-            
-
+          return 
+          UserList.Any(u => u.Nombre == users.Nombre && u.Contraseña == users.Contraseña);
         }
-
           private async Task HandleValidSubmit()
           {
-            
             var ValidatedUser =  ValidateUser(users);
-
-
             // Validar el usuario utilizando la clase UserValidator
             if (ValidatedUser)
             {
@@ -61,25 +52,15 @@ namespace PrestamoBlazorApp.Pages.Login
                 await NotifyMessageBySnackBar("Credenciales incorrectas", Severity.Error);
                 users.Nombre = string.Empty;
                 users.Contraseña = string.Empty;
-
                 //private async Task NotImplementedMessage() => await Task.Run(() => Snackbar.Add("Opcion no implementada o revisar la url y asignarla", Severity.Warning));
                 //Snackbar.Add("Opcion no implementada o revisar la url y asignarla", Severity.Warning));
-
-
             }
 
 
 
-        }
+          }
 
     }
-
-
-
-
-
-
-
 
 }
 
