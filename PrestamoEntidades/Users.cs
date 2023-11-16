@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrestamoEntidades
 {
-    public class Usuario: BaseInsUpd
+    public class Users: BaseInsUpd
     {
         [Required]
         public int IdUsuario { get; set; } = 0;

@@ -20,6 +20,7 @@ namespace PrestamoBLL
         /// <returns></returns>
         public void ChangePassword(ChangePassword param)
         {
+            
             var _updParam = SearchRec.ToSqlParams(param);
             DBPrestamo.ExecSelSP("spUpdContraseñaUsuario", ref _updParam);
         }

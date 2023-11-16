@@ -22,7 +22,7 @@ namespace PrestamoBLL.Tests
             {
                 var usr = new Users
                 {
-                    NombreRealCompleto = "Users para pruebas BllTest",
+                    NombreRealCompleto = "Usuario para pruebas BllTest",
                     LoginName = "BllTest",
                     Password = "1",
                     Telefono1 = "829-961-9141",
@@ -130,7 +130,7 @@ namespace PrestamoBLL.Tests
 
 
         /// <summary>
-        /// Update Succes user search  record and update the IdUsuario with the Users value instance
+        /// Update Succes user search  record and update the IdUsuario with the Usuario value instance
         /// </summary>
         /// <param name="usr"></param>
         private void UpdateSuccessUser(Users usr)

@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="DevBox.Core.BLL">
+      <HintPath>..\SharedDLL\DevBox.Core.BLL.dll</HintPath>
+    </Reference>
     <Reference Include="DevBox.Core.Classes">
       <HintPath>..\SharedDLL\EMTSoft\BaseClasses\DevBox.Core.Classes.dll</HintPath>
     </Reference>

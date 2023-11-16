@@ -49,7 +49,7 @@ namespace PrestamoBLL.Tests
         }
 
         /// <summary>
-        /// Update Succes user search  record and update the IdUsuario with the Users value instance
+        /// Update Succes user search  record and update the IdUsuario with the Usuario value instance
         /// </summary>
         /// <param name="usr"></param>
         private void UpdateSuccessUser(Users usr)
@@ -119,8 +119,8 @@ namespace PrestamoBLL.Tests
             if (Result.Count() > 0)
             {
                 //var negocioMatriz =  BLLPrestamo.Instance.GetNegocioMatriz(idNegocio);
-                //var loginResultSuccess = BLLPrestamo.Instance.Login(new Users { LoginName="bryan", IdNegocio=negocioMatriz, Contraseña="1"});
-                //var loginResultNotFound = BLLPrestamo.Instance.Login(new Users { LoginName = "bryan", IdNegocio = 9, Contraseña = "1" });
+                //var loginResultSuccess = BLLPrestamo.Instance.Login(new Usuario { LoginName="bryan", IdNegocio=negocioMatriz, Contraseña="1"});
+                //var loginResultNotFound = BLLPrestamo.Instance.Login(new Usuario { LoginName = "bryan", IdNegocio = 9, Contraseña = "1" });
             }
         }
 
