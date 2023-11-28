@@ -60,11 +60,6 @@ namespace PrestamoBLL.Tests
             Func<bool> condicion = () => tinfo.MensajeError == string.Empty;
             try
             {
-
-                var result1 = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var result2 = System.Configuration.ConfigurationManager.ConnectionStrings;
-                var result3 = ConfigurationManager.AppSettings;
-
                 var periodo = new PeriodoBLL(1, TestInfo.Usuario).GetPeriodos(new PeriodoGetParams { idPeriodo = -1 });
             }
             catch (Exception e)

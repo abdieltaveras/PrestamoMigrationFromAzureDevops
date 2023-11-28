@@ -18,7 +18,8 @@ namespace PrestamoBLL.Tests
             try
             {
                 var user = new UsersManager();
-                var us = user.GetUser(new Guid("4dca1e76-e8e1-ec11-9ffc-00155e016707"));
+                var us = user.GetUser("abdiel");
+                    //user.GetUser(new Guid("4dca1e76-e8e1-ec11-9ffc-00155e016707"));
             }
             catch (Exception e)
             {
