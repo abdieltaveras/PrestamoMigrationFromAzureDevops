@@ -5,7 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder1\**" />
+    <EmbeddedResource Remove="NewFolder1\**" />
+    <None Remove="NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
@@ -17,13 +24,13 @@
 
   <ItemGroup>
     <Reference Include="DevBox.Core.BLL">
-      <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.BLL.dll</HintPath>
+      <HintPath>..\SharedDLL\DevBoxSofNet6\DevBox.Core.BLL.dll</HintPath>
     </Reference>
     <Reference Include="DevBox.Core.Classes">
-      <HintPath>..\SharedDLL\EMTSoft\BaseClasses\DevBox.Core.Classes.dll</HintPath>
+      <HintPath>..\SharedDLL\DevBoxSofNet6\DevBox.Core.Classes.dll</HintPath>
     </Reference>
     <Reference Include="DevBox.Core.Dal">
-      <HintPath>..\SharedDLL\EMTSoft\DalCore\DevBox.Core.Dal.dll</HintPath>
+      <HintPath>..\SharedDLL\DevBoxSofNet6\DevBox.Core.Dal.dll</HintPath>
     </Reference>
     <Reference Include="HESRAM.Utils">
       <HintPath>..\SharedDLL\HESRAM\HESRAM.Utils.dll</HintPath>
@@ -32,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="System\" />
   </ItemGroup>
 
 </Project>

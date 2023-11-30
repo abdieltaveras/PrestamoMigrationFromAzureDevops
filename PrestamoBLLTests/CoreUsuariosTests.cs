@@ -13,41 +13,53 @@ namespace PrestamoBLL.Tests
     public class CoreUsuariosTests
     {
         [TestMethod()]
-        public void GetUserByNameFromBll()
-        {
-            try
-            {
-                var user = new UsersManager();
-                var us = user.GetUser("abdiel");
-                    //user.GetUser(new Guid("4dca1e76-e8e1-ec11-9ffc-00155e016707"));
-            }
-            catch (Exception e)
-            {
-                var message = e.Message;
-            }
-            
-            Assert.Fail();
-        }
-        [TestMethod()]
-        public void GetUserByIdFromDb()
+        public void GetUserByName()
         {
             string exceptionMessage = string.Empty;
-            
-            var users = new UsersManager().GetUsers(null, string.Empty, string.Empty, string.Empty, true);
-
-            var user = users.FirstOrDefault();
-            
+            CoreUser user = null;
             try
             {
-                user = new UsersManager().GetUser(user.UserID);
-                var actions = (user.Actions ?? ActionList.Empty).Filter(ActionListFilters.Allowed);
+                var users = GetAllUsers();
+                var firstUser = users.FirstOrDefault();
+                user = new UsersManager().GetUser(firstUser.UserName);
+                if (user == null)
+                {
+                    exceptionMessage = "algo fallo que no se pudo obtener el usuario por el nombre revisar";
+                }
             }
             catch (Exception e)
             {
                 exceptionMessage = e.Message;
             }
 
-            Assert.IsTrue(exceptionMessage!=string.Empty,"no se hallaron acciones para el usuario guid ");
+            Assert.IsTrue(exceptionMessage == string.Empty, exceptionMessage);
+        }
+        [TestMethod()]
+        public void GetFirstUserAndActions()
+        {
+            string exceptionMessage = string.Empty;
+            
+            try
+            {
+                var users = GetAllUsers();
+
+                var firstUser = users.FirstOrDefault();
+                if (firstUser != null)
+                {
+                    var actions = (firstUser.Actions ?? ActionList.Empty).Filter(ActionListFilters.Allowed);
+                }
+            }
+            catch (Exception e)
+            {
+                exceptionMessage = e.Message;
+            }
+
+            Assert.IsTrue(exceptionMessage==string.Empty,"no se hallaron acciones para el usuario guid, revise el error "+exceptionMessage);
+        }
+
+        private static List<CoreUser> GetAllUsers()
+        {
+            return new UsersManager().GetUsers(null, string.Empty, string.Empty, string.Empty, true);
         }
 
         [TestMethod()]
