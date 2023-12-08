@@ -1,0 +1,14 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <div class="main-menu">
+            @if (actions != null)
+            {
+                var grps = actions.GroupBy(a => a.GroupName);
+                foreach (var actionsGrp in grps)
+                {
+                    <MenuGroup OnActionClick="OnActionClick" actions="@actionsGrp.ToArray()" groupName="@actionsGrp.Key"></MenuGroup>
+                }
+            }
+        </div>
+    </Authorized>
+</AuthorizeView>

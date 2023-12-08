@@ -1,0 +1,72 @@
+﻿.cal-month
+{
+    width: 14em;
+    height: 14em;
+    /* border-bottom: 2px solid black;*/
+}
+
+    .cal-month header
+    {
+        text-align: center;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+
+        .cal-month header h4
+        {
+            font-size: 1em;
+        }
+
+    .cal-month .days
+    {
+        display: grid;
+        grid-gap: 1px 1px;
+        grid-auto-flow: column;
+        grid-template-areas: "Sunday Monday Tuesday Wednesday Thursday Friday Saturday";
+    }
+
+        .cal-month .days span
+        {
+            display: block;
+            width: 1.8em;
+            height: 1.8em;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+            .cal-month .days span:hover
+            {
+                border: 1px solid #808080;
+            }
+
+            .cal-month .days span.wkend
+            {
+                font-weight: bolder;
+                color: green;
+            }
+
+            .cal-month .days span.marked
+            {
+                background-color: #d7f788;
+                border: 2px solid green;
+                border-radius: 20px;
+            }
+
+            .cal-month .days span.today
+            {
+                border: 2px solid blue;
+                border-radius: 20px;
+                font-weight: bolder;
+            }
+
+            .cal-month .days span[diabled]
+            {
+                cursor: not-allowed;
+                color: gray !important;
+            }
+
+                .cal-month .days span[diabled]:hover
+                {
+                    border: none !important;
+                }

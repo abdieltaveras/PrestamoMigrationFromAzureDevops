@@ -1,0 +1,51 @@
+﻿@inherits BasePage
+<MudDialog >
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.PeopleAlt" Class="mr-3 mb-n1" /> Editar Usuario
+        </MudText>
+        @*<MudIconButton Color="Color.Error" OnClick="CloseDlg" Icon="@Icons.Material.Rounded.Close" Variant="Variant.Filled"></MudIconButton>*@
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="form" @bind-IsValid="@validForm" @bind-Errors="@errors">
+            <MudGrid>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Usuario" Required="true" @bind-Value="user.UserName" Variant="Variant.Text"
+                                  RequiredError="El usuario no puede estar en blanco" />
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Nombre (s)" Required="true" @bind-Value="user.FirstName" Variant="Variant.Text"
+                                  RequiredError="El nombre no puede estar en blanco" />
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Apellido (s)" Required="true" @bind-Value="user.LastName" Variant="Variant.Text"
+                                  RequiredError="El nombre no puede estar en blanco" />
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Identificación" Required="true" @bind-Value="user.NationalID" Variant="Variant.Text"
+                                  RequiredError="Debe proveer la cédula o pasaporte" />
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Correo Eléctronico" Required="true" @bind-Value="user.Email" Variant="Variant.Text"
+                                  RequiredError="Debe proveer una descripción" />
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudSelect Label="Grupo al que pertenece" @bind-Value="user.GroupName" HelperText="String"
+                               OffsetY="true" AdornmentIcon="@Icons.Material.Filled.People" AdornmentColor="Color.Primary">
+                        @foreach (var group in usersGroups)
+                        {
+                            <MudSelectItem T="string" Value="@group.GroupName">@group.GroupName</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudCheckBox @bind-Checked="user.IsActive">Activo</MudCheckBox>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Disabled="@(!validForm || (user.UserID== new Guid() ))" Color="Color.Warning" OnClick="del">Eliminar</MudButton>
+        <MudButton Disabled="@(!validForm)" Color="Color.Primary" OnClick="save">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>

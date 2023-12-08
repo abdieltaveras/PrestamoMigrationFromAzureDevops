@@ -1,0 +1,68 @@
+.main-menu
+{
+    padding: .5em;
+}
+
+.action
+{
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 0.4fr 1.6fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "icon title"
+        "icon description";
+}
+
+.icon
+{
+    grid-area: icon;
+}
+
+.title
+{
+    grid-area: title;
+}
+
+.description
+{
+    grid-area: description;
+}
+
+.action:hover
+{
+    border-bottom: thin dotted lightblue;
+}
+
+.action h3
+{
+}
+
+    .action h3:hover
+    {
+        color: blue;
+    }
+
+.action-group
+{
+    padding: .5em;
+}
+
+    .action-group h2
+    {
+        text-decoration: underline;
+        color: blue;
+    }
+
+    .action-group .card-body
+    {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            ". . . ."
+            ". . . ."
+            ". . . .";
+    }

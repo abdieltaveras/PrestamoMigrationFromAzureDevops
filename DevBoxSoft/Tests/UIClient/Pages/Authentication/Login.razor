@@ -1,0 +1,14 @@
+﻿@*@page "/"*@
+@page "/pages/authentication/login"
+@layout LoginLayout
+
+<MudText Typo="Typo.h4" GutterBottom="true">Datos Identificación</MudText>
+
+<MudTextField T="string" @bind-Value="@Usuario" Label="Usuario" Variant="Variant.Outlined" Class="my-6"></MudTextField>
+
+<MudTextField @bind-Value="@Password" Label="Contraseña" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="TogglePasswordVisibility" />
+
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnSingInClick" Size="Size.Large" FullWidth="true">Entrar al Sistema</MudButton>
+<div Class="d-flex justify-space-between align-center" style="margin-top:1em;">    
+    <MudLink Href="/pages/authentication/forgot-password">Cambio Contraseña</MudLink>
+</div>

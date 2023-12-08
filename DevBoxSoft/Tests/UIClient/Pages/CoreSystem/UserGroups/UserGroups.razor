@@ -1,0 +1,13 @@
+﻿@inherits BasePage
+@page "/Grupos"
+
+<MudCard Outlined="true">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4">Grupos de Usuario</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGridView TFuncType=Object ObjectList="Groups" Title="Grupos de Usuario" Columns="columns" ToolbarButtons="buttons" AllowMultiSelection="false" FilterFunc="(o)=> filterFunc(o)"></DataGridView>
+    </MudCardContent>
+</MudCard>

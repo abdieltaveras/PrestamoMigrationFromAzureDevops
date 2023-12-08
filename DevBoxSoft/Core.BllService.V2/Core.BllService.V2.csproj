@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>DevBox.Core.BllService</AssemblyName>
+    <RootNamespace>DevBox.Core.BllService</RootNamespace>
+    <UserSecretsId>1f8f1f60-6de4-42bb-a66a-c3d4b6fe71f7</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.BLL.V2\Core.BLL.V2.csproj" />
+    <ProjectReference Include="..\Core.Classes.V2\Core.Classes.V2.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\HtmlTemplates\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\HtmlTemplates\ResetUserPassword-DevBox.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

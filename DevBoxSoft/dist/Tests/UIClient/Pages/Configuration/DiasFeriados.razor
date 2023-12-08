@@ -1,0 +1,47 @@
+﻿@inherits BasePage
+@page "/DíasFeriados"
+<MudCard Outlined="true">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudToolBar>
+                <MudText Typo="Typo.h4">Configuración Días Feriados</MudText>
+                <MudToolBarSpacer />
+                <MudIconButton Class="mr-5" Title="Vista Calendario" OnClick="()=>viewingStyle= ViewingStyle.calendar" Variant="Variant.Filled" Icon="@Icons.Material.Filled.CalendarToday" Color="@(viewingStyle == ViewingStyle.calendar?Color.Primary:Color.Secondary)" />
+                <MudIconButton Class="mr-5" Title="Vista Listado" OnClick="()=>viewingStyle= ViewingStyle.list" Variant="Variant.Filled" Icon="@Icons.Material.Filled.List" Color="@(viewingStyle == ViewingStyle.list?Color.Primary:Color.Secondary)" />
+                <MudIconButton Class="mr-5" Title="Agregar Día Feriado" OnClick="()=>newDay()" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AddBox" Color="Color.Success" />
+                <MudIconButton Class="mr-5" Title="Agregar Días Feriados Comunes" OnClick="()=>addDefDays()" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AlarmAdd" Color="Color.Secondary" />
+            </MudToolBar>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        @switch (viewingStyle)
+        {
+            case ViewingStyle.list:
+                {
+                    <MudText Typo="Typo.h4" GutterBottom="true">@Year</MudText>
+                    @foreach (var month in diasFeriadosGrouped.Keys)
+                    {
+                        <MudText Typo="Typo.h6" GutterBottom="true">@month</MudText>
+                        <MudPaper Width="100%">
+                            <MudList Clickable="@true" Dense="@true" DisableGutters="false">
+                                @foreach (var day in diasFeriadosGrouped[month])
+                                {
+                                    var text = $"{day.Dia.ToString("dd")} - {day.Descripcion}";
+                                    <MudListItem Text="@text"
+                                                 Icon="@Icons.Filled.DateRange"
+                                                 IconColor="Color.Primary"
+                                                 OnClick="()=>onDayClick(day.Dia, day.Descripcion)" />
+                                }
+                            </MudList>
+                        </MudPaper>
+                    }
+                }
+                break;
+            case ViewingStyle.calendar:
+                {
+                    <YearCalendar Year="Year" DisablePast="true" MarkedDates="diasFeriados" OnDayClick="onDayClick" OnYearChange="onYearChange"></YearCalendar>
+                }
+                break;
+        }
+    </MudCardContent>
+</MudCard>

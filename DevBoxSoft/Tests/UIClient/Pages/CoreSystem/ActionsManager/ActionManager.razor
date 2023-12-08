@@ -1,0 +1,139 @@
+﻿@inherits BasePage
+@using DevBox.Core.Access;
+@page "/ActionManager"
+
+<MudToolBar>
+    <MudText Typo="Typo.h4">Control de Acceso al Sistema</MudText>
+    <MudSpacer />
+    <MudButton Class="mr-3" Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveChanges">Guardar</MudButton>
+    <MudButton Class="mr-3" Variant="Variant.Filled" Color="Color.Secondary" OnClick="CancelChanges">Cancelar</MudButton>
+</MudToolBar>
+<MudGrid Spacing="0" Style="padding:0 3em;">
+    <MudItem xs="12" sm="3" md="3">
+        <MudPaper>
+            <MudSkeleton SkeletonType="SkeletonType.Rectangle" Animation="Animation.Wave" Height="100%" Width="100%" />
+            <MudTreeView Height="70%" MaxHeight="70%" T="Entity" Items="@entities" Dense="false" ExpandOnClick="false" CanActivate="true" @bind-ActivatedValue="SelectedEntity">
+                <ItemTemplate>
+                    <MudTreeViewItem Value="@context" @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
+                        <Content>
+                            <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
+                            <MudBadge Dot="@(context?.Changed ?? false)" Start="true" Bottom="true" Color="@((context?.Changed ?? false)?Color.Info:Color.Transparent)">
+                                <MudIcon Icon="@context.Icon" Class="ml-0 mr-2" Color="@Color.Default" />
+                            </MudBadge>
+                            @{
+                                var textStyle = (context?.Active ?? false) ? "" : "text-decoration:line-through red;font-style: italic;";
+                            }
+                            <MudText Style="@textStyle">@context.Text</MudText>
+                        </Content>
+                    </MudTreeViewItem>
+                </ItemTemplate>
+            </MudTreeView>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="9" md="9">
+        <MudPaper>
+            <MudSkeleton SkeletonType="SkeletonType.Rectangle" Animation="Animation.Wave" Height="100%" Width="100%" />
+            <MudGrid Spacing="0">
+                <MudItem xs="12">
+                    <MudGrid Spacing="0" Style="padding:0">
+                        <MudItem xs="1" Style="text-align:center;">
+                            <MudBadge Dot="@(SelectedEntity?.Changed ?? false)" Overlap="false" Bottom="true" Color="@((SelectedEntity?.Changed ?? false)?Color.Info:Color.Transparent)">
+                                <MudAvatar xs="11" Color="Color.Primary" Variant="Variant.Outlined">
+                                    <MudIcon Icon="@SelectedEntity?.Icon" />
+                                </MudAvatar>
+                            </MudBadge>
+                        </MudItem>
+                        <MudItem xs="11">
+                            @{
+                                var textStyle = (SelectedEntity?.Active ?? false) ? "" : "text-decoration:line-through red;";
+                            }
+                            <MudText Style="@textStyle" Color="Color.Info" Typo="Typo.button">@SelectedEntity?.Name</MudText>
+                            <MudDivider />
+                            <MudText Style="@textStyle" Typo="Typo.overline">@SelectedEntity?.Description</MudText>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+                <MudDivider />
+                <MudItem xs="12">
+                    <MudList Clickable="true" Dense="true" Style="font-weight:bold;">
+                        @if (SelectedEntity?.Actions != null)
+                        {
+                            var active = SelectedEntity.Active;
+                            foreach (var actionGroup in SelectedEntity.Actions.Keys)
+                            {
+                                <MudListItem Icon="@Icons.Material.Filled.Category" Text="@actionGroup" InitiallyExpanded="false">
+                                    <NestedList>
+                                        @foreach (var action in SelectedEntity.Actions[actionGroup])
+                                        {
+                                            var color = getActionColor(action.Value);
+                                            var changed = action.HasChanged;
+                                            <MudGrid Style="margin-left:5em;">
+                                                <MudItem xs="12" sm="6" md="4">
+                                                    <MudGrid>
+                                                        <MudItem xs="1">
+                                                            <MudBadge Dot="@changed" Start="true" Bottom="true" Color="@(changed ? Color.Info : Color.Transparent)">
+                                                                <MudIcon Color="@color" Icon="@getActionIcon(action.Value)"></MudIcon>
+                                                            </MudBadge>
+                                                        </MudItem>
+                                                        <MudItem xs="11">
+                                                            <MudText Typo="Typo.subtitle1">@action.Value.DisplayName</MudText>
+                                                            <MudText Typo="Typo.subtitle2">@action.Value.Description</MudText>
+                                                        </MudItem>
+                                                    </MudGrid>
+                                                </MudItem>
+                                                <MudItem xs="12" sm="6" md="4">
+                                                    <MudItem>
+                                                        @{
+                                                            var selIcon = action.Value.Inherited ? Icons.Material.Filled.FileDownload : Icons.Material.Filled.ArrowDropDownCircle;
+                                                        }
+                                                        <MudSelect T="ActionPermissionLevel" @bind-Value="action.Value.PermissionLevel" SelectedValuesChanged="()=>onActionChanged(action)" Style="margin-top: 0 !important;"
+                                                                   Disabled="@(!active)" OffsetY="true" OpenIcon="@selIcon" Dense="true">
+                                                            <MudSelectItem Value="@ActionPermissionLevel.None">No Establecida</MudSelectItem>
+                                                            <MudSelectItem Value="@ActionPermissionLevel.Allow">Permitir</MudSelectItem>
+                                                            <MudSelectItem Value="@ActionPermissionLevel.Deny">Negar</MudSelectItem>
+                                                            <MudSelectItem Value="@ActionPermissionLevel.PermissionRequired">Necesita Permiso</MudSelectItem>
+                                                            <MudSelectItem Value="@ActionPermissionLevel.Permitir_Autorizar">Puede Otorgar Permiso</MudSelectItem>
+                                                        </MudSelect>
+                                                    </MudItem>
+                                                </MudItem>
+                                                <MudGrid Style="margin-left:3em;">
+                                                    <MudItem>
+                                                        <MudList Dense="true" Style="font-size:10px !important;">
+                                                            @foreach (var subAction in action.Value.SubActions)
+                                                            {
+                                                                var selIcon = action.Value.Inherited ? Icons.Material.Filled.FileDownload : Icons.Material.Filled.ArrowDropDownCircle;
+                                                                <MudListItem>
+                                                                    <MudGrid Style="vertical-align:top;">
+                                                                        <MudItem xs="12" sm="7" md="7">
+                                                                            <MudText Typo="Typo.button">@subAction.DisplayName</MudText>
+                                                                            <MudDivider />
+                                                                            <MudText Typo="Typo.caption">@subAction.Description</MudText>
+                                                                        </MudItem>
+                                                                        <MudItem xs="12" sm="5" md="5">
+                                                                            <MudSelect T="ActionPermissionLevel" @bind-Value="subAction.PermissionLevel" SelectedValuesChanged="()=>onSubActionChanged(action, subAction)" Style="margin-top: 0 !important;"
+                                                                                       Disabled="@(!active)" OffsetY="true" OpenIcon="@selIcon" Dense="true">
+                                                                                <MudSelectItem Value="@ActionPermissionLevel.None">No Establecida</MudSelectItem>
+                                                                                <MudSelectItem Value="@ActionPermissionLevel.Allow">Permitir</MudSelectItem>
+                                                                                <MudSelectItem Value="@ActionPermissionLevel.Deny">Negar</MudSelectItem>
+                                                                                <MudSelectItem Value="@ActionPermissionLevel.PermissionRequired">Necesita Permiso</MudSelectItem>
+                                                                                <MudSelectItem Value="@ActionPermissionLevel.Permitir_Autorizar">Puede Otorgar Permiso</MudSelectItem>
+                                                                            </MudSelect>
+                                                                        </MudItem>
+                                                                    </MudGrid>
+                                                                </MudListItem>
+                                                            }
+                                                        </MudList>
+                                                    </MudItem>
+                                                </MudGrid>
+                                            </MudGrid>
+                                        }
+                                    </NestedList>
+                                </MudListItem>
+                            }
+                        }
+                    </MudList>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </MudItem>
+</MudGrid>

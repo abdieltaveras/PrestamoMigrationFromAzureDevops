@@ -1,0 +1,23 @@
+﻿@inject UIClient.Providers.ApiAuthenticationStateProvider auth
+@inject NavigationManager NavManager
+@using System.Threading;
+
+<AuthorizeView>
+    <Authorized>
+        <MudIcon Icon="@Icons.Custom.Uncategorized.AlertSuccess" Color="Color.Success" />
+        <span>
+            <strong>@context.User.FindFirst(UIClient.Models.ClaimTypes.GivenName)?.Value</strong>!
+            <br />
+            @context.User.Claims.ToList().Find(c => c.Type == UIClient.Models.ClaimTypes.Email)?.Value          
+        </span>
+        <MudButton Variant="Variant.Filled" EndIcon="@Icons.Outlined.AllOut" Color="Color.Primary" OnClick="logOut">Log out</MudButton>
+    </Authorized>
+</AuthorizeView>
+@code
+{ 
+    void logOut()
+    {
+        auth.MarkUserAsLoggedOut();
+        NavManager.NavigateTo("/");
+    } 
+}

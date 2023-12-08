@@ -1,0 +1,83 @@
+﻿@inherits BasePage
+@page "/SysPolicies"
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+
+<MudText Typo="Typo.h4">Políticas generales del sistema</MudText>
+@if (systemPolicies != null)
+{
+    <MudToolBar>
+        <MudSpacer />
+        <MudButton Class="mr-3" Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveChanges">Guardar</MudButton>
+        <MudButton Class="mr-3" Variant="Variant.Filled" Color="Color.Secondary" OnClick="CancelChanges">Cancelar</MudButton>
+    </MudToolBar>
+    <MudCard>
+        <MudCardContent>
+            <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+                <MudPaper>
+                    <MudList Clickable="true" Dense="true" Style="font-weight:bold;color:blue;">
+                        @foreach (var cat in systemPolicies.Categories)
+                        {
+                            <MudListItem Icon="@Icons.Material.Filled.Category" Text="@cat.name" InitiallyExpanded="false">
+                                <ChildContent>
+                                    <MudText>@cat.description</MudText>
+                                </ChildContent>
+                                <NestedList>
+                                    <div style="color:black; padding:0 10em;">
+                                        @foreach (var pol in cat.Policies)
+                                        {
+                                            var skv = keysValues.Find(s => s.PolID == pol.id);
+                                            var changed = isChanged(skv);
+                                        <MudListItem Icon="@Icons.Material.Filled.Policy">
+                                            @switch (pol.type.ToLower())
+                                            {
+                                                case ("bool"):
+                                                    <MudSwitch @bind-Checked="@skv.Value"
+                                                               Class="@(changed ? "font-weight-bold": "font-weight-light")"
+                                                               Color="@(changed ? Color.Success: Color.Primary)"
+                                                               Label="@pol.name" />
+                                                    <br />
+                                                    break;
+                                                case ("int"):
+                                                    <MudTextField InputType="InputType.Number" @bind-Value="@skv.Value" Label="@pol.name" Variant="Variant.Text"
+                                                                     Class="@(changed ? "font-weight-bold": "font-weight-light")"
+                                                                     AdornmentColor="@(changed ? Color.Success: Color.Primary)"
+                                                                     Margin="Margin.Dense" />
+                                                    break;
+                                                case ("list"):
+                                                    var items = pol.typeData.Split('|');
+                                                    <MudText>@pol.name :</MudText>
+                                                    <MudRadioGroup @bind-SelectedOption="@skv.Value"
+                                                                   Class="@(changed ? "font-weight-bold": "font-weight-light")"
+                                                                   AdornmentColor="@(changed ? Color.Success: Color.Primary)">
+                                                        <ChildContent>
+                                                            @foreach (var item in items)
+                                                                                {
+                                                                <MudRadio Option="@item">@item</MudRadio>
+                                                                                }
+                                                        </ChildContent>
+                                                    </MudRadioGroup>
+                                                    break;
+                                                default:
+                                                    <MudTextField @bind-Value="@skv.Value" Label="@pol.name" Variant="Variant.Text"
+                                                                  Class="@(changed ? "font-weight-bold": "font-weight-light")"
+                                                                  AdornmentColor="@(changed ? Color.Success: Color.Primary)">
+                                                    </MudTextField>
+                                                    break;
+                                            }
+                                            <MudText Typo="Typo.caption"
+                                                     Class="@(changed ? "font-weight-bold": "font-weight-light")"
+                                                     Color="@(changed ? Color.Success: Color.Primary)">@pol.description</MudText>
+                                                </MudListItem>
+                                        }
+                                    </div>
+                                </NestedList>
+                            </MudListItem>
+
+                        }
+                    </MudList>
+                </MudPaper>
+            </MudForm>
+        </MudCardContent>
+    </MudCard>
+}

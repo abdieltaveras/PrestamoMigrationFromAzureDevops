@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<actions>
+	<action id='{8D8FD452-0AD9-44B2-B8BE-F49A7C36AE00}' displayName='Áreas Educativas' description='Actualización de Áreas Educativas' groupName='Configuración'  value='AreasEducativas' permissionLevel='None' inherited='false' />
+	<action id='{2688FB13-293D-461F-9024-0589EB956B55}' displayName='Aulas' description='Listado Aulas' groupName='Configuración'  value='Aulas' permissionLevel='None' inherited='false' />
+	<action id='{453E3779-855F-47CD-BFBA-918C159D31AB}' displayName='Catálogo de Cuentas' description='Actualización Catálogo de Cuentas' groupName='Configuración'  value='CatálogoCuentas' permissionLevel='None' inherited='false' />
+	<action id='{44F855A3-78F7-4E2E-BCA3-EB8E37F2FB60}' displayName='Cursos' description='Actualización de los Cursos' groupName='Configuración'  value='Cursos' permissionLevel='None'>
+		<subActions>
+			<subAction displayName='Cambiar Estatus' description='Poder cambiar el estatus de la Sesión' value='CambiarEstatusSesion' permissionLevel='None' inherited='false' />
+		</subActions>
+	</action>
+	<action id='{88AADDF0-9B98-45CA-90CD-ACC46152D407}' displayName='Días Feriados' description='Actualización Días Feriados' groupName='Configuración'  value='DíasFeriados' permissionLevel='None' inherited='false' />
+	<action id='{90B8AC00-EFDB-421D-9C6F-CFCB994C48ED}' displayName='Listado Artículos' description='Registro Artículos de Venta' groupName='Configuración'  value='ListadoArticulos' permissionLevel='None' inherited='false' />
+	<action id='{9498EF8F-4436-47F4-842A-C1CB1152DCE6}' displayName='Carnets' description='Asignaciones Carnets Estudiantes' groupName='Estudiantes'  value='AsignacionesCarnets' permissionLevel='None'>
+		<subActions>
+			<subAction displayName='Imprimir Carnet' description='Para la impresión de Carnets' value='ImprimirCarnet' permissionLevel='None' inherited='false' />
+			<subAction displayName='Reimprimir Carnets' description='Reimprimir Carnets' value='ReImprimirCarnet' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar Carnet' description='Permite eliminar Carnets' value='EliminarCarnet' permissionLevel='None' inherited='false' />
+		</subActions>
+	</action>
+	<action id='{34C9BF6C-F7FF-4D08-8F5C-65735FC46646}' displayName='Matriculación' description='Estudiantes en sesiones' groupName='Estudiantes'  value='Matriculación' permissionLevel='None'>
+		<subActions>
+			<subAction displayName='Nuevo' description='Crear un nuevo estudiante y lo agrega a la Sesión' value='Nuevo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Agregar' description='Agregar un estudiante existente a la Sesión' value='Agregar' permissionLevel='None' inherited='false' />
+			<subAction displayName='AgregarSesionIniciada' description='Agregar estudiantes a la Sesión cuando ya ha sido iniciada (Requiere permiso de [Agregar])' value='AgregarSesionIniciada' permissionLevel='None' inherited='false' />
+			<subAction displayName='Remover' description='Remover un estudiante de la Sesión' value='Remover' permissionLevel='None' inherited='false' />
+			<subAction displayName='Imprimir' description='Generar Listado Alumnos de la Sesión' value='Imprimir' permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar Datos Estudiante' description='Modificar los datos de estudiantes' value='EditarEstudiante' permissionLevel='None' inherited='false' />
+			<subAction displayName='Ver Cargos Estudiante' description='Accesar a los Cargos estudiante' value='CargosEstudiante' permissionLevel='None' inherited='false' />
+			<subAction displayName='Ver Pagos Realizados' description='Accesar a los Pagos estudiante' value='PagosRealizados' permissionLevel='None' inherited='false' />
+			<subAction displayName='Cambiar Estatus' description='Poder cambiar el estatus de estudiantes en la Sesión' value='CambiarEstatus' permissionLevel='None' inherited='false' />
+		</subActions>
+	</action>
+	<action id='{14F7880F-A1D5-418F-81A1-BE9CD2B4D467}' displayName='Registro Calificaciones' description='Actualización calificaciones estudiantes' groupName='Estudiantes'  value='RegistroNotas' permissionLevel='None'>
+		<subActions>
+			<subAction displayName='Publicar' description='Hacer publicaciones de Calificaciones' value='Publicar' permissionLevel='None' inherited='false' />
+			<subAction displayName='Imprimir' description='Imprimir Calificaciones' value='Imprimir' permissionLevel='None' inherited='false' />
+			<subAction displayName='Digitar' description='Introducir Calificaciones' value='Digitar' permissionLevel='None' inherited='false' />
+			<subAction displayName='Acceso Todas Sesiones' description='Permite acceso a todas las sesiones.' value='TodasSesiones' permissionLevel='None' inherited='false' />
+		</subActions>
+	</action>
+	<action id='{3269D450-5690-4276-843F-B2EE3A77E013}' displayName='Registro Estudiantes' description='Registro de datos de los Estudiantes' groupName='Estudiantes'  value='ListadoEstudiantes' permissionLevel='None' inherited='false' />
+	<action id='{77C8726E-83BA-463D-9A48-D17825190F00}' displayName='Cargos Estudiantes' description='Actualización Cargos Estudiantes' groupName='Operaciones'  value='Cargos' permissionLevel='None'>
+		<subActions>
+			<subAction displayName='Borar Cargo' description='Permite la eliminación del cargo seleccionado' value='BorrarCargo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Nuevo Cargo' description='Permite adicionar nuevos cargos al estudiante' value='NuevoCargo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Efectuar Pago' description='Permite efectuar pagos/abonos a los cargos del estudiante' value='EfectuarPago' permissionLevel='None' inherited='false' />
+			<subAction displayName='Cambiar Fecha de Pago' description='Permite modificar la fecha en que se hace el pago' value='CambiarFechaPago' permissionLevel='PermissionRequired' />
+			<subAction displayName='Cambiar Número Recibo' description='Permite modificar el número de recibo' value='CambiarNumeroRecibo' permissionLevel='PermissionRequired' />
+		</subActions>
+	</action>
+	<action id='{C2AFBA87-2882-4A30-A57E-8B82B449F3B7}' displayName='Importar Calificaciones' description='Actualización Masiva de Datos' groupName='Operaciones'  value='ImportsGrades' permissionLevel='None' inherited='false' />
+	<action id='{1D3006C3-CFE7-408E-A81F-BA860ADEC118}' displayName='Reporte Transacciones' description='Informe Movimientos Transaccionales' groupName='Operaciones'  value='InformeCargos' permissionLevel='None'>
+		<subActions>
+			<subAction displayName='Anular' description='Anular Pagos' value='Anular' permissionLevel='PermissionRequired' />
+			<subAction displayName='Re Imprimir' description='Re Imprimir Recibos de Pago' value='ReImprimir' permissionLevel='PermissionRequired' />
+			<subAction displayName='Cambiar Cuenta' description='Cambiar la Cuenta que afecta un Pago' value='CambiarCuenta' permissionLevel='None' inherited='false' />
+		</subActions>
+	</action>
+	<action id='{10B451BE-4BC8-4022-9D40-6DF0CCB5D1A5}' displayName='Grupos Usuarios' description='Editar Grupos de Personal' groupName='Sistema'  value='Grupos' permissionLevel='None' inherited='false' />
+	<action id='{CF3693A0-0E52-4D0D-8799-847335897C3F}' displayName='Personal' description='Creación y/o Modificación de Personal' groupName='Sistema'  value='Usuarios' permissionLevel='None' inherited='false' />
+	<action id='{CE5EDA86-977C-4299-BF4B-DF02C6C9B719}' displayName='Politicas' description='Configuración de Parámetros Generales' groupName='Sistema'  value='SysPolicies' permissionLevel='None' inherited='false' />
+	<action id='{EE7DAF58-9DFA-4304-A7F9-4A00403C0CDE}' displayName='Seguridad' description='Control de Acceso' groupName='Sistema'  value='ActionManager' permissionLevel='None' inherited='false' />
+</actions>

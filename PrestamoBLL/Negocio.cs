@@ -1,5 +1,7 @@
-﻿using DevBox.Core.Classes.Utils;
+﻿using DevBox.Core.BLL.Identity;
+using DevBox.Core.Classes.Utils;
 using DevBox.Core.DAL.SQLServer;
+using DevBox.Core.Identity;
 using PcpUtilidades;
 using PrestamoEntidades;
 using System;
@@ -26,6 +28,29 @@ namespace PrestamoBLL
             {
                 var searchSqlParams = SearchRec.ToSqlParams(searchParam);
                 result = DBPrestamo.ExecReaderSelSP<Negocio>("spGetNegocios", searchSqlParams);
+            }
+            catch (Exception e)
+            {
+                //DatabaseError(e);
+            }
+            return result;
+        }
+        public IEnumerable<Negocio> GetByUserName(string user)
+        {
+            List<Negocio> result = new List<Negocio>();
+            try
+            {
+                CoreUser usr  = new UsersManager().GetUser(user);
+                string[] empresas = usr.CompaniesAccess.Split(",");
+                foreach (var item in empresas)
+                {
+                    var searchSqlParams = SearchRec.ToSqlParams(new NegociosGetParams { Codigo = item } );
+                    var empresa = DBPrestamo.ExecReaderSelSP<Negocio>("spGetNegocios",searchSqlParams );
+                    foreach (var emp in empresa)
+                    {
+                        result.Add(emp);
+                    }
+                }
             }
             catch (Exception e)
             {

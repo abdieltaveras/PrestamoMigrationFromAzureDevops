@@ -1,0 +1,22 @@
+﻿<MudCard class="action-group">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h5">@groupName</MudText>
+            <MudDivider DividerType="DividerType.Inset" />
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent Class="card-body">
+        @foreach (var action in actions)
+        {
+            <MenuItem action="action" OnActionClick="OnActionClick"></MenuItem>
+        }
+    </MudCardContent>
+</MudCard>
+@code {
+    [Parameter]
+    public string groupName { get; set; }
+    [Parameter]
+    public DevBox.Core.Access.Action[] actions { get; set; }
+    [Parameter]
+    public Action<DevBox.Core.Access.Action> OnActionClick { get; set; }
+}

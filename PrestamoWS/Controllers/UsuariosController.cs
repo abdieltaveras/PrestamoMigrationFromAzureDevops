@@ -20,6 +20,7 @@ namespace PrestamoWS.Controllers
             //GetValidation(searchParam);
             return BLLPrestamo.Instance.GetUsuarios(getParams);
         }
+
         [HttpGet]
         public IEnumerable<UsuarioRole> GetRoles([FromQuery] BuscarUserRolesParams getParams)
         {

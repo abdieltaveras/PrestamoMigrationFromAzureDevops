@@ -1,0 +1,57 @@
+﻿
+<MudElement HtmlTag="div"
+            Class=@($"action {action.Value}")
+            @onclick="onClick">
+    <MudIcon Class="icon" Icon="@getIcon()" Size="Size.Large" Color="@getIconColor()"></MudIcon>
+    <MudText Class="title" Typo="Typo.subtitle2">@action.DisplayName</MudText>
+    <MudText Class="description" Typo="Typo.caption">@action.Description</MudText>
+</MudElement>
+@code
+{
+    [Parameter]
+    public DevBox.Core.Access.Action action { get; set; }
+    [Parameter]
+    public Action<DevBox.Core.Access.Action> OnActionClick { get; set; }
+
+    string getIcon() => icons.ContainsKey(action.Value) ? icons[action.Value] : Icons.Material.Filled.PhotoSizeSelectLarge;
+    Color getIconColor() => groupColors.ContainsKey(action.GroupName) ? groupColors[action.GroupName] : Color.Error;
+
+    void onClick()
+    {
+        if (action.PermissionLevel == DevBox.Core.Access.ActionPermissionLevel.Allow)
+        {
+            if (OnActionClick != null)
+            {
+                OnActionClick(action);
+            }
+        }
+    }
+
+    Dictionary<string, Color> groupColors = new Dictionary<string, Color>
+{
+        {"Configuración", Color.Info },
+        {"Estudiantes", Color.Success},
+        {"Operaciones", Color.Warning},
+        {"Sistema", Color.Dark}
+    };
+    Dictionary<string, string> icons = new Dictionary<string, string>
+{
+        { "AreasEducativas", Icons.Material.Filled.FormatShapes},
+        { "Aulas", Icons.Material.Filled.Web},
+        { "CatálogoCuentas", Icons.Material.Filled.AccountTree},
+        { "Cursos", Icons.Material.Filled.LocalLibrary},
+        { "DíasFeriados", Icons.Material.Filled.Today},
+        { "ListadoArticulos", Icons.Material.Filled.ReadMore},
+        { "AsignacionesCarnets", Icons.Material.Filled.PermContactCalendar},
+        { "Matriculación", Icons.Material.Filled.PersonAdd},
+        { "RegistroNotas", Icons.Material.Filled.TheaterComedy},
+        { "ListadoEstudiantes", Icons.Material.Filled.TouchApp},
+        { "Cargos", Icons.Material.Filled.RequestQuote},
+        { "ImportsGrades", Icons.Material.Filled.Repeat},
+        { "InformeCargos", Icons.Material.Filled.AttachMoney},
+        { "Grupos", Icons.Material.Filled.PeopleAlt},
+        { "Usuarios", Icons.Material.Filled.PersonPin},
+        { "SysPolicies", Icons.Material.Filled.ShuffleOn},
+        { "ActionManager", Icons.Material.Filled.Settings}
+    };
+}

@@ -1,0 +1,29 @@
+﻿.cal-year
+{
+    border: 1px double black;
+    padding-left: 1em;
+}
+
+    .cal-year header
+    {
+        text-align: center;
+        display: grid;
+        grid-auto-flow: column;
+        grid-gap: 0 0;
+        grid-template-columns: 2% 96% 2%;
+    }
+
+    .cal-year .months
+    {
+        display: grid;
+        grid-gap: 2em 2px;
+        grid-auto-flow: row;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-areas: ". . . ." ". . . ." ". . . .";
+        padding: 2em;
+    }
+
+        .cal-year .months .month
+        {
+        }

@@ -1,0 +1,15 @@
+﻿.list .month
+{
+    font-weight: bold;
+}
+
+.day
+{
+    cursor: pointer;
+}
+
+    .day:hover
+    {
+        color: blue;
+        font-weight: bold;
+    }

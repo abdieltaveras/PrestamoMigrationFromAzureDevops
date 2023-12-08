@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+<CascadingAuthenticationState>
+    <MudThemeProvider />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
+    <MudLayout>
+        <MudAppBar Elevation="0">
+            <MudButton StartIcon="@Icons.Material.Filled.Home" Color="Color.Inherit" Edge="Edge.Start" OnClick="GoHome">Inicio</MudButton>
+            <MudAppBarSpacer />
+            <UIClient.Pages.Authentication.LoginDisplay></UIClient.Pages.Authentication.LoginDisplay>
+        </MudAppBar>
+        <MudMainContent>
+            @Body
+        </MudMainContent>
+    </MudLayout>
+</CascadingAuthenticationState>
+@code { private void GoHome() { NavigationManager.NavigateTo("/"); } }

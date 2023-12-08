@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using apiBonosElectronicos.Authorization.Attributtes;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PrestamoBLL;
 using PrestamoEntidades;
@@ -10,7 +11,7 @@ using System.Text;
 
 namespace PrestamoWS.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
 

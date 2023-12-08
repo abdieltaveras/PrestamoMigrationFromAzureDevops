@@ -1,0 +1,27 @@
+﻿@inherits BasePage
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.PeopleAlt" Class="mr-3 mb-n1" /> Editar Grupo Usuarios
+        </MudText>
+        <MudIconButton Color="Color.Error" OnClick="CloseDlg" Icon="@Icons.Material.Rounded.Close" Variant="Variant.Filled"></MudIconButton>
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="form" @bind-IsValid="@validForm" @bind-Errors="@errors">
+            <MudGrid>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Grupo" Required="true" @bind-Value="usersGroup.GroupName" Variant="Variant.Text"
+                                  RequiredError="El nombre del grupo no puede estar en blanco" />
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Descripción" Required="true" @bind-Value="usersGroup.Description" Variant="Variant.Text"
+                                  RequiredError="Debe proveer una descripción" />
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Disabled="@(!validForm || (usersGroup.GroupID == new Guid() ))" Color="Color.Warning" OnClick="del">Eliminar</MudButton>
+        <MudButton Disabled="@(!validForm)" Color="Color.Primary" OnClick="save">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>

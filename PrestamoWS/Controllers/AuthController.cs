@@ -23,10 +23,10 @@ namespace PrestamoWS.Controllers
         IMailService MailService { get; set; }
         private IWebHostEnvironment Environment;
         private readonly ILogger<AuthController> Logger;
-        public AuthController(IWebHostEnvironment _environment, IMailService _mailService, ILogger<AuthController> logger)
+        public AuthController(IWebHostEnvironment _environment, ILogger<AuthController> logger)
         {
             Environment = _environment;
-            MailService = _mailService;
+            //MailService = _mailService;
             Logger = logger;
         }
 
@@ -37,7 +37,13 @@ namespace PrestamoWS.Controllers
             var result = new UsersManager().ValidateCredentials(credentials,this.GetDurationToken());
             return result;
         }
+        [HttpPost, AllowAnonymous, Route("api/user/refreshToken")]
 
+        public LoginResult RefreshToken([FromBody] RefreshTokenModel model)
+        {
+            var result = new UsersManager().RefreshToken(model);
+            return result;
+        }
         [HttpPost, AllowAnonymous, Route("api/user/changepwd")]
         public async void ChangeUserPwd([FromBody] ChangeUserPwd changeUserPwd)
         {

@@ -254,6 +254,7 @@
     <Build Include="core\Stored Procedures\spChangePassword.sql" />
     <Build Include="core\Stored Procedures\spAuthUser.sql" />
     <Build Include="Security\core.sql" />
+    <Build Include="core\Stored Procedures\spUpdateRefreshToken.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />

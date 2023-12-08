@@ -1,0 +1,13 @@
+﻿@inherits BasePage
+@page "/Usuarios"
+
+<MudCard Outlined="true">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4">Administración de Usuarios</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <DataGridView ObjectList="UserList" Immediate="false" OnSearchValueChanged="HandleSearchValueChanged"  Title="Usuarios Del Sistema" ToolbarButtons="buttons" AllowMultiSelection="false" Columns="columns" FilterFunc="filterFunc"></DataGridView>
+    </MudCardContent>
+</MudCard>

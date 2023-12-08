@@ -8,7 +8,7 @@ CREATE procedure [core].[spGetUsers](@UserID uniqueidentifier = null,
 begin
 	select UserID, UserName, FirstName, LastName, NationalID, GroupName, Email, Actions as ActionsSrt,
 		 IsActive, MustChangePassword, isDeleted, DeletedOn, 
-		 CreatedBy, CreatedOn, LastModifiedBy, LastModifiedOn
+		 CreatedBy, CreatedOn, LastModifiedBy, LastModifiedOn, RefreshToken, CompaniesAccess, CompanyId
   from core.tblUsers
   WHERE ((@UserID is null) or (UserID = @UserID))
 		and ((@UserName = '') or (UserName = @UserName))

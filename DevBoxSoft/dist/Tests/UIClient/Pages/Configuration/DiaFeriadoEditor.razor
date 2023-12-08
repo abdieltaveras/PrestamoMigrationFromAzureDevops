@@ -1,0 +1,27 @@
+﻿@inherits BasePage
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Class="mr-3 mb-n1" /> Editar Día Feriado
+        </MudText>
+        <MudIconButton  Color="Color.Error" OnClick="CloseDlg" Icon="@Icons.Material.Rounded.Close" Variant="Variant.Filled"></MudIconButton>
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="form" @bind-IsValid="@validForm" @bind-Errors="@errors">
+            <MudGrid>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudDatePicker Label="Fecha" MinDate="@DateTime.Today" Required="true" @bind-Date="selectedDay.Dia" DateFormat="@DATE_FORMAT" DisableToolbar="true" HelperText="Día feriado"
+                    RequiredError="Debe proveer la fecha"/>
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Descripción" Required="true" @bind-Value="selectedDay.Descripcion" Variant="Variant.Text"
+                    RequiredError="Debe proveer una descripción" />
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Disabled="@(!validForm)" Color="Color.Warning" OnClick="delDay">Eliminar</MudButton>
+        <MudButton Disabled="@(!validForm)"Color="Color.Primary" OnClick="saveDay">Guardar</MudButton>
+    </DialogActions>
+</MudDialog>

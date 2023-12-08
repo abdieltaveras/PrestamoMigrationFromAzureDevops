@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<category id="sysPolicies" name="Sistema" description="Politicas generales del sistema">
+	<category id="Login" name="Entrada al sistema" description="Politicas relacionadas a la entrada de usuarios">
+		<policy id="passwordsExpire" name="Expiración Claves" description="Determina si las claves de usuario tienen vencimiento" type="bool" typeData="" value="true" />
+		<policy id="passwordsExpireDays" name="Dias Expiración Clave" description="Si [Expiración Claves] está activada, determina el tiempo en dias que se debe cambiar la clave de acceso" type="list" typeData="15|30|45|60|90|120" value="120" />
+	</category>
+	<category id="carnetsPol" name="Carnets" description="Configuración Politicas Carnets">
+		<policy id="valorCarnet" name="Precio Carnet" description="Valor del cargo a generar por emisión de carnet al estudiante" type="int" typeData="" value="100.00" />
+		<policy id="cuentaRefCarnet" name="Cuenta Referencia" description="Cuenta afectada por emisión de carnet al estudiante" type="text" typeData="" value="0-4-99" />
+		<policy id="cantidadFaltasCarnetProvisional" name="Faltas Carnet Provisional" description="Cantidad pérdida Carnet Provisional antes de generar penalidad" type="int" typeData="" value="2" />
+		<policy id="cuentaRefCarnetProvisional" name="Cuenta Pérdida Carnet Provisional" description="Cuenta afectada por pérdida Carnet Provisional" type="text" typeData="" value="0-4-90-14" />
+		<policy id="valorPenalidadCarnetProvisional" name="Precio Penalidad Carnet Provisional" description="Valor del cargo a generar por pérdida de carnet provisional al estudiante" type="int" typeData="" value="200.00" />
+	</category>
+	<category id="cargosPol" name="Cargos Estudiantes" description="Configuración Politicas Cargos Estudiantes">
+		<policy id="aplicarMora" name="Activar Cargos por Mora" description="Determina si las politicas de cargo por mora están activas o no" type="bool" typeData="" value="false" />
+		<policy id="diasGraciaMora" name="Plazo Mora" description="Cantidad de días después de generado un cargo antes de generar cargos por mora" type="list" typeData="15|30|45|60|90|120" value="30" />
+		<policy id="valorMora" name="Cargo por Mora" description="Porcentaje a aplicar en caso de mora al estudiante por cargo en atraso" type="int" typeData="" value="0" />
+	</category>
+	<category id="registroPol" name="Registro Estudiantes" description="Configuración Politicas Registro Calificaciones">
+		<policy id="requiereOrientacion" name="Orientación es requerida" description="Determina si tomar la Orientación Academica es requerido para ser matriculado" type="bool" typeData="" value="false" />
+	</category>
+	<category id="contabilidadPols" name="Contabilidad" description="Configuración Politicas Sobre la Contabilidad">
+		<policy id="ComisionTarjetas" name="Comisión Tarjetas" description="Porcentaje a pagar por cobros vía tarjetas" type="int" typeData="" value="2.80" />
+	</category>
+</category>

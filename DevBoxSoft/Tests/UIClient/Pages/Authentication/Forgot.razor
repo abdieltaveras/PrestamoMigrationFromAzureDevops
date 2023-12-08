@@ -1,0 +1,14 @@
+﻿@page "/pages/authentication/forgot-password"
+@layout LoginLayout
+
+<MudForm @ref="form" @bind-IsValid="@validForm" @bind-Errors="@errors">
+    <MudText Typo="Typo.h4" GutterBottom="true">Cambio de Contraseña</MudText>
+
+    <MudText Typo="Typo.subtitle2">Introduzca su número de identificación personal (cédula o pasaporte) y haga click en el botón más abajo.</MudText>
+    <MudText Typo="Typo.subtitle2">Un correo electrónico será enviado a la dirección configurada en su perfil de usuario con las instrucciones a seguir.</MudText>
+
+    <MudTextField @bind-Value="Cedula" Required="true" RequiredError="Debe proveer la identificación" T="string" Label="Número de Identificación" Variant="Variant.Outlined" Class="my-4"></MudTextField>
+
+    <MudButton Disabled="@(!validateForm())" Variant="Variant.Filled" Color="Color.Primary" OnClick="Submmit" Size="Size.Large" FullWidth="true" Class="mt-3">Solicitar Cambiar Contraseña</MudButton>
+    <MudLink Href="/pages/authentication/login">Regresar</MudLink>
+</MudForm>
