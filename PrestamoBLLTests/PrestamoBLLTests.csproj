@@ -108,13 +108,13 @@
 
 	<ItemGroup>
 		<Reference Include="DevBox.Core.BLL">
-		  <HintPath>..\SharedDLL\DevBox.Core.BLL.dll</HintPath>
+		  <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.BLL.dll</HintPath>
 		</Reference>
 		<Reference Include="DevBox.Core.Classes">
-		  <HintPath>..\SharedDLL\DevBox.Core.Classes.dll</HintPath>
+		  <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.Classes.dll</HintPath>
 		</Reference>
 		<Reference Include="DevBox.Core.Dal">
-		  <HintPath>..\SharedDLL\DevBox.Core.Dal.dll</HintPath>
+		  <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.Dal.dll</HintPath>
 		</Reference>
 		<Reference Include="PcpSoft.System">
 			<HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
