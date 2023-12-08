@@ -13,25 +13,26 @@ namespace PrestamoBlazorApp.Pages.Login
 {
     public partial class LoginV2 : BaseForCreateOrEdit
     {
-        private Compañias CompañiaSeleccionada { get; set; } = new Compañias();
+        private Empresas CompañiaSeleccionada { get; set; } = new Empresas();
 
         private Localidad LocalidadSeleccionada { get; set; }
         private int IdCompañiaSeleccionada { get; set; }
         private int IdLocalidadSeleccionada { get; set; }
-        private IEnumerable<Compañias> EmpresasList { get; set; } = new List<Compañias>();
+        private IEnumerable<Empresas> EmpresasList { get; set; } = new List<Empresas>();
 
         private IEnumerable<Localidad> LocalidadesDeLaEmpresa { get; set; } = new List<Localidad>();
         protected override Task OnInitializedAsync()
         {
-            EmpresasList = new List<Compañias>
+            EmpresasList = new List<Empresas>
             {
-                new Compañias { IdEmpresa = 1, Empresa = "Intagsa (varias localidades)", Localidades = new List <Localidad> {
-                    new Localidad {IdLocalidad=1, Nombre="La Romana" },
-                    new Localidad {IdLocalidad=2, Nombre="Rsj" },
-                    new Localidad {IdLocalidad=3, Nombre="Sosua" },
-                      new Localidad {IdLocalidad=3, Nombre="Higuey" },
+                new Empresas { IdEmpresa = 1,Codigo=1, Empresa = "Intagsa (varias localidades)", Localidades = new List <Localidad> {
+                    new Localidad {IdLocalidad=1, Nombre="La Romana"},
+                    new Localidad {IdLocalidad=2, Nombre="Rsj"},
+                    new Localidad {IdLocalidad=3, Nombre="Sosua"},
+                      new Localidad {IdLocalidad=3, Nombre="Higuey"},
                 } },
-                new Compañias { IdEmpresa = 2,Codigo=2, Empresa = "Motoprestamo Richiez (una sola localidad)", Localidades = new List<Localidad> { new Localidad { IdLocalidad = 4, Nombre = "Higuey" } } }
+
+                new Empresas { IdEmpresa = 2, Empresa = "Motoprestamo Richiez (una sola localidad)", Localidades = new List<Localidad> { new Localidad { IdLocalidad = 4, Nombre = "Higuey" } } }
             };
             return base.OnInitializedAsync();
 
@@ -55,12 +56,14 @@ namespace PrestamoBlazorApp.Pages.Login
 }
 
 
-public class Compañias
+public class Empresas
 {
     public int IdEmpresa { get; set; }
     public string Empresa { get; set; }
+
+    public int Codigo { get; set; }
     public List<Localidad> Localidades { get; set; } = new List<Localidad>();
-    public int Codigo { get;  set; }
+
 }
 
 
