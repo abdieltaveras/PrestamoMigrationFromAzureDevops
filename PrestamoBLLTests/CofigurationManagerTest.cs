@@ -14,7 +14,7 @@ using static PrestamoBLL.BLLPrestamo;
 namespace PrestamoBLL.Tests
 {
     [TestClass()]
-    public class CofigurationManagetTest
+    public class CofigurationManagerTest
     {
         [TestMethod()]
         public void GetConectionsStrings()
