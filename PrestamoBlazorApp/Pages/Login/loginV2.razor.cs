@@ -25,11 +25,11 @@ namespace PrestamoBlazorApp.Pages.Login
         {
             EmpresasList = new List<Compañias>
             {
-                new Compañias { IdEmpresa = 1, Empresa = "Intagsa (varias localidades)", Localidades = new List <Localidad> {
-                    new Localidad {IdLocalidad=1, Nombre="La Romana" },
-                    new Localidad {IdLocalidad=2, Nombre="Rsj" },
-                    new Localidad {IdLocalidad=3, Nombre="Sosua" },
-                      new Localidad {IdLocalidad=3, Nombre="Higuey" },
+                new Compañias { IdEmpresa = 1,Codigo=1, Empresa = "Intagsa (varias localidades)", Localidades = new List <Localidad> {
+                    new Localidad {IdLocalidad=1, Nombre="La Romana"},
+                    new Localidad {IdLocalidad=2, Nombre="Rsj"},
+                    new Localidad {IdLocalidad=3, Nombre="Sosua"},
+                      new Localidad {IdLocalidad=3, Nombre="Higuey"},
                 } },
                 new Compañias { IdEmpresa = 2, Empresa = "Motoprestamo Richiez (una sola localidad)", Localidades = new List<Localidad> { new Localidad { IdLocalidad = 4, Nombre = "Higuey" } } }
             };
@@ -59,6 +59,8 @@ public class Compañias
 {
     public int IdEmpresa { get; set; }
     public string Empresa { get; set; }
+
+    public int Codigo { get; set; }
     public List<Localidad> Localidades { get; set; } = new List<Localidad>();
 
 }
