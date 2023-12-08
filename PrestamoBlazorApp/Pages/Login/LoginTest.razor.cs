@@ -14,26 +14,30 @@ namespace PrestamoBlazorApp.Pages.Login
     public partial class LoginTest : BaseForCreateOrEdit
     {
 
+        private Empresas compañia { get; set; } = new  Empresas();
         private Users users { get; set; } = new Users();
 
         private IEnumerable<Users> UserList { get; set; } = new List<Users>();
         protected override void OnInitialized()
         {
+
             UserList = new List<Users>
             {
                 new Users { Nombre = "RANDY", Contraseña = "1438" },
                 new Users { Nombre = "CRISTAL", Contraseña = "1235" },
                 new Users { Nombre = "CARLOS", Contraseña = "carlos145" }
             };
-
+            users.CodigoCompañia = compañia.Codigo;
+        
+            
             base.OnInitialized();
-
+            
 
         }
         private bool ValidateUser(Users users)
         {
             return
-            UserList.Any(u => u.Nombre == users.Nombre && u.Contraseña == users.Contraseña);
+            UserList.Any( u => u.Nombre == users.Nombre && u.Contraseña == users.Contraseña && u.CodigoCompañia== compañia.Codigo );
         }
         private async Task HandleValidSubmit()
         {
@@ -67,20 +71,11 @@ namespace PrestamoBlazorApp.Pages.Login
     {
         public string Nombre { get; set; }
         public string Contraseña { get; set; }
+        public int CodigoCompañia { get; set; }
+       
 
 
-        //public class UserListModel
-        //{
-        //    public List<Users> Users { get; set; } = new List<Users>();
 
-        //    public void AddUser(Users newUser)
-        //    {
-
-        //        Users.Add(newUser);
-
-        //    }
-        //}
-        
     }
 
 

@@ -13,25 +13,12 @@
 
             <MudImage Src="images/logo2.jpg.jpeg"  Alt="onno2" Elevation="25" Class="rounded-lg" Width="85" Height="85" />
 
-
-
-
-
-
-
-
-         
-
             <MudText Typo="Typo.h4">PC PROG</MudText>
 
             <MudText Typo="Typo.h4">login</MudText>
 
-
-
-            <MudTextField Label="Nombre" Class="border-solid border-2 mud-border-primary pa-0 " Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.People" Required="true" RequiredError=" Nombre de usuario es requerido!" Elevation="0" @bind-Value="@users.Nombre" />
-
-
-
+            
+            <MudTextField Label="Nombre" Class="border-solid border-2 mud-border-primary pa-0 " Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.People" Required="true" RequiredError=" Nombre de usuario es requerido!" Elevation="0" @bind-Value="@users.Nombre" />           
             <MudTextField Label="Contraseña" Class="border-solid border-2 mud-border-primary pa-0" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Password" Required="true" RequiredError="User name is required!" Elevation="0" @bind-Value="@users.Contraseña" />
             <ValidationMessage For="@(() => users.Contraseña)" />
 
