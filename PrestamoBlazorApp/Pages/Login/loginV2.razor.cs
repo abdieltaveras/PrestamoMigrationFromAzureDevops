@@ -60,7 +60,7 @@ public class Compañias
     public int IdEmpresa { get; set; }
     public string Empresa { get; set; }
     public List<Localidad> Localidades { get; set; } = new List<Localidad>();
-
+    public int Codigo { get;  set; }
 }
 
 
