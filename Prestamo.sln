@@ -84,6 +84,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.BLL.V2", "DevBoxSoft\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Classes.V2", "DevBoxSoft\Core.Classes.V2\Core.Classes.V2.csproj", "{249AB83E-07EB-4285-9A0F-CE61CB2877B8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Dal.V2", "DevBoxSoft\Core.Dal.V2\Core.Dal.V2.csproj", "{03CC4389-DCF6-4A40-B52A-C4B4DA74813A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU
@@ -178,6 +180,12 @@ Global
 		{249AB83E-07EB-4285-9A0F-CE61CB2877B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{249AB83E-07EB-4285-9A0F-CE61CB2877B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{249AB83E-07EB-4285-9A0F-CE61CB2877B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03CC4389-DCF6-4A40-B52A-C4B4DA74813A}.Abdiel|Any CPU.ActiveCfg = Debug|Any CPU
+		{03CC4389-DCF6-4A40-B52A-C4B4DA74813A}.Abdiel|Any CPU.Build.0 = Debug|Any CPU
+		{03CC4389-DCF6-4A40-B52A-C4B4DA74813A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03CC4389-DCF6-4A40-B52A-C4B4DA74813A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03CC4389-DCF6-4A40-B52A-C4B4DA74813A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03CC4389-DCF6-4A40-B52A-C4B4DA74813A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
