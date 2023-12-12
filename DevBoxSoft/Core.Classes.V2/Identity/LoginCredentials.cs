@@ -20,8 +20,7 @@ namespace DevBox.Core.Classes.Identity
     }
     public class LoginCredentials
     {
-        public int CompanyLocationId { get; set; }
-        public int CompanyId { get; set; }
+        public string CompanyCode { get; set; }
         [Required, MinLength(11)]
         public string UserName { get; set; }
 

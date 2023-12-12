@@ -172,9 +172,10 @@ namespace DevBox.Core.BLL.Identity
         }
         public LoginResult ValidateCredentials(LoginCredentials credentials, int durationMinutes=10)
         {
-            var user = Database.DataServer.ExecReaderSelSP("core.spAuthUser", UserConvertMap, SearchRec.ToSqlParams(credentials)).FirstOrDefault();
-            if (user != null)
+            var users = Database.DataServer.ExecReaderSelSP("core.spAuthUser", UserConvertMap, SearchRec.ToSqlParams(credentials));
+            if (users.Count()>0)
             {
+                CoreUser user = users[0];
                 string refToken = TokenManager.GenerateRefreshToken();
                 UpdateRefreshToken(new RefreshTokenModel { UserName = user.UserName, RefreshToken = refToken });
                 return new LoginResult
