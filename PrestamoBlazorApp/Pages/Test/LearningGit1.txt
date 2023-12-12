@@ -3,3 +3,7 @@ Linea de Cristal
 Linea de Cristal 2.
 Linea de Cristal nknijn
 lg2 Learning git 
+public void imprimir() 
+{ 
+	Console.WriteLine("Imprimiendo");
+}
