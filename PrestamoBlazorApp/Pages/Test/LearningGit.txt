@@ -1,8 +1,0 @@
-﻿Linea de abdiel
-Linea de Cristal
-Linea de Cristal 2.
-Linea de Cristal nknijn
-public void imprimir2()
-{
-console.writeline("imprimiendo2");
-}
