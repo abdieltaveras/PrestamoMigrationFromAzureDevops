@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    internal static class ConexionDB
+    internal static class ConexionDBFake
     {
         internal static Database DBPrestamo => Database.AdHoc(Server);
 

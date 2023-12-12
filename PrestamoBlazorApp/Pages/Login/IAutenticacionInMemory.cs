@@ -7,9 +7,12 @@ namespace PrestamoBlazorApp.Pages.Login
     {
 
         Task<bool> LoginAsync(string usuario, string contrasena);
+        Task<bool> LogoutAsync(string usuario, string contrasena);
+
         Task<bool> OlvideContrasenaAsync(string usuario);
         Task<string> GetCompaniaAsync();
         Task<List<string>> GetLocalidadesAsync();
+
     }
 
     public class AutenticacionInMemory : IAutenticacionInMemory
@@ -31,6 +34,15 @@ namespace PrestamoBlazorApp.Pages.Login
             return false;
         }
 
+        public async Task<bool> LogoutAsync(string usuario, string contrasena)
+        {
+            if (usuarios.TryGetValue(usuario, out var storedContrasena))
+            {
+                return contrasena == storedContrasena;
+            }
+
+            return false;
+        }
         public async Task<bool> OlvideContrasenaAsync(string usuario)
         {
             // Implementa la lógica para restablecer la contraseña según tus necesidades
