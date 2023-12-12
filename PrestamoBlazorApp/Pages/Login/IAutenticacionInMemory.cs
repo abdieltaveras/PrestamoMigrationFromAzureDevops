@@ -38,7 +38,7 @@ namespace PrestamoBlazorApp.Pages.Login
             return true;
         }
 
-        public async Task<string> GetCompaniaoAsync()
+        public async Task<string> GetCompaniaAsync()
         {
             // Implementa la lógica para obtener información del negocio
             return "InformacionDelNegocio";
