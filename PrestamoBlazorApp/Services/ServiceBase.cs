@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using Microsoft.JSInterop;
+using Microsoft.Extensions.Options;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -27,7 +28,7 @@ namespace PrestamoBlazorApp.Services
             _clientFactory = clientFactory;
             Configuration = configuration;
         }
-        protected async Task PostAsync<@Type>(string endpoint, @Type body, object search = null)
+        protected async Task<@Type> PostAsync<@Type>(string endpoint, object body, object search = null)
         {
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
@@ -35,13 +36,14 @@ namespace PrestamoBlazorApp.Services
             HttpResponseMessage response=null;
             string errorMessage = string.Empty;
             
-            response = await client.PostAsJsonAsync<@Type>($"{baseUrl}/{endpoint}?{query}", body);
-            errorMessage = await response.Content.ReadAsStringAsync();
-
+            response = await client.PostAsJsonAsync($"{baseUrl}/{endpoint}?{query}", body);
+            var result = await response.Content.ReadFromJsonAsync<Type>();
+            
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {errorMessage}'");
             }
+            return result;
         }
         protected async Task<IEnumerable<@Type>> GetAsync<@Type>(string endpoint, object search)
         {
