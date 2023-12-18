@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using DevBox.Core.Classes.Utils;
+using MudBlazor;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.Login
@@ -19,9 +23,9 @@ namespace PrestamoBlazorApp.Pages.Login
     {
         private readonly Dictionary<string, string> usuarios = new Dictionary<string, string>
     {
-        {"usuario1", "contrasena1"},
-        {"usuario2", "contrasena2"}
-        // Agrega más usuarios según sea necesario
+        {"CRISTAL", "1235"},
+        {"Abdiel", "5678"}
+        
     };
 
         public async Task<bool> LoginAsync(string usuario, string contrasena)
@@ -43,12 +47,48 @@ namespace PrestamoBlazorApp.Pages.Login
 
             return false;
         }
-        public async Task<bool> OlvideContrasenaAsync(string usuario)
-        {
-            // Implementa la lógica para restablecer la contraseña según tus necesidades
-            // Puede ser un proceso de envío de correo electrónico, mensajes, etc.
-            return true;
-        }
+      //  public async Task<string> OlvideContrasenaAsync(string usuario)
+      //  {
+           // try
+           // {
+              //  using (MailAddress mailMessage = new MailMessage())
+               // {
+                    //Destinatario
+                 //   mailMessage.To.Add("cristaltaveras47@gmail.com");
+
+                    //asunto
+                 //   mailMessage.subject = "Recuperar contraseña";
+
+                    //body
+                 //   mailMessage.body = "<H1> se ha enviado correctamente.</h1>";
+                  //  mailMessage.IsBodyHtml = true;
+
+                    //remitente
+                  //  mailMessage.GetFromDataRow = new MailAddress("randyjus25@hotmail.com", "Nueva Contraseña");
+
+                 //   using (SmtpClient cliente = new SmtpClient())
+                   // {
+                        //contraseñas
+                       // cliente.UseDefaultCredentials = false;
+                       //     cliente.Credentials = new NetworkCredential("randyjus25@hotmail.com", "Codigo1234");
+                       // cliente.Port = 587;
+                       // cliente.EnableSsl = true;
+
+                        //host
+
+                      //  cliente.Host = "smtp.gmail.com";
+                   //     cliente.Send(mailMessage);
+
+                 //   }
+//
+             //   }
+        //    }
+          //  catch(Exception)
+      //  }
+          //  {
+         //       throw;
+         //   }
+            
 
         public async Task<string> GetCompaniaAsync()
         {
@@ -60,6 +100,11 @@ namespace PrestamoBlazorApp.Pages.Login
         {
             // Implementa la lógica para obtener la lista de localidades
             return new List<string> { "Localidad1", "Localidad2", "Localidad3" };
+        }
+
+        public Task<bool> OlvideContrasenaAsync(string usuario)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
