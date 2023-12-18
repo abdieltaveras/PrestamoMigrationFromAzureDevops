@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PrestamoBlazorApp.Pages.Login
+namespace PrestamoBlazorApp.Services
 {
     public interface IAutenticacionInMemory
     {
@@ -35,7 +35,7 @@ namespace PrestamoBlazorApp.Pages.Login
         {
             // Implementa la lógica para restablecer la contraseña según tus necesidades
             // Puede ser un proceso de envío de correo electrónico, mensajes, etc.
-            return true;
+            return  true;
         }
 
         public async Task<string> GetCompaniaAsync()
