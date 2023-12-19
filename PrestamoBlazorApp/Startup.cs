@@ -86,6 +86,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<PrestamosEstatusService>();
             services.AddScoped<NegociosService>();
             services.AddScoped<ServicioPruebas>();
+            services.AddScoped<AutenticacionInMemory>();
 
             //services.AddSingleton<IServicioPruebas, ServicioPruebas>();
 
