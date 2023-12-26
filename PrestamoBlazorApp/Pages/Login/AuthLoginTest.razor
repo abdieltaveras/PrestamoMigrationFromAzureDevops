@@ -19,6 +19,8 @@
             <ValidationMessage For="@(() => users.Contraseña)" />
             @*<MudButton @onclick='()=>NavigateTo("/loginEmpresa")' Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>*@
             <MudButton border-solid border-2 mud-border-primary pa-4 @onclick='()=> HandleValidSubmit()' Varian t="Variant.Filled" Color="@MudBlazor.Color.Info">Entrar</MudButton>
+            <MudButton border-solid border-2 mud-border-primary pa-4 @onclick='()=> HandleCheckAuthState()' Varian t="Variant.Filled" Color="@MudBlazor.Color.Dark">Check Auth State</MudButton>
+            
         </MudItem>
     </MudGrid>
 </EditForm>

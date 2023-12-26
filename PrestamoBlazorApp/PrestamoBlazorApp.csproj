@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorUtilsLibrary\BlazorUtilsLibrary.csproj" />
+    <ProjectReference Include="..\DevBoxSoft\Core.Classes.V2\Core.Classes.V2.csproj" />
     <ProjectReference Include="..\PcpUtilidades\PcpUtilidades.csproj" />
     <ProjectReference Include="..\PrestamoEntidades\PrestamoEntidades.csproj" />
     <ProjectReference Include="..\Validaciones\Validaciones.csproj" />
@@ -68,9 +69,6 @@
   
   
   <ItemGroup>
-    <Reference Include="DevBox.Core.Classes">
-      <HintPath>..\SharedDLL\PcProg\DevBox.Core.Classes.dll</HintPath>
-    </Reference>
     <Reference Include="PcpSoft.MudBlazorHelpers">
       <HintPath>..\SharedDLL\PcpSoft\PcpSoft.MudBlazorHelpers.dll</HintPath>
     </Reference>
