@@ -78,8 +78,8 @@ namespace PrestamoBLL.Tests
         }
         private int getTipoMora(string codigo)
         {
-            var tiposMora = new TipoMoraBLL(1, TestInfo.Usuario).GetTiposMoras(new TipoMoraGetParams());
-            var tipoMora = tiposMora.FirstOrDefault(item => item.Codigo == codigo);
+            var tiposMora = new TipoMoraBLL(1, TestInfo.Usuario).GetTiposMoras(new TipoMoraGetParams() {Codigo=codigo });
+            var tipoMora = tiposMora.FirstOrDefault();
             return GetResult<TipoMora>(tipoMora).IdTipoMora;
         }
 
