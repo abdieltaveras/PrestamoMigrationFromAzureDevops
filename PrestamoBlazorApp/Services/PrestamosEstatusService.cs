@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
@@ -15,7 +16,7 @@ namespace PrestamoBlazorApp.Services
     {
         readonly string apiUrl = "api/prestamoestatus";
 
-        public PrestamosEstatusService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public PrestamosEstatusService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

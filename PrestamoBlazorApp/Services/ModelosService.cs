@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 
 using PcpUtilidades;
+using Blazored.LocalStorage;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -34,7 +35,7 @@ namespace PrestamoBlazorApp.Services
             var result =  await GetAsync<Modelo>(apiUrl+"/get", modeloGetParams);
             return result;
         }
-        public ModelosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public ModelosService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

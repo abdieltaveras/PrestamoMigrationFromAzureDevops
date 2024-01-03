@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using PrestamoEntidades;
 using System;
@@ -13,7 +14,7 @@ namespace PrestamoBlazorApp.Services
         
         readonly string apiUrl = "api/negocios";
        
-        public NegociosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public NegociosService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
         }
 

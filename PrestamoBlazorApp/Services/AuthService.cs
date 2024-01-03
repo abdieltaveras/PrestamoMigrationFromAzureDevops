@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
@@ -16,8 +17,8 @@ namespace PrestamoBlazorApp.Services
     public class AuthService : ServiceBase
     {
         private string ApiUrl = "api/user";
-    
-        public AuthService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        //public AuthService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
+        public AuthService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

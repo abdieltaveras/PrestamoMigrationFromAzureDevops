@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -30,7 +31,7 @@ namespace PrestamoBlazorApp.Services
 
             return result.FirstOrDefault();
         }
-        public TasasInteresService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration) { }
+        public TasasInteresService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService) { }
 
         public async Task SaveTasaInteres(TasaInteres TasaInteres)
         {

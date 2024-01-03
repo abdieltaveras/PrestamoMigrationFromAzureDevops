@@ -20,6 +20,7 @@ using PrestamoBlazorApp.Services.Pruebas;
 using UIClient.Services;
 using PrestamoBlazorApp.Providers;
 using Blazored.LocalStorage;
+using PrestamoBlazorApp.Services.BaseService;
 
 namespace PrestamoBlazorApp
 {
@@ -93,7 +94,8 @@ namespace PrestamoBlazorApp
             services.AddScoped<NegociosService>();
             services.AddScoped<ServicioPruebas>();
             services.AddScoped<AuthService>();
-         
+            services.AddScoped<ServiceBase>();
+
             //services.AddSingleton<IServicioPruebas, ServicioPruebas>();
 
 

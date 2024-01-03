@@ -1,4 +1,5 @@
 ﻿
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PcpSoft.System;
@@ -19,7 +20,7 @@ namespace PrestamoBlazorApp.Services
         //    var result = await GetAsync<Color>(apiUrl, search);
         //    return result;
         //}
-        public DivisionTerritorialService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public DivisionTerritorialService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

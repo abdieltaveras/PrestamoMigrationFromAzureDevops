@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PcpUtilidades;
@@ -31,7 +32,7 @@ namespace PrestamoBlazorApp.Services
         //{
         //    return await GetAsync<Color>(apiUrl, null);
         //}
-        public EstatusService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public EstatusService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

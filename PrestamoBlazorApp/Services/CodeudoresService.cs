@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
@@ -27,7 +28,7 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
         
-        public CodeudoresService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public CodeudoresService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

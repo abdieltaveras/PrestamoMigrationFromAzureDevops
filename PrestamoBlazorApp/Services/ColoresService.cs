@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using PcpUtilidades;
+using Blazored.LocalStorage;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -26,7 +27,7 @@ namespace PrestamoBlazorApp.Services
         {
             return await GetAsync<Color>(apiUrl+"/get",  colorGetParams);
         }
-        public ColoresService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public ColoresService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

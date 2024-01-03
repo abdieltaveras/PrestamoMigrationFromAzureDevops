@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using PcpUtilidades;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.JSInterop;
+using Blazored.LocalStorage;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -77,7 +78,7 @@ namespace PrestamoBlazorApp.Services
             return await GetAsync<GarantiasConPrestamo>("api/Garantias/GetPrestamosVigentes", new { idGarantia = idGarantia });
         }
 
-        public GarantiasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public GarantiasService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
             
         }

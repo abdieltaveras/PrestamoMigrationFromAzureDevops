@@ -1,8 +1,9 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
 using PcpUtilidades;
-
+using PrestamoBlazorApp.Providers;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
         
-        public ClientesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public ClientesService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }
