@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PcpUtilidades;
@@ -27,7 +28,7 @@ namespace PrestamoBlazorApp.Services
             var result =  await GetAsync<Marca>(apiUrl+"/get", marcaGetParams);
             return result;
         }
-        public MarcasService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public MarcasService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

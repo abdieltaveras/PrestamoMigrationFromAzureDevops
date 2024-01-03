@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PrestamoBlazorApp.Shared;
@@ -17,7 +18,7 @@ namespace PrestamoBlazorApp.Services
       
         string apiUrl = "api/Test";
 
-        public TestService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration) { }
+        public TestService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService) { }
 
         
         public async Task EncodeNullParams()

@@ -1,4 +1,5 @@
-﻿using MudBlazor;
+﻿using Blazored.LocalStorage;
+using MudBlazor;
 using PrestamoBlazorApp.Services;
 using PrestamoEntidades;
 using System;
@@ -9,7 +10,7 @@ namespace PrestamoBlazorApp.Pages.Catalogos
     {
 
         
-        override protected CatalogosService GetService => new CatalogosService(base.CommomInjectionsService.HttpClientFactory, base.CommomInjectionsService.Configuration, "api/Color");
+        override protected CatalogosService GetService => new CatalogosService(base.CommomInjectionsService.HttpClientFactory, base.CommomInjectionsService.Configuration, this.CommomInjectionsService.LocalStorageService, "api/Color");
         
         //protected override async Task ShowEditor(CatalogoInsUpd catalogo, bool usarFormularioParaEliminar = false, Func<Task> action = null)
         //{

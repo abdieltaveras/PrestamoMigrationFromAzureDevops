@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PrestamoBlazorApp.Shared;
@@ -20,7 +21,7 @@ namespace PrestamoBlazorApp.Services
             var result = await GetAsync<Periodo>(apiUrl+"/get", search);
             return result;
         }
-        public PeriodosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration) { }
+        public PeriodosService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService) { }
 
         public async Task SavePeriodo(Periodo Periodo)
         {

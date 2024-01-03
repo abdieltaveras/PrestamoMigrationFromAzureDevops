@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PcpUtilidades;
@@ -25,7 +26,7 @@ namespace PrestamoBlazorApp.Services
             var result =  await GetAsync<Clasificacion>(apiUrl+"/get", clasificacionesGetParams);
             return result;
         }
-        public ClasificacionesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public ClasificacionesService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

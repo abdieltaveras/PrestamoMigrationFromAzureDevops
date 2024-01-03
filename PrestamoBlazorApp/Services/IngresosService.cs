@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using PrestamoEntidades;
 using System;
@@ -21,7 +22,7 @@ namespace PrestamoBlazorApp.Services
             var search = new IngresoGetParams { IdIngreso = id };
             return await GetIngresosAsync(search);
         }
-        public IngresosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public IngresosService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }
