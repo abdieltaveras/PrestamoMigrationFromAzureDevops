@@ -30,7 +30,7 @@
       <HintPath>..\SharedDLL\DevBoxSofNet6\DevBox.Core.Classes.dll</HintPath>
     </Reference>
     <Reference Include="DevBox.Core.Dal">
-      <HintPath>..\SharedDLL\DevBoxSofNet6\DevBox.Core.Dal.dll</HintPath>
+      <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.Dal.dll</HintPath>
     </Reference>
     <Reference Include="HESRAM.Utils">
       <HintPath>..\SharedDLL\HESRAM\HESRAM.Utils.dll</HintPath>

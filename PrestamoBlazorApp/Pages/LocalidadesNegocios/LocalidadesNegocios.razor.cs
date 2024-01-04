@@ -21,7 +21,12 @@ namespace PrestamoBlazorApp.Pages.LocalidadesNegocios
         public int IdLocalidadNegocio { get; set; } = -1;
         protected override async Task OnInitializedAsync()
         {
-            localidadesnegocios = await LocalidadesNegociosService.Get(new LocalidadNegociosGetParams { Opcion = 1 });
+            await Handle_GetData(GetNegocios);
+        }
+
+        private async Task GetNegocios()
+        {
+            this.localidadesnegocios = await LocalidadesNegociosService.Get(new LocalidadNegociosGetParams { Opcion = 1 });
         }
 
         public virtual void OnEditClick(string url)
