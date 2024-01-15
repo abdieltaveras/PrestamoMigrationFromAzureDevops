@@ -32,7 +32,7 @@ namespace DevBox.Core.DAL.SQLServer
                     {
                         if (_DataServer == null)
                         {
-                            string connStr = null;
+                            string connStr = "DataServer";
                             connStr = GetConnectionString(connStr);
                             _DataServer = new Database(connStr);
                         }

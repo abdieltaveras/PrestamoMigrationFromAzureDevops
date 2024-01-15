@@ -7,11 +7,14 @@
 			displayName='Listado de Colores'
 			description='Listado de colores' groupName='Catalogo de Garantias'
 			value='Listado de Colores' permissionLevel='None' inherited='false'>
-
+		
 		<subActions>
-			<subAction displayName='Agregar' description='agregar un nuevo color' value='AgregarColor' permissionLevel='None' inherited='false' />
-			<subAction displayName='Editar' description='Modificar un color' value='EditarColor' permissionLevel='None' inherited='false' />
-			<subAction displayName='Eliminar' description='eliminar un color' value='EliminarColor' permissionLevel='None' inherited='false' />
+			<subAction displayName='Agregar' description='agregar un nuevo color' 
+					   value='AgregarColor' permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar' description='Modificar un color' 
+					   value='EditarColor' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar' description='eliminar un color' 
+					   value='EliminarColor' permissionLevel='None' inherited='false' />
 		</subActions>
 	</action>
 	
@@ -21,9 +24,9 @@
 			value='Listado de Marcas Y Modelos  De Garantias' permissionLevel='None' inherited='false'>
 
 		<subActions>
-			<subAction displayName='Agregar' description='permite agregar Marca y Modelos'  value='Agregar Marca y Modelo' permissionLevel='None' inherited='false' />
-			<subAction displayName='Editar' description='permite Modificar Marca y modelo'  value='Editar Marca y modelo' permissionLevel='None' inherited='false' />
-			<subAction displayName='Eliminar' description='permite eliminar marca y modelo' value='Eliminar marca y modelo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Agregar' description='permite agregar Marca y Modelos'  value='AgregarMarcaYModelo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar' description='permite Modificar Marca y modelo'  value='EditarMarcaYModelo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar' description='permite eliminar marca y modelo' value='EliminarMarcaYModelo' permissionLevel='None' inherited='false' />
 		</subActions>
 	</action>
 	
@@ -48,7 +51,10 @@
 			value='Listado de Clientes' permissionLevel='None' inherited='false'>
 
 		<subActions>
-			<subAction displayName='Agregar' description='agregar un nuevo cliente' value='AgregarColor' permissionLevel='None' inherited='false' />
+			<subAction displayName='Agregar' 
+					   description='agregar un nuevo cliente' 
+					   value='AgregarColor' 
+					   permissionLevel='None' inherited='false' />
 			<subAction displayName='Editar' description='Modificar un cliente' value='EditarColor' permissionLevel='None' inherited='false' />
 			<subAction displayName='Eliminar' description='eliminar un cliente' value='EliminarColor' permissionLevel='None' inherited='false' />
 			
@@ -57,11 +63,12 @@
 	
 	<action id='{8D8FD452-0AD9-44B2-B8BE-F49A7C36BE02}'
 			displayName='Crear Cliente'
-			description='ver el listado de las Marcas y Colores' groupName='Catalogo de Garantias'
-			value='Listado de Marcas Y Modelos  De Garantias' permissionLevel='None' inherited='false'>
+			description='ver el listado de Cliente' groupName='Clientes'
+			value='CrearCliente' permissionLevel='None' inherited='false'>
 
 		<subActions>
-			<subAction displayName='Suspender Credito' description='impide que este cliente se le pueda realizar prestamos' value='Cancelar Realizar Prestamos' permissionLevel='None' inherited='false' />	
+			<subAction displayName='Suspender Credito' description='impide que este cliente se le pueda realizar prestamos' value='SuspenderCreditosPrestamosACliente' permissionLevel='None' inherited='false' />	
+			<subAction displayName='Establecer tipo comprobante Fiscal' description='permite asignar el tipo de comprobante por defecto para este cliente' value='AsignarComprobanteFiscalPorDefecto' permissionLevel='None' inherited='false' />			
 		</subActions>
 	</action>
 </actions>
