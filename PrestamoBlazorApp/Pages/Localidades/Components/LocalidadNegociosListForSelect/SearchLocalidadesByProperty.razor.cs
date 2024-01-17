@@ -41,6 +41,10 @@ namespace PrestamoBlazorApp.Pages.Localidades.Components.LocalidadNegociosListFo
         public EventCallback<Localidad> ValueChanged { get; set; }
 
         private Localidad _value;
+        public virtual void OnEditClick(string url)
+        {
+            NavManager.NavigateTo(url);
+        }
 
         private async Task GetLocalidades()
         {

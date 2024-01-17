@@ -2,12 +2,14 @@
 <MudDialog>
     <DialogContent>
         <MudGrid>
-   
             <MudItem md="7" lg="7" xs="12" sm="12">
                 <MudTextField @bind-Value="SearchText" Label="Buscar..."></MudTextField>
             </MudItem>
             <MudItem md="1" lg="1" xs="12" sm="12">
-                <MudButton OnClick="onSearchClick">Buscar</MudButton>
+                <MudButton Color=MudBlazor.Color.Success OnClick="onSearchClick">Buscar</MudButton>
+            </MudItem>
+            <MudItem>
+                <MudButton OnClick='()=>OnEditClick("/localidadesnegocios/createoredit")' Variant="Variant.Filled" Color="MudBlazor.Color.Primary">Agregar Localidad</MudButton>
             </MudItem>
         </MudGrid>
         <MudGrid>

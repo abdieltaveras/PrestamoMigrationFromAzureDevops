@@ -49,7 +49,7 @@ namespace PrestamoBlazorApp.Shared.Components.LocalidadesNegocios
         private async Task<bool> SaveLocalidadNegocio()
         {
            
-            LocalidadNegocio.IdLocalidadNegocio = 1;
+            //LocalidadNegocio.IdLocalidadNegocio = 1;
             try
             {
                 await Handle_SaveData(()=> LocalidadesNegociosService.Post(this.LocalidadNegocio),()=> NotifyMessageBySnackBar("Guardado Correctamente",MudBlazor.Severity.Success),()=>HandleInvalidSubmit(),false,"/localidadesnegocios");
