@@ -4,6 +4,7 @@ using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static PrestamoBLL.BLLPrestamo;
 
 namespace PrestamoBLL
 {
@@ -57,6 +58,8 @@ namespace PrestamoBLL
                 DatabaseError(e);
             }
         }
+
         
     }
+    
 }

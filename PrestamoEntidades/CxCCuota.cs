@@ -85,8 +85,4 @@ namespace PrestamoEntidades
         // que sea de interesOMora y rebajar al total que produzca, los cargos NODEFINITIVO
         // que indican que son cargos tentativos mientras se hace ese calculo al momento del pago
     }
-
-
-    
-
 }

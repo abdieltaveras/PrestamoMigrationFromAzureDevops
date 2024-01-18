@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
+    /// <summary>
+    /// clase para operaciones de prestamos
+    /// </summary>
     public class PrestamoBLLC : BaseBLL
     {
         public PrestamoBLLC(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }

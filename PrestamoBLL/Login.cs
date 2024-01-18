@@ -18,7 +18,7 @@ namespace PrestamoBLL
         /// </summary>
         /// <param name="idNegocio"></param>
         /// <returns></returns>
-        public void ChangePassword(ChangePassword param)
+        public void ChangePasswordNoUsar(ChangePassword param)
         {
             
             var _updParam = SearchRec.ToSqlParams(param);
@@ -26,7 +26,7 @@ namespace PrestamoBLL
         }
         public LoginResponse Login(Users usr)
         {
-            var result = ValidateUser(usr.IdNegocio, usr.LoginName, usr.Password);
+            var result = ValidateUserNoUsar(usr.IdNegocio, usr.LoginName, usr.Password);
             return result;
         }
         /// <summary>
@@ -36,10 +36,10 @@ namespace PrestamoBLL
         /// <param name="loginName"></param>
         /// <param name="contraseña"></param>
         /// <returns></returns>
-        public LoginResponse Login(string loginName, string contraseña, int idLocalidadNegocio)
+        public LoginResponse LoginNoUsar(string loginName, string contraseña, int idLocalidadNegocio)
         {
 
-            var result = ValidateUser(idLocalidadNegocio, loginName, contraseña);
+            var result = ValidateUserNoUsar(idLocalidadNegocio, loginName, contraseña);
             #if DEBUG
             if (loginName.ToLower() == "admin") 
             {
@@ -82,7 +82,7 @@ namespace PrestamoBLL
         /// <param name="loginName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private LoginResponse ValidateUser(int idLocalidadNegocio, string loginName, string password)
+        private LoginResponse ValidateUserNoUsar(int idLocalidadNegocio, string loginName, string password)
         {
             var usuario = this.LoginByNegocioMatriz(new LoginParam { idLocalidadNegocio = idLocalidadNegocio, LoginName = loginName, Contraseña = password }).FirstOrDefault();
             

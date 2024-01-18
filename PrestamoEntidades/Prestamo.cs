@@ -411,7 +411,7 @@ namespace PrestamoEntidades
 
         public override string ToString()
         {
-            return $"Monto Prestado {MontoPrestado} a una tasa de {TasaDeInteresDelPeriodo}  por periodo";
+            return $"{PrestamoNumero} Monto Prestado {MontoPrestado} a una tasa de {TasaDeInteresDelPeriodo}  por periodo";
         }
         [IgnoreOnParams]
         public bool LlevaGarantia { get; set; }

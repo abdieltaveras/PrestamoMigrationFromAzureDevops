@@ -36,7 +36,7 @@ namespace PrestamoBLL
             // esto es para que no lo incluya
             //searchParam.Anulado = null;
             //var search_Param = SearchRec.ToSqlParams(searchParam);
-            var search_Param = BLLPrestamo.SearchRecForGet(searchParam, new ImplicitParams { IncluirAnulados = 0, IncluirBorrados = 0 });
+            var search_Param = BLLPrestamo.SearchRecForGet(searchParam, new CondicionBorradosOAnulados { IncluirAnulados = 0, IncluirBorrados = 0 });
             var dr = DBPrestamo.ExecReaderSelSP("spBuscarGarantiasConPrestamos", search_Param); // aqui explota Luis
             var GarantiaConPrestamo = new GarantiaConMarcaYModeloYPrestamos();
             var GarantiasConPrestamos = new List<GarantiaConMarcaYModeloYPrestamos>();

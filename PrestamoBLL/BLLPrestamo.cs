@@ -23,7 +23,7 @@ namespace PrestamoBLL
         /// la cual es obtenida del la propiedad Server del objeto ConexionDB
         /// </summary>
 
-        public static SqlParameter[] SearchRecForGet(object paramss,ImplicitParams implicitParams, SqlParameter[] othersParams = null)
+        public static SqlParameter[] SearchRecForGet(object paramss,CondicionBorradosOAnulados implicitParams, SqlParameter[] othersParams = null)
         {
             var sqlParamsList = SearchRec.ToSqlParams(paramss).ToList();
             if (implicitParams != null)
@@ -181,7 +181,7 @@ namespace PrestamoBLL
                 //query = string.Format("SELECT count(*) FROM " + table);
             }
             //var result2 = Database.DataServer.ExecNonQuery(query);
-            var result3 = DBPrestamo.ExecNonQuerySP(query); 
+            var result3 = DBPrestamo.ExecEscalarCommand(query); 
             var valor = System.Convert.ToInt32(result3);
             return valor > 0;
         }
@@ -192,20 +192,48 @@ namespace PrestamoBLL
         public  class BllAcciones
         {
 
-            public static IEnumerable<TInsert2> GetData<TInsert2, TGet2>(TGet2 searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null, ImplicitParams implicitParams = null) where TInsert2 : class where TGet2 : class
+            /// <summary>
+            /// metodo para realizar las peticiones de get 
+            /// </summary>
+            /// <typeparam name="TGetResult"> el tipo del parametro que se devuelve al realizar la operacion</typeparam>
+            /// <typeparam name="TSearchParams"> El tipo del objeto que tiene los parametros que se envian al stored procedure</typeparam>
+            /// <param name="searchParam"> la instancia con los valores de la busqueda</param>
+            /// <param name="storedProcedure"> el nombrel del stored procedure</param>
+            /// <param name="getValidations">el objeto que realizara validaciones</param>
+            /// <param name="databaseErrorMethod">un action para errores</param>
+            /// <param name="implicitParams"></param>
+            /// <returns></returns>
+            internal static IEnumerable<TGetResult> GetData<TGetResult, TSearchParams>(TSearchParams searchParam, string storedProcedure, Action<BaseGetParams> getValidations, Action<Exception> databaseErrorMethod = null, CondicionBorradosOAnulados implicitParams = null) where TGetResult : class where TSearchParams : class
             {
                 if (searchParam is BaseGetParams) { getValidations(searchParam as BaseGetParams); }
-                IEnumerable<TInsert2> result = new List<TInsert2>();
+                var sqlParams = SearchRec.ToSqlParams(searchParam);
+                return BllAcciones.GetData<TGetResult>(sqlParams, storedProcedure, databaseErrorMethod, implicitParams);
+            }
+            /// <summary>
+            /// Para ejecutar get en el stored procedure pero no usa un objeto sino parametros sqlParams
+            /// suele usarse cuando es un parametro primitivo que se necesita enviar es decir un int, string, etc.
+            /// </summary>
+            /// <typeparam name="TGetResult"></typeparam>
+            /// <param name="searchParam"></param>
+            /// <param name="storedProcedure"></param>
+            /// <param name="databaseErrorMethod"></param>
+            /// <param name="implicitParams"></param>
+            /// <returns></returns>
+            internal static IEnumerable<TGetResult> GetData<TGetResult>(SqlParameter[] searchParam, string storedProcedure,  Action<Exception> databaseErrorMethod = null, CondicionBorradosOAnulados implicitParams = null) where TGetResult : class
+            {
+                
+                IEnumerable<TGetResult> result = new List<TGetResult>();
                 try
                 {
-                    var searchSqlParams = SearchRec.ToSqlParams(searchParam).ToList();
+                    
                     if (implicitParams != null)
                     {
+                        var searchSqlParams = searchParam.ToList();
                         searchSqlParams.AddRange(SearchRec.ToSqlParams(implicitParams));
                         if (implicitParams.IncluirBorrados == 1)
                         {
                             var a = searchSqlParams.Where(m => m.ParameterName.ToLower().Contains("borrado"));
-                            if (a.Count()>0)
+                            if (a.Count() > 0)
                             {
                                 searchSqlParams.Where(m => m.ParameterName.ToLower().Contains("borrado")).FirstOrDefault().Value = 2;
                             }
@@ -218,8 +246,9 @@ namespace PrestamoBLL
                                 searchSqlParams.Where(m => m.ParameterName.ToLower().Contains("anulado")).FirstOrDefault().Value = 2;
                             }
                         }
+                        searchParam = searchSqlParams.ToArray();
                     }
-                    result = DBPrestamo.ExecReaderSelSP<TInsert2>(storedProcedure, searchSqlParams.ToArray());
+                    result = DBPrestamo.ExecReaderSelSP<TGetResult>(storedProcedure, searchParam);
                 }
                 catch (Exception e)
                 {

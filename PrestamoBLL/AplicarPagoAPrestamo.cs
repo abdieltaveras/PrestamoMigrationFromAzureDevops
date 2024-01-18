@@ -12,6 +12,7 @@ namespace PrestamoBLL
     {
         public List<string> ErrorMessages { get; internal set; }
         internal PagoResult() { }
+
         internal PagoResult AddErrorMessage(string errorMessage)
         {
             this.ErrorMessages.Add(errorMessage);
@@ -36,13 +37,14 @@ namespace PrestamoBLL
 
         public bool OcurrioUnError => PagoResult.ErrorMessages.Any();
         PagoResult PagoResult { get; set; }
+        public AplicarPagoAPrestamo(int idLocalidadNegocio, string usuario) : base(idLocalidadNegocio, usuario) { }
+        
+        
         private AplicarPagoAPrestamo(int idprestamo, DateTime fecha, string nombreUsuario, PositiveDecimal montoPagado, int idLocalidadNegocio) : base(idLocalidadNegocio, nombreUsuario)
         {
             this.IdPrestamo = idprestamo;
             this.Fecha = fecha;
-            this.Usuario = nombreUsuario;
             this.MontoAAplicar = montoPagado;
-            montoPagado = 5 +3;
         }
 
         private void ProcesarPago()
@@ -63,10 +65,10 @@ namespace PrestamoBLL
                 PagoResult.AddErrorMessage("El prestamo indicado no existe");
         }
 
-        private void GetDeuda()
+        private IEnumerable<CxCCuota> GetDeuda()
         {
-            var result = PrestamoBLLC.GetPrestamos(new PrestamosGetParams { idPrestamo = IdPrestamo }).FirstOrDefault();
-            this.Prestamo = result;
+            var result = CxCPrestamo.GetCxCTodo(this.IdPrestamo);
+            return result;
         }
 
         private void GetCXC()
@@ -74,19 +76,19 @@ namespace PrestamoBLL
             PrestamoBLLC.GetCXC(this.IdPrestamo, DateTime.Now);
         }
 
-        public void AplicarPago(int idPrestamo, DateTime fecha, PositiveDecimal montoPagado, int idLocalidadNegocio, string nombreUsuario)
+        private void AplicarPagoNoUsarPorElId(int idPrestamo, DateTime fecha, PositiveDecimal montoPagado, int idLocalidadNegocio, string nombreUsuario)
         {
             var pago = new AplicarPagoAPrestamo(idPrestamo,fecha,  nombreUsuario, montoPagado, idLocalidadNegocio);
             GetDeuda();
         }
 
-        public void AplicarPago(string prestamoNumero, DateTime fecha, PositiveDecimal montoPagado, int idLocalidadNegocio, string nombreUsuario)
+        public void  AplicarPago(string prestamoNumero, DateTime fecha, PositiveDecimal montoPagado, int idLocalidadNegocio, string usuario)
         {
-            var result = PrestamoBLLC.GetPrestamos(new PrestamosGetParams { PrestamoNumero = prestamoNumero });
-            this.Prestamo = result.FirstOrDefault();
+            var prestamoBLLC = new PrestamoBLLC(idLocalidadNegocio, usuario);
+            this.IdPrestamo = CxCPrestamo.GetIdPrestamo(prestamoNumero);
             GetDeuda();
         }
 
-        private void probando_stash() { }
+        
     }
 }

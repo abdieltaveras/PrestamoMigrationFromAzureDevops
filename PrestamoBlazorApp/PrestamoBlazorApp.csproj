@@ -25,11 +25,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="App.razor.css" />
+    <None Remove="Pages\Index.razor.css" />
     <None Remove="Pages\Prestamos\CreateOrEditPrestamo - Copy.razor.css" />
     <None Remove="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="App.razor.css" />
+    <Content Include="Pages\Index.razor.css" />
     <Content Include="Pages\Prestamos\CreateOrEditPrestamo.razor.css" />
   </ItemGroup>
 

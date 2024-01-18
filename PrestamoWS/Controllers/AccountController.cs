@@ -40,7 +40,7 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public Tuple<LoginResponse,string>  Login(string loginName, string password, string returnUrl)
         {
-            var result = BLLPrestamo.Instance.Login(loginName, password, this.IdLocalidadNegocio);
+            var result = BLLPrestamo.Instance.LoginNoUsar(loginName, password, this.IdLocalidadNegocio);
             var response = new Tuple<LoginResponse, string>(result, returnUrl);
             return response;
         }
