@@ -355,6 +355,23 @@ INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, BceCapital, Interes, 
 
 (7, 1, '2020-06-25', 500,500, 5, 5)
 
+---- tblTiposCargos
+	INSERT INTO [dbo].[tblTiposCargo]
+           ([Idnegocio]
+           ,[Codigo]
+           ,[Descripcion])
+     VALUES
+		   (1,'I01','Interes'),
+		   (1,'I02','Interes Despues de Vencido'),
+           (1,'C01','Capital'),
+		   (1,'M01','Moras'),
+		   (1,'GC01','Gestion de cobro'),
+		   (1,'NTA01','Notificacion Alguacil'),
+		   (1,'PCL01','Proceso Legal')
+
+
+
+
 
 --CREATE UNIQUE NONCLUSTERED INDEX [UniqueCodigoOcupacionExceptNulls]
 --ON [TblOcupaciones] (Codigo)

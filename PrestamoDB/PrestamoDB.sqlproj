@@ -228,6 +228,9 @@
     <Build Include="dbo\Stored Procedures\spSearchTableByColunm.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamoCliente.sql" />
     <Build Include="dbo\Stored Procedures\SpGetCuotas.sql" />
+    <Build Include="dbo\Tables\tblDebitos.sql" />
+    <Build Include="dbo\Tables\tblDetallesOtrasCxC.sql" />
+    <Build Include="dbo\Tables\TblTiposCargo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
