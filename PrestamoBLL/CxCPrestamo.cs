@@ -25,7 +25,7 @@ namespace PrestamoBLL
             var valor = System.Convert.ToInt32(resultIdPrestamo);
             return valor;
         }
-        internal static IEnumerable<CxCCuota> GetCxCTodo(int idPrestamo)
+        public static IEnumerable<CxCCuota> GetCuotas(int idPrestamo)
         {
             // obtener el numero del prestamo y que pertenezca al negocio
             // obtener las cuotas y los debitos pendientes

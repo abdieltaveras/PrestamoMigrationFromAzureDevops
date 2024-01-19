@@ -68,8 +68,8 @@ namespace PrestamoEntidades
                     this.TotalInteres += cuota.BceInteres;
                     //this.TotalMora += cuota.BceMora;
                     //this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
-                    this.TotalOtrosCargos += (decimal)cuota.BceOtrosCargos;
-                    if (cuota.Atrasada(this.Fecha))
+                    //this.TotalOtrosCargos += (decimal)cuota.BceOtrosCargos;
+                    if (cuota.Vencida(this.Fecha))
                     {
                         this.CuotasAtrasadas++;
                         this.DeudaAtrasada += this.DeudaTotal;

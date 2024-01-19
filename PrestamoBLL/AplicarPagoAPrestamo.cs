@@ -27,68 +27,81 @@ namespace PrestamoBLL
 
         private DateTime Fecha { get; set; }
 
-        private string Usuario { get; set; }
 
         private PositiveDecimal MontoAAplicar { get; set; }
 
         private Prestamo Prestamo { get; set; }
 
-        private PrestamoBLLC PrestamoBLLC { get; set; }
+        //private PrestamoBLLC PrestamoBLLC { get; set; }
 
         public bool OcurrioUnError => PagoResult.ErrorMessages.Any();
         PagoResult PagoResult { get; set; }
         public AplicarPagoAPrestamo(int idLocalidadNegocio, string usuario) : base(idLocalidadNegocio, usuario) { }
         
         
-        private AplicarPagoAPrestamo(int idprestamo, DateTime fecha, string nombreUsuario, PositiveDecimal montoPagado, int idLocalidadNegocio) : base(idLocalidadNegocio, nombreUsuario)
+        private void SetValue(int idprestamo, DateTime fecha, PositiveDecimal montoPagado)  
         {
             this.IdPrestamo = idprestamo;
             this.Fecha = fecha;
             this.MontoAAplicar = montoPagado;
+            
         }
 
-        private void ProcesarPago()
+        private void ValidarFechaMayorEmisionPrestamo()
         {
-            GetPrestamo();
             if (Fecha < Prestamo.FechaEmisionReal)
             {
-                 PagoResult.AddErrorMessage("Lo siento la fecha de esta transaccion no puede ser menor la fecha real de creacion del prestamo");
+                PagoResult.AddErrorMessage("Lo siento la fecha de esta transaccion no puede ser menor la fecha real de creacion del prestamo");
             }
-            GetCXC();
         }
 
+        /// <summary>
+        /// buscar el prestamo indicado y le aplicara reglas de validacion
+        /// </summary>
         private void GetPrestamo()
         {
-            var result = PrestamoBLLC.GetPrestamos(new PrestamosGetParams { idPrestamo = this.IdPrestamo });
+            var searchParam = new PrestamosGetParams { idPrestamo = this.IdPrestamo };
+            var result = new PrestamoBLLC(this.IdLocalidadNegocioLoggedIn, this.LoginName).GetPrestamos(searchParam);
             this.Prestamo = result.FirstOrDefault();
+        }
+
+        private IEnumerable<CxCCuota> GetCuotas()
+        {
+            var cuotas = CxCPrestamo.GetCuotas(this.IdPrestamo);
+            return cuotas;
+        }
+
+        public void AplicarPago(int idPrestamo, DateTime fecha, PositiveDecimal montoPagado )
+        {
+            SetValue(idPrestamo, fecha, montoPagado);
+            GetPrestamo();
+            ValidarPrestamo();
+            ValidarFechaMayorEmisionPrestamo();
+            var cuotas = GetCuotas();
+            decimal totalDeuda = 0;
+            var atrasada = false;
+            foreach (var cuota in cuotas)
+            {
+                totalDeuda += cuota.BceGeneral;
+                if (cuota.Vencida(this.Fecha))
+                {
+                    var ultFechaMora = cuota.UltActFechaMora;
+                }
+            }
+        }
+
+        private void ValidarPrestamo()
+        {
             if (this.Prestamo == null)
                 PagoResult.AddErrorMessage("El prestamo indicado no existe");
         }
 
-        private IEnumerable<CxCCuota> GetDeuda()
-        {
-            var result = CxCPrestamo.GetCxCTodo(this.IdPrestamo);
-            return result;
-        }
-
-        private void GetCXC()
-        {
-            PrestamoBLLC.GetCXC(this.IdPrestamo, DateTime.Now);
-        }
-
-        private void AplicarPagoNoUsarPorElId(int idPrestamo, DateTime fecha, PositiveDecimal montoPagado, int idLocalidadNegocio, string nombreUsuario)
-        {
-            var pago = new AplicarPagoAPrestamo(idPrestamo,fecha,  nombreUsuario, montoPagado, idLocalidadNegocio);
-            GetDeuda();
-        }
-
         public void  AplicarPago(string prestamoNumero, DateTime fecha, PositiveDecimal montoPagado, int idLocalidadNegocio, string usuario)
         {
-            var prestamoBLLC = new PrestamoBLLC(idLocalidadNegocio, usuario);
-            this.IdPrestamo = CxCPrestamo.GetIdPrestamo(prestamoNumero);
-            GetDeuda();
+            //var prestamoBLLC = new PrestamoBLLC(idLocalidadNegocio, usuario);
+            var idPrestamo = CxCPrestamo.GetIdPrestamo(prestamoNumero);
+            this.AplicarPago(idPrestamo, fecha, montoPagado);
+            
         }
-
-        
     }
 }

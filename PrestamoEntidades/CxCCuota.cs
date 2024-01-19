@@ -35,19 +35,19 @@ namespace PrestamoEntidades
                 return valor;
             }
         }
-        public decimal BceGeneral => BceCapital + BceInteres + BceGastoDeCierre??0 + BceInteresDelGastoDeCierre??0 + BceOtrosCargos??0 + BceInteresOtrosCargos??0;
+        public decimal BceGeneral => BceCapital + BceInteres + BceGastoDeCierre + BceInteresDelGastoDeCierre; // + BceOtrosCargos??0 + BceInteresOtrosCargos??0;
         public decimal BceCapital { get; internal set; } = 0;
         public decimal BceInteres { get; internal set; } = 0;
-        public decimal? BceGastoDeCierre { get; internal set; } = 0;
-        public decimal? BceInteresDelGastoDeCierre { get; internal set; } = 0;
-        public decimal? BceOtrosCargos { get; internal set; } = 0;
-        public decimal? BceInteresOtrosCargos { get; set; } = 0;
+        public decimal BceGastoDeCierre { get; internal set; } = 0;
+        public decimal BceInteresDelGastoDeCierre { get; internal set; } = 0;
+        //public decimal? BceOtrosCargos { get; internal set; } = 0;
+        //public decimal? BceInteresOtrosCargos { get; set; } = 0;
         [IgnoreOnParams]
         public DateTime? UltActFechaMora { get; set; } = InitValues._19000101;
         [IgnoreOnParams]
         public DateTime? UltActFechaInteres { get; set; } = InitValues._19000101;
 
-        public bool Atrasada(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
+        public bool Vencida(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
         public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
 
         //todo: analizar si estos campos se dejaran asi en la cuota

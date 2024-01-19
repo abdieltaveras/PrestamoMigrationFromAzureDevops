@@ -87,8 +87,8 @@ namespace PrestamoWS.Controllers
         public IActionResult Post([FromBody] Localidad localidad)
         {
             localidad.Usuario = this.LoginName;
-            localidad.IdLocalidadNegocio = this.IdLocalidadNegocio;
-            //var localidadparams = new Localidad { IdLocalidad = IdLocalidad, IdLocalidadPadre = IdLocalidadPadre, IdDivisionTerritorialPadre = IdDivisionTerritorialPadre,  };
+           localidad.IdLocalidadNegocio = this.IdLocalidadNegocio;
+           //var localidadparams = new Localidad { IdLocalidad = IdLocalidad, IdLocalidadPadre = IdLocalidadPadre, IdDivisionTerritorialPadre = IdDivisionTerritorialPadre,  };
             BLLPrestamo.Instance.InsUpdLocalidad(localidad);
             return Ok();
         }

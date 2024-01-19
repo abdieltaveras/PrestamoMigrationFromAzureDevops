@@ -42,7 +42,7 @@ namespace PrestamoWS.Controllers
             {
                 param.IdNegocio = 1;
                 param.Usuario = this.LoginName;
-                param.IdLocalidadNegocio = this.IdLocalidadNegocio;
+                //param.IdLocalidadNegocio = this.IdLocalidadNegocio;
                 BLLPrestamo.Instance.InsUpdLocalidadNegocio(param);
                 return Ok();
             }

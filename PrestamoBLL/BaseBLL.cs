@@ -21,6 +21,8 @@ namespace PrestamoBLL
         {
             BLLValidations.ValueGreaterThanZero(idLocalidadNegocio,"IdLocalidadNegocio");
             BLLValidations.StringNotEmptyOrNull(loginName);
+            this.IdLocalidadNegocioLoggedIn = idLocalidadNegocio;
+            this.LoginName = loginName;
         }
         #endregion
         #region Main Functions

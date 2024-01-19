@@ -19,10 +19,18 @@ namespace PrestamoBLL.Tests
             var idLocalidadNegocio = TestInfo.GetIdLocalidadNegocio();
             var usuario = TestInfo.Usuario;
             var prestamos = new PrestamoBLLC(idLocalidadNegocio, usuario).GetPrestamos(new PrestamosGetParams());
-            var prestamo = prestamos.FirstOrDefault();
-            var apPago = new AplicarPagoAPrestamo(idLocalidadNegocio, usuario);
-                apPago.AplicarPago(prestamo.PrestamoNumero,DateTime.Now,1500, idLocalidadNegocio, usuario);
-
+            if (prestamos.Any())
+            {
+                Prestamo prestamo  = null;
+                int counter = 0;
+                foreach (var p in prestamos) {
+                    prestamo = p;
+                    counter++;
+                        if (counter > 1) break;
+                }
+                var apPago = new AplicarPagoAPrestamo(idLocalidadNegocio, usuario);
+                    apPago.AplicarPago(prestamo.IdPrestamo, DateTime.Now, 1500);
+            }
             Assert.Fail();
         }
     }
