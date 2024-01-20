@@ -7,5 +7,7 @@
 	Cuenta varchar(20) default 'Ninguna',
 	Descripcion varchar(50) 
 	constraint TPCUniqueCodigo unique(idnegocio, idlocalidadNegocio,Codigo)
-	--Constraint TPCAvoidCodigos check (Codigo<>'I01' and Codigo<>'I02' and Codigo<>'C01' and Codigo<>'GC01' and Codigo<>'NTA01' and codigo<>'PCL01')
+	-- evaluar si habilitar el constraint aqui no afectaria el initdatabase o agregarlo en el initdatabase
+	-- luego que realice el initDatabase
+	-- Constraint TPCAvoidCodigos check (not Codigo in ('I01','I02','C01','GC01','NTA01','PCL01'))
 )
