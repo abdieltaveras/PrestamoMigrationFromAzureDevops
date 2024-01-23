@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- area de miembros -->
+<actions>
+	<!-- area para garantias -->
+	
+	<action id='{8D8FD452-0AD9-44B2-B8BE-F49A7C36AE00}'
+			displayName='Listado de Colores'
+			description='Listado de colores' groupName='Catalogo de Garantias'
+			value='Listado de Colores' permissionLevel='None' inherited='false'>
+
+		<subActions>
+			<subAction displayName='Agregar' description='agregar un nuevo color' value='AgregarColor' permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar' description='Modificar un color' value='EditarColor' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar' description='eliminar un color' value='EliminarColor' permissionLevel='None' inherited='false' />
+		</subActions>
+	</action>
+	
+	<action id='{8D8FD452-0AD9-44B2-B8BE-F49A7C36AE01}'
+			displayName='Listado de Marcas y modelos'
+			description='ver el listado de las Marcas y Colores' groupName='Catalogo de Garantias'
+			value='Listado de Marcas Y Modelos  De Garantias' permissionLevel='None' inherited='false'>
+
+		<subActions>
+			<subAction displayName='Agregar' description='permite agregar Marca y Modelos'  value='Agregar Marca y Modelo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar' description='permite Modificar Marca y modelo'  value='Editar Marca y modelo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar' description='permite eliminar marca y modelo' value='Eliminar marca y modelo' permissionLevel='None' inherited='false' />
+		</subActions>
+	</action>
+	
+	<action id='{8D8FD452-0AD9-44B2-B8BE-F49A7C36AE03}'
+			displayName='Listado de Garantias'
+			description='Garantias' groupName='Catalogo de Garantias'
+			value='Listado de Garantias' permissionLevel='None' inherited='false'>
+
+		<subActions>
+			<subAction displayName='Agregar' description='agregar Garantia'  value='Agregar Garantia' permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar' description='Modificar Garantia' value='Editar Garantia' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar' description='eliminar Garantia' value='Eliminar Garantia' permissionLevel='None' inherited='false' />
+			<subAction displayName='Permitir usar garantia en mas de 1 prestamo' description='Conceder permiso para usar garantia en mas de 1 prestamo' value='Permitir Garantia en mas de 1 prestamo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Impedir usar garantia en prestamos' description='Impide que la garantia pueda ser usada al hacer un prestamo' value='Evitar usar garantia en prestamos' permissionLevel='None' inherited='false' />
+		</subActions>
+	</action>
+	<!-- area para clientes -->
+	
+	<action id='{8D8FD452-0AD9-44B2-B8BE-F49A7C36BE01}'
+			displayName='Listado de clientes'
+			description='Clientes' groupName='Clientes'
+			value='Listado de Clientes' permissionLevel='None' inherited='false'>
+
+		<subActions>
+			<subAction displayName='Agregar' description='agregar un nuevo cliente' value='AgregarColor' permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar' description='Modificar un cliente' value='EditarColor' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar' description='eliminar un cliente' value='EliminarColor' permissionLevel='None' inherited='false' />
+			
+	</subActions>
+	</action>
+	
+	<action id='{8D8FD452-0AD9-44B2-B8BE-F49A7C36BE02}'
+			displayName='Crear Cliente'
+			description='ver el listado de las Marcas y Colores' groupName='Catalogo de Garantias'
+			value='Listado de Marcas Y Modelos  De Garantias' permissionLevel='None' inherited='false'>
+
+		<subActions>
+			<subAction displayName='Suspender Credito' description='impide que este cliente se le pueda realizar prestamos' value='Cancelar Realizar Prestamos' permissionLevel='None' inherited='false' />	
+		</subActions>
+	</action>
+</actions>

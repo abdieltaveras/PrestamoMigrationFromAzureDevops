@@ -86,6 +86,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Classes.V2", "DevBoxSo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Dal.V2", "DevBoxSoft\Core.Dal.V2\Core.Dal.V2.csproj", "{03CC4389-DCF6-4A40-B52A-C4B4DA74813A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{227BEF79-677F-4EA8-8487-6BFC5BF7ABCF}"
+	ProjectSection(SolutionItems) = preProject
+		PrstamosActionsTest.xml = PrstamosActionsTest.xml
+		UpdateActionsInDB.txt = UpdateActionsInDB.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Abdiel|Any CPU = Abdiel|Any CPU

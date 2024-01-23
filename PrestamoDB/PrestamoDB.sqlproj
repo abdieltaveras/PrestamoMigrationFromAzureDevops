@@ -261,5 +261,6 @@
     <None Include="SchemaCompareForAbdiel.scmp" />
     <None Include="RandyPrestamoDB.publish.xml" />
     <None Include="SchemaCompareForRandy.scmp" />
+    <None Include="SqlSchemaComparetoPrestamoDB.scmp" />
   </ItemGroup>
 </Project>
