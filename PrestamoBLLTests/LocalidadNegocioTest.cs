@@ -20,8 +20,6 @@ namespace PrestamoBLL.Tests
             var localidadNegocio = new LocalidadNegocio()
             {
                 NombreComercial = "intagsa",
-                NombreJuridico = "Intagsa SRL",
-              
                 Usuario = "testUnit",
                 TaxIdNacional = "112108236",
                 OtrosDetallesObj = new LocalidadNegocioOtrosDetalles { Calle = "Gregorio Luperon no 12", CorreoElectronico = "intagsa@hotmail.com", Direccion = "La Romana, Villa España", Slogan = "Prestamos Baratos", Telefono1 = "809-813-1719" }

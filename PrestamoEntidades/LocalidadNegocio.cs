@@ -18,17 +18,11 @@ namespace PrestamoEntidades
         /// store Guid number
         /// </summary>
         public string Codigo { get;  set; } = string.Empty; // si esta propiedad está con intertal, no puede visualizarse el dato al hacer un GET
-        /// <summar
-        /// <summary>
-        /// El nombre registrado legalmente
-        /// </summary>
-        public string NombreJuridico { get; set; } = string.Empty;
+
         /// <summary>
         /// El nombre comercial con lo que lo conoce el mercado (los clientes)
         /// </summary>
         public string NombreComercial { get; set; } = string.Empty;
-
-
         /// Prefijo que usaran las transacciones realizada por dicha localidadNegocio
         /// ejemplo una localidad llamada intagsa sosua podria ser el valor SOS 
         /// las 3 primeras letras de  Sosua

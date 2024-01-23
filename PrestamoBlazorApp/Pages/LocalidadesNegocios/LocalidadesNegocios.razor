@@ -11,14 +11,13 @@
                     
                     
                     <MudTh>Nombre Comercial</MudTh>
-                    <MudTh>Nombre Juridico</MudTh>
                     <MudTh>Accion</MudTh>
             </HeaderContent>
             <RowTemplate>
                 
                 
                 <MudTd>@ct.NombreComercial</MudTd>
-                <MudTd>@ct.NombreJuridico</MudTd>
+                
                 <MudTd>
                     <MudIconButton OnClick='()=>OnEditClick("localidadesnegocios/createoredit/" + ct.IdLocalidadNegocio)'
                                    Icon="@Icons.Material.Filled.Edit">

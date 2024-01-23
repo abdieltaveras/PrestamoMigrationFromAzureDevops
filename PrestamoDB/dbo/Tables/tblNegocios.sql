@@ -16,11 +16,10 @@
     [BorradoPor]         VARCHAR (200) NULL,
     [FechaBorrado]       DATETIME      NULL,
     [Logo]               VARCHAR (50)  NULL,
-    [Prefijo]            VARCHAR (3)   NULL,
-    [IdLocalidadNegocio] INT           NULL,
+
+
     PRIMARY KEY CLUSTERED ([IdNegocio] ASC),
     CONSTRAINT [FK_tblNegocio_UQ_Codigo] UNIQUE NONCLUSTERED ([Codigo] ASC),
-    CONSTRAINT [FK_tblNegocio_UQ_Prefijo] UNIQUE NONCLUSTERED ([Codigo] ASC, [Prefijo] ASC),
     CONSTRAINT [FK_tblNegocio_UQ_TaxIdNo] UNIQUE NONCLUSTERED ([IdNegocio] ASC, [TaxIdNo] ASC)
 );
 
