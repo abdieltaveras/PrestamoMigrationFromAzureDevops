@@ -15,9 +15,15 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
+    public class PrestamoBllUtils
+    { 
+        public static string PadLeftPrestamo(string value)=> value.PadLeft(10, '0');
+    }
+
     /// <summary>
     /// clase para operaciones de prestamos
     /// </summary>
+    
     public class PrestamoBLLC : BaseBLL
     {
         public PrestamoBLLC(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName) { }

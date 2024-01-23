@@ -1,13 +1,14 @@
-﻿using PrestamoEntidades;
+﻿using DevBox.Core.DAL.SQLServer;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-
     public class PagoResult
     {
         public List<string> ErrorMessages { get; internal set; }
@@ -28,7 +29,7 @@ namespace PrestamoBLL
         private DateTime Fecha { get; set; }
 
 
-        private PositiveDecimal MontoAAplicar { get; set; }
+        private decimal MontoAAplicar { get; set; }
 
         private Prestamo Prestamo { get; set; }
 
@@ -36,15 +37,18 @@ namespace PrestamoBLL
 
         public bool OcurrioUnError => PagoResult.ErrorMessages.Any();
         PagoResult PagoResult { get; set; }
+        private IEnumerable<CxCCuotaBLL> Cuotas { get; set; }
+        private decimal PendientePorAplicar { get; set; }
+
         public AplicarPagoAPrestamo(int idLocalidadNegocio, string usuario) : base(idLocalidadNegocio, usuario) { }
-        
-        
-        private void SetValue(int idprestamo, DateTime fecha, PositiveDecimal montoPagado)  
+
+
+        private void SetValue(int idprestamo, DateTime fecha, decimal montoPagado)
         {
             this.IdPrestamo = idprestamo;
             this.Fecha = fecha;
             this.MontoAAplicar = montoPagado;
-            
+
         }
 
         private void ValidarFechaMayorEmisionPrestamo()
@@ -65,29 +69,96 @@ namespace PrestamoBLL
             this.Prestamo = result.FirstOrDefault();
         }
 
-        private IEnumerable<CxCCuota> GetCuotas()
+
+        private IEnumerable<CxCCuotaBLL> GetCuotas()
         {
             var cuotas = CxCPrestamo.GetCuotas(this.IdPrestamo);
             return cuotas;
         }
 
-        public void AplicarPago(int idPrestamo, DateTime fecha, PositiveDecimal montoPagado )
+        public void AplicarPago(int idPrestamo, DateTime fecha, decimal montoPagado)
         {
             SetValue(idPrestamo, fecha, montoPagado);
             GetPrestamo();
             ValidarPrestamo();
             ValidarFechaMayorEmisionPrestamo();
-            var cuotas = GetCuotas();
-            decimal totalDeuda = 0;
-            var atrasada = false;
-            foreach (var cuota in cuotas)
+            Cuotas = GetCuotas();
+            var deudaCuotas = Cuotas.Sum(c => c.BceGeneral);
+            var moras = CalcularMora();
+            var otrDebitos = GetOtrosDebitos();
+            var totalDeuda = deudaCuotas + moras + otrDebitos;
+            try
             {
-                totalDeuda += cuota.BceGeneral;
-                if (cuota.Vencida(this.Fecha))
+                var result = (totalDeuda < montoPagado);
+                if (result)
                 {
-                    var ultFechaMora = cuota.UltActFechaMora;
+                    this.PagoResult.AddErrorMessage("El monto de la deuda es menor que el monto a aplicar");
+                    return;
                 }
+
             }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+            aplicarPagoADeuda();
+        }
+
+        private void aplicarPagoADeuda()
+        {
+
+            PendientePorAplicar = MontoAAplicar;
+            //var cuotas = this.Cuotas.ToArray();
+            //for (int i = 0; i < cuotas.Count() || PendientePorAplicar>0; i++)
+            //{
+
+            //    var cuota = cuotas[i];
+            //    cuota.BceInteresDelGastoDeCierre = AplicaPago(cuota.BceInteresDelGastoDeCierre);
+            //    cuota.BceGastoDeCierre = AplicaPago(cuota.BceGastoDeCierre);
+            //    cuota.BceCapital = AplicaPago(cuota.BceCapital);
+            //    cuota.BceInteres = AplicaPago(cuota.BceInteres);
+            //    var balance = cuota.BceGeneral;
+                
+
+            //} 
+            foreach (var c in Cuotas)
+            {
+                if (PendientePorAplicar == 0) break;
+                var cuota = c;
+                cuota.BceInteresDelGastoDeCierre = AplicaPago(cuota.BceInteresDelGastoDeCierre);
+                cuota.BceGastoDeCierre = AplicaPago(c.BceGastoDeCierre);
+                cuota.BceCapital = AplicaPago(cuota.BceCapital);
+                cuota.BceInteres = AplicaPago(cuota.BceInteres);
+            }
+        }
+
+        private decimal AplicaPago(decimal bceValue)
+        {
+            if (bceValue == 0) return 0;
+
+            if (bceValue >= PendientePorAplicar)
+            {
+                bceValue = bceValue - PendientePorAplicar;
+                PendientePorAplicar = 0;
+            }
+            if (bceValue < PendientePorAplicar)
+            {
+                PendientePorAplicar -= bceValue;
+                bceValue = 0;
+            }
+            return bceValue;
+        }
+
+        private decimal GetOtrosDebitos()
+        {
+            return 0;
+        }
+
+        private decimal CalcularMora()
+        {
+            foreach (var c in Cuotas) { }
+            return 0;
         }
 
         private void ValidarPrestamo()
@@ -96,12 +167,13 @@ namespace PrestamoBLL
                 PagoResult.AddErrorMessage("El prestamo indicado no existe");
         }
 
-        public void  AplicarPago(string prestamoNumero, DateTime fecha, PositiveDecimal montoPagado, int idLocalidadNegocio, string usuario)
+        public void AplicarPago(string prestamoNumero, DateTime fecha, decimal montoPagado, int idLocalidadNegocio, string usuario)
         {
             //var prestamoBLLC = new PrestamoBLLC(idLocalidadNegocio, usuario);
             var idPrestamo = CxCPrestamo.GetIdPrestamo(prestamoNumero);
             this.AplicarPago(idPrestamo, fecha, montoPagado);
-            
+
         }
     }
+
 }

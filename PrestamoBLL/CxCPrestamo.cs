@@ -25,13 +25,13 @@ namespace PrestamoBLL
             var valor = System.Convert.ToInt32(resultIdPrestamo);
             return valor;
         }
-        public static IEnumerable<CxCCuota> GetCuotas(int idPrestamo)
+        public static IEnumerable<CxCCuotaBLL> GetCuotas(int idPrestamo)
         {
             // obtener el numero del prestamo y que pertenezca al negocio
             // obtener las cuotas y los debitos pendientes
             BLLValidations.ValueGreaterThanZero(idPrestamo, "Prestamo a consultar");
             var sqlParam = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
-            var result = BLLPrestamo.BllAcciones.GetData<CxCCuota>(sqlParam, "dbo.spGetCuotas");
+            var result = BLLPrestamo.BllAcciones.GetData<CxCCuotaBLL>(sqlParam, "dbo.spGetCuotas");
             return result;
         }
     }

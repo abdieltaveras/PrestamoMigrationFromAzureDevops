@@ -7,10 +7,6 @@ AS
 IF  exists(select top 1 * from tblIngresos where IdPrestamo = @IdPrestamo)
 	BEGIN
 		select top 1 ing.IdPrestamo,
-		ing.IdCuota,
-		ing.Num_Cuota,
-		ing.Monto_Abonado,
-		ing.Balance,
 		cuo.Capital + cuo.Interes + cuo.GastoDeCierre+cuo.InteresDelGastoDeCierre as Monto_Original_Cuota
 		from tblClientes cl 
 		inner join tblPrestamos pre on cl.IdCliente = pre.idCliente 

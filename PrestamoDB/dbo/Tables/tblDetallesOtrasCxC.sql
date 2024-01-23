@@ -7,5 +7,5 @@
 	IdCargo varchar(15), 
 	MontoOriginal decimal,
 	Balance decimal,
-	Descripcion varchar(max),
+	Descripcion varchar(100),
 )

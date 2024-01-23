@@ -13,9 +13,9 @@ Begin
 IF(@IdIngreso <= 0)
 	BEGIN
 		insert into tblIngresos 
-		(Idprestamo,IdCuota,Num_Cuota,Monto_Original_Cuota,Monto_Abonado,Balance,InsertadoPor)
+		(Idprestamo,Monto, InsertadoPor)
 		values
-		(@IdPrestamo,@IdCuota,@Num_Cuota,@Monto_Original_Cuota,@Monto_Abonado,@Balance,@Usuario)
+		(@IdPrestamo,@Monto_Abonado,@Usuario)
 	END
 
 END
