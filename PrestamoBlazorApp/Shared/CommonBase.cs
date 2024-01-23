@@ -10,12 +10,23 @@ using PrestamoEntidades;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using PrestamoEntidades.Responses;
+using Microsoft.AspNetCore.Components.Authorization;
+using PrestamoBlazorApp.Providers;
+using DevBox.Core.Identity;
+using System.Linq;
+using DevBox.Core.Access;
+using PrestamoBlazorApp.Shared.Layout.Components.Menu;
 
 namespace PrestamoBlazorApp.Shared
 {
     public abstract class CommonBase : ComponentBase
     {
-       
+        [Inject] AuthenticationStateProvider _authenticationStateProvider { get; set; }
+        //[Inject] private NavigationManager navigationManager { get; set; }
+        [Inject] private TokenAuthenticationStateProvider _TokenState { get; set; }
+        [Inject] private ActionsManagerService actionsManagerService { get; set; }
+        [Inject] private UserManagerService userManagerService { get; set; }
         [Inject]
         protected NavigationManager NavManager { get; set; }
         [Inject]
@@ -34,8 +45,52 @@ namespace PrestamoBlazorApp.Shared
             }
             //await Task.Delay(watingTimeBeforeContinueExecution);
         }
+        protected async Task<DevBox.Core.Access.Action> AuthorizeViewActions()
+        {
 
-      
+            DevBox.Core.Access.Action act = new DevBox.Core.Access.Action();
+            var principal = await _authenticationStateProvider.GetAuthenticationStateAsync();
+            var usr = new User(principal.User);
+            if (principal.User.Identity.IsAuthenticated)
+            {
+
+                IEnumerable<CoreUser> users = new CoreUser[0];
+                string message = string.Empty;
+                try
+                {
+                    users = await userManagerService.GetUser(usr.ID);
+                }
+                catch (Exception e)
+                {
+                    message = e.Message;
+
+                }
+                var userFound = users.FirstOrDefault();
+                var actions = (users.FirstOrDefault()?.Actions ?? ActionList.Empty).Filter(ActionListFilters.Allowed);
+
+                actionsManagerService.Actions = actions;
+                var a = MenuDictionary.MenuDictionaryData();
+
+                foreach (var item in a)
+                {
+                    if (item.Url.Replace("/", "") == NavManager.Uri.Replace(NavManager.BaseUri, ""))
+                    {
+                        foreach (var ac in actions)
+                        {
+                            if (ac.Value == item.Value)
+                            {
+                                actionsManagerService.SetCurrentAction(ac);
+                                return ac;
+                                //navigationManager.NavigateTo(item.Url);
+                                //StateHasChanged();
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
 
         protected async Task NotifyMessageBySnackBar(string message, Severity severity)
         {

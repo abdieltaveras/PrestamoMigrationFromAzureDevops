@@ -17,6 +17,8 @@ namespace apiBonosElectronicos.Authorization.Attributtes
     {
 		private readonly string _GroupName;
         private readonly string _Action;
+        private readonly string _Roles;
+
 
         public void OnAuthorization(AuthorizationFilterContext context)
 		{
@@ -55,10 +57,11 @@ namespace apiBonosElectronicos.Authorization.Attributtes
                 }
             }
 		}
-		public AuthorizeAttribute(string groupName = "", string action = "")
+		public AuthorizeAttribute(string Roles = "",string GroupName = "", string Action = "")
 		{
-			_GroupName = groupName;
-			_Action = action;
+			_GroupName = GroupName;
+			_Action = Action;
+			_Roles = Roles;
 		}
 	}
 }

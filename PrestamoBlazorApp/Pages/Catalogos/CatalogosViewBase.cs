@@ -32,6 +32,7 @@ namespace PrestamoBlazorApp.Pages.Catalogos
             parameters.Add("UsarFormularioParaEliminar", usarFormularioParaEliminar);
             parameters.Add("UpdateList", action);
             parameters.Add("CatalogosService", GetService);
+            
            // var options = new DialogOptions() {  CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
             Dialog.Show<CatalogoEditor>("Editar", parameters, Showdialogs.BasicOptions);
         }
@@ -46,7 +47,6 @@ namespace PrestamoBlazorApp.Pages.Catalogos
         protected override async Task ShowEditEditor(CatalogoInsUpd catalogo, Func<Task> action)
         {
             await ShowEditor(catalogo, false, action);
-
         }
 
         protected override async Task ShowDeleteEditor(CatalogoInsUpd catalogo, Func<Task> action)

@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UIClient.Services;
+
 
 namespace PrestamoBlazorApp.Pages.Login
 {
@@ -42,41 +42,43 @@ namespace PrestamoBlazorApp.Pages.Login
             };
             base.OnInitialized();
         }
-        private async Task HandleCheckAuthState()
-        {
-            
-            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-        }
         private async Task HandleValidSubmit()
         {
             var response = await _AuthService.Login(_LoginCredentialsDto);
             //var ValidatedUser = ValidateUser(users);
             // Validar el usuario utilizando la clase UserValidator
-            if (!string.IsNullOrEmpty( response.Token))
+            if (response.IsSuccess)
             {
-                if (response.MustChgPwd)
+                if (!string.IsNullOrEmpty(response.Data.Token))
                 {
-                    NavManager.NavigateTo("pages/authentication/forgot-password");
+                    if (response.Data.MustChgPwd)
+                    {
+                        NavManager.NavigateTo("pages/authentication/forgot-password");
+                    }
+                    else
+                    {
+                        await authStateProvider.SetTokenAsync(response.Data.Token);
+                        var randonValue = new Random().Next(100000000).ToString();
+                        await _localStorage.SetItemAsStringAsync(_siteResources.LoggedOutKey, randonValue);
+                        NavManager.NavigateTo("");
+                    }
+                    // Usuario autenticado con éxito
+                    // Puedes redirigir a otra página, establecer información de sesión, etc.
+                    //await NavigateTo("/loginEmpresa");
+
+                    await NotifyMessageBySnackBar("Acceso concedido ", Severity.Success);
+
                 }
                 else
                 {
-                    await authStateProvider.SetTokenAsync(response.Token);
-                    var randonValue = new Random().Next(100000000).ToString();
-                    await _localStorage.SetItemAsStringAsync(_siteResources.LoggedOutKey, randonValue);
-                    //NavManager.NavigateTo("/clientes");
+                    await NotifyMessageBySnackBar("Credenciales incorrectas", Severity.Error);
                 }
-                // Usuario autenticado con éxito
-                // Puedes redirigir a otra página, establecer información de sesión, etc.
-                //await NavigateTo("/loginEmpresa");
-
-                await NotifyMessageBySnackBar("Acceso concedido ", Severity.Success);
-
             }
             else
             {
-                await NotifyMessageBySnackBar("Credenciales incorrectas", Severity.Error);
-            }
+                await NotifyMessageBySnackBar("Error al hacer Login", Severity.Error);
 
+            }
         }
 
     }

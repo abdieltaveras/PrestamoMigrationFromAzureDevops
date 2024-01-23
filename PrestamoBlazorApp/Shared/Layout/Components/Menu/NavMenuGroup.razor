@@ -1,0 +1,16 @@
+﻿
+ <MudNavGroup Title="@groupName" Expanded="false">
+    @foreach (var action in actions)
+    {
+        <NavMenuItem OnActionClick="OnActionClick" action="action"></NavMenuItem>
+    }
+  </MudNavGroup>
+
+@code {
+    [Parameter]
+    public string groupName { get; set; }
+    [Parameter]
+    public DevBox.Core.Access.Action[] actions { get; set; }
+    [Parameter]
+    public Action<DevBox.Core.Access.Action> OnActionClick { get; set; }
+}

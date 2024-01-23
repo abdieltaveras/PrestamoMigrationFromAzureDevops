@@ -1,0 +1,200 @@
+﻿{
+  "actions": [
+    {
+      "id": "{8D8FD452-0AD9-44B2-B8BE-F49A7C36AE00}",
+      "url": "/colores",
+      "displayName": "Listado de Colores",
+      "description": "Listado de colores",
+      "groupName": "Catalogo de Garantias",
+      "value": "Listado de Colores",
+      "permissionLevel": "None",
+      "inherited": false,
+      "customMenuSubActions": [
+        {
+          "url": "/colores",
+          "displayName": "Agregar",
+          "description": "agregar un nuevo color",
+          "value": "AgregarColor",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/color/edit",
+          "displayName": "Editar",
+          "description": "Modificar un color",
+          "value": "EditarColor",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/color/delete",
+          "displayName": "Eliminar",
+          "description": "eliminar un color",
+          "value": "EliminarColor",
+          "permissionLevel": "None",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "id": "{8D8FD452-0AD9-44B2-B8BE-F49A7C36AE01}",
+      "url": "/marcas",
+      "displayName": "Listado de Marcas y modelos",
+      "description": "ver el listado de las Marcas y Colores",
+      "groupName": "Catalogo de Garantias",
+      "value": "Listado de Marcas Y Modelos  De Garantias",
+      "permissionLevel": "None",
+      "inherited": false,
+      "customMenuSubActions": [
+        {
+          "url": "/marca/agregar",
+          "displayName": "Agregar",
+          "description": "permite agregar Marca y Modelos",
+          "value": "AgregarMarcaYModelo",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/marca/editar",
+          "displayName": "Editar",
+          "description": "permite Modificar Marca y modelo",
+          "value": "EditarMarcaYModelo",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/marca/eliminar",
+          "displayName": "Eliminar",
+          "description": "permite eliminar marca y modelo",
+          "value": "EliminarMarcaYModelo",
+          "permissionLevel": "None",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "id": "{8D8FD452-0AD9-44B2-B8BE-F49A7C36AE03}",
+      "url": "/garantias",
+      "displayName": "Listado de Garantias",
+      "description": "Garantias",
+      "groupName": "Catalogo de Garantias",
+      "value": "Listado de Garantias",
+      "permissionLevel": "None",
+      "inherited": false,
+      "customMenuSubActions": [
+        {
+          "url": "/garantias",
+          "displayName": "Listado De Garantias",
+          "description": "Listado De Garantias",
+          "value": "Listado De Garantias",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/garantias/createoredit",
+          "displayName": "Agregar Garantia",
+          "description": "Agregar Garantia",
+          "value": "Agregar Garantia",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/garantia/editar",
+          "displayName": "Editar",
+          "description": "Modificar Garantia",
+          "value": "Editar Garantia",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/garantia/eliminar",
+          "displayName": "Eliminar",
+          "description": "eliminar Garantia",
+          "value": "Eliminar Garantia",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/garantia/permitir",
+          "displayName": "Permitir usar garantia en mas de 1 prestamo",
+          "description": "Conceder permiso para usar garantia en mas de 1 prestamo",
+          "value": "Permitir Garantia en mas de 1 prestamo",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/garantia/impedir",
+          "displayName": "Impedir usar garantia en prestamos",
+          "description": "Impide que la garantia pueda ser usada al hacer un prestamo",
+          "value": "Evitar usar garantia en prestamos",
+          "permissionLevel": "None",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "id": "{8D8FD452-0AD9-44B2-B8BE-F49A7C36BE01}",
+      "url": "/clientes",
+      "displayName": "Listado de clientes",
+      "description": "Clientes",
+      "groupName": "Clientes",
+      "value": "Listado de Clientes",
+      "permissionLevel": "None",
+      "inherited": false,
+      "customMenuSubActions": [
+        {
+          "url": "/cliente/agregar",
+          "displayName": "Agregar",
+          "description": "agregar un nuevo cliente",
+          "value": "AgregarColor",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/cliente/editar",
+          "displayName": "Editar",
+          "description": "Modificar un cliente",
+          "value": "EditarColor",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/cliente/eliminar",
+          "displayName": "Eliminar",
+          "description": "eliminar un cliente",
+          "value": "EliminarColor",
+          "permissionLevel": "None",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "id": "{8D8FD452-0AD9-44B2-B8BE-F49A7C36BE02}",
+      "url": "/cliente/crear",
+      "displayName": "Crear Cliente",
+      "description": "ver el listado de Cliente",
+      "groupName": "Clientes",
+      "value": "CrearCliente",
+      "permissionLevel": "None",
+      "inherited": false,
+      "customMenuSubActions": [
+        {
+          "url": "/cliente/suspender-credito",
+          "displayName": "Suspender Credito",
+          "description": "impide que este cliente se le pueda realizar prestamos",
+          "value": "SuspenderCreditosPrestamosACliente",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "/cliente/asignar-comprobante-fiscal",
+          "displayName": "Establecer tipo comprobante Fiscal",
+          "description": "permite asignar el tipo de comprobante por defecto para este cliente",
+          "value": "AsignarComprobanteFiscalPorDefecto",
+          "permissionLevel": "None",
+          "inherited": false
+        }
+      ]
+    }
+  ]
+}

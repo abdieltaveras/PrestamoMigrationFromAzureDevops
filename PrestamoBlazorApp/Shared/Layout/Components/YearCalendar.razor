@@ -1,0 +1,20 @@
+﻿
+<section class="cal-year">
+    <header>
+        <span class="btn btn-outline-primary" @onclick="()=>Year--"><span>&#8249;</span></span>
+        <h3>@Year</h3>
+        <span class="btn btn-outline-primary" @onclick="()=>Year++"><span>&#8250;</span></span>
+    </header>
+    <div class="months">
+        @{
+            var dtStart = new DateTime(Year, 01, 01);
+            for (int i = 0; i < 12; i++)
+            {
+                var dt = dtStart.AddMonths(i);
+                <section class="month">
+
+                </section>
+            }
+        }
+    </div>
+</section>
