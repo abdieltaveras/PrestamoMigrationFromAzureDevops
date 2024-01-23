@@ -48,7 +48,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         }
         protected override async Task OnInitializedAsync()
         {
-            await AuthorizeViewActions();
+            //await AuthorizeViewActions(); //todo: sin esto no se mostraran los accesos, quizas se puede obligar obligar al componente a actualizarse de otra manera
             CurrentAction = _ActionsManagerService.CurrentAction;
 
             await base.OnInitializedAsync();

@@ -75,14 +75,14 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             if(CurrentAction != null)
             {
                 var subs = CurrentAction.SubActions.Where(m => m.Value.ToLower().Contains("agregar"));
-                return true;
-                //foreach (var item in subs)
-                //{
-                //    if (item.PermissionLevel == ActionPermissionLevel.Allow)
-                //    {
-                //        return true;
-                //    }
-                //}
+                //return true;
+                foreach (var item in subs)
+                {
+                    if (item.PermissionLevel == ActionPermissionLevel.Allow)
+                    {
+                        return true;
+                    }
+                }
             }
 
             return false;
