@@ -39,6 +39,14 @@ namespace PrestamoBLL
         PagoResult PagoResult { get; set; }
         private IEnumerable<CxCCuotaBLL> Cuotas { get; set; }
         private decimal PendientePorAplicar { get; set; }
+        private decimal TotalPagoCapital { get; set; }
+        private decimal TotalPagoInteres { get; set; }
+
+        private decimal TotalPagoGastoDeCierre {get;set;}
+
+        private decimal TotalPagoInteresGastoDeCierre { get; set; }
+
+        private OtrosPagos TotalOtrosPagos { get; set; }
 
         public AplicarPagoAPrestamo(int idLocalidadNegocio, string usuario) : base(idLocalidadNegocio, usuario) { }
 
