@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PrestamoBLL;
+using Newtonsoft.Json;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static PrestamoBLL.BLLPrestamo;
 
 namespace PrestamoBLL.Tests
 {
@@ -43,14 +43,37 @@ namespace PrestamoBLL.Tests
         [TestMethod]
         public async Task CuotasGeneratorTest()
         {
-            var testInfo = new TestInfo();
+            TestInfo testInfo;
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out testInfo, out cuotaInfo);
+            //var result = new TasaInteresBLL(prestamo.IdLocalidadNegocio, prestamo.Users).CalcularTasaInteresPorPeriodos (tasaDeInteres.InteresMensual,prestamo.Periodo);
+            //var tasaDeInteresDelPeriodo = result.InteresDelPeriodo;
+
+            IEnumerable<CxCCuota> cuotas = null;
+            try
+            {
+                cuotas = CuotasGenerator.CreateCuotas(cuotaInfo);
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+                testInfo.ExceptionOccured = e;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+
+        private static void GetInfoCuota(out TestInfo testInfo, out InfoGeneradorDeCuotas cuotaInfo)
+        {
+            testInfo = new TestInfo();
             var prestamoTest = new PrestamoTest();
+
             var idPeriodo = prestamoTest.GetIdPeriodoForCodigo("MES");
             //var periodo = GetPeriodoInstance("MES");
             var idTasainteres = prestamoTest.GetIdTasaDeInteres("E00");
             var montoPrestado = 10000;
 
-            var cuotaInfo = new InfoGeneradorDeCuotas()
+            cuotaInfo = new InfoGeneradorDeCuotas()
             {
                 Usuario = testInfo._Usuario,
                 IdLocalidadNegocio = TestInfo.GetIdLocalidadNegocio(),
@@ -64,14 +87,50 @@ namespace PrestamoBLL.Tests
                 FinanciarGastoDeCierre = true,
                 CargarInteresAlGastoDeCierre = true,
             };
+        }
 
-            //var result = new TasaInteresBLL(prestamo.IdLocalidadNegocio, prestamo.Users).CalcularTasaInteresPorPeriodos (tasaDeInteres.InteresMensual,prestamo.Periodo);
-            //var tasaDeInteresDelPeriodo = result.InteresDelPeriodo;
-
-            IEnumerable<CxCCuota> cuotas = null;
+        [TestMethod]
+        public async Task CuotasMaestroTest()
+        {
+            TestInfo testInfo;
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out testInfo, out cuotaInfo);
+            IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
             try
             {
-                cuotas = CuotasGenerator.CreateCuotas(cuotaInfo);
+                var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
+                var idPrestamo = 12;
+                cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
+                
+                BLLPrestamo.Instance.InsUpdDebitoMaestro(cuotas);
+
+                // guardar este objeto en una tabla de la base de datos
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+                testInfo.ExceptionOccured = e;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+        [TestMethod]
+        public async Task CuotasMaestroDetallesCargosTest()
+        {
+            TestInfo testInfo;
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out testInfo, out cuotaInfo);
+            IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
+            try
+            {
+                var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
+                var idPrestamo = 12;
+                cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
+
+                
+                BLLPrestamo.Instance.InsUpdJsonDebitoMaestroDetalle(cuotas);
+
+                // guardar este objeto en una tabla de la base de datos
             }
             catch (Exception e)
             {

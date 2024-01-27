@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using DevBox.Core.Classes.Utils;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,13 @@ namespace PrestamoBLL
         {
             var result = GetGeneradorDeCuotas(infGenCuotas);
             var cuotas = result.GenerarCuotas();
+            return cuotas;
+        }
+        public static IEnumerable<IMaestroDebitoConDetallesCxC> CreateCuotasMaestroDetalle(int idPrestamo, IInfoGeneradorCuotas infGenCuotas)
+        {
+            var result = GetGeneradorDeCuotas(infGenCuotas) as GeneradorCuotasFijasNoAmortizable;
+            var cuotas = result.GenerarCuotasMaestroYDetalle();
+            cuotas.ForEach(ct => ct.IdPrestamo = idPrestamo);
             return cuotas;
         }
         private static IGeneradorCuotas GetGeneradorDeCuotas(IInfoGeneradorCuotas info)

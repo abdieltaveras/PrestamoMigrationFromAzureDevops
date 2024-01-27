@@ -1,7 +1,9 @@
 ﻿using DevBox.Core.DAL.SQLServer;
+using Microsoft.Extensions.Primitives;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -9,19 +11,6 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    public class PagoResult
-    {
-        public List<string> ErrorMessages { get; internal set; }
-        internal PagoResult() { }
-
-        internal PagoResult AddErrorMessage(string errorMessage)
-        {
-            this.ErrorMessages.Add(errorMessage);
-            return this;
-        }
-
-    }
-
     public class AplicarPagoAPrestamo : BaseBLL
     {
         private int IdPrestamo { get; set; }
@@ -47,6 +36,8 @@ namespace PrestamoBLL
         private decimal TotalPagoInteresGastoDeCierre { get; set; }
 
         private OtrosPagos TotalOtrosPagos { get; set; }
+
+        private List<DetalleCargoCxC> DetallesCargosCXC { get; set; } = new List<DetalleCargoCxC>();
 
         public AplicarPagoAPrestamo(int idLocalidadNegocio, string usuario) : base(idLocalidadNegocio, usuario) { }
 
@@ -134,13 +125,60 @@ namespace PrestamoBLL
             {
                 if (PendientePorAplicar == 0) break;
                 var cuota = c;
-                cuota.BceInteresDelGastoDeCierre = AplicaPago(cuota.BceInteresDelGastoDeCierre);
-                cuota.BceGastoDeCierre = AplicaPago(c.BceGastoDeCierre);
-                cuota.BceCapital = AplicaPago(cuota.BceCapital);
-                cuota.BceInteres = AplicaPago(cuota.BceInteres);
+                CreateDetalleCargo(cuota);
+                var cargos = DetallesCargosCXC;
+                AplicaPagoACuota(cuota);
+                CreateDetallePagoCuota(cuota);
             }
         }
 
+        private void CreateDetalleCargo(CxCCuotaBLL cuota)
+        {
+            CreateDetalleCargoPorTipo("CuotaMaestro", "CAP", cuota.idCuota, cuota.Capital, cuota.BceCapital);
+            CreateDetalleCargoPorTipo("CuotaMaestro", "INT", cuota.idCuota, cuota.Interes, cuota.BceInteres);
+            CreateDetalleCargoPorTipo("CuotaMaestro", "GC", cuota.idCuota, cuota.GastoDeCierre, cuota.BceGastoDeCierre);
+            CreateDetalleCargoPorTipo("CuotaMaestro", "INTGC", cuota.idCuota, cuota.InteresDelGastoDeCierre, cuota.BceInteresDelGastoDeCierre);
+        }
+
+        private void CreateDetalleCargoPorTipo(string tipoDebito, string codigoCargo, int idTransaccion, decimal monto, decimal balance)
+        {
+            var detalle = new DetalleCargoCxC { TipoDebito = tipoDebito , CodigoCargo = codigoCargo, IdTransaccion = idTransaccion, Monto = monto , Balance = balance };
+            DetallesCargosCXC.Add(detalle);
+        }
+
+        private void AplicaPagoACuota(CxCCuotaBLL cuota)
+        {
+            cuota.BceInteresDelGastoDeCierre = AplicaPago(cuota.BceInteresDelGastoDeCierre);
+            cuota.BceGastoDeCierre = AplicaPago(cuota.BceGastoDeCierre);
+            cuota.BceCapital = AplicaPago(cuota.BceCapital);
+            cuota.BceInteres = AplicaPago(cuota.BceInteres);
+
+        }
+
+        private void CreateDetallePagoCuota(CxCCuotaBLL cuota)
+        {
+
+            
+        }
+        
+        private class DetalleCargoCxC
+        {
+
+            public string TipoDebito { get; set; }
+            public int IdTransaccion { get; set; }
+            public string CodigoCargo { get; set; }
+            public decimal Monto { get; set; }
+            public decimal Balance { get; set; }
+
+            public override string ToString() => $"Tipo {TipoDebito} Cargo {CodigoCargo} Monto Original {Monto} Balance {Balance}";
+        }
+        private class MontoAplicado
+        {
+            InfoAccion idCargo { get; set; }
+            string TipoDebito { get; set; } //Cuota, Debitos, Moras, Cargo Por Interes, 
+            string TipoCargo { get; set; } 
+            decimal Monto { get; set; }
+        }
         private decimal AplicaPago(decimal bceValue)
         {
             if (bceValue == 0) return 0;

@@ -130,8 +130,6 @@ namespace PrestamoWS.Controllers
 
         [HttpGet]
         public IEnumerable<CxCCuota> GenerarCuotas2(string jsonInfoGenCuotas)
-            //([FromQuery]    InfoGeneradorDeCuotas infoGenCuotas)
-        //infoGeneradorDeCuotas info)
         {
             var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
             infoGenCuotas.Usuario = this.LoginName;

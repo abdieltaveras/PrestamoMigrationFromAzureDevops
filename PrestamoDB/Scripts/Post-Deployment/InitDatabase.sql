@@ -361,14 +361,15 @@ INSERT INTO tblCuotas (IdPrestamo, Numero, Fecha, Capital, BceCapital, Interes, 
            ,[Codigo]
            ,[Descripcion])
      VALUES
-		   (1,'I01','Interes'),
-		   (1,'I02','Interes Despues de Vencido'),
-           (1,'C01','Capital'),
+           (1,'CAP','Capital'),
+		   (1,'INT','Interes'),
+		   (1,'INTGC','InteresGasto de cierre'),
+		   (1,'GC','Gasto de cierre'),
 		   (1,'M01','Moras'),
 		   (1,'GC01','Gestion de cobro'),
+		   --otros para fines de pruebas
 		   (1,'NTA01','Notificacion Alguacil'),
 		   (1,'PCL01','Proceso Legal')
-
 
 
 

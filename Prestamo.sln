@@ -42,8 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Propuestas al sistema", "Pr
 		Propuestas al sistema\CacheData.txt = Propuestas al sistema\CacheData.txt
 		Propuestas al sistema\Casos raros en aspnet.txt = Propuestas al sistema\Casos raros en aspnet.txt
 		Propuestas al sistema\Decisiones Urgentes para el desarrollo.rtf = Propuestas al sistema\Decisiones Urgentes para el desarrollo.rtf
-		Propuestas al sistema\Interface no grafica para informe deuda de prestamo.rtf = Propuestas al sistema\Interface no grafica para informe deuda de prestamo.rtf
 		errores y soluciones.txt = errores y soluciones.txt
+		Propuestas al sistema\Interface no grafica para informe deuda de prestamo.rtf = Propuestas al sistema\Interface no grafica para informe deuda de prestamo.rtf
 		Propuestas al sistema\manejo contable operaciones.rtf = Propuestas al sistema\manejo contable operaciones.rtf
 		Propuestas al sistema\Manejo de la cuotas-pagos-debitos-creditos.rtf = Propuestas al sistema\Manejo de la cuotas-pagos-debitos-creditos.rtf
 		Propuestas al sistema\Registros de ingresos en otras sucursales.txt = Propuestas al sistema\Registros de ingresos en otras sucursales.txt
@@ -79,6 +79,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoEntidadesTests1", "PrestamoEntidadesTests1\PrestamoEntidadesTests1.csproj", "{B1C2420B-FE58-4FF0-B149-ECA6C39AEBF5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrestamoInMemoryDb", "PrestamoInMemoryDb\PrestamoInMemoryDb.csproj", "{87595EA5-6A7F-4B24-9880-879B52DD7B7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B7BC9EE-8F4C-4672-89B7-1DF42B664364}"
+	ProjectSection(SolutionItems) = preProject
+		AplicandoPago.txt = AplicandoPago.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

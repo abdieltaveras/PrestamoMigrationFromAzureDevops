@@ -30,12 +30,12 @@ namespace PrestamoEntidades
         [IgnoreOnParams]
         public decimal TotalOrig {
             get 
-            {  var valor = (Capital) + (Interes ) + (GastoDeCierre) + (InteresDelGastoDeCierre) + (OtrosCargos ) + (InteresOtrosCargos);
+            {  var valor = (Capital) + (Interes ) + (GastoDeCierre) + (InteresDelGastoDeCierre);
                //var valor2 = Capital + Interes  + +GastoDeCierre  + InteresDelGastoDeCierre + OtrosCargos  + InteresOtrosCargos ;
                 return valor;
             }
         }
-        public decimal BceGeneral => BceCapital + BceInteres + BceGastoDeCierre + BceInteresDelGastoDeCierre; // + BceOtrosCargos??0 + BceInteresOtrosCargos??0;
+        public virtual decimal BceGeneral => BceCapital + BceInteres + BceGastoDeCierre + BceInteresDelGastoDeCierre; // + BceOtrosCargos??0 + BceInteresOtrosCargos??0;
         public decimal BceCapital { get; internal set; } = 0;
         public decimal BceInteres { get; internal set; } = 0;
         public decimal BceGastoDeCierre { get; internal set; } = 0;
@@ -50,20 +50,19 @@ namespace PrestamoEntidades
         public bool Vencida(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
         public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
 
-        //todo: analizar si estos campos se dejaran asi en la cuota
-        // estas propiedades solo se usan para fines de calculo verlo en la proyeccion
-        // pero no para guardarlo en la cuota propiamente
-        [IgnoreOnParams]
-        public decimal OtrosCargos { get;  set; } = 0;
-        [IgnoreOnParams]
-        public decimal InteresOtrosCargos { get; set; } = 0;
-
+        
         [IgnoreOnParams]
         public string Comentario { get; set; } = String.Empty;
         public override string ToString()
         {
-            return $"Cuota No {Numero} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/C {GastoDeCierre} Int G/C {InteresDelGastoDeCierre} OtrosCargos {OtrosCargos}  Int O/C {InteresOtrosCargos}";
+            return $"Valores Originales Cuota No {Numero} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/C {GastoDeCierre} Int G/C {InteresDelGastoDeCierre}";
         }
+
+        public string BalanceToString()
+        {
+            return $"Balancess Cuota No {Numero} Fecha {Fecha} Balance {BceGeneral} Capital {BceCapital} Interes {BceInteres} G/C {BceGastoDeCierre} Int G/C {BceInteresDelGastoDeCierre}";
+        }
+
     }
 
     public class OtrosCargosPrestamo

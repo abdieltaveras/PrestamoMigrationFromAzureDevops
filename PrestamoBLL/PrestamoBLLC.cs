@@ -35,8 +35,8 @@ namespace PrestamoBLL
             //var result = prToBuild.Build();
             var prToBuild2 = await PrestamoBuilder.Create(prestamo);
             var prestamoParam = prToBuild2.Build();
-            var cuotas = prestamoParam._CuotasList;
-            var cuotasDt = prestamoParam.Cuotas;
+            //var cuotas = prestamoParam._CuotasList;
+            //var cuotasDt = prestamoParam.Cuotas;
             var prestamoParam2 = SearchRec.ToSqlParams(prestamoParam);
 
             //prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
