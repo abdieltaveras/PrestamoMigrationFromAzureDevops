@@ -114,6 +114,25 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
 
         }
+
+        [TestMethod]
+        public async Task TableVaueTypeToDtaTableConversionTest()
+        {
+            TestInfo testInfo= new TestInfo();
+
+            try
+            {
+                BLLPrestamo.Instance.TestTVToDataTable();
+                // guardar este objeto en una tabla de la base de datos
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+                testInfo.ExceptionOccured = e;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
         [TestMethod]
         public async Task CuotasMaestroDetallesCargosTest()
         {
@@ -128,7 +147,7 @@ namespace PrestamoBLL.Tests
                 cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
 
                 
-                BLLPrestamo.Instance.InsUpdJsonDebitoMaestroDetalle(cuotas);
+                BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
 
                 // guardar este objeto en una tabla de la base de datos
             }

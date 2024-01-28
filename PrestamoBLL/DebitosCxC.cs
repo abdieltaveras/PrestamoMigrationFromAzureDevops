@@ -1,4 +1,6 @@
-﻿using PrestamoEntidades;
+﻿using DevBox.Core.Classes.Utils;
+using Newtonsoft.Json;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +10,23 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    public class CodigosTiposDocumentosCxC
+
+    public class TipoDrCr
     {
-        public static string Cuota => "CTA";
-        public static string Pago => "PAGO";
-        public static string CargoInternos => "CargoI";
+        public static char Debito => 'D';
+        public static char Credito => 'C';
+    }
+    public class CodigosTiposTransaccionCxC
+    {
+        public static string Cuota => "CT";
+        public static string Pago => "PG";
+        public static string CargoInterno => "CI";
         public static string NotaDeDebito => "ND";
         public static string NotaDeCredito => "NC";
-    }
-
-    public class CodigosCargosReservadosDebitos
-    {
-        public static string Capital => "CA";
-        public static string Interes => "INT";
-        public static string InteresDespuesDeVencido => "INTDV";
-        public static string Moras => "MOR";
-        public static string GastoDeCierreInteres => "GCINT";
-        public static string GastoDeCierre => "GC";
-        public string NombreCargo(string codigoCargo)
+        public string GetNombreTipoDocumento(string codigoCargo)
         {
             string nombre = string.Empty;
-            switch (codigoCargo) 
+            switch (codigoCargo)
             {
                 case "CA": nombre = "Capital"; break;
                 case "INT": nombre = "Interes"; break;
@@ -40,6 +38,33 @@ namespace PrestamoBLL
             }
             return nombre;
         }
+
+    }
+
+    public class CodigosCargosDebitos
+    {
+        public static string Capital => "CA";
+        public static string Interes => "INT";
+        public static string InteresDespuesDeVencido => "INTDV";
+        public static string Moras => "MOR";
+        public static string InteresDelGastoDeCierre => "INTGC";
+        public static string GastoDeCierre => "GC";
+        public string GetNombreCargo(string codigoCargo)
+        {
+            string nombre = string.Empty;
+            switch (codigoCargo)
+            {
+                case "CA": nombre = "Capital"; break;
+                case "INT": nombre = "Interes"; break;
+                case "INTDV": nombre = "Interes despues de vencido"; break;
+                case "MOR": nombre = "Moras (Cargos por atraso)"; break;
+                case "GCINT": nombre = "Interes del gasto de cierre"; break;
+                case "GC": nombre = "Gasto de cierre"; break;
+                default: return string.Empty;
+            }
+            return nombre;
+        }
+        public override string ToString() => "Codigo para utilizar en los cargos";
     }
 
 
@@ -47,19 +72,18 @@ namespace PrestamoBLL
     {
         int IdTransaccion { get; set; }
         int IdPrestamo { get; set; }
-        string CodigoTransaccion { get; }
-        string NombreTransaccion { get; }
-        
+        char TipoDrCr { get; }
+        string CodigoTipoTransaccion { get; }
+        string NumeroTransaccion { get; }
         string IdReferencia { get; set; }
         DateTime Fecha { get; }
-        
         decimal Monto { get; }
         decimal Balance { get; }
     }
 
     public interface IMaestroDebitoConDetallesCxC : IMaestroDebitoSinDetallesCxC
     {
-        IList<IDetalleDebitoCxC> Detalles { get; }
+        public string DetalleCargosJson { get; }
     }
 
     public interface IDetalleDebitoCxC
@@ -72,65 +96,93 @@ namespace PrestamoBLL
         decimal Balance { get; set; }
     }
 
-    internal abstract class BaseMaestroCxC : BaseInsUpd, IMaestroDebitoConDetallesCxC
+    internal abstract class BaseMaestroCxC : IMaestroDebitoConDetallesCxC
     {
         public int IdTransaccion { get; set; }
-        public virtual string CodigoTransaccion { get; }
-        public virtual string NombreTransaccion { get; }
+        public virtual string CodigoTipoTransaccion { get; }
+        public string NumeroTransaccion { get; set; }
         public virtual string IdReferencia { get; set; }
         public int IdPrestamo { get; set; }
         public DateTime Fecha { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
-        public IList<IDetalleDebitoCxC> Detalles { get; set; } = new List<IDetalleDebitoCxC>();
+        public char TipoDrCr { get; set; }
+        public string DetalleCargosJson { get; set; }
+        private List<DetalleCargoCxC> DetalleCargos { get; set; } = new List<DetalleCargoCxC>();
+
+        public void ConvertJsonToDetallesCargos(string detallesText)
+        {
+            if (!detallesText.IsNullOrEmpty())
+            {
+                var detalles = JsonConvert.DeserializeObject<List<DetalleCargoCxC>>(detallesText);
+                this.DetalleCargos = detalles;
+            }
+        }
+        public IEnumerable<DetalleCargoCxC> GetDetallesCargos() => DetalleCargos;
     }
 
     internal abstract class CuotaMaestroSinDetallesCxC : IMaestroDebitoSinDetallesCxC
     {
         public int IdTransaccion { get; set; }
         public int IdPrestamo { get; set; }
-        //public string CodigoTransaccion => "Cta";
-        //public string NombreTransaccion => "CuotaMaestro";
 
-        public string CodigoTransaccion {get;set;}
-        public string NombreTransaccion {get;set;}
+        public string CodigoTransaccion { get; set; }
+
         public string IdReferencia { get; set; }
         //public int Numero { get; internal set; }
-        public int Numero { get; set; }
+        public string NumeroTransaccion { get; set; }
         public DateTime Fecha { get; set; }
-        public decimal Monto { get; set; }
-        public decimal Balance { get; set; }
+        public decimal Monto { get; protected set; }
+        public decimal Balance { get; protected set; }
         public string OtrosDetalles { get; set; }
+        public char TipoDrCr => 'D';
 
+        string IMaestroDebitoSinDetallesCxC.CodigoTipoTransaccion => throw new NotImplementedException();
     }
     /// <summary>
     /// Nueva cuota
     /// </summary>
-    internal class CuotaMaestro : CuotaMaestroSinDetallesCxC, IMaestroDebitoConDetallesCxC
+    internal class CuotaMaestroConDetallesCxC : CuotaMaestroSinDetallesCxC, IMaestroDebitoConDetallesCxC
     {
-        public IList<IDetalleDebitoCxC> Detalles { get; set; }
+        public string DetalleCargosJson { get; private set; }
 
-        public override string ToString() => $"No {Numero} Fecha {Fecha} Monto {Monto} Balance {Balance}";
+        private List<IDetalleDebitoCxC> DetallesCargos { get; set; } = new List<IDetalleDebitoCxC>();
+        public void SetDetallesCargos(IEnumerable<IDetalleDebitoCxC> detallesCargos)
+        {
+            this.DetallesCargos.AddRange(detallesCargos);
+            this.Monto = this.DetallesCargos.Sum(item => item.Monto);
+            this.Balance = this.DetallesCargos.Sum(item => item.Balance);
+            this.DetalleCargosJson = JsonConvert.SerializeObject(this.DetallesCargos);
+        }
+        public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos()
+        {
+            var detallesCargos = new List<DetalleCargoCxC>();
+            if (!DetalleCargosJson.IsNullOrEmpty())
+            {
+                var detalles = JsonConvert.DeserializeObject<List<DetalleCargoCxC>>(DetalleCargosJson);
+                detallesCargos = detalles;
+            }
+            return detallesCargos;
+        }
+        public override string ToString() => $"No {NumeroTransaccion} Fecha {Fecha} Monto {Monto} Balance {Balance}";
     }
+
 
     internal class NotaDeDebito : BaseMaestroCxC
     {
-        public override string CodigoTransaccion => "ND";
-        public override string NombreTransaccion => "Nota de debito";
+        public override string CodigoTipoTransaccion => CodigosTiposTransaccionCxC.NotaDeDebito; 
+
         public string Concepto { get; set; }
     }
 
     internal class CargoPorAtraso : BaseMaestroCxC
     {
-        public override string CodigoTransaccion => "CAT";
-        public override string NombreTransaccion => "Cargos por atraso";
-
+        public override string CodigoTipoTransaccion => CodigosCargosDebitos.Moras;
     }
 
     internal class CargoPorInteresDespuesDeVencido : BaseMaestroCxC
     {
-        public override string CodigoTransaccion => "CINTDV";
-        public override string NombreTransaccion => "Cargos por interes despues de vencido";
+        public override string CodigoTipoTransaccion => CodigosCargosDebitos.InteresDespuesDeVencido;
     }
 
     internal class DetalleCargoCxC : IDetalleDebitoCxC
@@ -141,58 +193,45 @@ namespace PrestamoBLL
         public override string ToString() => $"Codigo {CodigoCargo} Monto {Monto} Balance {Balance}";
     }
 
-    public class CuotaCxC
+    internal class CuotaCxC
     {
-        decimal MontoTotal { get;  set; }
-        IMaestroDebitoConDetallesCxC Cuota { get; set; }
+
         IList<IDetalleDebitoCxC> Detalles { get; set; } = new List<IDetalleDebitoCxC>();
-
-        DateTime FechaInicial { get; set; }
-
-        int IdPrestamo { get; set; }
-
-        TasaInteres TasaInteres { get; set; }
-        Periodo Periodo { get; set; }
-
-        decimal Capital { get; set; }
-        decimal Interes { get; set; }
-        decimal GastoDeCierre { get; set; }
-        decimal InteresDelGastoDeCierre { get; set; }
-        int CantidadDeCuota { get; set; }
-
         string IdReferencia { get; set; }
 
         internal IMaestroDebitoConDetallesCxC CreateCuotaAndDetalle(DateTime fecha, int numero, decimal capital, decimal interes, decimal gastoDeCierre, decimal interesDelGastoDeCierre)
         {
 
-            this.IdReferencia = numero.ToString();
-            AddCargo("CA",capital);
-            AddCargo("INT", interes);
-            AddCargo("GC", gastoDeCierre);
-            AddCargo("INTGC", interesDelGastoDeCierre);
+            this.IdReferencia = Guid.NewGuid().ToString();
+            AddCargo(CodigosCargosDebitos.Capital, capital);
+            AddCargo(CodigosCargosDebitos.Interes, interes);
+            AddCargo(CodigosCargosDebitos.GastoDeCierre, gastoDeCierre);
+            AddCargo(CodigosCargosDebitos.InteresDelGastoDeCierre, interesDelGastoDeCierre);
 
-            var cuota = new CuotaMaestro
+            var cuota = new CuotaMaestroConDetallesCxC
             {
+
+                IdReferencia = this.IdReferencia,
                 Fecha = fecha,
-                Monto = MontoTotal,
-                Numero = numero,
-                Balance = MontoTotal,
-                Detalles = this.Detalles,
+                NumeroTransaccion = numero.ToString(),
+                CodigoTransaccion = CodigosTiposTransaccionCxC.Cuota
             };
+            cuota.SetDetallesCargos(this.Detalles);
             return cuota;
         }
 
-        private void AddCargo(string codigoCargo,decimal monto)
+        private void AddCargo(string codigoCargo, decimal monto)
         {
-            if (monto <= 0) return ;
+            if (monto <= 0) return;
             var cargo = new DetalleCargoCxC
             {
                 CodigoCargo = codigoCargo,
                 Monto = monto,
                 Balance = monto,
+                
             };
             this.Detalles.Add(cargo);
-            MontoTotal += monto;
+
         }
     }
 }

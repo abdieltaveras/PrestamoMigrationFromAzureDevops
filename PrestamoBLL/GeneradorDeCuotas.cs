@@ -19,11 +19,11 @@ namespace PrestamoBLL
 
         DateTime fechaCuotaAnterior = InitValues._19000101;
         List<CxCCuota> cuotas = new List<CxCCuota>();
-        IEnumerable<IMaestroDebitoSinDetallesCxC> CuotasMaestroDetalle = new List<CuotaMaestro>();
+        IEnumerable<IMaestroDebitoSinDetallesCxC> CuotasMaestroDetalle = new List<CuotaMaestroConDetallesCxC>();
         public GeneradorCuotasFijasNoAmortizable(IInfoGeneradorCuotas info)
         {
             if (info.TipoAmortizacion != TiposAmortizacion.No_Amortizable_cuotas_fijas)
-            { throw new InvalidOperationException("para generar este tipo de cuotas, solo se admite el tipo de amortizacion No Amortizable CuotaMaestro Fija"); }
+            { throw new InvalidOperationException("para generar este tipo de cuotas, solo se admite el tipo de amortizacion No Amortizable CuotaMaestroConDetallesCxC Fija"); }
             BLLValidations.ValueGreaterThanZero(info.IdPeriodo, "IdPeriodo");
             BLLValidations.ValueGreaterThanZero(info.IdTasaInteres, "IdTasaInteres");
             infoGenerarCuotas = info;
@@ -101,7 +101,7 @@ namespace PrestamoBLL
                     setGastoDeCierreFinaciadoEnCuotas(cuota);
                     var fechaParaCuotas = infoGenerarCuotas.AcomodarFechaALasCuotas ? infoGenerarCuotas.FechaInicioPrimeraCuota : infoGenerarCuotas.FechaEmisionReal;
                     cuota.Fecha = PrestamoConCalculos.CalcularFechaVencimiento(infoGenerarCuotas.AcomodarFechaALasCuotas,Periodo, fechaParaCuotas,  infoGenerarCuotas.CantidadDeCuotas);
-                    cuota.Comentario = "Ultima CuotaMaestro";
+                    cuota.Comentario = "Ultima CuotaMaestroConDetallesCxC";
                     cuotas.Add(cuota);
                 }
                 //ajustarValores();
@@ -328,7 +328,7 @@ namespace PrestamoBLL
                     setGastoDeCierreFinaciadoEnCuotas(cuota);
                     var fechaParaCuotas = infoGenerarCuotas.AcomodarFechaALasCuotas ? infoGenerarCuotas.FechaInicioPrimeraCuota : infoGenerarCuotas.FechaEmisionReal;
                     cuota.Fecha = PrestamoConCalculos.CalcularFechaVencimiento(infoGenerarCuotas.AcomodarFechaALasCuotas, Periodo, fechaParaCuotas, infoGenerarCuotas.CantidadDeCuotas);
-                    cuota.Comentario = "Ultima CuotaMaestro";
+                    cuota.Comentario = "Ultima CuotaMaestroConDetallesCxC";
                     cuotas.Add(cuota);
                 }
                 //ajustarValores();

@@ -12,7 +12,7 @@ namespace PrestamoBLL
         public override decimal BceGeneral => BceCapital + BceInteres + BceGastoDeCierre + BceInteresDelGastoDeCierre; // + BceOtrosCargos??0
         public override string ToString()
         {
-            return $"CuotaMaestro No {Numero} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/C {GastoDeCierre} Int G/C {InteresDelGastoDeCierre}";
+            return $"CuotaMaestroConDetallesCxC No {Numero} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/C {GastoDeCierre} Int G/C {InteresDelGastoDeCierre}";
         }
     }
 

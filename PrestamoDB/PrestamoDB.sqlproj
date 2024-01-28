@@ -231,9 +231,10 @@
     <Build Include="dbo\Tables\tblDebitos.sql" />
     <Build Include="dbo\Tables\tblDetallesOtrasCxC.sql" />
     <Build Include="dbo\Tables\TblTiposCargo.sql" />
-    <Build Include="dbo\User Defined Types\tpCuotaMaestro.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdCuotasMaestro.sql" />
     <Build Include="dbo\Tables\tblCuotaMaestro.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdMaestroCxCprestamo.sql" />
+    <Build Include="dbo\User Defined Types\tpMaestroCxCPrestamo.sql" />
+    <Build Include="dbo\Tables\tblMaestrosCxCPrestamo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
@@ -241,5 +242,6 @@
     <None Include="RandyPrestamoDB.publish.xml" />
     <None Include="SchemaCompareForRandy.scmp" />
     <None Include="Scripts\NotInBuild\CreateSchema.sql" />
+    <None Include="Scripts\NotInBuild\FixingErrorTVPWhenTypeIsDate.sql" />
   </ItemGroup>
 </Project>

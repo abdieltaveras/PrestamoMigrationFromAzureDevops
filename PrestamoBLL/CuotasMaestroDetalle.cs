@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace PrestamoBLL
 {
@@ -18,58 +19,85 @@ namespace PrestamoBLL
         
         public void InsUpdDebitoMaestro(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
-            var cuotasMaestros  = cuotas.Cast<CuotaMaestroSinDetallesCxC>();
-            var cuotasMaestroDT = cuotasMaestros.ToDataTablePcp<CuotaMaestroSinDetallesCxC>();
-            //var cuotasMaestro2 = cuotas.Cast<CuotaMaestro>();
+            var ctas = cuotas.Cast<CuotaMaestroConDetallesCxC>();
+            var fcta = ctas.FirstOrDefault();
+            var cuotasMaestroDT = ctas.ToDataTable();
+            cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
+            //var columns = cuotasMaestroDT.Columns;
             //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
             var detallesList = new List<IDetalleDebitoCxC>();
-            cuotas.ToList().ForEach(cta => 
-                detallesList.AddRange(cta.Detalles));
+            //var data = new cuotasParam { cuotasMaestra = cuotasMaestroDT };
+            var data2 = new { maestroCxC = cuotasMaestroDT };
+            var sqlParams = SearchRec.ToSqlParams(data2);
+            
+            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroCxCPrestamo", sqlParams);
+        }
+
+        internal class CuotaMaestroConDetalleJsonTestConversion : CuotaMaestroSinDetallesCxC
+        {
+            public string DetalleCargosJson { get; private set; }
+            public void SetDetallesCargos(IEnumerable<DetalleCargoCxC> detallesCargos)
+            {
+                
+                this.DetalleCargosJson = JsonConvert.SerializeObject(detallesCargos);
+            }
+            public IEnumerable<DetalleCargoCxC> GetDetallesCargos()
+            {
+                var detallesCargos = new List<DetalleCargoCxC>();
+                if (!DetalleCargosJson.IsNullOrEmpty())
+                {
+                    var detalles = JsonConvert.DeserializeObject<List<DetalleCargoCxC>>(DetalleCargosJson);
+                    detallesCargos = detalles;
+                }
+                return detallesCargos;
+            }
+        }
+
+        public void TestTVInsUpdDebitoMaestro2(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        {
+            var ctas = cuotas.Cast<CuotaMaestroConDetallesCxC>();
+            var cuotasMaestroDT = ctas.ToDataTable();
+            cuotasMaestroDT.Columns.Remove("DetalleCargosJson");
+            //cuotasMaestroDT.Columns.Remove("Fecha");
+            var columns = cuotasMaestroDT.Columns;
+            //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
+            var detallesList = new List<IDetalleDebitoCxC>();
+
 
             //var data = new cuotasParam { cuotasMaestra = cuotasMaestroDT };
             var data2 = new { cuotasMaestra = cuotasMaestroDT };
-            var sqpParams = SearchRec.ToSqlParams(data2);
-            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdCuotasMaestro", sqpParams);
+            var sqlParams = SearchRec.ToSqlParams(data2);
+            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spTestTVP", sqlParams);
+        }
+        class testObj { public DateTime Fecha { get; set; } = DateTime.Now; }
+        public void TestTVToDataTable()
+        {
+            var test = new List<testObj>();
+            test.Add(new testObj());
+            var cuotasMaestroDT = test.ToDataTable();
+            var data2 = new { cuotasMaestra = cuotasMaestroDT };
+            var sqlParams = SearchRec.ToSqlParams(data2);
+            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spTestTVP", sqlParams);
         }
 
-        internal class CtMSinD : CuotaMaestroSinDetallesCxC
-        {
-            public string DetalleCargosJson { get; set; }
-
-            private List<DetalleCargoCxC> DetalleCargos { get;  set; } = new List<DetalleCargoCxC>();
-            public void ConvertDetallesToJson(string detallesText)
-            {
-                if (!detallesText.IsNullOrEmpty())
-                {
-                    var detalles = JsonConvert.DeserializeObject<List<DetalleCargoCxC>>(detallesText);
-                    this.DetalleCargos = detalles;
-                }
-                //detalles.ForEach(det => { 
-                //    var detalles = JsonConvert.DeserializeObject<List<DetalleDebitoCxC>>(det);
-                //    this.Detalles = detalles;
-                //});
-            }
-            public IEnumerable<DetalleCargoCxC> GetDetallesCargos() => DetalleCargos;
-        }
-
-        
-        public void InsUpdJsonDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        public void TryJsonDeserialization(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
 
-            var ct1 = new CtMSinD();
+            var ct1 = new CuotaMaestroConDetalleJsonTestConversion() { Fecha=DateTime.Now };
             var detalles = new List<DetalleCargoCxC>();
-            detalles.Add(new DetalleCargoCxC());
-            detalles.Add(new DetalleCargoCxC());
-            ct1.DetalleCargosJson = detalles.ToJSON().ToString();
-
-            var ct2 = new CtMSinD();
-            var cts = new List<CtMSinD> { ct1, ct2 };
+            detalles.Add(new DetalleCargoCxC() { CodigoCargo="CA", Monto=1000, Balance=1000 });
+            detalles.Add(new DetalleCargoCxC() { CodigoCargo = "INT", Monto = 100, Balance = 100 }); ;
+            var result = JsonConvert.SerializeObject(detalles);
+            ct1.SetDetallesCargos(detalles);
+            var ct2 = new CuotaMaestroConDetalleJsonTestConversion();
+            var cts = new List<CuotaMaestroConDetalleJsonTestConversion> { ct1, ct2 };
+            
             var ctsJson = JsonConvert.SerializeObject(cts);
             
             
-            var dese2 = JsonConvert.DeserializeObject<List<CtMSinD>>(ctsJson);
+            var dese2 = JsonConvert.DeserializeObject<List<CuotaMaestroConDetalleJsonTestConversion>>(ctsJson);
 
-            dese2.ForEach(ct => ct.ConvertDetallesToJson(ct.DetalleCargosJson));
+            
 
             var cuotasMaestros = cuotas.Cast<CuotaMaestroSinDetallesCxC>();
             var cuotasMaestroToJson = JsonConvert.SerializeObject(cuotasMaestros);
@@ -79,8 +107,7 @@ namespace PrestamoBLL
             //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
 
             var detallesList = new List<IDetalleDebitoCxC>();
-            cuotas.ToList().ForEach(cta =>
-                detallesList.AddRange(cta.Detalles));
+            
             var detallesDT = detallesList.ToDataTable();
             //var data = new cuotasParam { cuotasMaestra = cuotasMaestroDT };
             var cuotasYDetallesCargo = new { cuotasMaestra = cuotasMaestroDT, detallesCargo=detallesDT };
@@ -89,5 +116,56 @@ namespace PrestamoBLL
             BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdCuotasMaestroDetalles", sqpParams);
         }
 
+    }
+
+    public static class ExtMethod
+    {
+        public static DataTable ToDataTable<@Type>(this IEnumerable<@Type> list, Dictionary<string, Func<object, object>> convertMap = null, List<string> skipList = null)
+        {
+            DataTable result = new DataTable();
+            PropertyInfo[] properties = typeof(@Type).GetProperties();
+            foreach (PropertyInfo pi in properties)
+            {
+                if (skipList != null)
+                {
+                    if (skipList.Contains(pi.Name))
+                    {
+                        continue;
+                    }
+                }
+                var newCol = new DataColumn(pi.Name);
+
+                if (pi.PropertyType.Name == "DateTime")
+                {
+                    newCol.DataType = System.Type.GetType("System.DateTime");
+                }
+                result.Columns.Add(newCol);
+            }
+            foreach (var item in list)
+            {
+                var newRow = result.NewRow();
+                foreach (PropertyInfo pi in properties)
+                {
+                    if (skipList != null)
+                    {
+                        if (skipList.Contains(pi.Name))
+                        {
+                            continue;
+                        }
+                    }
+                    if (convertMap != null)
+                    {
+                        if (convertMap.ContainsKey(pi.Name))
+                        {
+                            newRow[pi.Name] = convertMap[pi.Name](pi.GetValue(item, null));
+                            continue;
+                        }
+                    }
+                    newRow[pi.Name] = pi.GetValue(item, null);
+                }
+                result.Rows.Add(newRow);
+            }
+            return result;
+        }
     }
 }

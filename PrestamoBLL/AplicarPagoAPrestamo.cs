@@ -134,10 +134,10 @@ namespace PrestamoBLL
 
         private void CreateDetalleCargo(CxCCuotaBLL cuota)
         {
-            CreateDetalleCargoPorTipo("CuotaMaestro", "CAP", cuota.idCuota, cuota.Capital, cuota.BceCapital);
-            CreateDetalleCargoPorTipo("CuotaMaestro", "INT", cuota.idCuota, cuota.Interes, cuota.BceInteres);
-            CreateDetalleCargoPorTipo("CuotaMaestro", "GC", cuota.idCuota, cuota.GastoDeCierre, cuota.BceGastoDeCierre);
-            CreateDetalleCargoPorTipo("CuotaMaestro", "INTGC", cuota.idCuota, cuota.InteresDelGastoDeCierre, cuota.BceInteresDelGastoDeCierre);
+            CreateDetalleCargoPorTipo("CuotaMaestroConDetallesCxC", "CAP", cuota.idCuota, cuota.Capital, cuota.BceCapital);
+            CreateDetalleCargoPorTipo("CuotaMaestroConDetallesCxC", "INT", cuota.idCuota, cuota.Interes, cuota.BceInteres);
+            CreateDetalleCargoPorTipo("CuotaMaestroConDetallesCxC", "GC", cuota.idCuota, cuota.GastoDeCierre, cuota.BceGastoDeCierre);
+            CreateDetalleCargoPorTipo("CuotaMaestroConDetallesCxC", "INTGC", cuota.idCuota, cuota.InteresDelGastoDeCierre, cuota.BceInteresDelGastoDeCierre);
         }
 
         private void CreateDetalleCargoPorTipo(string tipoDebito, string codigoCargo, int idTransaccion, decimal monto, decimal balance)
