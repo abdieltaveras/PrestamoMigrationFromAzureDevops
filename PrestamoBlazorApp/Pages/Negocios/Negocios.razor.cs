@@ -24,6 +24,7 @@ namespace PrestamoBlazorApp.Pages.Negocios
         protected override async Task OnInitializedAsync()
         {
             negocios = await NegociosService.Get(new NegociosGetParams());
+
         }
 
         public virtual void OnEditClick(string url)

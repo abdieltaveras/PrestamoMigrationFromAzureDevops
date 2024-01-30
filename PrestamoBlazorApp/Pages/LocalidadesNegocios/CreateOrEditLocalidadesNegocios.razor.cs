@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using PrestamoBlazorApp.Pages.Negocios;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +12,8 @@ namespace PrestamoBlazorApp.Pages.LocalidadesNegocios
     {
         [Parameter]
         public int IdLocalidadNegocio { get; set; }
+       
+
+        
     }
 }
