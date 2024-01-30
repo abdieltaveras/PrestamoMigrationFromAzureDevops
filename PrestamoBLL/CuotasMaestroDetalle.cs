@@ -22,17 +22,39 @@ namespace PrestamoBLL
             var ctas = cuotas.Cast<CuotaMaestroConDetallesCxC>();
             var fcta = ctas.FirstOrDefault();
             var cuotasMaestroDT = ctas.ToDataTable();
-            cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
+            //cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
             //var columns = cuotasMaestroDT.Columns;
             //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
             var detallesList = new List<IDetalleDebitoCxC>();
             //var data = new cuotasParam { cuotasMaestra = cuotasMaestroDT };
             var data2 = new { maestroCxC = cuotasMaestroDT };
             var sqlParams = SearchRec.ToSqlParams(data2);
-            
             BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroCxCPrestamo", sqlParams);
         }
 
+        internal class DetalleCargo : DetalleCargoCxC
+        {
+            public int IdTransaccion { get; set; }
+            public int IdTransaccionMaestro { get; set; }
+            public string IdReferencia { get; set; }
+        }
+
+        public void InsUpdDetallesCargos(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        {
+            List<DetalleCargo> detalles = new List<DetalleCargo>();
+            foreach ( var c in cuotas)
+            {
+                var idTransMaestro = new Random().Next(1000, 10000);
+                var cta = c as CuotaMaestroConDetallesCxC;
+                cta.GetDetallesCargos().ForEach(item =>
+                detalles.Add(new DetalleCargo {  
+                    IdTransaccionMaestro= idTransMaestro, Balance = item.Balance, Monto = item.Monto, CodigoCargo = item.CodigoCargo, IdReferencia = Guid.NewGuid().ToString() }));
+
+            }
+            var data2 = new { detallesCargos = detalles.ToDataTable() };
+            var sqlParams = SearchRec.ToSqlParams(data2);
+            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.SpInsUpdDetallesDrCxC", sqlParams);
+        }
         internal class CuotaMaestroConDetalleJsonTestConversion : CuotaMaestroSinDetallesCxC
         {
             public string DetalleCargosJson { get; private set; }
@@ -57,7 +79,7 @@ namespace PrestamoBLL
         {
             var ctas = cuotas.Cast<CuotaMaestroConDetallesCxC>();
             var cuotasMaestroDT = ctas.ToDataTable();
-            cuotasMaestroDT.Columns.Remove("DetalleCargosJson");
+            cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
             //cuotasMaestroDT.Columns.Remove("Fecha");
             var columns = cuotasMaestroDT.Columns;
             //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();

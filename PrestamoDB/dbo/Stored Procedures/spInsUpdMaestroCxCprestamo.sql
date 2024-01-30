@@ -5,14 +5,14 @@
 as
 begin
 	declare  @registrosCuotaMaestro tpMaestroCxCPrestamo
-	insert into @registrosCuotaMaestro (IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson)
-		select  IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson from @maestroCxC
+	insert into @registrosCuotaMaestro (IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson, DetallesCargosJson)
+		select  IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson, DetallesCargosJson from @maestroCxC
 	while exists (select top 1 idTransaccion from @registrosCuotaMaestro)
 	begin
 		declare @registroActual tpMaestroCxCPrestamo 
 		delete  @registroActual
-		insert into @registroActual (IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson)
-		select top 1 IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson from  @registrosCuotaMaestro
+		insert into @registroActual (IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson, DetallesCargosJson)
+		select top 1 IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson, DetallesCargosJson from  @registrosCuotaMaestro
 		declare @idReferencia varchar(30) = (select IdReferencia from @registroActual)
 		declare @idPrestamo int = (select idPrestamo from @registroActual)
 		declare @CodigoTipoTransaccion varchar(10) = (select CodigoTipoTransaccion from @registroActual)
@@ -21,17 +21,18 @@ begin
 		declare @monto numeric(18,2) = (select monto from @registroActual)
 		declare @balance numeric(18,2) = (select balance from @registroActual)
 		declare @otrosDetallesJson varchar(200) = (select otrosDetallesJson from @registroActual)
+		declare @detallesCargosJson varchar(200) = (select detallesCargosJson from @registroActual)
 		--notar que si idTransaccion no existe en tblCuotaMaestro no se va a actualizar el registro en las cuotas
-		declare @idTransaccion int =  (select idTransaccion  from tblCuotasMaestro where idprestamo = @idprestamo and numeroTransaccion =@numeroTransaccion )
+		declare @idTransaccion int =  (select idTransaccion  from tblMaestrosCxCPrestamo where idprestamo = @idprestamo and numeroTransaccion =@numeroTransaccion )
 
 		if isnull(@idTransaccion ,0)=0
 			begin
-				insert into tblCuotasMaestro(idPrestamo, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson) 
-				select top 1  IdPrestamo, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson from  @registroActual
+				insert into tblMaestrosCxCPrestamo(idPrestamo, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson, DetallesCargosJson) 
+				select top 1  IdPrestamo, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson, DetallesCargosJson from  @registroActual
 			end
 		else
 			begin
-				update tblCuotasMaestro 
+				update tblMaestrosCxCPrestamo 
 				set 
 				idPrestamo = @idPrestamo,
 				CodigoTipoTransaccion =@CodigoTipoTransaccion,
@@ -39,7 +40,8 @@ begin
 				Fecha =@fecha,
 				Monto =@monto,
 				Balance=@balance, 
-				OtrosDetallesJson= @otrosDetallesJson
+				OtrosDetallesJson= @otrosDetallesJson,
+				DetallesCargosJson = @detallesCargosJson
 				where idTransaccion = @idTransaccion
 			end
 		--declare @cantidadRegistros int = (select count(Idtransaccion) from @registrosCuotaMaestro)

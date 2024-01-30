@@ -83,7 +83,7 @@ namespace PrestamoBLL
 
     public interface IMaestroDebitoConDetallesCxC : IMaestroDebitoSinDetallesCxC
     {
-        public string DetalleCargosJson { get; }
+        public string DetallesCargosJson { get; }
     }
 
     public interface IDetalleDebitoCxC
@@ -107,7 +107,7 @@ namespace PrestamoBLL
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
         public char TipoDrCr { get; set; }
-        public string DetalleCargosJson { get; set; }
+        public string DetallesCargosJson { get; set; }
         private List<DetalleCargoCxC> DetalleCargos { get; set; } = new List<DetalleCargoCxC>();
 
         public void ConvertJsonToDetallesCargos(string detallesText)
@@ -144,7 +144,7 @@ namespace PrestamoBLL
     /// </summary>
     internal class CuotaMaestroConDetallesCxC : CuotaMaestroSinDetallesCxC, IMaestroDebitoConDetallesCxC
     {
-        public string DetalleCargosJson { get; private set; }
+        public string DetallesCargosJson { get; private set; }
 
         private List<IDetalleDebitoCxC> DetallesCargos { get; set; } = new List<IDetalleDebitoCxC>();
         public void SetDetallesCargos(IEnumerable<IDetalleDebitoCxC> detallesCargos)
@@ -152,14 +152,14 @@ namespace PrestamoBLL
             this.DetallesCargos.AddRange(detallesCargos);
             this.Monto = this.DetallesCargos.Sum(item => item.Monto);
             this.Balance = this.DetallesCargos.Sum(item => item.Balance);
-            this.DetalleCargosJson = JsonConvert.SerializeObject(this.DetallesCargos);
+            this.DetallesCargosJson = JsonConvert.SerializeObject(this.DetallesCargos);
         }
         public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos()
         {
             var detallesCargos = new List<DetalleCargoCxC>();
-            if (!DetalleCargosJson.IsNullOrEmpty())
+            if (!DetallesCargosJson.IsNullOrEmpty())
             {
-                var detalles = JsonConvert.DeserializeObject<List<DetalleCargoCxC>>(DetalleCargosJson);
+                var detalles = JsonConvert.DeserializeObject<List<DetalleCargoCxC>>(DetallesCargosJson);
                 detallesCargos = detalles;
             }
             return detallesCargos;
