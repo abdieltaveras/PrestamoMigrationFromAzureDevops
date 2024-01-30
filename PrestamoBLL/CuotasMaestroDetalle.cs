@@ -37,6 +37,7 @@ namespace PrestamoBLL
             public int IdTransaccion { get; set; }
             public int IdTransaccionMaestro { get; set; }
             public string IdReferencia { get; set; }
+
         }
 
         public void InsUpdDetallesCargos(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
