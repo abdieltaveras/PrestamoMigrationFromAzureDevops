@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[tblNegocios] (
     [IdNegocio]          INT           IDENTITY (1, 1) NOT NULL,
-    [Codigo]             VARCHAR (50)  DEFAULT (newid()) NOT NULL,
+    [Codigo]             VARCHAR (50)  NOT NULL,
     [NombreJuridico]     VARCHAR (100) NULL,
     [NombreComercial]    VARCHAR (100) NOT NULL,
     [CorreoElectronico]  VARCHAR (100) NULL,

@@ -33,8 +33,10 @@ namespace PrestamoEntidades
 
 
     
-    public class NegociosGetParams : BaseGetParams
+    public class NegociosGetParams 
     {
+        public string Usuario { get; set; } = string.Empty;
+        public int IdNegocio { get; set; } = -1;
         [MaxLength(20)]
         public string Codigo { get; set; } = string.Empty;
         public string NombreJuridico { get; set; } = string.Empty;
@@ -44,6 +46,7 @@ namespace PrestamoEntidades
         public string TaxIdNo { get; set; } = string.Empty;
 
         public int PermitirOperaciones { get; set; } = -1;
+        
 
     }
 

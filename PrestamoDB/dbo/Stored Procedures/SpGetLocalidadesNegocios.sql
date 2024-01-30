@@ -24,9 +24,5 @@ BEGIN
 		SELECT * FROM tblLocalidadesNegocio WITH(NOLOCK)
 		WHERE NombreComercial like @SearchText + '%'
 	END
-	IF(@Opcion = 4)
-	BEGIN
-		SELECT * FROM tblLocalidadesNegocio WITH(NOLOCK)
-		WHERE NombreJuridico like @SearchText + '%'
-	END
+	
 END

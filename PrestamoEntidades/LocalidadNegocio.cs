@@ -12,7 +12,6 @@ namespace PrestamoEntidades
     public class LocalidadNegocio : BaseInsUpd
     {
 
-        public int IdLocalidadNegocioPadre { get; set; }
         [IgnoreOnParams]
         /// <summary>
         /// store Guid number

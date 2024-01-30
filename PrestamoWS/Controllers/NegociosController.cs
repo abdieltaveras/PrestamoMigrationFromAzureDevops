@@ -48,7 +48,7 @@ namespace PrestamoWS.Controllers
             }
 
         }
-        // POST api/<LocalidadNegocioController>
+        
         [HttpPost]
         public IActionResult Post([FromBody] Negocio param)
         {
