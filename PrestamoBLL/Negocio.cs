@@ -5,6 +5,7 @@ using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace PrestamoBLL
 {
@@ -12,14 +13,20 @@ namespace PrestamoBLL
 
 
     //todo revisar los procedimientos que no devuelvan data anulada, o si la devuelven que dicha dada no pueda ser modificada en ningun stored procedure es una condicion a poner en todos los sp
-    public  class NegocioBLL
+    public  class NegociosBLL
     {
         internal Database DBPrestamo => ConexionDB.DBPrestamo;
         private string LoginName { get; set; }
-        public NegocioBLL(string loginName) : base()
+        public NegociosBLL(string loginName) : base()
         {
             BLLValidations.StringNotEmptyOrNull(loginName);
             this.LoginName = loginName;
+        }
+
+        public bool CodigoYaRegistrado(string codigo)
+        {
+            var result = GetNegocios(new NegociosGetParams { Codigo = codigo });
+            return (result.Any());
         }
 
         public IEnumerable<Negocio> GetNegocios(NegociosGetParams searchParam)
@@ -145,6 +152,7 @@ namespace PrestamoBLL
         public int InsUpd(Negocio insUpdParam)
         {
             insUpdParam.Codigo = Guid.NewGuid().ToString();
+            
             //InsUpdValidation(insUpdParam);
             var idResult = -1;
             var _insUpdParam = SearchRec.ToSqlParams(insUpdParam);

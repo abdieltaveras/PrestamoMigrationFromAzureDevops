@@ -24,7 +24,7 @@ namespace PrestamoWS.Controllers
         {
             try
             {
-                var result = new NegocioBLL(this.LoginName).GetNegocios(param);
+                var result = new NegociosBLL(this.LoginName).GetNegocios(param);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -34,6 +34,20 @@ namespace PrestamoWS.Controllers
     
         }
 
+        [HttpGet]
+        public ActionResult<bool> CodigoYaExiste(string codigo)
+        {
+            try
+            {
+                var result = new NegociosBLL(this.LoginName).CodigoYaRegistrado(codigo);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
         // POST api/<LocalidadNegocioController>
         [HttpPost]
         public IActionResult Post([FromBody] Negocio param)
@@ -41,8 +55,7 @@ namespace PrestamoWS.Controllers
             try
             {
                 param.Usuario = this.LoginName;
-
-                var result = new NegocioBLL(this.LoginName).InsUpd(param);
+                var result = new NegociosBLL(this.LoginName).InsUpd(param);
                 return Ok();
             }
             catch (Exception ex)
