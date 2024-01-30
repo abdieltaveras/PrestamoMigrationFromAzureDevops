@@ -24,7 +24,7 @@ namespace PrestamoWS.Controllers
         {
             try
             {
-                var result = new NegocioBLL(this.IdLocalidadNegocio, this.LoginName).GetNegocios(param);
+                var result = new NegocioBLL(this.LoginName).GetNegocios(param);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@ namespace PrestamoWS.Controllers
             {
                 param.Usuario = this.LoginName;
 
-                var result = new NegocioBLL(param.IdLocalidadNegocio, this.LoginName).InsUpd(param);
+                var result = new NegocioBLL(this.LoginName).InsUpd(param);
                 return Ok();
             }
             catch (Exception ex)

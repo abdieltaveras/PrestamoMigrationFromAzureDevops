@@ -12,10 +12,14 @@ namespace PrestamoBLL
 
 
     //todo revisar los procedimientos que no devuelvan data anulada, o si la devuelven que dicha dada no pueda ser modificada en ningun stored procedure es una condicion a poner en todos los sp
-    public  class NegocioBLL:BaseBLL
+    public  class NegocioBLL
     {
-        public NegocioBLL(int idLocalidadNegocioLoggedIn, string loginName) : base(idLocalidadNegocioLoggedIn, loginName)
+        internal Database DBPrestamo => ConexionDB.DBPrestamo;
+        private string LoginName { get; set; }
+        public NegocioBLL(string loginName) : base()
         {
+            BLLValidations.StringNotEmptyOrNull(loginName);
+            this.LoginName = loginName;
         }
 
         public IEnumerable<Negocio> GetNegocios(NegociosGetParams searchParam)
