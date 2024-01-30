@@ -1,0 +1,48 @@
+﻿<section class="cal-month">
+    <header>
+        <h4>@month</h4>
+    </header>
+    <div class="days">
+        @{
+            var first = new DateTime(Date.Year, Date.Month, 01);
+            var row = 1;
+            var week = first.WeekNumber();
+            for (int i = 0; i < DateTime.DaysInMonth(Date.Year, Date.Month); i++)
+            {
+                var date = first.AddDays(i);
+                var today = date.Equals(DateTime.Today);
+                var wkend = date.DayOfWeek == DayOfWeek.Sunday || date.DayOfWeek == DayOfWeek.Saturday;
+                var marked = MarkedDates.Keys.Contains(date);
+                var weekNum = date.WeekNumber();
+                if (week != weekNum)
+                {
+                    row++;
+                    week = weekNum;
+                }
+                var area = $"{Enum.GetName(date.DayOfWeek)}";
+                var disabled = (DisablePast && date.isInThePast(true)) || (DisableFuture && date.isInTheFuture(true));
+                var cls = $"{(today ? "today" : "")} {(marked ? "marked" : "")} {(wkend ? "wkend" : "")}";
+                var description = marked ? MarkedDates[date] : "";
+                var hint = marked ? description : $"{date.ToString("dddd, dd MMMM yyyy")}";
+                var action = disabled ? NoOp : OnDayClick;
+                <span disabled=@disabled @onclick="()=>action(date, description)" class="@cls.Trim()" style="grid-area:@area; grid-row:@row;" title="@hint">@date.Day</span>
+            }
+        }
+    </div>
+</section>
+
+@code {
+    Action<DateTime, string> NoOp = (dt, desc) => { };
+    [Parameter]
+    public DateTime Date { get; set; }
+    [Parameter]
+    public Dictionary<DateTime, string> MarkedDates { get; set; } = new Dictionary<DateTime, string>();
+    [Parameter]
+    public bool DisablePast { get; set; } = false;
+    [Parameter]
+    public bool DisableFuture { get; set; } = false;
+    [Parameter]
+    public Action<DateTime, string> OnDayClick { get; set; } = (dt, desc) => { };
+
+    string month => Date.ToString("MMMM");
+}

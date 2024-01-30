@@ -17,10 +17,11 @@ using System.Threading.Tasks;
 using MudBlazor;
 using MudBlazor.Services;
 using PrestamoBlazorApp.Services.Pruebas;
-using UIClient.Services;
+
 using PrestamoBlazorApp.Providers;
 using Blazored.LocalStorage;
 using PrestamoBlazorApp.Services.BaseService;
+using DispatchAPI.Authentication.Services;
 
 namespace PrestamoBlazorApp
 {
@@ -95,6 +96,8 @@ namespace PrestamoBlazorApp
             services.AddScoped<ServicioPruebas>();
             services.AddScoped<AuthService>();
             services.AddScoped<ServiceBase>();
+            services.AddScoped<CustomService>();
+
 
             //services.AddSingleton<IServicioPruebas, ServicioPruebas>();
 
@@ -105,7 +108,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<SystemService>();
             services.AddScoped<ActionsManagerService>();
             services.AddScoped<UserManagerService>();
-            services.AddScoped<DiasFeriadosService>();
+            //services.AddScoped<DiasFeriadosService>();
             services.AddScoped<SystemPoliciesService>();
         }
         private void AddLibsServices(IServiceCollection services)
@@ -162,7 +165,7 @@ namespace PrestamoBlazorApp
                 app.UseHsts();
             }
 
-            
+            app.UseMiddleware<MenuMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -1,0 +1,71 @@
+﻿@using DevBox.Core.Access;
+@using DevBox.Core.Identity;
+@using PrestamoBlazorApp.Providers;
+@using PrestamoBlazorApp.Shared.Layout.Components.Menu;
+
+
+@code {
+    [Inject] AuthenticationStateProvider _authenticationStateProvider { get; set; }
+    [Inject] private NavigationManager navigationManager { get; set; }
+    [Inject] private TokenAuthenticationStateProvider _TokenState { get; set; }
+    [Inject] private ActionsManagerService actionsManagerService { get; set; }
+    [Inject] private UserManagerService userManagerService { get; set; }
+
+    ActionList actions { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstrender)
+    {
+        var status = await _authenticationStateProvider.GetAuthenticationStateAsync();
+
+        if (firstrender)
+        {
+            bool tokenExpired = await _TokenState.IsTokenExpired();
+            if ((status.User.Claims.Count() <=0 || tokenExpired == true) && navigationManager.Uri.ToLower().Contains("login") == false)
+            {
+                navigationManager.NavigateTo("/login", true);
+            }
+        }
+    }
+
+    private async Task AuthorizeViewActions()
+    {
+
+        var principal = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        var usr = new User(principal.User);
+        if (principal.User.Identity.IsAuthenticated)
+        {
+
+            IEnumerable<CoreUser> users = new CoreUser[0];
+            string message = string.Empty;
+            try
+            {
+                users = await userManagerService.GetUser(usr.ID);
+            }
+            catch (Exception e)
+            {
+                message = e.Message;
+
+            }
+            var userFound = users.FirstOrDefault();
+            actions = (users.FirstOrDefault()?.Actions ?? ActionList.Empty).Filter(ActionListFilters.Allowed);
+
+            actionsManagerService.Actions = actions;
+            var a = MenuDictionary.MenuDictionaryData();
+
+            foreach (var item in a)
+            {
+                if (item.Url.Replace("/", "") == navigationManager.Uri.Replace(navigationManager.BaseUri, ""))
+                {
+                    foreach (var ac in actions)
+                    {
+                        if (ac.Value == item.Value)
+                        {
+                            actionsManagerService.GetFormAction(ac);
+                            //navigationManager.NavigateTo(item.Url);
+                            StateHasChanged();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

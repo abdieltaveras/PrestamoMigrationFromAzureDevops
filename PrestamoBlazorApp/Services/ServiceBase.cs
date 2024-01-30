@@ -14,6 +14,9 @@ using System.Net.Http.Headers;
 using PrestamoBlazorApp.Providers;
 using PrestamoBlazorApp.Services.BaseService;
 using Blazored.LocalStorage;
+using System.Net;
+using PrestamoEntidades.Responses;
+using System.Reflection.Metadata.Ecma335;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -39,6 +42,28 @@ namespace PrestamoBlazorApp.Services
         {
             _AuthStateProvider = authToken;
         }
+        public async Task<CustomHttpResponseFE<@Type>> PostCustomResponseAsync<@Type>(string endpoint, object body, object search = null)
+        {
+            try
+            {
+                var baseUrl = Configuration["BaseServerUrl"];
+                var query = search.UrlEncode();
+                var client = _clientFactory.CreateClient();
+                HttpResponseMessage response = null;
+                string errorMessage = string.Empty;
+                string token = await _LocalStorageService.GetItemAsync<string>(ConstsForProviders.TokenName);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+
+                response = await client.PostAsJsonAsync($"{baseUrl}/{endpoint}?{query}", body);
+                var result = await response.Content.ReadFromJsonAsync<CustomHttpResponseFE<Type>>();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new CustomHttpResponseFE<Type> { IsSuccess = false, Message = ex.Message };
+            }
+        }
         public async Task<@Type> PostAsync<@Type>(string endpoint, object body, object search = null)
         {
             var baseUrl = Configuration["BaseServerUrl"];
@@ -51,7 +76,7 @@ namespace PrestamoBlazorApp.Services
 
             response = await client.PostAsJsonAsync($"{baseUrl}/{endpoint}?{query}", body);
             var result = await response.Content.ReadFromJsonAsync<Type>();
-            
+
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {errorMessage}'");
@@ -88,7 +113,39 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
+        public async Task<@Type> GetCustomAsync<@Type>(string endpoint, object search, string token = "")
+        {
 
+            var baseUrl = Configuration["BaseServerUrl"];
+            var query = search.UrlEncode();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{endpoint}?{query}");
+            request.Headers.Add("Accept", "application/json");
+
+            @Type result;
+
+            var client = _clientFactory.CreateClient();
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+            }
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                result = await JsonSerializer.DeserializeAsync<Type>(responseStream);
+                //var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                //result = await response.Content.ReadFromJsonAsync<@Type>(options);
+            }
+            else
+            {
+                //result = Array.Empty<@Type>();
+                result = default(@Type);
+
+                throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
+            }
+            return result;
+        }
 
         public async Task<string> DelAsync(string endpoint, object search, bool requiresAuth = true)
         {

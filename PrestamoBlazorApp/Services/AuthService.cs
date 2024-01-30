@@ -7,6 +7,7 @@ using PcpUtilidades;
 
 using PrestamoEntidades;
 using PrestamoEntidades.Auth;
+using PrestamoEntidades.Responses;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -22,12 +23,12 @@ namespace PrestamoBlazorApp.Services
         {
 
         }
-        public async Task<LoginResponseDto> Login(LoginCredentialsDto loginCredentials)
+        public async Task<CustomHttpResponseFE<LoginResponseDto>> Login(LoginCredentialsDto loginCredentials)
         {
             
             try
             {
-                var response = await PostAsync<LoginResponseDto>(ApiUrl+ "/LogIn", loginCredentials);
+                var response = await PostCustomResponseAsync<LoginResponseDto>(ApiUrl+ "/LogIn", loginCredentials);
                 return response;
             }
             catch (Exception ex)

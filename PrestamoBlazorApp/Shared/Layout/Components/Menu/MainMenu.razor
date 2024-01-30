@@ -1,0 +1,21 @@
+﻿
+
+        @if (actions != null)
+        {
+            var grps = actions.GroupBy(a => a.GroupName);
+            foreach (var actionsGrp in grps)
+            {
+                <PrestamoBlazorApp.Shared.Layout.Components.Menu.NavMenuGroup OnActionClick="OnActionClick" actions="@actionsGrp.ToArray()" groupName="@actionsGrp.Key" />
+            }
+
+    <MudNavLink OnClick="OnLogOutClick"
+                title="Salir"
+                Icon="@MudBlazor.Icons.Outlined.ExitToApp"
+                Match="NavLinkMatch.All"
+                IconColor="MudBlazor.Color.Primary">Salir</MudNavLink>
+             
+        }
+
+@code {
+
+}

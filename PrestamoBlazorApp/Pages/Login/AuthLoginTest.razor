@@ -1,28 +1,19 @@
-﻿@*@page "/loginV2"*@
-@page "/AuthLoginTest"
+﻿@page "/Login"
 @inherits BaseForCreateOrEdit
 @using System.ComponentModel.DataAnnotations
-@using PrestamoBlazorApp.Pages.Login
-
+@layout PrestamoBlazorApp.Shared.Layout.LoginLayout
 <EditForm Model="@users">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <MudGrid Justify="Justify.Center" Style="background-color:#daedf4 ">
-        <MudItem xs="5" sm="5" Style="text-align:center; margin-top:15em; margin-bottom:15em">
-            <MudImage Src="images/logo2.jpg.jpeg"  Alt="onno2" Elevation="25" Class="rounded-lg" Width="85" Height="85" />
-            <MudText Typo="Typo.h4">PC PROG</MudText>
-            <MudText Typo="Typo.h4">login</MudText>
-            <MudTextField Label="Codigo Empresa" Class=" border-2 mud-border-primary pa-0 " Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.People" Required="true" RequiredError=" Nombre de usuario es requerido!" Elevation="0" @bind-Value="@_LoginCredentialsDto.CompanyCode" />
-            <MudTextField Label="Nombre" Class=" border-2 mud-border-primary pa-0 " Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.People" Required="true" RequiredError=" Nombre de usuario es requerido!" Elevation="0" @bind-Value="@_LoginCredentialsDto.UserName" />
-            <MudTextField Label="Contraseña" InputType="InputType.Password" Class=" border-2 mud-border-primary pa-0" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Password" Required="true" RequiredError="User name is required!" Elevation="0" @bind-Value="@_LoginCredentialsDto.Password" />
-            
-            <ValidationMessage For="@(() => users.Contraseña)" />
-            @*<MudButton @onclick='()=>NavigateTo("/loginEmpresa")' Variant="Variant.Filled" Color="@MudBlazor.Color.Info">Siguiente</MudButton>*@
-            <MudButton border-solid border-2 mud-border-primary pa-4 @onclick='()=> HandleValidSubmit()' Varian t="Variant.Filled" Color="@MudBlazor.Color.Info">Entrar</MudButton>
-            <MudButton border-solid border-2 mud-border-primary pa-4 @onclick='()=> HandleCheckAuthState()' Varian t="Variant.Filled" Color="@MudBlazor.Color.Dark">Check Auth State</MudButton>
-            
-        </MudItem>
-    </MudGrid>
+    <div style="display:flex; justify-content:center;">
+        <MudText Typo="Typo.h4">PC PROG</MudText>
+    </div>
+        <MudTextField Label="Codigo Empresa" Class=" border-2 mud-border-primary pa-0 " Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.People" Required="true" RequiredError=" Nombre de usuario es requerido!" Elevation="0" @bind-Value="@_LoginCredentialsDto.CompanyCode" />
+        <MudTextField Label="Nombre" Class=" border-2 mud-border-primary pa-0 " Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.People" Required="true" RequiredError=" Nombre de usuario es requerido!" Elevation="0" @bind-Value="@_LoginCredentialsDto.UserName" />
+        <MudTextField Label="Contraseña" InputType="InputType.Password" Class=" border-2 mud-border-primary pa-0" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Password" Required="true" RequiredError="User name is required!" Elevation="0" @bind-Value="@_LoginCredentialsDto.Password" />
+        <ValidationMessage For="@(() => users.Contraseña)" />
+            <MudDivider DividerType="DividerType.Middle" Style="margin:20px;"/>
+        <MudButton  @onclick='()=> HandleValidSubmit()' Size="Size.Large" ButtonType="ButtonType.Button" FullWidth="true" Variant="Variant.Filled" Color="@MudBlazor.Color.Primary">Entrar</MudButton>
 </EditForm>
 
 

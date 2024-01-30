@@ -12,13 +12,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UIClient.Services;
+
 
 namespace PrestamoBlazorApp.Pages.Login
 {
     public partial class AuthLoginTest
     {
-
+        
         [CascadingParameter]
         private Task<AuthenticationState>? authenticationState { get; set; }
         [Inject]
@@ -37,51 +37,51 @@ namespace PrestamoBlazorApp.Pages.Login
             _LoginCredentialsDto = new LoginCredentialsDto
             {
                 CompanyCode = "C1",
-                UserName = "PcProg",
-                Password = "pcp46232"
+                UserName= "PcProg",
+                Password= "pcp46232"
             };
             base.OnInitialized();
         }
-        private async Task HandleCheckAuthState()
+        private async Task HandleValidSubmit()
         {
-            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-        }
-    private async Task HandleValidSubmit()
-    {
-        LoginResponseDto response= new LoginResponseDto();
-        await Handle_GetData(async () =>
-        {
-            response = await _AuthService.Login(_LoginCredentialsDto);
-        });
-        //var ValidatedUser = ValidateUser(users);
-        // Validar el usuario utilizando la clase UserValidator
-        if (!string.IsNullOrEmpty(response.Token))
-        {
-            if (response.MustChgPwd)
+            var response = await _AuthService.Login(_LoginCredentialsDto);
+            //var ValidatedUser = ValidateUser(users);
+            // Validar el usuario utilizando la clase UserValidator
+            if (response.IsSuccess)
             {
-                NavManager.NavigateTo("pages/authentication/forgot-password");
+                if (!string.IsNullOrEmpty(response.Data.Token))
+                {
+                    if (response.Data.MustChgPwd)
+                    {
+                        NavManager.NavigateTo("pages/authentication/forgot-password");
+                    }
+                    else
+                    {
+                        await authStateProvider.SetTokenAsync(response.Data.Token);
+                        var randonValue = new Random().Next(100000000).ToString();
+                        await _localStorage.SetItemAsStringAsync(_siteResources.LoggedOutKey, randonValue);
+                        NavManager.NavigateTo("");
+                    }
+                    // Usuario autenticado con éxito
+                    // Puedes redirigir a otra página, establecer información de sesión, etc.
+                    //await NavigateTo("/loginEmpresa");
+
+                    await NotifyMessageBySnackBar("Acceso concedido ", Severity.Success);
+
+                }
+                else
+                {
+                    await NotifyMessageBySnackBar("Credenciales incorrectas", Severity.Error);
+                }
             }
             else
             {
-                await authStateProvider.SetTokenAsync(response.Token);
-                var randonValue = new Random().Next(100000000).ToString();
-                await _localStorage.SetItemAsStringAsync(_siteResources.LoggedOutKey, randonValue);
-                //NavManager.NavigateTo("/clientes");
-            }
-            // Usuario autenticado con éxito
-            // Puedes redirigir a otra página, establecer información de sesión, etc.
-            //await NavigateTo("/loginEmpresa");
+                await NotifyMessageBySnackBar("Error al hacer Login", Severity.Error);
 
-            await NotifyMessageBySnackBar("Acceso concedido ", Severity.Success);
-        }
-        else
-        {
-            await NotifyMessageBySnackBar("Credenciales incorrectas", Severity.Error);
+            }
         }
 
     }
-
-}
 }
 
 
