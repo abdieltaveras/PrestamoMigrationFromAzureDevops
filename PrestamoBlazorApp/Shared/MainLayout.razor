@@ -1,9 +1,13 @@
-﻿@inherits LayoutComponentBase
+﻿@using PrestamoBlazorApp.Shared.MudUtils
+@inherits LayoutComponentBase
 
 
-<MudThemeProvider @ref="_mudThemeProvider" @bind-IsDarkMode="_isDarkMode" />
+<MudThemeProvider Theme="_currentTheme" @ref="_mudThemeProvider" @bind-IsDarkMode="_isDarkMode" />
+@* <MudThemeProvider @ref="_mudThemeProvider" @bind-IsDarkMode="_isDarkMode" /> *@
 
-<MudLayout style="background-color: #daedf4;">
+
+@* <MudLayout style="background-color: #daedf4;"> *@
+<MudLayout>
     <MudAppBar Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="MudBlazor.Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
@@ -25,6 +29,7 @@
 </MudLayout>
 
 @code {
+    private MudTheme _currentTheme = new MudBlazorAdminDashboard();
     bool _drawerOpen = true;
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
