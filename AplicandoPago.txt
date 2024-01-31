@@ -1,3 +1,11 @@
+hoy
+Decidimos usar el detalle de los cargos en un json, que se ira junto con 
+la transaccion
+
+a) para que funciona el objeto padre debe tener una propiedad string que almacenara el json
+b) debe tener un objeto que convertira el objeto json guardado como texto
+en el objeto de detalle
+
 
 1) Creo al final la mejor estructura sera
 aun la cuota seria un tipo de debito
@@ -6,7 +14,13 @@ este tipo especializado de cargo lleva otros datos
 tambien podemos convertir en el proceso del objeto las cuotas
 en este tipo
 
-2) probar la propiedad virtual, creo el problema es el asunto de internal
+2) cuando un prestamo se modifique y se le cambie la cantidad de cuotas
+actualizar los valores
+a) si son mas debera agregarlas
+b) si son menos (debera eliminar las que estan de mas)
+
+
+3) sufrimos de una situacion que daba error, al enviar el valor null, en la referencia el storedProcedure eliminaba los registros basado en este valor, al ser nulo, nunca se ejecutaba, y el stored procedure daba un timeout
 
 
 al final todo se va a componer de una coleccion de 

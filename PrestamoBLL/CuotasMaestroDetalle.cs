@@ -36,7 +36,8 @@ namespace PrestamoBLL
         {
             public int IdTransaccion { get; set; }
             public int IdTransaccionMaestro { get; set; }
-            public string IdReferencia { get; set; }
+            public Guid IdReferenciaMaestro { get; set; }
+            public Guid IdReferenciaDetalle { get; set; }
 
         }
 
@@ -45,11 +46,14 @@ namespace PrestamoBLL
             List<DetalleCargo> detalles = new List<DetalleCargo>();
             foreach ( var c in cuotas)
             {
-                var idTransMaestro = new Random().Next(1000, 10000);
                 var cta = c as CuotaMaestroConDetallesCxC;
+                var idReferenciaMaestro = Guid.NewGuid();
+                // Simulando el stored procedure
+                var idTransMaestro = new Random().Next(1000, 10000);
                 cta.GetDetallesCargos().ForEach(item =>
+
                 detalles.Add(new DetalleCargo {  
-                    IdTransaccionMaestro= idTransMaestro, Balance = item.Balance, Monto = item.Monto, CodigoCargo = item.CodigoCargo, IdReferencia = Guid.NewGuid().ToString() }));
+                      Balance = item.Balance, Monto = item.Monto, CodigoCargo = item.CodigoCargo, IdReferenciaDetalle = Guid.NewGuid(), IdReferenciaMaestro= idReferenciaMaestro, IdTransaccionMaestro= idTransMaestro }));
 
             }
             var data2 = new { detallesCargos = detalles.ToDataTable() };
