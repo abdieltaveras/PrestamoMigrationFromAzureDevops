@@ -11,7 +11,7 @@ using System.Text;
 
 namespace PrestamoWS.Controllers
 {
-    [Authorize]
+    
     [ApiController]
     [Route("api/[controller]/[action]")]
 
@@ -28,6 +28,7 @@ namespace PrestamoWS.Controllers
             _webHostEnvironment = webHostEnvironment;
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
+        [Authorize(Roles:"")]
         [HttpGet]
         public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams search)
         {
