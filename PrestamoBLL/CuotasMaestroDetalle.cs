@@ -14,8 +14,81 @@ using System.Reflection;
 
 namespace PrestamoBLL
 {
+    public class MaestroDetallerDr
+    {
+        public static void GetCuotasMaestroDetalles(int idNegocio, int idLocalidad, int idPrestamo)
+        {
+            GetMaestroDetallesDr(idNegocio, idLocalidad, idPrestamo, "CT", 'D');
+        }
+
+
+        class CuotaConDetalles : CuotaMaestroSinDetallesCxC
+        {
+            public IEnumerable<DetalleCargoCxC> Detalles { get; set; }
+        }
+        public class CuotasConDetallesDto 
+        { 
+            IEnumerable<CuotaConDetalles> CuotasConDetalles { get; set; }
+            internal static void CreateMaestroDetalleCuotas(IEnumerable<CuotaMaestroSinDetallesCxC> cuotasMaestro, IEnumerable<DetalleCargoCxC> cetalles)
+            {
+                var cuotasConDetalles = new List<CuotaConDetalles>();
+                foreach (var item in cuotasMaestro)
+                {
+                    cuotasConDetalles.Add()
+                }
+            }
+            //public override string ToString()
+            //{
+
+                //string detallesCargos = string.Empty;
+                //this.Detalles.ForEach(cargo =>
+                //{
+                //    detallesCargos = detallesCargos + $"{CodigosCargosDebitos.GetNombreCargo(cargo.CodigoCargo)+ ","} {cargo.Monto} {cargo.Balance}";
+                //});
+                //return detallesCargos
+            //}
+        }
+
+        private static void GetMaestroDetallesDr(int idNegocio, int idLocalidad, int idPrestamo, string codigoTipoTransaccion, char tipoDrCr)
+        {
+
+
+            var getParams = new { idNegocio = idNegocio, idLocalidad = idLocalidad, idPrestamo = idPrestamo, codigoTipoTransaccion = codigoTipoTransaccion, tipoDrCr };
+            var sqlParams = SearchRec.ToSqlParams(getParams);
+            var drResult = BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spGetMaestroYDetallesCxC", sqlParams);
+
+            var cuotasMaestras = new List<CuotaMaestroSinDetallesCxC>();
+            var cuotaMaestra = new CuotaMaestroConDetallesCxC();
+            while (drResult.Read())
+            {
+                drResult.DataReaderToType(out cuotaMaestra);
+                cuotasMaestras.Add(cuotaMaestra);
+            }
+            var cuotasDetalles = new List<DetalleCargoCxC>();
+            var detalle = new DetalleCargoCxC();
+            while (drResult.NextResult())
+            {
+                while (drResult.Read())
+                {
+                    drResult.DataReaderToType(out detalle);
+                    cuotasDetalles.Add(detalle);
+                }
+            }
+
+
+            cuotasMaestras.ForEach(ct=> 
+            ct.IdTransaccion)
+            {
+
+            }
+            var result = 1;
+
+        }
+    }
     partial class BLLPrestamo
     {
+
+        
         
         public void InsUpdDebitoMaestro(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
@@ -32,6 +105,24 @@ namespace PrestamoBLL
             BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroCxCPrestamo", sqlParams);
         }
 
+        public void InsUpdDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        {
+            var ctasMaestroCxC = cuotas.Cast<CuotaMaestroConDetallesCxC>();
+            List<DetalleCargo> detalles = CreateDetallesDr(cuotas);
+            var idReferenciaMaestro = ctasMaestroCxC.FirstOrDefault().IdReferencia;
+            var ctasPorReferencia = detalles.Where(cta => cta.IdReferenciaMaestro == idReferenciaMaestro);
+            var fcta = ctasMaestroCxC.FirstOrDefault();
+            var cuotasMaestroDT = ctasMaestroCxC.ToDataTable();
+            //cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
+            //var columns = cuotasMaestroDT.Columns;
+            //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
+            var detallesList = new List<IDetalleDebitoCxC>();
+            //var data = new cuotasParam { cuotasMaestra = cuotasMaestroDT };
+            var data2 = new { maestroCxC = cuotasMaestroDT, detallesCargos= detalles.ToDataTable()};
+            var sqlParams = SearchRec.ToSqlParams(data2);
+            //BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spTestCreateTmpCxC", sqlParams);
+            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroDetalleDrCxCPrestamo", sqlParams);
+        }
         internal class DetalleCargo : DetalleCargoCxC
         {
             public int IdTransaccion { get; set; }
@@ -43,23 +134,36 @@ namespace PrestamoBLL
 
         public void InsUpdDetallesCargos(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
-            List<DetalleCargo> detalles = new List<DetalleCargo>();
-            foreach ( var c in cuotas)
-            {
-                var cta = c as CuotaMaestroConDetallesCxC;
-                var idReferenciaMaestro = Guid.NewGuid();
-                // Simulando el stored procedure
-                var idTransMaestro = new Random().Next(1000, 10000);
-                cta.GetDetallesCargos().ForEach(item =>
-
-                detalles.Add(new DetalleCargo {  
-                      Balance = item.Balance, Monto = item.Monto, CodigoCargo = item.CodigoCargo, IdReferenciaDetalle = Guid.NewGuid(), IdReferenciaMaestro= idReferenciaMaestro, IdTransaccionMaestro= idTransMaestro }));
-
-            }
+            List<DetalleCargo> detalles = CreateDetallesDr(cuotas);
             var data2 = new { detallesCargos = detalles.ToDataTable() };
             var sqlParams = SearchRec.ToSqlParams(data2);
             BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.SpInsUpdDetallesDrCxC", sqlParams);
         }
+
+        private static List<DetalleCargo> CreateDetallesDr(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        {
+            List<DetalleCargo> detalles = new List<DetalleCargo>();
+            foreach (var c in cuotas)
+            {
+                var cta = c as CuotaMaestroConDetallesCxC;
+                // Simulando el stored procedure
+                cta.GetDetallesCargos().ForEach(item =>
+
+                detalles.Add(new DetalleCargo
+                {
+                    Balance = item.Balance,
+                    Monto = item.Monto,
+                    CodigoCargo = item.CodigoCargo,
+                    IdReferenciaDetalle = Guid.NewGuid(),
+                    IdReferenciaMaestro = cta.IdReferencia,
+
+                }));
+
+            }
+
+            return detalles;
+        }
+
         internal class CuotaMaestroConDetalleJsonTestConversion : CuotaMaestroSinDetallesCxC
         {
             public string DetalleCargosJson { get; private set; }

@@ -114,7 +114,27 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
 
         }
-               /// <summary>
+
+        [TestMethod]
+        public async Task GetCuotasMaestroDetallesTest()
+        {
+            TestInfo testInfo = new TestInfo();
+            try
+            {
+
+                MaestroDetallerDr.GetCuotasMaestroDetalles(1, 1, 12);
+
+                // guardar este objeto en una tabla de la base de datos
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+                testInfo.ExceptionOccured = e;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+        /// <summary>
         /// Para probar insertar los cargos en vez de un json a una tabla
         /// </summary>
         /// <returns></returns>
@@ -173,9 +193,8 @@ namespace PrestamoBLL.Tests
                 var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
                 var idPrestamo = 12;
                 cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
-
-                
-                BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
+                BLLPrestamo.Instance.InsUpdDebitoMaestroDetalle(cuotas);
+                //BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
 
                 // guardar este objeto en una tabla de la base de datos
             }
@@ -187,6 +206,7 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
 
         }
+        
 
         [TestMethod()]
         public void GenerarCuotasForDifferentValuesTest()

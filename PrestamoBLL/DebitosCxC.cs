@@ -49,7 +49,7 @@ namespace PrestamoBLL
         public static string Moras => "MOR";
         public static string InteresDelGastoDeCierre => "INTGC";
         public static string GastoDeCierre => "GC";
-        public string GetNombreCargo(string codigoCargo)
+        public static string GetNombreCargo(string codigoCargo)
         {
             string nombre = string.Empty;
             switch (codigoCargo)
@@ -75,7 +75,7 @@ namespace PrestamoBLL
         char TipoDrCr { get; }
         string CodigoTipoTransaccion { get; }
         string NumeroTransaccion { get; }
-        string IdReferencia { get; set; }
+        Guid IdReferencia { get; set; }
         DateTime Fecha { get; }
         decimal Monto { get; }
         decimal Balance { get; }
@@ -101,7 +101,7 @@ namespace PrestamoBLL
         public int IdTransaccion { get; set; }
         public virtual string CodigoTipoTransaccion { get; }
         public string NumeroTransaccion { get; set; }
-        public virtual string IdReferencia { get; set; }
+        public virtual Guid IdReferencia { get; set; }
         public int IdPrestamo { get; set; }
         public DateTime Fecha { get; set; }
         public decimal Monto { get; set; }
@@ -128,7 +128,7 @@ namespace PrestamoBLL
 
         public string CodigoTransaccion { get; set; }
 
-        public string IdReferencia { get; set; }
+        public Guid IdReferencia { get; set; }
         //public int Numero { get; internal set; }
         public string NumeroTransaccion { get; set; }
         public DateTime Fecha { get; set; }
@@ -196,13 +196,13 @@ namespace PrestamoBLL
     internal class CuotaCxC
     {
 
-        IList<IDetalleDebitoCxC> Detalles { get; set; } = new List<IDetalleDebitoCxC>();
-        string IdReferencia { get; set; }
+        private IList<IDetalleDebitoCxC> Detalles { get; set; } = new List<IDetalleDebitoCxC>();
+        private Guid IdReferencia { get; set; }
 
         internal IMaestroDebitoConDetallesCxC CreateCuotaAndDetalle(DateTime fecha, int numero, decimal capital, decimal interes, decimal gastoDeCierre, decimal interesDelGastoDeCierre)
         {
 
-            this.IdReferencia = Guid.NewGuid().ToString();
+            this.IdReferencia = Guid.NewGuid();
             AddCargo(CodigosCargosDebitos.Capital, capital);
             AddCargo(CodigosCargosDebitos.Interes, interes);
             AddCargo(CodigosCargosDebitos.GastoDeCierre, gastoDeCierre);
@@ -210,7 +210,6 @@ namespace PrestamoBLL
 
             var cuota = new CuotaMaestroConDetallesCxC
             {
-
                 IdReferencia = this.IdReferencia,
                 Fecha = fecha,
                 NumeroTransaccion = numero.ToString(),
@@ -228,7 +227,7 @@ namespace PrestamoBLL
                 CodigoCargo = codigoCargo,
                 Monto = monto,
                 Balance = monto,
-                
+                 
             };
             this.Detalles.Add(cargo);
 
