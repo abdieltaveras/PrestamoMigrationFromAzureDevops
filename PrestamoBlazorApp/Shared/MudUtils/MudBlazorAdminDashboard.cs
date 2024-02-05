@@ -15,7 +15,7 @@ namespace PrestamoBlazorApp.Shared.MudUtils
                 //Primary = Colors.Blue.Darken1,
                 Primary = "#083D5A",
                 Secondary = Colors.DeepPurple.Accent2,
-                Background = Colors.Grey.Lighten5,
+                Background = "#daedf4",
                 AppbarBackground = "#083D5A",
                 DrawerBackground = "#FFF",
                 DrawerText = "rgba(0,0,0, 0.7)",
@@ -31,14 +31,16 @@ namespace PrestamoBlazorApp.Shared.MudUtils
             {
                 Default = new Default()
                 {
+                
                     FontFamily = new[] { "Montserrat", "Helvetica", "Arial", "sans-serif" },
                     FontSize = ".875rem",
                     FontWeight = 400,
                     LineHeight = 1.43,
                     LetterSpacing = ".01071em"
                 },
-                H1 = new H1()
+                H1 = new H1( )
                 {
+                  
                     FontFamily = new[] { "Montserrat", "Helvetica", "Arial", "sans-serif" },
                     FontSize = "6rem",
                     FontWeight = 300,
