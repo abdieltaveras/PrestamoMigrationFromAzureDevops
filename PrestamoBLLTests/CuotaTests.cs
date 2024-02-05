@@ -102,7 +102,7 @@ namespace PrestamoBLL.Tests
                 var idPrestamo = 12;
                 cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
                 
-                BLLPrestamo.Instance.InsUpdDebitoMaestro(cuotas);
+                MaestroDetalleDebitosBLL.Instance.InsUpdDebitoMaestro(cuotas);
 
                 // guardar este objeto en una tabla de la base de datos
             }
@@ -122,7 +122,7 @@ namespace PrestamoBLL.Tests
             try
             {
 
-                MaestroDetallerDr.GetCuotasMaestroDetalles(1, 1, 12);
+                MaestroDetalleDebitosBLL.Instance.GetCuotasMaestroDetalles(1, 1, 12); 
 
                 // guardar este objeto en una tabla de la base de datos
             }
@@ -151,7 +151,7 @@ namespace PrestamoBLL.Tests
                 var idPrestamo = 12;
                 cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
 
-                BLLPrestamo.Instance.InsUpdDetallesCargos(cuotas);
+                MaestroDetalleDebitosBLL.Instance.InsUpdDetallesCargos(cuotas);
 
                 // guardar este objeto en una tabla de la base de datos
             }
@@ -170,7 +170,7 @@ namespace PrestamoBLL.Tests
 
             try
             {
-                BLLPrestamo.Instance.TestTVToDataTable();
+                MaestroDetalleDebitosBLL.Instance.TestTVToDataTable();
                 // guardar este objeto en una tabla de la base de datos
             }
             catch (Exception e)
@@ -182,7 +182,7 @@ namespace PrestamoBLL.Tests
 
         }
         [TestMethod]
-        public async Task CuotasMaestroDetallesCargosTest()
+        public async Task InsUpdCuotasMaestroDetallesCargosTest()
         {
             TestInfo testInfo;
             InfoGeneradorDeCuotas cuotaInfo;
@@ -193,9 +193,8 @@ namespace PrestamoBLL.Tests
                 var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
                 var idPrestamo = 12;
                 cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
-                BLLPrestamo.Instance.InsUpdDebitoMaestroDetalle(cuotas);
+                MaestroDetalleDebitosBLL.Instance.InsUpdDebitoMaestroDetalle(cuotas);
                 //BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
-
                 // guardar este objeto en una tabla de la base de datos
             }
             catch (Exception e)

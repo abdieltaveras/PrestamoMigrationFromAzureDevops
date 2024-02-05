@@ -81,7 +81,7 @@ namespace PrestamoBLL.Tests
                     decimal deudacuota = monto_original_cuota - balance;
                     if (deudacuota == 0)
                     {
-                        MensajeEr = "Esta CuotaMaestroConDetallesCxC está saldada";
+                        MensajeEr = "Esta MaestroDrConDetalles está saldada";
                     }
                     else if(montoabonado > deudacuota)
                     {

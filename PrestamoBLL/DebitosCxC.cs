@@ -83,7 +83,9 @@ namespace PrestamoBLL
 
     public interface IMaestroDebitoConDetallesCxC : IMaestroDebitoSinDetallesCxC
     {
-        public string DetallesCargosJson { get; }
+        public List<IDetalleDebitoCxC> DetallesCargos { get;  }
+
+        public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos(); 
     }
 
     public interface IDetalleDebitoCxC
@@ -108,26 +110,19 @@ namespace PrestamoBLL
         public decimal Balance { get; set; }
         public char TipoDrCr { get; set; }
         public string DetallesCargosJson { get; set; }
-        private List<DetalleCargoCxC> DetalleCargos { get; set; } = new List<DetalleCargoCxC>();
 
-        public void ConvertJsonToDetallesCargos(string detallesText)
-        {
-            if (!detallesText.IsNullOrEmpty())
-            {
-                var detalles = JsonConvert.DeserializeObject<List<DetalleCargoCxC>>(detallesText);
-                this.DetalleCargos = detalles;
-            }
-        }
-        public IEnumerable<DetalleCargoCxC> GetDetallesCargos() => DetalleCargos;
+        public List<IDetalleDebitoCxC> DetallesCargos { get; internal set; }
+        public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos() => DetallesCargos;
     }
 
-    internal abstract class CuotaMaestroSinDetallesCxC : IMaestroDebitoSinDetallesCxC
+    /// <summary>
+    /// Nueva cuota
+    /// </summary>
+    internal class MaestroDrConDetalles : IMaestroDebitoConDetallesCxC
     {
         public int IdTransaccion { get; set; }
         public int IdPrestamo { get; set; }
-
-        public string CodigoTransaccion { get; set; }
-
+        public string CodigoTipoTransaccion { get; set; }
         public Guid IdReferencia { get; set; }
         //public int Numero { get; internal set; }
         public string NumeroTransaccion { get; set; }
@@ -136,39 +131,22 @@ namespace PrestamoBLL
         public decimal Balance { get; protected set; }
         public string OtrosDetalles { get; set; }
         public char TipoDrCr => 'D';
+        public List<IDetalleDebitoCxC> DetallesCargos { get; private set;  } = new List<IDetalleDebitoCxC>();
+        
+        public override string ToString() => $"No {NumeroTransaccion} Fecha {Fecha} Monto {Monto} Balance {Balance}";
 
-        string IMaestroDebitoSinDetallesCxC.CodigoTipoTransaccion => throw new NotImplementedException();
-    }
-    /// <summary>
-    /// Nueva cuota
-    /// </summary>
-    internal class CuotaMaestroConDetallesCxC : CuotaMaestroSinDetallesCxC, IMaestroDebitoConDetallesCxC
-    {
-        public string DetallesCargosJson { get; private set; }
+        public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos() => this.DetallesCargos;
 
-        private List<IDetalleDebitoCxC> DetallesCargos { get; set; } = new List<IDetalleDebitoCxC>();
-        public void SetDetallesCargos(IEnumerable<IDetalleDebitoCxC> detallesCargos)
+        internal void SetDetallesCargos(IEnumerable<IDetalleDebitoCxC> detallesCargos)
         {
             this.DetallesCargos.AddRange(detallesCargos);
             this.Monto = this.DetallesCargos.Sum(item => item.Monto);
             this.Balance = this.DetallesCargos.Sum(item => item.Balance);
-            this.DetallesCargosJson = JsonConvert.SerializeObject(this.DetallesCargos);
         }
-        public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos()
-        {
-            var detallesCargos = new List<DetalleCargoCxC>();
-            if (!DetallesCargosJson.IsNullOrEmpty())
-            {
-                var detalles = JsonConvert.DeserializeObject<List<DetalleCargoCxC>>(DetallesCargosJson);
-                detallesCargos = detalles;
-            }
-            return detallesCargos;
-        }
-        public override string ToString() => $"No {NumeroTransaccion} Fecha {Fecha} Monto {Monto} Balance {Balance}";
     }
 
 
-    internal class NotaDeDebito : BaseMaestroCxC
+    internal class NotaDeDebito : BaseMaestroCxC 
     {
         public override string CodigoTipoTransaccion => CodigosTiposTransaccionCxC.NotaDeDebito; 
 
@@ -187,16 +165,16 @@ namespace PrestamoBLL
 
     internal class DetalleCargoCxC : IDetalleDebitoCxC
     {
+        
         public string CodigoCargo { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
         public override string ToString() => $"Codigo {CodigoCargo} Monto {Monto} Balance {Balance}";
     }
 
-    internal class CuotaCxC
+    internal class CuotaPrestamoBuilder
     {
-
-        private IList<IDetalleDebitoCxC> Detalles { get; set; } = new List<IDetalleDebitoCxC>();
+        private List<IDetalleDebitoCxC> Detalles { get; set; } = new List<IDetalleDebitoCxC>();
         private Guid IdReferencia { get; set; }
 
         internal IMaestroDebitoConDetallesCxC CreateCuotaAndDetalle(DateTime fecha, int numero, decimal capital, decimal interes, decimal gastoDeCierre, decimal interesDelGastoDeCierre)
@@ -208,12 +186,13 @@ namespace PrestamoBLL
             AddCargo(CodigosCargosDebitos.GastoDeCierre, gastoDeCierre);
             AddCargo(CodigosCargosDebitos.InteresDelGastoDeCierre, interesDelGastoDeCierre);
 
-            var cuota = new CuotaMaestroConDetallesCxC
+            var cuota = new MaestroDrConDetalles
             {
                 IdReferencia = this.IdReferencia,
                 Fecha = fecha,
                 NumeroTransaccion = numero.ToString(),
-                CodigoTransaccion = CodigosTiposTransaccionCxC.Cuota
+                CodigoTipoTransaccion = CodigosTiposTransaccionCxC.Cuota,
+                
             };
             cuota.SetDetallesCargos(this.Detalles);
             return cuota;

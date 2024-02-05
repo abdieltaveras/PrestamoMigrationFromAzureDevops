@@ -1,16 +1,36 @@
 ﻿create procedure [dbo].[spInsUpdMaestroDetalleDrCxCPrestamo]
 (
-	@maestroCxC tpMaestroCxCPrestamo readonly, @detallesCargos tpDetalleDrCxC readonly 
+     --@IdTransaccion int, @IdPrestamo int, @IdNegocio int, @IdLocalidadNegocio int,
+	 @maestroCxC tpMaestroCxCPrestamo readonly, @detallesCargos tpDetalleDrCxC readonly, @crearTablas bit=0
 )
 as
 begin
-	declare @iteracion int = 0
+
 	-- solo para insertar transacciones de tipo debitos
+	declare @TransRecibidas int = (select count(idTransaccion)  from @maestroCxC)
 	declare  @registrosMaestroCxC tpMaestroCxCPrestamo
 	insert  into  @registrosMaestroCxC select * from @maestroCxC
+	if (@crearTablas=1)
+	begin
+		IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES 
+				WHERE TABLE_SCHEMA = 'dbo' 
+				AND  TABLE_NAME = 'tmpMaestroCxC'))
+		begin
+			drop table tmpMaestroCxC
+		end
+
+		select * into tmpMaestrocxc from @maestroCxC
+		IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES 
+				WHERE TABLE_SCHEMA = 'dbo' 
+				AND  TABLE_NAME = 'tmpDetalleDrCxC'))
+		begin
+			drop table tmpDetalleDrCxC
+		end
+		select * into tmpDetalleDrCxC from @detallesCargos
+	end
 	--insert into @registrosMaestroCxC (IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson)
 	--select  IdTransaccion, idPrestamo, IdReferencia, CodigoTipoTransaccion, NumeroTransaccion ,Fecha,Monto,Balance, OtrosDetallesJson, DetallesCargosJson from @maestroCxC
-	while exists (select top 1 idTransaccion from @registrosMaestroCxC)
+	while exists (select top 1 idTransaccion from @registrosMaestroCxC) 
 	begin
 	    -- informacion del registro maestro
 		declare @registroActual tpMaestroCxCPrestamo 
@@ -46,25 +66,38 @@ begin
 		end
 		else
 		begin
+			declare @updated bit = 0
 			update tblMaestrosCxCPrestamo 
 			set 
 				Fecha =@fecha,
 				Monto =@monto,
 				Balance=@balance, 
 				OtrosDetallesJson= @otrosDetallesJson,
-				DetallesCargosJson = @detallesCargosJson
+				DetallesCargosJson = @detallesCargosJson,
+				@updated = 1
 			where idTransaccion = @idTransaccion
-				
+			if (@updated=0)
+			begin
+				declare @intToStrig varchar(10)=(select cast(@idTransaccion as varchar))
+				declare @errorMessage varchar(100)=(select concat('el id',@intToStrig,'suministrado para actualizar el maestro de CxC no existe'))
+				RAISERROR (
+		           @errorMessage, -- Mensaje de ejemplo
+				   10, -- Severity,  
+					1   -- State
+					);
+					--RETURN 0
+			end
 		end
 		-- insUpdDetalles
 		-- primero obtener una lista de los detalles a insertar
 		
-		--if (1=2)
+		
 		--procesando el detalle
 		begin
-			declare @detalles_Cargos tpDetalleDrCxC 
+			declare @detalles_cargos tpDetalleDrCxC 
 			insert  into  @detalles_cargos select * from @detallesCargos where IdReferenciaMaestro=@idReferencia 
 			declare @IdTransaccionMaestro int = @idTransaccion
+			select * from @detalles_cargos
 			exec SpInsUpdDetallesDrCxC  @detalles_cargos, @idTransaccion
 			if (1=2)
 			begin
@@ -111,8 +144,35 @@ begin
 			--begin
 			--	select * from @registrosMaestroCxC
 			--end
-			delete @registrosMaestroCxC where idReferencia = @idReferencia
 			--declare @countdespues int = (select count(IdTransaccion) from @registrosMaestroCxC)
 		end
+		delete @registrosMaestroCxC where idReferencia = @idReferencia
+		
 	end
+	--eliminar solo funciona con las cuota, cuando modifiquen el prestamo y le pongan menos cuotas
+	if (@CodigoTipoTransaccion = 'CT')
+		begin 
+			--determinar si son las misma cantidad de registros
+			declare @TransGuardadas int = (select count(IdTransaccion)  from tblMaestrosCxCPrestamo where IdPrestamo=@idPrestamo and CodigoTipoTransaccion='CT')
+			set @TransRecibidas = (select count(IdTransaccion)  from @maestroCxC)
+			if (@TransGuardadas <> @TransRecibidas)
+			begin
+				declare @idsTransaccionMaestro table (id int) 
+				insert into @idsTransaccionMaestro (id) select IdTransaccion  from tblMaestrosCxCPrestamo where IdPrestamo=@idPrestamo and CodigoTipoTransaccion='CT'
+				declare @idInicial int =((select top 1 id from @idsTransaccionMaestro))
+				
+				while exists(select top 1 id from @idsTransaccionMaestro) 
+				begin
+					declare @id int = (select top 1 id from @idsTransaccionMaestro)
+					declare @idEncontrada int = (select IdTransaccion from @maestroCxC where IdTransaccion=@id)	
+					if isnull(@idEncontrada,0)=0
+					begin
+						delete tblMaestrosCxCPrestamo where IdTransaccion= @id
+						delete tblDetallesDrCxC where idTransaccionMaestro= @id
+					end
+					delete @idsTransaccionMaestro where id=@id
+				end
+			end
+		end
+		return 1
 end
