@@ -102,7 +102,7 @@ namespace PrestamoBLL.Tests
                 var idPrestamo = 12;
                 cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
                 
-                MaestroDetalleDebitosBLL.Instance.InsUpdDebitoMaestro(cuotas);
+                MaestroDetalleDebitosBLL.Instance.InsUpdDebitoMaestroDetalle(cuotas);
 
                 // guardar este objeto en una tabla de la base de datos
             }

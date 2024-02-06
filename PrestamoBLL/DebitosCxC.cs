@@ -67,32 +67,28 @@ namespace PrestamoBLL
         public override string ToString() => "Codigo para utilizar en los cargos";
     }
 
-
-    public interface IMaestroDebitoSinDetallesCxC
+    public interface IMaestroDebitoConDetallesCxC 
     {
-        int IdTransaccion { get; set; }
+        int IdTransaccion { get;  }
+        char TipoDrCr { get;  }
         int IdPrestamo { get; set; }
-        char TipoDrCr { get; }
         string CodigoTipoTransaccion { get; }
         string NumeroTransaccion { get; }
-        Guid IdReferencia { get; set; }
+        Guid IdReferencia { get;  }
         DateTime Fecha { get; }
         decimal Monto { get; }
         decimal Balance { get; }
-    }
 
-    public interface IMaestroDebitoConDetallesCxC : IMaestroDebitoSinDetallesCxC
-    {
-        public List<IDetalleDebitoCxC> DetallesCargos { get;  }
-
+        string OtrosDetallesJson { get; }
         public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos(); 
     }
 
     public interface IDetalleDebitoCxC
     {
-        //int IdTransaccion { get; set; }
-        //int IdDetalle { get; set; }
-        //string IdReferenciaMaestro { get; set; }
+        public int IdTransaccion { get; set; }
+        public int IdTransaccionMaestro { get; }
+        public Guid IdReferenciaMaestro { get;  }
+        public Guid IdReferenciaDetalle { get; }
         string CodigoCargo { get; set; }
         decimal Monto { get; set; }
         decimal Balance { get; set; }
@@ -101,48 +97,35 @@ namespace PrestamoBLL
     internal abstract class BaseMaestroCxC : IMaestroDebitoConDetallesCxC
     {
         public int IdTransaccion { get; set; }
-        public virtual string CodigoTipoTransaccion { get; }
-        public string NumeroTransaccion { get; set; }
-        public virtual Guid IdReferencia { get; set; }
+        public char TipoDrCr { get; set; }
         public int IdPrestamo { get; set; }
+        public virtual string CodigoTipoTransaccion { get; set; }
+        public virtual Guid IdReferencia { get; set; }
+        public string NumeroTransaccion { get; set; }
         public DateTime Fecha { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
-        public char TipoDrCr { get; set; }
-        public string DetallesCargosJson { get; set; }
+        public string OtrosDetallesJson { get; set; }
+        private List<IDetalleDebitoCxC> DetallesCargos { get; set; } = new List<IDetalleDebitoCxC>();
 
-        public List<IDetalleDebitoCxC> DetallesCargos { get; internal set; }
         public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos() => DetallesCargos;
-    }
-
-    /// <summary>
-    /// Nueva cuota
-    /// </summary>
-    internal class MaestroDrConDetalles : IMaestroDebitoConDetallesCxC
-    {
-        public int IdTransaccion { get; set; }
-        public int IdPrestamo { get; set; }
-        public string CodigoTipoTransaccion { get; set; }
-        public Guid IdReferencia { get; set; }
-        //public int Numero { get; internal set; }
-        public string NumeroTransaccion { get; set; }
-        public DateTime Fecha { get; set; }
-        public decimal Monto { get; protected set; }
-        public decimal Balance { get; protected set; }
-        public string OtrosDetalles { get; set; }
-        public char TipoDrCr => 'D';
-        public List<IDetalleDebitoCxC> DetallesCargos { get; private set;  } = new List<IDetalleDebitoCxC>();
-        
-        public override string ToString() => $"No {NumeroTransaccion} Fecha {Fecha} Monto {Monto} Balance {Balance}";
-
-        public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos() => this.DetallesCargos;
-
         internal void SetDetallesCargos(IEnumerable<IDetalleDebitoCxC> detallesCargos)
         {
             this.DetallesCargos.AddRange(detallesCargos);
             this.Monto = this.DetallesCargos.Sum(item => item.Monto);
             this.Balance = this.DetallesCargos.Sum(item => item.Balance);
         }
+        
+    }
+
+    /// <summary>
+    /// Nueva cuota
+    /// </summary>
+    internal class MaestroDrConDetalles : BaseMaestroCxC
+    {
+        
+        public override string ToString() => $"No {NumeroTransaccion} Fecha {Fecha} Monto {Monto} Balance {Balance}";
+        
     }
 
 
@@ -165,7 +148,10 @@ namespace PrestamoBLL
 
     internal class DetalleCargoCxC : IDetalleDebitoCxC
     {
-        
+        public int IdTransaccion { get; set; }
+        public int IdTransaccionMaestro { get; set; }
+        public Guid IdReferenciaMaestro { get; set; }
+        public Guid IdReferenciaDetalle { get; set; }
         public string CodigoCargo { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }

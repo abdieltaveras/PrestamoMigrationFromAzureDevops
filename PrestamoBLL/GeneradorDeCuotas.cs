@@ -19,7 +19,7 @@ namespace PrestamoBLL
 
         DateTime fechaCuotaAnterior = InitValues._19000101;
         List<CxCCuota> cuotas = new List<CxCCuota>();
-        IEnumerable<IMaestroDebitoSinDetallesCxC> CuotasMaestroDetalle = new List<MaestroDrConDetalles>();
+        IEnumerable<IMaestroDebitoConDetallesCxC> CuotasMaestroDetalle = new List<MaestroDrConDetalles>();
         public GeneradorCuotasFijasNoAmortizable(IInfoGeneradorCuotas info)
         {
             if (info.TipoAmortizacion != TiposAmortizacion.No_Amortizable_cuotas_fijas)

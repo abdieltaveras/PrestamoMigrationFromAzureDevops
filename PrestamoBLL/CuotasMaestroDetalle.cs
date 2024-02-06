@@ -65,28 +65,29 @@ namespace PrestamoBLL
                 }
             }
         }
-        public void InsUpdDebitoMaestro(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
-        {
-            var ctas = cuotas.Cast<MaestroDrConDetalles>();
-            var fcta = ctas.FirstOrDefault();
-            var cuotasMaestroDT = ctas.ToDataTable();
-            //cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
-            //var columns = cuotasMaestroDT.Columns;
-            //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
-            var detallesList = new List<IDetalleDebitoCxC>();
-            //var data = new cuotasParam { cuotasMaestra = cuotasMaestroDT };
-            var data2 = new { maestroCxC = cuotasMaestroDT };
-            var sqlParams = SearchRec.ToSqlParams(data2);
-            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroCxCPrestamo", sqlParams);
-        }
+        //public void InsUpdDebitoMaestro(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        //{
+        //    var ctas = cuotas.Cast<MaestroDrConDetalles>();
+        //    var fcta = ctas.FirstOrDefault();
+        //    var cuotasMaestroDT = ctas.ToDataTable();
+        //    //cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
+        //    //var columns = cuotasMaestroDT.Columns;
+        //    //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
+        //    var detallesList = new List<IDetalleDebitoCxC>();
+        //    //var data = new cuotasParam { cuotasMaestra = cuotasMaestroDT };
+        //    var data2 = new { maestroCxC = cuotasMaestroDT };
+        //    var sqlParams = SearchRec.ToSqlParams(data2);
+        //    BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroCxCPrestamo", sqlParams);
+        //}
 
         public void InsUpdDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
             var ctasMaestroCxC = cuotas.Cast<MaestroDrConDetalles>();
-            List<DetalleCargo> detalles = CreateDetallesDr(cuotas);
+            List<DetalleCargoCxC> detalles = CreateDetallesDr(cuotas);
             var idReferenciaMaestro = ctasMaestroCxC.FirstOrDefault().IdReferencia;
             var ctasPorReferencia = detalles.Where(cta => cta.IdReferenciaMaestro == idReferenciaMaestro);
             var fcta = ctasMaestroCxC.FirstOrDefault();
+            //fcta.DetallesCargos
             var cuotasMaestroDT = ctasMaestroCxC.ToDataTable();
             //cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
             //var columns = cuotasMaestroDT.Columns;
@@ -98,32 +99,24 @@ namespace PrestamoBLL
             //BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spTestCreateTmpCxC", sqlParams);
             BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroDetalleDrCxCPrestamo", sqlParams);
         }
-        internal class DetalleCargo : DetalleCargoCxC
-        {
-            public int IdTransaccion { get; set; }
-            public int IdTransaccionMaestro { get; set; }
-            public Guid IdReferenciaMaestro { get; set; }
-            public Guid IdReferenciaDetalle { get; set; }
-
-        }
 
         public void InsUpdDetallesCargos(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
-            List<DetalleCargo> detalles = CreateDetallesDr(cuotas);
+            List<DetalleCargoCxC> detalles = CreateDetallesDr(cuotas);
             var data2 = new { detallesCargos = detalles.ToDataTable() };
             var sqlParams = SearchRec.ToSqlParams(data2);
             BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.SpInsUpdDetallesDrCxC", sqlParams);
         }
 
-        private static List<DetalleCargo> CreateDetallesDr(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        private static List<DetalleCargoCxC> CreateDetallesDr(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
-            List<DetalleCargo> detalles = new List<DetalleCargo>();
+            List<DetalleCargoCxC> detalles = new List<DetalleCargoCxC>();
             foreach (var c in cuotas)
             {
                 var cta = c as MaestroDrConDetalles;
                 // Simulando el stored procedure
                 cta.GetDetallesCargos().ForEach(item =>
-                detalles.Add(new DetalleCargo
+                detalles.Add(new DetalleCargoCxC
                 {
                     Balance = item.Balance,
                     Monto = item.Monto,
