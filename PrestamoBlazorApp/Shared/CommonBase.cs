@@ -34,6 +34,8 @@ namespace PrestamoBlazorApp.Shared
         [Inject]
         ISnackbar Snackbar { get; set; }
         [Inject]
+        public IDialogService _DialogService { get; set; }
+        [Inject]
         protected IWebHostEnvironment Env { get; set; }
         protected bool loading { get; set; } = false;
 

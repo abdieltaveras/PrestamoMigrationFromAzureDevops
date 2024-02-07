@@ -34,7 +34,8 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private string SearchValue { get; set; }
         
 
-        private CommonActionsForCatalogo GetCommonActions() => new CommonActionsForCatalogo(ShowEditorForAddHandler, ShowEditorForEditHandler, ShowEditorForDeleteHandler, UpdateList, CurrentAction);
+        private CommonActionsForCatalogo GetCommonActions() => new CommonActionsForCatalogo(ShowEditorForAddHandler, 
+            ShowEditorForEditHandler, ShowEditorForDeleteHandler, UpdateList, CurrentAction,_DialogService);
 
         private IEnumerable<ButtonForToolBar<CatalogoInsUpd>> Buttons() => Factory.StandarCrudToolBarButtons(GetCommonActions());
 
@@ -48,7 +49,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         }
         protected override async Task OnInitializedAsync()
         {
-            //await AuthorizeViewActions(); //todo: sin esto no se mostraran los accesos, quizas se puede obligar obligar al componente a actualizarse de otra manera
+            await AuthorizeViewActions(); //todo: sin esto no se mostraran los accesos, quizas se puede obligar obligar al componente a actualizarse de otra manera
             CurrentAction = _ActionsManagerService.CurrentAction;
 
             await base.OnInitializedAsync();
