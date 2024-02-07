@@ -89,31 +89,7 @@ namespace PrestamoBLL.Tests
             };
         }
 
-        [TestMethod]
-        public async Task InsUpdCuotasMaestroTest()
-        {
-            TestInfo testInfo;
-            InfoGeneradorDeCuotas cuotaInfo;
-            GetInfoCuota(out testInfo, out cuotaInfo);
-            IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
-            try
-            {
-                var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
-                var idPrestamo = 12;
-                cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
-                
-                MaestroDetalleDebitosBLL.Instance.InsUpdDebitoMaestroDetalle(cuotas);
-
-                // guardar este objeto en una tabla de la base de datos
-            }
-            catch (Exception e)
-            {
-                testInfo.MensajeError = e.Message;
-                testInfo.ExceptionOccured = e;
-            }
-            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
-
-        }
+        
 
         [TestMethod]
         public async Task GetCuotasMaestroDetallesTest()
@@ -138,6 +114,51 @@ namespace PrestamoBLL.Tests
         /// Para probar insertar los cargos en vez de un json a una tabla
         /// </summary>
         /// <returns></returns>
+        
+        
+        [TestMethod]
+        public async Task TableVaueTypeToDtaTableConversionTest()
+        {
+            TestInfo testInfo= new TestInfo();
+
+            try
+            {
+                MaestroDetalleDebitosBLL.Instance.TestTVToDataTable();
+                // guardar este objeto en una tabla de la base de datos
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+                testInfo.ExceptionOccured = e;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+        [TestMethod]
+        public async Task InsCuotasMaestroDetallesCargosTest()
+        {
+            TestInfo testInfo;
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out testInfo, out cuotaInfo);
+            IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
+            try
+            {
+                var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
+                var idPrestamo = 12;
+                cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
+                MaestroDetalleDebitosBLL.Instance.InsDebitoMaestroDetalle(cuotas);
+                //BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
+                // guardar este objeto en una tabla de la base de datos
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+                testInfo.ExceptionOccured = e;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+
         [TestMethod]
         public async Task InsUpdDatallesCargoToTableTest()
         {
@@ -163,49 +184,6 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
 
         }
-        [TestMethod]
-        public async Task TableVaueTypeToDtaTableConversionTest()
-        {
-            TestInfo testInfo= new TestInfo();
-
-            try
-            {
-                MaestroDetalleDebitosBLL.Instance.TestTVToDataTable();
-                // guardar este objeto en una tabla de la base de datos
-            }
-            catch (Exception e)
-            {
-                testInfo.MensajeError = e.Message;
-                testInfo.ExceptionOccured = e;
-            }
-            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
-
-        }
-        [TestMethod]
-        public async Task InsUpdCuotasMaestroDetallesCargosTest()
-        {
-            TestInfo testInfo;
-            InfoGeneradorDeCuotas cuotaInfo;
-            GetInfoCuota(out testInfo, out cuotaInfo);
-            IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
-            try
-            {
-                var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
-                var idPrestamo = 12;
-                cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
-                MaestroDetalleDebitosBLL.Instance.InsUpdDebitoMaestroDetalle(cuotas);
-                //BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
-                // guardar este objeto en una tabla de la base de datos
-            }
-            catch (Exception e)
-            {
-                testInfo.MensajeError = e.Message;
-                testInfo.ExceptionOccured = e;
-            }
-            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
-
-        }
-        
 
         [TestMethod()]
         public void GenerarCuotasForDifferentValuesTest()

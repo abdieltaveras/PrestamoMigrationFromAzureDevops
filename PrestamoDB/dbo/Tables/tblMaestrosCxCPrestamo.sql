@@ -3,7 +3,6 @@
     [IdPrestamo]            INT              NULL,
     [TipoDrCr]              CHAR (1)         NULL,
     [CodigoTipoTransaccion] VARCHAR (10)     NULL,
-    [IdReferencia]          UNIQUEIDENTIFIER NULL,
     [NumeroTransaccion]     INT              NULL,
     [Fecha]                 DATETIME         NULL,
     [Monto]                 NUMERIC (18, 2)  NULL,

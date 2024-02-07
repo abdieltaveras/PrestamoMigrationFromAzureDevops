@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Security.Cryptography.Xml;
 
 namespace PrestamoBLL
 {
@@ -80,10 +81,11 @@ namespace PrestamoBLL
         //    BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroCxCPrestamo", sqlParams);
         //}
 
-        public void InsUpdDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        public void InsDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
             var ctasMaestroCxC = cuotas.Cast<MaestroDrConDetalles>();
-            List<DetalleCargoCxC> detalles = CreateDetallesDr(cuotas);
+            var ctasMaestroCxC2 = cuotas.Cast<IMaestroDebitoConDetallesCxC>();
+            var detalles = CreateDetallesDr(cuotas);
             var idReferenciaMaestro = ctasMaestroCxC.FirstOrDefault().IdReferencia;
             var ctasPorReferencia = detalles.Where(cta => cta.IdReferenciaMaestro == idReferenciaMaestro);
             var fcta = ctasMaestroCxC.FirstOrDefault();
@@ -93,40 +95,29 @@ namespace PrestamoBLL
             //var columns = cuotasMaestroDT.Columns;
             //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
             var detallesList = new List<IDetalleDebitoCxC>();
-            //var data = new cuotasParam { cuotasMaestra = cuotasMaestroDT };
-            var data2 = new { maestroCxC = cuotasMaestroDT, detallesCargos = detalles.ToDataTable() };
+
+            var detallesDT = detalles.ToDataTable();
+            var data2 = new { maestroCxC = cuotasMaestroDT, detallesCargos = detallesDT , crearTablas=1};
             var sqlParams = SearchRec.ToSqlParams(data2);
             //BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spTestCreateTmpCxC", sqlParams);
-            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsUpdMaestroDetalleDrCxCPrestamo", sqlParams);
+            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsMaestroDetalleDrCxCPrestamo", sqlParams);
         }
 
         public void InsUpdDetallesCargos(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
-            List<DetalleCargoCxC> detalles = CreateDetallesDr(cuotas);
-            var data2 = new { detallesCargos = detalles.ToDataTable() };
+            var detalles = CreateDetallesDr(cuotas).Take(4);
+            var detallesCuota = detalles.Cast<DetalleCargoCxC>();
+            var idTransaccionMaestro = 1436;
+            detallesCuota.ForEach(cta => { cta.IdTransaccionMaestro = idTransaccionMaestro; });
+            var data2 = new { detallesCargos = detallesCuota.ToDataTable(), idTransaccionMaestro = idTransaccionMaestro };
             var sqlParams = SearchRec.ToSqlParams(data2);
-            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.SpInsUpdDetallesDrCxC", sqlParams);
+            BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.SpInsDetallesDrCxC", sqlParams);
         }
 
-        private static List<DetalleCargoCxC> CreateDetallesDr(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        private static List<IDetalleDebitoCxC> CreateDetallesDr(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
-            List<DetalleCargoCxC> detalles = new List<DetalleCargoCxC>();
-            foreach (var c in cuotas)
-            {
-                var cta = c as MaestroDrConDetalles;
-                // Simulando el stored procedure
-                cta.GetDetallesCargos().ForEach(item =>
-                detalles.Add(new DetalleCargoCxC
-                {
-                    Balance = item.Balance,
-                    Monto = item.Monto,
-                    CodigoCargo = item.CodigoCargo,
-                    IdReferenciaDetalle = Guid.NewGuid(),
-                    IdReferenciaMaestro = cta.IdReferencia,
-                }));
-
-            }
-
+            List<IDetalleDebitoCxC> detalles = new List<IDetalleDebitoCxC>();
+            cuotas.ForEach(cta => detalles.AddRange(cta.GetDetallesCargos()));
             return detalles;
         }
 

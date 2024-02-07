@@ -69,7 +69,7 @@ namespace PrestamoBLL
 
     public interface IMaestroDebitoConDetallesCxC 
     {
-        int IdTransaccion { get;  }
+        int IdTransaccion { get; set; }
         char TipoDrCr { get;  }
         int IdPrestamo { get; set; }
         string CodigoTipoTransaccion { get; }
@@ -78,7 +78,6 @@ namespace PrestamoBLL
         DateTime Fecha { get; }
         decimal Monto { get; }
         decimal Balance { get; }
-
         string OtrosDetallesJson { get; }
         public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos(); 
     }
@@ -87,7 +86,7 @@ namespace PrestamoBLL
     {
         public int IdTransaccion { get; set; }
         public int IdTransaccionMaestro { get; }
-        public Guid IdReferenciaMaestro { get;  }
+        public Guid IdReferenciaMaestro { get; }
         public Guid IdReferenciaDetalle { get; }
         string CodigoCargo { get; set; }
         decimal Monto { get; set; }
@@ -100,7 +99,7 @@ namespace PrestamoBLL
         public char TipoDrCr { get; set; }
         public int IdPrestamo { get; set; }
         public virtual string CodigoTipoTransaccion { get; set; }
-        public virtual Guid IdReferencia { get; set; }
+        public virtual Guid IdReferencia { get; internal set; } = Guid.NewGuid();
         public string NumeroTransaccion { get; set; }
         public DateTime Fecha { get; set; }
         public decimal Monto { get; set; }
@@ -150,8 +149,8 @@ namespace PrestamoBLL
     {
         public int IdTransaccion { get; set; }
         public int IdTransaccionMaestro { get; set; }
-        public Guid IdReferenciaMaestro { get; set; }
-        public Guid IdReferenciaDetalle { get; set; }
+        public Guid IdReferenciaMaestro { get; internal set; }
+        public Guid IdReferenciaDetalle { get; private set; } = Guid.NewGuid();
         public string CodigoCargo { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
@@ -161,25 +160,25 @@ namespace PrestamoBLL
     internal class CuotaPrestamoBuilder
     {
         private List<IDetalleDebitoCxC> Detalles { get; set; } = new List<IDetalleDebitoCxC>();
-        private Guid IdReferencia { get; set; }
+        private Guid IdReferenciaMaestro { get; set; }
 
         internal IMaestroDebitoConDetallesCxC CreateCuotaAndDetalle(DateTime fecha, int numero, decimal capital, decimal interes, decimal gastoDeCierre, decimal interesDelGastoDeCierre)
         {
 
-            this.IdReferencia = Guid.NewGuid();
+
+            var cuota = new MaestroDrConDetalles
+            {
+                Fecha = fecha,
+                NumeroTransaccion = numero.ToString(),
+                CodigoTipoTransaccion = CodigosTiposTransaccionCxC.Cuota,
+
+            };
+            this.IdReferenciaMaestro = cuota.IdReferencia;
             AddCargo(CodigosCargosDebitos.Capital, capital);
             AddCargo(CodigosCargosDebitos.Interes, interes);
             AddCargo(CodigosCargosDebitos.GastoDeCierre, gastoDeCierre);
             AddCargo(CodigosCargosDebitos.InteresDelGastoDeCierre, interesDelGastoDeCierre);
-
-            var cuota = new MaestroDrConDetalles
-            {
-                IdReferencia = this.IdReferencia,
-                Fecha = fecha,
-                NumeroTransaccion = numero.ToString(),
-                CodigoTipoTransaccion = CodigosTiposTransaccionCxC.Cuota,
-                
-            };
+           
             cuota.SetDetallesCargos(this.Detalles);
             return cuota;
         }
@@ -192,7 +191,7 @@ namespace PrestamoBLL
                 CodigoCargo = codigoCargo,
                 Monto = monto,
                 Balance = monto,
-                 
+                IdReferenciaMaestro = this.IdReferenciaMaestro,
             };
             this.Detalles.Add(cargo);
 
