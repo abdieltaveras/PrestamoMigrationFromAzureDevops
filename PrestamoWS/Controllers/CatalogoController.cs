@@ -42,13 +42,13 @@ namespace PrestamoWS.Controllers
             try
             {
                 catalogo.Usuario = this.LoginName;
-                catalogo.IdNegocio = 1;
+                catalogo.IdNegocio = this.IdNegocio;
                 BLLPrestamo.Instance.InsUpdCatalogo(CatalogoName, catalogo);
                 return Ok();
             }
             catch (Exception e)
             {
-                throw new Exception("El cliente no pudo ser creado" + e.Message);
+                throw new Exception("El catalogo no pudo ser creado" + e.Message);
             }
         }
 

@@ -8,6 +8,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevBox.Core.Classes.Utils;
 
 namespace PrestamoBLL.Tests
 {
@@ -17,7 +18,36 @@ namespace PrestamoBLL.Tests
         private int idNegocio;
 
         private string NombreTabla = "TblOcupaciones";
-        private string IdNombreColumna = "IdOcupacion";
+        private string IdNombreColumna = "IdTipoCargo";
+
+        [TestMethod()]
+        public void InsertCataloTiposCargoDebitoTest()
+        {
+            var data = new TipoCargoDebito
+            {
+                Codigo = "TEST",
+                Nombre = "Codigo para probar que inserta ",
+                IdNegocio = TestInfo.GetIdNegocio(),
+                IdLocalidadNegocio = TestInfo.GetIdLocalidadNegocio(),
+                Usuario = TestInfo.Usuario
+
+            };
+
+            var json = data.ToJSON();
+            var resultTest = new TestInfo();
+            
+            try
+            {
+                BLLPrestamo.Instance.InsUpdCatalogo(CatalogoName.TipoCargoDebito, data);
+                //BLLPrestamo.Instance.InsUpdCatalogo
+            }
+            catch (Exception e)
+            {
+                resultTest.MensajeError = e.Message;
+            }
+            
+
+        }
 
         [TestMethod()]
         public void CatalogosGetTest()
@@ -54,7 +84,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetCatalogosV2Test()
         {
-            var ocupaciones = BLLPrestamo.Instance.GetCatalogos<TipoSexo>(CatalogoName.TipoSexo, new BaseCatalogoGetParams());
+            var result = BLLPrestamo.Instance.GetCatalogos<TipoSexo>(CatalogoName.TipoSexo, new BaseCatalogoGetParams());
         }
 
         [TestMethod()]
