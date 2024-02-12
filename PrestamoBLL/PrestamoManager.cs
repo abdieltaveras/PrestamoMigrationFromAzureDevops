@@ -594,12 +594,12 @@ namespace PrestamoBLL
             return this;
         }
 
-        public IEnumerable<CxCCuota> GenerarCuotas(IInfoGeneradorCuotas info)
-        {
-            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
-            var cuotas = generadorCuotas.GenerarCuotas();
-            return cuotas;
-        }
+        //public IEnumerable<CxCCuota> GenerarCuotas(IInfoGeneradorCuotas info)
+        //{
+        //    var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
+        //    var cuotas = generadorCuotas.GenerarCuotas();
+        //    return cuotas;
+        //}
 
         public TasasInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
         {

@@ -7,12 +7,7 @@ namespace PrestamoBLL
 {
     public static class CuotasGenerator
     {
-        public static IEnumerable<CxCCuota> CreateCuotas(IInfoGeneradorCuotas infGenCuotas)
-        {
-            var result = GetGeneradorDeCuotas(infGenCuotas);
-            var cuotas = result.GenerarCuotas();
-            return cuotas;
-        }
+        
         public static IEnumerable<IMaestroDebitoConDetallesCxC> CreateCuotasMaestroDetalle(int idPrestamo, IInfoGeneradorCuotas infGenCuotas)
         {
             var result = GetGeneradorDeCuotas(infGenCuotas) as GeneradorCuotasFijasNoAmortizable;

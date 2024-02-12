@@ -10,16 +10,16 @@ namespace PrestamoBLL
 {
 
 
-    public class GeneradorCuotasFijasNoAmortizable : IGeneradorCuotas
+    public class GeneradorCuotasFijasNoAmortizable  :IGeneradorCuotas
     {
         internal readonly IInfoGeneradorCuotas infoGenerarCuotas;
         private Periodo Periodo { get; set; }
         private TasaInteres TasaInteres { get; set; }
         private TasasInteresPorPeriodos TasasInteresDelPeriodo {get;set;}
 
-        DateTime fechaCuotaAnterior = InitValues._19000101;
-        List<CxCCuota> cuotas = new List<CxCCuota>();
-        IEnumerable<IMaestroDebitoConDetallesCxC> CuotasMaestroDetalle = new List<MaestroDrConDetalles>();
+        private DateTime FechaCuotaAnterior = InitValues._19000101;
+        
+        private IEnumerable<IMaestroDebitoConDetallesCxC> CuotasMaestroDetalle = new List<MaestroDrConDetalles>();
         public GeneradorCuotasFijasNoAmortizable(IInfoGeneradorCuotas info)
         {
             if (info.TipoAmortizacion != TiposAmortizacion.No_Amortizable_cuotas_fijas)
@@ -56,62 +56,6 @@ namespace PrestamoBLL
             BLLValidations.ValueGreaterThanZero(infoGenerarCuotas.IdTasaInteres, "IdTasaInteres");
             this.TasaInteres = new TasaInteresBLL(infoGenerarCuotas.IdLocalidadNegocio, infoGenerarCuotas.Usuario).GetTasasDeInteres(new TasaInteresGetParams { idTasaInteres = infoGenerarCuotas.IdTasaInteres }).FirstOrDefault();
         }
-
-        public List<CxCCuota> GenerarCuotas()
-        {
-            this.cuotas.Clear();
-            GastoDeCierreSinFinanciamiento();
-            GetPeriodo();
-            GetTasaDeInteres();
-            GetTasaInteresPorPeriodo();
-            decimal capitalPorCuota = getCapitalPorCuota();
-            decimal interesPorCuota = getInteresPorCuota();
-            decimal otrosCargosSinInteres = getOtrosCargosSinInteresPorCuota();
-            this.fechaCuotaAnterior = infoGenerarCuotas.FechaEmisionReal;
-            // Como se manejara el gasto de cierre aqui
-            // que seran las cuotas realmente en este sistema
-            // sera algo mas abierto como cuentas por cobrar de monica que manejara lo que es un doc_cc
-            // que permite cualquier cosa y que establezca un tipo que sea cuotaPrestamo
-            // y para los demas casos otros tipos segun la necesidad. analizarlo, pero iniciar como ahora
-            // el sistema con cuotas o si a lass cuotas se le pondra alguna informacion que detalle otros casos
-            if (!infoGenerarCuotas.ProyectarPrimeraYUltima)
-            {
-                for (int i = 1; i <= infoGenerarCuotas.CantidadDeCuotas; i++)
-                {
-                    var cuota = new CxCCuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = i };
-                    setGastoDeCierreFinaciadoEnCuotas(cuota);
-                    cuota.Fecha = getFecha(i);
-                    this.fechaCuotaAnterior = cuota.Fecha;
-                    cuotas.Add(cuota);
-                }
-                ajustarValores();
-            }
-            else
-            {
-
-                var cuota = new CxCCuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = 1 };
-                setGastoDeCierreFinaciadoEnCuotas(cuota);
-                cuota.Fecha = getFecha(1);
-                this.fechaCuotaAnterior = cuota.Fecha;
-                cuota.Comentario = "Primera cuota";
-                cuotas.Add(cuota);
-                if (infoGenerarCuotas.CantidadDeCuotas > 1)
-                {
-                    cuota = new CxCCuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = infoGenerarCuotas.CantidadDeCuotas };
-                    setGastoDeCierreFinaciadoEnCuotas(cuota);
-                    var fechaParaCuotas = infoGenerarCuotas.AcomodarFechaALasCuotas ? infoGenerarCuotas.FechaInicioPrimeraCuota : infoGenerarCuotas.FechaEmisionReal;
-                    cuota.Fecha = PrestamoConCalculos.CalcularFechaVencimiento(infoGenerarCuotas.AcomodarFechaALasCuotas,Periodo, fechaParaCuotas,  infoGenerarCuotas.CantidadDeCuotas);
-                    cuota.Comentario = "Ultima MaestroDrConDetalles";
-                    cuotas.Add(cuota);
-                }
-                //ajustarValores();
-            }
-            return cuotas;
-        }
-
-
-        
-
         /// <summary>
         /// revisa si la sumatoria de los valores de las cuotas tienen alguna diferencia y lo ajustan
         /// ejemplo si de capital debe ser 1000 y la sumatoria de las cuotas da 998.75
@@ -123,11 +67,11 @@ namespace PrestamoBLL
             decimal totalOtrosCargosSinInteresCuotas = 0;
             decimal totalGastoDeCierreCuotas = 0;
 
-            foreach (var cuota in cuotas)
-            {
-                totalCapitalCuotas += cuota.Capital;
-                totalGastoDeCierreCuotas += (decimal)cuota.GastoDeCierre;
-            }
+            //foreach (var cuota in cuotas)
+            //{
+            //    totalCapitalCuotas += cuota.Capital;
+            //    totalGastoDeCierreCuotas += (decimal)cuota.GastoDeCierre;
+            //}
 
 
             decimal ajusteCapital = infoGenerarCuotas.MontoCapital - totalCapitalCuotas;
@@ -136,31 +80,31 @@ namespace PrestamoBLL
             if (!infoGenerarCuotas.GastoDeCierreEsDeducible)
             {
                 ajusteGastoDeCierre = infoGenerarCuotas.MontoGastoDeCierre - totalGastoDeCierreCuotas;
-            }
-            var ultimaCuotaAjustada = cuotas[cuotas.Count() - 1];
+            };
+            //var ultimaCuotaAjustada = cuotas[cuotas.Count() - 1];
 
-            if (ajusteCapital != 0)
-            {
-                ultimaCuotaAjustada.Capital += ajusteCapital;
-            }
+            //if (ajusteCapital != 0)
+            //{
+            //    ultimaCuotaAjustada.Capital += ajusteCapital;
+            //}
 
-            if (ajusteGastoDeCierre != 0)
-            {
-                ultimaCuotaAjustada.GastoDeCierre += ajusteGastoDeCierre;
-            }
+            //if (ajusteGastoDeCierre != 0)
+            //{
+            //    ultimaCuotaAjustada.GastoDeCierre += ajusteGastoDeCierre;
+            //}
 
-            cuotas[cuotas.Count() - 1] = ultimaCuotaAjustada;
+            //cuotas[cuotas.Count() - 1] = ultimaCuotaAjustada;
         }
 
-        private void GastoDeCierreSinFinanciamiento()
-        {
-            if ((this.infoGenerarCuotas.MontoGastoDeCierre > 0) && (!this.infoGenerarCuotas.FinanciarGastoDeCierre) && (!infoGenerarCuotas.GastoDeCierreEsDeducible))
-            {
-                var cuota = new CxCCuota { GastoDeCierre = this.infoGenerarCuotas.MontoGastoDeCierre, Fecha = this.infoGenerarCuotas.FechaEmisionReal, Numero = 0 };
-                cuota.Comentario = "Gasto De Cierre a pagar";
-                this.cuotas.Add(cuota);
-            }
-        }
+        //private void GastoDeCierreSinFinanciamiento()
+        //{
+        //    if ((this.infoGenerarCuotas.MontoGastoDeCierre > 0) && (!this.infoGenerarCuotas.FinanciarGastoDeCierre) && (!infoGenerarCuotas.GastoDeCierreEsDeducible))
+        //    {
+        //        var cuota = new CxCCuota { GastoDeCierre = this.infoGenerarCuotas.MontoGastoDeCierre, Fecha = this.infoGenerarCuotas.FechaEmisionReal, Numero = 0 };
+        //        cuota.Comentario = "Gasto De Cierre a pagar";
+        //        this.cuotas.Add(cuota);
+        //    }
+        //}
 
         
 
@@ -168,10 +112,11 @@ namespace PrestamoBLL
         {
             if (i == 1 && infoGenerarCuotas.AcomodarFechaALasCuotas)
             {
-                this.fechaCuotaAnterior = Convert.ToDateTime(infoGenerarCuotas.FechaInicioPrimeraCuota);
-                return this.fechaCuotaAnterior;
+                this.FechaCuotaAnterior = Convert.ToDateTime(infoGenerarCuotas.FechaInicioPrimeraCuota);
+                return this.FechaCuotaAnterior;
             }
             DateTime fechaCuota = calcFecha();
+            this.FechaCuotaAnterior = fechaCuota;
             return fechaCuota;
         }
 
@@ -181,13 +126,13 @@ namespace PrestamoBLL
             switch (Periodo.PeriodoBase)
             {
                 case PeriodoBase.Dia:
-                    fecha = this.fechaCuotaAnterior.AddDays(1 * (int)Periodo.MultiploPeriodoBase);
+                    fecha = this.FechaCuotaAnterior.AddDays(1 * (int)Periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Semana:
-                    fecha = this.fechaCuotaAnterior.AddDays(7 * (int)Periodo.MultiploPeriodoBase);
+                    fecha = this.FechaCuotaAnterior.AddDays(7 * (int)Periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Quincena:
-                    fecha = this.fechaCuotaAnterior;
+                    fecha = this.FechaCuotaAnterior;
                     for (int periodoCuota = 1; periodoCuota <= (int)Periodo.MultiploPeriodoBase; periodoCuota++)
                     {
                         if (periodoCuota % 2 == 0)
@@ -201,36 +146,36 @@ namespace PrestamoBLL
                     }
                     break;
                 case PeriodoBase.Mes:
-                    fecha = this.fechaCuotaAnterior.AddMonths(1 * (int)Periodo.MultiploPeriodoBase);
+                    fecha = this.FechaCuotaAnterior.AddMonths(1 * (int)Periodo.MultiploPeriodoBase);
                     break;
                 case PeriodoBase.Ano:
-                    fecha = this.fechaCuotaAnterior.AddYears(1 * (int)Periodo.MultiploPeriodoBase);
+                    fecha = this.FechaCuotaAnterior.AddYears(1 * (int)Periodo.MultiploPeriodoBase);
                     break;
                 default:
                     break;
             }
-
+            this.FechaCuotaAnterior = fecha;
             return fecha;
         }
 
-        private void setGastoDeCierreFinaciadoEnCuotas(CxCCuota cuota)
-        {
-            if (this.infoGenerarCuotas.GastoDeCierreEsDeducible)
-            {
-                return;
-            }
+        //private void setGastoDeCierreFinaciadoEnCuotas(CxCCuota cuota)
+        //{
+        //    if (this.infoGenerarCuotas.GastoDeCierreEsDeducible)
+        //    {
+        //        return;
+        //    }
 
-            if ((this.infoGenerarCuotas.MontoGastoDeCierre > 0) &&
-               (this.infoGenerarCuotas.FinanciarGastoDeCierre))
-            {
-                cuota.GastoDeCierre = Math.Round(this.infoGenerarCuotas.MontoGastoDeCierre / this.infoGenerarCuotas.CantidadDeCuotas);
-                // ahora calculamos el interes del gasto de cierre si debe cargarlo
-                if (this.infoGenerarCuotas.CargarInteresAlGastoDeCierre)
-                {
-                    cuota.InteresDelGastoDeCierre = Math.Round(this.infoGenerarCuotas.MontoGastoDeCierre * (this.TasasInteresDelPeriodo.InteresDelPeriodo / 100), 2);
-                }
-            }
-        }
+        //    if ((this.infoGenerarCuotas.MontoGastoDeCierre > 0) &&
+        //       (this.infoGenerarCuotas.FinanciarGastoDeCierre))
+        //    {
+        //        cuota.GastoDeCierre = Math.Round(this.infoGenerarCuotas.MontoGastoDeCierre / this.infoGenerarCuotas.CantidadDeCuotas);
+        //        // ahora calculamos el interes del gasto de cierre si debe cargarlo
+        //        if (this.infoGenerarCuotas.CargarInteresAlGastoDeCierre)
+        //        {
+        //            cuota.InteresDelGastoDeCierre = Math.Round(this.infoGenerarCuotas.MontoGastoDeCierre * (this.TasasInteresDelPeriodo.InteresDelPeriodo / 100), 2);
+        //        }
+        //    }
+        //}
 
         
         private decimal getInteresPorCuota()
@@ -264,13 +209,21 @@ namespace PrestamoBLL
             }
             return gastoDeCierre;
         }
-        private Tuple<decimal, decimal> GetGastoDeCierreAndInteresDelGastoDeCierreFinaciadoEnCuotas()
+
+        public class GastoDeCierreEnCuotas
+
+        {
+            public decimal MontoSinInteres { get; set; }
+
+            public decimal InteresGC { get; set; }
+        }
+        private GastoDeCierreEnCuotas GetGastoDeCierreAndInteresDelGastoDeCierreFinaciadoEnCuotas()
         {
             decimal gastoDeCierre = 0;
             decimal interesDelGastoDeCierre = 0;
             if (this.infoGenerarCuotas.GastoDeCierreEsDeducible)
             {
-                return new Tuple<decimal, decimal>(0, 0);
+                return new GastoDeCierreEnCuotas();
             }
 
             if ((this.infoGenerarCuotas.MontoGastoDeCierre > 0) &&
@@ -284,7 +237,8 @@ namespace PrestamoBLL
                 }
             }
 
-            return new Tuple<decimal, decimal>(gastoDeCierre, interesDelGastoDeCierre);
+            return new GastoDeCierreEnCuotas
+            { MontoSinInteres = gastoDeCierre, InteresGC = interesDelGastoDeCierre };
         }
         public IEnumerable<IMaestroDebitoConDetallesCxC> GenerarCuotasMaestroYDetalle()
         {
@@ -297,21 +251,15 @@ namespace PrestamoBLL
             decimal capitalPorCuota = getCapitalPorCuota();
             decimal interesPorCuota = getInteresPorCuota();
             decimal otrosCargosSinInteres = getOtrosCargosSinInteresPorCuota();
-            this.fechaCuotaAnterior = infoGenerarCuotas.FechaEmisionReal;
-            // Como se manejara el gasto de cierre aqui
-            // que seran las cuotas realmente en este sistema
-            // sera algo mas abierto como cuentas por cobrar de monica que manejara lo que es un doc_cc
-            // que permite cualquier cosa y que establezca un tipo que sea cuotaPrestamo
-            // y para los demas casos otros tipos segun la necesidad. analizarlo, pero iniciar como ahora
-            // el sistema con cuotas o si a lass cuotas se le pondra alguna informacion que detalle otros casos
+            this.FechaCuotaAnterior = infoGenerarCuotas.FechaEmisionReal;
             if (!infoGenerarCuotas.ProyectarPrimeraYUltima)
             {
                 for (int i = 1; i <= infoGenerarCuotas.CantidadDeCuotas; i++)
                 {
-                    var cuota = new CuotaPrestamoBuilder().CreateCuotaAndDetalle(getFecha(i), i, capitalPorCuota, interesPorCuota, gastoDeCierreConFinanciamiento.Item1, gastoDeCierreConFinanciamiento.Item2);
+                    var cuota = new CuotaPrestamoBuilder().CreateCuotaAndDetalle(getFecha(i) , i, capitalPorCuota, interesPorCuota, gastoDeCierreConFinanciamiento.MontoSinInteres, gastoDeCierreConFinanciamiento.InteresGC);
                      cuotasMaestroDetalle.Add(cuota);
+                    
                 }
-
                 //ajustarValores();
             }
             else
@@ -319,7 +267,7 @@ namespace PrestamoBLL
                 var cuota = new CxCCuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = 1 };
                 setGastoDeCierreFinaciadoEnCuotas(cuota);
                 cuota.Fecha = getFecha(1);
-                this.fechaCuotaAnterior = cuota.Fecha;
+                this.FechaCuotaAnterior = cuota.Fecha;
                 cuota.Comentario = "Primera cuota";
                 cuotas.Add(cuota);
                 if (infoGenerarCuotas.CantidadDeCuotas > 1)

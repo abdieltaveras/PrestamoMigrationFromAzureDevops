@@ -125,20 +125,20 @@ namespace PrestamoBLL
             {
                 if (PendientePorAplicar == 0) break;
                 var cuota = c;
-                CreateDetalleCargo(cuota);
+                // CreateDetalleCargo(cuota);
                 var cargos = DetallesCargosCXC;
                 AplicaPagoACuota(cuota);
                 CreateDetallePagoCuota(cuota);
             }
         }
 
-        private void CreateDetalleCargo(CxCCuotaBLL cuota)
-        {
-            CreateDetalleCargoPorTipo("MaestroDrConDetalles", "CAP", cuota.idCuota, cuota.Capital, cuota.BceCapital);
-            CreateDetalleCargoPorTipo("MaestroDrConDetalles", "INT", cuota.idCuota, cuota.Interes, cuota.BceInteres);
-            CreateDetalleCargoPorTipo("MaestroDrConDetalles", "GC", cuota.idCuota, cuota.GastoDeCierre, cuota.BceGastoDeCierre);
-            CreateDetalleCargoPorTipo("MaestroDrConDetalles", "INTGC", cuota.idCuota, cuota.InteresDelGastoDeCierre, cuota.BceInteresDelGastoDeCierre);
-        }
+        //private void CreateDetalleCargo(CxCCuotaBLL cuota)
+        //{
+        //    CreateDetalleCargoPorTipo("MaestroDrConDetalles", "CAP", cuota.idCuota, cuota.Capital, cuota.BceCapital);
+        //    CreateDetalleCargoPorTipo("MaestroDrConDetalles", "INT", cuota.idCuota, cuota.Interes, cuota.BceInteres);
+        //    CreateDetalleCargoPorTipo("MaestroDrConDetalles", "GC", cuota.idCuota, cuota.GastoDeCierre, cuota.BceGastoDeCierre);
+        //    CreateDetalleCargoPorTipo("MaestroDrConDetalles", "INTGC", cuota.idCuota, cuota.InteresDelGastoDeCierre, cuota.BceInteresDelGastoDeCierre);
+        //}
 
         private void CreateDetalleCargoPorTipo(string tipoDebito, string codigoCargo, int idTransaccion, decimal monto, decimal balance)
         {

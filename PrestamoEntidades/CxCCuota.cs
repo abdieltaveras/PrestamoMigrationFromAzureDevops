@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    /// <summary>
-    /// la representacion de la cuota como va en la tabla
-    /// </summary>
+    // <summary>
+    // la representacion de la cuota como va en la tabla
+    // </summary>
     public class CxCCuotaForSqlType
     {
-        public int idCuota { get;  set; } = 0;
+        public int idCuota { get; set; } = 0;
         public int IdPrestamo { get; set; } = 0;
         public decimal Numero { get; set; } = 0;
-        public DateTime Fecha { get;  set; } = DateTime.Now;
+        public DateTime Fecha { get; set; } = DateTime.Now;
         public decimal Capital { get; set; } = 0;
         public decimal Interes { get; set; } = 0;
         public decimal GastoDeCierre { get; set; } = 0;
@@ -28,10 +28,12 @@ namespace PrestamoEntidades
         [IgnoreOnParams]
         public string FechaSt => Fecha.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
         [IgnoreOnParams]
-        public decimal TotalOrig {
-            get 
-            {  var valor = (Capital) + (Interes ) + (GastoDeCierre) + (InteresDelGastoDeCierre);
-               //var valor2 = Capital + Interes  + +GastoDeCierre  + InteresDelGastoDeCierre + OtrosCargos  + InteresOtrosCargos ;
+        public decimal TotalOrig
+        {
+            get
+            {
+                var valor = (Capital) + (Interes) + (GastoDeCierre) + (InteresDelGastoDeCierre);
+                //var valor2 = Capital + Interes  + +GastoDeCierre  + InteresDelGastoDeCierre + OtrosCargos  + InteresOtrosCargos ;
                 return valor;
             }
         }
@@ -50,7 +52,7 @@ namespace PrestamoEntidades
         public bool Vencida(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
         public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
 
-        
+
         [IgnoreOnParams]
         public string Comentario { get; set; } = String.Empty;
         public override string ToString()

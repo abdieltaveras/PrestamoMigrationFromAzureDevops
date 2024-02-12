@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,44 +24,38 @@ namespace PrestamoBLL.Tests
         }
 
         
-        [TestMethod()]
-        public void insUpdCuotasToDBTest()
-        {
-            
-            mensajeError = string.Empty;
-            try
-            {
-                //BLLPrestamo.Instance.CuotasinsUpd(CreateCuotas()); ;
-            }
-            catch (Exception e)
-            {
-
-                mensajeError = e.Message;
-            }
-            Assert.IsTrue(mensajeError == string.Empty, mensajeError);
-        }
-
         [TestMethod]
         public async Task CuotasGeneratorTest()
         {
             TestInfo testInfo;
             InfoGeneradorDeCuotas cuotaInfo;
             GetInfoCuota(out testInfo, out cuotaInfo);
-            //var result = new TasaInteresBLL(prestamo.IdLocalidadNegocio, prestamo.Users).CalcularTasaInteresPorPeriodos (tasaDeInteres.InteresMensual,prestamo.Periodo);
-            //var tasaDeInteresDelPeriodo = result.InteresDelPeriodo;
-
             IEnumerable<CxCCuota> cuotas = null;
+            //TryCatch(()=>cuotas = CuotasGenerator.CreateCuotas(cuotaInfo), testInfo );
+            //try
+            //{
+            //    cuotas = CuotasGenerator.CreateCuotas(cuotaInfo)
+            //}
+            //catch (Exception e)
+            //{
+            //    testInfo.MensajeError = e.Message;
+            //    testInfo.ExceptionOccured = e;
+            //}
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+
+        private void TryCatch(Action action, TestInfo testInfo)
+        {
             try
             {
-                cuotas = CuotasGenerator.CreateCuotas(cuotaInfo);
+                action();
             }
             catch (Exception e)
             {
                 testInfo.MensajeError = e.Message;
                 testInfo.ExceptionOccured = e;
             }
-            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
-
         }
 
         private static void GetInfoCuota(out TestInfo testInfo, out InfoGeneradorDeCuotas cuotaInfo)
@@ -95,6 +90,7 @@ namespace PrestamoBLL.Tests
         public async Task GetCuotasMaestroDetallesTest()
         {
             TestInfo testInfo = new TestInfo();
+            
             try
             {
 
@@ -140,21 +136,37 @@ namespace PrestamoBLL.Tests
             TestInfo testInfo;
             InfoGeneradorDeCuotas cuotaInfo;
             GetInfoCuota(out testInfo, out cuotaInfo);
+
+            //********************************
+            // pruebas por realizar
+            // no financiar gasto de cierre, ajustar el capital
+            //********************************
+            cuotaInfo.CargarInteresAlGastoDeCierre = false;
+
             IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
-            try
+
+            var fecha = DateTime.Now;
+            var fecha2 = fecha.Date;
+
+            TryCatch(() =>
             {
                 var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
                 var idPrestamo = 12;
                 cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
                 MaestroDetalleDebitosBLL.Instance.InsDebitoMaestroDetalle(cuotas);
-                //BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
-                // guardar este objeto en una tabla de la base de datos
             }
-            catch (Exception e)
-            {
-                testInfo.MensajeError = e.Message;
-                testInfo.ExceptionOccured = e;
-            }
+            , testInfo);
+            //try
+            //{
+                
+            //    //BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
+            //    // guardar este objeto en una tabla de la base de datos
+            //}
+            //catch (Exception e)
+            //{
+            //    testInfo.MensajeError = e.Message;
+            //    testInfo.ExceptionOccured = e;
+            //}
             Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
 
         }
