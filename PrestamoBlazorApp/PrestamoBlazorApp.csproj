@@ -8,12 +8,16 @@
   <ItemGroup>
     <Compile Remove="Components\**" />
     <Compile Remove="Entidades\**" />
+    <Compile Remove="Pages\Ocupaciones\**" />
     <Content Remove="Components\**" />
     <Content Remove="Entidades\**" />
+    <Content Remove="Pages\Ocupaciones\**" />
     <EmbeddedResource Remove="Components\**" />
     <EmbeddedResource Remove="Entidades\**" />
+    <EmbeddedResource Remove="Pages\Ocupaciones\**" />
     <None Remove="Components\**" />
     <None Remove="Entidades\**" />
+    <None Remove="Pages\Ocupaciones\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,7 +60,6 @@
   
   <ItemGroup>
     <Folder Include="Pages\Negocios\" />
-    <Folder Include="Pages\Ocupaciones\" />
     <Folder Include="Reports\Rdlc\" />
     <Folder Include="Shared\Components\ClienteEstatus\" />
     <Folder Include="Shared\Components\TasasInteres\" />
