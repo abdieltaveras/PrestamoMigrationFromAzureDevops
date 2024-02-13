@@ -364,7 +364,7 @@ namespace PrestamoBLL
         {
             //IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             //var cuotas = genCuotas.GenerarCuotas();
-            var cuotas = CuotasGenerator.CreateCuotas(this.prestamoInProgress);
+            var cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(this.prestamoInProgress.IdPrestamo, this.prestamoInProgress);
             // var cuotasVacias = new List<Cuota>();
             var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
             _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
@@ -386,8 +386,6 @@ namespace PrestamoBLL
 
         public async Task ExecCalcs() => await execCalcs();
 
-
-
         public void ActivateCalculos() => execCalcs = Calcular;
         public void SetServices(EventHandler<string> notificarMensaje,
             IEnumerable<Clasificacion> clasificaciones,
@@ -407,7 +405,7 @@ namespace PrestamoBLL
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
 
-        public List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
+        public List<IMaestroDebitoConDetallesCxC> CxCMaestroDetalles { get; set; } = new List<IMaestroDebitoConDetallesCxC>();
 
         IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
         IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
@@ -582,7 +580,7 @@ namespace PrestamoBLL
         {
             await CalcularGastoDeCierre();
             await CalcularCuotas();
-            this.FechaVencimiento = this.Cuotas.Last().Fecha;
+            this.FechaVencimiento = this.CxCMaestroDetalles.Last().Fecha;
         }
 
 
@@ -590,7 +588,7 @@ namespace PrestamoBLL
         {
             await CalcularGastoDeCierre();
             await CalcularCuotas();
-            this.FechaVencimiento = this.Cuotas.Last().Fecha;
+            this.FechaVencimiento = this.CxCMaestroDetalles.Last().Fecha;
             return this;
         }
 
@@ -620,7 +618,7 @@ namespace PrestamoBLL
             // cuotas y no que se le envie esa informacion
             var cuotas = GenerarCuotas(infoCuotas);
             //this.Cuotas.Clear();
-            this.Cuotas = cuotas.ToList();
+            this.CxCMaestroDetalles = cuotas.ToList();
             //await JsInteropUtils.NotifyMessageBox(jsRuntime,"calculando cuotas"+cuotas.Count().ToString());
         }
     }

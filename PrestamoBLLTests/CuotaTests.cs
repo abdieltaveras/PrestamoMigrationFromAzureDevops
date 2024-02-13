@@ -30,7 +30,7 @@ namespace PrestamoBLL.Tests
             TestInfo testInfo;
             InfoGeneradorDeCuotas cuotaInfo;
             GetInfoCuota(out testInfo, out cuotaInfo);
-            IEnumerable<CxCCuota> cuotas = null;
+            IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = null;
             //TryCatch(()=>cuotas = CuotasGenerator.CreateCuotas(cuotaInfo), testInfo );
             //try
             //{
@@ -203,7 +203,7 @@ namespace PrestamoBLL.Tests
 
             // este procedimiento debera ser revisado por completo y toda la responsabilidad debe estar en el objeto
             // que genera las cuotas que es quien sabra daterminar todo lo que aqui se hacer o desea conocer
-            var periodo = new Periodo { Codigo = "Mes", PeriodoBase = PeriodoBase.Mes, Nombre = "Cuotas Mensuales" };
+            var periodo = new Periodo { Codigo = "Mes", PeriodoBase = PeriodoBase.Mes, Nombre = "CxCMaestroDetalles Mensuales" };
             var prestamo = new Prestamo
             {
                 IdPrestamo = 1,
@@ -262,7 +262,7 @@ namespace PrestamoBLL.Tests
             var mensajeFinal = string.Join(",", mensajeOperacionesFallidas);
 
 
-            periodo = new Periodo { Codigo = "Dia", PeriodoBase = PeriodoBase.Dia, Nombre = "Cuotas Diarias" };
+            periodo = new Periodo { Codigo = "Dia", PeriodoBase = PeriodoBase.Dia, Nombre = "CxCMaestroDetalles Diarias" };
             var diasDelPeriodoEnElMes = 30;
             var tasaInteresDelPeriodo = 5 / diasDelPeriodoEnElMes;
             prestamo = new Prestamo

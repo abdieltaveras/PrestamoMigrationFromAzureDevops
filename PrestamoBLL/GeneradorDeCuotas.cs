@@ -264,20 +264,13 @@ namespace PrestamoBLL
             }
             else
             {
-                var cuota = new CxCCuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = 1 };
-                setGastoDeCierreFinaciadoEnCuotas(cuota);
-                cuota.Fecha = getFecha(1);
-                this.FechaCuotaAnterior = cuota.Fecha;
-                cuota.Comentario = "Primera cuota";
-                cuotas.Add(cuota);
+                var primeraCuota = new CuotaPrestamoBuilder().CreateCuotaAndDetalle(getFecha(1), 1, capitalPorCuota, interesPorCuota, gastoDeCierreConFinanciamiento.MontoSinInteres, gastoDeCierreConFinanciamiento.InteresGC);
+                cuotasMaestroDetalle.Add(primeraCuota);
                 if (infoGenerarCuotas.CantidadDeCuotas > 1)
                 {
-                    cuota = new CxCCuota { Capital = capitalPorCuota, Interes = interesPorCuota, Numero = infoGenerarCuotas.CantidadDeCuotas };
-                    setGastoDeCierreFinaciadoEnCuotas(cuota);
-                    var fechaParaCuotas = infoGenerarCuotas.AcomodarFechaALasCuotas ? infoGenerarCuotas.FechaInicioPrimeraCuota : infoGenerarCuotas.FechaEmisionReal;
-                    cuota.Fecha = PrestamoConCalculos.CalcularFechaVencimiento(infoGenerarCuotas.AcomodarFechaALasCuotas, Periodo, fechaParaCuotas, infoGenerarCuotas.CantidadDeCuotas);
-                    cuota.Comentario = "Ultima MaestroDrConDetalles";
-                    cuotas.Add(cuota);
+                    var ultima = infoGenerarCuotas.CantidadDeCuotas;
+                    var ultimaCuota = new CuotaPrestamoBuilder().CreateCuotaAndDetalle(getFecha(ultima), ultima, capitalPorCuota, interesPorCuota, gastoDeCierreConFinanciamiento.MontoSinInteres, gastoDeCierreConFinanciamiento.InteresGC);
+                    cuotasMaestroDetalle.Add(ultimaCuota);
                 }
                 //ajustarValores();
             }

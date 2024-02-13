@@ -216,7 +216,7 @@ namespace PrestamoEntidades
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; }
 
-        //public IEnumerable<CxCCuota> Cuotas { get; set; }
+        public IEnumerable<IMaestroDebitoConDetallesCxC> Cuotas { get; set; }
 
         public InfoDeudaPrestamoDrCr InfoDeuda { get; set; }
     }
@@ -464,6 +464,8 @@ namespace PrestamoEntidades
 
 
     }
+
+
     public class PrestamoInsUpdParam : Prestamo
     {
         //public readonly IEnumerable<CxCCuotaForSqlType> _CuotasList = new List<CxCCuotaForSqlType>();
@@ -472,8 +474,11 @@ namespace PrestamoEntidades
         //{
         //    this._CuotasList = cuotas;
         //}
+
+        
+
         public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
-        //this._Garantias.ToDataTable();
+        // this._Garantias.ToDataTable();
         public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
 
         //public DataTable Cuotas => this._CuotasList.ToDataTable();

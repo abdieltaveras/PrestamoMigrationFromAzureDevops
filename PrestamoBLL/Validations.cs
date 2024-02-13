@@ -335,7 +335,7 @@ namespace PrestamoBLL
             var prestamoValidator =
                     Validator<PrestamoConCalculos>.Empty
                     .IsNotValidWhen(p=> p.AcomodarFechaALasCuotas,"Por ahora no aceptamos acomodar la fecha",ValidationOptions.StopOnFailure)
-                    .IsNotValidWhen(p=> p.IdTipoAmortizacion != (int)TiposAmortizacion.No_Amortizable_cuotas_fijas,"Por ahora solo trabajamos con la amortizacion No Amortizable Cuotas Fijas")
+                    .IsNotValidWhen(p=> p.IdTipoAmortizacion != (int)TiposAmortizacion.No_Amortizable_cuotas_fijas,"Por ahora solo trabajamos con la amortizacion No Amortizable CxCMaestroDetalles Fijas")
                     .IsNotValidWhen(p => p == null, "El prestamo no puede estar nulo", ValidationOptions.StopOnFailure)
                     .IsValidWhen(p => p.MontoPrestado >= 0, "El monto a prestar no puede ser menor a 0 (cero)")
                     .IsValidWhen(p => p.IdCliente > 0, "Debe establecer un cliente")

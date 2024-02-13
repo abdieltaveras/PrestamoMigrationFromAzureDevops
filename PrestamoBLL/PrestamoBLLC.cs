@@ -152,12 +152,12 @@ namespace PrestamoBLL
                 }
                 dr.DataReaderToType(out infoCliente);
             }
-            var cuotas = new List<CxCCuota>();
+            var cuotas = new List<IMaestroDebitoConDetallesCxC>();
             if (dr.NextResult())
             {
                 while (dr.Read())
                 {
-                    var cuota = new CxCCuota();
+                    var cuota = new MaestroDrConDetalles();
                     dr.DataReaderToType(out cuota);
                     cuotas.Add(cuota);
                 }
