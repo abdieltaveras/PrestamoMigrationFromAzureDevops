@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
+    
+
     public class AplicarPagoAPrestamo : BaseBLL
     {
         private int IdPrestamo { get; set; }
@@ -26,7 +28,8 @@ namespace PrestamoBLL
 
         public bool OcurrioUnError => PagoResult.ErrorMessages.Any();
         PagoResult PagoResult { get; set; }
-        private IEnumerable<CxCCuotaBLL> Cuotas { get; set; }
+        // todo fix
+        //private IEnumerable<CxCCuotaBLL> Cuotas { get; set; }
         private decimal PendientePorAplicar { get; set; }
         private decimal TotalPagoCapital { get; set; }
         private decimal TotalPagoInteres { get; set; }
@@ -68,12 +71,12 @@ namespace PrestamoBLL
             this.Prestamo = result.FirstOrDefault();
         }
 
-
-        private IEnumerable<CxCCuotaBLL> GetCuotas()
-        {
-            var cuotas = CxCPrestamo.GetCuotas(this.IdPrestamo);
-            return cuotas;
-        }
+        //todo fix
+        //private IEnumerable<CxCCuotaBLL> GetCuotas()
+        //{
+        //    var cuotas = CxCPrestamo.GetCuotas(this.IdPrestamo);
+        //    return cuotas;
+        //}
 
         public void AplicarPago(int idPrestamo, DateTime fecha, decimal montoPagado)
         {
@@ -81,8 +84,10 @@ namespace PrestamoBLL
             GetPrestamo();
             ValidarPrestamo();
             ValidarFechaMayorEmisionPrestamo();
-            Cuotas = GetCuotas();
-            var deudaCuotas = Cuotas.Sum(c => c.BceGeneral);
+            //todo fix
+            //Cuotas = GetCuotas();
+            //var deudaCuotas = Cuotas.Sum(c => c.BceGeneral);
+            var deudaCuotas = 0;
             var moras = CalcularMora();
             var otrDebitos = GetOtrosDebitos();
             var totalDeuda = deudaCuotas + moras + otrDebitos;
@@ -118,18 +123,18 @@ namespace PrestamoBLL
             //    cuota.BceCapital = AplicaPago(cuota.BceCapital);
             //    cuota.BceInteres = AplicaPago(cuota.BceInteres);
             //    var balance = cuota.BceGeneral;
-                
-
             //} 
-            foreach (var c in Cuotas)
-            {
-                if (PendientePorAplicar == 0) break;
-                var cuota = c;
-                // CreateDetalleCargo(cuota);
-                var cargos = DetallesCargosCXC;
-                AplicaPagoACuota(cuota);
-                CreateDetallePagoCuota(cuota);
-            }
+            // todo fix
+
+            //foreach (var c in Cuotas)
+            //{
+            //    if (PendientePorAplicar == 0) break;
+            //    var cuota = c;
+            //    // CreateDetalleCargo(cuota);
+            //    var cargos = DetallesCargosCXC;
+            //    AplicaPagoACuota(cuota);
+            //    CreateDetallePagoCuota(cuota);
+            //}
         }
 
         //private void CreateDetalleCargo(CxCCuotaBLL cuota)
@@ -145,21 +150,22 @@ namespace PrestamoBLL
             var detalle = new DetalleCargoCxC { TipoDebito = tipoDebito , CodigoCargo = codigoCargo, IdTransaccion = idTransaccion, Monto = monto , Balance = balance };
             DetallesCargosCXC.Add(detalle);
         }
+        //todo fix
+        //private void AplicaPagoACuota(CxCCuotaBLL cuota)
+        //{
+        //    cuota.BceInteresDelGastoDeCierre = AplicaPago(cuota.BceInteresDelGastoDeCierre);
+        //    cuota.BceGastoDeCierre = AplicaPago(cuota.BceGastoDeCierre);
+        //    cuota.BceCapital = AplicaPago(cuota.BceCapital);
+        //    cuota.BceInteres = AplicaPago(cuota.BceInteres);
 
-        private void AplicaPagoACuota(CxCCuotaBLL cuota)
-        {
-            cuota.BceInteresDelGastoDeCierre = AplicaPago(cuota.BceInteresDelGastoDeCierre);
-            cuota.BceGastoDeCierre = AplicaPago(cuota.BceGastoDeCierre);
-            cuota.BceCapital = AplicaPago(cuota.BceCapital);
-            cuota.BceInteres = AplicaPago(cuota.BceInteres);
+        //}
 
-        }
-
-        private void CreateDetallePagoCuota(CxCCuotaBLL cuota)
-        {
+        //todo fix
+        //private void CreateDetallePagoCuota(CxCCuotaBLL cuota)
+        //{
 
             
-        }
+        //}
         
         private class DetalleCargoCxC
         {
@@ -203,6 +209,8 @@ namespace PrestamoBLL
 
         private decimal CalcularMora()
         {
+            // todo fix
+            var Cuotas = new List<decimal>();
             foreach (var c in Cuotas) { }
             return 0;
         }

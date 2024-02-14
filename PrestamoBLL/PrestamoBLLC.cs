@@ -183,7 +183,8 @@ namespace PrestamoBLL
             PrestamoConDetalle.infoCliente = infoCliente;
             PrestamoConDetalle.Cuotas = cuotas;
             PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
-            PrestamoConDetalle.InfoDeuda = new InfoDeudaPrestamoDrCr(cuotas, fecha);
+            // todo fix
+            //PrestamoConDetalle.InfoDeuda = new InfoDeudaPrestamoDrCr(cuotas, fecha);
             return PrestamoConDetalle;
         }
 

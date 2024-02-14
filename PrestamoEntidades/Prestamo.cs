@@ -475,7 +475,11 @@ namespace PrestamoEntidades
         //    this._CuotasList = cuotas;
         //}
 
-        
+        //todo fix
+        public PrestamoInsUpdParam()
+        {
+            
+        }
 
         public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
         // this._Garantias.ToDataTable();

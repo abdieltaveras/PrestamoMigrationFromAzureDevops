@@ -23,17 +23,16 @@ namespace PrestamoBLL
         public static string CargoInterno => "CI";
         public static string NotaDeDebito => "ND";
         public static string NotaDeCredito => "NC";
-        public string GetNombreTipoDocumento(string codigoCargo)
+        public static string GetNombreTipoDocumento(string codigoCargo)
         {
             string nombre = string.Empty;
             switch (codigoCargo)
             {
-                case "CA": nombre = "Capital"; break;
-                case "INT": nombre = "Interes"; break;
-                case "INTDV": nombre = "Interes despues de vencido"; break;
-                case "MOR": nombre = "Moras (Cargos por atraso)"; break;
-                case "GCINT": nombre = "Interes del gasto de cierre"; break;
-                case "GC": nombre = "Gasto de cierre"; break;
+                case "CT": nombre = "Cuota"; break;
+                case "PG": nombre = "Pago"; break;
+                case "CI": nombre = "Cargo Interno"; break;
+                case "ND": nombre = "Nota de Debito"; break;
+                case "NC": nombre = "Nota de Credito"; break;
                 default: return string.Empty;
             }
             return nombre;
@@ -100,8 +99,77 @@ namespace PrestamoBLL
     internal class MaestroDrConDetalles : BaseMaestroCxC
     {
         
-        public override string ToString() => $"No {NumeroTransaccion} Fecha {Fecha} Monto {Monto} Balance {Balance}";
-        
+        public override string ToString() => $"No {NumeroTransaccion} Fecha {Fecha} Monto {Monto} Balance {Balance} {DetallesCargosText()}"  ;
+
+        public string DetallesCargosText()
+        {
+            string texto = string.Empty;
+            foreach (var item in GetDetallesCargos())
+            {
+                texto = texto + item + ',';
+            }
+            return texto;
+        }
+    }
+
+    internal class DebitoViewModel
+    {
+        //private MaestroDrConDetalles Debito { get; set; }
+
+
+        private  DebitoViewModel(MaestroDrConDetalles value)
+        {
+            this.Fecha = value.Fecha;
+            this.NombreDocumento = CodigosTiposTransaccionCxC.GetNombreTipoDocumento(value.CodigoTipoTransaccion); 
+             this.NumeroTransaccion = value.NumeroTransaccion;
+            foreach (var item in value.GetDetallesCargos())
+            {
+                if (item.CodigoCargo == CodigosCargosDebitos.Capital)
+                {
+                    this.Capital = item.Balance;
+                    continue;
+                }
+                if (item.CodigoCargo == CodigosCargosDebitos.Interes)
+                {
+                    this.Interes = item.Balance;
+                    continue;
+                }
+                if (item.CodigoCargo == CodigosCargosDebitos.GastoDeCierre)
+                {
+                    this.GastoDeCierre = item.Balance;
+                    continue;
+                }
+
+                if (item.CodigoCargo == CodigosCargosDebitos.InteresDelGastoDeCierre)
+                {
+                    this.InteresDelGastoDeCierre = item.Balance;
+                    continue;
+                }
+                if (item.CodigoCargo == CodigosCargosDebitos.Moras)
+                {
+                    this.Mora = item.Balance;
+                    continue;
+                }
+                this.OtrosCargos = item.Balance;
+            }
+        }
+
+        internal static DebitoViewModel Create(MaestroDrConDetalles value)
+        { 
+            return new DebitoViewModel(value);
+        }
+        public string NombreDocumento { get; set; }
+
+        public string NumeroTransaccion { get; set; }
+        public DateTime Fecha { get; set; }
+        public Decimal Capital { get; set; }
+             
+        public Decimal Interes { get; set; }
+                     
+        public Decimal GastoDeCierre { get; set; }
+        public decimal InteresDelGastoDeCierre { get;  set; }
+        public decimal Mora { get;  set; }
+        public decimal OtrosCargos { get; set; }
     }
 
 
@@ -131,7 +199,7 @@ namespace PrestamoBLL
         public string CodigoCargo { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
-        public override string ToString() => $"Codigo {CodigoCargo} Monto {Monto} Balance {Balance}";
+        public override string ToString() => $"{CodigosCargosDebitos.GetNombreCargo(CodigoCargo)} Monto {Monto} Balance {Balance}";
     }
 
     internal class CuotaPrestamoBuilder

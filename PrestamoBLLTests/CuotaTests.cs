@@ -131,7 +131,7 @@ namespace PrestamoBLL.Tests
 
         }
         [TestMethod]
-        public async Task InsCuotasMaestroDetallesCargosTest()
+        public void InsCuotasMaestroDetallesCargosTest()
         {
             TestInfo testInfo;
             InfoGeneradorDeCuotas cuotaInfo;
@@ -184,7 +184,7 @@ namespace PrestamoBLL.Tests
                 var idPrestamo = 12;
                 cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
 
-                MaestroDetalleDebitosBLL.Instance.InsUpdDetallesCargos(cuotas);
+                MaestroDetalleDebitosBLL.Instance.InsUpdDetallesCargos(cuotas,8131438);
 
                 // guardar este objeto en una tabla de la base de datos
             }
