@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- area de miembros -->
 <actions>
 	<!-- area para garantias -->
@@ -70,5 +70,36 @@
 			<subAction displayName='Suspender Credito' description='impide que este cliente se le pueda realizar prestamos' value='SuspenderCreditosPrestamosACliente' permissionLevel='None' inherited='false' />	
 			<subAction displayName='Establecer tipo comprobante Fiscal' description='permite asignar el tipo de comprobante por defecto para este cliente' value='AsignarComprobanteFiscalPorDefecto' permissionLevel='None' inherited='false' />			
 		</subActions>
+	</action>
+
+    <action id='{8D8FD452-0AK9-41B2-B8XE-F49A7C36FT78}'
+			displayName='Grupos'
+			description='listado de Grupos' groupName='Configuracion'
+			value='ListadoGrupos' permissionLevel='None' inherited='false'>
+
+        <subActions>
+			<subAction displayName='Agregar' 
+					   description='agregar grupo' 
+					   value='AgregarGrupo' 
+					   permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar' description='Modificar grupo' value='EditarGrupo' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar' description='eliminar grupo' value='EliminarGrupo' permissionLevel='None' inherited='false' />
+		
+	    </subActions>
+	</action>
+    <action id='{8D8FD452-0AK9-41B2-B8BE-F49A7C36BE05}'
+			displayName='Usuarios'
+			description='ver la lista de usuarios' groupName='Configuracion'
+			value='ListadoUsuario' permissionLevel='None' inherited='false'>
+
+        <subActions>
+			<subAction displayName='Agregar' 
+					   description='agregar un nuevo usuario' 
+					   value='AgregarUsuario' 
+					   permissionLevel='None' inherited='false' />
+			<subAction displayName='Editar' description='Modifica un usuario' value='EditarUsuario' permissionLevel='None' inherited='false' />
+			<subAction displayName='Eliminar' description='elimina un usuario' value='EliminarUsuario' permissionLevel='None' inherited='false' />
+			<subAction displayName='Cambiar contrasena' description='permite cambiar la contrasena' value='CambiarContrasena' permissionLevel='None' inherited='false' />
+	    </subActions>
 	</action>
 </actions>
