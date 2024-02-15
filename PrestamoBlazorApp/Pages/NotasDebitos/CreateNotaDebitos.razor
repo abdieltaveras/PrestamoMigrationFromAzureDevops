@@ -1,0 +1,55 @@
+﻿@page "/NotasDebitos/CreateNotaDebito"
+@using PrestamoBlazorApp.Pages.NotasDebitos
+
+@using System.ComponentModel.DataAnnotations
+
+@inherits BaseForCreateOrEdit
+
+@* Style="background-color:#daedf4 *@
+    <MudGrid  Justify="Justify.FlexStart">
+    <MudItem>
+        <MudItem xs="6" sm="3">
+            <MudNumericField HideSpinButtons="true" T="int" @bind-Value="@IdPrestamo" Label="No Prestamo" Variant="Variant.Outlined" />
+        </MudItem>
+        <MudPaper Width="500px">
+            <MudList>
+                <MudListItem Avatar="@Icons.Material.Filled.PermIdentity">
+                    NoClientes
+                </MudListItem>
+                <MudListItem Avatar="@Icons.Material.Filled.Person">
+                    Nombre del cliente
+                </MudListItem>
+                <MudListItem Avatar="@Icons.Material.Filled.Person2">
+                    Apodo
+                </MudListItem>
+                <MudListItem Avatar="@Icons.Material.Filled.PermIdentity">
+                    Cedula del Cliente
+                </MudListItem>
+            </MudList>
+            <MudListItem>
+                <MudButton ButtonType="ButtonType.Button"
+                           OnClick="()=>GetDataPrestamo()"
+                           Color="MudBlazor.Color.Primary"
+                           Variant="Variant.Filled"> Buscar</MudButton>
+            </MudListItem>
+        </MudPaper>
+    </MudItem>
+
+    <MudPaper Class="pa-16 ma-2" Outlined="true">
+                <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Standard" Variant="Variant.Text" />
+                <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Standard" Variant="Variant.Text" Min="0" Max="10" />
+                <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Standard" Variant="Variant.Text" Min="0" Max="10" />
+                <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Standard" Variant="Variant.Text" Min="0" Max="10" />
+    </MudPaper>
+
+</MudGrid>
+
+    
+    
+
+
+
+@code {
+    public int IntValue { get; set; }
+
+}
