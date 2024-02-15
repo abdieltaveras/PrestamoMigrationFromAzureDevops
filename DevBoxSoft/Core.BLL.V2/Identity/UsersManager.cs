@@ -121,6 +121,7 @@ namespace DevBox.Core.BLL.Identity
             if (u.GroupName == "Admin" && grantAdminsFullAccess)
             {
                 defActions.ForEach(a => a.PermissionLevel = ActionPermissionLevel.Allow);
+                defActions.ForEach(m=>m.SubActions.ForEach(m=>m.PermissionLevel= ActionPermissionLevel.Allow));
                 return defActions;
             }
 

@@ -17,6 +17,7 @@ using Blazored.LocalStorage;
 using System.Net;
 using PrestamoEntidades.Responses;
 using System.Reflection.Metadata.Ecma335;
+using UIClient.Services;
 
 namespace PrestamoBlazorApp.Services
 {
@@ -66,6 +67,7 @@ namespace PrestamoBlazorApp.Services
         }
         public async Task<@Type> PostAsync<@Type>(string endpoint, object body, object search = null)
         {
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
             var client = _clientFactory.CreateClient();
@@ -75,13 +77,27 @@ namespace PrestamoBlazorApp.Services
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
 
             response = await client.PostAsJsonAsync($"{baseUrl}/{endpoint}?{query}", body);
-            var result = await response.Content.ReadFromJsonAsync<Type>();
+            var resultStream = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {errorMessage}'");
             }
-            return result;
+            else
+            {
+                if (!string.IsNullOrEmpty(resultStream))
+                {
+                    var result = (@Type)JsonSerializer.Deserialize(resultStream, typeof(@Type), options); //DeserializeAsync<TResult>(resultStream);
+                    return result;
+                }
+            }
+            //var result = await response.Content.ReadFromJsonAsync<Type>();
+
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {errorMessage}'");
+            //}
+            return default(Type);
         }
         public async Task<IEnumerable<@Type>> GetAsync<@Type>(string endpoint, object search)
         {

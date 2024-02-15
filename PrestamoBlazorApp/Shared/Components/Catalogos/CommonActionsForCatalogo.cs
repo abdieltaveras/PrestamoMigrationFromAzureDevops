@@ -169,21 +169,21 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
             //TODO:Al recargar la pagina se va el valor de la accion... hay que crear un middelware
             //que asigne el valor de la accion actual nuevamente en base a la url,
             //si este tiene acceso a dicha url
-            //if(CurrentAction != null)
-            //{
-            //    var subs = CurrentAction.SubActions.Where(m => m.Value.ToLower().Contains("agregar"));
-            //    //return true;
-            //    foreach (var item in subs)
-            //    {
-            //        if (item.PermissionLevel == ActionPermissionLevel.Allow)
-            //        {
-            //            return true;
-            //        }
-            //    }
-            //}
+            if (CurrentAction != null)
+            {
+                var subs = CurrentAction.SubActions.Where(m => m.Value.ToLower().Contains("agregar"));
+                //return true;
+                foreach (var item in subs)
+                {
+                    if (item.PermissionLevel == ActionPermissionLevel.Allow || item.PermissionLevel == ActionPermissionLevel.PermissionRequired)
+                    {
+                        return true;
+                    }
+                }
+            }
 
-            //return false;
-            return true;
+            return false;
+
         }
         public virtual bool BtnEdtShow()
         {
@@ -192,7 +192,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
                 var subs = CurrentAction.SubActions.Where(m => m.Value.ToLower().Contains("editar"));
                 foreach (var item in subs)
                 {
-                    if (item.PermissionLevel == ActionPermissionLevel.Allow)
+                    if (item.PermissionLevel == ActionPermissionLevel.Allow || item.PermissionLevel == ActionPermissionLevel.PermissionRequired)
                     {
                         return true;
                     }
@@ -207,7 +207,7 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
                 var subs = CurrentAction.SubActions.Where(m => m.Value.ToLower().Contains("eliminar"));
                 foreach (var item in subs)
                 {
-                    if (item.PermissionLevel == ActionPermissionLevel.Allow)
+                    if (item.PermissionLevel == ActionPermissionLevel.Allow || item.PermissionLevel == ActionPermissionLevel.PermissionRequired)
                     {
                         return true;
                     }

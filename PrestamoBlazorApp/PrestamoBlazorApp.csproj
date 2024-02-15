@@ -66,7 +66,13 @@
   
   
   <ItemGroup>
-    <None Include="Shared\Layout\Components\DataGridView.razor" />
+    <None Include="Pages\CoreSystem\ActionsManager\ActionManager.razor" />
+    <None Include="Pages\CoreSystem\SysPolicies\SystemPolicies.razor" />
+    <None Include="Pages\CoreSystem\UserGroups\UserGroupEditor.razor" />
+    <None Include="Pages\CoreSystem\UserGroups\UserGroups.razor" />
+    <None Include="Pages\CoreSystem\Users\CoreUserEditor.razor" />
+    <None Include="Pages\CoreSystem\Users\UsersList.razor" />
+    <None Include="Shared\Components\Forms\DataGridView.razor" />
     <None Include="Shared\Layout\Components\MonthCalendar.razor" />
     <None Include="Shared\Layout\Components\YearCalendar.razor" />
     <None Include="wwwroot\Images\logo.jpg" />

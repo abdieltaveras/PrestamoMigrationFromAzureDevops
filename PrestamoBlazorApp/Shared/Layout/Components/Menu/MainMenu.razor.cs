@@ -48,7 +48,9 @@ namespace PrestamoBlazorApp.Shared.Layout.Components.Menu
 
                 }
                 var userFound = users.FirstOrDefault();
-                actions = (users.FirstOrDefault()?.Actions ?? ActionList.Empty).Filter(ActionListFilters.Allowed);
+                //actions = (users.FirstOrDefault()?.Actions ?? ActionList.Empty).Filter(ActionListFilters.Allowed);
+                actions = (users.FirstOrDefault()?.Actions ?? ActionList.Empty);
+
 
                 actionsManagerService.Actions = actions;
                 //var a = MenuDictionary.MenuDictionaryData();
