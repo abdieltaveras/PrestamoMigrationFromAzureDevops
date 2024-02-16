@@ -10,8 +10,8 @@ namespace PrestamoBlazorApp.Models
         public int idTransaccion { get; set; } = -1;
         public string NoPrestamo { get; set; }
         public int idPrestamo { get; set; }
-        public DateTime Fecha { get; set; }
-        public decimal Monto { get; set; }
+        public DateTime? Fecha { get; set; } = DateTime.Today;
+        public decimal? Monto { get; set; }
         /// <summary>
         /// espacio para poner comentario  o detalles aclaratorio
         /// </summary>

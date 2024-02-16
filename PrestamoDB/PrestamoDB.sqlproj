@@ -235,5 +235,8 @@
     <None Include="SchemaCompareForAbdiel.scmp" />
     <None Include="RandyPrestamoDB.publish.xml" />
     <None Include="SchemaCompareForRandy.scmp" />
+    <None Include="..\PrestamoBlazorApp\Pages\NotasDebitos\SelectItem.razor">
+      <Link>SelectItem.razor</Link>
+    </None>
   </ItemGroup>
 </Project>

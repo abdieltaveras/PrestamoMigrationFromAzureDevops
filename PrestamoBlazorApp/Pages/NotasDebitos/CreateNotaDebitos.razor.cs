@@ -18,12 +18,16 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         ClientesService ClientesService { get; set; }
         [Inject]
         PrestamosService PrestamosService { get; set; }
-        NotaDeDebito NotaDeDebito { get; set; } = new NotaDeDebito();
+        NotaDeDebito NotaDe { get; set; } = new NotaDeDebito();
+        ListadoCodigosCargos listado { get; set; } = new ListadoCodigosCargos();
         private PrestamoEntidades.Cliente ClienteSelected { get; set; } = new PrestamoEntidades.Cliente();
         private PrestamoEntidades.Prestamo PrestamoSelected { get; set; } = new PrestamoEntidades.Prestamo();
         public int IdPrestamo { get; set; } = -1;
+        private string selectedCodigo { get; set; }
         private async Task GetDataPrestamo()
         {
+            
+            
             PrestamoSelected = new PrestamoEntidades.Prestamo();
            var prestamos = await PrestamosService.GetAsync(new PrestamoEntidades.PrestamosGetParams { idPrestamo = IdPrestamo });
             PrestamoSelected = prestamos.FirstOrDefault();
