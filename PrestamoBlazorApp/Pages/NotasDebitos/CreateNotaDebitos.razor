@@ -9,31 +9,31 @@
 
 <MudText Align="Align.Center" Color="MudBlazor.Color.Primary" Typo="Typo.h2"> Notas de Debitos</MudText>
 <MudSpacer></MudSpacer>
-    <MudGrid  Justify="Justify.FlexStart">
+<MudGrid Justify="Justify.FlexStart">
     <MudItem>
         @* <MudItem xs="6" sm="3">
-            <MudNumericField HideSpinButtons="true" T="int" @bind-Value="@IdPrestamo" Label="No Prestamo" Format="F1" Variant="Variant.Outlined" />
+        <MudNumericField HideSpinButtons="true" T="int" @bind-Value="@IdPrestamo" Label="No Prestamo" Format="F1" Variant="Variant.Outlined" />
         </MudItem> *@
         <MudPaper Width="400px">
             <MudList>
                 <MudListItem Avatar="@Icons.Material.Filled.PermIdentity">
-                   <MudItem xs="3">
+                    <MudItem xs="3">
                         <MudNumericField HideSpinButtons="true" T="int" @bind-Value="@IdPrestamo" Label="No Prestamo" Variant="Variant.Outlined" />
                         @PrestamoSelected.PrestamoNumero
-                   </MudItem>
+                    </MudItem>
                 </MudListItem>
                 <MudListItem Avatar="@Icons.Material.Filled.PermIdentity">
                     Nombre de cliente
                 </MudListItem>
                 <MudListItem Avatar="@Icons.Material.Filled.Person">
-                Apodo
+                    Apodo
                 </MudListItem>
                 <MudListItem Avatar="@Icons.Material.Filled.Person2">
-                    cedula 
+                    cedula
                 </MudListItem>
             </MudList>
-            <MudListItem >
-                <MudButton  ButtonType="ButtonType.Button"
+            <MudListItem>
+                <MudButton ButtonType="ButtonType.Button"
                            OnClick="()=>GetDataPrestamo()"
                            Color="MudBlazor.Color.Primary"
                            Variant="Variant.Filled"> Buscar</MudButton>
@@ -44,30 +44,31 @@
         <MudDatePicker Editable="true" Label="Fecha" @bind-Date="NotaDe.Fecha" />
         <MudNumericField HideSpinButtons="true" @bind-Value="NotaDe.Monto" Label="Monto" Format="F1" Variant="Variant.Outlined" />
         <MudAlert Severity="Severity.Info" Variant="Variant.Filled" Dense="true" Class="my-2">Distribucion</MudAlert>
-         <MudNumericField HideSpinButtons="true" @bind-Value="@PrestamoSelected.OtrosCargos" Label="Otros Cargos" Variant="Variant.Text"/>
+        <MudNumericField HideSpinButtons="true" @bind-Value="@PrestamoSelected.OtrosCargos" Label="Otros Cargos" Variant="Variant.Text" />
         <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Vencido" Variant="Variant.Text" Min="0" Max="10" />
         <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Atraso" Variant="Variant.Text" Min="0" Max="10" />
-        <MudNumericField HideSpinButtons="true"  @bind-Value="IntValue" Label="interes" Variant="Variant.Text" Min="0" Max="10" />
+        <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="interes" Variant="Variant.Text" Min="0" Max="10" />
         <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Capital" Variant="Variant.Text" Min="0" Max="10" />
     </MudItem>
     <MudItem xs="4">
         <MudButton>Asignar cargos</MudButton>
-       <MudSelect Label="Selecciona un código de cargo" T="string" @bind-SelectedItem="selectedCodigo">
-    @foreach (var codigo in listado)
-    {
-        <SelectItem Text="@codigo.Nombre" Value="@codigo.Codigo" />
-    }
-</MudSelect>
+        <MudSelect T="string" Label="Selecciona un código de cargo" T="string" @bind-SelectedItem="selectedCodigo">
+            @foreach (var codigo in CodigosCargos)
+            {
+                <MudSelectItem Value="@codigo.Codigo" > @codigo.Nombre</MudSelectItem>
+                @* <SelectItem Text="@codigo.Nombre" Value="@codigo.Codigo" />  *@
+            }
+        </MudSelect>
     </MudItem>
 </MudGrid>
 <MudGrid>
-        
+
 </MudGrid>
 
 
 
-    
-    
+
+
 
 
 
