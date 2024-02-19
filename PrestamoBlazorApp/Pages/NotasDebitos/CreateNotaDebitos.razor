@@ -52,18 +52,29 @@
     </MudItem>
     <MudItem xs="4">
         <MudButton>Asignar cargos</MudButton>
-        <MudSelect T="string" Label="Selecciona un código de cargo" T="string" @bind-SelectedItem="selectedCodigo">
+        <MudSelect   T="string" Label="Selecciona un código de cargo" T="string" @bind-SelectedItem="selectedCodigo" MultiSelection="true" @bind-SelectedValues="CargosSelected" ValueChanged="HandleValueChanged">
             @foreach (var codigo in CodigosCargos)
             {
                 <MudSelectItem Value="@codigo.Codigo" > @codigo.Nombre</MudSelectItem>
-                @* <SelectItem Text="@codigo.Nombre" Value="@codigo.Codigo" />  *@
+                 @* <SelectItem Text="@codigo.Nombre" Value="@codigo.Codigo" />  *@
             }
         </MudSelect>
+        <MudSimpleTable Items="@CargosSelected">
+            <tr>
+                <th>Cargos Seleccionados</th>
+            </tr>
+            @{
+                foreach (var cargo in CargosSelected)
+                {
+                    <tr>
+                        <td>@cargo</td>
+                    </tr>
+                }
+            }
+        </MudSimpleTable>
     </MudItem>
 </MudGrid>
-<MudGrid>
 
-</MudGrid>
 
 
 

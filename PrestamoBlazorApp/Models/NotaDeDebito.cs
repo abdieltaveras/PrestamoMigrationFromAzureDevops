@@ -36,7 +36,6 @@ namespace PrestamoBlazorApp.Models
         {
             var codigos = new List<CodigoCargos>();
             codigos.Add(new CodigoCargos { Codigo = "INT", Nombre = "Interes" });
-            
             codigos.Add(new CodigoCargos { Codigo="InAlg", Nombre="Intimacion de alguacil" });
             codigos.Add(new CodigoCargos { Codigo = "GCob", Nombre = "Gestion de Cobros localizador" });
             codigos.Add(new CodigoCargos { Codigo = "LLam", Nombre = "Llamadas telefonicas" });

@@ -24,7 +24,7 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         private PrestamoEntidades.Prestamo PrestamoSelected { get; set; } = new PrestamoEntidades.Prestamo();
         public int IdPrestamo { get; set; } = -1;
         private string selectedCodigo { get; set; }
-
+        private IEnumerable<string> CargosSelected { get; set; } = new HashSet<string>();
         private IEnumerable<CodigoCargos> CodigosCargos { get; set; }
 
         protected override Task OnInitializedAsync()
@@ -45,7 +45,12 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         }
 
 
-
+        protected void HandleValueChanged(IEnumerable<string> selectedValues)
+        {
+           
+            CargosSelected = selectedValues.ToList();
+            CargosSelected = new List<string>();
+        }
 
 
 
