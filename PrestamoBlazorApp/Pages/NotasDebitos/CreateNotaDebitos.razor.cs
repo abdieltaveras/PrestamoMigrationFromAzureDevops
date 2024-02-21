@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using MudBlazor;
 using PrestamoBlazorApp.Models;
@@ -23,10 +24,11 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         private PrestamoEntidades.Cliente ClienteSelected { get; set; } = new PrestamoEntidades.Cliente();
         private PrestamoEntidades.Prestamo PrestamoSelected { get; set; } = new PrestamoEntidades.Prestamo();
         public int IdPrestamo { get; set; } = -1;
-        private string selectedCodigo { get; set; }
+        private string SelectedCodigo { get; set; }
         private IEnumerable<string> CargosSelected { get; set; } = new List<string>();
-        private IEnumerable<CodigoCargos> CodigosCargos { get; set; }
-        private List<CodigoCargos> DataSelect { get; set; } = new List<CodigoCargos>();
+        private IEnumerable<CodigoCargos> CodigosCargos { get; set; } = new List<CodigoCargos>();
+        private List<DetalleCargo> DataSelect { get; set; } = new List<DetalleCargo>();
+        
         public bool estaEditando=true;
 
         protected override Task OnInitializedAsync()
@@ -46,26 +48,20 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
 
             StateHasChanged();
         }
-        protected async Task NombreYCodigo( string args)
+        
+        private async Task AgregarDetalle(MouseEventArgs arg)
         {
-            await ActualizarDatosSeleccionados(args);
+            var cargos= CodigosCargos.FirstOrDefault(c => c.Codigo == SelectedCodigo);
+            var detalleCargo = new DetalleCargo { CodigoCargo = SelectedCodigo, Monto = NotaDe.Monto,
+             NombreCargo = cargos.Nombre };
+            DataSelect.Add(detalleCargo);
         }
-        private Task ActualizarDatosSeleccionados (string args)
-        {
-          
-            var cargos= CodigosCargos.FirstOrDefault(c => c.Codigo == args);
-            DataSelect.Clear();
-            DataSelect.Add(cargos);
-            return Task.CompletedTask;
-
-            
-        }
-        private void AgregarNuevoValor(double valor)
+        private void AgregarNuevoValor(decimal valor)
         {
             //var cargo= CodigosCargos.FirstOrDefault();
             if (valor > 0)
             {
-                 NotaDe.Monto = (decimal?)valor;
+                NotaDe.Monto = valor;
                 //DataSelect.Add(new CodigoCargos
                 //{
                 //    Codigo = "rr",

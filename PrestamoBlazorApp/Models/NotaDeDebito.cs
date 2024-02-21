@@ -11,7 +11,7 @@ namespace PrestamoBlazorApp.Models
         public string NoPrestamo { get; set; }
         public int idPrestamo { get; set; }
         public DateTime? Fecha { get; set; } = DateTime.Today;
-        public decimal? Monto { get; set; }
+        public decimal Monto { get; set; }
         /// <summary>
         /// espacio para poner comentario  o detalles aclaratorio
         /// </summary>
@@ -21,16 +21,16 @@ namespace PrestamoBlazorApp.Models
 
     public class DetalleCargo
     {
-        string CodigoCargo { get; set; }
-        decimal Monto { get; set; }
+        public string CodigoCargo { get; set; }
+
+        public string NombreCargo { get; set; }
+        public decimal Monto { get; set; }
     }
 
     public class CodigoCargos
     {
         public string Codigo { get; set; }
         public string Nombre { get; set; }
-        public NotaDeDebito NotaDebito { get; set;}
-        
     }
     public class ListadoCodigosCargos
     {
