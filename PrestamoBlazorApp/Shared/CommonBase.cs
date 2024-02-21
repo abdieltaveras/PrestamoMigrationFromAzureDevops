@@ -17,10 +17,11 @@ using DevBox.Core.Identity;
 using System.Linq;
 using DevBox.Core.Access;
 using PrestamoBlazorApp.Shared.Layout.Components.Menu;
+using PrestamoBlazorApp.Shared.Components.Base;
 
 namespace PrestamoBlazorApp.Shared
 {
-    public abstract class CommonBase : ComponentBase
+    public abstract class CommonBase : BasePage
     {
         [Inject] AuthenticationStateProvider _authenticationStateProvider { get; set; }
         //[Inject] private NavigationManager navigationManager { get; set; }

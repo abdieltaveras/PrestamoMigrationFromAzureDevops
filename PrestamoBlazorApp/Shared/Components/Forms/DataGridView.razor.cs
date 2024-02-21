@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PrestamoBlazorApp.Shared.Layout.Components
+namespace PrestamoBlazorApp.Shared.Components.Forms
 {
     public partial class DataGridView : ComponentBase
     {
