@@ -43,35 +43,66 @@
     <MudItem xs="3">
         <MudDatePicker Editable="true" Label="Fecha" @bind-Date="NotaDe.Fecha" />
         <MudNumericField HideSpinButtons="true" @bind-Value="NotaDe.Monto" Label="Monto" Format="F1" Variant="Variant.Outlined" />
-        <MudAlert Severity="Severity.Info" Variant="Variant.Filled" Dense="true" Class="my-2">Distribucion</MudAlert>
+@*         <MudAlert Severity="Severity.Info" Variant="Variant.Filled" Dense="true" Class="my-2">Distribucion</MudAlert>
         <MudNumericField HideSpinButtons="true" @bind-Value="@PrestamoSelected.OtrosCargos" Label="Otros Cargos" Variant="Variant.Text" />
         <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Vencido" Variant="Variant.Text" Min="0" Max="10" />
         <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Atraso" Variant="Variant.Text" Min="0" Max="10" />
         <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="interes" Variant="Variant.Text" Min="0" Max="10" />
-        <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Capital" Variant="Variant.Text" Min="0" Max="10" />
+        <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Capital" Variant="Variant.Text" Min="0" Max="10" /> *@
     </MudItem>
     <MudItem xs="4">
         <MudButton>Asignar cargos</MudButton>
-        <MudSelect   T="string" Label="Selecciona un código de cargo" T="string" @bind-SelectedItem="selectedCodigo" MultiSelection="true" @bind-SelectedValues="CargosSelected" ValueChanged="HandleValueChanged">
+        <MudSelect T="string"  Label="Selecciona un código de cargo" MultiSelection="false"  ValueChanged="NombreYCodigo
+">
             @foreach (var codigo in CodigosCargos)
             {
                 <MudSelectItem Value="@codigo.Codigo" > @codigo.Nombre</MudSelectItem>
                  @* <SelectItem Text="@codigo.Nombre" Value="@codigo.Codigo" />  *@
             }
         </MudSelect>
-        <MudSimpleTable Items="@CargosSelected">
-            <tr>
-                <th>Cargos Seleccionados</th>
-            </tr>
+        <MudTable Items="@DataSelect">
+            <HeaderContent>
+                <MudTh>Código</MudTh>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Monto</MudTh>
+                <MudButton DisableElevation="true" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Info" Size="Size.Small">Agregar</MudButton>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Codigo">@context.Codigo</MudTd>
+                 <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                    <MudTd>
+                        @if (estaEditando)
+                    {
+                               <MudNumericField HideSpinButtons="true" @bind-Value=" NotaDe.Monto" Variant="Variant.Text" />
+                    }
+                    else
+                    {
+                        <!-- No se muestra nada -->
+                    }
+                 
+                    </MudTd>
+                </RowTemplate>
+        </MudTable>
+
+          @* <MudSimpleTable Items="@DataSelect">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
             @{
-                foreach (var cargo in CargosSelected)
+                foreach (var cargo in DataSelect)
                 {
                     <tr>
-                        <td>@cargo</td>
+                        <td>@cargo.Codigo</td>
+                        <td>@cargo.Nombre</td>
+                        
                     </tr>
                 }
-            }
-        </MudSimpleTable>
+            } 
+        </MudSimpleTable> *@
     </MudItem>
 </MudGrid>
 
@@ -83,7 +114,3 @@
 
 
 
-@code {
-    public int IntValue { get; set; }
-
-}

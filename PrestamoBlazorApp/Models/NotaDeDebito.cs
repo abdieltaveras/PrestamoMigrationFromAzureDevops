@@ -29,6 +29,8 @@ namespace PrestamoBlazorApp.Models
     {
         public string Codigo { get; set; }
         public string Nombre { get; set; }
+        public NotaDeDebito NotaDebito { get; set;}
+        
     }
     public class ListadoCodigosCargos
     {
