@@ -21,6 +21,7 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         [Inject]
         PrestamosService PrestamosService { get; set; }
         NotaDeDebito NotaDe { get; set; } = new NotaDeDebito();
+
         private PrestamoEntidades.Cliente ClienteSelected { get; set; } = new PrestamoEntidades.Cliente();
         private PrestamoEntidades.Prestamo PrestamoSelected { get; set; } = new PrestamoEntidades.Prestamo();
         public int IdPrestamo { get; set; } = -1;
@@ -30,7 +31,8 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         private List<DetalleCargo> DataSelect { get; set; } = new List<DetalleCargo>();
         
         public bool estaEditando=true;
-
+        public decimal MontoCargado { get; set; }
+        public decimal MontoRestante { get; set; } = -1;
         protected override Task OnInitializedAsync()
         {
             CodigosCargos = ListadoCodigosCargos.Get();
@@ -52,9 +54,12 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         private async Task AgregarDetalle(MouseEventArgs arg)
         {
             var cargos= CodigosCargos.FirstOrDefault(c => c.Codigo == SelectedCodigo);
-            var detalleCargo = new DetalleCargo { CodigoCargo = SelectedCodigo, Monto = NotaDe.Monto,
+            var detalleCargo = new DetalleCargo { CodigoCargo = SelectedCodigo, Monto =MontoCargado,
              NombreCargo = cargos.Nombre };
+            MontoCargado= DataSelect.Sum(d => d.Monto);
+            MontoRestante = NotaDe.Monto - MontoCargado;
             DataSelect.Add(detalleCargo);
+            StateHasChanged();
         }
         private void AgregarNuevoValor(decimal valor)
         {

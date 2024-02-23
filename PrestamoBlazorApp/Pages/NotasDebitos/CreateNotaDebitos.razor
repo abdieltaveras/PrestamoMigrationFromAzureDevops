@@ -43,6 +43,7 @@
     <MudItem xs="3">
         <MudDatePicker Editable="true" Label="Fecha" @bind-Date="NotaDe.Fecha" />
         <MudNumericField HideSpinButtons="true" @bind-Value="NotaDe.Monto" Label="Monto" Format="F1" Variant="Variant.Outlined" />
+        <MudAlert Severity="Severity.Info">MONTO POR APLICAR @MontoRestante</MudAlert>
         @*         <MudAlert Severity="Severity.Info" Variant="Variant.Filled" Dense="true" Class="my-2">Distribucion</MudAlert>
         <MudNumericField HideSpinButtons="true" @bind-Value="@PrestamoSelected.OtrosCargos" Label="Otros Cargos" Variant="Variant.Text" />
         <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Vencido" Variant="Variant.Text" Min="0" Max="10" />
@@ -58,7 +59,7 @@
                 <MudSelectItem Value="@codigo.Codigo"> @codigo.Nombre</MudSelectItem>
             }
         </MudSelect>
-        <MudNumericField HideSpinButtons="true" @bind-Value=" NotaDe.Monto" Variant="Variant.Text" />
+        <MudNumericField HideSpinButtons="true" @bind-Value="MontoCargado" Variant="Variant.Text" />
         <MudButton DisableElevation="true" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Info" Size="Size.Small" OnClick="@AgregarDetalle">Agregar</MudButton>
         <MudTable Items="@DataSelect">
 
