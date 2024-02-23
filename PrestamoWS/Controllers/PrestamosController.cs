@@ -135,11 +135,17 @@ namespace PrestamoWS.Controllers
             infoGenCuotas.Usuario = this.LoginName;
             infoGenCuotas.IdLocalidadNegocio = this.IdLocalidadNegocio;
             infoGenCuotas.IdNegocio = this.IdNegocio;
-            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(infoGenCuotas);
-            var cuotas = generadorCuotas.GenerarCuotas();
+            var cuotas = Generar_Cuotas(infoGenCuotas);
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return cuotas;
         }
+
+        private IEnumerable<CxCCuota> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
+        {
+            //todo implementar llamar la nueva forma de generar cargos pero devolverlo en formato de CXCCuota
+            return null;
+        }
+
         [HttpGet]
         public IEnumerable<CxCCuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
@@ -151,8 +157,7 @@ namespace PrestamoWS.Controllers
             var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
             infoGenCuotas.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
             infoGenCuotas.IdPeriodo = idPeriodo;
-            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(infoGenCuotas);
-            var cuotas = generadorCuotas.GenerarCuotas();
+            var cuotas = Generar_Cuotas(infoGenCuotas);
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return cuotas;
         }

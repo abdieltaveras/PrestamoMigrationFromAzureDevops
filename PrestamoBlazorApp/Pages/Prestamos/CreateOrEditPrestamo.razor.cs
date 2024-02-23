@@ -239,7 +239,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             decimal montoCuota = 0;
             if (prestamo.TipoAmortizacion == TiposAmortizacion.No_Amortizable_cuotas_fijas)
             {
-                var valorCta = Cuotas.Where(cta => cta.Numero == 1).FirstOrDefault().TotalOrig;
+                var valorCta = Cuotas.Where(cta => cta.NumeroTransaccion == 1).FirstOrDefault().TotalOrig;
                 montoCuota = Cuotas != null ? valorCta : 0;
             }
             var result = $"{prestamo.CantidadDeCuotas} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("C")}";

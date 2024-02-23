@@ -364,7 +364,7 @@ namespace PrestamoBLL
         {
             //IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             //var cuotas = genCuotas.GenerarCuotas();
-            var cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(this.prestamoInProgress.IdPrestamo, this.prestamoInProgress);
+            var cuotas = GeneradorDeCuotas.CreateCuotasMaestroDetalle(this.prestamoInProgress.IdPrestamo, this.prestamoInProgress);
             // var cuotasVacias = new List<Cuota>();
             var prestamoConDependencias = new PrestamoInsUpdParam();
             //todo fix

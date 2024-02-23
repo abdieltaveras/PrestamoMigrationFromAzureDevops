@@ -236,7 +236,7 @@ namespace PrestamoEntidades
     {
         public int IdPrestamo { get; set; }
         [IgnoreOnParams]
-        [Display(Name = "Prestamo Numero")]
+        [Display(Name = "Prestamo NumeroTransaccion")]
         public string PrestamoNumero { get; set; } = string.Empty;
         /// <summary>
         /// el valor menos 1 indica que no se establecio ningun prestamo a renovar

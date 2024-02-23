@@ -40,6 +40,8 @@ namespace PrestamoBLL
 
     }
 
+
+    
     public class CodigosCargosDebitos
     {
         public static string Capital => "CA";
@@ -57,8 +59,8 @@ namespace PrestamoBLL
                 case "INT": nombre = "Interes"; break;
                 case "INTDV": nombre = "Interes despues de vencido"; break;
                 case "MOR": nombre = "Moras (Cargos por atraso)"; break;
-                case "GCINT": nombre = "Interes del gasto de cierre"; break;
                 case "GC": nombre = "Gasto de cierre"; break;
+                case "INTGC": nombre = "Interes del gasto de cierre"; break;
                 default: return string.Empty;
             }
             return nombre;
@@ -112,12 +114,11 @@ namespace PrestamoBLL
         }
     }
 
-    internal class DebitoViewModel
+    internal class DebitoPrestamoViewModel : ICxCCuota
     {
         //private MaestroDrConDetalles Debito { get; set; }
 
-
-        private  DebitoViewModel(MaestroDrConDetalles value)
+        private  DebitoPrestamoViewModel(MaestroDrConDetalles value)
         {
             this.Fecha = value.Fecha;
             this.NombreDocumento = CodigosTiposTransaccionCxC.GetNombreTipoDocumento(value.CodigoTipoTransaccion); 
@@ -154,9 +155,9 @@ namespace PrestamoBLL
             }
         }
 
-        internal static DebitoViewModel Create(MaestroDrConDetalles value)
+        internal static DebitoPrestamoViewModel Create(MaestroDrConDetalles value)
         { 
-            return new DebitoViewModel(value);
+            return new DebitoPrestamoViewModel(value);
         }
         public string NombreDocumento { get; set; }
 

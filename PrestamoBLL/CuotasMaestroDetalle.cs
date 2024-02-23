@@ -42,7 +42,7 @@ namespace PrestamoBLL
         }
 
 
-        private IEnumerable<DebitoViewModel> GetMaestroDetallesDr(int idNegocio, int idLocalidad, int idPrestamo, string codigoTipoTransaccion, char tipoDrCr)
+        private IEnumerable<DebitoPrestamoViewModel> GetMaestroDetallesDr(int idNegocio, int idLocalidad, int idPrestamo, string codigoTipoTransaccion, char tipoDrCr)
         {
             // buscar las cuotas
             var getParams = new { idNegocio = idNegocio, idLocalidad = idLocalidad, idPrestamo = idPrestamo, codigoTipoTransaccion = codigoTipoTransaccion, tipoDrCr };
@@ -68,44 +68,63 @@ namespace PrestamoBLL
                 }
             }
 
+            var result =  ConvertToDebitoPrestamoViewModel(cuotasMaestras, cuotasDetalles);
+            return result;
+        }
+
+        private static IEnumerable<DebitoPrestamoViewModel> ConvertToDebitoPrestamoViewModel(List<MaestroDrConDetalles> cuotasMaestras, List<DetalleCargoCxC> cuotasDetalles)
+        {
             var detallesCargos = cuotasDetalles
                 .GroupBy(item => item.IdTransaccionMaestro);
 
-            var debitos = new List<DebitoViewModel>();
+            var debitos = new List<DebitoPrestamoViewModel>();
             foreach (var ctaM in cuotasMaestras)
             {
-                var items= detallesCargos.Where(dc => dc.Key == ctaM.IdTransaccion).SelectMany(item => item);
+                var items = detallesCargos.Where(dc => dc.Key == ctaM.IdTransaccion).SelectMany(item => item);
                 ctaM.SetDetallesCargos(items);
             }
 
             foreach (var item in cuotasMaestras)
             {
-                debitos.Add(DebitoViewModel.Create(item));
+                debitos.Add(DebitoPrestamoViewModel.Create(item));
             }
 
             return debitos;
         }
-        
-        public void InsDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
-        {
-            var ctasMaestroCxC = cuotas.Cast<MaestroDrConDetalles>();
-            var ctasMaestroCxC2 = cuotas.Cast<IMaestroDebitoConDetallesCxC>();
-            var detalles = CreateDetallesDr(cuotas);
-            var idReferenciaMaestro = ctasMaestroCxC.FirstOrDefault().IdReferencia;
-            var ctasPorReferencia = detalles.Where(cta => cta.IdReferenciaMaestro == idReferenciaMaestro);
-            var fcta = ctasMaestroCxC.FirstOrDefault();
-            //fcta.DetallesCargos
-            var cuotasMaestroDT = ctasMaestroCxC.ToDataTable();
-            //cuotasMaestroDT.Columns.Remove("DetallesCargosJson");
-            //var columns = cuotasMaestroDT.Columns;
-            //var cuotasMaestroDT2 = cuotasMaestro2.ToDataTablePcp<CuotaMaestro>();
-            var detallesList = new List<IDetalleDebitoCxC>();
 
-            var detallesDT = detalles.ToDataTable();
-            var data2 = new { maestroCxC = cuotasMaestroDT, detallesCargos = detallesDT, crearTablas = 1 };
-            var sqlParams = SearchRec.ToSqlParams(data2);
+        /// <summary>
+        /// crear el maestros y sus detalles pero solo a nivel de memoria
+        /// </summary>
+        /// <param name="idPrestamo"></param>
+        /// <param name="infGenCuotas"></param>
+        public IEnumerable<IMaestroDebitoConDetallesCxC> CreateCuotasPrestamoInMemory(int idPrestamo, IInfoGeneradorCuotas infGenCuotas)
+        {
+            var result = GeneradorDeCuotas.CreateCuotasMaestroDetalle(idPrestamo, infGenCuotas);
+            return result;
+        }
+
+        public void InsCuotasPrestamos(int idPrestamo, IInfoGeneradorCuotas infGenCuotas)
+        {
+            var cuotas = CreateCuotasPrestamoInMemory(idPrestamo, infGenCuotas);
+            InsDebitoMaestroDetalle(cuotas);
+        }
+
+        public void InsDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> debitos)
+        {
+            var ctasMaestroCxC = debitos.Cast<MaestroDrConDetalles>();
+            var detalles = CreateDetallesDr(debitos);
+            var dataParams = new { maestroCxC = ctasMaestroCxC.ToDataTable(), detallesCargos = detalles.ToDataTable(), crearTablas = 1 };
+            var sqlParams = SearchRec.ToSqlParams(dataParams);
             //BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spTestCreateTmpCxC", sqlParams);
             BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spInsMaestroDetalleDrCxCPrestamo", sqlParams);
+            //var ctasMaestroCxC2 = debitos.Cast<IMaestroDebitoConDetallesCxC>();
+            //var cuotasMaestroDT = ctasMaestroCxC.ToDataTable();
+            //var detallesDT = detalles.ToDataTable();
+        }
+
+        private static void CreateMaestroDebitos(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas) 
+        {
+            
         }
 
         /// <summary>
@@ -113,10 +132,10 @@ namespace PrestamoBLL
         /// </summary>
         /// <param name="cuotas"></param>
         /// <param name="clave"></param>
-        public void InsUpdDetallesCargos(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas,int clave)
+        public void InsUpdDetallesCargos(int idPrestamo, IInfoGeneradorCuotas infGenCuotas,int clave)
         {
-
             if (clave != 8131438) return;
+            var cuotas = CreateCuotasPrestamoInMemory(idPrestamo, infGenCuotas);
             var detalles = CreateDetallesDr(cuotas).Take(4);
             var detallesCuota = detalles.Cast<DetalleCargoCxC>();
             var idTransaccionMaestro = 1436;

@@ -152,8 +152,8 @@ namespace PrestamoBLL.Tests
             {
                 var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
                 var idPrestamo = 12;
-                cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
-                MaestroDetalleDebitosBLL.Instance.InsDebitoMaestroDetalle(cuotas);
+                //cuotas = GeneradorDeCuotas.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
+                MaestroDetalleDebitosBLL.Instance.InsCuotasPrestamos(idPrestamo, cuotaInfo);
             }
             , testInfo);
             //try
@@ -172,7 +172,7 @@ namespace PrestamoBLL.Tests
         }
 
         [TestMethod]
-        public async Task InsUpdDatallesCargoToTableTest()
+        public async Task InsUpdDetallesCargoToTableTest()
         {
             TestInfo testInfo;
             InfoGeneradorDeCuotas cuotaInfo;
@@ -182,9 +182,7 @@ namespace PrestamoBLL.Tests
             {
                 var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
                 var idPrestamo = 12;
-                cuotas = CuotasGenerator.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
-
-                MaestroDetalleDebitosBLL.Instance.InsUpdDetallesCargos(cuotas,8131438);
+                MaestroDetalleDebitosBLL.Instance.InsUpdDetallesCargos(idPrestamo, cuotaInfo, 8131438);
 
                 // guardar este objeto en una tabla de la base de datos
             }
