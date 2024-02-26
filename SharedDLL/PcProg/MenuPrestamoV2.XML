@@ -72,7 +72,7 @@
 		</subActions>
 	</action>
 
-    <action id='{8D8FD452-0AK9-41B2-B8XE-F49A7C36FT78}'
+    <action id='{C56A4180-65AA-42EC-A945-5FD21DEC0001}'
 			displayName='Grupos'
 			description='listado de Grupos' groupName='Configuracion'
 			value='ListadoGrupos' permissionLevel='None' inherited='false'>
@@ -87,7 +87,7 @@
 		
 	    </subActions>
 	</action>
-    <action id='{8D8FD452-0AK9-41B2-B8BE-F49A7C36BE05}'
+    <action id='{C56A4180-65AA-42EC-A945-5FD21DEC0002}'
 			displayName='Usuarios'
 			description='ver la lista de usuarios' groupName='Configuracion'
 			value='ListadoUsuario' permissionLevel='None' inherited='false'>
@@ -103,8 +103,6 @@
 	    </subActions>
 		
 	</action>
-	<action id='{10B451BE-4BC8-4022-9D57-053512956B55}' displayName='Grupos Usuarios' description='Editar los Grupos de Usuarios'
-			groupName='Sistema'  value='Grupos' permissionLevel='None' inherited='true' />
 	
-	<action id='{EE7DAF58-9DFA-4304-A7F9-4A00403C0CDE}' displayName='Seguridad' description='Control de Acceso' groupName='Sistema'  value='ActionManager' permissionLevel='None' inherited='true' />
+	<action id='{C56A4180-65AA-42EC-A945-5FD21DEC0003}' displayName='Seguridad' description='Control de Acceso' groupName='Sistema'  value='ActionManager' permissionLevel='None' inherited='true' />
 </actions>
