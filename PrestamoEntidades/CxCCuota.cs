@@ -13,7 +13,7 @@ namespace PrestamoEntidades
     // </summary>
     public abstract class CxCCuotaBase
     {
-        public decimal NumeroTransaccion { get; set; } = 0;
+        public string NumeroTransaccion { get; set; }
         public DateTime Fecha { get; set; } = DateTime.Now;
         public decimal Capital { get; set; } = 0;
         public decimal Interes { get; set; } = 0;
@@ -21,10 +21,16 @@ namespace PrestamoEntidades
         public decimal InteresDelGastoDeCierre { get; set; } = 0;
         public decimal OtrosCargos { get; set; } = 0;
         public decimal InteresOtrosCargos { get; set; } = 0;
-    }
-    public class CxCCuota : CxCCuotaBase, ICxCCuota
-    {
-        public string FechaSt => Fecha.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+        public bool Vencida(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
+        public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
+
+
+        //[IgnoreOnParams]
+        //public string Comentario { get; set; } = String.Empty;
+        public override string ToString() => DetallesCuotaText.ToString();
+
+
+        private string DetallesCuotaText => $"Valores Originales Cuota No {NumeroTransaccion} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/C {GastoDeCierre} Int G/C {InteresDelGastoDeCierre} Otros Cargos {OtrosCargos} Interes otros cargos {InteresOtrosCargos} ";
 
         public decimal TotalOrig
         {
@@ -35,6 +41,12 @@ namespace PrestamoEntidades
                 return valor;
             }
         }
+    }
+    public class CxCCuota : CxCCuotaBase, ICxCDebitoPrestamo
+    {
+        //public string FechaSt => Fecha.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+        
         //public virtual decimal BceGeneral => BceCapital + BceInteres + BceGastoDeCierre + BceInteresDelGastoDeCierre; // + BceOtrosCargos??0 + BceInteresOtrosCargos??0;
         //public decimal BceCapital { get; internal set; } = 0;
         //public decimal BceInteres { get; internal set; } = 0;
@@ -46,17 +58,7 @@ namespace PrestamoEntidades
         //[IgnoreOnParams]
         //public DateTime? UltActFechaInteres { get; set; } = InitValues._19000101;
 
-        public bool Vencida(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
-        public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
-
-
-        //[IgnoreOnParams]
-        //public string Comentario { get; set; } = String.Empty;
-        public override string ToString() => DetallesCuotaText.ToString();
-
-
-        private string DetallesCuotaText => $"Valores Originales Cuota No {NumeroTransaccion} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/C {GastoDeCierre} Int G/C {InteresDelGastoDeCierre} Otros Cargos {OtrosCargos} Interes otros cargos {InteresOtrosCargos}";
-
+        
         //public string BalanceToString()
         //{
         //    return $"Balancess Cuota No {Numero} Fecha {Fecha} Balance {BceGeneral} Capital {BceCapital} Interes {BceInteres} G/C {BceGastoDeCierre} Int G/C {BceInteresDelGastoDeCierre}";

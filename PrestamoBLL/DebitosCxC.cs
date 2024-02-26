@@ -50,6 +50,7 @@ namespace PrestamoBLL
         public static string Moras => "MOR";
         public static string InteresDelGastoDeCierre => "INTGC";
         public static string GastoDeCierre => "GC";
+        public static string InteresOtrosCargo => "INTOC";
         public static string GetNombreCargo(string codigoCargo)
         {
             string nombre = string.Empty;
@@ -61,6 +62,7 @@ namespace PrestamoBLL
                 case "MOR": nombre = "Moras (Cargos por atraso)"; break;
                 case "GC": nombre = "Gasto de cierre"; break;
                 case "INTGC": nombre = "Interes del gasto de cierre"; break;
+                case "INTOC": nombre = "Interes del gasto de cierre"; break;
                 default: return string.Empty;
             }
             return nombre;
@@ -114,7 +116,7 @@ namespace PrestamoBLL
         }
     }
 
-    internal class DebitoPrestamoViewModel : ICxCCuota
+    internal class DebitoPrestamoViewModel : ICxCDebitoPrestamo
     {
         //private MaestroDrConDetalles Debito { get; set; }
 
@@ -159,6 +161,17 @@ namespace PrestamoBLL
         { 
             return new DebitoPrestamoViewModel(value);
         }
+
+        public bool MenorOIgualALaFecha(DateTime fecha)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Vencida(DateTime fecha)
+        {
+            throw new NotImplementedException();
+        }
+
         public string NombreDocumento { get; set; }
 
         public string NumeroTransaccion { get; set; }
@@ -171,6 +184,11 @@ namespace PrestamoBLL
         public decimal InteresDelGastoDeCierre { get;  set; }
         public decimal Mora { get;  set; }
         public decimal OtrosCargos { get; set; }
+        public decimal InteresOtrosCargos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        
+
+        public decimal TotalOrig => throw new NotImplementedException();
     }
 
 
