@@ -32,7 +32,7 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         
         public bool estaEditando=true;
         public decimal MontoCargado { get; set; }
-        public decimal MontoRestante { get; set; } = -1;
+        public decimal MontoRestante { get; set; } = 0;
         protected override Task OnInitializedAsync()
         {
             CodigosCargos = ListadoCodigosCargos.Get();
@@ -53,35 +53,31 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         
         private async Task AgregarDetalle(MouseEventArgs arg)
         {
-            var cargos= CodigosCargos.FirstOrDefault(c => c.Codigo == SelectedCodigo);
-            var detalleCargo = new DetalleCargo { CodigoCargo = SelectedCodigo, Monto =MontoCargado,
-             NombreCargo = cargos.Nombre };
-            MontoCargado= DataSelect.Sum(d => d.Monto);
-            MontoRestante = NotaDe.Monto - MontoCargado;
-            DataSelect.Add(detalleCargo);
+             AsignarCargos();
             StateHasChanged();
         }
-        private void AgregarNuevoValor(decimal valor)
+
+        private void AsignarCargos()
         {
-            //var cargo= CodigosCargos.FirstOrDefault();
-            if (valor > 0)
+            var cargos = CodigosCargos.FirstOrDefault(c => c.Codigo == SelectedCodigo);
+            var detalleCargo = new DetalleCargo
             {
-                NotaDe.Monto = valor;
-                //DataSelect.Add(new CodigoCargos
-                //{
-                //    Codigo = "rr",
-                //    Nombre = "rrr",
-                //   NotaDebito =  { Monto = (decimal?)valor }
-                //});
-                //NotaDe.Monto = 0;
-                estaEditando = true;
+                CodigoCargo = SelectedCodigo,
+                Monto = MontoCargado,
+                NombreCargo = cargos.Nombre
+            };
+            if (MontoCargado + detalleCargo.Monto <= NotaDe.Monto)
+            {
+                DataSelect.Add(detalleCargo);
+                MontoCargado += detalleCargo.Monto;
+                MontoRestante = NotaDe.Monto - detalleCargo.Monto;
             }
             else
             {
-                estaEditando = false;
+              _ = NotifyMessageBySnackBar("Monto Excedido, Verificar Monto Asignado", MudBlazor.Severity.Error);
+                MontoCargado = 0;
             }
         }
-
 
         //protected void HandleValueChanged( ChangeEventArgs args)
         //{
@@ -89,10 +85,6 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         //    CargosSelected = selectedValues.ToList();
         //    CargosSelected = new List<string>();
         //}
-
-
-
-
     }
 }
  
