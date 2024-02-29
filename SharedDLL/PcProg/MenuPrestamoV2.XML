@@ -101,5 +101,10 @@
 			<subAction displayName='Eliminar' description='elimina un usuario' value='EliminarUsuario' permissionLevel='None' inherited='false' />
 			<subAction displayName='Cambiar contrasena' description='permite cambiar la contrasena' value='CambiarContrasena' permissionLevel='None' inherited='false' />
 	    </subActions>
+		
 	</action>
+	<action id='{10B451BE-4BC8-4022-9D57-053512956B55}' displayName='Grupos Usuarios' description='Editar los Grupos de Usuarios'
+			groupName='Sistema'  value='Grupos' permissionLevel='None' inherited='true' />
+	
+	<action id='{EE7DAF58-9DFA-4304-A7F9-4A00403C0CDE}' displayName='Seguridad' description='Control de Acceso' groupName='Sistema'  value='ActionManager' permissionLevel='None' inherited='true' />
 </actions>
