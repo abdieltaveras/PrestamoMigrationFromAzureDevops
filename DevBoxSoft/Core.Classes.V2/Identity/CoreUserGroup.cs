@@ -9,6 +9,7 @@ namespace DevBox.Core.Identity
 {
     public class CoreUserGroup : IUserGroup
     {
+        public int CompanyId { get; set; }
         public Guid GroupID { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
@@ -21,5 +22,6 @@ namespace DevBox.Core.Identity
         public ActionList Actions { get; set; }
         public string ActionsSrt { get; set; }
         public override string ToString() => GroupName;
+
     }
 }

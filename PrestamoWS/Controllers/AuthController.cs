@@ -45,10 +45,10 @@ namespace PrestamoWS.Controllers
                 }
                 return Ok(new CustomHttpResponse { IsSuccess = true, Message = "Error del login", Data = result });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+               return BadRequest(ex.Message);
             }
     
         }

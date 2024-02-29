@@ -31,9 +31,9 @@ namespace PrestamoBlazorApp.Services
             var result = await GetAsync<CoreUser>("api/user", parameters);
             return result;
         }
-        public async Task<IEnumerable<CoreUser>> GetUsers()
+        public async Task<IEnumerable<CoreUser>> GetUsers(int CompanyId = 1)
         {
-            var parameters = new { };
+            var parameters = new { CompanyId };
             var result = await GetAsync<CoreUser>("api/users", parameters);
             return result;
         }
