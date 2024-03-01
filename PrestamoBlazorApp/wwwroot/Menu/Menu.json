@@ -195,6 +195,96 @@
           "inherited": false
         }
       ]
+    }, //nuevo
+    {
+      "id": "{C56A4180-65AA-42EC-A945-5FD21DEC0001}",
+      "url": "/cliente/crear",
+      "displayName": "Grupos",
+      "description": "listado de Grupos",
+      "groupName": "Configuracion",
+      "value": "ListadoGrupos",
+      "permissionLevel": "None",
+      "inherited": false,
+      "customMenuSubActions": [
+        {
+          "url": "/configuracion/agregar",
+          "displayName": "Agregar",
+          "description": "agregar grupo",
+          "value": "AgregarGrupo",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "url_para_editar_grupo",
+          "displayName": "Editar",
+          "description": "Modificar grupo",
+          "value": "EditarGrupo",
+          "permissionLevel": "None",
+          "inherited": false
+        },
+        {
+          "url": "url_para_eliminar_grupo",
+          "displayName": "Eliminar",
+          "description": "eliminar grupo",
+          "value": "EliminarGrupo",
+          "permissionLevel": "None",
+          "inherited": false
+        }
+      ]
+    },
+    {
+      "id": "{C56A4180-65AA-42EC-A945-5FD21DEC0002}",
+      "url": "/cliente/crear",
+      "displayName": "Usuarios",
+      "description": "ver la lista de usuarios",
+      "groupName": "Configuracion",
+      "value": "ListadoUsuario",
+      "permissionLevel": "None",
+      "inherited": false,
+      "customMenuSubActions": [
+        {
+          "displayName": "Agregar",
+          "description": "agregar un nuevo usuario",
+          "value": "AgregarUsuario",
+          "permissionLevel": "None",
+          "inherited": false,
+          "url": "url_para_agregar_usuario"
+        },
+        {
+          "displayName": "Editar",
+          "description": "Modifica un usuario",
+          "value": "EditarUsuario",
+          "permissionLevel": "None",
+          "inherited": false,
+          "url": "url_para_editar_usuario"
+        },
+        {
+          "displayName": "Eliminar",
+          "description": "elimina un usuario",
+          "value": "EliminarUsuario",
+          "permissionLevel": "None",
+          "inherited": false,
+          "url": "url_para_eliminar_usuario"
+        },
+        {
+          "displayName": "Cambiar contrasena",
+          "description": "permite cambiar la contrasena",
+          "value": "CambiarContrasena",
+          "permissionLevel": "None",
+          "inherited": false,
+          "url": "url_para_cambiar_contrasena"
+        }
+      ]
+    },
+    {
+      "id": "{C56A4180-65AA-42EC-A945-5FD21DEC0003}",
+      "displayName": "Seguridad",
+      "description": "Control de Acceso",
+      "groupName": "Sistema",
+      "value": "ActionManager",
+      "permissionLevel": "None",
+      "inherited": true,
+      "url": "url_para_seguridad"
     }
   ]
 }

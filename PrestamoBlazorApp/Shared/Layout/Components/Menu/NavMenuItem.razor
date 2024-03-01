@@ -37,7 +37,7 @@
         }
     }
 
-    RootMenuAction customMap = new RootMenuAction();
+    CustomMenuAction[] customMap = { };
     protected override async Task OnInitializedAsync()
     {
         await GetMenuMap();
@@ -46,16 +46,17 @@
 
     async Task GetMenuMap()
     {
-        var prueba = await CustomServ.HttpClient.GetStringAsync(MyNavigationManager.BaseUri + "Menu/Menu.json");
-        var json = JsonConvert.DeserializeObject<RootMenuAction>(prueba);
-        customMap = json;
+        //var prueba = await CustomServ.HttpClient.GetStringAsync(MyNavigationManager.BaseUri + "Menu/Menu.json");
+        //var json = JsonConvert.DeserializeObject<RootMenuAction>(prueba);
+        customMap = MenuDictionary.MenuDictionaryData();
+        //customMap = json;
     }
     CustomMenuAction GetMenuSubAction(string value)
     {
         CustomMenuAction resp = new CustomMenuAction();
-        if (customMap.Actions != null)
+        if (customMap != null)
         {
-            var act = customMap.Actions.Where(m => m.Value == value).ToList();
+            var act = customMap.Where(m => m.Value == value);
             if (act.Count() > 0)
             {
                 return act.FirstOrDefault();

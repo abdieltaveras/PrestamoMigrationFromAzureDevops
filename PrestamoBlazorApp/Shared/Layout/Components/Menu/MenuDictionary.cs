@@ -19,7 +19,37 @@ namespace PrestamoBlazorApp.Shared.Layout.Components.Menu
                 GroupName = "Catalogo de Garantias",
                 Value = "Listado de Colores",
                 PermissionLevel = ("None").ParseEnum<ActionPermissionLevel>(),
-                Inherited = false
+                Inherited = false,
+                CustomMenuSubActions = new List<CustomMenuSubAction>
+                {
+                    new CustomMenuSubAction
+                    {
+                        Url = "/colores",
+                        DisplayName = "Agregar",
+                        Description = "agregar un nuevo color",
+                        Value = "AgregarColor",
+                        PermissionLevel = ActionPermissionLevel.None,
+                        Inherited = false
+                    },
+                    new CustomMenuSubAction
+                    {
+                        Url = "/color/edit",
+                        DisplayName = "Editar",
+                        Description = "Modificar un color",
+                        Value = "EditarColor",
+                        PermissionLevel = ActionPermissionLevel.None,
+                        Inherited = false
+                    },
+                    new CustomMenuSubAction
+                    {
+                        Url = "/color/delete",
+                        DisplayName = "Eliminar",
+                        Description = "eliminar un color",
+                        Value = "EliminarColor",
+                        PermissionLevel =ActionPermissionLevel.None,
+                        Inherited = false
+                    }
+                }
             },
             new CustomMenuAction
             {
@@ -28,7 +58,7 @@ namespace PrestamoBlazorApp.Shared.Layout.Components.Menu
                 DisplayName = "Listado de Marcas y Modelos",
                 Description = "ver el listado de las Marcas y Modelos",
                 GroupName = "Catalogo de Garantias",
-                Value = "Listado de Marcas y Modelos",
+                Value = "Listado de Marcas Y Modelos  De Garantias",
                 PermissionLevel =  ("None").ParseEnum<ActionPermissionLevel>(),
                 Inherited = false
             },
@@ -63,7 +93,40 @@ namespace PrestamoBlazorApp.Shared.Layout.Components.Menu
                 GroupName = "Clientes",
                 Value = "CrearCliente",
                 PermissionLevel = ("None").ParseEnum<ActionPermissionLevel>(),
+                Inherited = false,
+
+            },
+            new CustomMenuAction
+            {
+                ID = new System.Guid("C56A4180-65AA-42EC-A945-5FD21DEC0001"),
+                Url = "/Auth/Grupos",
+                DisplayName = "Grupos",
+                Description = "listado de Grupos",
+                GroupName = "Configuracion",
+                Value = "ListadoGrupos",
+                PermissionLevel = ActionPermissionLevel.None,
                 Inherited = false
+            },
+            new CustomMenuAction
+            {
+                ID = new System.Guid("C56A4180-65AA-42EC-A945-5FD21DEC0002"),
+                Url = "/Auth/Usuarios",
+                DisplayName = "Usuarios",
+                Description = "ver la lista de usuarios",
+                GroupName = "Configuracion",
+                Value = "ListadoUsuario",
+                PermissionLevel = ActionPermissionLevel.None,
+                Inherited = false
+            },new CustomMenuAction
+            {
+                ID = new System.Guid("C56A4180-65AA-42EC-A945-5FD21DEC0003"),
+                Url = "/Auth/ActionManager",
+                DisplayName = "Seguridad",
+                Description = "Control de Acceso",
+                GroupName = "Sistema",
+                Value = "ActionManager",
+                PermissionLevel = ActionPermissionLevel.None,
+                Inherited = true
             }
         };
             return actionData;
