@@ -40,6 +40,8 @@ namespace DevBox.Core.Access
             Description = xml.Attribute("description").Value;
             DisplayName = xml.Attribute("displayName").Value;
             GroupName = xml.Attribute("groupName").Value;
+            //ID = new Guid();
+            //ID = new Guid(xml.Attribute("id").Value);
             ID = Guid.Parse(xml.Attribute("id").Value);
             Value = xml.Attribute("value").Value;
             PermissionLevel = (ActionPermissionLevel)Enum.Parse(typeof(ActionPermissionLevel), xml.Attribute("permissionLevel").Value);

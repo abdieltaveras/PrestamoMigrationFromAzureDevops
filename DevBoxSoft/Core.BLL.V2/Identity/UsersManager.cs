@@ -134,10 +134,10 @@ namespace DevBox.Core.BLL.Identity
         public CoreUser GetUser(Guid UserID) => Database.DataServer.ExecReaderSelSP("core.spGetUsers", UserConvertMap, SearchRec.ToSqlParams(new { UserID })).FirstOrDefault();
         public CoreUser GetUser(string UserName) => Database.DataServer.ExecReaderSelSP("core.spGetUsers", UserConvertMap, SearchRec.ToSqlParams(new { UserName })).FirstOrDefault();
 
-        public List<CoreUser> GetUsers(Guid? UserID, string UserName, string GroupName, string Email, bool? IsActive)
+        public List<CoreUser> GetUsers(Guid? UserID, string UserName, string GroupName, string Email, bool? IsActive, int CompanyId = 1)
         {
             
-            var parameters = new { UserID, UserName, Email, GroupName, IsActive };
+            var parameters = new { UserID, UserName, Email, GroupName, IsActive, CompanyId };
             var result = Database.DataServer.ExecReaderSelSP("core.spGetUsers", UserConvertMap, SearchRec.ToSqlParams(parameters));
             return result;
         }
