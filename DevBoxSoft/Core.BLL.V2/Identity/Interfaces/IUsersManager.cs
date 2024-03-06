@@ -23,7 +23,8 @@ namespace DevBox.Core.BLL.Identity.Interfaces
         List<CoreUser> GetUsers(Guid? UserID, string UserName, string GroupName, string Email, bool? IsActive, int CompanyId = 1);
         List<CoreUser> GetAllUsersWithoutActions();
         CoreUser GetUserByNationalID(string NationalID);
-        CoreUser CreateUser(string UserName, string FirstName, string LastName, string Email, string GroupName, string NationalID, bool IsActive, string CreatedBy, List<Func<CoreUser, bool>> conditions);
+        CoreUser CreateUser(string UserName, string FirstName, string LastName, string Email, string GroupName, string NationalID, 
+            bool IsActive, string CreatedBy, List<Func<CoreUser, bool>> conditions, int CompanyId, string CompaniesAccess);
         LoginResult ValidateCredentials(LoginCredentials credentials, int durationMinutes = 10);
         LoginResult RefreshToken(RefreshTokenModel model, int durationMinutes = 10);
         ClaimsPrincipal ParseToken(string token);

@@ -6,7 +6,9 @@ CREATE procedure [core].[spCreateUser](@UserName varchar(256)
 								, @Email varchar(256)
 								, @GroupName varchar(256)
 								, @IsActive bit
-								, @CreatedBy varchar(256)) as
+								, @CreatedBy varchar(256)
+								,@CompanyId int,
+								@CompaniesAccess varchar(max)) as
 begin
   declare @RowID int = (select RowID from core.tblUsers where UserName=@UserName)
   if(@RowID is null)
@@ -16,9 +18,9 @@ begin
 			  @actions varchar(max) ='gTM8G4ZNsb9wdy1DjSpv4A=='
 
 	  insert into core.tblUsers(UserName, FirstName, LastName, Email, GroupName, IsActive, NationalID,
-								CreatedBy, CreatedOn, MustChangePassword, Actions, PasswordHash, PassSlt)
+								CreatedBy, CreatedOn, MustChangePassword, Actions, PasswordHash, PassSlt, CompanyId,CompaniesAccess)
 						values(@UserName, @FirstName, @LastName, @Email, @GroupName, 1, @NationalID,
-							   @CreatedBy, GETDATE(), 1, @actions, @hpass, @salt)
+							   @CreatedBy, GETDATE(), 1, @actions, @hpass, @salt,@CompanyId,@CompaniesAccess)
 	 set @RowID = SCOPE_IDENTITY()
   end
   else
@@ -31,7 +33,8 @@ begin
 			GroupName = @GroupName,
 			IsActive = @isActive,
 			LastModifiedBy = @CreatedBy,
-			LastModifiedOn = GETDATE()
+			LastModifiedOn = GETDATE(),
+			CompaniesAccess = @CompaniesAccess
 	where rowid= @rowid
   end
   select UserID, UserName, FirstName, LastName, NationalID, GroupName, Email, Actions as ActionsSrt,

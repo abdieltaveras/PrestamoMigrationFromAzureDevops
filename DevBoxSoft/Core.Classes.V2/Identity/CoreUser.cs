@@ -11,6 +11,7 @@ namespace DevBox.Core.Identity
     {
         public int CompanyId { get; set; }
         public string CompaniesAccess { get; set; }
+        public string CurrentCompanyLocationId { get; set; }
         public Guid UserID { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }

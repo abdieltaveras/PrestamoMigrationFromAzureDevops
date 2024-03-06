@@ -16,6 +16,8 @@ using PrestamoWS.Services;
 using PrestamoWS.Models;
 using apiBonosElectronicos.Authorization.Attributtes;
 using PrestamoEntidades.Responses;
+using System.Linq;
+using DevBox.Core.Classes.Utils;
 
 namespace PrestamoWS.Controllers
 {
@@ -121,7 +123,7 @@ namespace PrestamoWS.Controllers
         public CoreUser PostUser([FromBody] NewUser user)
         { 
             var result = new UsersManager().CreateUser(user.UserName, user.FirstName, user.LastName, user.Email,
-                                   user.GroupName, user.NationalID, user.IsActive, user.CreatedBy,null);
+                                   user.GroupName, user.NationalID, user.IsActive, user.CreatedBy,null,Convert.ToInt32( User.Claims.First(m=>m.Type == CustomClaimsTypes.CompanyId).Value), user.CompaniesAccess);
 
             return result;
         }
@@ -151,6 +153,6 @@ namespace PrestamoWS.Controllers
         public List<CoreUserGroup> GetUserGroups(string GroupName = "") => new UsersGroupsManager().GetUserGroups(GroupName);
 
         [HttpPost, Route("api/users/groups"), Authorize(Roles: "Grupos")]
-        public CoreUserGroup PostUsersGroup([FromBody] NewUserGroup userGroup) => new UsersGroupsManager().CreateUserGroup(userGroup.GroupName, userGroup.Description, User.Identity.Name);
+        public CoreUserGroup PostUsersGroup([FromBody] NewUserGroup userGroup) => new UsersGroupsManager().CreateUserGroup(userGroup.GroupName, userGroup.Description, User.Identity.Name,Convert.ToInt32( User.Claims.First(m=>m.Type == CustomClaimsTypes.CompanyId).Value));
     }
 }

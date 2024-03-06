@@ -47,9 +47,9 @@ namespace DevBox.Core.BLL.Identity
             var result = Database.DataServer.ExecReaderSelSP("core.spGetUserGroups", ConvertMap, SearchRec.ToSqlParams(new { GroupName }));
             return result;
         }
-        public CoreUserGroup CreateUserGroup(string GroupName, string Description, string CreatedBy)
+        public CoreUserGroup CreateUserGroup(string GroupName, string Description, string CreatedBy, int CompanyId)
         {
-            var group = new { GroupName, Description, Actions = "", CreatedBy };
+            var group = new { GroupName, Description, Actions = "", CreatedBy, CompanyId };
             var result = Database.DataServer.ExecReaderSelSP<CoreUserGroup>("[core].[spInsUpdUserGroup]", SearchRec.ToSqlParams(group)).FirstOrDefault();
             return result;
         }
