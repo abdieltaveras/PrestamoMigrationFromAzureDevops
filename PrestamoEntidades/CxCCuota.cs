@@ -24,7 +24,6 @@ namespace PrestamoEntidades
         public bool Vencida(DateTime fecha) => this.Fecha.CompareTo(fecha) < 0;
         public bool MenorOIgualALaFecha(DateTime fecha) => this.Fecha.CompareTo(fecha) <= 0;
 
-
         //[IgnoreOnParams]
         //public string Comentario { get; set; } = String.Empty;
         public override string ToString() => DetallesCuotaText.ToString();

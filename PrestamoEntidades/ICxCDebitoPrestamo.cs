@@ -14,7 +14,6 @@ namespace PrestamoEntidades
         decimal InteresOtrosCargos { get;  }
         decimal TotalOrig { get; }
         bool MenorOIgualALaFecha(DateTime fecha);
-        string ToString();
         bool Vencida(DateTime fecha);
     }
 }

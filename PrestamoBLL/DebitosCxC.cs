@@ -40,37 +40,64 @@ namespace PrestamoBLL
 
     }
 
+    internal class CodigosCargosDebitosV2 : Enumeration
+    {
+        public string Codigo { get; }
+        public string Nombre => base.Name;
 
-    
+        public static CodigosCargosDebitosV2 Capital = new(1, nameof(Capital),"CA");
+        public static CodigosCargosDebitosV2 Interes = new(2, nameof(Interes), "INT");
+
+        public static CodigosCargosDebitosV2 InteresDespuesDeVencido = new(3, nameof(InteresDespuesDeVencido), "INTDV");
+        public static CodigosCargosDebitosV2 Moras = new(3, nameof(Moras), "INTDV");
+        public static CodigosCargosDebitosV2 GastoDeCierre = new(4, nameof(GastoDeCierre), "INTDV");
+
+        public static CodigosCargosDebitosV2 InteresDelGastoDeCierre = new(5, nameof(InteresDelGastoDeCierre), "INTGC");
+
+        private CodigosCargosDebitosV2(int id, string name, string codigo) : base(id, name)
+        {
+            this.Codigo = codigo;
+        }
+    }
+
     public class CodigosCargosDebitos
     {
-        public static string Capital => "CA";
-        public static string Interes => "INT";
-        public static string InteresDespuesDeVencido => "INTDV";
-        public static string Moras => "MOR";
-        public static string InteresDelGastoDeCierre => "INTGC";
-        public static string GastoDeCierre => "GC";
-        public static string InteresOtrosCargo => "INTOC";
+        public const string Capital = "CA";
+        public const string Interes = "INT";
+        public const string InteresDespuesDeVencido = "INTDV";
+        public const string Moras = "MOR";
+        public const string InteresDelGastoDeCierre = "INTGC";
+        public const string GastoDeCierre = "GC";
+        public const string OtrosCargos = "OC";
+        public const string InteresOtrosCargo = "INTOC";
         public static string GetNombreCargo(string codigoCargo)
         {
             string nombre = string.Empty;
             switch (codigoCargo)
             {
-                case "CA": nombre = "Capital"; break;
-                case "INT": nombre = "Interes"; break;
-                case "INTDV": nombre = "Interes despues de vencido"; break;
-                case "MOR": nombre = "Moras (Cargos por atraso)"; break;
-                case "GC": nombre = "Gasto de cierre"; break;
-                case "INTGC": nombre = "Interes del gasto de cierre"; break;
-                case "INTOC": nombre = "Interes del gasto de cierre"; break;
+                case Capital:  nombre = "Capital"; break;
+                case Interes: nombre = "Interes"; break;
+                case InteresDespuesDeVencido : nombre = "Interes despues de vencido"; break;
+                case Moras : nombre = "Moras (Cargos por atraso)"; break;
+                case GastoDeCierre : nombre = "Gasto de cierre"; break;
+                case InteresDelGastoDeCierre: nombre = "Interes del gasto de cierre"; break;
+                case OtrosCargos: nombre = "Otros  Cargos"; break;
+                case InteresOtrosCargo: nombre = "Interes Otros cargos"; break;
                 default: return string.Empty;
             }
             return nombre;
         }
         public override string ToString() => "Codigo para utilizar en los cargos";
-    }
+        public static IEnumerable<string> CodigosCargosReservados()
+        { 
+            var codigosCargos = new List<string>()
+            { 
+                Capital, Interes, InteresDespuesDeVencido, Moras, GastoDeCierre, InteresDelGastoDeCierre, InteresOtrosCargo
+            };
 
-    
+            return codigosCargos;
+        }
+    }
 
 
     internal abstract class BaseMaestroCxC : IMaestroDebitoConDetallesCxC
@@ -127,7 +154,7 @@ namespace PrestamoBLL
              this.NumeroTransaccion = value.NumeroTransaccion;
             foreach (var item in value.GetDetallesCargos())
             {
-                if (item.CodigoCargo == CodigosCargosDebitos.Capital)
+                if (item.CodigoCargo ==  CodigosCargosDebitos.Capital)
                 {
                     this.Capital = item.Balance;
                     continue;

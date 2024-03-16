@@ -36,9 +36,10 @@ namespace PrestamoBLL
         #endregion StaticBLL
 
         
-        public void GetCuotasMaestroDetalles(int idNegocio, int idLocalidad, int idPrestamo)
+        public IEnumerable<ICxCDebitoPrestamo>  GetCuotasMaestroDetalles(int idNegocio, int idLocalidad, int idPrestamo)
         {
-            GetMaestroDetallesDr(idNegocio, idLocalidad, idPrestamo, "CT", 'D');
+            var result = GetMaestroDetallesDr(idNegocio, idLocalidad, idPrestamo, "CT", 'D');
+            return result;
         }
 
 

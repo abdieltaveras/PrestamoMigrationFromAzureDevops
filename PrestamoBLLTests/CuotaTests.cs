@@ -94,7 +94,7 @@ namespace PrestamoBLL.Tests
             try
             {
 
-                MaestroDetalleDebitosBLL.Instance.GetCuotasMaestroDetalles(1, 1, 12); 
+                var result = MaestroDetalleDebitosBLL.Instance.GetCuotasMaestroDetalles(1, 1, 12); 
 
                 // guardar este objeto en una tabla de la base de datos
             }
