@@ -185,6 +185,14 @@ namespace PrestamoBLL
 
     public static class ExtMethod
     {
+        /// <summary>
+        /// se hizo una mejora en el codigo para corregir una falla cuando se envia un table type que contiene un campo DateTime
+        /// </summary>
+        /// <typeparam name="Type"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="convertMap"></param>
+        /// <param name="skipList"></param>
+        /// <returns></returns>
         public static DataTable ToDataTable<@Type>(this IEnumerable<@Type> list, Dictionary<string, Func<object, object>> convertMap = null, List<string> skipList = null)
         {
             DataTable result = new DataTable();
