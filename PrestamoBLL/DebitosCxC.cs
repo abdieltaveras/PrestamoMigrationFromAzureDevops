@@ -62,6 +62,13 @@ namespace PrestamoBLL
 
     public class CodigosCargosDebitos
     {
+        
+        public string Codigo { get; set; }
+        public string Nombre { get; set; }
+    }
+
+    public class CodigosCargosDebitosReservados
+    {
         public const string Capital = "CA";
         public const string Interes = "INT";
         public const string InteresDespuesDeVencido = "INTDV";
@@ -69,7 +76,7 @@ namespace PrestamoBLL
         public const string InteresDelGastoDeCierre = "INTGC";
         public const string GastoDeCierre = "GC";
         public const string OtrosCargos = "OC";
-        public const string InteresOtrosCargo = "INTOC";
+        public const string InteresOtrosCargos = "INTOC";
         public static string GetNombreCargo(string codigoCargo)
         {
             string nombre = string.Empty;
@@ -82,7 +89,7 @@ namespace PrestamoBLL
                 case GastoDeCierre : nombre = "Gasto de cierre"; break;
                 case InteresDelGastoDeCierre: nombre = "Interes del gasto de cierre"; break;
                 case OtrosCargos: nombre = "Otros  Cargos"; break;
-                case InteresOtrosCargo: nombre = "Interes Otros cargos"; break;
+                case InteresOtrosCargos: nombre = "Interes Otros cargos"; break;
                 default: return string.Empty;
             }
             return nombre;
@@ -92,7 +99,7 @@ namespace PrestamoBLL
         { 
             var codigosCargos = new List<string>()
             { 
-                Capital, Interes, InteresDespuesDeVencido, Moras, GastoDeCierre, InteresDelGastoDeCierre, InteresOtrosCargo
+                Capital, Interes, InteresDespuesDeVencido, Moras, GastoDeCierre, InteresDelGastoDeCierre, InteresOtrosCargos
             };
 
             return codigosCargos;
@@ -154,28 +161,28 @@ namespace PrestamoBLL
              this.NumeroTransaccion = value.NumeroTransaccion;
             foreach (var item in value.GetDetallesCargos())
             {
-                if (item.CodigoCargo ==  CodigosCargosDebitos.Capital)
+                if (item.CodigoCargo ==  CodigosCargosDebitosReservados.Capital)
                 {
                     this.Capital = item.Balance;
                     continue;
                 }
-                if (item.CodigoCargo == CodigosCargosDebitos.Interes)
+                if (item.CodigoCargo == CodigosCargosDebitosReservados.Interes)
                 {
                     this.Interes = item.Balance;
                     continue;
                 }
-                if (item.CodigoCargo == CodigosCargosDebitos.GastoDeCierre)
+                if (item.CodigoCargo == CodigosCargosDebitosReservados.GastoDeCierre)
                 {
                     this.GastoDeCierre = item.Balance;
                     continue;
                 }
 
-                if (item.CodigoCargo == CodigosCargosDebitos.InteresDelGastoDeCierre)
+                if (item.CodigoCargo == CodigosCargosDebitosReservados.InteresDelGastoDeCierre)
                 {
                     this.InteresDelGastoDeCierre = item.Balance;
                     continue;
                 }
-                if (item.CodigoCargo == CodigosCargosDebitos.Moras)
+                if (item.CodigoCargo == CodigosCargosDebitosReservados.Moras)
                 {
                     this.Mora = item.Balance;
                     continue;
@@ -228,12 +235,12 @@ namespace PrestamoBLL
 
     internal class CargoPorAtraso : BaseMaestroCxC
     {
-        public override string CodigoTipoTransaccion => CodigosCargosDebitos.Moras;
+        public override string CodigoTipoTransaccion => CodigosCargosDebitosReservados.Moras;
     }
 
     internal class CargoPorInteresDespuesDeVencido : BaseMaestroCxC
     {
-        public override string CodigoTipoTransaccion => CodigosCargosDebitos.InteresDespuesDeVencido;
+        public override string CodigoTipoTransaccion => CodigosCargosDebitosReservados.InteresDespuesDeVencido;
     }
 
     internal class DetalleCargoCxC : IDetalleDebitoCxC
@@ -245,7 +252,7 @@ namespace PrestamoBLL
         public string CodigoCargo { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
-        public override string ToString() => $"{CodigosCargosDebitos.GetNombreCargo(CodigoCargo)} Monto {Monto} Balance {Balance}";
+        public override string ToString() => $"{CodigosCargosDebitosReservados.GetNombreCargo(CodigoCargo)} Monto {Monto} Balance {Balance}";
     }
 
     internal class CuotaPrestamoBuilder
@@ -265,10 +272,10 @@ namespace PrestamoBLL
 
             };
             this.IdReferenciaMaestro = cuota.IdReferencia;
-            AddCargo(CodigosCargosDebitos.Capital, capital);
-            AddCargo(CodigosCargosDebitos.Interes, interes);
-            AddCargo(CodigosCargosDebitos.GastoDeCierre, gastoDeCierre);
-            AddCargo(CodigosCargosDebitos.InteresDelGastoDeCierre, interesDelGastoDeCierre);
+            AddCargo(CodigosCargosDebitosReservados.Capital, capital);
+            AddCargo(CodigosCargosDebitosReservados.Interes, interes);
+            AddCargo(CodigosCargosDebitosReservados.GastoDeCierre, gastoDeCierre);
+            AddCargo(CodigosCargosDebitosReservados.InteresDelGastoDeCierre, interesDelGastoDeCierre);
            
             cuota.SetDetallesCargos(this.Detalles);
             return cuota;
