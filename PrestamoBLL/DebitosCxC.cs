@@ -67,6 +67,9 @@ namespace PrestamoBLL
         public string Nombre { get; set; }
     }
 
+    /// <summary>
+    /// Codigos para cargos Reservados
+    /// </summary>
     public class CodigosCargosDebitosReservados
     {
         public const string Capital = "CA";
@@ -94,8 +97,8 @@ namespace PrestamoBLL
             }
             return nombre;
         }
-        public override string ToString() => "Codigo para utilizar en los cargos";
-        public static IEnumerable<string> CodigosCargosReservados()
+        public override string ToString() => "Codigos reservados para utilizar en los cargos";
+        public static IEnumerable<string> GetCodigosCargosReservados()
         { 
             var codigosCargos = new List<string>()
             { 
