@@ -11,11 +11,7 @@ using System.Threading.Tasks;
 namespace PrestamoBLL
 {
 
-    public class TipoDrCr
-    {
-        public static char Debito => 'D';
-        public static char Credito => 'C';
-    }
+    
     public class CodigosTiposTransaccionCxC
     {
         public static string Cuota => "CT";
@@ -62,7 +58,6 @@ namespace PrestamoBLL
 
     public class CodigosCargosDebitos
     {
-        
         public string Codigo { get; set; }
         public string Nombre { get; set; }
     }
@@ -104,7 +99,6 @@ namespace PrestamoBLL
             { 
                 Capital, Interes, InteresDespuesDeVencido, Moras, GastoDeCierre, InteresDelGastoDeCierre, InteresOtrosCargos
             };
-
             return codigosCargos;
         }
     }
@@ -113,9 +107,10 @@ namespace PrestamoBLL
     internal abstract class BaseMaestroCxC : IMaestroDebitoConDetallesCxC
     {
         public int IdTransaccion { get; set; }
-        public char TipoDrCr { get; set; }
+        
+        public virtual char TipoDrCr { get; protected set; }
         public int IdPrestamo { get; set; }
-        public virtual string CodigoTipoTransaccion { get; set; }
+        public virtual string CodigoTipoTransaccion { get; protected set; }
         public virtual Guid IdReferencia { get; internal set; } = Guid.NewGuid();
         public string NumeroTransaccion { get; set; }
         public DateTime Fecha { get; set; }
@@ -139,7 +134,11 @@ namespace PrestamoBLL
     /// </summary>
     internal class MaestroDrConDetalles : BaseMaestroCxC
     {
-        
+        public MaestroDrConDetalles()
+        {
+            this.TipoDrCr = 'D';
+        }
+
         public override string ToString() => $"No {NumeroTransaccion} Fecha {Fecha} Monto {Monto} Balance {Balance} {DetallesCargosText()}"  ;
 
         public string DetallesCargosText()
@@ -190,6 +189,11 @@ namespace PrestamoBLL
                     this.Mora = item.Balance;
                     continue;
                 }
+                if (item.CodigoCargo == CodigosCargosDebitosReservados.InteresOtrosCargos)
+                {
+                    this.InteresOtrosCargos = item.Balance;
+                    continue;
+                }
                 this.OtrosCargos = item.Balance;
             }
         }
@@ -231,14 +235,17 @@ namespace PrestamoBLL
 
     internal class NotaDeDebito : BaseMaestroCxC 
     {
-        public override string CodigoTipoTransaccion => CodigosTiposTransaccionCxC.NotaDeDebito; 
+        public override string CodigoTipoTransaccion => CodigosTiposTransaccionCxC.NotaDeDebito;
 
+        
         public string Concepto { get; set; }
+
+        public override char TipoDrCr => throw new NotImplementedException();
     }
 
     internal class CargoPorAtraso : BaseMaestroCxC
     {
-        public override string CodigoTipoTransaccion => CodigosCargosDebitosReservados.Moras;
+        public override string CodigoTipoTransaccion => CodigosTiposTransaccionCxC.CargoInterno;
     }
 
     internal class CargoPorInteresDespuesDeVencido : BaseMaestroCxC

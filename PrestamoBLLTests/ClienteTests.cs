@@ -199,7 +199,7 @@ namespace PrestamoBLL.Tests
         public void GetImagesTest()
         {
             var idCliente = 1;
-            var ImagePathForClientes = @"C:\PcpProjects\Development\prestamo\PrestamoBLLTests\ImagesFor\Clientes";
+            var ImagePathForClientes = @"Credito:\PcpProjects\Development\prestamo\PrestamoBLLTests\ImagesFor\Clientes";
             try
             {
                 var clientes = new ClienteBLL(1,"BllTest").GetClientes(new ClienteGetParams { IdCliente = idCliente });

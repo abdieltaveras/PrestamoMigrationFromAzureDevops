@@ -352,14 +352,14 @@ namespace PrestamoEntidades
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
         //{ get=> ; internal set; }
         [Range(0.0, 30.00, ErrorMessage = "rango permitido entre 1 y 30%")]
-        [Display(Name = "Interes al G/C/?")]
+        [Display(Name = "Interes al G/Credito/?")]
         public virtual decimal InteresGastoDeCierre { get; set; } = 0.00m;
         public decimal MontoGastoDeCierre { get; set; }
-        [Display(Name = "Es deducible el G/C?")]
+        [Display(Name = "Es deducible el G/Credito?")]
         public virtual bool GastoDeCierreEsDeducible { get; set; } = false;
-        [Display(Name = "Financiar el G/C?")]
+        [Display(Name = "Financiar el G/Credito?")]
         public virtual bool FinanciarGastoDeCierre { get; set; } = true;
-        [Display(Name = "Cargo interes al G/C ?")]
+        [Display(Name = "Cargo interes al G/Credito ?")]
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
 
         /// <summary>

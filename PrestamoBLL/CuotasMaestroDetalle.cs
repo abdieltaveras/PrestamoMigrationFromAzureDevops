@@ -78,7 +78,7 @@ namespace PrestamoBLL
             var detallesCargos = cuotasDetalles
                 .GroupBy(item => item.IdTransaccionMaestro);
 
-            var debitos = new List<DebitoPrestamoViewModel>();
+            var debitosViewModel = new List<DebitoPrestamoViewModel>();
             foreach (var ctaM in cuotasMaestras)
             {
                 var items = detallesCargos.Where(dc => dc.Key == ctaM.IdTransaccion).SelectMany(item => item);
@@ -87,10 +87,10 @@ namespace PrestamoBLL
 
             foreach (var item in cuotasMaestras)
             {
-                debitos.Add(DebitoPrestamoViewModel.Create(item));
+                debitosViewModel.Add(DebitoPrestamoViewModel.Create(item));
             }
 
-            return debitos;
+            return debitosViewModel;
         }
 
         /// <summary>

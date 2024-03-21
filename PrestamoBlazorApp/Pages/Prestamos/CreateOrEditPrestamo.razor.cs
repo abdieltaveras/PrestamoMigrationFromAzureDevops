@@ -242,7 +242,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 var valorCta = Cuotas.Where(cta => cta.NumeroTransaccion == "1").FirstOrDefault().TotalOrig;
                 montoCuota = Cuotas != null ? valorCta : 0;
             }
-            var result = $"{prestamo.CantidadDeCuotas} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("C")}";
+            var result = $"{prestamo.CantidadDeCuotas} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("Credito")}";
             return result;
         }
 

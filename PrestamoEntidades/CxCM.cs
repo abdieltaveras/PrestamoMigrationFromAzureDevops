@@ -6,7 +6,7 @@ using System.Linq;
 namespace PrestamoEntidades
 {
     public enum TiposCargosPrestamo { Capital, InteresCapital, InteresDespuesDeVencido, GastoDeCierre, InteresGastoDeCierre, OtrosCargos, InteresOtrosCargos, CargoPorAtraso }
-    public enum TiposDrCr { Dr, Cr };
+    public enum TiposDrCr { Debito='D', Credito='C' };
     public enum TiposTransaccionesCxCPrestamo { Cuota, Pago, NotaDeDebito, NotaDeCredito, Recargo }
     public abstract class CxCPrestamoMaestroBase
     {
@@ -79,7 +79,7 @@ namespace PrestamoEntidades
 
     public abstract class CxCPrestamoDrMaestroBase : CxCPrestamoMaestroBase, ICxCPrestamoDrMaestroBase
     {
-        public CxCPrestamoDrMaestroBase(TiposTransaccionesCxCPrestamo tipoTransaccion) : base(TiposDrCr.Dr, tipoTransaccion)
+        public CxCPrestamoDrMaestroBase(TiposTransaccionesCxCPrestamo tipoTransaccion) : base(TiposDrCr.Debito, tipoTransaccion)
         {
 
         }
@@ -258,7 +258,7 @@ namespace PrestamoEntidades
             this.FechaInteresVencidoAplicado = fecha;
             this.FechaInteresVencidoTransitorio = fecha;
             this.TipoTransaccionCxC = TiposTransaccionesCxCPrestamo.Cuota;
-            this.TipoDrCr = TiposDrCr.Dr;
+            this.TipoDrCr = TiposDrCr.Debito;
         }
     }
 

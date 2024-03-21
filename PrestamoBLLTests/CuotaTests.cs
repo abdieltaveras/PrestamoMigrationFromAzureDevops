@@ -94,6 +94,7 @@ namespace PrestamoBLL.Tests
             try
             {
 
+                
                 var result = MaestroDetalleDebitosBLL.Instance.GetCuotasMaestroDetalles(1, 1, 12); 
 
                 // guardar este objeto en una tabla de la base de datos
@@ -141,7 +142,7 @@ namespace PrestamoBLL.Tests
             // pruebas por realizar
             // no financiar gasto de cierre, ajustar el capital
             //********************************
-            cuotaInfo.CargarInteresAlGastoDeCierre = false;
+            //cuotaInfo.CargarInteresAlGastoDeCierre = false;
 
             IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
 

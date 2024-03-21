@@ -29,7 +29,7 @@ namespace PrestamoEntidades
         public override string ToString() => DetallesCuotaText.ToString();
 
 
-        private string DetallesCuotaText => $"Valores Originales Cuota No {NumeroTransaccion} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/C {GastoDeCierre} Int G/C {InteresDelGastoDeCierre} Otros Cargos {OtrosCargos} Interes otros cargos {InteresOtrosCargos} ";
+        private string DetallesCuotaText => $"Valores Originales Cuota No {NumeroTransaccion} Fecha {Fecha} Total {TotalOrig} Capital {Capital} Interes {Interes} G/Credito {GastoDeCierre} Int G/Credito {InteresDelGastoDeCierre} Otros Cargos {OtrosCargos} Interes otros cargos {InteresOtrosCargos} ";
 
         public decimal TotalOrig
         {
