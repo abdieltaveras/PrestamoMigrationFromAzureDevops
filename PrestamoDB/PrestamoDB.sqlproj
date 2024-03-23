@@ -255,6 +255,9 @@
     <Build Include="core\Stored Procedures\spAuthUser.sql" />
     <Build Include="Security\core.sql" />
     <Build Include="core\Stored Procedures\spUpdateRefreshToken.sql" />
+    <Build Include="dbo\Tables\tblCodigosCargosDebitosReservados.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdCodigosCargosDebitosReservados.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCodigosCargos.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />

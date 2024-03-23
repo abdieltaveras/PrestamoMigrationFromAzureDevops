@@ -24,7 +24,6 @@
 		<None Remove="ImagesFor\Garantias\pl2058-1.jpg" />
 		<None Remove="ImagesFor\Garantias\pl2058-2.jpg" />
 		<None Remove="ImagesFor\Garantias\placa-0.jpg" />
-		<None Remove="testhost.dll.config" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -81,11 +80,6 @@
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
 	  <Content Include="ImagesFor\Garantias\placa-0.jpg">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	  <Content Include="testhost.dll.config">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
