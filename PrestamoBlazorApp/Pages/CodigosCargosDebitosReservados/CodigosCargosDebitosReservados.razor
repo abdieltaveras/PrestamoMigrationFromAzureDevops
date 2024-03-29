@@ -1,0 +1,40 @@
+﻿@page "/CodigosCargosDebitosReservados"
+@inherits BaseForList
+@using PrestamoBlazorApp.Shared.Components.Forms
+
+<GeneralList CardTitle="Codigos Cargos" OnAddClick="()=>CreateOrEdit(-1)"
+             OnSearchTextChange="searchEstatusDatabase"
+             MinSearchLength="@MinSearchLength"
+             ShowSearchOption="false">
+
+    <CardContent>
+            <MudTable T="PrestamoEntidades.CodigosCargosDebitosReservados" Loading="LoadingTable" Items="@_codigosCargosDebitosReservados" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped"
+                      Filter="new Func<PrestamoEntidades.CodigosCargosDebitosReservados,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6">Elementos</MudText>
+                    <MudTextField Immediate="true" @bind-Value="SearchStringTable" Required="true" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                    <MudDivider FlexItem="true" Vertical="true" DividerType="DividerType.Middle" Class="ml-1 mr-1 my-1"></MudDivider>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh>Nombre</MudTh>
+                    <MudTh>Descripcion</MudTh>
+                    <MudTh>Acciones</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Codigo">@context.Nombre</MudTd>
+                    <MudTd DataLabel="Nombre">@context.Descripcion</MudTd>
+                    <MudTd>
+                        <MudIconButton OnClick='()=>CreateOrEdit(context.IdCodigoCargo)' Icon="@Icons.Material.Outlined.Edit"></MudIconButton>
+                    </MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+            </MudTable>
+    </CardContent>
+</GeneralList>
+
+
+@code {
+
+}
