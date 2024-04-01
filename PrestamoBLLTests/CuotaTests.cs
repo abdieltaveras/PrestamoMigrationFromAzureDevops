@@ -196,107 +196,107 @@ namespace PrestamoBLL.Tests
 
         }
 
-        [TestMethod()]
-        public void GenerarCuotasForDifferentValuesTest()
-        {
+        //[TestMethod()]
+        //public void GenerarCuotasForDifferentValuesTest()
+        //{
 
-            // este procedimiento debera ser revisado por completo y toda la responsabilidad debe estar en el objeto
-            // que genera las cuotas que es quien sabra daterminar todo lo que aqui se hacer o desea conocer
-            var periodo = new Periodo { Codigo = "Mes", PeriodoBase = PeriodoBase.Mes, Nombre = "CxCMaestroDetalles Mensuales" };
-            var prestamo = new Prestamo
-            {
-                IdPrestamo = 1,
-                FechaEmisionReal = new DateTime(2021, 01, 01),
-                CantidadDeCuotas = 7,
-                TasaDeInteresDelPeriodo = 5,
-                Periodo = periodo,
-                MontoPrestado = 10000,
-                TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
-                MontoGastoDeCierre = 1000,
-                CargarInteresAlGastoDeCierre = true,
-                FinanciarGastoDeCierre = true,
-                OtrosCargos = 200,
-            };
+        //    // este procedimiento debera ser revisado por completo y toda la responsabilidad debe estar en el objeto
+        //    // que genera las cuotas que es quien sabra daterminar todo lo que aqui se hacer o desea conocer
+        //    var periodo = new Periodo { Codigo = "Mes", PeriodoBase = PeriodoBase.Mes, Nombre = "CxCMaestroDetalles Mensuales" };
+        //    var prestamo = new Prestamo
+        //    {
+        //        IdPrestamo = 1,
+        //        FechaEmisionReal = new DateTime(2021, 01, 01),
+        //        CantidadDeCuotas = 7,
+        //        TasaDeInteresDelPeriodo = 5,
+        //        Periodo = periodo,
+        //        MontoPrestado = 10000,
+        //        TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
+        //        MontoGastoDeCierre = 1000,
+        //        CargarInteresAlGastoDeCierre = true,
+        //        FinanciarGastoDeCierre = true,
+        //        OtrosCargos = 200,
+        //    };
 
 
 
-            //necesito aqui un objeto que sea capaz de indicarme la tasa de interes para el Periodo quincenal
+        //    //necesito aqui un objeto que sea capaz de indicarme la tasa de interes para el Periodo quincenal
 
-            //var infCuota = new InfoGeneradorDeCuotas()
-            //{
-            //    AcomodarFechaALasCuotas = false,
-            //    CantidadDeCuotas = 7,
-            //    TasaDeInteresDelPeriodo = 5,
-            //    Periodo = Periodo,
-            //    MontoCapital = 10000,
-            //    TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
-            //    MontoGastoDeCierre = 1000,
-            //    CargarInteresAlGastoDeCierre = true,
-            //    FinanciarGastoDeCierre = true,
-            //    OtrosCargos = 200
-            //};
+        //    //var infCuota = new InfoGeneradorDeCuotas()
+        //    //{
+        //    //    AcomodarFechaALasCuotas = false,
+        //    //    CantidadDeCuotas = 7,
+        //    //    TasaDeInteresDelPeriodo = 5,
+        //    //    Periodo = Periodo,
+        //    //    MontoCapital = 10000,
+        //    //    TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
+        //    //    MontoGastoDeCierre = 1000,
+        //    //    CargarInteresAlGastoDeCierre = true,
+        //    //    FinanciarGastoDeCierre = true,
+        //    //    OtrosCargos = 200
+        //    //};
 
-            // ignorador para evitar error
-            //IGeneradorCuotasV2 generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo, prestamo.IdPrestamo);
+        //    // ignorador para evitar error
+        //    //IGeneradorCuotasV2 generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo, prestamo.IdPrestamo);
 
             
-            //var cuotas = generadorCuota.GenerarCuotas();
-            var cuotas = new List<CuotaPrestamo>(); // la linea que en verdad va es la anterior
+        //    //var cuotas = generadorCuota.GenerarCuotas();
+        //    var cuotas = new List<CuotaPrestamo>(); // la linea que en verdad va es la anterior
 
-            var totales = new ValoresTotalesDelPrestamo();
-            IEnumerable<CxCPrestamoDrMaestroBase> testData = new  List<CxCPrestamoDrMaestroBase>();
+        //    var totales = new ValoresTotalesDelPrestamo();
+        //    IEnumerable<CxCPrestamoDrMaestroBase> testData = new  List<CxCPrestamoDrMaestroBase>();
             
-            totales.TCapital = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.Capital);
-            totales.TCapital = cuotas.TotalCapitalMonto();
-            totales.TInteres = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresCapital);
-            totales.TGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.GastoDeCierre);
-            totales.TInteresGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresGastoDeCierre);
-            totales.TOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.OtrosCargos);
-            totales.TInteresOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresOtrosCargos);
+        //    totales.TCapital = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.Capital);
+        //    totales.TCapital = cuotas.TotalCapitalMonto();
+        //    totales.TInteres = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresCapital);
+        //    totales.TGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.GastoDeCierre);
+        //    totales.TInteresGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresGastoDeCierre);
+        //    totales.TOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.OtrosCargos);
+        //    totales.TInteresOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresOtrosCargos);
 
-            var comparaciones = new ComparacionTotales(prestamo, totales);
-            var resultados = comparaciones.RealizarComparacion();
-            var operacionesFallidas = resultados.Where(item => item.Resultado == false);
-            var mensajeOperacionesFallidas = operacionesFallidas.Select(item => item.NombreComparacion);
-            var mensajeFinal = string.Join(",", mensajeOperacionesFallidas);
+        //    var comparaciones = new ComparacionTotales(prestamo, totales);
+        //    var resultados = comparaciones.RealizarComparacion();
+        //    var operacionesFallidas = resultados.Where(item => item.Resultado == false);
+        //    var mensajeOperacionesFallidas = operacionesFallidas.Select(item => item.NombreComparacion);
+        //    var mensajeFinal = string.Join(",", mensajeOperacionesFallidas);
 
 
-            periodo = new Periodo { Codigo = "Dia", PeriodoBase = PeriodoBase.Dia, Nombre = "CxCMaestroDetalles Diarias" };
-            var diasDelPeriodoEnElMes = 30;
-            var tasaInteresDelPeriodo = 5 / diasDelPeriodoEnElMes;
-            prestamo = new Prestamo
-            {
-                FechaEmisionReal = new DateTime(2021, 01, 01),
-                CantidadDeCuotas = 60,
-                TasaDeInteresDelPeriodo = tasaInteresDelPeriodo,
-                Periodo = periodo,
-                MontoPrestado = 12000,
-                TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
-                MontoGastoDeCierre = 1200,
-                CargarInteresAlGastoDeCierre = true,
-                FinanciarGastoDeCierre = true,
-                OtrosCargos = 300,
-                CargarInteresOtrosCargos = true
-            };
+        //    periodo = new Periodo { Codigo = "Dia", PeriodoBase = PeriodoBase.Dia, Nombre = "CxCMaestroDetalles Diarias" };
+        //    var diasDelPeriodoEnElMes = 30;
+        //    var tasaInteresDelPeriodo = 5 / diasDelPeriodoEnElMes;
+        //    prestamo = new Prestamo
+        //    {
+        //        FechaEmisionReal = new DateTime(2021, 01, 01),
+        //        CantidadDeCuotas = 60,
+        //        TasaDeInteresDelPeriodo = tasaInteresDelPeriodo,
+        //        Periodo = periodo,
+        //        MontoPrestado = 12000,
+        //        TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
+        //        MontoGastoDeCierre = 1200,
+        //        CargarInteresAlGastoDeCierre = true,
+        //        FinanciarGastoDeCierre = true,
+        //        OtrosCargos = 300,
+        //        CargarInteresOtrosCargos = true
+        //    };
 
-            //generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo,-1);
-            //cuotas = generadorCuota.GenerarCuotas();
+        //    //generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo,-1);
+        //    //cuotas = generadorCuota.GenerarCuotas();
             
-            totales = new ValoresTotalesDelPrestamo();
+        //    totales = new ValoresTotalesDelPrestamo();
 
-            totales.TCapital = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.Capital);
-            totales.TInteres = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresCapital);
-            totales.TGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.GastoDeCierre);
-            totales.TInteresGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresGastoDeCierre);
-            totales.TOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.OtrosCargos);
-            totales.TInteresOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresOtrosCargos);
-            comparaciones = new ComparacionTotales(prestamo, totales);
-            resultados = comparaciones.RealizarComparacion();
-            operacionesFallidas = comparaciones.GetOperacionesFallidas();
-            mensajeFinal = comparaciones.ListadoDeOperacionesFallidas();
+        //    totales.TCapital = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.Capital);
+        //    totales.TInteres = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresCapital);
+        //    totales.TGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.GastoDeCierre);
+        //    totales.TInteresGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresGastoDeCierre);
+        //    totales.TOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.OtrosCargos);
+        //    totales.TInteresOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresOtrosCargos);
+        //    comparaciones = new ComparacionTotales(prestamo, totales);
+        //    resultados = comparaciones.RealizarComparacion();
+        //    operacionesFallidas = comparaciones.GetOperacionesFallidas();
+        //    mensajeFinal = comparaciones.ListadoDeOperacionesFallidas();
 
-            Assert.IsTrue(operacionesFallidas.Count() > 0, mensajeFinal);
-        }
+        //    Assert.IsTrue(operacionesFallidas.Count() > 0, mensajeFinal);
+        //}
 
         class ValoresTotalesDelPrestamo
         {

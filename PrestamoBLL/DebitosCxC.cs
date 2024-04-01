@@ -77,6 +77,7 @@ namespace PrestamoBLL
         public const string InteresOtrosCargos = "INTOC";
         public static string GetNombreCargo(string codigoCargo)
         {
+            
             string nombre = string.Empty;
             switch (codigoCargo)
             {
@@ -110,7 +111,7 @@ namespace PrestamoBLL
         
         public virtual char TipoDrCr { get; protected set; }
         public int IdPrestamo { get; set; }
-        public virtual string CodigoTipoTransaccion { get; protected set; }
+        public virtual string CodigoTipoTransaccion { get; set; }
         public virtual Guid IdReferencia { get; internal set; } = Guid.NewGuid();
         public string NumeroTransaccion { get; set; }
         public DateTime Fecha { get; set; }
@@ -226,8 +227,6 @@ namespace PrestamoBLL
         public decimal Mora { get;  set; }
         public decimal OtrosCargos { get; set; }
         public decimal InteresOtrosCargos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        
 
         public decimal TotalOrig => throw new NotImplementedException();
     }

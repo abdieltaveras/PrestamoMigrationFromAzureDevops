@@ -14,7 +14,7 @@ namespace PrestamoBLL
 
         public interface IGeneradorCuotasV2
         {
-            List<PrestamoEntidades.CuotaPrestamo> GenerarCuotas();
+            //List<PrestamoEntidades.CuotaPrestamo> GenerarCuotas();
         }
 
         //public class GeneradorCuotasBase : IGeneradorCuotasV2
