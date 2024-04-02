@@ -116,7 +116,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="testhost.dll.config">
+		<None Update="testhost.config">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="appsettings.json">

@@ -67,6 +67,7 @@ namespace PrestamoBLL
     /// </summary>
     public class CodigosCargosDebitosReservados
     {
+
         public const string Capital = "CA";
         public const string Interes = "INT";
         public const string InteresDespuesDeVencido = "INTDV";
@@ -159,44 +160,40 @@ namespace PrestamoBLL
 
         private  DebitoPrestamoViewModel(MaestroDrConDetalles value)
         {
+            
             this.Fecha = value.Fecha;
             this.NombreDocumento = CodigosTiposTransaccionCxC.GetNombreTipoDocumento(value.CodigoTipoTransaccion); 
              this.NumeroTransaccion = value.NumeroTransaccion;
+
             foreach (var item in value.GetDetallesCargos())
             {
-                if (item.CodigoCargo ==  CodigosCargosDebitosReservados.Capital)
+                switch (item.CodigoCargo)
                 {
-                    this.Capital = item.Balance;
-                    continue;
+                    case CodigosCargosDebitosReservados.Capital:
+                        this.Capital = item.Balance; break;
+                    case CodigosCargosDebitosReservados.Interes:
+                        this.Interes = item.Balance; break;
+                    case CodigosCargosDebitosReservados.GastoDeCierre:
+                        this.GastoDeCierre = item.Balance; break;
+                    case CodigosCargosDebitosReservados.InteresDelGastoDeCierre:
+                        this.InteresDelGastoDeCierre = item.Balance; break;
+                    case CodigosCargosDebitosReservados.Moras:
+                        this.Mora = item.Balance; break;
+                    case CodigosCargosDebitosReservados.InteresDespuesDeVencido:
+                        this.InteresDespuesDeVencido = item.Balance; break;
+                    case CodigosCargosDebitosReservados.InteresOtrosCargos:
+                        this.InteresOtrosCargos = item.Balance; break;
+                    default:
+                        this.OtrosCargos = item.Balance;
+                        this.AddDetalleOtrosCargos(item);
+                        break;
                 }
-                if (item.CodigoCargo == CodigosCargosDebitosReservados.Interes)
-                {
-                    this.Interes = item.Balance;
-                    continue;
-                }
-                if (item.CodigoCargo == CodigosCargosDebitosReservados.GastoDeCierre)
-                {
-                    this.GastoDeCierre = item.Balance;
-                    continue;
-                }
-
-                if (item.CodigoCargo == CodigosCargosDebitosReservados.InteresDelGastoDeCierre)
-                {
-                    this.InteresDelGastoDeCierre = item.Balance;
-                    continue;
-                }
-                if (item.CodigoCargo == CodigosCargosDebitosReservados.Moras)
-                {
-                    this.Mora = item.Balance;
-                    continue;
-                }
-                if (item.CodigoCargo == CodigosCargosDebitosReservados.InteresOtrosCargos)
-                {
-                    this.InteresOtrosCargos = item.Balance;
-                    continue;
-                }
-                this.OtrosCargos = item.Balance;
             }
+        }
+
+        private void AddDetalleOtrosCargos(IDetalleDebitoCxC item)
+        {
+            this.DetallesOtrosCargos.Add(item);
         }
 
         internal static DebitoPrestamoViewModel Create(MaestroDrConDetalles value)
@@ -226,9 +223,13 @@ namespace PrestamoBLL
         public decimal InteresDelGastoDeCierre { get;  set; }
         public decimal Mora { get;  set; }
         public decimal OtrosCargos { get; set; }
-        public decimal InteresOtrosCargos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public decimal InteresOtrosCargos { get; set; }
+        public decimal TotalOrig { get; set; }
+        public decimal InteresDespuesDeVencido { get; set; }
+        public List<IDetalleDebitoCxC> DetallesOtrosCargos { get; set; }
 
-        public decimal TotalOrig => throw new NotImplementedException();
+        public override string ToString() => $"Cuota numero { this.NumeroTransaccion } Total origina {TotalOrig}  Balance ? ";
+        
     }
 
 
@@ -261,6 +262,7 @@ namespace PrestamoBLL
         public string CodigoCargo { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
+
         public override string ToString() => $"{CodigosCargosDebitosReservados.GetNombreCargo(CodigoCargo)} Monto {Monto} Balance {Balance}";
     }
 

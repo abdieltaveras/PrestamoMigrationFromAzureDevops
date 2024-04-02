@@ -69,7 +69,7 @@ namespace PrestamoBLL
                 }
             }
 
-            var result =  ConvertToDebitoPrestamoViewModel(cuotasMaestras, cuotasDetalles);
+            var result = ConvertToDebitoPrestamoViewModel(cuotasMaestras, cuotasDetalles);
             return result;
         }
 

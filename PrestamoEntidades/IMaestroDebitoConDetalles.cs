@@ -16,6 +16,8 @@ namespace PrestamoEntidades
         string CodigoCargo { get; set; }
         decimal Monto { get; set; }
         decimal Balance { get; set; }
+        
+        
     }
 
     public interface IMaestroDebitoConDetallesCxC

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PrestamoEntidades
 {
@@ -12,7 +13,10 @@ namespace PrestamoEntidades
         decimal InteresDelGastoDeCierre { get;  }
         decimal OtrosCargos { get;  }
         decimal InteresOtrosCargos { get;  }
+        decimal InteresDespuesDeVencido { get;  }
         decimal TotalOrig { get; }
+        List<IDetalleDebitoCxC> DetallesOtrosCargos { get; set; }
+
         bool MenorOIgualALaFecha(DateTime fecha);
         bool Vencida(DateTime fecha);
     }
