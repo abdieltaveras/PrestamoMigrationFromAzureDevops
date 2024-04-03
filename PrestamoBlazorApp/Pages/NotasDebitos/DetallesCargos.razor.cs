@@ -16,10 +16,7 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
 {
     public partial class DetallesCargos : BaseForList
     {
-        [Inject]
-        ClientesService ClientesService { get; set; }
-        [Inject]
-        PrestamosService PrestamosService { get; set; }
+        
         NotaDeDebito NotaDe { get; set; } = new NotaDeDebito();
         public int IdPrestamo { get; set; } = -1;
         private string SelectedCodigo { get; set; }
@@ -37,7 +34,7 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
        
         private async Task AgregarDetalle(MouseEventArgs arg)
         {
-             AsignarCargosDebito();
+            AsignarCargosDebito();
             StateHasChanged();
         }
 

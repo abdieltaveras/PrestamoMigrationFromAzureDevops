@@ -21,7 +21,7 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         [Inject]
         PrestamosService PrestamosService { get; set; }
         NotaDeDebito NotaDe { get; set; } = new NotaDeDebito();
-         private PrestamoEntidades.Cliente ClienteSelected { get; set; } = new PrestamoEntidades.Cliente();
+        private PrestamoEntidades.Cliente ClienteSelected { get; set; } = new PrestamoEntidades.Cliente();
         private PrestamoEntidades.Prestamo PrestamoSelected { get; set; } = new PrestamoEntidades.Prestamo();
         public int IdPrestamo { get; set; } = -1;
         private string SelectedCodigo { get; set; }
@@ -36,12 +36,9 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         {
             CodigosCargos = ListadoCodigosCargos.Get();
             return base.OnInitializedAsync();
-            
         }
         private async Task GetDataPrestamo()
         {
-
-
             PrestamoSelected = new PrestamoEntidades.Prestamo();
             var prestamos = await PrestamosService.GetAsync(new PrestamoEntidades.PrestamosGetParams { idPrestamo = IdPrestamo });
             PrestamoSelected = prestamos.FirstOrDefault();
@@ -52,33 +49,32 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         
         private async Task AgregarDetalle(MouseEventArgs arg)
         {
-             AsignarCargosDebito();
             StateHasChanged();
         }
 
-        private void AsignarCargosDebito()
-        {
-            var cargos = CodigosCargos.FirstOrDefault(c => c.Codigo == SelectedCodigo);
-            var detalleCargo = new DetalleCargo
-            {
-                CodigoCargo = SelectedCodigo,
-                Monto = MontoCargado,
-                //NombreCargo = cargos.Nombre
-                NombreCargo = cargos != null ? cargos.Nombre : null
-            };
-            if (MontoCargado + detalleCargo.Monto <= NotaDe.Monto)
-            {
-                DataSelect.Add(detalleCargo);
-                MontoCargado += detalleCargo.Monto;
-                MontoRestante = NotaDe.Monto - detalleCargo.Monto;
+        //private void AsignarCargosDebito()
+        //{
+        //    var cargos = CodigosCargos.FirstOrDefault(c => c.Codigo == SelectedCodigo);
+        //    var detalleCargo = new DetalleCargo
+        //    {
+        //        CodigoCargo = SelectedCodigo,
+        //        Monto = MontoCargado,
+        //        //NombreCargo = cargos.Nombre
+        //        NombreCargo = cargos != null ? cargos.Nombre : null
+        //    };
+        //    if (MontoCargado + detalleCargo.Monto <= NotaDe.Monto)
+        //    {
+        //        DataSelect.Add(detalleCargo);
+        //        MontoCargado += detalleCargo.Monto;
+        //        MontoRestante = NotaDe.Monto - detalleCargo.Monto;
 
-            }
-            else
-            {
-                _ = NotifyMessageBySnackBar("Monto Excedido, Verificar Monto Asignado", MudBlazor.Severity.Error);
-                MontoCargado = 0;
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        _ = NotifyMessageBySnackBar("Monto Excedido, Verificar Monto Asignado", MudBlazor.Severity.Error);
+        //        MontoCargado = 0;
+        //    }
+        //}
 
 
     }
