@@ -9,6 +9,7 @@ namespace PrestamoEntidades
     public class CodigosCargosDebitosReservados:BaseInsUpd
     {
         public int IdCodigoCargo { get; set; } = 0;
+        public string Codigo { get; set; }
         public string Nombre { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
 

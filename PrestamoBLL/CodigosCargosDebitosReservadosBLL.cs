@@ -12,6 +12,7 @@ namespace PrestamoBLL
     {
         public CodigosCargosDebitosReservadosBLL(int idLocalidadNegocio, string loginName) : base(idLocalidadNegocio, loginName)
         {
+            
         }
 
         public IEnumerable<CodigosCargosDebitosReservados> Get(CodigosCargosGetParams searchParam)
@@ -20,6 +21,8 @@ namespace PrestamoBLL
         }
         public int InsUpd(CodigosCargosDebitosReservados insUpdParam)
         {
+            insUpdParam.IdLocalidadNegocio = this.IdLocalidadNegocioLoggedIn;
+            insUpdParam.Usuario = this.LoginName;
             var result = this.InsUpd("spInsUpdCodigosCargosDebitosReservados", insUpdParam);
             return result;
         }

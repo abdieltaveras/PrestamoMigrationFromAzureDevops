@@ -17,6 +17,7 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<CodigosCargosDebitosReservados> Get([FromQuery] CodigosCargosGetParams search)
         {
+            
             var result = new CodigosCargosDebitosReservadosBLL(this.IdLocalidadNegocio, this.LoginName).Get(search);
             return result;
         }
