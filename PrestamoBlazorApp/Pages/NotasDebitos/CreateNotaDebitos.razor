@@ -10,7 +10,7 @@
 <MudText Align="Align.Center" Color="MudBlazor.Color.Primary" Typo="Typo.h2"> Notas de Debitos</MudText>
 <MudSpacer></MudSpacer>
 <MudGrid Justify="Justify.FlexStart">
-    <MudItem>
+    <MudItem xs="4">
         @* <MudItem xs="6" sm="3">
         <MudNumericField HideSpinButtons="true" T="int" @bind-Value="@IdPrestamo" Label="No Prestamo" Format="F1" Variant="Variant.Outlined" />
         </MudItem> *@
@@ -40,58 +40,8 @@
             </MudListItem>
         </MudPaper>
     </MudItem>
-    <MudItem xs="3">
-        <MudDatePicker Editable="true" Label="Fecha" @bind-Date="NotaDe.Fecha" />
-        <MudNumericField HideSpinButtons="true" @bind-Value="NotaDe.Monto" Label="Monto" Format="F1" Variant="Variant.Outlined" />
-        <MudAlert Severity="Severity.Info">MONTO POR APLICAR @MontoRestante</MudAlert>
-        @*         <MudAlert Severity="Severity.Info" Variant="Variant.Filled" Dense="true" Class="my-2">Distribucion</MudAlert>
-        <MudNumericField HideSpinButtons="true" @bind-Value="@PrestamoSelected.OtrosCargos" Label="Otros Cargos" Variant="Variant.Text" />
-        <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Vencido" Variant="Variant.Text" Min="0" Max="10" />
-        <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Atraso" Variant="Variant.Text" Min="0" Max="10" />
-        <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="interes" Variant="Variant.Text" Min="0" Max="10" />
-        <MudNumericField HideSpinButtons="true" @bind-Value="IntValue" Label="Capital" Variant="Variant.Text" Min="0" Max="10" /> *@
-    </MudItem>
-    <MudItem xs="4">
-        <MudButton>Asignar cargos</MudButton>
-        <MudSelect T="string" Label="Selecciona un código de cargo" MultiSelection="false"  @bind-Value="SelectedCodigo">
-            @foreach (var codigo in CodigosCargos)
-            {
-                <MudSelectItem Value="@codigo.Codigo"> @codigo.Nombre</MudSelectItem>
-            }
-        </MudSelect>
-        <MudNumericField HideSpinButtons="true" @bind-Value="MontoCargado" Variant="Variant.Text" />
-        <MudButton DisableElevation="true" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Info" Size="Size.Small" OnClick="@AgregarDetalle">Agregar</MudButton>
-        <MudTable Items="@DataSelect">
-
-            <HeaderContent>
-                <MudTh>Nombre</MudTh>
-                <MudTh>Monto</MudTh>
-            </HeaderContent>
-            <RowTemplate>
-                    <MudTd DataLabel="Nombre">@context.NombreCargo</MudTd>
-                    <MudTd DataLabel="Nombre">@context.Monto</MudTd>
-            </RowTemplate>
-        </MudTable>
-
-        @* <MudSimpleTable Items="@DataSelect">
-        <thead>
-        <tr>
-        <th>Codigo</th>
-        <th>Nombre</th>
-        <th>Monto</th>
-        </tr>
-        </thead>
-        @{
-        foreach (var cargo in DataSelect)
-        {
-        <tr>
-        <td>@cargo.Codigo</td>
-        <td>@cargo.Nombre</td>
-
-        </tr>
-        }
-        }
-        </MudSimpleTable> *@
+    <MudItem xs="8">
+        <DetallesCargos></DetallesCargos>
     </MudItem>
 </MudGrid>
 
