@@ -10,16 +10,19 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-
-    
     public class CodigosTiposTransaccionCxC
     {
-        public static string Cuota => "CT";
-        public static string Pago => "PG";
-        public static string CargoInterno => "CI";
-        public static string NotaDeDebito => "ND";
-        public static string NotaDeCredito => "NC";
-        public static string GetNombreTipoDocumento(string codigoCargo)
+        public const string Cuota = "CT";
+        public const string Pago = "PG";
+        /// <summary>
+        ///  se usara para generar moras, interes, todos los cargos que el sistema genera
+        ///  de manera automatica
+        /// </summary>
+        public const string CargoInterno = "CI";
+        public const string NotaDeDebito = "ND";
+        public const string NotaDeCredito = "NC";
+
+        public  static string GetNombre(string codigoCargo)
         {
             string nombre = string.Empty;
             switch (codigoCargo)
@@ -29,13 +32,25 @@ namespace PrestamoBLL
                 case "CI": nombre = "Cargo Interno"; break;
                 case "ND": nombre = "Nota de Debito"; break;
                 case "NC": nombre = "Nota de Credito"; break;
-                default: return string.Empty;
+                default: nombre = "el codigo indicado no esta registrado"; break;
             }
             return nombre;
         }
-
+        public static IEnumerable<string> GetCodigos()
+        {
+            // no se incluye otros cargos porque ese reservados para agrupar los cargos
+            // creados por el usuario
+            var codigos = new List<string>()
+            {
+                Cuota, Pago, CargoInterno,NotaDeCredito, NotaDeDebito 
+            };
+            return codigos;
+        }
     }
 
+    /// <summary>
+    /// este objeto no se usara por ahora, dejaremos el que esta definido como constante
+    /// </summary>
     internal class CodigosCargosDebitosV2 : Enumeration
     {
         public string Codigo { get; }
@@ -76,7 +91,7 @@ namespace PrestamoBLL
         public const string GastoDeCierre = "GC";
         public const string OtrosCargos = "OC";
         public const string InteresOtrosCargos = "INTOC";
-        public static string GetNombreCargo(string codigoCargo)
+        public static string GetNombre(string codigoCargo)
         {
             
             string nombre = string.Empty;
@@ -90,13 +105,15 @@ namespace PrestamoBLL
                 case InteresDelGastoDeCierre: nombre = "Interes del gasto de cierre"; break;
                 case OtrosCargos: nombre = "Otros  Cargos"; break;
                 case InteresOtrosCargos: nombre = "Interes Otros cargos"; break;
-                default: return string.Empty;
+                default: nombre= "el codigo indicado no esta registrado"; break; 
             }
             return nombre;
         }
         public override string ToString() => "Codigos reservados para utilizar en los cargos";
-        public static IEnumerable<string> GetCodigosCargosReservados()
+        public static IEnumerable<string> GetCodigos()
         { 
+            // no se incluye otros cargos porque ese reservados para agrupar los cargos
+            // creados por el usuario
             var codigosCargos = new List<string>()
             { 
                 Capital, Interes, InteresDespuesDeVencido, Moras, GastoDeCierre, InteresDelGastoDeCierre, InteresOtrosCargos
@@ -162,7 +179,7 @@ namespace PrestamoBLL
         {
             
             this.Fecha = value.Fecha;
-            this.NombreDocumento = CodigosTiposTransaccionCxC.GetNombreTipoDocumento(value.CodigoTipoTransaccion); 
+            this.NombreDocumento = CodigosTiposTransaccionCxC.GetNombre(value.CodigoTipoTransaccion); 
              this.NumeroTransaccion = value.NumeroTransaccion;
 
             foreach (var item in value.GetDetallesCargos())
@@ -263,7 +280,7 @@ namespace PrestamoBLL
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
 
-        public override string ToString() => $"{CodigosCargosDebitosReservados.GetNombreCargo(CodigoCargo)} Monto {Monto} Balance {Balance}";
+        public override string ToString() => $"{CodigosCargosDebitosReservados.GetNombre(CodigoCargo)} Monto {Monto} Balance {Balance}";
     }
 
     internal class CuotaPrestamoBuilder
