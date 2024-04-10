@@ -44,8 +44,8 @@ namespace PrestamoWS.Controllers
 
         protected string ImagePathForClientesIdentificaciones => currentDir + @"\imagesFor\Clientes\Identificaciones";
 
-        protected string ImagePathForGarantia => currentDir+ @"\imagesFor\Garantias\";
-        protected string ImagePathForCodeudores => currentDir + @"\imagesFor\Codeudores\";
+        protected string ImagePathForGarantia => currentDir+ @"\imagesFor\GarantiasDT\";
+        protected string ImagePathForCodeudores => currentDir + @"\imagesFor\CodeudoresDT\";
         protected string ImagePathForInversionistas => currentDir + @"\imagesFor\Inversionistas\";
         protected bool IsUserAuthenticaded => UserIsAuthenticated();
         protected InfoAccion InfoAccion { get { return this.InfoAccionFromSesion(); } }

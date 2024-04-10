@@ -129,7 +129,7 @@ namespace PrestamoWS.Controllers
 
 
         [HttpGet]
-        public IEnumerable<CxCCuota> GenerarCuotas2(string jsonInfoGenCuotas)
+        public IEnumerable<DebitoPrestamoConDetallesViewModel> GenerarCuotas2(string jsonInfoGenCuotas)
         {
             var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
             infoGenCuotas.Usuario = this.LoginName;
@@ -140,14 +140,14 @@ namespace PrestamoWS.Controllers
             return cuotas;
         }
 
-        private IEnumerable<CxCCuota> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
+        private IEnumerable<DebitoPrestamoConDetallesViewModel> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
         {
             //todo implementar llamar la nueva forma de generar cargos pero devolverlo en formato de CXCCuota
             return null;
         }
 
         [HttpGet]
-        public IEnumerable<CxCCuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
+        public IEnumerable<DebitoPrestamoConDetallesViewModel> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
         {
             //todo actualizarlo a la nueva forma con el nuevo objeto

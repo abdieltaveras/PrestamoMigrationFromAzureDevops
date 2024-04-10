@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Security.Cryptography.Xml;
 using System.Runtime.CompilerServices;
-
+using PrestamoBLL.Models;
+using System.Runtime.InteropServices;
 namespace PrestamoBLL
 {
     public class MaestroDetalleDebitosBLL
@@ -43,7 +44,7 @@ namespace PrestamoBLL
         }
 
 
-        private IEnumerable<DebitoPrestamoViewModel> GetMaestroDetallesDr(int idNegocio, int idLocalidad, int idPrestamo, string codigoTipoTransaccion, char tipoDrCr)
+        private IEnumerable<DebitoPrestamoConDetallesForBLL> GetMaestroDetallesDr(int idNegocio, int idLocalidad, int idPrestamo, string codigoTipoTransaccion, char tipoDrCr)
         {
             // buscar las cuotas
             var getParams = new { idNegocio = idNegocio, idLocalidad = idLocalidad, idPrestamo = idPrestamo, codigoTipoTransaccion = codigoTipoTransaccion, tipoDrCr };
@@ -73,12 +74,12 @@ namespace PrestamoBLL
             return result;
         }
 
-        private static IEnumerable<DebitoPrestamoViewModel> ConvertToDebitoPrestamoViewModel(List<MaestroDrConDetalles> cuotasMaestras, List<DetalleCargoCxC> cuotasDetalles)
+        private static IEnumerable<DebitoPrestamoConDetallesForBLL> ConvertToDebitoPrestamoViewModel(List<MaestroDrConDetalles> cuotasMaestras, List<DetalleCargoCxC> cuotasDetalles)
         {
             var detallesCargos = cuotasDetalles
                 .GroupBy(item => item.IdTransaccionMaestro);
 
-            var debitosViewModel = new List<DebitoPrestamoViewModel>();
+            var debitosViewModel = new List<DebitoPrestamoConDetallesForBLL>();
             foreach (var ctaM in cuotasMaestras)
             {
                 var items = detallesCargos.Where(dc => dc.Key == ctaM.IdTransaccion).SelectMany(item => item);
@@ -87,7 +88,7 @@ namespace PrestamoBLL
 
             foreach (var item in cuotasMaestras)
             {
-                debitosViewModel.Add(DebitoPrestamoViewModel.Create(item));
+                debitosViewModel.Add(DebitoPrestamoConDetallesForBLL.Create(item));
             }
 
             return debitosViewModel;
@@ -110,10 +111,24 @@ namespace PrestamoBLL
             InsDebitoMaestroDetalle(cuotas);
         }
 
-        public void InsDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> debitos)
+        /// <summary>
+        /// recibiendo el listado de cargos generar el maestro y detalle de los mismos por separado
+        /// </summary>
+        /// <param name="debitos"></param>
+        /// <returns></returns>
+        internal static DrMaestroDetalle CreateDrMaestroYDetalles(IEnumerable<IMaestroDebitoConDetallesCxC> debitos)
         {
-            var ctasMaestroCxC = debitos.Cast<MaestroDrConDetalles>();
+            var maestro = debitos.Cast<MaestroDrConDetalles>();
             var detalles = CreateDetallesDr(debitos);
+            var result = new DrMaestroDetalle(maestro, detalles);
+            return result;
+                
+        }
+        internal void InsDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> debitos)
+        {
+            var result = CreateDrMaestroYDetalles(debitos);
+            var ctasMaestroCxC = result.Maestros;
+            var detalles = result.Detalles;
             var dataParams = new { maestroCxC = ctasMaestroCxC.ToDataTable(), detallesCargos = detalles.ToDataTable(), crearTablas = 1 };
             var sqlParams = SearchRec.ToSqlParams(dataParams);
             //BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spTestCreateTmpCxC", sqlParams);
@@ -146,7 +161,7 @@ namespace PrestamoBLL
             BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.SpInsDetallesDrCxC", sqlParams);
         }
 
-        private static List<IDetalleDebitoCxC> CreateDetallesDr(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
+        internal static List<IDetalleDebitoCxC> CreateDetallesDr(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {
             List<IDetalleDebitoCxC> detalles = new List<IDetalleDebitoCxC>();
             cuotas.ForEach(cta => detalles.AddRange(cta.GetDetallesCargos()));

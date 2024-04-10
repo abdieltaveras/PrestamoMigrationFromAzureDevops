@@ -38,7 +38,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         GarantiasService GarantiasService { get; set; }
 
         private bool EnableCalculation { get; set; }
-        private CxCCuota CxCCuotaSelected { get; set; }=new CxCCuota(); 
+        private DebitoPrestamoConDetallesViewModel CxCCuotaSelected { get; set; }=new DebitoPrestamoConDetallesViewModel(); 
         private GarantiaConMarcaYModelo GarantiaSelected { get; set; } = new GarantiaConMarcaYModelo();
         private Cliente ClienteSelected { get; set; } = new Cliente();
 
@@ -209,7 +209,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         }
         private async Task CalcularCuotas()
         {
-            IEnumerable<CxCCuota> cuotas = new List<CxCCuota>();
+            IEnumerable<DebitoPrestamoConDetallesViewModel> cuotas = new List<DebitoPrestamoConDetallesViewModel>();
             try
             {
                 //cuotas = await prestamoService.GenerarCuotas(this.prestamo);
@@ -232,14 +232,14 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         {
         }
 
-        private List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
+        private List<DebitoPrestamoConDetallesViewModel> Cuotas { get; set; } = new List<DebitoPrestamoConDetallesViewModel>();
 
         private string InfoCuotas()
         {
             decimal montoCuota = 0;
             if (prestamo.TipoAmortizacion == TiposAmortizacion.No_Amortizable_cuotas_fijas)
             {
-                var valorCta = Cuotas.Where(cta => cta.NumeroTransaccion == "1").FirstOrDefault().TotalOrig;
+                var valorCta = Cuotas.Where(cta => cta.NumeroTransaccion == "1").FirstOrDefault().Monto;
                 montoCuota = Cuotas != null ? valorCta : 0;
             }
             var result = $"{prestamo.CantidadDeCuotas} - {prestamo.Periodo.Nombre} por valor de {montoCuota.ToString("Credito")}";
@@ -540,7 +540,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
             if (!result.Cancelled)
             {
-                CxCCuotaSelected = (CxCCuota)result.Data;
+                CxCCuotaSelected = (DebitoPrestamoConDetallesViewModel)result.Data;
                 
 
             }

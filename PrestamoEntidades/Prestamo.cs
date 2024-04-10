@@ -122,7 +122,7 @@ namespace PrestamoEntidades
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; } = new List<InfoCodeudorDrCr>();
         public PrestamoInfo PrestamoInfo { get; set; } = new PrestamoInfo();
-        public IEnumerable<CuotaModel> Cuotas { get; set; } = new List<CuotaModel>();
+        //public IEnumerable<CuotaModel> Cuotas { get; set; } = new List<CuotaModel>();
 
     }
     public class PrestamoClienteUI
@@ -466,28 +466,7 @@ namespace PrestamoEntidades
     }
 
 
-    public class PrestamoInsUpdParam : Prestamo
-    {
-        //public readonly IEnumerable<CxCCuotaForSqlType> _CuotasList = new List<CxCCuotaForSqlType>();
-
-        //public PrestamoInsUpdParam(IEnumerable<CxCCuotaForSqlType> cuotas)
-        //{
-        //    this._CuotasList = cuotas;
-        //}
-
-        //todo fix
-        public PrestamoInsUpdParam()
-        {
-            
-        }
-
-        public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
-        // this._Garantias.ToDataTable();
-        public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
-
-        //public DataTable Cuotas => this._CuotasList.ToDataTable();
-        //public DataTable Cuotas => this._CuotasList.ToDataTablePcp();
-    }
+    
 
     internal class PrestamoGarantias
     {

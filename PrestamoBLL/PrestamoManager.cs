@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PcpUtilidades;
+using PrestamoBLL.Models;
 using PrestamoEntidades;
 using System;
 using System.CodeDom;
@@ -308,7 +309,7 @@ namespace PrestamoBLL
 
         private void SetRenovacion(string noPrestamoARenovar, int idPrestamoARenovar)
         {
-            if (idPrestamoARenovar == 0) { throw new NullReferenceException("el valor de idPrestamoARenovar no puede ser 0"); }
+            //if (idPrestamoARenovar > 0) { throw new NullReferenceException("el valor de idPrestamoARenovar no puede ser 0"); }
             if (!string.IsNullOrEmpty(noPrestamoARenovar) && idPrestamoARenovar > 0)
             {
                 this.prestamoInProgress.NumeroPrestamoARenovar = noPrestamoARenovar;
@@ -365,8 +366,15 @@ namespace PrestamoBLL
             //IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             //var cuotas = genCuotas.GenerarCuotas();
             var cuotas = GeneradorDeCuotas.CreateCuotasMaestroDetalle(this.prestamoInProgress.IdPrestamo, this.prestamoInProgress);
+            
             // var cuotasVacias = new List<Cuota>();
             var prestamoConDependencias = new PrestamoInsUpdParam();
+            // establecer los valores del maestro y los detalles
+            var detalles = MaestroDetalleDebitosBLL.CreateDetallesDr(cuotas);
+            var result = MaestroDetalleDebitosBLL.CreateDrMaestroYDetalles(cuotas);
+            prestamoConDependencias.CargosMaestro = result.Maestros;
+
+            prestamoConDependencias.CargosDetalles = result.Detalles;
             //todo fix
             //var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
             _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);

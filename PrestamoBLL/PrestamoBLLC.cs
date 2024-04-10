@@ -1,6 +1,7 @@
 ﻿using DevBox.Core.Classes.Utils;
 using DevBox.Core.DAL.SQLServer;
 using PcpUtilidades;
+using PrestamoBLL.Models;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;

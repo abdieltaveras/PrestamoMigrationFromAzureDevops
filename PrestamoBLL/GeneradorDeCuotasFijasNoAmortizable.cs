@@ -1,4 +1,5 @@
-﻿using PrestamoEntidades;
+﻿using PrestamoBLL.Models;
+using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;

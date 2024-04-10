@@ -19,7 +19,7 @@ namespace PrestamoBlazorApp.Shared
 
         [Inject]
         IDialogService DialogService { get; set; }
-        [Parameter] public IEnumerable<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
+        [Parameter] public IEnumerable<DebitoPrestamoConDetallesViewModel> Cuotas { get; set; } = new List<DebitoPrestamoConDetallesViewModel>();
         //private List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
         
         

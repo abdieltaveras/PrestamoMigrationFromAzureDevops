@@ -18,7 +18,7 @@
                 <tr>
                     <th scope="row">@cuota.NumeroTransaccion</th>
                     <th scope="row">@cuota.Fecha.ToString("dd/MM/yyyy")</th>
-                    <th scope="row">@cuota.TotalOrig</th>
+                    <th scope="row">@cuota.Monto</th>
                     <th scope="row">@cuota.Capital</th>
                     <th scope="row">@cuota.Interes</th>
                     <th scope="row">@cuota.GastoDeCierre</th>
@@ -34,5 +34,5 @@
 
 @code {
     [Parameter]
-    public IEnumerable<CxCCuota> Cuotas { get; set; }
+    public IEnumerable<DebitoPrestamoConDetallesViewModel> Cuotas { get; set; }
 }

@@ -282,11 +282,11 @@ namespace PrestamoWS.Controllers
             string path = "";
             if (garantia.IdTipoGarantia == 1)
             {
-                 path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Garantias\\FichaInMobiliaria.rdlc";
+                 path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\GarantiasDT\\FichaInMobiliaria.rdlc";
             }
             else
             {
-                path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\Garantias\\FichaMobiliaria.rdlc";
+                path = $"{this._webHostEnvironment.WebRootPath}\\Reports\\GarantiasDT\\FichaMobiliaria.rdlc";
             }
             
             var resultado = _utils.ReportGenerator(dtDatos, path, reportType, baseReporte, parameter: parameters, DataInList: baseReporte);
