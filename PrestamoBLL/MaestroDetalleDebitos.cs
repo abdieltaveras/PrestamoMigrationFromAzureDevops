@@ -127,8 +127,8 @@ namespace PrestamoBLL
         internal void InsDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> debitos)
         {
             var result = CreateDrMaestroYDetalles(debitos);
-            var ctasMaestroCxC = result.Maestros;
-            var detalles = result.Detalles;
+            var ctasMaestroCxC = result.MaestrosDr;
+            var detalles = result.DetallesDr;
             var dataParams = new { maestroCxC = ctasMaestroCxC.ToDataTable(), detallesCargos = detalles.ToDataTable(), crearTablas = 1 };
             var sqlParams = SearchRec.ToSqlParams(dataParams);
             //BLLPrestamo.DBPrestamo.ExecReaderSelSP("dbo.spTestCreateTmpCxC", sqlParams);

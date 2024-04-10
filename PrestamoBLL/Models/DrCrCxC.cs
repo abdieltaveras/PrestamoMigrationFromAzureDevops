@@ -251,14 +251,19 @@ namespace PrestamoBLL.Models
     // este tipo es para devolver un parametro que contenga el maestros con sus detalles pero separados y poder accesar esas propiedades
     internal class DrMaestroDetalle
     {
-        public IEnumerable<IMaestroDebitoConDetallesCxC> Maestros { get; private set; }
+        public IEnumerable<IMaestroDebitoConDetallesCxC> MaestrosDr { get; private set; }
 
-        public IEnumerable<IDetalleDebitoCxC> Detalles { get; private set; }
+        public IEnumerable<IDetalleDebitoCxC> DetallesDr { get; private set; }
 
         public DrMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> maestros, IEnumerable<IDetalleDebitoCxC> detalles)
         {
-            this.Maestros = maestros;
-            this.Detalles = detalles;
+            var idEmptyReferencia = maestros.Any(item => item.IdReferencia == Guid.Empty);
+            if (idEmptyReferencia)
+            {
+                throw new InvalidOperationException("se encontraron IdReferencia vacios");
+            }
+            this.MaestrosDr = maestros;
+            this.DetallesDr = detalles;
         }
     }
 

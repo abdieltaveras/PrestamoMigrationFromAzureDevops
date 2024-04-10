@@ -24,16 +24,15 @@ namespace PrestamoBLL.Models
         //todo fix
         public PrestamoInsUpdParam()
         {
-
         }
 
-        public DataTable GarantiasDT => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
+        public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
         // this._Garantias.ToDataTable();
-        public DataTable CodeudoresDT => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
+        public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
 
-        public DataTable CargosMaestrosDT => this.CargosMaestro.ToDataTable();
+        public DataTable MaestroCuotas => this.CargosMaestro.ToDataTable();
 
-        public DataTable CargosDetallesDT => this.CargosDetalles.ToDataTable();
+        public DataTable DetallesCuotas => this.CargosDetalles.ToDataTable();
     }
     
 }

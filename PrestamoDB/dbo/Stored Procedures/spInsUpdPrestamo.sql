@@ -23,9 +23,10 @@
  @financiarGastoDeCierre bit, 
  @acomodarfechaalascuotas bit,  
  @fechainicioprimeracuota dateTime,
- @cuotas tpCuota READONLY, 
  @codeudores tpCodeudores readonly,  
  @garantias tpGarantias readonly, 
+ @maestroCuotas tpMaestroCxCPrestamo readonly, 
+ @detallesCuotas tpDetalleDrCxC readonly,
  @usuario varchar(40), 
  @otrosCargos decimal(14,2),
  @cargarInteresOtrosCargos decimal(14,2))
@@ -84,22 +85,22 @@ begin
 		where idPrestamo = @idPrestamo and BorradoPor is null
 		--RAISERROR('Error: no se ha implementado la actualizacion aun URGENTE DEBE HACERLO',17,1); 
 		
-		merge tblCuotas as target
-		using @Cuotas as source
-		on (target.Numero = source.numero and target.IdPrestamo = @idPrestamo)
-		when matched then update set 
-			target.Numero = source.Numero, target.Fecha = source.Fecha, target.Capital = source.capital,
-			target.Interes = source.interes, target.GastoDeCierre=source.GastodeCierre, 
-			target.InteresDelGastoDeCierre = source.InteresDelGastoDeCierre, target.BceCapital = source.Capital, 
-			target.BceInteres = source.Interes, target.BceGastoDeCierre = source.GastoDeCierre, target.BceInteresDelGastoDeCierre = source.InteresDelGastoDeCierre 
-	    when not matched then insert		
-			(IdPrestamo,Numero, Fecha, Capital, Interes, GastoDeCierre,
-			InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
-			values
-			 (@IdPrestamo, source.Numero, source.Fecha, source.Capital, source.Interes, source.GastoDeCierre, 
-			 source.InteresDelGastoDeCierre, source.Capital, source.Interes, source.GastoDeCierre, source.InteresDelGastoDeCierre)		
-	   when not matched by source
-	   then delete;
+		--merge tblCuotas as target
+		--using @Cuotas as source
+		--on (target.Numero = source.numero and target.IdPrestamo = @idPrestamo)
+		--when matched then update set 
+		--	target.Numero = source.Numero, target.Fecha = source.Fecha, target.Capital = source.capital,
+		--	target.Interes = source.interes, target.GastoDeCierre=source.GastodeCierre, 
+		--	target.InteresDelGastoDeCierre = source.InteresDelGastoDeCierre, target.BceCapital = source.Capital, 
+		--	target.BceInteres = source.Interes, target.BceGastoDeCierre = source.GastoDeCierre, target.BceInteresDelGastoDeCierre = source.InteresDelGastoDeCierre 
+	 --   when not matched then insert		
+		--	(IdPrestamo,Numero, Fecha, Capital, Interes, GastoDeCierre,
+		--	InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
+		--	values
+		--	 (@IdPrestamo, source.Numero, source.Fecha, source.Capital, source.Interes, source.GastoDeCierre, 
+		--	 source.InteresDelGastoDeCierre, source.Capital, source.Interes, source.GastoDeCierre, source.InteresDelGastoDeCierre)		
+	 --  when not matched by source
+	 --  then delete;
 	end
 	SELECT @IdPrestamo
 end

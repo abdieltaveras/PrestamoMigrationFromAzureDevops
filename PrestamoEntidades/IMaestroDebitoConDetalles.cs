@@ -24,8 +24,8 @@ namespace PrestamoEntidades
         char TipoDrCr { get; }
         int IdPrestamo { get; set; }
         string CodigoTipoTransaccion { get; }
-        string NumeroTransaccion { get; }
         Guid IdReferencia { get; }
+        string NumeroTransaccion { get; }
         DateTime Fecha { get; }
         decimal Monto { get; }
         decimal Balance { get; }

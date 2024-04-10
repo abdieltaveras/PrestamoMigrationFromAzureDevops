@@ -372,9 +372,9 @@ namespace PrestamoBLL
             // establecer los valores del maestro y los detalles
             var detalles = MaestroDetalleDebitosBLL.CreateDetallesDr(cuotas);
             var result = MaestroDetalleDebitosBLL.CreateDrMaestroYDetalles(cuotas);
-            prestamoConDependencias.CargosMaestro = result.Maestros;
+            prestamoConDependencias.CargosMaestro = result.MaestrosDr;
 
-            prestamoConDependencias.CargosDetalles = result.Detalles;
+            prestamoConDependencias.CargosDetalles = result.DetallesDr;
             //todo fix
             //var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
             _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
