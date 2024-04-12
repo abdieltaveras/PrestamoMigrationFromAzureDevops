@@ -75,7 +75,12 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         //        MontoCargado = 0;
         //    }
         //}
+        private async Task Calculo1(decimal valor) 
 
+        {
+            MontoCargado += valor;
+            await NotifyMessageBySnackBar($"valor recibido {valor} acumulado {MontoCargado}", Severity.Warning);
+        }
 
     }
 }

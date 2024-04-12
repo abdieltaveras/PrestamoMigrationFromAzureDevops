@@ -16,12 +16,15 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
 {
     public partial class DetallesCargos : BaseForList
     {
-        
+        [Parameter]
+        public EventCallback<decimal>  OnAplicarCargo { get; set; }
         NotaDeDebito NotaDe { get; set; } = new NotaDeDebito();
         public int IdPrestamo { get; set; } = -1;
         private string SelectedCodigo { get; set; }
         private IEnumerable<string> CargosSelected { get; set; } = new List<string>();
         private IEnumerable<CodigoCargos> CodigosCargos { get; set; } = new List<CodigoCargos>();
+
+        
         private List<DetalleCargo> DataSelect { get; set; } = new List<DetalleCargo>();
         public decimal MontoCargado { get; set; } = 0;
         public decimal MontoRestante { get; set; } = 0;
@@ -35,6 +38,7 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         private async Task AgregarDetalle(MouseEventArgs arg)
         {
             AsignarCargosDebito();
+            await OnAplicarCargo.InvokeAsync(this.MontoCargado);
             StateHasChanged();
         }
 
