@@ -31,7 +31,6 @@ namespace PrestamoBLL.Tests
             {
                 prestamo = await CreatePrestamoInstance();
                 id = await new PrestamoBLLC(TestInfo.GetIdLocalidadNegocio(), TestInfo.Usuario).InsUpdPrestamo(prestamo);
-
             }
             catch (Exception e)
             {

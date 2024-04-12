@@ -1,4 +1,4 @@
-﻿create procedure [dbo].[spInsUpdMaestroDetalleDrCxCPrestamo]
+﻿create procedure [dbo].[spInsUpdMaestroDetalleDrCxCPrestamoV0]
 (
      --@IdTransaccion int, @IdPrestamo int, @IdNegocio int, @IdLocalidadNegocio int,
 	 @maestroCxC tpMaestroCxCPrestamo readonly, @detallesCargos tpDetalleDrCxC readonly, @crearTablas bit=0
