@@ -36,8 +36,8 @@ namespace PrestamoBLL
 
         #endregion StaticBLL
 
-        
-        public IEnumerable<ICxCDebitoPrestamo>  GetCuotasMaestroDetalles(int idNegocio, int idLocalidad, int idPrestamo)
+
+        public IEnumerable<ICxCDebitoPrestamo> GetCuotasMaestroDetalles(int idNegocio, int idLocalidad, int idPrestamo)
         {
             var result = GetMaestroDetallesDr(idNegocio, idLocalidad, idPrestamo, "CT", 'D');
             return result;
@@ -69,12 +69,36 @@ namespace PrestamoBLL
                     cuotasDetalles.Add(detalle);
                 }
             }
-
             var result = ConvertToDebitoPrestamoViewModel(cuotasMaestras, cuotasDetalles);
             return result;
         }
+        private static IEnumerable<DebitoPrestamoConDetallesForBLL> ConvertToDebitoPrestamoViewModel(IEnumerable<MaestroDrConDetalles> cuotasMaestras)
 
-        private static IEnumerable<DebitoPrestamoConDetallesForBLL> ConvertToDebitoPrestamoViewModel(List<MaestroDrConDetalles> cuotasMaestras, List<DetalleCargoCxC> cuotasDetalles)
+        {
+
+            List<IDetalleDebitoCxC> detallesCargos = new List<IDetalleDebitoCxC>();
+            cuotasMaestras.ForEach(cta =>
+                {
+                    detallesCargos.AddRange(cta.GetDetallesCargos());
+                }
+            );
+                
+            var debitosViewModel = new List<DebitoPrestamoConDetallesForBLL>();
+            foreach (var ctaM in cuotasMaestras)
+            {
+                var items = detallesCargos.Where(dc => dc.IdTransaccionMaestro == ctaM.IdTransaccion);
+                ctaM.SetDetallesCargos(items);
+            }
+
+            foreach (var item in cuotasMaestras)
+            {
+                debitosViewModel.Add(DebitoPrestamoConDetallesForBLL.Create(item));
+            }
+
+            return debitosViewModel;
+        }
+
+        private static IEnumerable<DebitoPrestamoConDetallesForBLL> ConvertToDebitoPrestamoViewModel(List<MaestroDrConDetalles> cuotasMaestras, IEnumerable<DetalleCargoCxC> cuotasDetalles)
         {
             var detallesCargos = cuotasDetalles
                 .GroupBy(item => item.IdTransaccionMaestro);
@@ -93,6 +117,7 @@ namespace PrestamoBLL
 
             return debitosViewModel;
         }
+
 
         /// <summary>
         /// crear el maestros y sus detalles pero solo a nivel de memoria
@@ -122,7 +147,7 @@ namespace PrestamoBLL
             var detalles = CreateDetallesDr(debitos);
             var result = new DrMaestroDetalle(maestro, detalles);
             return result;
-                
+
         }
         internal void InsDebitoMaestroDetalle(IEnumerable<IMaestroDebitoConDetallesCxC> debitos)
         {
@@ -138,9 +163,21 @@ namespace PrestamoBLL
             //var detallesDT = detalles.ToDataTable();
         }
 
-        private static void CreateMaestroDebitos(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas) 
+
+        public IEnumerable<DebitoPrestamoConDetallesViewModel> ProyectarCuotasPrestamos(int idPrestamo, IInfoGeneradorCuotas infGenCuotas)
         {
-            
+            var cuotas1 = CreateCuotasPrestamoInMemory(idPrestamo, infGenCuotas);
+
+            var cuotas = cuotas1.Cast<MaestroDrConDetalles>();
+            //var detalles = cuotas.ForEach(cuota =>
+            //{
+            //    var detalles = cuota.GetDetallesCargos();
+
+            //});
+
+            var result = ConvertToDebitoPrestamoViewModel(cuotas);
+            return result;
+                
         }
 
         /// <summary>
@@ -148,7 +185,9 @@ namespace PrestamoBLL
         /// </summary>
         /// <param name="cuotas"></param>
         /// <param name="clave"></param>
-        public void InsUpdDetallesCargos(int idPrestamo, IInfoGeneradorCuotas infGenCuotas,int clave)
+        /// 
+
+        public void InsUpdDetallesCargos(int idPrestamo, IInfoGeneradorCuotas infGenCuotas, int clave)
         {
             if (clave != 8131438) return;
             var cuotas = CreateCuotasPrestamoInMemory(idPrestamo, infGenCuotas);
@@ -168,7 +207,7 @@ namespace PrestamoBLL
             return detalles;
         }
 
-        
+
 
         public void TestTVInsUpdDebitoMaestro2(IEnumerable<IMaestroDebitoConDetallesCxC> cuotas)
         {

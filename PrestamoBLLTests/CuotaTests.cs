@@ -15,7 +15,7 @@ namespace PrestamoBLL.Tests
     public class CuotaTests
     {
         string mensajeError = string.Empty;
-        enum testEnum {Nombre,Apellido }
+        enum testEnum { Nombre, Apellido }
         [TestMethod()]
         public void test()
         {
@@ -23,7 +23,7 @@ namespace PrestamoBLL.Tests
             var esEnum = x.IsEnum;
         }
 
-        
+
         [TestMethod]
         public async Task CuotasGeneratorTest()
         {
@@ -84,17 +84,17 @@ namespace PrestamoBLL.Tests
             };
         }
 
-        
+
 
         [TestMethod]
         public async Task GetCuotasMaestroDetallesTest()
         {
             TestInfo testInfo = new TestInfo();
-            
+
             try
             {
 
-                
+
                 var result = MaestroDetalleDebitosBLL.Instance.GetCuotasMaestroDetalles(1, 1, 12);
 
                 // guardar este objeto en una tabla de la base de datos
@@ -111,12 +111,12 @@ namespace PrestamoBLL.Tests
         /// Para probar insertar los cargos en vez de un json a una tabla
         /// </summary>
         /// <returns></returns>
-        
-        
+
+
         [TestMethod]
         public async Task TableVaueTypeToDtaTableConversionTest()
         {
-            TestInfo testInfo= new TestInfo();
+            TestInfo testInfo = new TestInfo();
 
             try
             {
@@ -159,7 +159,7 @@ namespace PrestamoBLL.Tests
             , testInfo);
             //try
             //{
-                
+
             //    //BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
             //    // guardar este objeto en una tabla de la base de datos
             //}
@@ -170,6 +170,17 @@ namespace PrestamoBLL.Tests
             //}
             Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
 
+        }
+
+        [TestMethod]
+        public async Task ProyectarCuotasPrestamosTest()
+        {
+            TestInfo testInfo;
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out testInfo, out cuotaInfo);
+            var result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25,cuotaInfo);
+
+            Assert.IsTrue(result.Any(), "Revisar no se pudieron generar las cuotas");
         }
 
         [TestMethod]

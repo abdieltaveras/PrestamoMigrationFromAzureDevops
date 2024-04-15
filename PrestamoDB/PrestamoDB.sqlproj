@@ -238,7 +238,6 @@
     <Build Include="dbo\User Defined Types\tpDetalleDrCxC.sql" />
     <Build Include="dbo\Stored Procedures\spInsUpdDetallesDrCxC.sql" />
     <Build Include="dbo\Stored Procedures\spInsMaestroDetalleDrCxCPrestamo.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdMaestroDetalleDrCxCPrestamoV0.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
@@ -247,6 +246,5 @@
     <None Include="SchemaCompareForRandy.scmp" />
     <None Include="Scripts\NotInBuild\CreateSchema.sql" />
     <None Include="Scripts\NotInBuild\FixingErrorTVPWhenTypeIsDate.sql" />
-    <Build Include="dbo\Stored Procedures\spInsUpdMaestroDetalleDrCxCPrestamo.sql" />
   </ItemGroup>
 </Project>

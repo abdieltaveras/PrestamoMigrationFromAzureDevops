@@ -142,8 +142,8 @@ namespace PrestamoWS.Controllers
 
         private IEnumerable<DebitoPrestamoConDetallesViewModel> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
         {
-            //todo implementar llamar la nueva forma de generar cargos pero devolverlo en formato de CXCCuota
-            return null;
+            // todo revisar 20240415
+            return MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, infoGenCuotas);
         }
 
         [HttpGet]

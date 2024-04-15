@@ -46,16 +46,16 @@ begin
 			INSERT INTO dbo.tblPrestamos (idNegocio, idlocalidadNegocio, PrestamoNumero, IdPrestamoARenovar, DeudaRenovacion, idClasificacion, idCliente, IdTipoAmortizacion, FechaEmisionReal, FechaEmisionParaCalculo, FechaVencimiento, IdTasaInteres, idTipoMora, idPeriodo, CantidadDeCuotas, MontoPrestado, IdDivisa,  InteresGastoDeCierre, MontoGastoDeCierre, GastoDeCierreEsDeducible, CargarInteresAlGastoDeCierre,FinanciarGastoDeCierre,  AcomodarFechaALasCuotas, FechaInicioPrimeraCuota, InsertadoPor, FechaInsertado, OtrosCargos, CargarInteresOtrosCargos)
 			VALUES (@idnegocio, @idlocalidadNegocio, @prestamoNumero, @idPrestamoArenovar, @deudarenovacion, @idclasificacion, @idCliente, @Idtipoamortizacion, @fechaemisionReal, @fechaemisionParaCalculos, @fechavencimiento, @idtasainteres, @idtipomora, @idperiodo, @cantidaddecuotas, @montoprestado, @iddivisa, @interesgastodecierre, @montogastodecierre, @gastodecierreesdeducible, @cargarinteresalgastodecierre, @financiarGastoDeCierre, @acomodarfechaalascuotas, @fechainicioprimeracuota, @usuario, getdate(), @otrosCargos,@CargarInteresOtrosCargos )
 			  set @idPrestamo = (SELECT SCOPE_IDENTITY());
-			  if ((select count(*) from @cuotas) > 0)
-				  begin
-					insert into tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
-					select @IdPrestamo, Numero, Fecha, Capital, Interes, 
-						GastoDeCierre, InteresDelGastoDeCierre, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre from @cuotas
-				  end
-			  else
-				  begin
-					RAISERROR('Error: no envio ninguna cuota a ser generada',17,1); 
-				  end
+			  --if ((select count(*) from @cuotas) > 0)
+				 -- begin
+					--insert into tblCuotas (IdPrestamo, Numero, Fecha, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre, BceCapital, BceInteres, BceGastoDeCierre, BceInteresDelGastoDeCierre) 
+					--select @IdPrestamo, Numero, Fecha, Capital, Interes, 
+					--	GastoDeCierre, InteresDelGastoDeCierre, Capital, Interes, GastoDeCierre, InteresDelGastoDeCierre from @cuotas
+				 -- end
+			  --else
+				 -- begin
+					--RAISERROR('Error: no envio ninguna cuota a ser generada',17,1); 
+				 -- end
 			  if (exists (select 1 from @garantias))
 			  begin
 				insert into tblPrestamoGarantias (IdPrestamo, IdGarantia, InsertadoPor) select @IdPrestamo, IdGarantia, @usuario from @garantias
@@ -102,5 +102,6 @@ begin
 	 --  when not matched by source
 	 --  then delete;
 	end
+	exec spInsMaestroDetalleDrCxCPrestamo @IdPrestamo, @MaestroCuotas, @DetallesCuotas    	 
 	SELECT @IdPrestamo
 end
