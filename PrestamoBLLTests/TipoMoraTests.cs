@@ -16,7 +16,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetTiposMorasTest()
         {
-            var result = new TipoMoraBLL(1,TestInfo.Usuario).GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
+            var result = new TipoMoraBLL(1,TestUtils.Usuario).GetTiposMoras(new TipoMoraGetParams { IdNegocio = 1 });
             var resultAsList = result.ToList();
             Assert.IsTrue(result.Count() > 0);
         }
@@ -38,14 +38,14 @@ namespace PrestamoBLL.Tests
                 DiasDeGracia = 4
             };
             var searchData = new TipoMoraGetParams { Codigo = "P05", IdNegocio = -1 };
-            var result = new TipoMoraBLL(1,TestInfo.Usuario).GetTiposMoras(searchData);
+            var result = new TipoMoraBLL(1,TestUtils.Usuario).GetTiposMoras(searchData);
             if (result.Count() != 0)
             {
                 tipoMora.IdTipoMora = result.First().IdTipoMora;
             }
             try
             {
-                new TipoMoraBLL(1,TestInfo.Usuario).InsUpdTipoMora(tipoMora);
+                new TipoMoraBLL(1,TestUtils.Usuario).InsUpdTipoMora(tipoMora);
             }
             catch (Exception e)
             {

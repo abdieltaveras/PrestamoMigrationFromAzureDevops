@@ -20,7 +20,7 @@ namespace PrestamoBLL.Tests
 
         public void GetTasaInteresTest()
         {
-            var result = new TasaInteresBLL(1, TestInfo.Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
+            var result = new TasaInteresBLL(1, TestUtils.Usuario).GetTasasDeInteres(new TasaInteresGetParams { IdNegocio = 1 });
             Assert.IsTrue(result.Count() > 0);
         }
         /// <summary>
@@ -33,7 +33,7 @@ namespace PrestamoBLL.Tests
             var OperacionExitosa = true;
             var tasaInteres = new TasaInteres { Codigo = "B05", InteresMensual = 2.5M, Usuario = "TestProject", IdNegocio = 1 };
             var searchData = new TasaInteresGetParams { Codigo = "B05", IdNegocio = -1 };
-            var result = new TasaInteresBLL(1, TestInfo.Usuario).GetTasasDeInteres(searchData);
+            var result = new TasaInteresBLL(1, TestUtils.Usuario).GetTasasDeInteres(searchData);
             if (result.Count() != 0)
             {
                 tasaInteres.idTasaInteres = result.First().idTasaInteres;
@@ -41,7 +41,7 @@ namespace PrestamoBLL.Tests
             try
             {
              
-                new TasaInteresBLL(1, TestInfo.Usuario).InsUpdTasaInteres(tasaInteres);
+                new TasaInteresBLL(1, TestUtils.Usuario).InsUpdTasaInteres(tasaInteres);
             }
             catch (Exception e)
             {
@@ -55,11 +55,11 @@ namespace PrestamoBLL.Tests
         public void CalcularTasaInterePorPeriodoTest()
         {
             var search = new PeriodoGetParams();
-            var periodos = new PeriodoBLL(1,TestInfo.Usuario).GetPeriodos(search);
+            var periodos = new PeriodoBLL(1,TestUtils.Usuario).GetPeriodos(search);
 
             foreach (var item in periodos)
             {
-                var result = new TasaInteresBLL(1, TestInfo.Usuario).CalcularTasaInteresPorPeriodos(10, item);
+                var result = new TasaInteresBLL(1, TestUtils.Usuario).CalcularTasaInteresPorPeriodos(10, item);
                 var NombrePeriodo = item.Nombre;
                 var tasaInteresPeriodo = result.InteresDelPeriodo;
             }
@@ -78,7 +78,7 @@ namespace PrestamoBLL.Tests
             var quincenal = periodos.Where(per => per.Codigo == "QUI").FirstOrDefault();
             var mensual = periodos.Where(per => per.Codigo == "MES").FirstOrDefault();
 
-            var tasaIntBll = new TasaInteresBLL(1, TestInfo.Usuario);
+            var tasaIntBll = new TasaInteresBLL(1, TestUtils.Usuario);
             var resultDiario = tasaIntBll.CalcularTasaInteresPorPeriodos(10, diario);
             var resultQuincenal = tasaIntBll.CalcularTasaInteresPorPeriodos(10, quincenal);
             var resultSemanal = tasaIntBll.CalcularTasaInteresPorPeriodos(10, semanal);

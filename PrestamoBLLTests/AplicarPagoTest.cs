@@ -17,8 +17,8 @@ namespace PrestamoBLL.Tests
         public void AplicarPago_Test()
         {
             // primero buscar un prestamo
-            var idLocalidadNegocio = TestInfo.GetIdLocalidadNegocio();
-            var usuario = TestInfo.Usuario;
+            var idLocalidadNegocio = TestUtils.GetIdLocalidadNegocio();
+            var usuario = TestUtils.Usuario;
             var prestamoResult = ConfigurationManager.AppSettings["prestamoAplicarPago"];
             var prestamoNo = PrestamoBllUtils.PadLeftPrestamo(prestamoResult);
                 //Utils.GenPrestamoNumero(prestamoResult);

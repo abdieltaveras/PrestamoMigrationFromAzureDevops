@@ -28,7 +28,7 @@ namespace PrestamoBLL.Tests
 
         private static EquipoIdYCodigo InsertEquipo(string nombreEquipo, string descripcion = "Probando")
         {
-            var eq = new Equipo() { IdNegocio = 1, Nombre = nombreEquipo,Codigo=nombreEquipo, Descripcion = descripcion, Usuario = TestInfo.Usuario };
+            var eq = new Equipo() { IdNegocio = 1, Nombre = nombreEquipo,Codigo=nombreEquipo, Descripcion = descripcion, Usuario = TestUtils.Usuario };
             var result = BLLPrestamo.Instance.InsUpdEquipo(eq);
             //var result = BLLPrestamo.Equipo_Operaciones.RegistrarEquipo(eq);
             return result;
@@ -59,7 +59,7 @@ namespace PrestamoBLL.Tests
             if (result != null)
             {
                     data = result.First();
-                    BLLPrestamo.Instance.DesvincularEquipo(new EquiposGetParam2 { IdEquipo = data.IdEquipo, Usuario = TestInfo.Usuario });
+                    BLLPrestamo.Instance.DesvincularEquipo(new EquiposGetParam2 { IdEquipo = data.IdEquipo, Usuario = TestUtils.Usuario });
                     data = BLLPrestamo.Instance.GetEquipos(new EquiposGetParam {IdEquipo= data.IdEquipo, Usuario= data.Usuario}).FirstOrDefault();
             }
             Assert.IsTrue(data.EstaDesvinculado, $"Se esperaba que devolviera true y se recibio {data.EstaDesvinculado}");
@@ -78,7 +78,7 @@ namespace PrestamoBLL.Tests
             if (result != null)
             {
                 data = result.FirstOrDefault();
-                BLLPrestamo.Instance.BloquearAccesoAEquipo(new EquiposGetParam2 { IdEquipo = data.IdEquipo, Usuario = TestInfo.Usuario });
+                BLLPrestamo.Instance.BloquearAccesoAEquipo(new EquiposGetParam2 { IdEquipo = data.IdEquipo, Usuario = TestUtils.Usuario });
             }
             result = BLLPrestamo.Instance.GetEquipos(new EquiposGetParam { IdEquipo= data.IdEquipo});
             data = result.FirstOrDefault();
@@ -94,7 +94,7 @@ namespace PrestamoBLL.Tests
         }
         public void GetEquiposExecuteMensajeErrorEmpty()
         {
-            var tInfo = new TestInfo();
+            var tInfo = new TestUtils();
             try
             {
                 var result = BLLPrestamo.Instance.GetEquipos(new EquiposGetParam());
@@ -120,7 +120,7 @@ namespace PrestamoBLL.Tests
             if (result != null)
             {
                 idEquipo = result.IdEquipo;
-                BLLPrestamo.Instance.ConfirRegistroEquipo(new EquiposGetParam2 { IdEquipo = result.IdEquipo, Usuario = TestInfo.Usuario });
+                BLLPrestamo.Instance.ConfirRegistroEquipo(new EquiposGetParam2 { IdEquipo = result.IdEquipo, Usuario = TestUtils.Usuario });
                 result = BLLPrestamo.Instance.GetEquipos(new EquiposGetParam() { IdEquipo = result.IdEquipo }).FirstOrDefault();
             }
             else

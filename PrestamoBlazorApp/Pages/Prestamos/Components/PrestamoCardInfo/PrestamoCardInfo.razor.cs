@@ -13,8 +13,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos.Components.PrestamoCardInfo
         [Inject]
         IDialogService DialogService { get; set; }
         string SearchText { get; set; }
-        decimal MontoPagar { get; set; } = 0;
-        List<CuotaModel> Cuotas { get; set; }
+        decimal MontoPagar { get; set; } 
+        List<CuotaModel> Cuotas { get; set; } = new List<CuotaModel>();
         public PrestamoConDetallesParaUIPrestamo Prestamo { get; set; } = new PrestamoConDetallesParaUIPrestamo();
         [Inject]
         PrestamosService _PrestamosService { get; set; }
