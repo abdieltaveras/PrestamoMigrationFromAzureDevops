@@ -1,12 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PrestamoBLL;
+﻿using DevBox.Core.Classes.Utils;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.EventHandlers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static PrestamoBLL.BLLPrestamo;
 
 namespace PrestamoBLL.Tests
 {
@@ -14,7 +17,7 @@ namespace PrestamoBLL.Tests
     public class CuotaTests
     {
         string mensajeError = string.Empty;
-        enum testEnum {Nombre,Apellido }
+        enum testEnum { Nombre, Apellido }
         [TestMethod()]
         public void test()
         {
@@ -22,38 +25,21 @@ namespace PrestamoBLL.Tests
             var esEnum = x.IsEnum;
         }
 
-        
-        [TestMethod()]
-        public void insUpdCuotasToDBTest()
-        {
-            
-            mensajeError = string.Empty;
-            try
-            {
-                //BLLPrestamo.Instance.CuotasinsUpd(CreateCuotas()); ;
-            }
-            catch (Exception e)
-            {
 
-                mensajeError = e.Message;
-            }
-            Assert.IsTrue(mensajeError == string.Empty, mensajeError);
-        }
 
-        [TestMethod]
-        public async Task CuotasGeneratorTest()
+        private static void GetInfoCuota(out InfoGeneradorDeCuotas cuotaInfo)
         {
-            var testInfo = new TestInfo();
             var prestamoTest = new PrestamoTest();
+
             var idPeriodo = prestamoTest.GetIdPeriodoForCodigo("MES");
             //var periodo = GetPeriodoInstance("MES");
             var idTasainteres = prestamoTest.GetIdTasaDeInteres("E00");
             var montoPrestado = 10000;
 
-            var cuotaInfo = new InfoGeneradorDeCuotas()
+            cuotaInfo = new InfoGeneradorDeCuotas()
             {
-                Usuario = testInfo._Usuario,
-                IdLocalidadNegocio = TestInfo.GetIdLocalidadNegocio(),
+                Usuario = TestUtils.Usuario,
+                IdLocalidadNegocio = TestUtils.GetIdLocalidadNegocio(),
                 FechaEmisionReal = new DateTime(2023, 01, 01),
                 TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
                 MontoCapital = montoPrestado,
@@ -64,14 +50,22 @@ namespace PrestamoBLL.Tests
                 FinanciarGastoDeCierre = true,
                 CargarInteresAlGastoDeCierre = true,
             };
+        }
 
-            //var result = new TasaInteresBLL(prestamo.IdLocalidadNegocio, prestamo.Users).CalcularTasaInteresPorPeriodos (tasaDeInteres.InteresMensual,prestamo.Periodo);
-            //var tasaDeInteresDelPeriodo = result.InteresDelPeriodo;
 
-            IEnumerable<CxCCuota> cuotas = null;
+
+        [TestMethod]
+        public async Task GetCuotasMaestroDetallesTest()
+        {
+            TestUtils testInfo = new TestUtils();
+
             try
             {
-                cuotas = CuotasGenerator.CreateCuotas(cuotaInfo);
+
+
+                var result = MaestroDetalleDebitosBLL.Instance.GetCuotasMaestroDetalles(1, 1, 12);
+
+                // guardar este objeto en una tabla de la base de datos
             }
             catch (Exception e)
             {
@@ -81,108 +75,200 @@ namespace PrestamoBLL.Tests
             Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
 
         }
+        /// <summary>
+        /// Para probar insertar los cargos en vez de un json a una tabla
+        /// </summary>
+        /// <returns></returns>
 
-        [TestMethod()]
-        public void GenerarCuotasForDifferentValuesTest()
+
+        [TestMethod]
+        public async Task TableVaueTypeToDtaTableConversionTest()
         {
+            TestUtils testInfo = new TestUtils();
 
-            // este procedimiento debera ser revisado por completo y toda la responsabilidad debe estar en el objeto
-            // que genera las cuotas que es quien sabra daterminar todo lo que aqui se hacer o desea conocer
-            var periodo = new Periodo { Codigo = "Mes", PeriodoBase = PeriodoBase.Mes, Nombre = "Cuotas Mensuales" };
-            var prestamo = new Prestamo
+            try
             {
-                IdPrestamo = 1,
-                FechaEmisionReal = new DateTime(2021, 01, 01),
-                CantidadDeCuotas = 7,
-                TasaDeInteresDelPeriodo = 5,
-                Periodo = periodo,
-                MontoPrestado = 10000,
-                TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
-                MontoGastoDeCierre = 1000,
-                CargarInteresAlGastoDeCierre = true,
-                FinanciarGastoDeCierre = true,
-                OtrosCargos = 200,
-            };
-
-
-
-            //necesito aqui un objeto que sea capaz de indicarme la tasa de interes para el Periodo quincenal
-
-            //var infCuota = new InfoGeneradorDeCuotas()
-            //{
-            //    AcomodarFechaALasCuotas = false,
-            //    CantidadDeCuotas = 7,
-            //    TasaDeInteresDelPeriodo = 5,
-            //    Periodo = Periodo,
-            //    MontoCapital = 10000,
-            //    TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
-            //    MontoGastoDeCierre = 1000,
-            //    CargarInteresAlGastoDeCierre = true,
-            //    FinanciarGastoDeCierre = true,
-            //    OtrosCargos = 200
-            //};
-
-            // ignorador para evitar error
-            //IGeneradorCuotasV2 generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo, prestamo.IdPrestamo);
-
-            
-            //var cuotas = generadorCuota.GenerarCuotas();
-            var cuotas = new List<CuotaPrestamo>(); // la linea que en verdad va es la anterior
-
-            var totales = new ValoresTotalesDelPrestamo();
-            IEnumerable<CxCPrestamoDrMaestroBase> testData = new  List<CxCPrestamoDrMaestroBase>();
-            
-            totales.TCapital = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.Capital);
-            totales.TCapital = cuotas.TotalCapitalMonto();
-            totales.TInteres = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresCapital);
-            totales.TGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.GastoDeCierre);
-            totales.TInteresGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresGastoDeCierre);
-            totales.TOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.OtrosCargos);
-            totales.TInteresOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresOtrosCargos);
-
-            var comparaciones = new ComparacionTotales(prestamo, totales);
-            var resultados = comparaciones.RealizarComparacion();
-            var operacionesFallidas = resultados.Where(item => item.Resultado == false);
-            var mensajeOperacionesFallidas = operacionesFallidas.Select(item => item.NombreComparacion);
-            var mensajeFinal = string.Join(",", mensajeOperacionesFallidas);
-
-
-            periodo = new Periodo { Codigo = "Dia", PeriodoBase = PeriodoBase.Dia, Nombre = "Cuotas Diarias" };
-            var diasDelPeriodoEnElMes = 30;
-            var tasaInteresDelPeriodo = 5 / diasDelPeriodoEnElMes;
-            prestamo = new Prestamo
+                MaestroDetalleDebitosBLL.Instance.TestTVToDataTable();
+                // guardar este objeto en una tabla de la base de datos
+            }
+            catch (Exception e)
             {
-                FechaEmisionReal = new DateTime(2021, 01, 01),
-                CantidadDeCuotas = 60,
-                TasaDeInteresDelPeriodo = tasaInteresDelPeriodo,
-                Periodo = periodo,
-                MontoPrestado = 12000,
-                TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
-                MontoGastoDeCierre = 1200,
-                CargarInteresAlGastoDeCierre = true,
-                FinanciarGastoDeCierre = true,
-                OtrosCargos = 300,
-                CargarInteresOtrosCargos = true
-            };
+                testInfo.MensajeError = e.Message;
+                testInfo.ExceptionOccured = e;
+            }
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
 
-            //generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo,-1);
-            //cuotas = generadorCuota.GenerarCuotas();
-            
-            totales = new ValoresTotalesDelPrestamo();
-
-            totales.TCapital = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.Capital);
-            totales.TInteres = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresCapital);
-            totales.TGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.GastoDeCierre);
-            totales.TInteresGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresGastoDeCierre);
-            totales.TOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.OtrosCargos);
-            totales.TInteresOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresOtrosCargos);
-            comparaciones = new ComparacionTotales(prestamo, totales);
-            resultados = comparaciones.RealizarComparacion();
-            operacionesFallidas = comparaciones.GetOperacionesFallidas();
-            mensajeFinal = comparaciones.ListadoDeOperacionesFallidas();
-
-            Assert.IsTrue(operacionesFallidas.Count() > 0, mensajeFinal);
         }
+        [TestMethod]
+        public void InsCuotasMaestroDetallesCargosTest()
+        {
+            
+            GetInfoCuota(out InfoGeneradorDeCuotas cuotaInfo);
+
+            
+            IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
+
+            var fecha = DateTime.Now;
+            var fecha2 = fecha.Date;
+
+            TestUtils.TryCatch(() =>
+            {
+                var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
+                var idPrestamo = 12;
+                //cuotas = GeneradorDeCuotas.CreateCuotasMaestroDetalle(idPrestamo, cuotaInfo);
+                MaestroDetalleDebitosBLL.Instance.InsCuotasPrestamos(idPrestamo, cuotaInfo);
+            }
+            , out TestUtils testInfo);
+            //try
+            //{
+
+            //    //BLLPrestamo.Instance.TryJsonDeserialization(cuotas);
+            //    // guardar este objeto en una tabla de la base de datos
+            //}
+            //catch (Exception e)
+            //{
+            //    testInfo.MensajeError = e.Message;
+            //    testInfo.ExceptionOccured = e;
+            //}
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+
+        [TestMethod]
+        public async Task ProyectarCuotasPrestamosTest()
+        {
+            
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out cuotaInfo);
+            TestUtils.TryCatch(()=>
+            {
+                var result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
+            }, out TestUtils testInfo );
+
+            Assert.IsTrue(testInfo.MensajeError.IsEmpty(), "Revisar no se pudieron generar las cuotas");
+        }
+
+        [TestMethod]
+        internal async Task InsUpdDetallesCargoStoredProcedureTest()
+        {
+            
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out cuotaInfo);
+            IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
+            TestUtils.TryCatch(() =>
+                {
+                    var prestamoResult = ConfigurationManager.AppSettings["IdPrestamoTestGenerarCuotasMaestroDetalle"];
+                    var idPrestamo = 12;
+                    MaestroDetalleDebitosBLL.Instance.InsUpdDetallesCargos(idPrestamo, cuotaInfo, 8131438);
+                    // guardar este objeto en una tabla de la base de datos
+                },
+            out TestUtils testInfo);
+            
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+
+        //[TestMethod()]
+        //public void GenerarCuotasForDifferentValuesTest()
+        //{
+
+        //    // este procedimiento debera ser revisado por completo y toda la responsabilidad debe estar en el objeto
+        //    // que genera las cuotas que es quien sabra daterminar todo lo que aqui se hacer o desea conocer
+        //    var periodo = new Periodo { Codigo = "Mes", PeriodoBase = PeriodoBase.Mes, Nombre = "CxCMaestroDetalles Mensuales" };
+        //    var prestamo = new Prestamo
+        //    {
+        //        IdPrestamo = 1,
+        //        FechaEmisionReal = new DateTime(2021, 01, 01),
+        //        CantidadDeCuotas = 7,
+        //        TasaDeInteresDelPeriodo = 5,
+        //        Periodo = periodo,
+        //        MontoPrestado = 10000,
+        //        TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
+        //        MontoGastoDeCierre = 1000,
+        //        CargarInteresAlGastoDeCierre = true,
+        //        FinanciarGastoDeCierre = true,
+        //        OtrosCargos = 200,
+        //    };
+
+
+
+        //    //necesito aqui un objeto que sea capaz de indicarme la tasa de interes para el Periodo quincenal
+
+        //    //var infCuota = new InfoGeneradorDeCuotas()
+        //    //{
+        //    //    AcomodarFechaALasCuotas = false,
+        //    //    CantidadDeCuotas = 7,
+        //    //    TasaDeInteresDelPeriodo = 5,
+        //    //    Periodo = Periodo,
+        //    //    MontoCapital = 10000,
+        //    //    TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
+        //    //    MontoGastoDeCierre = 1000,
+        //    //    CargarInteresAlGastoDeCierre = true,
+        //    //    FinanciarGastoDeCierre = true,
+        //    //    OtrosCargos = 200
+        //    //};
+
+        //    // ignorador para evitar error
+        //    //IGeneradorCuotasV2 generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo, prestamo.IdPrestamo);
+
+            
+        //    //var cuotas = generadorCuota.GenerarCuotas();
+        //    var cuotas = new List<CuotaPrestamo>(); // la linea que en verdad va es la anterior
+
+        //    var totales = new ValoresTotalesDelPrestamo();
+        //    IEnumerable<CxCPrestamoDrMaestroBase> testData = new  List<CxCPrestamoDrMaestroBase>();
+            
+        //    totales.TCapital = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.Capital);
+        //    totales.TCapital = cuotas.TotalCapitalMonto();
+        //    totales.TInteres = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresCapital);
+        //    totales.TGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.GastoDeCierre);
+        //    totales.TInteresGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresGastoDeCierre);
+        //    totales.TOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.OtrosCargos);
+        //    totales.TInteresOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresOtrosCargos);
+
+        //    var comparaciones = new ComparacionTotales(prestamo, totales);
+        //    var resultados = comparaciones.RealizarComparacion();
+        //    var operacionesFallidas = resultados.Where(item => item.Resultado == false);
+        //    var mensajeOperacionesFallidas = operacionesFallidas.Select(item => item.NombreComparacion);
+        //    var mensajeFinal = string.Join(",", mensajeOperacionesFallidas);
+
+
+        //    periodo = new Periodo { Codigo = "Dia", PeriodoBase = PeriodoBase.Dia, Nombre = "CxCMaestroDetalles Diarias" };
+        //    var diasDelPeriodoEnElMes = 30;
+        //    var tasaInteresDelPeriodo = 5 / diasDelPeriodoEnElMes;
+        //    prestamo = new Prestamo
+        //    {
+        //        FechaEmisionReal = new DateTime(2021, 01, 01),
+        //        CantidadDeCuotas = 60,
+        //        TasaDeInteresDelPeriodo = tasaInteresDelPeriodo,
+        //        Periodo = periodo,
+        //        MontoPrestado = 12000,
+        //        TipoAmortizacion = TiposAmortizacion.No_Amortizable_cuotas_fijas,
+        //        MontoGastoDeCierre = 1200,
+        //        CargarInteresAlGastoDeCierre = true,
+        //        FinanciarGastoDeCierre = true,
+        //        OtrosCargos = 300,
+        //        CargarInteresOtrosCargos = true
+        //    };
+
+        //    //generadorCuota = new GeneradorCuotasFijasNoAmortizable2(prestamo,-1);
+        //    //cuotas = generadorCuota.GenerarCuotas();
+            
+        //    totales = new ValoresTotalesDelPrestamo();
+
+        //    totales.TCapital = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.Capital);
+        //    totales.TInteres = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresCapital);
+        //    totales.TGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.GastoDeCierre);
+        //    totales.TInteresGastoDeCierre = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresGastoDeCierre);
+        //    totales.TOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.OtrosCargos);
+        //    totales.TInteresOtrosCargos = cuotas.TotalMontoOriginalPorTipoCargo(TiposCargosPrestamo.InteresOtrosCargos);
+        //    comparaciones = new ComparacionTotales(prestamo, totales);
+        //    resultados = comparaciones.RealizarComparacion();
+        //    operacionesFallidas = comparaciones.GetOperacionesFallidas();
+        //    mensajeFinal = comparaciones.ListadoDeOperacionesFallidas();
+
+        //    Assert.IsTrue(operacionesFallidas.Count() > 0, mensajeFinal);
+        //}
 
         class ValoresTotalesDelPrestamo
         {

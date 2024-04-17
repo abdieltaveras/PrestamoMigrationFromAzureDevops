@@ -23,9 +23,9 @@ namespace PrestamoBLL
             var prToBuild2 = await PrestamoBuilder.Create(prestamo);
             var prestamoParam = prToBuild2.Build();
             
-
-            var cuotas = prestamoParam._CuotasList;
-            var cuotasDt = prestamoParam.Cuotas;
+            // todo fix
+            //var cuotas = prestamoParam._CuotasList;
+            //var cuotasDt = prestamoParam.Cuotas;
             var prestamoParam2 = SearchRec.ToSqlParams(prestamoParam);
 
             //prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
@@ -136,16 +136,17 @@ namespace PrestamoBLL
                 }
                 dr.DataReaderToType(out infoCliente);
             }
-            var cuotas = new List<CxCCuota>();
-            if (dr.NextResult())
-            {
-                while (dr.Read())
-                {
-                    var cuota = new CxCCuota();
-                    dr.DataReaderToType(out cuota);
-                    cuotas.Add(cuota);
-                }
-            }
+            // TODO fix
+            //var cuotas = new List<CxCCuota>();
+            //if (dr.NextResult())
+            //{
+            //    while (dr.Read())
+            //    {
+            //        var cuota = new CxCCuota();
+            //        dr.DataReaderToType(out cuota);
+            //        cuotas.Add(cuota);
+            //    }
+            //}
             List<InfoGarantiaDrCr> infoGarantiasDrCr = new List<InfoGarantiaDrCr>();
             if (dr.NextResult())
             {
@@ -165,9 +166,11 @@ namespace PrestamoBLL
             var PrestamoConDetalle = new PrestamoConDetallesParaCreditosYDebitos();
             PrestamoConDetalle.infoPrestamo = infoPrestamo;
             PrestamoConDetalle.infoCliente = infoCliente;
-            PrestamoConDetalle.Cuotas = cuotas;
+            // TODO fix
+            //PrestamoConDetalle.Cuotas = cuotas;
             PrestamoConDetalle.infoGarantias = infoGarantiasDrCr;
-            PrestamoConDetalle.InfoDeuda = new InfoDeudaPrestamoDrCr(cuotas, fecha);
+            // todo fix
+            //PrestamoConDetalle.InfoDeuda = new InfoDeudaPrestamoDrCr(cuotas, fecha);
             return PrestamoConDetalle;
         }
         public void AnularPrestamo(int idPrestamo)

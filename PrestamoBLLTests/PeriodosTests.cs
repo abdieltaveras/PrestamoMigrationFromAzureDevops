@@ -13,7 +13,7 @@ namespace PrestamoBLL.Tests
     [TestClass()]
     public class PeriodosTests
     {
-        TestInfo tinfo = new TestInfo();
+        TestUtils tinfo = new TestUtils();
 
         
         [TestMethod()]
@@ -21,12 +21,12 @@ namespace PrestamoBLL.Tests
         
         public void InsUpdPeriodoTest()
         {
-            var periodo = new Periodo { Codigo = "MesTest", IdNegocio=6, PeriodoBase = PeriodoBase.Mes, Nombre = "Prueba Mes", Usuario = tinfo._Usuario };
+            var periodo = new Periodo { Codigo = "MesTest", IdNegocio=6, PeriodoBase = PeriodoBase.Mes, Nombre = "Prueba Mes", Usuario = TestUtils.Usuario };
 
             Func<bool> condicion = () => tinfo.MensajeError == string.Empty;
             try
             {
-                new PeriodoBLL(1, TestInfo.Usuario).InsUpdPeriodo(periodo);
+                new PeriodoBLL(1, TestUtils.Usuario).InsUpdPeriodo(periodo);
             }
             catch (Exception e)
             {
@@ -60,7 +60,7 @@ namespace PrestamoBLL.Tests
             Func<bool> condicion = () => tinfo.MensajeError == string.Empty;
             try
             {
-                var periodo = new PeriodoBLL(1, TestInfo.Usuario).GetPeriodos(new PeriodoGetParams { idPeriodo = -1 });
+                var periodo = new PeriodoBLL(1, TestUtils.Usuario).GetPeriodos(new PeriodoGetParams { idPeriodo = -1 });
             }
             catch (Exception e)
             {
@@ -71,14 +71,14 @@ namespace PrestamoBLL.Tests
         private int GetPeriodo()
         {
             
-            var periodo = new PeriodoBLL(1, TestInfo.Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = 6, Codigo = "MES" }).FirstOrDefault();
+            var periodo = new PeriodoBLL(1, TestUtils.Usuario).GetPeriodos(new PeriodoGetParams { IdNegocio = 6, Codigo = "MES" }).FirstOrDefault();
             return periodo.idPeriodo;
         }
         [TestMethod()]
         public void GetInvalidIdPeriodoTest()
         {
             var searchPeriodo = new PeriodoGetParams { idPeriodo = 1526 };
-            var periodo = new PeriodoBLL(1, TestInfo.Usuario).GetPeriodos(searchPeriodo).FirstOrDefault();
+            var periodo = new PeriodoBLL(1, TestUtils.Usuario).GetPeriodos(searchPeriodo).FirstOrDefault();
             Assert.IsTrue(periodo == null, "el id invalido retorno un valor diferente de null");
         }
 

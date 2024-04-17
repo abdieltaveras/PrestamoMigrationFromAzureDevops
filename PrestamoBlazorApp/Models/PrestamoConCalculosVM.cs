@@ -30,7 +30,7 @@ namespace PrestamoBlazorApp.Models
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
 
-        public List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
+        public List<DebitoPrestamoConDetallesViewModel> Cuotas { get; set; } = new List<DebitoPrestamoConDetallesViewModel>();
 
         IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
         IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();

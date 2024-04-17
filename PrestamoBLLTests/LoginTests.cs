@@ -43,7 +43,7 @@ namespace PrestamoBLL.Tests
             UserValidationResultWithMessage result = new UserValidationResultWithMessage(UserValidationResult.Sucess);
             var usr = UsuarioTests.NewSuccessUserInstance;
             UpdateSuccessUser(usr);
-            BLLPrestamo.Instance.ChangePasswordNoUsar(new ChangePassword { IdUsuario = usr.IdUsuario, Contraseña = usr.Password, Usuario = TestInfo.Usuario });
+            BLLPrestamo.Instance.ChangePasswordNoUsar(new ChangePassword { IdUsuario = usr.IdUsuario, Contraseña = usr.Password, Usuario = TestUtils.Usuario });
             result = BLLPrestamo.Instance.LoginNoUsar(usr.LoginName, usr.Password,1).ValidationMessage;
             Assert.IsTrue(result.UserValidationResult == UserValidationResult.Sucess, $"Se esperaba {UserValidationResult.Sucess} y se obtuvo {result.UserValidationResult.ToString()}");
         }

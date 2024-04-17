@@ -40,10 +40,10 @@
                             <MudCardContent Style="max-height:200px; overflow:auto;">
                                 <MudText><b>Cantidad De Cuotas: </b> @Prestamo.Prestamo.CantidadDeCuotas</MudText>
                                 <MudText><b>Cuotas Pendientes: </b> -</MudText>
-                                @foreach (var item in Prestamo.Cuotas)
+                                @foreach (var item in Cuotas)
                                 {
                                     <MudDivider/>
-                                    <MudText><b>Numero Cuota : </b> @item.NumeroCuota</MudText>
+                                    <MudText><b>Numero Cuota : </b> @item.NumeroTransaccion</MudText>
                                     <MudText><b>Balance: </b> @item.Balance</MudText>
                                     <MudText><b>Monto: </b> @item.Monto </MudText>
                                 }

@@ -1,0 +1,76 @@
+hoy
+Decidimos usar el detalle de los cargos en un json, que se ira junto con 
+la transaccion
+
+a) para que funciona el objeto padre debe tener una propiedad string que almacenara el json
+b) debe tener un objeto que convertira el objeto json guardado como texto
+en el objeto de detalle
+
+
+1) Creo al final la mejor estructura sera
+aun la cuota seria un tipo de debito
+que se identificaria de alguna manera que es la cuota Original
+este tipo especializado de cargo lleva otros datos
+tambien podemos convertir en el proceso del objeto las cuotas
+en este tipo
+
+2) cuando un prestamo se modifique y se le cambie la cantidad de cuotas
+actualizar los valores
+a) si son mas debera agregarlas
+b) si son menos (debera eliminar las que estan de mas)
+
+
+3) sufrimos de una situacion que daba error, al enviar el valor null, en la referencia el storedProcedure eliminaba los registros basado en este valor, al ser nulo, nunca se ejecutaba, y el stored procedure daba un timeout
+
+
+al final todo se va a componer de una coleccion de 
+Cargos
+TipoDebito (Cuota, Notas de Debitos, Cargos por Moras, Cargos por Interes)
+TipoDeCargo
+ValorOriginal
+Balance
+Ultima Actualizacion Mora (podria ser tomada por el recargo)
+Ultima Actualizacion Interes (tomarda de cargos por interes)
+
+Esto es para los debitos
+Si decidimos este modelo que es lo mejor
+Documento (Cuota, Mora, Interes regular, int despues de vencido, Otros)
+          (Cuota, Mora, IntReg, IntDV, Otros)
+IdTransaccion 
+
+convertir esto en una clase que cotenga un dictionario de codigo y nombre 
+CodigoCargo 
+CAP,'Capital'
+INT,'Interes'
+INTGC,'InteresGasto de cierre'
+GC,'Gasto de cierre'
+M01,'Moras'
+GC01','Gestion de cobro'
+Monto
+
+Balance
+debera tener otras informaciones
+en el caso de la cuota debera tener
+o tener un maestro de cuota que tenga, IdPrestamo, IdCuota, Numero Cuota, Fecha, Monto, Balance (pero el detalle de los cargos lo tendra 
+DetalleDebitoCxC)
+en caso de renovar habra que hacer un listado de todos los debito en la cuenta por cobrar (por si se hacer reversion)
+que puede ser perfectamente un campo de objeto en json
+
+
+
+las cuotas al generarse entonces lo que deben hacer es generar
+
+
+
+
+tenemos  que hacer el objeto
+DebitosCXC
+las transacciones que el generara son  cada uno con sus especializaciones
+Cuotas
+MorasInternas
+InteresRegular
+OtrosDebitos
+
+
+
+

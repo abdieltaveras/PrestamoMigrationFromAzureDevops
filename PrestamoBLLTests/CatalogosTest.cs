@@ -52,7 +52,7 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void CatalogosGetTest()
         {
-            var testinfo = new TestInfo();
+            var testinfo = new TestUtils();
             IEnumerable<BaseInsUpdCatalogo> result = null;
             try
             {

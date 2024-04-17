@@ -129,21 +129,25 @@ namespace PrestamoWS.Controllers
 
 
         [HttpGet]
-        public IEnumerable<CxCCuota> GenerarCuotas2(string jsonInfoGenCuotas)
-            //([FromQuery]    InfoGeneradorDeCuotas infoGenCuotas)
-        //infoGeneradorDeCuotas info)
+        public IEnumerable<DebitoPrestamoConDetallesViewModel> GenerarCuotas2(string jsonInfoGenCuotas)
         {
             var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
             infoGenCuotas.Usuario = this.LoginName;
             infoGenCuotas.IdLocalidadNegocio = this.IdLocalidadNegocio;
             infoGenCuotas.IdNegocio = this.IdNegocio;
-            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(infoGenCuotas);
-            var cuotas = generadorCuotas.GenerarCuotas();
+            var cuotas = Generar_Cuotas(infoGenCuotas);
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return cuotas;
         }
+
+        private IEnumerable<DebitoPrestamoConDetallesViewModel> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
+        {
+            // todo revisar 20240415
+            return MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, infoGenCuotas);
+        }
+
         [HttpGet]
-        public IEnumerable<CxCCuota> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
+        public IEnumerable<DebitoPrestamoConDetallesViewModel> GenerarCuotas(string jsonInfoGenCuotas, int idPeriodo, int idTipoAmortizacion)
         //infoGeneradorDeCuotas info)
         {
             //todo actualizarlo a la nueva forma con el nuevo objeto
@@ -153,8 +157,7 @@ namespace PrestamoWS.Controllers
             var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();
             infoGenCuotas.TipoAmortizacion = (TiposAmortizacion)idTipoAmortizacion;
             infoGenCuotas.IdPeriodo = idPeriodo;
-            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(infoGenCuotas);
-            var cuotas = generadorCuotas.GenerarCuotas();
+            var cuotas = Generar_Cuotas(infoGenCuotas);
             //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
             return cuotas;
         }

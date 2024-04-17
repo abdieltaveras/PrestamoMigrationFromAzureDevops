@@ -228,12 +228,13 @@
     <Build Include="dbo\Stored Procedures\spSearchTableByColunm.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamoCliente.sql" />
     <Build Include="dbo\Stored Procedures\SpGetCuotas.sql" />
-    <Build Include="dbo\Tables\tblTiposCargosDebitos.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
     <None Include="SchemaCompareForAbdiel.scmp" />
     <None Include="RandyPrestamoDB.publish.xml" />
     <None Include="SchemaCompareForRandy.scmp" />
+    <None Include="Scripts\NotInBuild\CreateSchema.sql" />
+    <None Include="Scripts\NotInBuild\FixingErrorTVPWhenTypeIsDate.sql" />
   </ItemGroup>
 </Project>

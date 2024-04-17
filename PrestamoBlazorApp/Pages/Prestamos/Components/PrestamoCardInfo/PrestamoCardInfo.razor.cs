@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using PrestamoBlazorApp.Models;
 using PrestamoBlazorApp.Services;
 using PrestamoEntidades;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos.Components.PrestamoCardInfo
         [Inject]
         IDialogService DialogService { get; set; }
         string SearchText { get; set; }
-        decimal MontoPagar { get; set; } = 0;
+        decimal MontoPagar { get; set; } 
+        List<CuotaModel> Cuotas { get; set; } = new List<CuotaModel>();
         public PrestamoConDetallesParaUIPrestamo Prestamo { get; set; } = new PrestamoConDetallesParaUIPrestamo();
         [Inject]
         PrestamosService _PrestamosService { get; set; }
@@ -31,11 +33,12 @@ namespace PrestamoBlazorApp.Pages.Prestamos.Components.PrestamoCardInfo
  
             Prestamo.Prestamo.LlevaGarantia = true;
             Prestamo.infoGarantias = garantias;
-            Prestamo.Cuotas = new List<CuotaModel>() {
-                new CuotaModel { Balance=10, Monto=11, NumeroCuota=1 },
-                new CuotaModel { Balance=20, Monto=21, NumeroCuota=2 },
-                new CuotaModel { Balance=30, Monto=31, NumeroCuota=3 },
-                new CuotaModel { Balance=40, Monto=41, NumeroCuota=4 },
+            
+            Cuotas = new List<CuotaModel>() {
+                new CuotaModel { Balance=10, Monto=11, NumeroTransaccion=1 },
+                new CuotaModel { Balance=20, Monto=21, NumeroTransaccion=2 },
+                new CuotaModel { Balance=30, Monto=31, NumeroTransaccion=3 },
+                new CuotaModel { Balance=40, Monto=41, NumeroTransaccion=4 },
             };
             StateHasChanged();
         }

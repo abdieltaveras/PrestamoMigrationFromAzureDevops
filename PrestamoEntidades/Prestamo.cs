@@ -47,40 +47,40 @@ namespace PrestamoEntidades
 
         //readonly IEnumerable<CuotaAmpliada> cuotas;
         readonly DateTime Fecha;
-        public InfoDeudaPrestamoDrCr(IEnumerable<CxCCuota> cuotas, DateTime fecha)
-        {
-            this.cuotas = cuotas;
-            this.Fecha = fecha;
-            this.CalcularDeuda();
-        }
+        //public InfoDeudaPrestamoDrCr(IEnumerable<CxCCuota> cuotas, DateTime fecha)
+        //{
+        //    this.cuotas = cuotas;
+        //    this.Fecha = fecha;
+        //    this.CalcularDeuda();
+        //}
 
-        public IEnumerable<CxCCuota> cuotas { get; set; }
-        private void CalcularDeuda()
-        {
-            foreach (var cuota in cuotas)
-            {
-                this.CantidadDeCuotas++;
-                this.CuotasLiquidadas += (cuota.BceGeneral == 0) ? 1 : 0;
-                if (cuota.BceGeneral > 0)
-                {
-                    this.CuotasVigentes++;
-                    this.TotalCapital += cuota.BceCapital;
-                    this.TotalInteres += cuota.BceInteres;
-                    //this.TotalMora += cuota.BceMora;
-                    //this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
-                    //this.TotalOtrosCargos += (decimal)cuota.BceOtrosCargos;
-                    if (cuota.Vencida(this.Fecha))
-                    {
-                        this.CuotasAtrasadas++;
-                        this.DeudaAtrasada += this.DeudaTotal;
-                    }
-                    if (cuota.MenorOIgualALaFecha(this.Fecha))
-                    {
-                        this.DeudaALaFecha += this.DeudaTotal;
-                    }
-                }
-            }
-        }
+        //public IEnumerable<CxCCuota> cuotas { get; set; }
+    //    private void CalcularDeuda()
+    //    {
+    //        foreach (var cuota in cuotas)
+    //        {
+    //            this.CantidadDeCuotas++;
+    //            this.CuotasLiquidadas += (cuota.BceGeneral == 0) ? 1 : 0;
+    //            if (cuota.BceGeneral > 0)
+    //            {
+    //                this.CuotasVigentes++;
+    //                this.TotalCapital += cuota.BceCapital;
+    //                this.TotalInteres += cuota.BceInteres;
+    //                //this.TotalMora += cuota.BceMora;
+    //                //this.TotalInteresDespuesDeVencido += cuota.BceInteresDespuesDeVencido;
+    //                //this.TotalOtrosCargos += (decimal)cuota.BceOtrosCargos;
+    //                if (cuota.Vencida(this.Fecha))
+    //                {
+    //                    this.CuotasAtrasadas++;
+    //                    this.DeudaAtrasada += this.DeudaTotal;
+    //                }
+    //                if (cuota.MenorOIgualALaFecha(this.Fecha))
+    //                {
+    //                    this.DeudaALaFecha += this.DeudaTotal;
+    //                }
+    //            }
+    //        }
+    //    }
     }
 
     public class InfoPrestamoDrCr : IInfoPrestamoDrCr
@@ -122,7 +122,7 @@ namespace PrestamoEntidades
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; } = new List<InfoCodeudorDrCr>();
         public PrestamoInfo PrestamoInfo { get; set; } = new PrestamoInfo();
-        public IEnumerable<CuotaModel> Cuotas { get; set; } = new List<CuotaModel>();
+        //public IEnumerable<CuotaModel> Cuotas { get; set; } = new List<CuotaModel>();
 
     }
     public class PrestamoClienteUI
@@ -216,7 +216,7 @@ namespace PrestamoEntidades
 
         public IEnumerable<InfoCodeudorDrCr> infoCodeudores { get; set; }
 
-        public IEnumerable<CxCCuota> Cuotas { get; set; }
+        public IEnumerable<IMaestroDebitoConDetallesCxC> Cuotas { get; set; }
 
         public InfoDeudaPrestamoDrCr InfoDeuda { get; set; }
     }
@@ -236,7 +236,7 @@ namespace PrestamoEntidades
     {
         public int IdPrestamo { get; set; }
         [IgnoreOnParams]
-        [Display(Name = "Prestamo Numero")]
+        [Display(Name = "Prestamo NumeroTransaccion")]
         public string PrestamoNumero { get; set; } = string.Empty;
         /// <summary>
         /// el valor menos 1 indica que no se establecio ningun prestamo a renovar
@@ -352,14 +352,14 @@ namespace PrestamoEntidades
         public bool LlevaGastoDeCierre => InteresGastoDeCierre > 0;
         //{ get=> ; internal set; }
         [Range(0.0, 30.00, ErrorMessage = "rango permitido entre 1 y 30%")]
-        [Display(Name = "Interes al G/C/?")]
+        [Display(Name = "Interes al G/Credito/?")]
         public virtual decimal InteresGastoDeCierre { get; set; } = 0.00m;
         public decimal MontoGastoDeCierre { get; set; }
-        [Display(Name = "Es deducible el G/C?")]
+        [Display(Name = "Es deducible el G/Credito?")]
         public virtual bool GastoDeCierreEsDeducible { get; set; } = false;
-        [Display(Name = "Financiar el G/C?")]
+        [Display(Name = "Financiar el G/Credito?")]
         public virtual bool FinanciarGastoDeCierre { get; set; } = true;
-        [Display(Name = "Cargo interes al G/C ?")]
+        [Display(Name = "Cargo interes al G/Credito ?")]
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
 
         /// <summary>
@@ -419,36 +419,36 @@ namespace PrestamoEntidades
 
     }
 
-    public static class ExtMeth
-    {
-        public static DataTable ToDataTablePcp<T>(this IEnumerable<T> items)
-        {
-            DataTable dataTable = new DataTable(typeof(T).Name);
+    //public static class ExtMeth
+    //{
+    //    public static DataTable ToDataTablePcp<T>(this IEnumerable<T> items)
+    //    {
+    //        DataTable dataTable = new DataTable(typeof(T).Name);
 
-            //Get all the properties
-            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (PropertyInfo prop in Props)
-            {
-                //Defining type of data column gives proper data table 
-                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
-                //Setting column names as Property names
-                dataTable.Columns.Add(prop.Name, type);
-            }
-            foreach (T item in items)
-            {
-                var values = new object[Props.Length];
-                for (int i = 0; i < Props.Length; i++)
-                {
-                    //inserting property values to datatable rows
-                    values[i] = Props[i].GetValue(item, null);
-                }
+    //        //Get all the properties
+    //        PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+    //        foreach (PropertyInfo prop in Props)
+    //        {
+    //            //Defining type of data column gives proper data table 
+    //            var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
+    //            //Setting column names as Property names
+    //            dataTable.Columns.Add(prop.Name, type);
+    //        }
+    //        foreach (T item in items)
+    //        {
+    //            var values = new object[Props.Length];
+    //            for (int i = 0; i < Props.Length; i++)
+    //            {
+    //                //inserting property values to datatable rows
+    //                values[i] = Props[i].GetValue(item, null);
+    //            }
 
-                dataTable.Rows.Add(values);
-            }
-            //put a breakpoint here and check datatable
-            return dataTable;
-        }
-    }
+    //            dataTable.Rows.Add(values);
+    //        }
+    //        //put a breakpoint here and check datatable
+    //        return dataTable;
+    //    }
+    //}
 
     public class PrestamoInfo
     {
@@ -464,21 +464,9 @@ namespace PrestamoEntidades
 
 
     }
-    public class PrestamoInsUpdParam : Prestamo
-    {
-        public readonly IEnumerable<CxCCuotaForSqlType> _CuotasList = new List<CxCCuotaForSqlType>();
 
-        public PrestamoInsUpdParam(IEnumerable<CxCCuotaForSqlType> cuotas)
-        {
-            this._CuotasList = cuotas;
-        }
-        public DataTable Garantias => this.IdGarantias.Select(gar => new { idGarantia = gar }).ToDataTable();
-        //this._Garantias.ToDataTable();
-        public DataTable Codeudores => this.IdCodeudores.Select(cod => new { idCodeudor = cod }).ToDataTable();
 
-        //public DataTable Cuotas => this._CuotasList.ToDataTable();
-        public DataTable Cuotas => this._CuotasList.ToDataTablePcp();
-    }
+    
 
     internal class PrestamoGarantias
     {
@@ -507,8 +495,6 @@ namespace PrestamoEntidades
         public DateTime? fechaEmisionRealHasta { get; set; }
         public string PrestamoNumero { get; set; }
     }
-
-
 
 }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL
 {
-    [System.Diagnostics.DebuggerDisplay("{PositiveValue}")]
+    [System.Diagnostics.DebuggerDisplay("{PositiveDecimal}")]
     public struct NotNullOrEmptyString 
     {
         private string m_value;

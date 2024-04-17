@@ -1,0 +1,2 @@
+rzc rewrite css exited with code 1: lo que pasaba era que el archivo razor.css decia que era parte del proyecto,
+pero en realidad estaba eliminado, 

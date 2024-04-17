@@ -48,6 +48,7 @@ namespace PrestamoBlazorApp.Pages.Marcas
             this.Marca = new Marca();
             //await GetMarcas();
             marcas = await marcasService.Get(new MarcaGetParams());
+            //base.OnInitializedAsync();
         }
         async Task GetMarcasByParam()
         {

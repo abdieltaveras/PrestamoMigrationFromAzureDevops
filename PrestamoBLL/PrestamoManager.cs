@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PcpUtilidades;
+using PrestamoBLL.Models;
 using PrestamoEntidades;
 using System;
 using System.CodeDom;
@@ -308,7 +309,7 @@ namespace PrestamoBLL
 
         private void SetRenovacion(string noPrestamoARenovar, int idPrestamoARenovar)
         {
-            if (idPrestamoARenovar == 0) { throw new NullReferenceException("el valor de idPrestamoARenovar no puede ser 0"); }
+            //if (idPrestamoARenovar > 0) { throw new NullReferenceException("el valor de idPrestamoARenovar no puede ser 0"); }
             if (!string.IsNullOrEmpty(noPrestamoARenovar) && idPrestamoARenovar > 0)
             {
                 this.prestamoInProgress.NumeroPrestamoARenovar = noPrestamoARenovar;
@@ -364,9 +365,18 @@ namespace PrestamoBLL
         {
             //IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             //var cuotas = genCuotas.GenerarCuotas();
-            var cuotas = CuotasGenerator.CreateCuotas(this.prestamoInProgress);
+            var cuotas = GeneradorDeCuotas.CreateCuotasMaestroDetalle(this.prestamoInProgress.IdPrestamo, this.prestamoInProgress);
+            
             // var cuotasVacias = new List<Cuota>();
-            var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
+            var prestamoConDependencias = new PrestamoInsUpdParam();
+            // establecer los valores del maestro y los detalles
+            var detalles = MaestroDetalleDebitosBLL.CreateDetallesDr(cuotas);
+            var result = MaestroDetalleDebitosBLL.CreateDrMaestroYDetalles(cuotas);
+            prestamoConDependencias.CargosMaestro = result.MaestrosDr;
+
+            prestamoConDependencias.CargosDetalles = result.DetallesDr;
+            //todo fix
+            //var prestamoConDependencias = new PrestamoInsUpdParam(cuotas);
             _type.CopyPropertiesTo(prestamoInProgress, prestamoConDependencias);
             return prestamoConDependencias;
         }
@@ -385,8 +395,6 @@ namespace PrestamoBLL
         private async Task NoCalcular() => await Task.Run(() => { });
 
         public async Task ExecCalcs() => await execCalcs();
-
-
 
         public void ActivateCalculos() => execCalcs = Calcular;
         public void SetServices(EventHandler<string> notificarMensaje,
@@ -407,7 +415,7 @@ namespace PrestamoBLL
         IEnumerable<Clasificacion> Clasificaciones { get; set; } = new List<Clasificacion>();
         IEnumerable<TipoMora> TiposMora { get; set; } = new List<TipoMora>();
 
-        public List<CxCCuota> Cuotas { get; set; } = new List<CxCCuota>();
+        public List<IMaestroDebitoConDetallesCxC> CxCMaestroDetalles { get; set; } = new List<IMaestroDebitoConDetallesCxC>();
 
         IEnumerable<TasaInteres> TasasDeInteres { get; set; } = new List<TasaInteres>();
         IEnumerable<Periodo> Periodos { get; set; } = new List<Periodo>();
@@ -582,7 +590,7 @@ namespace PrestamoBLL
         {
             await CalcularGastoDeCierre();
             await CalcularCuotas();
-            this.FechaVencimiento = this.Cuotas.Last().Fecha;
+            this.FechaVencimiento = this.CxCMaestroDetalles.Last().Fecha;
         }
 
 
@@ -590,16 +598,16 @@ namespace PrestamoBLL
         {
             await CalcularGastoDeCierre();
             await CalcularCuotas();
-            this.FechaVencimiento = this.Cuotas.Last().Fecha;
+            this.FechaVencimiento = this.CxCMaestroDetalles.Last().Fecha;
             return this;
         }
 
-        public IEnumerable<CxCCuota> GenerarCuotas(IInfoGeneradorCuotas info)
-        {
-            var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
-            var cuotas = generadorCuotas.GenerarCuotas();
-            return cuotas;
-        }
+        //public IEnumerable<CxCCuota> GenerarCuotas(IInfoGeneradorCuotas info)
+        //{
+        //    var generadorCuotas = CuotasConCalculo.GetGeneradorDeCuotas(info);
+        //    var cuotas = generadorCuotas.GenerarCuotas();
+        //    return cuotas;
+        //}
 
         public TasasInteresPorPeriodos CalculateTasaInteresPorPeriodo(decimal tasaInteresMensual, Periodo periodo)
         {
@@ -618,10 +626,11 @@ namespace PrestamoBLL
 
             // todo poner el calculo de tasa de interes por Periodo donde hace el calculo de generar
             // cuotas y no que se le envie esa informacion
-            var cuotas = GenerarCuotas(infoCuotas);
-            //this.Cuotas.Clear();
-            this.Cuotas = cuotas.ToList();
-            //await JsInteropUtils.NotifyMessageBox(jsRuntime,"calculando cuotas"+cuotas.Count().ToString());
+            // todo fix
+            //var cuotas = GenerarCuotas(infoCuotas);
+            
+            //this.CxCMaestroDetalles = cuotas.ToList();
+            
         }
     }
     //public class PrestamoManager

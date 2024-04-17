@@ -26,12 +26,11 @@ namespace PrestamoBLL.Tests
         {
             Prestamo prestamo = new Prestamo(); ;
             int id = 0;
-            var testInfo = new TestInfo();
+            var testInfo = new TestUtils();
             try
             {
                 prestamo = await CreatePrestamoInstance();
-                id = await new PrestamoBLLC(TestInfo.GetIdLocalidadNegocio(), TestInfo.Usuario).InsUpdPrestamo(prestamo);
-
+                id = await new PrestamoBLLC(TestUtils.GetIdLocalidadNegocio(), TestUtils.Usuario).InsUpdPrestamo(prestamo);
             }
             catch (Exception e)
             {
@@ -48,7 +47,7 @@ namespace PrestamoBLL.Tests
         public async Task<Prestamo> CreatePrestamoInstance()
         {
             Prestamo prestamo = new Prestamo(); ;
-            var testInfo = new TestInfo();
+            var testInfo = new TestUtils();
 
             var idCliente = getIdCliente();
             var idClasificacion = getIdClasificacionForNombre("Personal");
@@ -60,9 +59,9 @@ namespace PrestamoBLL.Tests
             prestamo = new Prestamo()
             {
                 // base properties
-                IdNegocio = TestInfo.GetIdNegocio(),
-                IdLocalidadNegocio = TestInfo.GetIdLocalidadNegocio(),
-                Usuario = TestInfo.Usuario,
+                IdNegocio = TestUtils.GetIdNegocio(),
+                IdLocalidadNegocio = TestUtils.GetIdLocalidadNegocio(),
+                Usuario = TestUtils.Usuario,
                 //
                 IdClasificacion = idClasificacion,
                 IdCliente = idCliente,
@@ -78,7 +77,7 @@ namespace PrestamoBLL.Tests
         }
         private int getTipoMora(string codigo)
         {
-            var tiposMora = new TipoMoraBLL(1, TestInfo.Usuario).GetTiposMoras(new TipoMoraGetParams());
+            var tiposMora = new TipoMoraBLL(1, TestUtils.Usuario).GetTiposMoras(new TipoMoraGetParams());
             var tipoMora = tiposMora.FirstOrDefault(item => item.Codigo == codigo);
             return GetResult<TipoMora>(tipoMora).IdTipoMora;
         }
@@ -91,7 +90,7 @@ namespace PrestamoBLL.Tests
 
         private static Cliente? GetClienteInstance()
         {
-            var clientes = new ClienteBLL(TestInfo.GetIdLocalidadNegocio(), TestInfo.Usuario).GetClientes(new ClienteGetParams());
+            var clientes = new ClienteBLL(TestUtils.GetIdLocalidadNegocio(), TestUtils.Usuario).GetClientes(new ClienteGetParams());
             var cliente = clientes.FirstOrDefault();
             return cliente;
         }
@@ -104,7 +103,7 @@ namespace PrestamoBLL.Tests
 
         private static Periodo? GetPeriodoInstance(string codigo)
         {
-            var periodos = new PeriodoBLL(1, TestInfo.Usuario).GetPeriodos(new PeriodoGetParams { Codigo = codigo });
+            var periodos = new PeriodoBLL(1, TestUtils.Usuario).GetPeriodos(new PeriodoGetParams { Codigo = codigo });
             var periodo = periodos.FirstOrDefault();
             return periodo;
         }
@@ -117,7 +116,7 @@ namespace PrestamoBLL.Tests
 
         private static TasaInteres? GetTasaDeInteresInstance(string codigo)
         {
-            var tasasDeInteres = new TasaInteresBLL(1, TestInfo.Usuario).GetTasasDeInteres(new TasaInteresGetParams { Codigo = codigo });
+            var tasasDeInteres = new TasaInteresBLL(1, TestUtils.Usuario).GetTasasDeInteres(new TasaInteresGetParams { Codigo = codigo });
             var tasaDeInteres = tasasDeInteres.FirstOrDefault();
             return tasaDeInteres;
         }

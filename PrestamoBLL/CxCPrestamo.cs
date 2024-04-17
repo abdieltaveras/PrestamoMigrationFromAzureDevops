@@ -14,7 +14,7 @@ namespace PrestamoBLL
 
             // debo buscar todos los cargos tanto en cuotas como en 
             // Simulacion
-            List<CxCCuota> Cuotas = new List<CxCCuota>();
+            //List<CxCCuota> Cuotas = new List<CxCCuota>();
             //Cuotas = CxCCuota
         }
         internal static int GetIdPrestamo(string prestamoNumero)
@@ -25,14 +25,15 @@ namespace PrestamoBLL
             var valor = System.Convert.ToInt32(resultIdPrestamo);
             return valor;
         }
-        public static IEnumerable<CxCCuota> GetCuotas(int idPrestamo)
-        {
-            // obtener el numero del prestamo y que pertenezca al negocio
-            // obtener las cuotas y los debitos pendientes
-            BLLValidations.ValueGreaterThanZero(idPrestamo, "Prestamo a consultar");
-            var sqlParam = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
-            var result = BLLPrestamo.BllAcciones.GetData<CxCCuota>(sqlParam, "dbo.spGetCuotas");
-            return result;
-        }
+        // todo fix
+        //public static IEnumerable<CxCCuotaBLL> GetCuotas(int idPrestamo)
+        //{
+        //    // obtener el numero del prestamo y que pertenezca al negocio
+        //    // obtener las cuotas y los debitos pendientes
+        //    BLLValidations.ValueGreaterThanZero(idPrestamo, "Prestamo a consultar");
+        //    var sqlParam = SearchRec.ToSqlParams(new { idPrestamo = idPrestamo });
+        //    var result = BLLPrestamo.BllAcciones.GetData<CxCCuotaBLL>(sqlParam, "dbo.spGetCuotas");
+        //    return result;
+        //}
     }
 }
