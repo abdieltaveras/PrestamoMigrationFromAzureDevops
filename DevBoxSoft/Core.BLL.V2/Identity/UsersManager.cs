@@ -154,10 +154,11 @@ namespace DevBox.Core.BLL.Identity
             var user = Database.DataServer.ExecReaderSelSP("core.spGetUsers", UserConvertMap, parameters).FirstOrDefault();
             return user;
         }
-        public CoreUser CreateUser(string UserName, string FirstName, string LastName, string Email, string GroupName, string NationalID, bool IsActive, string CreatedBy, List<Func<CoreUser,bool>> conditions)
+        public CoreUser CreateUser(string UserName, string FirstName, string LastName, string Email, string GroupName, string NationalID,
+            bool IsActive, string CreatedBy, List<Func<CoreUser,bool>> conditions, int CompanyId, string CompaniesAccess)
         {
-            var user = new { UserName, FirstName, LastName, Email, NationalID, GroupName, IsActive, CreatedBy };
-            var coreUser = new CoreUser { UserName = UserName, Email = Email, NationalID = NationalID, FirstName = FirstName, LastName = LastName };
+            var user = new { UserName, FirstName, LastName, Email, NationalID, GroupName, IsActive, CreatedBy, CompanyId, CompaniesAccess };
+            var coreUser = new CoreUser { UserName = UserName, Email = Email, NationalID = NationalID, FirstName = FirstName, LastName = LastName, CompanyId = CompanyId };
 
             if (conditions != null)
             {

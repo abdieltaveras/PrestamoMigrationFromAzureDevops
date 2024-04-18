@@ -4,7 +4,7 @@
         <MudText Typo="Typo.h6">
             <MudIcon Icon="@Icons.Material.Filled.PeopleAlt" Class="mr-3 mb-n1" /> Editar Usuario
         </MudText>
-        <MudIconButton Color="MudBlazor.Color.Error" OnClick="CloseDlg" Icon="@Icons.Material.Rounded.Close" Variant="Variant.Filled"></MudIconButton>
+        @*<MudIconButton Color="MudBlazor.Color.Error" OnClick="CloseDlg" Icon="@Icons.Material.Rounded.Close" Variant="Variant.Filled"></MudIconButton>*@
     </TitleContent>
     <DialogContent>
         <MudForm @ref="form" @bind-IsValid="@validForm" @bind-Errors="@errors">
@@ -37,6 +37,10 @@
                             <MudSelectItem T="string" Value="@group.GroupName">@group.GroupName</MudSelectItem>
                         }
                     </MudSelect>
+                </MudItem>
+                <MudItem xs="12" sm="12" md="12">
+                    <MudTextField T="string" Label="Puede Acceder A" Required="true" @bind-Value="user.CompaniesAccess" Variant="Variant.Text"
+                                  RequiredError="Debe proveer a cuales comprañias tiene acceso" />
                 </MudItem>
                 <MudItem xs="12" sm="12" md="12">
                     <MudCheckBox @bind-Checked="user.IsActive">Activo</MudCheckBox>

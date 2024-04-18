@@ -81,8 +81,9 @@ namespace DevBox.Core.Classes.Identity
                 //claims.Add(new Claim(ClaimTypes.Role, user.GroupName));
                 claims.Add(new Claim(ClaimTypes.Expiration, GetExpirationDate(durationMinutes).ToString()));
                 claims.Add(new Claim(ClaimTypes.Email, user.Email));
-                claims.Add(new Claim("CompanyId", user.CompanyId.ToString()));
-                claims.Add(new Claim("CompaniesAccess", user.CompaniesAccess.ToString()));
+                claims.Add(new Claim(CustomClaimsTypes.CompanyId, user.CompanyId.ToString()));
+                claims.Add(new Claim(CustomClaimsTypes.CompaniesAccess, user.CompaniesAccess.ToString()));
+               // claims.Add(new Claim(CustomClaimsTypes.CompanyLocationId, user.CurrentCompanyLocationId.ToString()));
                 claims.Add(new Claim(ClaimTypes.GivenName, user.FullName));
                 claims.Add(new Claim(ClaimTypes.Anonymous, "0"));
                 claims.Add(new Claim(ClaimTypes.Authentication, "1"));
