@@ -8,6 +8,7 @@ using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using static MudBlazor.CategoryTypes;
@@ -49,22 +50,40 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
             {
                 CodigoCargo = SelectedCodigo,
                 Monto = MontoCargado,
-                // NombreCargo = cargos.Nombre
                 NombreCargo = cargos != null ? cargos.Nombre : null
             };
-
+            ValorRestante();
             if (MontoCargado + detalleCargo.Monto <= NotaDe.Monto)
             {
+                if (MontoCargado<=0)
+                {
+                    _ = NotifyMessageBySnackBar("No se permiten valores egativos , Verificar Monto Asignado", MudBlazor.Severity.Error);
+                }
+
+
                 DataSelect.Add(detalleCargo);
-                MontoCargado = detalleCargo.Monto;
-                MontoRestante = NotaDe.Monto - detalleCargo.Monto;
             }
 
             else
             {
                 _ = NotifyMessageBySnackBar("Monto Excedido, Verificar Monto Asignado", MudBlazor.Severity.Error);
-                //MontoCargado = 0;
+
             }
+        }
+
+        private void ValorRestante()
+        {
+            MontoRestante = NotaDe.Monto - MontoCargado;
+            var Ver = NotaDe.Monto = MontoRestante;
+            _ = NotifyMessageBySnackBar($"acumulado {Ver}", Severity.Warning);
+        }
+
+        private void Cal( decimal valor )
+        {
+            valor= NotaDe.Monto-MontoCargado;
+            NotaDe.Monto= valor;
+          
+        
         }
 
 

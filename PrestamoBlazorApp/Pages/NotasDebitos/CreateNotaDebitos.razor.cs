@@ -51,36 +51,13 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         {
             StateHasChanged();
         }
-
-        //private void AsignarCargosDebito()
-        //{
-        //    var cargos = CodigosCargos.FirstOrDefault(c => c.Codigo == SelectedCodigo);
-        //    var detalleCargo = new DetalleCargo
-        //    {
-        //        CodigoCargo = SelectedCodigo,
-        //        Monto = MontoCargado,
-        //        //NombreCargo = cargos.Nombre
-        //        NombreCargo = cargos != null ? cargos.Nombre : null
-        //    };
-        //    if (MontoCargado + detalleCargo.Monto <= NotaDe.Monto)
-        //    {
-        //        DataSelect.Add(detalleCargo);
-        //        MontoCargado += detalleCargo.Monto;
-        //        MontoRestante = NotaDe.Monto - detalleCargo.Monto;
-
-        //    }
-        //    else
-        //    {
-        //        _ = NotifyMessageBySnackBar("Monto Excedido, Verificar Monto Asignado", MudBlazor.Severity.Error);
-        //        MontoCargado = 0;
-        //    }
-        //}
         private async Task Calculo1(decimal valor) 
 
         {
             MontoCargado += valor;
             await NotifyMessageBySnackBar($"valor recibido {valor} acumulado {MontoCargado}", Severity.Warning);
         }
+        
 
     }
 }
