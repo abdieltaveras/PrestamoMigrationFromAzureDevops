@@ -30,8 +30,9 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         private List<DetalleCargo> DataSelect { get; set; } = new List<DetalleCargo>();
         
         public bool estaEditando=true;
-        public decimal MontoCargado { get; set; }
-        public decimal MontoRestante { get; set; } = 0;
+        public decimal MontoAAplicar { get; set; }
+        public decimal MontoAplicado { get; set; }
+        public decimal MontoPorAplicar { get; set; }
         protected override Task OnInitializedAsync()
         {
             CodigosCargos = ListadoCodigosCargos.Get();
@@ -54,8 +55,9 @@ namespace PrestamoBlazorApp.Pages.NotasDebitos
         private async Task Calculo1(decimal valor) 
 
         {
-            MontoCargado += valor;
-            await NotifyMessageBySnackBar($"valor recibido {valor} acumulado {MontoCargado}", Severity.Warning);
+            MontoAplicado += valor;
+            MontoPorAplicar = MontoAAplicar - MontoAplicado;
+            await NotifyMessageBySnackBar($"valor recibido {valor} acumulado {MontoAplicado}", Severity.Warning);
         }
         
 

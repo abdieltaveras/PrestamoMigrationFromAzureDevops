@@ -40,6 +40,13 @@
             </MudListItem>
         </MudPaper>
     </MudItem>
+    <MudItem xs="3">
+        <MudDatePicker Editable="true" Label="Fecha" @bind-Date="NotaDe.Fecha" />
+        <MudNumericField HideSpinButtons="true" @bind-Value="@MontoAAplicar" Label="Monto" Format="F1" Variant="Variant.Outlined" />
+        <MudAlert Severity="Severity.Info">Monto Aplicado @MontoAplicado</MudAlert>
+        <MudAlert Severity="Severity.Info">Monto por aplicar @MontoPorAplicar</MudAlert>
+    </MudItem>
+
     <MudItem xs="8">
         <DetallesCargos OnAplicarCargo="Calculo1"></DetallesCargos>
     </MudItem>

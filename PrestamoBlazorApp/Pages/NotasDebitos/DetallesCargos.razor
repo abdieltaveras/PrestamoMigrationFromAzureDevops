@@ -5,11 +5,6 @@
 
 @inherits BaseForList
 <MudGrid>
-    <MudItem xs="3">
-        <MudDatePicker Editable="true" Label="Fecha" @bind-Date="NotaDe.Fecha" />
-        <MudNumericField HideSpinButtons="true" @bind-Value="NotaDe.Monto" Label="Monto" Format="F1" Variant="Variant.Outlined" />
-        <MudAlert Severity="Severity.Info">MONTO POR APLICAR @MontoRestante</MudAlert>
-        </MudItem>
       <MudItem xs="4">
         <MudSelect T="string" Label="Selecciona un código de cargo" MultiSelection="false"  @bind-Value="SelectedCodigo">
             @foreach (var codigo in CodigosCargos)
