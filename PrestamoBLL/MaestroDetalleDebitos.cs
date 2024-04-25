@@ -86,7 +86,10 @@ namespace PrestamoBLL
             var debitosViewModel = new List<DebitoPrestamoConDetallesForBLL>();
             foreach (var ctaM in cuotasMaestras)
             {
-                var items = detallesCargos.Where(dc => dc.IdTransaccionMaestro == ctaM.IdTransaccion);
+                var items = detallesCargos.Where(dc => dc.IdTransaccionMaestro> 0 ?
+                dc.IdTransaccionMaestro == ctaM.IdTransaccion :
+                dc.IdReferenciaMaestro == ctaM.IdReferencia
+                );
                 ctaM.SetDetallesCargos(items);
             }
 

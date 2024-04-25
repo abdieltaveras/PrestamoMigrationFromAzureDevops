@@ -357,9 +357,17 @@ namespace PrestamoEntidades
         public decimal MontoGastoDeCierre { get; set; }
         [Display(Name = "Es deducible el G/Credito?")]
         public virtual bool GastoDeCierreEsDeducible { get; set; } = false;
-        [Display(Name = "Financiar el G/Credito?")]
+        /// <summary>
+        /// indica que desea financiar el gasto de cierre, es decir distribuirlo por cuotas
+        /// </summary>
+        [Display(Name = "Financiar el G/Cierre?")]
+        
         public virtual bool FinanciarGastoDeCierre { get; set; } = true;
-        [Display(Name = "Cargo interes al G/Credito ?")]
+        /// <summary>
+        /// indica que desea cargarle interes al gasto de cierre financiado
+        /// </summary>
+        [Display(Name = "Cargo interes al G/Cierre ?")]
+
         public virtual bool CargarInteresAlGastoDeCierre { get; set; } = true;
 
         /// <summary>

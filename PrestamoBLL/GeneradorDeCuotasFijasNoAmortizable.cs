@@ -253,8 +253,15 @@ namespace PrestamoBLL
             this.FechaCuotaAnterior = infoGenerarCuotas.FechaEmisionReal;
             if (!infoGenerarCuotas.ProyectarPrimeraYUltima)
             {
+                if (!this.infoGenerarCuotas.FinanciarGastoDeCierre)
+                {
+                    var cargo = new CargoGastoCierreSinFinanciamientoBuilder().CreateCargoAndDetalle(this.infoGenerarCuotas.FechaEmisionReal, this.infoGenerarCuotas.MontoGastoDeCierre);
+                    cuotasMaestroDetalle.Add(cargo);
+                }
+
                 for (int i = 1; i <= infoGenerarCuotas.CantidadDeCuotas; i++)
                 {
+                    
                     var cuota = new CuotaPrestamoBuilder().CreateCuotaAndDetalle(getFecha(i) , i, capitalPorCuota, interesPorCuota, gastoDeCierreConFinanciamiento.MontoSinInteres, gastoDeCierreConFinanciamiento.InteresGC);
                      cuotasMaestroDetalle.Add(cuota);
                     
