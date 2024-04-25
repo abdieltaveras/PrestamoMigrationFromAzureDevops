@@ -145,6 +145,9 @@ namespace PrestamoBLL.Models
             this.Balance = detallesCargos.Sum(item => item.Balance);
         }
 
+        public string DetallesCargosJson {get;set; }
+
+
     }
 
     /// <summary>
@@ -216,9 +219,10 @@ namespace PrestamoBLL.Models
 
         internal static DebitoPrestamoConDetallesForBLL Create(MaestroDrConDetalles value)
         {
+            
             return new DebitoPrestamoConDetallesForBLL(value);
         }
-        public override string ToString() => $"Cuota numero {this.NumeroTransaccion} Total origina {Monto}  Balance ? ";
+        public override string ToString() => $"Cuota numero {this.NumeroTransaccion} Total origina {Monto}  Balance {Balance} ";
     }
     internal class NotaDeDebito : BaseMaestroCxC
     {
@@ -249,6 +253,8 @@ namespace PrestamoBLL.Models
         public string CodigoCargo { get; set; }
         public decimal Monto { get; set; }
         public decimal Balance { get; set; }
+
+        
 
         public override string ToString() => $"{CodigosCargosDebitosReservados.GetNombre(CodigoCargo)} Monto {Monto} Balance {Balance}";
     }

@@ -253,7 +253,8 @@ namespace PrestamoBLL
             this.FechaCuotaAnterior = infoGenerarCuotas.FechaEmisionReal;
             if (!infoGenerarCuotas.ProyectarPrimeraYUltima)
             {
-                if (!this.infoGenerarCuotas.FinanciarGastoDeCierre)
+                
+                if (this.infoGenerarCuotas.FinanciarGastoDeCierre && infoGenerarCuotas.MontoGastoDeCierre>0)
                 {
                     var cargo = new CargoGastoCierreSinFinanciamientoBuilder().CreateCargoAndDetalle(this.infoGenerarCuotas.FechaEmisionReal, this.infoGenerarCuotas.MontoGastoDeCierre);
                     cuotasMaestroDetalle.Add(cargo);

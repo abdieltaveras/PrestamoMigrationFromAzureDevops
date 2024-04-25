@@ -17,7 +17,7 @@ namespace PrestamoBLL.Tests
 
 
     [TestClass()]
-    public class CuotaTests
+    public class CargosTest
     {
         
         string mensajeError = string.Empty;
@@ -109,8 +109,11 @@ namespace PrestamoBLL.Tests
             
             GetInfoCuota(out InfoGeneradorDeCuotas cuotaInfo);
 
-            
             IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
+            
+            //cuotaInfo.FinanciarGastoDeCierre = false;
+            //cuotaInfo.CargarInteresAlGastoDeCierre = false;
+
 
             var fecha = DateTime.Now;
             var fecha2 = fecha.Date;
@@ -178,6 +181,7 @@ namespace PrestamoBLL.Tests
             cuotaInfo.MontoGastoDeCierre = 0;
             cuotaInfo.CantidadDeCuotas = 2;
             IEnumerable<DebitoPrestamoConDetallesViewModel> result = null;
+            var pr = new Prestamo();
             bool GastosDeCierreEnCero = true;
             TestUtils.TryCatch(() =>
             {
@@ -222,10 +226,31 @@ namespace PrestamoBLL.Tests
             TestUtils.TryCatch(() =>
             {
                 result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
-                valorGastoDeCierrePrimeraCuota = result.FirstOrDefault().GastoDeCierre;
+                var primerRegistro =  result.FirstOrDefault();
+                valorGastoDeCierrePrimeraCuota = primerRegistro.GastoDeCierre;
+                var nombreDoc = primerRegistro.NombreDocumento;
+                
             }, out TestUtils testInfo);
 
             Assert.IsTrue(valorGastoDeCierrePrimeraCuota == cuotaInfo.MontoGastoDeCierre, "no se genero correctamente el gasto de cierre no financiado");
+        }
+
+        [TestMethod]
+        public async Task NoErrorCuandoMontoGastoDeCierreEnCeroTest()
+        {
+
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out cuotaInfo);
+            cuotaInfo.FinanciarGastoDeCierre = true;
+            cuotaInfo.MontoGastoDeCierre = 0;
+            cuotaInfo.CargarInteresAlGastoDeCierre = true;
+            IEnumerable<DebitoPrestamoConDetallesViewModel> result = null;
+            TestUtils.TryCatch(() =>
+            {
+                result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
+            }, out TestUtils testInfo);
+
+            Assert.IsTrue(testInfo.MensajeError.IsEmpty(), $"dio error cuando el monto del gasto de cierre esta en cero {testInfo.MensajeError}");
         }
 
         [TestMethod]

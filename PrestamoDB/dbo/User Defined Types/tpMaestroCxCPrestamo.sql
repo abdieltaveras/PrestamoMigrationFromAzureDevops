@@ -1,5 +1,4 @@
 ﻿CREATE TYPE [dbo].[tpMaestroCxCPrestamo] AS TABLE(
-	[DetallesCargosJson] [varchar](1000) NULL,
 	[IdTransaccion] [int] NULL,
 	[IdPrestamo] [int] NULL,
 	[CodigoTipoTransaccion] [varchar](10) NULL,

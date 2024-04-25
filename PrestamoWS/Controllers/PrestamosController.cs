@@ -143,7 +143,8 @@ namespace PrestamoWS.Controllers
         private IEnumerable<DebitoPrestamoConDetallesViewModel> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
         {
             // todo revisar 20240415
-            return MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, infoGenCuotas);
+            var result =  MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, infoGenCuotas);
+            return result;
         }
 
         [HttpGet]
@@ -151,7 +152,7 @@ namespace PrestamoWS.Controllers
         //infoGeneradorDeCuotas info)
         {
             //todo actualizarlo a la nueva forma con el nuevo objeto
-
+            
             PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
             var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
             var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();

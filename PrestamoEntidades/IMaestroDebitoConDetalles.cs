@@ -9,6 +9,7 @@ namespace PrestamoEntidades
 
     public interface IDetalleDebitoCxC
     {
+        
         public int IdTransaccion { get; set; }
         public int IdTransaccionMaestro { get; }
         public Guid IdReferenciaMaestro { get; }
@@ -20,8 +21,9 @@ namespace PrestamoEntidades
 
     public interface IMaestroDebitoConDetallesCxC
     {
+        string DetallesCargosJson { get; set; }
         int IdTransaccion { get; set; }
-        char TipoDrCr { get; }
+        
         int IdPrestamo { get; set; }
         string CodigoTipoTransaccion { get; }
         Guid IdReferencia { get; }
@@ -30,6 +32,8 @@ namespace PrestamoEntidades
         decimal Monto { get; }
         decimal Balance { get; }
         string OtrosDetallesJson { get; }
-        public IEnumerable<IDetalleDebitoCxC> GetDetallesCargos();
+
+        char TipoDrCr { get; }
+        IEnumerable<IDetalleDebitoCxC> GetDetallesCargos();
     }
 }
