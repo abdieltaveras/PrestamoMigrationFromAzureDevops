@@ -1,13 +1,19 @@
 ﻿<MudGrid>
     <MudItem md="12" lg="12">
-
+     @*    <PrestamoBlazorApp.Shared.Components.Forms.CustomInputNumber @bind-Value="@SearchText" OnKeyUp="OnEnter" /> *@
     <MudTextField Variant="Variant.Outlined" T="string" FullWidth="true" 
     s
-    Value="SearchText" 
+    InputType="InputType.Number"
+    Immediate=true
+    
+    @bind-Value="SearchText"
     Label="Buscar..."
     Adornment="Adornment.End"
-    AdornmentIcon="@Icons.Material.Outlined.Search" 
-    OnAdornmentClick="()=>GetPrestamo()" />
+    AdornmentIcon="@Icons.Material.Rounded.MoreHoriz" 
+    OnAdornmentClick="()=>ShowSearchPrestamo()"
+    OnKeyUp="OnEnter"
+    HelperText="Presione enter para buscar directamente por el numero de prestamo."
+    />
     </MudItem>
 </MudGrid>
 <MudDivider/>
@@ -103,6 +109,10 @@
                             </MudCarousel>
                         </MudCardContent>
                     </MudCard>
+                }
+                else
+                {
+                    <MudText>Este prestamo no lleva garantias.</MudText>
                 }
             </MudItem>
         </MudGrid>

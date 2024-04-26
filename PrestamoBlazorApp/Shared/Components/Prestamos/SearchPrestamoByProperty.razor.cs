@@ -13,8 +13,8 @@ namespace PrestamoBlazorApp.Shared.Components.Prestamos
     public partial class SearchPrestamoByProperty : BaseForCreateOrEdit
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-        [Parameter]
-        public string[] Columns { get; set; } = { };
+        //[Parameter]
+        //public string[] Columns { get; set; } = { };
         private PrestamoClienteUIGetParam GetParams { get; set; } = new PrestamoClienteUIGetParam();
         private string SelectedColumn { get; set; }
         private string OrderBy { get; set; }

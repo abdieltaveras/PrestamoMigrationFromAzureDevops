@@ -26,7 +26,7 @@ public class PrestamoGetDataByColumnSelected : IGetDataByColumSelection<Prestamo
     {
         bool isDefined = Enum.IsDefined(typeof(eOpcionesSearchPrestamo), indexSearchOption);
         //if (!isDefined) this.SelectedItem = eOpcionesSearchPrestamo.Indefinido;
-        //else this.SelectedItem = (eOpcionesSearchPrestamo)indexSearchOption;
+        this.SelectedItem = (eOpcionesSearchPrestamo)indexSearchOption;
     }
 
     //public static string Cedula => eOpcionesSearchPrestamo.Cedula.ToString();
@@ -40,13 +40,13 @@ public class PrestamoGetDataByColumnSelected : IGetDataByColumSelection<Prestamo
     private IEnumerable<EnumModel> GetSearchPersonOption()
     {
         var result = Enum.GetValues(typeof(eOpcionesSearchPrestamo)).Cast<eOpcionesSearchPrestamo>().Select(c => new EnumModel { Value = (int)c, Text = c.ToString() }).ToList();
-        result.Remove(result.Last()); // quitar el eltimo elemento de la lista
+        //result.Remove(result.Last()); // quitar el eltimo elemento de la lista
         return result;
     }
 
     public async Task ExecGetDataAction(int indexSelected, string searchText, Func<PrestamoClienteUIGetParamWtSearchText, Task> func)
     {
-        SetParamWithDictionary((eOpcionesSearchPrestamo)60, searchText);
+        SetParamWithDictionary((eOpcionesSearchPrestamo)indexSelected, searchText);
         var resultParam = SetParamWithDictionary((eOpcionesSearchPrestamo)indexSelected, searchText);
         if (this.IsGetParamHasValue)
         {
@@ -60,6 +60,11 @@ public class PrestamoGetDataByColumnSelected : IGetDataByColumSelection<Prestamo
         opciones.Add(eOpcionesSearchPrestamo.Nombres, (searchText) => new PrestamoClienteUIGetParamWtSearchText { Nombres = searchText });
         opciones.Add(eOpcionesSearchPrestamo.Apellidos, (searchText) => new PrestamoClienteUIGetParamWtSearchText { Apellidos = searchText });
         opciones.Add(eOpcionesSearchPrestamo.Matricula, (searchText) => new PrestamoClienteUIGetParamWtSearchText { Matricula = searchText });
+        opciones.Add(eOpcionesSearchPrestamo.Garantia, (searchText) => new PrestamoClienteUIGetParamWtSearchText { IdGarantia = Convert.ToInt32(searchText) });
+        opciones.Add(eOpcionesSearchPrestamo.Chasis, (searchText) => new PrestamoClienteUIGetParamWtSearchText { Chasis = searchText });
+        opciones.Add(eOpcionesSearchPrestamo.Placa, (searchText) => new PrestamoClienteUIGetParamWtSearchText { Placa = searchText });
+
+
 
         IsGetParamHasValue = true;
         return opciones;

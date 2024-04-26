@@ -10,14 +10,17 @@
     MaxLength="@MaxLength" 
     id="@InputId"
     Variant="@Variant"
-    Margin="Margin"      
-    Style="@Style" />
+    Margin="Margin"
+          Style="@Style" 
+          OnKeyUp="OnKeyUp" />
 
 @code {
     [Parameter]
     public Variant Variant { get; set; } = Variant.Outlined;
     [Parameter]
     public int MaxLength { get; set; }
+    [Parameter]
+    public EventCallback<KeyboardEventArgs> OnKeyUp { get; set; }
     [Parameter]
     public string Label { get; set; }
     [Parameter]
