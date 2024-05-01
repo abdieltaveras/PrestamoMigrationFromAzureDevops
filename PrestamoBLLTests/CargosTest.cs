@@ -175,7 +175,8 @@ namespace PrestamoBLL.Tests
         [TestMethod]
         public async Task GastoDeCierreEnCuotasEnCeroTest()
         {
-
+            var prest = new Prestamo();
+            prest.CargarInteresAlGastoDeCierre = true;
             InfoGeneradorDeCuotas cuotaInfo;
             GetInfoCuota(out cuotaInfo);
             cuotaInfo.MontoGastoDeCierre = 0;
