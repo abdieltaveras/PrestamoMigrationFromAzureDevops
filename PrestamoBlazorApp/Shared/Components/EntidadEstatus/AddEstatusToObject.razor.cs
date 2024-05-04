@@ -16,9 +16,9 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         bool success;
         string[] errors = { };
         string LabelBuscar { get; set; } = "Cliente";
-        public int _TipoBusqueda { get; set; } = -1;
+        public eTipoStatus _TipoBusqueda { get; set; } 
         [Parameter]
-        public int TipoBusqueda { get { return _TipoBusqueda; } set { _TipoBusqueda = value; OnTipoBusquedaChange(); } }
+        public eTipoStatus TipoBusqueda { get { return _TipoBusqueda; } set { _TipoBusqueda = value; OnTipoBusquedaChange(); } }
         [Parameter]
         public int Id { get; set; }
         private string TipoBusquedaStr { get; set; }
@@ -52,13 +52,13 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
             PrestamoEstatus = new PrestamoEstatus();
             SelectedEstatus = -1;
             Id = -1;
-            if (TipoBusqueda == (int)eAddEstatusTo.Clientes)
+            if (TipoBusqueda == eTipoStatus.Cliente)
             {
                 TipoBusquedaStr = "Cliente";
             }
             else
             {
-                if (TipoBusqueda == (int)eAddEstatusTo.Prestamos)
+                if (TipoBusqueda == eTipoStatus.Prestamos)
                 {
                     TipoBusquedaStr = "Prestamo";
                 }
@@ -73,7 +73,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         {
             ClienteSelected = new PrestamoEntidades.Cliente();
             PrestamoSelected = new PrestamoEntidades.Prestamo();
-            if (TipoBusqueda == (int)eAddEstatusTo.Clientes)
+            if (TipoBusqueda == eTipoStatus.Cliente)
             {
                 var clientes = await ClientesService.GetClientesAsync(new PrestamoEntidades.ClienteGetParams { IdCliente = Id });
                 if (clientes.Count()>0)
@@ -84,7 +84,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
             }
             else
             {
-                if (TipoBusqueda == (int)eAddEstatusTo.Prestamos)
+                if (TipoBusqueda == eTipoStatus.Prestamos)
                 {
                     var prestamos = await PrestamosService.GetAsync(new PrestamoEntidades.PrestamosGetParams { idPrestamo = Id });
                     if (prestamos.Count() > 0)
@@ -98,12 +98,12 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         }
         private async Task OnAsignarClick()
         {
-            if (TipoBusqueda == (int)eAddEstatusTo.Clientes)
+            if (TipoBusqueda == eTipoStatus.Cliente)
             {
                 ClienteEstatus.IdEstatus = SelectedEstatus;
                 ClienteEstatus.IdCliente = ClienteSelected.IdCliente;
                 await Handle_SaveData(()=> ClientesEstatusService.Save(ClienteEstatus));
-            }else if (TipoBusqueda == (int)eAddEstatusTo.Prestamos)
+            }else if (TipoBusqueda == eTipoStatus.Prestamos)
             {
                 PrestamoEstatus.IdEstatus = SelectedEstatus;
                 PrestamoEstatus.IdPrestamo = PrestamoSelected.IdPrestamo;

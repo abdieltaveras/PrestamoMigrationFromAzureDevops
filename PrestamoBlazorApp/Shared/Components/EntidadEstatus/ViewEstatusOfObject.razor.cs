@@ -9,11 +9,12 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
 {
     public partial class ViewEstatusOfObject
     {
-
+        [Parameter]
+        public string Label { get; set; } = "Estatus";
         [Parameter]
         public int Id { get; set; }
         [Parameter]
-        public int TipoBusqueda { get; set; }
+        public PrestamoEntidades.eTipoStatus TipoBusqueda { get; set; }
         //private ClientesService ClientesService { get; set; }
         //private PrestamosService PrestamosService { get; set; }
         [Inject]
@@ -42,7 +43,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
         public async Task GetEstatusById()
         {
             //IdEstatus = 1;
-            if (TipoBusqueda == (int)PrestamoEntidades.eAddEstatusTo.Clientes)
+            if (TipoBusqueda == PrestamoEntidades.eTipoStatus.Cliente)
             {
                 var estatuss = await ClientesEstatusService.Get(new PrestamoEntidades.ClienteEstatusGetParams { IdCliente = Id });
                 if (estatuss.Count() > 0)
@@ -50,7 +51,7 @@ namespace PrestamoBlazorApp.Shared.Components.EntidadEstatus
                     estatusesCliente = estatuss;
                 }
             }
-            else if (TipoBusqueda == (int)PrestamoEntidades.eAddEstatusTo.Prestamos)
+            else if (TipoBusqueda == PrestamoEntidades.eTipoStatus.Prestamos)
             {
                 var estatuss = await PrestamosEstatusService.Get(new PrestamoEntidades.PrestamoEstatusGetParams { IdPrestamo = Id });
                 if (estatuss.Count() > 0)

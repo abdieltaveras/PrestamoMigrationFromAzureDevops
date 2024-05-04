@@ -30,7 +30,7 @@ else if (estatusesPrestamo.Count() > 0)
               Hover="true"
               Breakpoint="Breakpoint.Sm">
         <HeaderContent>
-            <MudTh>Estatus</MudTh>
+            <MudTh>@Label</MudTh>
             @if (AllowActions)
             {
                 <MudTh>Accion</MudTh>
@@ -51,8 +51,8 @@ else if (estatusesPrestamo.Count() > 0)
 }
 else
 {
-<MudText>Sin estatus asignado.</MudText>
+<MudText>@Convert.ToString(TipoBusqueda) sin estatus asignado.</MudText>
 }
 @code {
-
+    
 }

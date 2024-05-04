@@ -23,9 +23,9 @@
 
 
 
-    public enum eAddEstatusTo
+    public enum eTipoStatus
     {
-        Clientes = 1,
+        Cliente = 1,
         Prestamos
     }
     public enum eTablasOrigen

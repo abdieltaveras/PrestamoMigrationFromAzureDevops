@@ -116,6 +116,32 @@
                 }
             </MudItem>
         </MudGrid>
+                <MudGrid Style="justify-content:flex-end !important">
+                    <MudItem sm="6" md="6" lg="6">
+                @if(Prestamo.Prestamo.IdPrestamo >0){
+
+                    <PrestamoBlazorApp.Shared.Components.EntidadEstatus.ViewEstatusOfObject 
+                    Id="@Prestamo.Prestamo.IdPrestamo" TipoBusqueda="PrestamoEntidades.eTipoStatus.Prestamos" Label="Estatus Prestamo"/>
+                }
+                else
+                {
+                    <MudText>Prestamo Sin Estatus asignado.</MudText>
+
+                }
+            </MudItem>
+            <MudItem sm="6" md="6" lg="6">
+                @if (Prestamo.Prestamo.IdPrestamo > 0)
+                {
+
+                    <PrestamoBlazorApp.Shared.Components.EntidadEstatus.ViewEstatusOfObject Id="@Prestamo.Prestamo.IdCliente" TipoBusqueda="PrestamoEntidades.eTipoStatus.Cliente" Label="Estatus Cliente" />
+                }
+                else
+                {
+                    <MudText>Prestamo Sin Estatus asignado.</MudText>
+
+                }
+            </MudItem>
+                </MudGrid>
         <MudGrid Style="justify-content:flex-end !important">
             <MudItem sm="4" md="4" lg="4">
                 <MudCard>
