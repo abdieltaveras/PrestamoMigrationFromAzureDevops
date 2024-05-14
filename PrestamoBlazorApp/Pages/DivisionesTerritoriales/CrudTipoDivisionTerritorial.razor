@@ -10,18 +10,22 @@
                 </MudForm>
             </MudItem>
             @{
-                if (FormFieldErrors.Length > 0 && IsFormShowErrors)
+                if(FormFieldErrors != null)
                 {
-                    <MudItem xs="12" sm="5">
-                        <MudPaper Class="pa-4 mud-height-full">
-                            <MudText Typo="Typo.subtitle2">@($"Errores ({FormFieldErrors.Length})")</MudText>
-                            @foreach (var error in FormFieldErrors)
-                            {
-                                <MudText Color="@MudBlazor.Color.Error">@error</MudText>
-                            }
-                        </MudPaper>
-                    </MudItem>
+                    if (FormFieldErrors.Length > 0 && IsFormShowErrors)
+                    {
+                        <MudItem xs="12" sm="5">
+                            <MudPaper Class="pa-4 mud-height-full">
+                                <MudText Typo="Typo.subtitle2">@($"Errores ({FormFieldErrors.Length})")</MudText>
+                                @foreach (var error in FormFieldErrors)
+                                {
+                                    <MudText Color="@MudBlazor.Color.Error">@error</MudText>
+                                }
+                            </MudPaper>
+                        </MudItem>
+                    }
                 }
+  
             }
         </MudGrid>
     </DialogContent>
