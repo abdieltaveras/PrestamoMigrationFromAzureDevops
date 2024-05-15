@@ -68,7 +68,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
                 MudDialog.Close(DialogResult.Ok(true));
             }
         }
-        private int MudItemSize => (FormFieldErrors.Length>0  && IsFormShowErrors)  ? 7 : 12;
+        private int MudItemSize =>  (FormFieldErrors!=null  && IsFormShowErrors)  ? 7 : 12;
 
     }
 
