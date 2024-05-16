@@ -17,6 +17,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         DivisionTerritorialService TerritoriosService { get; set; }
         IEnumerable<DivisionTerritorial> TiposTerritorios { get; set; } = new List<DivisionTerritorial>();
 
+        private int IdDivisionTerritorialSelected { get; set; }
         void Clear() => TiposTerritorios = new List<DivisionTerritorial>();
 
         protected override async Task OnInitializedAsync()
@@ -30,8 +31,6 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
             TiposTerritorios = await TerritoriosService.GetTiposDivisionTerritorial();
             if (stateChange) StateHasChanged();
         }
-
-
 
         async Task CreateOrEdit(int id)
         {
@@ -47,6 +46,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
 
         private DialogParameters SetParametersToView(int id, bool addCallBack)
         {
+            IdDivisionTerritorialSelected = id;
             DialogParameters parameters = new DialogParameters();
             parameters.Add("IdDivisionTerritorial", id);
             if (addCallBack)
@@ -58,6 +58,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         }
         private bool FilterFunc(DivisionTerritorial element)
         {
+            
             return true;
         }
     }

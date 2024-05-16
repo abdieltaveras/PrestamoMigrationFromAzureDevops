@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using MudBlazor;
 using PcpSoft.MudBlazorHelpers;
 using PcpSoft.System;
 using PrestamoBlazorApp.Services;
 using PrestamoBlazorApp.Shared;
 using PrestamoEntidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,17 +27,21 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         private HashSet<ITreeItemData> TreeItems { get; set; } = new HashSet<ITreeItemData>();
         private ITreeItemData ActivatedValue { get; set; }
         private IEnumerable<ITreeItemData> SelectedValues { get; set; }
-        
+
+        private string DefaultIcon { get; set; } = MudBlazor.Icons.Material.Filled.Expand;
+
+
         void Clear() => ComponentesDivision = new DivisionTerritorial[0];
         
         
         protected override async Task OnInitializedAsync()
         {
+            
             this.Territorio = new DivisionTerritorial();
             ComponentesDivision = await territoriosService.GetDivisionTerritorialComponents(IdDivisionTerritorial);
             DivisionTerritorialName = ComponentesDivision.FirstOrDefault().Nombre;
             var divisionesTreeNodes = await CreateDivisionesTerritorialesNodes();  // crear los ITreeItems especificos
-            this.TreeItems = await new MudBlazorTreeBuilder(divisionesTreeNodes).GetTreeItems(); // pasar los ITreeNodes para que genere El tree para mudBlazor
+            this.TreeItems = await new MudBlazorTreeBuilder(divisionesTreeNodes).GetTreeItemsWithIcon(DefaultIcon); // pasar los ITreeNodes para que genere El tree para mudBlazor
             await base.OnInitializedAsync();
         }
 
@@ -47,7 +53,8 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
             ComponentesDivision.First().IdDivisionTerritorialPadre=0; // esto es para hacerlo el nodo raiz
             var treeItems = ComponentesDivision.Select(item => 
             new TreeItem(item.IdDivisionTerritorial, item.IdDivisionTerritorialPadre, item.Nombre));
-            return new TreeBuilder(treeItems).GetTreeNodes();
+            var result = new TreeBuilder(treeItems).GetTreeNodes();
+            return result;
             
             //TreeBuilder divisionTerritorialTree = null;
             //var treeItems = new List<ITreeItem>();
@@ -107,13 +114,13 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         //    }
         //}
 
-        protected void CheckedChanged(TreeItemData item)
+        protected void CheckedChanged(ITreeItemData item)
         {
             item.IsChecked = !item.IsChecked;
             // checked status on any child items should mirrror this parent item
             if (item.HasChild)
             {
-                foreach (TreeItemData child in item.TreeItems)
+                foreach (ITreeItemData child in item.TreeItems)
                 {
                     child.IsChecked = item.IsChecked;
                 }
@@ -125,5 +132,6 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
             }
         }
     }
+        
 }
 

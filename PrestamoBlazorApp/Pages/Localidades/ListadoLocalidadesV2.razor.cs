@@ -41,7 +41,7 @@ namespace PrestamoBlazorApp.Pages.Localidades
             this.Localidades = await localidadesService.Get(new LocalidadGetParams());
             this.territorios = await localidadesService.GetComponentesTerritorio();
             var localidadesTreeNodes = await CreateLocalidadesNodes();  // crear los ITreeItems especificos
-            this.TreeItemsData = await new MudBlazorTreeBuilder(localidadesTreeNodes).GetTreeItems(); // pasar los ITreeNodes para que genere El tree
+            this.TreeItemsData = await new MudBlazorTreeBuilder(localidadesTreeNodes).GetTreeItemsWithIcon("MudBlazor.Icons.Filled.Directions"); // pasar los ITreeNodes para que genere El tree
                                                                                                   // para mudBlazor
         }
         private async Task<IEnumerable<ITreeNode>> CreateLocalidadesNodes()
