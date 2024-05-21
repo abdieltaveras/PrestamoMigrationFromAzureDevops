@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using MudBlazor;
 using PcpSoft.MudBlazorHelpers;
@@ -20,6 +21,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         [Parameter]
         public int IdDivisionTerritorial { get; set; }
 
+        private string SelectedValue { get; set; } = string.Empty;
         private string DivisionTerritorialName { get; set; }
         private DivisionTerritorial Territorio { get; set; }
         private DivisionTerritorial NewTerritorio { get; set; } = new DivisionTerritorial();
@@ -33,7 +35,12 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
 
         void Clear() => ComponentesDivision = new DivisionTerritorial[0];
         
-        
+        private async Task OnClickAdd(int? idItem, string textItem)
+        {
+            
+            SelectedValue = $"{idItem}: {textItem}";
+            await NotifyMessageBySnackBar("agregar proceso para agregar componente a " + SelectedValue,Severity.Info );
+        }
         protected override async Task OnInitializedAsync()
         {
             

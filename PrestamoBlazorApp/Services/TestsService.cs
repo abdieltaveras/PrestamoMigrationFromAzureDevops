@@ -15,7 +15,7 @@ namespace PrestamoBlazorApp.Services
     public class TestService : ServiceBase
     {
       
-        string apiUrl = "api/Test";
+        string apiUrl = "api/OnClickAdd";
 
         public TestService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration) { }
 

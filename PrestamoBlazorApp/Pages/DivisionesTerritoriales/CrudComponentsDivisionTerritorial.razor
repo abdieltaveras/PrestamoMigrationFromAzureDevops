@@ -1,5 +1,4 @@
-﻿
-@inherits BaseForCreateOrEdit
+﻿@inherits BaseForCreateOrEdit
 @*Esto va en un dialogo*@
 
 
@@ -11,28 +10,34 @@
 }
 else
 {
-<MudText Typo="Typo.h5" Color="MudBlazor.Color.Warning" >@DivisionTerritorialName</MudText>
+    <MudText Typo="Typo.h5" Color="MudBlazor.Color.Warning">@DivisionTerritorialName</MudText>
     <MudForm Class="pa-6 ma-1">
         @if (ComponentesDivision.Count() == 1)
         {
-        <MudTextField Value="NewTerritorio.Nombre"  Required="true" RequiredError="Es obligatorio llenar este campo" Label="Nombre del componente" HelperText="Sugerencias: Pais, Estado, Provincia, Municipio, etc"/>
-        <MudSwitch @bind-Checked="NewTerritorio.Activo"></MudSwitch>
+            <MudTextField Value="NewTerritorio.Nombre" Required="true" RequiredError="Es obligatorio llenar este campo" Label="Nombre del componente" HelperText="Sugerencias: Pais, Estado, Provincia, Municipio, etc" />
+            <MudSwitch @bind-Checked="NewTerritorio.Activo"></MudSwitch>
         }
         else
         {
-        <MudPaper Width="350px" MaxHeight="500px" Class="overflow-y-auto" Elevation="0">
-            <MudTreeView Items="TreeItems">
-                <ItemTemplate>
-                    <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
-                        <Content>
-                            <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
-                            @*<MudCheckBox T="bool?" Checked="@(context.HasPartialChildSelection() ? null : context.IsChecked)" CheckedChanged="@((e) => CheckedChanged(context))"></MudCheckBox>*@
-                            <MudText>@context.Text</MudText>
-                        </Content>
-                    </MudTreeViewItem>
-                </ItemTemplate>
-            </MudTreeView>
-        </MudPaper>
+            <MudPaper Width="350px" MaxHeight="500px" Class="overflow-y-auto" Elevation="0">
+
+                
+                
+                <MudText Typo="@Typo.subtitle1"> Componente Seleccionado: @SelectedValue </MudText>
+                
+                <MudTreeView  T="ITreeItemData" Items="TreeItems" Hover="true" Color="MudBlazor.Color.Info">
+                    <ItemTemplate>
+                        <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
+                            <Content>
+                                @* <MudText @onclick="()=> OnClickItem(context.IdTreeItem, context.Text)">+</MudText> *@
+                                <MudIcon Icon="@Icons.Material.Filled.AddCircle" Title="Add" @onclick="()=> OnClickAdd(context.IdTreeItem, context.Text)" />
+                                <MudText>@context.Text</MudText>
+                                <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
+                                </Content>
+                            </MudTreeViewItem>
+                        </ItemTemplate>
+                    </MudTreeView>
+                </MudPaper>
         }
         <MudButton OnClick="Guardar" Color="MudBlazor.Color.Info">Guardar</MudButton>
         <MudButton OnClick="Cancelar" Color="MudBlazor.Color.Dark">Cancelar</MudButton>
