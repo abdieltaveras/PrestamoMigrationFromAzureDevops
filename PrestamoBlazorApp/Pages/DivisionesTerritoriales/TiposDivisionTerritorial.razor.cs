@@ -35,13 +35,24 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         async Task CreateOrEdit(int id)
         {
             DialogParameters parameters = SetParametersToView(id,true);
-            DialogSvr.Show<CrudTipoDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
+            DialogSvr.Show<CCreateDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
         }
 
         async Task CreateOrEditComponents(int id)
         {
-            DialogParameters parameters = SetParametersToView(id,false);
-            DialogSvr.Show<CrudComponentsDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
+            var componentes = await TerritoriosService.GetDivisionTerritorialComponents(id);
+            if (componentes.Where(m=>m.IdDivisionTerritorial != id).Count()>0)
+            {
+                DialogParameters parameters = SetParametersToView(id, false);
+                var result = DialogSvr.Show<CrudComponentsDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
+            }
+            else
+            {
+                DialogParameters parameters = new DialogParameters();
+                parameters.Add("idDivisionTerritorialPadre", id);
+                DialogSvr.Show<CCreateDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
+            }
+            
         }
 
         private DialogParameters SetParametersToView(int id, bool addCallBack)

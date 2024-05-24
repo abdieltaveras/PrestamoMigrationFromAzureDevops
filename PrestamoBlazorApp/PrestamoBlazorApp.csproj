@@ -55,6 +55,7 @@
   
   
   <ItemGroup>
+    <Folder Include="Pages\DivisionesTerritoriales\Components\" />
     <Folder Include="Pages\Negocios\" />
     <Folder Include="Pages\Ocupaciones\" />
     <Folder Include="Reports\Rdlc\" />

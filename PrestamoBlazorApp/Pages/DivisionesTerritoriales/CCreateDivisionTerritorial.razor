@@ -2,10 +2,10 @@
 <MudDialog>
     <DialogContent>
         <MudGrid>
-            <MudText Typo="Typo.h6">Tipos Division Territorial </MudText>
-            <MudItem xs="12" sm="@MudItemSize">
+            <MudText Typo="Typo.h6">Crear  @(idDivisionTerritorialPadre > 0 ? $"Componente Div. Territorial Para {_DivisionTerritorialForComponentLabels.Nombre}" : "Division Territorial") </MudText>
+                <MudItem xs="12" sm="@MudItemSize">
                 <MudForm @ref="form" @bind-Errors="@FormFieldErrors">
-                    <MudTextField @bind-Value="@_DivisionTerritorial.Nombre" Required="true" RequiredError="Es obligatorio llenar este campo" Label="Nombre tipo division territorial" />
+                    <MudTextField @bind-Value="@_DivisionTerritorial.Nombre" Required="true" RequiredError="Es obligatorio llenar este campo" Label="@(idDivisionTerritorialPadre > 0 ? $"Nombre componente division territorial":"Nombre tipo division territorial")" />
                     <MudSwitch  @bind-Checked="@_DivisionTerritorial.Activo" Label="Activo" Disabled="@(idDivisionTerritorial==-1)" Color="MudBlazor.Color.Success" />
                 </MudForm>
             </MudItem>

@@ -2,7 +2,7 @@
 @*Esto va en un dialogo*@
 
 
-<MudText Typo="Typo.h5">Componente para la division territorial</MudText>
+<MudText Typo="Typo.h5">Componentes De La Division Territorial</MudText>
 
 @if (!ComponentesDivision.Any())
 {
@@ -12,13 +12,13 @@ else
 {
     <MudText Typo="Typo.h5" Color="MudBlazor.Color.Warning">@DivisionTerritorialName</MudText>
     <MudForm Class="pa-6 ma-1">
-        @if (ComponentesDivision.Count() == 1)
+ @*        @if (ComponentesDivision.Count() == 1)
         {
             <MudTextField Value="NewTerritorio.Nombre" Required="true" RequiredError="Es obligatorio llenar este campo" Label="Nombre del componente" HelperText="Sugerencias: Pais, Estado, Provincia, Municipio, etc" />
             <MudSwitch @bind-Checked="NewTerritorio.Activo"></MudSwitch>
         }
         else
-        {
+        { *@
             <MudPaper Width="350px" MaxHeight="500px" Class="overflow-y-auto" Elevation="0">
 
                 
@@ -30,16 +30,24 @@ else
                         <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
                             <Content>
                                 @* <MudText @onclick="()=> OnClickItem(context.IdTreeItem, context.Text)">+</MudText> *@
-                                <MudIcon Icon="@Icons.Material.Filled.AddCircle" Title="Add" @onclick="()=> OnClickAdd(context.IdTreeItem, context.Text)" />
+                         
+                                <MudIconButton Icon="@Icons.Material.Filled.AddCircle" Title="Add" @onclick="()=> OnClickAdd(context.IdTreeItem, context.Text)" />
+                            @if (!context.HasChild)
+                            {
+                                <MudIconButton Icon="@Icons.Material.Filled.RemoveCircle" Title="Remove" Color="MudBlazor.Color.Error" @onclick="()=> OnClickDelete(context.IdTreeItem, context.Text)" />
+                            }
+                                @* <MudIcon Icon="@Icons.Material.Filled.AddCircle" Title="Add" @onclick="()=> OnClickAdd(context.IdTreeItem, context.Text)" /> *@
                                 <MudText>@context.Text</MudText>
+                 
                                 <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
+                          
                                 </Content>
                             </MudTreeViewItem>
                         </ItemTemplate>
                     </MudTreeView>
                 </MudPaper>
-        }
-        <MudButton OnClick="Guardar" Color="MudBlazor.Color.Info">Guardar</MudButton>
+        @* } *@
+        @* <MudButton OnClick="Guardar" Color="MudBlazor.Color.Info">Guardar</MudButton> *@
         <MudButton OnClick="Cancelar" Color="MudBlazor.Color.Dark">Cancelar</MudButton>
     </MudForm>
 }

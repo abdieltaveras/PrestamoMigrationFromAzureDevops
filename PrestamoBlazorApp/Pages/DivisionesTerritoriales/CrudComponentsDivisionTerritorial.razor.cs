@@ -37,21 +37,40 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         
         private async Task OnClickAdd(int? idItem, string textItem)
         {
-            
+            //DialogParameters parameters = SetParametersToView(id, true);
+            //var item = this.TreeItems.Where(m => m.IdTreeItem == idItem);
+            DialogParameters parameters = new DialogParameters();
+            parameters.Add("idDivisionTerritorialPadre", idItem);
+            var division = ComponentesDivision.Where(m=>m.IdDivisionTerritorial == idItem).FirstOrDefault();    
+           var result= svrDialogService.Show<CCreateDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
+             GetData();
             SelectedValue = $"{idItem}: {textItem}";
-            await NotifyMessageBySnackBar("agregar proceso para agregar componente a " + SelectedValue,Severity.Info );
+            this.StateHasChanged();
+            //await NotifyMessageBySnackBar("agregar proceso para agregar componente a " + SelectedValue,Severity.Info );
+        }
+        private async Task OnClickDelete(int? idItem, string textItem)
+        {
+            SelectedValue = $"{idItem} {textItem}";
+            await NotifyMessageBySnackBar("agregar proceso para Eliminar componente a " + SelectedValue,Severity.Info );
         }
         protected override async Task OnInitializedAsync()
         {
-            
+            await GetData();
+            //this.Territorio = new DivisionTerritorial();
+            //ComponentesDivision = await territoriosService.GetDivisionTerritorialComponents(IdDivisionTerritorial);
+            //DivisionTerritorialName = ComponentesDivision.FirstOrDefault().Nombre;
+            //var divisionesTreeNodes = await CreateDivisionesTerritorialesNodes();  // crear los ITreeItems especificos
+            //this.TreeItems = await new MudBlazorTreeBuilder(divisionesTreeNodes).GetTreeItemsWithIcon(DefaultIcon); // pasar los ITreeNodes para que genere El tree para mudBlazor
+            await base.OnInitializedAsync();
+        }
+        private async Task GetData()
+        {
             this.Territorio = new DivisionTerritorial();
             ComponentesDivision = await territoriosService.GetDivisionTerritorialComponents(IdDivisionTerritorial);
             DivisionTerritorialName = ComponentesDivision.FirstOrDefault().Nombre;
             var divisionesTreeNodes = await CreateDivisionesTerritorialesNodes();  // crear los ITreeItems especificos
             this.TreeItems = await new MudBlazorTreeBuilder(divisionesTreeNodes).GetTreeItemsWithIcon(DefaultIcon); // pasar los ITreeNodes para que genere El tree para mudBlazor
-            await base.OnInitializedAsync();
         }
-
         private async Task Guardar() { }
 
         private async Task Cancelar() { }
