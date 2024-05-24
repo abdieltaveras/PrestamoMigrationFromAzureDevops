@@ -196,8 +196,8 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             if (EnableCalculation)
             {
                 await CalcularGastoDeCierre();
-                await CalcularCuotas();
-                this.prestamo.FechaVencimiento = this.Cuotas.Last().Fecha;
+                //await CalcularCuotas();
+                //this.prestamo.FechaVencimiento = this.Cuotas.Last().Fecha;
             }
         }
 
@@ -236,9 +236,12 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         private string InfoCuotas()
         {
+            if (!Cuotas.Any()) return string.Empty;
+                
             decimal montoCuota = 0;
             if (prestamo.TipoAmortizacion == TiposAmortizacion.No_Amortizable_cuotas_fijas)
             {
+                
                 var valorCta = Cuotas.Where(cta => cta.NumeroTransaccion == "1").FirstOrDefault().Monto;
                 montoCuota = Cuotas != null ? valorCta : 0;
             }
@@ -280,7 +283,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
 
 
-        private async Task UpdateLlevaGastoDeCierre(ChangeEventArgs arg)
+        private async Task UpdateInteresDelGastoDeCierre(ChangeEventArgs arg)
         {
 
             prestamo.InteresGastoDeCierre = prestamo.LlevaGastoDeCierre ? 0 : 10;
@@ -532,6 +535,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         }
         private async Task CuotasDialog()
         {
+            await CalcularCuotas();
             DialogOptions dialogOptions = new DialogOptions {MaxWidth = MaxWidth.Medium, CloseOnEscapeKey=true,  CloseButton = true };
             var parameters = new DialogParameters();
             parameters.Add("Cuotas", Cuotas);

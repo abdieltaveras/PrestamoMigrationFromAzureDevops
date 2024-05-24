@@ -142,6 +142,7 @@ namespace PrestamoWS.Controllers
 
         private IEnumerable<DebitoPrestamoConDetallesViewModel> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
         {
+            var montoGC = infoGenCuotas.MontoGastoDeCierre;
             // todo revisar 20240415
             var result =  MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, infoGenCuotas);
             return result;
