@@ -71,8 +71,35 @@ namespace PrestamoBlazorApp.Services
             }
             return result;
         }
+        protected async Task<@Type> CustomGetAsync<@Type>(string endpoint, object search)
+        {
 
-        
+            var baseUrl = Configuration["BaseServerUrl"];
+            var query = search.UrlEncode();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
+            request.Headers.Add("Accept", "application/json");
+
+            @Type result;
+
+            var client = _clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                //using var responseStream = await response.Content.ReadAsStreamAsync();
+                //result = await JsonSerializer.DeserializeAsync<IEnumerable<@Type>>(responseStream);
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                result = await response.Content.ReadFromJsonAsync<@Type>(options);
+            }
+            else
+            {
+                result = default(@Type);
+                throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
+            }
+            return result;
+        }
+
 
         protected async Task<string> DelAsync(string endpoint, object search, bool requiresAuth = true)
         {

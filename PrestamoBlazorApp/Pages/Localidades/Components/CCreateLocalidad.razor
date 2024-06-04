@@ -1,0 +1,22 @@
+﻿@using PrestamoBlazorApp.Shared.Components.Forms
+@inherits BaseForCreateOrEdit
+
+<GeneralModal OnCancelClick="CloseModal" OnSaveClick="Save">
+    <Content>
+        <MudSelect T="DivisionTerritorial" @bind-Value="SelectedTipoLocalidad" Immediate="true " Label="Tipo Division Territorial">
+            @foreach (var item in territorios)
+            {
+                <MudSelectItem Value="@item">@item.Nombre</MudSelectItem>
+            }
+        </MudSelect>
+        <MudTextField @bind-Value="Localidad.Nombre" T="string" Label="Nombre" For="@(() => Localidad.Nombre)"></MudTextField>
+    </Content>
+</GeneralModal>
+
+@code {
+
+}
+
+@code {
+
+}

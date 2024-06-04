@@ -75,7 +75,10 @@ namespace PrestamoEntidades
     {
         public int IdLocalidad { get; set; }
     }
-
+    public class LocalidadesComponentGetParams 
+    {
+        public int IdLocalidad { get; set; }
+    }
     public class LocalidadesHijas : BaseInsUpdCatalogo
     {
         public int IdLocalidad { get; set; }

@@ -81,6 +81,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
                     
                 }
                 await HandleListUpdate.InvokeAsync(true);
+                
                 MudDialog.Close(DialogResult.Ok(true));
             }
         }

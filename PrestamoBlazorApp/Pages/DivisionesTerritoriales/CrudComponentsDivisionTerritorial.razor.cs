@@ -20,6 +20,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         DivisionTerritorialService territoriosService { get; set; }
         [Parameter]
         public int IdDivisionTerritorial { get; set; }
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
         private string SelectedValue { get; set; } = string.Empty;
         private string DivisionTerritorialName { get; set; }
@@ -29,7 +30,7 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         private HashSet<ITreeItemData> TreeItems { get; set; } = new HashSet<ITreeItemData>();
         private ITreeItemData ActivatedValue { get; set; }
         private IEnumerable<ITreeItemData> SelectedValues { get; set; }
-
+        private bool isLoadingTree { get; set; } = false;
         private string DefaultIcon { get; set; } = MudBlazor.Icons.Material.Filled.Expand;
 
 
@@ -42,10 +43,14 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
             DialogParameters parameters = new DialogParameters();
             parameters.Add("idDivisionTerritorialPadre", idItem);
             var division = ComponentesDivision.Where(m=>m.IdDivisionTerritorial == idItem).FirstOrDefault();    
-           var result= svrDialogService.Show<CCreateDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
-             GetData();
+           var dialog= await svrDialogService.ShowAsync<CCreateDivisionTerritorial>("", parameters, OptionsForDialog.SmallFullWidthCloseButtonCenter);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                await GetData();
+                this.StateHasChanged();
+            }
             SelectedValue = $"{idItem}: {textItem}";
-            this.StateHasChanged();
             //await NotifyMessageBySnackBar("agregar proceso para agregar componente a " + SelectedValue,Severity.Info );
         }
         private async Task OnClickDelete(int? idItem, string textItem)
@@ -65,15 +70,18 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
         }
         private async Task GetData()
         {
+            this.isLoadingTree = true;
             this.Territorio = new DivisionTerritorial();
             ComponentesDivision = await territoriosService.GetDivisionTerritorialComponents(IdDivisionTerritorial);
             DivisionTerritorialName = ComponentesDivision.FirstOrDefault().Nombre;
             var divisionesTreeNodes = await CreateDivisionesTerritorialesNodes();  // crear los ITreeItems especificos
             this.TreeItems = await new MudBlazorTreeBuilder(divisionesTreeNodes).GetTreeItemsWithIcon(DefaultIcon); // pasar los ITreeNodes para que genere El tree para mudBlazor
+            this.isLoadingTree = false;
+            StateHasChanged();
         }
         private async Task Guardar() { }
 
-        private async Task Cancelar() { }
+        private async Task Cancelar() { MudDialog.Close(); }
         private async Task<IEnumerable<ITreeNode>> CreateDivisionesTerritorialesNodes()
         {
             ComponentesDivision.First().IdDivisionTerritorialPadre=0; // esto es para hacerlo el nodo raiz

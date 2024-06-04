@@ -1,0 +1,48 @@
+﻿@page "/localidadesTree"
+@inherits BaseForCreateOrEdit
+@if (!isLoadingTree)
+{
+    <MudTreeView T="ITreeItemData" Items="TreeItems" Hover="true" Color="MudBlazor.Color.Info">
+        <ItemTemplate>
+            <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
+                <Content>
+                    @* <MudText @onclick="()=> OnClickItem(context.IdTreeItem, context.Text)">+</MudText> *@
+                    @if (AllowAdd((int)context.IdTreeItem)){
+                        <MudIconButton Icon="@Icons.Material.Filled.AddCircle" Title="Add" @onclick="()=> OnClickAdd(context.IdTreeItem, context.Text)" />
+                    }
+                    @if (!context.HasChild)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.RemoveCircle" Title="Remove" Color="MudBlazor.Color.Error" @onclick="()=> OnClickDelete(context.IdTreeItem, context.Text)" />
+                    }
+                    @* <MudIcon Icon="@Icons.Material.Filled.AddCircle" Title="Add" @onclick="()=> OnClickAdd(context.IdTreeItem, context.Text)" /> *@
+                    <MudText>@context.Text</MudText>
+
+                    <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
+
+                </Content>
+            </MudTreeViewItem>
+        </ItemTemplate>
+    </MudTreeView>
+}
+
+@* <MudTreeView T="string">
+    <MudTreeViewItem Value="@("Republica Dominicana")">
+        <MudTreeViewItem Value="@("La Romana provincia")">
+            <MudTreeViewItem Value="@("La Romana municipio")">
+                <MudTreeViewItem Value="@("Quisqueya sector")" />
+                <MudTreeViewItem Value="@("Villa Verde sector")" />
+            </MudTreeViewItem>
+        </MudTreeViewItem>
+        <MudTreeViewItem Value="@("San Pedro")">
+            <MudTreeViewItem Value="@("Consuelo")">
+            </MudTreeViewItem>
+        </MudTreeViewItem>
+        <MudTreeViewItem Value="@("La Alagracia")">
+            <MudTreeViewItem Value="@("Higuey")">
+            </MudTreeViewItem>
+        </MudTreeViewItem>
+
+    </MudTreeViewItem>
+
+</MudTreeView> *@
+

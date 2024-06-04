@@ -24,27 +24,30 @@ else
                 
                 
                 <MudText Typo="@Typo.subtitle1"> Componente Seleccionado: @SelectedValue </MudText>
-                
-                <MudTreeView  T="ITreeItemData" Items="TreeItems" Hover="true" Color="MudBlazor.Color.Info">
+            @if (!isLoadingTree)
+            {
+                <MudTreeView T="ITreeItemData" Items="TreeItems" Hover="true" Color="MudBlazor.Color.Info">
                     <ItemTemplate>
                         <MudTreeViewItem @bind-Expanded="@context.IsExpanded" Items="@context.TreeItems">
                             <Content>
                                 @* <MudText @onclick="()=> OnClickItem(context.IdTreeItem, context.Text)">+</MudText> *@
-                         
+
                                 <MudIconButton Icon="@Icons.Material.Filled.AddCircle" Title="Add" @onclick="()=> OnClickAdd(context.IdTreeItem, context.Text)" />
-                            @if (!context.HasChild)
-                            {
-                                <MudIconButton Icon="@Icons.Material.Filled.RemoveCircle" Title="Remove" Color="MudBlazor.Color.Error" @onclick="()=> OnClickDelete(context.IdTreeItem, context.Text)" />
-                            }
+                                @if (!context.HasChild)
+                                {
+                                    <MudIconButton Icon="@Icons.Material.Filled.RemoveCircle" Title="Remove" Color="MudBlazor.Color.Error" @onclick="()=> OnClickDelete(context.IdTreeItem, context.Text)" />
+                                }
                                 @* <MudIcon Icon="@Icons.Material.Filled.AddCircle" Title="Add" @onclick="()=> OnClickAdd(context.IdTreeItem, context.Text)" /> *@
                                 <MudText>@context.Text</MudText>
-                 
+
                                 <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded" Visible="@context.HasChild" />
-                          
-                                </Content>
-                            </MudTreeViewItem>
-                        </ItemTemplate>
-                    </MudTreeView>
+
+                            </Content>
+                        </MudTreeViewItem>
+                    </ItemTemplate>
+                </MudTreeView>
+            }
+
                 </MudPaper>
         @* } *@
         @* <MudButton OnClick="Guardar" Color="MudBlazor.Color.Info">Guardar</MudButton> *@

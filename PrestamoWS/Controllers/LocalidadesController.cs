@@ -16,20 +16,36 @@ namespace PrestamoWS.Controllers
     [Route("api/[controller]/[action]")]
     public class LocalidadesController : ControllerBasePrestamoWS
     {
+    
         [HttpGet]
         // GET: Localidades
         public IEnumerable<Localidad> Get([FromQuery] LocalidadGetParams getParams)
         {
-            
-            var result = BLLPrestamo.Instance.GetLocalidades(getParams);
-            
+            var result =new LocalidadesBLL(this.IdLocalidadNegocio,this.LoginName).GetLocalidades(getParams);
             return result;
+        }
+        [HttpGet]
+        // GET: Localidades
+        public IActionResult GetLocalidadesComponents([FromQuery] LocalidadesComponentGetParams getParams)
+        {
+            //Se debe crear un ResponseManager el cual cuando venga un estatus code desde la bll lo gestione automaticamente si retornará 200, 400,401...
+            //o algun status code que predefinamos en constantes o base de datos
+            try
+            {
+                var result = new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).GetLocalidadesComponents(getParams);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest( new ResponseData(ex,false,ex.Message,400));
+            }
+          
         }
         [HttpGet]
         public IEnumerable<Localidad> GetLocalidadConSusPadres([FromQuery] LocalidadGetParams getParams)
         {
             
-            var a = BLLPrestamo.Instance.GetLocalidadesConSusPadres(getParams);
+            var a = new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).GetLocalidadesConSusPadres(getParams);
             //var a = BLLPrestamo.BllAcciones.GetData<Localidad, LocalidadGetParams>(new LocalidadGetParams(), "spGetLocalidades", BLLPrestamo.GetValidation);
             return a;
         }
@@ -39,7 +55,7 @@ namespace PrestamoWS.Controllers
             IEnumerable<BuscarLocalidad> localidades = new List<BuscarLocalidad>();
             if (minLength==0 || (search!=null && search.Length >= BuscarLocalidadParams.minLengthDefault))
             {
-                localidades = BLLPrestamo.Instance.SearchLocalidad(new BuscarLocalidadParams { Search = search, SoloLosQuePermitenCalle= soloLosQuePermitenCalle});
+                localidades = new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).SearchLocalidad(new BuscarLocalidadParams { Search = search, SoloLosQuePermitenCalle= soloLosQuePermitenCalle});
             }
             return localidades;
         }
@@ -54,7 +70,7 @@ namespace PrestamoWS.Controllers
         /// <returns></returns>
         public string GetFullNameLocalidad(int idLocalidad)
         {
-            var result = BLLPrestamo.Instance.GetLocalidadesConSusPadres(new LocalidadGetParams { IdLocalidad = idLocalidad });
+            var result = new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).GetLocalidadesConSusPadres(new LocalidadGetParams { IdLocalidad = idLocalidad });
             var localidades = from localidad in result select new { localidad.Nombre };
             string localidadFullName = string.Empty;
             result.ToList().ForEach(loc => localidadFullName += loc.Nombre + " ");
@@ -63,24 +79,24 @@ namespace PrestamoWS.Controllers
         [HttpGet]
         public IEnumerable<BuscarLocalidad> Search(string Search)
         {
-            return BLLPrestamo.Instance.SearchLocalidad(new BuscarLocalidadParams { Search = Search });
+            return new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).SearchLocalidad(new BuscarLocalidadParams { Search = Search });
         }
         [HttpGet]
         public IEnumerable<string> GetSearchLocalidadByName(int idLocalidad, int idNegocio)
         {
-            return BLLPrestamo.Instance.SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = idLocalidad, IdNegocio = idNegocio });
+            return new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).SearchLocalidadByName(new BuscarNombreLocalidadParams { IdLocalidad = idLocalidad, IdNegocio = idNegocio });
         }
         [HttpGet]
         public IEnumerable<Localidad> GetPaises()
         {
-            return BLLPrestamo.Instance.GetPaises(new LocalidadPaisesGetParams { });
+            return new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).GetPaises(new LocalidadPaisesGetParams { });
         }
         [HttpGet]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<LocalidadesHijas> GetHijasLocalidades(int idLocalidad = -1)
         {
             var paramlocalidad = new LocalidadGetParams { IdLocalidad = idLocalidad };
-            var datos = BLLPrestamo.Instance.GetHijasLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad,IdNegocio= 1 });
+            var datos = new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).GetHijasLocalidades(new LocalidadGetParams { IdLocalidad = idLocalidad,IdNegocio= 1 });
             return datos;
         }
         [HttpPost]
@@ -89,7 +105,7 @@ namespace PrestamoWS.Controllers
             localidad.Usuario = this.LoginName;
            localidad.IdLocalidadNegocio = this.IdLocalidadNegocio;
            //var localidadparams = new Localidad { IdLocalidad = IdLocalidad, IdLocalidadPadre = IdLocalidadPadre, IdDivisionTerritorialPadre = IdDivisionTerritorialPadre,  };
-            BLLPrestamo.Instance.InsUpdLocalidad(localidad);
+            new LocalidadesBLL(this.IdLocalidadNegocio, this.LoginName).InsUpdLocalidad(localidad);
             return Ok();
         }
         

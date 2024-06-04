@@ -18,6 +18,11 @@ namespace PrestamoBlazorApp.Services
             var result = await territoriosService.GetTiposDivisionTerritorial();
             return result;
         }
+        public async Task<ResponseDataFE<IEnumerable<Localidad>>> GetLocalidadesComponents(LocalidadesComponentGetParams param)
+        {
+            var result = await CustomGetAsync<ResponseDataFE<IEnumerable<Localidad>>>(apiUrl + "/GetLocalidadesComponents", param);
+            return result;
+        }
         public async Task<IEnumerable<Localidad>> Get(LocalidadGetParams search)
         {
             var result = await GetAsync<Localidad>(apiUrl+"/get", search);
