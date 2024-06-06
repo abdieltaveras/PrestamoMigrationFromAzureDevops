@@ -293,7 +293,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task Test(MouseEventArgs mouseEventArgs)
         {
             //JsInteropUtils.NotifyMessageBox
-            await JsInteropUtils.ConsoleLog(jsRuntime, prestamo);
+            //await JsInteropUtils.ConsoleLog(jsRuntime, prestamo);
             var pr = this.prestamo;
             Console.WriteLine(prestamo);
         }
@@ -442,13 +442,12 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         protected async Task OnLlevaGastoDeCierreChange(bool value)
         {
 
-
+            
             await Task.Run(() =>
             {
                 if (value & prestamo.InteresGastoDeCierre == 0) { prestamo.InteresGastoDeCierre = defaultInteresGastoDeCierre; };
                 prestamo.InteresGastoDeCierre = value ? prestamo.InteresGastoDeCierre : 0;
             });
-            await NotifyMessageBySnackBar(prestamo.InteresGastoDeCierre.ToString(), Severity.Warning);
             await Calcular();
         }
 
