@@ -43,6 +43,36 @@ namespace PrestamoBlazorApp.Services
                 throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {errorMessage}'");
             }
         }
+
+        // esto es en serviceBase
+        protected async Task<@TResult> PostAsyncWithReturn<@Type, @TResult>(string endpoint, @Type body, object search = null)
+        {
+            var baseUrl = Configuration["BaseServerUrl"];
+            var query = search.UrlEncode();
+            var client = _clientFactory.CreateClient();
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            HttpResponseMessage response = null;
+            string resultStream = string.Empty;
+            TResult result;
+            response = await client.PostAsJsonAsync<@Type>($"{baseUrl}/{endpoint}?{query}", body);
+            resultStream = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase} {resultStream}'");
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(resultStream))
+                {
+
+                    result = (@TResult)JsonSerializer.Deserialize(resultStream, typeof(@TResult), options); //DeserializeAsync<TResult>(resultStream);
+                    return result;
+                }
+            }
+            return default(TResult);
+        }
+
         protected async Task<IEnumerable<@Type>> GetAsync<@Type>(string endpoint, object search)
         {
 

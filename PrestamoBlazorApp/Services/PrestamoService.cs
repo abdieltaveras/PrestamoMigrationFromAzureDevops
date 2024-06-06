@@ -63,13 +63,18 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
 
-        public async Task<IEnumerable<DebitoPrestamoConDetallesViewModel>> GenerarCuotas2(IInfoGeneradorCuotas infoGenCuotas)
-        {
+        //public async Task<IEnumerable<DebitoPrestamoConDetallesViewModel>> GenerarCuotas2(IInfoGeneradorCuotas infoGenCuotas)
+        //{
 
-            var result = await GetAsync<DebitoPrestamoConDetallesViewModel>(apiUrl + "/GenerarCuotas2", new { jsonInfoGenCuotas= infoGenCuotas.ToJson() });
+        //    var result = await GetAsync<DebitoPrestamoConDetallesViewModel>(apiUrl + "/GenerarCuotas2", new { jsonInfoGenCuotas= infoGenCuotas.ToJson() });
+        //    return result;
+        //}
+
+        public async Task<IEnumerable<DebitoPrestamoConDetallesViewModel>> GenerarCuotas3(InfoGeneradorDeCuotas infoGenCuotas)
+        {
+            var result = await PostAsyncWithReturn<InfoGeneradorDeCuotas, IEnumerable<DebitoPrestamoConDetallesViewModel>>(apiUrl + "/GenerarCuotas", infoGenCuotas);
             return result;
         }
-
 
         //public async Task<IEnumerable<Cuota>>  Calcular(Prestamo prestamo)
         //{

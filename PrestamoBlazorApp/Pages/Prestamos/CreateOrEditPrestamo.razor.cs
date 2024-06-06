@@ -38,7 +38,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         GarantiasService GarantiasService { get; set; }
 
         private bool EnableCalculation { get; set; }
-        private DebitoPrestamoConDetallesViewModel CxCCuotaSelected { get; set; }=new DebitoPrestamoConDetallesViewModel(); 
+        private DebitoPrestamoConDetallesViewModel CxCCuotaSelected { get; set; } = new DebitoPrestamoConDetallesViewModel();
         private GarantiaConMarcaYModelo GarantiaSelected { get; set; } = new GarantiaConMarcaYModelo();
         private Cliente ClienteSelected { get; set; } = new Cliente();
 
@@ -60,13 +60,22 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private string CodigoMora { get; set; } = string.Empty;
         private bool SinVencimiento { get; set; } = true;
         private bool _LlevaGastoDeCierre;
-        private bool LlevaGastoDeCierre 
+        private bool LlevaGastoDeCierre
         {
-            get { return _LlevaGastoDeCierre; } 
-            set { _LlevaGastoDeCierre = value; Task.Run(async ()=> await OnLlevaGastoDeCierreChange(value)); } 
+            get { return _LlevaGastoDeCierre; }
+            set { _LlevaGastoDeCierre = value; Task.Run(async () => await OnLlevaGastoDeCierreChange(value)); }
         }
         Clasificacion ClasificacionSelected { get; set; } = new Clasificacion();
-        private DateTime? FechaEmisionReal { get; set; }
+
+        private DateTime? _FechaEmisionReal;
+        private DateTime? FechaEmisionReal
+        {
+            get { return _FechaEmisionReal; }
+            set
+            {
+                Task.Run(async () => await OnFechaEmisionRealChange(new ChangeEventArgs { Value = value }));
+            }
+        }
 
         //private string MontoPrestado { get; set; }
 
@@ -121,15 +130,20 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             this.prestamo.ProyectarPrimeraYUltima = true;
             SetPeriodo();
             await SetTasaDeInteresDelPeriodo();
-            SetFechaEmisionReal();
+            await Task.Run(async () => await SetFechaEmisionReal(prestamo.FechaEmisionReal));
             await Calcular();
             // var result = prestamoService.CalcularCuotas(prestamo);
 
         }
 
-        private void SetFechaEmisionReal()
+        private async Task SetFechaEmisionReal(DateTime value)
         {
-            this.FechaEmisionReal = prestamo.FechaEmisionReal; //prestamo.FechaEmisionReal.ToString("yyyy-MM-dd"); comentado por luis
+            await Task.Run(() =>
+            {
+                prestamo.FechaEmisionReal = value;
+                this._FechaEmisionReal = value;
+            });
+
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -213,8 +227,11 @@ namespace PrestamoBlazorApp.Pages.Prestamos
             try
             {
                 //cuotas = await prestamoService.GenerarCuotas(this.prestamo);
+                var fecha = this.prestamo.FechaEmisionReal;
                 var infoGeneradorCuotas = new InfoGeneradorDeCuotas(this.prestamo);
-                cuotas = await prestamoService.GenerarCuotas2(infoGeneradorCuotas);
+
+                //cuotas = await prestamoService.GenerarCuotas2(infoGeneradorCuotas);
+                cuotas = await prestamoService.GenerarCuotas3(infoGeneradorCuotas);
             }
             catch (Exception e)
             {
@@ -237,11 +254,11 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private string InfoCuotas()
         {
             if (!Cuotas.Any()) return string.Empty;
-                
+
             decimal montoCuota = 0;
             if (prestamo.TipoAmortizacion == TiposAmortizacion.No_Amortizable_cuotas_fijas)
             {
-                
+
                 var valorCta = Cuotas.Where(cta => cta.NumeroTransaccion == "1").FirstOrDefault().Monto;
                 montoCuota = Cuotas != null ? valorCta : 0;
             }
@@ -377,7 +394,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         string InfoCliente { get; set; }
         [Inject]
         ClientesService clientesService { get; set; }
-
+        private decimal defaultInteresGastoDeCierre { get; set; } = 10;
 
         private async Task ActivateSearchCliente()
         {
@@ -424,10 +441,14 @@ namespace PrestamoBlazorApp.Pages.Prestamos
 
         protected async Task OnLlevaGastoDeCierreChange(bool value)
         {
-            if (prestamo.InteresGastoDeCierre <= 0)
+
+
+            await Task.Run(() =>
             {
-                prestamo.InteresGastoDeCierre = value ? 10 : 0;
-            }
+                if (value & prestamo.InteresGastoDeCierre == 0) { prestamo.InteresGastoDeCierre = defaultInteresGastoDeCierre; };
+                prestamo.InteresGastoDeCierre = value ? prestamo.InteresGastoDeCierre : 0;
+            });
+            await NotifyMessageBySnackBar(prestamo.InteresGastoDeCierre.ToString(), Severity.Warning);
             await Calcular();
         }
 
@@ -445,20 +466,12 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         {
             var value = DateTime.Now;
             var convertionSucceed = DateTime.TryParse(args.Value.ToString(), out value);
-            if (value > DateTime.Now)
-            {
-                SetFechaEmisionReal();
-            }
+
             if (convertionSucceed)
             {
-                prestamo.FechaEmisionReal = value;
+                await Task.Run(async () => await SetFechaEmisionReal(value));
                 await Calcular();
             }
-            else
-            {
-                SetFechaEmisionReal();
-            }
-
         }
 
         protected async Task OnClasificacionChange(ChangeEventArgs args)
@@ -517,7 +530,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos
                 updateInfoGarantia(GarantiaSelected);
             }
         }
-        
+
         private async Task ShowSearchCliente()
         {
             string[] cols = { "Nombres", "Apellidos" };
@@ -536,16 +549,16 @@ namespace PrestamoBlazorApp.Pages.Prestamos
         private async Task CuotasDialog()
         {
             await CalcularCuotas();
-            DialogOptions dialogOptions = new DialogOptions {MaxWidth = MaxWidth.Medium, CloseOnEscapeKey=true,  CloseButton = true };
+            DialogOptions dialogOptions = new DialogOptions { MaxWidth = MaxWidth.Medium, CloseOnEscapeKey = true, CloseButton = true };
             var parameters = new DialogParameters();
             parameters.Add("Cuotas", Cuotas);
-            var dialog= DialogService.Show<ProyeccionCuotasValoresInicialesV2>("Total de Cuotas",parameters, dialogOptions);
+            var dialog = DialogService.Show<ProyeccionCuotasValoresInicialesV2>("Total de Cuotas", parameters, dialogOptions);
             var result = await dialog.Result;
 
             if (!result.Cancelled)
             {
                 CxCCuotaSelected = (DebitoPrestamoConDetallesViewModel)result.Data;
-                
+
 
             }
         }

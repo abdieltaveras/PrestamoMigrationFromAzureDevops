@@ -102,6 +102,6 @@ begin
 	 --  when not matched by source
 	 --  then delete;
 	end
-	exec spInsMaestroDetalleDrCxCPrestamo @IdPrestamo, @MaestroCuotas, @DetallesCuotas    	 
+	exec spInsMaestroDetalleCuotas @IdPrestamo, @MaestroCuotas, @DetallesCuotas    	 
 	SELECT @IdPrestamo
 end

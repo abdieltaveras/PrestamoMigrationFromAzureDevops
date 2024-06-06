@@ -42,8 +42,31 @@ namespace PrestamoBLL.Tests
 
         }
 
-        
-        
+        [TestMethod]
+        public async Task UpdatePrestamoTest()
+        {
+            var idLocNeg = TestUtils.GetIdLocalidadNegocio();
+            var usuario = TestUtils.Usuario;
+            var prestamo = new PrestamoBLLC(idLocNeg,usuario).GetPrestamos(new PrestamosGetParams {idPrestamo=1}).FirstOrDefault();
+            prestamo.CantidadDeCuotas = prestamo.CantidadDeCuotas + 1;
+            int id = 0;
+            var testInfo = new TestUtils();
+            try
+            {
+                id = await new PrestamoBLLC(idLocNeg,usuario).InsUpdPrestamo(prestamo);
+            }
+            catch (Exception e)
+            {
+                testInfo.MensajeError = e.Message;
+                testInfo.ExceptionOccured = e;
+            }
+
+            Assert.IsTrue(string.IsNullOrEmpty(testInfo.MensajeError), "fallo creando prestamo" + testInfo.MensajeError);
+
+        }
+
+
+
         public async Task<Prestamo> CreatePrestamoInstance()
         {
             Prestamo prestamo = new Prestamo(); ;

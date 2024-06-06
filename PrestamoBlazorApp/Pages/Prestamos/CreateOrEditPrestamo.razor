@@ -40,7 +40,7 @@
                             {
                                 <MudChip>@prestamo.PrestamoNumero </MudChip>
                             }
-                            <MudSelect @bind-Value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" Label="Clasificacion">
+                            <MudSelect  @bind-Value="@prestamo.IdClasificacion" @onchange="OnClasificacionChange" Label="Clasificacion">
                                 @foreach (var item in Clasificaciones)
                                 {
                                     <MudSelectItem Value=@item.IdClasificacion>@item.Nombre</MudSelectItem>
@@ -57,7 +57,8 @@
                         </MudItem>
 
                         <MudItem md="4">
-                            <MudDatePicker @onchange="OnFechaEmisionRealChange" @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker>
+                            <MudDatePicker @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker> 
+                            @* <MudDatePicker @bind-Date="@FechaEmisionReal" Label="Fecha"></MudDatePicker> *@
                             <MudTextField @bind-Value="@CodigoCliente"
                                           ReadOnly="true" Label="Codigo Cliente"
                                           Adornment="Adornment.End"

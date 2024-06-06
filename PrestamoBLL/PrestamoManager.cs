@@ -359,12 +359,13 @@ namespace PrestamoBLL
         //}
 
         
-        #endregion operacione s
+        #endregion operaciones
 
         public PrestamoInsUpdParam Build()
         {
             //IGeneradorCuotas genCuotas = GetGeneradorCuotas();
             //var cuotas = genCuotas.GenerarCuotas();
+            prestamoInProgress.ProyectarPrimeraYUltima = false;
             var cuotas = GeneradorDeCuotas.CreateCuotasMaestroDetalle(this.prestamoInProgress.IdPrestamo, this.prestamoInProgress);
             
             // var cuotasVacias = new List<Cuota>();
@@ -622,7 +623,9 @@ namespace PrestamoBLL
             var tasaDeInteres = TasasDeInteres.Where(ti => ti.idTasaInteres == IdTasaInteres).FirstOrDefault();
             var tasaDeInteresPorPeriodos = CalculateTasaInteresPorPeriodo(tasaDeInteres.InteresMensual, Periodo);
             base.TasaDeInteresDelPeriodo = tasaDeInteresPorPeriodos.InteresDelPeriodo;
+            
             var infoCuotas = new InfoGeneradorDeCuotas(this);
+            
 
             // todo poner el calculo de tasa de interes por Periodo donde hace el calculo de generar
             // cuotas y no que se le envie esa informacion

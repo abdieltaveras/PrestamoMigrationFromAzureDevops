@@ -140,6 +140,16 @@ namespace PrestamoWS.Controllers
             return cuotas;
         }
 
+        [HttpPost]
+        public IEnumerable<DebitoPrestamoConDetallesViewModel> GenerarCuotas([FromBody] InfoGeneradorDeCuotas infoGenCuotas)
+        {
+            infoGenCuotas.Usuario = this.LoginName;
+            infoGenCuotas.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            infoGenCuotas.IdNegocio = this.IdNegocio;
+            var cuotas = Generar_Cuotas(infoGenCuotas);
+            //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
+            return cuotas;
+        }
         private IEnumerable<DebitoPrestamoConDetallesViewModel> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
         {
             var montoGC = infoGenCuotas.MontoGastoDeCierre;
