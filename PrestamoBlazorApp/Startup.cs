@@ -97,7 +97,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<AuthService>();
             services.AddScoped<ServiceBase>();
             services.AddScoped<CustomService>();
-            services.AddScoped<CodigosCargosDebitosReservadosService>();
+            services.AddScoped<CodigosCargosDebitosService>();
 
 
 

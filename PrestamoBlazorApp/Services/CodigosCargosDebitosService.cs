@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Services
 {
-    public class CodigosCargosDebitosReservadosService : ServiceBase
+    public class CodigosCargosDebitosService : ServiceBase
     {
         readonly string apiUrl = "api/CodigosCargos";
 
-        public CodigosCargosDebitosReservadosService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration, localStorageService)
+        public CodigosCargosDebitosService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration, localStorageService)
         {
 
         }

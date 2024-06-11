@@ -18,7 +18,7 @@ namespace PrestamoWS.Controllers
         public IEnumerable<CodigosCargosDebitos> Get([FromQuery] CodigosCargosGetParams search)
         {
             
-            var result = new CodigosCargosDebitosReservadosBLL(this.IdLocalidadNegocio, this.LoginName).Get(search);
+            var result = new CodigosCargosDebitosBLL(this.IdLocalidadNegocio, this.LoginName).Get(search);
             return result;
         }
 
@@ -29,7 +29,7 @@ namespace PrestamoWS.Controllers
             param.IdLocalidadNegocio = this.IdLocalidadNegocio;
             try
             {
-                var id = new CodigosCargosDebitosReservadosBLL(this.IdLocalidadNegocio, this.LoginName).InsUpd(param);
+                var id = new CodigosCargosDebitosBLL(this.IdLocalidadNegocio, this.LoginName).InsUpd(param);
                 return Ok(id);
             }
             catch (Exception e)

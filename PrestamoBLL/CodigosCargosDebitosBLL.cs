@@ -8,9 +8,9 @@ using static PrestamoBLL.BLLPrestamo;
 
 namespace PrestamoBLL
 {
-    public class CodigosCargosDebitosReservadosBLL:BaseBLL
+    public class CodigosCargosDebitosBLL:BaseBLL
     {
-        public CodigosCargosDebitosReservadosBLL(int idLocalidadNegocio, string loginName) : base(idLocalidadNegocio, loginName)
+        public CodigosCargosDebitosBLL(int idLocalidadNegocio, string loginName) : base(idLocalidadNegocio, loginName)
         {
             
         }

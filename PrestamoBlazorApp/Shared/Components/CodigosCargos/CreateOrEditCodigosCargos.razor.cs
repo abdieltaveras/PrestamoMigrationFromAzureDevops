@@ -13,7 +13,7 @@ namespace PrestamoBlazorApp.Shared.Components.CodigosCargos
     {
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
         [Inject]
-        CodigosCargosDebitosReservadosService _CodigosCargosDebitosReservadosService  { get; set; }
+        CodigosCargosDebitosService _CodigosCargosDebitosReservadosService  { get; set; }
         [Parameter]
         public int IdCodigoCargo { get; set; }
 

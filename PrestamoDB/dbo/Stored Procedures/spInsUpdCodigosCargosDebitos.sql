@@ -1,4 +1,4 @@
-﻿CREATE proc [dbo].[spInsUpdCodigosCargosDebitosReservados]
+﻿CREATE proc [dbo].[spInsUpdCodigosCargosDebitos]
 	@IdCodigoCargo int = -1
 	, @nombre varchar(50)
 	, @descripcion  varchar(100)
@@ -8,7 +8,7 @@
 as
 if @IdCodigoCargo <= 0 	
 BEGIN
-INSERT INTO dbo.tblCodigosCargosDebitosReservados(
+INSERT INTO dbo.tblCodigosCargosDebitos(
 	Nombre
 	, Descripcion
 	, InsertadoPor
@@ -25,7 +25,7 @@ VALUES
 END
 	ELSE
 BEGIN
-	UPDATE tblCodigosCargosDebitosReservados
+	UPDATE tblCodigosCargosDebitos
 	set Nombre = @Nombre,
 	Descripcion = @Descripcion,
 	ModificadoPor = @Usuario,

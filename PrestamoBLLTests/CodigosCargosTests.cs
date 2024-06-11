@@ -43,7 +43,7 @@ namespace PrestamoBLL.Tests
                         IdNegocio = 1,
                         Usuario = "Luis",
                     };
-                    var id = new CodigosCargosDebitosReservadosBLL(1,"Luis").InsUpd(param);
+                    var id = new CodigosCargosDebitosBLL(1,"Luis").InsUpd(param);
                 }
                 catch (Exception e)
                 {
@@ -71,7 +71,7 @@ namespace PrestamoBLL.Tests
                 {
                     IdCodigoCargo = 1
                 };
-                var datos = new CodigosCargosDebitosReservadosBLL(1,"Luis").Get(param);
+                var datos = new CodigosCargosDebitosBLL(1,"Luis").Get(param);
 
             }
             catch (Exception e)

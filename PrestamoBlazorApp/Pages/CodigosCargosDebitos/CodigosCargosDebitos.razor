@@ -8,7 +8,7 @@
              ShowSearchOption="false">
 
     <CardContent>
-            <MudTable T="PrestamoEntidades.CodigosCargosDebitos" Loading="LoadingTable" Items="@_codigosCargosDebitosReservados" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped"
+            <MudTable T="PrestamoEntidades.CodigosCargosDebitos" Loading="LoadingTable" Items="@_codigosCargosDebitos" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped"
                       Filter="new Func<PrestamoEntidades.CodigosCargosDebitos,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
                 <ToolBarContent>
                     <MudText Typo="Typo.h6">Elementos</MudText>

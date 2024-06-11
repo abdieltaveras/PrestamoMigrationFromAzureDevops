@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PrestamoBlazorApp.Pages.TasasInteres;
-namespace PrestamoBlazorApp.Pages.CodigosCargosDebitosReservados
+namespace PrestamoBlazorApp.Pages.CodigosCargosDebitos
 {
-    public partial class CodigosCargosDebitosReservados : BaseForList
+    public partial class CodigosCargosDebitos : BaseForList
     {
         [Inject]
         IDialogService DialogService { get; set; }
@@ -18,10 +18,10 @@ namespace PrestamoBlazorApp.Pages.CodigosCargosDebitosReservados
         [Inject]
         NavigationManager NavigationManager { get; set; }
         [Inject]
-        CodigosCargosDebitosReservadosService _codigosCargosDebitosReservadosService { get; set; }
-        IEnumerable<PrestamoEntidades.CodigosCargosDebitos> _codigosCargosDebitosReservados { get; set; }
+        CodigosCargosDebitosService _codigosCargosDebitosReservadosService { get; set; }
+        IEnumerable<PrestamoEntidades.CodigosCargosDebitos> _codigosCargosDebitos { get; set; }
         [Parameter]
-        public PrestamoEntidades.CodigosCargosDebitos _codigosCargosDebitosReservadosModel { get; set; } = new PrestamoEntidades.CodigosCargosDebitos();
+        public PrestamoEntidades.CodigosCargosDebitos _codigosCargosDebitosModel { get; set; } = new PrestamoEntidades.CodigosCargosDebitos();
         private bool ChkRequiereAutorizacion { get; set; }
         private bool ChkEstatus { get; set; } = true;
 
@@ -41,7 +41,7 @@ namespace PrestamoBlazorApp.Pages.CodigosCargosDebitosReservados
             LoadingTable = true;
             if (search.Length >= MinSearchLength)
             {
-                _codigosCargosDebitosReservados = new List<PrestamoEntidades.CodigosCargosDebitos>();
+                _codigosCargosDebitos = new List<PrestamoEntidades.CodigosCargosDebitos>();
   
             }
             //StateHasChanged();
@@ -52,7 +52,7 @@ namespace PrestamoBlazorApp.Pages.CodigosCargosDebitosReservados
 
         async Task GetDataList()
         {
-            _codigosCargosDebitosReservados = await _codigosCargosDebitosReservadosService.Get(new CodigosCargosGetParams { IdCodigoCargo = -1 });
+            _codigosCargosDebitos = await _codigosCargosDebitosReservadosService.Get(new CodigosCargosGetParams { IdCodigoCargo = -1 });
             StateHasChanged();
         }
         private bool FilterFunc(PrestamoEntidades.CodigosCargosDebitos element, string searchString)
