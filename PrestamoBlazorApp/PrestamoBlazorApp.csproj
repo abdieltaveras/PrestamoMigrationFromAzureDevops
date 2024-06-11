@@ -59,6 +59,7 @@
   
   
   <ItemGroup>
+    <Folder Include="Pages\DivisionesTerritoriales\Components\" />
     <Folder Include="Pages\Negocios\" />
     <Folder Include="Reports\Rdlc\" />
     <Folder Include="Shared\Components\ClienteEstatus\" />

@@ -1,13 +1,19 @@
 ﻿<MudGrid>
     <MudItem md="12" lg="12">
-
+     @*    <PrestamoBlazorApp.Shared.Components.Forms.CustomInputNumber @bind-Value="@SearchText" OnKeyUp="OnEnter" /> *@
     <MudTextField Variant="Variant.Outlined" T="string" FullWidth="true" 
     s
-    Value="SearchText" 
+    InputType="InputType.Number"
+    Immediate=true
+    
+    @bind-Value="SearchText"
     Label="Buscar..."
     Adornment="Adornment.End"
-    AdornmentIcon="@Icons.Material.Outlined.Search" 
-    OnAdornmentClick="()=>GetPrestamo()" />
+    AdornmentIcon="@Icons.Material.Rounded.MoreHoriz" 
+    OnAdornmentClick="()=>ShowSearchPrestamo()"
+    OnKeyUp="OnEnter"
+    HelperText="Presione enter para buscar directamente por el numero de prestamo."
+    />
     </MudItem>
 </MudGrid>
 <MudDivider/>
@@ -104,8 +110,38 @@
                         </MudCardContent>
                     </MudCard>
                 }
+                else
+                {
+                    <MudText>Este prestamo no lleva garantias.</MudText>
+                }
             </MudItem>
         </MudGrid>
+                <MudGrid Style="justify-content:flex-end !important">
+                    <MudItem sm="6" md="6" lg="6">
+                @if(Prestamo.Prestamo.IdPrestamo >0){
+
+                    <PrestamoBlazorApp.Shared.Components.EntidadEstatus.ViewEstatusOfObject 
+                    Id="@Prestamo.Prestamo.IdPrestamo" TipoBusqueda="PrestamoEntidades.eTipoStatus.Prestamos" Label="Estatus Prestamo"/>
+                }
+                else
+                {
+                    <MudText>Prestamo Sin Estatus asignado.</MudText>
+
+                }
+            </MudItem>
+            <MudItem sm="6" md="6" lg="6">
+                @if (Prestamo.Prestamo.IdPrestamo > 0)
+                {
+
+                    <PrestamoBlazorApp.Shared.Components.EntidadEstatus.ViewEstatusOfObject Id="@Prestamo.Prestamo.IdCliente" TipoBusqueda="PrestamoEntidades.eTipoStatus.Cliente" Label="Estatus Cliente" />
+                }
+                else
+                {
+                    <MudText>Prestamo Sin Estatus asignado.</MudText>
+
+                }
+            </MudItem>
+                </MudGrid>
         <MudGrid Style="justify-content:flex-end !important">
             <MudItem sm="4" md="4" lg="4">
                 <MudCard>

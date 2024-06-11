@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
 {
-    public partial class CrudTipoDivisionTerritorial: BaseForCreateOrEdit
+    public partial class CCreateDivisionTerritorial: BaseForCreateOrEdit
     {
 
         [Parameter]
         public int idDivisionTerritorial { get; set; }
 
-
+        [Parameter]
+        public int idDivisionTerritorialPadre { get; set; }
         [Parameter]
         public EventCallback<bool> HandleListUpdate { get; set; }
 
@@ -27,21 +28,32 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
 
 
         DivisionTerritorial _DivisionTerritorial { get; set; } = new DivisionTerritorial();
+        DivisionTerritorial _DivisionTerritorialForComponentLabels { get; set; } = new DivisionTerritorial();
+
 
         bool test { get; set; } = true;
         async Task Cancel() => MudDialog.Close(DialogResult.Cancel());
 
         protected override async Task OnInitializedAsync()
         {
-            if (idDivisionTerritorial > 0) { await GetData(); }
+            if (idDivisionTerritorial > 0) { await GetData();  }
+            if ( idDivisionTerritorialPadre > 0) { await GetDataComponentLabel(); }
             await base.OnInitializedAsync();
         }
 
-        
 
+        private async Task GetDataComponentLabel()
+        {
+
+            int id = idDivisionTerritorialPadre;
+            var result = await svrDivisionTerrirorial.GetDivisionesTerritoriales(new DivisionTerritorialGetParams { idDivisionTerritorial = id });
+            _DivisionTerritorialForComponentLabels = result.FirstOrDefault();
+        }
         private async Task GetData()
         {
-            var result = await svrDivisionTerrirorial.GetDivisionesTerritoriales(new DivisionTerritorialGetParams { idDivisionTerritorial = idDivisionTerritorial });
+            
+            int id = idDivisionTerritorial;
+            var result = await svrDivisionTerrirorial.GetDivisionesTerritoriales(new DivisionTerritorialGetParams { idDivisionTerritorial = id });
             _DivisionTerritorial = result.FirstOrDefault();
         }
         async Task SaveData()
@@ -51,7 +63,11 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
             if (form.IsValid)
             {
                 //var divisionTerritorial = new DivisionTerritorial { Nombre = NombreTipoDivisionTerritorial, IdDivisionTerritorial = idDivisionTerritorial, IdDivisionTerritorialPadre = null };
-
+                _DivisionTerritorial.IdDivisionTerritorialPadre = idDivisionTerritorialPadre;
+                if(idDivisionTerritorialPadre <= 0)
+                {
+                    _DivisionTerritorial.IdDivisionTerritorialPadre = null;
+                }
                 var saveSucceed = await svrDivisionTerrirorial.SaveDivisionTerritorial(_DivisionTerritorial);
 
                 if (saveSucceed == false)
@@ -65,10 +81,11 @@ namespace PrestamoBlazorApp.Pages.DivisionesTerritoriales
                     
                 }
                 await HandleListUpdate.InvokeAsync(true);
+                
                 MudDialog.Close(DialogResult.Ok(true));
             }
         }
-        private int MudItemSize => (FormFieldErrors.Length>0  && IsFormShowErrors)  ? 7 : 12;
+        private int MudItemSize =>  (FormFieldErrors!=null  && IsFormShowErrors)  ? 7 : 12;
 
     }
 

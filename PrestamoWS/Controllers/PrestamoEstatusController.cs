@@ -35,7 +35,7 @@ namespace PrestamoWS.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception("El cliente no pudo ser creado");
+                throw new Exception("El estatus no pudo ser creado.");
 
             }
         }

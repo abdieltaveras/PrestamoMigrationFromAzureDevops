@@ -200,6 +200,8 @@ namespace PrestamoEntidades
         public string NombreCompleto { get; set; } = "";
         public string Matricula { get; set; } = "";
         public string Placa { get; set; } = "";
+        public string Chasis { get; set; } = "";
+
     }
     public class PrestamoClienteUIGetParamWtSearchText : PrestamoClienteUIGetParam
     {

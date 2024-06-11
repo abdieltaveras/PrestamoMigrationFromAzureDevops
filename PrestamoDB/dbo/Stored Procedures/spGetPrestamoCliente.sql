@@ -7,8 +7,9 @@
 	@Nombres varchar(100)='',
 	@Apellidos varchar(100)='',
 	@NombreCompleto varchar (100)= '',
-	@Placa varchar(100),
-	@Matricula varchar(100)
+	@Placa varchar(100)='',
+	@Matricula varchar(100)='',
+	@Chasis varchar(100)=''
 )
 as
 begin
@@ -23,16 +24,14 @@ begin
 	on pres.IdPrestamo = presgar.IdPrestamo
 	left join tblGarantias gar
 	on presgar.IdGarantia = gar.IdGarantia
-	where (@IdPrestamo=-1 or pres.idPrestamo = @IdPrestamo) and
-	(@idCliente = -1 or pres.idCliente = @idCliente) 
+	where (@IdPrestamo=-1 or pres.idPrestamo = @IdPrestamo) 
+	and (@idGarantia = -1 or presgar.IdGarantia = @idGarantia) 
+	and (@idCliente = -1 or pres.idCliente = @idCliente) 
 	and ((@NoIdentificacion='') or (clie.NoIdentificacion =@NoIdentificacion)) 
 	and ((@Nombres='') or (clie.Nombres like '%'+@Nombres+'%')) 
 	and ((@Apellidos='') or (clie.Apellidos like '%'+@Apellidos+'%')) 
 	and ((@NombreCompleto='') or (CONCAT(clie.Nombres, ' ', clie.Apellidos) like '%'+@NombreCompleto+'%')) 
     and(@Matricula ='' or JSON_VALUE(Detalles, '$.Matricula') like '%'+@Matricula+'%') 
 	and(@Placa ='' or JSON_VALUE(Detalles, '$.Placa') like '%'+@Placa+'%') 
-
-
-	
-
+	and(@Chasis ='' or JSON_VALUE(Detalles, '$.Chasis') like '%'+@Chasis+'%') 
 End

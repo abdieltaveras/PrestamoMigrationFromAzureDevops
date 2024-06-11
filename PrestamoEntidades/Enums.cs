@@ -16,16 +16,16 @@
     public enum EnumTiposVinculo { Madre = 1, Padre, Hermano, Primo, Tio, Abuelo, Sobrino, Esposa, Hijo, Nieto}
 
     public enum eOpcionesSearchCliente { TextoLibre = 1, NoIdentificacion, Nombres, Apellidos, Apodo, NombreCompleto }
-    public enum eOpcionesSearchPrestamo { NoIdentificacion = 1, Nombres, Apellidos, NombreCompleto,Placa,Matricula }
+    public enum eOpcionesSearchPrestamo { NoIdentificacion = 1, Nombres, Apellidos, NombreCompleto,Placa,Matricula,Chasis,Garantia }
     public enum eOpcionesSearchGarantia { TextoLibre = 1, NoIdentificacion, Placa, Matricula }
 
     public enum eTipoGarantia { Inmobiliara =1 ,Mobiliara }
 
 
 
-    public enum eAddEstatusTo
+    public enum eTipoStatus
     {
-        Clientes = 1,
+        Cliente = 1,
         Prestamos
     }
     public enum eTablasOrigen
