@@ -230,6 +230,8 @@
     <Build Include="dbo\Stored Procedures\SpGetCuotas.sql" />
     <Build Include="dbo\Tables\tblTiposCargosDebitos.sql" />
     <Build Include="dbo\Stored Procedures\spGetLocalidadesComponents.sql" />
+    <Build Include="dbo\User Defined Types\tpDetalleDrCxC.sql" />
+    <Build Include="dbo\User Defined Types\tpMaestroCxCPrestamo.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
