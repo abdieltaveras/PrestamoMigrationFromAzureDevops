@@ -1,23 +1,25 @@
 ﻿using DevBox.Core.Access;
+using DevBox.Core.BLL.Identity.Interfaces;
+using DevBox.Core.BLL.System;
 using DevBox.Core.Classes.Identity;
 using DevBox.Core.Classes.Utils;
 using DevBox.Core.DAL.SQLServer;
 using DevBox.Core.Identity;
-using PrestamoBLL.Core.System;
 using System;
-using System.Configuration;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace PrestamoBLL.Core.Identity
+namespace DevBox.Core.BLL.Identity
 {
     /// <summary>
     /// Recuerde por defecto usamos Dataserver para conecciones y tambien la cadena GrantAdminFullAccess en el archivo de configuracion
     /// </summary>
-    public class UsersManager
+    public class UsersManager:IUsersManager
     {
         ActionList _defaultActions = null;
         Dictionary<string, ActionList> _groupsActions = new Dictionary<string, ActionList>();
@@ -185,8 +187,35 @@ namespace PrestamoBLL.Core.Identity
                     RefreshToken = refToken
                 };
             }
-                                        : LoginResult.Unauthorized;
-            return result;
+            else
+            {
+                return LoginResult.Unauthorized;
+            }
+        }
+        public LoginResult RefreshToken(RefreshTokenModel model, int durationMinutes = 10)
+        {
+            var user = GetUser(model.UserName);
+            if(user == null) return LoginResult.Unauthorized;
+            if (model.RefreshToken == user.RefreshToken) {
+                string refToken = TokenManager.GenerateRefreshToken();
+                UpdateRefreshToken(new RefreshTokenModel { UserName = model.UserName, RefreshToken = refToken });
+                return new LoginResult
+                {
+                    MustChgPwd = user.MustChangePassword,
+                    Token = TokenManager.GenerateToken(user, durationMinutes),
+                    RefreshToken = refToken
+                };
+            }
+            else
+            {
+                return LoginResult.Unauthorized;
+            }
+        }
+        public bool UpdateRefreshToken(RefreshTokenModel model)
+        {
+            var par = SearchRec.ToSqlParams(model);
+            var result = Database.DataServer.ExecNonQuerySP("core.spUpdateRefreshToken", par);
+            return (result>0);
         }
         public ClaimsPrincipal ParseToken(string token)
         {

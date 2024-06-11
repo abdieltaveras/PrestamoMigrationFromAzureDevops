@@ -4,7 +4,7 @@ using DevBox.Core.DAL.SQLServer;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PrestamoBLL.Core.System
+namespace DevBox.Core.BLL.System
 {
     public static class Resources
     {

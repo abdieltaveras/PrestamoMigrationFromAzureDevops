@@ -9,7 +9,7 @@ namespace PrestamoBlazorApp.Pages.Catalogos
     {
 
         
-        override protected CatalogosService GetService => new CatalogosService(base.CommomInjectionsService.HttpClientFactory, base.CommomInjectionsService.Configuration, "api/TiposCargosDebito");
+        override protected CatalogosService GetService => new CatalogosService(base.CommomInjectionsService.HttpClientFactory, base.CommomInjectionsService.Configuration, base.CommomInjectionsService.LocalStorageService, "api/TiposCargosDebito");
         
         //protected override async Task ShowEditor(CatalogoInsUpd catalogo, bool usarFormularioParaEliminar = false, Func<Task> action = null)
         //{

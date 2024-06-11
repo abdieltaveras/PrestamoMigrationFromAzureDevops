@@ -98,7 +98,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.15" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
@@ -106,16 +106,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DevBoxSoft\Core.BLL.V2\Core.BLL.V2.csproj" />
+    <ProjectReference Include="..\DevBoxSoft\Core.Classes.V2\Core.Classes.V2.csproj" />
     <ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="DevBox.Core.BLL">
-      <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.BLL.dll</HintPath>
-    </Reference>
-    <Reference Include="DevBox.Core.Classes">
-      <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.Classes.dll</HintPath>
-    </Reference>
     <Reference Include="DevBox.Core.Dal">
       <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.Dal.dll</HintPath>
     </Reference>

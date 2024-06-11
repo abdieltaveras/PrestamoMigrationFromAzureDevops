@@ -1,4 +1,5 @@
-﻿using DevBox.Core.Classes.Utils;
+﻿using Blazored.LocalStorage;
+using DevBox.Core.Classes.Utils;
 using Microsoft.Extensions.Configuration;
 using MudBlazor;
 using PrestamoBlazorApp.Shared;
@@ -13,7 +14,7 @@ namespace PrestamoBlazorApp.Services
 {
     public class AutenticacionInMemory : ServiceBase
     {
-        public AutenticacionInMemory(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public AutenticacionInMemory(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration, localStorageService)
         {
         }
 

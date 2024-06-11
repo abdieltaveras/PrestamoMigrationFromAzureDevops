@@ -24,6 +24,9 @@ namespace PrestamoBlazorApp.Services
             var result = await CustomGetAsync<ResponseDataFE<IEnumerable<Localidad>>>(apiUrl + "/GetLocalidadesComponents", param);
             return result;
         }
+
+        
+
         public async Task<IEnumerable<Localidad>> Get(LocalidadGetParams search)
         {
             var result = await GetAsync<Localidad>(apiUrl+"/get", search);
