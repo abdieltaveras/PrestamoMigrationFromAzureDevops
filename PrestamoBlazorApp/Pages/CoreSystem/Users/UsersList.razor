@@ -1,0 +1,17 @@
+﻿@inherits BasePage
+@page "/Auth/Usuarios"
+@using PrestamoBlazorApp.Shared.Components.Forms
+
+<MudCard Outlined="true">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4">Administración de Usuarios</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        @if (UserList.Count() > 0)
+        {
+            <DataGridView ObjectList="UserList" Title="Usuarios Del Sistema" ToolbarButtons="buttons" AllowMultiSelection="false" Columns="columns"></DataGridView>
+        }
+    </MudCardContent>
+</MudCard>

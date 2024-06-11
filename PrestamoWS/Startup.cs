@@ -1,3 +1,7 @@
+using DevBox.Core.BLL.Identity;
+using DevBox.Core.BLL.Identity.Interfaces;
+using DevBox.Core.BLL.Middleware;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +39,10 @@ namespace PrestamoWS
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PrestamoWS", Version = "v1" });
             });
+            services.AddScoped<IUsersManager, UsersManager>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.AddHttpContextAccessor();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,8 +71,10 @@ namespace PrestamoWS
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

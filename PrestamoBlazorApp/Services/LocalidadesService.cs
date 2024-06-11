@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using PrestamoEntidades;
 using System;
@@ -40,9 +41,9 @@ namespace PrestamoBlazorApp.Services
             return result;
         }
         
-        public LocalidadesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public LocalidadesService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
-            territoriosService = new DivisionTerritorialService(clientFactory, configuration);
+            territoriosService = new DivisionTerritorialService(clientFactory, configuration,localStorageService);
         }
 
         public async Task SaveLocalidad(Localidad Localidad)

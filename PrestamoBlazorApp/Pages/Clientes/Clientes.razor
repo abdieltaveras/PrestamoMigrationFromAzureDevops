@@ -3,10 +3,11 @@
 @using PrestamoBlazorApp.Shared.Components.Reports
 
 @using PrestamoBlazorApp.Shared.Components.Forms
+@attribute [Authorize()]
 
 
-
-<GeneralList CardTitle="Lista de Clientes" LinkAddButton="clientes/createoredit/" 
+<GeneralList CardTitle="Lista de Clientes" 
+             LinkAddButton="clientes/createoredit/" 
              OnSearchTextChange="searchClientesDatabase" 
              OptionItems="lstItemsToSearch" 
              OnOptionChange="SelectedOptionToSearch"

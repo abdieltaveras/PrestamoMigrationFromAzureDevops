@@ -25,11 +25,6 @@ namespace PrestamoWS.Models
         {
             Garantia = new Garantia();
         }
-
-        //public HttpPostedFileBase ImagenGarantia1 { get; set; }
-        //public HttpPostedFileBase ImagenGarantia2 { get; set; }
-        //public HttpPostedFileBase ImagenGarantia3 { get; set; }
-        //public HttpPostedFileBase ImagenGarantia4 { get; set; }
         public string image1PreviewValue { get; set; } = string.Empty;
         public string image2PreviewValue { get; set; } = string.Empty;
         public string image3PreviewValue { get; set; } = string.Empty;

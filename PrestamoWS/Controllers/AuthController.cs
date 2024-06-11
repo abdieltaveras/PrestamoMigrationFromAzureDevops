@@ -4,7 +4,7 @@ using DevBox.Core.Classes.Identity;
 using DevBox.Core.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
+
 using DevBox.Core.Access;
 using System;
 using System.Threading.Tasks;
@@ -14,6 +14,10 @@ using Microsoft.Extensions.Logging;
 using PrestamoWS.Api;
 using PrestamoWS.Services;
 using PrestamoWS.Models;
+using apiBonosElectronicos.Authorization.Attributtes;
+using PrestamoEntidades.Responses;
+using System.Linq;
+using DevBox.Core.Classes.Utils;
 
 namespace PrestamoWS.Controllers
 {
@@ -32,10 +36,23 @@ namespace PrestamoWS.Controllers
 
         [HttpPost, AllowAnonymous, Route("api/user/login")]
 
-        public LoginResult LogIn([FromBody] LoginCredentials credentials)
+        public IActionResult LogIn([FromBody] LoginCredentials credentials)
         {
-            var result = new UsersManager().ValidateCredentials(credentials,this.GetDurationToken());
-            return result;
+            try
+            {
+                var result = new UsersManager().ValidateCredentials(credentials, this.GetDurationToken());
+                if (string.IsNullOrEmpty(result.Token))
+                {
+                    return BadRequest(new CustomHttpResponse { IsSuccess = false, StatusCode = 404, Message = "Error del login" });
+                }
+                return Ok(new CustomHttpResponse { IsSuccess = true, Message = "Error del login", Data = result });
+            }
+            catch (Exception ex)
+            {
+
+               return BadRequest(ex.Message);
+            }
+    
         }
 
         [HttpPost, AllowAnonymous, Route("api/user/changepwd")]
@@ -68,7 +85,7 @@ namespace PrestamoWS.Controllers
             }
 
         }
-        [HttpPost, Route("api/user/forceresetpassword"), Authorize(Roles = "Usuarios")]
+        [HttpPost, Route("api/user/forceresetpassword"), Authorize(Roles: "Usuarios")]
         public async void ForceReset([FromBody] LoginCredentialsResetForced credentialsReset)
         {
             var user = new UsersManager().GetUser(credentialsReset.id);
@@ -96,19 +113,19 @@ namespace PrestamoWS.Controllers
             return result;
         }
 
-        [Route("api/user"), HttpPost, Authorize(Roles = "Usuarios")]
+        [Route("api/user"), HttpPost, Authorize(Roles :"Usuarios")]
         public CoreUser PostUser([FromBody] NewUser user)
         { 
             var result = new UsersManager().CreateUser(user.UserName, user.FirstName, user.LastName, user.Email,
-                                   user.GroupName, user.NationalID, user.IsActive, user.CreatedBy,null);
+                                   user.GroupName, user.NationalID, user.IsActive, user.CreatedBy,null,Convert.ToInt32( User.Claims.First(m=>m.Type == CustomClaimsTypes.CompanyId).Value), user.CompaniesAccess);
 
             return result;
         }
 
-        [Route("api/user"), HttpDelete, Authorize(Roles = "Usuarios")]
+        [Route("api/user"), HttpDelete, Authorize(Roles : "Usuarios")]
         public void DeleteUser(Guid userID) => new UsersManager().DeleteUser(userID);
 
-        [HttpGet, Route("api/users"), Authorize(Roles = "Usuarios")]
+        [HttpGet, Route("api/users"), Authorize(Roles :"Usuarios")]
         public List<CoreUser> GetUsers(Guid? UserID, string UserName, string GroupName, string Email, bool? IsActive)
         => new UsersManager().GetUsers(UserID, UserName, GroupName, Email, IsActive);
 
@@ -119,17 +136,17 @@ namespace PrestamoWS.Controllers
             return result;
         }
 
-        [HttpGet, Route("api/actions"), Authorize(Roles = "ActionManager")]
+        [HttpGet, Route("api/actions"), Authorize(Roles : "ActionManager")]
         public ActionList GetActions() => new UsersManager().GetDefaultActions();
 
-        [HttpPost, Route("api/actions"), Authorize(Roles = "ActionManager")]
+        [HttpPost, Route("api/actions"), Authorize(Roles: "ActionManager")]
         public async Task<string> PostActions([FromBody] List<ActionPermission> actions)
             => await new UsersManager().SaveActions(actions);
 
-        [HttpGet, Route("api/users/groups"), Authorize(Roles = "Grupos")]
+        [HttpGet, Route("api/users/groups"), Authorize(Roles: "Grupos")]
         public List<CoreUserGroup> GetUserGroups(string GroupName = "") => new UsersGroupsManager().GetUserGroups(GroupName);
 
-        [HttpPost, Route("api/users/groups"), Authorize(Roles = "Grupos")]
-        public CoreUserGroup PostUsersGroup([FromBody] NewUserGroup userGroup) => new UsersGroupsManager().CreateUserGroup(userGroup.GroupName, userGroup.Description, User.Identity.Name);
+        [HttpPost, Route("api/users/groups"), Authorize(Roles: "Grupos")]
+        public CoreUserGroup PostUsersGroup([FromBody] NewUserGroup userGroup) => new UsersGroupsManager().CreateUserGroup(userGroup.GroupName, userGroup.Description, User.Identity.Name,Convert.ToInt32( User.Claims.First(m=>m.Type == CustomClaimsTypes.CompanyId).Value));
     }
 }

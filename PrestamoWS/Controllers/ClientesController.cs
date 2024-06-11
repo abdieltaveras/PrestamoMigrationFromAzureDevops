@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using apiBonosElectronicos.Authorization.Attributtes;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PrestamoBLL;
 using PrestamoEntidades;
@@ -10,7 +11,7 @@ using System.Text;
 
 namespace PrestamoWS.Controllers
 {
-
+    
     [ApiController]
     [Route("api/[controller]/[action]")]
 
@@ -27,6 +28,7 @@ namespace PrestamoWS.Controllers
             _webHostEnvironment = webHostEnvironment;
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
+        [Authorize(Roles:"")]
         [HttpGet]
         public IEnumerable<Cliente> Get([FromQuery] ClienteGetParams search)
         {

@@ -1,12 +1,12 @@
 ﻿
-CREATE procedure [core].[spInsUpdUserGroup](@GroupName varchar(256), @Description varchar(256),@CreatedBy varchar(256), @Actions nvarchar(max))as
+CREATE procedure [core].[spInsUpdUserGroup](@GroupName varchar(256), @Description varchar(256),@CreatedBy varchar(256), @Actions nvarchar(max), @CompanyId int) as
 begin
   declare @GroupID uniqueidentifier = (select GroupID FROM core.tblUserGroups WITH (nolock) where GroupName = @GroupName)
   if(@GroupID is null)
   begin
 		set @GroupID= newid()
-	   INSERT INTO core.tblUserGroups(GroupName, [Description], Actions, CreatedBy, CreatedOn) 
-	   VALUES (@GroupName, @Description, 'gTM8G4ZNsb9wdy1DjSpv4A==', @CreatedBy, GETDATE())	   
+	   INSERT INTO core.tblUserGroups(CompanyId,GroupName, [Description], Actions, CreatedBy, CreatedOn) 
+	   VALUES (@CompanyId,@GroupName, @Description, 'gTM8G4ZNsb9wdy1DjSpv4A==', @CreatedBy, GETDATE())	   
   end
   else
   begin
@@ -24,5 +24,5 @@ begin
   SELECT  GroupID, GroupName, [Description], Actions as ActionsSrt,
 		  isDeleted, DeletedOn, CreatedBy, CreatedOn, LastModifiedBy, LastModifiedOn
   FROM  core.tblUserGroups WITH (nolock)
-  WHERE GroupID = @GroupID
+  WHERE GroupID = @GroupID and CompanyId = @CompanyId
 end

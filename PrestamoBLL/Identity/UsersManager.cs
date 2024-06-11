@@ -119,6 +119,7 @@ namespace PrestamoBLL.Core.Identity
             if (u.GroupName == "Admin" && grantAdminsFullAccess)
             {
                 defActions.ForEach(a => a.PermissionLevel = ActionPermissionLevel.Allow);
+                defActions.ForEach(m=>m.SubActions.ForEach(m=>m.PermissionLevel= ActionPermissionLevel.Allow));
                 return defActions;
             }
 
@@ -131,10 +132,10 @@ namespace PrestamoBLL.Core.Identity
         public CoreUser GetUser(Guid UserID) => Database.DataServer.ExecReaderSelSP("core.spGetUsers", UserConvertMap, SearchRec.ToSqlParams(new { UserID })).FirstOrDefault();
         public CoreUser GetUser(string UserName) => Database.DataServer.ExecReaderSelSP("core.spGetUsers", UserConvertMap, SearchRec.ToSqlParams(new { UserName })).FirstOrDefault();
 
-        public List<CoreUser> GetUsers(Guid? UserID, string UserName, string GroupName, string Email, bool? IsActive)
+        public List<CoreUser> GetUsers(Guid? UserID, string UserName, string GroupName, string Email, bool? IsActive, int CompanyId = 1)
         {
             
-            var parameters = new { UserID, UserName, Email, GroupName, IsActive };
+            var parameters = new { UserID, UserName, Email, GroupName, IsActive, CompanyId };
             var result = Database.DataServer.ExecReaderSelSP("core.spGetUsers", UserConvertMap, SearchRec.ToSqlParams(parameters));
             return result;
         }
@@ -151,10 +152,11 @@ namespace PrestamoBLL.Core.Identity
             var user = Database.DataServer.ExecReaderSelSP("core.spGetUsers", UserConvertMap, parameters).FirstOrDefault();
             return user;
         }
-        public CoreUser CreateUser(string UserName, string FirstName, string LastName, string Email, string GroupName, string NationalID, bool IsActive, string CreatedBy, List<Func<CoreUser,bool>> conditions)
+        public CoreUser CreateUser(string UserName, string FirstName, string LastName, string Email, string GroupName, string NationalID,
+            bool IsActive, string CreatedBy, List<Func<CoreUser,bool>> conditions, int CompanyId, string CompaniesAccess)
         {
-            var user = new { UserName, FirstName, LastName, Email, NationalID, GroupName, IsActive, CreatedBy };
-            var coreUser = new CoreUser { UserName = UserName, Email = Email, NationalID = NationalID, FirstName = FirstName, LastName = LastName };
+            var user = new { UserName, FirstName, LastName, Email, NationalID, GroupName, IsActive, CreatedBy, CompanyId, CompaniesAccess };
+            var coreUser = new CoreUser { UserName = UserName, Email = Email, NationalID = NationalID, FirstName = FirstName, LastName = LastName, CompanyId = CompanyId };
 
             if (conditions != null)
             {
@@ -170,12 +172,18 @@ namespace PrestamoBLL.Core.Identity
         }
         public LoginResult ValidateCredentials(LoginCredentials credentials, int durationMinutes=10)
         {
-            
-            var user = Database.DataServer.ExecReaderSelSP("core.spAuthUser", UserConvertMap, SearchRec.ToSqlParams(credentials)).FirstOrDefault();
-            var result = (user != null) ? new LoginResult
+            var users = Database.DataServer.ExecReaderSelSP("core.spAuthUser", UserConvertMap, SearchRec.ToSqlParams(credentials));
+            if (users.Count()>0)
             {
-                MustChgPwd = user.MustChangePassword,
-                Token = TokenManager.GenerateToken(user, durationMinutes)
+                CoreUser user = users[0];
+                string refToken = TokenManager.GenerateRefreshToken();
+                UpdateRefreshToken(new RefreshTokenModel { UserName = user.UserName, RefreshToken = refToken });
+                return new LoginResult
+                {
+                    MustChgPwd = user.MustChangePassword,
+                    Token = TokenManager.GenerateToken(user, durationMinutes),
+                    RefreshToken = refToken
+                };
             }
                                         : LoginResult.Unauthorized;
             return result;

@@ -1,0 +1,75 @@
+﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Http;
+using MudBlazor;
+using Newtonsoft.Json.Linq;
+using PrestamoBlazorApp.Providers;
+using PrestamoBlazorApp.Services;
+using PrestamoBlazorApp.Shared;
+using PrestamoEntidades.Auth;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+namespace PrestamoBlazorApp.Shared.Components.Auth
+{
+    public partial class AuthorizeModal
+    {
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        [CascadingParameter]
+        private Task<AuthenticationState>? authenticationState { get; set; }
+        [Inject]
+        AuthService _AuthService { get; set; }
+        private Users users { get; set; } = new Users();
+        private LoginCredentialsDto _LoginCredentialsDto { get; set; }
+        private IEnumerable<Users> UserList { get; set; } = new List<Users>();
+        [Inject] UserManagerService userManagerService { get; set; }
+        [Inject] TokenAuthenticationStateProvider authStateProvider { get; set; }
+        [Inject] AuthenticationStateProvider _authenticationStateProvider { get; set; }
+        [Inject] private ILocalStorageService _localStorage { get; set; }
+
+        [Inject] ISiteResourcesService _siteResources { get; set; }
+        protected override void OnInitialized()
+        {
+            _LoginCredentialsDto = new LoginCredentialsDto
+            {
+                CompanyCode = "C1",
+                UserName = "PcProg",
+                Password = "pcp46232"
+            };
+            base.OnInitialized();
+        }
+        private async Task HandleValidSubmit()
+        {
+            var response = await _AuthService.Login(_LoginCredentialsDto);
+            //var ValidatedUser = ValidateUser(users);
+            // Validar el usuario utilizando la clase UserValidator
+            if (response.IsSuccess)
+            {
+                if (!string.IsNullOrEmpty(response.Data.Token))
+                {
+                    if (response.Data.MustChgPwd)
+                    {
+                        await NotifyMessageBySnackBar("Debe cambiar la contraseña.", Severity.Error);
+                        //NavManager.NavigateTo("pages/authentication/forgot-password");
+                    }
+
+                    await NotifyMessageBySnackBar("Acceso concedido ", Severity.Success);
+                    MudDialog.Close(DialogResult.Ok(true));
+                }
+                else
+                {
+                    await NotifyMessageBySnackBar("Credenciales incorrectas", Severity.Error);
+                }
+            }
+            else
+            {
+                await NotifyMessageBySnackBar("Error al hacer Login", Severity.Error);
+
+            }
+        }
+
+    }
+}

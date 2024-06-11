@@ -9,34 +9,75 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using Microsoft.JSInterop;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
+using PrestamoBlazorApp.Providers;
+using PrestamoBlazorApp.Services.BaseService;
+using Blazored.LocalStorage;
+using System.Net;
+using PrestamoEntidades.Responses;
+using System.Reflection.Metadata.Ecma335;
+using UIClient.Services;
 
 namespace PrestamoBlazorApp.Services
 {
     
-    public abstract class ServiceBase
+    public class ServiceBase:IServiceBase
     {
        
         [Inject]
         protected NavigationManager NavManager { get; set; }
         [Inject] IConfiguration Configuration { get; set; }
+        [Inject] ILocalStorageService _LocalStorageService { get; set; }
 
+        [Inject] TokenAuthenticationStateProvider _AuthStateProvider { get; set; }
         JsInteropUtils JsInteropUtils { get; set; }
         protected readonly IHttpClientFactory _clientFactory;
-        protected ServiceBase(IHttpClientFactory clientFactory, IConfiguration configuration)
+        protected ServiceBase(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService)
         {
             _clientFactory = clientFactory;
             Configuration = configuration;
+            _LocalStorageService = localStorageService;
         }
-        protected async Task PostAsync<@Type>(string endpoint, @Type body, object search = null)
+        public ServiceBase( TokenAuthenticationStateProvider authToken)
         {
+            _AuthStateProvider = authToken;
+        }
+        public async Task<CustomHttpResponseFE<@Type>> PostCustomResponseAsync<@Type>(string endpoint, object body, object search = null)
+        {
+            try
+            {
+                var baseUrl = Configuration["BaseServerUrl"];
+                var query = search.UrlEncode();
+                var client = _clientFactory.CreateClient();
+                HttpResponseMessage response = null;
+                string errorMessage = string.Empty;
+                string token = await _LocalStorageService.GetItemAsync<string>(ConstsForProviders.TokenName);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+
+                response = await client.PostAsJsonAsync($"{baseUrl}/{endpoint}?{query}", body);
+                var result = await response.Content.ReadFromJsonAsync<CustomHttpResponseFE<Type>>();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new CustomHttpResponseFE<Type> { IsSuccess = false, Message = ex.Message };
+            }
+        }
+        public async Task<@Type> PostAsync<@Type>(string endpoint, object body, object search = null)
+        {
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
             var client = _clientFactory.CreateClient();
             HttpResponseMessage response=null;
             string errorMessage = string.Empty;
-            
-            response = await client.PostAsJsonAsync<@Type>($"{baseUrl}/{endpoint}?{query}", body);
-            errorMessage = await response.Content.ReadAsStringAsync();
+            string token = await _LocalStorageService.GetItemAsync<string>(ConstsForProviders.TokenName);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+
+            response = await client.PostAsJsonAsync($"{baseUrl}/{endpoint}?{query}", body);
+            var resultStream = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
             {
@@ -84,7 +125,8 @@ namespace PrestamoBlazorApp.Services
             IEnumerable<@Type> result;
 
             var client = _clientFactory.CreateClient();
-            
+            string token = await _LocalStorageService.GetItemAsync<string>(ConstsForProviders.TokenName);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
             var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
@@ -101,37 +143,42 @@ namespace PrestamoBlazorApp.Services
             }
             return result;
         }
-        protected async Task<@Type> CustomGetAsync<@Type>(string endpoint, object search)
+
+        public async Task<@Type> GetCustomAsync<@Type>(string endpoint, object search, string token = "")
         {
 
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/{endpoint}?{query}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{endpoint}?{query}");
             request.Headers.Add("Accept", "application/json");
 
             @Type result;
 
             var client = _clientFactory.CreateClient();
-
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+            }
             var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {
-                //using var responseStream = await response.Content.ReadAsStreamAsync();
-                //result = await JsonSerializer.DeserializeAsync<IEnumerable<@Type>>(responseStream);
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                result = await response.Content.ReadFromJsonAsync<@Type>(options);
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                result = await JsonSerializer.DeserializeAsync<Type>(responseStream);
+                //var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                //result = await response.Content.ReadFromJsonAsync<@Type>(options);
             }
             else
             {
+                //result = Array.Empty<@Type>();
                 result = default(@Type);
+
                 throw new Exception($"ErrorCode:'{response.StatusCode}', Error:'{response.ReasonPhrase}'");
             }
             return result;
         }
 
-
-        protected async Task<string> DelAsync(string endpoint, object search, bool requiresAuth = true)
+        public async Task<string> DelAsync(string endpoint, object search, bool requiresAuth = true)
         {
             var baseUrl = Configuration["BaseServerUrl"];
             var query = search.UrlEncode();
@@ -150,8 +197,8 @@ namespace PrestamoBlazorApp.Services
             }
         }
 
-        
-        protected async Task<HttpResponseMessage> ReportGenerate(IJSRuntime jSRuntime,string endpoint, object search)
+
+        public async Task<HttpResponseMessage> ReportGenerate(IJSRuntime jSRuntime,string endpoint, object search)
         {
 
             var baseUrl = Configuration["BaseServerUrl"];
@@ -164,6 +211,8 @@ namespace PrestamoBlazorApp.Services
 
             var client = _clientFactory.CreateClient();
             client.Timeout = TimeSpan.FromMinutes(4);
+            string token = await _LocalStorageService.GetItemAsync<string>(ConstsForProviders.TokenName);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
             var response = await client.SendAsync(request);
             await JsInteropUtils.GoToUrl(jSRuntime,$"{baseUrl}/{endpoint}?{query}");
             if (response.IsSuccessStatusCode)

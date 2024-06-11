@@ -1,0 +1,127 @@
+﻿@using MudBlazor
+@using Newtonsoft.Json;
+@using PrestamoBlazorApp.Services.BaseService;
+@using PrestamoBlazorApp.Shared.Model;
+@inject CustomService CustomServ
+@inject NavigationManager MyNavigationManager
+<MudNavLink 
+    OnClick="onClick"
+    title="@GetDescripcion()" 
+    Icon="@getIcon()" 
+    Match="NavLinkMatch.All" 
+    IconColor="MudBlazor.Color.Primary">@GetDisplayName()</MudNavLink>
+
+
+
+@code
+{
+    [Parameter]
+    public DevBox.Core.Access.Action action { get; set; }
+    [Parameter]
+    public Action<DevBox.Core.Access.Action> OnActionClick { get; set; }
+
+    string getIcon() => icons.ContainsKey(action.Value) ? icons[action.Value] : Icons.Material.Filled.PhotoSizeSelectLarge;
+    MudBlazor.Color getIconColor() => groupColors.ContainsKey(action.GroupName) ? groupColors[action.GroupName] : @MudBlazor.Color.Secondary;
+    string GetUrl() => GetMenuSubAction(action.Value).Url;
+    string GetDescripcion() => GetMenuSubAction(action.Value).Description;
+    string GetDisplayName() => GetMenuSubAction(action.Value).DisplayName;
+
+    void onClick()
+    {
+        if (action.PermissionLevel == DevBox.Core.Access.ActionPermissionLevel.Allow)
+        {
+            if (OnActionClick != null)
+            {
+                OnActionClick(action);
+            }
+        }
+    }
+
+    CustomMenuAction[] customMap = { };
+    protected override async Task OnInitializedAsync()
+    {
+        await GetMenuMap();
+        await base.OnInitializedAsync();
+    }
+
+    async Task GetMenuMap()
+    {
+        //var prueba = await CustomServ.HttpClient.GetStringAsync(MyNavigationManager.BaseUri + "Menu/Menu.json");
+        //var json = JsonConvert.DeserializeObject<RootMenuAction>(prueba);
+        customMap = MenuDictionary.MenuDictionaryData();
+        //customMap = json;
+    }
+    CustomMenuAction GetMenuSubAction(string value)
+    {
+        CustomMenuAction resp = new CustomMenuAction();
+        if (customMap != null)
+        {
+            var act = customMap.Where(m => m.Value == value);
+            if (act.Count() > 0)
+            {
+                return act.FirstOrDefault();
+            }
+        }
+        return resp;
+    }
+    //CustomMenuSubAction GetMenuSubAction(string value)
+    //{
+    //    CustomMenuSubAction resp = new CustomMenuSubAction();
+    //    if(customMap.Actions != null)
+    //    {
+    //        var act = customMap.Actions.Where(m => m.Value == value).ToList();
+    //        if (act.Count() > 0)
+    //        {
+    //            var acc = act.FirstOrDefault();
+    //            foreach (var item in action.SubActions)
+    //            {
+    //                var urls = acc.CustomMenuSubActions.Where(m => m.Value == item.Value);
+
+    //                if (urls.Count() > 0)
+    //                {
+    //                    return urls.FirstOrDefault();
+    //                }
+    //            }
+
+    //        }
+    //    }
+    //    return resp;
+    //}
+    Dictionary<string, MudBlazor.Color> groupColors = new Dictionary<string, MudBlazor.Color>
+    {
+                             {"Configuración", MudBlazor.Color.Info },
+        {"Miembros-Grupos", MudBlazor.Color.Success},
+        {"Miembro-Comites de Base", MudBlazor.Color.Success},
+        {"Operaciones", MudBlazor.Color.Warning},
+        {"Sistema", MudBlazor.Color.Dark}
+    };
+
+
+    Dictionary<string, string> icons = new Dictionary<string, string>
+    {
+
+        //Operaciones
+        { "Personas/CreateOrEdit", Icons.Material.Filled.PersonAdd},
+        { "Personas", Icons.Material.Filled.People},
+        { "GruposEstructura", Icons.Material.Filled.Groups},
+
+        // Configuracion
+        { "Localidades/Sectores", Icons.Material.Filled.LocationCity},
+        { "Ocupaciones", Icons.Material.Filled.Business},
+        { "TiposGrupos", Icons.Material.Filled.Groups},
+        { "RecintosElectorales", Icons.Material.Filled.Groups},
+        { "ColegiosElectorales", Icons.Material.Filled.Groups},
+
+        // system
+
+        { "DíasFeriados", Icons.Material.Filled.Today},
+        { "Grupos", Icons.Material.Filled.PeopleAlt},
+        { "Usuarios", Icons.Material.Filled.PersonPin},
+        { "SysPolicies", Icons.Material.Filled.ShuffleOn},
+        { "ActionManager", Icons.Material.Filled.Settings}
+    };
+}
+
+@code {
+
+}

@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
@@ -16,7 +17,7 @@ namespace PrestamoBlazorApp.Services
     {
         private string ApiUrl { get; }
         string apiReportUrl = "api/reportes";
-        public CatalogosService(IHttpClientFactory clientFactory, IConfiguration configuration, string apiUrl) : base(clientFactory, configuration)
+        public CatalogosService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService, string apiUrl) : base(clientFactory, configuration,localStorageService)
         {
             this.ApiUrl = apiUrl;
 
@@ -36,7 +37,7 @@ namespace PrestamoBlazorApp.Services
         public async Task DeleteCatalogo(BaseCatalogoDeleteParams catalogo)
         {
             
-            await  PostAsync(ApiUrl + "/Delete", catalogo);
+            await PostAsync<dynamic>(ApiUrl + "/Delete", catalogo);
         }
         //public async Task<IEnumerable<T>> Get<T>(CatalogoGetParams search) where T : class
         //{

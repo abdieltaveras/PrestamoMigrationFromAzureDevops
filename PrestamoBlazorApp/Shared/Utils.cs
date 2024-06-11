@@ -681,5 +681,9 @@ namespace PrestamoBlazorApp.Shared
         {
             return _gc.GetWeekOfYear(time, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
         }
+        public static T ParseEnum<T>(this string value)
+        {
+            return (T)Enum.Parse(typeof(T), value, true);
+        }
     }
 }

@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PcpUtilidades;
@@ -25,7 +26,7 @@ namespace PrestamoBlazorApp.Services
         //    var result =  await GetAsync<Equipo>(apiUrl+"/getall", null);
         //    return result;
         //}
-        public EquiposService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public EquiposService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }

@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Blazored.LocalStorage;
+using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 
 namespace PrestamoBlazorApp.Services.Pruebas
 {
     public class ServicioPruebas : ServiceBase
     {
-        public ServicioPruebas(IHttpClientFactory clientFactory, IConfiguration configuration) : 
-            base(clientFactory, configuration)
+        public ServicioPruebas(IHttpClientFactory clientFactory, IConfiguration configuration,ILocalStorageService localStorageService) : base(clientFactory, configuration, localStorageService)
         {
         }
 

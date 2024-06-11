@@ -18,6 +18,11 @@ using MudBlazor;
 using MudBlazor.Services;
 using PrestamoBlazorApp.Services.Pruebas;
 
+using PrestamoBlazorApp.Providers;
+using Blazored.LocalStorage;
+using PrestamoBlazorApp.Services.BaseService;
+using DispatchAPI.Authentication.Services;
+
 namespace PrestamoBlazorApp
 {
     public class Startup
@@ -33,6 +38,7 @@ namespace PrestamoBlazorApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+           
             services.AddRazorPages(); // estaba antes debajo de addHttpClient();
             services.AddServerSideBlazor();
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
@@ -41,11 +47,12 @@ namespace PrestamoBlazorApp
                 // maximum message size of 2MB
                 options.MaximumReceiveMessageSize = (1024*1024*5);
             });
-            services.AddHttpClient();
+          
+            AddLibsServices(services);
 
-            
             //services.AddServerSideBlazor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+           
+            AddDevCoreServices(services);
             
             ProjectServices(services);
             AddMudBlazorServices(services);
@@ -64,6 +71,7 @@ namespace PrestamoBlazorApp
             services.AddScoped<EquiposService>();
             //services.AddScoped<OcupacionesService>();
             services.AddScoped<CatalogosServicesFactoryManager>();
+            services.AddScoped<ISiteResourcesService, SiteResourcesService>();
             //services.AddScoped<ColoresServiceV2>();
             //services.AddScoped<OcupacionesServiceV2>();
             //services.AddScoped<TiposSexoService>();
@@ -86,13 +94,48 @@ namespace PrestamoBlazorApp
             services.AddScoped<PrestamosEstatusService>();
             services.AddScoped<NegociosService>();
             services.AddScoped<ServicioPruebas>();
-            services.AddScoped<AutenticacionInMemory>();
+            services.AddScoped<AuthService>();
+            services.AddScoped<ServiceBase>();
+            services.AddScoped<CustomService>();
+
 
             //services.AddSingleton<IServicioPruebas, ServicioPruebas>();
 
 
         }
+        private void AddDevCoreServices(IServiceCollection services)
+        {
+            services.AddScoped<SystemService>();
+            services.AddScoped<ActionsManagerService>();
+            services.AddScoped<UserManagerService>();
+            //services.AddScoped<DiasFeriadosService>();
+            services.AddScoped<SystemPoliciesService>();
+        }
+        private void AddLibsServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddServerSideBlazor().AddCircuitOptions(options =>
+            {
+                //if (Env.IsDevelopment())
+                //{
+                options.DetailedErrors = true;
+                //}
+            });
 
+            //services.AddServerSideBlazor();
+            services.AddOptions();
+            services.AddAuthorizationCore();
+            services.AddScoped<TokenAuthenticationStateProvider>();
+            services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<TokenAuthenticationStateProvider>());
+            services.AddHttpContextAccessor();
+            services.AddBlazoredLocalStorage();
+            // todo 20230219 chequear si esto es o no necesario el Tls13
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
+
+            services.AddHttpClient();
+
+            services.AddSingleton<NotificationService>();
+        }
         private static void AddMudBlazorServices(IServiceCollection services)
         {
             services.AddMudServices(config =>
@@ -122,7 +165,7 @@ namespace PrestamoBlazorApp
                 app.UseHsts();
             }
 
-            
+            app.UseMiddleware<MenuMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

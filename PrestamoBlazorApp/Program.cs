@@ -21,6 +21,7 @@ namespace PrestamoBlazorApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    
                 });
     }
 }

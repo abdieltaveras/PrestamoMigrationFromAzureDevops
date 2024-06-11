@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
@@ -16,7 +17,7 @@ namespace PrestamoBlazorApp.Services
         readonly string apiUrl = "api/reportes";
         string apiReportUrl = "api/reportes";
 
-        public ReportesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public ReportesService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
         }
 

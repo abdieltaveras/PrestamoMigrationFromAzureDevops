@@ -15,6 +15,9 @@ namespace PrestamoWS.Models
         public string GroupName { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
-        
+        public int CompanyId { get; set; }
+        public string CompaniesAccess { get; set; }
+
+
     }
 }

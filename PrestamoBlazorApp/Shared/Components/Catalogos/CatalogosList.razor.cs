@@ -11,20 +11,22 @@ using Newtonsoft.Json;
 using MudBlazor;
 using UIClient.Pages.Components;
 using PrestamoBlazorApp.Shared.Components.Base;
-
-
+using Microsoft.AspNetCore.Components.Authorization;
+using DevBox.Core.Access;
 
 namespace PrestamoBlazorApp.Shared.Components.Catalogos
 {
 
     public partial class CatalogosList : CommonBase
     {
+        [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        [Inject] private ActionsManagerService _ActionsManagerService { get; set; }
         [Parameter] public string CatalogoName { get; set; } 
         [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForAddHandler { get; set; }
         [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForEditHandler { get; set; }
         [Parameter] public Func<CatalogoInsUpd, Func<Task>, Task> ShowEditorForDeleteHandler { get; set; }
         [Parameter] public  Func<BaseCatalogoGetParams, Task<IEnumerable<CatalogoInsUpd>>> GetCatalogosHandler { get; set; }
-
+        private DevBox.Core.Access.Action CurrentAction { get; set; }
         
         private IEnumerable<CatalogoInsUpd> Catalogos { get; set; } = new List<CatalogoInsUpd>();
         private CatalogoInsUpd SelectedItem { get; set; } = null;
@@ -32,7 +34,8 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         private string SearchValue { get; set; }
         
 
-        private CommonActionsForCatalogo GetCommonActions() => new CommonActionsForCatalogo(ShowEditorForAddHandler, ShowEditorForEditHandler, ShowEditorForDeleteHandler, UpdateList);
+        private CommonActionsForCatalogo GetCommonActions() => new CommonActionsForCatalogo(ShowEditorForAddHandler, 
+            ShowEditorForEditHandler, ShowEditorForDeleteHandler, UpdateList, CurrentAction,_DialogService);
 
         private IEnumerable<ButtonForToolBar<CatalogoInsUpd>> Buttons() => Factory.StandarCrudToolBarButtons(GetCommonActions());
 
@@ -46,6 +49,9 @@ namespace PrestamoBlazorApp.Shared.Components.Catalogos
         }
         protected override async Task OnInitializedAsync()
         {
+            await AuthorizeViewActions(); //todo: sin esto no se mostraran los accesos, quizas se puede obligar obligar al componente a actualizarse de otra manera
+            CurrentAction = _ActionsManagerService.CurrentAction;
+
             await base.OnInitializedAsync();
             await UpdateList();
         }

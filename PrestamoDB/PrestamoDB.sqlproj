@@ -241,11 +241,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
-    <None Include="SchemaCompareForAbdiel.scmp" />
+    <None Include="SchemaComparePrestamoDBForAbdiel.scmp" />
     <None Include="RandyPrestamoDB.publish.xml" />
     <None Include="SchemaCompareForRandy.scmp" />
     <None Include="Scripts\NotInBuild\CreateSchema.sql" />
     <None Include="Scripts\NotInBuild\FixingErrorTVPWhenTypeIsDate.sql" />
     <None Include="Scripts\NotInBuild\ScTestInsCuotas.sql" />
+    <None Include="SqlSchemaComparetoPrestamoDB.scmp" />
+    <None Include="SchemaCompareForAbdiel.scmp" />
   </ItemGroup>
 </Project>

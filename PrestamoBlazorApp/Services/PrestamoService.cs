@@ -1,4 +1,5 @@
 
+using Blazored.LocalStorage;
 using Microsoft.Extensions.Configuration;
 using PcpUtilidades;
 using PrestamoBlazorApp.Models;
@@ -37,7 +38,7 @@ namespace PrestamoBlazorApp.Services
             var result = await GetAsync<PrestamoClienteUI>(apiUrl + "/GetPrestamoClienteUI", param);
             return result;
         }
-        public PrestamosService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory, configuration)
+        public PrestamosService(IHttpClientFactory clientFactory, IConfiguration configuration, ILocalStorageService localStorageService) : base(clientFactory, configuration,localStorageService)
         {
 
         }
