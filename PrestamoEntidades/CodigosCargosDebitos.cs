@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrestamoEntidades
 {
-    public class CodigosCargosDebitosReservados:BaseInsUpd
+    public class CodigosCargosDebitos:BaseInsUpd
     {
         public int IdCodigoCargo { get; set; } = 0;
         public string Codigo { get; set; }

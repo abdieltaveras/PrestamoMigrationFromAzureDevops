@@ -1,4 +1,4 @@
-﻿@page "/CodigosCargosDebitosReservados"
+﻿@page "/CodigosCargosDebitos"
 @inherits BaseForList
 @using PrestamoBlazorApp.Shared.Components.Forms
 
@@ -8,8 +8,8 @@
              ShowSearchOption="false">
 
     <CardContent>
-            <MudTable T="PrestamoEntidades.CodigosCargosDebitosReservados" Loading="LoadingTable" Items="@_codigosCargosDebitosReservados" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped"
-                      Filter="new Func<PrestamoEntidades.CodigosCargosDebitosReservados,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
+            <MudTable T="PrestamoEntidades.CodigosCargosDebitos" Loading="LoadingTable" Items="@_codigosCargosDebitosReservados" Dense="@Dense" Hover="@Hover" Bordered="@Bordered" Striped="@Striped"
+                      Filter="new Func<PrestamoEntidades.CodigosCargosDebitos,bool>(FilterFunc1)" @bind-SelectedItem="SelectedItem1">
                 <ToolBarContent>
                     <MudText Typo="Typo.h6">Elementos</MudText>
                     <MudTextField Immediate="true" @bind-Value="SearchStringTable" Required="true" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>

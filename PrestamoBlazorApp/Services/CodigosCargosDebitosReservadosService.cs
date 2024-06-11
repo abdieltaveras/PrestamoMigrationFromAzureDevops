@@ -16,12 +16,12 @@ namespace PrestamoBlazorApp.Services
         {
 
         }
-        public async Task<IEnumerable<CodigosCargosDebitosReservados>> Get(CodigosCargosGetParams param)
+        public async Task<IEnumerable<CodigosCargosDebitos>> Get(CodigosCargosGetParams param)
         {
-            var result = await GetAsync<CodigosCargosDebitosReservados>(apiUrl + "/get", param);
+            var result = await GetAsync<CodigosCargosDebitos>(apiUrl + "/get", param);
             return result;
         }
-        public async Task Save(CodigosCargosDebitosReservados param)
+        public async Task Save(CodigosCargosDebitos param)
         {
             try
             {

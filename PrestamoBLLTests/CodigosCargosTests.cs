@@ -35,7 +35,7 @@ namespace PrestamoBLL.Tests
             {
                 try
                 {
-                    CodigosCargosDebitosReservados param = new CodigosCargosDebitosReservados
+                    CodigosCargosDebitos param = new CodigosCargosDebitos
                     {
                         Nombre = "Prueba",
                         Descripcion="Desc Orueba",

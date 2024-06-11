@@ -15,7 +15,7 @@ namespace PrestamoWS.Controllers
     {
 
         [HttpGet]
-        public IEnumerable<CodigosCargosDebitosReservados> Get([FromQuery] CodigosCargosGetParams search)
+        public IEnumerable<CodigosCargosDebitos> Get([FromQuery] CodigosCargosGetParams search)
         {
             
             var result = new CodigosCargosDebitosReservadosBLL(this.IdLocalidadNegocio, this.LoginName).Get(search);
@@ -23,7 +23,7 @@ namespace PrestamoWS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CodigosCargosDebitosReservados param)
+        public IActionResult Post([FromBody] CodigosCargosDebitos param)
         {
             param.Usuario = this.LoginName;
             param.IdLocalidadNegocio = this.IdLocalidadNegocio;

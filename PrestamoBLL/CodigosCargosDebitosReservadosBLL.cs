@@ -55,19 +55,19 @@ namespace PrestamoBLL
                 return codigosCargos;
             }
         }
-        public IEnumerable<CodigosCargosDebitosReservados> Get(CodigosCargosGetParams searchParam)
+        public IEnumerable<CodigosCargosDebitos> Get(CodigosCargosGetParams searchParam)
         {
-            List<CodigosCargosDebitosReservados> ls = new List<CodigosCargosDebitosReservados>();
-            ls =  this.Get<CodigosCargosDebitosReservados>("spGetCodigosCargos", searchParam).ToList();
+            List<CodigosCargosDebitos> ls = new List<CodigosCargosDebitos>();
+            ls =  this.Get<CodigosCargosDebitos>("spGetCodigosCargos", searchParam).ToList();
             var codes = CodigosCargosDebitosReservadosClass.GetCodigos();
             foreach (var code in codes)
             {
-                ls.Add(new CodigosCargosDebitosReservados { Codigo = code, 
+                ls.Add(new CodigosCargosDebitos { Codigo = code, 
                     Nombre = CodigosCargosDebitosReservadosClass.GetNombre(code), Usuario="SISTEMA" });
             }
             return ls;
         }
-        public int InsUpd(CodigosCargosDebitosReservados insUpdParam)
+        public int InsUpd(CodigosCargosDebitos insUpdParam)
         {
             insUpdParam.IdLocalidadNegocio = this.IdLocalidadNegocioLoggedIn;
             insUpdParam.Usuario = this.LoginName;

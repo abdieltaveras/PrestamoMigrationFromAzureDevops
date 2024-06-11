@@ -19,16 +19,16 @@ namespace PrestamoBlazorApp.Pages.CodigosCargosDebitosReservados
         NavigationManager NavigationManager { get; set; }
         [Inject]
         CodigosCargosDebitosReservadosService _codigosCargosDebitosReservadosService { get; set; }
-        IEnumerable<PrestamoEntidades.CodigosCargosDebitosReservados> _codigosCargosDebitosReservados { get; set; }
+        IEnumerable<PrestamoEntidades.CodigosCargosDebitos> _codigosCargosDebitosReservados { get; set; }
         [Parameter]
-        public PrestamoEntidades.CodigosCargosDebitosReservados _codigosCargosDebitosReservadosModel { get; set; } = new PrestamoEntidades.CodigosCargosDebitosReservados();
+        public PrestamoEntidades.CodigosCargosDebitos _codigosCargosDebitosReservadosModel { get; set; } = new PrestamoEntidades.CodigosCargosDebitos();
         private bool ChkRequiereAutorizacion { get; set; }
         private bool ChkEstatus { get; set; } = true;
 
 
 
-        private PrestamoEntidades.CodigosCargosDebitosReservados SelectedItem1 = null;
-        private bool FilterFunc1(PrestamoEntidades.CodigosCargosDebitosReservados element) => FilterFunc(element, SearchStringTable);
+        private PrestamoEntidades.CodigosCargosDebitos SelectedItem1 = null;
+        private bool FilterFunc1(PrestamoEntidades.CodigosCargosDebitos element) => FilterFunc(element, SearchStringTable);
 
         private bool ShowDialogCreate { get; set; } = false;
 
@@ -41,7 +41,7 @@ namespace PrestamoBlazorApp.Pages.CodigosCargosDebitosReservados
             LoadingTable = true;
             if (search.Length >= MinSearchLength)
             {
-                _codigosCargosDebitosReservados = new List<PrestamoEntidades.CodigosCargosDebitosReservados>();
+                _codigosCargosDebitosReservados = new List<PrestamoEntidades.CodigosCargosDebitos>();
   
             }
             //StateHasChanged();
@@ -55,7 +55,7 @@ namespace PrestamoBlazorApp.Pages.CodigosCargosDebitosReservados
             _codigosCargosDebitosReservados = await _codigosCargosDebitosReservadosService.Get(new CodigosCargosGetParams { IdCodigoCargo = -1 });
             StateHasChanged();
         }
-        private bool FilterFunc(PrestamoEntidades.CodigosCargosDebitosReservados element, string searchString)
+        private bool FilterFunc(PrestamoEntidades.CodigosCargosDebitos element, string searchString)
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;

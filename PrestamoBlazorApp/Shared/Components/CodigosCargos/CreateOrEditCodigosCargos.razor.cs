@@ -17,7 +17,7 @@ namespace PrestamoBlazorApp.Shared.Components.CodigosCargos
         [Parameter]
         public int IdCodigoCargo { get; set; }
 
-        PrestamoEntidades.CodigosCargosDebitosReservados CodigoCargoModel { get; set; } = new PrestamoEntidades.CodigosCargosDebitosReservados();
+        PrestamoEntidades.CodigosCargosDebitos CodigoCargoModel { get; set; } = new PrestamoEntidades.CodigosCargosDebitos();
         protected override async Task OnInitializedAsync()
         {
             //EntidadEstatus = new PrestamoEntidades.EntidadEstatus();
@@ -35,7 +35,7 @@ namespace PrestamoBlazorApp.Shared.Components.CodigosCargos
             }
             else
             {
-                this.CodigoCargoModel = new PrestamoEntidades.CodigosCargosDebitosReservados();
+                this.CodigoCargoModel = new PrestamoEntidades.CodigosCargosDebitos();
             }
             StateHasChanged();
             //await UnBlockPage();
