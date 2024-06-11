@@ -75,26 +75,33 @@ namespace PrestamoBLL
         private static IEnumerable<DebitoPrestamoConDetallesForBLL> ConvertToDebitoPrestamoViewModel(IEnumerable<MaestroDrConDetalles> cuotasMaestras)
 
         {
-
-            List<IDetalleDebitoCxC> detallesCargos = new List<IDetalleDebitoCxC>();
-            cuotasMaestras.ForEach(cta =>
-                {
-                    detallesCargos.AddRange(cta.GetDetallesCargos());
-                }
-            );
+            //List<IDetalleDebitoCxC> detallesCargos = new List<IDetalleDebitoCxC>();
+            //cuotasMaestras.ForEach(cta =>
+            //    {
+            //        detallesCargos.AddRange(cta.GetDetallesCargos());
+            //    }
+            //);
                 
+            //var debitosViewModel = new List<DebitoPrestamoConDetallesForBLL>();
+            //foreach (var ctaM in cuotasMaestras)
+            //{
+            //    var items = ctaM.GetDetallesCargos();
+                //var items = detallesCargos.Where(dc => dc.IdTransaccionMaestro> 0 ?
+                //dc.IdTransaccionMaestro == ctaM.IdTransaccion :
+                //dc.IdReferenciaMaestro == ctaM.IdReferencia
+                //);
+
+                //ctaM.SetDetallesCargos(items);
+            //}
+
             var debitosViewModel = new List<DebitoPrestamoConDetallesForBLL>();
-            foreach (var ctaM in cuotasMaestras)
-            {
-                var items = detallesCargos.Where(dc => dc.IdTransaccionMaestro == ctaM.IdTransaccion);
-                ctaM.SetDetallesCargos(items);
-            }
 
-            foreach (var item in cuotasMaestras)
-            {
-                debitosViewModel.Add(DebitoPrestamoConDetallesForBLL.Create(item));
-            }
+            //foreach (var item in cuotasMaestras)
+            //{
+            //    debitosViewModel.Add(DebitoPrestamoConDetallesForBLL.Create(item));
+            //}
 
+            cuotasMaestras.ForEach(item => debitosViewModel.Add(DebitoPrestamoConDetallesForBLL.Create(item)));
             return debitosViewModel;
         }
 
@@ -153,6 +160,8 @@ namespace PrestamoBLL
         {
             var result = CreateDrMaestroYDetalles(debitos);
             var ctasMaestroCxC = result.MaestrosDr;
+            var instance = ctasMaestroCxC.First();
+            //var temp = instance.OtrosDetallesJson
             var detalles = result.DetallesDr;
             var dataParams = new { maestroCxC = ctasMaestroCxC.ToDataTable(), detallesCargos = detalles.ToDataTable(), crearTablas = 1 };
             var sqlParams = SearchRec.ToSqlParams(dataParams);

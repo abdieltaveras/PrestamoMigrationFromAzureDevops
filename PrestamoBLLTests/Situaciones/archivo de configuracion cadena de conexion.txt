@@ -1,0 +1,8 @@
+﻿depende de la version de .net que se este usando
+**************************
+en la version net 5
+nombre archivo    testhost.dll.config
+ubicacion  <carpeta del proyecto>\bin\Debug\net5.0\"
+en caso de no existir este archivo lo tomara del archivo appsettings
+NOTA: para resolver este caso cree el archivo testhost.dll.config en el proyecto ademas
+de testhost.config para que cuando se compile lo copie en la carpeta debug

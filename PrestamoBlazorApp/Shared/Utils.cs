@@ -20,9 +20,9 @@ namespace PrestamoBlazorApp.Shared
         {
             if (obj == null) { return ""; }
             var properties = from p in obj.GetType().GetProperties()
-                             where (p.GetValue(obj, null) != null && p.GetValue(obj,null).ToString() != string.Empty)
+                             where (p.GetValue(obj, null) != null && p.GetValue(obj, null).ToString() != string.Empty)
                              select p.Name + "=" + HttpUtility.UrlEncode(p.GetValue(obj, null).ToString());
-            var result= String.Join("&", properties.ToArray());
+            var result = String.Join("&", properties.ToArray());
             //UrlEncode2(obj);
             return result;
         }

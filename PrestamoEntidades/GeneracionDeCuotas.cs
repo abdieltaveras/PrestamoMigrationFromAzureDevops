@@ -58,11 +58,18 @@ namespace PrestamoEntidades
 
         public decimal MontoGastoDeCierre { get; set; } = 0;
 
-        public bool CargarInteresAlGastoDeCierre { get; set; } = false;
+        /// <summary>
+        /// indica que desea generar interes al gasto de cierre
+        /// </summary>
+        public bool CargarInteresAlGastoDeCierre { get; set; }
+        /// <summary>
+        /// para indicar si desea o no distribuir en cuotas el gasto de cierre
+        /// </summary>
+        public bool FinanciarGastoDeCierre { get; set; }
 
         public int CantidadDeCuotas { get; set; } = 0;
 
-        public bool AcomodarFechaALasCuotas { get; set; } = false;
+        public bool AcomodarFechaALasCuotas { get; set; } 
 
         public DateTime FechaInicioPrimeraCuota { get; set; }
 
@@ -70,8 +77,6 @@ namespace PrestamoEntidades
         
         public int IdPeriodo { get; set; }
         //private Periodo Periodo { get; set; }
-
-        public bool FinanciarGastoDeCierre { get; set; }
 
         public bool GastoDeCierreEsDeducible { get; set; }
 

@@ -14,6 +14,9 @@ namespace PrestamoEntidades
     // </summary>
     public class DebitoPrestamoTotalesViewModel
     {
+        /// <summary>
+        /// el nombre del documento del cargo cuota, cargo interno, mora, etc
+        /// </summary>
         public string NombreDocumento { get; set; }
         public string NumeroTransaccion { get; set; }
 
@@ -40,7 +43,7 @@ namespace PrestamoEntidades
         //[IgnoreOnParams]
         //public string Comentario { get; set; } = String.Empty;
         public override string ToString() => DetallesCuotaText.ToString();
-        private string DetallesCuotaText => $"Valores Originales Cuota No {NumeroTransaccion} Fecha {Fecha} Total {Monto} Capital {Capital} Interes {Interes} G/Credito {GastoDeCierre} Int G/Credito {InteresDelGastoDeCierre} Otros Cargos {OtrosCargos} Interes otros cargos {InteresOtrosCargos} ";
+        private string DetallesCuotaText => $"Valores Originales Cuota No {NumeroTransaccion} Fecha {Fecha} Total {Monto} Capital {Capital} Interes {Interes} G/Cierre {GastoDeCierre} Int G/Cierre {InteresDelGastoDeCierre} Otros Cargos {OtrosCargos} Interes otros cargos {InteresOtrosCargos} ";
         
     }
     

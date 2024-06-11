@@ -140,10 +140,22 @@ namespace PrestamoWS.Controllers
             return cuotas;
         }
 
+        [HttpPost]
+        public IEnumerable<DebitoPrestamoConDetallesViewModel> GenerarCuotas([FromBody] InfoGeneradorDeCuotas infoGenCuotas)
+        {
+            infoGenCuotas.Usuario = this.LoginName;
+            infoGenCuotas.IdLocalidadNegocio = this.IdLocalidadNegocio;
+            infoGenCuotas.IdNegocio = this.IdNegocio;
+            var cuotas = Generar_Cuotas(infoGenCuotas);
+            //var data = new { infoCuotas = info, IdPeriodo = idPeriodo, idTipoAmortizacion= idTipoAmortizacion };
+            return cuotas;
+        }
         private IEnumerable<DebitoPrestamoConDetallesViewModel> Generar_Cuotas(InfoGeneradorDeCuotas infoGenCuotas)
         {
+            var montoGC = infoGenCuotas.MontoGastoDeCierre;
             // todo revisar 20240415
-            return MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, infoGenCuotas);
+            var result =  MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, infoGenCuotas);
+            return result;
         }
 
         [HttpGet]
@@ -151,7 +163,7 @@ namespace PrestamoWS.Controllers
         //infoGeneradorDeCuotas info)
         {
             //todo actualizarlo a la nueva forma con el nuevo objeto
-
+            
             PeriodoBLL periodoBLL = new PeriodoBLL(this.IdLocalidadNegocio, this.LoginName);
             var infoGenCuotas = jsonInfoGenCuotas.ToType<InfoGeneradorDeCuotas>();
             var periodo = periodoBLL.GetPeriodos(new PeriodoGetParams { idPeriodo = idPeriodo }).FirstOrDefault();

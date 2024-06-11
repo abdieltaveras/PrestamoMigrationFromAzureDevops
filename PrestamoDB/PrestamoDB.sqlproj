@@ -232,6 +232,12 @@
     <Build Include="dbo\Stored Procedures\spGetLocalidadesComponents.sql" />
     <Build Include="dbo\User Defined Types\tpDetalleDrCxC.sql" />
     <Build Include="dbo\User Defined Types\tpMaestroCxCPrestamo.sql" />
+    <Build Include="dbo\Tables\tblMaestrosCxCPrestamo.sql" />
+    <Build Include="Scripts\NotInBuild\DetallesCargosDrCxC.sql" />
+    <Build Include="dbo\Stored Procedures\spGetMaestroYDetallesCxC.sql" />
+    <Build Include="dbo\Tables\tblDetallesDrCxC.sql" />
+    <Build Include="dbo\User Defined Types\tpDetalleDrCxC.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdDetallesDrCxC.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Prestamo_api.publish.publish.xml" />
@@ -240,5 +246,6 @@
     <None Include="SchemaCompareForRandy.scmp" />
     <None Include="Scripts\NotInBuild\CreateSchema.sql" />
     <None Include="Scripts\NotInBuild\FixingErrorTVPWhenTypeIsDate.sql" />
+    <None Include="Scripts\NotInBuild\ScTestInsCuotas.sql" />
   </ItemGroup>
 </Project>

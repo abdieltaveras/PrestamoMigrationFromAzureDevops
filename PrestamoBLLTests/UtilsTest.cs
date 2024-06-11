@@ -39,6 +39,25 @@ namespace PrestamoBLL.Tests
             Assert.Fail("Prueba Exitosa");
         }
 
+        [TestMethod()]
+        public void DerivedTypePropertieAffectBaseTypeTest()
+        {
+            var instance = new DerivedType();
+            instance.Nombre = "abdiel";
+
+            var result = instance as BaseType;
+            var value = result.Nombre;
+        }
+
+        internal class BaseType { 
+
+            internal virtual string? Nombre { get; set; }
+        }
+
+        internal class DerivedType: BaseType
+        { 
+            internal override string? Nombre { get; set; }
+        }
 
         private void allowNullParam(Cliente? cliente) { }
         private void DisallowNullParam([NotNull] Cliente cliente) { }

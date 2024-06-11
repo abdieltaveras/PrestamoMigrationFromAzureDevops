@@ -34,17 +34,28 @@ namespace PrestamoBLL
         {
             //var prToBuild = new PrestamoManager(prestamo);
             //var result = prToBuild.Build();
+            prestamo.Usuario = this.LoginName;
             var prToBuild2 = await PrestamoBuilder.Create(prestamo);
             var prestamoParam = prToBuild2.Build();
+            Inspeccionar(prestamoParam.MaestroCuotas, prestamoParam.DetallesCuotas); 
             //var cuotas = prestamoParam._CuotasList;
             //var cuotasDt = prestamoParam.Cuotas;
             var prestamoParam2 = SearchRec.ToSqlParams(prestamoParam);
 
+            var prestamoParam3 = new { maestroCuotas = prestamoParam.MaestroCuotas, detallesCuotas = prestamoParam.DetallesCuotas };
+
+            var prestamoParam4 = SearchRec.ToSqlParams(prestamoParam3);
             //prestamoParam2.ToList().RemoveAll(p => p.ParameterName == "idPrestamo");
+            DBPrestamo.ExecSelSP("testParam", prestamoParam4);
 
             var resultId = DBPrestamo.ExecSelSP("spInsUpdPrestamo", prestamoParam2);
             var id = Utils.GetIdFromDataTable(resultId);
             return id;
+        }
+
+        private void Inspeccionar(DataTable maestroCuotas, DataTable detallesCuotas)
+        {
+            
         }
 
         public IEnumerable<PrestamoSearch> SearchPrestamos(PrestamosSearchParams searchParam)

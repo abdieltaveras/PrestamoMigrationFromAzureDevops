@@ -13,9 +13,13 @@ using System.Threading.Tasks;
 
 namespace PrestamoBLL.Tests
 {
+
+
+
     [TestClass()]
-    public class CuotaTests
+    public class CargosTest
     {
+        
         string mensajeError = string.Empty;
         enum testEnum { Nombre, Apellido }
         [TestMethod()]
@@ -105,8 +109,11 @@ namespace PrestamoBLL.Tests
             
             GetInfoCuota(out InfoGeneradorDeCuotas cuotaInfo);
 
-            
             IEnumerable<IMaestroDebitoConDetallesCxC> cuotas = new List<IMaestroDebitoConDetallesCxC>();
+            
+            //cuotaInfo.FinanciarGastoDeCierre = false;
+            //cuotaInfo.CargarInteresAlGastoDeCierre = false;
+
 
             var fecha = DateTime.Now;
             var fecha2 = fecha.Date;
@@ -140,12 +147,111 @@ namespace PrestamoBLL.Tests
             
             InfoGeneradorDeCuotas cuotaInfo;
             GetInfoCuota(out cuotaInfo);
+            IEnumerable<DebitoPrestamoConDetallesViewModel> result = null;
             TestUtils.TryCatch(()=>
             {
-                var result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
+                result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
             }, out TestUtils testInfo );
 
             Assert.IsTrue(testInfo.MensajeError.IsEmpty(), "Revisar no se pudieron generar las cuotas");
+        }
+
+        [TestMethod]
+        public async Task NoValoresEnCeroEnTotalNiEnBalanceTest()
+        {
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out cuotaInfo);
+            IEnumerable<DebitoPrestamoConDetallesViewModel> result = null;
+            bool montoOBalanceMayorACero = false;
+            TestUtils.TryCatch(() =>
+            {
+                result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
+                var montoOBalanceMayorACero = result.Any(item => (item.Balance > 0 || item.Monto > 0));
+            }, out TestUtils testInfo);
+
+            Assert.IsFalse(montoOBalanceMayorACero, "se generaron cuotas con el monto o balance igual a cero");
+        }
+
+        [TestMethod]
+        public async Task GastoDeCierreEnCuotasEnCeroTest()
+        {
+            var prest = new Prestamo();
+            prest.CargarInteresAlGastoDeCierre = true;
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out cuotaInfo);
+            cuotaInfo.MontoGastoDeCierre = 0;
+            cuotaInfo.CantidadDeCuotas = 2;
+            IEnumerable<DebitoPrestamoConDetallesViewModel> result = null;
+            var pr = new Prestamo();
+            bool GastosDeCierreEnCero = true;
+            TestUtils.TryCatch(() =>
+            {
+                result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
+                GastosDeCierreEnCero = result.Any(item => item.GastoDeCierre > 0 || item.InteresDelGastoDeCierre > 0) ? false : true;      
+            }, out TestUtils testInfo);
+
+            Assert.IsTrue(GastosDeCierreEnCero, "se genero valores en gastos de cierre cuando no se solicito hacerlo");
+        }
+
+        [TestMethod]
+        public async Task GastoDeCierreSinInteresTest()
+        {
+
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out cuotaInfo);
+            cuotaInfo.FinanciarGastoDeCierre = true;
+            cuotaInfo.CargarInteresAlGastoDeCierre = false;
+            IEnumerable<DebitoPrestamoConDetallesViewModel> result = null;
+            bool generoInteresElGastoDeCierre = false;
+            TestUtils.TryCatch(() =>
+            {
+                result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
+                generoInteresElGastoDeCierre = result.Any(item => item.InteresDelGastoDeCierre > 0);
+
+            }, out TestUtils testInfo);
+
+            Assert.IsTrue(!generoInteresElGastoDeCierre, "se genero valores en gastos de cierre cuando no se solicito hacerlo");
+        }
+
+        [TestMethod]
+        public async Task NoFinanciarGastoDeCierreTest()
+        {
+
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out cuotaInfo);
+            cuotaInfo.FinanciarGastoDeCierre = false;
+            cuotaInfo.CargarInteresAlGastoDeCierre = false;
+            IEnumerable<DebitoPrestamoConDetallesViewModel> result = null;
+            var resultExpected = cuotaInfo.MontoGastoDeCierre;
+            var valorGastoDeCierrePrimeraCuota = 0M;
+            TestUtils.TryCatch(() =>
+            {
+                result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
+                var primerRegistro =  result.FirstOrDefault();
+                valorGastoDeCierrePrimeraCuota = primerRegistro.GastoDeCierre;
+                var nombreDoc = primerRegistro.NombreDocumento;
+                
+            }, out TestUtils testInfo);
+
+            Assert.IsTrue(valorGastoDeCierrePrimeraCuota == cuotaInfo.MontoGastoDeCierre, "no se genero correctamente el gasto de cierre no financiado");
+        }
+
+        [TestMethod]
+        public async Task NoErrorCuandoMontoGastoDeCierreEnCeroTest()
+        {
+
+            InfoGeneradorDeCuotas cuotaInfo;
+            GetInfoCuota(out cuotaInfo);
+            cuotaInfo.FinanciarGastoDeCierre = true;
+            cuotaInfo.MontoGastoDeCierre = 0;
+            cuotaInfo.CargarInteresAlGastoDeCierre = true;
+            IEnumerable<DebitoPrestamoConDetallesViewModel> result = null;
+            TestUtils.TryCatch(() =>
+            {
+                result = MaestroDetalleDebitosBLL.Instance.ProyectarCuotasPrestamos(25, cuotaInfo);
+            }, out TestUtils testInfo);
+
+            Assert.IsTrue(testInfo.MensajeError.IsEmpty(), $"dio error cuando el monto del gasto de cierre esta en cero {testInfo.MensajeError}");
         }
 
         [TestMethod]
@@ -343,4 +449,7 @@ namespace PrestamoBLL.Tests
         }
         
     }
+
+    
+    
 }
