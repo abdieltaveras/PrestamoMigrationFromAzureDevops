@@ -31,11 +31,13 @@ namespace PrestamoBLL.Tests
         [TestMethod()]
         public void GetLocalidadesTest()
         {
-            var localidades = BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams());
+            var localidades = new LocalidadesBLL(TestInfo.GetIdLocalidadNegocio(), TestInfo.Usuario).GetLocalidades(new LocalidadGetParams());
+                //BLLPrestamo.Instance.GetLocalidades(new LocalidadGetParams());
 
             Localidades = localidades.ToList();
             SetLocalidadesHija(Localidades.FirstOrDefault());
         }
+        
 
         private void SetLocalidadesHija(Localidad localidad)
         {
