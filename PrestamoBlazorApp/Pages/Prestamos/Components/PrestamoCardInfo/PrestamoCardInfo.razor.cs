@@ -40,7 +40,7 @@ namespace PrestamoBlazorApp.Pages.Prestamos.Components.PrestamoCardInfo
             //var garantias = new List<InfoGarantiaDrCr>();
             //garantias.Add(new InfoGarantiaDrCr { NombreMarca = "Toyota", NombreModelo = "Corolla" });
             //garantias.Add(new InfoGarantiaDrCr { NombreMarca = "Honda", NombreModelo = "Civic" });
- 
+
             //Prestamo.Prestamo.LlevaGarantia = true;
             //Prestamo.infoGarantias = garantias;
             //Prestamo.Cuotas = new List<CuotaModel>() {
@@ -49,17 +49,9 @@ namespace PrestamoBlazorApp.Pages.Prestamos.Components.PrestamoCardInfo
             //    new CuotaModel { Balance=30, Monto=31, NumeroCuota=3 },
             //    new CuotaModel { Balance=40, Monto=41, NumeroCuota=4 },
             //};
-            Prestamo.Prestamo.LlevaGarantia = true;
-            Prestamo.infoGarantias = garantias;
-            
-            Cuotas = new List<CuotaModel>() {
-                new CuotaModel { Balance=10, Monto=11, NumeroTransaccion=1 },
-                new CuotaModel { Balance=20, Monto=21, NumeroTransaccion=2 },
-                new CuotaModel { Balance=30, Monto=31, NumeroTransaccion=3 },
-                new CuotaModel { Balance=40, Monto=41, NumeroTransaccion=4 },
-            };
             StateHasChanged();
         }
+        
         async Task ShowCuotasInfo()
         {
             DialogService.Show<CuotaCardInfo.CuotaCardInfo>("Informacion De Cuotas");
