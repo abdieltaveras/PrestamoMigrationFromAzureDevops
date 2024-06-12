@@ -96,20 +96,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\DevBoxSoft\Core.BLL.V2\Core.BLL.V2.csproj" />
+		<ProjectReference Include="..\DevBoxSoft\Core.Classes.V2\Core.Classes.V2.csproj" />
 		<ProjectReference Include="..\PrestamoBLL\PrestamoBLL.csproj" />
 		<!--<ProjectReference Include="..\PrestamoModelsForFrontEnd\PrestamoModelsForFrontEnd.csproj" />-->
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="DevBox.Core.BLL">
-		  <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.BLL.dll</HintPath>
-		</Reference>
-		<Reference Include="DevBox.Core.Classes">
-		  <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.Classes.dll</HintPath>
-		</Reference>
-		<Reference Include="DevBox.Core.Dal">
-		  <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.Dal.dll</HintPath>
-		</Reference>
 		<Reference Include="PcpSoft.System">
 			<HintPath>..\SharedDLL\PcpSoft\PcpSoft.System.dll</HintPath>
 		</Reference>

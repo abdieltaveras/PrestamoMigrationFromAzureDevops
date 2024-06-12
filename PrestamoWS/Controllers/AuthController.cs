@@ -27,10 +27,10 @@ namespace PrestamoWS.Controllers
         IMailService MailService { get; set; }
         private IWebHostEnvironment Environment;
         private readonly ILogger<AuthController> Logger;
-        public AuthController(IWebHostEnvironment _environment, IMailService _mailService, ILogger<AuthController> logger)
+        public AuthController(IWebHostEnvironment _environment, ILogger<AuthController> logger)
         {
             Environment = _environment;
-            MailService = _mailService;
+            //MailService = _mailService;
             Logger = logger;
         }
 

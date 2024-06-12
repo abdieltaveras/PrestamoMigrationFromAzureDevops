@@ -280,5 +280,6 @@
     <None Include="Scripts\NotInBuild\ScTestInsCuotas.sql" />
     <None Include="SqlSchemaComparetoPrestamoDB.scmp" />
     <None Include="SchemaCompareForAbdiel.scmp" />
+    <None Include="Scripts\NotInBuild\SetPasswordToPcProgUser.sql" />
   </ItemGroup>
 </Project>

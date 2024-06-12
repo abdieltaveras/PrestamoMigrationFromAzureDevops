@@ -112,9 +112,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="DevBox.Core.Dal">
-      <HintPath>..\SharedDLL\DevBoxSoftNet5\DevBox.Core.Dal.dll</HintPath>
-    </Reference>
     <Reference Include="HESRAM.Utils">
       <HintPath>..\SharedDLL\HESRAM\HESRAM.Utils.dll</HintPath>
     </Reference>

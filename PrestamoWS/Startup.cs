@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PrestamoWS.Controllers;
-
+using PrestamoWS.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -40,6 +40,7 @@ namespace PrestamoWS
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PrestamoWS", Version = "v1" });
             });
             services.AddScoped<IUsersManager, UsersManager>();
+            //services.AddScoped<IMailService, MailService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddHttpContextAccessor();
 
