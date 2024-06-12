@@ -79,6 +79,10 @@
     <Folder Include="Scripts\Post-Deployment" />
     <Folder Include="dbo\User Defined Types" />
     <Folder Include="Scripts\NotInBuild" />
+    <Folder Include="core\" />
+    <Folder Include="core\Tables\" />
+    <Folder Include="core\Stored Procedures\" />
+    <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PrestamoDB.refactorlog" />
@@ -227,6 +231,33 @@
     <Build Include="dbo\Stored Procedures\spGetPrestamoEstatus.sql" />
     <Build Include="dbo\Stored Procedures\spSearchTableByColunm.sql" />
     <Build Include="dbo\Stored Procedures\spGetPrestamoCliente.sql" />
+    <Build Include="core\Tables\tblUsers.sql" />
+    <Build Include="core\Tables\tblUserGroups.sql" />
+    <Build Include="core\Tables\tblResources.sql" />
+    <Build Include="core\Tables\tblPwdReset.sql" />
+    <Build Include="core\Tables\tblDiasFeriados.sql" />
+    <Build Include="core\Tables\tblUsuarios.sql" />
+    <Build Include="core\Stored Procedures\spSetPwReset.sql" />
+    <Build Include="core\Stored Procedures\spSetActions.sql" />
+    <Build Include="core\Stored Procedures\spResetPw.sql" />
+    <Build Include="core\Stored Procedures\spInsUpdUserGroup.sql" />
+    <Build Include="core\Stored Procedures\spInsUpdResource.sql" />
+    <Build Include="core\Stored Procedures\spInsUpdDiasFeriados.sql" />
+    <Build Include="core\Stored Procedures\spGetUsers.sql" />
+    <Build Include="core\Stored Procedures\spGetUserGroups.sql" />
+    <Build Include="core\Stored Procedures\spGetResource.sql" />
+    <Build Include="core\Stored Procedures\spGetPwdResetEntries.sql" />
+    <Build Include="core\Stored Procedures\spGetDiasFeriados.sql" />
+    <Build Include="core\Stored Procedures\spDelUser.sql" />
+    <Build Include="core\Stored Procedures\spDelDiaFeriado.sql" />
+    <Build Include="core\Stored Procedures\spCreateUser.sql" />
+    <Build Include="core\Stored Procedures\spChangePassword.sql" />
+    <Build Include="core\Stored Procedures\spAuthUser.sql" />
+    <Build Include="Security\core.sql" />
+    <Build Include="core\Stored Procedures\spUpdateRefreshToken.sql" />
+    <Build Include="dbo\Tables\tblCodigosCargosDebitos.sql" />
+    <Build Include="dbo\Stored Procedures\spInsUpdCodigosCargosDebitos.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCodigosCargos.sql" />
     <Build Include="dbo\Stored Procedures\SpGetCuotas.sql" />
     <Build Include="dbo\Tables\tblTiposCargosDebitos.sql" />
     <Build Include="dbo\Stored Procedures\spGetLocalidadesComponents.sql" />

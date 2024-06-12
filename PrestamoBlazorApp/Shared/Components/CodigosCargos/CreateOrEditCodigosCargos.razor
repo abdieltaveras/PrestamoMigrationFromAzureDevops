@@ -1,0 +1,14 @@
+﻿@inherits BaseForCreateOrEdit 
+<MudForm @ref="form" @bind-IsValid="@IsFormSuccess" @bind-Errors="@FormFieldErrors">
+    <MudDialog>
+        <DialogContent>
+            <MudTextField ReadOnly="CodigoCargoModel.IdCodigoCargo > 0 ? true:false" @bind-Value="CodigoCargoModel.Codigo" Required="true" RequiredError="Campo Requerido" Label="Codigo" T="string" InputMode="InputMode.text" Immediate="true">></MudTextField>
+            <MudTextField @bind-Value="CodigoCargoModel.Nombre" Required="true" RequiredError="Campo Requerido" Label="Nombre" T="string" InputMode="InputMode.text" Immediate="true">></MudTextField>
+            <MudTextField @bind-Value="CodigoCargoModel.Descripcion" Required="true" RequiredError="Campo Requerido" Label="Descripcion" T="string" InputMode="InputMode.text" Immediate="true"></MudTextField>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Save">Guardar</MudButton>
+        </DialogActions>
+    </MudDialog>
+    </MudForm>
+        
