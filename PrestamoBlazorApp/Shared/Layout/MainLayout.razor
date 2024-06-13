@@ -1,6 +1,9 @@
 ﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Hosting
 @using PrestamoBlazorApp.Shared.Components.Forms
 @using PrestamoBlazorApp.Shared.MudUtils;
+
+
 <AuthorizedUser />
 <GeneralOverload SetOverLoad="SetOverLoad"></GeneralOverload>
 <MudThemeProvider Theme="_currentTheme" />
@@ -12,19 +15,36 @@
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="MudBlazor.Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
             @Texto
         </MudAppBar>
-  
+        <MudDrawer @bind-Open="@DrawerOpen">
+            <MudSwitch T="bool" @bind-value="@AuthMenu" Label="Menu con Autorizacion" />
+            @if (AuthMenu)
+            {
+                <NavMenuAuth />
+            }
+            else
+            {
+                @if (IsDevelopment)
+                {
+                    <NavMenuNoAuth />
+                }
+                else
+                {
+                    <NavMenuAuth />
+                }
+            }
 
-            <MudDrawer @bind-Open="@DrawerOpen">
-                <NavMenu />
-            </MudDrawer>
+        </MudDrawer>
 
         <MudMainContent>
             @Body
-     
+
         </MudMainContent>
     </MudLayout>
+
 </AuthorizeView>
+
 @code {
+    [Inject] IWebHostEnvironment env { get; set; }
     public static bool SetOverLoad { get; set; } = false;
     bool DrawerOpen = true;
 
@@ -34,5 +54,8 @@
         DrawerOpen = !DrawerOpen;
     }
     private MudTheme _currentTheme = new MudBlazorAdminDashboard();
+    private bool AuthMenu { get; set; }
+
+    private bool IsDevelopment => env.EnvironmentName == "Development";
 }
 
