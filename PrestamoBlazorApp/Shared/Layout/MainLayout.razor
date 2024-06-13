@@ -16,7 +16,7 @@
             @Texto
         </MudAppBar>
         <MudDrawer @bind-Open="@DrawerOpen">
-            <MudSwitch T="bool" @bind-value="@AuthMenu" Label="Menu con Autorizacion" />
+            <MudSwitch T="bool" @bind-value="@AuthMenu" Color="MudBlazor.Color.Success" Label="Activar Autorizacion" />
             @if (AuthMenu)
             {
                 <NavMenuAuth />
