@@ -12,11 +12,11 @@
 <AuthorizeView>
     <MudLayout>
         <MudAppBar>
-            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="MudBlazor.Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-            @Texto
+            <MudIconButton  Icon="@Icons.Material.Filled.Menu" Color="MudBlazor.Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            @TextoForDrawer
         </MudAppBar>
         <MudDrawer @bind-Open="@DrawerOpen">
-            <MudSwitch T="bool" @bind-value="@AuthMenu" Color="MudBlazor.Color.Success" Label="Activar Autorizacion" />
+            <MudSwitch T="bool" Value="@AuthMenu" Color="MudBlazor.Color.Success" Label="@TextoForAuth" ValueChanged="Handle_AuthMenuChange" />
             @if (AuthMenu)
             {
                 <NavMenuAuth />
@@ -42,20 +42,3 @@
     </MudLayout>
 
 </AuthorizeView>
-
-@code {
-    [Inject] IWebHostEnvironment env { get; set; }
-    public static bool SetOverLoad { get; set; } = false;
-    bool DrawerOpen = true;
-
-    string Texto => DrawerOpen ? "Ocultar Menu" : "Mostrar Menu";
-    void DrawerToggle()
-    {
-        DrawerOpen = !DrawerOpen;
-    }
-    private MudTheme _currentTheme = new MudBlazorAdminDashboard();
-    private bool AuthMenu { get; set; } = true;
-
-    private bool IsDevelopment => env.EnvironmentName == "Development";
-}
-
