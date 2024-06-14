@@ -1,11 +1,9 @@
 ﻿CREATE TABLE [dbo].[tblLocalidadesNegocio]
 (
     [IdLocalidadNegocio] INT PRIMARY KEY identity(1,1), 
-    [IdLocalidadNegocioPadre] INT , 
     [IdNegocio] INT, 
     [Codigo] VARCHAR(40) NOT NULL,  -- este codigo se usara tambien para ponerlo como prefijo en la codificacion
                                    -- de las transacciones 
-    [NombreJuridico] VARCHAR(100) NULL,
     [NombreComercial] VARCHAR(100) NULL,
     [PrefijoPrestamo] VARCHAR(3),
     [PrefijoTransacciones] VARCHAR(3),

@@ -1,9 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[SpInsUpdLocalidadNegocio]
 (
 	@IdLocalidadNegocio INT,
-    @IdLocalidadNegocioPadre INT=null, 
     @IdNegocio INT, 
-    @NombreJuridico varchar(100) ,
     @NombreComercial VARCHAR(100) ,
     @PrefijoTransacciones VARCHAR(6),
 	@PrefijoPrestamo VARCHAR(6),
@@ -24,15 +22,14 @@ Begin
 	if (@IdLocalidadNegocio<=0)	
 		begin
 		    declare @codigo  varchar(40) = NEWID();
-			INSERT INTO dbo.tblLocalidadesNegocio ( Codigo, NombreJuridico, NombreComercial,  Activo, Bloqueado, TaxIdNacional, TaxIdLocalidad, OtrosDetalles, Logo, InsertadoPor, FechaInsertado, PrefijoTransacciones, PrefijoPrestamo )
-			VALUES ( @Codigo, @nombrejuridico, @nombrecomercial,  @activo, @bloqueado, @taxidNacional,@TaxIdLocalidad, @otrosdetalles,@Logo,  @usuario, getdate(), @prefijoTransacciones, @PrefijoPrestamo )
+			INSERT INTO dbo.tblLocalidadesNegocio ( Codigo, NombreComercial,  Activo, Bloqueado, TaxIdNacional, TaxIdLocalidad, OtrosDetalles, Logo, InsertadoPor, FechaInsertado, PrefijoTransacciones, PrefijoPrestamo )
+			VALUES ( @Codigo, @nombrecomercial,  @activo, @bloqueado, @taxidNacional,@TaxIdLocalidad, @otrosdetalles,@Logo,  @usuario, getdate(), @prefijoTransacciones, @PrefijoPrestamo )
 			SELECT SCOPE_IDENTITY(); 
 		end
 	else
 		begin
 		UPDATE dbo.tblLocalidadesNegocio
 		SET 
-			NombreJuridico = @nombrejuridico,
 			NombreComercial = @nombrecomercial,
 			Activo = @activo,
 			Bloqueado = @bloqueado,

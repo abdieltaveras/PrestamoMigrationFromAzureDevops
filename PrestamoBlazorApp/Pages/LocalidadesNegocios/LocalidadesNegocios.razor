@@ -3,7 +3,7 @@
 @inherits BaseForCreateOrEdit
 @using PrestamoBlazorApp.Shared.Components.Forms 
 
-<MudText Typo="Typo.h4" Align="Align.Center" Color="MudBlazor.Color.Info">Lista de Localides de Negocios</MudText>
+<MudText Typo="Typo.h4" Align="Align.Center" Color="MudBlazor.Color.Info">Lista de Localides de @Nombrecomercial  </MudText> 
 <GeneralList OnAddClick='()=>OnEditClick("localidadesnegocios/createoredit/")'>
     <CardContent>
         <MudTable Items="localidadesnegocios" Context="ct">
@@ -11,14 +11,13 @@
                     
                     
                     <MudTh>Nombre Comercial</MudTh>
-                    <MudTh>Nombre Juridico</MudTh>
                     <MudTh>Accion</MudTh>
             </HeaderContent>
             <RowTemplate>
                 
                 
                 <MudTd>@ct.NombreComercial</MudTd>
-                <MudTd>@ct.NombreJuridico</MudTd>
+                
                 <MudTd>
                     <MudIconButton OnClick='()=>OnEditClick("localidadesnegocios/createoredit/" + ct.IdLocalidadNegocio)'
                                    Icon="@Icons.Material.Filled.Edit">

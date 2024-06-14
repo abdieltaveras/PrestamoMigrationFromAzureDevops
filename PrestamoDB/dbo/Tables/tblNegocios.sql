@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[tblNegocios] (
     [IdNegocio]          INT           IDENTITY (1, 1) NOT NULL,
-    [Codigo]             VARCHAR (50)  DEFAULT (newid()) NOT NULL,
+    [Codigo]             VARCHAR (50)  NOT NULL,
     [NombreJuridico]     VARCHAR (100) NULL,
     [NombreComercial]    VARCHAR (100) NOT NULL,
     [CorreoElectronico]  VARCHAR (100) NULL,
@@ -16,11 +16,10 @@
     [BorradoPor]         VARCHAR (200) NULL,
     [FechaBorrado]       DATETIME      NULL,
     [Logo]               VARCHAR (50)  NULL,
-    [Prefijo]            VARCHAR (3)   NULL,
-    [IdLocalidadNegocio] INT           NULL,
+
+
     PRIMARY KEY CLUSTERED ([IdNegocio] ASC),
     CONSTRAINT [FK_tblNegocio_UQ_Codigo] UNIQUE NONCLUSTERED ([Codigo] ASC),
-    CONSTRAINT [FK_tblNegocio_UQ_Prefijo] UNIQUE NONCLUSTERED ([Codigo] ASC, [Prefijo] ASC),
     CONSTRAINT [FK_tblNegocio_UQ_TaxIdNo] UNIQUE NONCLUSTERED ([IdNegocio] ASC, [TaxIdNo] ASC)
 );
 
