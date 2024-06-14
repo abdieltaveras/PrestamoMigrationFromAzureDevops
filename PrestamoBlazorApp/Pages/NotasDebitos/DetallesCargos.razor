@@ -1,0 +1,39 @@
+﻿@page "/DetallesCargos"
+@using PrestamoBlazorApp.Pages.NotasDebitos
+
+@using System.ComponentModel.DataAnnotations
+
+@inherits BaseForList
+<MudGrid>
+      <MudItem xs="4">
+        <MudSelect T="string" Label="Selecciona un código de cargo" MultiSelection="false"  @bind-Value="SelectedCodigo">
+            @foreach (var codigo in CodigosCargos)
+            {
+                <MudSelectItem Value="@codigo.Codigo"> @codigo.Nombre</MudSelectItem>
+            }
+        </MudSelect>
+        <MudNumericField HideSpinButtons="true" @bind-Value="MontoCargado" Variant="Variant.Text" />
+      </MudItem>
+<MudItem xs="6">
+        <MudButton DisableElevation="true" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="MudBlazor.Color.Info" Size="Size.Small" OnClick="@AgregarDetalle">Agregar</MudButton>
+        <MudTable Items="@DataSelect">
+            <HeaderContent>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Monto</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                    <MudTd DataLabel="Nombre">@context.NombreCargo</MudTd>
+                    <MudTd DataLabel="Nombre">@context.Monto</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudItem>
+</MudGrid>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+﻿@page "/NotasDebitos/CreateNotaDebito"
+@using PrestamoBlazorApp.Pages.NotasDebitos
+
+@using System.ComponentModel.DataAnnotations
+
+@inherits BaseForCreateOrEdit
+
+@* Style="background-color:#daedf4 *@
+
+<MudText Align="Align.Center" Color="MudBlazor.Color.Primary" Typo="Typo.h2"> Notas de Debitos</MudText>
+<MudSpacer></MudSpacer>
+<MudGrid Justify="Justify.FlexStart">
+    <MudItem xs="4">
+        @* <MudItem xs="6" sm="3">
+        <MudNumericField HideSpinButtons="true" T="int" @bind-Value="@IdPrestamo" Label="No Prestamo" Format="F1" Variant="Variant.Outlined" />
+        </MudItem> *@
+        <MudPaper Width="400px">
+            <MudList>
+                <MudListItem Avatar="@Icons.Material.Filled.PermIdentity">
+                    <MudItem xs="3">
+                        <MudNumericField HideSpinButtons="true" T="int" @bind-Value="@IdPrestamo" Label="No Prestamo" Variant="Variant.Outlined" />
+                        @PrestamoSelected.PrestamoNumero
+                    </MudItem>
+                </MudListItem>
+                <MudListItem Avatar="@Icons.Material.Filled.PermIdentity">
+                    Nombre de cliente
+                </MudListItem>
+                <MudListItem Avatar="@Icons.Material.Filled.Person">
+                    Apodo
+                </MudListItem>
+                <MudListItem Avatar="@Icons.Material.Filled.Person2">
+                    cedula
+                </MudListItem>
+            </MudList>
+            <MudListItem>
+                <MudButton ButtonType="ButtonType.Button"
+                           OnClick="()=>GetDataPrestamo()"
+                           Color="MudBlazor.Color.Primary"
+                           Variant="Variant.Filled"> Buscar</MudButton>
+            </MudListItem>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="3">
+        <MudDatePicker Editable="true" Label="Fecha" @bind-Date="NotaDe.Fecha" />
+        <MudNumericField HideSpinButtons="true" @bind-Value="@MontoAAplicar" Label="Monto" Format="F1" Variant="Variant.Outlined" />
+        <MudAlert Severity="Severity.Info">Monto Aplicado @MontoAplicado</MudAlert>
+        <MudAlert Severity="Severity.Info">Monto por aplicar @MontoPorAplicar</MudAlert>
+    </MudItem>
+
+    <MudItem xs="8">
+        <DetallesCargos OnAplicarCargo="Calculo1"></DetallesCargos>
+    </MudItem>
+</MudGrid>
+
+
+
+
+
+
+
+
+

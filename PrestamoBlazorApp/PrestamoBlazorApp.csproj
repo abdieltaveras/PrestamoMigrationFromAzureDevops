@@ -65,6 +65,8 @@
   <ItemGroup>
     <Folder Include="Pages\DivisionesTerritoriales\Components\" />
     <Folder Include="Pages\Negocios\" />
+    <Folder Include="Pages\NotasDeDebito\" />
+    <Folder Include="Pages\Ocupaciones\" />
     <Folder Include="Reports\Rdlc\" />
     <Folder Include="Shared\Components\ClienteEstatus\" />
     <Folder Include="Shared\Components\TasasInteres\" />
